@@ -1,7 +1,7 @@
 ---
 title: "Today I Learned"
 layout: category
-permalink: /dandi/til/
+permalink: /secrett2633/til/
 author_profile: true
 taxonomy: Today I Learned
 sidebar:

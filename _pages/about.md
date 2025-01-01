@@ -1,9 +1,8 @@
 ---
-title: "Hi all! I'm Dandi👋🏻"
+title: "기술블로그"
 permalink: /about/
 layout: single
 comments: false
 ---
 
-뭐든 다 잘 하고 싶고 잘 할 수 있을 거라 믿는,<br>
-게임 클라이언트 프로그래머를 꿈꾸는 한 개발자입니다. :)
+저의 게시글이 당신에게 도움이 되었으면 좋겠습니다.
