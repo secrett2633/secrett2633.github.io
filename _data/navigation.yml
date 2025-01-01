@@ -1,12 +1,72 @@
 # main links
 main:
-  - title: "Quick-Start Guide"
-    url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
-  # - title: "About"
-  #   url: https://mmistakes.github.io/minimal-mistakes/about/
-  # - title: "Sample Posts"
-  #   url: /year-archive/
-  # - title: "Sample Collections"
-  #   url: /collection-archive/
-  # - title: "Sitemap"
-  #   url: /sitemap/
+#  - title: "Home"
+#    url: https://choi-dan-di.github.io/
+
+  - title: "About"
+    url: /about/
+
+  # - title: "Categories"
+  #   url: /categories/
+
+  - title: "GitHub"
+    url: https://github.com/choi-dan-di
+
+  # - title: "Projects"
+  #   url: /projects/
+
+
+# sidebar navigation (categories)
+# 2022.09.24 sidebar ver2.0 : main-sub version
+categories:
+  - title: "Basics"
+    children:
+      - title: "Assembly Language"
+        url: /basics/asm/
+      - title: "C/C++"
+        url: /basics/cpp/
+      - title: "C#"
+        url: /basics/csharp/
+      - title: "Algorithm"
+        url: /basics/algorithm/
+      - title: "GitHub"
+        url: /basics/github/
+      - title: "Markdown"
+        url: /basics/md/
+      - title: "Game Mathematics"
+        url: /basics/game-mathematics/
+      - title: "Computer Graphics"
+        url: /basics/computer-graphics/
+      - title: "DirectX"
+        url: /basics/directx/
+      - title: "OpenGL"
+        url: /basics/opengl/
+      - title: "Operating System"
+        url: /basics/operating-system/
+
+  - title: "Engines"
+    children:
+      - title: "Unreal Engine"
+        url: /engines/unreal/
+      - title: "Unity"
+        url: /engines/unity/
+  
+  - title: "Projects"
+    children:
+      - title: "GitHub Blog"
+        url: /projects/github-blog/
+      - title: "Paper2D Training"
+        url: /projects/paper2d-training/
+      - title: "3D Game Training"
+        url: /projects/3d-game-training/
+      - title: "Copy LostArk"
+        url: /projects/copy-lostark/
+      - title: "Project CatTower"
+        url: /projects/cattower/
+
+  - title: "Dandi"
+    children:
+      - title: "Today I Learned"
+        url: /dandi/til/ 
+      - title: "Me"
+        url: /dandi/me/
