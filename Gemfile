@@ -1,7 +1,11 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
+gemspec
 
-gem "jekyll", "~> 4.3.4" # installed by `gem jekyll`
-# gem "webrick"        # required when using Ruby >= 3 and Jekyll <= 4.2.2
+gem 'jekyll-admin', group: :jekyll_plugins
+gem 'jekyll-sitemap' 
+gem "webrick", "~> 1.7"
 
-gem "just-the-docs", "0.10.0" # pinned to the current release
-# gem "just-the-docs"        # always download the latest release
+# gem "html-proofer", "~> 5.0"
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo'
+gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
