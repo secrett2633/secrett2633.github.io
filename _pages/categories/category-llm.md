@@ -1,9 +1,9 @@
 ---
-title: "ChatGPT"
+title: "LLM"
 layout: category
-permalink: /ai/chatgpt/
+permalink: /ai/llm/
 author_profile: true
-taxonomy: ChatGPT
+taxonomy: LLM
 sidebar:
   nav: "categories"
 ---
