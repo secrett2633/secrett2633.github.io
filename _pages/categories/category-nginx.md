@@ -1,9 +1,9 @@
 ---
-title: "Algorithm"
+title: "Nginx"
 layout: category
-permalink: /basics/algorithm/
+permalink: /devops/nginx/
 author_profile: true
-taxonomy: Algorithm
+taxonomy: Nginx
 sidebar:
   nav: "categories"
 ---

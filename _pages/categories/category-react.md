@@ -1,9 +1,9 @@
 ---
-title: "Unreal Engine"
+title: "React"
 layout: category
-permalink: /engines/unreal/
+permalink: /frontend/react/
 author_profile: true
-taxonomy: Unreal Engine
+taxonomy: React
 sidebar:
   nav: "categories"
 ---

@@ -1,9 +1,9 @@
 ---
-title: "Unity"
+title: "ChatGPT"
 layout: category
-permalink: /engines/unity/
+permalink: /ai/chatgpt/
 author_profile: true
-taxonomy: Unity
+taxonomy: ChatGPT
 sidebar:
   nav: "categories"
 ---

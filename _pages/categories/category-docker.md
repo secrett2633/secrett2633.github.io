@@ -1,9 +1,9 @@
 ---
-title: "OpenGL"
+title: "Docker"
 layout: category
-permalink: /basics/opengl/
+permalink: /devops/docker/
 author_profile: true
-taxonomy: OpenGL
+taxonomy: Docker
 sidebar:
   nav: "categories"
 ---

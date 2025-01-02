@@ -1,9 +1,9 @@
 ---
-title: "C#"
+title: "Django"
 layout: category
-permalink: /basics/csharp/
+permalink: /backend/django/
 author_profile: true
-taxonomy: C#
+taxonomy: Django
 sidebar:
   nav: "categories"
 ---

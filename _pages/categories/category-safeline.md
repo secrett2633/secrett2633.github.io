@@ -1,9 +1,9 @@
 ---
-title: "Markdown"
+title: "SafeLine"
 layout: category
-permalink: /basics/md/
+permalink: /devops/safeline/
 author_profile: true
-taxonomy: Markdown
+taxonomy: SafeLine
 sidebar:
   nav: "categories"
 ---
