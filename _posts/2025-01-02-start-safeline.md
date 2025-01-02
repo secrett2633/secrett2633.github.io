@@ -81,5 +81,3 @@ SafeLine의 설치 방법은 [SafeLine 링크](https://docs.waf.chaitin.com/en/t
    이제 SafeLine 대시보드 화면을 확인할 수 있습니다. 다양한 보안 기능과 설정을 구경해보세요.
    ![SafeLine 대시보드](/assets/images/posts_img/devops/safeline/safeline_dashboard.png)
 ---
-
-위와 같이 수동 설치를 완료하고, SafeLine을 통해 보안을 강화할 수 있습니다.
