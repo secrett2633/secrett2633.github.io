@@ -13,7 +13,7 @@ toc: true
 toc_sticky: true
 
 date: 2025-01-08 03:03:11+0900
-last_modified_at: 2025-01-08 03:43:11+0900
+last_modified_at: 2025-01-14 03:43:11+0900
 published: true
 ---
 
@@ -164,3 +164,6 @@ Health Check passed.
 
 그러나 저의 경우 배포 후, 서비스에 접근할 수 없다는 문제가 발생했는데<br>
 이는 다음 포스트에서 다루도록 하겠습니다.
+
+**2025-01-14 수정**
+docker in docker 문제로, Jenkins 를 docker 으로 실행하지 않고 직접 설치하면 해결됩니다.
