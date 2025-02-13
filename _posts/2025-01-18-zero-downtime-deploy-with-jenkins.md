@@ -1,5 +1,5 @@
 ---
-title: "Jenkins를 이용한 무중단 배포"
+title: "[Jenkins] 무중단 배포를 위한 파이프라인 구성"
 excerpt: "Jenkins를 이용한 무중단 배포 방법을 공유합니다."
 
 categories:

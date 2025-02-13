@@ -1,6 +1,6 @@
 ---
-title: "Jenkins 파이프라인 생성"
-excerpt: "Jenkins 파이프라인 생성하기" 
+title: "[Jenkins] Jenkins 파이프라인 생성"
+excerpt: "Jenkins 파이프라인 생성 방법을 공유합니다."
 
 categories:
   - Jenkins

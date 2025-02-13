@@ -1,5 +1,5 @@
 ---
-title: "Django에서 DB 로그 확인하기"
+title: "[Django] DB 로그 확인하기"
 excerpt: "Django에서 ORM을 사용하여 데이터베이스에 접근하는 경우, 쿼리 로그를 확인하는 방법을 공유합니다."
 
 categories:

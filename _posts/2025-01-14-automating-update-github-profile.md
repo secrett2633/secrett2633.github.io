@@ -1,5 +1,5 @@
 ---
-title: "GitHub Actions로 깃허브 프로필 자동 업데이트하기"
+title: "[GitHub Actions] 깃허브 프로필 자동 업데이트하기"
 excerpt: "GitHub Actions를 이용해 깃허브 프로필을 자동으로 업데이트하는 방법을 공유합니다."
 
 categories:

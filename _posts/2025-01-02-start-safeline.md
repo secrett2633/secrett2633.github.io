@@ -1,6 +1,6 @@
 ---
-title: "SafeLine 시작"
-excerpt: "SafeLine 시작하기 설치부터 배포까지" 
+title: "[SafeLine] SafeLine 초기 설정"
+excerpt: "SafeLine 초기 설정 방법을 공유합니다."
 
 categories:
   - SafeLine

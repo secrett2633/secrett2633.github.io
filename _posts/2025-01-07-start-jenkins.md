@@ -1,6 +1,6 @@
 ---
-title: "Jenkins 시작"
-excerpt: "Jenkins 시작하기" 
+title: "[Jenkins] Jenkins 초기 설정"
+excerpt: "Jenkins 초기 설정 방법을 공유합니다."
 
 categories:
   - Jenkins

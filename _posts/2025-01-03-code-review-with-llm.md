@@ -1,5 +1,5 @@
 ---
-title: "LLM을 활용한 코드 리뷰"
+title: "[LLM] LLM을 활용한 코드 리뷰"
 excerpt: "github workflow를 활용해 코드 리뷰를 자동화하기" 
 
 categories:

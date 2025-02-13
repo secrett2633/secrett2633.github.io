@@ -1,5 +1,5 @@
 ---
-title: "Let's Encrypt로 SSL 인증서 발급받기"
+title: "[Nginx] Let's Encrypt로 SSL 인증서 발급받기"
 excerpt: "Let's Encrypt로 SSL 인증서를 발급받는 방법을 공유합니다."
 
 categories:
