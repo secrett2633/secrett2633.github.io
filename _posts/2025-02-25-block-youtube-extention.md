@@ -1,6 +1,6 @@
 ---
-title: "[Chrome Extention] 크롬 익스텐션을 통해 youtube 링크 리다이렉션하기" 
-excerpt: ""
+title: "[Chrome Extention] YouTube 차단 확장 프로그램 개발하기" 
+excerpt: "YouTube 접속을 차단하고 생산성을 높이는 크롬 확장 프로그램을 만들어보세요. 개발 과정과 설치 방법을 자세히 설명합니다."
 
 categories:
   - Chrome Extension
