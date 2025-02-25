@@ -1,5 +1,5 @@
 ---
-title: "[AWS] Lambda와 EventBridge를 15분 단위로 시간 기록하기" 
+title: "[AWS] AWS Lambda와 Notion API를 활용한 15분 단위 자동 기록 시스템" 
 excerpt: "AWS Lambda, Notion API, Slack Webhook을 활용하여 15분마다 자동으로 시간을 기록하고 Slack 알림을 받는 시스템을 구축하는 방법을 설명합니다."
 
 categories:
