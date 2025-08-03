@@ -1,5 +1,6 @@
 import json
 import os
+import traceback
 import time
 from datetime import datetime
 from typing import List, Dict
@@ -159,14 +160,19 @@ def main() -> None:
 
     summaries = []
     for paper in papers:
-        summary = summarize_paper(
-            title=paper["title"],
-            authors=paper["authors"],
-            pdf_path=paper["pdf_path"],
-            model_name="gemini-2.5-flash",
-        )
-        summaries.append({**paper, "summary": summary})
-        time.sleep(60)  # Sleep for 1 minute to avoid rate limiting
+        try:
+            summary = summarize_paper(
+                title=paper["title"],
+                authors=paper["authors"],
+                pdf_path=paper["pdf_path"],
+                model_name="gemini-2.5-flash",
+            )
+            summaries.append({**paper, "summary": summary})
+            time.sleep(60)  # Sleep for 1 minute to avoid rate limiting
+        except Exception as e:
+            print(traceback.format_exc())
+            continue
+
 
     update_readme(summaries)
 
