@@ -132,24 +132,22 @@ def update_readme(summaries: List[Dict[str, str]]) -> None:
     month = datetime.now().month
     day = datetime.now().day
 
-    folder = os.path.join("_pages", "_posts")
-    os.makedirs(folder, exist_ok=True)
-
     for summary in summaries:
         platform = "[arXiv]" if "arxiv.org/abs/" in summary["link"] else "[HuggingFace]"
-        uri = f"{year}-{month}-{day}-{summary['title'].replace(' ', '_')}"
+        uri = f"{year}-{month}-{day}-{summary['title'].replace(' ', '_')}".replace(":", '_').replace("\n", " ")
+        author = summary["authors"].split(",")
         content = CONTENT.format(
             title=summary["title"],
             uri=uri,
             date_str=date_str,
             content=summary["summary"],
-            authors=summary["authors"][0],
+            authors=author[0],
             platform=platform,
             link=summary["link"],
         )
 
-        file_name = f"{year}-{month}-{day}-{summary['title']}.md".replace(" ", "_")
-        with open(os.path.join(folder, file_name), "w", encoding="utf-8") as f:
+        file_name = f"{year}-{month}-{day}-{summary['title']}.md".replace(" ", "_").replace(":", "_").replace("\n", " ")
+        with open(os.path.join("_posts", file_name), "w", encoding="utf-8") as f:
             f.write(content)
 
 
