@@ -1,5 +1,6 @@
 import json
 import os
+import re
 import traceback
 import time
 from datetime import datetime
@@ -22,8 +23,7 @@ excerpt: "{authors}이 {platform}에 게시한 '{title}' 논문에 대한 자세
 
 categories:
   - Review
-tags:
-  - [Review]
+tags:{tags}
 
 permalink: /ai/review/{uri}/
 
@@ -42,6 +42,23 @@ published: true
 """
 
 genai.configure(api_key=os.environ["GEMINI_API_KEY"])
+
+
+def parse_keywords_from_summary(summary: str) -> List[str]:
+    keywords = []
+    
+    keyword_pattern = r'\*\*키워드:\*\*\s*(.+?)(?=\n\n|\n##|$)'
+    match = re.search(keyword_pattern, summary, re.DOTALL)
+    
+    if match:
+        keyword_text = match.group(1).strip()
+        keyword_matches = re.findall(r'`([^`]+)`', keyword_text)
+        keywords = [kw.strip() for kw in keyword_matches if kw.strip()]
+
+    if keywords:
+        return ['Review'] + keywords
+    else:
+        return ['Review']
 
 
 PAPER_SUMMARY_PROMPT = """
@@ -136,6 +153,10 @@ def update_readme(summaries: List[Dict[str, str]]) -> None:
         platform = "[arXiv]" if "arxiv.org/abs/" in summary["link"] else "[HuggingFace]"
         uri = f"{year}-{month}-{day}-{summary['title'].replace(' ', '_')}".replace(":", '_').replace("\n", " ")
         author = summary["authors"].split(",")
+
+        tags = parse_keywords_from_summary(summary["summary"])
+        tags_yaml = "\n".join([f"  - {tag}" for tag in tags])
+        
         content = CONTENT.format(
             title=summary["title"],
             uri=uri,
@@ -144,6 +165,7 @@ def update_readme(summaries: List[Dict[str, str]]) -> None:
             authors=author[0],
             platform=platform,
             link=summary["link"],
+            tags=tags_yaml,
         ).strip()
 
         file_name = f"{year}-{month}-{day}-{summary['title']}.md".replace(" ", "_").replace(":", "_").replace("\n", " ")
