@@ -5,7 +5,14 @@ excerpt: "Kai Qiu이 [arXiv]에 게시한 'Phi-Ground Tech Report: Advancing Per
 categories:
   - Review
 tags:
-  - [Review]
+  - Review
+  - GUI grounding
+  - AI agent
+  - Large Multi-modal Model
+  - Perception
+  - Data Augmentation
+  - Direct Preference Optimization
+  - Computational Efficiency
 
 permalink: /ai/review/2025-8-3-Phi-Ground_Tech_Report__Advancing_Perception_in_GUI_Grounding/
 

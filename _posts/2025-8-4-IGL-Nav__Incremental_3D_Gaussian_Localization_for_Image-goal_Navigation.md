@@ -5,7 +5,14 @@ excerpt: "Jianjiang Feng이 [arXiv]에 게시한 'IGL-Nav: Incremental 3D Gaussi
 categories:
   - Review
 tags:
-  - [Review]
+  - Review
+  - Image-goal Navigation
+  - 3D Gaussian Splatting (3DGS)
+  - Incremental Scene Representation
+  - Coarse-to-fine Localization
+  - Embodied AI
+  - Robotics
+  - Differentiable Rendering
 
 permalink: /ai/review/2025-8-4-IGL-Nav__Incremental_3D_Gaussian_Localization_for_Image-goal_Navigation/
 

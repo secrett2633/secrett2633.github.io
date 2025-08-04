@@ -7,7 +7,13 @@ excerpt: "Long Chen이 [arXiv]에 게시한 'SpA2V: Harnessing Spatial Auditory 
 categories:
   - Review
 tags:
-  - [Review]
+  - Review
+  - Audio-driven Video Generation
+  - Spatial Auditory Cues
+  - Video Scene Layout
+  - MLLM
+  - Diffusion Models
+  - Training-free
 
 permalink: /ai/review/2025-8-4-SpA2V__Harnessing_Spatial_Auditory_Cues_for_Audio-driven_Spatially-aware __Video_Generation/
 

@@ -7,7 +7,14 @@ excerpt: "Abdelmalik Taleb-Ahmed이 [arXiv]에 게시한 'Beyond Linear Bottlene
 categories:
   - Review
 tags:
-  - [Review]
+  - Review
+  - Kolmogorov-Arnold Networks
+  - Knowledge Distillation
+  - Art Style Classification
+  - Self-Supervised Learning
+  - Spline-Based Activation
+  - Dual-Teacher
+  - Gram Matrix
 
 permalink: /ai/review/2025-8-3-Beyond_Linear_Bottlenecks__Spline-Based_Knowledge_Distillation_for__Culturally_Diverse_Art_Style_Classification/
 

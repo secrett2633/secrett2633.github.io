@@ -5,7 +5,14 @@ excerpt: "Heng Lian이 [arXiv]에 게시한 'SWE-Debate: Competitive Multi-Agent
 categories:
   - Review
 tags:
-  - [Review]
+  - Review
+  - Multi-Agent System
+  - Software Engineering
+  - Fault Localization
+  - Issue Resolution
+  - Large Language Models
+  - Competitive Debate
+  - Graph Traversal
 
 permalink: /ai/review/2025-8-4-SWE-Debate__Competitive_Multi-Agent_Debate_for_Software_Issue_Resolution/
 

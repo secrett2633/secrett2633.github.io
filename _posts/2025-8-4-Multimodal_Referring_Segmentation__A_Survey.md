@@ -5,7 +5,14 @@ excerpt: "Zuxuan Wu이 [arXiv]에 게시한 'Multimodal Referring Segmentation: 
 categories:
   - Review
 tags:
-  - [Review]
+  - Review
+  - Multimodal Learning
+  - Referring Segmentation
+  - Vision-Language Models
+  - Image Segmentation
+  - Video Segmentation
+  - 3D Vision
+  - Survey
 
 permalink: /ai/review/2025-8-4-Multimodal_Referring_Segmentation__A_Survey/
 

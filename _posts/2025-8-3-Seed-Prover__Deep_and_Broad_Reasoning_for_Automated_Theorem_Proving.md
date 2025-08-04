@@ -5,7 +5,15 @@ excerpt: "Zhicheng Jiang이 [arXiv]에 게시한 'Seed-Prover: Deep and Broad Re
 categories:
   - Review
 tags:
-  - [Review]
+  - Review
+  - Automated Theorem Proving
+  - Large Language Models
+  - Formal Verification
+  - Reinforcement Learning
+  - Lean
+  - Geometry Reasoning
+  - Chain-of-Thought
+  - Lemma-Style Proving
 
 permalink: /ai/review/2025-8-3-Seed-Prover__Deep_and_Broad_Reasoning_for_Automated_Theorem_Proving/
 

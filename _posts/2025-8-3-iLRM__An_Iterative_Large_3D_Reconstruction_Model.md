@@ -5,7 +5,14 @@ excerpt: "Abdelrahman Mohamed이 [arXiv]에 게시한 'iLRM: An Iterative Large 
 categories:
   - Review
 tags:
-  - [Review]
+  - Review
+  - 3D Reconstruction
+  - Gaussian Splatting
+  - Iterative Refinement
+  - Transformer Architecture
+  - Multi-view Learning
+  - Scalability
+  - Feed-forward Models
 
 permalink: /ai/review/2025-8-3-iLRM__An_Iterative_Large_3D_Reconstruction_Model/
 

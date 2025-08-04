@@ -5,7 +5,13 @@ excerpt: "Fatemeh Jamshidi이 [arXiv]에 게시한 'Investigating Hallucination 
 categories:
   - Review
 tags:
-  - [Review]
+  - Review
+  - LLM Hallucination
+  - Low-resource Languages
+  - Conversational AI
+  - ROUGE Score
+  - Cross-lingual Evaluation
+  - Factual Consistency
 
 permalink: /ai/review/2025-8-4-Investigating_Hallucination_in_Conversations_for_Low_Resource_Languages/
 

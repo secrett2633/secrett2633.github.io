@@ -5,7 +5,14 @@ excerpt: "Hao Tang이 [arXiv]에 게시한 '3D-R1: Enhancing Reasoning in 3D VLM
 categories:
   - Review
 tags:
-  - [Review]
+  - Review
+  - 3D Vision-Language Models
+  - Reasoning
+  - Scene Understanding
+  - Reinforcement Learning
+  - Chain-of-Thought
+  - Dynamic View Selection
+  - Multi-task Learning
 
 permalink: /ai/review/2025-8-4-3D-R1__Enhancing_Reasoning_in_3D_VLMs_for_Unified_Scene_Understanding/
 

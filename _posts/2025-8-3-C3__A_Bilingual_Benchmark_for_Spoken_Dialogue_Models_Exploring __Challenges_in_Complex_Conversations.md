@@ -7,7 +7,14 @@ excerpt: "Yiwen Guo이 [arXiv]에 게시한 'C3: A Bilingual Benchmark for Spoke
 categories:
   - Review
 tags:
-  - [Review]
+  - Review
+  - Spoken Dialogue Models
+  - Bilingual Benchmark
+  - Complex Conversations
+  - Ambiguity Resolution
+  - Context Understanding
+  - LLM Evaluation
+  - Human-Computer Interaction
 
 permalink: /ai/review/2025-8-3-C3__A_Bilingual_Benchmark_for_Spoken_Dialogue_Models_Exploring__Challenges_in_Complex_Conversations/
 

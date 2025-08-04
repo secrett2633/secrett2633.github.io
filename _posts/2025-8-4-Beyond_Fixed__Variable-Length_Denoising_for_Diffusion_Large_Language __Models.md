@@ -7,7 +7,13 @@ excerpt: "Jiaqi Wang이 [arXiv]에 게시한 'Beyond Fixed: Variable-Length Deno
 categories:
   - Review
 tags:
-  - [Review]
+  - Review
+  - Diffusion Large Language Models
+  - Variable-Length Generation
+  - Dynamic Length Adaptation
+  - Denoising Strategy
+  - Inference Optimization
+  - Computational Efficiency
 
 permalink: /ai/review/2025-8-4-Beyond_Fixed__Variable-Length_Denoising_for_Diffusion_Large_Language __Models/
 

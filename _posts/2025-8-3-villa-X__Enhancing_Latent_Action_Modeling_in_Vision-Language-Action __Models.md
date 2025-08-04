@@ -5,7 +5,14 @@ excerpt: "Kaixin Wang이 [arXiv]에 게시한 'villa-X: Enhancing Latent Action 
 categories:
   - Review
 tags:
-  - [Review]
+  - Review
+  - Vision-Language-Action Models
+  - Latent Actions
+  - Robot Manipulation
+  - Pre-training
+  - Diffusion Models
+  - Proprioceptive Feedback
+  - Foundation Models
 
 permalink: /ai/review/2025-8-3-villa-X__Enhancing_Latent_Action_Modeling_in_Vision-Language-Action__Models/
 

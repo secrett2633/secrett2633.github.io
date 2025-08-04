@@ -7,7 +7,14 @@ excerpt: "Eric C. Larson이 [arXiv]에 게시한 'On the Expressiveness of Softm
 categories:
   - Review
 tags:
-  - [Review]
+  - Review
+  - Softmax Attention
+  - Linear Attention
+  - Recurrent Neural Networks (RNNs)
+  - Taylor Series Expansion
+  - Attention Mechanisms
+  - Expressiveness
+  - Transformer Architectures
 
 permalink: /ai/review/2025-8-3-On_the_Expressiveness_of_Softmax_Attention__A_Recurrent_Neural_Network__Perspective/
 

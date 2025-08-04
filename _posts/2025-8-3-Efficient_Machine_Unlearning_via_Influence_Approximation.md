@@ -5,7 +5,14 @@ excerpt: "Enhong Chen이 [arXiv]에 게시한 'Efficient Machine Unlearning via 
 categories:
   - Review
 tags:
-  - [Review]
+  - Review
+  - Machine Unlearning
+  - Influence Function
+  - Incremental Learning
+  - Privacy Protection
+  - Gradient Optimization
+  - Model Editing
+  - Computational Efficiency
 
 permalink: /ai/review/2025-8-3-Efficient_Machine_Unlearning_via_Influence_Approximation/
 

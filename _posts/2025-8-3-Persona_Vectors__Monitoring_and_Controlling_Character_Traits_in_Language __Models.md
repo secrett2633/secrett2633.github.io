@@ -7,7 +7,14 @@ excerpt: "Jack Lindsey이 [arXiv]에 게시한 'Persona Vectors: Monitoring and 
 categories:
   - Review
 tags:
-  - [Review]
+  - Review
+  - Large Language Models (LLMs)
+  - Persona Control
+  - Activation Steering
+  - Finetuning
+  - Behavioral Shift Detection
+  - Interpretability
+  - Data Filtering
 
 permalink: /ai/review/2025-8-3-Persona_Vectors__Monitoring_and_Controlling_Character_Traits_in_Language__Models/
 

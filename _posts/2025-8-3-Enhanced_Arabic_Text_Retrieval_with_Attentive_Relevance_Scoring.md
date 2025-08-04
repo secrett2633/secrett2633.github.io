@@ -5,7 +5,14 @@ excerpt: "Abdenour Hadid이 [arXiv]에 게시한 'Enhanced Arabic Text Retrieval
 categories:
   - Review
 tags:
-  - [Review]
+  - Review
+  - Arabic NLP
+  - Dense Passage Retrieval
+  - Attentive Relevance Scoring
+  - Information Retrieval
+  - Question Answering
+  - Transformer Models
+  - Semantic Matching
 
 permalink: /ai/review/2025-8-3-Enhanced_Arabic_Text_Retrieval_with_Attentive_Relevance_Scoring/
 

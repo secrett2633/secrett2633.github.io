@@ -5,7 +5,14 @@ excerpt: "Chengfei Lv이 [arXiv]에 게시한 'Learning an Efficient Multi-Turn 
 categories:
   - Review
 tags:
-  - [Review]
+  - Review
+  - Multi-Turn Dialogue Evaluation
+  - LLM-as-a-Judge
+  - Multi-Judge Aggregation
+  - Preference Learning
+  - Dialogue Quality Assessment
+  - Maximum Likelihood Estimation
+  - Computational Efficiency
 
 permalink: /ai/review/2025-8-4-Learning_an_Efficient_Multi-Turn_Dialogue_Evaluator_from_Multiple_Judges/
 

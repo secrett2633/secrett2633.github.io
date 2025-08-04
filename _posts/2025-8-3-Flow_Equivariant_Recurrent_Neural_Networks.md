@@ -5,7 +5,14 @@ excerpt: "T. Anderson Keller이 [arXiv]에 게시한 'Flow Equivariant Recurrent
 categories:
   - Review
 tags:
-  - [Review]
+  - Review
+  - Flow Equivariance
+  - Recurrent Neural Networks
+  - Sequence Models
+  - Group Equivariance
+  - Lie Subgroups
+  - Generalization
+  - Time-Parameterized Symmetries
 
 permalink: /ai/review/2025-8-3-Flow_Equivariant_Recurrent_Neural_Networks/
 

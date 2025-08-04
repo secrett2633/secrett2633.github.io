@@ -5,7 +5,15 @@ excerpt: "ZeSheng Wang이 [arXiv]에 게시한 'NeRF Is a Valuable Assistant for
 categories:
   - Review
 tags:
-  - [Review]
+  - Review
+  - NeRF
+  - 3D Gaussian Splatting
+  - Hybrid Model
+  - Joint Optimization
+  - Scene Representation
+  - Neural Rendering
+  - Residual Learning
+  - Sparse View
 
 permalink: /ai/review/2025-8-3-NeRF_Is_a_Valuable_Assistant_for_3D_Gaussian_Splatting/
 

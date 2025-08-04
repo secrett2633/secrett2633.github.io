@@ -5,7 +5,14 @@ excerpt: "Limin Wang이 [arXiv]에 게시한 'PixNerd: Pixel Neural Field Diffus
 categories:
   - Review
 tags:
-  - [Review]
+  - Review
+  - Diffusion Models
+  - Neural Fields
+  - Pixel Space
+  - Generative Models
+  - Image Synthesis
+  - Transformer Architecture
+  - End-to-End Learning
 
 permalink: /ai/review/2025-8-4-PixNerd__Pixel_Neural_Field_Diffusion/
 

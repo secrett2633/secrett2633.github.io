@@ -5,7 +5,15 @@ excerpt: "Jian Wu이 [arXiv]에 게시한 'RecGPT Technical Report' 논문에 �
 categories:
   - Review
 tags:
-  - [Review]
+  - Review
+  - Recommender Systems
+  - Large Language Models (LLMs)
+  - User Intent Modeling
+  - Multi-Stage Training
+  - Human-in-the-Loop
+  - E-commerce
+  - Filter Bubble Mitigation
+  - Matthew Effect
 
 permalink: /ai/review/2025-8-3-RecGPT_Technical_Report/
 

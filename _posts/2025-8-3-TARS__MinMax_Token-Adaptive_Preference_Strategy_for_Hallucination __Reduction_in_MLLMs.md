@@ -7,7 +7,14 @@ excerpt: "Jiasheng Tang이 [arXiv]에 게시한 'TARS: MinMax Token-Adaptive Pre
 categories:
   - Review
 tags:
-  - [Review]
+  - Review
+  - MLLMs
+  - Hallucination Reduction
+  - Preference Optimization
+  - Min-Max Optimization
+  - Token-Adaptive Strategy
+  - Spectral Regularization
+  - Visual Grounding
 
 permalink: /ai/review/2025-8-3-TARS__MinMax_Token-Adaptive_Preference_Strategy_for_Hallucination__Reduction_in_MLLMs/
 

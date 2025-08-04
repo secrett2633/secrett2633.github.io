@@ -7,7 +7,15 @@ excerpt: "Anji Liu이 [arXiv]에 게시한 'Scalable Multi-Task Reinforcement Le
 categories:
   - Review
 tags:
-  - [Review]
+  - Review
+  - Reinforcement Learning
+  - Multi-Task Learning
+  - Visuomotor Agents
+  - Spatial Reasoning
+  - Generalization
+  - Minecraft
+  - Cross-View Goal Specification
+  - Automated Task Synthesis
 
 permalink: /ai/review/2025-8-3-Scalable_Multi-Task_Reinforcement_Learning_for_Generalizable_Spatial__Intelligence_in_Visuomotor_Agents/
 

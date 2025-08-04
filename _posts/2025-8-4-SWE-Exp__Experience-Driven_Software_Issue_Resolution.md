@@ -5,7 +5,14 @@ excerpt: "Heng Lian이 [arXiv]에 게시한 'SWE-Exp: Experience-Driven Software
 categories:
   - Review
 tags:
-  - [Review]
+  - Review
+  - Software Issue Resolution
+  - LLM Agents
+  - Experience-Driven Learning
+  - Automated Program Repair
+  - Multi-Agent Systems
+  - Knowledge Management
+  - Continuous Learning
 
 permalink: /ai/review/2025-8-4-SWE-Exp__Experience-Driven_Software_Issue_Resolution/
 

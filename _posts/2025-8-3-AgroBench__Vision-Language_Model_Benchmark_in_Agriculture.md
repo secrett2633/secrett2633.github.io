@@ -5,7 +5,14 @@ excerpt: "Yoshitaka Ushiku이 [arXiv]에 게시한 'AgroBench: Vision-Language M
 categories:
   - Review
 tags:
-  - [Review]
+  - Review
+  - Vision-Language Models
+  - Agriculture
+  - Benchmarking
+  - Disease Identification
+  - Pest Management
+  - Crop Management
+  - Agronomy
 
 permalink: /ai/review/2025-8-3-AgroBench__Vision-Language_Model_Benchmark_in_Agriculture/
 
