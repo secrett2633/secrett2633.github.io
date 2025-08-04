@@ -1,4 +1,3 @@
-
 ---
 title: "[논문리뷰] SpA2V: Harnessing Spatial Auditory Cues for Audio-driven Spatially-aware
   Video Generation"

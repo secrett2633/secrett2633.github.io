@@ -1,4 +1,3 @@
-
 ---
 title: "[논문리뷰] PixNerd: Pixel Neural Field Diffusion"
 excerpt: "Limin Wang이 [arXiv]에 게시한 'PixNerd: Pixel Neural Field Diffusion' 논문에 대한 자세한 리뷰입니다."

@@ -1,4 +1,3 @@
-
 ---
 title: "[논문리뷰] Investigating Hallucination in Conversations for Low Resource Languages"
 excerpt: "Fatemeh Jamshidi이 [arXiv]에 게시한 'Investigating Hallucination in Conversations for Low Resource Languages' 논문에 대한 자세한 리뷰입니다."

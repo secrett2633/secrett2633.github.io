@@ -144,7 +144,7 @@ def update_readme(summaries: List[Dict[str, str]]) -> None:
             authors=author[0],
             platform=platform,
             link=summary["link"],
-        )
+        ).strip()
 
         file_name = f"{year}-{month}-{day}-{summary['title']}.md".replace(" ", "_").replace(":", "_").replace("\n", " ")
         with open(os.path.join("_posts", file_name), "w", encoding="utf-8") as f:

@@ -1,4 +1,3 @@
-
 ---
 title: "[논문리뷰] 3D-R1: Enhancing Reasoning in 3D VLMs for Unified Scene Understanding"
 excerpt: "Hao Tang이 [arXiv]에 게시한 '3D-R1: Enhancing Reasoning in 3D VLMs for Unified Scene Understanding' 논문에 대한 자세한 리뷰입니다."

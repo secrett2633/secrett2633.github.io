@@ -1,4 +1,3 @@
-
 ---
 title: "[논문리뷰] Multimodal Referring Segmentation: A Survey"
 excerpt: "Zuxuan Wu이 [arXiv]에 게시한 'Multimodal Referring Segmentation: A Survey' 논문에 대한 자세한 리뷰입니다."
