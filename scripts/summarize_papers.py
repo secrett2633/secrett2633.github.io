@@ -23,7 +23,8 @@ excerpt: "{authors}이 {platform}에 게시한 '{title}' 논문에 대한 자세
 
 categories:
   - Review
-tags:{tags}
+tags:
+{tags}
 
 permalink: /ai/review/{uri}/
 
@@ -59,6 +60,11 @@ def parse_keywords_from_summary(summary: str) -> List[str]:
         return ['Review'] + keywords
     else:
         return ['Review']
+
+
+def remove_keywords_from_summary(summary: str) -> str:
+    keyword_pattern = r'\*\*키워드:\*\*\s*(.+?)(?=\n\n|\n##|$)'
+    return re.sub(keyword_pattern, '', summary, flags=re.DOTALL).strip()
 
 
 PAPER_SUMMARY_PROMPT = """
@@ -161,7 +167,7 @@ def update_readme(summaries: List[Dict[str, str]]) -> None:
             title=summary["title"],
             uri=uri,
             date_str=date_str,
-            content=summary["summary"],
+            content=remove_keywords_from_summary(summary["summary"]),
             authors=author[0],
             platform=platform,
             link=summary["link"],
