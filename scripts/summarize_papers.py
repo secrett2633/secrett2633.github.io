@@ -72,10 +72,6 @@ PAPER_SUMMARY_PROMPT = """
 
 당신은 AI/ML 논문을 전문적으로 분석하고 요약하는 전문가입니다. 주어진 논문을 다음 형식으로 마크다운 문서로 출력해주세요.
 
-## 출력 형식
-
-논문 제목을 헤더로 시작하고, 키워드와 상세 요약을 포함한 마크다운 문서를 작성합니다.
-
 ## 각 섹션별 요구사항
 
 ### 1. 기본 정보
@@ -149,6 +145,13 @@ def summarize_paper(title: str, authors: str, pdf_path: str, model_name: str) ->
     return response.text
 
 
+def sanitize_filename(text: str) -> str:
+    sanitized = re.sub(r'[^\w\s\-.]', '', text)
+    sanitized = re.sub(r'\s+', '_', sanitized)
+    sanitized = re.sub(r'_{2,}', '_', sanitized)
+    return sanitized.strip('_')
+
+
 def update_readme(summaries: List[Dict[str, str]]) -> None:
     date_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S%z")
     year = datetime.now().year
@@ -157,7 +160,7 @@ def update_readme(summaries: List[Dict[str, str]]) -> None:
 
     for summary in summaries:
         platform = "[arXiv]" if "arxiv.org/abs/" in summary["link"] else "[HuggingFace]"
-        uri = f"{year}-{month}-{day}-{summary['title'].replace(' ', '_')}".replace(":", '_').replace("\n", " ")
+        uri = f"{year}-{month}-{day}-{sanitize_filename(summary['title'])}"
         author = summary["authors"].split(",")
 
         tags = parse_keywords_from_summary(summary["summary"])
@@ -174,7 +177,7 @@ def update_readme(summaries: List[Dict[str, str]]) -> None:
             tags=tags_yaml,
         ).strip()
 
-        file_name = f"{year}-{month}-{day}-{summary['title']}.md".replace(" ", "_").replace(":", "_").replace("\n", " ")
+        file_name = f"{year}-{month}-{day}-{sanitize_filename(summary['title'])}.md"
         with open(os.path.join("_posts", file_name), "w", encoding="utf-8") as f:
             f.write(content)
 
