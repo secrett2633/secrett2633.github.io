@@ -18,17 +18,25 @@ def get_posts_from_directory(posts_dir):
         with open(md_file, "r", encoding="utf-8") as f:
             content = f.read()
 
-        # YAML front matter에서 날짜와 제목 추출
+        # YAML front matter에서 날짜, 제목, permalink 추출
         date_match = re.search(r"date:\s*(\d{4}-\d{2}-\d{2})", content)
         title_match = re.search(r'title:\s*["\']?([^"\'\n]+)["\']?', content)
+        permalink_match = re.search(r"permalink:\s*([^\n]+)", content)
 
         if date_match and title_match:
+            # permalink가 있으면 사용하고, 없으면 기본 구조 사용
+            if permalink_match:
+                url = permalink_match.group(1).strip()
+            else:
+                # 기본 permalink 구조: /:categories/:title/
+                url = f"/{os.path.basename(md_file).replace('.md', '')}/"
+
             posts.append(
                 {
                     "file": md_file,
                     "date": date_match.group(1),
                     "title": title_match.group(1).strip(),
-                    "url": f"/{os.path.basename(md_file).replace('.md', '')}/",
+                    "url": url,
                 }
             )
 
