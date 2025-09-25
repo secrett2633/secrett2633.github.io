@@ -1,0 +1,1303 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Django] Makefile 사용하기 | secrett2633</title>
+<meta name="description" content="Django 프로젝트에서 Makefile을 사용하는 방법을 공유합니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Django] Makefile 사용하기">
+<meta property="og:url" content="https://secrett2633.github.io/backend/django/makefile/">
+
+
+  <meta property="og:description" content="Django 프로젝트에서 Makefile을 사용하는 방법을 공유합니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-02-15T04:20:00+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-02-15T04:40:00+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://secrett2633.github.io/backend/django/makefile/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "https://secrett2633.github.io/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    <!-- <li>
+      <span class="nav__total">🌴 Total Posts: 647</span>
+    </li> -->
+    
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Frontend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/backend/django/">Django (6)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+                <li><a href="/backend/logging/">Logging (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/ai/llm/">LLM (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/ai/review/">Review (625)</a></li>
+              
+            
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/devops/nginx/">Nginx (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/devops/docker/">Docker (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+                <li><a href="/devops/safeline/">SafeLine (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/devops/jenkins/">Jenkins (3)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/devops/github-actions/">GitHub Actions (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/devops/aws/">AWS (1)</a></li>
+              
+            
+              
+            
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+                <li><a href="/etc/me/">Me (3)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/etc/chrome-extension/">Chrome Extension (1)</a></li>
+              
+            
+              
+            
+              
+            
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Django] Makefile 사용하기">
+    <meta itemprop="description" content="Django 프로젝트에서 Makefile을 사용하는 방법을 공유합니다.">
+    <meta itemprop="datePublished" content="2025-02-15T04:20:00+09:00">
+    <meta itemprop="dateModified" content="2025-02-15T04:40:00+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Django] Makefile 사용하기
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-02-15T04:20:00+09:00">February 15, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#makefile이란">Makefile이란?</a><ul><li><a href="#makefile-예시">Makefile 예시</a></li><li><a href="#각-명령어의-역할">각 명령어의 역할</a></li><li><a href="#makefile-명령어-실행-방법">Makefile 명령어 실행 방법</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <h2 id="makefile이란">Makefile이란?</h2>
+
+<p>Makefile은 자주 사용하는 명령어나 스크립트를 정의하여 간편하게 실행할 수 있도록 도와주는 파일입니다. 
+코드가 길거나 복잡한 경우 짧은 명령어로 선언하여 쉽게 사용 가능하며, 코드 재사용과 유지보수에 용이합니다.</p>
+
+<p>Django 프로젝트에서 사용하는 예시를 통해 <code class="language-plaintext highlighter-rouge">Makefile</code>의 사용법을 소개합니다.</p>
+
+<h3 id="makefile-예시">Makefile 예시</h3>
+
+<div class="language-makefile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">SHELL</span> <span class="o">:=</span> /bin/bash  <span class="c"># Bash 문법 사용</span>
+<span class="nv">ARG</span> <span class="o">:=</span> <span class="p">$(</span>word 2, <span class="p">$(</span>MAKECMDGOALS<span class="p">))</span>
+
+<span class="c"># 파이썬 캐시 파일 삭제
+</span><span class="nl">clean</span><span class="o">:</span>
+	<span class="p">@</span>find <span class="nb">.</span> <span class="nt">-name</span> <span class="s2">"*.pyc"</span> <span class="nt">-exec</span> <span class="nb">rm</span> <span class="nt">-rf</span> <span class="o">{}</span> <span class="se">\;</span>
+	<span class="p">@</span>find <span class="nb">.</span> <span class="nt">-name</span> <span class="s2">"__pycache__"</span> <span class="nt">-delete</span>
+
+<span class="c"># 테스트 실행
+</span><span class="nl">test</span><span class="o">:</span>
+	poetry run python manage.py <span class="nb">test</span>
+
+<span class="c"># 백엔드 코드 포맷팅 (black 사용)
+</span><span class="nl">backend_format</span><span class="o">:</span>
+	black .
+
+<span class="c"># Docker 관련 명령어들
+</span><span class="nl">docker_up</span><span class="o">:</span>
+	docker compose up <span class="nt">-d</span>
+
+<span class="nl">docker_update_dependencies</span><span class="o">:</span>
+	docker compose down
+	docker compose up <span class="nt">-d</span> <span class="nt">--build</span>
+
+<span class="nl">docker_down</span><span class="o">:</span>
+	docker compose down
+
+<span class="nl">docker_logs</span><span class="o">:</span>
+	docker compose logs <span class="nt">-f</span> <span class="p">$(</span>ARG<span class="p">)</span>
+
+<span class="nl">docker_backend_shell</span><span class="o">:</span>
+	docker compose run <span class="nt">--rm</span> app bash
+</code></pre></div></div>
+
+<h3 id="각-명령어의-역할">각 명령어의 역할</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">clean</code>: 프로젝트 내의 파이썬 캐시 파일 (<code class="language-plaintext highlighter-rouge">*.pyc</code>, <code class="language-plaintext highlighter-rouge">__pycache__</code>)을 삭제합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">test</code>: <code class="language-plaintext highlighter-rouge">poetry</code>를 사용하여 의존성 관리와 함께 테스트를 실행할 수 있습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">backend_format</code>: 코드 포매터인 <code class="language-plaintext highlighter-rouge">black</code>을 사용하여 백엔드 코드를 자동으로 포맷팅합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">docker_up</code>: Docker Compose를 사용하여 서비스를 백그라운드에서 실행합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">docker_update_dependencies</code>: Docker Compose를 내리고, 서비스를 다시 빌드하여 의존성 업데이트를 적용합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">docker_down</code>: Docker Compose로 실행 중인 서비스를 종료합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">docker_logs</code>: Docker Compose 로그를 실시간으로 출력합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">docker_backend_shell</code>: Docker Compose로 실행 중인 백엔드 애플리케이션의 셸에 접속합니다.</li>
+</ul>
+
+<h3 id="makefile-명령어-실행-방법">Makefile 명령어 실행 방법</h3>
+
+<p>Makefile에서 정의된 명령어를 실행하려면 다음과 같은 명령어를 터미널에서 입력합니다:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make clean
+make <span class="nb">test
+</span>make backend_format
+make docker_up
+make docker_update_dependencies
+make docker_down
+make docker_logs
+make docker_backend_shell
+</code></pre></div></div>
+
+<p>각각의 명령어는 <code class="language-plaintext highlighter-rouge">Makefile</code>에 정의된 작업을 차례대로 실행합니다. 예를 들어, <code class="language-plaintext highlighter-rouge">make clean</code>은 캐시 파일을 삭제하고, <code class="language-plaintext highlighter-rouge">make test</code>는 테스트를 실행하는 등의 역할을 수행합니다.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#django" class="page__taxonomy-item" rel="tag">Django</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#django" class="page__taxonomy-item" rel="tag">Django</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-02-15">February 15, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/devops/docker/fast-build/" class="pagination--pager" title="[Docker] 빠른 빌드 방법
+">Previous</a>
+    
+    
+      <a href="/etc/chrome-extension/block-youtube-with-chrome-extension/" class="pagination--pager" title="[Chrome Extention] YouTube 차단 확장 프로그램 개발하기
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Like</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/review/2025-9-24-Zero-Shot_Multi-Spectral_Learning_Reimagining_a_Generalist_Multimodal_Gemini_2.5_Model_for_Remote_Sensing_Applications/" rel="permalink">[논문리뷰] Zero-Shot Multi-Spectral Learning: Reimagining a Generalist Multimodal Gemini 2.5 Model for Remote Sensing Applications
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-24T13:14:19+09:00">September 24, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Genady Beryozkin이 [arXiv]에 게시한 ‘Zero-Shot Multi-Spectral Learning: Reimagining a Generalist Multimodal Gemini 2.5 Model for Remote Sensing Applications’ 논문에 ...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/review/2025-9-24-What_Characterizes_Effective_Reasoning_Revisiting_Length_Review_and_Structure_of_CoT/" rel="permalink">[논문리뷰] What Characterizes Effective Reasoning? Revisiting Length, Review, and Structure of CoT
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-24T13:14:19+09:00">September 24, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Anthony Hartshorn이 [arXiv]에 게시한 ‘What Characterizes Effective Reasoning? Revisiting Length, Review, and Structure of CoT’ 논문에 대한 자세한 리뷰입니다.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/review/2025-9-24-VolSplat_Rethinking_Feed-Forward_3D_Gaussian_Splatting_with_Voxel-Aligned_Prediction/" rel="permalink">[논문리뷰] VolSplat: Rethinking Feed-Forward 3D Gaussian Splatting with Voxel-Aligned Prediction
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-24T13:14:19+09:00">September 24, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Haoxiao Wang이 [arXiv]에 게시한 ‘VolSplat: Rethinking Feed-Forward 3D Gaussian Splatting with Voxel-Aligned Prediction’ 논문에 대한 자세한 리뷰입니다.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/review/2025-9-24-VIR-Bench_Evaluating_Geospatial_and_Temporal_Understanding_of_MLLMs_via_Travel_Video_Itinerary_Reconstruction/" rel="permalink">[논문리뷰] VIR-Bench: Evaluating Geospatial and Temporal Understanding of MLLMs via Travel Video Itinerary Reconstruction
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-24T13:14:19+09:00">September 24, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">So Fukuda이 [arXiv]에 게시한 ‘VIR-Bench: Evaluating Geospatial and Temporal Understanding of MLLMs via Travel Video Itinerary Reconstruction’ 논문에 대한 자세한 리뷰입니다.
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

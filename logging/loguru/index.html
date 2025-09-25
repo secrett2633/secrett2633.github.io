@@ -1,0 +1,1341 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Python] logging 사용법 | secrett2633</title>
+<meta name="description" content="Loguru 을 이용한 logging 간단하게 사용해보자">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Python] logging 사용법">
+<meta property="og:url" content="https://secrett2633.github.io/logging/loguru/">
+
+
+  <meta property="og:description" content="Loguru 을 이용한 logging 간단하게 사용해보자">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-01-03T01:03:11+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-01-03T02:10:14+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://secrett2633.github.io/logging/loguru/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "https://secrett2633.github.io/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    <!-- <li>
+      <span class="nav__total">🌴 Total Posts: 647</span>
+    </li> -->
+    
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Frontend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/backend/django/">Django (6)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+                <li><a href="/backend/logging/">Logging (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/ai/llm/">LLM (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/ai/review/">Review (625)</a></li>
+              
+            
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/devops/nginx/">Nginx (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/devops/docker/">Docker (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+                <li><a href="/devops/safeline/">SafeLine (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/devops/jenkins/">Jenkins (3)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/devops/github-actions/">GitHub Actions (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/devops/aws/">AWS (1)</a></li>
+              
+            
+              
+            
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+                <li><a href="/etc/me/">Me (3)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/etc/chrome-extension/">Chrome Extension (1)</a></li>
+              
+            
+              
+            
+              
+            
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Python] logging 사용법">
+    <meta itemprop="description" content="Loguru 을 이용한 logging 간단하게 사용해보자">
+    <meta itemprop="datePublished" content="2025-01-03T01:03:11+09:00">
+    <meta itemprop="dateModified" content="2025-01-03T02:10:14+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Python] logging 사용법
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-01-03T01:03:11+09:00">January 3, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#들어가며">들어가며</a></li><li><a href="#loguru-설치">Loguru 설치</a></li><li><a href="#loguru-사용법">Loguru 사용법</a></li><li><a href="#loguru의-유용한-기능들">Loguru의 유용한 기능들</a><ul><li><a href="#1-로그-파일-저장">1. 로그 파일 저장</a></li><li><a href="#2-에러-발생-시-변수-값과-함께-로그-출력">2. 에러 발생 시 변수 값과 함께 로그 출력</a></li><li><a href="#3-코드-간단화-및-예외-처리">3. 코드 간단화 및 예외 처리</a></li></ul></li><li><a href="#마치며">마치며</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <h3 id="들어가며"><strong>들어가며</strong></h3>
+
+<p>로깅은 프로그램을 개발하면서 발생하는 문제를 추적하고 디버깅하는 데 매우 중요한 역할을 합니다.<br />
+파이썬에서는 기본적으로 <code class="language-plaintext highlighter-rouge">logging</code> 모듈을 사용하여 로깅을 할 수 있습니다.<br />
+하지만 이 모듈은 설정이 복잡하고 사용법이 어려워 초보자에게는 다소 부담이 될 수 있습니다.<br />
+이러한 문제를 해결하기 위해 <code class="language-plaintext highlighter-rouge">Loguru</code>라는 라이브러리를 소개하고자 합니다. <code class="language-plaintext highlighter-rouge">Loguru</code>는 사용이 간편하고 직관적이어서 로깅을 보다 쉽게 구현할 수 있게 도와줍니다.</p>
+
+<h3 id="loguru-설치"><strong>Loguru 설치</strong></h3>
+
+<p>Loguru는 파이썬 패키지 관리자인 <code class="language-plaintext highlighter-rouge">pip</code>를 사용하여 손쉽게 설치할 수 있습니다.<br />
+터미널에서 아래 명령어를 입력해 설치할 수 있습니다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>loguru
+</code></pre></div></div>
+
+<p>설치가 완료되면 바로 <code class="language-plaintext highlighter-rouge">Loguru</code>를 활용해 로깅을 시작할 수 있습니다.</p>
+
+<h3 id="loguru-사용법"><strong>Loguru 사용법</strong></h3>
+
+<p>Loguru는 기본적으로 파이썬의 <code class="language-plaintext highlighter-rouge">logging</code> 모듈과 비슷한 방식으로 사용할 수 있습니다.<br />
+아래는 Loguru를 사용하여 간단한 로그 메시지를 출력하는 예제입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="n">logger</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello, Loguru!</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>위와 같이 매우 간단한 코드로 로그를 출력할 수 있습니다. 이처럼 Loguru는 직관적인 API를 제공하여 로그 작성이 훨씬 쉬워집니다.</p>
+
+<h3 id="loguru의-유용한-기능들"><strong>Loguru의 유용한 기능들</strong></h3>
+
+<p>Loguru는 기본적인 로깅 외에도 다양한 기능들을 제공합니다. 아래에서는 그 중 몇 가지 유용한 기능을 소개해드리겠습니다.</p>
+
+<h4 id="1-로그-파일-저장">1. 로그 파일 저장</h4>
+
+<p>Loguru는 로그를 파일로 저장하는 기능을 제공합니다. 로그 파일의 이름과 날짜에 따라 자동으로 로그 파일을 회전하거나 보관할 수 있습니다.</p>
+
+<p>예를 들어, 다음과 같이 설정하여 로그를 파일로 저장할 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">logger</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="sh">"</span><span class="s">file.log</span><span class="sh">"</span><span class="p">)</span>  <span class="c1"># 기본 로그 파일 저장
+</span>
+<span class="n">logger</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="sh">"</span><span class="s">file_1.log</span><span class="sh">"</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="sh">"</span><span class="s">500 MB</span><span class="sh">"</span><span class="p">)</span>  <span class="c1"># 파일 크기가 500MB를 넘으면 자동으로 회전
+</span><span class="n">logger</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="sh">"</span><span class="s">file_2.log</span><span class="sh">"</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="sh">"</span><span class="s">12:00</span><span class="sh">"</span><span class="p">)</span>   <span class="c1"># 매일 정오에 새로운 파일로 회전
+</span><span class="n">logger</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="sh">"</span><span class="s">file_3.log</span><span class="sh">"</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="sh">"</span><span class="s">1 week</span><span class="sh">"</span><span class="p">)</span>  <span class="c1"># 일주일마다 파일 회전
+</span>
+<span class="n">logger</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="sh">"</span><span class="s">file_X.log</span><span class="sh">"</span><span class="p">,</span> <span class="n">retention</span><span class="o">=</span><span class="sh">"</span><span class="s">10 days</span><span class="sh">"</span><span class="p">)</span>  <span class="c1"># 10일이 지난 파일은 자동으로 삭제
+</span>
+<span class="n">logger</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="sh">"</span><span class="s">file_Y.log</span><span class="sh">"</span><span class="p">,</span> <span class="n">compression</span><span class="o">=</span><span class="sh">"</span><span class="s">zip</span><span class="sh">"</span><span class="p">)</span>    <span class="c1"># 로그 파일을 압축하여 저장
+</span></code></pre></div></div>
+
+<h4 id="2-에러-발생-시-변수-값과-함께-로그-출력">2. 에러 발생 시 변수 값과 함께 로그 출력</h4>
+
+<p>Loguru는 에러 발생 시, 코드의 스택 트레이스와 함께 변수 값도 출력할 수 있습니다. 이 기능은 디버깅을 더욱 용이하게 만들어 줍니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Caution, "diagnose=True" is the default and may leak sensitive data in prod
+</span><span class="n">logger</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="sh">"</span><span class="s">out.log</span><span class="sh">"</span><span class="p">,</span> <span class="n">backtrace</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">diagnose</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span>
+
+<span class="k">def</span> <span class="nf">nested</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nf">func</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+    <span class="k">except</span> <span class="nb">ZeroDivisionError</span><span class="p">:</span>
+        <span class="n">logger</span><span class="p">.</span><span class="nf">exception</span><span class="p">(</span><span class="sh">"</span><span class="s">What?!</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="nf">nested</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>위 코드를 실행하면 다음과 같은 로그가 출력됩니다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2018-07-17 01:38:43.975 | ERROR    | __main__:nested:10 - What?!
+Traceback (most recent call last):
+
+  File "test.py", line 12, in &lt;module&gt;
+    nested(0)
+    └ &lt;function nested at 0x7f5c755322f0&gt;
+
+&gt; File "test.py", line 8, in nested
+    func(5, c)
+    │       └ 0
+    └ &lt;function func at 0x7f5c79fc2e18&gt;
+
+  File "test.py", line 4, in func
+    return a / b
+           │   └ 0
+           └ 5
+
+ZeroDivisionError: division by zero
+</code></pre></div></div>
+
+<h4 id="3-코드-간단화-및-예외-처리">3. 코드 간단화 및 예외 처리</h4>
+
+<p>Loguru는 데코레이터를 사용하여 예외 처리를 더욱 간단하게 만들 수 있습니다. 아래 예제처럼 코드를 간결하게 작성할 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@logger.catch</span>
+<span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+    <span class="c1"># An error? It's caught anyway!
+</span>    <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">+</span> <span class="n">z</span><span class="p">)</span>
+
+<span class="nf">my_function</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>위와 같이 <code class="language-plaintext highlighter-rouge">@logger.catch</code> 데코레이터를 사용하면 예외를 자동으로 처리하고 로그로 남길 수 있습니다.</p>
+
+<h3 id="마치며"><strong>마치며</strong></h3>
+
+<p>Loguru는 파이썬에서 로깅을 쉽게 처리할 수 있도록 도와주는 라이브러리입니다.<br />
+기본적인 로깅 기능을 제공하는 것 외에도 파일 회전, 에러 추적, 예외 처리 등을 매우 간편하게 구현할 수 있어 로깅을 다루는 데 많은 편리함을 제공합니다.<br />
+보다 다양한 기능은 <a href="https://github.com/Delgan/loguru">Loguru 공식 문서</a>를 참고하셔서 활용해 보시기 바랍니다.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#logging" class="page__taxonomy-item" rel="tag">Logging</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#logging" class="page__taxonomy-item" rel="tag">Logging</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-01-03">January 3, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/safeline/start-safeline/" class="pagination--pager" title="[SafeLine] SafeLine 초기 설정
+">Previous</a>
+    
+    
+      <a href="/llm/code-review-with-llm/" class="pagination--pager" title="[LLM] LLM을 활용한 코드 리뷰
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Like</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/review/2025-9-24-Zero-Shot_Multi-Spectral_Learning_Reimagining_a_Generalist_Multimodal_Gemini_2.5_Model_for_Remote_Sensing_Applications/" rel="permalink">[논문리뷰] Zero-Shot Multi-Spectral Learning: Reimagining a Generalist Multimodal Gemini 2.5 Model for Remote Sensing Applications
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-24T13:14:19+09:00">September 24, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Genady Beryozkin이 [arXiv]에 게시한 ‘Zero-Shot Multi-Spectral Learning: Reimagining a Generalist Multimodal Gemini 2.5 Model for Remote Sensing Applications’ 논문에 ...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/review/2025-9-24-What_Characterizes_Effective_Reasoning_Revisiting_Length_Review_and_Structure_of_CoT/" rel="permalink">[논문리뷰] What Characterizes Effective Reasoning? Revisiting Length, Review, and Structure of CoT
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-24T13:14:19+09:00">September 24, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Anthony Hartshorn이 [arXiv]에 게시한 ‘What Characterizes Effective Reasoning? Revisiting Length, Review, and Structure of CoT’ 논문에 대한 자세한 리뷰입니다.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/review/2025-9-24-VolSplat_Rethinking_Feed-Forward_3D_Gaussian_Splatting_with_Voxel-Aligned_Prediction/" rel="permalink">[논문리뷰] VolSplat: Rethinking Feed-Forward 3D Gaussian Splatting with Voxel-Aligned Prediction
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-24T13:14:19+09:00">September 24, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Haoxiao Wang이 [arXiv]에 게시한 ‘VolSplat: Rethinking Feed-Forward 3D Gaussian Splatting with Voxel-Aligned Prediction’ 논문에 대한 자세한 리뷰입니다.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/review/2025-9-24-VIR-Bench_Evaluating_Geospatial_and_Temporal_Understanding_of_MLLMs_via_Travel_Video_Itinerary_Reconstruction/" rel="permalink">[논문리뷰] VIR-Bench: Evaluating Geospatial and Temporal Understanding of MLLMs via Travel Video Itinerary Reconstruction
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-24T13:14:19+09:00">September 24, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">So Fukuda이 [arXiv]에 게시한 ‘VIR-Bench: Evaluating Geospatial and Temporal Understanding of MLLMs via Travel Video Itinerary Reconstruction’ 논문에 대한 자세한 리뷰입니다.
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

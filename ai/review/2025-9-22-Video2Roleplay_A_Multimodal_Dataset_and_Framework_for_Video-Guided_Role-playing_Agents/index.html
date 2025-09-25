@@ -1,0 +1,1269 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[논문리뷰] Video2Roleplay: A Multimodal Dataset and Framework for Video-Guided Role-playing Agents | secrett2633</title>
+<meta name="description" content="Chao Zhang이 [arXiv]에 게시한 ‘Video2Roleplay: A Multimodal Dataset and Framework for Video-Guided Role-playing Agents’ 논문에 대한 자세한 리뷰입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[논문리뷰] Video2Roleplay: A Multimodal Dataset and Framework for Video-Guided Role-playing Agents">
+<meta property="og:url" content="https://secrett2633.github.io/ai/review/2025-9-22-Video2Roleplay_A_Multimodal_Dataset_and_Framework_for_Video-Guided_Role-playing_Agents/">
+
+
+  <meta property="og:description" content="Chao Zhang이 [arXiv]에 게시한 ‘Video2Roleplay: A Multimodal Dataset and Framework for Video-Guided Role-playing Agents’ 논문에 대한 자세한 리뷰입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-22T13:11:29+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-22T13:11:29+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://secrett2633.github.io/ai/review/2025-9-22-Video2Roleplay_A_Multimodal_Dataset_and_Framework_for_Video-Guided_Role-playing_Agents/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "https://secrett2633.github.io/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    <!-- <li>
+      <span class="nav__total">🌴 Total Posts: 647</span>
+    </li> -->
+    
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Frontend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/backend/django/">Django (6)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+                <li><a href="/backend/logging/">Logging (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/ai/llm/">LLM (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/ai/review/">Review (625)</a></li>
+              
+            
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/devops/nginx/">Nginx (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/devops/docker/">Docker (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+                <li><a href="/devops/safeline/">SafeLine (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/devops/jenkins/">Jenkins (3)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/devops/github-actions/">GitHub Actions (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/devops/aws/">AWS (1)</a></li>
+              
+            
+              
+            
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+                <li><a href="/etc/me/">Me (3)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/etc/chrome-extension/">Chrome Extension (1)</a></li>
+              
+            
+              
+            
+              
+            
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[논문리뷰] Video2Roleplay: A Multimodal Dataset and Framework for Video-Guided Role-playing Agents">
+    <meta itemprop="description" content="Chao Zhang이 [arXiv]에 게시한 ‘Video2Roleplay: A Multimodal Dataset and Framework for Video-Guided Role-playing Agents’ 논문에 대한 자세한 리뷰입니다.">
+    <meta itemprop="datePublished" content="2025-09-22T13:11:29+09:00">
+    <meta itemprop="dateModified" content="2025-09-22T13:11:29+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[논문리뷰] Video2Roleplay: A Multimodal Dataset and Framework for Video-Guided Role-playing Agents
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-22T13:11:29+09:00">September 22, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#핵심-연구-목표">핵심 연구 목표</a></li><li><a href="#핵심-방법론">핵심 방법론</a></li><li><a href="#주요-결과">주요 결과</a></li><li><a href="#ai-실무자를-위한-시사점">AI 실무자를 위한 시사점</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>링크:</strong> <a href="https://arxiv.org/abs/2509.15233">논문 PDF로 바로 열기</a></p>
+</blockquote>
+
+<p><strong>저자:</strong> Xueqiao Zhang, Chao Zhang, Jingtao Xu, Yifan Zhu, Xin Shi, Yi Yang, Yawei Luo</p>
+
+<h2 id="핵심-연구-목표">핵심 연구 목표</h2>
+<p>기존 <strong>Role-playing Agents (RPAs)</strong>가 정적인 역할 프로필에만 의존하여 인간의 동적인 지각 능력을 포착하지 못하는 한계를 극복하는 것입니다. 비디오 모달리티를 <strong>RPAs</strong>에 통합하여 <strong>동적 역할 프로필</strong> 개념을 도입하고, 이를 통해 더욱 몰입감 있고 표현력 있는 역할극 경험을 제공하고자 합니다.</p>
+
+<h2 id="핵심-방법론">핵심 방법론</h2>
+<p>본 연구는 60k 비디오와 700k 대화로 구성된 대규모 <strong>다중 모달 데이터셋인 Role-playing-Video60k</strong>를 구축합니다. 제안된 프레임워크는 입력 비디오 길이에 따라 <strong>적응형 시간 샘플링(adaptive temporal sampling)</strong>을 통해 비디오 프레임을 추출하여 <strong>동적 역할 프로필</strong>을 형성하고, 훈련 비디오의 대화 및 입력 비디오 요약에서 추출한 <strong>정적 역할 프로필</strong>을 결합합니다. 이 정보를 <strong>LLM(Large Language Model)</strong>에 시간 순서대로 입력하여 캐릭터의 정체성과 서술적 맥락에 일관된 응답을 생성하도록 <strong>지도 미세 조정(supervised fine-tuning)</strong>합니다.</p>
+
+<h2 id="주요-결과">주요 결과</h2>
+<p>제안된 프레임워크는 기존 <strong>RPAs</strong> 및 일반 <strong>LLM</strong> 대비 모든 평가 지표에서 뛰어난 성능을 보였으며, 특히 <strong>인간 유사성(human-likeness) 지표에서 SOTA</strong>를 달성했습니다. <strong>InternVL2.5-8B w/ Video SFT</strong> 모델은 평균 <strong>72.28점</strong>을 기록하여 비디오 모달리티를 통합하지 않은 모델(평균 <strong>42.29점</strong>) 대비 현저한 개선을 보였습니다. 이는 <strong>비디오 모달리티</strong>가 <strong>RPAs</strong>의 표현력과 일관성을 높이는 데 결정적인 역할을 함을 입증합니다.</p>
+
+<h2 id="ai-실무자를-위한-시사점">AI 실무자를 위한 시사점</h2>
+<p><strong>비디오 모달리티</strong>를 <strong>RPAs</strong>에 통합하는 접근 방식은 <strong>AI 에이전트의 현실감</strong>과 <strong>상호작용성</strong>을 획기적으로 향상시킬 수 있습니다. 구축된 <strong>Role-playing-Video60k 데이터셋</strong>은 비디오 기반 <strong>RPAs</strong> 연구의 귀중한 자원이 될 것이며, <strong>적응형 시간 샘플링</strong>과 <strong>동적/정적 프로필 통합 방법론</strong>은 실제 서비스에서 <strong>더욱 정교한 캐릭터</strong>를 구현하는 데 활용될 수 있습니다. 특히 <strong>인간 유사성</strong>이 중요한 가상 비서, 게임 NPC, 디지털 휴먼 등의 개발에 큰 영향을 미칠 것으로 기대됩니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 리뷰는 AI로 작성되었습니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#adaptive-temporal-sampling" class="page__taxonomy-item" rel="tag">Adaptive Temporal Sampling</a><span class="sep">, </span>
+    
+      <a href="/tags/#dataset-creation" class="page__taxonomy-item" rel="tag">Dataset Creation</a><span class="sep">, </span>
+    
+      <a href="/tags/#dynamic-role-profiles" class="page__taxonomy-item" rel="tag">Dynamic Role Profiles</a><span class="sep">, </span>
+    
+      <a href="/tags/#fine-tuning" class="page__taxonomy-item" rel="tag">Fine-tuning</a><span class="sep">, </span>
+    
+      <a href="/tags/#large-language-models-llms" class="page__taxonomy-item" rel="tag">Large Language Models (LLMs)</a><span class="sep">, </span>
+    
+      <a href="/tags/#multimodal-ai" class="page__taxonomy-item" rel="tag">Multimodal AI</a><span class="sep">, </span>
+    
+      <a href="/tags/#review" class="page__taxonomy-item" rel="tag">Review</a><span class="sep">, </span>
+    
+      <a href="/tags/#role-playing-agents-rpas" class="page__taxonomy-item" rel="tag">Role-playing Agents (RPAs)</a><span class="sep">, </span>
+    
+      <a href="/tags/#video-understanding" class="page__taxonomy-item" rel="tag">Video Understanding</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#review" class="page__taxonomy-item" rel="tag">Review</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-22">September 22, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/ai/review/2025-9-22-SPATIALGEN_Layout-guided_3D_Indoor_Scene_Generation/" class="pagination--pager" title="[논문리뷰] SPATIALGEN: Layout-guided 3D Indoor Scene Generation
+">Previous</a>
+    
+    
+      <a href="/ai/review/2025-9-22-WhisTLE_Deeply_Supervised_Text-Only_Domain_Adaptation_for_Pretrained_Speech_Recognition_Transformers/" class="pagination--pager" title="[논문리뷰] WhisTLE: Deeply Supervised, Text-Only Domain Adaptation for Pretrained Speech Recognition Transformers
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Like</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/review/2025-9-24-Zero-Shot_Multi-Spectral_Learning_Reimagining_a_Generalist_Multimodal_Gemini_2.5_Model_for_Remote_Sensing_Applications/" rel="permalink">[논문리뷰] Zero-Shot Multi-Spectral Learning: Reimagining a Generalist Multimodal Gemini 2.5 Model for Remote Sensing Applications
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-24T13:14:19+09:00">September 24, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Genady Beryozkin이 [arXiv]에 게시한 ‘Zero-Shot Multi-Spectral Learning: Reimagining a Generalist Multimodal Gemini 2.5 Model for Remote Sensing Applications’ 논문에 ...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/review/2025-9-24-What_Characterizes_Effective_Reasoning_Revisiting_Length_Review_and_Structure_of_CoT/" rel="permalink">[논문리뷰] What Characterizes Effective Reasoning? Revisiting Length, Review, and Structure of CoT
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-24T13:14:19+09:00">September 24, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Anthony Hartshorn이 [arXiv]에 게시한 ‘What Characterizes Effective Reasoning? Revisiting Length, Review, and Structure of CoT’ 논문에 대한 자세한 리뷰입니다.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/review/2025-9-24-VolSplat_Rethinking_Feed-Forward_3D_Gaussian_Splatting_with_Voxel-Aligned_Prediction/" rel="permalink">[논문리뷰] VolSplat: Rethinking Feed-Forward 3D Gaussian Splatting with Voxel-Aligned Prediction
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-24T13:14:19+09:00">September 24, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Haoxiao Wang이 [arXiv]에 게시한 ‘VolSplat: Rethinking Feed-Forward 3D Gaussian Splatting with Voxel-Aligned Prediction’ 논문에 대한 자세한 리뷰입니다.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/review/2025-9-24-VIR-Bench_Evaluating_Geospatial_and_Temporal_Understanding_of_MLLMs_via_Travel_Video_Itinerary_Reconstruction/" rel="permalink">[논문리뷰] VIR-Bench: Evaluating Geospatial and Temporal Understanding of MLLMs via Travel Video Itinerary Reconstruction
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-24T13:14:19+09:00">September 24, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">So Fukuda이 [arXiv]에 게시한 ‘VIR-Bench: Evaluating Geospatial and Temporal Understanding of MLLMs via Travel Video Itinerary Reconstruction’ 논문에 대한 자세한 리뷰입니다.
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,1267 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[논문리뷰] DreamVVT: Mastering Realistic Video Virtual Try-On in the Wild via a Stage-Wise Diffusion Transformer Framework | secrett2633</title>
+<meta name="description" content="Chao Liang이 [arXiv]에 게시한 ‘DreamVVT: Mastering Realistic Video Virtual Try-On in the Wild via a Stage-Wise Diffusion Transformer Framework’ 논문에 대한 자세한 리뷰입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[논문리뷰] DreamVVT: Mastering Realistic Video Virtual Try-On in the Wild via a Stage-Wise Diffusion Transformer Framework">
+<meta property="og:url" content="https://secrett2633.github.io/ai/review/2025-8-7-DreamVVT_Mastering_Realistic_Video_Virtual_Try-On_in_the_Wild_via_a_Stage-Wise_Diffusion_Transformer_Framework/">
+
+
+  <meta property="og:description" content="Chao Liang이 [arXiv]에 게시한 ‘DreamVVT: Mastering Realistic Video Virtual Try-On in the Wild via a Stage-Wise Diffusion Transformer Framework’ 논문에 대한 자세한 리뷰입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-08-07T13:38:21+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-08-07T13:38:21+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://secrett2633.github.io/ai/review/2025-8-7-DreamVVT_Mastering_Realistic_Video_Virtual_Try-On_in_the_Wild_via_a_Stage-Wise_Diffusion_Transformer_Framework/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "https://secrett2633.github.io/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    <!-- <li>
+      <span class="nav__total">🌴 Total Posts: 647</span>
+    </li> -->
+    
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Frontend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/backend/django/">Django (6)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+                <li><a href="/backend/logging/">Logging (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/ai/llm/">LLM (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/ai/review/">Review (625)</a></li>
+              
+            
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/devops/nginx/">Nginx (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/devops/docker/">Docker (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+                <li><a href="/devops/safeline/">SafeLine (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/devops/jenkins/">Jenkins (3)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/devops/github-actions/">GitHub Actions (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/devops/aws/">AWS (1)</a></li>
+              
+            
+              
+            
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+                <li><a href="/etc/me/">Me (3)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/etc/chrome-extension/">Chrome Extension (1)</a></li>
+              
+            
+              
+            
+              
+            
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[논문리뷰] DreamVVT: Mastering Realistic Video Virtual Try-On in the Wild via a Stage-Wise Diffusion Transformer Framework">
+    <meta itemprop="description" content="Chao Liang이 [arXiv]에 게시한 ‘DreamVVT: Mastering Realistic Video Virtual Try-On in the Wild via a Stage-Wise Diffusion Transformer Framework’ 논문에 대한 자세한 리뷰입니다.">
+    <meta itemprop="datePublished" content="2025-08-07T13:38:21+09:00">
+    <meta itemprop="dateModified" content="2025-08-07T13:38:21+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[논문리뷰] DreamVVT: Mastering Realistic Video Virtual Try-On in the Wild via a Stage-Wise Diffusion Transformer Framework
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-08-07T13:38:21+09:00">August 7, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#핵심-연구-목표">핵심 연구 목표</a></li><li><a href="#핵심-방법론">핵심 방법론</a></li><li><a href="#주요-결과">주요 결과</a></li><li><a href="#ai-실무자를-위한-시사점">AI 실무자를 위한 시사점</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>링크:</strong> <a href="https://arxiv.org/abs/2508.02807">논문 PDF로 바로 열기</a></p>
+</blockquote>
+
+<p><strong>저자:</strong> Tongchun Zuo, Zaiyu Huang, Shuliang Ning, Ente Lin, Chao Liang, Zerong Zheng, Jianwen Jiang, Yuan Zhang, Mingyuan Gao, Xin Dong</p>
+
+<h2 id="핵심-연구-목표">핵심 연구 목표</h2>
+<p>기존 비디오 가상 피팅(VVT) 기술의 한계, 즉 <strong>데이터 부족, 디테일 보존 실패, 비제약적 환경에서의 시간적 일관성 부족</strong> 문제를 해결하는 것이 목표입니다. 특히, 실제 시나리오에서 다양한 의류와 환경에 대한 적응성을 높여 <strong>고품질의 사실적인 비디오 가상 피팅</strong>을 구현하고자 합니다.</p>
+
+<h2 id="핵심-방법론">핵심 방법론</h2>
+<p>본 논문은 <strong>Diffusion Transformers (DiTs)</strong> 기반의 <strong>두 단계 프레임워크인 DreamVVT</strong>를 제안합니다. <strong>첫 번째 단계</strong>에서는 입력 비디오에서 <strong>주요 모션 변화를 가진 키프레임을 샘플링</strong>하고, <strong>Vision-Language Model (VLM)</strong>을 활용해 텍스트 설명을 생성하며, <strong>LoRA 어댑터</strong>가 적용된 <strong>다중 프레임 피팅 모델</strong>로 고품질 키프레임 이미지를 생성합니다. <strong>두 번째 단계</strong>에서는 <strong>템포럴 스무딩 포즈 가이더</strong>와 <strong>비디오 LLM</strong>을 통해 추출된 세부 모션 및 시각 정보를 <strong>사전 훈련된 비디오 생성 모델</strong>에 <strong>LoRA 어댑터</strong>와 함께 입력하여 최종 가상 피팅 비디오를 합성합니다.</p>
+
+<h2 id="주요-결과">주요 결과</h2>
+<p><strong>DreamVVT</strong>는 <strong>ViViD 데이터셋</strong>에서 기존 SOTA 방법론들을 능가하며, 특히 <strong>VFID (I3D)</strong> 지표에서 <strong>11.0180</strong>, <strong>VFID (ResNext)</strong> 지표에서 <strong>0.2549</strong>의 가장 낮은 점수를 기록했습니다. 자체 구축한 <strong>Wild-TryOn 벤치마크</strong>에서도 의류 보존(GP <strong>3.41</strong>), 물리적 현실감(PR <strong>3.69</strong>), 시간적 일관성(TC <strong>3.32</strong>) 모든 지표에서 가장 우수한 성능을 달성하여 사실적인 의류 디테일 보존과 시간적 일관성 측면에서 뛰어남을 입증했습니다.</p>
+
+<h2 id="ai-실무자를-위한-시사점">AI 실무자를 위한 시사점</h2>
+<p><strong>DreamVVT</strong>는 <strong>비정형 데이터 활용 및 사전 훈련된 모델의 지식</strong>을 효과적으로 활용하여 <strong>실제 환경에서의 VVT 성능을 크게 향상</strong>시켰습니다. 이는 전자상거래 및 엔터테인먼트 분야에서 <strong>고품질의 가상 피팅 솔루션 개발 가능성</strong>을 시사하며, 특히 <strong>LoRA 어댑터 사용</strong>은 모델의 제어 능력을 유지하면서 효율적인 미세 조정을 가능하게 하는 실용적인 접근법입니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 리뷰는 AI로 작성되었습니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#diffusion-transformers" class="page__taxonomy-item" rel="tag">Diffusion Transformers</a><span class="sep">, </span>
+    
+      <a href="/tags/#garment-preservation" class="page__taxonomy-item" rel="tag">Garment Preservation</a><span class="sep">, </span>
+    
+      <a href="/tags/#lora" class="page__taxonomy-item" rel="tag">LoRA</a><span class="sep">, </span>
+    
+      <a href="/tags/#review" class="page__taxonomy-item" rel="tag">Review</a><span class="sep">, </span>
+    
+      <a href="/tags/#stage-wise-framework" class="page__taxonomy-item" rel="tag">Stage-Wise Framework</a><span class="sep">, </span>
+    
+      <a href="/tags/#temporal-consistency" class="page__taxonomy-item" rel="tag">Temporal Consistency</a><span class="sep">, </span>
+    
+      <a href="/tags/#video-virtual-try-on" class="page__taxonomy-item" rel="tag">Video Virtual Try-On</a><span class="sep">, </span>
+    
+      <a href="/tags/#vision-language-models" class="page__taxonomy-item" rel="tag">Vision-Language Models</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#review" class="page__taxonomy-item" rel="tag">Review</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-08-07">August 7, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/ai/review/2025-8-7-CoTox_Chain-of-Thought-Based_Molecular_Toxicity_Reasoning_and_Prediction/" class="pagination--pager" title="[논문리뷰] CoTox: Chain-of-Thought-Based Molecular Toxicity Reasoning and Prediction
+">Previous</a>
+    
+    
+      <a href="/ai/review/2025-8-7-EVOC2RUST_A_Skeleton-guided_Framework_for_Project-Level_C-to-Rust_Translation/" class="pagination--pager" title="[논문리뷰] EVOC2RUST: A Skeleton-guided Framework for Project-Level C-to-Rust Translation
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Like</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/review/2025-9-24-Zero-Shot_Multi-Spectral_Learning_Reimagining_a_Generalist_Multimodal_Gemini_2.5_Model_for_Remote_Sensing_Applications/" rel="permalink">[논문리뷰] Zero-Shot Multi-Spectral Learning: Reimagining a Generalist Multimodal Gemini 2.5 Model for Remote Sensing Applications
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-24T13:14:19+09:00">September 24, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Genady Beryozkin이 [arXiv]에 게시한 ‘Zero-Shot Multi-Spectral Learning: Reimagining a Generalist Multimodal Gemini 2.5 Model for Remote Sensing Applications’ 논문에 ...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/review/2025-9-24-What_Characterizes_Effective_Reasoning_Revisiting_Length_Review_and_Structure_of_CoT/" rel="permalink">[논문리뷰] What Characterizes Effective Reasoning? Revisiting Length, Review, and Structure of CoT
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-24T13:14:19+09:00">September 24, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Anthony Hartshorn이 [arXiv]에 게시한 ‘What Characterizes Effective Reasoning? Revisiting Length, Review, and Structure of CoT’ 논문에 대한 자세한 리뷰입니다.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/review/2025-9-24-VolSplat_Rethinking_Feed-Forward_3D_Gaussian_Splatting_with_Voxel-Aligned_Prediction/" rel="permalink">[논문리뷰] VolSplat: Rethinking Feed-Forward 3D Gaussian Splatting with Voxel-Aligned Prediction
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-24T13:14:19+09:00">September 24, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Haoxiao Wang이 [arXiv]에 게시한 ‘VolSplat: Rethinking Feed-Forward 3D Gaussian Splatting with Voxel-Aligned Prediction’ 논문에 대한 자세한 리뷰입니다.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/review/2025-9-24-VIR-Bench_Evaluating_Geospatial_and_Temporal_Understanding_of_MLLMs_via_Travel_Video_Itinerary_Reconstruction/" rel="permalink">[논문리뷰] VIR-Bench: Evaluating Geospatial and Temporal Understanding of MLLMs via Travel Video Itinerary Reconstruction
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-24T13:14:19+09:00">September 24, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">So Fukuda이 [arXiv]에 게시한 ‘VIR-Bench: Evaluating Geospatial and Temporal Understanding of MLLMs via Travel Video Itinerary Reconstruction’ 논문에 대한 자세한 리뷰입니다.
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

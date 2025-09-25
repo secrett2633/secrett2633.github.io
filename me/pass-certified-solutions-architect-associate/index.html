@@ -1,0 +1,1299 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[AWS] AWS Solutions Architect Associate 자격증 취득 후기 | secrett2633</title>
+<meta name="description" content="AWS Solutions Architect Associate(SAA) 자격증 공부 방법, 시험 후기를 정리했습니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[AWS] AWS Solutions Architect Associate 자격증 취득 후기">
+<meta property="og:url" content="https://secrett2633.github.io/me/pass-certified-solutions-architect-associate/">
+
+
+  <meta property="og:description" content="AWS Solutions Architect Associate(SAA) 자격증 공부 방법, 시험 후기를 정리했습니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-03-08T23:10:11+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-03-08T23:10:14+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://secrett2633.github.io/me/pass-certified-solutions-architect-associate/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "https://secrett2633.github.io/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    <!-- <li>
+      <span class="nav__total">🌴 Total Posts: 647</span>
+    </li> -->
+    
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Frontend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/backend/django/">Django (6)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+                <li><a href="/backend/logging/">Logging (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/ai/llm/">LLM (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/ai/review/">Review (625)</a></li>
+              
+            
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/devops/nginx/">Nginx (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/devops/docker/">Docker (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+                <li><a href="/devops/safeline/">SafeLine (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/devops/jenkins/">Jenkins (3)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/devops/github-actions/">GitHub Actions (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/devops/aws/">AWS (1)</a></li>
+              
+            
+              
+            
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+                <li><a href="/etc/me/">Me (3)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/etc/chrome-extension/">Chrome Extension (1)</a></li>
+              
+            
+              
+            
+              
+            
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[AWS] AWS Solutions Architect Associate 자격증 취득 후기">
+    <meta itemprop="description" content="AWS Solutions Architect Associate(SAA) 자격증 공부 방법, 시험 후기를 정리했습니다.">
+    <meta itemprop="datePublished" content="2025-03-08T23:10:11+09:00">
+    <meta itemprop="dateModified" content="2025-03-08T23:10:14+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[AWS] AWS Solutions Architect Associate 자격증 취득 후기
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-03-08T23:10:11+09:00">March 8, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#aws-solutions-architect-associate-자격증이란">AWS Solutions Architect Associate 자격증이란?</a></li><li><a href="#자격증을-취득한-이유">자격증을 취득한 이유</a></li><li><a href="#공부-방법-및-준비-과정">공부 방법 및 준비 과정</a><ul><li><a href="#1-공부-기간-및-계획">1. 공부 기간 및 계획</a></li><li><a href="#2-학습-자료-선택">2. 학습 자료 선택</a></li></ul></li><li><a href="#시험-응시-및-후기">시험 응시 및 후기</a><ul><li><a href="#1-시험-방식">1. 시험 방식</a></li><li><a href="#2-시험-난이도">2. 시험 난이도</a></li></ul></li><li><a href="#합격-이메일-도착-️">합격 이메일 도착 ✉️</a></li><li><a href="#마무리-및-추천">마무리 및 추천</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <h2 id="aws-solutions-architect-associate-자격증이란">AWS Solutions Architect Associate 자격증이란?</h2>
+<p>AWS Solutions Architect Associate(SAA) 자격증은 AWS 클라우드 환경에서 아키텍처 설계를 담당하는 전문가를 인증하는 시험입니다. AWS의 다양한 서비스를 이해하고, 이를 활용하여 효율적인 아키텍처를 설계할 수 있는 능력을 평가합니다.</p>
+
+<p>특히, 다음과 같은 주요 개념들을 다룹니다:</p>
+<ul>
+  <li><strong>AWS Well-Architected Framework</strong>의 이해</li>
+  <li><strong>고가용성(High Availability)</strong> 및 <strong>내결함성(Fault Tolerance)</strong> 아키텍처 설계</li>
+  <li><strong>비용 최적화 및 성능 개선</strong></li>
+  <li><strong>보안 및 컴플라이언스 준수</strong></li>
+</ul>
+
+<p>이 자격증은 <strong>클라우드 기반 솔루션을 설계하는 개발자, 엔지니어, IT 인프라 담당자</strong>들에게 매우 유용한 인증이며, AWS를 활용한 실무 역량을 증명하는 데 큰 도움이 됩니다.</p>
+
+<h2 id="자격증을-취득한-이유">자격증을 취득한 이유</h2>
+<p>백엔드 개발자로 일하면서 AWS의 다양한 서비스를 다룰 일이 종종 있었습니다. 하지만 주로 EC2나 Lambda 같은 기본적인 서비스만 활용해 왔고, AWS의 전반적인 서비스 구조를 체계적으로 이해하고 싶었습니다.</p>
+
+<p>그러던 중 <strong>SAA 자격증</strong>이 있다는 것을 알게 되었고, 이를 취득하면서 AWS 서비스에 대한 이해도를 높이고 실무에서도 활용할 수 있을 것이라 생각했습니다.</p>
+
+<h2 id="공부-방법-및-준비-과정">공부 방법 및 준비 과정</h2>
+<h3 id="1-공부-기간-및-계획">1. 공부 기간 및 계획</h3>
+<p>시험 준비는 <strong>약 1주일</strong> 동안 진행했습니다. 미리 시험 일정을 예약한 후 본격적으로 학습을 시작했는데, 응시료가 한화로 약 <strong>20만 원</strong> 정도였기 때문에 자연스럽게 동기 부여가 되었습니다.</p>
+
+<h3 id="2-학습-자료-선택">2. 학습 자료 선택</h3>
+<p>학습을 위해 <strong>인프런 강의</strong>를 선택했습니다.<br />
+다양한 후기들을 참고해 보니, GitHub에 정리된 자료를 활용하거나 Udemy에서 영어 강의를 듣는 경우도 많았지만, 다음과 같은 이유로 인프런 강의를 선택하게 되었습니다.</p>
+
+<p>✅ <strong>한국어 강의</strong>로 진행되어 이해가 쉬움<br />
+✅ <strong>600문항의 덤프 문제 제공</strong><br />
+✅ <strong>덤프 문제 해설 포함</strong>으로 체계적인 학습 가능</p>
+
+<p>특히 <strong>기출문제(덤프 문제)를 풀어보는 것이 중요</strong>하다는 것을 깨달았습니다. 실제 시험에서 덤프 문제와 유사한 문제들이 다수 출제되었고, 기출을 반복적으로 풀어본 덕분에 익숙하게 문제를 해결할 수 있었습니다.</p>
+
+<h2 id="시험-응시-및-후기">시험 응시 및 후기</h2>
+<h3 id="1-시험-방식">1. 시험 방식</h3>
+<p>AWS SAA 시험은 <strong>객관식 문제(다지선다형)로 구성</strong>되어 있으며, 130분 동안 65개의 문제로 진행됩니다.<br />
+온라인 및 오프라인 시험 응시가 가능하며, 저는 오프라인 시험을 선택했습니다.</p>
+
+<h3 id="2-시험-난이도">2. 시험 난이도</h3>
+<p>시험을 치르면서 느낀 점은 <strong>AWS 서비스 간의 관계와 사용 사례를 이해하는 것이 중요하다</strong>는 것이었습니다.<br />
+단순한 암기가 아니라, <strong>각 서비스가 어떤 상황에서 적절한지 판단하는 능력</strong>이 요구됩니다.</p>
+
+<p>다행히 <strong>덤프 문제를 충분히 풀어본 덕분에 낯선 문제는 거의 없었고</strong>, 시험을 무난하게 마칠 수 있었습니다.</p>
+
+<h2 id="합격-이메일-도착-️">합격 이메일 도착 ✉️</h2>
+<p>시험이 끝난 후 몇 시간 만에 AWS에서 합격 이메일을 받았습니다.</p>
+
+<p>📩 <strong>합격 이메일 내용</strong></p>
+<ul>
+  <li>합격을 축하하는 메시지</li>
+  <li><strong>공식 성적표 및 디지털 배지</strong> 제공</li>
+</ul>
+
+<p><img src="/assets/images/posts_img/me/aws-email.png" alt="aws-email" /></p>
+
+<p>합격 이메일을 받았을 때의 기쁨은 이루 말할 수 없었습니다. 짧은 시간이지만 열심히 공부한 보람이 있었고, AWS 서비스에 대한 자신감도 더 커졌습니다.</p>
+
+<h2 id="마무리-및-추천">마무리 및 추천</h2>
+<p>이번 SAA 자격증을 준비하면서 AWS의 다양한 서비스와 아키텍처 설계 원칙을 체계적으로 학습할 수 있었습니다.</p>
+
+<p>AWS 환경에서 아키텍처를 설계하거나 AWS 서비스를 활용하는 개발자라면, 한 번쯤 도전해볼 만한 가치가 있는 자격증이라고 생각합니다.</p>
+
+<p>✅ <strong>기출문제를 충분히 풀어볼 것</strong><br />
+✅ <strong>AWS의 기본적인 서비스와 원리를 이해할 것</strong><br />
+✅ <strong>단기간에도 충분히 취득할 수 있는 시험이니, 겁먹지 말 것</strong></p>
+
+<p>실무에서도 AWS를 더욱 적극적으로 활용할 계획이며, 앞으로도 다양한 AWS 자격증을 도전해볼 생각입니다.<br />
+AWS SAA를 준비하는 분들께 도움이 되길 바라며, 시험을 고민하고 있다면 꼭 도전해 보시길 추천합니다! 🚀</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#me" class="page__taxonomy-item" rel="tag">Me</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#me" class="page__taxonomy-item" rel="tag">Me</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-03-08">March 8, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/me/brain-hack-productivity/" class="pagination--pager" title="뇌과학적으로 게으름과 무기력을 극복하는 방법
+">Previous</a>
+    
+    
+      <a href="/ai/review/2025-8-3-AgroBench__Vision-Language_Model_Benchmark_in_Agriculture/" class="pagination--pager" title="[논문리뷰] AgroBench: Vision-Language Model Benchmark in Agriculture
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Like</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/review/2025-9-24-Zero-Shot_Multi-Spectral_Learning_Reimagining_a_Generalist_Multimodal_Gemini_2.5_Model_for_Remote_Sensing_Applications/" rel="permalink">[논문리뷰] Zero-Shot Multi-Spectral Learning: Reimagining a Generalist Multimodal Gemini 2.5 Model for Remote Sensing Applications
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-24T13:14:19+09:00">September 24, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Genady Beryozkin이 [arXiv]에 게시한 ‘Zero-Shot Multi-Spectral Learning: Reimagining a Generalist Multimodal Gemini 2.5 Model for Remote Sensing Applications’ 논문에 ...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/review/2025-9-24-What_Characterizes_Effective_Reasoning_Revisiting_Length_Review_and_Structure_of_CoT/" rel="permalink">[논문리뷰] What Characterizes Effective Reasoning? Revisiting Length, Review, and Structure of CoT
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-24T13:14:19+09:00">September 24, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Anthony Hartshorn이 [arXiv]에 게시한 ‘What Characterizes Effective Reasoning? Revisiting Length, Review, and Structure of CoT’ 논문에 대한 자세한 리뷰입니다.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/review/2025-9-24-VolSplat_Rethinking_Feed-Forward_3D_Gaussian_Splatting_with_Voxel-Aligned_Prediction/" rel="permalink">[논문리뷰] VolSplat: Rethinking Feed-Forward 3D Gaussian Splatting with Voxel-Aligned Prediction
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-24T13:14:19+09:00">September 24, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Haoxiao Wang이 [arXiv]에 게시한 ‘VolSplat: Rethinking Feed-Forward 3D Gaussian Splatting with Voxel-Aligned Prediction’ 논문에 대한 자세한 리뷰입니다.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/review/2025-9-24-VIR-Bench_Evaluating_Geospatial_and_Temporal_Understanding_of_MLLMs_via_Travel_Video_Itinerary_Reconstruction/" rel="permalink">[논문리뷰] VIR-Bench: Evaluating Geospatial and Temporal Understanding of MLLMs via Travel Video Itinerary Reconstruction
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-24T13:14:19+09:00">September 24, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">So Fukuda이 [arXiv]에 게시한 ‘VIR-Bench: Evaluating Geospatial and Temporal Understanding of MLLMs via Travel Video Itinerary Reconstruction’ 논문에 대한 자세한 리뷰입니다.
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

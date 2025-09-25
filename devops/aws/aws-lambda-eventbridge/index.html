@@ -1,0 +1,1337 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[AWS] AWS Lambda와 Notion API를 활용한 15분 단위 자동 기록 시스템 | secrett2633</title>
+<meta name="description" content="AWS Lambda, Notion API, Slack Webhook을 활용하여 15분마다 자동으로 시간을 기록하고 Slack 알림을 받는 시스템을 구축하는 방법을 설명합니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[AWS] AWS Lambda와 Notion API를 활용한 15분 단위 자동 기록 시스템">
+<meta property="og:url" content="https://secrett2633.github.io/devops/aws/aws-lambda-eventbridge/">
+
+
+  <meta property="og:description" content="AWS Lambda, Notion API, Slack Webhook을 활용하여 15분마다 자동으로 시간을 기록하고 Slack 알림을 받는 시스템을 구축하는 방법을 설명합니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-02-25T18:57:00+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-02-25T19:36:00+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://secrett2633.github.io/devops/aws/aws-lambda-eventbridge/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "https://secrett2633.github.io/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    <!-- <li>
+      <span class="nav__total">🌴 Total Posts: 647</span>
+    </li> -->
+    
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Frontend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/backend/django/">Django (6)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+                <li><a href="/backend/logging/">Logging (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/ai/llm/">LLM (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/ai/review/">Review (625)</a></li>
+              
+            
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/devops/nginx/">Nginx (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/devops/docker/">Docker (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+                <li><a href="/devops/safeline/">SafeLine (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/devops/jenkins/">Jenkins (3)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/devops/github-actions/">GitHub Actions (1)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/devops/aws/">AWS (1)</a></li>
+              
+            
+              
+            
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+                <li><a href="/etc/me/">Me (3)</a></li>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+            <!-- sub-title -->
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <li><a href="/etc/chrome-extension/">Chrome Extension (1)</a></li>
+              
+            
+              
+            
+              
+            
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[AWS] AWS Lambda와 Notion API를 활용한 15분 단위 자동 기록 시스템">
+    <meta itemprop="description" content="AWS Lambda, Notion API, Slack Webhook을 활용하여 15분마다 자동으로 시간을 기록하고 Slack 알림을 받는 시스템을 구축하는 방법을 설명합니다.">
+    <meta itemprop="datePublished" content="2025-02-25T18:57:00+09:00">
+    <meta itemprop="dateModified" content="2025-02-25T19:36:00+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[AWS] AWS Lambda와 Notion API를 활용한 15분 단위 자동 기록 시스템
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-02-25T18:57:00+09:00">February 25, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#들어가며">들어가며</a><ul><li><a href="#시스템-개요">시스템 개요</a></li><li><a href="#notion-api-설정">Notion API 설정</a><ul><li><a href="#1-notion-api-key-발급">1. Notion API Key 발급</a></li><li><a href="#2-notion-database-id-확인">2. Notion Database ID 확인</a></li><li><a href="#3-integration-등록">3. Integration 등록</a></li></ul></li><li><a href="#slack-webhook-설정">Slack Webhook 설정</a><ul><li><a href="#1-slack-app-생성">1. Slack App 생성</a></li></ul></li><li><a href="#aws-lambda-배포-및-설정">AWS Lambda 배포 및 설정</a><ul><li><a href="#1-lambda-함수-작성">1. Lambda 함수 작성</a></li><li><a href="#2-필요-라이브러리-설치-및-layer-생성">2. 필요 라이브러리 설치 및 Layer 생성</a></li><li><a href="#3-eventbridge를-통한-자동-실행-설정">3. EventBridge를 통한 자동 실행 설정</a></li></ul></li><li><a href="#마무리">마무리</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <h1 id="들어가며">들어가며</h1>
+
+<p>지난 글에서는 뇌과학적으로 게으름과 무기력을 극복하는 방법에 대해 다루었습니다. 그 방법 중 하나로 내가 하고 있는 행동이나 생각을 말로 설명하는 것이 있었는데, 이를 확장하여 15분 단위로 행동을 기록하면 시간을 효율적으로 사용할 뿐만 아니라 과거의 내가 어떤 행동을 했는지 기억할 수 있다는 장점이 있습니다. 그래서 이를 실천하기 위해 AWS Lambda와 Notion API, Slack Webhook을 활용하여 자동 기록 시스템을 구축하였습니다.</p>
+
+<h2 id="시스템-개요">시스템 개요</h2>
+
+<p>이 시스템은 다음과 같은 방식으로 동작합니다:</p>
+
+<ol>
+  <li>AWS Lambda 함수를 작성하여 15분 단위로 실행되도록 설정합니다.</li>
+  <li>Amazon EventBridge를 이용해 정해진 시간마다 Lambda 함수를 실행합니다.</li>
+  <li>실행된 Lambda 함수는 Notion API를 통해 데이터베이스에 새로운 행을 추가합니다.</li>
+  <li>동시에 Slack Webhook을 이용하여 15분이 지났음을 알리는 메시지를 Slack에 전송합니다.</li>
+</ol>
+
+<h2 id="notion-api-설정">Notion API 설정</h2>
+
+<h3 id="1-notion-api-key-발급">1. Notion API Key 발급</h3>
+
+<p>Notion API를 사용하려면 API Key와 Database ID가 필요합니다.</p>
+
+<ul>
+  <li>Notion 웹사이트에서 <a href="https://developers.notion.com/">Developers 페이지</a>에 접속합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">View My Integration</code> -&gt; <code class="language-plaintext highlighter-rouge">New Integration</code> 버튼을 클릭하여 정보를 입력하고 API Key를 발급받습니다.</li>
+</ul>
+
+<h3 id="2-notion-database-id-확인">2. Notion Database ID 확인</h3>
+
+<ul>
+  <li>생성한 Notion 데이터베이스에서 <code class="language-plaintext highlighter-rouge">...</code> 버튼을 클릭 후 <code class="language-plaintext highlighter-rouge">Copy link to view</code>를 선택합니다.</li>
+  <li>복사한 링크는 다음과 같은 형태입니다.
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://www.notion.so/secrett2633/{database_id}?v={필요없는 값}
+</code></pre></div>    </div>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">{database_id}</code> 부분만 추출하여 사용합니다.</li>
+</ul>
+
+<h3 id="3-integration-등록">3. Integration 등록</h3>
+
+<ul>
+  <li>Notion 데이터베이스에서 <code class="language-plaintext highlighter-rouge">...</code> 버튼 -&gt; <code class="language-plaintext highlighter-rouge">Connection</code> -&gt; 위에서 생성한 Integration을 선택하여 등록합니다.</li>
+  <li>이 과정을 거치지 않으면 API 요청 시 에러가 발생할 수 있습니다.</li>
+</ul>
+
+<h2 id="slack-webhook-설정">Slack Webhook 설정</h2>
+
+<h3 id="1-slack-app-생성">1. Slack App 생성</h3>
+
+<ul>
+  <li><a href="https://api.slack.com/apps">Slack API 페이지</a>에서 <code class="language-plaintext highlighter-rouge">Slack App</code>을 생성합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Incoming Webhooks</code> 메뉴로 이동하여 Webhook 기능을 활성화합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Add New Webhook to Workspace</code> 버튼을 눌러 Webhook URL을 발급받습니다.</li>
+  <li>발급받은 URL을 사용하여 특정 Slack 채널에 메시지를 전송할 수 있습니다.</li>
+</ul>
+
+<h2 id="aws-lambda-배포-및-설정">AWS Lambda 배포 및 설정</h2>
+
+<h3 id="1-lambda-함수-작성">1. Lambda 함수 작성</h3>
+
+<ul>
+  <li>Lambda 함수에서 Notion API를 호출하여 데이터베이스에 새로운 행을 추가합니다.</li>
+  <li>Slack Webhook을 호출하여 알림 메시지를 전송합니다.</li>
+  <li>Python을 사용하여 함수를 작성하며, <code class="language-plaintext highlighter-rouge">requests</code>, <code class="language-plaintext highlighter-rouge">pytz</code> 라이브러리를 사용합니다.</li>
+</ul>
+
+<h3 id="2-필요-라이브러리-설치-및-layer-생성">2. 필요 라이브러리 설치 및 Layer 생성</h3>
+
+<p>AWS Lambda는 기본적으로 <code class="language-plaintext highlighter-rouge">requests</code>, <code class="language-plaintext highlighter-rouge">pytz</code> 등의 라이브러리를 포함하지 않으므로 Layer를 생성하여 추가해야 합니다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir </span>python
+pip <span class="nb">install </span>requests pytz <span class="nt">-t</span> python/
+zip <span class="nt">-r</span> layer.zip python/
+</code></pre></div></div>
+
+<p>이제 생성한 <code class="language-plaintext highlighter-rouge">layer.zip</code>을 AWS Lambda에 업로드하여 Layer를 추가할 수 있습니다.</p>
+
+<ol>
+  <li>AWS Lambda에서 <code class="language-plaintext highlighter-rouge">계층 생성</code> 버튼 클릭</li>
+  <li>이름, 설명, 런타임을 선택하고 <code class="language-plaintext highlighter-rouge">layer.zip</code> 파일을 업로드</li>
+  <li>생성된 Layer를 Lambda 함수에 추가</li>
+</ol>
+
+<h3 id="3-eventbridge를-통한-자동-실행-설정">3. EventBridge를 통한 자동 실행 설정</h3>
+
+<p>Lambda 함수를 15분마다 자동 실행되도록 EventBridge를 설정합니다.</p>
+
+<ol>
+  <li><strong>Amazon EventBridge</strong> -&gt; <code class="language-plaintext highlighter-rouge">스케줄러 일정</code> -&gt; <code class="language-plaintext highlighter-rouge">일정 생성</code></li>
+  <li>이름과 설명 입력 후 <code class="language-plaintext highlighter-rouge">반복 일정</code>을 선택</li>
+  <li><code class="language-plaintext highlighter-rouge">cron 표현식</code> 입력 (예: 매일 9시~23시 사이 15분 간격 실행)
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0/15 9-23 * * ? *
+</code></pre></div>    </div>
+  </li>
+  <li>다음 버튼을 눌러 <code class="language-plaintext highlighter-rouge">AWS Lambda 함수</code>를 선택하고 생성한 함수를 연결</li>
+  <li>설정을 완료하여 일정이 자동 실행되도록 구성</li>
+</ol>
+
+<h2 id="마무리">마무리</h2>
+
+<p>이제 설정이 완료되었으므로, 15분마다 Notion 데이터베이스에 자동으로 시간이 기록되고 Slack 알림을 받을 수 있습니다. 이를 통해 자신의 시간 사용을 효율적으로 관리하고 기록할 수 있습니다.</p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#aws" class="page__taxonomy-item" rel="tag">AWS</a><span class="sep">, </span>
+    
+      <a href="/tags/#eventbridge" class="page__taxonomy-item" rel="tag">EventBridge</a><span class="sep">, </span>
+    
+      <a href="/tags/#lambda" class="page__taxonomy-item" rel="tag">Lambda</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#aws" class="page__taxonomy-item" rel="tag">AWS</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-02-25">February 25, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/etc/chrome-extension/block-youtube-with-chrome-extension/" class="pagination--pager" title="[Chrome Extention] YouTube 차단 확장 프로그램 개발하기
+">Previous</a>
+    
+    
+      <a href="/me/brain-hack-productivity/" class="pagination--pager" title="뇌과학적으로 게으름과 무기력을 극복하는 방법
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Like</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/review/2025-9-24-Zero-Shot_Multi-Spectral_Learning_Reimagining_a_Generalist_Multimodal_Gemini_2.5_Model_for_Remote_Sensing_Applications/" rel="permalink">[논문리뷰] Zero-Shot Multi-Spectral Learning: Reimagining a Generalist Multimodal Gemini 2.5 Model for Remote Sensing Applications
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-24T13:14:19+09:00">September 24, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Genady Beryozkin이 [arXiv]에 게시한 ‘Zero-Shot Multi-Spectral Learning: Reimagining a Generalist Multimodal Gemini 2.5 Model for Remote Sensing Applications’ 논문에 ...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/review/2025-9-24-What_Characterizes_Effective_Reasoning_Revisiting_Length_Review_and_Structure_of_CoT/" rel="permalink">[논문리뷰] What Characterizes Effective Reasoning? Revisiting Length, Review, and Structure of CoT
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-24T13:14:19+09:00">September 24, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Anthony Hartshorn이 [arXiv]에 게시한 ‘What Characterizes Effective Reasoning? Revisiting Length, Review, and Structure of CoT’ 논문에 대한 자세한 리뷰입니다.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/review/2025-9-24-VolSplat_Rethinking_Feed-Forward_3D_Gaussian_Splatting_with_Voxel-Aligned_Prediction/" rel="permalink">[논문리뷰] VolSplat: Rethinking Feed-Forward 3D Gaussian Splatting with Voxel-Aligned Prediction
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-24T13:14:19+09:00">September 24, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Haoxiao Wang이 [arXiv]에 게시한 ‘VolSplat: Rethinking Feed-Forward 3D Gaussian Splatting with Voxel-Aligned Prediction’ 논문에 대한 자세한 리뷰입니다.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/review/2025-9-24-VIR-Bench_Evaluating_Geospatial_and_Temporal_Understanding_of_MLLMs_via_Travel_Video_Itinerary_Reconstruction/" rel="permalink">[논문리뷰] VIR-Bench: Evaluating Geospatial and Temporal Understanding of MLLMs via Travel Video Itinerary Reconstruction
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-24T13:14:19+09:00">September 24, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">So Fukuda이 [arXiv]에 게시한 ‘VIR-Bench: Evaluating Geospatial and Temporal Understanding of MLLMs via Travel Video Itinerary Reconstruction’ 논문에 대한 자세한 리뷰입니다.
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>
