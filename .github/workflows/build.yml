@@ -7,9 +7,6 @@ on:
   workflow_dispatch: {}
   repository_dispatch: {}
 
-permissions:
-  contents: write
-
 jobs:
   build:
     if: github.repository == 'mmistakes/minimal-mistakes'
@@ -18,28 +15,6 @@ jobs:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0
-
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.x'
-
-    - name: Install Python dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-
-    - name: Generate sitemaps
-      run: |
-        python scripts/generate_sitemaps.py
-
-    - name: Commit and push sitemap changes
-      run: |
-        git config --global user.email "github-actions@github.com"
-        git config --global user.name "github-actions"
-        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
-        git add sitemap-*.xml
-        git diff --quiet && git diff --staged --quiet || (git commit -m "Update sitemaps $(date +'%Y-%m-%d')" && git push)
 
     - uses: ruby/setup-ruby@v1
       with:
