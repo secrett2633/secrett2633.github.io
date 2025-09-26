@@ -4,18 +4,20 @@
 
 #main {
   @include clearfix;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1em;
-  padding-right: 1em;
+  margin-left: 0; /* 좌측 마진 제거로 사이드바가 화면 끝에 붙도록 */
+  margin-right: 0; /* 우측 마진도 제거 */
+  padding-left: 0; /* 좌측 패딩 제거로 사이드바가 화면 끝에 붙도록 */
+  padding-right: 0; /* 우측 패딩도 제거 */
   -webkit-animation: $intro-transition;
   animation: $intro-transition;
-  max-width: 100%;
+  max-width: 100%; /* 전체 화면 너비 사용 */
+  width: 100%; /* 전체 화면 너비 사용 */
   -webkit-animation-delay: 0.15s;
   animation-delay: 0.15s;
 
   @include breakpoint($x-large) {
-    max-width: $max-width;
+    max-width: 100%; /* max-width 제한 제거 */
+    width: 100%; /* 전체 화면 너비 사용 */
   }
 }
 
@@ -41,17 +43,17 @@ body {
     float: right;
     
     width: calc(100% - #{$left-sidebar-width-narrow});
-    padding-right: $right-sidebar-width-narrow;
+    padding-right: 1em; /* 사이드바 너비를 줄여서 포스트 영역 확장 */
     /* 2022.01.19 gap between sidebar and page */
-    padding-left: 3em;
+    padding-left: 2em; /* 좌측 패딩도 줄임 */
   }
 
   @include breakpoint($x-large) {
     
     width: calc(100% - #{$left-sidebar-width});
-    padding-right: $right-sidebar-width;
+    padding-right: 1em; /* 사이드바 너비를 줄여서 포스트 영역 확장 */
     /* 2022.01.19 gap between sidebar and page */
-    padding-left: 3em;
+    padding-left: 2em; /* 좌측 패딩도 줄임 */
   }
 
   .page__inner-wrap {
@@ -329,6 +331,10 @@ body {
   strong {
     margin-right: 10px;
   }
+  
+  /* 카테고리 컴포넌트를 좌측에 딱 붙이기 위한 스타일 */
+  margin-left: 0;
+  padding-left: 0;
 }
 
 .page__taxonomy-item {

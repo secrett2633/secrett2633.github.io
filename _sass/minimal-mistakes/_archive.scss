@@ -10,12 +10,12 @@
   @include breakpoint($large) {
     float: right;
     width: calc(100% - #{$left-sidebar-width-narrow});
-    padding-right: $right-sidebar-width-narrow;
+    padding-right: 1em; /* 포스트 영역 확장을 위해 패딩 줄임 */
   }
 
   @include breakpoint($x-large) {
     width: calc(100% - #{$left-sidebar-width});
-    padding-right: $right-sidebar-width;
+    padding-right: 1em; /* 포스트 영역 확장을 위해 패딩 줄임 */
   }
 }
 

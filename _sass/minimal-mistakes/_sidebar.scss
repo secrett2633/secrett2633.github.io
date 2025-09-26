@@ -19,7 +19,8 @@
 
   @include breakpoint($large) {
     float: left;
-    width: calc(#{$left-sidebar-width-narrow} - 1em);
+    width: $left-sidebar-width-narrow; /* 마진 제거로 너비 조정 */
+    margin-left: 0; /* 좌측에 완전히 딱 붙이기 */
 
     &.sticky {
       overflow-y: auto;
@@ -32,8 +33,8 @@
   }
 
   @include breakpoint($x-large) {
-    width: calc(#{$left-sidebar-width} - 1em);
-
+    width: $left-sidebar-width; /* 마진 제거로 너비 조정 */
+    margin-left: 0; /* 좌측에 완전히 딱 붙이기 */
   }
 
   > * {
@@ -43,8 +44,10 @@
     // margin-top: 2.5em;
     margin-top: 0.8em;
     margin-bottom: 1em;
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 0; /* 좌측에 완전히 딱 붙이기 */
+    margin-right: 0;
+    padding-left: 0.5em; /* 약간의 패딩만 유지 */
+    padding-right: 0.5em;
   }
 
   h2,
@@ -82,8 +85,9 @@
     top: 0;
     right: 0;
     width: $right-sidebar-width-narrow;
-    margin-right: -1 * $right-sidebar-width-narrow;
-    padding-left: 5em;
+    margin-right: 0; /* 우측에 완전히 딱 붙이기 */
+    padding-left: 0.3em; /* 최소 패딩 */
+    padding-right: 0.3em; /* 최소 패딩 */
     z-index: 10;
 
     &.sticky {
@@ -97,7 +101,9 @@
 
   @include breakpoint($x-large) {
     width: $right-sidebar-width;
-    margin-right: -1 * $right-sidebar-width;
+    margin-right: 0; /* 우측에 완전히 딱 붙이기 */
+    padding-left: 0.3em; /* 최소 패딩 */
+    padding-right: 0.3em; /* 최소 패딩 */
   }
 }
 

@@ -1,0 +1,117 @@
+---
+title: "[Rejected] PEP 256 - Docstring Processing System Framework"
+excerpt: "Python Enhancement Proposal 256: 'Docstring Processing System Framework'에 대한 한국어 번역입니다."
+categories:
+  - Python
+  - PEP
+tags:
+  - Python
+  - PEP
+  - Translation
+permalink: /python/pep/256/
+toc: true
+toc_sticky: true
+date: 2025-09-26 17:36:23+0900
+last_modified_at: 2025-09-26 17:36:23+0900
+published: true
+---
+> **원문 링크:** [PEP 256 - Docstring Processing System Framework](https://peps.python.org/pep-0256/)
+>
+> **상태:** Rejected | **유형:** Standards Track | **작성일:** 01-Jun-2001
+
+## PEP 256 – Docstring 처리 시스템 프레임워크 (Docstring Processing System Framework)
+
+*   **작성자**: David Goodger
+*   **상태**: Rejected (거부됨)
+*   **유형**: Standards Track
+*   **생성일**: 2001년 6월 1일
+
+### 거부 공지 (Rejection Notice)
+이 제안은 추진력을 잃어 결국 거부되었습니다.
+
+### 요약 (Abstract)
+Python은 인라인 문서화에 적합한 언어입니다. 내장된 docstring 문법을 통해 제한적인 형태의 리터럴 프로그래밍(Literate Programming)을 쉽게 구현할 수 있습니다. 하지만 Python docstring을 추출하고 처리하는 만족스러운 표준 도구가 없는 실정입니다. 표준 도구 세트의 부재는 Python 인프라의 중요한 공백이며, 이 PEP는 그 공백을 채우는 것을 목표로 했습니다.
+
+docstring 처리와 관련된 문제는 논쟁의 여지가 많고 해결하기 어려웠습니다. 이 PEP는 Docstring 처리 시스템(Docstring Processing System, DPS) 프레임워크를 제안했는데, 이는 구성 요소(프로그램 및 개념적)를 분리하여 합의(하나의 해결책) 또는 분산(다수의 해결책)을 통해 개별 문제를 해결할 수 있도록 했습니다. 이는 다양한 플러그인 구성 요소(입력 컨텍스트 리더, 마크업 파서, 출력 형식 작성기)를 사용할 수 있도록 하는 표준 인터페이스를 촉진합니다.
+
+DPS 프레임워크의 개념은 구현 세부 사항과 독립적으로 제시되었습니다.
+
+### Docstring PEP 로드맵 (Road Map to the Docstring PEPs)
+docstring 처리에는 여러 측면이 있습니다. "Docstring PEPs"는 각 문제를 독립적으로 또는 가능한 한 가깝게 다루기 위해 이슈를 분할했습니다. 개별 측면 및 관련 PEP는 다음과 같습니다.
+
+*   **Docstring 문법**: PEP 287, "reStructuredText Docstring Format"은 Python docstring, PEP 및 기타 용도에 대한 문법을 제안합니다.
+*   **Docstring 의미론 (Semantics)**: 최소 두 가지 측면으로 구성됩니다.
+    *   **규칙 (Conventions)**: docstring의 고수준 구조. PEP 257, "Docstring Conventions"에서 다룹니다.
+    *   **방법론 (Methodology)**: docstring의 정보 콘텐츠에 대한 규칙. 이 부분은 다루지 않았습니다.
+*   **처리 메커니즘 (Processing mechanisms)**: 이 PEP (PEP 256)는 추상적인 docstring 처리 시스템(DPS)의 고수준 문제와 명세를 설명합니다. PEP 258, "Docutils Design Specification"은 개발 중인 하나의 DPS 설계 및 구현에 대한 개요입니다.
+*   **출력 스타일 (Output styles)**: 개발자들은 소스 코드에서 생성된 문서가 보기 좋기를 원하며, 이에 대한 다양한 아이디어가 있습니다. PEP 258은 "Stylist Transforms"를 언급합니다. docstring 처리의 이 측면은 아직 완전히 탐색되지 않았습니다.
+
+이슈를 분리함으로써 합의를 더 쉽게 형성하고 (더 작은 논쟁), 차이점을 더 쉽게 수용할 수 있습니다.
+
+### 제안 배경 (Rationale)
+다른 언어에는 표준 인라인 문서화 시스템이 있습니다. 예를 들어, Perl에는 POD ("Plain Old Documentation")가 있고 Java에는 Javadoc이 있지만, 이들은 Pythonic 방식과 잘 맞지 않습니다. POD 문법은 매우 명시적이지만, 가독성 면에서는 Perl과 유사합니다. Javadoc은 HTML 중심이며, " @field " 태그를 제외하고 원시 HTML이 마크업에 사용됩니다. Autoduck 및 Web (Tangle & Weave)과 같은 여러 언어에 유용한 일반 도구도 있습니다.
+
+Python용 자동 문서화 시스템을 작성하려는 시도가 많았습니다 (모든 목록은 아님).
+
+*   Marc-Andre Lemburg의 `doc.py`
+*   Daniel Larsson의 `pythondoc` & `gendoc`
+*   Doug Hellmann의 `HappyDoc`
+*   Laurence Tratt의 `Crystal` (더 이상 웹에서 사용 불가)
+*   Ka-Ping Yee의 `pydoc` (`pydoc.py`는 이제 Python 표준 라이브러리의 일부입니다. 아래 참조)
+*   Tony Ibbs의 `docutils` (Tony는 이 이름을 Docutils 프로젝트에 기부했습니다)
+*   Edward Loper의 STminus 형식화 및 관련 노력
+
+각기 다른 목표를 가진 이러한 시스템들은 다양한 성공을 거두었습니다. 위의 많은 시스템에서 문제점은 지나친 야심과 유연성 부족이 결합되었다는 것이었습니다. 이들은 docstring 추출 시스템, 마크업 파서, 내부 처리 시스템, 그리고 고정된 스타일을 가진 하나 이상의 출력 형식 작성기와 같은 자체 포함된 구성 요소 세트를 제공했습니다. 필연적으로 각 시스템의 하나 이상의 측면에 심각한 단점이 있었고, 쉽게 확장하거나 수정할 수 없었기 때문에 표준 도구로 채택되지 못했습니다.
+
+"전부 아니면 전무(all or nothing)" 접근 방식은 성공할 수 없다는 것이 명확해졌습니다 (적어도 이 작성자에게는). 모든 이해 관계자가 단일의 자체 포함 시스템에 동의할 수 없었기 때문입니다. 구성 요소가 여러 번 구현될 수 있도록 설계된 모듈형 구성 요소 접근 방식만이 성공할 유일한 기회일 수 있습니다. 표준 구성 요소 간 API는 전체에 대한 자세한 지식 없이도 DPS 구성 요소를 이해할 수 있게 하여 기여의 장벽을 낮추고 궁극적으로 풍부하고 다양한 시스템을 만들 것입니다.
+
+docstring 처리 시스템의 각 구성 요소는 독립적으로 개발되어야 합니다. "최고의 시스템(best of breed)"을 선택하여 기존 시스템에서 병합하거나 새로 개발해야 합니다. 이 시스템은 Python의 표준 라이브러리에 포함되어야 합니다.
+
+### PyDoc 및 기타 기존 시스템 (PyDoc & Other Existing Systems)
+PyDoc은 2.1 릴리스부터 Python 표준 라이브러리의 일부가 되었습니다. PyDoc은 Python 인터랙티브 인터프리터 내에서, 셸 명령줄에서, 그리고 GUI 창을 통해 웹 브라우저(HTML)로 docstring을 추출하고 표시합니다. 매우 유용한 도구이지만 PyDoc에는 몇 가지 단점이 있습니다.
+
+*   GUI/HTML의 경우, 식별자 이름에 대한 일부 휴리스틱 하이퍼링크를 제외하고 docstring에 대한 서식 지정이 전혀 없습니다. 원치 않는 줄 바꿈을 피하기 위해 `<p><small><tt>` 태그 내에 표시됩니다. 아쉽게도 그 결과는 매력적이지 않습니다.
+*   PyDoc은 가져온 모듈 객체에서 docstring 및 구조 정보(클래스 식별자, 메서드 시그니처 등)를 추출합니다. 신뢰할 수 없는 코드를 가져오는 것과 관련된 보안 문제가 있습니다. 또한 가져올 때 주석, "추가 docstring"(docstring 컨텍스트가 아닌 문자열 리터럴, PEP 258 참조) 및 정의 순서와 같은 소스 정보가 손실됩니다.
+
+이 PEP에서 제안된 기능은 HTML 페이지를 제공할 때 PyDoc에 추가되거나 PyDoc에 의해 사용될 수 있었습니다. 제안된 docstring 처리 시스템의 기능은 PyDoc이 현재 형태로 필요로 하는 것보다 훨씬 많습니다. 독립적인 도구가 개발되거나 (PyDoc이 사용하거나 사용하지 않을 수 있음), PyDoc이 이 기능을 포괄하도록 확장되어 docstring 처리 시스템(또는 그러한 시스템 중 하나)이 될 수 있습니다. 해당 결정은 이 PEP의 범위를 벗어납니다.
+
+마찬가지로 다른 기존 docstring 처리 시스템의 경우, 작성자는 이 프레임워크와의 호환성을 선택하거나 선택하지 않을 수 있습니다. 그러나 이 프레임워크가 Python 표준으로 받아들여지고 채택된다면, 호환성은 이러한 시스템의 미래에 중요한 고려 사항이 될 것입니다.
+
+### 명세 (Specification)
+docstring 처리 시스템 프레임워크는 다음과 같이 나뉩니다.
+
+*   **Docstring 규칙 (Docstring conventions)**: 다음과 같은 문제를 문서화합니다.
+    *   무엇을 어디에 문서화해야 하는가.
+    *   첫 번째 줄은 한 줄 요약이다.
+    *   PEP 257은 이러한 문제 중 일부를 문서화합니다.
+*   **Docstring 처리 시스템 설계 명세 (Docstring processing system design specification)**: 다음과 같은 문제를 문서화합니다.
+    *   **고수준 명세**: DPS가 하는 일.
+    *   실행 가능한 스크립트용 명령줄 인터페이스.
+    *   시스템 Python API.
+    *   Docstring 추출 규칙.
+    *   입력 컨텍스트를 캡슐화하는 리더(Readers).
+    *   파서(Parsers).
+    *   **문서 트리 (Document tree)**: 중간 내부 데이터 구조. 파서와 리더의 출력, 그리고 작성기(Writer)의 입력은 모두 동일한 데이터 구조를 공유합니다.
+    *   문서 트리를 수정하는 변환(Transforms).
+    *   출력 형식용 작성기(Writers).
+    *   출력 관리(단일 파일, 여러 파일 또는 메모리 내 객체)를 처리하는 배포자(Distributors).
+    *   이러한 문제는 모든 docstring 처리 시스템 구현에 적용 가능합니다. PEP 258은 이러한 문제를 문서화합니다.
+*   **Docstring 처리 시스템 구현 (Docstring processing system implementation)**:
+    *   **입력 마크업 명세**: docstring 문법. PEP 287은 표준 문법을 제안합니다.
+    *   입력 파서 구현.
+    *   입력 컨텍스트 리더 ("모드": Python 소스 코드, PEP, 독립 실행형 텍스트 파일, 이메일 등) 및 구현.
+    *   **스타일리스트 (Stylists)**: 특정 입력 컨텍스트 리더는 다양한 출력 문서 스타일을 허용하는 관련 스타일리스트를 가질 수 있습니다.
+    *   출력 형식(HTML, XML, TeX, DocBook, info 등) 및 작성기 구현.
+
+구성 요소 1, 2/3/5, 4는 개별 동반 PEP의 주제입니다. 프레임워크 또는 문법/파서의 다른 구현이 있는 경우 추가 PEP가 필요할 수 있습니다. 구성 요소 6 및 7의 여러 구현이 필요할 것입니다. 이 구성 요소에 대해서는 PEP 메커니즘이 과도할 수 있습니다.
+
+### 프로젝트 웹사이트 (Project Web Site)
+이 작업을 위해 http://docutils.sourceforge.net/ 에 SourceForge 프로젝트가 설정되었습니다.
+
+### 저작권 (Copyright)
+이 문서는 퍼블릭 도메인(public domain)에 공개되었습니다.
+
+### 감사 (Acknowledgements)
+이 문서는 Python Doc-SIG 아카이브에서 아이디어를 빌렸습니다. 과거와 현재의 모든 회원들에게 감사드립니다.
+
+> ⚠️ **알림:** 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.
