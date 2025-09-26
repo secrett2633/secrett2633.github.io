@@ -1,0 +1,200 @@
+---
+title: "[Final] PEP 573 - Module State Access from C Extension Methods"
+excerpt: "Python Enhancement Proposal 573: 'Module State Access from C Extension Methods'에 대한 한국어 번역입니다."
+categories:
+  - Python
+  - PEP
+tags:
+  - Python
+  - PEP
+  - Translation
+permalink: /python/pep/573/
+toc: true
+toc_sticky: true
+date: 2025-09-26 23:59:37+0900
+last_modified_at: 2025-09-26 23:59:37+0900
+published: true
+---
+> **원문 링크:** [PEP 573 - Module State Access from C Extension Methods](https://peps.python.org/pep-0573/)
+>
+> **상태:** Final | **유형:** Standards Track | **작성일:** 02-Jun-2016
+
+## PEP 573 – C 확장 메서드에서 모듈 상태 접근
+
+### 개요 (Abstract)
+
+이 PEP(Python Enhancement Proposal) 573은 CPython 확장 메서드(C Extension Methods)가 자신이 정의된 모듈의 상태와 같은 컨텍스트에 접근할 수 있는 방법을 추가할 것을 제안합니다. 이를 통해 확장 메서드는 `PyState_FindModule` 함수를 사용하지 않고 직접 포인터 역참조를 통해 모듈 상태를 조회할 수 있게 됩니다. 이는 프로세스 전역 상태(process global state) 대신 모듈 범위 상태(module-scoped state)를 사용할 때 발생하는 성능 저하를 줄이거나 없애는 효과를 가져옵니다.
+
+이 제안은 PEP 3121 (확장 모듈 초기화 및 종료) 및 PEP 489 (다단계 확장 모듈 초기화) 채택에 남아있던 주요 장애물 중 하나를 해결합니다. PEP 3121과 PEP 489가 다루기 시작한 문제들을 완전히 해결하기 위한 추가적인 단계이지만, 모든 남아있는 문제를 해결하려는 것은 아닙니다. 특히, `nb_add`와 같은 슬롯 메서드(slot methods)에서 모듈 상태에 접근하는 문제는 이 PEP에서 다루지 않습니다.
+
+### 용어 (Terminology)
+
+*   **프로세스 전역 상태 (Process-Global State)**: C 수준의 정적 변수입니다. 매우 낮은 수준의 메모리 저장소이므로 신중하게 관리해야 합니다.
+*   **모듈별 상태 (Per-module State)**: 모듈 객체의 초기화 과정에서 동적으로 할당되는 모듈 객체에 로컬한 상태입니다. 이는 다른 모듈 인스턴스(다른 서브 인터프리터의 인스턴스 포함)로부터 상태를 격리합니다. `PyModule_GetState()`를 통해 접근합니다.
+*   **정적 타입 (Static Type)**: C 수준의 정적 변수로 정의된 타입 객체, 즉 컴파일된 타입 객체입니다. 정적 타입은 모듈 인스턴스 간에 공유되어야 하며, 자신이 속한 모듈에 대한 정보를 가지고 있지 않습니다. 정적 타입은 `__dict__`를 가지지 않습니다(인스턴스는 가질 수 있음).
+*   **힙 타입 (Heap Type)**: 런타임에 생성되는 타입 객체입니다.
+*   **정의 클래스 (Defining Class)**: 메서드(바운드 또는 언바운드)의 정의 클래스는 메서드가 정의된 클래스입니다. 단순히 기본 클래스에서 메서드를 상속받은 클래스는 정의 클래스가 아닙니다. 예를 들어, `int`는 `True.to_bytes`, `True.__floor__`, `int.__repr__`의 정의 클래스입니다. C에서는 해당 `tp_methods` 또는 "tp slots" 항목으로 정의된 클래스입니다. Python에서 정의된 메서드의 경우, 정의 클래스는 `__class__` 클로저 셀에 저장됩니다.
+*   **C-API**: Python 문서에 설명된 "Python/C API"를 의미합니다. CPython이 C-API를 구현하지만, 다른 구현체도 존재합니다.
+
+### 제안 배경 (Rationale)
+
+PEP 489는 확장 모듈을 초기화하는 새로운 방법을 도입하여, 이를 구현하는 확장 모듈에 여러 이점을 제공했습니다.
+*   확장 모듈이 Python 모듈과 유사하게 동작합니다.
+*   확장 모듈은 기존 모듈 객체로 쉽게 로드될 수 있어, `runpy` 또는 확장 모듈 재로드를 가능하게 하는 시스템을 지원할 수 있습니다.
+*   동일한 확장으로부터 여러 모듈을 로드하는 것이 가능해져, 단일 인터프리터에서 모듈 격리(적절한 서브 인터프리터 지원을 위한 핵심 기능)를 테스트할 수 있습니다.
+
+PEP 489 채택의 가장 큰 장애물은 확장 타입의 메서드에서 모듈 상태에 접근하는 것을 허용하는 것이었습니다. 현재 확장 메서드에서 이 상태에 접근하는 방법은 `PyState_FindModule`을 통해 모듈을 조회하는 것입니다(확장 모듈의 모듈 수준 함수와 달리, 이들은 모듈 참조를 인수로 받음). 그러나 `PyState_FindModule`은 스레드 로컬 상태를 쿼리하여 C 수준의 프로세스 전역 접근에 비해 상대적으로 비용이 많이 들고, 결과적으로 모듈 작성자가 이를 사용하는 것을 꺼리게 만듭니다.
+
+또한, `PyState_FindModule`은 각 서브 인터프리터에서 주어진 `PyModuleDef`에 해당하는 모듈이 최대 하나라는 가정에 의존합니다. 이 가정은 PEP 489의 다단계 초기화를 사용하는 모듈에는 적용되지 않으므로, 이러한 모듈에서는 `PyState_FindModule`을 사용할 수 없습니다. 확장 메서드에서 모듈 수준 상태에 접근하기 위한 더 빠르고 안전한 방법이 필요합니다.
+
+#### 배경 (Background)
+
+Python 메서드의 구현은 다음 정보 중 하나 이상에 접근해야 할 수 있습니다.
+*   호출되는 인스턴스(`self`)
+*   기본 함수
+*   정의 클래스(메서드가 정의된 클래스)
+*   해당 모듈
+*   모듈 상태
+
+Python 코드에서는 다음과 같이 Python 수준의 동등한 값을 검색할 수 있습니다.
+```python
+import sys
+class Foo:
+    def meth(self):
+        instance = self
+        module_globals = globals()
+        module_object = sys.modules[__name__] # (1)
+        underlying_function = Foo.meth # (1)
+        defining_class = Foo # (1)
+        defining_class = __class__ # (2)
+```
+참고: 정의 클래스는 `type(self)`가 아닙니다. `type(self)`는 `Foo`의 서브클래스일 수 있기 때문입니다.
+
+(1)로 표시된 문장은 함수의 `__globals__`를 통한 이름 기반 조회에 암묵적으로 의존합니다. Python 코드에서 이는 함수 정의가 실행될 때 `__globals__`가 적절하게 설정되고, 네임스페이스가 조작되어 다른 객체를 반환하더라도 최악의 경우 예외가 발생하므로 가능합니다. `__class__` 클로저(2)는 정의 클래스를 얻는 더 안전한 방법이지만, 여전히 `__closure__`가 적절하게 설정되어야 합니다.
+
+반대로, 확장 메서드는 일반적으로 일반 C 함수로 구현됩니다. 이는 메서드가 인자와 C 수준의 스레드 로컬 및 프로세스 전역 상태에만 접근할 수 있음을 의미합니다. 전통적으로 많은 확장 모듈은 공유 상태를 C 수준의 프로세스 전역 변수에 저장하여 다음과 같은 경우에 문제를 일으켰습니다.
+*   동일한 프로세스에서 여러 초기화/종료 주기 실행
+*   모듈 재로드(예: 조건부 임포트 테스트)
+*   서브 인터프리터에서 확장 모듈 로드
+
+PEP 3121은 `PyState_FindModule` API를 제공하여 이를 해결하려고 시도했지만, 확장 메서드(모듈 수준 함수와 달리)의 경우 여전히 심각한 문제가 있었습니다.
+*   C 수준의 프로세스 전역 상태에 직접 접근하는 것보다 현저히 느립니다.
+*   모듈 재로드를 안정적으로 처리하지 못하는 프로세스 전역 상태에 대한 본질적인 의존성이 여전히 존재합니다.
+
+또한, 모듈 상태와 같은 C 수준의 구조체를 조회할 때 예상치 못한 객체 레이아웃을 제공하면 인터프리터가 충돌할 수 있으므로, 확장 메서드가 예상하는 종류의 객체를 받도록 보장하는 것이 훨씬 더 중요합니다.
+
+#### 제안 (Proposal)
+
+현재 바운드 확장 메서드(`PyCFunction` 또는 `PyCFunctionWithKeywords`)는 `self`와 (해당하는 경우) 제공된 위치 및 키워드 인자만 받습니다. 모듈 수준 확장 함수는 `self` 인자를 통해 정의 모듈 객체에 접근할 수 있지만, 확장 타입의 메서드는 그렇지 않습니다. 메서드는 `self`를 통해 바운드 인스턴스를 받으므로, 정의 클래스나 모듈 수준 상태에 직접 접근할 수 없습니다.
+
+위에 설명된 추가적인 모듈 수준 컨텍스트는 두 가지 변경 사항으로 제공될 수 있습니다. 두 가지 추가 사항 모두 선택 사항입니다. 확장 작성자는 이를 사용하기 위해 옵트인(opt-in)해야 합니다.
+1.  힙 타입 객체에 모듈에 대한 포인터를 추가합니다.
+2.  기본 C 함수에 정의 클래스를 전달합니다.
+
+CPython에서 정의 클래스는 내장 메서드 객체(`PyCFunctionObject`)가 생성될 때 쉽게 사용할 수 있으므로, `PyCFunctionObject`를 확장하는 새로운 구조체에 저장할 수 있습니다. 모듈 상태는 `PyModule_GetState`를 통해 모듈 객체에서 검색할 수 있습니다.
+
+이 제안은 모듈별 상태에 접근해야 하는 메서드를 가진 모든 타입이 정적 타입이 아닌 힙 타입이어야 함을 의미합니다. 이는 단일 확장으로부터 여러 모듈 객체를 로드하는 것을 지원하는 데 필요합니다. C 수준 전역 변수인 정적 타입은 자신이 속한 모듈 객체에 대한 정보를 가지고 있지 않습니다.
+
+#### 슬롯 메서드 (Slot methods)
+
+위의 변경 사항은 `tp_iter` 또는 `nb_add`와 같은 슬롯 메서드에는 적용되지 않습니다. 슬롯 메서드의 문제는 C-API가 고정되어 있어 정의 클래스를 전달하기 위해 단순히 새로운 인자를 추가할 수 없다는 것입니다. 이 문제에 대해 두 가지 가능한 해결책이 제안되었습니다.
+1.  MRO를 탐색하여 클래스를 조회합니다. 이는 잠재적으로 비용이 많이 들지만, 성능이 문제가 되지 않는 경우(예: 모듈 수준 예외 발생 시) 사용할 수 있습니다.
+2.  각 슬롯의 정의 클래스에 대한 포인터를 별도의 테이블인 `__typeslots__`에 저장합니다. 이는 기술적으로 가능하고 빠르지만, 상당히 침범적입니다.
+
+이 문제에 영향을 받는 모듈은 스레드 로컬 상태 또는 PEP 567 컨텍스트 변수를 캐싱 메커니즘으로 사용하거나, 자체적인 재로드 친화적인 조회 캐싱 스키마를 정의할 수도 있습니다. 이 문제를 일반적​​으로 해결하는 것은 향후 PEP로 미뤄집니다.
+
+### 명세 (Specification)
+
+#### 힙 타입에 모듈 참조 추가 (Adding module references to heap types)
+
+모듈을 생성하기 위한 새로운 팩토리 메서드가 C-API에 추가될 것입니다.
+```c
+PyObject* PyType_FromModuleAndSpec(PyObject *module, PyType_Spec *spec, PyObject *bases)
+```
+이 함수는 `PyType_FromSpecWithBases`와 동일하게 작동하며, 추가적으로 제공된 모듈 객체를 새 타입과 연결합니다. (CPython에서는 아래에 설명된 `ht_module`을 설정합니다.)
+
+또한, 접근자 `PyObject * PyType_GetModule(PyTypeObject *)`가 제공될 것입니다. 이 함수는 타입에 연결된 모듈이 설정되어 있으면 해당 모듈을 반환하고, 그렇지 않으면 `TypeError`를 설정하고 `NULL`을 반환합니다. 정적 타입이 주어지면 항상 `TypeError`를 설정하고 `NULL`을 반환합니다.
+
+CPython에서 이를 구현하기 위해 `PyHeapTypeObject` 구조체에 `PyObject *ht_module`이라는 새 멤버가 추가되어 연결된 모듈에 대한 포인터를 저장합니다. 기본적으로 `NULL`이며, 타입 객체가 생성된 후에는 수정되어서는 안 됩니다. `ht_module` 멤버는 서브클래스에 의해 상속되지 않습니다. 필요한 각 개별 타입에 대해 `PyType_FromSpecWithBases`를 사용하여 설정해야 합니다.
+
+일반적으로 `ht_module`이 설정된 클래스를 생성하면 클래스와 모듈을 포함하는 순환 참조(reference cycle)가 생성됩니다. 모듈을 해체하는 작업은 성능에 민감한 작업이 아니며, 모듈 수준 함수도 일반적으로 순환 참조를 생성하므로 이는 문제가 되지 않습니다. 함수의 `f_globals`를 통해 함수 순환을 끊는 기존의 "모든 모듈 전역 변수를 `None`으로 설정"하는 코드는 `ht_module`을 통한 새로운 순환도 끊을 것입니다.
+
+#### 확장 메서드에 정의 클래스 전달 (Passing the defining class to extension methods)
+
+`PyMethodDef.ml_flags`에 사용될 새로운 시그니처 플래그 `METH_METHOD`가 추가될 것입니다. 개념적으로 이는 함수 시그니처에 `defining_class`를 추가합니다. 초기 구현을 쉽게 하기 위해 이 플래그는 `(METH_FASTCALL | METH_KEYWORDS | METH_METHOD)`로만 사용할 수 있습니다. (`METH_O` 또는 단순 `METH_FASTCALL`과 같은 다른 플래그와는 함께 사용할 수 없지만, `METH_CLASS` 또는 `METH_STATIC`과 결합될 수 있습니다.)
+
+이 플래그 조합을 사용하여 정의된 메서드에 대한 C 함수는 `PyCMethod`라는 새로운 C 시그니처를 사용하여 호출될 것입니다.
+```c
+PyObject *PyCMethod(PyObject *self, PyTypeObject *defining_class, PyObject *const *args, size_t nargsf, PyObject *kwnames)
+```
+`METH_VARARGS | METH_METHOD`와 같은 추가 조합은 나중에(또는 이 PEP의 초기 구현에서도) 추가될 수 있습니다. 그러나 `METH_METHOD`는 항상 추가 플래그여야 합니다. 즉, 정의 클래스는 필요할 때만 전달되어야 합니다.
+
+CPython에서는 추가 정보를 저장하기 위해 `PyCFunctionObject`를 확장하는 새로운 구조체가 추가될 것입니다.
+```c
+typedef struct {
+    PyCFunctionObject func;
+    PyTypeObject *mm_class; /* C 함수에 'defining_class' 인자로 전달됨 */
+} PyCMethodObject;
+```
+`PyCFunction` 구현은 `METH_METHOD` 플래그가 설정된 것을 발견하면 `mm_class`를 `PyCMethod` C 함수로 전달할 것입니다. `mm_class`에 더 쉽게 접근할 수 있도록 새로운 매크로 `PyCFunction_GET_CLASS(cls)`가 추가될 것입니다.
+
+C 메서드는 정의 클래스/모듈에 대한 접근이 필요하지 않은 경우 다른 `METH_*` 시그니처를 계속 사용할 수 있습니다. `METH_METHOD`가 설정되지 않은 경우 `PyCMethodObject`로 캐스팅하는 것은 유효하지 않습니다.
+
+#### Argument Clinic
+
+`Argument Clinic`을 사용하여 메서드에 정의 클래스를 전달하는 것을 지원하기 위해, `defining_class`라는 새로운 컨버터가 CPython의 `Argument Clinic` 도구에 추가될 것입니다. 각 메서드는 이 컨버터를 사용하는 인자를 하나만 가질 수 있으며, `self` 뒤에 오거나, `self`가 사용되지 않는 경우 첫 번째 인자로 와야 합니다. 이 인자는 `PyTypeObject *` 타입이 될 것입니다.
+
+사용될 때, `Argument Clinic`은 `METH_FASTCALL | METH_KEYWORDS | METH_METHOD`를 호출 규칙으로 선택할 것입니다. 이 인자는 `__text_signature__`에 나타나지 않을 것입니다. 새로운 컨버터는 `METH_METHOD` 규칙을 사용할 수 없는 `__init__` 및 `__new__` 메서드와는 초기에는 호환되지 않을 것입니다.
+
+#### 헬퍼 (Helpers)
+
+힙 타입에서 모듈별 상태에 접근하는 것은 매우 일반적인 작업입니다. 이를 더 쉽게 하기 위해 헬퍼 함수가 추가될 것입니다.
+```c
+void *PyType_GetModuleState(PyObject *type)
+```
+이 함수는 힙 타입을 인자로 받고, 성공하면 힙 타입이 속한 모듈의 상태에 대한 포인터를 반환합니다. 실패 시 두 가지 시나리오가 발생할 수 있습니다. 비-타입 객체나 모듈이 없는 타입이 전달되면 `TypeError`가 설정되고 `NULL`이 반환됩니다. 모듈이 발견되면, `NULL`일 수도 있는 상태에 대한 포인터가 예외 설정 없이 반환됩니다.
+
+#### 초기 구현에서 변환될 모듈 (Modules Converted in the Initial Implementation)
+
+접근 방식을 검증하기 위해 초기 구현 과정에서 `_elementtree` 모듈이 수정될 것입니다.
+
+### API 변경 및 추가 요약 (Summary of API Changes and Additions)
+
+Python C-API에 다음이 추가될 것입니다.
+*   `PyType_FromModuleAndSpec` 함수
+*   `PyType_GetModule` 함수
+*   `PyType_GetModuleState` 함수
+*   `METH_METHOD` 호출 플래그
+*   `PyCMethod` 함수 시그니처
+
+다음 추가 사항은 CPython 구현 세부 사항으로 추가되며 문서화되지 않을 것입니다.
+*   `PyCFunction_GET_CLASS` 매크로
+*   `PyCMethodObject` 구조체
+*   `_heaptypeobject`의 `ht_module` 멤버
+*   `Argument Clinic`의 `defining_class` 컨버터
+
+### 하위 호환성 (Backwards Compatibility)
+
+모든 힙 타입에 새로운 포인터 하나가 추가됩니다. 다른 모든 변경 사항은 새로운 함수와 구조체를 추가하거나 개인 구현 세부 사항을 변경하는 것입니다.
+
+### 구현 (Implementation)
+
+초기 구현은 GitHub 리포지토리에서 확인할 수 있으며, 패치셋은에 있습니다.
+
+### 가능한 향후 확장 (Possible Future Extensions)
+
+#### 슬롯 메서드 (Slot methods)
+
+슬롯 메서드에 정의 클래스(또는 모듈 상태)를 전달하는 방법이 미래에 추가될 수 있습니다. 이 PEP의 이전 버전은 특정 함수에 대한 슬롯을 정의하는 클래스를 MRO에서 검색하여 정의 클래스를 결정하는 헬퍼 함수를 제안했습니다. 그러나 이 접근 방식은 클래스가 변경되는 경우(힙 타입의 경우 Python 코드에서 가능) 실패할 수 있습니다. 이 문제의 해결은 향후 논의로 남겨져 있습니다.
+
+#### 모듈 참조를 포함하는 타입의 쉬운 생성 (Easy creation of types with module references)
+
+`PyType_FromModuleAndSpec`를 호출하는 것보다 훨씬 쉽게 힙 타입을 생성할 수 있도록 PEP 489 실행 슬롯 타입을 추가하는 것이 가능할 수 있습니다. 이는 향후 PEP로 남겨져 있습니다.
+
+제한된 API에서 정적 예외 타입을 생성하는 좋은 방법을 추가하는 것이 좋을 수 있습니다. 이러한 예외 타입은 서브 인터프리터 간에 공유될 수 있지만, 특정 모듈 상태 없이 인스턴스화될 수 있습니다. 이것 또한 가능한 향후 논의로 남겨져 있습니다.
+
+#### 최적화 (Optimization)
+
+여기서 제안된 대로 `METH_METHOD` 플래그로 정의된 메서드는 하나의 특정 시그니처만 지원합니다. 성능상의 이유로 다른 시그니처가 필요한 것으로 판명되면 추가될 수 있습니다.
+
+> ⚠️ **알림:** 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.

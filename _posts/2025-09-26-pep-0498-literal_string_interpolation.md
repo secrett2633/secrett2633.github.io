@@ -1,0 +1,606 @@
+---
+title: "[Final] PEP 498 - Literal String Interpolation"
+excerpt: "Python Enhancement Proposal 498: 'Literal String Interpolation'에 대한 한국어 번역입니다."
+categories:
+  - Python
+  - PEP
+tags:
+  - Python
+  - PEP
+  - Translation
+permalink: /python/pep/498/
+toc: true
+toc_sticky: true
+date: 2025-09-26 22:42:20+0900
+last_modified_at: 2025-09-26 22:42:20+0900
+published: true
+---
+> **원문 링크:** [PEP 498 - Literal String Interpolation](https://peps.python.org/pep-0498/)
+>
+> **상태:** Final | **유형:** Standards Track | **작성일:** 01-Aug-2015
+
+## PEP 498 – 리터럴 문자열 보간 (Literal String Interpolation) 번역 및 해설
+
+**작성자:** Eric V. Smith
+**상태:** Final
+**타입:** Standards Track
+**생성일:** 2015년 8월 1일
+**Python 버전:** 3.6
+**해결:** Python-Dev 메시지
+
+### 초록 (Abstract)
+
+Python은 텍스트 문자열을 포매팅하는 여러 방법을 지원합니다. 여기에는 `%` 서식 지정, `str.format()`, 그리고 `string.Template` 등이 포함됩니다. 이러한 각 메서드는 장점이 있지만, 실제 사용 시 번거로움을 유발하는 단점 또한 가지고 있습니다. 이 PEP는 새로운 문자열 포매팅 메커니즘인 "리터럴 문자열 보간(Literal String Interpolation)"을 추가할 것을 제안합니다. 이 PEP에서 이러한 문자열은 문자열을 나타내는 데 사용되는 접두어 `f`에서 이름을 따와 "f-strings"라고 불리며, "formatted strings"를 의미합니다.
+
+이 PEP는 기존의 문자열 포매팅 메커니즘을 제거하거나 사용 중단(deprecate)할 것을 제안하지 않습니다.
+
+F-strings는 최소한의 구문을 사용하여 문자열 리터럴 내부에 표현식을 삽입하는 방법을 제공합니다. F-string은 런타임에 평가되는 표현식이며, 상수가 아니라는 점에 유의해야 합니다. Python 소스 코드에서 f-string은 중괄호 `{}` 안에 표현식을 포함하는 `f`로 시작하는 리터럴 문자열입니다. 표현식은 해당 값으로 대체됩니다. 몇 가지 예시는 다음과 같습니다.
+
+```python
+>>> import datetime
+>>> name = 'Fred'
+>>> age = 50
+>>> anniversary = datetime.date(1991, 10, 12)
+>>> f'My name is {name}, my age next year is {age+1}, my anniversary is {anniversary:%A, %B %d, %Y}.'
+'My name is Fred, my age next year is 51, my anniversary is Saturday, October 12, 1991.'
+>>> f'He said his name is {name!r}.'
+"He said his name is 'Fred'."
+```
+
+비슷한 기능이 PEP 215에서 제안되었습니다. PEP 215는 Python 표현식의 일부만 지원할 것을 제안했으며, PEP 3101에서 도입된 타입별 문자열 서식 지정(`__format__()` 메서드)을 지원하지 않았습니다.
+
+### 도입 배경 (Rationale)
+
+이 PEP는 Python에서 문자열을 포매팅하는 더 간단한 방법을 제공하고자 하는 열망에서 비롯되었습니다. 기존의 포매팅 방식은 오류가 발생하기 쉽거나, 유연하지 않거나, 번거롭습니다.
+
+`%-formatting`은 지원하는 타입에 제한이 있습니다. `int`, `str`, `float`만 포매팅할 수 있습니다. 다른 모든 타입은 지원되지 않거나, 포매팅 전에 이들 타입 중 하나로 변환됩니다. 또한, 단일 값이 전달될 때 잘 알려진 함정이 있습니다.
+
+```python
+>>> msg = 'disk failure'
+>>> 'error: %s' % msg
+'error: disk failure'
+```
+
+하지만 `msg`가 튜플일 경우, 동일한 코드는 실패합니다.
+
+```python
+>>> msg = ('disk failure', 32)
+>>> 'error: %s' % msg
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: not all arguments converted during string formatting
+```
+
+방어적으로 코드를 작성하려면 다음을 사용해야 합니다.
+
+```python
+>>> 'error: %s' % (msg,)
+"error: ('disk failure', 32)"
+```
+
+`str.format()`은 `%-formatting`의 이러한 문제점 중 일부를 해결하기 위해 추가되었습니다. 특히, 일반적인 함수 호출 구문을 사용하며 (따라서 여러 매개변수를 지원), 문자열로 변환되는 객체의 `__format__()` 메서드를 통해 확장 가능합니다. 자세한 배경은 PEP 3101을 참조하십시오. 이 PEP는 기존 Python 문자열 포매팅 메커니즘과의 연속성을 제공하기 위해 `str.format()` 구문 및 메커니즘의 많은 부분을 재사용합니다.
+
+그러나 `str.format()`에도 문제가 없는 것은 아닙니다. 가장 큰 문제는 장황함(verbosity)입니다. 예를 들어, 다음 코드에서는 텍스트 값이 반복됩니다.
+
+```python
+>>> value = 4 * 20
+>>> 'The value is {value}.'.format(value=value)
+'The value is 80.'
+```
+
+가장 간단한 형태에서도 약간의 보일러플레이트(boilerplate)가 있으며, 플레이스홀더에 삽입되는 값은 때때로 플레이스홀더가 위치한 곳과 멀리 떨어져 있습니다.
+
+```python
+>>> 'The value is {}.'.format(value)
+'The value is 80.'
+```
+
+f-string을 사용하면 다음과 같이 바뀝니다.
+
+```python
+>>> f'The value is {value}.'
+'The value is 80.'
+```
+
+F-strings는 Python 표현식의 값을 문자열 내부에 포함시키는 간결하고 읽기 쉬운 방법을 제공합니다.
+
+이러한 면에서 `string.Template` 및 `%-formatting`은 `str.format()`과 유사한 단점을 가지지만, 지원하는 포매팅 옵션도 더 적습니다. 특히, 이들은 `__format__` 프로토콜을 지원하지 않으므로, 특정 객체가 문자열로 변환되는 방식을 제어할 수 없으며, `Decimal`이나 `datetime`과 같이 문자열로 변환되는 방식을 제어하려는 추가 타입으로 확장될 수도 없습니다. 다음 예시는 `string.Template`으로는 불가능합니다.
+
+```python
+>>> value = 1234
+>>> f'input={value:#06x}'
+'input=0x04d2'
+```
+
+`%-formatting`이나 `string.Template` 둘 다 다음 포매팅을 제어할 수 없습니다.
+
+```python
+>>> date = datetime.date(1991, 10, 12)
+>>> f'{date} was on a {date:%A}'
+'1991-10-12 was on a Saturday'
+```
+
+#### `globals()` 또는 `locals()` 사용 금지 (No use of globals() or locals())
+
+`python-dev` 토론에서 `locals()` 및 `globals()` 또는 이에 상응하는 것을 사용하는 여러 해결책이 제시되었습니다. 이 모든 것에는 다양한 문제가 있습니다. 그중에는 클로저(closure) 내에서 다른 방식으로 사용되지 않는 변수를 참조하는 것이 있습니다. 다음을 고려하십시오.
+
+```python
+>>> def outer(x):
+...     def inner():
+...         return 'x={x}'.format_map(locals())
+...     return inner
+...
+>>> outer(42)()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "<stdin>", line 3, in inner
+KeyError: 'x'
+```
+
+이것은 컴파일러가 클로저 내부에 `x`에 대한 참조를 추가하지 않았기 때문에 오류를 반환합니다. 이 코드가 작동하려면 `x`에 대한 참조를 수동으로 추가해야 합니다.
+
+```python
+>>> def outer(x):
+...     def inner():
+...         x
+...         return 'x={x}'.format_map(locals())
+...     return inner
+...
+>>> outer(42)()
+'x=42'
+```
+
+또한, `locals()` 또는 `globals()`를 사용하면 정보 유출(information leak)이 발생합니다. 호출된 루틴이 호출자의 `locals()` 또는 `globals()`에 접근할 수 있다면, 문자열 보간을 수행하는 데 필요한 것보다 훨씬 많은 정보에 접근할 수 있습니다.
+
+Guido는 더 나은 문자열 보간을 위한 어떤 해결책도 구현에서 `locals()` 또는 `globals()`를 사용하지 않을 것이라고 밝혔습니다. (이는 사용자가 `locals()` 또는 `globals()`를 전달하는 것을 금지하지는 않지만, 이를 요구하지도 않으며, 내부적으로 이러한 함수를 사용하는 것을 허용하지도 않습니다.)
+
+### 명세 (Specification)
+
+소스 코드에서 f-string은 `f` 또는 `F` 문자로 시작하는 문자열 리터럴입니다. 이 PEP에서 'f'가 사용되는 모든 곳에서 'F'도 사용될 수 있습니다. 'f'는 'r' 또는 'R'과 어떤 순서로든 결합하여 raw f-string 리터럴을 생성할 수 있습니다. 'f'는 'b'와 결합할 수 없습니다. 이 PEP는 이진(binary) f-string을 추가할 것을 제안하지 않습니다. 'f'는 'u'와 결합할 수 없습니다.
+
+소스 파일을 토큰화할 때 f-string은 일반 문자열, raw 문자열, 바이너리 문자열 및 삼중 따옴표(triple quoted) 문자열과 동일한 규칙을 사용합니다. 즉, 문자열은 시작한 문자와 동일한 문자로 끝나야 합니다. 한 개의 따옴표로 시작하면 한 개의 따옴표로 끝나야 합니다. 이는 현재 Python 코드를 스캔하여 문자열을 찾는 코드가 f-string을 인식하도록 쉽게 수정될 수 있음을 의미합니다 (물론 f-string 내부의 파싱은 다른 문제입니다).
+
+토큰화된 후 f-string은 리터럴 문자열과 표현식으로 파싱됩니다. 표현식은 중괄호 `{`와 `}` 안에 나타납니다. 문자열에서 표현식을 스캔하는 동안, f-string의 리터럴 부분 내부에 있는 이중 중괄호 `{{` 또는 `}}`는 해당 단일 중괄호로 대체됩니다. 이중 리터럴 여는 중괄호는 표현식의 시작을 의미하지 않습니다. 문자열의 리터럴 부분에 단일 닫는 중괄호 `}`는 오류입니다. 단일 닫는 중괄호를 나타내려면 리터럴 닫는 중괄호를 이중으로 `}}` 작성해야 합니다.
+
+중괄호 외부에 있는 f-string의 부분은 리터럴 문자열입니다. 이러한 리터럴 부분은 디코딩됩니다. raw가 아닌 f-string의 경우, 이는 `\n`, `\"`, `\'`, `\xhh`, `\uxxxx`, `\Uxxxxxxxx` 및 명명된 유니코드 문자 `\N{name}`과 같은 백슬래시 이스케이프를 관련 유니코드 문자로 변환하는 것을 포함합니다.
+
+백슬래시는 표현식 내부에 어떤 곳에서도 나타날 수 없습니다. `#` 문자를 사용하는 주석은 표현식 내부에 허용되지 않습니다.
+
+각 표현식 뒤에는 선택적 타입 변환이 지정될 수 있습니다. 허용되는 변환은 `!s`, `!r`, 또는 `!a`입니다. 이들은 `str.format()`과 동일하게 처리됩니다. `!s`는 표현식에 대해 `str()`을 호출하고, `!r`는 `repr()`을 호출하며, `!a`는 `ascii()`를 호출합니다. 이러한 변환은 `format()` 호출 전에 적용됩니다. `!s`를 사용해야 하는 유일한 이유는 표현식의 타입이 아닌 `str`에 적용되는 서식 지정자를 지정하려는 경우입니다.
+
+F-string은 `str.format`과 동일한 서식 지정자 미니 언어(mini-language)를 사용합니다. `str.format()`과 유사하게, 선택적 서식 지정자는 f-string 내부에 포함될 수 있으며, 콜론으로 표현식(또는 지정된 경우 타입 변환)과 구분됩니다. 서식 지정자가 제공되지 않으면 빈 문자열이 사용됩니다.
+
+따라서 f-string은 다음과 같은 형태를 가집니다.
+
+```
+f ' <text> { <expression> <optional !s, !r, or !a> <optional : format specifier> } <text> ... '
+```
+
+표현식은 `__format__` 프로토콜을 사용하여 서식 지정자를 인수로 사용하여 포매팅됩니다. 결과 값은 f-string의 값을 구성하는 데 사용됩니다.
+
+`__format__()`이 각 값에 직접 호출되는 것은 아닙니다. 실제 코드는 `type(value).__format__(value, format_spec)` 또는 `format(value, format_spec)`과 동일한 것을 사용합니다. 자세한 내용은 내장 `format()` 함수의 문서를 참조하십시오.
+
+표현식은 문자열이나 괄호, 대괄호, 중괄호 외부에서 `:` 또는 `!`를 포함할 수 없습니다. 예외적으로 `!=` 연산자는 특별한 경우로 허용됩니다.
+
+#### 이스케이프 시퀀스 (Escape sequences)
+
+백슬래시는 f-string의 표현식 부분 내부에 나타날 수 없으므로, 예를 들어 f-string 내부에서 따옴표를 이스케이프하는 데 사용할 수 없습니다.
+
+```python
+>>> f'{\'quoted string\'}'
+File "<stdin>", line 1
+SyntaxError: f-string expression part cannot include a backslash
+```
+
+표현식 내부에서는 다른 종류의 따옴표를 사용할 수 있습니다.
+
+```python
+>>> f'{"quoted string"}'
+'quoted string'
+```
+
+백슬래시 이스케이프는 f-string의 문자열 부분 내부에 나타날 수 있습니다.
+
+결과 문자열 값에 리터럴 중괄호를 나타내는 올바른 방법은 중괄호를 두 번 쓰는 것임을 유의하십시오.
+
+```python
+>>> f'{{ {4*10} }}'
+'{ 40 }'
+>>> f'{{{4*10}}}'
+'{40}'
+```
+
+Python의 모든 raw 문자열과 마찬가지로, raw f-string에는 이스케이프 처리가 수행되지 않습니다.
+
+```python
+>>> fr'x={4*10}\n'
+'x=40\\n'
+```
+
+Python의 문자열 토큰화 규칙으로 인해 f-string `f'abc {a['x']} def'`는 유효하지 않습니다. 토크나이저(tokenizer)는 이를 `f'abc {a['`, `x`, 그리고 `'\] def'`의 세 토큰으로 파싱합니다. 일반 문자열과 마찬가지로, raw 문자열을 사용해도 이 문제는 해결할 수 없습니다. 이 f-string을 작성하는 올바른 방법은 다음과 같습니다. 다른 따옴표 문자를 사용하거나:
+
+```python
+f"abc {a['x']} def"
+```
+
+또는 삼중 따옴표를 사용합니다.
+
+```python
+f'''abc {a['x']} def'''
+```
+
+#### 코드 동등성 (Code equivalence)
+
+f-string을 구현하는 데 사용되는 정확한 코드는 명시되지 않습니다. 그러나 문자열로 변환되는 모든 내장 값은 해당 값의 `__format__` 메서드를 사용한다는 것이 보장됩니다. 이는 `str.format()`이 값을 문자열로 변환하는 데 사용하는 것과 동일한 메커니즘입니다.
+
+예를 들어, 이 코드는:
+
+```python
+f'abc{expr1:spec1}{expr2!r:spec2}def{expr3}ghi'
+```
+
+다음과 같이 평가될 수 있습니다.
+
+```python
+'abc' + format(expr1, spec1) + format(repr(expr2), spec2) + 'def' + format(expr3) + 'ghi'
+```
+
+#### 표현식 평가 (Expression evaluation)
+
+문자열에서 추출된 표현식은 f-string이 나타난 컨텍스트에서 평가됩니다. 이는 표현식이 지역 및 전역 변수에 완전히 접근할 수 있음을 의미합니다. 함수 및 메서드 호출을 포함하여 모든 유효한 Python 표현식이 사용될 수 있습니다.
+
+f-string은 소스 코드에 문자열이 나타난 곳에서 평가되므로, f-string을 통해 추가적인 표현력이 제공되지는 않습니다. 추가적인 보안 문제도 없습니다. f-string 내부에 있지 않더라도 동일한 표현식을 작성할 수 있습니다.
+
+```python
+>>> def foo():
+...     return 20
+...
+>>> f'result={foo()}'
+'result=20'
+```
+
+이는 다음 코드와 동일합니다.
+
+```python
+>>> 'result=' + str(foo())
+'result=20'
+```
+
+표현식은 `ast.parse('(' + expression + ')', '<fstring>', 'eval')`과 동일한 방식으로 파싱됩니다.
+
+표현식은 평가 전에 암시적인 괄호로 묶여 있으므로, 표현식에 개행(newlines)이 포함될 수 있습니다. 예를 들면:
+
+```python
+>>> x = 0
+>>> f'''{x
+... +1}'''
+'1'
+>>> d = {0: 'zero'}
+>>> f'''{d[0
+... ]}'''
+'zero'
+```
+
+#### 서식 지정자 (Format specifiers)
+
+서식 지정자도 평가된 표현식을 포함할 수 있습니다. 이를 통해 다음과 같은 코드를 사용할 수 있습니다.
+
+```python
+>>> import decimal
+>>> width = 10
+>>> precision = 4
+>>> value = decimal.Decimal('12.34567')
+>>> f'result: {value:{width}.{precision}}'
+'result:      12.35'
+```
+
+서식 지정자 내의 표현식이 (필요한 경우) 평가되면, 서식 지정자는 f-string 평가자에 의해 해석되지 않습니다. `str.format()`과 마찬가지로, 서식 지정자는 포매팅되는 객체의 `__format__()` 메서드로 단순히 전달됩니다.
+
+#### 문자열 연결 (Concatenating strings)
+
+인접한 f-string과 일반 문자열은 연결됩니다. 일반 문자열은 컴파일 타임에 연결되고, f-string은 런타임에 연결됩니다. 예를 들어, 다음 표현식은:
+
+```python
+>>> x = 10
+>>> y = 'hi'
+>>> 'a' 'b' f'{x}' '{c}' f'str<{y:^4}>' 'd' 'e'
+```
+
+다음 값을 산출합니다.
+
+```
+'ab10{c}str< hi >de'
+```
+
+이 런타임 연결의 정확한 방법은 명시되지 않았지만, 위 코드는 다음과 같이 평가될 수 있습니다.
+
+```python
+'ab' + format(x) + '{c}' + 'str<' + format(y, '^4') + '>de'
+```
+
+각 f-string은 인접한 f-string에 연결되기 전에 완전히 평가됩니다. 이는 다음 코드가:
+
+```python
+>>> f'{x' f'}'
+```
+
+구문 오류라는 것을 의미합니다. 첫 번째 f-string이 닫는 중괄호를 포함하지 않기 때문입니다.
+
+#### 오류 처리 (Error handling)
+
+f-string을 처리할 때 컴파일 타임 또는 런타임 오류가 발생할 수 있습니다. 컴파일 타임 오류는 f-string을 스캔할 때 감지할 수 있는 오류로 제한됩니다. 이러한 오류는 모두 `SyntaxError`를 발생시킵니다.
+
+일치하지 않는 중괄호:
+
+```python
+>>> f'x={x'
+File "<stdin>", line 1
+SyntaxError: f-string: expecting '}'
+```
+
+잘못된 표현식:
+
+```python
+>>> f'x={!x}'
+File "<stdin>", line 1
+SyntaxError: f-string: empty expression not allowed
+```
+
+런타임 오류는 f-string 내부의 표현식을 평가할 때 발생합니다. f-string은 여러 번 평가될 수 있으며, 때로는 작동하고 때로는 오류를 발생시킬 수 있다는 점에 유의하십시오.
+
+```python
+>>> d = {0:10, 1:20}
+>>> for i in range(3):
+...     print(f'{i}:{d[i]}')
+...
+0:10
+1:20
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+KeyError: 2
+```
+
+또는:
+
+```python
+>>> for x in (32, 100, 'fifty'):
+...     print(f'x = {x:+3}')
+...
+'x = +32'
+'x = +100'
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+ValueError: Sign not allowed in string format specifier
+```
+
+#### 표현식의 앞뒤 공백 무시 (Leading and trailing whitespace in expressions is ignored)
+
+가독성을 위해 표현식의 앞뒤 공백은 무시됩니다. 이는 평가 전에 표현식을 괄호로 묶는 부작용입니다.
+
+#### 표현식 평가 순서 (Evaluation order of expressions)
+
+f-string의 표현식은 왼쪽에서 오른쪽으로 평가됩니다. 이는 표현식에 부수 효과(side effects)가 있는 경우에만 감지할 수 있습니다.
+
+```python
+>>> def fn(l, incr):
+...     result = l[0]
+...     l[0] += incr
+...     return result
+...
+>>> lst = [0]
+>>> f'{fn(lst,2)} {fn(lst,3)}'
+'0 2'
+>>> f'{fn(lst,2)} {fn(lst,3)}' # 두 번째 호출
+'5 7'
+>>> lst
+[10]
+```
+
+### 논의 (Discussion)
+
+#### `python-ideas` 토론 (`python-ideas` discussion)
+
+`python-ideas` 토론의 대부분은 세 가지 문제에 초점을 맞췄습니다.
+
+*   f-string을 어떻게 표기할 것인가
+*   f-string에서 표현식의 위치를 어떻게 지정할 것인가
+*   전체 Python 표현식을 허용할 것인가
+
+##### f-string을 어떻게 표기할 것인가 (How to denote f-strings)
+
+보간된 문자열에 포함된 표현식을 평가하려면 컴파일러가 관여해야 하므로, 어떤 문자열을 평가해야 하는지 컴파일러에게 알릴 방법이 있어야 합니다. 이 PEP는 문자열 리터럴 앞에 선행 `f` 문자를 선택했습니다. 이는 컴파일 타임에 `b` 및 `r` 접두사가 문자열 자체의 의미를 변경하는 방식과 유사합니다. `i`와 같은 다른 접두사도 제안되었습니다. 어떤 옵션도 다른 옵션보다 낫다고 보이지 않았으므로, `f`가 선택되었습니다.
+
+다른 옵션은 `Format()`과 같이 컴파일러가 아는 특수 함수를 지원하는 것이었습니다. 이것은 Python에게 너무 많은 "마법"처럼 보입니다. 기존 식별자와 충돌할 가능성이 있을 뿐만 아니라, PEP 작성자는 문자열 접두어 문자로 "마법"을 나타내는 것이 더 낫다고 생각합니다.
+
+##### f-string에서 표현식의 위치를 어떻게 지정할 것인가 (How to specify the location of expressions in f-strings)
+
+이 PEP는 `str.format()`과 동일한 구문을 사용하여 문자열 내의 대체 텍스트를 구분합니다. 즉, 표현식은 중괄호 안에 포함됩니다. `string.Template`의 `$identifier` 또는 `${expression}`과 같은 다른 옵션도 제안되었습니다.
+
+`$identifier`는 셸 스크립터 및 다른 일부 언어 사용자에게는 익숙하겠지만, Python에서는 `str.format()`이 많이 사용됩니다. Python 표준 라이브러리를 빠르게 검색해보면 `string.Template`의 사용은 극히 적지만, `str.format()`의 사용은 수백 건에 달합니다.
+
+또 다른 제안된 대안은 대체 텍스트를 `\{`와 `}` 사이 또는 `\{`와 `\}` 사이에 두는 것이었습니다. 이 구문은 모든 문자열 리터럴이 보간을 지원한다면 바람직할 수 있지만, 이 PEP는 이미 선행 `f`로 표시된 문자열만 지원합니다. 따라서 이 PEP는 `str.format()`에 대한 최종 사용자의 친숙도를 활용하기 위해 꾸밈없는 중괄호를 사용하여 대체 텍스트를 나타냅니다.
+
+##### 전체 Python 표현식 지원 (Supporting full Python expressions)
+
+`python-ideas` 토론에서 많은 사람들이 단일 식별자만 지원하거나, Python 표현식의 제한된 하위 집합(예: `str.format()`이 지원하는 하위 집합)만 지원하기를 원했습니다. 이 PEP는 중괄호 내부에 전체 Python 표현식을 지원합니다. 전체 표현식이 없으면 일부 바람직한 사용이 번거로울 것입니다. 예를 들어:
+
+```python
+>>> f'Column={col_idx+1}'
+>>> f'number of items: {len(items)}'
+```
+
+다음과 같이 되어야 했을 것입니다.
+
+```python
+>>> col_number = col_idx+1
+>>> f'Column={col_number}'
+>>> n_items = len(items)
+>>> f'number of items: {n_items}'
+```
+
+매우 보기 흉한 표현식이 f-string에 포함될 수 있다는 것은 사실이지만, 이 PEP는 그러한 사용은 린터(linter) 또는 코드 리뷰에서 다루어져야 한다는 입장을 취합니다.
+
+```python
+>>> f'mapping is { {a:b for (a, b) in ((1, 2), (3, 4))} }'
+'mapping is {1: 2, 3: 4}'
+```
+
+#### 다른 언어에서의 유사한 지원 (Similar support in other languages)
+
+위키백과에는 다른 프로그래밍 언어에서의 문자열 보간에 대한 좋은 설명이 있습니다. 이 기능은 다양한 구문과 제약 사항으로 많은 언어에서 구현되어 있습니다.
+
+#### f-string과 `str.format` 표현식의 차이점 (Differences between f-string and str.format expressions)
+
+`str.format()`에서 허용되는 제한된 표현식과 f-string 내부에서 허용되는 전체 표현식 사이에는 작은 차이가 있습니다. 이 차이는 인덱스 조회(index lookup)가 수행되는 방식에 있습니다. `str.format()`에서는 숫자로 보이지 않는 인덱스 값은 문자열로 변환됩니다.
+
+```python
+>>> d = {'a': 10, 'b': 20}
+>>> 'a={d[a]}'.format(d=d)
+'a=10'
+```
+
+딕셔너리에서 조회될 때 인덱스 값이 문자열 `'a'`로 변환되는 것을 주목하십시오.
+
+그러나 f-string에서는 `'a'` 값에 대한 리터럴을 사용해야 합니다.
+
+```python
+>>> f'a={d["a"]}'
+'a=10'
+```
+
+이 차이는 그렇지 않으면 변수를 인덱스 값으로 사용할 수 없기 때문에 필요합니다.
+
+```python
+>>> a = 'b'
+>>> f'a={d[a]}'
+'a=20'
+```
+
+더 자세한 논의는을 참조하십시오. 이 관찰이 f-string에서 전체 Python 표현식을 지원하게 된 계기가 되었습니다.
+
+더욱이 `str.format()`이 이해하는 제한된 표현식은 유효한 Python 표현식일 필요는 없습니다. 예를 들면:
+
+```python
+>>> '{i[";]}'.format(i={'";':4})
+'4'
+```
+
+이러한 이유로, `str.format()`의 "표현식 파서"는 f-string을 구현하는 데 적합하지 않습니다.
+
+#### 삼중 따옴표 f-string (Triple-quoted f-strings)
+
+삼중 따옴표 f-string은 허용됩니다. 이러한 문자열은 일반 삼중 따옴표 문자열과 동일하게 파싱됩니다. 파싱 및 디코딩 후에는 일반 f-string 로직이 적용되고, 각 값에 대해 `__format__()`이 호출됩니다.
+
+#### Raw f-string (Raw f-strings)
+
+Raw와 f-string은 결합될 수 있습니다. 예를 들어, 정규 표현식(regular expressions)을 구성하는 데 사용될 수 있습니다.
+
+```python
+>>> header = 'Subject'
+>>> fr'{header}:\s+'
+'Subject:\\s+'
+```
+
+또한 raw f-string은 삼중 따옴표 문자열과 결합될 수 있습니다.
+
+#### 이진(Binary) f-string 없음 (No binary f-strings)
+
+`bytes.format()`을 지원하지 않는 것과 같은 이유로, `f` 접두사와 `b` 문자열 리터럴을 결합할 수 없습니다. 주요 문제는 객체의 `__format__()` 메서드가 `bytes` 문자열과 호환되지 않는 유니코드 데이터를 반환할 수 있다는 것입니다.
+
+이진 f-string은 먼저 `bytes.format()`에 대한 해결책이 필요합니다. 이 아이디어는 과거에도 제안되었으며, 가장 최근에는 PEP 461에서 제안되었습니다. 이러한 기능에 대한 논의는 일반적으로 다음 중 하나를 제안합니다.
+
+*   객체가 바이트로 변환되는 방식을 제어할 수 있도록 `__bformat__()`과 같은 메서드를 추가하거나,
+*   `bytes.format()`이 `str.format()`만큼 범용적이거나 확장 가능하지 않도록 합니다.
+
+이러한 기능이 필요하다면 이 두 가지 모두 미래의 옵션으로 남아 있습니다.
+
+#### `!s`, `!r`, `!a`는 불필요함 (`!s`, `!r`, and `!a` are redundant)
+
+`!s`, `!r`, `!a` 변환은 엄밀히 말하면 필수는 아닙니다. f-string 내부에 임의의 표현식이 허용되므로 다음 코드는:
+
+```python
+>>> a = 'some string'
+>>> f'{a!r}'
+"'some string'"
+```
+
+다음 코드와 동일합니다.
+
+```python
+>>> f'{repr(a)}'
+"'some string'"
+```
+
+마찬가지로 `!s`는 `str()` 호출로, `!a`는 `ascii()` 호출로 대체될 수 있습니다.
+
+그러나 `!s`, `!r`, `!a`는 `str.format()`과의 차이점을 최소화하기 위해 이 PEP에서 지원됩니다. `!s`, `!r`, `!a`는 임의의 표현식 실행을 허용하지 않는 `str.format()`에서 필요합니다.
+
+#### 표현식 내부의 람다 (Lambdas inside expressions)
+
+람다는 `:` 문자를 사용하므로, 표현식 내에서 괄호 외부에는 나타날 수 없습니다. 콜론은 서식 지정자의 시작으로 해석되어 람다 표현식의 시작이 구문적으로 유효하지 않은 것으로 간주됩니다. f-string 표현식에서 일반 람다의 실제적인 사용이 없으므로, 이는 큰 제한으로 간주되지 않습니다.
+
+람다를 사용해야 한다면 괄호 안에서 사용할 수 있습니다.
+
+```python
+>>> f'{(lambda x: x*2)(3)}'
+'6'
+```
+
+#### `u`와 결합 불가 (Can't combine with 'u')
+
+`u` 접두사는 Python 2.7과의 소스 호환성을 쉽게 하기 위한 수단으로 PEP 414에 따라 Python 3.3에 추가되었습니다. Python 2.7은 f-string을 지원하지 않을 것이므로, `f` 접두사를 `u`와 결합할 수 있어도 얻을 수 있는 이점은 없습니다.
+
+### Python 소스 코드의 예시 (Examples from Python's source code)
+
+다음은 현재 `str.format()`을 사용하는 Python 소스 코드의 몇 가지 예시와, 이들이 f-string으로 어떻게 보일지 보여줍니다. 이 PEP는 f-string으로 전면적인 변환을 권장하지 않습니다. 이것들은 `str.format()`의 실제 사용 사례와 f-string을 사용하여 처음부터 작성되었다면 어떻게 보였을지에 대한 예시일 뿐입니다.
+
+`Lib/asyncio/locks.py`:
+
+```python
+extra = '{},waiters:{}'.format(extra, len(self._waiters))
+# f-string으로 변환 시
+extra = f'{extra},waiters:{len(self._waiters)}'
+```
+
+`Lib/configparser.py`:
+
+```python
+message.append(" [line {0:2d}]".format(lineno))
+# f-string으로 변환 시
+message.append(f" [line {lineno:2d}]")
+```
+
+`Tools/clinic/clinic.py`:
+
+```python
+methoddef_name = "{}_METHODDEF".format(c_basename.upper())
+# f-string으로 변환 시
+methoddef_name = f"{c_basename.upper()}_METHODDEF"
+```
+
+`python-config.py`:
+
+```python
+print("Usage: {0} [{1}]".format(sys.argv[0], '|'.join('--'+opt for opt in valid_opts)), file=sys.stderr)
+# f-string으로 변환 시
+print(f"Usage: {sys.argv[0]} [{'|'.join('--'+opt for opt in valid_opts)}]", file=sys.stderr)
+```
+
+### 참고 자료 (References)
+
+ %-formatting
+ str.format
+ string.Template documentation
+ Formatting using locals() and globals()
+ Avoid locals() and globals()
+ String literal description
+ ast.parse() documentation
+ Start of python-ideas discussion
+ Wikipedia article on string interpolation
+ Differences in str.format() and f-string expressions
+
+### 저작권 (Copyright)
+
+이 문서는 퍼블릭 도메인에 공개되었습니다.
+
+> ⚠️ **알림:** 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.

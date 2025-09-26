@@ -126,22 +126,18 @@ def translate_pep_with_url_context_tool(pep_url: str, model_name: str) -> str:
     )
 
     print(f"Translating with url_context tool: {pep_url} using {model_name}...")
-    try:
-        # 4. client.models.generate_content를 사용하여 API를 호출합니다.
-        response = client.models.generate_content(
-            model=model_name,
-            contents=full_prompt_with_url,
-            config=config,
-        )
 
-        # 선택 사항: 모델이 어떤 URL을 참조했는지 확인
-        # print(response.candidates[0].url_context_metadata)
+    # 4. client.models.generate_content를 사용하여 API를 호출합니다.
+    response = client.models.generate_content(
+        model=model_name,
+        contents=full_prompt_with_url,
+        config=config,
+    )
 
-        return response.text
-    except Exception as e:
-        print(f"Gemini API call failed for URL {pep_url}: {e}")
-        return f"## 번역 실패\n\nGemini API 호출 중 오류가 발생했습니다: {e}"
+    # 선택 사항: 모델이 어떤 URL을 참조했는지 확인
+    # print(response.candidates[0].url_context_metadata)
 
+    return response.text
 
 def sanitize_filename(text: str) -> str:
     """파일 이름으로 사용할 수 있도록 문자열을 정리합니다."""
@@ -179,274 +175,9 @@ def save_post(result: Dict[str, Any]) -> None:
 
 def main() -> None:
     pep_urls = [
-        "https://peps.python.org/pep-0326/",  # A Case for Top and Bottom Values
-        "https://peps.python.org/pep-0329/",  # Treating Builtins as Constants in the Standard Library
-        "https://peps.python.org/pep-0335/",  # Overloadable Boolean Operators
-        "https://peps.python.org/pep-0343/",  # The “with” Statement
-        "https://peps.python.org/pep-0355/",  # Path - Object oriented filesystem paths
-        "https://peps.python.org/pep-0366/",  # Main module explicit relative imports
-        "https://peps.python.org/pep-0367/",  # New Super
-        "https://peps.python.org/pep-0368/",  # Standard image protocol and class
-        "https://peps.python.org/pep-0369/",  # Post import hooks
-        "https://peps.python.org/pep-0370/",  # Per user site-packages directory
-        "https://peps.python.org/pep-0371/",  # Addition of the multiprocessing package to the standard library
-        "https://peps.python.org/pep-0372/",  # Adding an ordered dictionary to collections
-        "https://peps.python.org/pep-0373/",  # Python 2.7 Release Schedule
-        "https://peps.python.org/pep-0374/",  # Choosing a distributed VCS for the Python project
-        "https://peps.python.org/pep-0375/",  # Python 3.1 Release Schedule
-        "https://peps.python.org/pep-0376/",  # Database of Installed Python Distributions
-        "https://peps.python.org/pep-0377/",  # Allow __enter__() methods to skip the statement body
-        "https://peps.python.org/pep-0378/",  # Format Specifier for Thousands Separator
-        "https://peps.python.org/pep-0379/",  # Adding an Assignment Expression
-        "https://peps.python.org/pep-0380/",  # Syntax for Delegating to a Subgenerator
-        "https://peps.python.org/pep-0381/",  # Mirroring infrastructure for PyPI
-        "https://peps.python.org/pep-0382/",  # Namespace Packages
-        "https://peps.python.org/pep-0383/",  # Non-decodable Bytes in System Character Interfaces
-        "https://peps.python.org/pep-0384/",  # Defining a Stable ABI
-        "https://peps.python.org/pep-0385/",  # Migrating from Subversion to Mercurial
-        "https://peps.python.org/pep-0386/",  # Changing the version comparison module in Distutils
-        "https://peps.python.org/pep-0387/",  # Backwards Compatibility Policy
-        "https://peps.python.org/pep-0389/",  # argparse - New Command Line Parsing Module
-        "https://peps.python.org/pep-0390/",  # Static metadata for Distutils
-        "https://peps.python.org/pep-0391/",  # Dictionary-Based Configuration For Logging
-        "https://peps.python.org/pep-0392/",  # Python 3.2 Release Schedule
-        "https://peps.python.org/pep-0393/",  # Flexible String Representation
-        "https://peps.python.org/pep-0394/",  # The “python” Command on Unix-Like Systems
-        "https://peps.python.org/pep-0395/",  # Qualified Names for Modules
-        "https://peps.python.org/pep-0396/",  # Module Version Numbers
-        "https://peps.python.org/pep-0397/",  # Python launcher for Windows
-        "https://peps.python.org/pep-0398/",  # Python 3.3 Release Schedule
-        "https://peps.python.org/pep-0399/",  # Pure Python/C Accelerator Module Compatibility Requirements
-        "https://peps.python.org/pep-0400/",  # Deprecate codecs.StreamReader and codecs.StreamWriter
-        "https://peps.python.org/pep-0401/",  # BDFL Retirement
-        "https://peps.python.org/pep-0402/",  # Simplified Package Layout and Partitioning
-        "https://peps.python.org/pep-0403/",  # General purpose decorator clause (aka “@in” clause)
-        "https://peps.python.org/pep-0404/",  # Python 2.8 Un-release Schedule
-        "https://peps.python.org/pep-0405/",  # Python Virtual Environments
-        "https://peps.python.org/pep-0406/",  # Improved Encapsulation of Import State
-        "https://peps.python.org/pep-0407/",  # New release cycle and introducing long-term support versions
-        "https://peps.python.org/pep-0408/",  # Standard library __preview__ package
-        "https://peps.python.org/pep-0409/",  # Suppressing exception context
-        "https://peps.python.org/pep-0410/",  # Use decimal.Decimal type for timestamps
-        "https://peps.python.org/pep-0411/",  # Provisional packages in the Python standard library
-        "https://peps.python.org/pep-0412/",  # Key-Sharing Dictionary
-        "https://peps.python.org/pep-0413/",  # Faster evolution of the Python Standard Library
-        "https://peps.python.org/pep-0414/",  # Explicit Unicode Literal for Python 3.3
-        "https://peps.python.org/pep-0415/",  # Implement context suppression with exception attributes
-        "https://peps.python.org/pep-0416/",  # Add a frozendict builtin type
-        "https://peps.python.org/pep-0417/",  # Including mock in the Standard Library
-        "https://peps.python.org/pep-0418/",  # Add monotonic time, performance counter, and process time functions
-        "https://peps.python.org/pep-0419/",  # Protecting cleanup statements from interruptions
-        "https://peps.python.org/pep-0420/",  # Implicit Namespace Packages
-        "https://peps.python.org/pep-0421/",  # Adding sys.implementation
-        "https://peps.python.org/pep-0422/",  # Simpler customisation of class creation
-        "https://peps.python.org/pep-0423/",  # Naming conventions and recipes related to packaging
-        "https://peps.python.org/pep-0424/",  # A method for exposing a length hint
-        "https://peps.python.org/pep-0425/",  # Compatibility Tags for Built Distributions
-        "https://peps.python.org/pep-0426/",  # Metadata for Python Software Packages 2.0
-        "https://peps.python.org/pep-0427/",  # The Wheel Binary Package Format 1.0
-        "https://peps.python.org/pep-0428/",  # The pathlib module – object-oriented filesystem paths
-        "https://peps.python.org/pep-0429/",  # Python 3.4 Release Schedule
-        "https://peps.python.org/pep-0430/",  # Migrating to Python 3 as the default online documentation
-        "https://peps.python.org/pep-0431/",  # Time zone support improvements
-        "https://peps.python.org/pep-0432/",  # Restructuring the CPython startup sequence
-        "https://peps.python.org/pep-0433/",  # Easier suppression of file descriptor inheritance
-        "https://peps.python.org/pep-0434/",  # IDLE Enhancement Exception for All Branches
-        "https://peps.python.org/pep-0435/",  # Adding an Enum type to the Python standard library
-        "https://peps.python.org/pep-0436/",  # The Argument Clinic DSL
-        "https://peps.python.org/pep-0437/",  # A DSL for specifying signatures, annotations and argument converters
-        "https://peps.python.org/pep-0438/",  # Transitioning to release-file hosting on PyPI
-        "https://peps.python.org/pep-0439/",  # Inclusion of implicit pip bootstrap in Python installation
-        "https://peps.python.org/pep-0440/",  # Version Identification and Dependency Specification
-        "https://peps.python.org/pep-0441/",  # Improving Python ZIP Application Support
-        "https://peps.python.org/pep-0442/",  # Safe object finalization
-        "https://peps.python.org/pep-0443/",  # Single-dispatch generic functions
-        "https://peps.python.org/pep-0444/",  # Python Web3 Interface
-        "https://peps.python.org/pep-0445/",  # Add new APIs to customize Python memory allocators
-        "https://peps.python.org/pep-0446/",  # Make newly created file descriptors non-inheritable
-        "https://peps.python.org/pep-0447/",  # Add __getdescriptor__ method to metaclass
-        "https://peps.python.org/pep-0448/",  # Additional Unpacking Generalizations
-        "https://peps.python.org/pep-0449/",  # Removal of the PyPI Mirror Auto Discovery and Naming Scheme
-        "https://peps.python.org/pep-0450/",  # Adding A Statistics Module To The Standard Library
-        "https://peps.python.org/pep-0451/",  # A ModuleSpec Type for the Import System
-        "https://peps.python.org/pep-0452/",  # API for Cryptographic Hash Functions v2.0
-        "https://peps.python.org/pep-0453/",  # Explicit bootstrapping of pip in Python installations
-        "https://peps.python.org/pep-0454/",  # Add a new tracemalloc module to trace Python memory allocations
-        "https://peps.python.org/pep-0455/",  # Adding a key-transforming dictionary to collections
-        "https://peps.python.org/pep-0456/",  # Secure and interchangeable hash algorithm
-        "https://peps.python.org/pep-0457/",  # Notation For Positional-Only Parameters
-        "https://peps.python.org/pep-0458/",  # Secure PyPI downloads with signed repository metadata
-        "https://peps.python.org/pep-0459/",  # Standard Metadata Extensions for Python Software Packages
-        "https://peps.python.org/pep-0460/",  # Add binary interpolation and formatting
-        "https://peps.python.org/pep-0461/",  # Adding % formatting to bytes and bytearray
-        "https://peps.python.org/pep-0462/",  # Core development workflow automation for CPython
-        "https://peps.python.org/pep-0463/",  # Exception-catching expressions
-        "https://peps.python.org/pep-0464/",  # Removal of the PyPI Mirror Authenticity API
-        "https://peps.python.org/pep-0465/",  # A dedicated infix operator for matrix multiplication
-        "https://peps.python.org/pep-0466/",  # Network Security Enhancements for Python 2.7.x
-        "https://peps.python.org/pep-0467/",  # Minor API improvements for binary sequences
-        "https://peps.python.org/pep-0468/",  # Preserving the order of **kwargs in a function.
-        "https://peps.python.org/pep-0469/",  # Migration of dict iteration code to Python 3
-        "https://peps.python.org/pep-0470/",  # Removing External Hosting Support on PyPI
-        "https://peps.python.org/pep-0471/",  # os.scandir() function – a better and faster directory iterator
-        "https://peps.python.org/pep-0472/",  # Support for indexing with keyword arguments
-        "https://peps.python.org/pep-0473/",  # Adding structured data to built-in exceptions
-        "https://peps.python.org/pep-0474/",  # Creating forge.python.org
-        "https://peps.python.org/pep-0475/",  # Retry system calls failing with EINTR
-        "https://peps.python.org/pep-0476/",  # Enabling certificate verification by default for stdlib http clients
-        "https://peps.python.org/pep-0477/",  # Backport ensurepip (PEP 453) to Python 2.7
-        "https://peps.python.org/pep-0478/",  # Python 3.5 Release Schedule
-        "https://peps.python.org/pep-0479/",  # Change StopIteration handling inside generators
-        "https://peps.python.org/pep-0480/",  # Surviving a Compromise of PyPI: End-to-end signing of packages
-        "https://peps.python.org/pep-0481/",  # Migrate CPython to Git, Github, and Phabricator
-        "https://peps.python.org/pep-0482/",  # Literature Overview for Type Hints
-        "https://peps.python.org/pep-0483/",  # The Theory of Type Hints
-        "https://peps.python.org/pep-0484/",  # Type Hints
-        "https://peps.python.org/pep-0485/",  # A Function for testing approximate equality
-        "https://peps.python.org/pep-0486/",  # Make the Python Launcher aware of virtual environments
-        "https://peps.python.org/pep-0487/",  # Simpler customisation of class creation
-        "https://peps.python.org/pep-0488/",  # Elimination of PYO files
-        "https://peps.python.org/pep-0489/",  # Multi-phase extension module initialization
-        "https://peps.python.org/pep-0490/",  # Chain exceptions at C level
-        "https://peps.python.org/pep-0491/",  # The Wheel Binary Package Format 1.9
-        "https://peps.python.org/pep-0492/",  # Coroutines with async and await syntax
-        "https://peps.python.org/pep-0493/",  # HTTPS verification migration tools for Python 2.7
-        "https://peps.python.org/pep-0494/",  # Python 3.6 Release Schedule
-        "https://peps.python.org/pep-0495/",  # Local Time Disambiguation
-        "https://peps.python.org/pep-0496/",  # Environment Markers
-        "https://peps.python.org/pep-0497/",  # A standard mechanism for backward compatibility
-        "https://peps.python.org/pep-0498/",  # Literal String Interpolation
-        "https://peps.python.org/pep-0499/",  # python -m foo should also bind ‘foo’ in sys.modules
-        "https://peps.python.org/pep-0500/",  # A protocol for delegating datetime methods to their tzinfo implementations
-        "https://peps.python.org/pep-0501/",  # General purpose template literal strings
-        "https://peps.python.org/pep-0502/",  # String Interpolation - Extended Discussion
-        "https://peps.python.org/pep-0503/",  # Simple Repository API
-        "https://peps.python.org/pep-0504/",  # Using the System RNG by default
-        "https://peps.python.org/pep-0505/",  # None-aware operators
-        "https://peps.python.org/pep-0506/",  # Adding A Secrets Module To The Standard Library
-        "https://peps.python.org/pep-0507/",  # Migrate CPython to Git and GitLab
-        "https://peps.python.org/pep-0508/",  # Dependency specification for Python Software Packages
-        "https://peps.python.org/pep-0509/",  # Add a private version to dict
-        "https://peps.python.org/pep-0510/",  # Specialize functions with guards
-        "https://peps.python.org/pep-0511/",  # API for code transformers
-        "https://peps.python.org/pep-0512/",  # Migrating from hg.python.org to GitHub
-        "https://peps.python.org/pep-0513/",  # A Platform Tag for Portable Linux Built Distributions
-        "https://peps.python.org/pep-0514/",  # Python registration in the Windows registry
-        "https://peps.python.org/pep-0515/",  # Underscores in Numeric Literals
-        "https://peps.python.org/pep-0516/",  # Build system abstraction for pip/conda etc
-        "https://peps.python.org/pep-0517/",  # A build-system independent format for source trees
-        "https://peps.python.org/pep-0518/",  # Specifying Minimum Build System Requirements for Python Projects
-        "https://peps.python.org/pep-0519/",  # Adding a file system path protocol
-        "https://peps.python.org/pep-0520/",  # Preserving Class Attribute Definition Order
-        "https://peps.python.org/pep-0521/",  # Managing global context via ‘with’ blocks in generators and coroutines
-        "https://peps.python.org/pep-0522/",  # Allow BlockingIOError in security sensitive APIs
-        "https://peps.python.org/pep-0523/",  # Adding a frame evaluation API to CPython
-        "https://peps.python.org/pep-0524/",  # Make os.urandom() blocking on Linux
-        "https://peps.python.org/pep-0525/",  # Asynchronous Generators
-        "https://peps.python.org/pep-0526/",  # Syntax for Variable Annotations
-        "https://peps.python.org/pep-0527/",  # Removing Un(der)used file types/extensions on PyPI
-        "https://peps.python.org/pep-0528/",  # Change Windows console encoding to UTF-8
-        "https://peps.python.org/pep-0529/",  # Change Windows filesystem encoding to UTF-8
-        "https://peps.python.org/pep-0530/",  # Asynchronous Comprehensions
-        "https://peps.python.org/pep-0531/",  # Existence checking operators
-        "https://peps.python.org/pep-0532/",  # A circuit breaking protocol and binary operators
-        "https://peps.python.org/pep-0533/",  # Deterministic cleanup for iterators
-        "https://peps.python.org/pep-0534/",  # Improved Errors for Missing Standard Library Modules
-        "https://peps.python.org/pep-0535/",  # Rich comparison chaining
-        "https://peps.python.org/pep-0536/",  # Final Grammar for Literal String Interpolation
-        "https://peps.python.org/pep-0537/",  # Python 3.7 Release Schedule
-        "https://peps.python.org/pep-0538/",  # Coercing the legacy C locale to a UTF-8 based locale
-        "https://peps.python.org/pep-0539/",  # A New C-API for Thread-Local Storage in CPython
-        "https://peps.python.org/pep-0540/",  # Add a new UTF-8 Mode
-        "https://peps.python.org/pep-0541/",  # Package Index Name Retention
-        "https://peps.python.org/pep-0542/",  # Dot Notation Assignment In Function Header
-        "https://peps.python.org/pep-0543/",  # A Unified TLS API for Python
-        "https://peps.python.org/pep-0544/",  # Protocols: Structural subtyping (static duck typing)
-        "https://peps.python.org/pep-0545/",  # Python Documentation Translations
-        "https://peps.python.org/pep-0546/",  # Backport ssl.MemoryBIO and ssl.SSLObject to Python 2.7
-        "https://peps.python.org/pep-0547/",  # Running extension modules using the -m option
-        "https://peps.python.org/pep-0548/",  # More Flexible Loop Control
-        "https://peps.python.org/pep-0549/",  # Instance Descriptors
-        "https://peps.python.org/pep-0550/",  # Execution Context
-        "https://peps.python.org/pep-0551/",  # Security transparency in the Python runtime
-        "https://peps.python.org/pep-0552/",  # Deterministic pycs
-        "https://peps.python.org/pep-0553/",  # Built-in breakpoint()
-        "https://peps.python.org/pep-0554/",  # Multiple Interpreters in the Stdlib
-        "https://peps.python.org/pep-0555/",  # Context-local variables (contextvars)
-        "https://peps.python.org/pep-0556/",  # Threaded garbage collection
-        "https://peps.python.org/pep-0557/",  # Data Classes
-        "https://peps.python.org/pep-0558/",  # Defined semantics for locals()
-        "https://peps.python.org/pep-0559/",  # Built-in noop()
-        "https://peps.python.org/pep-0560/",  # Core support for typing module and generic types
-        "https://peps.python.org/pep-0561/",  # Distributing and Packaging Type Information
-        "https://peps.python.org/pep-0562/",  # Module __getattr__ and __dir__
-        "https://peps.python.org/pep-0563/",  # Postponed Evaluation of Annotations
-        "https://peps.python.org/pep-0564/",  # Add new time functions with nanosecond resolution
-        "https://peps.python.org/pep-0565/",  # Show DeprecationWarning in __main__
-        "https://peps.python.org/pep-0566/",  # Metadata for Python Software Packages 2.1
-        "https://peps.python.org/pep-0567/",  # Context Variables
-        "https://peps.python.org/pep-0568/",  # Generator-sensitivity for Context Variables
-        "https://peps.python.org/pep-0569/",  # Python 3.8 Release Schedule
-        "https://peps.python.org/pep-0570/",  # Python Positional-Only Parameters
-        "https://peps.python.org/pep-0571/",  # The manylinux2010 Platform Tag
-        "https://peps.python.org/pep-0572/",  # Assignment Expressions
-        "https://peps.python.org/pep-0573/",  # Module State Access from C Extension Methods
-        "https://peps.python.org/pep-0574/",  # Pickle protocol 5 with out-of-band data
-        "https://peps.python.org/pep-0575/",  # Unifying function/method classes
-        "https://peps.python.org/pep-0576/",  # Rationalize Built-in function classes
-        "https://peps.python.org/pep-0577/",  # Augmented Assignment Expressions
-        "https://peps.python.org/pep-0578/",  # Python Runtime Audit Hooks
-        "https://peps.python.org/pep-0579/",  # Refactoring C functions and methods
-        "https://peps.python.org/pep-0580/",  # The C call protocol
-        "https://peps.python.org/pep-0581/",  # Using GitHub Issues for CPython
-        "https://peps.python.org/pep-0582/",  # Python local packages directory
-        "https://peps.python.org/pep-0583/",  # A Concurrency Memory Model for Python
-        "https://peps.python.org/pep-0584/",  # Add Union Operators To dict
-        "https://peps.python.org/pep-0585/",  # Type Hinting Generics In Standard Collections
-        "https://peps.python.org/pep-0586/",  # Literal Types
-        "https://peps.python.org/pep-0587/",  # Python Initialization Configuration
-        "https://peps.python.org/pep-0588/",  # GitHub Issues Migration Plan
-        "https://peps.python.org/pep-0589/",  # TypedDict: Type Hints for Dictionaries with a Fixed Set of Keys
-        "https://peps.python.org/pep-0590/",  # Vectorcall: a fast calling protocol for CPython
-        "https://peps.python.org/pep-0591/",  # Adding a final qualifier to typing
-        "https://peps.python.org/pep-0592/",  # Adding “Yank” Support to the Simple API
-        "https://peps.python.org/pep-0593/",  # Flexible function and variable annotations
-        "https://peps.python.org/pep-0594/",  # Removing dead batteries from the standard library
-        "https://peps.python.org/pep-0595/",  # Improving bugs.python.org
-        "https://peps.python.org/pep-0596/",  # Python 3.9 Release Schedule
-        "https://peps.python.org/pep-0597/",  # Add optional EncodingWarning
-        "https://peps.python.org/pep-0598/",  # Introducing incremental feature releases
-        "https://peps.python.org/pep-0599/",  # The manylinux2014 Platform Tag
-        "https://peps.python.org/pep-0600/",  # Future ‘manylinux’ Platform Tags for Portable Linux Built Distributions
-        "https://peps.python.org/pep-0601/",  # Forbid return/break/continue breaking out of finally
-        "https://peps.python.org/pep-0602/",  # Annual Release Cycle for Python
-        "https://peps.python.org/pep-0603/",  # Adding a frozenmap type to collections
-        "https://peps.python.org/pep-0604/",  # Allow writing union types as X | Y
-        "https://peps.python.org/pep-0605/",  # A rolling feature release stream for CPython
-        "https://peps.python.org/pep-0606/",  # Python Compatibility Version
-        "https://peps.python.org/pep-0607/",  # Reducing CPython’s Feature Delivery Latency
-        "https://peps.python.org/pep-0608/",  # Coordinated Python release
-        "https://peps.python.org/pep-0609/",  # Python Packaging Authority (PyPA) Governance
-        "https://peps.python.org/pep-0610/",  # Recording the Direct URL Origin of installed distributions
-        "https://peps.python.org/pep-0611/",  # The one million limit
-        "https://peps.python.org/pep-0612/",  # Parameter Specification Variables
-        "https://peps.python.org/pep-0613/",  # Explicit Type Aliases
-        "https://peps.python.org/pep-0614/",  # Relaxing Grammar Restrictions On Decorators
-        "https://peps.python.org/pep-0615/",  # Support for the IANA Time Zone Database in the Standard Library
-        "https://peps.python.org/pep-0616/",  # String methods to remove prefixes and suffixes
-        "https://peps.python.org/pep-0617/",  # New PEG parser for CPython
-        "https://peps.python.org/pep-0618/",  # Add Optional Length-Checking To zip
-        "https://peps.python.org/pep-0619/",  # Python 3.10 Release Schedule
-        "https://peps.python.org/pep-0620/",  # Hide implementation details from the C API
-        "https://peps.python.org/pep-0621/",  # Storing project metadata in pyproject.toml
-        "https://peps.python.org/pep-0622/",  # Structural Pattern Matching
-        "https://peps.python.org/pep-0623/",  # Remove wstr from Unicode
-        "https://peps.python.org/pep-0624/",  # Remove Py_UNICODE encoder APIs
-        "https://peps.python.org/pep-0625/",  # Filename of a Source Distribution
-        "https://peps.python.org/pep-0626/",  # Precise line numbers for debugging and other tools.
-        "https://peps.python.org/pep-0627/",  # Recording installed projects
-        "https://peps.python.org/pep-0628/",  # Add math.tau
-        "https://peps.python.org/pep-0629/",  # Versioning PyPI’s Simple API
+        "https://peps.python.org/pep-0335/",  # Standard image protocol and class
+        "https://peps.python.org/pep-0343/",  # Post import hooks
+        "https://peps.python.org/pep-0355/",  # Per user site-packages directory
         "https://peps.python.org/pep-0630/",  # Isolating Extension Modules
         "https://peps.python.org/pep-0631/",  # Dependency specification in pyproject.toml based on PEP 508
         "https://peps.python.org/pep-0632/",  # Deprecate distutils module
@@ -702,7 +433,7 @@ def main() -> None:
 
     model_name = "gemini-2.5-flash"
 
-    for url in pep_urls[:50]:
+    for url in pep_urls[:]:
         try:
             pep_metadata = fetch_pep_metadata(url)
 
