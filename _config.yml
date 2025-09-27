@@ -191,7 +191,7 @@ markdown: kramdown
 highlighter: rouge
 lsi: false
 excerpt_separator: "\n\n"
-incremental: false
+incremental: true
 
 # Markdown Processing
 kramdown:
@@ -278,11 +278,11 @@ defaults:
     values:
       layout: single
       author_profile: true
-      read_time: #true
+      read_time: false
       show_date: true
       comments: true
       # share: true
-      related: true
+      related: false
       sidebar:
         nav: "categories"
 
