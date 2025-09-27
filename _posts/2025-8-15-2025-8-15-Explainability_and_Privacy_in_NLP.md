@@ -18,7 +18,7 @@ tags:
   - Model Faithfulness
   - Text Privatization
 
-permalink: /ai/review/2025-8-15-When_Explainability_Meets_Privacy_An_Investigation_at_the_Intersection_of_Post-hoc_Explainability_and_Differential_Privacy_in_the_Context_of_Natural_Language_Processing/
+permalink: /ai/review/2025-8-15-2025-8-15-Explainability_and_Privacy_in_NLP/
 
 toc: true
 toc_sticky: true
