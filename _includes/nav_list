@@ -22,12 +22,10 @@
         {% if nav.children != null %}
         <ul>
           {% for child in nav.children %}
-            <!-- sub-title -->
-            {% for category in site.categories %}
-              {% if category[0] == child.title %}
-                <li><a href="{{ child.url | relative_url }}"{% if child.url == page.url %} class="active"{% endif %}>{{ child.title }} ({{ category | last | size }})</a></li>
-              {% endif %}
-            {% endfor %}
+            <!-- 성능 최적화: 빌드 타임에 계산된 정적 카테고리 카운트 사용 -->
+            {% assign category_key = child.title | downcase | replace: " ", "-" %}
+            {% assign post_count = site.data.category_counts[category_key] | default: 0 %}
+            <li><a href="{{ child.url | relative_url }}"{% if child.url == page.url %} class="active"{% endif %}>{{ child.title }}{% if post_count > 0 %} ({{ post_count }}){% endif %}</a></li>
           {% endfor %}
         </ul>
         {% endif %}

@@ -63,4 +63,6 @@ layout: default
     {% endif %}
   </article>
 
+  {% comment %}<!-- 성능 최적화: 관련 포스트 기능 완전 비활성화 -->{% endcomment %}
+  {% comment %}<!-- 1,188개 포스트에서 관련 포스트 계산은 너무 느림 -->{% endcomment %}
 </div>
