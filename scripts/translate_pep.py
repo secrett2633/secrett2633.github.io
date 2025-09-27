@@ -175,32 +175,6 @@ def save_post(result: Dict[str, Any]) -> None:
 
 def main() -> None:
     pep_urls = [
-        "https://peps.python.org/pep-0335/",  # Standard image protocol and class
-        "https://peps.python.org/pep-0343/",  # Post import hooks
-        "https://peps.python.org/pep-0355/",  # Per user site-packages directory
-        "https://peps.python.org/pep-0630/",  # Isolating Extension Modules
-        "https://peps.python.org/pep-0631/",  # Dependency specification in pyproject.toml based on PEP 508
-        "https://peps.python.org/pep-0632/",  # Deprecate distutils module
-        "https://peps.python.org/pep-0633/",  # Dependency specification in pyproject.toml using an exploded TOML table
-        "https://peps.python.org/pep-0634/",  # Structural Pattern Matching: Specification
-        "https://peps.python.org/pep-0635/",  # Structural Pattern Matching: Motivation and Rationale
-        "https://peps.python.org/pep-0636/",  # Structural Pattern Matching: Tutorial
-        "https://peps.python.org/pep-0637/",  # Support for indexing with keyword arguments
-        "https://peps.python.org/pep-0638/",  # Syntactic Macros
-        "https://peps.python.org/pep-0639/",  # Improving License Clarity with Better Package Metadata
-        "https://peps.python.org/pep-0640/",  # Unused variable syntax
-        "https://peps.python.org/pep-0641/",  # Using an underscore in the version portion of Python 3.10 compatibility tags
-        "https://peps.python.org/pep-0642/",  # Explicit Pattern Syntax for Structural Pattern Matching
-        "https://peps.python.org/pep-0643/",  # Metadata for Package Source Distributions
-        "https://peps.python.org/pep-0644/",  # Require OpenSSL 1.1.1 or newer
-        "https://peps.python.org/pep-0645/",  # Allow writing optional types as x?
-        "https://peps.python.org/pep-0646/",  # Variadic Generics
-        "https://peps.python.org/pep-0647/",  # User-Defined Type Guards
-        "https://peps.python.org/pep-0648/",  # Extensible customizations of the interpreter at startup
-        "https://peps.python.org/pep-0649/",  # Deferred Evaluation Of Annotations Using Descriptors
-        "https://peps.python.org/pep-0650/",  # Specifying Installer Requirements for Python Projects
-        "https://peps.python.org/pep-0651/",  # Robust Stack Overflow Handling
-        "https://peps.python.org/pep-0652/",  # Maintaining the Stable ABI
         "https://peps.python.org/pep-0653/",  # Precise Semantics for Pattern Matching
         "https://peps.python.org/pep-0654/",  # Exception Groups and except*
         "https://peps.python.org/pep-0655/",  # Marking individual TypedDict items as required or potentially-missing
@@ -444,9 +418,6 @@ def main() -> None:
 
             result_data = {**pep_metadata, "translated_content": translated_content}
             save_post(result_data)
-
-            print("Sleeping for 5 seconds...")
-            time.sleep(5)
 
         except Exception as e:
             print(f"Fatal error processing {url}: {e}")

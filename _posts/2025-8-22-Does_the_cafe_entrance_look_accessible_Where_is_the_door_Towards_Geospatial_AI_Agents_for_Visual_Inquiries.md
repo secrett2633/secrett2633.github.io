@@ -1,8 +1,6 @@
 ---
-title: "[논문리뷰] "Does the cafe entrance look accessible? Where is the door?" Towards
-  Geospatial AI Agents for Visual Inquiries"
-excerpt: "Xia Su이 [arXiv]에 게시한 '"Does the cafe entrance look accessible? Where is the door?" Towards
-  Geospatial AI Agents for Visual Inquiries' 논문에 대한 자세한 리뷰입니다."
+title: "[논문리뷰] 'Does the cafe entrance look accessible? Where is the door?' Towards Geospatial AI Agents for Visual Inquiries"
+excerpt: "Xia Su이 [arXiv]에 게시한 'Does the cafe entrance look accessible? Where is the door? Towards Geospatial AI Agents for Visual Inquiries' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

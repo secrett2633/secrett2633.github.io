@@ -1,8 +1,6 @@
 ---
-title: "[논문리뷰] TPLA: Tensor Parallel Latent Attention for Efficient Disaggregated
-  Prefill \& Decode Inference"
-excerpt: "Di Yin이 [arXiv]에 게시한 'TPLA: Tensor Parallel Latent Attention for Efficient Disaggregated
-  Prefill \& Decode Inference' 논문에 대한 자세한 리뷰입니다."
+title: "[논문리뷰] TPLA: Tensor Parallel Latent Attention for Efficient Disaggregated Prefill & Decode Inference"
+excerpt: "Di Yin이 [arXiv]에 게시한 'TPLA: Tensor Parallel Latent Attention for Efficient Disaggregated Prefill & Decode Inference' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

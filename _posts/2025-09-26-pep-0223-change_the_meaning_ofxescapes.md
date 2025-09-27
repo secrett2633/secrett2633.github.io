@@ -1,6 +1,6 @@
 ---
-title: "[Final] PEP 223 - Change the Meaning of\xEscapes"
-excerpt: "Python Enhancement Proposal 223: 'Change the Meaning of\xEscapes'에 대한 한국어 번역입니다."
+title: "[Final] PEP 223 - Change the Meaning of '\\x' Escapes"
+excerpt: "Python Enhancement Proposal 223: 'Change the Meaning of '\\x' Escapes'에 대한 한국어 번역입니다."
 categories:
   - Python
   - PEP
