@@ -103,7 +103,7 @@ Windows에서 `--symlink`를 사용하지 않으면, 기본 Python 설치가 업
 
 현재 `virtualenv`는 인클루드 파일을 다음과 같이 처리합니다.
 *   POSIX 시스템에서 설치된 Python의 인클루드 파일이 `${base_prefix}/include/pythonX.X`에 있는 경우, `virtualenv`는 `${venv}/include/`를 생성하고 `${base_prefix}/include/pythonX.X`를 `${venv}/include/pythonX.X`에 심볼릭 링크합니다.
-*   Windows에서 Python의 인클루드 파일이 `{{ sys.prefix }}/Include`에 있고 심볼릭 링크를 안정적으로 사용할 수 없는 경우, `virtualenv`는 `{{ sys.prefix }}/Include`를 `${venv}/Include`로 복사합니다.
+*   Windows에서 Python의 인클루드 파일이 {% raw %}`{{ sys.prefix }}`{% endraw %}/Include에 있고 심볼릭 링크를 안정적으로 사용할 수 없는 경우, `virtualenv`는 {% raw %}`{{ sys.prefix }}`{% endraw %}/Include를 `${venv}/Include`로 복사합니다.
 
 이 PEP는 이와는 약간 다른 접근 방식을 제안합니다. 인클루드 파일을 `venv`에 심볼릭 링크하거나 복사하는 대신, 헤더 파일이 `prefix` 대신 `base_prefix`를 기준으로 항상 찾아지도록 `sysconfig` 스키마를 수정합니다. (또한 `venv` 내에 `include/` 디렉토리를 생성하여 설치 프로그램이 환경 내에 설치된 인클루드 파일을 배치할 수 있도록 합니다.)
 
