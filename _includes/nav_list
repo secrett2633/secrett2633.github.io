@@ -5,10 +5,6 @@
   <input id="ac-toc" name="accordion-toc" type="checkbox" />
   <label for="ac-toc">{{ site.data.ui-text[site.locale].menu_label | default: "Toggle Menu" }}</label>
   <ul class="nav__items">
-    <!-- <li>
-      <span class="nav__total">🌴 Total Posts: {{site.posts | size}}</span>
-    </li> -->
-    
     {% for nav in navigation %}
       <li>
         {% if nav.url %}
@@ -22,10 +18,7 @@
         {% if nav.children != null %}
         <ul>
           {% for child in nav.children %}
-            <!-- 성능 최적화: 빌드 타임에 계산된 정적 카테고리 카운트 사용 -->
-            {% assign category_key = child.title | downcase | replace: " ", "-" %}
-            {% assign post_count = site.data.category_counts[category_key] | default: 0 %}
-            <li><a href="{{ child.url | relative_url }}"{% if child.url == page.url %} class="active"{% endif %}>{{ child.title }}{% if post_count > 0 %} ({{ post_count }}){% endif %}</a></li>
+            <li><a href="{{ child.url | relative_url }}"{% if child.url == page.url %} class="active"{% endif %}>{{ child.title }}</a></li>
           {% endfor %}
         </ul>
         {% endif %}
