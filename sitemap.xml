@@ -21,8 +21,6 @@ layout: null
       </sitemap>
     {% endif %}
   {% endfor %}
-  
-  <!-- Static pages sitemap -->
   <sitemap>
     <loc>{{ site.url }}/sitemap-pages.xml</loc>
     <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
