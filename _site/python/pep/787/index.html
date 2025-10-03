@@ -1,0 +1,1498 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Deferred] PEP 787 - Safer subprocess usage using t-strings | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 787: ‘Safer subprocess usage using t-strings’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Deferred] PEP 787 - Safer subprocess usage using t-strings">
+<meta property="og:url" content="http://localhost:4000/python/pep/787/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 787: ‘Safer subprocess usage using t-strings’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T14:00:15+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T14:00:15+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/787/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Deferred] PEP 787 - Safer subprocess usage using t-strings">
+    <meta itemprop="description" content="Python Enhancement Proposal 787: ‘Safer subprocess usage using t-strings’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T14:00:15+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T14:00:15+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Deferred] PEP 787 - Safer subprocess usage using t-strings
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T14:00:15+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-787--t-string을-사용한-더-안전한-서브프로세스-활용">PEP 787 – t-string을 사용한 더 안전한 서브프로세스 활용</a><ul><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#pep-연기-pep-deferral">PEP 연기 (PEP Deferral)</a></li><li><a href="#동기-motivation">동기 (Motivation)</a></li><li><a href="#근거-rationale">근거 (Rationale)</a></li><li><a href="#명세-specification">명세 (Specification)</a><ul><li><a href="#shlex에-셸-이스케이프를-위한-렌더러-추가">shlex에 셸 이스케이프를 위한 렌더러 추가</a></li><li><a href="#subprocess-모듈-변경-사항">subprocess 모듈 변경 사항</a></li></ul></li><li><a href="#하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</a></li><li><a href="#보안-영향-security-implications">보안 영향 (Security Implications)</a></li><li><a href="#교육-방법-how-to-teach-this">교육 방법 (How to Teach This)</a><ul><li><a href="#비-posix-셸에-대한-이스케이프-렌더링-지원-연기">비-POSIX 셸에 대한 이스케이프 렌더링 지원 연기</a></li></ul></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li><li><a href="#근거-rationale-1">근거 (Rationale)</a></li><li><a href="#명세-specification-1">명세 (Specification)</a><ul><li><a href="#shlex에-셸-이스케이프를-위한-렌더러-추가-1">shlex에 셸 이스케이프를 위한 렌더러 추가</a></li><li><a href="#subprocess-모듈-변경-사항-1">subprocess 모듈 변경 사항</a></li></ul></li><li><a href="#하위-호환성-backwards-compatibility-1">하위 호환성 (Backwards Compatibility)</a></li><li><a href="#보안-영향-security-implications-1">보안 영향 (Security Implications)</a></li><li><a href="#교육-방법-how-to-teach-this-1">교육 방법 (How to Teach This)</a><ul><li><a href="#비-posix-셸에-대한-이스케이프-렌더링-지원-연기-1">비-POSIX 셸에 대한 이스케이프 렌더링 지원 연기</a></li></ul></li><li><a href="#저작권-copyright-1">저작권 (Copyright)</a></li><li><a href="#근거-rationale-2">근거 (Rationale)</a></li><li><a href="#명세-specification-2">명세 (Specification)</a><ul><li><a href="#shlex에-셸-이스케이프를-위한-렌더러-추가-2">shlex에 셸 이스케이프를 위한 렌더러 추가</a></li><li><a href="#subprocess-모듈-변경-사항-2">subprocess 모듈 변경 사항</a></li></ul></li><li><a href="#하위-호환성-backwards-compatibility-2">하위 호환성 (Backwards Compatibility)</a></li><li><a href="#보안-영향-security-implications-2">보안 영향 (Security Implications)</a></li><li><a href="#교육-방법-how-to-teach-this-2">교육 방법 (How to Teach This)</a><ul><li><a href="#비-posix-셸에-대한-이스케이프-렌더링-지원-연기-2">비-POSIX 셸에 대한 이스케이프 렌더링 지원 연기</a></li></ul></li><li><a href="#저작권-copyright-2">저작권 (Copyright)</a></li><li><a href="#개요-abstract-1">개요 (Abstract)</a></li><li><a href="#pep-연기-pep-deferral-1">PEP 연기 (PEP Deferral)</a></li><li><a href="#동기-motivation-1">동기 (Motivation)</a></li><li><a href="#근거-rationale-3">근거 (Rationale)</a></li><li><a href="#명세-specification-3">명세 (Specification)</a><ul><li><a href="#shlex에-셸-이스케이프를-위한-렌더러-추가-3">shlex에 셸 이스케이프를 위한 렌더러 추가</a></li><li><a href="#subprocess-모듈-변경-사항-3">subprocess 모듈 변경 사항</a></li></ul></li><li><a href="#하위-호환성-backwards-compatibility-3">하위 호환성 (Backwards Compatibility)</a></li><li><a href="#보안-영향-security-implications-3">보안 영향 (Security Implications)</a></li><li><a href="#교육-방법-how-to-teach-this-3">교육 방법 (How to Teach This)</a><ul><li><a href="#비-posix-셸에-대한-이스케이프-렌더링-지원-연기-3">비-POSIX 셸에 대한 이스케이프 렌더링 지원 연기</a></li></ul></li><li><a href="#저작권-copyright-3">저작권 (Copyright)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0787/">PEP 787 - Safer subprocess usage using t-strings</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Deferred</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 13-Apr-2025</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-787--t-string을-사용한-더-안전한-서브프로세스-활용">PEP 787 – t-string을 사용한 더 안전한 서브프로세스 활용</h1>
+
+<ul>
+  <li><strong>저자</strong>: Nick Humrich, Alyssa Coghlan</li>
+  <li><strong>상태</strong>: Deffered (연기됨)</li>
+  <li><strong>Python 버전</strong>: 3.15</li>
+  <li><strong>생성일</strong>: 2025년 4월 13일</li>
+</ul>
+
+<h2 id="개요-abstract">개요 (Abstract)</h2>
+
+<p>PEP 750에서 f-string의 일반화된 형태로 <code class="language-plaintext highlighter-rouge">template string (t-string)</code>이 도입되어 다양한 컨텍스트에서 안전하게 문자열 보간(interpolation)을 처리할 수 있게 되었습니다. 이 PEP는 <code class="language-plaintext highlighter-rouge">subprocess</code> 및 <code class="language-plaintext highlighter-rouge">shlex</code> 모듈을 확장하여 <code class="language-plaintext highlighter-rouge">t-string</code>을 기본으로 지원함으로써, 보간된 값으로 셸 명령을 더 안전하고 인체공학적으로 실행할 수 있도록 제안합니다. 또한, API 인체공학을 개선하기 위한 <code class="language-plaintext highlighter-rouge">t-string</code> 기능의 참조 구현 역할도 합니다.</p>
+
+<h2 id="pep-연기-pep-deferral">PEP 연기 (PEP Deferral)</h2>
+
+<p>초기 초안 논의 과정에서, <code class="language-plaintext highlighter-rouge">t-string</code>이 <code class="language-plaintext highlighter-rouge">shell=True</code>와 유사한 수준의 구문적 편의성을 제공하면서도, 사용자 입력 텍스트가 전체 시스템 셸에 접근할 때 발생하는 보안 및 크로스 플랫폼 호환성 문제를 피할 수 있는 잠재적인 기회를 제공한다는 점이 명확해졌습니다.</p>
+
+<p>이에 따라, PEP 저자들은 Python 3.15를 위한 제안서의 수정된 초안을 준비하기 전에, Python 3.14 베타 기간(및 그 이후) 동안 실험적인 <code class="language-plaintext highlighter-rouge">t-string</code> 기반의 <code class="language-plaintext highlighter-rouge">subprocess</code> 호출 라이브러리를 개발할 계획입니다.</p>
+
+<h2 id="동기-motivation">동기 (Motivation)</h2>
+
+<p>PEP 750의 <code class="language-plaintext highlighter-rouge">template string (t-string)</code>은 안전성과 유연성을 제공함에도 불구하고, 표준 라이브러리 내에 실제 적용을 보여주는 구체적인 소비자 구현(consumer implementation)이 부족합니다. <code class="language-plaintext highlighter-rouge">t-string</code>의 가장 설득력 있는 사용 사례 중 하나는 철회된 PEP 501에서도 언급되었듯이, 더 안전한 셸 명령 실행입니다.</p>
+
+<p>예시:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># f-string 사용 시 안전하지 않음: (커맨드 인젝션 위험)
+</span><span class="n">os</span><span class="p">.</span><span class="nf">system</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">echo </span><span class="si">{</span><span class="n">message_from_user</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+<span class="c1"># f-string 사용 시 역시 안전하지 않음
+</span><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">echo </span><span class="si">{</span><span class="n">message_from_user</span><span class="si">}</span><span class="sh">"</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="c1"># f-string 사용 시 실패
+</span><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">echo </span><span class="si">{</span><span class="n">message_from_user</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># t-string과 POSIX 호환 셸 쿼팅(quoting) 사용 시 안전:
+</span><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">echo {message_from_user}</span><span class="sh">"</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="c1"># t-string 사용 시 모든 플랫폼에서 안전:
+</span><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">echo {message_from_user}</span><span class="sh">"</span><span class="p">)</span>
+<span class="c1"># t-string 없이 모든 플랫폼에서 안전 (더 장황함):
+</span><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">([</span><span class="sh">"</span><span class="s">echo</span><span class="sh">"</span><span class="p">,</span> <span class="nf">str</span><span class="p">(</span><span class="n">message_from_user</span><span class="p">)])</span>
+</code></pre></div></div>
+
+<p>현재 개발자들은 편의성(<code class="language-plaintext highlighter-rouge">f-string</code> 사용 시 잠재적인 보안 위험)과 안전성(더 장황한 리스트 기반 API 사용) 사이에서 선택해야 합니다. <code class="language-plaintext highlighter-rouge">subprocess</code> 모듈에 기본 <code class="language-plaintext highlighter-rouge">t-string</code> 지원을 추가함으로써, 이 PEP는 <code class="language-plaintext highlighter-rouge">t-string</code>의 가치를 보여주는 소비자 참조 구현을 제공하며, 일반적인 보안 문제를 해결합니다.</p>
+
+<h2 id="근거-rationale">근거 (Rationale)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">subprocess</code> 모듈이 <code class="language-plaintext highlighter-rouge">t-string</code> 지원에 이상적인 후보인 이유는 다음과 같습니다.</p>
+
+<ul>
+  <li>셸 명령의 명령 주입(Command Injection) 취약점은 잘 알려진 보안 위험입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">subprocess</code> 모듈은 이미 문자열 및 리스트 기반의 명령 지정을 모두 지원합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">t-string</code>과 적절한 셸 이스케이프(escaping) 사이에는 자연스러운 매핑이 있어 편의성과 안전성을 모두 제공합니다.</li>
+  <li>이것은 개발자들이 즉시 이해하고 활용할 수 있는 <code class="language-plaintext highlighter-rouge">t-string</code>의 실용적인 쇼케이스 역할을 합니다.</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">subprocess</code>를 확장하여 <code class="language-plaintext highlighter-rouge">t-string</code>을 기본으로 처리하게 함으로써, 많은 개발자들이 잠재적으로 안전하지 않은 <code class="language-plaintext highlighter-rouge">f-string</code>을 사용하게 만들었던 편의성을 희생하지 않고도 안전한 코드를 더 쉽게 작성할 수 있도록 합니다.</p>
+
+<h2 id="명세-specification">명세 (Specification)</h2>
+
+<p>이 PEP는 표준 라이브러리에 두 가지 주요 추가 사항을 제안합니다.</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">shlex</code> 모듈에 안전한 셸 명령 구성을 위한 새로운 <code class="language-plaintext highlighter-rouge">sh()</code> 렌더러 함수 추가</li>
+  <li><code class="language-plaintext highlighter-rouge">subprocess</code> 모듈의 핵심 함수, 특히 <code class="language-plaintext highlighter-rouge">subprocess.Popen</code>, <code class="language-plaintext highlighter-rouge">subprocess.run()</code> 및 <code class="language-plaintext highlighter-rouge">command</code> 인수를 받는 다른 관련 함수에 <code class="language-plaintext highlighter-rouge">t-string</code> 지원 추가</li>
+</ol>
+
+<h3 id="shlex에-셸-이스케이프를-위한-렌더러-추가"><code class="language-plaintext highlighter-rouge">shlex</code>에 셸 이스케이프를 위한 렌더러 추가</h3>
+
+<p>참조 구현으로서, 안전한 POSIX 셸 이스케이프를 위한 렌더러가 <code class="language-plaintext highlighter-rouge">shlex</code> 모듈에 추가될 것입니다. 이 렌더러는 <code class="language-plaintext highlighter-rouge">sh</code>라고 불리며, 템플릿 리터럴의 각 필드 값에 대해 <code class="language-plaintext highlighter-rouge">shlex.quote</code>를 호출하는 것과 동일하게 작동합니다.</p>
+
+<p>따라서 다음 코드는:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">os</span><span class="p">.</span><span class="nf">system</span><span class="p">(</span><span class="n">shlex</span><span class="p">.</span><span class="nf">sh</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {myfile}</span><span class="sh">"</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>다음과 동일하게 동작합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">os</span><span class="p">.</span><span class="nf">system</span><span class="p">(</span><span class="sh">"</span><span class="s">cat </span><span class="sh">"</span> <span class="o">+</span> <span class="n">shlex</span><span class="p">.</span><span class="nf">quote</span><span class="p">(</span><span class="n">myfile</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">shlex.sh</code>의 추가는 <code class="language-plaintext highlighter-rouge">subprocess</code> 문서에서 <code class="language-plaintext highlighter-rouge">shell=True</code> 사용을 피하는 것이 가장 좋다는 기존 권고 사항을 변경하지 않으며, <code class="language-plaintext highlighter-rouge">os.system()</code> 문서에서 상위 수준의 <code class="language-plaintext highlighter-rouge">subprocess</code> API를 참조하는 것도 변경하지 않습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">t-string</code> 프로세서 구현은 다음과 같습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">string.templatelib</span> <span class="kn">import</span> <span class="n">Template</span><span class="p">,</span> <span class="n">Interpolation</span>
+<span class="kn">from</span> <span class="n">shlex</span> <span class="kn">import</span> <span class="n">quote</span><span class="p">,</span> <span class="n">join</span> <span class="c1"># shlex.quote와 shlex.join을 가정
+</span>
+<span class="k">def</span> <span class="nf">sh</span><span class="p">(</span><span class="n">template</span><span class="p">:</span> <span class="n">Template</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">parts</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">template</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">Interpolation</span><span class="p">):</span>
+            <span class="c1"># shlex.sh 구현이므로 shlex.quote를 직접 사용할 수 있습니다.
+</span>            <span class="n">parts</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="nf">quote</span><span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="n">item</span><span class="p">.</span><span class="n">value</span><span class="p">)))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">parts</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+    <span class="c1"># shlex.sh 구현이므로 `join`은 shlex.join을 참조합니다.
+</span>    <span class="k">return</span> <span class="nf">join</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>이를 통해 셸 사용을 위한 <code class="language-plaintext highlighter-rouge">t-string</code>의 명시적인 이스케이프가 가능합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">shlex</span>
+<span class="kn">import</span> <span class="n">os</span>
+
+<span class="n">filename</span> <span class="o">=</span> <span class="sh">"</span><span class="s">my file with spaces.txt</span><span class="sh">"</span> <span class="c1"># 사용자 입력이라고 가정
+</span>
+<span class="c1"># 안전한 POSIX 호환 셸 명령 구성
+</span><span class="n">command</span> <span class="o">=</span> <span class="n">shlex</span><span class="p">.</span><span class="nf">sh</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {filename}</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">os</span><span class="p">.</span><span class="nf">system</span><span class="p">(</span><span class="n">command</span><span class="p">)</span> <span class="c1"># cat "my file with spaces.txt" 와 동일하게 실행
+</span></code></pre></div></div>
+
+<h3 id="subprocess-모듈-변경-사항"><code class="language-plaintext highlighter-rouge">subprocess</code> 모듈 변경 사항</h3>
+
+<p><code class="language-plaintext highlighter-rouge">shlex</code> 모듈에 렌더러와 <code class="language-plaintext highlighter-rouge">template string</code>이 추가됨에 따라, <code class="language-plaintext highlighter-rouge">subprocess</code> 모듈은 <code class="language-plaintext highlighter-rouge">Popen</code>에 <code class="language-plaintext highlighter-rouge">template string</code>을 추가 입력 유형으로 받을 수 있도록 변경될 수 있습니다. <code class="language-plaintext highlighter-rouge">Popen</code>은 이미 시퀀스(sequence) 또는 문자열을 받으며, 각각 다른 동작을 합니다.</p>
+
+<p>결과적으로, <code class="language-plaintext highlighter-rouge">subprocess.run()</code>과 같은 <code class="language-plaintext highlighter-rouge">subprocess.Popen</code>의 모든 상위 수준 함수는 안전한 방식으로 문자열을 받을 수 있게 됩니다 ( <code class="language-plaintext highlighter-rouge">shell=False</code>의 경우 모든 시스템에서, <code class="language-plaintext highlighter-rouge">shell=True</code>의 경우 POSIX 시스템에서).</p>
+
+<p>예를 들어:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {myfile}</span><span class="sh">"</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>위 코드는 이 PEP에서 제공하는 <code class="language-plaintext highlighter-rouge">shlex.sh</code> 렌더러를 자동으로 사용합니다. 따라서, 다음과 같이 <code class="language-plaintext highlighter-rouge">subprocess.run</code> 호출 내에서 <code class="language-plaintext highlighter-rouge">shlex</code>를 사용하는 것은 중복됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="n">shlex</span><span class="p">.</span><span class="nf">sh</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {myfile}</span><span class="sh">"</span><span class="p">),</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">run</code> 함수가 모든 템플릿 리터럴을 <code class="language-plaintext highlighter-rouge">shlex.sh</code>를 통해 자동으로 렌더링하기 때문입니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">subprocess.Popen</code>이 <code class="language-plaintext highlighter-rouge">shell=True</code> 없이 호출될 때도 <code class="language-plaintext highlighter-rouge">t-string</code> 지원은 <code class="language-plaintext highlighter-rouge">subprocess</code>에 더 인체공학적인 구문을 제공합니다. 예를 들어:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {myfile} --flag {value}</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>위 코드는 다음과 동일합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">([</span><span class="sh">"</span><span class="s">cat</span><span class="sh">"</span><span class="p">,</span> <span class="n">myfile</span><span class="p">,</span> <span class="sh">"</span><span class="s">--flag</span><span class="sh">"</span><span class="p">,</span> <span class="n">value</span><span class="p">])</span>
+</code></pre></div></div>
+
+<p>또는 더 정확하게는:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="n">shlex</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="n">shlex</span><span class="p">.</span><span class="nf">sh</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {myfile} --flag {value}</span><span class="sh">"</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<p>이는 먼저 위에서 설명한 <code class="language-plaintext highlighter-rouge">shlex.sh</code> 렌더러를 사용한 다음, 그 결과에 대해 <code class="language-plaintext highlighter-rouge">shlex.split</code>을 사용함으로써 이루어집니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">subprocess.Popen._execute_child</code> 내부의 구현은 <code class="language-plaintext highlighter-rouge">t-string</code>을 확인할 것입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">string.templatelib</span> <span class="kn">import</span> <span class="n">Template</span>
+
+<span class="k">if</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">Template</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="n">shlex</span>
+    <span class="k">if</span> <span class="n">shell</span><span class="p">:</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="n">shlex</span><span class="p">.</span><span class="nf">sh</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="n">shlex</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="n">shlex</span><span class="p">.</span><span class="nf">sh</span><span class="p">(</span><span class="n">args</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h2 id="하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</h2>
+
+<p>이 변경 사항은 기존 동작을 변경하지 않고 새로운 기능만 추가하므로, 완벽하게 하위 호환됩니다. <code class="language-plaintext highlighter-rouge">subprocess</code> 모듈은 현재와 동일한 방식으로 문자열과 리스트를 계속 처리할 것입니다.</p>
+
+<h2 id="보안-영향-security-implications">보안 영향 (Security Implications)</h2>
+
+<p>이 PEP는 셸 명령과 함께 <code class="language-plaintext highlighter-rouge">f-string</code>을 사용하는 것에 대한 더 안전한 대안을 제공함으로써 보안을 개선하도록 명시적으로 설계되었습니다. 컨텍스트(셸 또는 비-셸)에 따라 적절한 이스케이프를 자동으로 적용하여 명령 주입 취약점을 방지하는 데 도움이 됩니다.</p>
+
+<p>그러나 <code class="language-plaintext highlighter-rouge">shell=True</code>가 사용될 때는 안전성이 POSIX 호환 셸로 제한된다는 점을 알아두어야 합니다. <code class="language-plaintext highlighter-rouge">cmd.exe</code> 또는 PowerShell이 셸로 사용될 수 있는 Windows 시스템에서는 <code class="language-plaintext highlighter-rouge">shlex.quote()</code>가 제공하는 이스케이프 메커니즘이 모든 형태의 명령 주입을 방지하기에 충분하지 않습니다.</p>
+
+<h2 id="교육-방법-how-to-teach-this">교육 방법 (How to Teach This)</h2>
+
+<p>이 기능은 <code class="language-plaintext highlighter-rouge">t-string</code>의 실용적인 가치를 보여주는 자연스러운 확장으로 가르칠 수 있습니다.</p>
+
+<ol>
+  <li>명령 주입 문제와 <code class="language-plaintext highlighter-rouge">f-string</code>이 셸 명령과 함께 사용될 때 위험한 이유를 소개합니다.</li>
+  <li>전통적인 해결책(리스트 기반 명령, 수동 이스케이프)을 보여줍니다.</li>
+  <li>
+    <p>명시적인 셸 이스케이프를 위한 <code class="language-plaintext highlighter-rouge">shlex.sh</code> 렌더러를 소개합니다.</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 안전하지 않음:
+</span><span class="n">os</span><span class="p">.</span><span class="nf">system</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">cat </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># 잠재적인 명령 주입!
+</span>
+<span class="c1"># shlex.sh 사용 시 안전:
+</span><span class="n">os</span><span class="p">.</span><span class="nf">system</span><span class="p">(</span><span class="n">shlex</span><span class="p">.</span><span class="nf">sh</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {filename}</span><span class="sh">"</span><span class="p">))</span> <span class="c1"># 셸을 위한 명시적 이스케이프
+</span></code></pre></div>    </div>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">subprocess</code> 모듈의 기본 <code class="language-plaintext highlighter-rouge">t-string</code> 지원을 소개합니다.</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 안전하지 않음:
+</span><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">cat </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="sh">"</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c1"># 잠재적인 명령 주입!
+</span>
+<span class="c1"># 안전하지만 장황함:
+</span><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">([</span><span class="sh">"</span><span class="s">cat</span><span class="sh">"</span><span class="p">,</span> <span class="n">filename</span><span class="p">])</span>
+
+<span class="c1"># t-string 사용 시 안전하고 읽기 쉬움:
+</span><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {filename}</span><span class="sh">"</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c1"># filename을 자동으로 이스케이프
+</span><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {filename}</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># 자동으로 리스트 형태로 변환
+</span></code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>구현은 <code class="language-plaintext highlighter-rouge">shlex</code> 및 <code class="language-plaintext highlighter-rouge">subprocess</code> 모듈 문서에 명확한 예제와 보안 권고 사항과 함께 추가되어야 합니다.</p>
+
+<h3 id="비-posix-셸에-대한-이스케이프-렌더링-지원-연기">비-POSIX 셸에 대한 이스케이프 렌더링 지원 연기</h3>
+
+<p><code class="language-plaintext highlighter-rouge">shlex.quote()</code>는 정규식 문자 세트 <code class="language-plaintext highlighter-rouge">[\w@%+=:,./-]</code>를 안전하다고 분류하고, 다른 모든 문자는 안전하지 않은 것으로 간주하여 해당 문자를 포함하는 문자열에 쿼팅(quoting)을 요구합니다. 사용되는 쿼팅 메커니즘은 POSIX 셸의 문자열 쿼팅 방식에 특화되어 있으므로, POSIX 셸 문자열 쿼팅 규칙을 따르지 않는 셸을 실행할 때는 신뢰할 수 없습니다.</p>
+
+<p>예를 들어, <code class="language-plaintext highlighter-rouge">subprocess.run(f"echo {shlex.quote(sys.argv[1])}", shell=True)</code>를 POSIX 쿼팅 규칙을 따르는 셸에서 실행하면 안전합니다.</p>
+
+<p>그러나 Python에서 <code class="language-plaintext highlighter-rouge">cmd.exe</code> (또는 Powershell)를 호출하는 셸을 실행할 때는 여전히 안전하지 않습니다.</p>
+
+<p>이러한 표준 라이브러리 제한을 해결하는 것은 이 PEP의 범위를 벗어납니다.</p>
+
+<h2 id="저작권-copyright">저작권 (Copyright)</h2>
+
+<p>이 문서는 퍼블릭 도메인 또는 CC0-1.0-Universal 라이선스 중 더 관대한 라이선스에 따라 공개됩니다.</p>
+
+<p>I have translated and structured the content as requested. I have also added citations for every sentence derived from the browsed URL.</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># PEP 787 – t-string을 사용한 더 안전한 서브프로세스 활용</span>
+<span class="p">
+*</span>   <span class="gs">**저자**</span>: Nick Humrich, Alyssa Coghlan
+<span class="p">*</span>   <span class="gs">**상태**</span>: Deferred (연기됨)
+<span class="p">*</span>   <span class="gs">**Python 버전**</span>: 3.15
+<span class="p">*</span>   <span class="gs">**생성일**</span>: 2025년 4월 13일
+
+<span class="gu">## 개요 (Abstract)</span>
+
+PEP 750에서 f-string의 일반화된 형태로 <span class="sb">`template string (t-string)`</span>이 도입되어 다양한 컨텍스트에서 안전하게 문자열 보간(interpolation)을 처리할 수 있게 되었습니다. 이 PEP는 <span class="sb">`subprocess`</span> 및 <span class="sb">`shlex`</span> 모듈을 확장하여 <span class="sb">`t-string`</span>을 기본으로 지원함으로써, 보간된 값으로 셸 명령을 더 안전하고 인체공학적으로 실행할 수 있도록 제안합니다. 또한, API 인체공학을 개선하기 위한 <span class="sb">`t-string`</span> 기능의 참조 구현 역할도 합니다.
+
+<span class="gu">## PEP 연기 (PEP Deferral)</span>
+
+초기 초안 논의 과정에서, <span class="sb">`t-string`</span>이 <span class="sb">`shell=True`</span>와 유사한 수준의 구문적 편의성을 제공하면서도, 사용자 입력 텍스트가 전체 시스템 셸에 접근할 때 발생하는 보안 및 크로스 플랫폼 호환성 문제를 피할 수 있는 잠재적인 기회를 제공한다는 점이 명확해졌습니다.
+
+이에 따라, PEP 저자들은 Python 3.15를 위한 제안서의 수정된 초안을 준비하기 전에, Python 3.14 베타 기간(및 그 이후) 동안 실험적인 <span class="sb">`t-string`</span> 기반의 <span class="sb">`subprocess`</span> 호출 라이브러리를 개발할 계획입니다.
+
+<span class="gu">## 동기 (Motivation)</span>
+
+PEP 750의 <span class="sb">`template string (t-string)`</span>은 안전성과 유연성을 제공함에도 불구하고, 표준 라이브러리 내에 실제 적용을 보여주는 구체적인 소비자 구현(consumer implementation)이 부족합니다. <span class="sb">`t-string`</span>의 가장 설득력 있는 사용 사례 중 하나는 철회된 PEP 501에서도 언급되었듯이, 더 안전한 셸 명령 실행입니다.
+
+예시:
+
+<span class="p">```</span><span class="nl">python
+</span><span class="c1"># f-string 사용 시 안전하지 않음: (커맨드 인젝션 위험)
+</span><span class="n">os</span><span class="p">.</span><span class="nf">system</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">echo </span><span class="si">{</span><span class="n">message_from_user</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+<span class="c1"># f-string 사용 시 역시 안전하지 않음
+</span><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">echo </span><span class="si">{</span><span class="n">message_from_user</span><span class="si">}</span><span class="sh">"</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="c1"># f-string 사용 시 실패
+</span><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">echo </span><span class="si">{</span><span class="n">message_from_user</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># t-string과 POSIX 호환 셸 쿼팅(quoting) 사용 시 안전:
+</span><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">echo {message_from_user}</span><span class="sh">"</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="c1"># t-string 사용 시 모든 플랫폼에서 안전:
+</span><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">echo {message_from_user}</span><span class="sh">"</span><span class="p">)</span>
+<span class="c1"># t-string 없이 모든 플랫폼에서 안전 (더 장황함):
+</span><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">([</span><span class="sh">"</span><span class="s">echo</span><span class="sh">"</span><span class="p">,</span> <span class="nf">str</span><span class="p">(</span><span class="n">message_from_user</span><span class="p">)])</span>
+</code></pre></div></div>
+
+<p>현재 개발자들은 편의성(<code class="language-plaintext highlighter-rouge">f-string</code> 사용 시 잠재적인 보안 위험)과 안전성(더 장황한 리스트 기반 API 사용) 사이에서 선택해야 합니다. <code class="language-plaintext highlighter-rouge">subprocess</code> 모듈에 기본 <code class="language-plaintext highlighter-rouge">t-string</code> 지원을 추가함으로써, 이 PEP는 <code class="language-plaintext highlighter-rouge">t-string</code>의 가치를 보여주는 소비자 참조 구현을 제공하며, 일반적인 보안 문제를 해결합니다.</p>
+
+<h2 id="근거-rationale-1">근거 (Rationale)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">subprocess</code> 모듈이 <code class="language-plaintext highlighter-rouge">t-string</code> 지원에 이상적인 후보인 이유는 다음과 같습니다.</p>
+
+<ul>
+  <li>셸 명령의 명령 주입(Command Injection) 취약점은 잘 알려진 보안 위험입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">subprocess</code> 모듈은 이미 문자열 및 리스트 기반의 명령 지정을 모두 지원합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">t-string</code>과 적절한 셸 이스케이프(escaping) 사이에는 자연스러운 매핑이 있어 편의성과 안전성을 모두 제공합니다.</li>
+  <li>이것은 개발자들이 즉시 이해하고 활용할 수 있는 <code class="language-plaintext highlighter-rouge">t-string</code>의 실용적인 쇼케이스 역할을 합니다.</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">subprocess</code>를 확장하여 <code class="language-plaintext highlighter-rouge">t-string</code>을 기본으로 처리하게 함으로써, 많은 개발자들이 잠재적으로 안전하지 않은 <code class="language-plaintext highlighter-rouge">f-string</code>을 사용하게 만들었던 편의성을 희생하지 않고도 안전한 코드를 더 쉽게 작성할 수 있도록 합니다.</p>
+
+<h2 id="명세-specification-1">명세 (Specification)</h2>
+
+<p>이 PEP는 표준 라이브러리에 두 가지 주요 추가 사항을 제안합니다.</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">shlex</code> 모듈에 안전한 셸 명령 구성을 위한 새로운 <code class="language-plaintext highlighter-rouge">sh()</code> 렌더러 함수 추가</li>
+  <li><code class="language-plaintext highlighter-rouge">subprocess</code> 모듈의 핵심 함수, 특히 <code class="language-plaintext highlighter-rouge">subprocess.Popen</code>, <code class="language-plaintext highlighter-rouge">subprocess.run()</code> 및 <code class="language-plaintext highlighter-rouge">command</code> 인수를 받는 다른 관련 함수에 <code class="language-plaintext highlighter-rouge">t-string</code> 지원 추가</li>
+</ol>
+
+<h3 id="shlex에-셸-이스케이프를-위한-렌더러-추가-1"><code class="language-plaintext highlighter-rouge">shlex</code>에 셸 이스케이프를 위한 렌더러 추가</h3>
+
+<p>참조 구현으로서, 안전한 POSIX 셸 이스케이프를 위한 렌더러가 <code class="language-plaintext highlighter-rouge">shlex</code> 모듈에 추가될 것입니다. 이 렌더러는 <code class="language-plaintext highlighter-rouge">sh</code>라고 불리며, 템플릿 리터럴의 각 필드 값에 대해 <code class="language-plaintext highlighter-rouge">shlex.quote</code>를 호출하는 것과 동일하게 작동합니다.</p>
+
+<p>따라서 다음 코드는:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">os</span><span class="p">.</span><span class="nf">system</span><span class="p">(</span><span class="n">shlex</span><span class="p">.</span><span class="nf">sh</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {myfile}</span><span class="sh">"</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>다음과 동일하게 동작합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">os</span><span class="p">.</span><span class="nf">system</span><span class="p">(</span><span class="sh">"</span><span class="s">cat </span><span class="sh">"</span> <span class="o">+</span> <span class="n">shlex</span><span class="p">.</span><span class="nf">quote</span><span class="p">(</span><span class="n">myfile</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">shlex.sh</code>의 추가는 <code class="language-plaintext highlighter-rouge">subprocess</code> 문서에서 <code class="language-plaintext highlighter-rouge">shell=True</code> 사용을 피하는 것이 가장 좋다는 기존 권고 사항을 변경하지 않으며, <code class="language-plaintext highlighter-rouge">os.system()</code> 문서에서 상위 수준의 <code class="language-plaintext highlighter-rouge">subprocess</code> API를 참조하는 것도 변경하지 않습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">t-string</code> 프로세서 구현은 다음과 같습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">string.templatelib</span> <span class="kn">import</span> <span class="n">Template</span><span class="p">,</span> <span class="n">Interpolation</span>
+<span class="kn">from</span> <span class="n">shlex</span> <span class="kn">import</span> <span class="n">quote</span><span class="p">,</span> <span class="n">join</span> <span class="c1"># shlex.quote와 shlex.join을 가정
+</span>
+<span class="k">def</span> <span class="nf">sh</span><span class="p">(</span><span class="n">template</span><span class="p">:</span> <span class="n">Template</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">parts</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">template</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">Interpolation</span><span class="p">):</span>
+            <span class="c1"># shlex.sh 구현이므로 shlex.quote를 직접 사용할 수 있습니다.
+</span>            <span class="n">parts</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="nf">quote</span><span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="n">item</span><span class="p">.</span><span class="n">value</span><span class="p">)))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">parts</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+    <span class="c1"># shlex.sh 구현이므로 `join`은 shlex.join을 참조합니다.
+</span>    <span class="k">return</span> <span class="nf">join</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>이를 통해 셸 사용을 위한 <code class="language-plaintext highlighter-rouge">t-string</code>의 명시적인 이스케이프가 가능합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">shlex</span>
+<span class="kn">import</span> <span class="n">os</span>
+
+<span class="n">filename</span> <span class="o">=</span> <span class="sh">"</span><span class="s">my file with spaces.txt</span><span class="sh">"</span> <span class="c1"># 사용자 입력이라고 가정
+</span>
+<span class="c1"># 안전한 POSIX-compliant 셸 명령 구성
+</span><span class="n">command</span> <span class="o">=</span> <span class="n">shlex</span><span class="p">.</span><span class="nf">sh</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {filename}</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">os</span><span class="p">.</span><span class="nf">system</span><span class="p">(</span><span class="n">command</span><span class="p">)</span> <span class="c1"># cat "my file with spaces.txt" 와 동일하게 실행
+</span></code></pre></div></div>
+
+<h3 id="subprocess-모듈-변경-사항-1"><code class="language-plaintext highlighter-rouge">subprocess</code> 모듈 변경 사항</h3>
+
+<p><code class="language-plaintext highlighter-rouge">shlex</code> 모듈에 렌더러와 <code class="language-plaintext highlighter-rouge">template string</code>이 추가됨에 따라, <code class="language-plaintext highlighter-rouge">subprocess</code> 모듈은 <code class="language-plaintext highlighter-rouge">Popen</code>에 <code class="language-plaintext highlighter-rouge">template string</code>을 추가 입력 유형으로 받을 수 있도록 변경될 수 있습니다. <code class="language-plaintext highlighter-rouge">Popen</code>은 이미 시퀀스(sequence) 또는 문자열을 받으며, 각각 다른 동작을 합니다.</p>
+
+<p>결과적으로, <code class="language-plaintext highlighter-rouge">subprocess.run()</code>과 같은 <code class="language-plaintext highlighter-rouge">subprocess.Popen</code>의 모든 상위 수준 함수는 안전한 방식으로 문자열을 받을 수 있게 됩니다 ( <code class="language-plaintext highlighter-rouge">shell=False</code>의 경우 모든 시스템에서, <code class="language-plaintext highlighter-rouge">shell=True</code>의 경우 POSIX 시스템에서).</p>
+
+<p>예를 들어:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {myfile}</span><span class="sh">"</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>위 코드는 이 PEP에서 제공하는 <code class="language-plaintext highlighter-rouge">shlex.sh</code> 렌더러를 자동으로 사용합니다. 따라서, 다음과 같이 <code class="language-plaintext highlighter-rouge">subprocess.run</code> 호출 내에서 <code class="language-plaintext highlighter-rouge">shlex</code>를 사용하는 것은 중복됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="n">shlex</span><span class="p">.</span><span class="nf">sh</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {myfile}</span><span class="sh">"</span><span class="p">),</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">run</code> 함수가 모든 템플릿 리터럴을 <code class="language-plaintext highlighter-rouge">shlex.sh</code>를 통해 자동으로 렌더링하기 때문입니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">subprocess.Popen</code>이 <code class="language-plaintext highlighter-rouge">shell=True</code> 없이 호출될 때도 <code class="language-plaintext highlighter-rouge">t-string</code> 지원은 <code class="language-plaintext highlighter-rouge">subprocess</code>에 더 인체공학적인 구문을 제공합니다. 예를 들어:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {myfile} --flag {value}</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>위 코드는 다음과 동일합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">([</span><span class="sh">"</span><span class="s">cat</span><span class="sh">"</span><span class="p">,</span> <span class="n">myfile</span><span class="p">,</span> <span class="sh">"</span><span class="s">--flag</span><span class="sh">"</span><span class="p">,</span> <span class="n">value</span><span class="p">])</span>
+</code></pre></div></div>
+
+<p>또는 더 정확하게는:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="n">shlex</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="n">shlex</span><span class="p">.</span><span class="nf">sh</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {myfile} --flag {value}</span><span class="sh">"</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<p>이는 먼저 위에서 설명한 <code class="language-plaintext highlighter-rouge">shlex.sh</code> 렌더러를 사용한 다음, 그 결과에 대해 <code class="language-plaintext highlighter-rouge">shlex.split</code>을 사용함으로써 이루어집니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">subprocess.Popen._execute_child</code> 내부의 구현은 <code class="language-plaintext highlighter-rouge">t-string</code>을 확인할 것입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">string.templatelib</span> <span class="kn">import</span> <span class="n">Template</span>
+
+<span class="k">if</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">Template</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="n">shlex</span>
+    <span class="k">if</span> <span class="n">shell</span><span class="p">:</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="n">shlex</span><span class="p">.</span><span class="nf">sh</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="n">shlex</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="n">shlex</span><span class="p">.</span><span class="nf">sh</span><span class="p">(</span><span class="n">args</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h2 id="하위-호환성-backwards-compatibility-1">하위 호환성 (Backwards Compatibility)</h2>
+
+<p>이 변경 사항은 기존 동작을 변경하지 않고 새로운 기능만 추가하므로, 완벽하게 하위 호환됩니다. <code class="language-plaintext highlighter-rouge">subprocess</code> 모듈은 현재와 동일한 방식으로 문자열과 리스트를 계속 처리할 것입니다.</p>
+
+<h2 id="보안-영향-security-implications-1">보안 영향 (Security Implications)</h2>
+
+<p>이 PEP는 셸 명령과 함께 <code class="language-plaintext highlighter-rouge">f-string</code>을 사용하는 것에 대한 더 안전한 대안을 제공함으로써 보안을 개선하도록 명시적으로 설계되었습니다. 컨텍스트(셸 또는 비-셸)에 따라 적절한 이스케이프를 자동으로 적용하여 명령 주입 취약점을 방지하는 데 도움이 됩니다.</p>
+
+<p>그러나 <code class="language-plaintext highlighter-rouge">shell=True</code>가 사용될 때는 안전성이 POSIX 호환 셸로 제한된다는 점을 알아두어야 합니다. <code class="language-plaintext highlighter-rouge">cmd.exe</code> 또는 PowerShell이 셸로 사용될 수 있는 Windows 시스템에서는 <code class="language-plaintext highlighter-rouge">shlex.quote()</code>가 제공하는 이스케이프 메커니즘이 모든 형태의 명령 주입을 방지하기에 충분하지 않습니다.</p>
+
+<h2 id="교육-방법-how-to-teach-this-1">교육 방법 (How to Teach This)</h2>
+
+<p>이 기능은 <code class="language-plaintext highlighter-rouge">t-string</code>의 실용적인 가치를 보여주는 자연스러운 확장으로 가르칠 수 있습니다.</p>
+
+<ol>
+  <li>명령 주입 문제와 <code class="language-plaintext highlighter-rouge">f-string</code>이 셸 명령과 함께 사용될 때 위험한 이유를 소개합니다.</li>
+  <li>전통적인 해결책(리스트 기반 명령, 수동 이스케이프)을 보여줍니다.</li>
+  <li>
+    <p>명시적인 셸 이스케이프를 위한 <code class="language-plaintext highlighter-rouge">shlex.sh</code> 렌더러를 소개합니다.</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 안전하지 않음:
+</span><span class="n">os</span><span class="p">.</span><span class="nf">system</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">cat </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># 잠재적인 명령 주입!
+</span>
+<span class="c1"># shlex.sh 사용 시 안전:
+</span><span class="n">os</span><span class="p">.</span><span class="nf">system</span><span class="p">(</span><span class="n">shlex</span><span class="p">.</span><span class="nf">sh</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {filename}</span><span class="sh">"</span><span class="p">))</span> <span class="c1"># 셸을 위한 명시적 이스케이프
+</span></code></pre></div>    </div>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">subprocess</code> 모듈의 기본 <code class="language-plaintext highlighter-rouge">t-string</code> 지원을 소개합니다.</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 안전하지 않음:
+</span><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">cat </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="sh">"</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c1"># 잠재적인 명령 주입!
+</span>
+<span class="c1"># 안전하지만 장황함:
+</span><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">([</span><span class="sh">"</span><span class="s">cat</span><span class="sh">"</span><span class="p">,</span> <span class="n">filename</span><span class="p">])</span>
+
+<span class="c1"># t-string 사용 시 안전하고 읽기 쉬움:
+</span><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {filename}</span><span class="sh">"</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c1"># filename을 자동으로 이스케이프
+</span><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {filename}</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># 자동으로 리스트 형태로 변환
+</span></code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>구현은 <code class="language-plaintext highlighter-rouge">shlex</code> 및 <code class="language-plaintext highlighter-rouge">subprocess</code> 모듈 문서에 명확한 예제와 보안 권고 사항과 함께 추가되어야 합니다.</p>
+
+<h3 id="비-posix-셸에-대한-이스케이프-렌더링-지원-연기-1">비-POSIX 셸에 대한 이스케이프 렌더링 지원 연기</h3>
+
+<p><code class="language-plaintext highlighter-rouge">shlex.quote()</code>는 정규식 문자 세트 <code class="language-plaintext highlighter-rouge">[\w@%+=:,./-]</code>를 안전하다고 분류하고, 다른 모든 문자는 안전하지 않은 것으로 간주하여 해당 문자를 포함하는 문자열에 쿼팅(quoting)을 요구합니다. 사용되는 쿼팅 메커니즘은 POSIX 셸의 문자열 쿼팅 방식에 특화되어 있으므로, POSIX 셸 문자열 쿼팅 규칙을 따르지 않는 셸을 실행할 때는 신뢰할 수 없습니다.</p>
+
+<p>예를 들어, <code class="language-plaintext highlighter-rouge">subprocess.run(f"echo {shlex.quote(sys.argv[1])}", shell=True)</code>를 POSIX 쿼팅 규칙을 따르는 셸에서 실행하면 안전합니다.</p>
+
+<p>그러나 Python에서 <code class="language-plaintext highlighter-rouge">cmd.exe</code> (또는 Powershell)를 호출하는 셸을 실행할 때는 여전히 안전하지 않습니다.</p>
+
+<p>이러한 표준 라이브러리 제한을 해결하는 것은 이 PEP의 범위를 벗어납니다.</p>
+
+<h2 id="저작권-copyright-1">저작권 (Copyright)</h2>
+
+<p>이 문서는 퍼블릭 도메인 또는 CC0-1.0-Universal 라이선스 중 더 관대한 라이선스에 따라 공개됩니다.</p>
+<pre><code class="language-```"># PEP 787 – t-string을 사용한 더 안전한 서브프로세스 활용
+
+*   **저자**: Nick Humrich, Alyssa Coghlan
+*   **상태**: Deferred (연기됨)
+*   **Python 버전**: 3.15
+*   **생성일**: 2025년 4월 13일
+
+## 개요 (Abstract)
+
+PEP 750에서 f-string의 일반화된 형태로 `template string (t-string)`이 도입되어 다양한 컨텍스트에서 안전하게 문자열 보간(interpolation)을 처리할 수 있게 되었습니다. 이 PEP는 `subprocess` 및 `shlex` 모듈을 확장하여 `t-string`을 기본으로 지원함으로써, 보간된 값으로 셸 명령을 더 안전하고 인체공학적으로 실행할 수 있도록 제안합니다. 또한, API 인체공학을 개선하기 위한 `t-string` 기능의 참조 구현 역할도 합니다.
+
+## PEP 연기 (PEP Deferral)
+
+초기 초안 논의 과정에서, `t-string`이 `shell=True`와 유사한 수준의 구문적 편의성을 제공하면서도, 사용자 입력 텍스트가 전체 시스템 셸에 접근할 때 발생하는 보안 및 크로스 플랫폼 호환성 문제를 피할 수 있는 잠재적인 기회를 제공한다는 점이 명확해졌습니다.
+
+이에 따라, PEP 저자들은 Python 3.15를 위한 제안서의 수정된 초안을 준비하기 전에, Python 3.14 베타 기간(및 그 이후) 동안 실험적인 `t-string` 기반의 `subprocess` 호출 라이브러리를 개발할 계획입니다.
+
+## 동기 (Motivation)
+
+PEP 750의 `template string (t-string)`은 안전성과 유연성을 제공함에도 불구하고, 표준 라이브러리 내에 실제 적용을 보여주는 구체적인 소비자 구현(consumer implementation)이 부족합니다. `t-string`의 가장 설득력 있는 사용 사례 중 하나는 철회된 PEP 501에서도 언급되었듯이, 더 안전한 셸 명령 실행입니다.
+
+예시:
+
+```python
+# f-string 사용 시 안전하지 않음: (커맨드 인젝션 위험)
+os.system(f"echo {message_from_user}")
+# f-string 사용 시 역시 안전하지 않음
+subprocess.run(f"echo {message_from_user}", shell=True)
+# f-string 사용 시 실패
+subprocess.run(f"echo {message_from_user}")
+
+# t-string과 POSIX 호환 셸 쿼팅(quoting) 사용 시 안전:
+subprocess.run(t"echo {message_from_user}", shell=True)
+# t-string 사용 시 모든 플랫폼에서 안전:
+subprocess.run(t"echo {message_from_user}")
+# t-string 없이 모든 플랫폼에서 안전 (더 장황함):
+subprocess.run(["echo", str(message_from_user)])
+</code></pre>
+
+<p>현재 개발자들은 편의성(<code class="language-plaintext highlighter-rouge">f-string</code> 사용 시 잠재적인 보안 위험)과 안전성(더 장황한 리스트 기반 API 사용) 사이에서 선택해야 합니다. <code class="language-plaintext highlighter-rouge">subprocess</code> 모듈에 기본 <code class="language-plaintext highlighter-rouge">t-string</code> 지원을 추가함으로써, 이 PEP는 <code class="language-plaintext highlighter-rouge">t-string</code>의 가치를 보여주는 소비자 참조 구현을 제공하며, 일반적인 보안 문제를 해결합니다.</p>
+
+<h2 id="근거-rationale-2">근거 (Rationale)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">subprocess</code> 모듈이 <code class="language-plaintext highlighter-rouge">t-string</code> 지원에 이상적인 후보인 이유는 다음과 같습니다.</p>
+
+<ul>
+  <li>셸 명령의 명령 주입(Command Injection) 취약점은 잘 알려진 보안 위험입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">subprocess</code> 모듈은 이미 문자열 및 리스트 기반의 명령 지정을 모두 지원합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">t-string</code>과 적절한 셸 이스케이프(escaping) 사이에는 자연스러운 매핑이 있어 편의성과 안전성을 모두 제공합니다.</li>
+  <li>이것은 개발자들이 즉시 이해하고 활용할 수 있는 <code class="language-plaintext highlighter-rouge">t-string</code>의 실용적인 쇼케이스 역할을 합니다.</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">subprocess</code>를 확장하여 <code class="language-plaintext highlighter-rouge">t-string</code>을 기본으로 처리하게 함으로써, 많은 개발자들이 잠재적으로 안전하지 않은 <code class="language-plaintext highlighter-rouge">f-string</code>을 사용하게 만들었던 편의성을 희생하지 않고도 안전한 코드를 더 쉽게 작성할 수 있도록 합니다.</p>
+
+<h2 id="명세-specification-2">명세 (Specification)</h2>
+
+<p>이 PEP는 표준 라이브러리에 두 가지 주요 추가 사항을 제안합니다.</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">shlex</code> 모듈에 안전한 셸 명령 구성을 위한 새로운 <code class="language-plaintext highlighter-rouge">sh()</code> 렌더러 함수 추가</li>
+  <li><code class="language-plaintext highlighter-rouge">subprocess</code> 모듈의 핵심 함수, 특히 <code class="language-plaintext highlighter-rouge">subprocess.Popen</code>, <code class="language-plaintext highlighter-rouge">subprocess.run()</code> 및 <code class="language-plaintext highlighter-rouge">command</code> 인수를 받는 다른 관련 함수에 <code class="language-plaintext highlighter-rouge">t-string</code> 지원 추가</li>
+</ol>
+
+<h3 id="shlex에-셸-이스케이프를-위한-렌더러-추가-2"><code class="language-plaintext highlighter-rouge">shlex</code>에 셸 이스케이프를 위한 렌더러 추가</h3>
+
+<p>참조 구현으로서, 안전한 POSIX 셸 이스케이프를 위한 렌더러가 <code class="language-plaintext highlighter-rouge">shlex</code> 모듈에 추가될 것입니다. 이 렌더러는 <code class="language-plaintext highlighter-rouge">sh</code>라고 불리며, 템플릿 리터럴의 각 필드 값에 대해 <code class="language-plaintext highlighter-rouge">shlex.quote</code>를 호출하는 것과 동일하게 작동합니다.</p>
+
+<p>따라서 다음 코드는:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">os</span><span class="p">.</span><span class="nf">system</span><span class="p">(</span><span class="n">shlex</span><span class="p">.</span><span class="nf">sh</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {myfile}</span><span class="sh">"</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>다음과 동일하게 동작합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">os</span><span class="p">.</span><span class="nf">system</span><span class="p">(</span><span class="sh">"</span><span class="s">cat </span><span class="sh">"</span> <span class="o">+</span> <span class="n">shlex</span><span class="p">.</span><span class="nf">quote</span><span class="p">(</span><span class="n">myfile</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">shlex.sh</code>의 추가는 <code class="language-plaintext highlighter-rouge">subprocess</code> 문서에서 <code class="language-plaintext highlighter-rouge">shell=True</code> 사용을 피하는 것이 가장 좋다는 기존 권고 사항을 변경하지 않으며, <code class="language-plaintext highlighter-rouge">os.system()</code> 문서에서 상위 수준의 <code class="language-plaintext highlighter-rouge">subprocess</code> API를 참조하는 것도 변경하지 않습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">t-string</code> 프로세서 구현은 다음과 같습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">string.templatelib</span> <span class="kn">import</span> <span class="n">Template</span><span class="p">,</span> <span class="n">Interpolation</span>
+<span class="kn">from</span> <span class="n">shlex</span> <span class="kn">import</span> <span class="n">quote</span><span class="p">,</span> <span class="n">join</span> <span class="c1"># shlex.quote와 shlex.join을 가정
+</span>
+<span class="k">def</span> <span class="nf">sh</span><span class="p">(</span><span class="n">template</span><span class="p">:</span> <span class="n">Template</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">parts</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">template</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">Interpolation</span><span class="p">):</span>
+            <span class="c1"># shlex.sh 구현이므로 shlex.quote를 직접 사용할 수 있습니다.
+</span>            <span class="n">parts</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="nf">quote</span><span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="n">item</span><span class="p">.</span><span class="n">value</span><span class="p">)))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">parts</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+    <span class="c1"># shlex.sh 구현이므로 `join`은 shlex.join을 참조합니다.
+</span>    <span class="k">return</span> <span class="nf">join</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>이를 통해 셸 사용을 위한 <code class="language-plaintext highlighter-rouge">t-string</code>의 명시적인 이스케이프가 가능합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">shlex</span>
+<span class="kn">import</span> <span class="n">os</span>
+
+<span class="n">filename</span> <span class="o">=</span> <span class="sh">"</span><span class="s">my file with spaces.txt</span><span class="sh">"</span> <span class="c1"># 사용자 입력이라고 가정
+</span>
+<span class="c1"># 안전한 POSIX-compliant 셸 명령 구성
+</span><span class="n">command</span> <span class="o">=</span> <span class="n">shlex</span><span class="p">.</span><span class="nf">sh</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {filename}</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">os</span><span class="p">.</span><span class="nf">system</span><span class="p">(</span><span class="n">command</span><span class="p">)</span> <span class="c1"># cat "my file with spaces.txt" 와 동일하게 실행
+</span></code></pre></div></div>
+
+<h3 id="subprocess-모듈-변경-사항-2"><code class="language-plaintext highlighter-rouge">subprocess</code> 모듈 변경 사항</h3>
+
+<p><code class="language-plaintext highlighter-rouge">shlex</code> 모듈에 렌더러와 <code class="language-plaintext highlighter-rouge">template string</code>이 추가됨에 따라, <code class="language-plaintext highlighter-rouge">subprocess</code> 모듈은 <code class="language-plaintext highlighter-rouge">Popen</code>에 <code class="language-plaintext highlighter-rouge">template string</code>을 추가 입력 유형으로 받을 수 있도록 변경될 수 있습니다. <code class="language-plaintext highlighter-rouge">Popen</code>은 이미 시퀀스(sequence) 또는 문자열을 받으며, 각각 다른 동작을 합니다.</p>
+
+<p>결과적으로, <code class="language-plaintext highlighter-rouge">subprocess.run()</code>과 같은 <code class="language-plaintext highlighter-rouge">subprocess.Popen</code>의 모든 상위 수준 함수는 안전한 방식으로 문자열을 받을 수 있게 됩니다 ( <code class="language-plaintext highlighter-rouge">shell=False</code>의 경우 모든 시스템에서, <code class="language-plaintext highlighter-rouge">shell=True</code>의 경우 POSIX 시스템에서).</p>
+
+<p>예를 들어:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {myfile}</span><span class="sh">"</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>위 코드는 이 PEP에서 제공하는 <code class="language-plaintext highlighter-rouge">shlex.sh</code> 렌더러를 자동으로 사용합니다. 따라서, 다음과 같이 <code class="language-plaintext highlighter-rouge">subprocess.run</code> 호출 내에서 <code class="language-plaintext highlighter-rouge">shlex</code>를 사용하는 것은 중복됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="n">shlex</span><span class="p">.</span><span class="nf">sh</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {myfile}</span><span class="sh">"</span><span class="p">),</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">run</code> 함수가 모든 템플릿 리터럴을 <code class="language-plaintext highlighter-rouge">shlex.sh</code>를 통해 자동으로 렌더링하기 때문입니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">subprocess.Popen</code>이 <code class="language-plaintext highlighter-rouge">shell=True</code> 없이 호출될 때도 <code class="language-plaintext highlighter-rouge">t-string</code> 지원은 <code class="language-plaintext highlighter-rouge">subprocess</code>에 더 인체공학적인 구문을 제공합니다. 예를 들어:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {myfile} --flag {value}</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>위 코드는 다음과 동일합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">([</span><span class="sh">"</span><span class="s">cat</span><span class="sh">"</span><span class="p">,</span> <span class="n">myfile</span><span class="p">,</span> <span class="sh">"</span><span class="s">--flag</span><span class="sh">"</span><span class="p">,</span> <span class="n">value</span><span class="p">])</span>
+</code></pre></div></div>
+
+<p>또는 더 정확하게는:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="n">shlex</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="n">shlex</span><span class="p">.</span><span class="nf">sh</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {myfile} --flag {value}</span><span class="sh">"</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<p>이는 먼저 위에서 설명한 <code class="language-plaintext highlighter-rouge">shlex.sh</code> 렌더러를 사용한 다음, 그 결과에 대해 <code class="language-plaintext highlighter-rouge">shlex.split</code>을 사용함으로써 이루어집니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">subprocess.Popen._execute_child</code> 내부의 구현은 <code class="language-plaintext highlighter-rouge">t-string</code>을 확인할 것입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">string.templatelib</span> <span class="kn">import</span> <span class="n">Template</span>
+
+<span class="k">if</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">Template</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="n">shlex</span>
+    <span class="k">if</span> <span class="n">shell</span><span class="p">:</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="n">shlex</span><span class="p">.</span><span class="nf">sh</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="n">shlex</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="n">shlex</span><span class="p">.</span><span class="nf">sh</span><span class="p">(</span><span class="n">args</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h2 id="하위-호환성-backwards-compatibility-2">하위 호환성 (Backwards Compatibility)</h2>
+
+<p>이 변경 사항은 기존 동작을 변경하지 않고 새로운 기능만 추가하므로, 완벽하게 하위 호환됩니다. <code class="language-plaintext highlighter-rouge">subprocess</code> 모듈은 현재와 동일한 방식으로 문자열과 리스트를 계속 처리할 것입니다.</p>
+
+<h2 id="보안-영향-security-implications-2">보안 영향 (Security Implications)</h2>
+
+<p>이 PEP는 셸 명령과 함께 <code class="language-plaintext highlighter-rouge">f-string</code>을 사용하는 것에 대한 더 안전한 대안을 제공함으로써 보안을 개선하도록 명시적으로 설계되었습니다. 컨텍스트(셸 또는 비-셸)에 따라 적절한 이스케이프를 자동으로 적용하여 명령 주입 취약점을 방지하는 데 도움이 됩니다.</p>
+
+<p>그러나 <code class="language-plaintext highlighter-rouge">shell=True</code>가 사용될 때는 안전성이 POSIX 호환 셸로 제한된다는 점을 알아두어야 합니다. <code class="language-plaintext highlighter-rouge">cmd.exe</code> 또는 PowerShell이 셸로 사용될 수 있는 Windows 시스템에서는 <code class="language-plaintext highlighter-rouge">shlex.quote()</code>가 제공하는 이스케이프 메커니즘이 모든 형태의 명령 주입을 방지하기에 충분하지 않습니다.</p>
+
+<h2 id="교육-방법-how-to-teach-this-2">교육 방법 (How to Teach This)</h2>
+
+<p>이 기능은 <code class="language-plaintext highlighter-rouge">t-string</code>의 실용적인 가치를 보여주는 자연스러운 확장으로 가르칠 수 있습니다.</p>
+
+<ol>
+  <li>명령 주입 문제와 <code class="language-plaintext highlighter-rouge">f-string</code>이 셸 명령과 함께 사용될 때 위험한 이유를 소개합니다.</li>
+  <li>전통적인 해결책(리스트 기반 명령, 수동 이스케이프)을 보여줍니다.</li>
+  <li>
+    <p>명시적인 셸 이스케이프를 위한 <code class="language-plaintext highlighter-rouge">shlex.sh</code> 렌더러를 소개합니다.</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 안전하지 않음:
+</span><span class="n">os</span><span class="p">.</span><span class="nf">system</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">cat </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># 잠재적인 명령 주입!
+</span>
+<span class="c1"># shlex.sh 사용 시 안전:
+</span><span class="n">os</span><span class="p">.</span><span class="nf">system</span><span class="p">(</span><span class="n">shlex</span><span class="p">.</span><span class="nf">sh</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {filename}</span><span class="sh">"</span><span class="p">))</span> <span class="c1"># 셸을 위한 명시적 이스케이프
+</span></code></pre></div>    </div>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">subprocess</code> 모듈의 기본 <code class="language-plaintext highlighter-rouge">t-string</code> 지원을 소개합니다.</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 안전하지 않음:
+</span><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">cat </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="sh">"</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c1"># 잠재적인 명령 주입!
+</span>
+<span class="c1"># 안전하지만 장황함:
+</span><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">([</span><span class="sh">"</span><span class="s">cat</span><span class="sh">"</span><span class="p">,</span> <span class="n">filename</span><span class="p">])</span>
+
+<span class="c1"># t-string 사용 시 안전하고 읽기 쉬움:
+</span><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {filename}</span><span class="sh">"</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c1"># filename을 자동으로 이스케이프
+</span><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {filename}</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># 자동으로 리스트 형태로 변환
+</span></code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>구현은 <code class="language-plaintext highlighter-rouge">shlex</code> 및 <code class="language-plaintext highlighter-rouge">subprocess</code> 모듈 문서에 명확한 예제와 보안 권고 사항과 함께 추가되어야 합니다.</p>
+
+<h3 id="비-posix-셸에-대한-이스케이프-렌더링-지원-연기-2">비-POSIX 셸에 대한 이스케이프 렌더링 지원 연기</h3>
+
+<p><code class="language-plaintext highlighter-rouge">shlex.quote()</code>는 정규식 문자 세트 <code class="language-plaintext highlighter-rouge">[\w@%+=:,./-]</code>를 안전하다고 분류하고, 다른 모든 문자는 안전하지 않은 것으로 간주하여 해당 문자를 포함하는 문자열에 쿼팅(quoting)을 요구합니다. 사용되는 쿼팅 메커니즘은 POSIX 셸의 문자열 쿼팅 방식에 특화되어 있으므로, POSIX 셸 문자열 쿼팅 규칙을 따르지 않는 셸을 실행할 때는 신뢰할 수 없습니다.</p>
+
+<p>예를 들어, <code class="language-plaintext highlighter-rouge">subprocess.run(f"echo {shlex.quote(sys.argv[1])}", shell=True)</code>를 POSIX 쿼팅 규칙을 따르는 셸에서 실행하면 안전합니다.</p>
+
+<p>그러나 Python에서 <code class="language-plaintext highlighter-rouge">cmd.exe</code> (또는 Powershell)를 호출하는 셸을 실행할 때는 여전히 안전하지 않습니다.</p>
+
+<p>이러한 표준 라이브러리 제한을 해결하는 것은 이 PEP의 범위를 벗어납니다.</p>
+
+<h2 id="저작권-copyright-2">저작권 (Copyright)</h2>
+
+<p>이 문서는 퍼블릭 도메인 또는 CC0-1.0-Universal 라이선스 중 더 관대한 라이선스에 따라 공개됩니다.
+```# PEP 787 – t-string을 사용한 더 안전한 서브프로세스 활용</p>
+
+<ul>
+  <li><strong>저자</strong>: Nick Humrich, Alyssa Coghlan</li>
+  <li><strong>상태</strong>: Deferred (연기됨)</li>
+  <li><strong>Python 버전</strong>: 3.15</li>
+  <li><strong>생성일</strong>: 2025년 4월 13일</li>
+</ul>
+
+<h2 id="개요-abstract-1">개요 (Abstract)</h2>
+
+<p>PEP 750에서 f-string의 일반화된 형태로 <code class="language-plaintext highlighter-rouge">template string (t-string)</code>이 도입되어 다양한 컨텍스트에서 안전하게 문자열 보간(interpolation)을 처리할 수 있게 되었습니다. 이 PEP는 <code class="language-plaintext highlighter-rouge">subprocess</code> 및 <code class="language-plaintext highlighter-rouge">shlex</code> 모듈을 확장하여 <code class="language-plaintext highlighter-rouge">t-string</code>을 기본으로 지원함으로써, 보간된 값으로 셸 명령을 더 안전하고 인체공학적으로 실행할 수 있도록 제안합니다. 또한, API 인체공학을 개선하기 위한 <code class="language-plaintext highlighter-rouge">t-string</code> 기능의 참조 구현 역할도 합니다.</p>
+
+<h2 id="pep-연기-pep-deferral-1">PEP 연기 (PEP Deferral)</h2>
+
+<p>초기 초안 논의 과정에서, <code class="language-plaintext highlighter-rouge">t-string</code>이 <code class="language-plaintext highlighter-rouge">shell=True</code>와 유사한 수준의 구문적 편의성을 제공하면서도, 사용자 입력 텍스트가 전체 시스템 셸에 접근할 때 발생하는 보안 및 크로스 플랫폼 호환성 문제를 피할 수 있는 잠재적인 기회를 제공한다는 점이 명확해졌습니다.</p>
+
+<p>이에 따라, PEP 저자들은 Python 3.15를 위한 제안서의 수정된 초안을 준비하기 전에, Python 3.14 베타 기간(및 그 이후) 동안 실험적인 <code class="language-plaintext highlighter-rouge">t-string</code> 기반의 <code class="language-plaintext highlighter-rouge">subprocess</code> 호출 라이브러리를 개발할 계획입니다.</p>
+
+<h2 id="동기-motivation-1">동기 (Motivation)</h2>
+
+<p>PEP 750의 <code class="language-plaintext highlighter-rouge">template string (t-string)</code>은 안전성과 유연성을 제공함에도 불구하고, 표준 라이브러리 내에 실제 적용을 보여주는 구체적인 소비자 구현(consumer implementation)이 부족합니다. <code class="language-plaintext highlighter-rouge">t-string</code>의 가장 설득력 있는 사용 사례 중 하나는 철회된 PEP 501에서도 언급되었듯이, 더 안전한 셸 명령 실행입니다.</p>
+
+<p>예시:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># f-string 사용 시 안전하지 않음: (커맨드 인젝션 위험)
+</span><span class="n">os</span><span class="p">.</span><span class="nf">system</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">echo </span><span class="si">{</span><span class="n">message_from_user</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+<span class="c1"># f-string 사용 시 역시 안전하지 않음
+</span><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">echo </span><span class="si">{</span><span class="n">message_from_user</span><span class="si">}</span><span class="sh">"</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="c1"># f-string 사용 시 실패
+</span><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">echo </span><span class="si">{</span><span class="n">message_from_user</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># t-string과 POSIX 호환 셸 쿼팅(quoting) 사용 시 안전:
+</span><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">echo {message_from_user}</span><span class="sh">"</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="c1"># t-string 사용 시 모든 플랫폼에서 안전:
+</span><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">echo {message_from_user}</span><span class="sh">"</span><span class="p">)</span>
+<span class="c1"># t-string 없이 모든 플랫폼에서 안전 (더 장황함):
+</span><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">([</span><span class="sh">"</span><span class="s">echo</span><span class="sh">"</span><span class="p">,</span> <span class="nf">str</span><span class="p">(</span><span class="n">message_from_user</span><span class="p">)])</span>
+</code></pre></div></div>
+
+<p>현재 개발자들은 편의성(<code class="language-plaintext highlighter-rouge">f-string</code> 사용 시 잠재적인 보안 위험)과 안전성(더 장황한 리스트 기반 API 사용) 사이에서 선택해야 합니다. <code class="language-plaintext highlighter-rouge">subprocess</code> 모듈에 기본 <code class="language-plaintext highlighter-rouge">t-string</code> 지원을 추가함으로써, 이 PEP는 <code class="language-plaintext highlighter-rouge">t-string</code>의 가치를 보여주는 소비자 참조 구현을 제공하며, 일반적인 보안 문제를 해결합니다.</p>
+
+<h2 id="근거-rationale-3">근거 (Rationale)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">subprocess</code> 모듈이 <code class="language-plaintext highlighter-rouge">t-string</code> 지원에 이상적인 후보인 이유는 다음과 같습니다.</p>
+
+<ul>
+  <li>셸 명령의 명령 주입(Command Injection) 취약점은 잘 알려진 보안 위험입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">subprocess</code> 모듈은 이미 문자열 및 리스트 기반의 명령 지정을 모두 지원합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">t-string</code>과 적절한 셸 이스케이프(escaping) 사이에는 자연스러운 매핑이 있어 편의성과 안전성을 모두 제공합니다.</li>
+  <li>이것은 개발자들이 즉시 이해하고 활용할 수 있는 <code class="language-plaintext highlighter-rouge">t-string</code>의 실용적인 쇼케이스 역할을 합니다.</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">subprocess</code>를 확장하여 <code class="language-plaintext highlighter-rouge">t-string</code>을 기본으로 처리하게 함으로써, 많은 개발자들이 잠재적으로 안전하지 않은 <code class="language-plaintext highlighter-rouge">f-string</code>을 사용하게 만들었던 편의성을 희생하지 않고도 안전한 코드를 더 쉽게 작성할 수 있도록 합니다.</p>
+
+<h2 id="명세-specification-3">명세 (Specification)</h2>
+
+<p>이 PEP는 표준 라이브러리에 두 가지 주요 추가 사항을 제안합니다.</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">shlex</code> 모듈에 안전한 셸 명령 구성을 위한 새로운 <code class="language-plaintext highlighter-rouge">sh()</code> 렌더러 함수 추가</li>
+  <li><code class="language-plaintext highlighter-rouge">subprocess</code> 모듈의 핵심 함수, 특히 <code class="language-plaintext highlighter-rouge">subprocess.Popen</code>, <code class="language-plaintext highlighter-rouge">subprocess.run()</code> 및 <code class="language-plaintext highlighter-rouge">command</code> 인수를 받는 다른 관련 함수에 <code class="language-plaintext highlighter-rouge">t-string</code> 지원 추가</li>
+</ol>
+
+<h3 id="shlex에-셸-이스케이프를-위한-렌더러-추가-3"><code class="language-plaintext highlighter-rouge">shlex</code>에 셸 이스케이프를 위한 렌더러 추가</h3>
+
+<p>참조 구현으로서, 안전한 POSIX 셸 이스케이프를 위한 렌더러가 <code class="language-plaintext highlighter-rouge">shlex</code> 모듈에 추가될 것입니다. 이 렌더러는 <code class="language-plaintext highlighter-rouge">sh</code>라고 불리며, 템플릿 리터럴의 각 필드 값에 대해 <code class="language-plaintext highlighter-rouge">shlex.quote</code>를 호출하는 것과 동일하게 작동합니다.</p>
+
+<p>따라서 다음 코드는:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">os</span><span class="p">.</span><span class="nf">system</span><span class="p">(</span><span class="n">shlex</span><span class="p">.</span><span class="nf">sh</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {myfile}</span><span class="sh">"</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>다음과 동일하게 동작합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">os</span><span class="p">.</span><span class="nf">system</span><span class="p">(</span><span class="sh">"</span><span class="s">cat </span><span class="sh">"</span> <span class="o">+</span> <span class="n">shlex</span><span class="p">.</span><span class="nf">quote</span><span class="p">(</span><span class="n">myfile</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">shlex.sh</code>의 추가는 <code class="language-plaintext highlighter-rouge">subprocess</code> 문서에서 <code class="language-plaintext highlighter-rouge">shell=True</code> 사용을 피하는 것이 가장 좋다는 기존 권고 사항을 변경하지 않으며, <code class="language-plaintext highlighter-rouge">os.system()</code> 문서에서 상위 수준의 <code class="language-plaintext highlighter-rouge">subprocess</code> API를 참조하는 것도 변경하지 않습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">t-string</code> 프로세서 구현은 다음과 같습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">string.templatelib</span> <span class="kn">import</span> <span class="n">Template</span><span class="p">,</span> <span class="n">Interpolation</span>
+<span class="kn">from</span> <span class="n">shlex</span> <span class="kn">import</span> <span class="n">quote</span><span class="p">,</span> <span class="n">join</span> <span class="c1"># shlex.quote와 shlex.join을 가정
+</span>
+<span class="k">def</span> <span class="nf">sh</span><span class="p">(</span><span class="n">template</span><span class="p">:</span> <span class="n">Template</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">parts</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">template</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">Interpolation</span><span class="p">):</span>
+            <span class="c1"># shlex.sh 구현이므로 shlex.quote를 직접 사용할 수 있습니다.
+</span>            <span class="n">parts</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="nf">quote</span><span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="n">item</span><span class="p">.</span><span class="n">value</span><span class="p">)))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">parts</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+    <span class="c1"># shlex.sh 구현이므로 `join`은 shlex.join을 참조합니다.
+</span>    <span class="k">return</span> <span class="nf">join</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>이를 통해 셸 사용을 위한 <code class="language-plaintext highlighter-rouge">t-string</code>의 명시적인 이스케이프가 가능합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">shlex</span>
+<span class="kn">import</span> <span class="n">os</span>
+
+<span class="n">filename</span> <span class="o">=</span> <span class="sh">"</span><span class="s">my file with spaces.txt</span><span class="sh">"</span> <span class="c1"># 사용자 입력이라고 가정
+</span>
+<span class="c1"># 안전한 POSIX-compliant 셸 명령 구성
+</span><span class="n">command</span> <span class="o">=</span> <span class="n">shlex</span><span class="p">.</span><span class="nf">sh</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {filename}</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">os</span><span class="p">.</span><span class="nf">system</span><span class="p">(</span><span class="n">command</span><span class="p">)</span> <span class="c1"># cat "my file with spaces.txt" 와 동일하게 실행
+</span></code></pre></div></div>
+
+<h3 id="subprocess-모듈-변경-사항-3"><code class="language-plaintext highlighter-rouge">subprocess</code> 모듈 변경 사항</h3>
+
+<p><code class="language-plaintext highlighter-rouge">shlex</code> 모듈에 렌더러와 <code class="language-plaintext highlighter-rouge">template string</code>이 추가됨에 따라, <code class="language-plaintext highlighter-rouge">subprocess</code> 모듈은 <code class="language-plaintext highlighter-rouge">Popen</code>에 <code class="language-plaintext highlighter-rouge">template string</code>을 추가 입력 유형으로 받을 수 있도록 변경될 수 있습니다. <code class="language-plaintext highlighter-rouge">Popen</code>은 이미 시퀀스(sequence) 또는 문자열을 받으며, 각각 다른 동작을 합니다.</p>
+
+<p>결과적으로, <code class="language-plaintext highlighter-rouge">subprocess.run()</code>과 같은 <code class="language-plaintext highlighter-rouge">subprocess.Popen</code>의 모든 상위 수준 함수는 안전한 방식으로 문자열을 받을 수 있게 됩니다 ( <code class="language-plaintext highlighter-rouge">shell=False</code>의 경우 모든 시스템에서, <code class="language-plaintext highlighter-rouge">shell=True</code>의 경우 POSIX 시스템에서).</p>
+
+<p>예를 들어:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {myfile}</span><span class="sh">"</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>위 코드는 이 PEP에서 제공하는 <code class="language-plaintext highlighter-rouge">shlex.sh</code> 렌더러를 자동으로 사용합니다. 따라서, 다음과 같이 <code class="language-plaintext highlighter-rouge">subprocess.run</code> 호출 내에서 <code class="language-plaintext highlighter-rouge">shlex</code>를 사용하는 것은 중복됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="n">shlex</span><span class="p">.</span><span class="nf">sh</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {myfile}</span><span class="sh">"</span><span class="p">),</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">run</code> 함수가 모든 템플릿 리터럴을 <code class="language-plaintext highlighter-rouge">shlex.sh</code>를 통해 자동으로 렌더링하기 때문입니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">subprocess.Popen</code>이 <code class="language-plaintext highlighter-rouge">shell=True</code> 없이 호출될 때도 <code class="language-plaintext highlighter-rouge">t-string</code> 지원은 <code class="language-plaintext highlighter-rouge">subprocess</code>에 더 인체공학적인 구문을 제공합니다. 예를 들어:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {myfile} --flag {value}</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>위 코드는 다음과 동일합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">([</span><span class="sh">"</span><span class="s">cat</span><span class="sh">"</span><span class="p">,</span> <span class="n">myfile</span><span class="p">,</span> <span class="sh">"</span><span class="s">--flag</span><span class="sh">"</span><span class="p">,</span> <span class="n">value</span><span class="p">])</span>
+</code></pre></div></div>
+
+<p>또는 더 정확하게는:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="n">shlex</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="n">shlex</span><span class="p">.</span><span class="nf">sh</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {myfile} --flag {value}</span><span class="sh">"</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<p>이는 먼저 위에서 설명한 <code class="language-plaintext highlighter-rouge">shlex.sh</code> 렌더러를 사용한 다음, 그 결과에 대해 <code class="language-plaintext highlighter-rouge">shlex.split</code>을 사용함으로써 이루어집니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">subprocess.Popen._execute_child</code> 내부의 구현은 <code class="language-plaintext highlighter-rouge">t-string</code>을 확인할 것입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">string.templatelib</span> <span class="kn">import</span> <span class="n">Template</span>
+
+<span class="k">if</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">Template</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="n">shlex</span>
+    <span class="k">if</span> <span class="n">shell</span><span class="p">:</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="n">shlex</span><span class="p">.</span><span class="nf">sh</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="n">shlex</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="n">shlex</span><span class="p">.</span><span class="nf">sh</span><span class="p">(</span><span class="n">args</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h2 id="하위-호환성-backwards-compatibility-3">하위 호환성 (Backwards Compatibility)</h2>
+
+<p>이 변경 사항은 기존 동작을 변경하지 않고 새로운 기능만 추가하므로, 완벽하게 하위 호환됩니다. <code class="language-plaintext highlighter-rouge">subprocess</code> 모듈은 현재와 동일한 방식으로 문자열과 리스트를 계속 처리할 것입니다.</p>
+
+<h2 id="보안-영향-security-implications-3">보안 영향 (Security Implications)</h2>
+
+<p>이 PEP는 셸 명령과 함께 <code class="language-plaintext highlighter-rouge">f-string</code>을 사용하는 것에 대한 더 안전한 대안을 제공함으로써 보안을 개선하도록 명시적으로 설계되었습니다. 컨텍스트(셸 또는 비-셸)에 따라 적절한 이스케이프를 자동으로 적용하여 명령 주입 취약점을 방지하는 데 도움이 됩니다.</p>
+
+<p>그러나 <code class="language-plaintext highlighter-rouge">shell=True</code>가 사용될 때는 안전성이 POSIX 호환 셸로 제한된다는 점을 알아두어야 합니다. <code class="language-plaintext highlighter-rouge">cmd.exe</code> 또는 PowerShell이 셸로 사용될 수 있는 Windows 시스템에서는 <code class="language-plaintext highlighter-rouge">shlex.quote()</code>가 제공하는 이스케이프 메커니즘이 모든 형태의 명령 주입을 방지하기에 충분하지 않습니다.</p>
+
+<h2 id="교육-방법-how-to-teach-this-3">교육 방법 (How to Teach This)</h2>
+
+<p>이 기능은 <code class="language-plaintext highlighter-rouge">t-string</code>의 실용적인 가치를 보여주는 자연스러운 확장으로 가르칠 수 있습니다.</p>
+
+<ol>
+  <li>명령 주입 문제와 <code class="language-plaintext highlighter-rouge">f-string</code>이 셸 명령과 함께 사용될 때 위험한 이유를 소개합니다.</li>
+  <li>전통적인 해결책(리스트 기반 명령, 수동 이스케이프)을 보여줍니다.</li>
+  <li>
+    <p>명시적인 셸 이스케이프를 위한 <code class="language-plaintext highlighter-rouge">shlex.sh</code> 렌더러를 소개합니다.</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 안전하지 않음:
+</span><span class="n">os</span><span class="p">.</span><span class="nf">system</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">cat </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># 잠재적인 명령 주입!
+</span>
+<span class="c1"># shlex.sh 사용 시 안전:
+</span><span class="n">os</span><span class="p">.</span><span class="nf">system</span><span class="p">(</span><span class="n">shlex</span><span class="p">.</span><span class="nf">sh</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {filename}</span><span class="sh">"</span><span class="p">))</span> <span class="c1"># 셸을 위한 명시적 이스케이프
+</span></code></pre></div>    </div>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">subprocess</code> 모듈의 기본 <code class="language-plaintext highlighter-rouge">t-string</code> 지원을 소개합니다.</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 안전하지 않음:
+</span><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">cat </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="sh">"</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c1"># 잠재적인 명령 주입!
+</span>
+<span class="c1"># 안전하지만 장황함:
+</span><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">([</span><span class="sh">"</span><span class="s">cat</span><span class="sh">"</span><span class="p">,</span> <span class="n">filename</span><span class="p">])</span>
+
+<span class="c1"># t-string 사용 시 안전하고 읽기 쉬움:
+</span><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {filename}</span><span class="sh">"</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c1"># filename을 자동으로 이스케이프
+</span><span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">cat {filename}</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># 자동으로 리스트 형태로 변환
+</span></code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>구현은 <code class="language-plaintext highlighter-rouge">shlex</code> 및 <code class="language-plaintext highlighter-rouge">subprocess</code> 모듈 문서에 명확한 예제와 보안 권고 사항과 함께 추가되어야 합니다.</p>
+
+<h3 id="비-posix-셸에-대한-이스케이프-렌더링-지원-연기-3">비-POSIX 셸에 대한 이스케이프 렌더링 지원 연기</h3>
+
+<p><code class="language-plaintext highlighter-rouge">shlex.quote()</code>는 정규식 문자 세트 <code class="language-plaintext highlighter-rouge">[\w@%+=:,./-]</code>를 안전하다고 분류하고, 다른 모든 문자는 안전하지 않은 것으로 간주하여 해당 문자를 포함하는 문자열에 쿼팅(quoting)을 요구합니다. 사용되는 쿼팅 메커니즘은 POSIX 셸의 문자열 쿼팅 방식에 특화되어 있으므로, POSIX 셸 문자열 쿼팅 규칙을 따르지 않는 셸을 실행할 때는 신뢰할 수 없습니다.</p>
+
+<p>예를 들어, <code class="language-plaintext highlighter-rouge">subprocess.run(f"echo {shlex.quote(sys.argv[1])}", shell=True)</code>를 POSIX 쿼팅 규칙을 따르는 셸에서 실행하면 안전합니다.</p>
+
+<p>그러나 Python에서 <code class="language-plaintext highlighter-rouge">cmd.exe</code> (또는 Powershell)를 호출하는 셸을 실행할 때는 여전히 안전하지 않습니다.</p>
+
+<p>이러한 표준 라이브러리 제한을 해결하는 것은 이 PEP의 범위를 벗어납니다.</p>
+
+<h2 id="저작권-copyright-3">저작권 (Copyright)</h2>
+
+<p>이 문서는 퍼블릭 도메인 또는 CC0-1.0-Universal 라이선스 중 더 관대한 라이선스에 따라 공개됩니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/785/" class="pagination--pager" title="[Draft] PEP 785 - New methods for easier handling ofExceptionGroups
+">Previous</a>
+    
+    
+      <a href="/python/pep/788/" class="pagination--pager" title="[Draft] PEP 788 - PyInterpreterRef: Interpreter References in the C API
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

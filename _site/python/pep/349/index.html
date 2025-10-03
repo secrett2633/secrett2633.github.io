@@ -1,0 +1,727 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Rejected] PEP 349 - Allow str() to return unicode strings | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 349: ‘Allow str() to return unicode strings’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Rejected] PEP 349 - Allow str() to return unicode strings">
+<meta property="og:url" content="http://localhost:4000/python/pep/349/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 349: ‘Allow str() to return unicode strings’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T18:57:18+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T18:57:18+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/349/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Rejected] PEP 349 - Allow str() to return unicode strings">
+    <meta itemprop="description" content="Python Enhancement Proposal 349: ‘Allow str() to return unicode strings’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T18:57:18+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T18:57:18+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Rejected] PEP 349 - Allow str() to return unicode strings
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T18:57:18+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-349--str-함수가-유니코드unicode-문자열을-반환하도록-허용">PEP 349 – str() 함수가 유니코드(Unicode) 문자열을 반환하도록 허용</a><ul><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#배경-rationale">배경 (Rationale)</a></li><li><a href="#명세-specification">명세 (Specification)</a></li><li><a href="#하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</a></li><li><a href="#대안-솔루션-alternative-solutions">대안 솔루션 (Alternative Solutions)</a></li><li><a href="#참고-자료-references">참고 자료 (References)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0349/">PEP 349 - Allow str() to return unicode strings</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Rejected</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 02-Aug-2005</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-349--str-함수가-유니코드unicode-문자열을-반환하도록-허용">PEP 349 – <code class="language-plaintext highlighter-rouge">str()</code> 함수가 유니코드(Unicode) 문자열을 반환하도록 허용</h1>
+
+<ul>
+  <li><strong>작성자:</strong> Neil Schemenauer</li>
+  <li><strong>상태:</strong> Rejected (거부됨)</li>
+  <li><strong>유형:</strong> Standards Track</li>
+  <li><strong>생성일:</strong> 2005년 8월 2일</li>
+  <li><strong>Python 버전:</strong> 2.5</li>
+  <li><strong>해결:</strong> Python-Dev 메시지</li>
+</ul>
+
+<h2 id="개요-abstract">개요 (Abstract)</h2>
+
+<p>이 PEP는 내장 함수 <code class="language-plaintext highlighter-rouge">str()</code>이 유니코드(Unicode) 문자열을 반환할 수 있도록 변경하는 것을 제안합니다. 이 변경으로 인해 두 가지 종류의 문자열(바이트 문자열 <code class="language-plaintext highlighter-rouge">str</code>과 유니코드 문자열 <code class="language-plaintext highlighter-rouge">unicode</code>) 모두와 작동하는 코드를 더 쉽게 작성할 수 있으며, 일부 기존 코드가 유니코드 문자열을 더 잘 처리하게 될 것입니다. C 함수 <code class="language-plaintext highlighter-rouge">PyObject_Str()</code>는 변경되지 않고, 대신 <code class="language-plaintext highlighter-rouge">PyString_New()</code> 함수가 추가될 예정이었습니다.</p>
+
+<h2 id="배경-rationale">배경 (Rationale)</h2>
+
+<p>Python은 오랫동안 유니코드 문자열 타입을 지원해왔지만, 그 활용은 아직 널리 퍼지지 않았습니다. 여전히 많은 Python 코드가 문자열 데이터가 <code class="language-plaintext highlighter-rouge">str</code> 인스턴스로 표현된다고 가정합니다. Python의 장기적인 계획은 <code class="language-plaintext highlighter-rouge">str</code> 타입을 점진적으로 없애고 모든 문자열 데이터에 <code class="language-plaintext highlighter-rouge">unicode</code>를 사용하는 것입니다. 이를 위해서는 원활한 전환 경로가 반드시 제공되어야 합니다.</p>
+
+<p>기존의 <code class="language-plaintext highlighter-rouge">str</code> 인스턴스에 맞춰 작성된 라이브러리들을 “모든 유니코드 문자열 세상(all-unicode string world)”에서 작동할 수 있도록 업그레이드해야 합니다. 모든 필수 라이브러리가 유니코드 처리가 가능해질 때까지는 이 “모든 유니코드 세상”으로 완전히 전환할 수 없습니다. 모든 라이브러리를 한 번에 업그레이드하는 것은 실현 가능해 보이지 않습니다. 더 현실적인 전략은 각 라이브러리를 개별적으로 유니코드 문자열을 처리할 수 있도록 만들되, 현재의 <code class="language-plaintext highlighter-rouge">str</code> 중심 환경에서의 동작을 유지하는 것입니다.</p>
+
+<p>첫째, <code class="language-plaintext highlighter-rouge">unicode</code> 인스턴스를 <code class="language-plaintext highlighter-rouge">str</code> 인스턴스로 강제 변환(coerce)하려 하지 않고도 받아들일 수 있는 코드를 작성할 수 있어야 합니다. 이러한 코드를 “유니코드-안전(Unicode-safe)”하다고 부릅니다. 유니코드-안전한 라이브러리는 모든 유니코드 세상에서 사용될 수 있습니다.</p>
+
+<p>둘째, 오직 <code class="language-plaintext highlighter-rouge">str</code> 인스턴스만 제공될 때, 유니코드 결과를 생성하지 않는 코드를 작성할 수 있어야 합니다. 이러한 코드를 “<code class="language-plaintext highlighter-rouge">str</code>-안정(str-stable)”하다고 부릅니다. <code class="language-plaintext highlighter-rouge">str</code>-안정적인 라이브러리는 아직 유니코드-안전하지 않은 다른 라이브러리나 애플리케이션에서 사용될 수 있습니다.</p>
+
+<p>때로는 <code class="language-plaintext highlighter-rouge">str</code>-안정적이면서 유니코드-안전한 코드를 작성하는 것이 간단합니다. 예를 들어, 다음 함수는 단순히 작동합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">appendx</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">s</span> <span class="o">+</span> <span class="sh">'</span><span class="s">x</span><span class="sh">'</span>
+</code></pre></div></div>
+
+<p>이는 <code class="language-plaintext highlighter-rouge">unicode</code> 타입이 작업을 더 쉽게 하도록 설계되었기 때문에 놀라운 일이 아닙니다. 기본 원칙은 <code class="language-plaintext highlighter-rouge">str</code>과 <code class="language-plaintext highlighter-rouge">unicode</code> 인스턴스가 만나면 결과는 <code class="language-plaintext highlighter-rouge">unicode</code> 인스턴스가 된다는 것입니다. 하지만, 코드가 객체의 문자열 표현을 요구할 때 한 가지 주목할 만한 어려움이 발생합니다. 이는 전통적으로 내장 함수 <code class="language-plaintext highlighter-rouge">str()</code>을 사용하여 수행되는 작업입니다.</p>
+
+<p>현재의 <code class="language-plaintext highlighter-rouge">str()</code> 함수를 사용하면 코드는 유니코드-안전하지 않게 됩니다. <code class="language-plaintext highlighter-rouge">str()</code> 호출을 <code class="language-plaintext highlighter-rouge">unicode()</code> 호출로 대체하면 코드는 <code class="language-plaintext highlighter-rouge">str</code>-안정적이지 않게 됩니다. <code class="language-plaintext highlighter-rouge">str()</code>이 유니코드 인스턴스를 반환할 수 있도록 변경하면 이 문제가 해결될 것입니다. 추가적인 이점으로, 현재 <code class="language-plaintext highlighter-rouge">str()</code>을 사용하기 때문에 유니코드-안전하지 않은 일부 코드가 유니코드-안전하게 될 것입니다.</p>
+
+<h2 id="명세-specification">명세 (Specification)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">str()</code> 내장 함수의 Python 구현은 다음과 같습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">str</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">객체의 적절한 문자열 표현을 반환합니다.
+    반환 값은 str 또는 unicode 인스턴스입니다.
+    </span><span class="sh">"""</span>
+    <span class="k">if</span> <span class="nf">type</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span> <span class="ow">or</span> <span class="nf">type</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">unicode</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">s</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="nf">__str__</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">unicode</span><span class="p">)):</span>
+        <span class="k">raise</span> <span class="nc">TypeError</span><span class="p">(</span><span class="sh">'</span><span class="s">__str__ returned non-string</span><span class="sh">'</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">r</span>
+</code></pre></div></div>
+
+<p>다음 함수가 C API에 추가될 것이며, 이는 <code class="language-plaintext highlighter-rouge">str()</code> 내장 함수와 동등한 역할을 할 것입니다 (이상적으로는 <code class="language-plaintext highlighter-rouge">PyObject_Str</code>로 불려야 하지만, 해당 함수를 변경하면 엄청난 수의 호환성 문제가 발생할 수 있습니다).</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">PyObject</span> <span class="o">*</span><span class="nf">PyString_New</span><span class="p">(</span><span class="n">PyObject</span> <span class="o">*</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>참고 구현은 Sourceforge에서 패치 형태로 제공됩니다.</p>
+
+<h2 id="하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</h2>
+
+<p>일부 코드는 <code class="language-plaintext highlighter-rouge">str()</code>이 반드시 <code class="language-plaintext highlighter-rouge">str</code> 인스턴스를 반환할 것을 요구할 수 있습니다. 표준 라이브러리에서는 현재까지 그러한 사례가 단 한 건 발견되었습니다. <code class="language-plaintext highlighter-rouge">email.header_decode()</code> 함수는 <code class="language-plaintext highlighter-rouge">str</code> 인스턴스를 요구하며, <code class="language-plaintext highlighter-rouge">email.Header.decode_header()</code> 함수는 인수에 대해 <code class="language-plaintext highlighter-rouge">str()</code>을 호출하여 이를 보장하려고 합니다. 이 코드는 “header = str(header)” 줄을 다음으로 변경하여 수정되었습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">header</span><span class="p">,</span> <span class="nb">unicode</span><span class="p">):</span>
+    <span class="n">header</span> <span class="o">=</span> <span class="n">header</span><span class="p">.</span><span class="nf">encode</span><span class="p">(</span><span class="sh">'</span><span class="s">ascii</span><span class="sh">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">decode_header()</code>가 실제로는 문자열(character string)이 아닌 바이트 문자열(byte string)에 대해 작동하므로, 이것이 진정한 버그인지는 의문입니다. <code class="language-plaintext highlighter-rouge">unicode</code> 인스턴스를 전달하는 코드는 그 자체로 버그로 간주될 수도 있습니다.</p>
+
+<h2 id="대안-솔루션-alternative-solutions">대안 솔루션 (Alternative Solutions)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">str()</code>을 변경하는 대신 새로운 내장 함수를 추가할 수도 있습니다. 이렇게 하면 사실상 하위 호환성 문제가 발생하지 않을 것입니다. 그러나 호환성 문제가 드물 것으로 예상되므로, 새로운 내장 함수를 추가하는 것보다 <code class="language-plaintext highlighter-rouge">str()</code>을 변경하는 것이 더 선호되는 것으로 보입니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">str()</code>을 변경하는 대신 <code class="language-plaintext highlighter-rouge">basestring</code> 타입을 제안된 동작을 갖도록 변경할 수도 있습니다. 그러나 추상 기본 타입(abstract base type)에 대한 이러한 동작은 혼란을 야기할 수 있습니다.</p>
+
+<h2 id="참고-자료-references">참고 자료 (References)</h2>
+
+<ul>
+  <li><a href="https://bugs.python.org/issue1266570">https://bugs.python.org/issue1266570</a></li>
+</ul>
+
+<h2 id="저작권-copyright">저작권 (Copyright)</h2>
+
+<p>이 문서는 퍼블릭 도메인(public domain)에 공개되었습니다.</p>
+
+<hr />
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/348/" class="pagination--pager" title="[Rejected] PEP 348 - Exception Reorganization for Python 3.0
+">Previous</a>
+    
+    
+      <a href="/python/pep/350/" class="pagination--pager" title="[Rejected] PEP 350 - Codetags
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

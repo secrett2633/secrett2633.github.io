@@ -1,0 +1,796 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 347 - Migrating the Python CVS to Subversion | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 347: ‘Migrating the Python CVS to Subversion’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 347 - Migrating the Python CVS to Subversion">
+<meta property="og:url" content="http://localhost:4000/python/pep/347/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 347: ‘Migrating the Python CVS to Subversion’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T18:56:24+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T18:56:24+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/347/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 347 - Migrating the Python CVS to Subversion">
+    <meta itemprop="description" content="Python Enhancement Proposal 347: ‘Migrating the Python CVS to Subversion’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T18:56:24+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T18:56:24+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 347 - Migrating the Python CVS to Subversion
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T18:56:24+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#개요">개요</a></li><li><a href="#도입-배경-rationale">도입 배경 (Rationale)</a><ul><li><a href="#subversion으로의-전환-moving-to-subversion">Subversion으로의 전환 (Moving to Subversion)</a></li><li><a href="#pythonorg로의-전환-moving-to-pythonorg">python.org로의 전환 (Moving to python.org)</a></li></ul></li><li><a href="#마이그레이션-절차-migration-procedure">마이그레이션 절차 (Migration Procedure)</a><ul><li><a href="#ssh-키-수집-collect-ssh-keys">SSH 키 수집 (Collect SSH keys)</a></li><li><a href="#관리자-접근-administrator-access">관리자 접근 (Administrator Access)</a></li><li><a href="#cvs-저장소-다운로드-downloading-the-cvs-repository">CVS 저장소 다운로드 (Downloading the CVS Repository)</a></li><li><a href="#cvs-저장소-변환-converting-the-cvs-repository">CVS 저장소 변환 (Converting the CVS Repository)</a></li><li><a href="#저장소-공개-publish-the-repository">저장소 공개 (Publish the Repository)</a></li><li><a href="#cvs-비활성화-disable-cvs">CVS 비활성화 (Disable CVS)</a></li></ul></li><li><a href="#논의-discussion">논의 (Discussion)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0347/">PEP 347 - Migrating the Python CVS to Subversion</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Process</td>
+        <td><strong>작성일:</strong> 14-Jul-2004</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>PEP 347 – Python CVS를 Subversion으로 마이그레이션</p>
+
+<h2 id="개요">개요</h2>
+<p>이 문서는 Python 소스 코드를 SourceForge.net의 CVS 저장소에서 svn.python.org의 Subversion 저장소로 이전할 것을 제안합니다.</p>
+
+<h2 id="도입-배경-rationale">도입 배경 (Rationale)</h2>
+<p>이번 변경은 두 가지 측면을 가집니다: CVS에서 Subversion으로의 전환, 그리고 SourceForge에서 python.org로의 전환입니다. 각각의 배경은 다음과 같습니다.</p>
+
+<h3 id="subversion으로의-전환-moving-to-subversion">Subversion으로의 전환 (Moving to Subversion)</h3>
+<p>CVS는 Subversion에서 개선된 여러 가지 한계를 가지고 있었습니다. Python 개발에 있어 가장 주목할 만한 개선 사항들은 다음과 같습니다.</p>
+
+<ul>
+  <li><strong>파일 및 디렉터리 이름 변경 및 삭제 이력 유지:</strong> 파일 및 디렉터리 이름을 변경하거나 디렉터리를 삭제할 때도 해당 파일들의 이력을 계속 유지할 수 있습니다.</li>
+  <li><strong>Change Sets 지원:</strong> 전역 리비전 번호를 통해 여러 파일에 대한 연관된 변경 사항(change sets)을 지원합니다. Change sets는 트랜잭션 방식으로 처리됩니다.</li>
+  <li><strong>원자적이고 빠른 태그 지정 (Tagging):</strong> CVS 태그 작업은 몇 분이 걸릴 수 있었지만, Subversion 태그( <code class="language-plaintext highlighter-rouge">svn cp</code> )는 빠르고 원자적으로 완료됩니다. 브랜치(Branch) 작업 또한 매우 효율적입니다.</li>
+  <li><strong>오프라인 Diff 지원:</strong> 패치를 생성할 때 유용한 오프라인 Diff 기능을 지원합니다.</li>
+</ul>
+
+<h3 id="pythonorg로의-전환-moving-to-pythonorg">python.org로의 전환 (Moving to python.org)</h3>
+<p>SourceForge는 지난 몇 년간 중요한 인프라를 제공해 주었습니다. 하지만 SourceForge에 대한 관심은 과거에 반복적인 과부하 상황을 야기했으며, SourceForge 운영자들은 항상 제때 대응할 수 없었습니다. 특히 CVS의 경우, 익명 접근을 위한 두 번째 읽기 전용 CVS 서버를 도입하여 주 CVS 서버의 부하를 줄여야 했습니다. 이 서버는 주기적으로 동기화되지만, 읽기-쓰기 CVS 저장소와 동기화 사이에 지연이 발생했습니다. 결과적으로 커밋 권한이 없는 사용자들은 최근 저장소 변경 사항을 지연 후에야 볼 수 있었습니다.</p>
+
+<p>python.org에서는 저장소를 익명으로 접근할 수 있도록 만들 수 있을 것입니다.</p>
+
+<h2 id="마이그레이션-절차-migration-procedure">마이그레이션 절차 (Migration Procedure)</h2>
+<p>Python CVS 저장소를 이전하기 위해 다음 단계들이 실행되어야 합니다. 각 단계는 아래 섹션에서 더 자세히 설명됩니다.</p>
+
+<ol>
+  <li><strong>SSH 키 수집:</strong> 현재 모든 커미터(committer)들의 SSH 키와 커밋 메시지에 표시될 사용자 이름을 수집합니다.</li>
+  <li><strong>SourceForge 저장소 폐쇄 공지:</strong> 마이그레이션 시작 시 SourceForge 저장소 폐쇄를 공지합니다.</li>
+  <li><strong>CVS 저장소 다운로드:</strong> 마지막 커밋으로부터 24시간 후에 CVS 저장소를 다운로드합니다.</li>
+  <li><strong>CVS 저장소 변환:</strong> CVS 저장소를 Subversion 저장소로 변환합니다.</li>
+  <li><strong>저장소 공개:</strong> 커미터들에게는 쓰기 권한을, 익명 사용자들에게는 읽기 전용 접근 권한을 부여하여 저장소를 공개합니다.</li>
+  <li><strong>SourceForge의 CVS 접근 비활성화:</strong> SourceForge에서 CVS 접근을 비활성화합니다.</li>
+</ol>
+
+<h3 id="ssh-키-수집-collect-ssh-keys">SSH 키 수집 (Collect SSH keys)</h3>
+<p><code class="language-plaintext highlighter-rouge">svn+ssh</code> 가 저장소에 대한 쓰기 접근을 위한 최적의 방법으로 선택되었습니다. 개발자들은 기존 SSH 키를 계속 사용할 수 있지만, python.org에 설치되어야 합니다.</p>
+
+<p>각 개발자마다 새로운 Unix 사용자를 생성하는 것을 피하기 위해, <code class="language-plaintext highlighter-rouge">authorized_keys</code> 파일에 <code class="language-plaintext highlighter-rouge">command=</code> 속성을 가진 단일 계정을 사용해야 합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">authorized_keys</code> 파일의 라인 예시는 다음과 같습니다 (가독성을 위해 줄 바꿈).</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command="/usr/bin/svnserve --root=/svnroot -t --tunnel-user='&lt;username&gt;'",no-port-forwarding, no-X11-forwarding,no-agent-forwarding,no-pty ssh-dss &lt;key&gt; &lt;comment&gt;
+</code></pre></div></div>
+
+<p>사용자 이름으로는 SourceForge 계정 이름 대신 실제 이름을 사용하여 로그 메시지에서 사람들을 더 잘 식별할 수 있도록 합니다.</p>
+
+<h3 id="관리자-접근-administrator-access">관리자 접근 (Administrator Access)</h3>
+<p><code class="language-plaintext highlighter-rouge">pythondev</code> 계정에 대한 관리자 접근 권한은 현재 Python SourceForge 프로젝트의 모든 관리자에게 부여되어야 합니다. 셸(shell) 로그인과 <code class="language-plaintext highlighter-rouge">svnserve</code> 로그인을 구별하기 위해 관리자는 두 개의 키를 유지해야 합니다. OpenSSH를 사용하여 두 번째 키를 생성하는 절차는 다음과 같습니다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> .ssh
+ssh-keygen <span class="nt">-t</span> DSA <span class="nt">-f</span> pythondev <span class="nt">-C</span> &lt;user&gt;@pythondev
+vi config
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">config</code> 파일에 다음 줄을 추가해야 합니다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Host pythondev
+Hostname dinsdale.python.org
+User pythondev
+IdentityFile ~/.ssh/pythondev
+</code></pre></div></div>
+
+<p>그러면 “ <code class="language-plaintext highlighter-rouge">ssh pythondev</code> “를 통해 셸 로그인이 가능해집니다.</p>
+
+<h3 id="cvs-저장소-다운로드-downloading-the-cvs-repository">CVS 저장소 다운로드 (Downloading the CVS Repository)</h3>
+<p>CVS 저장소는 다음 URL에서 다운로드할 수 있습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">http://cvs.sourceforge.net/cvstarballs/python-cvsroot.tar.bz2</code></p>
+
+<p>이 <code class="language-plaintext highlighter-rouge">tarball</code>은 하루에 한 번만 생성되므로, 저장소 동결(repository freeze) 후에 <code class="language-plaintext highlighter-rouge">tarball</code>을 가져오기까지 시간이 좀 걸릴 수 있습니다. <code class="language-plaintext highlighter-rouge">python-commits</code> 메일링 리스트에 기록된 마지막 커밋이 <code class="language-plaintext highlighter-rouge">tarball</code>에 실제로 포함되었는지 확인해야 합니다.</p>
+
+<p>변환 후 변환된 CVS <code class="language-plaintext highlighter-rouge">tarball</code>은 <code class="language-plaintext highlighter-rouge">www.python.org/archive/python-cvsroot-&lt;date&gt;.tar.bz2</code> 에 영구적으로 보관해야 합니다.</p>
+
+<h3 id="cvs-저장소-변환-converting-the-cvs-repository">CVS 저장소 변환 (Converting the CVS Repository)</h3>
+<p>Python CVS 저장소는 <code class="language-plaintext highlighter-rouge">distutils</code> 와 <code class="language-plaintext highlighter-rouge">python</code> 두 개의 모듈을 포함합니다. <code class="language-plaintext highlighter-rouge">python</code> 모듈은 다시 <code class="language-plaintext highlighter-rouge">dist</code> 와 <code class="language-plaintext highlighter-rouge">nondist</code> 로 구성되며, <code class="language-plaintext highlighter-rouge">dist</code> 는 <code class="language-plaintext highlighter-rouge">src</code> (실제 Python 코드)만 포함합니다. <code class="language-plaintext highlighter-rouge">nondist</code> 에는 다양한 하위 디렉터리가 있습니다.</p>
+
+<p>이들은 <code class="language-plaintext highlighter-rouge">&lt;project&gt;/{trunk,tags,branches}</code> 구조를 따라 더 짧은 URL을 얻기 위해 Subversion 저장소에서 재구성되어야 합니다. 각 <code class="language-plaintext highlighter-rouge">nondist</code> 디렉터리, <code class="language-plaintext highlighter-rouge">src</code> ( <code class="language-plaintext highlighter-rouge">python</code> 이라고 명명), 그리고 <code class="language-plaintext highlighter-rouge">distutils</code> 에 대해 프로젝트가 생성될 것입니다. 저장소 재구성은 아래와 같이 CVS 트리에서 수행하는 것이 가장 좋습니다.</p>
+
+<p>저장소 형식으로 <code class="language-plaintext highlighter-rouge">fsfs</code> 백엔드(Subversion 1.1 필요)를 사용해야 합니다. <code class="language-plaintext highlighter-rouge">fsfs</code> 백엔드는 <code class="language-plaintext highlighter-rouge">dump</code> 명령을 실행할 필요 없이 점진적 저장소 백업을 허용하므로 백업에 더 유리하다는 장점이 있습니다.</p>
+
+<p>변환은 <code class="language-plaintext highlighter-rouge">cvs2svn</code> 유틸리티(예: <code class="language-plaintext highlighter-rouge">cvs2svn</code> Debian 패키지에서 사용 가능)를 사용하여 수행해야 합니다. <code class="language-plaintext highlighter-rouge">cvs2svn</code> 은 현재 <code class="language-plaintext highlighter-rouge">project/trunk</code> 구조를 지원하지 않으므로, 각 프로젝트는 개별적으로 변환되어야 합니다. 각 변환 결과를 대상 저장소의 별도 디렉터리에 넣으려면 <code class="language-plaintext highlighter-rouge">svnadmin load</code> 를 사용해야 합니다.</p>
+
+<p>Subversion은 이진 파일과 텍스트 파일에 대해 CVS와 다른 관점을 가집니다. CVS 의미론을 올바르게 전달하기 위해, CVS에서 이진 파일로 표시되지 않은 모든 파일에 <code class="language-plaintext highlighter-rouge">svn:eol-style</code> 을 <code class="language-plaintext highlighter-rouge">native</code> 로 설정해야 합니다.</p>
+
+<p>요약하자면, 변환 스크립트는 다음과 같습니다.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/sh</span>
+<span class="nb">rm </span>cvs2svn-<span class="k">*</span>
+<span class="nb">rm</span> <span class="nt">-rf</span> python py.new
+<span class="nb">tar </span>xjf python-cvsroot.tar.bz2
+<span class="nb">rm</span> <span class="nt">-rf</span> python/CVSROOT
+svnadmin create <span class="nt">--fs-type</span> fsfs py.new
+<span class="nb">mv </span>python/python python/orig
+<span class="nb">mv </span>python/orig/dist/src python/python
+<span class="nb">mv </span>python/orig/nondist/<span class="k">*</span> python <span class="c"># nondist/nondist is empty</span>
+<span class="nb">rmdir </span>python/nondist
+<span class="nb">rm</span> <span class="nt">-rf</span> python/orig
+<span class="k">for </span>a <span class="k">in </span>python/<span class="k">*</span>
+<span class="k">do
+  </span><span class="nv">b</span><span class="o">=</span><span class="sb">`</span><span class="nb">basename</span> <span class="nv">$a</span><span class="sb">`</span>
+  cvs2svn <span class="nt">-q</span> <span class="nt">--dump-only</span> <span class="nt">--encoding</span><span class="o">=</span>latin1 <span class="nt">--force-branch</span><span class="o">=</span>cnri-16-start <span class="se">\</span>
+    <span class="nt">--force-branch</span><span class="o">=</span>descr-branch <span class="nt">--force-branch</span><span class="o">=</span>release152p1-patches <span class="se">\</span>
+    <span class="nt">--force-tag</span><span class="o">=</span>r16b1 <span class="nv">$a</span>
+  svn <span class="nb">mkdir</span> <span class="nt">-m</span><span class="s2">"Conversion to SVN"</span> file:///<span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/py.new/<span class="nv">$b</span>
+  svnadmin load <span class="nt">-q</span> <span class="nt">--parent-dir</span> <span class="nv">$b</span> py.new &lt; cvs2svn-dump
+  <span class="nb">rm </span>cvs2svn-dump
+<span class="k">done</span>
+</code></pre></div></div>
+
+<p>이 변환의 샘플 결과는 <code class="language-plaintext highlighter-rouge">http://www.dcl.hpi.uni-potsdam.de/pysvn/</code> 에서 확인할 수 있습니다.</p>
+
+<h3 id="저장소-공개-publish-the-repository">저장소 공개 (Publish the Repository)</h3>
+<p>저장소는 <code class="language-plaintext highlighter-rouge">http://svn.python.org/projects</code> 에 공개되어야 합니다. 모든 현재 SourceForge 커미터에게는 <code class="language-plaintext highlighter-rouge">svn+ssh://pythondev@svn.python.org/</code> 를 통해 읽기-쓰기 접근 권한을 부여하고, 웹DAV(WebDAV)를 통한 읽기 전용 익명 접근 권한도 부여해야 합니다.</p>
+
+<p>선택적으로 <code class="language-plaintext highlighter-rouge">websvn</code> (예: Debian <code class="language-plaintext highlighter-rouge">websvn</code> 패키지에서 사용 가능)을 제공할 수 있습니다. 하지만 테스트 설치에서는 <code class="language-plaintext highlighter-rouge">websvn</code> 이 메모리 부족으로 인해 작동이 중단되었습니다.</p>
+
+<p>현재 SourceForge 프로젝트 관리자는 <code class="language-plaintext highlighter-rouge">pythondev</code> 계정의 <code class="language-plaintext highlighter-rouge">authorized_keys2</code> 파일에 대한 쓰기 권한을 얻어야 합니다.</p>
+
+<h3 id="cvs-비활성화-disable-cvs">CVS 비활성화 (Disable CVS)</h3>
+<p>CVS를 완전히 비활성화하는 것은 불가능한 것으로 보입니다. 프로젝트 페이지에서 사용자 인터페이스만 제거할 수 있으며, 저장소 자체는 계속 사용할 수 있습니다. 필요하다면, <code class="language-plaintext highlighter-rouge">python</code> 및 <code class="language-plaintext highlighter-rouge">distutils</code> 모듈에 대한 쓰기 접근은 CVS <code class="language-plaintext highlighter-rouge">commitinfo</code> 항목을 통해 비활성화할 수 있습니다.</p>
+
+<h2 id="논의-discussion">논의 (Discussion)</h2>
+<p>위 절차에 대한 몇 가지 대안이 제안되었습니다. 거부된 대안들은 여기서 간략하게 논의됩니다.</p>
+
+<ul>
+  <li><strong>다중 저장소 생성:</strong> <code class="language-plaintext highlighter-rouge">python</code> 과 <code class="language-plaintext highlighter-rouge">distutils</code> 에 대해 각각 하나의 저장소를 생성하는 방안이 있었습니다. 이는 URL을 더 짧게 만들 수 있었겠지만, 단일 저장소가 프로젝트 간 코드 이동을 지원하므로 거부되었습니다.</li>
+  <li><strong>표준 <code class="language-plaintext highlighter-rouge">cvs2svn</code> 및 이름 변경을 통한 <code class="language-plaintext highlighter-rouge">project/trunk</code> 구조 생성:</strong> 이는 이전 리비전이 최근 리비전과 다른 경로 이름을 사용한다는 단점이 있었습니다. <code class="language-plaintext highlighter-rouge">dump</code> 파일을 통한 제안된 접근 방식은 이름 변경 없이 작동합니다.</li>
+  <li><strong>python.org 호스팅에 대한 관리 부담:</strong> 여러 사람이 python.org에 저장소를 호스팅하는 것이 <code class="language-plaintext highlighter-rouge">pydotorg</code> 관리자에게 발생시킬 관리 오버헤드에 대해 우려를 표했습니다. <code class="language-plaintext highlighter-rouge">BerliOS</code> 가 특정 대안으로 제안되기도 했습니다. <code class="language-plaintext highlighter-rouge">pydotorg</code> 관리자들 자신은 추가 작업량에 반대하지 않았으며, 과중한 업무가 발생할 경우 저장소를 다시 마이그레이션하는 것이 대안으로 제시되었습니다.</li>
+  <li><strong>다른 인증 전략:</strong> <code class="language-plaintext highlighter-rouge">svn+ssh</code> 의 대안으로 다음과 같은 것들이 제안되었습니다.
+    <ul>
+      <li><strong>SSL 및 기본 인증을 사용한 웹DAV(WebDAV)를 통한 Subversion:</strong> <code class="language-plaintext highlighter-rouge">pydotorg</code> 에서 생성된 비밀번호를 사용자에게 메일로 보내는 방식이었습니다. 사람들이 이 접근 방식을 좋아하지 않았는데, 비밀번호를 기억할 수 없어 디스크에 저장해야 했기 때문이며, 이는 보안 위험이 됩니다.</li>
+      <li><strong>SSL 클라이언트 인증서를 사용한 웹DAV(WebDAV)를 통한 Subversion:</strong> 작동은 하겠지만, 인증 기관을 관리해야 하는 부담이 있었습니다.</li>
+    </ul>
+  </li>
+  <li><strong>다른 호스팅 위치:</strong> python.org 대신 다른 곳에서 호스팅하는 방안도 제안되었습니다. 이 대안이 무료여야 하는지 상업적이어야 하는지가 쟁점이었으며, 자원봉사자들의 부담을 줄이기 위해 상업적인 것이 더 낫다는 의견이 많았습니다.
+    <ul>
+      <li>특히 <code class="language-plaintext highlighter-rouge">Greg Stein</code> 은 <code class="language-plaintext highlighter-rouge">http://www.wush.net/subversion.php</code> 를 제안했습니다. 이들은 월 90달러에 5GB, 월 200GB 다운로드를 제공하며, 데이터는 RAID 드라이브에 있고 완전히 백업됩니다. 익명 접근 및 이메일 커밋 알림이 지원됩니다. <code class="language-plaintext highlighter-rouge">wush.net</code> 에서 제공한 세부 정보는 다음과 같습니다.
+        <ul>
+          <li>머신은 PowerVPS에서 호스팅되는 Virtuozzo Virtual Private Server (VPS)입니다.</li>
+          <li>기본 저장소 URL은 <code class="language-plaintext highlighter-rouge">http://python.wush.net/svn/projectname/</code> 이지만, 다른 것도 가능합니다.</li>
+          <li>sudo 기능이 있는 SSH 로그인을 머신에 제공받을 수 있습니다.</li>
+          <li>관리용 웹 인터페이스가 있으며, 다양한 SVN 저장소와 사용자 계정을 관리할 수 있습니다.</li>
+          <li><code class="language-plaintext highlighter-rouge">svn+ssh</code> 는 지원되지만, 사용자 인터페이스는 아직 지원하지 않습니다.</li>
+          <li>오프사이트 미러링/백업을 위해 저장소 <code class="language-plaintext highlighter-rouge">tarball</code> 다운로드 대신 <code class="language-plaintext highlighter-rouge">rsync</code> 사용을 제안했습니다.</li>
+        </ul>
+      </li>
+      <li><code class="language-plaintext highlighter-rouge">Bob Ippolito</code> 는 상업 프로젝트에 <code class="language-plaintext highlighter-rouge">wush.net</code> 을 약 6개월간 사용했지만, 서비스가 3일 동안 중단되고 연락 가능한 사람이 없었으며, 서비스 재개 시 설명도 없었기 때문에 <code class="language-plaintext highlighter-rouge">wush.net</code> 을 떠났다고 보고했습니다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="저작권-copyright">저작권 (Copyright)</h2>
+<p>이 문서는 퍼블릭 도메인(public domain)에 있습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/346/" class="pagination--pager" title="[Withdrawn] PEP 346 - User Defined (”with”) Statements
+">Previous</a>
+    
+    
+      <a href="/python/pep/348/" class="pagination--pager" title="[Rejected] PEP 348 - Exception Reorganization for Python 3.0
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

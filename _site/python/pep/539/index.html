@@ -1,0 +1,823 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 539 - A New C-API for Thread-Local Storage in CPython | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 539: ‘A New C-API for Thread-Local Storage in CPython’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 539 - A New C-API for Thread-Local Storage in CPython">
+<meta property="og:url" content="http://localhost:4000/python/pep/539/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 539: ‘A New C-API for Thread-Local Storage in CPython’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T23:28:37+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T23:28:37+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/539/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 539 - A New C-API for Thread-Local Storage in CPython">
+    <meta itemprop="description" content="Python Enhancement Proposal 539: ‘A New C-API for Thread-Local Storage in CPython’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T23:28:37+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T23:28:37+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 539 - A New C-API for Thread-Local Storage in CPython
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T23:28:37+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-539--cpython에서-스레드-로컬-스토리지를-위한-새로운-c-api">PEP 539 – CPython에서 스레드 로컬 스토리지를 위한 새로운 C-API</a><ul><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#도입-배경-motivation">도입 배경 (Motivation)</a></li><li><a href="#명세-specification">명세 (Specification)</a></li><li><a href="#api-명세-비교-comparison-of-api-specification">API 명세 비교 (Comparison of API Specification)</a></li><li><a href="#예시-example">예시 (Example)</a></li><li><a href="#플랫폼-지원-변경-사항-platform-support-changes">플랫폼 지원 변경 사항 (Platform Support Changes)</a></li><li><a href="#제안된-해결책의-근거-rationale-for-proposed-solution">제안된 해결책의 근거 (Rationale for Proposed Solution)</a></li><li><a href="#거부된-아이디어-rejected-ideas">거부된 아이디어 (Rejected Ideas)</a></li><li><a href="#python-사용에-미치는-영향">Python 사용에 미치는 영향</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0539/">PEP 539 - A New C-API for Thread-Local Storage in CPython</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 20-Dec-2016</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h2 id="pep-539--cpython에서-스레드-로컬-스토리지를-위한-새로운-c-api">PEP 539 – CPython에서 스레드 로컬 스토리지를 위한 새로운 C-API</h2>
+
+<p>이 문서는 CPython 인터프리터 내에서 스레드 로컬 스토리지(Thread Local Storage, TLS)를 관리하기 위한 새로운 C-API인 “Thread Specific Storage (TSS) API”를 제안합니다. 기존 TLS API의 한계를 극복하고, CPython의 이식성을 향상하는 것이 목표입니다. 이 제안은 Python 3.7 버전부터 적용되었습니다.</p>
+
+<h3 id="개요-abstract">개요 (Abstract)</h3>
+
+<p>PEP 539는 CPython 인터프리터 내부에서 사용되는 기존 TLS API를 대체하고 새로운 TLS API를 도입할 것을 제안합니다. 새 API는 “Thread Specific Storage (TSS) API”라고 불립니다. 기존 TLS API는 내부적으로만 사용되고 공식 문서에 언급되지 않으므로, 이 제안은 주로 CPython 구현에 영향을 미치지만 CPython API의 일부를 구현하는 다른 인터프리터(예: PyPy)에도 영향을 줄 수 있습니다.</p>
+
+<p>주된 동기는 기존 API가 모든 플랫폼에서 TLS 키를 <code class="language-plaintext highlighter-rouge">int</code> 타입으로 표현했는데, 이는 POSIX 표준을 준수하지 않으며 실제적인 이식성을 보장하지 못했기 때문입니다.</p>
+
+<h3 id="도입-배경-motivation">도입 배경 (Motivation)</h3>
+
+<p>기존 <code class="language-plaintext highlighter-rouge">PyThread</code> TLS API의 가장 큰 문제는 TLS 값에 사용되는 키의 타입이 <code class="language-plaintext highlighter-rouge">int</code>라는 점이었습니다. 1997년에 Python에 추가된 이 API는 CPython 자체 TLS 구현을 사용했으며, 당시에는 <code class="language-plaintext highlighter-rouge">int</code> 키가 문제없었습니다. 그러나 나중에 pthreads 및 Windows와 같은 네이티브 스레드 구현 위에 API를 구현하는 지원이 추가되었고, 내장 구현은 더 이상 필요 없어져 제거되었습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">int</code>를 TLS 키로 선택한 것은 CPython 자체 구현 및 Windows(<code class="language-plaintext highlighter-rouge">DWORD</code> 사용)와는 호환되었지만, <code class="language-plaintext highlighter-rouge">pthread_key_t</code>를 불투명한 타입으로 정의하는 POSIX pthreads API 표준과는 호환되지 않았습니다.</p>
+
+<p>일부 플랫폼(Cygwin, CloudABI 등)에서는 <code class="language-plaintext highlighter-rouge">pthread_key_t</code>가 <code class="language-plaintext highlighter-rouge">int</code>로 안전하게 캐스팅될 수 없는 방식으로 정의되어 있어 Python API와 호환되지 않는 문제가 발생했습니다. 이는 CPython이 POSIX와 호환되지 않는 API를 통해 구현 장벽을 부과하는 것이며, 다른 POSIX 호환 플랫폼에서 CPython이 잠재력을 발휘하는 것을 막는 요인이었습니다.</p>
+
+<h3 id="명세-specification">명세 (Specification)</h3>
+
+<p>새로운 TSS API는 기존 TLS API의 6가지 함수를 대체하는 유사한 함수들을 포함하며, 몇 가지 새로운 기능을 추가합니다.</p>
+
+<p><strong>기존 TLS API 함수 (Deprecated):</strong></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">PyAPI_FUNC(int) PyThread_create_key(void)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">PyAPI_FUNC(void) PyThread_delete_key(int key)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">PyAPI_FUNC(int) PyThread_set_key_value(int key, void *value)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">PyAPI_FUNC(void *) PyThread_get_key_value(int key)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">PyAPI_FUNC(void) PyThread_delete_key_value(int key)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">PyAPI_FUNC(void) PyThread_ReInitTLS(void)</code></li>
+</ul>
+
+<p><strong>새로운 TSS API 함수:</strong></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">PyAPI_FUNC(int) PyThread_tss_create(Py_tss_t *key)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">PyAPI_FUNC(void) PyThread_tss_delete(Py_tss_t *key)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">PyAPI_FUNC(int) PyThread_tss_set(Py_tss_t *key, void *value)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">PyAPI_FUNC(void *) PyThread_tss_get(Py_tss_t *key)</code></li>
+</ul>
+
+<p><strong>새로운 기능:</strong></p>
+
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">Py_tss_t</code> 타입</strong>: 기본 TLS 구현에 따라 정의될 수 있는 불투명(opaque) 타입입니다. 내부적으로 <code class="language-plaintext highlighter-rouge">_is_initialized</code> 플래그와 <code class="language-plaintext highlighter-rouge">NATIVE_TSS_KEY_T</code>를 포함합니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">Py_tss_NEEDS_INIT</code></strong>: <code class="language-plaintext highlighter-rouge">Py_tss_t</code> 변수를 초기화하기 위한 이니셜라이저입니다.</li>
+  <li><strong>추가 함수</strong>:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">PyAPI_FUNC(Py_tss_t *) PyThread_tss_alloc(void)</code>: <code class="language-plaintext highlighter-rouge">Py_LIMITED_API</code>로 빌드된 확장 모듈에서 <code class="language-plaintext highlighter-rouge">Py_tss_t</code>의 동적 할당을 위해 사용됩니다.</li>
+      <li><code class="language-plaintext highlighter-rouge">PyAPI_FUNC(void) PyThread_tss_free(Py_tss_t *key)</code>: 동적으로 할당된 <code class="language-plaintext highlighter-rouge">Py_tss_t</code>를 해제합니다.</li>
+      <li><code class="language-plaintext highlighter-rouge">PyAPI_FUNC(int) PyThread_tss_is_created(Py_tss_t *key)</code>: <code class="language-plaintext highlighter-rouge">Py_tss_t</code>가 초기화되었는지 확인합니다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>새 API는 <code class="language-plaintext highlighter-rouge">Py_tss_t*</code>를 인수로 받아 키를 전달하는 반면, 기존 API는 <code class="language-plaintext highlighter-rouge">int</code> 키를 값으로 전달했습니다. <code class="language-plaintext highlighter-rouge">Py_tss_t</code>는 불투명 타입이므로 크기를 알 수 없기 때문에 이러한 변경이 필요합니다.</p>
+
+<p>또한, <code class="language-plaintext highlighter-rouge">PyThread_tss_create</code>는 이미 초기화된 키에 대해 호출될 경우 성공을 반환하며 아무런 작업을 수행하지 않습니다. <code class="language-plaintext highlighter-rouge">PyThread_tss_delete</code>는 키의 초기화 상태를 “uninitialized”로 변경하여, CPython 인터프리터를 재시작할 때 정적으로 할당된 키를 재설정할 수 있도록 합니다.</p>
+
+<h3 id="api-명세-비교-comparison-of-api-specification">API 명세 비교 (Comparison of API Specification)</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">기능/속성</th>
+      <th style="text-align: left">기존 TLS API</th>
+      <th style="text-align: left">새로운 TSS API</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>버전</strong></td>
+      <td style="text-align: left">기존</td>
+      <td style="text-align: left">신규</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>키 타입</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">int</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Py_tss_t</code> (불투명 타입)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>키 핸들</strong></td>
+      <td style="text-align: left">네이티브 키를 <code class="language-plaintext highlighter-rouge">int</code>로 캐스팅</td>
+      <td style="text-align: left">내부 필드에 캡슐화</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>함수 인수</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">int</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Py_tss_t *</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>주요 기능</strong></td>
+      <td style="text-align: left">키 생성, 삭제, 값 설정, 값 가져오기, 값 삭제, 키 재초기화</td>
+      <td style="text-align: left">키 생성, 삭제, 값 설정, 값 가져오기 (NULL로 설정), 동적 할당/해제, 키 초기화 상태 확인</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>키 이니셜라이저</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">-1</code> (키 생성 실패)</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Py_tss_NEEDS_INIT</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>요구 사항</strong></td>
+      <td style="text-align: left">네이티브 스레드</td>
+      <td style="text-align: left">네이티브 스레드 (CPython 3.7부터)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>제한 사항</strong></td>
+      <td style="text-align: left">네이티브 TLS 키가 <code class="language-plaintext highlighter-rouge">int</code>로 안전하게 캐스팅될 수 없는 플랫폼 미지원</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Py_LIMITED_API</code> 정의 시 정적 키 할당 불가능</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="예시-example">예시 (Example)</h3>
+
+<p><strong>정적 할당 (Static Allocation):</strong></p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">static</span> <span class="n">Py_tss_t</span> <span class="n">tss_key</span> <span class="o">=</span> <span class="n">Py_tss_NEEDS_INIT</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">PyThread_tss_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tss_key</span><span class="p">))</span> <span class="p">{</span>
+    <span class="cm">/* ... 키 생성 실패 처리 ... */</span>
+<span class="p">}</span>
+
+<span class="n">assert</span><span class="p">(</span><span class="n">PyThread_tss_is_created</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tss_key</span><span class="p">));</span>
+
+<span class="kt">int</span> <span class="n">the_value</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">PyThread_tss_get</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tss_key</span><span class="p">)</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">PyThread_tss_set</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tss_key</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">the_value</span><span class="p">);</span>
+    <span class="n">assert</span><span class="p">(</span><span class="n">PyThread_tss_get</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tss_key</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="cm">/* ... 키 사용 완료 후 ... */</span>
+<span class="n">PyThread_tss_delete</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tss_key</span><span class="p">);</span>
+<span class="n">assert</span><span class="p">(</span><span class="o">!</span><span class="n">PyThread_tss_is_created</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tss_key</span><span class="p">));</span>
+</code></pre></div></div>
+
+<p><strong>동적 할당 (<code class="language-plaintext highlighter-rouge">Py_LIMITED_API</code> 정의 시):</strong></p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">static</span> <span class="n">Py_tss_t</span> <span class="o">*</span><span class="n">ptr_key</span> <span class="o">=</span> <span class="n">PyThread_tss_alloc</span><span class="p">();</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">ptr_key</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+    <span class="cm">/* ... 키 할당 실패 처리 ... */</span>
+<span class="p">}</span>
+<span class="n">assert</span><span class="p">(</span><span class="o">!</span><span class="n">PyThread_tss_is_created</span><span class="p">(</span><span class="n">ptr_key</span><span class="p">));</span>
+<span class="cm">/* ... 키 사용 완료 후 ... */</span>
+<span class="n">PyThread_tss_free</span><span class="p">(</span><span class="n">ptr_key</span><span class="p">);</span>
+<span class="n">ptr_key</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="플랫폼-지원-변경-사항-platform-support-changes">플랫폼 지원 변경 사항 (Platform Support Changes)</h3>
+
+<p>CPython 3.7부터는 모든 플랫폼이 TSS API를 구현하기 위해 pthreads 또는 Windows와 같은 네이티브 스레드 구현을 제공해야 합니다. 네이티브 스레드 없이 구현된 TSS API 문제는 “won’t fix”로 처리됩니다.</p>
+
+<h3 id="제안된-해결책의-근거-rationale-for-proposed-solution">제안된 해결책의 근거 (Rationale for Proposed Solution)</h3>
+
+<p>불투명한 타입(<code class="language-plaintext highlighter-rouge">Py_tss_t</code>)을 사용하여 TLS 값을 키로 만드는 것은 CPython이 지원하는 현재(POSIX 및 Windows)와 미래의 네이티브 TLS 구현 모두와 호환될 수 있도록 합니다. <code class="language-plaintext highlighter-rouge">Py_tss_t</code>의 정의가 기반 구현에 따라 달라질 수 있기 때문입니다.</p>
+
+<p>이름의 “tss”는 “thread-specific storage”를 의미하며, C11 스레드 API의 “tss” API의 명명 및 설계에서 영향을 받았습니다. 이는 C11 스레드 API와의 호환성이나 지원을 의미하는 것은 아닙니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Py_tss_NEEDS_INIT</code> 이니셜라이저의 포함은 모든 네이티브 TLS 구현이 초기화되지 않은 TLS 키에 대한 센티넬(sentinel) 값을 정의하지 않기 때문에 필요합니다. 예를 들어, Windows는 초기화되지 않은 TLS 키를 안전하게 나타낼 수 있는 <code class="language-plaintext highlighter-rouge">unsigned int</code> 값이 없으며, POSIX도 <code class="language-plaintext highlighter-rouge">pthread_key_t</code>에 대한 센티넬을 지정하지 않습니다. 따라서 <code class="language-plaintext highlighter-rouge">Py_tss_t</code> 타입은 기본 구현과 독립적으로 키의 초기화 상태를 나타낼 수 있는 명시적인 <code class="language-plaintext highlighter-rouge">_is_initialized</code> 필드를 포함합니다.</p>
+
+<h3 id="거부된-아이디어-rejected-ideas">거부된 아이디어 (Rejected Ideas)</h3>
+
+<ul>
+  <li><strong>아무것도 하지 않음</strong>: 리눅스에서는 작동하므로 현 상태가 괜찮다는 주장입니다. 그러나 이는 CPython 자체의 특성으로 인해 다른 POSIX 호환 플랫폼에서 잠재력을 발휘하지 못하게 하는 문제이며, 리눅스에서의 작동은 우연한 결과입니다.</li>
+  <li><strong>영향받는 플랫폼은 <code class="language-plaintext highlighter-rouge">--without-threads</code>로 Python을 구성</strong>: Python 3.7부터 <code class="language-plaintext highlighter-rouge">--without-threads</code> 옵션이 제거되어 더 이상 선택 사항이 아닙니다.</li>
+  <li><strong>영향받는 플랫폼은 CPython 내장 TLS 구현을 사용</strong>: 내장 구현은 네이티브 구현보다 느리고 투박하며, <code class="language-plaintext highlighter-rouge">tracemalloc</code>과 같은 다른 모듈도 손상될 수 있습니다. 또한, 내장 구현은 이미 제거되었습니다.</li>
+  <li><strong>기존 API를 유지하되 <code class="language-plaintext highlighter-rouge">pthread_key_t</code> 값을 <code class="language-plaintext highlighter-rouge">int</code> 값으로 매핑하여 문제 해결</strong>: 불필요한 복잡성과 오버헤드를 야기하며, 플랫폼별 코드를 유지해야 하는 문제가 있습니다.</li>
+</ul>
+
+<h3 id="python-사용에-미치는-영향">Python 사용에 미치는 영향</h3>
+
+<p>이 PEP는 CPython의 C-API 레벨에서 스레드 로컬 스토리지 구현을 개선하여, 다양한 플랫폼에서의 호환성과 이식성을 높이는 데 기여합니다. 일반적인 Python 개발자에게 직접적인 영향은 미미하지만, C 확장 모듈을 개발하거나 CPython을 애플리케이션에 임베딩하는 개발자에게는 중요합니다.</p>
+
+<p>주요 변경사항은 다음과 같습니다:</p>
+<ol>
+  <li><strong>C-API 변경</strong>: 기존 <code class="language-plaintext highlighter-rouge">PyThread_*_key</code> 함수들은 더 이상 사용되지 않고 (<code class="language-plaintext highlighter-rouge">deprecated</code>), 새로운 <code class="language-plaintext highlighter-rouge">PyThread_tss_*</code> 함수들로 대체됩니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">Py_tss_t</code> 도입</strong>: <code class="language-plaintext highlighter-rouge">int</code> 대신 불투명한 <code class="language-plaintext highlighter-rouge">Py_tss_t</code> 타입을 사용하여 TLS 키를 표현함으로써, <code class="language-plaintext highlighter-rouge">pthread_key_t</code>가 <code class="language-plaintext highlighter-rouge">int</code>로 안전하게 캐스팅될 수 없는 POSIX 호환 플랫폼에서도 스레드 로컬 스토리지를 안정적으로 사용할 수 있게 됩니다.</li>
+  <li><strong>호환성 향상</strong>: <code class="language-plaintext highlighter-rouge">Py_LIMITED_API</code>를 사용하는 확장 모듈 개발 시, <code class="language-plaintext highlighter-rouge">Py_tss_t</code>의 동적 할당 (<code class="language-plaintext highlighter-rouge">PyThread_tss_alloc</code>, <code class="language-plaintext highlighter-rouge">PyThread_tss_free</code>) 지원으로 더욱 유연하게 대응할 수 있습니다.</li>
+  <li><strong>플랫폼 요구 사항</strong>: CPython 3.7부터는 모든 플랫폼이 네이티브 스레드 구현(pthreads 또는 Windows)을 제공해야 하므로, 더 이상 네이티브 스레드를 지원하지 않는 환경에서는 CPython의 TLS 기능을 사용할 수 없습니다.</li>
+</ol>
+
+<p>결론적으로, PEP 539는 CPython의 스레드 로컬 스토리지 구현을 현대화하고 표준화하여, 더욱 견고하고 이식성 있는 기반을 제공합니다. 이는 CPython 자체의 안정성과 확장 모듈의 호환성을 장기적으로 향상시키는 데 중요한 역할을 합니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/538/" class="pagination--pager" title="[Final] PEP 538 - Coercing the legacy C locale to a UTF-8 based locale
+">Previous</a>
+    
+    
+      <a href="/python/pep/540/" class="pagination--pager" title="[Final] PEP 540 - Add a new UTF-8 Mode
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

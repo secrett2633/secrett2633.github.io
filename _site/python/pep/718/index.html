@@ -1,0 +1,783 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Draft] PEP 718 - Subscriptable functions | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 718: ‘Subscriptable functions’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Draft] PEP 718 - Subscriptable functions">
+<meta property="og:url" content="http://localhost:4000/python/pep/718/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 718: ‘Subscriptable functions’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T13:13:52+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T13:13:52+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/718/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Draft] PEP 718 - Subscriptable functions">
+    <meta itemprop="description" content="Python Enhancement Proposal 718: ‘Subscriptable functions’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T13:13:52+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T13:13:52+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Draft] PEP 718 - Subscriptable functions
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T13:13:52+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-718--subscriptable-functions-서브스크립트-가능한-함수">PEP 718 – Subscriptable functions (서브스크립트 가능한 함수)</a><ul><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#동기-motivation">동기 (Motivation)</a><ul><li><a href="#알-수-없는-타입-unknown-types">알 수 없는 타입 (Unknown Types)</a></li><li><a href="#결정-불가능한-추론-undecidable-inference">결정 불가능한 추론 (Undecidable Inference)</a></li><li><a href="#해결-불가능한-타입-파라미터-unsolvable-type-parameters">해결 불가능한 타입 파라미터 (Unsolvable Type Parameters)</a></li><li><a href="#모노모피즘-및-재구현-monomorphisation-and-reification">모노모피즘 및 재구현 (Monomorphisation and Reification)</a></li></ul></li><li><a href="#근거-rationale">근거 (Rationale)</a></li><li><a href="#명세-specification">명세 (Specification)</a><ul><li><a href="#__orig_class__-설정">__orig_class__ 설정</a></li><li><a href="#typingoverload와의-상호작용">@typing.overload와의 상호작용</a></li></ul></li><li><a href="#하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</a></li><li><a href="#참조-구현-reference-implementation">참조 구현 (Reference Implementation)</a></li><li><a href="#감사의-글-acknowledgements">감사의 글 (Acknowledgements)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0718/">PEP 718 - Subscriptable functions</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Draft</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 23-Jun-2023</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-718--subscriptable-functions-서브스크립트-가능한-함수">PEP 718 – Subscriptable functions (서브스크립트 가능한 함수)</h1>
+
+<h2 id="개요-abstract">개요 (Abstract)</h2>
+
+<p>이 PEP는 타이핑(typing) 목적으로 함수 객체(function objects)를 서브스크립트 가능하게 만드는 것을 제안합니다. 이를 통해 개발자는 타입 체커(type checker)가 생성하는 타입에 대해 명시적인 제어를 할 수 있게 됩니다. 이는 익명 함수의 파라미터 타입을 추론할 수 있는 양방향 추론(bi-directional inference)이나 특수화(specialisation)와 같은 기존 방식이 불충분한 경우에 특히 유용합니다. 또한, 이 제안은 함수가 일반 클래스와 마찬가지로 서브스크립트(subscript)될 수 있도록 하여 일관성을 제공합니다.</p>
+
+<h2 id="동기-motivation">동기 (Motivation)</h2>
+
+<p>현재 파이썬의 타입 시스템에는 제네릭(generic) 함수의 타입 파라미터를 추론하기 어렵거나 불가능한 몇 가지 상황이 있습니다. 이 PEP는 이러한 문제점들을 해결하고자 합니다.</p>
+
+<h3 id="알-수-없는-타입-unknown-types">알 수 없는 타입 (Unknown Types)</h3>
+
+<p>특정 상황에서 제네릭 함수의 타입 파라미터를 추론하는 것이 불가능합니다.</p>
+
+<p>예를 들어:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">make_list</span><span class="p">[</span><span class="n">T</span><span class="p">](</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span> <span class="bp">...</span>
+<span class="nf">reveal_type</span><span class="p">(</span><span class="nf">make_list</span><span class="p">())</span> <span class="c1"># 타입 체커가 T에 대한 의미 있는 타입을 추론할 수 없음
+</span></code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">FunctionType</code> 인스턴스를 서브스크립트 가능하게 만들면, 이 생성자에 타입을 명시할 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">reveal_type</span><span class="p">(</span><span class="n">make_list</span><span class="p">[</span><span class="nb">int</span><span class="p">]())</span> <span class="c1"># 타입은 list[int]
+</span></code></pre></div></div>
+<p>현재로서는 정확한 타입을 제공하기 위해 할당을 사용해야 합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="nf">make_list</span><span class="p">()</span>
+<span class="nf">reveal_type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># 타입은 list[int]
+</span></code></pre></div></div>
+<p>그러나 이 코드는 간단한 함수 호출을 위해 여러 줄을 차지하여 불필요하게 장황합니다.</p>
+
+<p>유사하게, 다음 예시에서 <code class="language-plaintext highlighter-rouge">T</code>는 현재 의미 있게 추론될 수 없으므로, 추가적인 할당 없이는 <code class="language-plaintext highlighter-rouge">x</code>가 <code class="language-plaintext highlighter-rouge">untyped</code> 상태가 됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">factory</span><span class="p">[</span><span class="n">T</span><span class="p">](</span><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Foo</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span> <span class="bp">...</span>
+<span class="nf">reveal_type</span><span class="p">(</span><span class="nf">factory</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="sh">"</span><span class="s">Hello World</span><span class="sh">"</span> <span class="o">*</span> <span class="n">x</span><span class="p">))</span>
+</code></pre></div></div>
+<p>함수 객체가 서브스크립트 가능하다면, 더 구체적인 타입을 지정할 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">reveal_type</span><span class="p">(</span><span class="n">factory</span><span class="p">[</span><span class="nb">int</span><span class="p">](</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="sh">"</span><span class="s">Hello World</span><span class="sh">"</span> <span class="o">*</span> <span class="n">x</span><span class="p">))</span> <span class="c1"># 타입은 Foo[int]
+</span></code></pre></div></div>
+
+<h3 id="결정-불가능한-추론-undecidable-inference">결정 불가능한 추론 (Undecidable Inference)</h3>
+
+<p>일부 경우에는 서브클래스(subclass) 관계 때문에 타입 추론이 불가능할 수 있습니다. 그러나 함수를 특수화(specialise)할 수 있다면, 타입 체커는 의미 있는 타입을 추론할 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">foo</span><span class="p">[</span><span class="n">T</span><span class="p">](</span><span class="n">x</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">T</span><span class="p">]</span> <span class="o">|</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span> <span class="bp">...</span>
+<span class="nf">reveal_type</span><span class="p">(</span><span class="n">foo</span><span class="p">[</span><span class="nb">bytes</span><span class="p">](</span><span class="sa">b</span><span class="sh">"</span><span class="s">hello</span><span class="sh">"</span><span class="p">))</span>
+</code></pre></div></div>
+<p>현재 타입 체커는 이러한 경우에 일관적으로 타입을 합성하지 못합니다.</p>
+
+<h3 id="해결-불가능한-타입-파라미터-unsolvable-type-parameters">해결 불가능한 타입 파라미터 (Unsolvable Type Parameters)</h3>
+
+<p>현재 특수화되지 않은 리터럴(unspecialised literals)의 경우, 다음과 같은 상황에서 타입을 결정하는 것이 불가능합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">foo</span><span class="p">[</span><span class="n">T</span><span class="p">](</span><span class="n">x</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span> <span class="bp">...</span>
+<span class="nf">reveal_type</span><span class="p">(</span><span class="nf">foo</span><span class="p">([]))</span> <span class="c1"># 타입 체커가 T를 추론할 수 없음 (다시 한번)
+</span><span class="sb">``````</span><span class="n">python</span>
+<span class="nf">reveal_type</span><span class="p">(</span><span class="n">foo</span><span class="p">[</span><span class="nb">int</span><span class="p">]([]))</span> <span class="c1"># 타입은 int
+</span></code></pre></div></div>
+<p>또한, 특정 타입이 함수에 미리 전달되어야 하는 경우에 이를 지정할 수 있다는 점도 유용합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="sh">"</span><span class="s">hello</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">world</span><span class="sh">"</span><span class="p">]</span>
+<span class="n">foo</span><span class="p">[</span><span class="nb">int</span><span class="p">](</span><span class="n">words</span><span class="p">)</span> <span class="c1"># Invalid: list[str]은 list[int]와 호환되지 않음
+</span></code></pre></div></div>
+<p>서브스크립션을 허용함으로써 함수와 메서드는 제네릭 클래스와 일관성을 갖게 됩니다. 제안된 모든 변경사항은 호출 가능한 제네릭 클래스를 사용하여 구현될 수 있지만, 문법적 설탕(syntactic sugar)은 매우 환영받을 것입니다.</p>
+
+<p>이로 인해 함수를 특수화하고 새로운 팩토리(factory)로 사용하는 것이 가능합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">make_int_list</span> <span class="o">=</span> <span class="n">make_list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+<span class="nf">reveal_type</span><span class="p">(</span><span class="nf">make_int_list</span><span class="p">())</span> <span class="c1"># 타입은 list[int]
+</span></code></pre></div></div>
+
+<h3 id="모노모피즘-및-재구현-monomorphisation-and-reification">모노모피즘 및 재구현 (Monomorphisation and Reification)</h3>
+
+<p>이 제안은 또한 모노모피즘(monomorphisation)과 재구현된 타입(reified types)의 가능성을 열어줍니다.
+이는 여러 번 요청되었던 기능의 문을 열어줄 수 있습니다.
+<strong>참고:</strong> 이 기능 자체는 이 PEP에서 제안되는 것은 아니지만, 미래에 구현될 수 있습니다.</p>
+
+<p>이러한 기능의 문법은 다음과 같을 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">foo</span><span class="p">[</span><span class="n">T</span><span class="p">]():</span> <span class="k">return</span> <span class="n">T</span><span class="p">.</span><span class="n">__value__</span>
+<span class="k">assert</span> <span class="n">foo</span><span class="p">[</span><span class="nb">int</span><span class="p">]()</span> <span class="ow">is</span> <span class="nb">int</span>
+</code></pre></div></div>
+
+<h2 id="근거-rationale">근거 (Rationale)</h2>
+
+<p>이 PEP에서 “함수 객체(Function objects)”는 <code class="language-plaintext highlighter-rouge">FunctionType</code>, <code class="language-plaintext highlighter-rouge">MethodType</code>, <code class="language-plaintext highlighter-rouge">BuiltinFunctionType</code>, <code class="language-plaintext highlighter-rouge">BuiltinMethodType</code>, <code class="language-plaintext highlighter-rouge">MethodWrapperType</code>을 의미합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">MethodType</code>의 경우 다음과 같이 작성할 수 있어야 합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Foo</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">make_list</span><span class="p">[</span><span class="n">T</span><span class="p">](</span><span class="n">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span> <span class="bp">...</span>
+<span class="nc">Foo</span><span class="p">().</span><span class="n">make_list</span><span class="p">[</span><span class="nb">int</span><span class="p">]()</span>
+</code></pre></div></div>
+<p>그리고 이는 <code class="language-plaintext highlighter-rouge">FunctionType</code>과 유사하게 작동해야 합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">BuiltinFunctionType</code>의 경우, 내장 제네릭 함수(예: <code class="language-plaintext highlighter-rouge">max</code>와 <code class="language-plaintext highlighter-rouge">min</code>)가 파이썬에서 정의된 함수처럼 작동해야 합니다. 내장 함수는 가능한 한 파이썬으로 구현된 함수처럼 동작해야 합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">BuiltinMethodType</code>은 <code class="language-plaintext highlighter-rouge">BuiltinFunctionType</code>과 동일한 타입입니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">MethodWrapperType</code> (예: <code class="language-plaintext highlighter-rouge">object().__str__</code>의 타입)은 제네릭 매직 메서드(generic magic methods)에 유용합니다.</p>
+
+<h2 id="명세-specification">명세 (Specification)</h2>
+
+<p>함수 객체는 런타임에 서브스크립션을 허용하기 위해 <code class="language-plaintext highlighter-rouge">__getitem__</code>을 구현해야 합니다. 이는 <code class="language-plaintext highlighter-rouge">__origin__</code>이 호출 가능한 객체(callable)로 설정되고 <code class="language-plaintext highlighter-rouge">__args__</code>가 전달된 타입으로 설정된 <code class="language-plaintext highlighter-rouge">types.GenericAlias</code> 인스턴스를 반환해야 합니다.</p>
+
+<p>타입 체커는 함수 서브스크립션을 지원해야 하며, 함수 서브스크립션에 전달되는 파라미터가 제네릭 호출 가능 클래스(generic callable class)와 동일한 규칙을 따라야 한다는 것을 이해해야 합니다.</p>
+
+<h3 id="__orig_class__-설정"><code class="language-plaintext highlighter-rouge">__orig_class__</code> 설정</h3>
+
+<p>현재 <code class="language-plaintext highlighter-rouge">__orig_class__</code>는 <code class="language-plaintext highlighter-rouge">GenericAlias.__call__</code>에서 호출된 클래스를 생성한 <code class="language-plaintext highlighter-rouge">GenericAlias</code>의 인스턴스로 설정되는 속성입니다. 예를 들어:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Foo</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span> <span class="bp">...</span>
+<span class="k">assert</span> <span class="n">Foo</span><span class="p">[</span><span class="nb">int</span><span class="p">]().</span><span class="n">__orig_class__</span> <span class="o">==</span> <span class="n">Foo</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+</code></pre></div></div>
+<p>현재 <code class="language-plaintext highlighter-rouge">__orig_class__</code>는 무조건적으로(unconditionally) 설정됩니다. 그러나 생성된 인스턴스에서 잠재적인 타입 소거(type erasure)를 방지하기 위해, <code class="language-plaintext highlighter-rouge">__origin__</code>이 어떤 함수 객체의 인스턴스인 경우에는 이 속성을 설정해서는 안 됩니다.</p>
+
+<p>다음 코드 스니펫은 이 변경 없이는 런타임에 실패할 것입니다. 왜냐하면 <code class="language-plaintext highlighter-rouge">__orig_class__</code>가 <code class="language-plaintext highlighter-rouge">Foo[int]</code>가 아니라 <code class="language-plaintext highlighter-rouge">bar[str]</code>이 될 것이기 때문입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">bar</span><span class="p">[</span><span class="n">U</span><span class="p">]():</span> <span class="k">return</span> <span class="n">Foo</span><span class="p">[</span><span class="nb">int</span><span class="p">]()</span>
+<span class="k">assert</span> <span class="n">bar</span><span class="p">[</span><span class="nb">str</span><span class="p">]().</span><span class="n">__orig_class__</span> <span class="o">==</span> <span class="n">Foo</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h3 id="typingoverload와의-상호작용"><code class="language-plaintext highlighter-rouge">@typing.overload</code>와의 상호작용</h3>
+
+<p>오버로드(overload)된 함수는 런타임 타입에 영향을 미치지 않으므로 기존과 거의 동일하게 작동해야 합니다. 유일한 변경 사항은 더 많은 상황에서 타입이 결정 가능해지고, 오버로드의 순서나 유니온(unions)에 맡기는 대신 개발자가 동작/오버로드를 명시적으로 지정할 수 있게 된다는 것입니다.</p>
+
+<h2 id="하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</h2>
+
+<p>현재 이러한 클래스들은 서브클래싱(subclassing)이 불가능하므로, 이미 <code class="language-plaintext highlighter-rouge">__getitem__</code>을 구현하고 있는 클래스와 관련하여 하위 호환성 문제는 없습니다.</p>
+
+<h2 id="참조-구현-reference-implementation">참조 구현 (Reference Implementation)</h2>
+
+<p>제안된 런타임 변경 사항은 다음에서 확인할 수 있습니다:
+<a href="https://github.com/Gobot1234/cpython/tree/function-subscript">https://github.com/Gobot1234/cpython/tree/function-subscript</a></p>
+
+<h2 id="감사의-글-acknowledgements">감사의 글 (Acknowledgements)</h2>
+
+<p>이 PEP에 대한 피드백을 제공해준 Alex Waygood와 Jelle Zijlstra, 그리고 동기를 부여하는 예시를 제공해준 Guido에게 감사드립니다.</p>
+
+<h2 id="저작권-copyright">저작권 (Copyright)</h2>
+
+<p>이 문서는 퍼블릭 도메인(public domain)에 공개되거나 CC0-1.0-Universal 라이선스(둘 중 더 자유로운 것)가 적용됩니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/715/" class="pagination--pager" title="[Final] PEP 715 - Disabling bdist_egg distribution uploads on PyPI
+">Previous</a>
+    
+    
+      <a href="/python/pep/719/" class="pagination--pager" title="[Active] PEP 719 - Python 3.13 Release Schedule
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,976 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Deferred] PEP 280 - Optimizing access to globals | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 280: ‘Optimizing access to globals’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Deferred] PEP 280 - Optimizing access to globals">
+<meta property="og:url" content="http://localhost:4000/python/pep/280/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 280: ‘Optimizing access to globals’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T17:55:42+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T17:55:42+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/280/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Deferred] PEP 280 - Optimizing access to globals">
+    <meta itemprop="description" content="Python Enhancement Proposal 280: ‘Optimizing access to globals’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T17:55:42+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T17:55:42+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Deferred] PEP 280 - Optimizing access to globals
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T17:55:42+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#celldict-객체">celldict 객체</a></li><li><a href="#모듈-구현-변경">모듈 구현 변경</a></li><li><a href="#컴파일러-및-vm-변경">컴파일러 및 VM 변경</a></li><li><a href="#최적화된-load_global_cell">최적화된 LOAD_GLOBAL_CELL</a></li><li><a href="#내장built-ins-값의-적극적인-캐싱">내장(built-ins) 값의 적극적인 캐싱</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0280/">PEP 280 - Optimizing access to globals</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Deferred</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 10-Feb-2002</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+
+# PEP 280 – 전역(globals) 접근 최적화
+
+*   **작성자:** Guido van Rossum
+*   **상태:** 연기됨 (Deferred)
+*   **유형:** 표준 트랙 (Standards Track)
+*   **작성일:** 2002년 2월 10일
+*   **Python 버전:** 2.3
+*   **최종 수정일:** 2025년 2월 1일
+
+## 연기 (Deferral)
+
+이 PEP는 좋은 아이디어였지만, PEP 266 (Skip Montanaro의 "Optimizing Global Variable/Attribute Access") 및 PEP 267 (Jeremy Hylton의 "Optimized Access to Module Namespaces")과의 차이점을 명확히 정리할 작업자가 나타나지 않아 현재 연기된 상태입니다.
+
+## 개요 (Abstract)
+
+이 PEP는 모듈의 전역(globals) 접근을 최적화하기 위한 또 다른 접근 방식을 설명합니다. 이는 PEP 266과 PEP 267에 대한 대안을 제시합니다. 궁극적으로는 여러 접근 방식이 프로토타입으로 제작된 후, 그중 하나가 선택 및 구현될 것으로 예상되었습니다.
+
+## 설명 (Description)
+
+(참고: Jason Orendorff는 오래전에 Python 1.5 버전에서 이 아이디어를 구현해 본 적이 있다고 언급했습니다. 당시 그는 일반 Python보다 15% 느린 수준까지 만들었지만, 결국 포기했다고 합니다. 그의 구현에서 "cell"은 실제 일급 객체였고, "celldict"는 딕셔너리를 복사하고 수정한 버전이었습니다.)
+
+이 PEP의 핵심은 `cell`이라는 매우 간단한 Python 객체와 `celldict`라는 매핑 객체를 사용하는 것입니다.
+
+### `cell` 객체
+
+`cell`은 다음 두 가지 포인터를 포함하는 간단한 Python 객체입니다.
+
+*   `objptr`: 실제 Python 객체에 대한 포인터
+*   `cellptr`: 다른 `cell` 객체에 대한 포인터 (내장(built-ins) 검색을 위해 `cell`을 연결하는 데 사용됨)
+
+두 포인터 모두 `NULL`일 수 있습니다. Python으로 구현하면 다음과 같습니다.
+
+```python
+class cell(object):
+    def __init__(self):
+        self.objptr = NULL
+        self.cellptr = NULL
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">cellptr</code> 속성은 내장(built-ins)을 검색하기 위해 <code class="language-plaintext highlighter-rouge">cell</code>들을 연결하는 데 사용됩니다.</p>
+
+<h3 id="celldict-객체"><code class="language-plaintext highlighter-rouge">celldict</code> 객체</h3>
+
+<p><code class="language-plaintext highlighter-rouge">celldict</code>는 문자열(모듈 전역 변수의 이름)을 객체(해당 전역 변수의 값)에 매핑하는 것으로, <code class="language-plaintext highlighter-rouge">cell</code> 딕셔너리를 사용하여 구현됩니다. Python으로 구현하면 다음과 같습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">celldict</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">__dict</span> <span class="o">=</span> <span class="p">{}</span> <span class="c1"># dict of cells
+</span>
+    <span class="k">def</span> <span class="nf">getcell</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">__dict</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="nf">cell</span><span class="p">()</span>
+            <span class="n">self</span><span class="p">.</span><span class="n">__dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
+        <span class="k">return</span> <span class="n">c</span>
+
+    <span class="k">def</span> <span class="nf">cellkeys</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">__dict</span><span class="p">.</span><span class="nf">keys</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">__dict</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nb">KeyError</span><span class="p">,</span> <span class="n">key</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">c</span><span class="p">.</span><span class="n">objptr</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="n">NULL</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nb">KeyError</span><span class="p">,</span> <span class="n">key</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">__dict</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="nf">cell</span><span class="p">()</span>
+            <span class="n">self</span><span class="p">.</span><span class="n">__dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
+        <span class="n">c</span><span class="p">.</span><span class="n">objptr</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">__delitem__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">__dict</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">c</span><span class="p">.</span><span class="n">objptr</span> <span class="ow">is</span> <span class="n">NULL</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nb">KeyError</span><span class="p">,</span> <span class="n">key</span>
+        <span class="n">c</span><span class="p">.</span><span class="n">objptr</span> <span class="o">=</span> <span class="n">NULL</span>
+
+    <span class="c1"># keys(), items(), values(), clear() 등의 다른 딕셔너리 메서드들도 유사하게 구현됨
+</span>    <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">__dict</span><span class="p">.</span><span class="nf">iteritems</span><span class="p">()</span> <span class="k">if</span> <span class="n">c</span><span class="p">.</span><span class="n">objptr</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">NULL</span><span class="p">]</span>
+    <span class="k">def</span> <span class="nf">items</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[[</span><span class="n">k</span><span class="p">,</span> <span class="n">c</span><span class="p">.</span><span class="n">objptr</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">__dict</span><span class="p">.</span><span class="nf">iteritems</span><span class="p">()</span> <span class="k">if</span> <span class="n">c</span><span class="p">.</span><span class="n">objptr</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">NULL</span><span class="p">]</span>
+    <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">c</span><span class="p">.</span><span class="n">objptr</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">__dict</span><span class="p">.</span><span class="nf">itervalues</span><span class="p">()</span> <span class="k">if</span> <span class="n">c</span><span class="p">.</span><span class="n">objptr</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">NULL</span><span class="p">]</span>
+    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">__dict</span><span class="p">.</span><span class="nf">values</span><span class="p">():</span>
+            <span class="n">c</span><span class="p">.</span><span class="n">objptr</span> <span class="o">=</span> <span class="n">NULL</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">objptr</code>가 <code class="language-plaintext highlighter-rouge">NULL</code>인 <code class="language-plaintext highlighter-rouge">cell</code>은 “비어 있는(empty)” <code class="language-plaintext highlighter-rouge">cell</code>이라고 합니다. <code class="language-plaintext highlighter-rouge">celldict</code>가 매핑으로 사용될 때는 이러한 비어 있는 <code class="language-plaintext highlighter-rouge">cell</code>이 존재하지 않는 것처럼 동작합니다. 하지만 한 번 추가된 <code class="language-plaintext highlighter-rouge">cell</code>은 <code class="language-plaintext highlighter-rouge">celldict</code>에서 삭제되지 않으며, <code class="language-plaintext highlighter-rouge">getcell()</code> 메서드를 사용하여 비어 있는 <code class="language-plaintext highlighter-rouge">cell</code>에 접근할 수 있습니다. <code class="language-plaintext highlighter-rouge">celldict</code> 구현은 <code class="language-plaintext highlighter-rouge">cellptr</code> 속성을 사용하지 않습니다.</p>
+
+<h3 id="모듈-구현-변경">모듈 구현 변경</h3>
+
+<p>모듈의 <code class="language-plaintext highlighter-rouge">__dict__</code>를 <code class="language-plaintext highlighter-rouge">celldict</code>로 사용하도록 모듈 구현을 변경합니다. 모듈의 <code class="language-plaintext highlighter-rouge">getattr</code>, <code class="language-plaintext highlighter-rouge">setattr</code>, <code class="language-plaintext highlighter-rouge">delattr</code> 연산은 이제 <code class="language-plaintext highlighter-rouge">celldict</code>의 <code class="language-plaintext highlighter-rouge">getitem</code>, <code class="language-plaintext highlighter-rouge">setitem</code>, <code class="language-plaintext highlighter-rouge">delitem</code>으로 매핑됩니다. <code class="language-plaintext highlighter-rouge">module.__dict__</code>와 <code class="language-plaintext highlighter-rouge">globals()</code>의 타입 변경이 유일한 하위 호환성 문제일 가능성이 높습니다.</p>
+
+<p>모듈이 초기화될 때, <code class="language-plaintext highlighter-rouge">__builtins__</code>는 <code class="language-plaintext highlighter-rouge">__builtin__</code> 모듈의 <code class="language-plaintext highlighter-rouge">__dict__</code> (이 또한 <code class="language-plaintext highlighter-rouge">celldict</code>)에서 초기화됩니다. <code class="language-plaintext highlighter-rouge">__builtins__</code>의 각 <code class="language-plaintext highlighter-rouge">cell</code>에 대해 새 모듈의 <code class="language-plaintext highlighter-rouge">__dict__</code>는 <code class="language-plaintext highlighter-rouge">objptr</code>가 <code class="language-plaintext highlighter-rouge">NULL</code>인 <code class="language-plaintext highlighter-rouge">cell</code>을 추가하고, 이 <code class="language-plaintext highlighter-rouge">cell</code>의 <code class="language-plaintext highlighter-rouge">cellptr</code>는 <code class="language-plaintext highlighter-rouge">__builtins__</code>의 해당 <code class="language-plaintext highlighter-rouge">cell</code>을 가리킵니다.</p>
+
+<p>의사 코드는 다음과 같습니다 (<code class="language-plaintext highlighter-rouge">rexec</code> 제외):</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">__builtin__</span>
+
+<span class="k">class</span> <span class="nc">module</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">__dict__</span> <span class="o">=</span> <span class="n">d</span> <span class="o">=</span> <span class="nf">celldict</span><span class="p">()</span>
+        <span class="n">d</span><span class="p">[</span><span class="sh">'</span><span class="s">__builtins__</span><span class="sh">'</span><span class="p">]</span> <span class="o">=</span> <span class="n">bd</span> <span class="o">=</span> <span class="n">__builtin__</span><span class="p">.</span><span class="n">__dict__</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">bd</span><span class="p">.</span><span class="nf">cellkeys</span><span class="p">():</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">__dict__</span><span class="p">.</span><span class="nf">getcell</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+            <span class="n">c</span><span class="p">.</span><span class="n">cellptr</span> <span class="o">=</span> <span class="n">bd</span><span class="p">.</span><span class="nf">getcell</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">__dict__</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+        <span class="k">except</span> <span class="nb">KeyError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nb">IndexError</span><span class="p">,</span> <span class="n">k</span>
+
+    <span class="k">def</span> <span class="nf">__setattr__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">__dict__</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+    <span class="k">def</span> <span class="nf">__delattr__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+        <span class="k">del</span> <span class="n">self</span><span class="p">.</span><span class="n">__dict__</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h3 id="컴파일러-및-vm-변경">컴파일러 및 VM 변경</h3>
+
+<p>컴파일러는 전역 변수 참조를 위해 <code class="language-plaintext highlighter-rouge">LOAD_GLOBAL_CELL &lt;i&gt;</code> (및 <code class="language-plaintext highlighter-rouge">STORE_GLOBAL_CELL &lt;i&gt;</code> 등) opcode를 생성합니다. 여기서 <code class="language-plaintext highlighter-rouge">&lt;i&gt;</code>는 <code class="language-plaintext highlighter-rouge">LOAD_CONST</code>의 상수 인덱스와 유사하게 단일 코드 객체 내에서만 의미를 가지는 작은 인덱스입니다. 코드 객체에는 <code class="language-plaintext highlighter-rouge">co_globals</code>라는 새로운 튜플이 추가되어 <code class="language-plaintext highlighter-rouge">&lt;i&gt;</code>로 인덱싱된 코드에서 참조되는 전역 변수 이름을 제공합니다.</p>
+
+<p>코드 객체와 <code class="language-plaintext highlighter-rouge">celldict</code>로부터 함수 객체가 생성될 때, 함수 객체는 <code class="language-plaintext highlighter-rouge">celldict</code>에 코드 객체의 <code class="language-plaintext highlighter-rouge">co_globals</code>에 있는 이름에 해당하는 <code class="language-plaintext highlighter-rouge">cell</code>들을 요청하여 <code class="language-plaintext highlighter-rouge">cell</code> 포인터 배열을 생성합니다. <code class="language-plaintext highlighter-rouge">celldict</code>에 특정 이름에 대한 <code class="language-plaintext highlighter-rouge">cell</code>이 아직 없으면 빈 <code class="language-plaintext highlighter-rouge">cell</code>을 생성합니다. 이 <code class="language-plaintext highlighter-rouge">cell</code> 포인터 배열은 함수 객체에 <code class="language-plaintext highlighter-rouge">func_cells</code>로 저장됩니다.</p>
+
+<p>VM이 <code class="language-plaintext highlighter-rouge">LOAD_GLOBAL_CELL &lt;i&gt;</code> 명령어를 실행하면, <code class="language-plaintext highlighter-rouge">func_cells</code>에서 <code class="language-plaintext highlighter-rouge">&lt;i&gt;</code>번 <code class="language-plaintext highlighter-rouge">cell</code>을 가져옵니다. 그런 다음 <code class="language-plaintext highlighter-rouge">cell</code>의 <code class="language-plaintext highlighter-rouge">PyObject</code> 포인터를 확인하고, <code class="language-plaintext highlighter-rouge">NULL</code>이 아니면 해당 값이 전역 값입니다. <code class="language-plaintext highlighter-rouge">NULL</code>인 경우 <code class="language-plaintext highlighter-rouge">cell</code>의 <code class="language-plaintext highlighter-rouge">cellptr</code>를 따라 다음 <code class="language-plaintext highlighter-rouge">cell</code>로 이동하고, 해당 <code class="language-plaintext highlighter-rouge">cell</code>의 <code class="language-plaintext highlighter-rouge">PyObject</code> 포인터를 확인합니다. 이것도 <code class="language-plaintext highlighter-rouge">NULL</code>이거나 두 번째 <code class="language-plaintext highlighter-rouge">cell</code>이 없으면 <code class="language-plaintext highlighter-rouge">NameError</code>가 발생합니다. <code class="language-plaintext highlighter-rouge">STORE_GLOBAL_CELL &lt;i&gt;</code>도 유사하게 작동하지만, <code class="language-plaintext highlighter-rouge">cellptr</code> 체인을 따르지 않고 항상 첫 번째 <code class="language-plaintext highlighter-rouge">cell</code>에 저장합니다.</p>
+
+<p>함수의 전역 변수가 <code class="language-plaintext highlighter-rouge">celldict</code>가 아니어서 <code class="language-plaintext highlighter-rouge">func_cells</code>가 <code class="language-plaintext highlighter-rouge">NULL</code>인 경우를 위한 VM의 대체(fallback) 메커니즘도 있습니다. 이 경우 코드 객체의 <code class="language-plaintext highlighter-rouge">co_globals</code>가 <code class="language-plaintext highlighter-rouge">&lt;i&gt;</code>로 인덱싱되어 해당하는 전역 변수의 이름을 찾고, 이 이름이 함수의 <code class="language-plaintext highlighter-rouge">globals</code> 딕셔너리를 인덱싱하는 데 사용됩니다.</p>
+
+<h2 id="추가-아이디어-additional-ideas">추가 아이디어 (Additional Ideas)</h2>
+
+<h3 id="최적화된-load_global_cell">최적화된 <code class="language-plaintext highlighter-rouge">LOAD_GLOBAL_CELL</code></h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">func_cells</code>를 <code class="language-plaintext highlighter-rouge">NULL</code> 포인터로 만들지 않고, 빈 <code class="language-plaintext highlighter-rouge">cell</code> 배열로 구성하여 <code class="language-plaintext highlighter-rouge">LOAD_GLOBAL_CELL</code>이 <code class="language-plaintext highlighter-rouge">NULL</code> 검사 없이 <code class="language-plaintext highlighter-rouge">func_cells</code>를 인덱싱할 수 있도록 합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">cell</code>이 생성될 때 <code class="language-plaintext highlighter-rouge">c.cellptr</code>를 <code class="language-plaintext highlighter-rouge">c</code>와 같게 만들어 <code class="language-plaintext highlighter-rouge">LOAD_GLOBAL_CELL</code>이 <code class="language-plaintext highlighter-rouge">NULL</code> 검사 없이 <code class="language-plaintext highlighter-rouge">c.cellptr</code>를 항상 역참조할 수 있도록 합니다.</li>
+</ul>
+
+<p>이 두 아이디어를 추가하면 <code class="language-plaintext highlighter-rouge">LOAD_GLOBAL_CELL</code>의 Python 의사 코드는 다음과 같습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">LOAD_GLOBAL_CELL</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span> <span class="c1"># self is the frame
+</span>    <span class="n">c</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">func_cells</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">c</span><span class="p">.</span><span class="n">objptr</span>
+    <span class="k">if</span> <span class="n">obj</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">NULL</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">obj</span> <span class="c1"># 기존 전역 변수
+</span>    <span class="k">return</span> <span class="n">c</span><span class="p">.</span><span class="n">cellptr</span><span class="p">.</span><span class="n">objptr</span> <span class="c1"># 내장(built-in) 또는 NULL
+</span></code></pre></div></div>
+
+<h3 id="내장built-ins-값의-적극적인-캐싱">내장(built-ins) 값의 적극적인 캐싱</h3>
+
+<p>내장(builtins)의 실제 값을 모듈 딕셔너리에 직접 저장하고, 단순히 <code class="language-plaintext highlighter-rouge">cell</code>에 대한 포인터만 저장하는 것보다 더 적극적으로 캐싱하는 방안입니다. 이는 다음 두 가지 목적을 가집니다.</p>
+
+<ol>
+  <li><strong>접근 단순화 및 속도 향상:</strong> 가장 일반적인 연산인 접근을 단순화하고 빠르게 합니다.</li>
+  <li><strong>기존 극단적인 코너 케이스의 충실한 에뮬레이션 지원:</strong> 기존 <code class="language-plaintext highlighter-rouge">builtins</code>의 변경이 모듈에 반영되는 방식을 더 정확하게 처리합니다.</li>
+</ol>
+
+<p>기존 제안 방식에서는 모듈 딕셔너리가 처음 생성될 때 <code class="language-plaintext highlighter-rouge">builtins</code> 집합이 캡처되므로, 그 이후에 <code class="language-plaintext highlighter-rouge">builtins</code>에 대한 변경 사항이 모듈 딕셔너리에 반영되지 않는 문제가 발생할 수 있습니다. 예를 들어, <code class="language-plaintext highlighter-rouge">__builtin__.pachinko</code>와 같은 새로운 <code class="language-plaintext highlighter-rouge">builtin</code>이 런타임에 추가되면, 이미 초기화된 모듈에서는 이를 인식하지 못해 <code class="language-plaintext highlighter-rouge">NameError</code>가 발생할 수 있습니다.</p>
+
+<p>이러한 <code class="language-plaintext highlighter-rouge">builtins</code>의 변경은 매우 드물기 때문에, <code class="language-plaintext highlighter-rouge">builtins</code> 변경 비용이 높아지더라도 전역 변수 및 <code class="language-plaintext highlighter-rouge">builtins</code> 참조 속도를 향상시키는 것이 더 중요합니다. 이 접근 방식에서는 <code class="language-plaintext highlighter-rouge">cell</code> 객체가 다음과 같이 변경됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">cell</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="n">NULL</span><span class="p">,</span> <span class="n">builtin</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">objptr</span> <span class="o">=</span> <span class="n">obj</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">builtinflag</span> <span class="o">=</span> <span class="n">builtin</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">builtinflag</code>는 <code class="language-plaintext highlighter-rouge">objptr</code>가 <code class="language-plaintext highlighter-rouge">builtins</code>에서 얻은 값을 포함할 때만 <code class="language-plaintext highlighter-rouge">True</code>입니다. 즉, <code class="language-plaintext highlighter-rouge">cell</code>이 캐시된 값으로 작동할 때만 <code class="language-plaintext highlighter-rouge">True</code>입니다. <code class="language-plaintext highlighter-rouge">builtinflag</code>가 <code class="language-plaintext highlighter-rouge">False</code>이면 <code class="language-plaintext highlighter-rouge">objptr</code>는 모듈 전역 변수의 값입니다 (<code class="language-plaintext highlighter-rouge">NULL</code>일 수 있음).</p>
+
+<p><code class="language-plaintext highlighter-rouge">celldict</code>는 다음과 같이 변경됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">celldict</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">builtindict</span><span class="o">=</span><span class="p">()):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">basedict</span> <span class="o">=</span> <span class="n">builtindict</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">__dict</span> <span class="o">=</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">builtindict</span><span class="p">.</span><span class="nf">items</span><span class="p">():</span>
+            <span class="n">d</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="nf">cell</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">__dict</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">c</span><span class="p">.</span><span class="n">objptr</span> <span class="ow">is</span> <span class="n">NULL</span> <span class="ow">or</span> <span class="n">c</span><span class="p">.</span><span class="n">builtinflag</span><span class="p">:</span> <span class="c1"># builtinflag 확인 추가
+</span>            <span class="k">raise</span> <span class="nb">KeyError</span><span class="p">,</span> <span class="n">key</span>
+        <span class="k">return</span> <span class="n">c</span><span class="p">.</span><span class="n">objptr</span>
+
+    <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">__dict</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="nf">cell</span><span class="p">()</span>
+            <span class="n">self</span><span class="p">.</span><span class="n">__dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
+        <span class="n">c</span><span class="p">.</span><span class="n">objptr</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="n">c</span><span class="p">.</span><span class="n">builtinflag</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># 모듈 전역 변수이므로 builtinflag는 0
+</span>
+    <span class="k">def</span> <span class="nf">__delitem__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">__dict</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">c</span><span class="p">.</span><span class="n">objptr</span> <span class="ow">is</span> <span class="n">NULL</span> <span class="ow">or</span> <span class="n">c</span><span class="p">.</span><span class="n">builtinflag</span><span class="p">:</span> <span class="c1"># builtinflag 확인 추가
+</span>            <span class="k">raise</span> <span class="nb">KeyError</span><span class="p">,</span> <span class="n">key</span>
+        <span class="n">c</span><span class="p">.</span><span class="n">objptr</span> <span class="o">=</span> <span class="n">NULL</span>
+        <span class="c1"># 만약 삭제된 전역 변수와 동일한 이름의 built-in이 있다면
+</span>        <span class="c1"># 해당 built-in 값을 다시 캐싱하여 노출시킵니다.
+</span>        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">basedict</span><span class="p">:</span>
+            <span class="n">c</span><span class="p">.</span><span class="n">objptr</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">basedict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="k">assert</span> <span class="n">c</span><span class="p">.</span><span class="n">objptr</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">NULL</span>
+            <span class="n">c</span><span class="p">.</span><span class="n">builtinflag</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="ow">not</span> <span class="n">c</span><span class="p">.</span><span class="n">builtinflag</span>
+
+    <span class="c1"># keys(), items(), values(), clear() 등의 다른 딕셔너리 메서드들도 유사하게 변경됨
+</span>    <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">__dict</span><span class="p">.</span><span class="nf">iteritems</span><span class="p">()</span> <span class="k">if</span> <span class="n">c</span><span class="p">.</span><span class="n">objptr</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">NULL</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">c</span><span class="p">.</span><span class="n">builtinflag</span><span class="p">]</span>
+    <span class="k">def</span> <span class="nf">items</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[[</span><span class="n">k</span><span class="p">,</span> <span class="n">c</span><span class="p">.</span><span class="n">objptr</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">__dict</span><span class="p">.</span><span class="nf">iteritems</span><span class="p">()</span> <span class="k">if</span> <span class="n">c</span><span class="p">.</span><span class="n">objptr</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">NULL</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">c</span><span class="p">.</span><span class="n">builtinflag</span><span class="p">]</span>
+    <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">c</span><span class="p">.</span><span class="n">objptr</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">__dict</span><span class="p">.</span><span class="nf">itervalues</span><span class="p">()</span> <span class="k">if</span> <span class="n">c</span><span class="p">.</span><span class="n">objptr</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">NULL</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">c</span><span class="p">.</span><span class="n">builtinflag</span><span class="p">]</span>
+    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">__dict</span><span class="p">.</span><span class="nf">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">c</span><span class="p">.</span><span class="n">builtinflag</span><span class="p">:</span>
+                <span class="n">c</span><span class="p">.</span><span class="n">objptr</span> <span class="o">=</span> <span class="n">NULL</span>
+</code></pre></div></div>
+<p>이러한 변경으로 <code class="language-plaintext highlighter-rouge">LOAD_GLOBAL_CELL</code>의 구현이 단순화되어 속도 이점을 얻을 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">LOAD_GLOBAL_CELL</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span> <span class="c1"># self is the frame
+</span>    <span class="n">c</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">func_cells</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">c</span><span class="p">.</span><span class="n">objptr</span> <span class="c1"># NULL일 수 있음
+</span></code></pre></div></div>
+<p>이 방식에서는 <code class="language-plaintext highlighter-rouge">builtins</code>와 모듈 전역 변수에 대한 접근 속도가 동일해집니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">builtins</code>의 변경 사항을 <code class="language-plaintext highlighter-rouge">builtins</code>에서 초기화된 모듈 딕셔너리로 전파하는 비용이 수반됩니다. <code class="language-plaintext highlighter-rouge">builtins</code>는 모듈 (또는 모듈 딕셔너리)에 대한 약한 참조(weakrefs) 목록을 유지해야 합니다. <code class="language-plaintext highlighter-rouge">builtin</code> 딕셔너리에 변경이 발생하면 (새 키 추가, 기존 키 값 변경, 키 삭제 등), 모듈 딕셔너리 목록을 순회하며 해당 변경 사항을 반영합니다.</p>
+
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">reflect_bltin_del(self, key)</code>:</strong> <code class="language-plaintext highlighter-rouge">builtin</code>에서 키가 삭제될 때, 모듈 딕셔너리에서 해당 <code class="language-plaintext highlighter-rouge">cell</code>의 <code class="language-plaintext highlighter-rouge">objptr</code>를 <code class="language-plaintext highlighter-rouge">NULL</code>로 설정하고 <code class="language-plaintext highlighter-rouge">builtinflag</code>를 <code class="language-plaintext highlighter-rouge">0</code>으로 만듭니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">reflect_bltin_new(self, key, value)</code>:</strong> 새로운 <code class="language-plaintext highlighter-rouge">builtin</code> (키, 값) 쌍이 추가될 때, 모듈 딕셔너리에 해당 <code class="language-plaintext highlighter-rouge">cell</code>이 없으면 새로 생성하여 <code class="language-plaintext highlighter-rouge">builtin</code> 값을 캐싱합니다. <code class="language-plaintext highlighter-rouge">objptr</code>가 <code class="language-plaintext highlighter-rouge">NULL</code>이면 <code class="language-plaintext highlighter-rouge">builtin</code> 값을 복원합니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">reflect_bltin_change(self, key, newvalue)</code>:</strong> 기존 <code class="language-plaintext highlighter-rouge">builtin</code>의 값이 변경될 때, 모듈 딕셔너리에서 해당 <code class="language-plaintext highlighter-rouge">cell</code>의 <code class="language-plaintext highlighter-rouge">objptr</code>를 새로운 값으로 업데이트합니다.</li>
+</ul>
+
+<h2 id="faq-자주-묻는-질문">FAQ (자주 묻는 질문)</h2>
+
+<p><strong>Q: <code class="language-plaintext highlighter-rouge">__builtin__</code> 네임스페이스에 새로운 <code class="language-plaintext highlighter-rouge">builtins</code>를 설치하고 이미 로드된 모든 모듈에서 즉시 사용할 수 있도록 하는 것이 여전히 가능할까요? 또한, <code class="language-plaintext highlighter-rouge">open()</code>과 같은 <code class="language-plaintext highlighter-rouge">builtins</code>를 사용자 정의 복사본으로 재정의하여 모든 모듈에서 이전 것을 재정의하도록 하는 것이 가능할까요?</strong></p>
+
+<p>A: 예, 이것이 이 설계의 핵심입니다. 원래 접근 방식에서는 <code class="language-plaintext highlighter-rouge">LOAD_GLOBAL_CELL</code>이 두 번째 <code class="language-plaintext highlighter-rouge">cell</code>에서 <code class="language-plaintext highlighter-rouge">NULL</code>을 찾으면 <code class="language-plaintext highlighter-rouge">__builtins__</code> 딕셔너리가 수정되었는지 다시 확인해야 합니다. Tim의 “더 적극적인(more aggressive)” 대안도 이를 처리합니다.</p>
+
+<p><strong>Q: 새로운 스키마는 제한된 실행 모델(restricted execution model)과 어떻게 호환될까요?</strong></p>
+
+<p>A: 제한된 실행 모델을 완벽하게 지원하도록 의도되었습니다.</p>
+
+<p><strong>Q: 전역 변수가 삭제되면 어떻게 되나요?</strong></p>
+
+<p>A: 모듈의 <code class="language-plaintext highlighter-rouge">celldict</code>는 해당 키에 대해 <code class="language-plaintext highlighter-rouge">objptr</code>가 <code class="language-plaintext highlighter-rouge">NULL</code>인 <code class="language-plaintext highlighter-rouge">cell</code>을 가집니다. “적극적인(aggressive)” 방식에서는 이것이 동일한 이름의 <code class="language-plaintext highlighter-rouge">builtin</code>을 드러내는지 확인하고, 그렇다면 해당 <code class="language-plaintext highlighter-rouge">builtin</code>의 값을 <code class="language-plaintext highlighter-rouge">cell</code>의 <code class="language-plaintext highlighter-rouge">objptr</code>에 복사하고 <code class="language-plaintext highlighter-rouge">builtinflag</code>를 <code class="language-plaintext highlighter-rouge">True</code>로 설정합니다.</p>
+
+<p><strong>Q: <code class="language-plaintext highlighter-rouge">LOAD_GLOBAL_CELL</code>에 대한 C 코드는 어떻게 보일까요?</strong></p>
+
+<p>A: “Additional ideas”의 처음 두 가지 항목을 통합한 첫 번째 버전은 다음과 같습니다.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">case</span> <span class="n">LOAD_GLOBAL_CELL</span><span class="p">:</span>
+    <span class="n">cell</span> <span class="o">=</span> <span class="n">func_cells</span><span class="p">[</span><span class="n">oparg</span><span class="p">];</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">cell</span><span class="o">-&gt;</span><span class="n">objptr</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">cell</span><span class="o">-&gt;</span><span class="n">cellptr</span><span class="o">-&gt;</span><span class="n">objptr</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+            <span class="p">...</span> <span class="n">error</span> <span class="n">recovery</span> <span class="p">...</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">Py_INCREF</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+    <span class="n">PUSH</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+    <span class="k">continue</span><span class="p">;</span>
+</code></pre></div></div>
+<p>Ka-Ping Yee의 아이디어에 따르면 다음과 같이 작성할 수도 있습니다.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">case</span> <span class="n">LOAD_GLOBAL_CELL</span><span class="p">:</span>
+    <span class="n">cell</span> <span class="o">=</span> <span class="n">func_cells</span><span class="p">[</span><span class="n">oparg</span><span class="p">];</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">cell</span><span class="o">-&gt;</span><span class="n">cellptr</span><span class="o">-&gt;</span><span class="n">objptr</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Py_INCREF</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+        <span class="n">PUSH</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+        <span class="k">continue</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="p">...</span> <span class="n">error</span> <span class="n">recovery</span> <span class="p">...</span>
+    <span class="k">break</span><span class="p">;</span>
+</code></pre></div></div>
+<p>현대 CPU 아키텍처에서 이는 <code class="language-plaintext highlighter-rouge">builtins</code>에 대한 브랜치 수를 줄여 성능 향상을 가져올 수 있습니다.</p>
+
+<p>적극적인(aggressive) 변형의 경우:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">case</span> <span class="n">LOAD_GLOBAL_CELL</span><span class="p">:</span>
+    <span class="n">cell</span> <span class="o">=</span> <span class="n">func_cells</span><span class="p">[</span><span class="n">oparg</span><span class="p">];</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">cell</span><span class="o">-&gt;</span><span class="n">objptr</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Py_INCREF</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+        <span class="n">PUSH</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+        <span class="k">continue</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="p">...</span> <span class="n">error</span> <span class="n">recovery</span> <span class="p">...</span>
+    <span class="k">break</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><strong>Q: <code class="language-plaintext highlighter-rouge">func_cells</code> 배열이 없을 것으로 예상되는 모듈의 최상위 코드에서는 어떤 일이 발생하나요?</strong></p>
+
+<p>A: 코드 분석을 수행하여 <code class="language-plaintext highlighter-rouge">func_cells</code> 배열을 생성하거나, <code class="language-plaintext highlighter-rouge">globals</code> 딕셔너리에서 <code class="language-plaintext highlighter-rouge">PyMapping_GetItem</code>을 사용하는 <code class="language-plaintext highlighter-rouge">LOAD_NAME</code>을 사용할 수 있습니다.</p>
+
+<h2 id="그래픽-graphics">그래픽 (Graphics)</h2>
+
+<p>Ka-Ping Yee는 <code class="language-plaintext highlighter-rouge">import spam</code> 이후의 상태를 보여주는 그림을 제공했습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">spam.py</code> 파일의 내용은 다음과 같습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">eggs</span>
+<span class="n">i</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span>
+<span class="nb">max</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="nf">abs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="nb">max</span>
+    <span class="k">return</span> <span class="n">eggs</span><span class="p">.</span><span class="nf">ham</span><span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span>
+</code></pre></div></div>
+<p>해당 그림은 <a href="http://web.lfw.org/repo/cells.gif">http://web.lfw.org/repo/cells.gif</a>에서 볼 수 있습니다. 더 큰 버전은 <a href="http://lfw.org/repo/cells-big.gif">http://lfw.org/repo/cells-big.gif</a>에 있으며, 원본 소스는 <a href="http://lfw.org/repo/cells.ai">http://lfw.org/repo/cells.ai</a>에 있습니다.</p>
+
+<h2 id="비교-comparison">비교 (Comparison)</h2>
+
+<p>이 섹션에는 세 가지 접근 방식(PEP 280, PEP 266, PEP 267)에 대한 비교가 추가될 수 있었습니다.</p>
+
+<h2 id="저작권-copyright">저작권 (Copyright)</h2>
+
+<p>이 문서는 퍼블릭 도메인에 공개되었습니다.</p>
+
+<hr />
+<p><strong>PEP 280</strong>은 Python의 전역 변수 및 내장(built-ins) 접근 방식을 최적화하기 위해 <code class="language-plaintext highlighter-rouge">cell</code>과 <code class="language-plaintext highlighter-rouge">celldict</code>라는 새로운 데이터 구조를 제안했습니다. 이 제안은 모듈의 <code class="language-plaintext highlighter-rouge">__dict__</code>를 <code class="language-plaintext highlighter-rouge">celldict</code>로 대체하고, <code class="language-plaintext highlighter-rouge">LOAD_GLOBAL_CELL</code>과 같은 새로운 opcode를 도입하여 전역 변수 접근 속도를 향상시키는 것을 목표로 했습니다. 특히 “적극적인(aggressive)” 캐싱 방식을 통해 <code class="language-plaintext highlighter-rouge">builtins</code>의 변경이 모듈에 즉시 반영되도록 하면서도 접근 성능을 유지하려 했습니다. 그러나 이 PEP는 다른 관련 PEP들과의 차이점을 명확히 정리하는 작업의 부재로 인해 결국 연기되었습니다.</p>
+
+<p>이 제안은 Python 내부 동작에 대한 깊은 이해를 바탕으로 성능 최적화를 시도했지만, 복잡성 증가와 하위 호환성 문제 (특히 <code class="language-plaintext highlighter-rouge">module.__dict__</code> 및 <code class="language-plaintext highlighter-rouge">globals()</code> 타입 변경)로 인해 도입되지 못했습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/279/" class="pagination--pager" title="[Final] PEP 279 - The enumerate() built-in function
+">Previous</a>
+    
+    
+      <a href="/python/pep/281/" class="pagination--pager" title="[Rejected] PEP 281 - Loop Counter Iteration with range and xrange
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,787 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Rejected] PEP 3140 - str(container) should call str(item), not repr(item) | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 3140: ‘str(container) should call str(item), not repr(item)’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Rejected] PEP 3140 - str(container) should call str(item), not repr(item)">
+<meta property="og:url" content="http://localhost:4000/python/pep/3140/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 3140: ‘str(container) should call str(item), not repr(item)’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T14:35:43+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T14:35:43+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/3140/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Rejected] PEP 3140 - str(container) should call str(item), not repr(item)">
+    <meta itemprop="description" content="Python Enhancement Proposal 3140: ‘str(container) should call str(item), not repr(item)’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T14:35:43+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T14:35:43+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Rejected] PEP 3140 - str(container) should call str(item), not repr(item)
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T14:35:43+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-3140--strcontainer는-repritem-대신-stritem을-호출해야-합니다">PEP 3140 – str(container)는 repr(item) 대신 str(item)을 호출해야 합니다.</a><ul><li><a href="#거절-사유">거절 사유</a></li><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#동기-motivation">동기 (Motivation)</a></li><li><a href="#현재-상황-current-situation">현재 상황 (Current situation)</a></li><li><a href="#다른-접근-방식-stritem-호출-a-different-approach---call-stritem">다른 접근 방식: str(item) 호출 (A different approach - call str(item))</a></li><li><a href="#하위-호환성-backward-compatibility">하위 호환성 (Backward compatibility)</a></li><li><a href="#참고-자료-references">참고 자료 (References)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-3140/">PEP 3140 - str(container) should call str(item), not repr(item)</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Rejected</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 27-May-2008</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-3140--strcontainer는-repritem-대신-stritem을-호출해야-합니다">PEP 3140 – <code class="language-plaintext highlighter-rouge">str(container)</code>는 <code class="language-plaintext highlighter-rouge">repr(item)</code> 대신 <code class="language-plaintext highlighter-rouge">str(item)</code>을 호출해야 합니다.</h1>
+
+<ul>
+  <li><strong>작성자:</strong> Oleg Broytman, Jim J. Jewett</li>
+  <li><strong>상태:</strong> Rejected (거절됨)</li>
+  <li><strong>유형:</strong> Standards Track</li>
+  <li><strong>생성일:</strong> 2008년 5월 27일</li>
+</ul>
+
+<h2 id="거절-사유">거절 사유</h2>
+
+<p>Guido van Rossum은 이 제안이 베타 버전 출시가 임박한 시점에 너무 많은 혼란을 야기할 것이라고 판단하여 거절했습니다.</p>
+
+<h2 id="개요-abstract">개요 (Abstract)</h2>
+
+<p>이 문서는 현재 <code class="language-plaintext highlighter-rouge">str(container)</code> 구현 방식의 장단점을 논의합니다. 또한, <code class="language-plaintext highlighter-rouge">repr(item)</code> 대신 <code class="language-plaintext highlighter-rouge">str(item)</code>을 호출하는 다른 접근 방식의 장단점도 함께 다룹니다.</p>
+
+<h2 id="동기-motivation">동기 (Motivation)</h2>
+
+<p>현재 <code class="language-plaintext highlighter-rouge">str(container)</code>는 컨테이너 내의 각 항목에 대해 <code class="language-plaintext highlighter-rouge">repr()</code>를 호출합니다.</p>
+
+<p><strong>찬성 논거:</strong></p>
+<ul>
+  <li>컨테이너는 <code class="language-plaintext highlighter-rouge">str(container)</code> 호출 시 사용자가 어떤 내용을 보기를 원하는지 (예: 주위 문자, 구분 기호 등) 추측하지 않으려 합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">repr(item)</code>은 일반적으로 타입 정보(예: 문자열 주변의 아포스트로피, 클래스 이름 등)를 표시합니다.</li>
+</ul>
+
+<p><strong>반대 논거:</strong></p>
+<ul>
+  <li>이는 논리적이지 않습니다. <code class="language-plaintext highlighter-rouge">str()</code>은 존재한다면 <code class="language-plaintext highlighter-rouge">__str__</code>을 호출할 것으로 예상되며, <code class="language-plaintext highlighter-rouge">__repr__</code>을 호출할 것으로 예상되지 않습니다.</li>
+  <li>항목의 <code class="language-plaintext highlighter-rouge">__str__</code>을 호출하여 컨테이너 내용을 출력하는 표준적인 방법이 없으며, <code class="language-plaintext highlighter-rouge">__str__</code>과 <code class="language-plaintext highlighter-rouge">__repr__</code>이 다른 결과를 반환하는 경우에 불편합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">repr(item)</code>은 때때로 잘못된 동작을 합니다 (예: 비-ASCII 문자열을 16진수로 이스케이프 처리).</li>
+</ul>
+
+<p>이 PEP는 <code class="language-plaintext highlighter-rouge">str(container)</code>의 작동 방식을 변경할 것을 제안합니다. <code class="language-plaintext highlighter-rouge">repr(container)</code>의 작동 방식을 모방하되, 항목에 대해 <code class="language-plaintext highlighter-rouge">repr</code> 대신 <code class="language-plaintext highlighter-rouge">str</code>을 호출하는 한 가지 세부 사항만 다르게 할 것을 제안합니다. 이는 사용자가 <code class="language-plaintext highlighter-rouge">item.__repr__</code> 또는 <code class="language-plaintext highlighter-rouge">item.__str__</code> 중 어떤 결과를 얻을지 선택할 수 있도록 합니다.</p>
+
+<h2 id="현재-상황-current-situation">현재 상황 (Current situation)</h2>
+
+<p>대부분의 컨테이너 타입(튜플, 리스트, 딕셔너리, 세트 등)은 <code class="language-plaintext highlighter-rouge">__str__</code> 메서드를 구현하지 않습니다. 따라서 <code class="language-plaintext highlighter-rouge">str(container)</code>는 <code class="language-plaintext highlighter-rouge">container.__repr__</code>을 호출하고, <code class="language-plaintext highlighter-rouge">container.__repr__</code>은 <code class="language-plaintext highlighter-rouge">str</code>로부터 호출되었는지 여부를 잊고 항상 컨테이너 항목에 대해 <code class="language-plaintext highlighter-rouge">repr</code>을 호출합니다.</p>
+
+<p>이러한 동작에는 장단점이 있습니다. 한 가지 장점은 대부분의 항목이 타입 정보와 함께 표현된다는 것입니다. 예를 들어, 문자열은 아포스트로피로 둘러싸이고, 인스턴스는 클래스 이름과 인스턴스 데이터를 모두 가질 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="nf">print</span><span class="p">([</span><span class="mi">42</span><span class="p">,</span> <span class="sh">'</span><span class="s">42</span><span class="sh">'</span><span class="p">])</span>
+<span class="p">[</span><span class="mi">42</span><span class="p">,</span> <span class="sh">'</span><span class="s">42</span><span class="sh">'</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nf">print</span><span class="p">([</span><span class="nc">Decimal</span><span class="p">(</span><span class="sh">'</span><span class="s">42</span><span class="sh">'</span><span class="p">),</span> <span class="n">datetime</span><span class="p">.</span><span class="nf">now</span><span class="p">()])</span>
+<span class="p">[</span><span class="nc">Decimal</span><span class="p">(</span><span class="sh">"</span><span class="s">42</span><span class="sh">"</span><span class="p">),</span> <span class="n">datetime</span><span class="p">.</span><span class="nf">datetime</span><span class="p">(</span><span class="mi">2008</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">43</span><span class="p">,</span> <span class="mi">485028</span><span class="p">)]</span>
+</code></pre></div></div>
+
+<p>단점은 <code class="language-plaintext highlighter-rouge">__repr__</code>이 종종 기술적인 데이터(예: <code class="language-plaintext highlighter-rouge">&lt;object at address&gt;</code>) 또는 읽기 어려운 문자열(예: 비-ASCII 문자열의 경우 16진수로 인코딩된 문자열)을 반환한다는 것입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="nf">print</span><span class="p">([</span><span class="sh">'</span><span class="s">тест</span><span class="sh">'</span><span class="p">])</span>
+<span class="p">[</span><span class="sh">'</span><span class="se">\xd4\xc5\xd3\xd4</span><span class="sh">'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>PEP 3138의 동기 중 하나는 <code class="language-plaintext highlighter-rouge">repr</code>과 <code class="language-plaintext highlighter-rouge">str</code> 모두 키가 비-ASCII 텍스트 문자열인 딕셔너리를 합리적으로 출력할 수 없다는 것입니다. 유니코드 식별자가 허용되면서, 이는 Python 자체의 속성 딕셔너리에도 해당됩니다. 또한 JSON 직렬화에도 영향을 미쳤습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">str(container)</code>의 작동 방식을 변경하면 일반적인 경우에 쉬운 디버깅이 가능하고, 기계가 읽을 수 있는 경우에는 ASCII-only의 안전성을 유지할 수 있습니다. 유일한 단점은 <code class="language-plaintext highlighter-rouge">str(x)</code>와 <code class="language-plaintext highlighter-rouge">repr(x)</code>가 더 자주 달라질 수 있다는 것이지만, 이는 현재 거의 동일한 버전으로 불충분한 경우에만 해당됩니다.</p>
+
+<p>또한 <code class="language-plaintext highlighter-rouge">str(container)</code>가 항목에 대해 <code class="language-plaintext highlighter-rouge">str</code> 대신 <code class="language-plaintext highlighter-rouge">repr</code>을 호출하는 것은 비논리적으로 보입니다. 다음 코드가 아래와 같이 출력될 것으로 예상하는 것이 논리적입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Test</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sh">"</span><span class="s">STR</span><span class="sh">"</span>
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sh">"</span><span class="s">REPR</span><span class="sh">"</span>
+<span class="n">test</span> <span class="o">=</span> <span class="nc">Test</span><span class="p">()</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">test</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">repr</span><span class="p">(</span><span class="n">test</span><span class="p">))</span>
+<span class="nf">print</span><span class="p">([</span><span class="n">test</span><span class="p">])</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">str</span><span class="p">([</span><span class="n">test</span><span class="p">]))</span>
+</code></pre></div></div>
+
+<p>예상되는 출력:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>STR
+REPR
+[STR]
+[STR]
+</code></pre></div></div>
+
+<p>하지만 실제 출력은 다음과 같습니다:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>STR
+REPR
+[REPR]
+[REPR]
+</code></pre></div></div>
+
+<p>특히 Python 2에서 <code class="language-plaintext highlighter-rouge">print</code>가 튜플로 보이는 것에 대해 호출될 때 <code class="language-plaintext highlighter-rouge">str</code>을 사용하는 것은 비논리적입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="nc">Decimal</span><span class="p">(</span><span class="sh">'</span><span class="s">42</span><span class="sh">'</span><span class="p">),</span> <span class="n">datetime</span><span class="p">.</span><span class="nf">now</span><span class="p">()</span>
+<span class="mi">42</span> <span class="mi">2008</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">27</span> <span class="mi">20</span><span class="p">:</span><span class="mi">16</span><span class="p">:</span><span class="mf">22.534285</span>
+</code></pre></div></div>
+
+<p>실제 튜플에 대해서는 다음과 같이 출력됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="nf">print</span><span class="p">((</span><span class="nc">Decimal</span><span class="p">(</span><span class="sh">'</span><span class="s">42</span><span class="sh">'</span><span class="p">),</span> <span class="n">datetime</span><span class="p">.</span><span class="nf">now</span><span class="p">()))</span>
+<span class="p">(</span><span class="nc">Decimal</span><span class="p">(</span><span class="sh">"</span><span class="s">42</span><span class="sh">"</span><span class="p">),</span> <span class="n">datetime</span><span class="p">.</span><span class="nf">datetime</span><span class="p">(</span><span class="mi">2008</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">937911</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h2 id="다른-접근-방식-stritem-호출-a-different-approach---call-stritem">다른 접근 방식: <code class="language-plaintext highlighter-rouge">str(item)</code> 호출 (A different approach - call str(item))</h2>
+
+<p>예를 들어, 숫자에서는 종종 값 자체에만 관심이 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="nc">Decimal</span><span class="p">(</span><span class="sh">'</span><span class="s">3</span><span class="sh">'</span><span class="p">)</span>
+<span class="mi">3</span>
+</code></pre></div></div>
+
+<p>그러나 이 값을 리스트에 넣으면, 마치 기계를 위해 <code class="language-plaintext highlighter-rouge">repr</code>이 호출된 것처럼 사용자는 타입 정보를 읽어야 합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="p">[</span><span class="nc">Decimal</span><span class="p">(</span><span class="sh">'</span><span class="s">3</span><span class="sh">'</span><span class="p">)]</span>
+<span class="p">[</span><span class="nc">Decimal</span><span class="p">(</span><span class="sh">"</span><span class="s">3</span><span class="sh">"</span><span class="p">)]</span>
+</code></pre></div></div>
+
+<p>이 변경 후에는 타입 정보가 <code class="language-plaintext highlighter-rouge">str</code> 출력에 혼란을 주지 않을 것입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="sh">"</span><span class="s">%s</span><span class="sh">"</span><span class="p">.</span><span class="nf">format</span><span class="p">([</span><span class="nc">Decimal</span><span class="p">(</span><span class="sh">'</span><span class="s">3</span><span class="sh">'</span><span class="p">)])</span>
+<span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nf">str</span><span class="p">([</span><span class="nc">Decimal</span><span class="p">(</span><span class="sh">'</span><span class="s">3</span><span class="sh">'</span><span class="p">)])</span> <span class="c1"># == [3]
+</span></code></pre></div></div>
+
+<p>하지만 필요하다면 여전히 타입 정보를 얻을 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="sh">"</span><span class="s">%r</span><span class="sh">"</span><span class="p">.</span><span class="nf">format</span><span class="p">([</span><span class="nc">Decimal</span><span class="p">(</span><span class="sh">'</span><span class="s">3</span><span class="sh">'</span><span class="p">)])</span>
+<span class="p">[</span><span class="nc">Decimal</span><span class="p">(</span><span class="sh">'</span><span class="s">3</span><span class="sh">'</span><span class="p">)]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nf">repr</span><span class="p">([</span><span class="nc">Decimal</span><span class="p">(</span><span class="sh">'</span><span class="s">3</span><span class="sh">'</span><span class="p">)])</span> <span class="c1"># == [Decimal('3')]
+</span></code></pre></div></div>
+
+<p>이 문제를 해결하기 위한 여러 전략이 있습니다. 가장 급진적인 방법은 <code class="language-plaintext highlighter-rouge">__repr__</code>이 새로운 매개변수(플래그) “str에서 호출되었으므로 항목에 대해 <code class="language-plaintext highlighter-rouge">repr</code>이 아닌 <code class="language-plaintext highlighter-rouge">str</code>을 호출하라”를 받아들이도록 변경하는 것입니다. 이 제안의 단점은 모든 <code class="language-plaintext highlighter-rouge">__repr__</code> 구현이 변경되어야 한다는 것입니다. 인트로스펙션(introspection)이 약간 도움이 될 수 있지만(호출하기 전에 <code class="language-plaintext highlighter-rouge">__repr__</code>이 2개 또는 3개의 매개변수를 받아들이는지 검사), 내장 컨테이너와 같이 C로 작성된 클래스에서는 인트로스펙션이 작동하지 않습니다.</p>
+
+<p>덜 급진적인 제안은 내장 컨테이너 타입에 대해 <code class="language-plaintext highlighter-rouge">__str__</code> 메서드를 구현하는 것입니다. 명백한 단점은 노력의 중복입니다. 이 모든 <code class="language-plaintext highlighter-rouge">__str__</code>과 <code class="language-plaintext highlighter-rouge">__repr__</code> 구현은 항목에 대해 <code class="language-plaintext highlighter-rouge">str</code>을 호출할지 <code class="language-plaintext highlighter-rouge">repr</code>을 호출할지 여부라는 작은 세부 사항에서만 다릅니다.</p>
+
+<p>가장 보수적인 제안은 <code class="language-plaintext highlighter-rouge">str</code>을 전혀 변경하지 않고 개발자가 자체 애플리케이션 또는 라이브러리별 “pretty-printers”를 구현하도록 허용하는 것입니다. 이 역시 노력의 증대와 많은 작고 구체적인 컨테이너 순회 알고리즘의 확산이라는 단점이 있습니다.</p>
+
+<h2 id="하위-호환성-backward-compatibility">하위 호환성 (Backward compatibility)</h2>
+
+<p>타입 정보가 평소보다 더 중요한 경우, 명시적으로 <code class="language-plaintext highlighter-rouge">repr</code>을 호출하여 현재와 동일한 결과를 얻는 것이 여전히 가능할 것입니다.</p>
+
+<h2 id="참고-자료-references">참고 자료 (References)</h2>
+
+<ul>
+  <li>Guido van Rossum, PEP: str(container) should call str(item), not repr(item) <a href="https://mail.python.org/pipermail/python-3000/2008-May/013876.html">https://mail.python.org/pipermail/python-3000/2008-May/013876.html</a></li>
+</ul>
+
+<h2 id="저작권-copyright">저작권 (Copyright)</h2>
+
+<p>이 문서는 퍼블릭 도메인에 공개되었습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/3139/" class="pagination--pager" title="[Rejected] PEP 3139 - Cleaning out sys and the “interpreter” module
+">Previous</a>
+    
+    
+      <a href="/python/pep/3141/" class="pagination--pager" title="[Final] PEP 3141 - A Type Hierarchy for Numbers
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

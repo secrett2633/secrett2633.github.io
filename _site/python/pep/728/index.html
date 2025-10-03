@@ -1,0 +1,1289 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Accepted] PEP 728 - TypedDict with Typed Extra Items | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 728: ‘TypedDict with Typed Extra Items’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Accepted] PEP 728 - TypedDict with Typed Extra Items">
+<meta property="og:url" content="http://localhost:4000/python/pep/728/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 728: ‘TypedDict with Typed Extra Items’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T13:20:42+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T13:20:42+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/728/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Accepted] PEP 728 - TypedDict with Typed Extra Items">
+    <meta itemprop="description" content="Python Enhancement Proposal 728: ‘TypedDict with Typed Extra Items’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T13:20:42+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T13:20:42+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Accepted] PEP 728 - TypedDict with Typed Extra Items
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T13:20:42+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#개요">개요</a></li><li><a href="#동기">동기</a><ul><li><a href="#추가-항목을-명시적으로-금지">추가 항목을 명시적으로 금지</a></li><li><a href="#특정-타입의-추가-항목-허용">특정 타입의 추가 항목 허용</a></li><li><a href="#unpack을-위한-추가-키-지원">Unpack을 위한 추가 키 지원</a></li><li><a href="#이전-논의">이전 논의</a></li></ul></li><li><a href="#근거">근거</a></li><li><a href="#사양">사양</a><ul><li><a href="#extra_items-클래스-매개변수">extra_items 클래스 매개변수</a></li><li><a href="#closed-클래스-매개변수">closed 클래스 매개변수</a></li><li><a href="#전체성totality과의-상호작용">전체성(Totality)과의 상호작용</a></li><li><a href="#unpack과의-상호작용">Unpack과의 상호작용</a></li><li><a href="#읽기-전용read-only-항목과의-상호작용">읽기 전용(Read-only) 항목과의 상호작용</a></li><li><a href="#상속">상속</a></li><li><a href="#할당-가능성-assignability">할당 가능성 (Assignability)</a></li><li><a href="#생성자constructors와의-상호작용">생성자(Constructors)와의 상호작용</a></li><li><a href="#지원-및-미지원-연산">지원 및 미지원 연산</a></li><li><a href="#mappingstr-vt와의-상호작용">Mapping[str, VT]와의 상호작용</a></li><li><a href="#dictstr-vt와의-상호작용">dict[str, VT]와의 상호작용</a></li><li><a href="#런타임-동작">런타임 동작</a></li></ul></li><li><a href="#교육-방법-how-to-teach-this">교육 방법 (How to Teach This)</a></li><li><a href="#하위-호환성">하위 호환성</a></li><li><a href="#거부된-아이디어">거부된 아이디어</a><ul><li><a href="#closed-클래스-매개변수-대신-final-사용">closed 클래스 매개변수 대신 @final 사용</a></li><li><a href="#closed-클래스-매개변수와-함께-특별한-__extra_items__-키-사용">closed 클래스 매개변수와 함께 특별한 __extra_items__ 키 사용</a></li><li><a href="#키를-지정하는-새로운-구문-지원">키를 지정하는 새로운 구문 지원</a></li><li><a href="#타입을-지정하지-않고-추가-항목-허용">타입을 지정하지 않고 추가 항목 허용</a></li><li><a href="#교집합intersection으로-추가-항목-지원">교집합(Intersection)으로 추가 항목 지원</a></li><li><a href="#알려진-항목과-extra_items의-타입-호환성-요구">알려진 항목과 extra_items의 타입 호환성 요구</a></li></ul></li><li><a href="#참조-구현">참조 구현</a></li><li><a href="#감사">감사</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0728/">PEP 728 - TypedDict with Typed Extra Items</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Accepted</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 12-Sep-2023</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>PEP 728 – TypedDict에 타입이 지정된 추가 항목</p>
+
+<h2 id="개요">개요</h2>
+<p>이 PEP는 <code class="language-plaintext highlighter-rouge">TypedDict</code>에 추가 항목(extra items)의 타입을 지정하기 위한 두 가지 클래스 매개변수, <code class="language-plaintext highlighter-rouge">closed</code>와 <code class="language-plaintext highlighter-rouge">extra_items</code>를 추가합니다. 이는 ‘닫힌(closed)’ <code class="language-plaintext highlighter-rouge">TypedDict</code> 타입을 정의하거나, <code class="language-plaintext highlighter-rouge">dict</code>에 나타날 수 있는 키의 부분 집합을 타입 지정하면서도 지정된 타입의 추가 항목을 허용해야 하는 요구사항을 해결합니다.</p>
+
+<h2 id="동기">동기</h2>
+<p><code class="language-plaintext highlighter-rouge">typing.TypedDict</code> 타입은 딕셔너리 내 각 알려진 항목(known item)의 값 타입을 주석 처리할 수 있습니다. 그러나 구조적 할당 가능성(structural assignability) 때문에 <code class="language-plaintext highlighter-rouge">TypedDict</code>는 해당 타입을 통해서는 보이지 않는 추가 항목을 가질 수 있습니다. 현재로서는 <code class="language-plaintext highlighter-rouge">TypedDict</code> 타입의 일관된 하위 타입(consistent subtypes)에 나타날 수 있는 항목의 타입을 제한할 방법이 없습니다.</p>
+
+<h3 id="추가-항목을-명시적으로-금지">추가 항목을 명시적으로 금지</h3>
+<p><code class="language-plaintext highlighter-rouge">TypedDict</code>의 현재 동작은 타입에 추가 항목이 포함되지 않을 것으로 예상될 때 사용자가 <code class="language-plaintext highlighter-rouge">TypedDict</code> 타입을 정의하는 것을 방해합니다.</p>
+
+<p>추가 항목이 존재할 가능성 때문에 타입 체커(type checker)는 <code class="language-plaintext highlighter-rouge">TypedDict</code>의 <code class="language-plaintext highlighter-rouge">.items()</code> 및 <code class="language-plaintext highlighter-rouge">.values()</code>에 대해 더 정확한 반환 타입을 추론할 수 없습니다. 이는 ‘닫힌’ <code class="language-plaintext highlighter-rouge">TypedDict</code> 타입을 정의함으로써 해결될 수 있습니다.</p>
+
+<p>이와 관련하여 또 다른 사용 사례는 <code class="language-plaintext highlighter-rouge">in</code> 검사를 통한 타입 좁히기(type narrowing)를 안전하게 활성화하는 것입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Movie</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">director</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="k">class</span> <span class="nc">Book</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">author</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="k">def</span> <span class="nf">fun</span><span class="p">(</span><span class="n">entry</span><span class="p">:</span> <span class="n">Movie</span> <span class="o">|</span> <span class="n">Book</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="sh">"</span><span class="s">author</span><span class="sh">"</span> <span class="ow">in</span> <span class="n">entry</span><span class="p">:</span>
+        <span class="nf">reveal_type</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span> <span class="c1"># Revealed type is still 'Movie | Book'
+</span></code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">Movie</code>에 할당 가능한 <code class="language-plaintext highlighter-rouge">dict</code>가 <code class="language-plaintext highlighter-rouge">author</code> 키를 갖는 것을 막을 수 없으며, 현재 사양에서는 타입 체커가 해당 타입을 좁히는 것이 정확하지 않을 것입니다.</p>
+
+<h3 id="특정-타입의-추가-항목-허용">특정 타입의 추가 항목 허용</h3>
+<p>API 인터페이스나 가능한 키의 부분 집합만 알려진 레거시 코드베이스를 지원하기 위해 특정 값 타입의 추가 항목을 명시적으로 지정하는 것이 유용할 것입니다.</p>
+
+<p>그러나 <code class="language-plaintext highlighter-rouge">TypedDict</code>의 생성(construction)을 확인할 때 타입 지정 사양(typing spec)은 더 제한적이어서 사용자가 다음과 같이 하는 것을 방해합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MovieBase</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">movie</span><span class="p">:</span> <span class="n">MovieBase</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="c1"># movie는 MovieBase를 통해서는 보이지 않는 추가 항목을 가질 수 있습니다.
+</span>    <span class="bp">...</span>
+
+<span class="n">movie</span><span class="p">:</span> <span class="n">MovieBase</span> <span class="o">=</span> <span class="p">{</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">Blade Runner</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">year</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1982</span><span class="p">}</span> <span class="c1"># 허용되지 않음 (Not OK)
+</span><span class="nf">foo</span><span class="p">({</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">Blade Runner</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">year</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1982</span><span class="p">})</span> <span class="c1"># 허용되지 않음 (Not OK)
+</span></code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">TypedDict</code>를 생성할 때는 이 제한이 적용되지만, 구조적 할당 가능성 때문에 <code class="language-plaintext highlighter-rouge">TypedDict</code>는 해당 타입을 통해 보이지 않는 추가 항목을 가질 수 있습니다. 예를 들어:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Movie</span><span class="p">(</span><span class="n">MovieBase</span><span class="p">):</span>
+    <span class="n">year</span><span class="p">:</span> <span class="nb">int</span>
+
+<span class="n">movie</span><span class="p">:</span> <span class="n">Movie</span> <span class="o">=</span> <span class="p">{</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">Blade Runner</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">year</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1982</span><span class="p">}</span>
+<span class="nf">foo</span><span class="p">(</span><span class="n">movie</span><span class="p">)</span> <span class="c1"># 허용됨 (OK)
+</span></code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">MovieBase</code>의 일부 일관된 하위 타입에서 추가 항목이 존재할 수 있음에도 불구하고, 타입 안전성을 깨지 않고 <code class="language-plaintext highlighter-rouge">in</code> 검사를 통해 추가 항목의 존재를 인정하고 접근하는 것은 불가능합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">bar</span><span class="p">(</span><span class="n">movie</span><span class="p">:</span> <span class="n">MovieBase</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="sh">"</span><span class="s">year</span><span class="sh">"</span> <span class="ow">in</span> <span class="n">movie</span><span class="p">:</span>
+        <span class="nf">reveal_type</span><span class="p">(</span><span class="n">movie</span><span class="p">[</span><span class="sh">"</span><span class="s">year</span><span class="sh">"</span><span class="p">])</span> <span class="c1"># 오류: TypedDict 'MovieBase'에는 'year' 키가 없습니다.
+</span></code></pre></div></div>
+<p>추가 항목을 허용하기 위한 몇 가지 해결책이 이미 구현되었지만, 어느 것도 이상적이지 않습니다. <code class="language-plaintext highlighter-rouge">mypy</code>의 경우 <code class="language-plaintext highlighter-rouge">--disable-error-code=typeddict-unknown-key</code>는 <code class="language-plaintext highlighter-rouge">TypedDict</code>의 알 수 없는 키에 대한 타입 검사 오류를 억제합니다. 이는 유연성을 위해 타입 안전성을 희생하는 것이며, <code class="language-plaintext highlighter-rouge">TypedDict</code> 타입이 특정 타입에 할당 가능한 값 타입을 갖는 추가 키를 예상한다는 것을 지정하는 방법을 제공하지 않습니다.</p>
+
+<h3 id="unpack을-위한-추가-키-지원"><code class="language-plaintext highlighter-rouge">Unpack</code>을 위한 추가 키 지원</h3>
+<p>PEP 692는 <code class="language-plaintext highlighter-rouge">Unpack</code>과 함께 <code class="language-plaintext highlighter-rouge">TypedDict</code>를 사용하여 <code class="language-plaintext highlighter-rouge">**kwargs</code>로 표현되는 개별 키워드 인수의 타입을 정확하게 주석 처리하는 방법을 추가했습니다. 그러나 <code class="language-plaintext highlighter-rouge">TypedDict</code>가 임의의 추가 항목을 허용하도록 정의될 수 없기 때문에, <code class="language-plaintext highlighter-rouge">TypedDict</code>가 정의될 때 알려지지 않은 추가 키워드 인수를 허용하는 것은 불가능합니다.</p>
+
+<p>기존 코드베이스에서 <code class="language-plaintext highlighter-rouge">**kwargs</code>에 대한 PEP 692 이전의 타입 주석 사용을 고려할 때, <code class="language-plaintext highlighter-rouge">TypedDict</code>에서 추가 항목을 허용하고 타입 지정하는 것은 이전 타입 지정 동작이 <code class="language-plaintext highlighter-rouge">Unpack</code>과 함께 지원될 수 있도록 하는 데 가치가 있습니다.</p>
+
+<h3 id="이전-논의">이전 논의</h3>
+<p>이 PEP에서 도입된 새로운 기능은 타입 시스템의 여러 오랜 기능 요청을 해결할 것입니다. 이전 논의는 다음과 같습니다.</p>
+
+<ul>
+  <li>“final TypedDict”를 요청하는 Mypy 이슈 (2019). 논의는 <code class="language-plaintext highlighter-rouge">@final</code> 데코레이터에 초점을 맞추지만, 근본적인 기능 요청은 이 PEP에 의해 해결될 것입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">TypedDict</code>가 임의의 추가 키를 포함할 수 있다고 말하는 방법을 요청하는 메일링 리스트 스레드 (2020).</li>
+  <li>PEP 692에 의해 도입된 <code class="language-plaintext highlighter-rouge">Unpack</code> 메커니즘의 확장 논의 (2023).</li>
+  <li>이전 초안의 PEP 705는 유사한 기능을 제안했습니다 (2023); 이 PEP를 더 간단하게 유지하기 위해 제거되었습니다.</li>
+  <li>“정확한(exact)” <code class="language-plaintext highlighter-rouge">TypedDict</code>에 대한 논의 (2024).</li>
+</ul>
+
+<h2 id="근거">근거</h2>
+<p><code class="language-plaintext highlighter-rouge">TypedDict</code>에서 타입 <code class="language-plaintext highlighter-rouge">str</code>의 추가 항목을 허용하는 타입을 원한다고 가정해 봅시다.</p>
+
+<p>TypeScript의 인덱스 시그니처(Index Signatures)는 이를 허용합니다.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">type</span> <span class="nx">Foo</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">a</span><span class="p">:</span> <span class="kr">string</span>
+  <span class="p">[</span><span class="na">key</span><span class="p">:</span> <span class="kr">string</span><span class="p">]:</span> <span class="kr">string</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>이 제안은 구문 변경 없이 유사한 기능을 지원하고, 기존 할당 가능성 규칙에 자연스러운 확장을 제공하는 것을 목표로 합니다.</p>
+
+<p>우리는 <code class="language-plaintext highlighter-rouge">TypedDict</code>에 <code class="language-plaintext highlighter-rouge">extra_items</code>라는 클래스 매개변수를 추가할 것을 제안합니다. 이 매개변수는 타입 표현식(type expression)을 인수로 받습니다. 이 매개변수가 존재하면 추가 항목이 허용되며, 해당 값 타입은 타입 표현식 값에 할당 가능해야 합니다.</p>
+
+<p>이것의 한 가지 적용은 추가 항목을 금지하는 것입니다. 우리는 <code class="language-plaintext highlighter-rouge">closed</code> 클래스 매개변수를 추가할 것을 제안하며, 이는 리터럴 <code class="language-plaintext highlighter-rouge">True</code> 또는 <code class="language-plaintext highlighter-rouge">False</code>만 인수로 받습니다. <code class="language-plaintext highlighter-rouge">closed</code>와 <code class="language-plaintext highlighter-rouge">extra_items</code>가 동시에 사용될 경우 런타임 오류가 발생해야 합니다.</p>
+
+<p>인덱스 시그니처와 달리, 알려진 항목의 타입은 <code class="language-plaintext highlighter-rouge">extra_items</code> 인수에 할당 가능할 필요가 없습니다.</p>
+
+<p>이 접근 방식에는 몇 가지 장점이 있습니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">extra_items</code>를 의사 항목(pseudo-item)으로 처리할 수 있는 타입 지정 사양에 정의된 할당 가능성 규칙을 기반으로 할 수 있습니다.</li>
+  <li>추가 항목의 타입을 지정하기 위해 문법 변경을 도입할 필요가 없습니다.</li>
+  <li>알려진 항목의 값 타입이 <code class="language-plaintext highlighter-rouge">extra_items</code>에 할당 가능할 것을 요구하지 않고도 추가 항목의 타입을 정확하게 지정할 수 있습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">extra_items</code>와 <code class="language-plaintext highlighter-rouge">closed</code> 모두 옵트인(opt-in) 전용 기능이므로 하위 호환성(backwards compatibility)을 잃지 않습니다.</li>
+</ul>
+
+<h2 id="사양">사양</h2>
+<p>이 사양은 원래 <code class="language-plaintext highlighter-rouge">TypedDict</code> 사양에 대한 변경 사항을 강조하기 위해 PEP 589와 병행하여 구성되었습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">extra_items</code>가 지정되면, 추가 항목은 <code class="language-plaintext highlighter-rouge">extra_items</code> 인수에 일치하는 비필수(non-required) 항목으로 처리되며, 지원 및 지원되지 않는 연산을 결정할 때 해당 키가 허용됩니다.</p>
+
+<h3 id="extra_items-클래스-매개변수"><code class="language-plaintext highlighter-rouge">extra_items</code> 클래스 매개변수</h3>
+<p>기본적으로 <code class="language-plaintext highlighter-rouge">extra_items</code>는 설정되지 않습니다. <code class="language-plaintext highlighter-rouge">extra_items</code>를 지정하는 <code class="language-plaintext highlighter-rouge">TypedDict</code> 타입의 경우, 생성 중에 알 수 없는 각 항목의 값 타입은 비필수이며 <code class="language-plaintext highlighter-rouge">extra_items</code> 인수에 할당 가능해야 합니다. 예를 들어:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Movie</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">extra_items</span><span class="o">=</span><span class="nb">bool</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="n">a</span><span class="p">:</span> <span class="n">Movie</span> <span class="o">=</span> <span class="p">{</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">Blade Runner</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">novel_adaptation</span><span class="sh">"</span><span class="p">:</span> <span class="bp">True</span><span class="p">}</span> <span class="c1"># OK
+</span><span class="n">b</span><span class="p">:</span> <span class="n">Movie</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">Blade Runner</span><span class="sh">"</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">year</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1982</span><span class="p">,</span> <span class="c1"># 허용되지 않음 (Not OK). 'int'는 'bool'에 할당 가능하지 않습니다.
+</span><span class="p">}</span>
+</code></pre></div></div>
+<p>여기서 <code class="language-plaintext highlighter-rouge">extra_items=bool</code>은 ‘name’ 외의 항목이 <code class="language-plaintext highlighter-rouge">bool</code> 타입의 값을 가지며 비필수임을 지정합니다.</p>
+
+<p>대체 인라인(inline) 구문도 지원됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Movie</span> <span class="o">=</span> <span class="nc">TypedDict</span><span class="p">(</span><span class="sh">"</span><span class="s">Movie</span><span class="sh">"</span><span class="p">,</span> <span class="p">{</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">:</span> <span class="nb">str</span><span class="p">},</span> <span class="n">extra_items</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+</code></pre></div></div>
+<p>추가 항목 접근이 허용됩니다. 타입 체커는 <code class="language-plaintext highlighter-rouge">extra_items</code> 인수로부터 해당 값 타입을 추론해야 합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">movie</span><span class="p">:</span> <span class="n">Movie</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="nf">reveal_type</span><span class="p">(</span><span class="n">movie</span><span class="p">[</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">])</span> <span class="c1"># 추론된 타입은 'str'
+</span>    <span class="nf">reveal_type</span><span class="p">(</span><span class="n">movie</span><span class="p">[</span><span class="sh">"</span><span class="s">novel_adaptation</span><span class="sh">"</span><span class="p">])</span> <span class="c1"># 추론된 타입은 'bool'
+</span></code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">extra_items</code>는 서브클래싱(subclassing)을 통해 상속됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MovieBase</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">extra_items</span><span class="o">=</span><span class="n">ReadOnly</span><span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="bp">None</span><span class="p">]):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="k">class</span> <span class="nc">Movie</span><span class="p">(</span><span class="n">MovieBase</span><span class="p">):</span>
+    <span class="n">year</span><span class="p">:</span> <span class="nb">int</span>
+
+<span class="n">a</span><span class="p">:</span> <span class="n">Movie</span> <span class="o">=</span> <span class="p">{</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">Blade Runner</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">year</span><span class="sh">"</span><span class="p">:</span> <span class="bp">None</span><span class="p">}</span> <span class="c1"># 허용되지 않음 (Not OK). 'None'은 'int'와 호환되지 않습니다.
+</span><span class="n">b</span><span class="p">:</span> <span class="n">Movie</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">Blade Runner</span><span class="sh">"</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">year</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1982</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">other_extra_key</span><span class="sh">"</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+<span class="p">}</span> <span class="c1"># OK
+</span></code></pre></div></div>
+<p>여기서 <code class="language-plaintext highlighter-rouge">a</code>의 ‘year’는 <code class="language-plaintext highlighter-rouge">Movie</code>에 정의된 추가 키이며, 값 타입은 <code class="language-plaintext highlighter-rouge">int</code>입니다. <code class="language-plaintext highlighter-rouge">b</code>의 ‘other_extra_key’는 <code class="language-plaintext highlighter-rouge">MovieBase</code>에 정의된 <code class="language-plaintext highlighter-rouge">extra_items</code> 값에 할당 가능한 값 타입을 가져야 하는 또 다른 추가 키입니다.</p>
+
+<h3 id="closed-클래스-매개변수"><code class="language-plaintext highlighter-rouge">closed</code> 클래스 매개변수</h3>
+<p><code class="language-plaintext highlighter-rouge">extra_items</code>도 <code class="language-plaintext highlighter-rouge">closed=True</code>도 지정되지 않은 경우, <code class="language-plaintext highlighter-rouge">closed=False</code>로 간주됩니다. <code class="language-plaintext highlighter-rouge">TypedDict</code>는 기본 <code class="language-plaintext highlighter-rouge">TypedDict</code> 동작을 유지하기 위해 상속 또는 할당 가능성 검사 중에 값 타입 <code class="language-plaintext highlighter-rouge">ReadOnly[object]</code>의 비필수 추가 항목을 허용해야 합니다. <code class="language-plaintext highlighter-rouge">TypedDict</code> 객체 생성에 포함된 추가 키는 <code class="language-plaintext highlighter-rouge">TypedDict</code>의 타이핑 사양에서 언급된 바와 같이 여전히 포착되어야 합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">closed=True</code>가 설정되면 추가 항목은 허용되지 않습니다. 이는 <code class="language-plaintext highlighter-rouge">extra_items=Never</code>와 동일합니다. 왜냐하면 <code class="language-plaintext highlighter-rouge">Never</code>에 할당 가능한 값 타입은 있을 수 없기 때문입니다. 동일한 <code class="language-plaintext highlighter-rouge">TypedDict</code> 정의에서 <code class="language-plaintext highlighter-rouge">closed</code>와 <code class="language-plaintext highlighter-rouge">extra_items</code> 매개변수를 함께 사용하는 것은 런타임 오류입니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">total</code>과 유사하게, <code class="language-plaintext highlighter-rouge">closed</code> 인수의 값으로는 리터럴 <code class="language-plaintext highlighter-rouge">True</code> 또는 <code class="language-plaintext highlighter-rouge">False</code>만 지원됩니다. 타입 체커는 리터럴이 아닌 모든 값을 거부해야 합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">closed=False</code>를 명시적으로 전달하는 것은 기본 <code class="language-plaintext highlighter-rouge">TypedDict</code> 동작을 요청합니다. 이 경우 임의의 다른 키가 존재할 수 있고 하위 클래스가 임의의 항목을 추가할 수 있습니다. 상위 클래스가 <code class="language-plaintext highlighter-rouge">closed=True</code>이거나 <code class="language-plaintext highlighter-rouge">extra_items</code>를 설정한 경우 <code class="language-plaintext highlighter-rouge">closed=False</code>를 전달하면 타입 체커 오류가 발생합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">closed</code>가 제공되지 않으면 동작은 상위 클래스에서 상속됩니다. 상위 클래스가 <code class="language-plaintext highlighter-rouge">TypedDict</code> 자체이거나 상위 클래스가 <code class="language-plaintext highlighter-rouge">closed=True</code> 또는 <code class="language-plaintext highlighter-rouge">extra_items</code> 매개변수를 가지고 있지 않으면, 이전 <code class="language-plaintext highlighter-rouge">TypedDict</code> 동작이 유지됩니다. 즉, 임의의 추가 항목이 허용됩니다. 상위 클래스가 <code class="language-plaintext highlighter-rouge">closed=True</code>이면 자식 클래스도 <code class="language-plaintext highlighter-rouge">closed</code>됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">BaseMovie</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">closed</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="k">class</span> <span class="nc">MovieA</span><span class="p">(</span><span class="n">BaseMovie</span><span class="p">):</span> <span class="c1"># OK, 여전히 닫혀있음 (still closed)
+</span>    <span class="k">pass</span>
+
+<span class="k">class</span> <span class="nc">MovieB</span><span class="p">(</span><span class="n">BaseMovie</span><span class="p">,</span> <span class="n">closed</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span> <span class="c1"># OK, 하지만 중복됨 (redundant)
+</span>    <span class="k">pass</span>
+
+<span class="k">class</span> <span class="nc">MovieC</span><span class="p">(</span><span class="n">BaseMovie</span><span class="p">,</span> <span class="n">closed</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span> <span class="c1"># 타입 체커 오류 (Type checker error)
+</span>    <span class="k">pass</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">closed=True</code>가 <code class="language-plaintext highlighter-rouge">extra_items=Never</code>와 동일하다는 결과로, <code class="language-plaintext highlighter-rouge">extra_items=Never</code>에 적용되는 동일한 규칙이 <code class="language-plaintext highlighter-rouge">closed=True</code>에도 적용됩니다. 둘 다 동일한 효과를 가지지만, <code class="language-plaintext highlighter-rouge">closed=True</code>가 <code class="language-plaintext highlighter-rouge">extra_items=Never</code>보다 선호됩니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">extra_items</code> 인수가 읽기 전용(read-only) 타입인 경우, 서브클래싱할 때 <code class="language-plaintext highlighter-rouge">closed=True</code>를 사용할 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Movie</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">extra_items</span><span class="o">=</span><span class="n">ReadOnly</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+    <span class="k">pass</span>
+
+<span class="k">class</span> <span class="nc">MovieClosed</span><span class="p">(</span><span class="n">Movie</span><span class="p">,</span> <span class="n">closed</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span> <span class="c1"># OK
+</span>    <span class="k">pass</span>
+
+<span class="k">class</span> <span class="nc">MovieNever</span><span class="p">(</span><span class="n">Movie</span><span class="p">,</span> <span class="n">extra_items</span><span class="o">=</span><span class="n">Never</span><span class="p">):</span> <span class="c1"># OK, 하지만 'closed=True'가 선호됨
+</span>    <span class="k">pass</span>
+</code></pre></div></div>
+<p>이것은 나중에 더 자세히 논의될 것입니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">closed</code>는 함수형 구문(functional syntax)에서도 지원됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Movie</span> <span class="o">=</span> <span class="nc">TypedDict</span><span class="p">(</span><span class="sh">"</span><span class="s">Movie</span><span class="sh">"</span><span class="p">,</span> <span class="p">{</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">:</span> <span class="nb">str</span><span class="p">},</span> <span class="n">closed</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="전체성totality과의-상호작용">전체성(Totality)과의 상호작용</h3>
+<p><code class="language-plaintext highlighter-rouge">Required[]</code> 또는 <code class="language-plaintext highlighter-rouge">NotRequired[]</code>를 <code class="language-plaintext highlighter-rouge">extra_items</code>와 함께 사용하는 것은 오류입니다. <code class="language-plaintext highlighter-rouge">total=False</code>와 <code class="language-plaintext highlighter-rouge">total=True</code>는 <code class="language-plaintext highlighter-rouge">extra_items</code> 자체에 영향을 미치지 않습니다.</p>
+
+<p>추가 항목은 <code class="language-plaintext highlighter-rouge">TypedDict</code>의 전체성(totality)과 관계없이 비필수(non-required)입니다. <code class="language-plaintext highlighter-rouge">NotRequired</code> 항목에 사용 가능한 연산은 추가 항목에도 사용 가능해야 합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Movie</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">extra_items</span><span class="o">=</span><span class="nb">int</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">movie</span><span class="p">:</span> <span class="n">Movie</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">del</span> <span class="n">movie</span><span class="p">[</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">]</span> <span class="c1"># 허용되지 않음 (Not OK). 'name'의 값 타입은 'Required[str]'입니다.
+</span>    <span class="k">del</span> <span class="n">movie</span><span class="p">[</span><span class="sh">"</span><span class="s">year</span><span class="sh">"</span><span class="p">]</span> <span class="c1"># OK. 'year'의 값 타입은 'NotRequired[int]'입니다.
+</span></code></pre></div></div>
+
+<h3 id="unpack과의-상호작용"><code class="language-plaintext highlighter-rouge">Unpack</code>과의 상호작용</h3>
+<p>타입 검사 목적상, <code class="language-plaintext highlighter-rouge">extra items</code>가 있는 <code class="language-plaintext highlighter-rouge">Unpack[SomeTypedDict]</code>는 일반 매개변수에서의 동등한 것으로 처리되어야 하며, 함수 매개변수에 대한 기존 규칙이 여전히 적용됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MovieNoExtra</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="k">class</span> <span class="nc">MovieExtra</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">extra_items</span><span class="o">=</span><span class="nb">int</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Unpack</span><span class="p">[</span><span class="n">MovieNoExtra</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="bp">...</span>
+
+<span class="k">def</span> <span class="nf">g</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Unpack</span><span class="p">[</span><span class="n">MovieExtra</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="bp">...</span>
+
+<span class="c1"># 다음과 동일해야 합니다:
+</span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="bp">...</span>
+
+<span class="k">def</span> <span class="nf">g</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="bp">...</span>
+
+<span class="nf">f</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">No Country for Old Men</span><span class="sh">"</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="mi">2007</span><span class="p">)</span> <span class="c1"># 허용되지 않음 (Not OK). 인식할 수 없는 항목
+</span><span class="nf">g</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">No Country for Old Men</span><span class="sh">"</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="mi">2007</span><span class="p">)</span> <span class="c1"># OK
+</span></code></pre></div></div>
+
+<h3 id="읽기-전용read-only-항목과의-상호작용">읽기 전용(Read-only) 항목과의 상호작용</h3>
+<p><code class="language-plaintext highlighter-rouge">extra_items</code> 인수가 <code class="language-plaintext highlighter-rouge">ReadOnly[]</code> 타입 한정자(qualifier)로 주석 처리되면, <code class="language-plaintext highlighter-rouge">TypedDict</code>의 추가 항목은 읽기 전용 항목의 속성을 가집니다. 이는 읽기 전용 항목(Read-only Items)에 지정된 상속 규칙과 상호작용합니다.</p>
+
+<p>특히, <code class="language-plaintext highlighter-rouge">TypedDict</code> 타입이 <code class="language-plaintext highlighter-rouge">extra_items</code>를 읽기 전용으로 지정하는 경우, <code class="language-plaintext highlighter-rouge">TypedDict</code> 타입의 하위 클래스는 <code class="language-plaintext highlighter-rouge">extra_items</code>를 재선언할 수 있습니다.</p>
+
+<p>닫히지 않은 <code class="language-plaintext highlighter-rouge">TypedDict</code> 타입은 <code class="language-plaintext highlighter-rouge">ReadOnly[object]</code> 값 타입의 비필수 추가 항목을 암묵적으로 허용하므로, 해당 하위 클래스는 <code class="language-plaintext highlighter-rouge">extra_items</code> 인수를 더 구체적인 타입으로 재정의할 수 있습니다.</p>
+
+<p>자세한 내용은 다음 섹션에서 논의됩니다.</p>
+
+<h3 id="상속">상속</h3>
+<p><code class="language-plaintext highlighter-rouge">extra_items</code>는 일반적인 키-값 타입 항목과 유사한 방식으로 상속됩니다. 다른 키와 마찬가지로, 상속 규칙과 읽기 전용 항목 상속 규칙이 적용됩니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">extra_items</code>가 이들과 어떻게 상호작용하는지 정의하기 위해 이러한 규칙을 재해석해야 합니다.</p>
+
+<p>하위 클래스에서 부모 <code class="language-plaintext highlighter-rouge">TypedDict</code> 클래스의 필드 타입을 변경하는 것은 허용되지 않습니다.</p>
+
+<p>첫째, 상위 클래스에서 <code class="language-plaintext highlighter-rouge">ReadOnly</code>로 선언되지 않는 한 하위 클래스에서 <code class="language-plaintext highlighter-rouge">extra_items</code>의 값을 변경하는 것은 허용되지 않습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Parent</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">extra_items</span><span class="o">=</span><span class="nb">int</span> <span class="o">|</span> <span class="bp">None</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">extra_items</span><span class="o">=</span><span class="nb">int</span><span class="p">):</span> <span class="c1"># 허용되지 않음 (Not OK). 다른 TypedDict 항목과 마찬가지로 extra_items의 타입을 변경할 수 없습니다.
+</span>    <span class="k">pass</span>
+</code></pre></div></div>
+
+<p>둘째, <code class="language-plaintext highlighter-rouge">extra_items=T</code>는 <code class="language-plaintext highlighter-rouge">TypedDict</code>에 허용되는 명명되지 않은 항목의 값 타입을 효과적으로 정의하고 이를 비필수(non-required)로 표시합니다. 따라서 위 제한은 하위 클래스에 추가된 모든 항목에 적용됩니다. 하위 클래스에 추가된 각 항목에 대해 다음 조건이 모두 적용되어야 합니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">extra_items</code>가 읽기 전용인 경우
+    <ul>
+      <li>항목은 필수(required) 또는 비필수(non-required)일 수 있습니다.</li>
+      <li>항목의 값 타입은 <code class="language-plaintext highlighter-rouge">T</code>에 할당 가능해야 합니다.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">extra_items</code>가 읽기 전용이 아닌 경우
+    <ul>
+      <li>항목은 비필수(non-required)여야 합니다.</li>
+      <li>항목의 값 타입은 <code class="language-plaintext highlighter-rouge">T</code>와 일치해야 합니다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">extra_items</code>가 재정의되지 않으면 하위 클래스는 이를 그대로 상속합니다.</p>
+
+<p>예시:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MovieBase</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">extra_items</span><span class="o">=</span><span class="nb">int</span> <span class="o">|</span> <span class="bp">None</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="k">class</span> <span class="nc">MovieRequiredYear</span><span class="p">(</span><span class="n">MovieBase</span><span class="p">):</span> <span class="c1"># 허용되지 않음 (Not OK). 필수 키 'year'는 'MovieBase'에 알려져 있지 않습니다.
+</span>    <span class="n">year</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="bp">None</span>
+
+<span class="k">class</span> <span class="nc">MovieNotRequiredYear</span><span class="p">(</span><span class="n">MovieBase</span><span class="p">):</span> <span class="c1"># 허용되지 않음 (Not OK). 'int | None'은 'int'와 일치하지 않습니다.
+</span>    <span class="n">year</span><span class="p">:</span> <span class="n">NotRequired</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+
+<span class="k">class</span> <span class="nc">MovieWithYear</span><span class="p">(</span><span class="n">MovieBase</span><span class="p">):</span> <span class="c1"># OK
+</span>    <span class="n">year</span><span class="p">:</span> <span class="n">NotRequired</span><span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="bp">None</span><span class="p">]</span>
+
+<span class="k">class</span> <span class="nc">BookBase</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">extra_items</span><span class="o">=</span><span class="n">ReadOnly</span><span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]):</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="k">class</span> <span class="nc">Book</span><span class="p">(</span><span class="n">BookBase</span><span class="p">,</span> <span class="n">extra_items</span><span class="o">=</span><span class="nb">str</span><span class="p">):</span> <span class="c1"># OK
+</span>    <span class="n">year</span><span class="p">:</span> <span class="nb">int</span> <span class="c1"># OK
+</span></code></pre></div></div>
+<p>상속 규칙의 중요한 부수 효과는 추가 항목을 허용하지 않는 <code class="language-plaintext highlighter-rouge">TypedDict</code> 타입을 정의할 수 있다는 것입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MovieClosed</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">extra_items</span><span class="o">=</span><span class="n">Never</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+</code></pre></div></div>
+<p>여기서 <code class="language-plaintext highlighter-rouge">extra_items</code>에 <code class="language-plaintext highlighter-rouge">Never</code> 값을 전달하는 것은 알려진 키 외에 <code class="language-plaintext highlighter-rouge">MovieFinal</code>에 다른 키가 있을 수 없음을 지정합니다. 잠재적인 일반적인 사용 때문에 선호되는 대안이 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MovieClosed</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">closed</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+</code></pre></div></div>
+<p>여기서는 <code class="language-plaintext highlighter-rouge">extra_items=Never</code>가 암묵적으로 가정됩니다.</p>
+
+<h3 id="할당-가능성-assignability">할당 가능성 (Assignability)</h3>
+<p><code class="language-plaintext highlighter-rouge">S</code>를 <code class="language-plaintext highlighter-rouge">TypedDict</code> 타입에 명시적으로 정의된 항목의 키 집합이라고 합시다. 만약 <code class="language-plaintext highlighter-rouge">extra_items=T</code>를 지정하면, <code class="language-plaintext highlighter-rouge">TypedDict</code> 타입은 다음 조건을 모두 충족하는 무한한 항목 집합을 갖는 것으로 간주됩니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">extra_items</code>가 읽기 전용인 경우:
+    <ul>
+      <li>키의 값 타입은 <code class="language-plaintext highlighter-rouge">T</code>에 할당 가능합니다.</li>
+      <li>키가 <code class="language-plaintext highlighter-rouge">S</code>에 없습니다.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">extra_items</code>가 읽기 전용이 아닌 경우:
+    <ul>
+      <li>키는 비필수(non-required)입니다.</li>
+      <li>키의 값 타입은 <code class="language-plaintext highlighter-rouge">T</code>와 일치합니다.</li>
+      <li>키가 <code class="language-plaintext highlighter-rouge">S</code>에 없습니다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>타입 검사 목적상, 할당 가능성을 검사할 때 <code class="language-plaintext highlighter-rouge">extra_items</code>는 읽기 전용 항목 섹션에 정의된 규칙에 따라 비필수 의사 항목으로 간주되며, 다음과 같이 굵은 글씨로 새 규칙이 추가됩니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">TypedDict</code> 타입 B가 <code class="language-plaintext highlighter-rouge">TypedDict</code> 타입 A에 할당 가능하려면 B가 A에 구조적으로 할당 가능해야 합니다. 이는 다음 조건이 모두 충족될 때만 참입니다.</p>
+
+<ul>
+  <li><strong>B에서 동일한 이름의 키를 찾을 수 없는 경우, ‘extra_items’ 인수는 해당 키의 값 타입으로 간주됩니다.</strong></li>
+  <li>A의 각 항목에 대해 B는 해당 키를 가져야 합니다. 단, A의 항목이 읽기 전용이고 필수가 아니며 최상위 값 타입(<code class="language-plaintext highlighter-rouge">ReadOnly[NotRequired[object]]</code>)인 경우는 제외합니다.</li>
+  <li>A의 각 항목에 대해 B가 해당 키를 갖는 경우, B의 해당 값 타입은 A의 값 타입에 할당 가능해야 합니다.</li>
+  <li>A의 각 읽기 전용이 아닌 항목에 대해 해당 값 타입은 B의 해당 값 타입에 할당 가능해야 하며, B에서 해당 키는 읽기 전용이 아니어야 합니다.</li>
+  <li>A의 각 필수 키에 대해 B의 해당 키는 필수여야 합니다.</li>
+  <li>A의 각 비필수 키에 대해 A의 항목이 읽기 전용이 아닌 경우, B의 해당 키는 비필수여야 합니다.</li>
+</ul>
+
+<p>다음 예시는 이러한 검사가 어떻게 작동하는지 보여줍니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">extra_items</code>는 할당 가능성 검사를 위한 추가 항목에 다양한 제한을 둡니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Movie</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">extra_items</span><span class="o">=</span><span class="nb">int</span> <span class="o">|</span> <span class="bp">None</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="k">class</span> <span class="nc">MovieDetails</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">extra_items</span><span class="o">=</span><span class="nb">int</span> <span class="o">|</span> <span class="bp">None</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">year</span><span class="p">:</span> <span class="n">NotRequired</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+
+<span class="n">details</span><span class="p">:</span> <span class="n">MovieDetails</span> <span class="o">=</span> <span class="p">{</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">Kill Bill Vol. 1</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">year</span><span class="sh">"</span><span class="p">:</span> <span class="mi">2003</span><span class="p">}</span>
+<span class="n">movie</span><span class="p">:</span> <span class="n">Movie</span> <span class="o">=</span> <span class="n">details</span> <span class="c1"># 허용되지 않음 (Not OK). 'int'는 'int | None'에 할당 가능하지만,
+</span>                      <span class="c1"># 'int | None'은 'int'에 할당 가능하지 않습니다.
+</span>
+<span class="k">class</span> <span class="nc">MovieWithYear</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">extra_items</span><span class="o">=</span><span class="nb">int</span> <span class="o">|</span> <span class="bp">None</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">year</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="bp">None</span>
+
+<span class="n">details</span><span class="p">:</span> <span class="n">MovieWithYear</span> <span class="o">=</span> <span class="p">{</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">Kill Bill Vol. 1</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">year</span><span class="sh">"</span><span class="p">:</span> <span class="mi">2003</span><span class="p">}</span>
+<span class="n">movie</span><span class="p">:</span> <span class="n">Movie</span> <span class="o">=</span> <span class="n">details</span> <span class="c1"># 허용되지 않음 (Not OK). 'year'는 'Movie'에서는 비필수이지만,
+</span>                      <span class="c1"># 'MovieWithYear'에서는 필수입니다.
+</span></code></pre></div></div>
+<p>여기서 <code class="language-plaintext highlighter-rouge">MovieWithYear</code> (B)는 다음 규칙에 따라 <code class="language-plaintext highlighter-rouge">Movie</code> (A)에 할당 가능하지 않습니다.</p>
+
+<ul>
+  <li>A의 각 비필수 키에 대해 A의 항목이 읽기 전용이 아닌 경우, B의 해당 키는 비필수여야 합니다.</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">TypedDict</code> 타입에 <code class="language-plaintext highlighter-rouge">extra_items</code>가 읽기 전용으로 지정된 경우, 항목이 <code class="language-plaintext highlighter-rouge">extra_items</code> 인수보다 더 좁은 타입(narrower type)을 가질 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Movie</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">extra_items</span><span class="o">=</span><span class="n">ReadOnly</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="nb">int</span><span class="p">]):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="k">class</span> <span class="nc">MovieDetails</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">extra_items</span><span class="o">=</span><span class="nb">int</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">year</span><span class="p">:</span> <span class="n">NotRequired</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+
+<span class="n">details</span><span class="p">:</span> <span class="n">MovieDetails</span> <span class="o">=</span> <span class="p">{</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">Kill Bill Vol. 2</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">year</span><span class="sh">"</span><span class="p">:</span> <span class="mi">2004</span><span class="p">}</span>
+<span class="n">movie</span><span class="p">:</span> <span class="n">Movie</span> <span class="o">=</span> <span class="n">details</span> <span class="c1"># OK. 'int'는 'str | int'에 할당 가능합니다.
+</span></code></pre></div></div>
+<p>이것은 <code class="language-plaintext highlighter-rouge">year: ReadOnly[str | int]</code>가 <code class="language-plaintext highlighter-rouge">Movie</code>에 명시적으로 정의된 항목인 것처럼 동일하게 작동합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">extra_items</code>는 의사 항목으로서 다른 항목과 동일한 규칙을 따르므로, 두 <code class="language-plaintext highlighter-rouge">TypedDict</code> 타입이 모두 <code class="language-plaintext highlighter-rouge">extra_items</code>를 지정할 때 이 검사는 자연스럽게 적용됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MovieExtraInt</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">extra_items</span><span class="o">=</span><span class="nb">int</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="k">class</span> <span class="nc">MovieExtraStr</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">extra_items</span><span class="o">=</span><span class="nb">str</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="n">extra_int</span><span class="p">:</span> <span class="n">MovieExtraInt</span> <span class="o">=</span> <span class="p">{</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">No Country for Old Men</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">year</span><span class="sh">"</span><span class="p">:</span> <span class="mi">2007</span><span class="p">}</span>
+<span class="n">extra_str</span><span class="p">:</span> <span class="n">MovieExtraStr</span> <span class="o">=</span> <span class="p">{</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">No Country for Old Men</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">description</span><span class="sh">"</span><span class="p">:</span> <span class="sh">""</span><span class="p">}</span>
+
+<span class="n">extra_int</span> <span class="o">=</span> <span class="n">extra_str</span> <span class="c1"># 허용되지 않음 (Not OK). 'str'은 추가 항목 타입 'int'에 할당 가능하지 않습니다.
+</span><span class="n">extra_str</span> <span class="o">=</span> <span class="n">extra_int</span> <span class="c1"># 허용되지 않음 (Not OK). 'int'는 추가 항목 타입 'str'에 할당 가능하지 않습니다.
+</span></code></pre></div></div>
+<p>닫히지 않은 <code class="language-plaintext highlighter-rouge">TypedDict</code> 타입은 값 타입 <code class="language-plaintext highlighter-rouge">ReadOnly[object]</code>의 비필수 추가 키를 암묵적으로 허용합니다. 이 타입과 닫힌 <code class="language-plaintext highlighter-rouge">TypedDict</code> 타입 간의 할당 가능성 규칙을 적용하는 것은 허용됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MovieNotClosed</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="n">extra_int</span><span class="p">:</span> <span class="n">MovieExtraInt</span> <span class="o">=</span> <span class="p">{</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">No Country for Old Men</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">year</span><span class="sh">"</span><span class="p">:</span> <span class="mi">2007</span><span class="p">}</span>
+<span class="n">not_closed</span><span class="p">:</span> <span class="n">MovieNotClosed</span> <span class="o">=</span> <span class="p">{</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">No Country for Old Men</span><span class="sh">"</span><span class="p">}</span>
+
+<span class="n">extra_int</span> <span class="o">=</span> <span class="n">not_closed</span> <span class="c1"># 허용되지 않음 (Not OK).
+</span>                      <span class="c1"># 'MovieNotClosed'에 암묵적으로 있는 'extra_items=ReadOnly[object]'는
+</span>                      <span class="c1"># 'extra_items=int'에 할당 가능하지 않습니다.
+</span><span class="n">not_closed</span> <span class="o">=</span> <span class="n">extra_int</span> <span class="c1"># OK
+</span></code></pre></div></div>
+
+<h3 id="생성자constructors와의-상호작용">생성자(Constructors)와의 상호작용</h3>
+<p>타입 <code class="language-plaintext highlighter-rouge">T</code>의 추가 항목을 허용하는 <code class="language-plaintext highlighter-rouge">TypedDict</code>는 클래스 객체를 호출하여 생성될 때 이 타입의 임의의 키워드 인수도 허용합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">NonClosedMovie</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="nc">NonClosedMovie</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">No Country for Old Men</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># OK
+</span><span class="nc">NonClosedMovie</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">No Country for Old Men</span><span class="sh">"</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="mi">2007</span><span class="p">)</span> <span class="c1"># 허용되지 않음 (Not OK). 인식할 수 없는 항목
+</span>
+<span class="k">class</span> <span class="nc">ExtraMovie</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">extra_items</span><span class="o">=</span><span class="nb">int</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="nc">ExtraMovie</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">No Country for Old Men</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># OK
+</span><span class="nc">ExtraMovie</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">No Country for Old Men</span><span class="sh">"</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="mi">2007</span><span class="p">)</span> <span class="c1"># OK
+</span><span class="nc">ExtraMovie</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">No Country for Old Men</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">language</span><span class="o">=</span><span class="sh">"</span><span class="s">English</span><span class="sh">"</span><span class="p">,</span>
+<span class="p">)</span> <span class="c1"># 허용되지 않음 (Not OK). 추가 항목 'language'의 타입이 잘못되었습니다.
+</span>
+<span class="c1"># 이것은 'extra_items=Never'를 의미하므로, 추가 키워드 인수는 오류를 발생시킬 것입니다.
+</span><span class="k">class</span> <span class="nc">ClosedMovie</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">closed</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="nc">ClosedMovie</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">No Country for Old Men</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># OK
+</span><span class="nc">ClosedMovie</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">No Country for Old Men</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">year</span><span class="o">=</span><span class="mi">2007</span><span class="p">,</span>
+<span class="p">)</span> <span class="c1"># 허용되지 않음 (Not OK). 추가 항목은 허용되지 않습니다.
+</span></code></pre></div></div>
+
+<h3 id="지원-및-미지원-연산">지원 및 미지원 연산</h3>
+<p>타이핑 사양의 다음 문장은 여전히 유효합니다.</p>
+
+<blockquote>
+  <p>임의의 <code class="language-plaintext highlighter-rouge">str</code> 키(문자열 리터럴 또는 알려진 문자열 값을 가진 다른 표현식 대신)를 사용하는 연산은 일반적으로 거부되어야 합니다.</p>
+</blockquote>
+
+<p><code class="language-plaintext highlighter-rouge">NotRequired</code> 항목에 이미 적용되는 연산은 타이핑 사양의 동일한 근거에 따라 일반적으로 추가 항목에도 적용되어야 합니다.</p>
+
+<blockquote>
+  <p>정확한 타입 검사 규칙은 각 타입 체커가 결정합니다. 어떤 경우에는 관용적인 코드(idiomatic code)에 대해 오탐(false positive) 오류를 생성하는 대신 잠재적으로 안전하지 않은 연산이 허용될 수 있습니다.</p>
+</blockquote>
+
+<p>임의의 <code class="language-plaintext highlighter-rouge">str</code> 키를 사용하는 인덱스 접근 및 할당을 포함한 일부 연산은 <code class="language-plaintext highlighter-rouge">TypedDict</code>가 <code class="language-plaintext highlighter-rouge">Mapping[str, VT]</code> 또는 <code class="language-plaintext highlighter-rouge">dict[str, VT]</code>에 할당 가능하기 때문에 허용될 수 있습니다. 다음 두 섹션에서 이에 대해 자세히 설명합니다.</p>
+
+<h3 id="mappingstr-vt와의-상호작용"><code class="language-plaintext highlighter-rouge">Mapping[str, VT]</code>와의 상호작용</h3>
+<p><code class="language-plaintext highlighter-rouge">TypedDict</code> 타입은 <code class="language-plaintext highlighter-rouge">TypedDict</code> 내 모든 항목의 값 타입이 <code class="language-plaintext highlighter-rouge">VT</code>에 할당 가능할 때 <code class="language-plaintext highlighter-rouge">Mapping[str, VT]</code> 형태의 타입에 할당 가능합니다. 이 규칙의 목적상, <code class="language-plaintext highlighter-rouge">extra_items=</code> 또는 <code class="language-plaintext highlighter-rouge">closed=</code>가 설정되지 않은 <code class="language-plaintext highlighter-rouge">TypedDict</code>는 <code class="language-plaintext highlighter-rouge">ReadOnly[object]</code> 타입의 값을 가진 항목을 갖는 것으로 간주됩니다. 이는 타이핑 사양의 현재 할당 가능성 규칙을 확장합니다.</p>
+
+<p>예시:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MovieExtraStr</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">extra_items</span><span class="o">=</span><span class="nb">str</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="n">extra_str</span><span class="p">:</span> <span class="n">MovieExtraStr</span> <span class="o">=</span> <span class="p">{</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">Blade Runner</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">summary</span><span class="sh">"</span><span class="p">:</span> <span class="sh">""</span><span class="p">}</span>
+<span class="n">str_mapping</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">extra_str</span> <span class="c1"># OK
+</span>
+<span class="k">class</span> <span class="nc">MovieExtraInt</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">extra_items</span><span class="o">=</span><span class="nb">int</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="n">extra_int</span><span class="p">:</span> <span class="n">MovieExtraInt</span> <span class="o">=</span> <span class="p">{</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">Blade Runner</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">year</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1982</span><span class="p">}</span>
+<span class="n">int_mapping</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">extra_int</span> <span class="c1"># 허용되지 않음 (Not OK). 'int | str'은 'int'에 할당 가능하지 않습니다.
+</span><span class="n">int_str_mapping</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">extra_int</span> <span class="c1"># OK
+</span></code></pre></div></div>
+<p>타입 체커는 이러한 <code class="language-plaintext highlighter-rouge">TypedDict</code> 타입에서 <code class="language-plaintext highlighter-rouge">values()</code> 및 <code class="language-plaintext highlighter-rouge">items()</code>의 정확한 시그니처를 추론해야 합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">movie</span><span class="p">:</span> <span class="n">MovieExtraInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="nf">reveal_type</span><span class="p">(</span><span class="n">movie</span><span class="p">.</span><span class="nf">items</span><span class="p">())</span> <span class="c1"># 추론된 타입은 'dict_items[str, str | int]'
+</span>    <span class="nf">reveal_type</span><span class="p">(</span><span class="n">movie</span><span class="p">.</span><span class="nf">values</span><span class="p">())</span> <span class="c1"># 추론된 타입은 'dict_values[str, str | int]'
+</span></code></pre></div></div>
+<p>이 할당 가능성 규칙의 확장으로, <code class="language-plaintext highlighter-rouge">extra_items</code> 또는 <code class="language-plaintext highlighter-rouge">closed=True</code>가 지정되면 타입 체커는 임의의 <code class="language-plaintext highlighter-rouge">str</code> 키를 사용하는 인덱스 접근을 허용할 수 있습니다. 예를 들어:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">bar</span><span class="p">(</span><span class="n">movie</span><span class="p">:</span> <span class="n">MovieExtraInt</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="nf">reveal_type</span><span class="p">(</span><span class="n">movie</span><span class="p">[</span><span class="n">key</span><span class="p">])</span> <span class="c1"># 추론된 타입은 'str | int'
+</span></code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">TypedDict</code>에 대한 타입 좁히기 동작을 정의하는 것은 이 PEP의 범위를 벗어납니다. 이는 타입 체커가 임의의 <code class="language-plaintext highlighter-rouge">str</code> 키를 사용하는 인덱스 접근에 대해 더/덜 제한적이도록 유연성을 남깁니다. 예를 들어, 타입 체커는 명시적인 <code class="language-plaintext highlighter-rouge">'x' in d</code> 검사를 요구하여 더 많은 제한을 선택할 수 있습니다.</p>
+
+<h3 id="dictstr-vt와의-상호작용"><code class="language-plaintext highlighter-rouge">dict[str, VT]</code>와의 상호작용</h3>
+<p>닫힌 <code class="language-plaintext highlighter-rouge">TypedDict</code> 타입에 <code class="language-plaintext highlighter-rouge">extra_items</code>가 존재하면 구조적 하위 타입에 추가적인 필수 키가 금지되므로, 정적 분석(static analysis) 중에 <code class="language-plaintext highlighter-rouge">TypedDict</code> 타입과 그 구조적 하위 타입이 필수 키를 가질지 여부를 결정할 수 있습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">TypedDict</code> 타입은 <code class="language-plaintext highlighter-rouge">dict[str, VT]</code>에 할당 가능하려면 <code class="language-plaintext highlighter-rouge">TypedDict</code> 타입의 모든 항목이 다음 조건을 충족해야 합니다.</p>
+
+<ul>
+  <li>항목의 값 타입이 <code class="language-plaintext highlighter-rouge">VT</code>와 일치합니다.</li>
+  <li>항목이 읽기 전용이 아닙니다.</li>
+  <li>항목이 필수가 아닙니다.</li>
+</ul>
+
+<p>예시:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">IntDict</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">extra_items</span><span class="o">=</span><span class="nb">int</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="k">class</span> <span class="nc">IntDictWithNum</span><span class="p">(</span><span class="n">IntDict</span><span class="p">):</span>
+    <span class="n">num</span><span class="p">:</span> <span class="n">NotRequired</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">IntDict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">v</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span> <span class="c1"># OK
+</span>    <span class="n">v</span><span class="p">.</span><span class="nf">clear</span><span class="p">()</span> <span class="c1"># OK
+</span>
+<span class="n">not_required_num_dict</span><span class="p">:</span> <span class="n">IntDictWithNum</span> <span class="o">=</span> <span class="p">{</span><span class="sh">"</span><span class="s">num</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="sh">"</span><span class="s">bar</span><span class="sh">"</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="n">regular_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">not_required_num_dict</span> <span class="c1"># OK
+</span><span class="nf">f</span><span class="p">(</span><span class="n">not_required_num_dict</span><span class="p">)</span> <span class="c1"># OK
+</span></code></pre></div></div>
+<p>이 경우, 이전에는 <code class="language-plaintext highlighter-rouge">TypedDict</code>에서 사용할 수 없었던 메서드들이 <code class="language-plaintext highlighter-rouge">dict[str, VT]</code>와 일치하는 시그니처(<code class="language-plaintext highlighter-rouge">__setitem__(self, key: str, value: VT) -&gt; None</code> 등)로 허용됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">not_required_num_dict</span><span class="p">.</span><span class="nf">clear</span><span class="p">()</span> <span class="c1"># OK
+</span><span class="nf">reveal_type</span><span class="p">(</span><span class="n">not_required_num_dict</span><span class="p">.</span><span class="nf">popitem</span><span class="p">())</span> <span class="c1"># OK. 추론된 타입은 'tuple[str, int]'
+</span>
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">not_required_num_dict</span><span class="p">:</span> <span class="n">IntDictWithNum</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="n">not_required_num_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="mi">42</span> <span class="c1"># OK
+</span>    <span class="k">del</span> <span class="n">not_required_num_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="c1"># OK
+</span></code></pre></div></div>
+<p>이전 섹션의 인덱스 접근에 대한 참고 사항은 여전히 적용됩니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">dict[str, VT]</code>는 <code class="language-plaintext highlighter-rouge">TypedDict</code> 타입에 할당 가능하지 않습니다. 왜냐하면 그러한 <code class="language-plaintext highlighter-rouge">dict</code>는 <code class="language-plaintext highlighter-rouge">dict</code>의 하위 타입일 수 있기 때문입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">CustomDict</span><span class="p">(</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]):</span>
+    <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">might_not_be_a_builtin_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]):</span>
+    <span class="n">int_dict</span><span class="p">:</span> <span class="n">IntDict</span> <span class="o">=</span> <span class="n">might_not_be_a_builtin_dict</span> <span class="c1"># 허용되지 않음 (Not OK)
+</span>    <span class="n">not_a_builtin_dict</span> <span class="o">=</span> <span class="nc">CustomDict</span><span class="p">({</span><span class="sh">"</span><span class="s">num</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+    <span class="nf">f</span><span class="p">(</span><span class="n">not_a_builtin_dict</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="런타임-동작">런타임 동작</h3>
+<p>런타임에는 클래스 구문이든 함수형 구문이든 상관없이 동일한 <code class="language-plaintext highlighter-rouge">TypedDict</code> 정의에서 <code class="language-plaintext highlighter-rouge">closed</code>와 <code class="language-plaintext highlighter-rouge">extra_items</code> 인수를 모두 전달하는 것은 오류입니다. 단순화를 위해 런타임은 상속과 관련된 다른 잘못된 조합을 확인하지 않습니다.</p>
+
+<p>내부 조사를 위해 <code class="language-plaintext highlighter-rouge">closed</code> 및 <code class="language-plaintext highlighter-rouge">extra_items</code> 인수는 결과 <code class="language-plaintext highlighter-rouge">TypedDict</code> 객체에 두 개의 새로운 속성 <code class="language-plaintext highlighter-rouge">__closed__</code> 및 <code class="language-plaintext highlighter-rouge">__extra_items__</code>로 매핑됩니다. 이 속성들은 상위 클래스를 고려하지 않고 <code class="language-plaintext highlighter-rouge">TypedDict</code> 생성자에 전달된 내용을 정확히 반영합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">closed</code>가 전달되지 않으면 <code class="language-plaintext highlighter-rouge">__closed__</code>의 값은 <code class="language-plaintext highlighter-rouge">None</code>입니다. <code class="language-plaintext highlighter-rouge">extra_items</code>가 전달되지 않으면 <code class="language-plaintext highlighter-rouge">__extra_items__</code>의 값은 새로운 센티넬(sentinel) 객체 <code class="language-plaintext highlighter-rouge">typing.NoExtraItems</code>입니다. (<code class="language-plaintext highlighter-rouge">extra_items=None</code>은 모든 추가 항목이 <code class="language-plaintext highlighter-rouge">None</code>이어야 함을 나타내는 유효한 정의이므로 <code class="language-plaintext highlighter-rouge">None</code>일 수 없습니다.)</p>
+
+<h2 id="교육-방법-how-to-teach-this">교육 방법 (How to Teach This)</h2>
+<p>이 PEP에서 도입된 새로운 기능은 <code class="language-plaintext highlighter-rouge">TypedDict</code>에 적용되는 상속 개념과 함께 교육될 수 있습니다. 가능한 개요는 다음과 같습니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">TypedDict</code>의 기본 사항: 고정된 키 집합과 값 타입을 가진 <code class="language-plaintext highlighter-rouge">dict</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">NotRequired</code>, <code class="language-plaintext highlighter-rouge">Required</code>, <code class="language-plaintext highlighter-rouge">total=False</code>: 누락될 수 있는 키.</li>
+  <li><code class="language-plaintext highlighter-rouge">ReadOnly</code>: 수정할 수 없는 키.</li>
+  <li>상속: 하위 클래스는 새로운 키를 추가할 수 있습니다. 결과적으로, <code class="language-plaintext highlighter-rouge">TypedDict</code> 타입의 값은 런타임에 타입에 지정되지 않은 추가 키를 포함할 수 있습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">closed=True</code>: 추가 키를 허용하지 않고 상속을 제한합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">extra_items=VT</code>: 지정된 값 타입을 가진 추가 키를 허용합니다.</li>
+</ul>
+
+<p>‘닫힌(closed)’ <code class="language-plaintext highlighter-rouge">TypedDict</code>의 개념은 관련 개념에 대한 문서에서도 상호 참조되어야 합니다. 예를 들어, <code class="language-plaintext highlighter-rouge">in</code> 연산자를 사용하는 타입 좁히기는 ‘닫힌’ <code class="language-plaintext highlighter-rouge">TypedDict</code> 타입에서 다르게, 아마도 더 직관적으로 작동합니다. 또한, 키워드 인수에 <code class="language-plaintext highlighter-rouge">Unpack</code>이 사용될 때, ‘닫힌’ <code class="language-plaintext highlighter-rouge">TypedDict</code>는 허용되는 키워드 인수를 제한하는 데 유용할 수 있습니다.</p>
+
+<h2 id="하위-호환성">하위 호환성</h2>
+<p><code class="language-plaintext highlighter-rouge">extra_items</code>는 옵트인(opt-in) 기능이므로, 기존 코드베이스는 이 변경으로 인해 작동이 중단되지 않습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">TD = TypedDict("TD", foo=str, bar=int)</code>와 같이 사용할 때 <code class="language-plaintext highlighter-rouge">closed</code> 및 <code class="language-plaintext highlighter-rouge">extra_items</code>가 키워드 인수로 다른 키와 충돌하지 않는다는 점에 유의하십시오. 이 구문은 Python 3.13에서 이미 제거되었기 때문입니다.</p>
+
+<p>이는 타입 검사 기능이므로, 타입 체커가 지원하는 한 이전 버전에서도 사용할 수 있습니다.</p>
+
+<h2 id="거부된-아이디어">거부된 아이디어</h2>
+
+<h3 id="closed-클래스-매개변수-대신-final-사용"><code class="language-plaintext highlighter-rouge">closed</code> 클래스 매개변수 대신 <code class="language-plaintext highlighter-rouge">@final</code> 사용</h3>
+<p>이것은 여기서 논의되었습니다.</p>
+
+<p>Eric Traut의 관련 코멘트를 인용하자면:</p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">@final</code> 클래스 데코레이터는 클래스가 서브클래싱될 수 없음을 나타냅니다. 이는 명목 타입(nominal types)을 정의하는 클래스에 적합합니다. 그러나 <code class="language-plaintext highlighter-rouge">TypedDict</code>는 <code class="language-plaintext highlighter-rouge">Protocol</code>과 유사한 구조적 타입(structural type)입니다. 이는 이름은 다르지만 필드 정의가 동일한 두 <code class="language-plaintext highlighter-rouge">TypedDict</code> 클래스가 동일한 타입임을 의미합니다. 타입 일관성을 결정하는 데 그 이름과 계층 구조는 중요하지 않습니다. 이러한 이유로, <code class="language-plaintext highlighter-rouge">@final</code>은 <code class="language-plaintext highlighter-rouge">TypedDict</code> 타입 일관성 규칙에 영향을 미치지 않으며, 항목이나 값의 동작을 변경해서도 안 됩니다.</p>
+</blockquote>
+
+<h3 id="closed-클래스-매개변수와-함께-특별한-__extra_items__-키-사용"><code class="language-plaintext highlighter-rouge">closed</code> 클래스 매개변수와 함께 특별한 <code class="language-plaintext highlighter-rouge">__extra_items__</code> 키 사용</h3>
+<p>이 제안의 이전 개정판에서는 <code class="language-plaintext highlighter-rouge">__extra_items__</code>의 값 타입을 활용하여 다음과 같이 허용되는 추가 항목의 타입을 지정하는 접근 방식을 논의했습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">IntDict</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">closed</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="n">__extra_items__</span><span class="p">:</span> <span class="nb">int</span>
+</code></pre></div></div>
+<p>여기서 <code class="language-plaintext highlighter-rouge">closed=True</code>는 키 충돌을 피하기 위해 <code class="language-plaintext highlighter-rouge">__extra_items__</code>가 특별하게 처리되도록 요구되었습니다.</p>
+
+<p>일부 커뮤니티 구성원은 구문의 우아함에 대해 우려를 표했습니다. 실질적으로, 일반 키와의 키 충돌은 해결책으로 완화될 수 있지만, 예약된 키를 사용하는 것이 이 제안의 핵심이기 때문에 우려 사항을 해결할 방법이 제한적이었습니다.</p>
+
+<h3 id="키를-지정하는-새로운-구문-지원">키를 지정하는 새로운 구문 지원</h3>
+<p>문자열 키를 지정할 수 있는 새로운 구문을 도입함으로써, <code class="language-plaintext highlighter-rouge">TypedDict</code> 타입을 정의하는 함수형 구문을 더 이상 사용하지 않게 하고, 추가 항목을 타입 지정하기 위해 특별한 키를 예약하기로 결정한다면 키 충돌 문제를 해결할 수 있었습니다.</p>
+
+<p>예시:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>  <span class="c1"># 일반 항목
+</span>    <span class="n">_</span><span class="p">:</span> <span class="nb">bool</span>    <span class="c1"># 추가 항목의 타입
+</span>    <span class="n">__items__</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="sh">"</span><span class="s">_</span><span class="sh">"</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>           <span class="c1"># 리터럴 "_"을 키로
+</span>        <span class="sh">"</span><span class="s">class</span><span class="sh">"</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>       <span class="c1"># 키워드를 키로
+</span>        <span class="sh">"</span><span class="s">tricky.name?</span><span class="sh">"</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="c1"># 임의의 str 키
+</span>    <span class="p">}</span>
+</code></pre></div></div>
+<p>이것은 Jukka가 여기에 제안했습니다. <code class="language-plaintext highlighter-rouge">_</code> 키는 새로운 이름을 발명할 필요가 없고 <code class="language-plaintext highlighter-rouge">match</code> 문과 유사하기 때문에 선택되었습니다.</p>
+
+<p>이것은 <code class="language-plaintext highlighter-rouge">TypedDict</code> 타입을 정의하는 함수형 구문을 완전히 더 이상 사용하지 않게 할 수 있지만, 몇 가지 단점이 있습니다. 예를 들어:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">extra_items=bool</code>과 같은 클래스 인수를 추가하는 것에 비해 <code class="language-plaintext highlighter-rouge">_: bool</code>이 <code class="language-plaintext highlighter-rouge">TypedDict</code>를 특별하게 만든다는 것이 독자에게 덜 명확합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">_: bool</code> 키를 사용하는 기존 <code class="language-plaintext highlighter-rouge">TypedDict</code>와 하위 호환성이 없습니다. 이러한 사용자들이 문제를 해결할 방법은 있지만, Python (또는 <code class="language-plaintext highlighter-rouge">typing-extensions</code>)을 업그레이드하면 여전히 문제가 됩니다.</li>
+  <li>타입이 주석 컨텍스트(annotation context)에 나타나지 않으므로, 이들의 평가가 지연되지 않습니다.</li>
+</ul>
+
+<h3 id="타입을-지정하지-않고-추가-항목-허용">타입을 지정하지 않고 추가 항목 허용</h3>
+<p><code class="language-plaintext highlighter-rouge">extra=True</code>는 원래 <code class="language-plaintext highlighter-rouge">total=True</code>가 작동하는 방식처럼 타입과 관계없이 추가 항목을 허용하는 <code class="language-plaintext highlighter-rouge">TypedDict</code>를 정의하기 위해 제안되었습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">ExtraDict</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="k">pass</span>
+</code></pre></div></div>
+<p>이는 추가 항목의 타입을 지정하는 방법을 제공하지 않았기 때문에, 타입 체커는 추가 항목의 타입을 <code class="language-plaintext highlighter-rouge">Any</code>로 가정해야 했으며, 이는 타입 안전성을 손상시킵니다. 또한, <code class="language-plaintext highlighter-rouge">TypedDict</code>의 현재 동작은 구조적 할당 가능성 때문에 런타임에 타입이 지정되지 않은 추가 항목이 존재하도록 이미 허용하고 있습니다. <code class="language-plaintext highlighter-rouge">closed=True</code>는 현재 제안에서 유사한 역할을 합니다.</p>
+
+<h3 id="교집합intersection으로-추가-항목-지원">교집합(Intersection)으로 추가 항목 지원</h3>
+<p>Python의 타입 시스템에서 교집합을 지원하는 것은 많은 신중한 고려가 필요하며, 합리적인 설계에 대한 커뮤니티의 합의에 도달하는 데 오랜 시간이 걸릴 수 있습니다.</p>
+
+<p>이상적으로, <code class="language-plaintext highlighter-rouge">TypedDict</code>의 추가 항목은 교집합 작업에 의해 차단되어서는 안 되며, 교집합을 통해 지원될 필요도 없습니다.</p>
+
+<p>더욱이, <code class="language-plaintext highlighter-rouge">Mapping[...]</code>과 <code class="language-plaintext highlighter-rouge">TypedDict</code> 사이의 교집합은 제안된 <code class="language-plaintext highlighter-rouge">extra_items</code> 특수 항목이 있는 <code class="language-plaintext highlighter-rouge">TypedDict</code> 타입과 동일하지 않습니다. 왜냐하면 <code class="language-plaintext highlighter-rouge">TypedDict</code>의 모든 알려진 항목의 값 타입이 <code class="language-plaintext highlighter-rouge">Mapping[...]</code>의 값 타입과의 is-subtype-of 관계를 충족해야 하기 때문입니다.</p>
+
+<h3 id="알려진-항목과-extra_items의-타입-호환성-요구">알려진 항목과 <code class="language-plaintext highlighter-rouge">extra_items</code>의 타입 호환성 요구</h3>
+<p><code class="language-plaintext highlighter-rouge">extra_items</code>는 <code class="language-plaintext highlighter-rouge">TypedDict</code> 타입에 알려지지 않은 키의 값 타입을 제한합니다. 따라서 알려진 항목의 값 타입이 반드시 <code class="language-plaintext highlighter-rouge">extra_items</code>에 할당 가능하지 않으며, <code class="language-plaintext highlighter-rouge">extra_items</code>가 반드시 모든 알려진 항목의 값 타입에 할당 가능하지도 않습니다.</p>
+
+<p>이것은 모든 속성의 타입이 문자열 인덱스(string index)의 타입과 일치해야 하는 TypeScript의 인덱스 시그니처 구문과 다릅니다. 예를 들어:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">MovieWithExtraNumber</span> <span class="p">{</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="kr">string</span> <span class="c1">// 'string' 타입의 속성 'name'은 'number' 인덱스 타입에 할당 가능하지 않습니다.</span>
+  <span class="p">[</span><span class="nx">index</span><span class="p">:</span> <span class="kr">string</span><span class="p">]:</span> <span class="kr">number</span>
+<span class="p">}</span>
+
+<span class="kr">interface</span> <span class="nx">MovieWithExtraNumberOrString</span> <span class="p">{</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="kr">string</span> <span class="c1">// OK</span>
+  <span class="p">[</span><span class="nx">index</span><span class="p">:</span> <span class="kr">string</span><span class="p">]:</span> <span class="kr">number</span> <span class="o">|</span> <span class="kr">string</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>이 제한은 임의의 키를 사용하는 안전한 인덱스 접근을 허용하지만, TypeScript의 이슈 트래커에서 논의된 사용성 제한이 따릅니다. 제안된 사항은 <code class="language-plaintext highlighter-rouge">MovieWithExtraNumber</code>와 같은 타입을 정의하기 위해 정의된 키를 인덱스 시그니처에서 제외하도록 허용하는 것이었습니다. 이는 아마도 차집합 타입(subtraction types)을 포함하며, 이는 이 PEP의 범위를 벗어납니다.</p>
+
+<h2 id="참조-구현">참조 구현</h2>
+<p>이 기능은 <code class="language-plaintext highlighter-rouge">pyright 1.1.386</code>에서 지원되며, 이전 개정판은 <code class="language-plaintext highlighter-rouge">pyanalyze 0.12.0</code>에서 지원됩니다.</p>
+
+<p>또한 <code class="language-plaintext highlighter-rouge">typing-extensions 4.13.0</code>에서도 지원됩니다.</p>
+
+<h2 id="감사">감사</h2>
+<p>이 PEP를 후원하고 검토 피드백을 제공해주신 Jelle Zijlstra, 이 PEP가 기반으로 한 원래 디자인을 제안해주신 Eric Traut, 그리고 PEP 705의 저자로서 그들의 관점을 제공해주신 Alice Purcell에게 감사드립니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/727/" class="pagination--pager" title="[Withdrawn] PEP 727 - Documentation in Annotated Metadata
+">Previous</a>
+    
+    
+      <a href="/python/pep/729/" class="pagination--pager" title="[Active] PEP 729 - Typing governance process
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

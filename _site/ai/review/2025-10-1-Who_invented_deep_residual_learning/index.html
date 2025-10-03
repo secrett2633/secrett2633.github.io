@@ -1,0 +1,655 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[논문리뷰] Who invented deep residual learning? | secrett2633</title>
+<meta name="description" content="Juergen Schmidhuber이 [arXiv]에 게시한 ‘Who invented deep residual learning?’ 논문에 대한 자세한 리뷰입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[논문리뷰] Who invented deep residual learning?">
+<meta property="og:url" content="http://localhost:4000/ai/review/2025-10-1-Who_invented_deep_residual_learning/">
+
+
+  <meta property="og:description" content="Juergen Schmidhuber이 [arXiv]에 게시한 ‘Who invented deep residual learning?’ 논문에 대한 자세한 리뷰입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-10-01T14:04:08+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-10-01T14:04:08+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/ai/review/2025-10-1-Who_invented_deep_residual_learning/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[논문리뷰] Who invented deep residual learning?">
+    <meta itemprop="description" content="Juergen Schmidhuber이 [arXiv]에 게시한 ‘Who invented deep residual learning?’ 논문에 대한 자세한 리뷰입니다.">
+    <meta itemprop="datePublished" content="2025-10-01T14:04:08+09:00">
+    <meta itemprop="dateModified" content="2025-10-01T14:04:08+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[논문리뷰] Who invented deep residual learning?
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-10-01T14:04:08+09:00">October 1, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#핵심-연구-목표">핵심 연구 목표</a></li><li><a href="#핵심-방법론">핵심 방법론</a></li><li><a href="#주요-결과">주요 결과</a></li><li><a href="#ai-실무자를-위한-시사점">AI 실무자를 위한 시사점</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>링크:</strong> <a href="https://arxiv.org/abs/2509.24732">논문 PDF로 바로 열기</a></p>
+</blockquote>
+
+<p><strong>저자:</strong> Juergen Schmidhuber</p>
+
+<h2 id="핵심-연구-목표">핵심 연구 목표</h2>
+<p>이 논문은 <strong>깊은 잔여 학습(deep residual learning)</strong>의 발명 및 진화에 대한 명확한 연대기를 확립하고, 그 핵심 원리와 주요 개발을 주로 Schmidhuber 연구실의 연구, 특히 <strong>Sepp Hochreiter의 1991년 학위 논문</strong>과 이후의 <strong>LSTM</strong> 및 <strong>Highway Network</strong> 작업을 통해 이루어졌다고 주장하는 것을 목표로 합니다. <strong>ResNet</strong>과 같이 널리 인용되는 모델들의 기원에 대한 역사적 서사를 명확히 하고자 합니다.</p>
+
+<h2 id="핵심-방법론">핵심 방법론</h2>
+<p>이 논문은 <strong>잔여 연결(residual connections)</strong> 개념의 연대기적 발전을 상세히 설명하는 역사적 서술 방식을 채택합니다. <strong>1991년 Hochreiter의 논문</strong>에서 <strong>가중치 1.0의 순환 잔여 연결</strong>이 <strong>기울기 소실/폭주 문제</strong>를 해결하기 위해 도입되었음을 강조합니다. 이후 <strong>1997년 LSTM</strong>은 이를 <strong>일정한 오류 캐러셀(constant error carrousels)</strong>로 통합했으며, <strong>1999년 LSTM</strong> 변형에서는 <strong>게이트가 있는 순환 잔여 연결(gated recurrent residual connections)</strong>을 처음부터 열린(1.0) 상태로 사용했습니다. <strong>2005년 LSTM</strong> 언폴딩을 통해 순환 잔여 연결이 <strong>피드포워드 잔여 연결</strong>로 전환될 수 있음을 보였고, <strong>2015년 Highway Networks</strong>는 <strong>게이트가 있는 피드포워드 잔여 연결</strong>을 적용하여 최초로 수백 층의 매우 깊은 FNN을 구현했습니다. <strong>2015년 ResNet</strong>은 이 Highway Net의 <strong>게이트가 열린 변형</strong>으로 설명됩니다.</p>
+
+<h2 id="주요-결과">주요 결과</h2>
+<p>논문은 <strong>잔여 연결을 통한 일정한 오류 흐름(constant error flow)</strong>이라는 근본 원리가 <strong>1991년</strong>에 확립되었으며, 이것이 <strong>깊은 RNN(LSTM)</strong>과 이후 <strong>깊은 FNN(Highway Networks/ResNet)</strong> 훈련을 가능하게 했다고 주장합니다. 특히 <strong>Highway Networks</strong>는 이전 FNN보다 <strong>약 10배 더 깊은 수백 개의 층</strong>을 달성하며, <strong>ResNet</strong>과 <strong>ImageNet</strong>에서 “거의 동일한 성능”을 보였습니다. <strong>LSTM</strong>은 20세기 가장 많이 인용된 AI 논문이 되었고, <strong>ResNet</strong>은 21세기 가장 많이 인용된 신경망 모델이 되었으며, 이들 모두 잔여 연결 원리에 기반한다고 강조합니다.</p>
+
+<h2 id="ai-실무자를-위한-시사점">AI 실무자를 위한 시사점</h2>
+<p>AI 실무자들은 <strong>잔여 연결</strong>의 깊은 역사적 배경과 <strong>기울기 소실/폭주 문제</strong> 해결에 대한 핵심적인 중요성을 파악할 수 있습니다. 이 논문은 <strong>LSTM</strong>과 <strong>Highway Networks</strong> 개발이 <strong>ResNet</strong>을 포함한 현대 <strong>깊은 신경망</strong> 훈련의 필수적인 토대였음을 보여주며, <strong>가중치 1.0의 잔여 연결</strong>이 성공적인 딥러닝 모델의 핵심 요소임을 시사합니다. 현재 널리 활용되는 <strong>트랜스포머(Transformers)</strong>를 포함한 다양한 아키텍처에서 이러한 개념의 중요성이 계속되고 있음을 이해하는 데 도움이 됩니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 리뷰는 AI로 작성되었습니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#deep-learning-history" class="page__taxonomy-item" rel="tag">Deep Learning History</a><span class="sep">, </span>
+    
+      <a href="/tags/#feedforward-neural-networks-fnn" class="page__taxonomy-item" rel="tag">Feedforward Neural Networks (FNN)</a><span class="sep">, </span>
+    
+      <a href="/tags/#highway-networks" class="page__taxonomy-item" rel="tag">Highway Networks</a><span class="sep">, </span>
+    
+      <a href="/tags/#long-short-term-memory-lstm" class="page__taxonomy-item" rel="tag">Long Short-Term Memory (LSTM)</a><span class="sep">, </span>
+    
+      <a href="/tags/#recurrent-neural-networks-rnn" class="page__taxonomy-item" rel="tag">Recurrent Neural Networks (RNN)</a><span class="sep">, </span>
+    
+      <a href="/tags/#residual-connections" class="page__taxonomy-item" rel="tag">Residual Connections</a><span class="sep">, </span>
+    
+      <a href="/tags/#resnet" class="page__taxonomy-item" rel="tag">ResNet</a><span class="sep">, </span>
+    
+      <a href="/tags/#review" class="page__taxonomy-item" rel="tag">Review</a><span class="sep">, </span>
+    
+      <a href="/tags/#vanishing-gradient" class="page__taxonomy-item" rel="tag">Vanishing Gradient</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#review" class="page__taxonomy-item" rel="tag">Review</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-10-01">October 1, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/ai/review/2025-10-1-Voice_Evaluation_of_Reasoning_Ability_Diagnosing_the_Modality-Induced_Performance_Gap/" class="pagination--pager" title="[논문리뷰] Voice Evaluation of Reasoning Ability: Diagnosing the Modality-Induced Performance Gap
+">Previous</a>
+    
+    
+      <a href="/ai/review/2025-10-1-Whos_Your_Judge_On_the_Detectability_of_LLM-Generated_Judgments/" class="pagination--pager" title="[논문리뷰] Who’s Your Judge? On the Detectability of LLM-Generated Judgments
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

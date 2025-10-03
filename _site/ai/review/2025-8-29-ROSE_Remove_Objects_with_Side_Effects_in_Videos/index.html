@@ -1,0 +1,653 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[논문리뷰] ROSE: Remove Objects with Side Effects in Videos | secrett2633</title>
+<meta name="description" content="Hantang Liu이 [arXiv]에 게시한 ‘ROSE: Remove Objects with Side Effects in Videos’ 논문에 대한 자세한 리뷰입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[논문리뷰] ROSE: Remove Objects with Side Effects in Videos">
+<meta property="og:url" content="http://localhost:4000/ai/review/2025-8-29-ROSE_Remove_Objects_with_Side_Effects_in_Videos/">
+
+
+  <meta property="og:description" content="Hantang Liu이 [arXiv]에 게시한 ‘ROSE: Remove Objects with Side Effects in Videos’ 논문에 대한 자세한 리뷰입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-08-29T13:14:44+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-08-29T13:14:44+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/ai/review/2025-8-29-ROSE_Remove_Objects_with_Side_Effects_in_Videos/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[논문리뷰] ROSE: Remove Objects with Side Effects in Videos">
+    <meta itemprop="description" content="Hantang Liu이 [arXiv]에 게시한 ‘ROSE: Remove Objects with Side Effects in Videos’ 논문에 대한 자세한 리뷰입니다.">
+    <meta itemprop="datePublished" content="2025-08-29T13:14:44+09:00">
+    <meta itemprop="dateModified" content="2025-08-29T13:14:44+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[논문리뷰] ROSE: Remove Objects with Side Effects in Videos
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-08-29T13:14:44+09:00">August 29, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#핵심-연구-목표">핵심 연구 목표</a></li><li><a href="#핵심-방법론">핵심 방법론</a></li><li><a href="#주요-결과">주요 결과</a></li><li><a href="#ai-실무자를-위한-시사점">AI 실무자를 위한 시사점</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>링크:</strong> <a href="https://arxiv.org/abs/2508.18633">논문 PDF로 바로 열기</a></p>
+</blockquote>
+
+<p><strong>저자:</strong> Chenxuan Miao, Yutong Feng, Jianshu Zeng, Zixiang Gao, Hantang Liu, Yunfeng Yan, Donglian Qi, Xi Chen, Bin Wang, Hengshuang Zhao</p>
+
+<h2 id="핵심-연구-목표">핵심 연구 목표</h2>
+<p>기존 비디오 객체 제거 모델들이 객체의 그림자, 반사, 조명 변화 등 <strong>“측면 효과(side effects)”</strong>를 효과적으로 제거하지 못하는 문제를 해결하는 것이 목표입니다. 이는 주로 측면 효과를 포함한 <strong>정교한 쌍을 이루는 비디오 데이터의 부족</strong>에서 기인하며, 본 연구는 이를 극복하고 현실적인 비디오 편집 품질을 향상시키고자 합니다.</p>
+
+<h2 id="핵심-방법론">핵심 방법론</h2>
+<p>객체 제거 작업을 위해 <strong>3D 렌더링 엔진 (Unreal Engine)</strong>을 활용하여 그림자, 반사, 광원, 반투명, 거울 등 <strong>다섯 가지 측면 효과</strong>를 체계적으로 시뮬레이션한 대규모 <strong>합성 쌍 비디오 데이터셋</strong>을 구축했습니다. <strong>ROSE</strong> 모델은 <strong>Diffusion Transformer</strong> 기반의 비디오 인페인팅 모델로 구현되었으며, 객체와 관련된 모든 영역을 지역화하기 위해 <strong>전체 비디오</strong>를 입력으로 활용하는 <strong>reference-based erasing</strong> 방식을 채택했습니다. 또한, 쌍 비디오 간의 <strong>차이 마스크(differential mask)</strong>를 통해 측면 효과 영향을 받는 영역을 예측하는 <strong>추가적인 차이 마스크 예측기(difference mask predictor)</strong>를 도입하여 명시적 감독(explicit supervision)을 제공합니다.</p>
+
+<h2 id="주요-결과">주요 결과</h2>
+<p><strong>ROSE</strong>는 새롭게 제안된 <strong>ROSE-Bench</strong> 벤치마크(합성 및 실제 데이터 포함)에서 기존 비디오 객체 제거 모델들인 <strong>DiffuEraser</strong>, <strong>ProPainter</strong>, <strong>FuseFormer</strong> 등을 능가하는 우수한 성능을 달성했습니다. 예를 들어, 합성 데이터 평균에서 <strong>PSNR 31.428</strong>, <strong>SSIM 0.9070</strong>, <strong>LPIPS 0.0772</strong>를 기록하여 다른 모델 대비 뛰어난 정량적 성능을 보였습니다. 특히 그림자, 반사, 조명 변화와 같은 복잡한 객체-환경 상호작용을 효과적으로 처리함을 정성적으로 입증했습니다.</p>
+
+<h2 id="ai-실무자를-위한-시사점">AI 실무자를 위한 시사점</h2>
+<p>본 연구는 <strong>3D 렌더링을 통한 합성 데이터 생성 파이프라인</strong>이 비디오 편집과 같은 데이터 부족 문제를 해결하는 강력한 방법임을 보여줍니다. <strong>Diffusion Transformer</strong> 아키텍처와 <strong>전체 비디오 기반 레퍼런스(reference-based erasing)</strong> 접근 방식은 객체와 환경 간의 미묘한 상호작용을 파악하는 데 효과적이며, <strong>차이 마스크 예측기</strong>를 통한 명시적 감독은 모델의 측면 효과 처리 능력을 강화할 수 있음을 시사합니다. AI 엔지니어는 이러한 기법을 활용하여 실제 환경에서의 비디오 편집 도구 개발에 기여할 수 있습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 리뷰는 AI로 작성되었습니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#3d-rendering" class="page__taxonomy-item" rel="tag">3D Rendering</a><span class="sep">, </span>
+    
+      <a href="/tags/#difference-mask" class="page__taxonomy-item" rel="tag">Difference Mask</a><span class="sep">, </span>
+    
+      <a href="/tags/#diffusion-transformer" class="page__taxonomy-item" rel="tag">Diffusion Transformer</a><span class="sep">, </span>
+    
+      <a href="/tags/#review" class="page__taxonomy-item" rel="tag">Review</a><span class="sep">, </span>
+    
+      <a href="/tags/#side-effects" class="page__taxonomy-item" rel="tag">Side Effects</a><span class="sep">, </span>
+    
+      <a href="/tags/#synthetic-data" class="page__taxonomy-item" rel="tag">Synthetic Data</a><span class="sep">, </span>
+    
+      <a href="/tags/#video-inpainting" class="page__taxonomy-item" rel="tag">Video Inpainting</a><span class="sep">, </span>
+    
+      <a href="/tags/#video-object-removal" class="page__taxonomy-item" rel="tag">Video Object Removal</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#review" class="page__taxonomy-item" rel="tag">Review</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-08-29">August 29, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/ai/review/2025-8-29-Provable_Benefits_of_In-Tool_Learning_for_Large_Language_Models/" class="pagination--pager" title="[논문리뷰] Provable Benefits of In-Tool Learning for Large Language Models
+">Previous</a>
+    
+    
+      <a href="/ai/review/2025-8-29-TCIA_A_Task-Centric_Instruction_Augmentation_Method_for_Instruction_Finetuning/" class="pagination--pager" title="[논문리뷰] TCIA: A Task-Centric Instruction Augmentation Method for Instruction Finetuning
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

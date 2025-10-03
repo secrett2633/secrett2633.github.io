@@ -1,0 +1,891 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 557 - Data Classes | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 557: ‘Data Classes’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 557 - Data Classes">
+<meta property="og:url" content="http://localhost:4000/python/pep/557/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 557: ‘Data Classes’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T23:42:21+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T23:42:21+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/557/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 557 - Data Classes">
+    <meta itemprop="description" content="Python Enhancement Proposal 557: ‘Data Classes’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T23:42:21+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T23:42:21+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 557 - Data Classes
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T23:42:21+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#개요">개요</a></li><li><a href="#도입-배경-rationale">도입 배경 (Rationale)</a></li><li><a href="#명세-specification">명세 (Specification)</a><ul><li><a href="#필드의-기본값">필드의 기본값</a></li><li><a href="#field-함수">field() 함수</a></li><li><a href="#field-객체">Field 객체</a></li><li><a href="#__post_init__-처리">__post_init__ 처리</a></li><li><a href="#클래스-변수-class-variables">클래스 변수 (Class variables)</a></li><li><a href="#init-only-변수">Init-only 변수</a></li><li><a href="#불변-인스턴스-frozen-instances">불변 인스턴스 (Frozen instances)</a></li><li><a href="#상속-inheritance">상속 (Inheritance)</a></li><li><a href="#기본-팩토리-함수-default-factory-functions">기본 팩토리 함수 (Default factory functions)</a></li><li><a href="#가변-기본값-mutable-default-values">가변 기본값 (Mutable default values)</a></li><li><a href="#모듈-수준-헬퍼-함수-module-level-helper-functions">모듈 수준 헬퍼 함수 (Module level helper functions)</a></li></ul></li><li><a href="#논의-discussion">논의 (Discussion)</a><ul><li><a href="#__slots__-자동-설정-지원-여부">__slots__ 자동 설정 지원 여부</a></li><li><a href="#namedtuple을-사용하지-않는-이유">namedtuple을 사용하지 않는 이유</a></li><li><a href="#typingnamedtuple을-사용하지-않는-이유">typing.NamedTuple을 사용하지 않는 이유</a></li><li><a href="#attrs를-사용하지-않는-이유">attrs를 사용하지 않는 이유</a></li><li><a href="#post-init-매개변수">post-init 매개변수</a></li><li><a href="#asdict-및-astuple-함수-이름">asdict 및 astuple 함수 이름</a></li></ul></li><li><a href="#거부된-아이디어-rejected-ideas">거부된 아이디어 (Rejected ideas)</a><ul><li><a href="#replace에서-initfalse-필드를-새-객체-생성-후-복사">replace()에서 init=False 필드를 새 객체 생성 후 복사</a></li><li><a href="#가변-기본값-자동-지원">가변 기본값 자동 지원</a></li></ul></li><li><a href="#예시-examples">예시 (Examples)</a><ul><li><a href="#사용자-정의-__init__-메서드">사용자 정의 __init__ 메서드</a></li><li><a href="#복잡한-예시">복잡한 예시</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0557/">PEP 557 - Data Classes</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 02-Jun-2017</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>PEP 557 – Data Classes (데이터 클래스) 번역 및 요약</p>
+
+<h2 id="개요">개요</h2>
+<p>PEP 557은 Python 3.7부터 표준 라이브러리에 추가된 <code class="language-plaintext highlighter-rouge">dataclasses</code> 모듈을 설명하는 문서입니다. 이 PEP는 주로 데이터를 저장하는 데 사용되는 클래스를 더 쉽고 간결하게 작성할 수 있도록 돕는 <code class="language-plaintext highlighter-rouge">Data Classes</code>의 개념과 구현을 소개합니다. <code class="language-plaintext highlighter-rouge">Data Classes</code>는 <code class="language-plaintext highlighter-rouge">namedtuple</code>의 가변 버전이자 기본값을 지원하는 형태로 이해할 수 있으며, 일반적인 클래스 정의 문법을 사용하므로 상속, 메타클래스, docstring, 사용자 정의 메서드 등 기존 Python 클래스의 모든 기능을 활용할 수 있습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">@dataclass</code> 데코레이터는 PEP 526에 정의된 변수 어노테이션(type annotation)이 있는 클래스 정의 내의 변수(이 문서에서는 “필드”라고 함)를 검사합니다. 이 필드들을 기반으로 데코레이터는 인스턴스 초기화, <code class="language-plaintext highlighter-rouge">repr</code> 표현, 비교 메서드 등 다양한 메서드 정의를 자동으로 생성하여 클래스에 추가합니다.</p>
+
+<p><strong>예시:</strong></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">InventoryItem</span><span class="p">:</span>
+    <span class="sh">'''</span><span class="s">재고 품목을 추적하는 클래스입니다.</span><span class="sh">'''</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">unit_price</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">quantity_on_hand</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">total_cost</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">unit_price</span> <span class="o">*</span> <span class="n">self</span><span class="p">.</span><span class="n">quantity_on_hand</span>
+</code></pre></div></div>
+
+<p>위 <code class="language-plaintext highlighter-rouge">InventoryItem</code> 클래스에 <code class="language-plaintext highlighter-rouge">@dataclass</code> 데코레이터가 추가하면 다음과 같은 메서드가 자동으로 생성됩니다:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">__init__</code>: 인스턴스 초기화 메서드</li>
+  <li><code class="language-plaintext highlighter-rouge">__repr__</code>: 객체의 공식적인 문자열 표현을 반환하는 메서드</li>
+  <li><code class="language-plaintext highlighter-rouge">__eq__</code>, <code class="language-plaintext highlighter-rouge">__ne__</code>, <code class="language-plaintext highlighter-rouge">__lt__</code>, <code class="language-plaintext highlighter-rouge">__le__</code>, <code class="language-plaintext highlighter-rouge">__gt__</code>, <code class="language-plaintext highlighter-rouge">__ge__</code>: 비교 메서드들</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">Data Classes</code>는 이러한 boilerplate 코드를 직접 작성하고 관리하는 수고를 덜어줍니다.</p>
+
+<h2 id="도입-배경-rationale">도입 배경 (Rationale)</h2>
+<p>값을 저장하고 속성으로 접근하는 데 주로 사용되는 클래스를 정의하려는 시도는 많았습니다. 대표적인 예시로는 <code class="language-plaintext highlighter-rouge">collections.namedtuple</code>, <code class="language-plaintext highlighter-rouge">typing.NamedTuple</code>, 그리고 인기 있는 <code class="language-plaintext highlighter-rouge">attrs</code> 프로젝트 등이 있습니다.</p>
+
+<p>PEP 526을 통해 Python에 클래스 멤버의 타입을 간결하게 지정하는 방법이 추가되었고, 이 PEP는 해당 문법을 활용하여 <code class="language-plaintext highlighter-rouge">Data Classes</code>를 간단하고 자연스럽게 사용할 수 있도록 합니다. <code class="language-plaintext highlighter-rouge">Data Classes</code>는 베이스 클래스나 메타클래스를 사용하지 않으므로, 사용자는 <code class="language-plaintext highlighter-rouge">Data Classes</code>의 간섭 없이 상속과 메타클래스를 자유롭게 사용할 수 있습니다. 데코레이트된 클래스는 “일반적인” Python 클래스입니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Data Classes</code>의 주요 설계 목표 중 하나는 정적 타입 검사기(static type checkers)를 지원하는 것입니다. PEP 526 문법의 활용과 <code class="language-plaintext highlighter-rouge">fields()</code> 함수 및 <code class="language-plaintext highlighter-rouge">@dataclass</code> 데코레이터의 설계가 이에 해당합니다. 위에 언급된 일부 라이브러리는 동적인 특성 때문에 정적 타입 검사기와 함께 사용하기 어려울 수 있습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Data Classes</code>는 기존 라이브러리를 완전히 대체하기 위한 것이 아닙니다. 하지만 표준 라이브러리에 포함됨으로써 많은 단순한 사용 사례에서 <code class="language-plaintext highlighter-rouge">Data Classes</code>를 활용할 수 있게 될 것입니다. 기존 라이브러리들은 각기 다른 기능 세트를 가지고 있으며, 계속해서 존재하고 발전할 것입니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Data Classes</code> 사용이 적절하지 않은 경우:</p>
+<ul>
+  <li>튜플(tuple) 또는 딕셔너리(dict)와의 API 호환성이 필요한 경우.</li>
+  <li>PEP 484 및 526에서 제공하는 것 이상의 타입 유효성 검사 또는 값 유효성 검사/변환이 필요한 경우.</li>
+</ul>
+
+<h2 id="명세-specification">명세 (Specification)</h2>
+<p>이 PEP에서 설명하는 모든 기능은 <code class="language-plaintext highlighter-rouge">dataclasses</code>라는 모듈에 포함됩니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">@dataclass</code> 데코레이터는 클래스를 검사하여 필드를 찾습니다. 필드는 <code class="language-plaintext highlighter-rouge">__annotations__</code>에 식별된 모든 변수, 즉 타입 어노테이션(type annotation)이 있는 변수를 의미합니다. <code class="language-plaintext highlighter-rouge">__annotations__</code>는 클래스 선언 순서대로 정렬된 매핑(ordered mapping)임을 보장하며, 생성되는 모든 메서드에서 필드의 순서는 클래스에 나타나는 순서를 따릅니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">@dataclass</code> 데코레이터는 다양한 “dunder” 메서드를 클래스에 추가합니다. 이미 클래스에 추가될 메서드 중 하나라도 존재하면 <code class="language-plaintext highlighter-rouge">TypeError</code>가 발생합니다. 데코레이터는 새로운 클래스를 생성하지 않고, 주어진 클래스 자체를 반환합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">@dataclass</code>는 일반적으로 매개변수나 괄호 없이 사용되지만, 다음과 같은 논리적 시그니처를 지원합니다:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">dataclass</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">eq</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">unsafe_hash</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>매개변수는 다음과 같습니다:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">init</code> (기본값 <code class="language-plaintext highlighter-rouge">True</code>): <code class="language-plaintext highlighter-rouge">__init__</code> 메서드를 생성할지 여부를 결정합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">repr</code> (기본값 <code class="language-plaintext highlighter-rouge">True</code>): <code class="language-plaintext highlighter-rouge">__repr__</code> 메서드를 생성할지 여부를 결정합니다. 생성된 <code class="language-plaintext highlighter-rouge">repr</code> 문자열은 클래스 이름과 각 필드의 이름 및 <code class="language-plaintext highlighter-rouge">repr</code> 값을 포함합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">eq</code> (기본값 <code class="language-plaintext highlighter-rouge">True</code>): <code class="language-plaintext highlighter-rouge">__eq__</code> 메서드를 생성할지 여부를 결정합니다. 필드의 튜플처럼 클래스를 비교합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">order</code> (기본값 <code class="language-plaintext highlighter-rouge">False</code>): <code class="language-plaintext highlighter-rouge">True</code>인 경우 <code class="language-plaintext highlighter-rouge">__lt__</code>, <code class="language-plaintext highlighter-rouge">__le__</code>, <code class="language-plaintext highlighter-rouge">__gt__</code>, <code class="language-plaintext highlighter-rouge">__ge__</code> 메서드를 생성합니다. 이 메서드들은 필드의 튜플처럼 클래스를 순서대로 비교합니다. <code class="language-plaintext highlighter-rouge">order</code>가 <code class="language-plaintext highlighter-rouge">True</code>이고 <code class="language-plaintext highlighter-rouge">eq</code>가 <code class="language-plaintext highlighter-rouge">False</code>이면 <code class="language-plaintext highlighter-rouge">ValueError</code>가 발생합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">unsafe_hash</code> (기본값 <code class="language-plaintext highlighter-rouge">False</code>): <code class="language-plaintext highlighter-rouge">__hash__</code> 메서드가 생성되는 방식을 제어합니다. <code class="language-plaintext highlighter-rouge">eq</code>와 <code class="language-plaintext highlighter-rouge">frozen</code> 설정에 따라 <code class="language-plaintext highlighter-rouge">__hash__</code>가 생성됩니다. 일반적으로 <code class="language-plaintext highlighter-rouge">eq=True</code>이고 <code class="language-plaintext highlighter-rouge">frozen=True</code>일 때 <code class="language-plaintext highlighter-rouge">__hash__</code>가 생성되며, <code class="language-plaintext highlighter-rouge">eq=True</code>이고 <code class="language-plaintext highlighter-rouge">frozen=False</code>일 때 <code class="language-plaintext highlighter-rouge">__hash__</code>는 <code class="language-plaintext highlighter-rouge">None</code>으로 설정되어 해시 불가능(unhashable)하게 만듭니다. <code class="language-plaintext highlighter-rouge">unsafe_hash=True</code>를 사용하면 강제로 <code class="language-plaintext highlighter-rouge">__hash__</code>를 생성할 수 있지만, 이는 특별한 경우에만 권장됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">frozen</code> (기본값 <code class="language-plaintext highlighter-rouge">False</code>): <code class="language-plaintext highlighter-rouge">True</code>인 경우 필드에 값을 할당할 때 예외를 발생시켜 읽기 전용(immutable) 인스턴스를 에뮬레이션합니다. <code class="language-plaintext highlighter-rouge">__setattr__</code> 또는 <code class="language-plaintext highlighter-rouge">__delattr__</code>가 클래스에 정의되어 있으면 <code class="language-plaintext highlighter-rouge">ValueError</code>가 발생합니다.</li>
+</ul>
+
+<h3 id="필드의-기본값">필드의 기본값</h3>
+<p>필드는 일반 Python 문법을 사용하여 선택적으로 기본값을 지정할 수 있습니다:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">C</span><span class="p">:</span>
+    <span class="n">a</span><span class="p">:</span> <span class="nb">int</span>        <span class="c1"># 'a'는 기본값이 없음
+</span>    <span class="n">b</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>    <span class="c1"># 'b'에 기본값 0 할당
+</span></code></pre></div></div>
+<p>기본값이 없는 필드 뒤에 기본값이 있는 필드가 오면 <code class="language-plaintext highlighter-rouge">TypeError</code>가 발생합니다.</p>
+
+<h3 id="field-함수"><code class="language-plaintext highlighter-rouge">field()</code> 함수</h3>
+<p>더 복잡한 필드 정보를 지정해야 하는 경우, 기본 필드 값을 <code class="language-plaintext highlighter-rouge">dataclasses.field()</code> 함수 호출로 대체할 수 있습니다. <code class="language-plaintext highlighter-rouge">field()</code>의 시그니처는 다음과 같습니다:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">field</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">MISSING</span><span class="p">,</span> <span class="n">default_factory</span><span class="o">=</span><span class="n">MISSING</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="nb">hash</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">compare</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</code></pre></div></div>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">default</code>: 필드의 기본값입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">default_factory</code>: 기본값이 필요할 때 호출될 인자 없는 콜러블(callable)입니다. 가변 기본값을 지정하는 데 사용됩니다. <code class="language-plaintext highlighter-rouge">default</code>와 <code class="language-plaintext highlighter-rouge">default_factory</code>를 동시에 지정하는 것은 에러입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">init</code>: <code class="language-plaintext highlighter-rouge">True</code>인 경우, 이 필드는 생성된 <code class="language-plaintext highlighter-rouge">__init__</code> 메서드의 매개변수에 포함됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">repr</code>: <code class="language-plaintext highlighter-rouge">True</code>인 경우, 이 필드는 생성된 <code class="language-plaintext highlighter-rouge">__repr__</code> 메서드가 반환하는 문자열에 포함됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">compare</code>: <code class="language-plaintext highlighter-rouge">True</code>인 경우, 이 필드는 생성된 비교 메서드(<code class="language-plaintext highlighter-rouge">__eq__</code>, <code class="language-plaintext highlighter-rouge">__gt__</code> 등)에 포함됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">hash</code>: <code class="language-plaintext highlighter-rouge">bool</code> 또는 <code class="language-plaintext highlighter-rouge">None</code>입니다. <code class="language-plaintext highlighter-rouge">True</code>인 경우, 이 필드는 생성된 <code class="language-plaintext highlighter-rouge">__hash__</code> 메서드에 포함됩니다. <code class="language-plaintext highlighter-rouge">None</code>인 경우 <code class="language-plaintext highlighter-rouge">compare</code> 값에 따라 결정됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">metadata</code>: 매핑(mapping) 또는 <code class="language-plaintext highlighter-rouge">None</code>입니다. <code class="language-plaintext highlighter-rouge">Data Classes</code> 자체에서는 사용되지 않으며, 서드파티 확장을 위한 메커니즘으로 제공됩니다.</li>
+</ul>
+
+<h3 id="field-객체"><code class="language-plaintext highlighter-rouge">Field</code> 객체</h3>
+<p><code class="language-plaintext highlighter-rouge">Field</code> 객체는 각 정의된 필드를 설명하며, <code class="language-plaintext highlighter-rouge">fields()</code> 모듈 수준 메서드에 의해 반환됩니다. <code class="language-plaintext highlighter-rouge">Field</code> 객체의 속성으로는 <code class="language-plaintext highlighter-rouge">name</code>, <code class="language-plaintext highlighter-rouge">type</code>, <code class="language-plaintext highlighter-rouge">default</code>, <code class="language-plaintext highlighter-rouge">default_factory</code>, <code class="language-plaintext highlighter-rouge">init</code>, <code class="language-plaintext highlighter-rouge">repr</code>, <code class="language-plaintext highlighter-rouge">hash</code>, <code class="language-plaintext highlighter-rouge">compare</code>, <code class="language-plaintext highlighter-rouge">metadata</code> 등이 있습니다.</p>
+
+<h3 id="__post_init__-처리"><code class="language-plaintext highlighter-rouge">__post_init__</code> 처리</h3>
+<p>생성된 <code class="language-plaintext highlighter-rouge">__init__</code> 코드는 클래스에 <code class="language-plaintext highlighter-rouge">__post_init__</code> 메서드가 정의되어 있으면 이를 호출합니다. 이는 <code class="language-plaintext highlighter-rouge">self.__post_init__()</code> 형태로 호출됩니다. <code class="language-plaintext highlighter-rouge">__init__</code> 메서드가 생성되지 않으면 <code class="language-plaintext highlighter-rouge">__post_init__</code>도 자동으로 호출되지 않습니다. 이 메서드는 다른 필드에 의존하는 필드 값을 초기화하는 등의 용도로 사용될 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">C</span><span class="p">:</span>
+    <span class="n">a</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">b</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">c</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="nf">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">c</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">a</span> <span class="o">+</span> <span class="n">self</span><span class="p">.</span><span class="n">b</span>
+</code></pre></div></div>
+
+<h3 id="클래스-변수-class-variables">클래스 변수 (Class variables)</h3>
+<p><code class="language-plaintext highlighter-rouge">dataclass</code> 데코레이터는 필드가 <code class="language-plaintext highlighter-rouge">PEP 526</code>에 정의된 클래스 변수인지 여부를 <code class="language-plaintext highlighter-rouge">typing.ClassVar</code> 타입 어노테이션을 통해 확인합니다. <code class="language-plaintext highlighter-rouge">ClassVar</code>인 필드는 <code class="language-plaintext highlighter-rouge">Data Class</code> 메커니즘에 의해 필드로 간주되지 않고 무시됩니다.</p>
+
+<h3 id="init-only-변수"><code class="language-plaintext highlighter-rouge">Init-only</code> 변수</h3>
+<p><code class="language-plaintext highlighter-rouge">dataclass</code>가 타입 어노테이션을 검사하는 또 다른 경우는 필드가 <code class="language-plaintext highlighter-rouge">init-only</code> 변수인지 확인하는 것입니다. <code class="language-plaintext highlighter-rouge">dataclasses.InitVar</code> 타입의 필드는 <code class="language-plaintext highlighter-rouge">init-only</code> 필드로 간주됩니다. 이는 실제 필드가 아니므로 <code class="language-plaintext highlighter-rouge">fields()</code> 함수에 의해 반환되지 않습니다. <code class="language-plaintext highlighter-rouge">Init-only</code> 필드는 생성된 <code class="language-plaintext highlighter-rouge">__init__</code> 메서드의 매개변수로 추가되며, 선택적인 <code class="language-plaintext highlighter-rouge">__post_init__</code> 메서드에 전달됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">C</span><span class="p">:</span>
+    <span class="n">i</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">j</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">database</span><span class="p">:</span> <span class="n">InitVar</span><span class="p">[</span><span class="n">DatabaseType</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Init-only 변수
+</span>
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">database</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">self</span><span class="p">.</span><span class="n">j</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">database</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">self</span><span class="p">.</span><span class="n">j</span> <span class="o">=</span> <span class="n">database</span><span class="p">.</span><span class="nf">lookup</span><span class="p">(</span><span class="sh">'</span><span class="s">j</span><span class="sh">'</span><span class="p">)</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="nc">C</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="n">my_database</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="불변-인스턴스-frozen-instances">불변 인스턴스 (Frozen instances)</h3>
+<p><code class="language-plaintext highlighter-rouge">@dataclass</code> 데코레이터에 <code class="language-plaintext highlighter-rouge">frozen=True</code>를 전달하면 불변성(immutability)을 에뮬레이션할 수 있습니다. 이 경우 <code class="language-plaintext highlighter-rouge">Data Classes</code>는 <code class="language-plaintext highlighter-rouge">__setattr__</code> 및 <code class="language-plaintext highlighter-rouge">__delattr__</code> 메서드를 클래스에 추가하여 호출 시 <code class="language-plaintext highlighter-rouge">FrozenInstanceError</code>를 발생시킵니다.</p>
+
+<h3 id="상속-inheritance">상속 (Inheritance)</h3>
+<p><code class="language-plaintext highlighter-rouge">@dataclass</code> 데코레이터는 클래스의 모든 베이스 클래스를 역 MRO(Method Resolution Order) 순서로 탐색하여, 발견된 각 <code class="language-plaintext highlighter-rouge">Data Class</code>의 필드를 정렬된 필드 매핑에 추가합니다. 베이스 클래스의 필드가 모두 추가된 후, 현재 클래스의 필드를 추가합니다. 파생 클래스는 베이스 클래스를 오버라이드합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">Base</span><span class="p">:</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="mf">15.0</span>
+    <span class="n">y</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="n">z</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">x</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">15</span> <span class="c1"># Base의 x를 오버라이드
+</span>
+<span class="c1"># 필드 순서는 x, y, z 이며, x의 최종 타입은 int가 됩니다.
+</span></code></pre></div></div>
+
+<h3 id="기본-팩토리-함수-default-factory-functions">기본 팩토리 함수 (Default factory functions)</h3>
+<p>필드가 <code class="language-plaintext highlighter-rouge">default_factory</code>를 지정하면, 해당 필드에 기본값이 필요할 때 인자 없이 호출됩니다. 예를 들어, 새 리스트 인스턴스를 생성하려면 <code class="language-plaintext highlighter-rouge">l: list = field(default_factory=list)</code>와 같이 사용합니다.</p>
+
+<h3 id="가변-기본값-mutable-default-values">가변 기본값 (Mutable default values)</h3>
+<p>Python은 기본 멤버 변수 값을 클래스 속성에 저장하기 때문에, 클래스 인스턴스들이 동일한 가변 객체를 공유하는 문제가 발생할 수 있습니다. <code class="language-plaintext highlighter-rouge">Data Classes</code>는 이러한 문제를 방지하기 위해 <code class="language-plaintext highlighter-rouge">list</code>, <code class="language-plaintext highlighter-rouge">dict</code>, <code class="language-plaintext highlighter-rouge">set</code> 타입의 기본 매개변수를 감지하면 <code class="language-plaintext highlighter-rouge">TypeError</code>를 발생시킵니다.</p>
+
+<p>가변 기본값을 피하는 올바른 방법은 <code class="language-plaintext highlighter-rouge">default_factory</code>를 사용하는 것입니다:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">D</span><span class="p">:</span>
+    <span class="n">x</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="nf">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+<span class="c1"># assert D().x is not D().x
+</span></code></pre></div></div>
+
+<h3 id="모듈-수준-헬퍼-함수-module-level-helper-functions">모듈 수준 헬퍼 함수 (Module level helper functions)</h3>
+<p><code class="language-plaintext highlighter-rouge">dataclasses</code> 모듈은 다음 헬퍼 함수들을 제공합니다:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">fields(class_or_instance)</code>: <code class="language-plaintext highlighter-rouge">Data Class</code> 또는 <code class="language-plaintext highlighter-rouge">Data Class</code> 인스턴스의 필드를 정의하는 <code class="language-plaintext highlighter-rouge">Field</code> 객체 튜플을 반환합니다. <code class="language-plaintext highlighter-rouge">ClassVar</code> 또는 <code class="language-plaintext highlighter-rouge">InitVar</code>와 같은 의사(pseudo) 필드는 반환하지 않습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">asdict(instance, *, dict_factory=dict)</code>: <code class="language-plaintext highlighter-rouge">Data Class</code> 인스턴스를 딕셔너리로 변환합니다. <code class="language-plaintext highlighter-rouge">Data Classes</code>, <code class="language-plaintext highlighter-rouge">dicts</code>, <code class="language-plaintext highlighter-rouge">lists</code>, <code class="language-plaintext highlighter-rouge">tuples</code>는 재귀적으로 변환됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">astuple(instance, *, tuple_factory=tuple)</code>: <code class="language-plaintext highlighter-rouge">Data Class</code> 인스턴스를 튜플로 변환합니다. <code class="language-plaintext highlighter-rouge">Data Classes</code>, <code class="language-plaintext highlighter-rouge">dicts</code>, <code class="language-plaintext highlighter-rouge">lists</code>, <code class="language-plaintext highlighter-rouge">tuples</code>는 재귀적으로 변환됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">make_dataclass(cls_name, fields, *, bases=(), namespace=None)</code>: 새로운 <code class="language-plaintext highlighter-rouge">Data Class</code>를 동적으로 생성합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">replace(instance, **changes)</code>: <code class="language-plaintext highlighter-rouge">instance</code>와 동일한 타입의 새 객체를 생성하며, <code class="language-plaintext highlighter-rouge">changes</code>의 값으로 필드를 교체합니다. 새 객체는 <code class="language-plaintext highlighter-rouge">__init__</code> 메서드를 호출하여 생성되므로 <code class="language-plaintext highlighter-rouge">__post_init__</code>도 호출됩니다. <code class="language-plaintext highlighter-rouge">init=False</code>로 정의된 필드는 <code class="language-plaintext highlighter-rouge">changes</code>에 포함될 수 없습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">is_dataclass(class_or_instance)</code>: 매개변수가 <code class="language-plaintext highlighter-rouge">dataclass</code>이거나 <code class="language-plaintext highlighter-rouge">dataclass</code> 인스턴스이면 <code class="language-plaintext highlighter-rouge">True</code>를 반환하고, 그렇지 않으면 <code class="language-plaintext highlighter-rouge">False</code>를 반환합니다.</li>
+</ul>
+
+<h2 id="논의-discussion">논의 (Discussion)</h2>
+
+<h3 id="__slots__-자동-설정-지원-여부"><code class="language-plaintext highlighter-rouge">__slots__</code> 자동 설정 지원 여부</h3>
+<p>초기 버전에서는 <code class="language-plaintext highlighter-rouge">__slots__</code>가 지원되지 않습니다. <code class="language-plaintext highlighter-rouge">__slots__</code>는 클래스 생성 시점에 추가되어야 하지만, <code class="language-plaintext highlighter-rouge">Data Class</code> 데코레이터는 클래스 생성 후에 호출됩니다. <code class="language-plaintext highlighter-rouge">__slots__</code>를 지원하려면 데코레이터가 새 클래스를 생성해야 하는데, 이는 예상치 못한 동작일 수 있기 때문입니다. 수동으로 <code class="language-plaintext highlighter-rouge">__slots__</code>를 추가하거나, <code class="language-plaintext highlighter-rouge">fields()</code>를 사용하여 클래스를 검사하고 <code class="language-plaintext highlighter-rouge">__slots__</code>가 설정된 새 클래스를 생성하는 함수를 작성하는 등의 해결 방법이 있습니다.</p>
+
+<h3 id="namedtuple을-사용하지-않는-이유"><code class="language-plaintext highlighter-rouge">namedtuple</code>을 사용하지 않는 이유</h3>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">namedtuple</code>은 필드 수가 동일한 다른 <code class="language-plaintext highlighter-rouge">namedtuple</code>과 우연히 비교될 수 있습니다. <code class="language-plaintext highlighter-rouge">Data Classes</code>에서는 <code class="language-plaintext highlighter-rouge">False</code>를 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">namedtuple</code>은 튜플과 우연히 비교될 수 있습니다. <code class="language-plaintext highlighter-rouge">Data Classes</code>에서는 <code class="language-plaintext highlighter-rouge">False</code>를 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">namedtuple</code> 인스턴스는 항상 iterable이므로 필드를 추가하기 어렵습니다.</li>
+  <li>가변 인스턴스에 대한 옵션이 없습니다.</li>
+  <li>기본값을 지정할 수 없습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">__init__</code>, <code class="language-plaintext highlighter-rouge">__repr__</code> 등에 사용될 필드를 제어할 수 없습니다.</li>
+  <li>상속을 통한 필드 조합을 지원하지 않습니다.</li>
+</ul>
+
+<h3 id="typingnamedtuple을-사용하지-않는-이유"><code class="language-plaintext highlighter-rouge">typing.NamedTuple</code>을 사용하지 않는 이유</h3>
+<p><code class="language-plaintext highlighter-rouge">typing.NamedTuple</code>은 정적으로 정의된 필드에 대해 <code class="language-plaintext highlighter-rouge">Data Classes</code>와 유사한 문법을 지원하지만, <code class="language-plaintext highlighter-rouge">namedtuple</code>을 생성하므로 <code class="language-plaintext highlighter-rouge">namedtuple</code>의 단점을 일부 공유합니다. <code class="language-plaintext highlighter-rouge">Data Classes</code>는 <code class="language-plaintext highlighter-rouge">typing.NamedTuple</code>과 달리 상속을 통한 필드 조합을 지원합니다.</p>
+
+<h3 id="attrs를-사용하지-않는-이유"><code class="language-plaintext highlighter-rouge">attrs</code>를 사용하지 않는 이유</h3>
+<p><code class="language-plaintext highlighter-rouge">attrs</code>는 표준 라이브러리에 포함될 수 없을 정도로 빠르게 발전했습니다. <code class="language-plaintext highlighter-rouge">attrs</code>는 유효성 검사기(validators), 변환기(converters), 메타데이터 등 <code class="language-plaintext highlighter-rouge">Data Classes</code>에서 제안되지 않은 추가 기능을 지원합니다. <code class="language-plaintext highlighter-rouge">Data Classes</code>는 이러한 기능을 구현하지 않음으로써 단순성을 목표로 합니다.</p>
+
+<h3 id="post-init-매개변수"><code class="language-plaintext highlighter-rouge">post-init</code> 매개변수</h3>
+<p>초기 버전에서는 <code class="language-plaintext highlighter-rouge">__post_init__</code> 함수가 매개변수를 받지 않았습니다. 매개변수화된 초기화를 수행하는 일반적인 방법은 대체 클래스메서드 생성자(alternate classmethod constructor)를 제공하는 것이었습니다. <code class="language-plaintext highlighter-rouge">InitVar</code>가 추가됨으로써 <code class="language-plaintext highlighter-rouge">__post_init__</code> 함수는 이제 매개변수를 받을 수 있게 되었으며, 이 매개변수는 <code class="language-plaintext highlighter-rouge">__init__</code>을 통해 <code class="language-plaintext highlighter-rouge">__post_init__</code>로 전달됩니다.</p>
+
+<h3 id="asdict-및-astuple-함수-이름"><code class="language-plaintext highlighter-rouge">asdict</code> 및 <code class="language-plaintext highlighter-rouge">astuple</code> 함수 이름</h3>
+<p><code class="language-plaintext highlighter-rouge">asdict()</code>와 <code class="language-plaintext highlighter-rouge">astuple()</code> 함수 이름은 PEP 8에 부합하지 않는다는 논의가 있었으나, <code class="language-plaintext highlighter-rouge">namedtuple._asdict()</code> 및 <code class="language-plaintext highlighter-rouge">attr.asdict()</code>와의 일관성을 유지하기 위해 현재 이름을 사용하기로 결정했습니다.</p>
+
+<h2 id="거부된-아이디어-rejected-ideas">거부된 아이디어 (Rejected ideas)</h2>
+
+<h3 id="replace에서-initfalse-필드를-새-객체-생성-후-복사"><code class="language-plaintext highlighter-rouge">replace()</code>에서 <code class="language-plaintext highlighter-rouge">init=False</code> 필드를 새 객체 생성 후 복사</h3>
+<p>이전 버전에서는 <code class="language-plaintext highlighter-rouge">init=False</code> 필드가 <code class="language-plaintext highlighter-rouge">__init__</code> 반환 후 원본 객체에서 새로 생성된 객체로 복사되도록 명시했지만, 이는 <code class="language-plaintext highlighter-rouge">__init__</code> 및 <code class="language-plaintext highlighter-rouge">__post_init__</code>를 사용하여 새 객체를 초기화하는 방식과 일치하지 않는다고 판단되어 거부되었습니다.</p>
+
+<h3 id="가변-기본값-자동-지원">가변 기본값 자동 지원</h3>
+<p>리터럴 리스트 <code class="language-plaintext highlighter-rouge">[]</code>와 같은 가변 기본값을 자동으로 복사하여 각 인스턴스가 새로운 리스트를 얻도록 하자는 제안이 있었습니다. 그러나 이 결정에는 바람직하지 않은 부작용이 있었기 때문에, 최종적으로 <code class="language-plaintext highlighter-rouge">list</code>, <code class="language-plaintext highlighter-rouge">dict</code>, <code class="language-plaintext highlighter-rouge">set</code>과 같이 알려진 3가지 내장 가변 타입의 기본 매개변수 사용을 금지하기로 결정했습니다.</p>
+
+<h2 id="예시-examples">예시 (Examples)</h2>
+
+<h3 id="사용자-정의-__init__-메서드">사용자 정의 <code class="language-plaintext highlighter-rouge">__init__</code> 메서드</h3>
+<p>때때로 생성된 <code class="language-plaintext highlighter-rouge">__init__</code> 메서드만으로는 충분하지 않을 수 있습니다. 예를 들어, <code class="language-plaintext highlighter-rouge">*args</code>와 <code class="language-plaintext highlighter-rouge">**kwargs</code>를 저장하는 객체를 만들고 싶다면 <code class="language-plaintext highlighter-rouge">init=False</code>로 설정하고 사용자 정의 <code class="language-plaintext highlighter-rouge">__init__</code>을 작성할 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@dataclass</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">ArgHolder</span><span class="p">:</span>
+    <span class="n">args</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span>
+    <span class="n">kwargs</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">args</span> <span class="o">=</span> <span class="n">args</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="nc">ArgHolder</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">three</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="복잡한-예시">복잡한 예시</h3>
+<p>기존의 길고 반복적인 <code class="language-plaintext highlighter-rouge">__init__</code> 및 <code class="language-plaintext highlighter-rouge">__repr__</code> 메서드를 가진 클래스를 <code class="language-plaintext highlighter-rouge">Data Class</code>로 전환하면 코드가 더 간결하고 선언적으로 바뀌며, 타입 힌트(typing)를 지원하고 다른 생성된 함수들을 포함할 수 있습니다.</p>
+
+<p><strong>원본 클래스:</strong></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Application</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">requirements</span><span class="p">,</span> <span class="n">constraints</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="sh">''</span><span class="p">,</span> <span class="n">executable_links</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">executables_dir</span><span class="o">=</span><span class="p">()):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">requirements</span> <span class="o">=</span> <span class="n">requirements</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">constraints</span> <span class="o">=</span> <span class="p">{}</span> <span class="k">if</span> <span class="n">constraints</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">constraints</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">executable_links</span> <span class="o">=</span> <span class="p">[]</span> <span class="k">if</span> <span class="n">executable_links</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">executable_links</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">executables_dir</span> <span class="o">=</span> <span class="n">executables_dir</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">additional_items</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="sh">'</span><span class="s">Application(</span><span class="si">{</span><span class="n">self</span><span class="p">.</span><span class="n">name</span><span class="si">!r}</span><span class="s">,</span><span class="si">{</span><span class="n">self</span><span class="p">.</span><span class="n">requirements</span><span class="si">!r}</span><span class="s">,</span><span class="si">{</span><span class="n">self</span><span class="p">.</span><span class="n">constraints</span><span class="si">!r}</span><span class="s">,</span><span class="si">{</span><span class="n">self</span><span class="p">.</span><span class="n">path</span><span class="si">!r}</span><span class="s">,</span><span class="si">{</span><span class="n">self</span><span class="p">.</span><span class="n">executable_links</span><span class="si">!r}</span><span class="s">,</span><span class="si">{</span><span class="n">self</span><span class="p">.</span><span class="n">executables_dir</span><span class="si">!r}</span><span class="s">,</span><span class="si">{</span><span class="n">self</span><span class="p">.</span><span class="n">additional_items</span><span class="si">!r}</span><span class="s">)</span><span class="sh">'</span>
+</code></pre></div></div>
+
+<p><strong><code class="language-plaintext highlighter-rouge">Data Class</code> 버전:</strong></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">Application</span><span class="p">:</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">requirements</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Requirement</span><span class="p">]</span>
+    <span class="n">constraints</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nf">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+    <span class="n">path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sh">''</span>
+    <span class="n">executable_links</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nf">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">executable_dir</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">()</span>
+    <span class="n">additional_items</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nf">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">Data Class</code> 버전은 더 선언적이며 코드가 적고, 타입 힌트를 지원하며, 다른 생성된 함수들을 포함합니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/556/" class="pagination--pager" title="[Deferred] PEP 556 - Threaded garbage collection
+">Previous</a>
+    
+    
+      <a href="/python/pep/558/" class="pagination--pager" title="[Withdrawn] PEP 558 - Defined semantics for locals()
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

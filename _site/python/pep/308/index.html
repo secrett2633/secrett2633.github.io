@@ -1,0 +1,707 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 308 - Conditional Expressions | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 308: ‘Conditional Expressions’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 308 - Conditional Expressions">
+<meta property="og:url" content="http://localhost:4000/python/pep/308/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 308: ‘Conditional Expressions’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T18:10:46+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T18:10:46+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/308/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 308 - Conditional Expressions">
+    <meta itemprop="description" content="Python Enhancement Proposal 308: ‘Conditional Expressions’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T18:10:46+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T18:10:46+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 308 - Conditional Expressions
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T18:10:46+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-308--조건부-표현식-conditional-expressions-번역-및-요약">PEP 308 – 조건부 표현식 (Conditional Expressions) 번역 및 요약</a><ul><li><a href="#개요">개요</a></li><li><a href="#도입-배경">도입 배경</a></li><li><a href="#제안-내용-x-if-c-else-y">제안 내용: X if C else Y</a></li><li><a href="#대안-및-논의">대안 및 논의</a></li><li><a href="#단락-평가-short-circuit-behavior">단락 평가 (Short-Circuit Behavior)</a></li><li><a href="#투표-결과">투표 결과</a></li><li><a href="#결론">결론</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0308/">PEP 308 - Conditional Expressions</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 07-Feb-2003</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h2 id="pep-308--조건부-표현식-conditional-expressions-번역-및-요약">PEP 308 – 조건부 표현식 (Conditional Expressions) 번역 및 요약</h2>
+
+<h3 id="개요">개요</h3>
+<p>PEP 308은 Python에 조건부 표현식을 추가하는 제안입니다. 이 PEP는 “X if C else Y” 형태의 조건부 표현식이 Python 2.5에 추가될 것을 확정지었습니다. 주된 동기는 <code class="language-plaintext highlighter-rouge">and</code> 및 <code class="language-plaintext highlighter-rouge">or</code> 연산자를 사용하여 유사한 효과를 얻으려던 시도들이 오류 발생 가능성이 높았기 때문입니다.</p>
+
+<h3 id="도입-배경">도입 배경</h3>
+<p>이전에도 조건부 표현식 추가에 대한 커뮤니티의 요구가 있었으나, 최적의 구문에 대한 합의 부족으로 번번이 좌절되었습니다. 이 문제는 최종적으로 BDFL(자비로운 종신 독재자, Guido van Rossum)의 판단에 따라 해결되었습니다. BDFL은 표준 라이브러리 전체에 새로운 구문을 적용하여 실제 사용 사례를 검토함으로써 이 결정의 유효성을 확인했습니다.</p>
+
+<h3 id="제안-내용-x-if-c-else-y">제안 내용: <code class="language-plaintext highlighter-rouge">X if C else Y</code></h3>
+<p>2005년 9월 29일, Guido van Rossum은 <code class="language-plaintext highlighter-rouge">X if C else Y</code> 형태의 조건부 표현식을 추가하기로 결정했습니다.</p>
+
+<p><strong>동작 방식:</strong></p>
+<ol>
+  <li>먼저 <code class="language-plaintext highlighter-rouge">C</code> (조건)이 평가됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">C</code>가 참(True)이면 <code class="language-plaintext highlighter-rouge">X</code>가 평가되고 전체 표현식의 결과가 됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">C</code>가 거짓(False)이면 <code class="language-plaintext highlighter-rouge">Y</code>가 평가되고 전체 표현식의 결과가 됩니다.</li>
+</ol>
+
+<p><strong>문법 변경:</strong>
+Python의 문법에 다음과 같은 변경이 적용되었습니다:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>test: or_test ['if' or_test 'else' test] | lambdef
+or_test: and_test ('or' and_test)*
+...
+</code></pre></div></div>
+
+<p><strong>하위 호환성:</strong>
+새로운 구문은 거의 사소한 문법적 하위 호환성 문제를 일으킬 수 있었습니다. 이전 Python 버전에서는 <code class="language-plaintext highlighter-rouge">[f for f in lambda x: x, lambda x: x**2 if f(1) == 1]</code> 와 같은 리스트 컴프리헨션(List Comprehension)이 유효했습니다. 하지만 Python 3.0에서는 람다(lambda) 시리즈를 괄호로 묶어야 합니다 (예: <code class="language-plaintext highlighter-rouge">[f for f in (lambda x: x, lambda x: x**2) if f(1) == 1]</code>). 이는 <code class="language-plaintext highlighter-rouge">lambda</code>가 <code class="language-plaintext highlighter-rouge">if-else</code> 표현식보다 결합력이 약하기 때문입니다.</p>
+
+<p>Python 2.5에서는 약간 다른 문법이 사용되어 하위 호환성을 더 유지했지만, 이 위치에서 사용되는 람다의 본문에 괄호 없는 조건 표현식을 포함하는 것을 금지함으로써 람다의 문법을 제약했습니다. 예를 들어, <code class="language-plaintext highlighter-rouge">[f for f in 1, lambda x: x if x &gt;= 0 else -1]</code>는 유효하지 않습니다. 대신 <code class="language-plaintext highlighter-rouge">[f for f in 1, (lambda x: x if x &gt;= 0 else -1)]</code> 또는 <code class="language-plaintext highlighter-rouge">[f for f in 1, lambda x: (x if x &gt;= 0 else -1)]</code>와 같이 괄호를 사용해야 합니다.</p>
+
+<h3 id="대안-및-논의">대안 및 논의</h3>
+<p>과거에 다양한 조건부 표현식 구문이 제안되었고 논의되었습니다:</p>
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">(if &lt;condition&gt;: &lt;expression1&gt; else: &lt;expression2&gt;)</code></strong>: 괄호가 필수이며, <code class="language-plaintext highlighter-rouge">elif</code> 확장이 가능합니다. 문장 구문과의 혼동 가능성, 콜론(colon)의 의미 과부하 등의 단점이 지적되었습니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">&lt;condition&gt; and &lt;expression1&gt; else &lt;expression2&gt;</code></strong>: <code class="language-plaintext highlighter-rouge">and/or</code> 연산자를 기반으로 한 최소 침습적(minimally invasive) 변경으로 제안되었으나, <code class="language-plaintext highlighter-rouge">else</code>가 <code class="language-plaintext highlighter-rouge">and</code>의 기존 의미를 변경한다는 지적이 있었습니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">&lt;condition&gt; then &lt;expression1&gt; else &lt;expression2&gt;</code></strong>: 간단한 시각적 분석, 괄호 불필요, 기존 키워드 의미 변경 없음 등의 장점이 있었으나, 새 키워드 도입 비용이 단점으로 지적되었습니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">C-언어 스타일: &lt;condition&gt; ? &lt;expression1&gt; : &lt;expression2&gt;</code></strong>: Eric Raymond가 구현하기도 했으나, Python에서 콜론의 다양한 용도와 C-언어에 익숙하지 않은 사용자에게는 이해하기 어렵다는 이유로 BDFL이 거부했습니다.</li>
+  <li><strong>원래 PEP 제안: <code class="language-plaintext highlighter-rouge">&lt;expression1&gt; if &lt;condition&gt; else &lt;expression2&gt;</code></strong>: 이 제안은 순서가 뒤바뀐 배열이 많은 토론 참여자들에게 불편하다는 의견이 많았습니다. 특히 <code class="language-plaintext highlighter-rouge">&lt;expression1&gt;</code>이 길 경우, 조건부를 놓치기 쉽다는 지적이 있었습니다.</li>
+  <li><strong>내장 함수 (예: <code class="language-plaintext highlighter-rouge">cond(&lt;condition&gt;, &lt;expression1&gt;, &lt;expression2&gt;)</code>)</strong>: 이 방식은 <code class="language-plaintext highlighter-rouge">expression1</code>과 <code class="language-plaintext highlighter-rouge">expression2</code>가 함수 호출 전에 모두 평가되어야 하므로 단락 평가(short-circuit evaluation)가 불가능하다는 단점이 있습니다. 키워드로 만들 경우에도 혼란을 줄 수 있습니다.</li>
+</ul>
+
+<h3 id="단락-평가-short-circuit-behavior">단락 평가 (Short-Circuit Behavior)</h3>
+<p>조건부 표현식에서 단락 평가는 매우 중요하게 고려되었습니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">X if C else Y</code> 구문은 <code class="language-plaintext highlighter-rouge">C</code>가 참이면 <code class="language-plaintext highlighter-rouge">X</code>만 평가하고, 거짓이면 <code class="language-plaintext highlighter-rouge">Y</code>만 평가하는 단락 평가를 지원합니다.</li>
+  <li>이는 <code class="language-plaintext highlighter-rouge">and</code> 및 <code class="language-plaintext highlighter-rouge">or</code> 연산자가 두 번째 피연산자를 첫 번째 피연산자에 따라 평가하는 방식과 유사합니다.</li>
+</ul>
+
+<p>단락 평가는 다음과 같은 경우에 유용합니다:</p>
+<ul>
+  <li>표현식에 부수 효과(side-effects)가 있을 때</li>
+  <li>하나 또는 두 표현식 모두 리소스 집약적일 때</li>
+  <li>조건이 표현식의 유효성에 대한 가드(guard) 역할을 할 때</li>
+</ul>
+
+<p>예시:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">data</span> <span class="o">=</span> <span class="n">source</span><span class="p">.</span><span class="nf">readlines</span><span class="p">()</span> <span class="k">if</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="nb">file</span><span class="p">)</span> <span class="k">else</span> <span class="n">source</span><span class="p">.</span><span class="nf">split</span><span class="p">()</span>
+</code></pre></div></div>
+<p>이 경우, <code class="language-plaintext highlighter-rouge">readlines()</code>는 파일 포인터를 이동시키고, 긴 소스에 대해 두 대안 모두 시간이 걸리며, <code class="language-plaintext highlighter-rouge">split()</code>은 문자열에만, <code class="language-plaintext highlighter-rouge">readlines()</code>는 파일 객체에만 유효합니다. 단락 평가는 불필요한 연산을 방지하고 잠재적인 오류를 막을 수 있습니다. BDFL은 <code class="language-plaintext highlighter-rouge">if-then-else</code> 구문이 언어에 추가되려면 단락 평가 동작이 필수적이라고 보았습니다.</p>
+
+<h3 id="투표-결과">투표 결과</h3>
+<p>조건부 표현식 도입에 대한 커뮤니티 투표가 진행되었으며, 다양한 대안에 대한 지지도가 나뉘었습니다. 최종적으로 “X if C else Y” 구문이 가장 많은 지지를 얻어 채택되었습니다.</p>
+
+<h3 id="결론">결론</h3>
+<p>PEP 308을 통해 Python 언어에 <code class="language-plaintext highlighter-rouge">X if C else Y</code> 형태의 조건부 표현식이 성공적으로 추가되었습니다. 이는 <code class="language-plaintext highlighter-rouge">and/or</code> 연산자의 오용을 줄이고, 더 간결하고 읽기 쉬운 코드를 작성할 수 있게 하며, 중요한 단락 평가 기능을 제공합니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/307/" class="pagination--pager" title="[Final] PEP 307 - Extensions to the pickle protocol
+">Previous</a>
+    
+    
+      <a href="/python/pep/309/" class="pagination--pager" title="[Final] PEP 309 - Partial Function Application
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

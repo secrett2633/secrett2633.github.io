@@ -1,0 +1,777 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 553 - Built-in breakpoint() | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 553: ‘Built-in breakpoint()’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 553 - Built-in breakpoint()">
+<meta property="og:url" content="http://localhost:4000/python/pep/553/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 553: ‘Built-in breakpoint()’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T23:38:53+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T23:38:53+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/553/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 553 - Built-in breakpoint()">
+    <meta itemprop="description" content="Python Enhancement Proposal 553: ‘Built-in breakpoint()’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T23:38:53+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T23:38:53+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 553 - Built-in breakpoint()
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T23:38:53+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#개요">개요</a></li><li><a href="#도입-배경-rationale">도입 배경 (Rationale)</a></li><li><a href="#제안-proposal">제안 (Proposal)</a></li><li><a href="#환경-변수-environment-variable">환경 변수 (Environment variable)</a></li><li><a href="#구현-implementation">구현 (Implementation)</a></li><li><a href="#기각된-대안-rejected-alternatives">기각된 대안 (Rejected alternatives)</a><ul><li><a href="#새로운-키워드-a-new-keyword">새로운 키워드 (A new keyword)</a></li><li><a href="#sysbreakpoint">sys.breakpoint()</a></li></ul></li><li><a href="#버전-기록-version-history">버전 기록 (Version History)</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0553/">PEP 553 - Built-in breakpoint()</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 05-Sep-2017</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>PEP 553 – 내장 함수 <code class="language-plaintext highlighter-rouge">breakpoint()</code></p>
+
+<h2 id="개요">개요</h2>
+<p>이 PEP는 호출 지점에서 Python 디버거를 실행하는 새로운 내장 함수 <code class="language-plaintext highlighter-rouge">breakpoint()</code>를 추가할 것을 제안합니다. 또한, 어떤 디버거를 사용할지 설정할 수 있도록 <code class="language-plaintext highlighter-rouge">sys</code> 모듈에 두 개의 새로운 이름이 추가됩니다.</p>
+
+<h2 id="도입-배경-rationale">도입 배경 (Rationale)</h2>
+<p>Python 표준 라이브러리에는 <code class="language-plaintext highlighter-rouge">pdb</code>라는 훌륭한 디버거가 오랫동안 존재했습니다. <code class="language-plaintext highlighter-rouge">pdb</code>를 사용하여 중단점(breakpoint)을 설정하는 일반적인 방법은 다음과 같습니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">foo</span><span class="p">()</span>
+<span class="kn">import</span> <span class="n">pdb</span><span class="p">;</span> <span class="n">pdb</span><span class="p">.</span><span class="nf">set_trace</span><span class="p">()</span>
+<span class="nf">bar</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>이 코드는 <code class="language-plaintext highlighter-rouge">foo()</code> 실행 후 <code class="language-plaintext highlighter-rouge">bar()</code> 실행 전에 디버거를 시작합니다. 그러나 이 방식에는 몇 가지 단점이 있습니다:</p>
+
+<ul>
+  <li><strong>긴 입력</strong>: 27자나 되어 타이핑하기 번거롭습니다.</li>
+  <li><strong>오타 발생</strong>: 세미콜론 누락, 점 대신 밑줄 입력 등 오타가 발생하기 쉽습니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">pdb</code>에 종속적</strong>: 디버깅 방식이 <code class="language-plaintext highlighter-rouge">pdb</code>에 직접적으로 연결됩니다. IDE나 다른 개발 환경을 사용할 경우 다른 디버깅 옵션이 있을 수 있습니다.</li>
+  <li><strong>린터(Linter) 불평</strong>: <code class="language-plaintext highlighter-rouge">flake8</code>과 같은 Python 린터는 이 줄이 두 개의 문(statement)을 포함하고 있어 경고를 발생시킵니다. 이 구문을 두 줄로 나누면 정리할 때 실수를 할 가능성이 높아집니다 (예: 디버깅이 더 이상 필요 없을 때 한 줄을 삭제하는 것을 잊을 수 있습니다).</li>
+</ul>
+
+<p>Python 개발자들은 선택할 수 있는 다른 디버거들도 많지만, 이들을 호출하는 방법을 기억하는 것은 어려울 수 있습니다. IDE가 중단점을 설정하는 사용자 인터페이스를 제공하더라도, 코드를 직접 편집하는 것이 더 편리할 수 있습니다. 디버거를 프로그래밍 방식으로 실행하는 API들은 일관성이 없어 정확히 무엇을 입력해야 할지 기억하기 어려울 수 있습니다.</p>
+
+<p>이 PEP에서 제안하는 방식으로 디버거 진입을 위한 보편적인 API를 제공함으로써 이러한 모든 문제들을 해결할 수 있습니다.</p>
+
+<h2 id="제안-proposal">제안 (Proposal)</h2>
+<p>JavaScript 언어는 <code class="language-plaintext highlighter-rouge">debugger</code> 문을 제공하여 해당 문이 나타나는 지점에서 디버거를 실행합니다.</p>
+
+<p>이 PEP는 호출 지점에서 Python 디버거를 실행하는 <code class="language-plaintext highlighter-rouge">breakpoint()</code>라는 새로운 내장 함수를 제안합니다. 따라서 위의 예제는 다음과 같이 작성될 수 있습니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">foo</span><span class="p">()</span>
+<span class="nf">breakpoint</span><span class="p">()</span>
+<span class="nf">bar</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>또한, 이 PEP는 <code class="language-plaintext highlighter-rouge">sys.breakpointhook()</code>과 <code class="language-plaintext highlighter-rouge">sys.__breakpointhook__</code>이라는 <code class="language-plaintext highlighter-rouge">sys</code> 모듈에 두 가지 새로운 이름 바인딩을 제안합니다. 기본적으로 <code class="language-plaintext highlighter-rouge">sys.breakpointhook()</code>은 <code class="language-plaintext highlighter-rouge">pdb.set_trace()</code>를 실제로 임포트하고 실행하는 역할을 하며, <code class="language-plaintext highlighter-rouge">breakpoint()</code>가 실행할 디버거를 변경하기 위해 다른 함수로 설정할 수 있습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">sys.__breakpointhook__</code>은 <code class="language-plaintext highlighter-rouge">sys.breakpointhook()</code>과 동일한 함수로 초기화됩니다. 이를 통해 <code class="language-plaintext highlighter-rouge">sys.breakpointhook()</code>을 언제든지 기본값으로 쉽게 재설정할 수 있습니다 (예: <code class="language-plaintext highlighter-rouge">sys.breakpointhook = sys.__breakpointhook__</code>). 이는 기존 <code class="language-plaintext highlighter-rouge">sys.displayhook()</code> / <code class="language-plaintext highlighter-rouge">sys.__displayhook__</code> 및 <code class="language-plaintext highlighter-rouge">sys.excepthook()</code> / <code class="language-plaintext highlighter-rouge">sys.__excepthook__</code>이 작동하는 방식과 정확히 동일합니다.</p>
+
+<p>내장 함수 <code class="language-plaintext highlighter-rouge">breakpoint()</code>의 시그니처는 <code class="language-plaintext highlighter-rouge">breakpoint(*args, **kws)</code>입니다. 위치 및 키워드 인수는 <code class="language-plaintext highlighter-rouge">sys.breakpointhook()</code>으로 직접 전달되며, 시그니처가 일치하지 않으면 <code class="language-plaintext highlighter-rouge">TypeError</code>가 발생합니다. <code class="language-plaintext highlighter-rouge">sys.breakpointhook()</code>의 반환 값은 <code class="language-plaintext highlighter-rouge">breakpoint()</code>로 다시 전달되어 반환됩니다.</p>
+
+<p>이러한 설계는 기본 디버거가 추가적인 선택적 인수를 받을 수 있다는 관찰에 기반합니다. 예를 들어, IPython은 중단점에 진입할 때 출력될 문자열을 지정할 수 있으며, Python 3.7부터 <code class="language-plaintext highlighter-rouge">pdb</code> 모듈도 선택적 <code class="language-plaintext highlighter-rouge">header</code> 인수를 지원합니다.</p>
+
+<h2 id="환경-변수-environment-variable">환경 변수 (Environment variable)</h2>
+<p><code class="language-plaintext highlighter-rouge">sys.breakpointhook()</code>의 기본 구현은 <code class="language-plaintext highlighter-rouge">PYTHONBREAKPOINT</code>라는 새로운 환경 변수를 참조합니다. 이 환경 변수는 다양한 값을 가질 수 있습니다:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">PYTHONBREAKPOINT=0</code>: 디버깅을 비활성화합니다. 이 값으로 설정하면 <code class="language-plaintext highlighter-rouge">sys.breakpointhook()</code>은 즉시 <code class="language-plaintext highlighter-rouge">None</code>을 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">PYTHONBREAKPOINT=</code> (즉, 빈 문자열): 환경 변수를 전혀 설정하지 않은 것과 동일하며, 이 경우 <code class="language-plaintext highlighter-rouge">pdb.set_trace()</code>가 평소처럼 실행됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">PYTHONBREAKPOINT=some.importable.callable</code>: 이 경우, <code class="language-plaintext highlighter-rouge">sys.breakpointhook()</code>은 <code class="language-plaintext highlighter-rouge">some.importable</code> 모듈을 임포트하고 해당 모듈에서 호출 가능한(callable) 객체를 가져와 호출합니다. 값이 점(.)이 없는 문자열일 경우, 내장된 호출 가능한 객체의 이름을 지정합니다 (예: <code class="language-plaintext highlighter-rouge">PYTHONBREAKPOINT=int</code>).</li>
+</ul>
+
+<p>이 환경 변수를 통해 외부 프로세스가 중단점 처리를 제어할 수 있습니다. 몇 가지 사용 사례는 다음과 같습니다:</p>
+
+<ul>
+  <li><strong>배포 환경에서 모든 의도치 않은 <code class="language-plaintext highlighter-rouge">breakpoint()</code> 호출을 완전히 비활성화</strong>: 실행 환경에서 <code class="language-plaintext highlighter-rouge">PYTHONBREAKPOINT=0</code>로 설정하여 달성할 수 있습니다. PEP 검토자들은 이 경우 <code class="language-plaintext highlighter-rouge">PYTHONBREAKPOINT=sys.exit</code>으로 설정하는 것을 제안하기도 했습니다.</li>
+  <li><strong>특정 디버거를 사용하는 IDE 통합</strong>: IDE는 <code class="language-plaintext highlighter-rouge">PYTHONBREAKPOINT</code>를 자체 내부 디버깅 훅으로 설정하여 프로그램이 디버깅 환경에서 실행되도록 할 수 있습니다.</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">PYTHONBREAKPOINT</code>는 <code class="language-plaintext highlighter-rouge">sys.breakpointhook()</code>이 호출될 때마다 다시 해석됩니다. 이를 통해 프로세스는 프로그램 실행 중에 값을 변경하고 <code class="language-plaintext highlighter-rouge">breakpoint()</code>가 이러한 변경에 반응하도록 할 수 있습니다. 디버거 진입은 정의상 실행을 중지시키므로 성능에 중요한 섹션으로 간주되지 않습니다. 따라서 프로그램은 다음과 같이 할 수 있습니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">[</span><span class="sh">'</span><span class="s">PYTHONBREAKPOINT</span><span class="sh">'</span><span class="p">]</span> <span class="o">=</span> <span class="sh">'</span><span class="s">foo.bar.baz</span><span class="sh">'</span>
+<span class="nf">breakpoint</span><span class="p">()</span> <span class="c1"># foo.bar를 임포트하고 foo.bar.baz()를 호출합니다.
+</span></code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">sys.breakpointhook</code>을 오버라이딩하면 <code class="language-plaintext highlighter-rouge">PYTHONBREAKPOINT</code>의 기본 참조가 무효화됩니다. 오버라이딩하는 코드가 <code class="language-plaintext highlighter-rouge">PYTHONBREAKPOINT</code>를 참조할지 여부는 해당 코드에 달려 있습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">PYTHONBREAKPOINT</code>에 지정된 호출 가능한 객체에 대한 접근이 어떤 식으로든 실패할 경우 (예: 임포트 실패 또는 해당 모듈에 호출 가능한 객체가 없을 경우), <code class="language-plaintext highlighter-rouge">RuntimeWarning</code>이 발생하고 중단점 함수는 호출되지 않습니다.</p>
+
+<p>다른 모든 <code class="language-plaintext highlighter-rouge">PYTHON*</code> 환경 변수와 마찬가지로, 인터프리터가 <code class="language-plaintext highlighter-rouge">-E</code> 옵션으로 시작될 때는 <code class="language-plaintext highlighter-rouge">PYTHONBREAKPOINT</code>가 무시됩니다. 이는 기본 동작이 발생한다는 것을 의미합니다 (즉, <code class="language-plaintext highlighter-rouge">pdb.set_trace()</code>가 실행됩니다). <code class="language-plaintext highlighter-rouge">-E</code>가 적용될 때 <code class="language-plaintext highlighter-rouge">PYTHONBREAKPOINT=0</code>으로 다르게 처리할지에 대한 논의가 있었으나, 의견이 불일치하여 특별한 경우로 간주할 만큼 특별하지 않다고 결정되었습니다.</p>
+
+<h2 id="구현-implementation">구현 (Implementation)</h2>
+<p>제안된 구현에 대한 Pull Request가 존재합니다. 실제 구현은 C로 되어 있지만, 이 기능에 대한 Python 유사 코드(pseudo-code)는 대략 다음과 같습니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 내장 함수에.
+</span><span class="k">def</span> <span class="nf">breakpoint</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kws</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="n">sys</span>
+    <span class="n">missing</span> <span class="o">=</span> <span class="nf">object</span><span class="p">()</span>
+    <span class="n">hook</span> <span class="o">=</span> <span class="nf">getattr</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="sh">'</span><span class="s">breakpointhook</span><span class="sh">'</span><span class="p">,</span> <span class="n">missing</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">hook</span> <span class="ow">is</span> <span class="n">missing</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="nc">RuntimeError</span><span class="p">(</span><span class="sh">'</span><span class="s">lost sys.breakpointhook</span><span class="sh">'</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nf">hook</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kws</span><span class="p">)</span>
+
+<span class="c1"># sys 모듈에.
+</span><span class="k">def</span> <span class="nf">breakpointhook</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kws</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="n">importlib</span><span class="p">,</span> <span class="n">os</span><span class="p">,</span> <span class="n">warnings</span>
+    <span class="n">hookname</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="nf">getenv</span><span class="p">(</span><span class="sh">'</span><span class="s">PYTHONBREAKPOINT</span><span class="sh">'</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">hookname</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nf">len</span><span class="p">(</span><span class="n">hookname</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">hookname</span> <span class="o">=</span> <span class="sh">'</span><span class="s">pdb.set_trace</span><span class="sh">'</span>
+    <span class="k">elif</span> <span class="n">hookname</span> <span class="o">==</span> <span class="sh">'</span><span class="s">0</span><span class="sh">'</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span>
+
+    <span class="n">modname</span><span class="p">,</span> <span class="n">dot</span><span class="p">,</span> <span class="n">funcname</span> <span class="o">=</span> <span class="n">hookname</span><span class="p">.</span><span class="nf">rpartition</span><span class="p">(</span><span class="sh">'</span><span class="s">.</span><span class="sh">'</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">dot</span> <span class="o">==</span> <span class="sh">''</span><span class="p">:</span>
+        <span class="n">modname</span> <span class="o">=</span> <span class="sh">'</span><span class="s">builtins</span><span class="sh">'</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">module</span> <span class="o">=</span> <span class="n">importlib</span><span class="p">.</span><span class="nf">import_module</span><span class="p">(</span><span class="n">modname</span><span class="p">)</span>
+        <span class="n">hook</span> <span class="o">=</span> <span class="nf">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">funcname</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="p">.</span><span class="nf">warn</span><span class="p">(</span>
+            <span class="sh">'</span><span class="s">Ignoring unimportable $PYTHONBREAKPOINT: {}</span><span class="sh">'</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span>
+                <span class="n">hookname</span><span class="p">),</span> <span class="nb">RuntimeWarning</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    <span class="k">return</span> <span class="nf">hook</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kws</span><span class="p">)</span>
+
+<span class="n">__breakpointhook__</span> <span class="o">=</span> <span class="n">breakpointhook</span>
+</code></pre></div></div>
+
+<h2 id="기각된-대안-rejected-alternatives">기각된 대안 (Rejected alternatives)</h2>
+
+<h3 id="새로운-키워드-a-new-keyword">새로운 키워드 (A new keyword)</h3>
+<p>처음에 저자는 <code class="language-plaintext highlighter-rouge">break here</code>와 같은 새로운 키워드나 기존 키워드의 확장을 고려했습니다. 이는 여러 가지 이유로 기각되었습니다.</p>
+
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">__future__</code> 필요</strong>: 완전히 새로운 키워드는 거의 모든 새 키워드가 기존 코드와 충돌할 수 있으므로 활성화하려면 <code class="language-plaintext highlighter-rouge">__future__</code>를 필요로 합니다. 이는 디버거에 쉽게 진입할 수 있다는 장점을 상쇄합니다.</li>
+  <li><strong>키워드 확장 제한</strong>: <code class="language-plaintext highlighter-rouge">break here</code>와 같은 확장된 키워드는 가독성은 좋고 <code class="language-plaintext highlighter-rouge">__future__</code>를 필요로 하지 않지만, 이 키워드 확장을 이 새로운 기능에 묶어두어 PEP 548에서 제안된 것과 같은 더 유용한 확장을 방해할 수 있습니다.</li>
+  <li><strong>구문 및 바이트코드 복잡성</strong>: 새로운 키워드는 수정된 문법과 새로운 바이트코드를 필요로 할 가능성이 높습니다. 이는 각각 구현을 더 복잡하게 만듭니다.</li>
+  <li><strong>내장 함수의 이점</strong>: 새로운 내장 함수는 기존 코드를 전혀 깨뜨리지 않으며 (기존 모듈 전역 변수가 내장 함수를 가릴 뿐이므로) 구현하기도 매우 쉽습니다.</li>
+</ul>
+
+<h3 id="sysbreakpoint"><code class="language-plaintext highlighter-rouge">sys.breakpoint()</code></h3>
+<p><code class="language-plaintext highlighter-rouge">sys.breakpoint()</code>는 왜 채택되지 않았을까요? 디버거를 호출하기 위해 <code class="language-plaintext highlighter-rouge">import</code>를 요구하는 것은 <code class="language-plaintext highlighter-rouge">sys</code>가 모든 모듈에 임포트되지 않기 때문에 명시적으로 기각되었습니다. 이는 단지 더 많은 타이핑을 요구하며 다음과 같은 문제를 야기합니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">sys</span><span class="p">;</span> <span class="n">sys</span><span class="p">.</span><span class="nf">breakpoint</span><span class="p">()</span>
+</code></pre></div></div>
+<p>이는 이 PEP가 해결하려는 여러 문제점들을 그대로 계승합니다.</p>
+
+<h2 id="버전-기록-version-history">버전 기록 (Version History)</h2>
+<ul>
+  <li><strong>2019-10-13</strong>: 유사 코드의 <code class="language-plaintext highlighter-rouge">except</code> 절에 누락된 <code class="language-plaintext highlighter-rouge">return None</code> 추가.</li>
+  <li><strong>2017-09-13</strong>: <code class="language-plaintext highlighter-rouge">PYTHONBREAKPOINT</code> 환경 변수가 일등 시민(first class feature) 기능이 됨.</li>
+  <li><strong>2017-09-07</strong>: <code class="language-plaintext highlighter-rouge">debug()</code>가 <code class="language-plaintext highlighter-rouge">breakpoint()</code>로 이름 변경. 시그니처가 <code class="language-plaintext highlighter-rouge">breakpoint(*args, **kws)</code>로 변경되어 <code class="language-plaintext highlighter-rouge">sys.breakpointhook()</code>으로 직접 전달됨.</li>
+</ul>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/552/" class="pagination--pager" title="[Final] PEP 552 - Deterministic pycs
+">Previous</a>
+    
+    
+      <a href="/python/pep/554/" class="pagination--pager" title="[Superseded] PEP 554 - Multiple Interpreters in the Stdlib
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

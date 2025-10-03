@@ -1,0 +1,913 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 696 - Type Defaults for Type Parameters | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 696: ‘Type Defaults for Type Parameters’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 696 - Type Defaults for Type Parameters">
+<meta property="og:url" content="http://localhost:4000/python/pep/696/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 696: ‘Type Defaults for Type Parameters’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T13:04:16+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T13:04:16+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/696/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 696 - Type Defaults for Type Parameters">
+    <meta itemprop="description" content="Python Enhancement Proposal 696: ‘Type Defaults for Type Parameters’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T13:04:16+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T13:04:16+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 696 - Type Defaults for Type Parameters
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T13:04:16+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#개요">개요</a></li><li><a href="#동기-motivation">동기 (Motivation)</a></li><li><a href="#명세-specification">명세 (Specification)</a><ul><li><a href="#기본값-순서-및-서브스크립션-규칙-default-ordering-and-subscription-rules">기본값 순서 및 서브스크립션 규칙 (Default Ordering and Subscription Rules)</a></li><li><a href="#paramspec-기본값-paramspec-defaults">ParamSpec 기본값 (ParamSpec Defaults)</a></li><li><a href="#typevartuple-기본값-typevartuple-defaults">TypeVarTuple 기본값 (TypeVarTuple Defaults)</a></li><li><a href="#다른-타입-파라미터를-기본값으로-사용-using-another-type-parameter-as-default">다른 타입 파라미터를 기본값으로 사용 (Using Another Type Parameter as default)</a></li><li><a href="#제네릭의-파라미터로서의-타입-파라미터-type-parameters-as-parameters-to-generics">제네릭의 파라미터로서의 타입 파라미터 (Type Parameters as Parameters to Generics)</a></li><li><a href="#특수화-규칙-specialisation-rules">특수화 규칙 (Specialisation Rules)</a></li><li><a href="#제네릭-typealias-generic-typealias-es">제네릭 TypeAlias (Generic TypeAlias es)</a></li><li><a href="#서브클래싱-subclassing">서브클래싱 (Subclassing)</a></li><li><a href="#bound와-default-사용-using-bound-and-default">bound와 default 사용 (Using bound and default)</a></li><li><a href="#제약-조건-constraints">제약 조건 (Constraints)</a></li><li><a href="#함수-기본값-function-defaults">함수 기본값 (Function Defaults)</a></li><li><a href="#typevartuple-뒤에-오는-기본값-defaults-following-typevartuple">TypeVarTuple 뒤에 오는 기본값 (Defaults following TypeVarTuple)</a></li><li><a href="#서브타이핑-subtyping">서브타이핑 (Subtyping)</a></li><li><a href="#기본값으로서의-typevartuple-typevartuple-s-as-defaults">기본값으로서의 TypeVarTuple (TypeVarTuple s as Defaults)</a></li><li><a href="#바인딩-규칙-binding-rules">바인딩 규칙 (Binding rules)</a></li></ul></li><li><a href="#구현-implementation">구현 (Implementation)</a><ul><li><a href="#문법-변경-grammar-changes">문법 변경 (Grammar changes)</a></li></ul></li><li><a href="#채택되지-않은-대안-rejected-alternatives">채택되지 않은 대안 (Rejected Alternatives)</a><ul><li><a href="#type__new__의-kwargs에-타입-파라미터-기본값을-전달-allowing-the-type-parameters-defaults-to-be-passed-to-typenews-kwargs">type.__new__의 **kwargs에 타입 파라미터 기본값을 전달 (Allowing the Type Parameters Defaults to Be Passed to type.new’s **kwargs)</a></li><li><a href="#기본값-뒤에-비-기본값-허용-allowing-non-defaults-to-follow-defaults">기본값 뒤에 비-기본값 허용 (Allowing Non-defaults to Follow Defaults)</a></li><li><a href="#default가-암시적으로-bound가-되도록-허용-having-default-implicitly-be-bound">default가 암시적으로 bound가 되도록 허용 (Having default Implicitly Be bound)</a></li><li><a href="#함수-시그니처에서-기본값을-가진-타입-파라미터-사용-허용-allowing-type-parameters-with-defaults-to-be-used-in-function-signatures">함수 시그니처에서 기본값을 가진 타입 파라미터 사용 허용 (Allowing Type Parameters With Defaults To Be Used in Function Signatures)</a></li><li><a href="#외부-스코프의-타입-파라미터를-default로-허용-allowing-type-parameters-from-outer-scopes-in-default">외부 스코프의 타입 파라미터를 default로 허용 (Allowing Type Parameters from Outer Scopes in default)</a></li></ul></li><li><a href="#감사-acknowledgements">감사 (Acknowledgements)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0696/">PEP 696 - Type Defaults for Type Parameters</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 14-Jul-2022</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>PEP 696 – 타입 파라미터의 기본값 (Type Defaults for Type Parameters)</p>
+
+<h2 id="개요">개요</h2>
+<p>이 PEP (Python Enhancement Proposal)는 <code class="language-plaintext highlighter-rouge">TypeVar</code>, <code class="language-plaintext highlighter-rouge">ParamSpec</code>, <code class="language-plaintext highlighter-rouge">TypeVarTuple</code>을 포함한 타입 파라미터에 ‘타입 기본값 (type defaults)’ 개념을 도입합니다. 이는 특정 타입이 지정되지 않았을 때 타입 파라미터에 대한 기본값으로 작동합니다.</p>
+
+<p>C++, TypeScript, Rust와 같은 일부 인기 있는 언어에서는 이미 기본 타입 인자(default type argument)를 지원하고 있습니다. PEP 695의 작성자가 몇몇 일반적인 언어의 타입 파라미터 문법에 대한 조사를 수행했으며, 그 내용은 해당 PEP의 부록 A에서 확인할 수 있습니다.</p>
+
+<h2 id="동기-motivation">동기 (Motivation)</h2>
+<p>타입 파라미터의 기본값은 제네릭(Generic) 타입을 사용할 때 명시적인 타입 인자를 제공하지 않아도 되도록 하여 코드의 가독성과 사용 편의성을 높입니다.</p>
+
+<p><strong>예시 1: <code class="language-plaintext highlighter-rouge">TypeVar</code> 기본값</strong>
+<code class="language-plaintext highlighter-rouge">T = TypeVar("T", default=int)</code>는 <code class="language-plaintext highlighter-rouge">T</code>에 대한 타입이 지정되지 않으면 <code class="language-plaintext highlighter-rouge">int</code>로 간주됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">T</span> <span class="o">=</span> <span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">T</span><span class="sh">"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span> <span class="c1"># 타입이 지정되지 않으면 T는 int로 간주됩니다.
+</span><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">Box</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+    <span class="n">value</span><span class="p">:</span> <span class="n">T</span> <span class="o">|</span> <span class="bp">None</span> <span class="o">=</span> <span class="bp">None</span>
+
+<span class="nf">reveal_type</span><span class="p">(</span><span class="nc">Box</span><span class="p">())</span> <span class="c1"># type은 Box[int]입니다.
+</span><span class="nf">reveal_type</span><span class="p">(</span><span class="nc">Box</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="sh">"</span><span class="s">Hello World!</span><span class="sh">"</span><span class="p">))</span> <span class="c1"># type은 Box[str]입니다.
+</span></code></pre></div></div>
+
+<p><strong>예시 2: <code class="language-plaintext highlighter-rouge">Generator</code>의 타입 정의 개선</strong>
+<code class="language-plaintext highlighter-rouge">Generator</code>와 같은 내장 타입의 스텁(stub) 정의를 개선하는 데 유용합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">YieldT</span> <span class="o">=</span> <span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">YieldT</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">SendT</span> <span class="o">=</span> <span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">SendT</span><span class="sh">"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+<span class="n">ReturnT</span> <span class="o">=</span> <span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">ReturnT</span><span class="sh">"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Generator</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">YieldT</span><span class="p">,</span> <span class="n">SendT</span><span class="p">,</span> <span class="n">ReturnT</span><span class="p">]):</span>
+    <span class="bp">...</span>
+
+<span class="n">Generator</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">==</span> <span class="n">Generator</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="bp">None</span><span class="p">]</span> <span class="o">==</span> <span class="n">Generator</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p><strong>예시 3: 특정 타입이 주로 사용되는 제네릭</strong>
+일반적으로 하나의 타입에 대해 제네릭하게 사용되는 경우에도 유용합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Bot</span><span class="p">:</span> <span class="bp">...</span>
+<span class="n">BotT</span> <span class="o">=</span> <span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">BotT</span><span class="sh">"</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">Bot</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">Bot</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Context</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">BotT</span><span class="p">]):</span>
+    <span class="n">bot</span><span class="p">:</span> <span class="n">BotT</span>
+
+<span class="k">class</span> <span class="nc">MyBot</span><span class="p">(</span><span class="n">Bot</span><span class="p">):</span> <span class="bp">...</span>
+
+<span class="nf">reveal_type</span><span class="p">(</span><span class="nc">Context</span><span class="p">().</span><span class="n">bot</span><span class="p">)</span> <span class="c1"># type은 Bot입니다. (현재는 Any가 될 수 있음)
+</span><span class="nf">reveal_type</span><span class="p">(</span><span class="n">Context</span><span class="p">[</span><span class="n">MyBot</span><span class="p">]().</span><span class="n">bot</span><span class="p">)</span> <span class="c1"># type은 MyBot입니다.
+</span></code></pre></div></div>
+
+<p>이 기능은 명시적으로 타입을 사용하는 개발자뿐만 아니라, 자동 완성 기능을 사용하여 개발 속도를 높이는 비-타이핑 사용자에게도 도움이 됩니다.</p>
+
+<p>이러한 설계 패턴은 <code class="language-plaintext highlighter-rouge">discord.py</code> (위 예시 출처), <code class="language-plaintext highlighter-rouge">NumPy</code> (<code class="language-plaintext highlighter-rouge">ndarray</code>의 <code class="language-plaintext highlighter-rouge">dtype</code> 기본값이 <code class="language-plaintext highlighter-rouge">float64</code>가 되도록 함), <code class="language-plaintext highlighter-rouge">TensorFlow</code> (<code class="language-plaintext highlighter-rouge">Tensor</code> 및 <code class="language-plaintext highlighter-rouge">Layer</code> 정의 간소화)와 같은 프로젝트에서 흔히 나타납니다.</p>
+
+<h2 id="명세-specification">명세 (Specification)</h2>
+
+<h3 id="기본값-순서-및-서브스크립션-규칙-default-ordering-and-subscription-rules">기본값 순서 및 서브스크립션 규칙 (Default Ordering and Subscription Rules)</h3>
+<p>기본값이 없는 타입 파라미터는 기본값이 있는 타입 파라미터 뒤에 올 수 없습니다. 이는 <code class="language-plaintext highlighter-rouge">TypeError</code>를 발생시키고, 타입 체커(type checker)는 이를 오류로 플래그해야 합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">DefaultStrT</span> <span class="o">=</span> <span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">DefaultStrT</span><span class="sh">"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+<span class="n">T</span> <span class="o">=</span> <span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">T</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">NonDefaultFollowsDefault</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">DefaultStrT</span><span class="p">,</span> <span class="n">T</span><span class="p">]):</span> <span class="p">...</span> <span class="c1"># 유효하지 않음: 기본값이 없는 TypeVar는 기본값이 있는 TypeVar 뒤에 올 수 없습니다.
+</span>
+<span class="k">class</span> <span class="nc">NoNonDefaults</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">DefaultStrT</span><span class="p">,</span> <span class="n">DefaultIntT</span><span class="p">]):</span> <span class="bp">...</span>
+<span class="c1"># NoNoneDefaults == NoNoneDefaults[str] == NoNoneDefaults[str, int] (모두 유효)
+</span>
+<span class="k">class</span> <span class="nc">OneDefault</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="n">DefaultBoolT</span><span class="p">]):</span> <span class="bp">...</span>
+<span class="c1"># OneDefault[float] == OneDefault[float, bool] (유효)
+</span><span class="nf">reveal_type</span><span class="p">(</span><span class="n">OneDefault</span><span class="p">)</span> <span class="c1"># type is type[OneDefault[T, DefaultBoolT = bool]]
+</span><span class="nf">reveal_type</span><span class="p">(</span><span class="n">OneDefault</span><span class="p">[</span><span class="nb">float</span><span class="p">]())</span> <span class="c1"># type is OneDefault[float, bool]
+</span></code></pre></div></div>
+
+<p>PEP 695에서 도입된 Python 3.12의 새로운 제네릭 문법에서는 이 규칙이 컴파일 타임에 강제됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">type</span> <span class="n">Alias</span><span class="p">[</span><span class="n">DefaultT</span> <span class="o">=</span> <span class="nb">int</span><span class="p">,</span> <span class="n">T</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">DefaultT</span><span class="p">,</span> <span class="n">T</span><span class="p">]</span> <span class="c1"># SyntaxError
+</span><span class="k">def</span> <span class="nf">generic_func</span><span class="p">[</span><span class="n">DefaultT</span> <span class="o">=</span> <span class="nb">int</span><span class="p">,</span> <span class="n">T</span><span class="p">](</span><span class="n">x</span><span class="p">:</span> <span class="n">DefaultT</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span> <span class="p">...</span> <span class="c1"># SyntaxError
+</span><span class="k">class</span> <span class="nc">GenericClass</span><span class="p">[</span><span class="n">DefaultT</span> <span class="o">=</span> <span class="nb">int</span><span class="p">,</span> <span class="n">T</span><span class="p">]:</span> <span class="p">...</span> <span class="c1"># SyntaxError
+</span></code></pre></div></div>
+
+<h3 id="paramspec-기본값-paramspec-defaults"><code class="language-plaintext highlighter-rouge">ParamSpec</code> 기본값 (ParamSpec Defaults)</h3>
+<p><code class="language-plaintext highlighter-rouge">ParamSpec</code>의 기본값은 <code class="language-plaintext highlighter-rouge">TypeVar</code>와 동일한 문법을 사용하지만, 단일 타입 대신 타입 리스트, 줄임표(<code class="language-plaintext highlighter-rouge">...</code>) 리터럴 또는 다른 스코프 내의 <code class="language-plaintext highlighter-rouge">ParamSpec</code>을 사용합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">DefaultP</span> <span class="o">=</span> <span class="nc">ParamSpec</span><span class="p">(</span><span class="sh">"</span><span class="s">DefaultP</span><span class="sh">"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span>
+<span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">DefaultP</span><span class="p">]):</span> <span class="bp">...</span>
+<span class="nf">reveal_type</span><span class="p">(</span><span class="n">Foo</span><span class="p">)</span> <span class="c1"># type is type[Foo[DefaultP = [str, int]]]
+</span><span class="nf">reveal_type</span><span class="p">(</span><span class="nc">Foo</span><span class="p">())</span> <span class="c1"># type is Foo[[str, int]]
+</span><span class="nf">reveal_type</span><span class="p">(</span><span class="n">Foo</span><span class="p">[[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]]())</span> <span class="c1"># type is Foo[[bool, bool]]
+</span></code></pre></div></div>
+
+<h3 id="typevartuple-기본값-typevartuple-defaults"><code class="language-plaintext highlighter-rouge">TypeVarTuple</code> 기본값 (TypeVarTuple Defaults)</h3>
+<p><code class="language-plaintext highlighter-rouge">TypeVarTuple</code>의 기본값은 <code class="language-plaintext highlighter-rouge">TypeVar</code>와 동일한 문법을 사용하지만, 단일 타입 대신 언팩된(unpacked) 튜플 타입 또는 다른 스코프 내의 <code class="language-plaintext highlighter-rouge">TypeVarTuple</code>을 사용합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">DefaultTs</span> <span class="o">=</span> <span class="nc">TypeVarTuple</span><span class="p">(</span><span class="sh">"</span><span class="s">DefaultTs</span><span class="sh">"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">Unpack</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]])</span>
+<span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="o">*</span><span class="n">DefaultTs</span><span class="p">]):</span> <span class="bp">...</span>
+<span class="nf">reveal_type</span><span class="p">(</span><span class="n">Foo</span><span class="p">)</span> <span class="c1"># type is type[Foo[DefaultTs = *tuple[str, int]]]
+</span><span class="nf">reveal_type</span><span class="p">(</span><span class="nc">Foo</span><span class="p">())</span> <span class="c1"># type is Foo[str, int]
+</span><span class="nf">reveal_type</span><span class="p">(</span><span class="n">Foo</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]())</span> <span class="c1"># type is Foo[int, bool]
+</span></code></pre></div></div>
+
+<h3 id="다른-타입-파라미터를-기본값으로-사용-using-another-type-parameter-as-default">다른 타입 파라미터를 기본값으로 사용 (Using Another Type Parameter as default)</h3>
+<p>이 기능을 통해 제네릭의 타입 파라미터가 누락되었지만 다른 타입 파라미터가 지정된 경우 해당 값을 재사용할 수 있습니다. 다른 타입 파라미터를 기본값으로 사용하려면 기본값과 타입 파라미터가 동일한 타입이어야 합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">StartT</span> <span class="o">=</span> <span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">StartT</span><span class="sh">"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">StopT</span> <span class="o">=</span> <span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">StopT</span><span class="sh">"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">StartT</span><span class="p">)</span> <span class="c1"># StopT의 기본값은 StartT를 따릅니다.
+</span><span class="n">StepT</span> <span class="o">=</span> <span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">StepT</span><span class="sh">"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">int</span> <span class="o">|</span> <span class="bp">None</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">slice</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">StartT</span><span class="p">,</span> <span class="n">StopT</span><span class="p">,</span> <span class="n">StepT</span><span class="p">]):</span> <span class="bp">...</span>
+
+<span class="nf">reveal_type</span><span class="p">(</span><span class="nf">slice</span><span class="p">())</span> <span class="c1"># type is slice[int, int, int | None]
+</span><span class="nf">reveal_type</span><span class="p">(</span><span class="nb">slice</span><span class="p">[</span><span class="nb">str</span><span class="p">]())</span> <span class="c1"># type is slice[str, str, int | None]
+</span></code></pre></div></div>
+
+<p><strong>스코프 규칙 (Scoping Rules)</strong>
+<code class="language-plaintext highlighter-rouge">T1</code>이 <code class="language-plaintext highlighter-rouge">T2</code>의 기본값으로 사용되는 경우, <code class="language-plaintext highlighter-rouge">T1</code>은 제네릭의 파라미터 리스트에서 <code class="language-plaintext highlighter-rouge">T2</code>보다 먼저 사용되어야 합니다. 외부 스코프의 타입 파라미터를 기본값으로 사용하는 것은 지원되지 않습니다.</p>
+
+<p><strong>바운드 규칙 (Bound Rules)</strong>
+<code class="language-plaintext highlighter-rouge">T1</code>의 바운드(bound)는 <code class="language-plaintext highlighter-rouge">T2</code>의 바운드의 서브타입(subtype)이어야 합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">T1</span> <span class="o">=</span> <span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">T1</span><span class="sh">"</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">Ok</span><span class="sh">"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">T1</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span> <span class="c1"># 유효: int는 float의 서브타입입니다.
+</span><span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">Invalid</span><span class="sh">"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">T1</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span> <span class="c1"># 유효하지 않음: int는 str의 서브타입이 아닙니다.
+</span></code></pre></div></div>
+
+<p><strong>제약 규칙 (Constraint Rules)</strong>
+<code class="language-plaintext highlighter-rouge">T2</code>의 제약 조건은 <code class="language-plaintext highlighter-rouge">T1</code>의 제약 조건의 슈퍼셋(superset)이어야 합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">T1</span> <span class="o">=</span> <span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">T1</span><span class="sh">"</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">Invalid</span><span class="sh">"</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">T1</span><span class="p">)</span> <span class="c1"># 유효하지 않음: 상위 바운드 int가 제약 조건 float 또는 str과 호환되지 않습니다.
+</span></code></pre></div></div>
+
+<h3 id="제네릭의-파라미터로서의-타입-파라미터-type-parameters-as-parameters-to-generics">제네릭의 파라미터로서의 타입 파라미터 (Type Parameters as Parameters to Generics)</h3>
+<p>기본값 내에서 제네릭의 파라미터로 타입 파라미터를 사용하는 것은 허용됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">T</span> <span class="o">=</span> <span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">T</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">ListDefaultT</span> <span class="o">=</span> <span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">ListDefaultT</span><span class="sh">"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">])</span>
+<span class="k">class</span> <span class="nc">Bar</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="n">ListDefaultT</span><span class="p">]):</span> <span class="bp">...</span>
+
+<span class="nf">reveal_type</span><span class="p">(</span><span class="n">Bar</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="c1"># type is type[Bar[int, list[int]]]
+</span><span class="nf">reveal_type</span><span class="p">(</span><span class="n">Bar</span><span class="p">[</span><span class="nb">int</span><span class="p">]())</span> <span class="c1"># type is Bar[int, list[int]]
+</span></code></pre></div></div>
+
+<h3 id="특수화-규칙-specialisation-rules">특수화 규칙 (Specialisation Rules)</h3>
+<p>타입 파라미터는 현재 더 이상 서브스크립션될 수 없습니다.</p>
+
+<h3 id="제네릭-typealias-generic-typealias-es">제네릭 <code class="language-plaintext highlighter-rouge">TypeAlias</code> (Generic TypeAlias es)</h3>
+<p>제네릭 <code class="language-plaintext highlighter-rouge">TypeAlias</code>는 일반적인 서브스크립션 규칙에 따라 추가로 서브스크립션될 수 있어야 합니다. 기본값이 재정의되지 않은 타입 파라미터는 <code class="language-plaintext highlighter-rouge">TypeAlias</code>에 대체된 것처럼 처리되지만, 나중에 추가 특수화가 가능합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">MyAlias</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="n">SomethingWithNoDefaults</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">DefaultStrT</span><span class="p">]</span> <span class="c1"># 유효
+</span><span class="nf">reveal_type</span><span class="p">(</span><span class="n">MyAlias</span><span class="p">[</span><span class="nb">bool</span><span class="p">]())</span> <span class="c1"># type is SomethingWithNoDefaults[int, bool]
+</span></code></pre></div></div>
+
+<h3 id="서브클래싱-subclassing">서브클래싱 (Subclassing)</h3>
+<p>기본값이 있는 타입 파라미터를 가진 제네릭의 서브클래스는 <code class="language-plaintext highlighter-rouge">Generic TypeAlias</code>와 유사하게 작동합니다. 즉, 서브클래스는 일반 서브스크립션 규칙에 따라 추가 서브스크립션될 수 있으며, 재정의되지 않은 기본값은 대체되고, 해당 기본값을 가진 타입 파라미터는 나중에 추가 특수화가 가능합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">SubclassMe</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="n">DefaultStrT</span><span class="p">]):</span> <span class="n">x</span><span class="p">:</span> <span class="n">DefaultStrT</span>
+<span class="k">class</span> <span class="nc">Bar</span><span class="p">(</span><span class="n">SubclassMe</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">DefaultStrT</span><span class="p">]):</span> <span class="bp">...</span>
+<span class="nf">reveal_type</span><span class="p">(</span><span class="nc">Bar</span><span class="p">())</span> <span class="c1"># type is Bar[str]
+</span><span class="nf">reveal_type</span><span class="p">(</span><span class="n">Bar</span><span class="p">[</span><span class="nb">bool</span><span class="p">]())</span> <span class="c1"># type is Bar[bool]
+</span></code></pre></div></div>
+
+<h3 id="bound와-default-사용-using-bound-and-default"><code class="language-plaintext highlighter-rouge">bound</code>와 <code class="language-plaintext highlighter-rouge">default</code> 사용 (Using bound and default)</h3>
+<p><code class="language-plaintext highlighter-rouge">bound</code>와 <code class="language-plaintext highlighter-rouge">default</code>가 모두 전달되면, <code class="language-plaintext highlighter-rouge">default</code>는 <code class="language-plaintext highlighter-rouge">bound</code>의 서브타입이어야 합니다. 그렇지 않으면 타입 체커가 오류를 발생시켜야 합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">Ok</span><span class="sh">"</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span> <span class="c1"># 유효: int는 float의 서브타입입니다.
+</span><span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">Invalid</span><span class="sh">"</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span> <span class="c1"># 유효하지 않음: 바운드와 기본값이 호환되지 않습니다.
+</span></code></pre></div></div>
+
+<h3 id="제약-조건-constraints">제약 조건 (Constraints)</h3>
+<p>제약 조건이 있는 <code class="language-plaintext highlighter-rouge">TypeVar</code>의 경우, 기본값은 제약 조건 중 하나여야 합니다. 제약 조건 중 하나의 서브타입일지라도, 타입 체커는 오류를 발생시켜야 합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">Ok</span><span class="sh">"</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span> <span class="c1"># 유효
+</span><span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">Invalid</span><span class="sh">"</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span> <span class="c1"># 유효하지 않음: float 또는 str 중 하나를 예상했으나 int를 받았습니다.
+</span></code></pre></div></div>
+
+<h3 id="함수-기본값-function-defaults">함수 기본값 (Function Defaults)</h3>
+<p>제네릭 함수에서 타입 파라미터가 아무것도 해결되지 않을 때 타입 체커는 타입 파라미터의 기본값을 사용할 수 있습니다. 이 사용법의 의미론은 지정되지 않은 상태로 남아있습니다.</p>
+
+<h3 id="typevartuple-뒤에-오는-기본값-defaults-following-typevartuple"><code class="language-plaintext highlighter-rouge">TypeVarTuple</code> 뒤에 오는 기본값 (Defaults following TypeVarTuple)</h3>
+<p><code class="language-plaintext highlighter-rouge">TypeVarTuple</code> 바로 뒤에 오는 <code class="language-plaintext highlighter-rouge">TypeVar</code>는 기본값을 가질 수 없습니다. 이는 타입 인자가 <code class="language-plaintext highlighter-rouge">TypeVarTuple</code>에 바인딩되어야 하는지 또는 기본값이 있는 <code class="language-plaintext highlighter-rouge">TypeVar</code>에 바인딩되어야 하는지에 대한 모호성을 유발하기 때문입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Ts</span> <span class="o">=</span> <span class="nc">TypeVarTuple</span><span class="p">(</span><span class="sh">"</span><span class="s">Ts</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">T</span> <span class="o">=</span> <span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">T</span><span class="sh">"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">Ts</span><span class="p">,</span> <span class="n">T</span><span class="p">]):</span> <span class="p">...</span> <span class="c1"># 타입 체커 오류
+</span>
+<span class="n">Foo</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="c1"># Ts = (int, str, float), T = bool 또는 Ts = (int, str), T = float 로 해석될 수 있습니다.
+</span></code></pre></div></div>
+
+<p>Python 3.12의 내장 제네릭 문법에서는 이 경우 <code class="language-plaintext highlighter-rouge">SyntaxError</code>를 발생시켜야 합니다.
+하지만, 기본값이 있는 <code class="language-plaintext highlighter-rouge">TypeVarTuple</code> 뒤에 기본값이 있는 <code class="language-plaintext highlighter-rouge">ParamSpec</code>이 오는 것은 허용됩니다. <code class="language-plaintext highlighter-rouge">ParamSpec</code>과 <code class="language-plaintext highlighter-rouge">TypeVarTuple</code>에 대한 타입 인자 사이에 모호성이 없기 때문입니다.</p>
+
+<h3 id="서브타이핑-subtyping">서브타이핑 (Subtyping)</h3>
+<p>타입 파라미터 기본값은 제네릭 클래스의 서브타이핑 규칙에 영향을 미치지 않습니다. 특히, 클래스가 제네릭 프로토콜과 호환되는지 여부를 고려할 때 기본값은 무시될 수 있습니다.</p>
+
+<h3 id="기본값으로서의-typevartuple-typevartuple-s-as-defaults">기본값으로서의 <code class="language-plaintext highlighter-rouge">TypeVarTuple</code> (TypeVarTuple s as Defaults)</h3>
+<p><code class="language-plaintext highlighter-rouge">TypeVarTuple</code>을 기본값으로 사용하는 것은 지원되지 않습니다. 그 이유는 다음과 같습니다.</p>
+<ol>
+  <li>스코프 규칙이 외부 스코프의 타입 파라미터 사용을 허용하지 않습니다.</li>
+  <li>PEP 646에 명시된 대로, 단일 객체의 타입 파라미터 리스트에 여러 <code class="language-plaintext highlighter-rouge">TypeVarTuple</code>이 나타날 수 없습니다.
+이러한 이유로 현재 <code class="language-plaintext highlighter-rouge">TypeVarTuple</code>이 다른 <code class="language-plaintext highlighter-rouge">TypeVarTuple</code>의 기본값으로 사용될 수 있는 유효한 위치는 없습니다.</li>
+</ol>
+
+<h3 id="바인딩-규칙-binding-rules">바인딩 규칙 (Binding rules)</h3>
+<p>타입 파라미터 기본값은 속성 접근(호출 및 서브스크립션 포함)에 의해 바인딩되어야 합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Foo</span><span class="p">[</span><span class="n">T</span> <span class="o">=</span> <span class="nb">int</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">meth</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">self</span>
+<span class="nf">reveal_type</span><span class="p">(</span><span class="n">Foo</span><span class="p">.</span><span class="n">meth</span><span class="p">)</span> <span class="c1"># type is (self: Foo[int]) -&gt; Foo[int]
+</span></code></pre></div></div>
+
+<h2 id="구현-implementation">구현 (Implementation)</h2>
+<p>런타임(runtime) 시에는 <code class="language-plaintext highlighter-rouge">typing</code> 모듈에 다음과 같은 변경 사항이 필요합니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">TypeVar</code>, <code class="language-plaintext highlighter-rouge">ParamSpec</code>, <code class="language-plaintext highlighter-rouge">TypeVarTuple</code> 클래스는 <code class="language-plaintext highlighter-rouge">default</code>로 전달된 타입을 노출해야 합니다. 이는 <code class="language-plaintext highlighter-rouge">__default__</code> 속성으로 제공되며, 인자가 전달되지 않으면 <code class="language-plaintext highlighter-rouge">None</code>, <code class="language-plaintext highlighter-rouge">default=None</code>이면 <code class="language-plaintext highlighter-rouge">NoneType</code>이 됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">GenericAlias</code>에는 다음 변경 사항이 필요합니다.
+    <ul>
+      <li>서브스크립션에 필요한 기본값을 결정하는 로직</li>
+      <li>서브스크립션 (<code class="language-plaintext highlighter-rouge">Generic[T, DefaultT]</code>)이 유효한지 결정하는 로직</li>
+    </ul>
+  </li>
+  <li>타입 파라미터 리스트의 문법이 기본값을 허용하도록 업데이트되어야 합니다.</li>
+</ul>
+
+<p>런타임 변경 사항에 대한 참조 구현은 <a href="https://github.com/Gobot1234/cpython/tree/pep-696">https://github.com/Gobot1234/cpython/tree/pep-696</a>에서, 타입 체커 구현은 <a href="https://github.com/Gobot1234/mypy/tree/TypeVar-defaults">https://github.com/Gobot1234/mypy/tree/TypeVar-defaults</a>에서 확인할 수 있습니다.
+Pyright는 현재 이 기능을 지원합니다.</p>
+
+<h3 id="문법-변경-grammar-changes">문법 변경 (Grammar changes)</h3>
+<p>PEP 695에서 추가된 문법은 대괄호 안에 <code class="language-plaintext highlighter-rouge">=</code> 연산자를 사용하여 타입 파라미터의 기본값을 지정하는 방식으로 확장됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># TypeVars
+</span><span class="k">class</span> <span class="nc">Foo</span><span class="p">[</span><span class="n">T</span> <span class="o">=</span> <span class="nb">str</span><span class="p">]:</span> <span class="bp">...</span>
+<span class="c1"># ParamSpecs
+</span><span class="k">class</span> <span class="nc">Baz</span><span class="p">[</span><span class="o">**</span><span class="n">P</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span> <span class="bp">...</span>
+<span class="c1"># TypeVarTuples
+</span><span class="k">class</span> <span class="nc">Qux</span><span class="p">[</span><span class="o">*</span><span class="n">Ts</span> <span class="o">=</span> <span class="o">*</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]]:</span> <span class="bp">...</span>
+<span class="c1"># TypeAliases
+</span><span class="nb">type</span> <span class="n">Foo</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span> <span class="o">=</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Bar</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>타입 파라미터의 바운드(bound)와 마찬가지로, 기본값은 게으르게(lazily) 평가되며, 불필요한 따옴표 사용을 피하기 위해 동일한 스코프 규칙을 따릅니다.</p>
+
+<p>컴파일러는 기본값이 없는 타입 파라미터가 기본값이 있는 타입 파라미터 뒤에 올 수 없으며, 기본값이 있는 <code class="language-plaintext highlighter-rouge">TypeVar</code>가 <code class="language-plaintext highlighter-rouge">TypeVarTuple</code> 바로 뒤에 올 수 없도록 강제합니다.</p>
+
+<h2 id="채택되지-않은-대안-rejected-alternatives">채택되지 않은 대안 (Rejected Alternatives)</h2>
+
+<h3 id="type__new__의-kwargs에-타입-파라미터-기본값을-전달-allowing-the-type-parameters-defaults-to-be-passed-to-typenews-kwargs"><code class="language-plaintext highlighter-rouge">type.__new__</code>의 <code class="language-plaintext highlighter-rouge">**kwargs</code>에 타입 파라미터 기본값을 전달 (Allowing the Type Parameters Defaults to Be Passed to type.<strong>new</strong>’s **kwargs)</h3>
+<p>이 방식은 가독성이 좋고 <code class="language-plaintext highlighter-rouge">TypeVar</code> 단항(unary) 문법과 유사하지만, <code class="language-plaintext highlighter-rouge">T</code>가 이미 메타클래스/슈퍼클래스에 전달되거나 런타임에 <code class="language-plaintext highlighter-rouge">Generic</code>을 상속하지 않는 클래스를 지원할 수 있으므로 하위 호환성이 없습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">T</span> <span class="o">=</span> <span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">T</span><span class="sh">"</span><span class="p">)</span>
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">Box</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">T</span><span class="o">=</span><span class="nb">int</span><span class="p">):</span> <span class="c1"># 제안되었던 대안
+</span>    <span class="n">value</span><span class="p">:</span> <span class="n">T</span> <span class="o">|</span> <span class="bp">None</span> <span class="o">=</span> <span class="bp">None</span>
+</code></pre></div></div>
+
+<h3 id="기본값-뒤에-비-기본값-허용-allowing-non-defaults-to-follow-defaults">기본값 뒤에 비-기본값 허용 (Allowing Non-defaults to Follow Defaults)</h3>
+<p>기본값이 있는 타입 파라미터 뒤에 기본값이 없는 타입 파라미터가 오는 것을 허용하는 것은 혼란스럽고 잠재적으로 모호합니다. 인자 순서를 변경하는 것은 많은 코드베이스를 망가뜨릴 수 있으며, 대부분 <code class="language-plaintext highlighter-rouge">TypeAlias</code>를 사용하여 해결할 수 있습니다.</p>
+
+<h3 id="default가-암시적으로-bound가-되도록-허용-having-default-implicitly-be-bound"><code class="language-plaintext highlighter-rouge">default</code>가 암시적으로 <code class="language-plaintext highlighter-rouge">bound</code>가 되도록 허용 (Having default Implicitly Be bound)</h3>
+<p>초기 버전의 이 PEP에서는 <code class="language-plaintext highlighter-rouge">default</code> 값이 전달되지 않으면 <code class="language-plaintext highlighter-rouge">bound</code>로 암시적으로 설정되었습니다. 이는 편리할 수 있지만, 기본값이 없는 타입 파라미터가 기본값이 있는 타입 파라미터 뒤에 오는 경우를 발생시킬 수 있습니다. 또한 <code class="language-plaintext highlighter-rouge">Any</code>가 암시적 기본값인 경우에 의존하는 소수의 코드베이스에 대한 변경 사항이 될 수 있었습니다.</p>
+
+<h3 id="함수-시그니처에서-기본값을-가진-타입-파라미터-사용-허용-allowing-type-parameters-with-defaults-to-be-used-in-function-signatures">함수 시그니처에서 기본값을 가진 타입 파라미터 사용 허용 (Allowing Type Parameters With Defaults To Be Used in Function Signatures)</h3>
+<p>이전 버전에서는 함수 시그니처에서 기본값을 가진 <code class="language-plaintext highlighter-rouge">TypeVarLike</code> 사용이 허용되었지만, “Function Defaults” 섹션에 설명된 이유로 제거되었습니다.</p>
+
+<h3 id="외부-스코프의-타입-파라미터를-default로-허용-allowing-type-parameters-from-outer-scopes-in-default">외부 스코프의 타입 파라미터를 <code class="language-plaintext highlighter-rouge">default</code>로 허용 (Allowing Type Parameters from Outer Scopes in default)</h3>
+<p>이 기능은 추가적인 복잡성만큼의 가치가 없는 너무 틈새(niche) 기능으로 간주되었습니다.</p>
+
+<h2 id="감사-acknowledgements">감사 (Acknowledgements)</h2>
+<p>이 PEP에 대한 피드백을 제공해 준 Eric Traut, Jelle Zijlstra, Joshua Butt, Danny Yamamoto, Kaylynn Morgan, Jakub Kuczys에게 감사를 표합니다.</p>
+
+<h2 id="저작권-copyright">저작권 (Copyright)</h2>
+<p>이 문서는 퍼블릭 도메인 또는 CC0-1.0-Universal 라이선스 중 더 관대한 조건으로 배포됩니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/695/" class="pagination--pager" title="[Final] PEP 695 - Type Parameter Syntax
+">Previous</a>
+    
+    
+      <a href="/python/pep/697/" class="pagination--pager" title="[Final] PEP 697 - Limited C API for Extending Opaque Types
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

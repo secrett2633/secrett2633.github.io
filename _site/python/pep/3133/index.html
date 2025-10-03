@@ -1,0 +1,1009 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Rejected] PEP 3133 - Introducing Roles | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 3133: ‘Introducing Roles’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Rejected] PEP 3133 - Introducing Roles">
+<meta property="og:url" content="http://localhost:4000/python/pep/3133/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 3133: ‘Introducing Roles’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T14:33:16+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T14:33:16+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/3133/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Rejected] PEP 3133 - Introducing Roles">
+    <meta itemprop="description" content="Python Enhancement Proposal 3133: ‘Introducing Roles’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T14:33:16+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T14:33:16+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Rejected] PEP 3133 - Introducing Roles
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T14:33:16+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-3133--역할roles-소개-pep-3133--introducing-roles">PEP 3133 – 역할(Roles) 소개 (PEP 3133 – Introducing Roles)</a><ul><li><a href="#거부-공지-rejection-notice">거부 공지 (Rejection Notice)</a></li><li><a href="#요약-abstract">요약 (Abstract)</a></li><li><a href="#배경-rationale">배경 (Rationale)</a></li><li><a href="#구문-관련-참고-사항-a-note-on-syntax">구문 관련 참고 사항 (A Note on Syntax)</a></li><li><a href="#역할-수행-performing-your-role">역할 수행 (Performing Your Role)</a><ul><li><a href="#정적-역할-할당-static-role-assignment">정적 역할 할당 (Static Role Assignment)</a></li><li><a href="#런타임-역할-할당-assigning-roles-at-runtime">런타임 역할 할당 (Assigning Roles at Runtime)</a></li><li><a href="#역할에-대해-질문하기-asking-questions-about-roles">역할에 대해 질문하기 (Asking Questions About Roles)</a></li></ul></li><li><a href="#새-역할-정의-defining-new-roles">새 역할 정의 (Defining New Roles)</a><ul><li><a href="#빈-역할-empty-roles">빈 역할 (Empty Roles)</a></li><li><a href="#상속을-통한-역할-구성-composing-roles-via-inheritance">상속을 통한 역할 구성 (Composing Roles via Inheritance)</a></li><li><a href="#구체적인-메서드-요구-requiring-concrete-methods">구체적인 메서드 요구 (Requiring Concrete Methods)</a></li></ul></li><li><a href="#메커니즘-mechanism">메커니즘 (Mechanism)</a><ul><li><a href="#정적-클래스-역할-할당-static-class-role-assignment">정적 클래스 역할 할당 (Static class role assignment)</a></li><li><a href="#인스턴스-쿼리-querying-instances">인스턴스 쿼리 (Querying instances)</a></li></ul></li><li><a href="#추상-기본-클래스abstract-base-classes와의-관계-relationship-to-abstract-base-classes">추상 기본 클래스(Abstract Base Classes)와의 관계 (Relationship to Abstract Base Classes)</a></li><li><a href="#미해결-문제-open-issues">미해결 문제 (Open Issues)</a><ul><li><a href="#인스턴스가-클래스와-다른-역할을-수행하도록-허용-allowing-instances-to-perform-different-roles-than-their-class">인스턴스가 클래스와 다른 역할을 수행하도록 허용 (Allowing Instances to Perform Different Roles Than Their Class)</a></li><li><a href="#속성-요구-requiring-attributes">속성 요구 (Requiring Attributes)</a></li><li><a href="#역할의-역할-roles-of-roles">역할의 역할 (Roles of Roles)</a></li><li><a href="#class_performs">class_performs()</a></li><li><a href="#더-예쁜-동적-역할-할당-구문-prettier-dynamic-role-assignment-syntax">더 예쁜 동적 역할 할당 구문 (Prettier Dynamic Role Assignment Syntax)</a></li><li><a href="#구문-지원-syntax-support">구문 지원 (Syntax Support)</a></li></ul></li><li><a href="#구현-implementation">구현 (Implementation)</a></li><li><a href="#감사-acknowledgements">감사 (Acknowledgements)</a></li><li><a href="#참조-references">참조 (References)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-3133/">PEP 3133 - Introducing Roles</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Rejected</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 01-May-2007</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-3133--역할roles-소개-pep-3133--introducing-roles">PEP 3133 – 역할(Roles) 소개 (PEP 3133 – Introducing Roles)</h1>
+
+<ul>
+  <li><strong>작성자:</strong> Collin Winter</li>
+  <li><strong>상태:</strong> 거부됨 (Rejected)</li>
+  <li><strong>유형:</strong> 표준 트랙 (Standards Track)</li>
+  <li><strong>요구 사항:</strong> PEP 3115, PEP 3129</li>
+  <li><strong>작성일:</strong> 2007년 5월 1일</li>
+  <li><strong>Python 버전:</strong> 3.0</li>
+  <li><strong>게시 이력:</strong> 2007년 5월 13일</li>
+</ul>
+
+<h2 id="거부-공지-rejection-notice">거부 공지 (Rejection Notice)</h2>
+
+<p>이 PEP는 PEP 3119를 더 건전하고 미니멀리스트적인 접근 방식으로 발전시키는 데 도움이 되었지만, PEP 3119의 최신 버전을 훨씬 선호합니다. - GvR (Guido van Rossum)</p>
+
+<h2 id="요약-abstract">요약 (Abstract)</h2>
+
+<p>Python의 기존 객체 모델은 객체를 구현 방식에 따라 조직합니다. 하지만 특히 Python과 같은 덕 타이핑(duck typing) 기반 언어에서는 객체가 해당 부분을 어떻게 충족하는지(구현)보다는 더 큰 시스템에서 어떤 역할을 하는지(의도)에 따라 객체를 조직하는 것이 바람직한 경우가 많습니다. 이 PEP는 객체를 구현보다는 의도에 따라 조직하는 메커니즘인 ‘역할(roles)’ 개념을 소개합니다.</p>
+
+<h2 id="배경-rationale">배경 (Rationale)</h2>
+
+<p>처음에 객체는 프로그래머가 기능과 상태를 결합하고 다형성(polymorphism) 및 상속(inheritance)과 같은 개념을 통해 코드 재사용성을 높일 수 있도록 해주었으며, 이는 매우 좋은 것이었습니다. 그러나 상속과 다형성만으로는 부족한 시기가 왔습니다. 개(dogs)와 나무(trees)라는 두 가지 개념의 등장으로, 우리는 단순히 “짖는(bark) 것을 이해하는가?”를 아는 것만으로는 만족할 수 없게 되었습니다. 이제 우리는 주어진 객체가 “짖는다”는 것을 무엇을 의미한다고 생각하는지 알아야 할 필요가 생겼습니다.</p>
+
+<p>여기서 자세히 설명하는 한 가지 해결책은 전통적인 클래스/인스턴스 시스템에 직교적(orthogonal)이며 상호 보완적인 메커니즘인 ‘역할’입니다. 클래스가 상태와 구현에 초점을 맞추는 반면, 역할 메커니즘은 주어진 클래스에 구현된 ‘행동(behaviours)’만을 다룹니다.</p>
+
+<p>이 시스템은 원래 “traits”라고 불렸고 Squeak Smalltalk에서 구현되었습니다. 이후 Perl 6에서 “roles”라는 이름으로 채택되었으며, 주로 여기서 이 개념이 Python 3용으로 해석되었습니다. Python 3에서는 “roles”라는 이름을 유지할 예정이었습니다.</p>
+
+<p>요컨대, 역할은 객체가 ‘무엇을 하는지’를 알려주고, 클래스는 객체가 ‘어떻게 하는지’를 알려줍니다. 이 PEP에서는 주어진 객체의 “짖는다”는 이해가 나무와 같은지 개와 같은지를 쉽게 결정할 수 있는 Python 3용 시스템을 제시할 것입니다. (더 심각한 예시들도 있을 수 있습니다.)</p>
+
+<h2 id="구문-관련-참고-사항-a-note-on-syntax">구문 관련 참고 사항 (A Note on Syntax)</h2>
+
+<p>이 PEP에 제시된 구문 제안들은 잠정적인 것이며 단순한 아이디어로 간주되어야 합니다. 이 PEP가 의존하는 필수적인 부분들, 즉 PEP 3115의 클래스 정의 구문과 PEP 3129의 클래스 데코레이터(class decorators)는 아직 공식화 중이며 변경될 수 있습니다. 함수 이름은 물론, 오랜 시간 동안 논쟁의 대상이 될 것입니다.</p>
+
+<h2 id="역할-수행-performing-your-role">역할 수행 (Performing Your Role)</h2>
+
+<h3 id="정적-역할-할당-static-role-assignment">정적 역할 할당 (Static Role Assignment)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Tree</code> 및 <code class="language-plaintext highlighter-rouge">Dog</code> 클래스를 정의하는 것부터 시작해 봅시다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Tree</span><span class="p">(</span><span class="n">Vegetable</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">bark</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="nf">is_rough</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">Dog</span><span class="p">(</span><span class="n">Animal</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">bark</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="nf">goes_ruff</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>두 클래스 모두 동일한 시그니처(signature)를 가진 <code class="language-plaintext highlighter-rouge">bark()</code> 메서드를 구현하지만, 완전히 다른 작업을 수행합니다. 우리가 기대하는 바를 구별할 수 있는 방법이 필요합니다. 상속과 간단한 <code class="language-plaintext highlighter-rouge">isinstance()</code> 테스트에 의존하는 것은 코드 재사용을 제한하거나, 모든 개와 유사한 클래스가 <code class="language-plaintext highlighter-rouge">Dog</code>에서 상속받도록 강제할 수 있습니다. 역할이 도움이 될 수 있는지 살펴보겠습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@perform_role</span><span class="p">(</span><span class="n">Doglike</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Dog</span><span class="p">(</span><span class="n">Animal</span><span class="p">):</span>
+    <span class="bp">...</span>
+
+<span class="nd">@perform_role</span><span class="p">(</span><span class="n">Treelike</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Tree</span><span class="p">(</span><span class="n">Vegetable</span><span class="p">):</span>
+    <span class="bp">...</span>
+
+<span class="nd">@perform_role</span><span class="p">(</span><span class="n">SitThere</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Rock</span><span class="p">(</span><span class="n">Mineral</span><span class="p">):</span>
+    <span class="bp">...</span>
+</code></pre></div></div>
+
+<p>우리는 PEP 3129의 클래스 데코레이터를 사용하여 특정 역할(들)을 클래스와 연결합니다. 이제 클라이언트 코드(client code)는 들어오는 객체가 <code class="language-plaintext highlighter-rouge">Doglike</code> 역할을 수행하는지 확인할 수 있으며, 이를 통해 <code class="language-plaintext highlighter-rouge">Wolf</code>, <code class="language-plaintext highlighter-rouge">LaughingHyena</code>, <code class="language-plaintext highlighter-rouge">Aibo</code> 인스턴스도 처리할 수 있습니다.</p>
+
+<p>역할은 일반적인 상속을 통해 구성될 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@perform_role</span><span class="p">(</span><span class="n">Guard</span><span class="p">,</span> <span class="n">MummysLittleDarling</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">GermanShepherd</span><span class="p">(</span><span class="n">Dog</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">guard</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">the_precious</span><span class="p">):</span>
+        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nf">intruder_near</span><span class="p">(</span><span class="n">the_precious</span><span class="p">):</span>
+                <span class="n">self</span><span class="p">.</span><span class="nf">growl</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">get_petted</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="nf">swallow_pride</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>여기서 <code class="language-plaintext highlighter-rouge">GermanShepherd</code> 인스턴스는 세 가지 역할을 수행합니다. <code class="language-plaintext highlighter-rouge">Guard</code>와 <code class="language-plaintext highlighter-rouge">MummysLittleDarling</code>은 직접 적용되고, <code class="language-plaintext highlighter-rouge">Doglike</code>는 <code class="language-plaintext highlighter-rouge">Dog</code>로부터 상속됩니다.</p>
+
+<h3 id="런타임-역할-할당-assigning-roles-at-runtime">런타임 역할 할당 (Assigning Roles at Runtime)</h3>
+
+<p>역할은 데코레이터가 제공하는 문법적 설탕(syntactic sugar)을 풀어서 런타임에도 할당할 수 있습니다.</p>
+
+<p>다른 모듈에서 <code class="language-plaintext highlighter-rouge">Robot</code> 클래스를 가져왔다고 가정해 봅시다. <code class="language-plaintext highlighter-rouge">Robot</code>이 이미 <code class="language-plaintext highlighter-rouge">Guard</code> 인터페이스를 구현하고 있다는 것을 알고 있으므로, <code class="language-plaintext highlighter-rouge">Guard</code> 관련 코드와 잘 작동하도록 만들고 싶습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="nf">perform</span><span class="p">(</span><span class="n">Guard</span><span class="p">)(</span><span class="n">Robot</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>이것은 즉시 효력을 발휘하며 <code class="language-plaintext highlighter-rouge">Robot</code>의 모든 인스턴스에 영향을 미칩니다.</p>
+
+<h3 id="역할에-대해-질문하기-asking-questions-about-roles">역할에 대해 질문하기 (Asking Questions About Roles)</h3>
+
+<p>로봇 군대에게 그들이 경비원(guards)이라고 말했다고 해서, 가끔 그들의 임무를 확인하고 싶을 것입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="nf">performs</span><span class="p">(</span><span class="n">our_robot</span><span class="p">,</span> <span class="n">Guard</span><span class="p">)</span>
+<span class="bp">True</span>
+</code></pre></div></div>
+
+<p>저기 저 로봇은 어떻습니까?</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="nf">performs</span><span class="p">(</span><span class="n">that_robot_over_there</span><span class="p">,</span> <span class="n">Guard</span><span class="p">)</span>
+<span class="bp">True</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">performs()</code> 함수는 주어진 객체가 주어진 역할을 수행하는지 묻는 데 사용됩니다. 그러나 클래스에 그 인스턴스가 역할을 수행하는지 묻는 데는 사용할 수 없습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="nf">performs</span><span class="p">(</span><span class="n">Robot</span><span class="p">,</span> <span class="n">Guard</span><span class="p">)</span>
+<span class="bp">False</span>
+</code></pre></div></div>
+
+<p>이는 <code class="language-plaintext highlighter-rouge">Robot</code> 클래스가 <code class="language-plaintext highlighter-rouge">Robot</code> 인스턴스와 상호 교환될 수 없기 때문입니다.</p>
+
+<h2 id="새-역할-정의-defining-new-roles">새 역할 정의 (Defining New Roles)</h2>
+
+<h3 id="빈-역할-empty-roles">빈 역할 (Empty Roles)</h3>
+
+<p>역할은 일반 클래스처럼 정의되지만, <code class="language-plaintext highlighter-rouge">Role</code> 메타클래스(metaclass)를 사용합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Doglike</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">Role</span><span class="p">):</span>
+    <span class="bp">...</span>
+</code></pre></div></div>
+
+<p>메타클래스는 <code class="language-plaintext highlighter-rouge">Doglike</code>가 5가 <code class="language-plaintext highlighter-rouge">int</code>이고 <code class="language-plaintext highlighter-rouge">tuple</code>이 <code class="language-plaintext highlighter-rouge">type</code>인 것과 같은 방식으로 <code class="language-plaintext highlighter-rouge">Role</code>임을 나타내는 데 사용됩니다.</p>
+
+<h3 id="상속을-통한-역할-구성-composing-roles-via-inheritance">상속을 통한 역할 구성 (Composing Roles via Inheritance)</h3>
+
+<p>역할은 다른 역할을 상속받을 수 있으며, 이는 역할을 구성하는 효과를 가집니다. 여기서 <code class="language-plaintext highlighter-rouge">Dog</code>의 인스턴스는 <code class="language-plaintext highlighter-rouge">Doglike</code>와 <code class="language-plaintext highlighter-rouge">FourLegs</code> 역할을 모두 수행할 것입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">FourLegs</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">Role</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="k">class</span> <span class="nc">Doglike</span><span class="p">(</span><span class="n">FourLegs</span><span class="p">,</span> <span class="n">Carnivor</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="nd">@perform_role</span><span class="p">(</span><span class="n">Doglike</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Dog</span><span class="p">(</span><span class="n">Mammal</span><span class="p">):</span>
+    <span class="k">pass</span>
+</code></pre></div></div>
+
+<h3 id="구체적인-메서드-요구-requiring-concrete-methods">구체적인 메서드 요구 (Requiring Concrete Methods)</h3>
+
+<p>지금까지 우리는 빈 역할만을 정의했는데, 이는 그다지 유용하지 않습니다. 이제 <code class="language-plaintext highlighter-rouge">Doglike</code> 역할을 수행한다고 주장하는 모든 클래스가 <code class="language-plaintext highlighter-rouge">bark()</code> 메서드를 정의하도록 요구해 봅시다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Doglike</span><span class="p">(</span><span class="n">FourLegs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">bark</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+</code></pre></div></div>
+
+<p>메서드를 “추상(abstract)”으로 표시하기 위해 데코레이터가 필요하지 않으며, 이 메서드는 절대로 호출되지 않을 것이므로 포함된 코드(있는 경우)는 무관합니다. 역할은 추상 메서드만 제공합니다. 구체적인 기본 구현은 믹스인(mixins)과 같은 다른, 더 적합한 메커니즘에 맡겨집니다.</p>
+
+<p>역할을 정의하고 클래스가 해당 역할을 수행한다고 주장하면, 그 주장이 검증되는 것이 필수적입니다. 여기서는 프로그래머가 역할에 필요한 메서드 중 하나를 잘못 입력했습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@perform_role</span><span class="p">(</span><span class="n">FourLegs</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Horse</span><span class="p">(</span><span class="n">Mammal</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run_like_teh_wind</span><span class="p">(</span><span class="n">self</span><span class="p">)</span>
+        <span class="bp">...</span>
+</code></pre></div></div>
+
+<p>이는 역할 시스템이 <code class="language-plaintext highlighter-rouge">run_like_the_wind()</code> 메서드가 없다고 불평하며 예외(exception)를 발생시키게 할 것입니다. 역할 시스템은 클래스가 주어진 역할을 수행한다고 표시되는 즉시 이러한 검사를 수행합니다.</p>
+
+<p>구체적인 메서드는 역할이 요구하는 시그니처와 정확히 일치해야 합니다. 여기서는 <code class="language-plaintext highlighter-rouge">bark()</code>의 구체적인 버전을 정의하여 역할을 충족시키려 했지만, 조금 어긋났습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@perform_role</span><span class="p">(</span><span class="n">Doglike</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Coyote</span><span class="p">(</span><span class="n">Mammal</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">bark</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">moon</span><span class="p">):</span>
+        <span class="k">pass</span>
+</code></pre></div></div>
+
+<p>이 메서드의 시그니처는 <code class="language-plaintext highlighter-rouge">Doglike</code> 역할이 기대했던 것과 정확히 일치하지 않으므로, 역할 시스템은 약간 문제를 일으킬 것입니다.</p>
+
+<h2 id="메커니즘-mechanism">메커니즘 (Mechanism)</h2>
+
+<p>다음은 Python에서 역할이 어떻게 표현될 수 있는지에 대한 아이디어입니다. 여기 예시들은 역할 메커니즘이 Python 인터프리터(interpreter)를 변경하지 않고도 구현될 수 있도록 구성되었습니다. (예시는 Curtis Poe의 Perl 6 역할에 대한 기사에서 각색되었습니다.)</p>
+
+<h3 id="정적-클래스-역할-할당-static-class-role-assignment">정적 클래스 역할 할당 (Static class role assignment)</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@perform_role</span><span class="p">(</span><span class="n">Thieving</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Elf</span><span class="p">(</span><span class="n">Character</span><span class="p">):</span>
+    <span class="bp">...</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">perform_role()</code>은 여러 인수를 허용하므로 다음도 유효합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@perform_role</span><span class="p">(</span><span class="n">Thieving</span><span class="p">,</span> <span class="n">Spying</span><span class="p">,</span> <span class="n">Archer</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Elf</span><span class="p">(</span><span class="n">Character</span><span class="p">):</span>
+    <span class="bp">...</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">Elf</code> 클래스는 이제 <code class="language-plaintext highlighter-rouge">Thieving</code>, <code class="language-plaintext highlighter-rouge">Spying</code>, <code class="language-plaintext highlighter-rouge">Archer</code> 역할을 모두 수행합니다.</p>
+
+<h3 id="인스턴스-쿼리-querying-instances">인스턴스 쿼리 (Querying instances)</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="nf">performs</span><span class="p">(</span><span class="n">my_elf</span><span class="p">,</span> <span class="n">Thieving</span><span class="p">):</span>
+    <span class="bp">...</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">performs()</code>의 두 번째 인수는 <code class="language-plaintext highlighter-rouge">__contains__()</code> 메서드를 가진 무엇이든 될 수 있으므로 다음도 유효합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="nf">performs</span><span class="p">(</span><span class="n">my_elf</span><span class="p">,</span> <span class="nf">set</span><span class="p">([</span><span class="n">Thieving</span><span class="p">,</span> <span class="n">Spying</span><span class="p">,</span> <span class="n">BoyScout</span><span class="p">])):</span>
+    <span class="bp">...</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">isinstance()</code>와 마찬가지로, 객체는 표현식이 <code class="language-plaintext highlighter-rouge">True</code>가 되기 위해 세트(set) 중 단 하나의 역할만 수행하면 됩니다.</p>
+
+<h2 id="추상-기본-클래스abstract-base-classes와의-관계-relationship-to-abstract-base-classes">추상 기본 클래스(Abstract Base Classes)와의 관계 (Relationship to Abstract Base Classes)</h2>
+
+<p>이 PEP의 초기 초안은 역할을 PEP 3119에서 제안된 추상 기본 클래스와 경쟁하는 것으로 보았습니다. 추가 논의와 숙고 끝에, 다음과 같이 책임과 사용 사례의 타협 및 위임이 이루어졌습니다.</p>
+
+<p>역할은 객체의 ‘의미론(semantics)’과 ‘추상적인 능력(abstract capabilities)’을 나타내는 방법을 제공합니다. 역할은 추상 메서드를 정의할 수 있지만, 이는 특정 의미론에 접근하는 인터페이스를 묘사하는 방법으로만 사용됩니다. <code class="language-plaintext highlighter-rouge">Ordering</code> 역할은 특정 정렬 연산자(ordering operators) 집합이 정의되도록 요구할 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Ordering</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">Role</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__ge__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span> <span class="k">pass</span>
+    <span class="k">def</span> <span class="nf">__le__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span> <span class="k">pass</span>
+    <span class="k">def</span> <span class="nf">__ne__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span> <span class="k">pass</span>
+    <span class="c1"># ...and so on
+</span></code></pre></div></div>
+
+<p>이러한 방식으로, 우리는 특정 구현에 제약을 받거나 신경 쓰지 않고도 더 큰 시스템 내에서 객체의 역할이나 기능을 나타낼 수 있습니다.</p>
+
+<p>이와 대조적으로, 추상 기본 클래스는 일반적이고 개별적인 구현 단위(discrete units of implementation)를 재사용하는 방법입니다. 예를 들어, 다른 연산자를 기반으로 여러 정렬 연산자를 구현하는 <code class="language-plaintext highlighter-rouge">OrderingMixin</code>을 정의할 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">OrderingMixin</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__ge__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span> <span class="k">return</span> <span class="n">self</span> <span class="o">&gt;</span> <span class="n">other</span> <span class="ow">or</span> <span class="n">self</span> <span class="o">==</span> <span class="n">other</span>
+    <span class="k">def</span> <span class="nf">__le__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span> <span class="k">return</span> <span class="n">self</span> <span class="o">&lt;</span> <span class="n">other</span> <span class="ow">or</span> <span class="n">self</span> <span class="o">==</span> <span class="n">other</span>
+    <span class="k">def</span> <span class="nf">__ne__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span> <span class="k">return</span> <span class="ow">not</span> <span class="n">self</span> <span class="o">==</span> <span class="n">other</span>
+    <span class="c1"># ...and so on
+</span></code></pre></div></div>
+
+<p>이 추상 기본 클래스—더 정확히는 구체적인 믹스인(concrete mixin)—를 사용하면 프로그래머는 제한된 연산자 집합을 정의하고 믹스인이 다른 연산자를 사실상 “파생”하도록 할 수 있습니다.</p>
+
+<p>이 두 가지 직교적인 시스템을 결합함으로써, 우리는 a) 기능을 제공하고, b) 소비자 시스템에 이 기능의 존재와 가용성을 알릴 수 있습니다. 예를 들어, 위의 <code class="language-plaintext highlighter-rouge">OrderingMixin</code> 클래스는 <code class="language-plaintext highlighter-rouge">Ordering</code> 역할에서 표현된 인터페이스와 의미론을 만족시키므로, 우리는 믹스인이 해당 역할을 수행한다고 말합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@perform_role</span><span class="p">(</span><span class="n">Ordering</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">OrderingMixin</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__ge__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span> <span class="k">return</span> <span class="n">self</span> <span class="o">&gt;</span> <span class="n">other</span> <span class="ow">or</span> <span class="n">self</span> <span class="o">==</span> <span class="n">other</span>
+    <span class="k">def</span> <span class="nf">__le__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span> <span class="k">return</span> <span class="n">self</span> <span class="o">&lt;</span> <span class="n">other</span> <span class="ow">or</span> <span class="n">self</span> <span class="o">==</span> <span class="n">other</span>
+    <span class="k">def</span> <span class="nf">__ne__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span> <span class="k">return</span> <span class="ow">not</span> <span class="n">self</span> <span class="o">==</span> <span class="n">other</span>
+    <span class="c1"># ...and so on
+</span></code></pre></div></div>
+
+<p>이제 이 믹스인을 사용하는 모든 클래스는 자동으로—즉, 추가적인 프로그래머의 노력 없이—<code class="language-plaintext highlighter-rouge">Ordering</code> 역할을 수행하는 것으로 태그됩니다.</p>
+
+<p>관심사를 두 개의 별개의 직교 시스템으로 분리하는 것은 각 시스템을 개별적으로 사용할 수 있도록 해주기 때문에 바람직합니다. 예를 들어, 해시 값(hash value)을 결정할 때 내용을 고려하는 컨테이너임을 나타내는 <code class="language-plaintext highlighter-rouge">RecursiveHash</code> 역할을 제공하는 타사 패키지를 생각해 봅시다. Python의 내장 <code class="language-plaintext highlighter-rouge">tuple</code> 및 <code class="language-plaintext highlighter-rouge">frozenset</code> 클래스는 이 의미론을 따르므로, <code class="language-plaintext highlighter-rouge">RecursiveHash</code> 역할을 이들에게 적용할 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="nf">perform_role</span><span class="p">(</span><span class="n">RecursiveHash</span><span class="p">)(</span><span class="nb">tuple</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nf">perform_role</span><span class="p">(</span><span class="n">RecursiveHash</span><span class="p">)(</span><span class="nb">frozenset</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>이제 <code class="language-plaintext highlighter-rouge">RecursiveHash</code> 객체를 사용하는 모든 코드는 <code class="language-plaintext highlighter-rouge">tuple</code>과 <code class="language-plaintext highlighter-rouge">frozenset</code>도 사용할 수 있게 됩니다.</p>
+
+<h2 id="미해결-문제-open-issues">미해결 문제 (Open Issues)</h2>
+
+<h3 id="인스턴스가-클래스와-다른-역할을-수행하도록-허용-allowing-instances-to-perform-different-roles-than-their-class">인스턴스가 클래스와 다른 역할을 수행하도록 허용 (Allowing Instances to Perform Different Roles Than Their Class)</h3>
+
+<p>Perl 6는 인스턴스가 클래스와 다른 역할을 수행하는 것을 허용합니다. 이러한 변경 사항은 단일 인스턴스에 국한되며 클래스의 다른 인스턴스에는 영향을 미치지 않습니다. 예를 들어:</p>
+
+<div class="language-perl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">my_elf</span> <span class="o">=</span> <span class="nv">Elf</span><span class="p">();</span>
+<span class="nv">my_elf</span><span class="o">.</span><span class="nv">goes_on_quest</span><span class="p">();</span>
+<span class="nv">my_elf</span><span class="o">.</span><span class="nv">becomes_evil</span><span class="p">();</span>
+<span class="nv">now_performs</span><span class="p">(</span><span class="nv">my_elf</span><span class="p">,</span> <span class="nv">Thieving</span><span class="p">);</span> <span class="c1"># Only this one elf is a thief</span>
+<span class="nv">my_elf</span><span class="o">.</span><span class="nv">steals</span><span class="p">(["</span><span class="s2">purses</span><span class="p">",</span> <span class="p">"</span><span class="s2">candy</span><span class="p">",</span> <span class="p">"</span><span class="s2">kisses</span><span class="p">"]);</span>
+</code></pre></div></div>
+
+<p>Perl 6에서는 인스턴스의 원래 부모로부터 상속받고 추가 역할(들)을 수행하는 익명 클래스(anonymous class)를 생성하여 이를 수행합니다. 이는 Python 3에서도 가능하지만, 바람직한지는 또 다른 문제입니다.</p>
+
+<p>이 기능을 포함하면 물론 Charles Dickens의 작품을 Python으로 표현하는 것이 훨씬 쉬워질 것입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="n">literature</span> <span class="kn">import</span> <span class="n">role</span><span class="p">,</span> <span class="n">BildungsRoman</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="n">dickens</span> <span class="kn">import</span> <span class="n">Urchin</span><span class="p">,</span> <span class="n">Gentleman</span>
+<span class="o">&gt;&gt;&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">with</span> <span class="nc">BildungsRoman</span><span class="p">()</span> <span class="k">as</span> <span class="n">OliverTwist</span><span class="p">:</span>
+<span class="p">...</span>     <span class="n">mr_brownlow</span> <span class="o">=</span> <span class="nc">Gentleman</span><span class="p">()</span>
+<span class="p">...</span>     <span class="n">oliver</span><span class="p">,</span> <span class="n">artful_dodger</span> <span class="o">=</span> <span class="nc">Urchin</span><span class="p">(),</span> <span class="nc">Urchin</span><span class="p">()</span>
+<span class="p">...</span>     <span class="nf">now_performs</span><span class="p">(</span><span class="n">artful_dodger</span><span class="p">,</span> <span class="p">[</span><span class="n">role</span><span class="p">.</span><span class="n">Thief</span><span class="p">,</span> <span class="n">role</span><span class="p">.</span><span class="n">Scoundrel</span><span class="p">])</span>
+<span class="bp">...</span>
+<span class="p">...</span>     <span class="n">oliver</span><span class="p">.</span><span class="nf">has_adventures_with</span><span class="p">(</span><span class="n">ArtfulDodger</span><span class="p">)</span>
+<span class="p">...</span>     <span class="n">mr_brownlow</span><span class="p">.</span><span class="nf">adopt_orphan</span><span class="p">(</span><span class="n">oliver</span><span class="p">)</span>
+<span class="p">...</span>     <span class="nf">now_performs</span><span class="p">(</span><span class="n">oliver</span><span class="p">,</span> <span class="n">role</span><span class="p">.</span><span class="n">RichWard</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="속성-요구-requiring-attributes">속성 요구 (Requiring Attributes)</h3>
+
+<p>Neal Norwitz는 메서드를 요구하는 것과 동일한 메커니즘을 사용하여 속성(attributes)의 존재에 대한 주장을 할 수 있는 기능을 요청했습니다. 역할은 클래스 정의 시점에 효력을 발휘하고, 대다수의 속성은 클래스의 <code class="language-plaintext highlighter-rouge">__init__()</code> 메서드에 의해 런타임에 정의되기 때문에, 메서드와 동시에 속성을 확인하는 좋은 방법은 없는 것 같습니다.</p>
+
+<p>단지 문서화 목적이라도, 강제되지 않는 속성(non-enforced attributes)을 역할 정의에 포함하는 것이 여전히 바람직할 수 있습니다.</p>
+
+<h3 id="역할의-역할-roles-of-roles">역할의 역할 (Roles of Roles)</h3>
+
+<p>제안된 의미론에 따르면, 역할도 자신만의 역할을 가질 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@perform_role</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">X</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">Role</span><span class="p">):</span>
+    <span class="bp">...</span>
+</code></pre></div></div>
+
+<p>이것은 가능하지만, 역할은 일반적으로 인스턴스화되지 않기 때문에 의미가 없습니다. 이 표현에 의미를 부여하는 것에 대한 오프라인 논의가 있었지만, 아직 좋은 아이디어가 나오지 않았습니다.</p>
+
+<h3 id="class_performs"><code class="language-plaintext highlighter-rouge">class_performs()</code></h3>
+
+<p>현재 클래스가 그 인스턴스가 특정 역할을 수행하는지 묻는 것은 불가능합니다. <code class="language-plaintext highlighter-rouge">performs()</code>의 아날로그를 제공하여 다음과 같이 만들 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">my_dwarf</span><span class="p">,</span> <span class="n">Dwarf</span><span class="p">)</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nf">performs</span><span class="p">(</span><span class="n">my_dwarf</span><span class="p">,</span> <span class="n">Surly</span><span class="p">)</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nf">performs</span><span class="p">(</span><span class="n">Dwarf</span><span class="p">,</span> <span class="n">Surly</span><span class="p">)</span>
+<span class="bp">False</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nf">class_performs</span><span class="p">(</span><span class="n">Dwarf</span><span class="p">,</span> <span class="n">Surly</span><span class="p">)</span>
+<span class="bp">True</span>
+</code></pre></div></div>
+
+<h3 id="더-예쁜-동적-역할-할당-구문-prettier-dynamic-role-assignment-syntax">더 예쁜 동적 역할 할당 구문 (Prettier Dynamic Role Assignment Syntax)</h3>
+
+<p>이 PEP의 초기 초안에는 클래스에 동적으로 역할을 할당하는 별도의 메커니즘이 포함되어 있었습니다. 이는 다음과 같이 표현되었습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="nf">now_perform</span><span class="p">(</span><span class="n">Dwarf</span><span class="p">,</span> <span class="n">GoldMiner</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>이 동일한 기능은 데코레이터가 제공하는 문법적 설탕을 풀어서 이미 존재합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="nf">perform_role</span><span class="p">(</span><span class="n">GoldMiner</span><span class="p">)(</span><span class="n">Dwarf</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>동적 역할 할당이 전용 표현을 정당화할 만큼 충분히 중요한지 여부가 문제입니다.</p>
+
+<h3 id="구문-지원-syntax-support">구문 지원 (Syntax Support)</h3>
+
+<p>이 PEP에 제시된 표현 방식은 역할 시스템이 독립형 패키지(stand-alone package)로 제공될 수 있도록 설계되었지만, 역할을 정의, 할당 및 쿼리하는 특수 구문을 추가하는 것이 바람직할 수 있습니다. 한 가지 예는 <code class="language-plaintext highlighter-rouge">role</code> 키워드일 수 있으며, 이는 다음을 변환할 것입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MyRole</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">Role</span><span class="p">):</span>
+    <span class="bp">...</span>
+</code></pre></div></div>
+
+<p>다음으로:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">role</span> <span class="n">MyRole</span><span class="p">:</span>
+    <span class="bp">...</span>
+</code></pre></div></div>
+
+<p>역할 할당은 PEP 3115에서 제안된 클래스 정의 인수를 활용할 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MyClass</span><span class="p">(</span><span class="n">performs</span><span class="o">=</span><span class="n">MyRole</span><span class="p">):</span>
+    <span class="bp">...</span>
+</code></pre></div></div>
+
+<h2 id="구현-implementation">구현 (Implementation)</h2>
+
+<p>참조 구현(reference implementation)이 곧 나올 예정입니다.</p>
+
+<h2 id="감사-acknowledgements">감사 (Acknowledgements)</h2>
+
+<p>역할과 추상 기본 클래스 간의 차이점, 중복, 미묘한 지점들을 해결하기 위해 여러 시간 동안 직접 논의해준 Jeffery Yasskin, Talin, Guido van Rossum에게 감사합니다.</p>
+
+<h2 id="참조-references">참조 (References)</h2>
+
+<ul>
+  <li><a href="http://en.wikipedia.org/wiki/AIBO">http://en.wikipedia.org/wiki/AIBO</a></li>
+  <li><a href="http://www.perlmonks.org/?node_id=384858">http://www.perlmonks.org/?node_id=384858</a></li>
+  <li><a href="http://dev.perl.org/perl6/doc/design/syn/S12.html">http://dev.perl.org/perl6/doc/design/syn/S12.html</a></li>
+  <li><a href="http://www.iam.unibe.ch/~scg/Archive/Papers/Scha03aTraits.pdf">http://www.iam.unibe.ch/~scg/Archive/Papers/Scha03aTraits.pdf</a></li>
+  <li><a href="https://mail.python.org/pipermail/python-3000/2007-April/007026.html">https://mail.python.org/pipermail/python-3000/2007-April/007026.html</a></li>
+</ul>
+
+<h2 id="저작권-copyright">저작권 (Copyright)</h2>
+
+<p>이 문서는 퍼블릭 도메인에 공개되었습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/3132/" class="pagination--pager" title="[Final] PEP 3132 - Extended Iterable Unpacking
+">Previous</a>
+    
+    
+      <a href="/python/pep/3134/" class="pagination--pager" title="[Final] PEP 3134 - Exception Chaining and Embedded Tracebacks
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

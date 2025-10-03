@@ -1,0 +1,729 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Withdrawn] PEP 216 - Docstring Format | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 216: ‘Docstring Format’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Withdrawn] PEP 216 - Docstring Format">
+<meta property="og:url" content="http://localhost:4000/python/pep/216/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 216: ‘Docstring Format’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T16:33:50+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T16:33:50+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/216/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Withdrawn] PEP 216 - Docstring Format">
+    <meta itemprop="description" content="Python Enhancement Proposal 216: ‘Docstring Format’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T16:33:50+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T16:33:50+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Withdrawn] PEP 216 - Docstring Format
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T16:33:50+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#초록-abstract">초록 (Abstract)</a></li><li><a href="#perl-문서화-perl-documentation">Perl 문서화 (Perl Documentation)</a></li><li><a href="#java-문서화-java-documentation">Java 문서화 (Java Documentation)</a></li><li><a href="#python-docstring의-목표-python-docstring-goals">Python Docstring의 목표 (Python Docstring Goals)</a></li><li><a href="#상위-수준-해결책-high-level-solutions">상위 수준 해결책 (High Level Solutions)</a></li><li><a href="#docstring-형식-목표-docstring-format-goals">Docstring 형식 목표 (Docstring Format Goals)</a></li><li><a href="#docstring-내용-docstring-contents">Docstring 내용 (Docstring Contents)</a></li><li><a href="#docstring-기본-구조-docstring-basic-structure">Docstring 기본 구조 (Docstring Basic Structure)</a></li><li><a href="#미해결-문제-unresolved-issues">미해결 문제 (Unresolved Issues)</a></li><li><a href="#거부된-제안-rejected-suggestions">거부된 제안 (Rejected Suggestions)</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0216/">PEP 216 - Docstring Format</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Withdrawn</td>
+        <td><strong>유형:</strong> Informational</td>
+        <td><strong>작성일:</strong> 31-Jul-2000</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>PEP 216 – Docstring 형식</p>
+
+<p><strong>작성자:</strong> Moshe Zadka
+<strong>상태:</strong> 철회됨 (Withdrawn)
+<strong>유형:</strong> 정보 (Informational)
+<strong>생성일:</strong> 2000년 7월 31일
+<strong>대체:</strong> PEP 287에 의해 대체됨</p>
+
+<hr />
+
+<h2 id="초록-abstract">초록 (Abstract)</h2>
+
+<p>모듈, 클래스, 함수와 같은 Python의 이름 있는 객체들은 <code class="language-plaintext highlighter-rouge">__doc__</code>이라는 문자열 속성을 가집니다. 정의 내의 첫 번째 표현식이 리터럴 문자열인 경우, 해당 문자열이 <code class="language-plaintext highlighter-rouge">__doc__</code> 속성에 할당됩니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">__doc__</code> 속성은 “Documentation String” 또는 “docstring”이라고 불립니다. 이는 종종 모듈, 클래스 또는 함수의 인터페이스를 요약하는 데 사용됩니다. 그러나 docstring에 대한 공통된 형식이 없기 때문에, docstring을 추출하고 이를 표준 형식(예: DocBook)의 문서로 변환하는 도구들이 많이 생겨나지 않았으며, 존재하는 도구들도 대부분 유지보수되지 않거나 사용되지 않고 있습니다.</p>
+
+<h2 id="perl-문서화-perl-documentation">Perl 문서화 (Perl Documentation)</h2>
+
+<p>Perl에서는 대부분의 모듈이 POD (Plain Old Documentation)라는 형식으로 문서화됩니다. 이는 입력하기 쉽고 매우 낮은 수준의 형식으로, Perl 파서와 잘 통합됩니다. POD 문서를 info, HTML, man 페이지 등 다른 형식으로 변환하는 많은 도구들이 존재합니다. 하지만 Perl에서는 이 정보가 런타임에(run-time) 제공되지 않습니다.</p>
+
+<h2 id="java-문서화-java-documentation">Java 문서화 (Java Documentation)</h2>
+
+<p>Java에서는 클래스와 함수 앞에 있는 특별한 주석이 코드 문서화 기능을 수행합니다. 이를 추출하여 HTML 문서로 변환하는 프로그램은 <code class="language-plaintext highlighter-rouge">javadoc</code>이라고 불리며, 표준 Java 배포판의 일부입니다. 그러나 지원되는 유일한 출력 형식은 HTML이며, JavaDoc은 HTML과 매우 밀접한 관계를 가집니다.</p>
+
+<h2 id="python-docstring의-목표-python-docstring-goals">Python Docstring의 목표 (Python Docstring Goals)</h2>
+
+<p>Python docstring은 파싱(parsing) 과정에서 쉽게 식별할 수 있으며, 런타임 인터프리터에서도 사용할 수 있습니다. 이러한 이중 목적은 때때로 문제가 될 수 있습니다. 예를 들어, 일부 개발자들은 런타임에 너무 많은 공간을 차지하는 것을 원치 않아 너무 긴 docstring을 작성하기를 꺼려 합니다.</p>
+
+<p>또한, 현재 도구의 부족으로 인해 사람들은 객체의 docstring을 “print”하여 읽는 경향이 있어, 간결하고 마크업이 없는 형태를 선호하게 되었습니다. 이러한 경향은 docstring이 파싱하기 어려운 적은 정보만을 포함하게 만들어, 더 나은 문서 추출 도구의 개발을 저해합니다.</p>
+
+<h2 id="상위-수준-해결책-high-level-solutions">상위 수준 해결책 (High Level Solutions)</h2>
+
+<p>문자열이 실행 중인 프로그램에서 공간을 차지한다는 반론에 대응하기 위해, 문서 추출 도구는 정의 시작 부분에 나타나는 문자열 리터럴의 최대 접두사(maximum prefix)를 연결(concatenate)하도록 제안됩니다. 이들 중 첫 번째는 대화형 인터프리터에서도 사용할 수 있으므로, 몇 줄의 요약 내용을 포함해야 합니다.</p>
+
+<h2 id="docstring-형식-목표-docstring-format-goals">Docstring 형식 목표 (Docstring Format Goals)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">doc-sig</code>에서 논의된 docstring 형식의 목표는 다음과 같습니다.</p>
+
+<ol>
+  <li>어떤 표준 텍스트 편집기로도 쉽게 입력할 수 있어야 합니다.</li>
+  <li>일반적인 관찰자가 읽기 쉬워야 합니다.</li>
+  <li>모듈 파싱을 통해 추론할 수 있는 정보를 포함해서는 안 됩니다.</li>
+  <li>합리적인 모든 마크업 형식으로 변환될 수 있도록 충분한 정보를 포함해야 합니다.</li>
+  <li>마크업 언어에 구애받지 않고 모듈의 전체 문서를 docstring으로 작성할 수 있어야 합니다.</li>
+</ol>
+
+<h2 id="docstring-내용-docstring-contents">Docstring 내용 (Docstring Contents)</h2>
+
+<p>위 5번 요구사항을 위해 docstring에 무엇이 포함되어야 하는지 명시해야 합니다.</p>
+
+<p>최소한 다음 내용이 포함되어야 합니다.</p>
+
+<ul>
+  <li>“이것은 Python의 어떤 것(추측해보세요)”을 의미하는 태그.
+    <ul>
+      <li>예시: “The POP3 class”라는 문장에서 “POP3”를 마크업해야 합니다. 파서는 <code class="language-plaintext highlighter-rouge">poplib</code> 모듈의 내용에서 그것이 클래스임을 추측할 수 있지만, 우리가 그것을 추측하도록 만들어야 합니다.</li>
+    </ul>
+  </li>
+  <li>“이것은 Python 클래스/모듈/클래스 변수/인스턴스 변수…”를 의미하는 태그.
+    <ul>
+      <li>예시: 싱글턴(singleton) 클래스 A에 대한 일반적인 Python 관용구는 클래스를 <code class="language-plaintext highlighter-rouge">_A</code>로, <code class="language-plaintext highlighter-rouge">_A</code> 객체를 반환하는 함수를 <code class="language-plaintext highlighter-rouge">A</code>로 두는 것입니다. 그럼에도 불구하고 클래스를 <code class="language-plaintext highlighter-rouge">A</code>로 문서화하는 것이 일반적입니다. 이를 위해서는 “The class A”라고 말하고 <code class="language-plaintext highlighter-rouge">A</code>를 하이퍼링크되고 클래스로 마크업할 수 있는 기능이 필요합니다.</li>
+    </ul>
+  </li>
+  <li>Python 소스 코드/Python 대화형 세션을 포함하는 쉬운 방법.</li>
+  <li>강조/굵게 (Emphasis/bold).</li>
+  <li>목록/표 (List/tables).</li>
+</ul>
+
+<h2 id="docstring-기본-구조-docstring-basic-structure">Docstring 기본 구조 (Docstring Basic Structure)</h2>
+
+<p>docstring은 StructuredTextNG (http://www.zope.org/Members/jim/StructuredTextWiki/StructuredTextNG) 형식으로 작성될 것입니다. StructuredText는 위 (a)와 (b)를 처리할 만큼 아직 강력하지 않으므로, 이를 확장해야 합니다. [<선택적 설명="">:python 식별자] 형식을 사용하는 것을 제안합니다. 예를 들어, `[class:POP3]`, `[:POP3.list]` 등입니다. 설명이 없으면 텍스트에서 추측할 것입니다.</선택적></p>
+
+<h2 id="미해결-문제-unresolved-issues">미해결 문제 (Unresolved Issues)</h2>
+
+<ul>
+  <li>ST에서 문자를 이스케이프(escape)하는 방법이 있나요? 있다면 어떻게 해야 하나요? (예: 줄 시작 부분의 <code class="language-plaintext highlighter-rouge">*</code>를 글머리 기호(bullet symbol)가 아닌 일반 문자 <code class="language-plaintext highlighter-rouge">*</code>로 사용)</li>
+  <li>Python 심볼에 대한 위 제안이 ST-NG와 호환되나요? ST-NG를 확장하여 이를 지원하는 것이 얼마나 어려울까요?</li>
+  <li>함수의 입력 및 출력 유형을 어떻게 설명할까요?</li>
+  <li>각 docstring(모듈/클래스/함수)에 어떤 추가 제약을 강제할까요?</li>
+  <li>추측 규칙(guesser rules)은 무엇인가요?</li>
+</ul>
+
+<h2 id="거부된-제안-rejected-suggestions">거부된 제안 (Rejected Suggestions)</h2>
+
+<ul>
+  <li><strong>XML:</strong> 입력하기 매우 어렵고, 읽기에는 너무 복잡합니다.</li>
+</ul>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/215/" class="pagination--pager" title="[Superseded] PEP 215 - String Interpolation
+">Previous</a>
+    
+    
+      <a href="/python/pep/217/" class="pagination--pager" title="[Final] PEP 217 - Display Hook for Interactive Use
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

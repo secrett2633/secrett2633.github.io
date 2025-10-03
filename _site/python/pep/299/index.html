@@ -1,0 +1,721 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Rejected] PEP 299 - Special main() function in modules | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 299: ‘Special main() function in modules’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Rejected] PEP 299 - Special main() function in modules">
+<meta property="og:url" content="http://localhost:4000/python/pep/299/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 299: ‘Special main() function in modules’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T18:07:00+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T18:07:00+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/299/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Rejected] PEP 299 - Special main() function in modules">
+    <meta itemprop="description" content="Python Enhancement Proposal 299: ‘Special main() function in modules’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T18:07:00+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T18:07:00+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Rejected] PEP 299 - Special <strong>main</strong>() function in modules
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T18:07:00+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-299--모듈-내-특별한-__main__-함수">PEP 299 – 모듈 내 특별한 __main__() 함수</a><ul><li><a href="#요약-abstract">요약 (Abstract)</a></li><li><a href="#도입-배경-motivation">도입 배경 (Motivation)</a></li><li><a href="#제안-proposal">제안 (Proposal)</a></li><li><a href="#구현-implementation">구현 (Implementation)</a></li><li><a href="#해결되지-않은-문제들-open-issues">해결되지 않은 문제들 (Open Issues)</a></li><li><a href="#반려-rejection">반려 (Rejection)</a></li><li><a href="#참고-자료-references">참고 자료 (References)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0299/">PEP 299 - Special <strong>main</strong>() function in modules</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Rejected</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 12-Aug-2002</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-299--모듈-내-특별한-__main__-함수">PEP 299 – 모듈 내 특별한 <code class="language-plaintext highlighter-rouge">__main__()</code> 함수</h1>
+
+<ul>
+  <li><strong>작성자 (Author):</strong> Jeff Epler <jepler at="" unpythonic.net=""></jepler></li>
+  <li><strong>상태 (Status):</strong> 반려됨 (Rejected)</li>
+  <li><strong>유형 (Type):</strong> 표준 트랙 (Standards Track)</li>
+  <li><strong>작성일 (Created):</strong> 2002년 8월 12일</li>
+  <li><strong>Python 버전 (Python-Version):</strong> 2.3</li>
+  <li><strong>게시 이력 (Post-History):</strong> 2006년 3월 29일</li>
+</ul>
+
+<h2 id="요약-abstract">요약 (Abstract)</h2>
+<p>많은 Python 모듈은 독립 실행형 스크립트(standalone scripts)로도 호출될 수 있도록 의도되었습니다. 이 PEP는 <code class="language-plaintext highlighter-rouge">__main__()</code>이라는 특별한 함수가 이 목적을 수행해야 한다고 제안합니다.</p>
+
+<h2 id="도입-배경-motivation">도입 배경 (Motivation)</h2>
+<p>모듈을 독립 실행형 스크립트로 호출하기 위한 하나의 간단하고 보편적인 관용구(idiom)가 있어야 합니다.</p>
+
+<p>현재의 “반쯤 표준적인(semi-standard)” 관용구는 다음과 같습니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="sh">'</span><span class="s">__main__</span><span class="sh">'</span><span class="p">:</span>
+    <span class="n">perform</span> <span class="sh">"</span><span class="s">standalone</span><span class="sh">"</span> <span class="n">functionality</span>
+</code></pre></div></div>
+
+<p>이 방식은 C나 C++와 같은 언어의 프로그래머들에게는 불분명합니다. 또한, 모듈이 임포트(import)될 때 독립 실행형 함수를 호출하는 것을 허용하지 않습니다.</p>
+
+<p>때때로 다음과 같은 변형된 형태가 사용되기도 합니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="sh">'</span><span class="s">__main__</span><span class="sh">'</span><span class="p">:</span>
+    <span class="nf">main_function</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>하지만 이 함수에 대한 표준 이름이 존재하지 않으며, 인자(arguments)가 <code class="language-plaintext highlighter-rouge">sys.argv</code>에서 가져와지기 때문에 다른 모든 모듈이 보는 인자 리스트를 변경하지 않고는 특정 인자를 전달할 수 없습니다. (예를 들어, 두 개의 스레드가 서로 다른 인자 리스트로 다른 모듈의 독립 실행형 기능을 호출하려는 멀티스레드(threaded) Python 프로그램을 상상해 보세요.)</p>
+
+<h2 id="제안-proposal">제안 (Proposal)</h2>
+<p>‘메인 함수(main function)’의 표준 이름은 <code class="language-plaintext highlighter-rouge">__main__</code>이 되어야 합니다. 모듈이 다음과 같이 명령줄(command line)에서 호출될 때:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python mymodule.py
+</code></pre></div></div>
+
+<p>그러면 모듈은 해당 모듈의 끝에 다음 줄이 존재하는 것처럼 동작합니다 (단, <code class="language-plaintext highlighter-rouge">__sys</code> 속성은 스크립트의 다른 곳에서 사용되거나 존재한다고 가정할 수 없습니다):</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="nf">globals</span><span class="p">().</span><span class="nf">has_key</span><span class="p">(</span><span class="sh">"</span><span class="s">__main__</span><span class="sh">"</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="n">sys</span> <span class="k">as</span> <span class="n">__sys</span>
+    <span class="n">__sys</span><span class="p">.</span><span class="nf">exit</span><span class="p">(</span><span class="nf">__main__</span><span class="p">(</span><span class="n">__sys</span><span class="p">.</span><span class="n">argv</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>다른 모듈은 다음과 같이 실행할 수 있습니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">mymodule</span>
+<span class="n">mymodule</span><span class="p">.</span><span class="nf">__main__</span><span class="p">([</span><span class="sh">'</span><span class="s">mymodule</span><span class="sh">'</span><span class="p">,</span> <span class="p">...])</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">__main__</code>의 사용을 제한할 수 있는 스레드 안전성(thread-safety) 문제나 다른 문제들(예: 상호 배타적인 GUI 모듈 사용, 하드웨어 장치와 같이 공유할 수 없는 자원, <code class="language-plaintext highlighter-rouge">sys.stdin</code> / <code class="language-plaintext highlighter-rouge">stdout</code> 재할당 등)을 문서화하는 것은 <code class="language-plaintext highlighter-rouge">mymodule</code>의 책임입니다.</p>
+
+<h2 id="구현-implementation">구현 (Implementation)</h2>
+<p><code class="language-plaintext highlighter-rouge">modules/main.c</code> 파일의 385행 근처 블록( <code class="language-plaintext highlighter-rouge">PyRun_AnyFileExFlags</code> 호출 후)이 변경되어 위의 코드(또는 그에 상응하는 C 코드)가 실행되도록 할 것입니다.</p>
+
+<h2 id="해결되지-않은-문제들-open-issues">해결되지 않은 문제들 (Open Issues)</h2>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">__main__</code>의 반환 값은 종료 값(exit value)으로 처리되어야 하는가?
+    <ul>
+      <li><strong>예.</strong> 많은 <code class="language-plaintext highlighter-rouge">__main__</code> 함수는 자연스럽게 <code class="language-plaintext highlighter-rouge">None</code>을 반환하며, <code class="language-plaintext highlighter-rouge">sys.exit</code>는 이를 “성공” 반환 코드로 변환합니다. 숫자 결과를 반환하는 경우, 이는 <code class="language-plaintext highlighter-rouge">sys.exit()</code>의 인자나 C의 <code class="language-plaintext highlighter-rouge">main()</code> 함수의 반환 값과 동일하게 동작합니다.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">__main__</code>으로 전달되는 인자 리스트에 <code class="language-plaintext highlighter-rouge">argv[0]</code>이 포함되어야 하는가, 아니면 “실제” 인자인 <code class="language-plaintext highlighter-rouge">argv[1:]</code>만 포함되어야 하는가?
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">sys.argv</code>와의 대칭성 및 새로운 표준 관용구로의 쉬운 전환을 위해 <code class="language-plaintext highlighter-rouge">argv[0]</code>이 포함됩니다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="반려-rejection">반려 (Rejection)</h2>
+<p><code class="language-plaintext highlighter-rouge">python-dev</code>에서의 짧은 논의에서 두 가지 주요 하위 호환성(backwards compatibility) 문제가 제기되었으며, 귀도(Guido van Rossum)는 어쨌든 이 아이디어를 좋아하지 않는다고 말했습니다. 그는 “문서, 사용자 습관 등의 변경 가치가 없으며, 특별히 고장난 것도 없다”고 언급했습니다.</p>
+
+<h2 id="참고-자료-references">참고 자료 (References)</h2>
+<p>Georg Brandl, “What about PEP 299”, <a href="https://mail.python.org/pipermail/python-dev/2006-March/062951.html">https://mail.python.org/pipermail/python-dev/2006-March/062951.html</a></p>
+
+<h2 id="저작권-copyright">저작권 (Copyright)</h2>
+<p>이 문서는 퍼블릭 도메인(public domain)에 공개되었습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/298/" class="pagination--pager" title="[Withdrawn] PEP 298 - The Locked Buffer Interface
+">Previous</a>
+    
+    
+      <a href="/python/pep/301/" class="pagination--pager" title="[Final] PEP 301 - Package Index and Metadata for Distutils
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

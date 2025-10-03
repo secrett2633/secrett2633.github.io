@@ -1,0 +1,1135 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Rejected] PEP 335 - Overloadable Boolean Operators | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 335: ‘Overloadable Boolean Operators’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Rejected] PEP 335 - Overloadable Boolean Operators">
+<meta property="og:url" content="http://localhost:4000/python/pep/335/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 335: ‘Overloadable Boolean Operators’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T00:55:17+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T00:55:17+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/335/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Rejected] PEP 335 - Overloadable Boolean Operators">
+    <meta itemprop="description" content="Python Enhancement Proposal 335: ‘Overloadable Boolean Operators’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T00:55:17+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T00:55:17+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Rejected] PEP 335 - Overloadable Boolean Operators
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T00:55:17+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#배경-background">배경 (Background)</a></li><li><a href="#동기-motivation">동기 (Motivation)</a></li><li><a href="#근거-rationale">근거 (Rationale)</a></li><li><a href="#사양-specification">사양 (Specification)</a><ul><li><a href="#특수-메서드-special-methods">특수 메서드 (Special Methods)</a></li><li><a href="#바이트코드-bytecodes">바이트코드 (Bytecodes)</a></li><li><a href="#타입-슬롯-type-slots">타입 슬롯 (Type Slots)</a></li><li><a href="#pythonc-api-함수-pythonc-api-functions">Python/C API 함수 (Python/C API Functions)</a></li></ul></li><li><a href="#대안-및-최적화-alternatives-and-optimisations">대안 및 최적화 (Alternatives and Optimisations)</a><ul><li><a href="#특수-메서드-집합-축소-reduced-special-method-set">특수 메서드 집합 축소 (Reduced special method set)</a></li><li><a href="#추가-바이트코드-additional-bytecodes">추가 바이트코드 (Additional bytecodes)</a></li><li><a href="#not의-최적화-optimisation-of-not">not의 최적화 (Optimisation of ‘not’)</a></li></ul></li><li><a href="#사용-예시-usage-examples">사용 예시 (Usage Examples)</a><ul><li><a href="#예시-1-numpy-배열-numpy-arrays">예시 1: NumPy 배열 (NumPy Arrays)</a><ul><li><a href="#예시-1-출력-example-1-output">예시 1 출력 (Example 1 Output)</a></li></ul></li><li><a href="#예시-2-데이터베이스-쿼리-database-queries">예시 2: 데이터베이스 쿼리 (Database Queries)</a><ul><li><a href="#예시-2-출력-example-2-output">예시 2 출력 (Example 2 Output)</a></li></ul></li></ul></li><li><a href="#거부-공지-rejection-notice">거부 공지 (Rejection Notice)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0335/">PEP 335 - Overloadable Boolean Operators</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Rejected</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 29-Aug-2004</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>PEP 335: 오버로딩 가능한 불리언 연산자 (Overloadable Boolean Operators)</p>
+
+<p><em>본 문서는 거부(Rejected)된 제안입니다.</em></p>
+
+<h2 id="개요-abstract">개요 (Abstract)</h2>
+
+<p>이 PEP는 객체가 불리언 연산자 <code class="language-plaintext highlighter-rouge">and</code>, <code class="language-plaintext highlighter-rouge">or</code>, <code class="language-plaintext highlighter-rouge">not</code>에 대해 자신만의 의미를 정의할 수 있도록 확장하는 방안을 제안하며, 효율적인 구현 전략을 제시합니다. 이 구현의 프로토타입은 다운로드 가능합니다.</p>
+
+<h2 id="배경-background">배경 (Background)</h2>
+
+<p>현재 Python은 불리언 연산자 <code class="language-plaintext highlighter-rouge">and</code>, <code class="language-plaintext highlighter-rouge">or</code>, <code class="language-plaintext highlighter-rouge">not</code>에 해당하는 <code class="language-plaintext highlighter-rouge">__xxx__</code> 특수 메서드를 제공하지 않습니다. <code class="language-plaintext highlighter-rouge">and</code>와 <code class="language-plaintext highlighter-rouge">or</code>의 경우, 가장 유력한 이유는 이 연산자들이 단락 평가(short-circuiting semantics)를 갖기 때문입니다. 즉, 첫 번째 피연산자만으로 결과가 결정될 수 있으면 두 번째 피연산자는 평가되지 않습니다. 따라서 이러한 연산자에 대한 특수 메서드를 제공하는 일반적인 기술은 작동하지 않을 것입니다.</p>
+
+<p>그러나 <code class="language-plaintext highlighter-rouge">not</code>의 경우에는 이러한 어려움이 없으며, 이 연산자에 대한 특수 메서드를 제공하는 것은 간단합니다. 따라서 이 제안의 나머지 부분은 주로 <code class="language-plaintext highlighter-rouge">and</code>와 <code class="language-plaintext highlighter-rouge">or</code>를 오버로딩(overload)하는 방법을 제공하는 데 중점을 둘 것입니다.</p>
+
+<h2 id="동기-motivation">동기 (Motivation)</h2>
+
+<p>Python 연산자에 대해 사용자 정의 의미를 제공하는 것이 자연스러운 애플리케이션이 많으며, 이 중 일부에서는 불리언 연산자가 사용자 정의에서 제외되는 것이 불편할 수 있습니다. 예를 들면 다음과 같습니다:</p>
+
+<ul>
+  <li><strong>NumPy</strong>: 거의 모든 연산자가 배열(array)에 정의되어 해당 요소들 간에 적절한 연산을 수행하고 결과 배열을 반환합니다. 일관성을 위해 두 배열 간의 불리언 연산은 불리언 배열을 반환할 것으로 예상되지만, 현재는 이것이 불가능합니다.
+    <ul>
+      <li>이러한 종류의 확장에 대한 선례가 있습니다. 비교 연산자는 원래 불리언 결과만 반환하도록 제한되었으나, NumPy 배열의 비교가 불리언 배열을 반환할 수 있도록 풍부한 비교(rich comparisons)가 추가되었습니다.</li>
+    </ul>
+  </li>
+  <li><strong>기호 대수 시스템 (Symbolic algebra system)</strong>: Python 표현식이 평가되어 표현식의 구조에 해당하는 객체 트리를 구성하는 환경.</li>
+  <li><strong>관계형 데이터베이스 인터페이스 (Relational database interface)</strong>: Python 표현식을 사용하여 SQL 쿼리를 구성하는 경우.</li>
+</ul>
+
+<p>자주 제안되는 해결책은 <code class="language-plaintext highlighter-rouge">and</code>, <code class="language-plaintext highlighter-rouge">or</code>, <code class="language-plaintext highlighter-rouge">not</code> 대신 비트와이즈 연산자 <code class="language-plaintext highlighter-rouge">&amp;</code>, <code class="language-plaintext highlighter-rouge">|</code>, <code class="language-plaintext highlighter-rouge">~</code>를 사용하는 것이지만, 여기에는 몇 가지 단점이 있습니다:</p>
+
+<ul>
+  <li>다른 연산자와의 우선순위(precedence)가 다르며, 다른 목적으로 이미 사용되고 있을 수 있습니다.</li>
+  <li>사용자가 표현하려는 것에 대해 가장 명확한 구문이 아닌 다른 것을 사용하도록 강제하는 것은 미학적으로 좋지 않습니다. 특히 예시 3과 같은 경우, 불리언 연산이 SQL 쿼리의 주류임을 고려할 때 더욱 심각할 수 있습니다.</li>
+  <li>비트와이즈 연산자는 <code class="language-plaintext highlighter-rouge">a &lt; b &lt; c</code>와 같이 암시적인 <code class="language-plaintext highlighter-rouge">and</code> 연산을 포함하는 체인 비교(chained comparisons) 문제에 대한 해결책을 제공하지 않습니다. 이러한 표현식은 현재 NumPy 배열과 같이 비교 결과가 일반적인 불리언 의미를 갖는 것으로 처리될 수 없는 데이터 타입에서는 전혀 사용할 수 없습니다. 이를 <code class="language-plaintext highlighter-rouge">(a &lt; b) &amp; (b &lt; c)</code>와 같이 확장해야 하며, 상당한 명확성을 잃게 됩니다.</li>
+</ul>
+
+<h2 id="근거-rationale">근거 (Rationale)</h2>
+
+<p>불리언 연산자를 사용자 정의할 수 있도록 허용하는 문제에 대한 성공적인 해결책의 요구 사항은 다음과 같습니다:</p>
+
+<ol>
+  <li><strong>기본 경우 (사용자 정의가 없는 경우)</strong>: 기존의 단락 평가 의미론(short-circuiting semantics)이 보존되어야 합니다.</li>
+  <li><strong>기본 경우 (속도)</strong>: 기본 경우에 눈에 띄는 속도 손실이 없어야 합니다.</li>
+  <li><strong>사용자 정의 메커니즘</strong>: 사용자 정의 메커니즘은 객체가 재량에 따라 단락 평가 또는 비단락 평가 의미론을 제공할 수 있도록 허용해야 합니다.</li>
+</ol>
+
+<p>이전에 제안되었던 한 가지 분명한 전략은 첫 번째 인자와 두 번째 인자를 평가하기 위한 함수를 특수 메서드에 전달하는 것입니다. 이는 요구 사항 1과 3을 충족하지만, 불리언 연산마다 함수 객체를 구성하고 잠재적으로 Python 함수 호출을 발생시키는 오버헤드가 발생하므로 요구 사항 2는 충족하지 못합니다. 따라서 이 문서에서는 더 이상 고려되지 않습니다.</p>
+
+<p>다음 섹션에서는 세 가지 요구 사항을 모두 해결하는 전략을 제안합니다. 이 전략의 프로토타입 구현은 다운로드 가능합니다.</p>
+
+<h2 id="사양-specification">사양 (Specification)</h2>
+
+<h3 id="특수-메서드-special-methods">특수 메서드 (Special Methods)</h3>
+
+<p>Python 수준에서 객체는 다음 특수 메서드를 정의할 수 있습니다.</p>
+
+<ul>
+  <li><strong>단항 (Unary)</strong>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">__not__(self)</code>
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">__not__</code> 메서드가 정의되어 있다면 <code class="language-plaintext highlighter-rouge">not</code> 연산자를 구현합니다. 정의되어 있지 않거나 <code class="language-plaintext highlighter-rouge">NotImplemented</code>를 반환하면 기존 의미론이 사용됩니다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>이항, 1단계 (Binary, phase 1)</strong>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">__and1__(self)</code></li>
+      <li><code class="language-plaintext highlighter-rouge">__or1__(self)</code>
+        <ul>
+          <li>단락 평가를 허용하기 위해 <code class="language-plaintext highlighter-rouge">and</code> 및 <code class="language-plaintext highlighter-rouge">or</code> 연산자의 처리는 두 단계로 나뉩니다. 1단계는 첫 번째 피연산자가 평가된 후, 두 번째 피연산자 이전에 발생합니다. 첫 번째 피연산자가 관련 1단계 메서드를 정의하면, 첫 번째 피연산자를 인자로 호출합니다. 해당 메서드가 두 번째 피연산자가 필요 없이 결과를 결정할 수 있다면, 결과를 반환하고 추가 처리는 건너뜁니다.</li>
+          <li>1단계 메서드가 두 번째 피연산자가 필요하다고 결정하면 특수 값 <code class="language-plaintext highlighter-rouge">NeedOtherOperand</code>를 반환합니다. 이는 두 번째 피연산자의 평가와 관련 2단계 메서드의 호출을 트리거합니다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>이항, 2단계 (Binary, phase 2)</strong>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">__and2__(self, other)</code></li>
+      <li><code class="language-plaintext highlighter-rouge">__or2__(self, other)</code></li>
+      <li><code class="language-plaintext highlighter-rouge">__rand2__(self, other)</code></li>
+      <li><code class="language-plaintext highlighter-rouge">__ror2__(self, other)</code>
+        <ul>
+          <li>2단계 동안, <code class="language-plaintext highlighter-rouge">__and2__/__rand2__</code> 및 <code class="language-plaintext highlighter-rouge">__or2__/__ror2__</code> 메서드 쌍은 다른 이항 연산자와 동일하게 작동합니다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>어떤 단계에서든 관련 특수 메서드가 발견되지 않거나 <code class="language-plaintext highlighter-rouge">NotImplemented</code>를 반환하면 기존 의미론으로 폴백(fallback)됩니다.</p>
+
+<p>특별한 경우로, 첫 번째 피연산자가 2단계 메서드를 정의했지만 해당 1단계 메서드를 정의하지 않은 경우, 두 번째 피연산자는 항상 평가되고 2단계 메서드가 호출됩니다. 이는 단락 평가 의미론을 원하지 않는 객체가 단순히 2단계 메서드를 구현하고 1단계를 무시할 수 있도록 합니다.</p>
+
+<h3 id="바이트코드-bytecodes">바이트코드 (Bytecodes)</h3>
+
+<p>이 패치는 네 가지 새로운 바이트코드인 <code class="language-plaintext highlighter-rouge">LOGICAL_AND_1</code>, <code class="language-plaintext highlighter-rouge">LOGICAL_AND_2</code>, <code class="language-plaintext highlighter-rouge">LOGICAL_OR_1</code>, <code class="language-plaintext highlighter-rouge">LOGICAL_OR_2</code>를 추가합니다. 예를 들어, <code class="language-plaintext highlighter-rouge">and</code> 표현식에 대해 생성된 바이트코드는 다음과 같습니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">.</span> <span class="p">.</span> <span class="p">.</span>
+<span class="n">evaluate</span> <span class="n">first</span> <span class="n">operand</span>
+<span class="n">LOGICAL_AND_1</span>
+<span class="n">L</span>
+<span class="n">evaluate</span> <span class="n">second</span> <span class="n">operand</span>
+<span class="n">LOGICAL_AND_2</span>
+<span class="n">L</span><span class="p">:</span>
+<span class="p">.</span> <span class="p">.</span> <span class="p">.</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">LOGICAL_AND_1</code> 바이트코드는 1단계 처리를 수행합니다. 두 번째 피연산자가 필요하다고 결정하면 첫 번째 피연산자를 스택에 남겨두고 다음 코드를 계속 실행합니다. 그렇지 않으면 첫 번째 피연산자를 팝(pop)하고 결과를 푸시(push)한 다음 <code class="language-plaintext highlighter-rouge">L</code>로 분기(branch)합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">LOGICAL_AND_2</code> 바이트코드는 2단계 처리를 수행하며, 두 피연산자를 모두 팝하고 결과를 푸시합니다.</li>
+</ul>
+
+<h3 id="타입-슬롯-type-slots">타입 슬롯 (Type Slots)</h3>
+
+<p>C 수준에서 새로운 특수 메서드는 타입 객체에 다섯 가지 새로운 슬롯으로 나타납니다. 패치에서는 이들이 <code class="language-plaintext highlighter-rouge">tp_as_number</code> 하위 구조체에 추가되는데, 이는 단항 및 이항 연산자를 다루는 기존 코드를 활용할 수 있도록 하기 위함입니다. 이들의 존재는 새로운 타입 플래그 <code class="language-plaintext highlighter-rouge">Py_TPFLAGS_HAVE_BOOLEAN_OVERLOAD</code>로 알려집니다.</p>
+
+<p>새로운 타입 슬롯은 다음과 같습니다:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">unaryfunc nb_logical_not;</code></li>
+  <li><code class="language-plaintext highlighter-rouge">unaryfunc nb_logical_and_1;</code></li>
+  <li><code class="language-plaintext highlighter-rouge">unaryfunc nb_logical_or_1;</code></li>
+  <li><code class="language-plaintext highlighter-rouge">binaryfunc nb_logical_and_2;</code></li>
+  <li><code class="language-plaintext highlighter-rouge">binaryfunc nb_logical_or_2;</code></li>
+</ul>
+
+<h3 id="pythonc-api-함수-pythonc-api-functions">Python/C API 함수 (Python/C API Functions)</h3>
+
+<p>새로운 연산에 해당하는 다섯 가지 새로운 Python/C API 함수도 있습니다:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">PyObject *PyObject_LogicalNot(PyObject *);</code></li>
+  <li><code class="language-plaintext highlighter-rouge">PyObject *PyObject_LogicalAnd1(PyObject *);</code></li>
+  <li><code class="language-plaintext highlighter-rouge">PyObject *PyObject_LogicalOr1(PyObject *);</code></li>
+  <li><code class="language-plaintext highlighter-rouge">PyObject *PyObject_LogicalAnd2(PyObject *, PyObject *);</code></li>
+  <li><code class="language-plaintext highlighter-rouge">PyObject *PyObject_LogicalOr2(PyObject *, PyObject *);</code></li>
+</ul>
+
+<h2 id="대안-및-최적화-alternatives-and-optimisations">대안 및 최적화 (Alternatives and Optimisations)</h2>
+
+<p>이 섹션에서는 제안의 몇 가지 가능한 변형과 불리언 표현식에 대해 생성된 바이트코드 시퀀스를 최적화하는 방법에 대해 설명하고 있습니다.</p>
+
+<h3 id="특수-메서드-집합-축소-reduced-special-method-set">특수 메서드 집합 축소 (Reduced special method set)</h3>
+
+<p>이 제안의 완전한 버전은 타입이 자체적으로 사용자 정의 단락 평가 동작을 정의할 수 있는 메커니ズム를 포함합니다. 그러나 여기에서 제시된 주요 사용 사례를 해결하는 데 완전한 메커니즘은 필요하지 않으며, 2단계 메서드만 포함하는 간소화된 버전을 정의하는 것도 가능합니다. 그러면 <code class="language-plaintext highlighter-rouge">__and2__</code>, <code class="language-plaintext highlighter-rouge">__rand2__</code>, <code class="language-plaintext highlighter-rouge">__or2__</code>, <code class="language-plaintext highlighter-rouge">__ror2__</code>, <code class="language-plaintext highlighter-rouge">__not__</code>의 5가지 새로운 특수 메서드와 3개의 관련 타입 슬롯 및 3개의 API 함수만 존재하게 됩니다.</p>
+
+<p>이 간소화된 버전은 나중에 필요하다면 완전한 버전으로 확장될 수 있습니다.</p>
+
+<h3 id="추가-바이트코드-additional-bytecodes">추가 바이트코드 (Additional bytecodes)</h3>
+
+<p>여기에서 정의된 대로, 불리언 표현식의 결과에 따라 분기하는 코드에 대한 바이트코드 시퀀스는 현재보다 약간 더 길어질 것입니다. 예를 들어, Python 2.7에서 <code class="language-plaintext highlighter-rouge">if a and b:</code> 구문은 다음과 같은 바이트코드를 생성합니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">LOAD_GLOBAL</span> <span class="n">a</span>
+<span class="n">POP_JUMP_IF_FALSE</span> <span class="n">false_branch</span>
+<span class="n">LOAD_GLOBAL</span> <span class="n">b</span>
+<span class="n">POP_JUMP_IF_FALSE</span> <span class="n">false_branch</span>
+<span class="o">&lt;</span><span class="n">code</span> <span class="k">for</span> <span class="n">statement1</span><span class="o">&gt;</span>
+<span class="n">JUMP_FORWARD</span> <span class="n">end_branch</span>
+<span class="n">false_branch</span><span class="p">:</span>
+<span class="o">&lt;</span><span class="n">code</span> <span class="k">for</span> <span class="n">statement2</span><span class="o">&gt;</span>
+<span class="n">end_branch</span><span class="p">:</span>
+</code></pre></div></div>
+
+<p>이 제안에 따르면, 이는 다음과 같이 될 것입니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">LOAD_GLOBAL</span> <span class="n">a</span>
+<span class="n">LOGICAL_AND_1</span>
+<span class="n">test</span>
+<span class="n">LOAD_GLOBAL</span> <span class="n">b</span>
+<span class="n">LOGICAL_AND_2</span>
+<span class="n">test</span><span class="p">:</span>
+<span class="n">POP_JUMP_IF_FALSE</span> <span class="n">false_branch</span>
+<span class="o">&lt;</span><span class="n">code</span> <span class="k">for</span> <span class="n">statement1</span><span class="o">&gt;</span>
+<span class="n">JUMP_FORWARD</span> <span class="n">end_branch</span>
+<span class="n">false_branch</span><span class="p">:</span>
+<span class="o">&lt;</span><span class="n">code</span> <span class="k">for</span> <span class="n">statement2</span><span class="o">&gt;</span>
+<span class="n">end_branch</span><span class="p">:</span>
+</code></pre></div></div>
+
+<p>이는 단락 평가의 경우에 하나의 추가 바이트코드를, 비단락 평가의 경우에 두 개의 추가 바이트코드를 실행하는 것을 포함합니다.</p>
+
+<p>그러나 논리 연산을 결과 테스트 및 분기와 결합하는 추가 바이트코드를 도입함으로써, 이는 원래와 동일한 수의 바이트코드로 줄어들 수 있습니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">LOAD_GLOBAL</span> <span class="n">a</span>
+<span class="n">AND1_JUMP</span> <span class="n">true_branch</span><span class="p">,</span> <span class="n">false_branch</span>
+<span class="n">LOAD_GLOBAL</span> <span class="n">b</span>
+<span class="n">AND2_JUMP_IF_FALSE</span> <span class="n">false_branch</span>
+<span class="n">true_branch</span><span class="p">:</span>
+<span class="o">&lt;</span><span class="n">code</span> <span class="k">for</span> <span class="n">statement1</span><span class="o">&gt;</span>
+<span class="n">JUMP_FORWARD</span> <span class="n">end_branch</span>
+<span class="n">false_branch</span><span class="p">:</span>
+<span class="o">&lt;</span><span class="n">code</span> <span class="k">for</span> <span class="n">statement2</span><span class="o">&gt;</span>
+<span class="n">end_branch</span><span class="p">:</span>
+</code></pre></div></div>
+
+<p>여기서 <code class="language-plaintext highlighter-rouge">AND1_JUMP</code>는 위에서 설명한 대로 1단계 처리를 수행한 다음 결과를 검사합니다. 결과가 있으면 스택에서 팝되고, 그 진리 값(truth value)이 테스트되어 두 위치 중 하나로 분기됩니다.</p>
+
+<p>그렇지 않으면 첫 번째 피연산자가 스택에 남아 있고 실행은 다음 바이트코드로 계속됩니다. <code class="language-plaintext highlighter-rouge">AND2_JUMP_IF_FALSE</code> 바이트코드는 2단계 처리를 수행하고 결과를 팝한 다음 결과가 거짓으로 테스트되면 분기합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">or</code> 연산자의 경우, 해당 <code class="language-plaintext highlighter-rouge">OR1_JUMP</code> 및 <code class="language-plaintext highlighter-rouge">OR2_JUMP_IF_TRUE</code> 바이트코드가 있을 것입니다.</p>
+
+<p>만약 1단계 메서드가 없는 간소화된 버전이 사용된다면, <code class="language-plaintext highlighter-rouge">and</code>의 경우 첫 번째 피연산자가 거짓일 때만, <code class="language-plaintext highlighter-rouge">or</code>의 경우 첫 번째 피연산자가 참일 때만 조기 종료가 발생할 수 있습니다. 결과적으로 두 개의 타겟을 갖는 <code class="language-plaintext highlighter-rouge">AND1_JUMP</code> 및 <code class="language-plaintext highlighter-rouge">OR1_JUMP</code> 바이트코드는 <code class="language-plaintext highlighter-rouge">AND1_JUMP_IF_FALSE</code> 및 <code class="language-plaintext highlighter-rouge">OR1_JUMP_IF_TRUE</code>로 대체될 수 있으며, 이들은 하나의 타겟만 갖는 일반적인 분기 명령입니다.</p>
+
+<h3 id="not의-최적화-optimisation-of-not"><code class="language-plaintext highlighter-rouge">not</code>의 최적화 (Optimisation of ‘not’)</h3>
+
+<p>최근 버전의 Python은 부정된 불리언 표현식에 대한 분기를 분기 방향을 뒤집는 방식으로 구현하여 <code class="language-plaintext highlighter-rouge">UNARY_NOT</code> opcode를 절약하는 간단한 최적화를 구현합니다.</p>
+
+<p>엄격하게 보면, <code class="language-plaintext highlighter-rouge">not</code> 연산자가 일반적인 것과 상당히 다른 결과를 생성하도록 오버라이딩될 수 있으므로 이 최적화는 더 이상 수행되어서는 안 됩니다. 그러나 일반적인 사용 사례에서는 사용자 정의된 불리언 연산을 포함하는 표현식이 분기(branching)에 사용될 것으로 예상되지 않습니다. 결과는 다른 방식으로 사용될 가능성이 훨씬 높습니다.</p>
+
+<p>따라서 컴파일러가 불리언 컨텍스트에 직접 나타나는 모든 표현식을 단순화하기 위해 불리언 대수(boolean algebra)의 법칙을 사용하는 것을 허용하도록 지정해도 큰 해는 없을 것입니다. 이것이 불편하다면, 결과를 항상 임시 이름에 먼저 할당할 수 있습니다.</p>
+
+<p>이렇게 하면 기존의 <code class="language-plaintext highlighter-rouge">not</code> 최적화가 유지될 수 있으며, 드 모르간의 법칙(De Morgan’s laws)을 사용하여 표현식 내에서 더 깊게 확장하는 것과 같은 향후 확장도 가능하게 됩니다.</p>
+
+<h2 id="사용-예시-usage-examples">사용 예시 (Usage Examples)</h2>
+
+<h3 id="예시-1-numpy-배열-numpy-arrays">예시 1: NumPy 배열 (NumPy Arrays)</h3>
+
+<p>이 예시는 <code class="language-plaintext highlighter-rouge">and</code>, <code class="language-plaintext highlighter-rouge">or</code>, <code class="language-plaintext highlighter-rouge">not</code> 연산자를 적용하여 불리언 배열을 생성할 수 있는 NumPy 배열의 하위 클래스를 만듭니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">numpy</span> <span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">ndarray</span>
+
+<span class="k">class</span> <span class="nc">BArray</span><span class="p">(</span><span class="n">ndarray</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sh">"</span><span class="s">barray(%s)</span><span class="sh">"</span> <span class="o">%</span> <span class="n">ndarray</span><span class="p">.</span><span class="nf">__str__</span><span class="p">(</span><span class="n">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__and2__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="c1"># 비트와이즈 AND를 사용하여 요소별 AND 연산을 수행합니다.
+</span>        <span class="c1"># 이 예시에서는 __and2__에 대한 로직이 잘못되어 있습니다.
+</span>        <span class="c1"># 실제로는 (self &amp; other)가 아닌, 각 요소에 대한 논리 AND를 구현해야 합니다.
+</span>        <span class="c1"># PEP 제안의 의도에 따라 재구성하면,
+</span>        <span class="c1"># (self != 0) &amp; (other != 0) 과 같은 형태가 될 수 있습니다.
+</span>        <span class="c1"># 하지만 예시 코드에서는 단순하게 비트와이즈 AND를 사용했습니다.
+</span>        <span class="c1"># 이는 PEP 335의 목적을 완전히 반영하지 않을 수 있습니다.
+</span>        <span class="nf">return </span><span class="p">(</span><span class="n">self</span> <span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span> <span class="c1"># 예시에서는 비트와이즈 &amp;를 사용
+</span>
+    <span class="k">def</span> <span class="nf">__or2__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="c1"># 마찬가지로, 이 예시에서는 __or2__에 대한 로직이 잘못되어 있습니다.
+</span>        <span class="c1"># 실제로는 각 요소에 대한 논리 OR을 구현해야 합니다.
+</span>        <span class="nf">return </span><span class="p">(</span><span class="n">self</span> <span class="o">|</span> <span class="n">other</span><span class="p">)</span> <span class="c1"># 예시에서는 비트와이즈 |를 사용
+</span>
+    <span class="k">def</span> <span class="nf">__not__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="c1"># 각 요소에 대해 논리 NOT 연산을 수행합니다.
+</span>        <span class="c1"># 0이 아닌 값은 True, 0은 False로 간주하여 반전합니다.
+</span>        <span class="nf">return </span><span class="p">(</span><span class="n">self</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">barray</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nf">array</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">).</span><span class="nf">view</span><span class="p">(</span><span class="nb">type</span> <span class="o">=</span> <span class="n">BArray</span><span class="p">)</span>
+
+<span class="n">a0</span> <span class="o">=</span> <span class="nf">barray</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="n">a1</span> <span class="o">=</span> <span class="nf">barray</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="n">a2</span> <span class="o">=</span> <span class="nf">barray</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="n">a3</span> <span class="o">=</span> <span class="nf">barray</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">a0:</span><span class="sh">"</span><span class="p">,</span> <span class="n">a0</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">a1:</span><span class="sh">"</span><span class="p">,</span> <span class="n">a1</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">a2:</span><span class="sh">"</span><span class="p">,</span> <span class="n">a2</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">a3:</span><span class="sh">"</span><span class="p">,</span> <span class="n">a3</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">not a0:</span><span class="sh">"</span><span class="p">,</span> <span class="ow">not</span> <span class="n">a0</span><span class="p">)</span> <span class="c1"># __not__ 메서드 호출
+</span><span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">a0 == a1 and a2 == a3:</span><span class="sh">"</span><span class="p">,</span> <span class="n">a0</span> <span class="o">==</span> <span class="n">a1</span> <span class="ow">and</span> <span class="n">a2</span> <span class="o">==</span> <span class="n">a3</span><span class="p">)</span> <span class="c1"># __and2__ 메서드 호출
+</span><span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">a0 == a1 or a2 == a3:</span><span class="sh">"</span><span class="p">,</span> <span class="n">a0</span> <span class="o">==</span> <span class="n">a1</span> <span class="ow">or</span> <span class="n">a2</span> <span class="o">==</span> <span class="n">a3</span><span class="p">)</span>   <span class="c1"># __or2__ 메서드 호출
+</span></code></pre></div></div>
+
+<h4 id="예시-1-출력-example-1-output">예시 1 출력 (Example 1 Output)</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a0: barray([0 1 2 4])
+a1: barray([1 2 3 4])
+a2: barray([5 6 3 4])
+a3: barray([5 1 2 4])
+not a0: barray([ True False False False])
+a0 == a1 and a2 == a3: barray([False False False True])
+a0 == a1 or a2 == a3: barray([False False False True])
+</code></pre></div></div>
+
+<h3 id="예시-2-데이터베이스-쿼리-database-queries">예시 2: 데이터베이스 쿼리 (Database Queries)</h3>
+
+<p>이 예시는 <code class="language-plaintext highlighter-rouge">and</code> 및 <code class="language-plaintext highlighter-rouge">or</code> 연산자를 사용하여 쿼리를 구성할 수 있는 데이터베이스 쿼리용 DSL(Domain Specific Language) 생성을 시연합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">SQLNode</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__and2__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nc">SQLBinop</span><span class="p">(</span><span class="sh">"</span><span class="s">and</span><span class="sh">"</span><span class="p">,</span> <span class="n">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">__rand2__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nc">SQLBinop</span><span class="p">(</span><span class="sh">"</span><span class="s">and</span><span class="sh">"</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">self</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nc">SQLBinop</span><span class="p">(</span><span class="sh">"</span><span class="s">=</span><span class="sh">"</span><span class="p">,</span> <span class="n">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Table</span><span class="p">(</span><span class="n">SQLNode</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">__tablename__</span> <span class="o">=</span> <span class="n">name</span>
+    <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nc">SQLAttr</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">__sql__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">__tablename__</span>
+
+<span class="k">class</span> <span class="nc">SQLBinop</span><span class="p">(</span><span class="n">SQLNode</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">op</span><span class="p">,</span> <span class="n">opnd1</span><span class="p">,</span> <span class="n">opnd2</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">op</span> <span class="o">=</span> <span class="n">op</span><span class="p">.</span><span class="nf">upper</span><span class="p">()</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">opnd1</span> <span class="o">=</span> <span class="n">opnd1</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">opnd2</span> <span class="o">=</span> <span class="n">opnd2</span>
+    <span class="k">def</span> <span class="nf">__sql__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sh">"</span><span class="s">(%s %s %s)</span><span class="sh">"</span> <span class="o">%</span> <span class="p">(</span><span class="nf">sql</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">opnd1</span><span class="p">),</span> <span class="n">self</span><span class="p">.</span><span class="n">op</span><span class="p">,</span> <span class="nf">sql</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">opnd2</span><span class="p">))</span>
+
+<span class="k">class</span> <span class="nc">SQLAttr</span><span class="p">(</span><span class="n">SQLNode</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">table</span> <span class="o">=</span> <span class="n">table</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+    <span class="k">def</span> <span class="nf">__sql__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sh">"</span><span class="s">%s.%s</span><span class="sh">"</span> <span class="o">%</span> <span class="p">(</span><span class="nf">sql</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">table</span><span class="p">),</span> <span class="n">self</span><span class="p">.</span><span class="n">name</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">SQLSelect</span><span class="p">(</span><span class="n">SQLNode</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">targets</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">targets</span> <span class="o">=</span> <span class="n">targets</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">where_clause</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">def</span> <span class="nf">where</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">where_clause</span> <span class="o">=</span> <span class="n">expr</span>
+        <span class="k">return</span> <span class="n">self</span>
+    <span class="k">def</span> <span class="nf">__sql__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="sh">"</span><span class="s">SELECT %s</span><span class="sh">"</span> <span class="o">%</span> <span class="sh">"</span><span class="s">, </span><span class="sh">"</span><span class="p">.</span><span class="nf">join</span><span class="p">([</span><span class="nf">sql</span><span class="p">(</span><span class="n">target</span><span class="p">)</span> <span class="k">for</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">targets</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">self</span><span class="p">.</span><span class="n">where_clause</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="sh">"</span><span class="s">%s WHERE %s</span><span class="sh">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="nf">sql</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">where_clause</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+<span class="k">def</span> <span class="nf">sql</span><span class="p">(</span><span class="n">expr</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">SQLNode</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">expr</span><span class="p">.</span><span class="nf">__sql__</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sh">"'</span><span class="s">%s</span><span class="sh">'"</span> <span class="o">%</span> <span class="n">expr</span><span class="p">.</span><span class="nf">replace</span><span class="p">(</span><span class="sh">"'"</span><span class="p">,</span> <span class="sh">"''"</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nf">str</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="o">*</span><span class="n">targets</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nc">SQLSelect</span><span class="p">(</span><span class="n">targets</span><span class="p">)</span>
+
+<span class="c1">#-----------------------------------------------------------------
+</span><span class="n">dishes</span> <span class="o">=</span> <span class="nc">Table</span><span class="p">(</span><span class="sh">"</span><span class="s">dishes</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">customers</span> <span class="o">=</span> <span class="nc">Table</span><span class="p">(</span><span class="sh">"</span><span class="s">customers</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">orders</span> <span class="o">=</span> <span class="nc">Table</span><span class="p">(</span><span class="sh">"</span><span class="s">orders</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="n">query</span> <span class="o">=</span> <span class="nf">select</span><span class="p">(</span><span class="n">customers</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="n">dishes</span><span class="p">.</span><span class="n">price</span><span class="p">,</span> <span class="n">orders</span><span class="p">.</span><span class="n">amount</span><span class="p">).</span><span class="nf">where</span><span class="p">(</span>
+    <span class="n">customers</span><span class="p">.</span><span class="n">cust_id</span> <span class="o">==</span> <span class="n">orders</span><span class="p">.</span><span class="n">cust_id</span> <span class="ow">and</span>
+    <span class="n">orders</span><span class="p">.</span><span class="n">dish_id</span> <span class="o">==</span> <span class="n">dishes</span><span class="p">.</span><span class="n">dish_id</span> <span class="ow">and</span>
+    <span class="n">dishes</span><span class="p">.</span><span class="n">name</span> <span class="o">==</span> <span class="sh">"</span><span class="s">Spam, Eggs, Sausages and Spam</span><span class="sh">"</span>
+<span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="nf">repr</span><span class="p">(</span><span class="n">query</span><span class="p">))</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">sql</span><span class="p">(</span><span class="n">query</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h4 id="예시-2-출력-example-2-output">예시 2 출력 (Example 2 Output)</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;__main__.SQLSelect object at 0x1cc830&gt;
+SELECT customers.name, dishes.price, orders.amount WHERE (((customers.cust_id = orders.cust_id) AND (orders.dish_id = dishes.dish_id)) AND (dishes.name = 'Spam, Eggs, Sausages and Spam'))
+</code></pre></div></div>
+
+<h2 id="거부-공지-rejection-notice">거부 공지 (Rejection Notice)</h2>
+
+<p>이 PEP는 거부되었습니다. 자세한 내용은 다음 링크를 참조하십시오: <a href="https://mail.python.org/pipermail/python-dev/2012-March/117510.html">https://mail.python.org/pipermail/python-dev/2012-March/117510.html</a></p>
+
+<h2 id="저작권-copyright">저작권 (Copyright)</h2>
+
+<p>이 문서는 퍼블릭 도메인(public domain)에 있습니다.
+```
+The user wants a Korean translation and summary of PEP 335. I have already browsed the URL and obtained the content. Now I need to process this content according to the guidelines:</p>
+
+<ol>
+  <li><strong>Professionalism:</strong> Use accurate Python terminology.</li>
+  <li><strong>Term Handling:</strong>
+    <ul>
+      <li>Use common Korean terms where available.</li>
+      <li>For ambiguous or more familiar English terms, use English or 병기 (both English and Korean).</li>
+      <li>Do NOT translate keywords or variable names in code.</li>
+    </ul>
+  </li>
+  <li><strong>Readability:</strong> Use Markdown.</li>
+  <li><strong>Accuracy:</strong> Translate all original content into Markdown.</li>
+</ol>
+
+<p>I will go section by section and translate the content, applying the guidelines.</p>
+
+<p><strong>Plan:</strong></p>
+<ul>
+  <li>Start with the PEP title and rejection notice.</li>
+  <li>Translate Abstract.</li>
+  <li>Translate Background.</li>
+  <li>Translate Motivation, including the examples and workarounds.</li>
+  <li>Translate Rationale.</li>
+  <li>Translate Specification, covering Special Methods, Bytecodes, Type Slots, and Python/C API Functions.</li>
+  <li>Translate Alternatives and Optimisations, including Reduced special method set, Additional bytecodes, and Optimisation of ‘not’.</li>
+  <li>Translate Usage Examples, including both NumPy Arrays and Database Queries, with their code and output.</li>
+  <li>Conclude with the Copyright notice.</li>
+  <li>Ensure all sentences derived from the browsed content have citations <code class="language-plaintext highlighter-rouge">[cite: 1]</code>.</li>
+</ul>
+
+<p>Let’s start translating.</p>
+
+<hr />
+<p><strong>Initial thought on specific terms:</strong></p>
+<ul>
+  <li>“Overloadable Boolean Operators” -&gt; “오버로딩 가능한 불리언 연산자”</li>
+  <li>“Rejected” -&gt; “거부됨” or “거부(Rejected)”</li>
+  <li>“Abstract” -&gt; “개요”</li>
+  <li>“Background” -&gt; “배경”</li>
+  <li>“Motivation” -&gt; “동기”</li>
+  <li>“Rationale” -&gt; “근거”</li>
+  <li>“Specification” -&gt; “사양”</li>
+  <li>“Special Methods” -&gt; “특수 메서드”</li>
+  <li>“Bytecodes” -&gt; “바이트코드”</li>
+  <li>“Type Slots” -&gt; “타입 슬롯”</li>
+  <li>“Python/C API Functions” -&gt; “Python/C API 함수”</li>
+  <li>“Alternatives and Optimisations” -&gt; “대안 및 최적화”</li>
+  <li>“Usage Examples” -&gt; “사용 예시”</li>
+  <li>“Short-circuiting semantics” -&gt; “단락 평가 의미론” or “단락 평가 (short-circuiting semantics)”</li>
+  <li>“NumPy Arrays” -&gt; “NumPy 배열”</li>
+  <li>“Relational database interface” -&gt; “관계형 데이터베이스 인터페이스”</li>
+  <li>“Bitwise operators” -&gt; “비트와이즈 연산자”</li>
+  <li>“Chained comparisons” -&gt; “체인 비교 (chained comparisons)”</li>
+  <li>“<strong>and1</strong>”, “<strong>or1</strong>”, “<strong>and2</strong>”, “<strong>or2</strong>”, “<strong>rand2</strong>”, “<strong>ror2</strong>”, “<strong>not</strong>” should remain as is, as they are code/keyword-like.</li>
+  <li><code class="language-plaintext highlighter-rouge">NotImplemented</code> also remains as is.</li>
+  <li><code class="language-plaintext highlighter-rouge">NeedOtherOperand</code> also remains as is.</li>
+  <li>Bytecode names (<code class="language-plaintext highlighter-rouge">LOGICAL_AND_1</code>, <code class="language-plaintext highlighter-rouge">LOGICAL_AND_2</code>, etc.) remain as is.</li>
+  <li>C-level type slots (<code class="language-plaintext highlighter-rouge">nb_logical_not</code>, etc.) remain as is.</li>
+  <li>Python/C API functions (<code class="language-plaintext highlighter-rouge">PyObject_LogicalNot</code>, etc.) remain as is.</li>
+  <li>“Precedence” -&gt; “우선순위”</li>
+  <li>“Domain Specific Language (DSL)” -&gt; “DSL (Domain Specific Language)”</li>
+</ul>
+
+<p>I will carefully go through the document and apply these.```
+The user wants a Korean translation and summary of PEP 335. I have already browsed the URL and obtained the content. Now I need to process this content according to the guidelines:</p>
+
+<ol>
+  <li><strong>Professionalism:</strong> Use accurate Python terminology.</li>
+  <li><strong>Term Handling:</strong>
+    <ul>
+      <li>Use common Korean terms where available.</li>
+      <li>For ambiguous or more familiar English terms, use English or 병기 (both English and Korean).</li>
+      <li>Do NOT translate keywords or variable names in code.</li>
+    </ul>
+  </li>
+  <li><strong>Readability:</strong> Use Markdown.</li>
+  <li><strong>Accuracy:</strong> Translate all original content into Markdown.</li>
+</ol>
+
+<p>I will go section by section and translate the content, applying the guidelines.</p>
+
+<p><strong>Plan:</strong></p>
+<ul>
+  <li>Start with the PEP title and rejection notice.</li>
+  <li>Translate Abstract.</li>
+  <li>Translate Background.</li>
+  <li>Translate Motivation, including the examples and workarounds.</li>
+  <li>Translate Rationale.</li>
+  <li>Translate Specification, covering Special Methods, Bytecodes, Type Slots, and Python/C API Functions.</li>
+  <li>Translate Alternatives and Optimisations, including Reduced special method set, Additional bytecodes, and Optimisation of ‘not’.</li>
+  <li>Translate Usage Examples, including both NumPy Arrays and Database Queries, with their code and output.</li>
+  <li>Conclude with the Copyright notice.</li>
+  <li>Ensure all sentences derived from the browsed content have citations <code class="language-plaintext highlighter-rouge">[cite: 1]</code>.</li>
+</ul>
+
+<p>Let’s start translating.</p>
+
+<hr />
+<p><strong>Initial thought on specific terms:</strong></p>
+<ul>
+  <li>“Overloadable Boolean Operators” -&gt; “오버로딩 가능한 불리언 연산자”</li>
+  <li>“Rejected” -&gt; “거부됨” or “거부(Rejected)”</li>
+  <li>“Abstract” -&gt; “개요”</li>
+  <li>“Background” -&gt; “배경”</li>
+  <li>“Motivation” -&gt; “동기”</li>
+  <li>“Rationale” -&gt; “근거”</li>
+  <li>“Specification” -&gt; “사양”</li>
+  <li>“Special Methods” -&gt; “특수 메서드”</li>
+  <li>“Bytecodes” -&gt; “바이트코드”</li>
+  <li>“Type Slots” -&gt; “타입 슬롯”</li>
+  <li>“Python/C API Functions” -&gt; “Python/C API 함수”</li>
+  <li>“Alternatives and Optimisations” -&gt; “대안 및 최적화”</li>
+  <li>“Usage Examples” -&gt; “사용 예시”</li>
+  <li>“Short-circuiting semantics” -&gt; “단락 평가 의미론” or “단락 평가 (short-circuiting semantics)”</li>
+  <li>“NumPy Arrays” -&gt; “NumPy 배열”</li>
+  <li>“Relational database interface” -&gt; “관계형 데이터베이스 인터페이스”</li>
+  <li>“Bitwise operators” -&gt; “비트와이즈 연산자”</li>
+  <li>“Chained comparisons” -&gt; “체인 비교 (chained comparisons)”</li>
+  <li>“<strong>and1</strong>”, “<strong>or1</strong>”, “<strong>and2</strong>”, “<strong>or2</strong>”, “<strong>rand2</strong>”, “<strong>ror2</strong>”, “<strong>not</strong>” should remain as is, as they are code/keyword-like.</li>
+  <li><code class="language-plaintext highlighter-rouge">NotImplemented</code> also remains as is.</li>
+  <li><code class="language-plaintext highlighter-rouge">NeedOtherOperand</code> also remains as is.</li>
+  <li>Bytecode names (<code class="language-plaintext highlighter-rouge">LOGICAL_AND_1</code>, <code class="language-plaintext highlighter-rouge">LOGICAL_AND_2</code>, etc.) remain as is.</li>
+  <li>C-level type slots (<code class="language-plaintext highlighter-rouge">nb_logical_not</code>, etc.) remain as is.</li>
+  <li>Python/C API functions (<code class="language-plaintext highlighter-rouge">PyObject_LogicalNot</code>, etc.) remain as is.</li>
+  <li>“Precedence” -&gt; “우선순위”</li>
+  <li>“Domain Specific Language (DSL)” -&gt; “DSL (Domain Specific Language)”</li>
+</ul>
+
+<p>I will carefully go through the document and apply these.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/629/" class="pagination--pager" title="[Final] PEP 629 - Versioning PyPI’s Simple API
+">Previous</a>
+    
+    
+      <a href="/python/pep/343/" class="pagination--pager" title="[Final] PEP 343 - The “with” Statement
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,721 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 285 - Adding a bool type | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 285: ‘Adding a bool type’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 285 - Adding a bool type">
+<meta property="og:url" content="http://localhost:4000/python/pep/285/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 285: ‘Adding a bool type’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T17:58:00+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T17:58:00+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/285/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 285 - Adding a bool type">
+    <meta itemprop="description" content="Python Enhancement Proposal 285: ‘Adding a bool type’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T17:58:00+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T17:58:00+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 285 - Adding a bool type
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T17:58:00+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-285--bool-타입-추가-제안">PEP 285 – bool 타입 추가 제안</a><ul><li><a href="#개요">개요</a></li><li><a href="#도입-배경-rationale">도입 배경 (Rationale)</a></li><li><a href="#명세-specification">명세 (Specification)</a></li><li><a href="#c-api">C API</a></li><li><a href="#명확화-clarification">명확화 (Clarification)</a></li><li><a href="#호환성-compatibility">호환성 (Compatibility)</a></li><li><a href="#해결된-문제-resolved-issues">해결된 문제 (Resolved Issues)</a></li><li><a href="#구현-implementation">구현 (Implementation)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0285/">PEP 285 - Adding a bool type</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 08-Mar-2002</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h2 id="pep-285--bool-타입-추가-제안">PEP 285 – <code class="language-plaintext highlighter-rouge">bool</code> 타입 추가 제안</h2>
+
+<h3 id="개요">개요</h3>
+
+<p>PEP 285는 Python에 새로운 내장(built-in) 타입인 <code class="language-plaintext highlighter-rouge">bool</code>을 도입하고, 두 개의 상수 <code class="language-plaintext highlighter-rouge">False</code>와 <code class="language-plaintext highlighter-rouge">True</code>를 추가할 것을 제안합니다. 이 <code class="language-plaintext highlighter-rouge">bool</code> 타입은 내부적으로 <code class="language-plaintext highlighter-rouge">int</code> 타입의 서브타입(subtype)으로 구현되며, <code class="language-plaintext highlighter-rouge">False</code>는 <code class="language-plaintext highlighter-rouge">0</code>처럼, <code class="language-plaintext highlighter-rouge">True</code>는 <code class="language-plaintext highlighter-rouge">1</code>처럼 동작합니다. 그러나 <code class="language-plaintext highlighter-rouge">repr()</code> 및 <code class="language-plaintext highlighter-rouge">str()</code> 함수 호출 시에는 <code class="language-plaintext highlighter-rouge">0</code>이나 <code class="language-plaintext highlighter-rouge">1</code> 대신 <code class="language-plaintext highlighter-rouge">"False"</code>나 <code class="language-plaintext highlighter-rouge">"True"</code>를 반환합니다.</p>
+
+<p>이 제안이 수락됨에 따라, 개념적으로 불리언(Boolean) 결과를 반환하는 모든 내장 연산(예: 비교 연산자, <code class="language-plaintext highlighter-rouge">not</code> 연산자, <code class="language-plaintext highlighter-rouge">isinstance()</code>와 같은 술어(predicate) 함수)은 더 이상 <code class="language-plaintext highlighter-rouge">0</code>이나 <code class="language-plaintext highlighter-rouge">1</code> 대신 <code class="language-plaintext highlighter-rouge">False</code> 또는 <code class="language-plaintext highlighter-rouge">True</code>를 반환하도록 변경되었습니다.</p>
+
+<h3 id="도입-배경-rationale">도입 배경 (Rationale)</h3>
+
+<p>대부분의 프로그래밍 언어는 결국 불리언 타입을 가지게 되며, 심지어 C99 표준에도 불리언 타입이 포함되어 있습니다. 많은 프로그래머들이 불리언 타입의 필요성을 느끼고 있었으며, 기존 Python 문서에서도 불리언 타입의 부재에 대한 설명을 포함하곤 했습니다.</p>
+
+<p>과거에는 많은 개발자가 <code class="language-plaintext highlighter-rouge">False=0</code>과 <code class="language-plaintext highlighter-rouge">True=1</code>과 같은 상수를 직접 정의하여 사용했지만, 이 방식은 일관성이 부족하다는 문제가 있었습니다. 예를 들어, <code class="language-plaintext highlighter-rouge">FALSE</code>, <code class="language-plaintext highlighter-rouge">false</code>, <code class="language-plaintext highlighter-rouge">False</code>, <code class="language-plaintext highlighter-rouge">F</code>, <code class="language-plaintext highlighter-rouge">f</code> 중 어떤 표기법을 사용해야 할지, 또는 <code class="language-plaintext highlighter-rouge">false</code>가 <code class="language-plaintext highlighter-rouge">0</code>, <code class="language-plaintext highlighter-rouge">None</code>, 혹은 다른 타입의 진릿값(truth value)이어야 하는지 등 혼란이 있었습니다. 표준 <code class="language-plaintext highlighter-rouge">bool</code> 타입을 언어에 추가함으로써 이러한 문제를 해결할 수 있게 되었습니다.</p>
+
+<p>또한, 일부 외부 라이브러리(데이터베이스, RPC 패키지 등)는 불리언 값과 정수(integral) 값을 구별해야 할 필요가 있었습니다. 자바(Jython)와 같은 환경에서는 <code class="language-plaintext highlighter-rouge">int</code>와 <code class="language-plaintext highlighter-rouge">boolean</code> 인수에 대해 오버로드(overload)된 메서드가 존재하여 <code class="language-plaintext highlighter-rouge">bool</code> 타입이 이러한 상황에서 적절한 메서드를 선택하는 데 사용될 수 있습니다.</p>
+
+<p>값을 불리언으로 강제 변환하거나 정규화할 때 <code class="language-plaintext highlighter-rouge">bool(x)</code>는 <code class="language-plaintext highlighter-rouge">not not x</code>보다 훨씬 명확하며, <code class="language-plaintext highlighter-rouge">if x: return 1 else: return 0</code>과 같은 코드보다 간결합니다. 교육적인 측면에서도 <code class="language-plaintext highlighter-rouge">a &gt; b</code>와 같은 비교 연산의 결과가 <code class="language-plaintext highlighter-rouge">1</code> 대신 <code class="language-plaintext highlighter-rouge">True</code>로 표시되는 것이 초보 학습자에게 더 직관적이고 이해하기 쉽습니다.</p>
+
+<h3 id="명세-specification">명세 (Specification)</h3>
+
+<p>새로운 <code class="language-plaintext highlighter-rouge">bool</code> 타입의 주요 특징은 다음과 같습니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">bool</code>은 <code class="language-plaintext highlighter-rouge">int</code>를 상속합니다.
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">bool</span><span class="p">(</span><span class="nb">int</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">val</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">self</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sh">"</span><span class="s">True</span><span class="sh">"</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sh">"</span><span class="s">False</span><span class="sh">"</span>
+    <span class="n">__str__</span> <span class="o">=</span> <span class="n">__repr__</span>
+    <span class="c1"># ... (and, or, xor 연산자 오버라이드)
+</span></code></pre></div>    </div>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">False</code>와 <code class="language-plaintext highlighter-rouge">True</code>는 <code class="language-plaintext highlighter-rouge">None</code>과 같은 싱글턴(singleton)입니다. 즉, 단 하나의 인스턴스만 존재합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">pickle</code> 및 <code class="language-plaintext highlighter-rouge">marshal</code> 모듈을 통한 직렬화/역직렬화(pickling and marshalling) 과정에서 <code class="language-plaintext highlighter-rouge">True</code>와 <code class="language-plaintext highlighter-rouge">False</code>는 올바르게 round-trip 됩니다.</li>
+  <li>개념적으로 불리언 결과를 반환하는 모든 내장 연산은 <code class="language-plaintext highlighter-rouge">0</code> 또는 <code class="language-plaintext highlighter-rouge">1</code> 대신 <code class="language-plaintext highlighter-rouge">False</code> 또는 <code class="language-plaintext highlighter-rouge">True</code>를 반환하도록 변경됩니다. 이는 비교 연산자(<code class="language-plaintext highlighter-rouge">==</code>, <code class="language-plaintext highlighter-rouge">&lt;</code>, <code class="language-plaintext highlighter-rouge">is</code> 등), 단항 연산자 <code class="language-plaintext highlighter-rouge">not</code>, <code class="language-plaintext highlighter-rouge">callable()</code>, <code class="language-plaintext highlighter-rouge">hasattr()</code>, <code class="language-plaintext highlighter-rouge">isinstance()</code>, <code class="language-plaintext highlighter-rouge">issubclass()</code>와 같은 내장 함수, 그리고 <code class="language-plaintext highlighter-rouge">str</code>, <code class="language-plaintext highlighter-rouge">unicode</code>, <code class="language-plaintext highlighter-rouge">dict</code>, <code class="language-plaintext highlighter-rouge">file</code> 객체의 여러 메서드에 영향을 미칩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">bool</code>이 <code class="language-plaintext highlighter-rouge">int</code>를 상속하므로, <code class="language-plaintext highlighter-rouge">True + 1</code>은 유효하며 결과는 <code class="language-plaintext highlighter-rouge">2</code>입니다. 이는 하위 호환성(backwards compatibility)을 위해 중요합니다.</li>
+</ul>
+
+<h3 id="c-api">C API</h3>
+
+<p><code class="language-plaintext highlighter-rouge">bool</code> 타입의 C API는 “boolobject.h” 헤더 파일에 정의되어 있으며, “Python.h”에 포함되어 있습니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Py_False</code>와 <code class="language-plaintext highlighter-rouge">Py_True</code>는 고유한 <code class="language-plaintext highlighter-rouge">False</code>와 <code class="language-plaintext highlighter-rouge">True</code> 불리언 객체를 참조합니다.</li>
+  <li>새로운 API인 <code class="language-plaintext highlighter-rouge">PyObject *PyBool_FromLong(long)</code>는 C의 <code class="language-plaintext highlighter-rouge">long int</code> 인수를 받아 <code class="language-plaintext highlighter-rouge">Py_False</code> 또는 <code class="language-plaintext highlighter-rouge">Py_True</code>에 대한 새 참조를 반환합니다.</li>
+  <li>객체가 <code class="language-plaintext highlighter-rouge">bool</code>인지 확인하려면 매크로 <code class="language-plaintext highlighter-rouge">PyBool_Check()</code>를 사용할 수 있습니다.</li>
+</ul>
+
+<h3 id="명확화-clarification">명확화 (Clarification)</h3>
+
+<p>이 PEP는 거의 모든 객체 타입이 진릿값으로 사용될 수 있다는 사실을 변경하지 않습니다. 예를 들어, <code class="language-plaintext highlighter-rouge">if</code> 문에서 빈 리스트는 <code class="language-plaintext highlighter-rouge">False</code>로 간주되고 비어 있지 않은 리스트는 <code class="language-plaintext highlighter-rouge">True</code>로 간주되는 기존의 동작은 변하지 않으며, 이를 변경할 계획도 없습니다.</p>
+
+<p>변경되는 유일한 점은 진릿값을 명시적으로 반환하거나 할당할 때 선호되는 값입니다. 이전에는 <code class="language-plaintext highlighter-rouge">0</code>과 <code class="language-plaintext highlighter-rouge">1</code>이 선호되었지만, 이 PEP는 선호되는 값을 <code class="language-plaintext highlighter-rouge">False</code>와 <code class="language-plaintext highlighter-rouge">True</code>로 변경하고, 내장 연산이 이러한 선호 값을 반환하도록 수정합니다.</p>
+
+<h3 id="호환성-compatibility">호환성 (Compatibility)</h3>
+
+<p>하위 호환성을 위해 <code class="language-plaintext highlighter-rouge">bool</code> 타입은 일부 개발자들이 원했을 만한 엄격한 불리언 특성을 모두 가지지는 않습니다. 예를 들어, 하나 또는 두 개의 <code class="language-plaintext highlighter-rouge">bool</code> 인수를 사용하는 산술 연산이 허용되며, <code class="language-plaintext highlighter-rouge">False</code>는 <code class="language-plaintext highlighter-rouge">0</code>으로, <code class="language-plaintext highlighter-rouge">True</code>는 <code class="language-plaintext highlighter-rouge">1</code>로 취급됩니다. 또한, <code class="language-plaintext highlighter-rouge">bool</code>은 시퀀스(sequence) 인덱스로 사용될 수 있습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">and</code> 및 <code class="language-plaintext highlighter-rouge">or</code> 연산자는 결과를 결정하는 첫 번째 인수를 반환하도록 정의되어 있으며, 이는 변경되지 않습니다. 따라서 이들 연산자는 항상 불리언 값을 강제하지 않습니다. 물론, 두 인수가 모두 <code class="language-plaintext highlighter-rouge">bool</code>이면 결과도 항상 <code class="language-plaintext highlighter-rouge">bool</code>입니다. 결과를 <code class="language-plaintext highlighter-rouge">bool</code>로 강제하려면 <code class="language-plaintext highlighter-rouge">bool(x and y)</code>와 같이 작성할 수 있습니다.</p>
+
+<h3 id="해결된-문제-resolved-issues">해결된 문제 (Resolved Issues)</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">repr()</code> 또는 <code class="language-plaintext highlighter-rouge">str()</code> 함수의 결과가 <code class="language-plaintext highlighter-rouge">int</code>와 다르기 때문에 일부 코드(예: <code class="language-plaintext highlighter-rouge">doctest</code> 기반 유닛 테스트)가 실패할 수 있지만, 쉽게 수정할 수 있는 적은 양의 코드에만 영향을 미칠 것으로 예상됩니다.</li>
+  <li>다른 언어(C99, C++, Java)에서는 상수를 소문자 <code class="language-plaintext highlighter-rouge">false</code>, <code class="language-plaintext highlighter-rouge">true</code>로 사용하지만, Python은 <code class="language-plaintext highlighter-rouge">None</code>, <code class="language-plaintext highlighter-rouge">Ellipsis</code>, <code class="language-plaintext highlighter-rouge">NotImplemented</code>와 같은 기존 내장 상수의 대문자 규칙을 따르기로 결정했습니다.</li>
+  <li>초보자들이 <code class="language-plaintext highlighter-rouge">if x == True:</code>와 같이 작성하는 경향이 있지만, 올바른 형식은 <code class="language-plaintext highlighter-rouge">if x:</code>입니다. <code class="language-plaintext highlighter-rouge">x == True</code>가 <code class="language-plaintext highlighter-rouge">True</code>로 간주되는 모든 <code class="language-plaintext highlighter-rouge">x</code>에 대해 참이 되도록 하는 것은 <code class="language-plaintext highlighter-rouge">6 == True == 7</code>과 같은 논리적 오류를 발생시킬 수 있으므로 허용되지 않습니다. 개발자 교육을 통해 올바른 사용법을 알리는 것이 중요하다고 제안되었습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">if bool(x):</code>와 같이 명시적으로 <code class="language-plaintext highlighter-rouge">bool()</code>을 사용하는 것은 대개 필요하지 않으며 가독성을 저해할 수 있습니다. 그러나 임의의 객체 <code class="language-plaintext highlighter-rouge">x</code>에 대한 참조를 유지하는 것이 번거롭거나 정규화가 필요한 경우 <code class="language-plaintext highlighter-rouge">b = bool(x)</code>와 같이 사용하는 것은 유용할 수 있습니다. 값을 정수로 계속 사용하겠다는 의도를 명확히 하기 위해 <code class="language-plaintext highlighter-rouge">i = int(bool(x))</code>와 같이 사용할 수도 있습니다.</li>
+</ul>
+
+<h3 id="구현-implementation">구현 (Implementation)</h3>
+
+<p>C로 작성된 완전한 구현은 SourceForge 패치 관리자에 업로드되었으며, Python 2.3a0을 위해 CVS에 체크인되었습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/284/" class="pagination--pager" title="[Rejected] PEP 284 - Integer for-loops
+">Previous</a>
+    
+    
+      <a href="/python/pep/286/" class="pagination--pager" title="[Deferred] PEP 286 - Enhanced Argument Tuples
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

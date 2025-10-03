@@ -1,0 +1,744 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 218 - Adding a Built-In Set Object Type | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 218: ‘Adding a Built-In Set Object Type’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 218 - Adding a Built-In Set Object Type">
+<meta property="og:url" content="http://localhost:4000/python/pep/218/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 218: ‘Adding a Built-In Set Object Type’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T16:36:13+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T16:36:13+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/218/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 218 - Adding a Built-In Set Object Type">
+    <meta itemprop="description" content="Python Enhancement Proposal 218: ‘Adding a Built-In Set Object Type’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T16:36:13+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T16:36:13+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 218 - Adding a Built-In Set Object Type
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T16:36:13+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-218--내장-set-객체-타입-추가">PEP 218 – 내장 Set 객체 타입 추가</a><ul><li><a href="#개요">개요</a></li><li><a href="#도입-배경-rationale">도입 배경 (Rationale)</a></li><li><a href="#제안-proposal">제안 (Proposal)</a></li><li><a href="#set-표기법-set-notation">Set 표기법 (Set Notation)</a></li><li><a href="#역사-history">역사 (History)</a></li><li><a href="#가변성-mutability">가변성 (Mutability)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0218/">PEP 218 - Adding a Built-In Set Object Type</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 31-Jul-2000</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>이 문서는 Python Enhancement Proposal (PEP) 218의 내용을 한국어 Python 개발자들이 이해하기 쉽도록 번역하고 정리한 것입니다. 이 PEP는 Python에 내장 Set 객체 타입을 추가하는 것에 대한 제안을 다룹니다.</p>
+
+<hr />
+
+<h1 id="pep-218--내장-set-객체-타입-추가">PEP 218 – 내장 Set 객체 타입 추가</h1>
+
+<h2 id="개요">개요</h2>
+<p>이 PEP는 표준 Python 라이브러리에 <code class="language-plaintext highlighter-rouge">Set</code> 모듈을 추가하고, 이 모듈이 널리 사용될 경우 Set을 Python의 내장(built-in) 타입으로 만들 것을 제안합니다. 이 문서는 Set의 필요성과 함께, Set을 대신하여 딕셔너리를 사용하는 일반적인 방식이 왜 부적절한지 설명합니다. 또한, 내장 Set이 어떻게 작동할 것인지, 그리고 초기 <code class="language-plaintext highlighter-rouge">Set</code> 모듈이 어떻게 동작할 것인지에 대한 설명을 제공합니다. 마지막 섹션에서는 Set 및 Set 요소의 가변성(mutability)과 <code class="language-plaintext highlighter-rouge">Set</code> 모듈이 구현할 해결책에 대해 논의합니다.</p>
+
+<h2 id="도입-배경-rationale">도입 배경 (Rationale)</h2>
+<p>Set은 기본적인 수학적 구조이며, 알고리즘 사양에서 매우 흔하게 사용됩니다. 하지만 구현에서는 ‘올바른’ 구조임에도 불구하고 사용 빈도가 낮습니다. 프로그래머들은 리스트의 순서 정보가 무관하고 값(by-value)을 통한 조회가 빈번할 때에도 리스트를 대신 사용하는 경우가 많습니다. (대부분의 중간 규모 C 프로그램은 특정 항목이 존재하는지 여부를 확인하기 위해 <code class="language-plaintext highlighter-rouge">malloc</code>으로 할당된 벡터를 처음부터 끝까지 검색하는 경우가 많습니다.)</p>
+
+<p>프로그래머들은 종종 Set을 “don’t care” 값을 가진 딕셔너리로 구현할 수 있다고 배웁니다. 이러한 “Set”에 항목을 추가하려면 “don’t care” 값을 할당하고, 멤버십은 <code class="language-plaintext highlighter-rouge">dict.has_key</code>를 사용하여 테스트하며, 항목은 <code class="language-plaintext highlighter-rouge">del</code>을 사용하여 삭제할 수 있습니다. 그러나 Set의 다른 주요 연산(합집합, 교집합, 차집합)은 키/값 쌍을 포함하는 딕셔너리의 경우 의미가 모호해지기 때문에 이러한 표현으로는 직접 지원되지 않습니다.</p>
+
+<h2 id="제안-proposal">제안 (Proposal)</h2>
+<p>이 PEP의 장기적인 목표는 Python에 내장 <code class="language-plaintext highlighter-rouge">set</code> 타입을 추가하는 것입니다. 이 타입은 딕셔너리가 키/값 쌍의 순서 없는(unordered) 컬렉션인 것처럼, 고유한(unique) 값들의 순서 없는 컬렉션이 될 것입니다.</p>
+
+<p>반복(iteration)과 컴프리헨션(comprehension)은 다음과 같이 직관적인 방식으로 구현될 것입니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">S</span><span class="p">:</span>
+    <span class="c1"># S의 요소들을 임의의 순서로 순회합니다.
+</span><span class="sb">``````</span><span class="n">python</span>
+<span class="nf">set</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">S</span><span class="p">)</span>
+<span class="c1"># S의 모든 요소의 제곱을 포함하는 Set을 생성합니다.
+</span></code></pre></div></div>
+
+<p>멤버십 테스트는 <code class="language-plaintext highlighter-rouge">in</code> 및 <code class="language-plaintext highlighter-rouge">not in</code>을 사용하며, 기본적인 Set 연산은 오버로드된(overloaded) 연산자들의 조합으로 구현됩니다:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">|</code> : 합집합 (union)</li>
+  <li><code class="language-plaintext highlighter-rouge">&amp;</code> : 교집합 (intersection)</li>
+  <li><code class="language-plaintext highlighter-rouge">^</code> : 대칭 차집합 (symmetric difference)</li>
+  <li><code class="language-plaintext highlighter-rouge">-</code> : 비대칭 차집합 (asymmetric difference)</li>
+  <li><code class="language-plaintext highlighter-rouge">==</code> <code class="language-plaintext highlighter-rouge">!=</code> : 동등성 및 부등식 테스트</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;</code> <code class="language-plaintext highlighter-rouge">&lt;=</code> <code class="language-plaintext highlighter-rouge">&gt;=</code> <code class="language-plaintext highlighter-rouge">&gt;</code> : 부분집합 및 상위집합 테스트</li>
+</ul>
+
+<p>또한, 다음과 같은 메서드들이 제공됩니다:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">S.add(x)</code>: Set에 “x”를 추가합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">S.update(s)</code>: 시퀀스 “s”의 모든 요소를 Set에 추가합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">S.remove(x)</code>: Set에서 “x”를 제거합니다. “x”가 없으면 <code class="language-plaintext highlighter-rouge">LookupError</code> 예외가 발생합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">S.discard(x)</code>: Set에 “x”가 있으면 제거하고, 없으면 아무것도 하지 않습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">S.pop()</code>: 임의의 요소를 제거하고 반환합니다. 요소가 없으면 <code class="language-plaintext highlighter-rouge">LookupError</code>를 발생시킵니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">S.clear()</code>: 이 Set에서 모든 요소를 제거합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">S.copy()</code>: 새로운 Set을 생성합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">s.issuperset()</code>: 상위집합 관계를 확인합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">s.issubset()</code>: 부분집합 관계를 확인합니다.</li>
+</ul>
+
+<p>그리고 두 가지 새로운 내장(built-in) 변환 함수가 있습니다:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">set(x)</code>: 컬렉션 “x”의 요소들을 포함하는 Set을 생성합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">frozenset(x)</code>: 컬렉션 “x”의 요소들을 포함하는 변경 불가능한(immutable) Set을 생성합니다.</li>
+</ul>
+
+<p><strong>참고:</strong>
+합집합과 교집합에는 비트와이즈 연산자 <code class="language-plaintext highlighter-rouge">|</code> 및 <code class="language-plaintext highlighter-rouge">&amp;</code>를 사용할 것을 제안했습니다. 합집합에 <code class="language-plaintext highlighter-rouge">+</code>가 직관적일 수 있지만, 교집합에 <code class="language-plaintext highlighter-rouge">*</code>는 그렇지 않습니다 (질문받은 사람들 중 <code class="language-plaintext highlighter-rouge">*</code>의 동작을 정확히 추측한 사람은 거의 없었습니다). 요소를 Set에 추가하는 데 <code class="language-plaintext highlighter-rouge">add</code> 대신 <code class="language-plaintext highlighter-rouge">+</code>를 사용하는 것도 고려했지만, Guido van Rossum은 <code class="language-plaintext highlighter-rouge">+</code>가 다른 내장 타입에서는 대칭적이라는 점을 지적했습니다 (반면 <code class="language-plaintext highlighter-rouge">*</code>는 아닙니다). <code class="language-plaintext highlighter-rouge">add</code>를 사용함으로써 이 연산과 Set 합집합 간의 혼동을 피할 수 있습니다.</p>
+
+<h2 id="set-표기법-set-notation">Set 표기법 (Set Notation)</h2>
+<p>이 PEP는 원래 <code class="language-plaintext highlighter-rouge">{1,2,3}</code>을 Set 표기법으로, <code class="language-plaintext highlighter-rouge">{}</code>를 빈 Set으로 제안했습니다. 그러나 Python 2.3의 <code class="language-plaintext highlighter-rouge">sets.py</code>를 통해 얻은 경험은 이러한 표기법이 필수적이지 않다는 것을 보여주었습니다. 또한, 딕셔너리의 즉각적인 인식을 저해할 위험도 있었습니다.</p>
+
+<p>중괄호 표기법이 Set 컴프리헨션을 지원할 것으로 예상되었지만, Python 2.4는 제너레이터 표현식(generator expressions)을 제공하여 이 필요를 더 일반적인 방식으로 완전히 충족시켰습니다. (제너레이터 표현식에 대한 자세한 내용은 PEP 289를 참조하세요.)</p>
+
+<p>결론적으로, Guido는 Set 구문(syntax)을 도입하지 않기로 결정했습니다. 그러나 이 문제는 Python 3000에서 다시 논의될 수 있습니다 (PEP 3000 참조).</p>
+
+<h2 id="역사-history">역사 (History)</h2>
+<p>Set 사용 경험을 얻기 위해 Python 2.3에 순수 Python 모듈이 도입되었습니다. 이 구현을 기반으로 Python 2.4에 <code class="language-plaintext highlighter-rouge">set</code> 및 <code class="language-plaintext highlighter-rouge">frozenset</code> 타입이 도입되었습니다. 개선 사항은 다음과 같습니다:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">frozenset</code>을 위한 더 나은 해시(hash) 알고리즘</li>
+  <li>더 압축된 pickle 형식 (값이 항상 <code class="language-plaintext highlighter-rouge">True</code>인 키:값 쌍 딕셔너리 대신 요소 목록만 저장)</li>
+  <li><code class="language-plaintext highlighter-rouge">__reduce__</code> 함수를 사용하여 딥 카피(deep copying) 자동화</li>
+  <li><code class="language-plaintext highlighter-rouge">BaseSet</code> 개념 제거</li>
+  <li><code class="language-plaintext highlighter-rouge">union_update()</code> 메서드가 <code class="language-plaintext highlighter-rouge">update()</code>로 변경</li>
+  <li>가변(mutable) 및 변경 불가능(immutable) Set 간의 자동 변환 제거</li>
+  <li><code class="language-plaintext highlighter-rouge">_repr</code> 메서드 제거 (새로운 내장 함수 <code class="language-plaintext highlighter-rouge">sorted()</code>로 대체)</li>
+</ul>
+
+<p>Tim Peters는 클래스의 생성자가 단일 시퀀스를 인수로 받아 해당 시퀀스의 요소들로 Set을 채워야 한다고 생각했습니다. 그의 주장은 대부분의 경우 프로그래머들이 기존 시퀀스로부터 Set을 생성할 것이므로, 이 경우가 일반적이어야 한다는 것이었습니다. 그러나 이 경우 사용자는 알려진 값으로 Set을 초기화할 때 추가 괄호를 기억해야 했습니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="nc">Set</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span> <span class="c1"># case 1
+</span></code></pre></div></div>
+
+<p>반면, 소수의 초보 Python 사용자들(모두 다른 언어에 매우 숙련된)의 피드백에 따르면, 사람들이 “괄호 없는(parenthesis-free)” 구문을 더 자연스럽게 느낄 것이라고 합니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="nc">Set</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="c1"># case 2
+</span></code></pre></div></div>
+
+<p>궁극적으로, 초기화 함수가 단일 iterable 인수를 받는 첫 번째 전략이 채택되었습니다.</p>
+
+<h2 id="가변성-mutability">가변성 (Mutability)</h2>
+<p>이 제안에서 해결하기 가장 어려웠던 질문은 Set이 변경 가능한(mutable) 요소를 포함할 수 있어야 하는지 여부였습니다. 딕셔너리의 키는 빠르고 신뢰할 수 있는 조회를 지원하기 위해 변경 불가능해야 합니다. Set 요소가 변경 불가능하도록 요구하는 것은 쉬운 일이지만, 이는 Set의 Set(그래프 알고리즘 및 기타 응용 프로그램에서 널리 사용됨)을 불가능하게 만들 것입니다.</p>
+
+<p>PEP 218의 초기 초안에는 단일 Set 타입만 있었지만, Python 2.3의 <code class="language-plaintext highlighter-rouge">sets.py</code> 구현에는 <code class="language-plaintext highlighter-rouge">Set</code>과 <code class="language-plaintext highlighter-rouge">ImmutableSet</code>의 두 가지 타입이 있었습니다. Python 2.4에서는 새로운 내장 타입의 이름이 <code class="language-plaintext highlighter-rouge">set</code>과 <code class="language-plaintext highlighter-rouge">frozenset</code>으로 지정되었으며, 이는 약간 덜 번거롭습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">sets</code> 모듈에는 두 개의 클래스가 구현되어 있습니다. <code class="language-plaintext highlighter-rouge">Set</code> 클래스의 인스턴스는 요소의 추가 또는 제거를 통해 수정될 수 있으며, <code class="language-plaintext highlighter-rouge">ImmutableSet</code> 클래스는 “고정(frozen)”되어 변경 불가능한 요소 컬렉션을 가집니다. 따라서 <code class="language-plaintext highlighter-rouge">ImmutableSet</code>은 딕셔너리 키 또는 Set 요소로 사용될 수 있지만, 업데이트할 수는 없습니다. 두 가지 타입의 Set 모두 요소가 변경 불가능하고 해시 가능한(hashable) 객체여야 합니다. 이러한 내용은 <code class="language-plaintext highlighter-rouge">set</code> 및 <code class="language-plaintext highlighter-rouge">frozenset</code> 내장 타입에도 동일하게 적용됩니다.</p>
+
+<h2 id="저작권-copyright">저작권 (Copyright)</h2>
+<p>이 문서는 퍼블릭 도메인으로 공개되었습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/217/" class="pagination--pager" title="[Final] PEP 217 - Display Hook for Interactive Use
+">Previous</a>
+    
+    
+      <a href="/python/pep/219/" class="pagination--pager" title="[Deferred] PEP 219 - Stackless Python
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

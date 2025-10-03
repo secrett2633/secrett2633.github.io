@@ -1,0 +1,874 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 3104 - Access to Names in Outer Scopes | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 3104: ‘Access to Names in Outer Scopes’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 3104 - Access to Names in Outer Scopes">
+<meta property="og:url" content="http://localhost:4000/python/pep/3104/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 3104: ‘Access to Names in Outer Scopes’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T14:17:40+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T14:17:40+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/3104/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 3104 - Access to Names in Outer Scopes">
+    <meta itemprop="description" content="Python Enhancement Proposal 3104: ‘Access to Names in Outer Scopes’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T14:17:40+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T14:17:40+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 3104 - Access to Names in Outer Scopes
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T14:17:40+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-3104--외부-스코프의-이름-접근">PEP 3104 – 외부 스코프의 이름 접근</a><ul><li><a href="#요약-abstract">요약 (Abstract)</a></li><li><a href="#배경-rationale">배경 (Rationale)</a></li><li><a href="#다른-언어-other-languages">다른 언어 (Other Languages)</a><ul><li><a href="#javascript-perl-scheme-smalltalk-gnu-c-c-20">JavaScript, Perl, Scheme, Smalltalk, GNU C, C# 2.0</a></li><li><a href="#ruby-18-기준">Ruby (1.8 기준)</a></li></ul></li><li><a href="#제안-개요-overview-of-proposals">제안 개요 (Overview of Proposals)</a><ul><li><a href="#바인딩바깥쪽-스코프의-새로운-구문-new-syntax-in-the-binding-outer-scope">바인딩(바깥쪽) 스코프의 새로운 구문 (New Syntax in the Binding (Outer) Scope)</a></li><li><a href="#참조안쪽-스코프의-새로운-구문-new-syntax-in-the-referring-inner-scope">참조(안쪽) 스코프의 새로운 구문 (New Syntax in the Referring (Inner) Scope)</a></li></ul></li><li><a href="#제안된-해결책-proposed-solution">제안된 해결책 (Proposed Solution)</a></li><li><a href="#하위-호환성-backward-compatibility">하위 호환성 (Backward Compatibility)</a></li><li><a href="#참고-문헌-references">참고 문헌 (References)</a></li><li><a href="#감사의-글-acknowledgements">감사의 글 (Acknowledgements)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-3104/">PEP 3104 - Access to Names in Outer Scopes</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 12-Oct-2006</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h2 id="pep-3104--외부-스코프의-이름-접근">PEP 3104 – 외부 스코프의 이름 접근</h2>
+
+<p><strong>작성자:</strong> Ka-Ping Yee <ping at="" zesty.ca="">
+**상태:** Final
+**유형:** Standards Track
+**생성일:** 2006-10-12
+**Python 버전:** 3.0
+**히스토리:** [Post-History](https://peps.python.org/pep-3104/)</ping></p>
+
+<h3 id="요약-abstract">요약 (Abstract)</h3>
+
+<p>대부분의 중첩 스코프(nested scopes)를 지원하는 언어에서 코드는 가장 가까운 바깥쪽 스코프(enclosing scope)에 있는 이름을 참조하거나 재할당(rebind, 값 할당)할 수 있습니다. 현재 Python 코드는 어떤 바깥쪽 스코프에 있는 이름이든 참조할 수 있지만, 이름을 재할당할 수 있는 스코프는 두 가지뿐입니다. 즉, 지역 스코프(local scope) (단순 할당 사용) 또는 모듈-전역 스코프(module-global scope) ( <code class="language-plaintext highlighter-rouge">global</code> 선언 사용) 입니다.</p>
+
+<p>이러한 제한은 Python-Dev 메일링 리스트 및 다른 곳에서 여러 번 제기되었으며, 이 제한을 제거하기 위한 확장된 논의와 많은 제안으로 이어졌습니다. 이 PEP는 제시된 다양한 대안들과 각각의 장단점을 요약합니다.</p>
+
+<h3 id="배경-rationale">배경 (Rationale)</h3>
+
+<p>버전 2.1 이전에는 Python의 스코프 처리가 표준 C와 유사했습니다. 즉, 파일 내에는 전역(global)과 지역(local)이라는 두 가지 스코프 레벨만 있었습니다. C에서 이는 함수 정의가 중첩될 수 없다는 사실의 자연스러운 결과입니다. 그러나 Python에서는 함수가 일반적으로 최상위 수준에서 정의되더라도 함수 정의는 어디에서나 실행될 수 있습니다. 이로 인해 Python은 의미론 없이 중첩 스코프의 구문적 형태를 가지게 되었고, 일부 프로그래머들에게는 놀라운 불일치를 초래했습니다. 예를 들어, 최상위 수준에서 작동하던 재귀 함수가 다른 함수 내로 이동되면 작동을 멈추게 되었는데, 이는 재귀 함수 자체의 이름이 더 이상 해당 함수의 본문 스코프에서 보이지 않았기 때문입니다. 이는 함수가 다른 컨텍스트에 배치될 때 일관되게 동작해야 한다는 직관을 위반합니다. 다음은 예시입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">enclosing_function</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">n</span> <span class="o">*</span> <span class="nf">factorial</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># NameError 발생
+</span>    <span class="nf">print</span><span class="p">(</span><span class="nf">factorial</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>Python 2.1은 모든 바깥쪽 스코프에 바인딩된 이름을 보이게 함으로써 정적 중첩 스코프(static nested scoping)에 더 가까워졌습니다 (PEP 227 참조). 이 변경으로 위 코드 예시가 예상대로 작동하게 되었습니다. 그러나 이름에 대한 모든 할당이 해당 이름을 지역(local)으로 암시적으로 선언하기 때문에, 바깥쪽 스코프의 이름을 재할당하는 것은 불가능합니다 ( <code class="language-plaintext highlighter-rouge">global</code> 선언이 이름을 전역(global)으로 강제하는 경우 제외). 따라서 다음 코드는 버튼 클릭으로 증가 및 감소할 수 있는 숫자를 표시하도록 의도되었지만, 어휘적 스코프(lexical scoping)에 익숙한 사람이라면 예상하는 대로 작동하지 않습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">make_scoreboard</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">score</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="nc">Label</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+    <span class="n">label</span><span class="p">.</span><span class="nf">pack</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">]:</span>
+        <span class="k">def</span> <span class="nf">increment</span><span class="p">(</span><span class="n">step</span><span class="o">=</span><span class="n">i</span><span class="p">):</span>
+            <span class="n">score</span> <span class="o">=</span> <span class="n">score</span> <span class="o">+</span> <span class="n">step</span> <span class="c1"># UnboundLocalError 발생
+</span>            <span class="n">label</span><span class="p">[</span><span class="sh">'</span><span class="s">text</span><span class="sh">'</span><span class="p">]</span> <span class="o">=</span> <span class="n">score</span>
+        <span class="n">button</span> <span class="o">=</span> <span class="nc">Button</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="sh">'</span><span class="s">%+d</span><span class="sh">'</span> <span class="o">%</span> <span class="n">i</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">increment</span><span class="p">)</span>
+        <span class="n">button</span><span class="p">.</span><span class="nf">pack</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">label</span>
+</code></pre></div></div>
+
+<p>Python 구문은 <code class="language-plaintext highlighter-rouge">increment</code> 내에서 언급된 <code class="language-plaintext highlighter-rouge">score</code>라는 이름이 <code class="language-plaintext highlighter-rouge">make_scoreboard</code>에 바인딩된 <code class="language-plaintext highlighter-rouge">score</code> 변수를 참조하며, <code class="language-plaintext highlighter-rouge">increment</code> 내의 지역 변수가 아님을 나타내는 방법을 제공하지 않습니다. Python 사용자 및 개발자들은 이 제한을 제거하여 Python이 JavaScript, Perl, Ruby, Scheme, Smalltalk, GNU 확장 C, C# 2.0을 포함한 많은 프로그래밍 언어에서 표준이 된 Algol 스타일 스코핑 모델의 모든 유연성을 가질 수 있도록 하는 데 관심을 표명했습니다.</p>
+
+<p>이러한 기능이 필요하지 않다는 주장도 있었습니다. 재할당 가능한 외부 변수를 가변 객체로 래핑하여 시뮬레이션할 수 있기 때문입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Namespace</span><span class="p">:</span> <span class="k">pass</span>
+<span class="k">def</span> <span class="nf">make_scoreboard</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">score</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="n">ns</span> <span class="o">=</span> <span class="nc">Namespace</span><span class="p">()</span>
+    <span class="n">ns</span><span class="p">.</span><span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="nc">Label</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+    <span class="n">label</span><span class="p">.</span><span class="nf">pack</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">]:</span>
+        <span class="k">def</span> <span class="nf">increment</span><span class="p">(</span><span class="n">step</span><span class="o">=</span><span class="n">i</span><span class="p">):</span>
+            <span class="n">ns</span><span class="p">.</span><span class="n">score</span> <span class="o">=</span> <span class="n">ns</span><span class="p">.</span><span class="n">score</span> <span class="o">+</span> <span class="n">step</span>
+            <span class="n">label</span><span class="p">[</span><span class="sh">'</span><span class="s">text</span><span class="sh">'</span><span class="p">]</span> <span class="o">=</span> <span class="n">ns</span><span class="p">.</span><span class="n">score</span>
+        <span class="n">button</span> <span class="o">=</span> <span class="nc">Button</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="sh">'</span><span class="s">%+d</span><span class="sh">'</span> <span class="o">%</span> <span class="n">i</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">increment</span><span class="p">)</span>
+        <span class="n">button</span><span class="p">.</span><span class="nf">pack</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">label</span>
+</code></pre></div></div>
+
+<p>그러나 이러한 해결 방법은 기존 스코프의 단점을 부각시킬 뿐입니다. 함수의 목적은 코드를 자체 네임스페이스에 캡슐화하는 것이므로, 프로그래머가 기존 지역 스코프의 누락된 기능을 보완하기 위해 추가 네임스페이스를 생성하고, 각 이름이 실제 스코프에 상주해야 하는지 시뮬레이션된 스코프에 상주해야 하는지 결정해야 하는 것은 불행한 일로 보입니다.</p>
+
+<p>또 다른 일반적인 반대는 원하는 기능을 다소 장황하지만 클래스로 작성할 수 있다는 것입니다. 이 반론에 대한 반박은 다른 구현 스타일의 존재가 지원되는 프로그래밍 구성 요소(중첩 스코프)를 기능적으로 불완전하게 두어야 할 이유가 되지 않는다는 것입니다. Python은 다양한 프로그래밍 패러다임을 지원하고 우아하게 통합함으로써 많은 강점, 실용적인 유연성, 교육적 힘을 얻기 때문에 “다중 패러다임 언어”라고 불리기도 합니다.</p>
+
+<p>스코핑 구문에 대한 제안은 PEP 227의 중첩 스코프 지원이 채택되기 훨씬 전인 1994년에 Python-Dev에 등장했습니다. 당시 Guido의 답변은 “이것은 CSNS(classic static nested scopes)를 도입하는 데 위험할 정도로 가깝습니다. 그렇게 한다면, <code class="language-plaintext highlighter-rouge">scoped</code>의 제안된 의미론은 괜찮아 보입니다. 나는 여전히 이런 종류의 구성을 정당화할 만큼 CSNS의 필요성이 충분하지 않다고 생각합니다…“였습니다.</p>
+
+<p>PEP 227 이후, “외부 이름 재할당 논의”는 Python-Dev에 충분히 자주 다시 등장하여 친숙한 이벤트가 되었으며, 최소 2003년부터 현재 형태로 재발했습니다. 이러한 논의에서 제안된 언어 변경 사항 중 채택된 것은 없지만, Guido는 언어 변경이 고려할 가치가 있음을 인정했습니다.</p>
+
+<h3 id="다른-언어-other-languages">다른 언어 (Other Languages)</h3>
+
+<p>일부 다른 언어들이 중첩 스코프와 재할당을 어떻게 처리하는지 배경 설명을 위해 이 섹션에서 다룹니다.</p>
+
+<h4 id="javascript-perl-scheme-smalltalk-gnu-c-c-20">JavaScript, Perl, Scheme, Smalltalk, GNU C, C# 2.0</h4>
+
+<p>이 언어들은 변수 선언을 사용하여 스코프를 나타냅니다. JavaScript에서는 <code class="language-plaintext highlighter-rouge">var</code> 키워드로 어휘적으로 스코프가 지정된 변수를 선언합니다. 선언되지 않은 변수 이름은 전역(global)으로 간주됩니다. Perl에서는 <code class="language-plaintext highlighter-rouge">my</code> 키워드로 어휘적으로 스코프가 지정된 변수를 선언합니다. 선언되지 않은 변수 이름은 전역으로 간주됩니다. Scheme에서는 모든 변수를 선언해야 합니다 (<code class="language-plaintext highlighter-rouge">define</code> 또는 <code class="language-plaintext highlighter-rouge">let</code>을 사용하거나 형식 매개변수로). Smalltalk에서는 모든 블록이 세로 막대 사이에 지역 변수 이름 목록을 선언하여 시작할 수 있습니다. C 및 C#은 모든 변수에 대해 타입 선언을 요구합니다. 이 모든 경우에 변수는 선언을 포함하는 스코프에 속합니다.</p>
+
+<h4 id="ruby-18-기준">Ruby (1.8 기준)</h4>
+
+<p>Ruby는 Python과 마찬가지로 변수 선언을 요구하지 않고 정적으로 중첩된 스코프를 지원하려고 시도하며, 따라서 특이한 해결책을 찾아야 한다는 점에서 유익한 예시입니다. Ruby의 함수는 다른 함수 정의를 포함할 수 있으며, 중괄호로 묶인 코드 블록도 포함할 수 있습니다. 블록은 외부 변수에 접근할 수 있지만, 중첩된 함수는 그렇지 않습니다. 블록 내에서 이름에 대한 할당은 외부 스코프에 이미 바인딩된 이름을 가리지 않는 경우에만 지역 변수의 선언을 의미합니다. 그렇지 않으면 할당은 외부 이름의 재할당으로 해석됩니다. Ruby의 스코핑 구문과 규칙 또한 오랫동안 논의되어 왔으며, Ruby 2.0에서 변경될 가능성이 있습니다.</p>
+
+<h3 id="제안-개요-overview-of-proposals">제안 개요 (Overview of Proposals)</h3>
+
+<p>Python-Dev에는 외부 스코프의 이름을 재할당하는 방법에 대한 많은 다른 제안들이 있었습니다. 이들은 모두 두 가지 범주로 나뉩니다. 이름이 바인딩되는 스코프(바깥쪽 스코프)에 새로운 구문을 추가하거나, 이름이 사용되는 스코프(안쪽 스코프)에 새로운 구문을 추가하는 것입니다.</p>
+
+<h4 id="바인딩바깥쪽-스코프의-새로운-구문-new-syntax-in-the-binding-outer-scope">바인딩(바깥쪽) 스코프의 새로운 구문 (New Syntax in the Binding (Outer) Scope)</h4>
+
+<p><strong>스코프 재정의 선언 (Scope Override Declaration)</strong></p>
+
+<p>이 범주의 제안들은 모두 JavaScript의 <code class="language-plaintext highlighter-rouge">var</code>와 유사한 새로운 종류의 선언문을 제안합니다. 이 목적을 위해 몇 가지 가능한 키워드가 제안되었습니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">scope x</code></li>
+  <li><code class="language-plaintext highlighter-rouge">var x</code></li>
+  <li><code class="language-plaintext highlighter-rouge">my x</code></li>
+</ul>
+
+<p>이 모든 제안에서 특정 스코프 <code class="language-plaintext highlighter-rouge">S</code> 내의 <code class="language-plaintext highlighter-rouge">var x</code>와 같은 선언은 <code class="language-plaintext highlighter-rouge">S</code> 내에 중첩된 스코프에서 <code class="language-plaintext highlighter-rouge">x</code>에 대한 모든 참조가 <code class="language-plaintext highlighter-rouge">S</code>에 바인딩된 <code class="language-plaintext highlighter-rouge">x</code>를 참조하도록 합니다.</p>
+
+<p>이 범주의 제안에 대한 주요 반대는 함수 정의의 의미가 컨텍스트에 민감해진다는 것입니다. 함수 정의를 다른 블록 안으로 이동하면, 둘러싸는 블록의 선언 때문에 함수 내의 지역 이름 참조 중 일부가 비지역(nonlocal)이 될 수 있습니다. Ruby 1.8의 블록의 경우 실제로 그러합니다. 다음 예시에서 두 <code class="language-plaintext highlighter-rouge">setter</code>는 동일하게 보이지만 다른 효과를 가집니다.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">setter1</span> <span class="o">=</span> <span class="nb">proc</span> <span class="p">{</span> <span class="o">|</span> <span class="n">x</span> <span class="o">|</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="p">}</span> <span class="c1"># y는 여기서는 지역 변수</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">13</span>
+<span class="n">setter2</span> <span class="o">=</span> <span class="nb">proc</span> <span class="p">{</span> <span class="o">|</span> <span class="n">x</span> <span class="o">|</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="p">}</span> <span class="c1"># y는 여기서는 비지역 변수</span>
+<span class="n">setter1</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="mi">99</span><span class="p">)</span>
+<span class="nb">puts</span> <span class="n">y</span> <span class="c1"># 13을 출력</span>
+<span class="n">setter2</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="mi">77</span><span class="p">)</span>
+<span class="nb">puts</span> <span class="n">y</span> <span class="c1"># 77을 출력</span>
+</code></pre></div></div>
+
+<p>이 제안이 JavaScript 및 Perl의 선언과 유사하지만, 언어에 미치는 영향은 다릅니다. 이 언어들에서는 선언되지 않은 변수가 기본적으로 전역인 반면, Python에서는 선언되지 않은 변수가 기본적으로 지역이기 때문입니다. 따라서 JavaScript 또는 Perl에서 함수를 다른 블록 안으로 이동하면 이전에 전역이었던 이름 참조의 스코프를 줄일 수 있을 뿐이지만, 이 제안이 있는 Python에서는 이전에 지역이었던 이름 참조의 스코프를 확장할 수 있습니다.</p>
+
+<p><strong>필수 변수 선언 (Required Variable Declaration)</strong></p>
+
+<p>더 급진적인 제안은 Python의 스코프 추측 규칙을 완전히 제거하고, Scheme처럼 모든 이름이 바인딩될 스코프에서 선언되어야 한다고 제안합니다. 이 제안에서 <code class="language-plaintext highlighter-rouge">var x = 3</code>은 <code class="language-plaintext highlighter-rouge">x</code>가 지역 스코프에 속하고 <code class="language-plaintext highlighter-rouge">3</code>으로 바인딩되도록 선언하는 반면, <code class="language-plaintext highlighter-rouge">x = 3</code>은 기존에 보이는 <code class="language-plaintext highlighter-rouge">x</code>를 재할당합니다. <code class="language-plaintext highlighter-rouge">var x</code> 선언을 포함하는 바깥쪽 스코프가 없는 컨텍스트에서는 <code class="language-plaintext highlighter-rouge">x = 3</code> 문이 정적으로 불법으로 결정됩니다.</p>
+
+<p>이 제안은 간단하고 일관된 모델을 제공하지만, 기존의 모든 Python 코드와 호환되지 않을 것입니다.</p>
+
+<h4 id="참조안쪽-스코프의-새로운-구문-new-syntax-in-the-referring-inner-scope">참조(안쪽) 스코프의 새로운 구문 (New Syntax in the Referring (Inner) Scope)</h4>
+
+<p>이 범주에는 세 가지 유형의 제안이 있습니다.</p>
+
+<p><strong>외부 참조 표현식 (Outer Reference Expression)</strong></p>
+
+<p>이 유형의 제안은 변수를 표현식에서 사용할 때 외부 스코프의 변수를 참조하는 새로운 방법을 제안합니다. 이를 위해 제안된 한 가지 구문은 <code class="language-plaintext highlighter-rouge">.x</code>이며, 이는 지역 바인딩을 생성하지 않고 <code class="language-plaintext highlighter-rouge">x</code>를 참조합니다. 이 제안에 대한 우려는 많은 컨텍스트에서 <code class="language-plaintext highlighter-rouge">x</code>와 <code class="language-plaintext highlighter-rouge">.x</code>가 상호 교환적으로 사용될 수 있어 독자를 혼란스럽게 할 수 있다는 것입니다. 밀접하게 관련된 아이디어는 스코프 레벨을 올라갈 수를 지정하기 위해 여러 점을 사용하는 것이지만, 대부분은 이것이 너무 오류를 유발하기 쉽다고 간주합니다.</p>
+
+<p><strong>재할당 연산자 (Rebinding Operator)</strong></p>
+
+<p>이 제안은 이름을 지역으로 선언하지 않고 이름을 재할당하는 새로운 할당 유사 연산자를 제안합니다. <code class="language-plaintext highlighter-rouge">x = 3</code> 문이 <code class="language-plaintext highlighter-rouge">x</code>를 지역 변수로 선언하고 <code class="language-plaintext highlighter-rouge">3</code>으로 바인딩하는 반면, <code class="language-plaintext highlighter-rouge">x := 3</code> 문은 <code class="language-plaintext highlighter-rouge">x</code>의 기존 바인딩을 변경하되 지역으로 선언하지 않습니다.</p>
+
+<p>이것은 간단한 해결책이지만, PEP 3099에 따르면 거부되었습니다 (아마도 놓치기 쉽거나 <code class="language-plaintext highlighter-rouge">=</code>와 혼동하기 쉽기 때문일 수 있습니다).</p>
+
+<p><strong>스코프 재정의 선언 (Scope Override Declaration)</strong></p>
+
+<p>이 범주의 제안들은 안쪽 스코프에서 이름이 지역이 되는 것을 방지하는 새로운 종류의 선언문을 제안합니다. 이 문은 <code class="language-plaintext highlighter-rouge">global</code> 문과 본질적으로 유사하지만, 이름을 최상위 모듈-레벨 스코프의 바인딩을 참조하게 하는 대신, 가장 가까운 바깥쪽 스코프의 바인딩을 참조하게 합니다.</p>
+
+<p>이 접근 방식은 익숙한 Python 구성 요소와 유사하며 함수 정의에 대한 컨텍스트 독립성을 유지한다는 점에서 매력적입니다.</p>
+
+<p>이 접근 방식은 보안 및 디버깅 관점에서도 장점이 있습니다. 결과적인 Python은 다른 중첩 스코프 언어의 기능과 일치할 뿐만 아니라, 방어적 프로그래밍에 arguably 더 나은 구문을 제공할 것입니다. 대부분의 다른 언어에서는 선언이 기존 이름의 스코프를 축소하므로, 부주의하게 선언을 생략하면 예상보다 광범위한 (즉, 더 위험한) 효과를 초래할 수 있습니다. 이 제안이 있는 Python에서는 선언을 추가하는 추가적인 노력이 비지역 효과의 증가된 위험과 일치합니다 (즉, 가장 적은 저항의 경로가 더 안전한 경로입니다).</p>
+
+<p>이러한 선언에 대해 많은 표기법이 제안되었습니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">scoped x</code></li>
+  <li><code class="language-plaintext highlighter-rouge">global x in f</code> (어떤 스코프인지 명시적으로 지정)</li>
+  <li><code class="language-plaintext highlighter-rouge">free x</code></li>
+  <li><code class="language-plaintext highlighter-rouge">outer x</code></li>
+  <li><code class="language-plaintext highlighter-rouge">use x</code></li>
+  <li><code class="language-plaintext highlighter-rouge">global x</code> (<code class="language-plaintext highlighter-rouge">global</code>의 의미 변경)</li>
+  <li><code class="language-plaintext highlighter-rouge">nonlocal x</code></li>
+  <li><code class="language-plaintext highlighter-rouge">global x outer</code></li>
+  <li><code class="language-plaintext highlighter-rouge">global in x</code></li>
+  <li><code class="language-plaintext highlighter-rouge">not global x</code></li>
+  <li><code class="language-plaintext highlighter-rouge">extern x</code></li>
+  <li><code class="language-plaintext highlighter-rouge">ref x</code></li>
+  <li><code class="language-plaintext highlighter-rouge">refer x</code></li>
+  <li><code class="language-plaintext highlighter-rouge">share x</code></li>
+  <li><code class="language-plaintext highlighter-rouge">sharing x</code></li>
+  <li><code class="language-plaintext highlighter-rouge">common x</code></li>
+  <li><code class="language-plaintext highlighter-rouge">using x</code></li>
+  <li><code class="language-plaintext highlighter-rouge">borrow x</code></li>
+  <li><code class="language-plaintext highlighter-rouge">reuse x</code></li>
+  <li><code class="language-plaintext highlighter-rouge">scope f x</code> (어떤 스코프인지 명시적으로 지정)</li>
+</ul>
+
+<p>가장 일반적으로 논의된 선택은 <code class="language-plaintext highlighter-rouge">outer</code>, <code class="language-plaintext highlighter-rouge">global</code>, <code class="language-plaintext highlighter-rouge">nonlocal</code>이었습니다. <code class="language-plaintext highlighter-rouge">outer</code>는 표준 라이브러리에서 변수 이름과 속성 이름으로 모두 사용됩니다. <code class="language-plaintext highlighter-rouge">global</code>이라는 단어는 “전역 변수”가 일반적으로 최상위 스코프의 변수를 의미하는 것으로 이해되기 때문에 의미가 충돌합니다. C에서 <code class="language-plaintext highlighter-rouge">extern</code> 키워드는 이름이 다른 컴파일 단위의 변수를 참조한다는 의미입니다. <code class="language-plaintext highlighter-rouge">nonlocal</code>은 약간 길고 다른 옵션보다 덜 듣기 좋지만, “지역이 아닌”이라는 정확한 의미를 가집니다.</p>
+
+<h3 id="제안된-해결책-proposed-solution">제안된 해결책 (Proposed Solution)</h3>
+
+<p>이 PEP에서 제안하는 해결책은 참조(안쪽) 스코프에 스코프 재정의 선언을 추가하는 것입니다. Guido는 Python-Dev에서 이 범주의 해결책에 대한 선호를 표명했으며, <code class="language-plaintext highlighter-rouge">nonlocal</code>을 키워드로 승인했습니다.</p>
+
+<p>제안된 선언은 다음과 같습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">nonlocal</span> <span class="n">x</span>
+</code></pre></div></div>
+
+<p>이는 현재 스코프에서 <code class="language-plaintext highlighter-rouge">x</code>가 지역 이름이 되는 것을 방지합니다. 현재 스코프에서 <code class="language-plaintext highlighter-rouge">x</code>의 모든 발생은 바깥쪽 둘러싸는 스코프에 바인딩된 <code class="language-plaintext highlighter-rouge">x</code>를 참조하게 됩니다. <code class="language-plaintext highlighter-rouge">global</code>과 마찬가지로 여러 이름이 허용됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">nonlocal</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span>
+</code></pre></div></div>
+
+<p>둘러싸는 스코프에 기존 바인딩이 없으면 컴파일러는 <code class="language-plaintext highlighter-rouge">SyntaxError</code>를 발생시킵니다. (이를 <code class="language-plaintext highlighter-rouge">SyntaxError</code>라고 부르는 것은 다소 무리가 있을 수 있지만, 현재까지 <code class="language-plaintext highlighter-rouge">SyntaxError</code>는 알 수 없는 기능 이름과 함께 <code class="language-plaintext highlighter-rouge">__future__ import</code>를 포함하여 모든 컴파일 시간 오류에 사용됩니다.) Guido는 외부 바인딩이 없는 이런 종류의 선언은 오류로 간주되어야 한다고 말했습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">nonlocal</code> 선언이 지역 스코프의 형식 매개변수 이름과 충돌하면 컴파일러는 <code class="language-plaintext highlighter-rouge">SyntaxError</code>를 발생시킵니다.</p>
+
+<p>단축 형태도 허용됩니다. 이 경우 <code class="language-plaintext highlighter-rouge">nonlocal</code>이 할당 또는 증강 할당 앞에 붙습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">nonlocal</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
+</code></pre></div></div>
+
+<p>위의 내용은 <code class="language-plaintext highlighter-rouge">nonlocal x; x = 3</code>과 정확히 같은 의미를 가집니다. (Guido는 <code class="language-plaintext highlighter-rouge">global</code> 문의 유사한 형태를 지지합니다.)</p>
+
+<p>단축 형태의 왼쪽에는 식별자만 허용되며, <code class="language-plaintext highlighter-rouge">x[0]</code>와 같은 대상 표현식은 허용되지 않습니다. 그 외의 모든 할당 형태는 허용됩니다. <code class="language-plaintext highlighter-rouge">nonlocal</code> 문의 제안된 문법은 다음과 같습니다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nonlocal_stmt ::= "nonlocal" identifier ("," identifier)* ["=" (target_list "=")+ expression_list]
+                | "nonlocal" identifier augop expression_list
+</code></pre></div></div>
+
+<p>이 모든 할당 형태를 허용하는 이유는 <code class="language-plaintext highlighter-rouge">nonlocal</code> 문의 이해를 단순화하기 위함입니다. 단축 형태를 선언과 할당으로 분리하는 것이 그 의미와 유효성을 이해하는 데 충분합니다.</p>
+
+<p><strong>참고:</strong> 원본 PEP 구현에는 단축 구문이 추가되지 않았습니다. 이후 논의에서는 이 구문을 구현해서는 안 된다는 결론을 내렸습니다.</p>
+
+<h3 id="하위-호환성-backward-compatibility">하위 호환성 (Backward Compatibility)</h3>
+
+<p>이 PEP는 Guido가 제안한 대로 Python 3000(Python 3.x의 초기 명칭)을 대상으로 합니다. 그러나 다른 이들은 이 PEP에서 고려된 일부 옵션이 Python 2.x에서 실행 가능한 충분히 작은 변경 사항일 수 있으며, 이 경우 이 PEP가 2.x 시리즈 PEP로 이동될 수도 있다고 언급했습니다.</p>
+
+<p>새로운 키워드를 도입하는 영향을 (매우 대략적으로) 측정하기 위해, 2006년 11월 5일 Python SVN 저장소 스캔에 따르면 표준 라이브러리에서 제안된 일부 키워드가 식별자로 나타난 횟수는 다음과 같습니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">nonlocal</code>: 0</li>
+  <li><code class="language-plaintext highlighter-rouge">use</code>: 2</li>
+  <li><code class="language-plaintext highlighter-rouge">using</code>: 3</li>
+  <li><code class="language-plaintext highlighter-rouge">reuse</code>: 4</li>
+  <li><code class="language-plaintext highlighter-rouge">free</code>: 8</li>
+  <li><code class="language-plaintext highlighter-rouge">outer</code>: 147</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">global</code>은 기존 키워드로 214번 나타납니다. <code class="language-plaintext highlighter-rouge">global</code>을 외부 스코프 키워드로 사용하는 영향을 측정하면, 그러한 변경으로 인해 표준 라이브러리에서 깨질 파일은 18개입니다 (함수가 전역 스코프에 해당 변수가 도입되기 전에 변수를 <code class="language-plaintext highlighter-rouge">global</code>로 선언하기 때문).</p>
+
+<h3 id="참고-문헌-references">참고 문헌 (References)</h3>
+
+<p>Scoping (was Re: Lambda binding solved?) (Rafael Bracho)
+ Extended Function syntax (Just van Rossum)
+ Closure semantics (Guido van Rossum)
+… (생략, 원문 참조) …</p>
+
+<h3 id="감사의-글-acknowledgements">감사의 글 (Acknowledgements)</h3>
+
+<p>이 PEP에 언급된 아이디어와 제안들은 수많은 Python-Dev 게시물에서 얻은 것입니다. 이 PEP에 대한 특정 편집을 제안해 주신 Jim Jewett, Mike Orr, Jason Orendorff, Christian Tanzer에게 감사드립니다.</p>
+
+<h3 id="저작권-copyright">저작권 (Copyright)</h3>
+
+<p>이 문서는 퍼블릭 도메인에 공개되었습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/3103/" class="pagination--pager" title="[Rejected] PEP 3103 - A Switch/Case Statement
+">Previous</a>
+    
+    
+      <a href="/python/pep/3105/" class="pagination--pager" title="[Final] PEP 3105 - Make print a function
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

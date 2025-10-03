@@ -1,0 +1,968 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Accepted] PEP 770 - Improving measurability of Python packages with Software Bill-of-Materials | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 770: ‘Improving measurability of Python packages with Software Bill-of-Materials’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Accepted] PEP 770 - Improving measurability of Python packages with Software Bill-of-Materials">
+<meta property="og:url" content="http://localhost:4000/python/pep/770/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 770: ‘Improving measurability of Python packages with Software Bill-of-Materials’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T13:51:21+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T13:51:21+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/770/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Accepted] PEP 770 - Improving measurability of Python packages with Software Bill-of-Materials">
+    <meta itemprop="description" content="Python Enhancement Proposal 770: ‘Improving measurability of Python packages with Software Bill-of-Materials’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T13:51:21+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T13:51:21+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Accepted] PEP 770 - Improving measurability of Python packages with Software Bill-of-Materials
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T13:51:21+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-770--소프트웨어-bombill-of-materials을-통한-python-패키지-측정-가능성-개선">PEP 770 – 소프트웨어 BOM(Bill-of-Materials)을 통한 Python 패키지 측정 가능성 개선</a><ul><li><a href="#초록-abstract">초록 (Abstract)</a></li><li><a href="#동기-motivation">동기 (Motivation)</a><ul><li><a href="#측정-가능성과-유령-의존성-measurability-and-phantom-dependencies">측정 가능성과 유령 의존성 (Measurability and Phantom Dependencies)</a></li><li><a href="#빌드-도구-환경-및-재현성-build-tools-environment-and-reproducibility">빌드 도구, 환경 및 재현성 (Build Tools, Environment, and Reproducibility)</a></li><li><a href="#규제-regulations">규제 (Regulations)</a></li></ul></li><li><a href="#근거-rationale">근거 (Rationale)</a><ul><li><a href="#core-metadata-필드-대신-sbom-표준-사용-using-sbom-standards-instead-of-core-metadata-fields">Core Metadata 필드 대신 SBOM 표준 사용 (Using SBOM standards instead of Core Metadata fields)</a></li><li><a href="#0개-이상의-불투명한-sbom-문서-zero-or-more-opaque-sbom-documents">0개 이상의 불투명한 SBOM 문서 (Zero-or-more opaque SBOM documents)</a></li><li><a href="#새로운-메타데이터-버전-없이-python-패키지에-데이터-추가-adding-data-to-python-packages-without-new-metadata-versions">새로운 메타데이터 버전 없이 Python 패키지에 데이터 추가 (Adding data to Python packages without new metadata versions)</a></li><li><a href="#dist-info-또는-data-디렉토리에-파일-저장-storing-files-in-the-dist-info-or-data-directory">.dist-info 또는 .data 디렉토리에 파일 저장 (Storing files in the .dist-info or .data directory)</a></li><li><a href="#pep-770과-pep-725의-차이점-what-are-the-differences-between-pep-770-and-pep-725">PEP 770과 PEP 725의 차이점 (What are the differences between PEP 770 and PEP 725?)</a></li></ul></li><li><a href="#사양-specification">사양 (Specification)</a><ul><li><a href="#dist-infosboms-디렉토리-예약-reserving-the-dist-infosboms-directory">.dist-info/sboms 디렉토리 예약 (Reserving the .dist-info/sboms directory)</a></li><li><a href="#프로젝트-형식의-sbom-파일-sbom-files-in-project-formats">프로젝트 형식의 SBOM 파일 (SBOM files in project formats)</a></li><li><a href="#sbom-데이터-상호-운용성-sbom-data-interoperability">SBOM 데이터 상호 운용성 (SBOM data interoperability)</a></li></ul></li><li><a href="#역호환성-backwards-compatibility">역호환성 (Backwards Compatibility)</a><ul><li><a href="#예약된-dist-infosboms-서브디렉토리-reserved-dist-infosboms-subdirectory">예약된 .dist-info/sboms 서브디렉토리 (Reserved .dist-info/sboms subdirectory)</a></li></ul></li><li><a href="#보안-영향-security-implications">보안 영향 (Security Implications)</a></li><li><a href="#교육-방법-how-to-teach-this">교육 방법 (How to Teach This)</a><ul><li><a href="#python-패키지-유지-관리자가-알아야-할-사항-what-do-python-package-maintainers-need-to-know">Python 패키지 유지 관리자가 알아야 할 사항 (What do Python package maintainers need to know?)</a></li><li><a href="#sbom-도구-작성자가-알아야-할-사항-what-do-sbom-tool-authors-need-to-know">SBOM 도구 작성자가 알아야 할 사항 (What do SBOM tool authors need to know?)</a></li><li><a href="#sbom-문서-사용자가-알아야-할-사항-what-do-users-of-sbom-documents-need-to-know">SBOM 문서 사용자가 알아야 할 사항 (What do users of SBOM documents need to know?)</a></li></ul></li><li><a href="#참조-구현-reference-implementation">참조 구현 (Reference Implementation)</a></li><li><a href="#거부된-아이디어-rejected-ideas">거부된 아이디어 (Rejected Ideas)</a><ul><li><a href="#단일-sbom-표준-요구-requiring-a-single-sbom-standard">단일 SBOM 표준 요구 (Requiring a single SBOM standard)</a></li><li><a href="#아카이브에-sbom-파일을-지정하는-메타데이터-필드-사용-using-metadata-fields-to-specify-sbom-files-in-archives">아카이브에 SBOM 파일을 지정하는 메타데이터 필드 사용 (Using metadata fields to specify SBOM files in archives)</a></li></ul></li><li><a href="#참고-자료-references">참고 자료 (References)</a></li><li><a href="#감사-acknowledgements">감사 (Acknowledgements)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0770/">PEP 770 - Improving measurability of Python packages with Software Bill-of-Materials</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Accepted</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 02-Jan-2025</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-770--소프트웨어-bombill-of-materials을-통한-python-패키지-측정-가능성-개선">PEP 770 – 소프트웨어 BOM(Bill-of-Materials)을 통한 Python 패키지 측정 가능성 개선</h1>
+
+<ul>
+  <li><strong>작성자:</strong> Seth Larson</li>
+  <li><strong>스폰서:</strong> Brett Cannon</li>
+  <li><strong>PEP 대리인:</strong> Brett Cannon</li>
+  <li><strong>상태:</strong> Accepted (수락됨)</li>
+  <li><strong>유형:</strong> Standards Track (표준 트랙)</li>
+  <li><strong>생성일:</strong> 2025년 1월 2일</li>
+  <li><strong>해결일:</strong> 2025년 4월 11일</li>
+</ul>
+
+<hr />
+
+<h2 id="초록-abstract">초록 (Abstract)</h2>
+
+<p>오늘날 대부분의 Python 패키지는 소프트웨어 구성 분석(SCA) 도구에 의해 정확하게 측정될 수 있습니다. 그러나 정확하게 측정할 수 없는 프로젝트의 경우, Python 패키지에 구성 데이터를 주석으로 추가하여 측정 가능성을 개선할 수 있는 기존 메커니즘이 없습니다.</p>
+
+<p>소프트웨어 BOM(Software Bill-of-Materials, SBOM)은 소프트웨어 구성, 출처, 계보 등을 설명하는 기술 및 생태계 agnostic(특정 기술이나 생태계에 종속되지 않는)한 방법입니다. SBOM은 취약점 및 라이선스 스캐너와 같은 SCA 도구의 입력으로 사용되며, 전 세계 소프트웨어 규제 및 프레임워크에서 주목받고 있습니다.</p>
+
+<p>이 PEP는 Python 패키지의 자동화된 소프트웨어 측정 가능성을 개선하기 위한 수단으로 Python 패키지에 포함된 SBOM 문서를 사용하는 것을 제안합니다.</p>
+
+<h2 id="동기-motivation">동기 (Motivation)</h2>
+
+<h3 id="측정-가능성과-유령-의존성-measurability-and-phantom-dependencies">측정 가능성과 유령 의존성 (Measurability and Phantom Dependencies)</h3>
+
+<p>Python 패키지는 “유령 의존성(phantom dependency)” 문제에 특히 영향을 받습니다. 이는 설치 용이성 및 표준과의 호환성 등 여러 이유로 Python이 아닌 다른 언어로 작성된 소프트웨어 구성 요소가 Python 패키지에 포함되는 경우를 말합니다.</p>
+
+<ul>
+  <li>Python은 Rust, C, C++, Fortran, JavaScript 등 컴파일되거나 Python이 아닌 언어를 사용하는 과학, 데이터, 웹, 머신러닝 사용 사례에 활용됩니다.</li>
+  <li>Python <code class="language-plaintext highlighter-rouge">wheel</code> 포맷은 설치 용이성 때문에 사용자들에게 선호됩니다. 설치 단계에서는 아카이브 압축 해제 외에 어떤 코드도 실행되지 않습니다.</li>
+  <li>Python <code class="language-plaintext highlighter-rouge">wheel</code> 포맷은 공유 컴파일된 라이브러리(shared compiled libraries)를 묶어야 하지만, 이러한 라이브러리에 대한 메타데이터를 인코딩할 방법이 없습니다.</li>
+  <li>Python 패키징 관련 패키지들은 때때로 “부트스트래핑(bootstrapping)” 문제를 해결해야 하므로 순수 Python 프로젝트를 소스 코드 내에 포함하기도 합니다.</li>
+</ul>
+
+<p>이러한 소프트웨어 구성 요소는 Python 패키지 메타데이터를 사용하여 설명할 수 없으므로, 소프트웨어 구성 분석(SCA) 소프트웨어에 의해 누락될 가능성이 높습니다. 이는 취약한 소프트웨어 구성 요소가 정확하게 보고되지 않을 수 있음을 의미합니다.</p>
+
+<p>예를 들어, Python 패키지 <code class="language-plaintext highlighter-rouge">Pillow</code>는 <code class="language-plaintext highlighter-rouge">auditwheel</code>에 의해 빌드의 일부로 묶인 16개의 공유 객체 라이브러리를 <code class="language-plaintext highlighter-rouge">wheel</code>에 포함합니다. <code class="language-plaintext highlighter-rouge">Syft</code> 및 <code class="language-plaintext highlighter-rouge">Grype</code>와 같은 일반 SCA 도구를 사용할 때는 이러한 공유 객체 라이브러리 중 어느 것도 감지되지 않습니다. 만약 포함된 모든 공유 라이브러리를 주석 처리하는 SBOM 문서가 포함된다면, SCA 도구는 포함된 소프트웨어를 안정적으로 식별할 수 있습니다.</p>
+
+<h3 id="빌드-도구-환경-및-재현성-build-tools-environment-and-reproducibility">빌드 도구, 환경 및 재현성 (Build Tools, Environment, and Reproducibility)</h3>
+
+<p>패키지의 런타임 의존성을 넘어서, SBOM은 패키지를 빌드하는 데 사용된 도구와 환경도 기록할 수 있습니다. 패키지를 빌드하는 데 사용된 정확한 도구와 버전을 기록하는 것은 종종 빌드 재현성을 확립하는 데 필요합니다. 빌드 재현성은 소프트웨어가 상위 소스와 비교했을 때 잘못되거나 악의적으로 수정된 소프트웨어 구성 요소를 감지하는 데 사용될 수 있는 속성입니다. 기록된 빌드 도구 및 버전 목록 없이는 제3자가 빌드 재현성을 확인하기 어렵거나 불가능해질 수 있습니다.</p>
+
+<h3 id="규제-regulations">규제 (Regulations)</h3>
+
+<p>SBOM은 최근의 소프트웨어 보안 규제, 예를 들어 Secure Software Development Framework (SSDF) 및 Cyber Resilience Act (CRA)에 의해 요구됩니다. 이러한 규제에 포함됨에 따라, 오픈 소스 프로젝트의 SBOM 문서에 대한 수요가 높을 것으로 예상됩니다. 한 가지 목표는 SBOM이 필요한 오픈 소스 사용자가 기존 도구를 사용하여 자체적으로 서비스를 제공할 수 있도록 함으로써 오픈 소스 프로젝트 유지 관리자의 부담을 최소화하는 것입니다.</p>
+
+<p>또 다른 목표는 SBOM 정보로 의존하는 프로젝트에 주석을 달아야 하는 사용자의 기여를 가능하게 하는 것입니다. 현재 Python 패키지에 대한 이러한 기여 결과를 전파할 메커니즘이 없으므로, 사용자가 이러한 유형의 작업에 기여할 유인이 없습니다.</p>
+
+<h2 id="근거-rationale">근거 (Rationale)</h2>
+
+<h3 id="core-metadata-필드-대신-sbom-표준-사용-using-sbom-standards-instead-of-core-metadata-fields">Core Metadata 필드 대신 SBOM 표준 사용 (Using SBOM standards instead of Core Metadata fields)</h3>
+
+<p>SBOM 표준이 제공하는 모든 필드를 Python 패키지 Core Metadata에 추가하려고 시도하면 새로운 Core Metadata 필드가 폭증하게 될 것이며, SBOM 표준이 해당 분야의 새로운 요구 사항에 맞춰 계속 발전함에 따라 이를 최신 상태로 유지해야 할 필요성도 커질 것입니다.</p>
+
+<p>대신 이 제안은 SBOM 관련 메타데이터를 <code class="language-plaintext highlighter-rouge">dist-info</code> 아래의 명명된 디렉토리에 포함된 SBOM 문서에 위임합니다.</p>
+
+<p>이 표준은 Core Metadata를 SBOM으로 대체하는 것을 목표로 하지 않으며, 대신 SBOM 정보가 Core Metadata에 보충적인 역할을 하는 데 중점을 둡니다. 포함된 SBOM은 패키지 아카이브에 포함된 의존성 정보나 Core Metadata에 인코딩될 수 없지만 SBOM 사용 사례에 관련 있는 최상위 소프트웨어 정보(“소프트웨어 식별자”, “목적”, “지원 수준” 등)만을 포함합니다.</p>
+
+<h3 id="0개-이상의-불투명한-sbom-문서-zero-or-more-opaque-sbom-documents">0개 이상의 불투명한 SBOM 문서 (Zero-or-more opaque SBOM documents)</h3>
+
+<p>Python 패키지당 최대 하나의 SBOM 문서를 요구하는 대신, 이 PEP는 하나 이상의 SBOM 문서가 Python 패키지에 포함될 수 있도록 제안합니다. 이는 Python 패키지에 SBOM 데이터를 주석으로 추가하려는 코드가 이미 다른 SBOM 문서에 포함된 데이터를 손상시킬 염려 없이 작업할 수 있음을 의미합니다.</p>
+
+<p>또한 이 PEP는 SBOM 문서 데이터를 불투명하게 처리하며, 포함된 SBOM 데이터를 처리하는 것은 SBOM 데이터의 최종 사용자에게 맡깁니다. 이러한 선택은 SBOM 표준이 아직 단일한 확정적 표준이 없으며(그리고 앞으로도 없을 수 있음) Python 패키징 표준과 독립적으로 계속 발전할 수 있는 활발한 개발 영역임을 인정합니다. 이미 SBOM 문서를 소비하는 도구들은 이러한 현실을 처리하기 위해 다양한 SBOM 표준을 지원합니다.</p>
+
+<p>이러한 결정은 이 PEP가 모든 SBOM 표준을 지원할 수 있으며 특정 표준을 선호하지 않고, 대신 생성 프로젝트 및 도구와 소비하는 사용자 도구에 결정을 위임함을 의미합니다.</p>
+
+<h3 id="새로운-메타데이터-버전-없이-python-패키지에-데이터-추가-adding-data-to-python-packages-without-new-metadata-versions">새로운 메타데이터 버전 없이 Python 패키지에 데이터 추가 (Adding data to Python packages without new metadata versions)</h3>
+
+<p>새로운 메타데이터 버전과 필드를 출시하려면 광범위한 손상을 피하기 위해 많은 다른 프로젝트와 팀이 순차적으로 메타데이터 버전을 채택해야 합니다. 이러한 효과는 일반적으로 사용자와 도구가 새로운 패키징 기능을 얼마나 빨리 사용할 수 있는지에 상당한 지연을 의미합니다.</p>
+
+<p>예를 들어, 단일 메타데이터 버전 범프는 PyPI, 다양한 <code class="language-plaintext highlighter-rouge">pyproject.toml</code> 파싱 및 스키마 프로젝트, 패키징 라이브러리에 대한 업데이트를 요구하고, 릴리스를 기다려야 하며, 그 다음 <code class="language-plaintext highlighter-rouge">pip</code> 및 기타 설치 프로그램이 패키징 변경 사항을 묶어 릴리스해야 합니다. 그 다음 빌드 백엔드는 새로운 메타데이터 버전을 발행하기 시작할 수 있으며, 다시 릴리스를 기다려야 하고, 그제서야 프로젝트가 새로운 기능을 사용하기 시작할 수 있습니다. 이러한 신중한 접근 방식에도 불구하고 새로운 메타데이터 버전과 필드에서 도구가 고장 나지 않을 것이라는 보장은 없습니다.</p>
+
+<p>이러한 지연을 피하고, SBOM 포함 방식을 전체적으로 단순화하며, 빌드 백엔드와 도구에 유연성을 제공하기 위해 이 PEP는 새로운 메타데이터 필드와 버전을 필요로 하지 않으면서 Python 패키지에 데이터를 안전하게 추가하기 위해 <code class="language-plaintext highlighter-rouge">.dist-info</code> 아래의 서브디렉토리를 사용하는 것을 제안합니다. 이 메커니즘은 빌드 백엔드와 도구가 PEP가 승인된 직후 다른 프로젝트가 PEP를 채택하는 데 선행 블로킹 없이 이 PEP에 설명된 기능을 즉시 사용하기 시작할 수 있도록 합니다.</p>
+
+<h3 id="dist-info-또는-data-디렉토리에-파일-저장-storing-files-in-the-dist-info-or-data-directory"><code class="language-plaintext highlighter-rouge">.dist-info</code> 또는 <code class="language-plaintext highlighter-rouge">.data</code> 디렉토리에 파일 저장 (Storing files in the .dist-info or .data directory)</h3>
+
+<p>바이너리 배포판에는 소프트웨어 자체 외의 파일을 저장할 수 있는 두 개의 최상위 디렉토리가 있습니다: <code class="language-plaintext highlighter-rouge">.dist-info</code>와 <code class="language-plaintext highlighter-rouge">.data</code>. 이 사양은 서브디렉토리와 파일을 저장하기 위해 <code class="language-plaintext highlighter-rouge">.dist-info</code> 디렉토리를 사용하기로 결정했습니다.</p>
+
+<p>첫째, <code class="language-plaintext highlighter-rouge">.data</code> 디렉토리는 설치된 패키지에 해당 위치가 없지만, <code class="language-plaintext highlighter-rouge">.dist-info</code>는 바이너리 배포판과 환경에 설치된 패키지 간의 링크를 보존합니다. <code class="language-plaintext highlighter-rouge">.data</code> 디렉토리는 대신 환경에 설치된 모든 패키지 간에 모든 내용이 병합되어 유사한 이름의 파일 간에 충돌이 발생할 수 있습니다.</p>
+
+<p>둘째, <code class="language-plaintext highlighter-rouge">.data</code> 디렉토리 아래의 서브디렉토리는 Python <code class="language-plaintext highlighter-rouge">sysconfig</code> 모듈에 대한 새로운 정의를 필요로 합니다. 이는 추가 디렉토리를 정의하려면 Python 변경을 기다려야 하고, 해당 디렉토리를 사용하려면 사용자가 새로운 Python 버전을 채택하기를 기다려야 함을 의미합니다. <code class="language-plaintext highlighter-rouge">.dist-info</code> 아래의 서브디렉토리는 이러한 요구 사항이 없으며, 새로운 서브디렉토리 이름이 등록된 직후 Python 또는 메타데이터 버전과 관계없이 모든 사용자, 빌드 백엔드 및 설치 프로그램이 사용할 수 있습니다.</p>
+
+<h3 id="pep-770과-pep-725의-차이점-what-are-the-differences-between-pep-770-and-pep-725">PEP 770과 PEP 725의 차이점 (What are the differences between PEP 770 and PEP 725?)</h3>
+
+<p>PEP 725(“pyproject.toml에 외부 의존성 지정”)는 Python 패키징 메타데이터 내에서 Python이 아닌 소프트웨어를 설명하려고 시도한다는 점에서 PEP 770과 일부 유사점을 가진 다른 PEP입니다. 이 섹션은 이 두 PEP가 추적하는 정보와 제공하는 사용 사례가 어떻게 다른지 보여주는 것을 목표로 합니다.</p>
+
+<ul>
+  <li><strong>PEP 725</strong>는 빌드 시간 의존성으로 “C 컴파일러”를 요구하는 추상적인 의존성(<code class="language-plaintext highlighter-rouge">virtual:compiler/c</code>)이나 빌드 시 “OpenSSL 라이브러리”를 연결해야 하는 경우(<code class="language-plaintext highlighter-rouge">pkg:generic/openssl</code>)를 설명합니다.</li>
+  <li><strong>PEP 770</strong>은 AlmaLinux 배포판을 통해 배포되는 소프트웨어 라이브러리의 정확한 이름, 버전, 아키텍처 및 해시와 같은 “잠금 파일(lock file)”의 의존성에 더 가까운 구체적인 의존성을 설명합니다 (<code class="language-plaintext highlighter-rouge">pkg:rpm/almalinux/libssl3@3.2.0</code>). 빌드 의존성과 같은 경우, 이는 PEP 725를 통해 의존성이 요청된 다음 빌드 후 PEP 770으로 SBOM에 구체적으로 기록될 수 있습니다.</li>
+  <li><strong>PEP 725</strong>는 소프트웨어를 빌드하거나 실행하는 데 사용되는 시스템이 제공하는 외부 의존성을 설명하기 위한 것입니다.</li>
+  <li><strong>PEP 770</strong>은 Python 패키지 아카이브 내에 번들된 소프트웨어를 설명하기 위한 것이며, SBOM 문서는 시스템의 소프트웨어를 설명하지 않습니다.</li>
+  <li><strong>PEP 725</strong>는 주로 소프트웨어 식별자 목록을 사용하여 식별에 관한 것입니다.</li>
+  <li><strong>PEP 770</strong>은 라이선스, 체크섬, 다운로드 위치 등 다양한 소프트웨어 속성을 설명하는 SBOM 표준의 완전한 기능을 제공합니다.</li>
+  <li><strong>PEP 725와 PEP 770</strong>은 사용자 및 사용 사례가 다릅니다. PEP 725는 주로 <code class="language-plaintext highlighter-rouge">pyproject.toml</code>에 의존성을 수동으로 작성하는 사람들을 위한 것입니다. 정보의 사용자는 빌드 백엔드와 소스에서 소프트웨어를 빌드하려는 사용자입니다.</li>
+  <li><strong>PEP 770</strong>은 주로 Python 패키지 아카이브에 포함될 SBOM 문서를 생성할 수 있는 도구와, 설치된 소프트웨어에 대한 SBOM 문서를 사용하여 취약점 스캔 또는 소프트웨어 분석과 같은 다른 작업을 수행하려는 SBOM/SCA 도구를 위한 것입니다.</li>
+</ul>
+
+<h2 id="사양-specification">사양 (Specification)</h2>
+
+<p>이 PEP를 구현하는 데 필요한 변경 사항은 다음과 같습니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">.dist-info/sboms</code> 서브디렉토리를 명시적으로 예약합니다.</li>
+  <li>빌드된 배포판(<code class="language-plaintext highlighter-rouge">wheel</code>) 및 설치된 프로젝트 사양에 추가됩니다.</li>
+</ul>
+
+<p>위 외에도, 포함된 SBOM 문서와 기타 Python 패키지 메타데이터를 소비하여 Python 패키지에 대한 완전한 SBOM 문서를 생성하는 도구를 위한 정보성 PEP가 생성될 예정입니다.</p>
+
+<h3 id="dist-infosboms-디렉토리-예약-reserving-the-dist-infosboms-directory"><code class="language-plaintext highlighter-rouge">.dist-info/sboms</code> 디렉토리 예약 (Reserving the .dist-info/sboms directory)</h3>
+
+<p>이 PEP는 배포 아카이브 및 설치된 프로젝트 유형에 대해 <code class="language-plaintext highlighter-rouge">.dist-info</code> 디렉토리에서 허용되는 예약된 서브디렉토리 이름의 새 레지스트리를 도입합니다. 이 레지스트리에 대한 향후 추가는 PEP 프로세스를 통해 이루어집니다. 이 레지스트리의 초기 값은 다음과 같습니다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">서브디렉토리 이름</th>
+      <th style="text-align: left">PEP / 표준</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">licenses</code></td>
+      <td style="text-align: left">PEP 639</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">license_files</code></td>
+      <td style="text-align: left">PEP 639 (초안만 해당)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">LICENSES</code></td>
+      <td style="text-align: left">REUSE 라이선스 프레임워크</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">sboms</code></td>
+      <td style="text-align: left">PEP 770</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>이 디렉토리 이름을 선택할 때 역호환성 문제를 피하기 위한 완전한 방법론은 “Backwards Compatibility” 섹션을 참조하십시오.</p>
+
+<h3 id="프로젝트-형식의-sbom-파일-sbom-files-in-project-formats">프로젝트 형식의 SBOM 파일 (SBOM files in project formats)</h3>
+
+<p>기존 사양에 몇 가지 추가 사항이 있을 것입니다.</p>
+
+<ul>
+  <li><strong>빌드된 배포판 (wheels):</strong> <code class="language-plaintext highlighter-rouge">wheel</code> 사양은 새로운 예약 디렉토리 이름 레지스트리를 추가하고, <code class="language-plaintext highlighter-rouge">.dist-info/sboms</code> 서브디렉토리가 지정되면 해당 디렉토리가 SBOM 파일을 포함함을 반영하도록 업데이트될 것입니다.</li>
+  <li><strong>설치된 프로젝트:</strong> 설치된 프로젝트 기록(Recording Installed Projects) 사양은 <code class="language-plaintext highlighter-rouge">.dist-info/sboms</code> 서브디렉토리가 지정되면 해당 디렉토리가 SBOM 파일을 포함하며, 이 디렉토리의 모든 파일은 설치 도구에 의해 <code class="language-plaintext highlighter-rouge">wheels</code>에서 복사되어야 함을 반영하도록 업데이트될 것입니다.</li>
+</ul>
+
+<h3 id="sbom-데이터-상호-운용성-sbom-data-interoperability">SBOM 데이터 상호 운용성 (SBOM data interoperability)</h3>
+
+<p>이 PEP는 SBOM 표준이 활발한 개발 영역임을 인식하여 SBOM 문서에 포함된 데이터를 불투명하게 처리합니다. 그러나 SBOM 데이터 생산자가 따를 경우 Python 패키지에서 사용할 수 있는 SBOM 데이터의 상호 운용성과 유용성을 향상시킬 몇 가지 고려 사항이 있습니다.</p>
+
+<ul>
+  <li>SBOM 문서는 CycloneDX 또는 SPDX와 같이 널리 인정되는 SBOM 표준을 사용해야 합니다.</li>
+  <li>SBOM 문서는 사용 중인 SBOM 표준에서 사용 가능한 경우 UTF-8 인코딩된 JSON (RFC 8259)을 사용해야 합니다.</li>
+  <li>SBOM 문서는 사용 중인 SBOM 표준에 필요한 모든 필드를 포함해야 합니다.</li>
+  <li>SBOM 문서는 사용 중인 SBOM 표준에 대한 “생성 시간” 및 “생성 도구” 필드를 포함해야 합니다. 이 정보는 Python 패키지가 빌드되는 다양한 단계를 재구성하려는 사용자에게 중요합니다.</li>
+  <li>SBOM 문서가 설명하는 기본 구성 요소는 Python 패키지 내의 최상위 소프트웨어여야 합니다 (예: <code class="language-plaintext highlighter-rouge">Pillow</code> 패키지의 경우 “pkg:pypi/pillow”).</li>
+  <li>모든 비기본 구성 요소는 구성 요소 간의 관계를 보여주는 관계 그래프에 하나 이상의 경로를 가져야 합니다. 이 정보가 포함되지 않으면 SCA 도구가 관계 그래프 외부의 구성 요소를 제외할 수 있습니다.</li>
+  <li>모든 소프트웨어 구성 요소는 이름, 버전 및 하나 이상의 소프트웨어 식별자(PURL, CPE, 다운로드 URL)를 가져야 합니다.</li>
+</ul>
+
+<p>PyPI 및 기타 인덱스는 이 PEP에서 지정한 SBOM 문서의 내용을 <strong>검증할 수 있지만</strong>, 알려지지 않은 SBOM 표준, 버전 또는 필드에 대한 데이터를 <strong>검증하거나 거부해서는 안 됩니다.</strong></p>
+
+<h2 id="역호환성-backwards-compatibility">역호환성 (Backwards Compatibility)</h2>
+
+<h3 id="예약된-dist-infosboms-서브디렉토리-reserved-dist-infosboms-subdirectory">예약된 <code class="language-plaintext highlighter-rouge">.dist-info/sboms</code> 서브디렉토리 (Reserved .dist-info/sboms subdirectory)</h3>
+
+<p>새로운 예약된 <code class="language-plaintext highlighter-rouge">.dist-info/sboms</code> 서브디렉토리는 이전에 문서화되지 않은 새로운 예약이므로, 기존 도구들이 가지고 있는 가정(assumption)을 깨뜨릴 잠재력이 있습니다.</p>
+
+<p>현재 어떤 <code class="language-plaintext highlighter-rouge">.dist-info</code> 서브디렉토리 이름이 사용되고 있는지 확인하기 위해 PyPI의 패키지 아카이브에 있는 모든 파일을 대상으로 쿼리를 실행했습니다.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span>
+    <span class="p">(</span> <span class="n">regexp_extract</span><span class="p">(</span><span class="n">archive_path</span><span class="p">,</span> <span class="s1">'.*</span><span class="se">\.</span><span class="s1">dist-info/([^/]+)/'</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">AS</span> <span class="n">dirname</span><span class="p">,</span>
+    <span class="k">COUNT</span><span class="p">(</span><span class="k">DISTINCT</span> <span class="n">project_name</span><span class="p">)</span> <span class="k">AS</span> <span class="n">projects</span> <span class="p">)</span>
+<span class="k">FROM</span> <span class="s1">'*.parquet'</span>
+<span class="k">WHERE</span> <span class="n">archive_path</span> <span class="k">LIKE</span> <span class="s1">'%.dist-info/%/%'</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">dirname</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">projects</span> <span class="k">DESC</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>이 쿼리 결과는 다음과 같습니다. (빈 디렉토리는 포함되지 않습니다.)</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">서브디렉토리 이름</th>
+      <th style="text-align: left">고유 프로젝트 수</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">licenses</code></td>
+      <td style="text-align: left">22,026</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">license_files</code></td>
+      <td style="text-align: left">1,828</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">LICENSES</code></td>
+      <td style="text-align: left">170</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">.ipynb_checkpoints</code></td>
+      <td style="text-align: left">85</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">license</code></td>
+      <td style="text-align: left">18</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">.wex</code></td>
+      <td style="text-align: left">9</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">dist</code></td>
+      <td style="text-align: left">8</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">include</code></td>
+      <td style="text-align: left">6</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">build</code></td>
+      <td style="text-align: left">5</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tmp</code></td>
+      <td style="text-align: left">4</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">src</code></td>
+      <td style="text-align: left">3</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">calmjs_artifacts</code></td>
+      <td style="text-align: left">3</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">.idea</code></td>
+      <td style="text-align: left">2</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>위 결과에서 알 수 있듯이, <code class="language-plaintext highlighter-rouge">.dist-info</code> 아래의 대부분의 서브디렉토리는 라이선스와 관련이 있으며, 그 중 하나(<code class="language-plaintext highlighter-rouge">licenses</code>)는 PEP 639에 의해 지정되고 다른 것들(<code class="language-plaintext highlighter-rouge">license_files</code>, <code class="language-plaintext highlighter-rouge">LICENSES</code>)은 PEP 639의 초안 구현에서 비롯된 것입니다. <code class="language-plaintext highlighter-rouge">sboms</code> 서브디렉토리는 기존 사용과 충돌하지 않습니다. <code class="language-plaintext highlighter-rouge">.dist-info</code> 아래의 다른 서브디렉토리 이름은 널리 사용되지 않거나 우연한 것으로 보입니다.</p>
+
+<p>이 쿼리 결과, 이미 일부 프로젝트가 <code class="language-plaintext highlighter-rouge">.dist-info</code> 아래에 디렉토리를 배치하고 있음을 알 수 있으므로, 빌드 프론트엔드가 등록되지 않은 서브디렉토리에 대해 오류를 발생시키도록 요구할 수는 없습니다. 대신 빌드 프론트엔드는 이 시나리오에서 사용자에게 경고하거나 오류를 발생시킬 수 있도록 권장됩니다.</p>
+
+<h2 id="보안-영향-security-implications">보안 영향 (Security Implications)</h2>
+
+<p>SBOM 문서는 인코딩된 정보만큼만 유용합니다. SBOM 문서에 잘못된 정보가 포함되어 있으면 SCA 도구에 의한 잘못된 다운스트림 분석이 발생할 수 있습니다. 이러한 이유로 Python 패키지에 SBOM 데이터를 포함하는 도구는 기록하는 정보에 대해 확신을 갖는 것이 중요합니다. SBOM은 알려진 데이터 외에도 “알려진 미지(known unknowns)”를 기록할 수 있습니다. 이 관행은 기록되는 데이터에 대해 확신이 없을 때 사용자에게 추가 분석을 허용하기 위해 권장됩니다.</p>
+
+<p>SBOM 문서는 Python 패키지가 빌드된 원래 시스템에 대한 정보(예: 운영 체제 이름 및 버전, 덜 일반적으로는 경로 이름)를 인코딩할 수 있기 때문입니다. 이 정보는 SBOM을 통해 Python 패키지에서 설치 프로그램으로 “유출”될 가능성이 있습니다. 이 정보가 민감한 경우 보안 위험을 초래할 수 있습니다.</p>
+
+<h2 id="교육-방법-how-to-teach-this">교육 방법 (How to Teach This)</h2>
+
+<p>대부분의 일반적인 Python 사용자 및 Python 패키지 사용자는 이 표준의 세부 사항을 알 필요가 없습니다. 이 표준의 세부 사항은 Python 패키지 유지 관리자 및 SBOM 생성 도구, 취약점 스캐너와 같은 SCA 도구 개발자에게 가장 중요합니다.</p>
+
+<h3 id="python-패키지-유지-관리자가-알아야-할-사항-what-do-python-package-maintainers-need-to-know">Python 패키지 유지 관리자가 알아야 할 사항 (What do Python package maintainers need to know?)</h3>
+
+<p>Python 패키지 메타데이터는 이미 패키지 아카이브에 포함된 최상위 소프트웨어를 설명할 수 있지만, 패키지 아카이브에 최상위 소프트웨어 외에 다른 소프트웨어 구성 요소가 포함되어 있다면 어떨까요? 예를 들어, “Pillow”용 Python <code class="language-plaintext highlighter-rouge">wheel</code>에는 <code class="language-plaintext highlighter-rouge">libjpeg</code>, <code class="language-plaintext highlighter-rouge">libpng</code>, <code class="language-plaintext highlighter-rouge">libwebp</code> 등과 같이 번들된 여러 다른 소프트웨어 라이브러리가 포함되어 있습니다. 이 시나리오는 이 PEP가 가장 유용한 경우로, 번들된 소프트웨어에 대한 메타데이터를 Python 패키지에 추가하는 것입니다.</p>
+
+<p>일부 빌드 도구는 번들된 의존성을 자동으로 주석 처리할 수 있습니다. 일반적으로 도구는 해당 의존성이 “패키징 생태계”(예: PyPI, Linux 배포판, Crates.io, NPM 등)에서 올 때 번들된 의존성을 자동으로 주석 처리할 수 있습니다.</p>
+
+<h3 id="sbom-도구-작성자가-알아야-할-사항-what-do-sbom-tool-authors-need-to-know">SBOM 도구 작성자가 알아야 할 사항 (What do SBOM tool authors need to know?)</h3>
+
+<p>SBOM 생성 도구 개발자는 이 PEP의 존재와 Python 패키지가 패키지 아카이브 내에 SBOM 문서를 게시하기 시작할 수 있다는 사실을 알아야 합니다. 이 정보는 특정 Python 패키지 또는 Python 환경에 대한 SBOM 문서를 생성하는 과정의 일부로 포함되어야 합니다.</p>
+
+<p>이 PEP에 설명된 메커니즘을 포함하여 Python 패키징 메타데이터를 Python 패키지를 설명하는 SBOM 문서로 변환하는 방법을 설명하기 위해 후속 정보성 PEP가 작성될 것입니다. 정보성 PEP가 완료되면, SBOM 도구에 의한 PEP 770 채택을 촉진하기 위해 정보성 PEP에 구체적으로 연결되는 추적 이슈가 열릴 것입니다.</p>
+
+<p>다양한 Python 패키징 입력(패키지 아카이브, 설치된 패키지, 환경, 컨테이너 이미지)으로 실행했을 때 서로 다른 SBOM 도구의 출력을 비교하는 벤치마크가 생성되고 있으며, 이는 다양한 SBOM 생성 도구의 진행 상황을 추적하기 위한 것입니다. 이 벤치마크는 도구들이 이 PEP 및 Python 패키지 지원에서 어떤 간극을 가지고 있는지 알려줄 것입니다.</p>
+
+<h3 id="sbom-문서-사용자가-알아야-할-사항-what-do-users-of-sbom-documents-need-to-know">SBOM 문서 사용자가 알아야 할 사항 (What do users of SBOM documents need to know?)</h3>
+
+<p>이 PEP의 많은 사용자는 그 존재를 알지 못할 것입니다. 대신 그들의 소프트웨어 구성 분석 도구, SBOM 도구 또는 취약점 스캐너는 업그레이드 후에 단순히 더 포괄적인 정보를 제공하기 시작할 것입니다. 이 새로운 정보의 출처에 관심이 있는 사용자를 위해, SBOM 메타데이터의 “tool” 필드는 이미 SBOM을 생성하는 프로젝트에 대한 링크를 제공합니다.</p>
+
+<p>오픈 소스 의존성에 대한 SBOM 문서가 필요한 사용자는 항상 “직접 생성”하는 것이 첫 번째 단계여야 합니다. 위의 벤치마크를 사용하여 Python 패키지에 대해 정확하다고 알려진 도구 목록을 문서화하고 사용자에게 추천할 수 있습니다. 추가적인 수동 SBOM 주석이 필요한 프로젝트의 경우: 이 데이터를 기여하는 팁과 데이터를 유지 관리하는 도구를 추천할 수 있습니다.</p>
+
+<p>SBOM 문서는 의존성, Python 버전, 플랫폼, 아키텍처 등에 따라 다른 Python 패키지 아카이브마다 다를 수 있다는 점에 유의하십시오. 이러한 이유로 사용자는 실제로 다운로드하고 설치된 Python 패키지 아카이브에 포함된 SBOM 문서만 사용해야 하며, 주어진 패키지 릴리스의 모든 아카이브에 대해 SBOM 문서가 동일하다고 가정해서는 안 됩니다.</p>
+
+<h2 id="참조-구현-reference-implementation">참조 구현 (Reference Implementation)</h2>
+
+<p>번들된 공유 라이브러리 파일을 설명하는 <code class="language-plaintext highlighter-rouge">wheel</code>에 포함할 CycloneDX SBOM 문서를 생성하는 <code class="language-plaintext highlighter-rouge">auditwheel</code> 포크. 이러한 SBOM 문서는 <code class="language-plaintext highlighter-rouge">Syft</code> 및 <code class="language-plaintext highlighter-rouge">Grype</code> SBOM 및 취약점 스캐너에 대해 예상대로 작동했습니다.</p>
+
+<h2 id="거부된-아이디어-rejected-ideas">거부된 아이디어 (Rejected Ideas)</h2>
+
+<h3 id="단일-sbom-표준-요구-requiring-a-single-sbom-standard">단일 SBOM 표준 요구 (Requiring a single SBOM standard)</h3>
+
+<p>전 세계적으로 통용되는 단일 SBOM 표준은 없으며, 이 분야는 여전히 빠르게 발전하고 있습니다(예: SPDX는 2024년 4월에 표준의 새로운 주요 버전을 발표했습니다). 오늘날 SBOM에 대한 대부분의 논의와 개발은 CycloneDX와 SPDX라는 두 가지 SBOM 표준에 초점을 맞추고 있습니다.</p>
+
+<p>명확한 승자가 나타나기 전에 Python 생태계를 특정 표준에 고정하는 것을 피하기 위해, 이 PEP는 SBOM 문서를 불투명하게 처리하며, SBOM 문서 데이터의 다운스트림 소비자(downstream consumers)와의 호환성을 촉진하기 위한 권장 사항만을 제시합니다.</p>
+
+<p>이 PEP의 어떤 결정도 미래의 PEP가 단일 SBOM 표준을 선택하는 것을 제한하지 않습니다. 오늘날 SBOM 데이터를 사용하는 도구는 이러한 상황을 처리하기 위해 이미 여러 형식을 지원해야 하므로, 단일 표준만 요구하도록 업데이트하는 미래 표준은 다운스트림 SBOM 도구에 영향을 미치지 않을 것입니다.</p>
+
+<h3 id="아카이브에-sbom-파일을-지정하는-메타데이터-필드-사용-using-metadata-fields-to-specify-sbom-files-in-archives">아카이브에 SBOM 파일을 지정하는 메타데이터 필드 사용 (Using metadata fields to specify SBOM files in archives)</h3>
+
+<p>이 사양의 이전 버전은 <code class="language-plaintext highlighter-rouge">Sbom-File</code> 메타데이터 필드를 사용하여 소스 또는 바이너리 배포 아카이브 내에서 SBOM 파일을 지정했습니다. 이는 <code class="language-plaintext highlighter-rouge">License-File</code> 필드를 사용하여 아카이브의 라이선스 파일을 열거하는 PEP 639와 유사하게 구현되었을 것입니다.</p>
+
+<p>이 접근 방식의 주요 문제는 SBOM 파일이 정적 및 동적 소스 모두에서 생성될 수 있다는 것입니다. 예를 들어, 버전 관리된 소스 코드, 빌드 백엔드, 또는 빌드가 완료된 후 SBOM 파일을 추가하는 도구(<code class="language-plaintext highlighter-rouge">auditwheel</code> 등)에서 올 수 있습니다.</p>
+
+<p>메타데이터 필드는 정적이거나 동적이어야 하며, 둘 다일 수는 없습니다. 이는 SBOM 데이터에 대한 최상의 시나리오와 직접적으로 상충됩니다. 즉, SBOM 파일은 사용자 개입이나 인지 없이 Python 패키지 빌드 중에 도구에 의해 자동으로 추가되는 것입니다. 라이선스 파일은 거의 항상 정적인 상황과 비교해 보십시오.</p>
+
+<p>639 스타일 접근 방식은 궁극적으로 <code class="language-plaintext highlighter-rouge">.dist-info/sboms</code> 디렉토리에 SBOM이 존재한다는 것만으로 정의하는 방식으로 대체되었습니다. 이 접근 방식은 빌드 백엔드와 도구가 정적/동적 충돌 없이 자체 SBOM 데이터를 추가할 수 있도록 합니다.</p>
+
+<p>향후 PEP는 <code class="language-plaintext highlighter-rouge">.dist-info/sboms</code> 디렉토리에 추가될 SBOM 파일을 정적으로 정의하는 프로세스를 정의할 것입니다.</p>
+
+<h2 id="참고-자료-references">참고 자료 (References)</h2>
+
+<ul>
+  <li><a href="https://peps.python.org/pep-0770/#references">Python 패키지 SBOM 데이터 흐름 시각화</a>. 이 그래픽은 이 PEP가 Python 패키징의 SBOM 데이터 전체 그림에 어떻게 들어맞는지를 보여줍니다.</li>
+  <li><a href="https://peps.python.org/pep-0770/#references">auditwheel로 Python wheels에 SBOM 추가</a>. 이것은 <code class="language-plaintext highlighter-rouge">auditwheel</code> 포크에서 <code class="language-plaintext highlighter-rouge">wheel</code>에 SBOM 데이터를 추가한 다음, SBOM 생성 도구인 <code class="language-plaintext highlighter-rouge">Syft</code>를 사용하여 설치된 패키지에서 SBOM을 감지한 초기 결과입니다.</li>
+  <li><a href="https://peps.python.org/pep-0770/#references">PyPI의 모든 릴리스에 있는 모든 파일 쿼리</a>. <code class="language-plaintext highlighter-rouge">.dist-info</code> 파일의 서브디렉토리 사용량을 확인하기 위해 Tom Forbes가 <code class="language-plaintext highlighter-rouge">py-code.org</code>에서 제공한 데이터셋을 사용했습니다.</li>
+</ul>
+
+<h2 id="감사-acknowledgements">감사 (Acknowledgements)</h2>
+
+<p>PEP 639를 작성하고 채택으로 이끈 Karolina Surma에게 감사합니다. 이 PEP의 초기 설계는 PEP 639에서 크게 영감을 받았으며, 파일을 저장하기 위해 <code class="language-plaintext highlighter-rouge">.dist-info</code> 아래의 서브디렉토리를 사용하는 유사한 접근 방식을 채택합니다.</p>
+
+<hr />
+
+<p>이 번역이 Python 개발자분들께 PEP 770의 내용을 명확하게 이해하는 데 도움이 되기를 바랍니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/769/" class="pagination--pager" title="[Rejected] PEP 769 - Add a ‘default’ keyword argument to ‘attrgetter’, ‘itemgetter’ and ‘getitem’
+">Previous</a>
+    
+    
+      <a href="/python/pep/771/" class="pagination--pager" title="[Draft] PEP 771 - Default Extras for Python Software Packages
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

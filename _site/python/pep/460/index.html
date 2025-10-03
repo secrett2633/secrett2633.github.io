@@ -1,0 +1,722 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Withdrawn] PEP 460 - Add binary interpolation and formatting | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 460: ‘Add binary interpolation and formatting’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Withdrawn] PEP 460 - Add binary interpolation and formatting">
+<meta property="og:url" content="http://localhost:4000/python/pep/460/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 460: ‘Add binary interpolation and formatting’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T22:08:41+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T22:08:41+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/460/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Withdrawn] PEP 460 - Add binary interpolation and formatting">
+    <meta itemprop="description" content="Python Enhancement Proposal 460: ‘Add binary interpolation and formatting’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T22:08:41+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T22:08:41+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Withdrawn] PEP 460 - Add binary interpolation and formatting
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T22:08:41+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-460--바이너리-보간-및-포매팅-추가-add-binary-interpolation-and-formatting">PEP 460 – 바이너리 보간 및 포매팅 추가 (Add binary interpolation and formatting)</a><ul><li><a href="#초록-abstract">초록 (Abstract)</a></li><li><a href="#배경-rationale">배경 (Rationale)</a></li><li><a href="#바이너리-포매팅-기능-binary-formatting-features">바이너리 포매팅 기능 (Binary formatting features)</a><ul><li><a href="#지원되는-기능-supported-features">지원되는 기능 (Supported features)</a></li><li><a href="#지원되지-않는-기능-unsupported-features">지원되지 않는 기능 (Unsupported features)</a></li></ul></li><li><a href="#비판-criticisms">비판 (Criticisms)</a></li><li><a href="#다른-제안-other-proposals">다른 제안 (Other proposals)</a><ul><li><a href="#새로운-type-데이터-타입-a-new-type-datatype">새로운 type 데이터 타입 (A new type datatype)</a></li></ul></li><li><a href="#해결-resolution">해결 (Resolution)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0460/">PEP 460 - Add binary interpolation and formatting</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Withdrawn</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 06-Jan-2014</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-460--바이너리-보간-및-포매팅-추가-add-binary-interpolation-and-formatting">PEP 460 – 바이너리 보간 및 포매팅 추가 (Add binary interpolation and formatting)</h1>
+
+<ul>
+  <li><strong>작성자</strong>: Antoine Pitrou</li>
+  <li><strong>상태</strong>: 철회됨 (Withdrawn)</li>
+  <li><strong>유형</strong>: Standards Track</li>
+  <li><strong>생성일</strong>: 2014년 1월 6일</li>
+  <li><strong>Python 버전</strong>: 3.5</li>
+</ul>
+
+<h2 id="초록-abstract">초록 (Abstract)</h2>
+
+<p>이 PEP는 <code class="language-plaintext highlighter-rouge">bytes</code> 및 <code class="language-plaintext highlighter-rouge">bytearray</code> 객체에 최소한의 포매팅 연산을 추가할 것을 제안합니다. 제안된 추가 기능은 다음과 같습니다:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">str</code> 객체의 <code class="language-plaintext highlighter-rouge">%</code> 포매팅과 유사한 문법으로, 단일 객체, 튜플 또는 <code class="language-plaintext highlighter-rouge">dict</code>를 인수로 받는 <code class="language-plaintext highlighter-rouge">bytes % ...</code> 및 <code class="language-plaintext highlighter-rouge">bytearray % ...</code> (퍼센트-포매팅).</li>
+  <li><code class="language-plaintext highlighter-rouge">str.format()</code>과 유사한 문법으로, 위치(positional) 및 키워드(keyword) 인수를 받는 <code class="language-plaintext highlighter-rouge">bytes.format(...)</code> 및 <code class="language-plaintext highlighter-rouge">bytearray.format(...)</code> (중괄호-포매팅).</li>
+  <li><code class="language-plaintext highlighter-rouge">str.format_map(...)</code>과 유사한 API를 가지며, <code class="language-plaintext highlighter-rouge">bytes.format()</code> 및 <code class="language-plaintext highlighter-rouge">bytearray.format()</code>과 동일한 포매팅 문법 및 의미론을 가진 <code class="language-plaintext highlighter-rouge">bytes.format_map(...)</code> 및 <code class="language-plaintext highlighter-rouge">bytearray.format_map(...)</code>.</li>
+</ul>
+
+<h2 id="배경-rationale">배경 (Rationale)</h2>
+
+<p>Python 2에서는 <code class="language-plaintext highlighter-rouge">str % args</code> 및 <code class="language-plaintext highlighter-rouge">str.format(args)</code>를 통해 바이트 문자열(bytestrings)의 포매팅 및 보간이 가능했습니다. 이 기능은 프로토콜이 고정된 인코딩을 사용하는 것으로 알려져 있을 때 프로토콜 메시지를 조합하는 데 흔히 사용되었습니다.</p>
+
+<p>Python 3는 일반적으로 텍스트를 유니코드(즉, <code class="language-plaintext highlighter-rouge">str</code> 객체, <code class="language-plaintext highlighter-rouge">bytes</code>가 아님)로 저장하고 조작하도록 요구합니다. 하지만, 어떤 경우에는 <code class="language-plaintext highlighter-rouge">bytes</code> 객체를 직접 조작하는 것이 합리적입니다. 일반적인 사용 사례는 바이너리 네트워크 프로토콜로, 여러 <code class="language-plaintext highlighter-rouge">bytes</code> 객체(일부는 리터럴, 일부는 계산된 값)를 보간하고 조합하여 완전한 프로토콜 메시지를 생성해야 할 수 있습니다. 예를 들어, HTTP 또는 SIP와 같은 프로토콜은 ASCII 이름과 다양하거나 때로는 불분명한 인코딩을 사용하는 불투명한 “텍스트” 값을 가진 헤더를 가집니다. 또한, 이러한 헤더 뒤에는 바이너리 본문이 올 수 있으며, 이는 청크로 나뉘고 ASCII 헤더와 트레일러로 꾸며질 수 있습니다.</p>
+
+<p>바이너리 데이터를 축적하는 합리적으로 효율적인 방법(<code class="language-plaintext highlighter-rouge">bytearray</code> 객체 사용, <code class="language-plaintext highlighter-rouge">bytes.join</code> 메서드 또는 <code class="language-plaintext highlighter-rouge">io.BytesIO</code> 등)이 있지만, 이러한 방법 중 어느 것도 <code class="language-plaintext highlighter-rouge">%</code> 포매팅 또는 <code class="language-plaintext highlighter-rouge">{}</code> 포매팅 템플릿 및 포매팅 연산이 제공하는 것과 같은 가독성 있고 직관적인 코드를 생성하지 못합니다.</p>
+
+<h2 id="바이너리-포매팅-기능-binary-formatting-features">바이너리 포매팅 기능 (Binary formatting features)</h2>
+
+<h3 id="지원되는-기능-supported-features">지원되는 기능 (Supported features)</h3>
+
+<p>이 제안에서 <code class="language-plaintext highlighter-rouge">bytes</code> 및 <code class="language-plaintext highlighter-rouge">bytearray</code>에 대한 퍼센트-포매팅은 다음 기능을 지원합니다:</p>
+
+<ul>
+  <li>위치(position) 및 이름(name)으로 포매팅 인수를 조회합니다 (예: <code class="language-plaintext highlighter-rouge">%s</code> 및 <code class="language-plaintext highlighter-rouge">%(name)s</code>).
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">%s</code>는 주어진 값에 대해 <code class="language-plaintext highlighter-rouge">Py_buffer</code>를 얻으려고 시도하고, 실패하면 <code class="language-plaintext highlighter-rouge">__bytes__</code>를 호출합니다. 결과 바이너리 데이터는 문자열의 주어진 위치에 삽입됩니다. 이는 <code class="language-plaintext highlighter-rouge">bytes</code>, <code class="language-plaintext highlighter-rouge">bytearray</code>, <code class="language-plaintext highlighter-rouge">memoryview</code> 객체 (및 <code class="language-plaintext highlighter-rouge">pathlib</code>의 <code class="language-plaintext highlighter-rouge">path</code> 객체와 같은 몇 가지 다른 객체)에서 작동할 것으로 예상됩니다.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">%c</code>는 0에서 255 사이의 정수를 허용하며, 주어진 값의 바이트 하나를 삽입합니다.</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">bytes</code> 및 <code class="language-plaintext highlighter-rouge">bytearray</code>에 대한 중괄호-포매팅은 다음 기능을 지원합니다:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">str.format()</code>에서 지원하는 모든 종류의 인수 조회 (명시적 위치 조회, 자동 증가 위치 조회, 키워드 조회, 속성 조회 등).</li>
+  <li>수정자(modifier)나 레이아웃(layout)이 지정되지 않은 경우 바이너리 데이터 삽입 (예: <code class="language-plaintext highlighter-rouge">{}</code>, <code class="language-plaintext highlighter-rouge">{0}</code>, <code class="language-plaintext highlighter-rouge">{name}</code>). 이는 퍼센트-포매팅의 <code class="language-plaintext highlighter-rouge">%s</code>와 동일한 의미론을 가집니다 (위 참조).</li>
+  <li><code class="language-plaintext highlighter-rouge">c</code> 수정자는 0에서 255 사이의 정수를 허용하며, 주어진 값의 바이트 하나를 삽입합니다 (위의 <code class="language-plaintext highlighter-rouge">%c</code>와 동일).</li>
+</ul>
+
+<h3 id="지원되지-않는-기능-unsupported-features">지원되지 않는 기능 (Unsupported features)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">str</code> 객체의 포매팅(<code class="language-plaintext highlighter-rouge">%</code> 연산자 또는 <code class="language-plaintext highlighter-rouge">str.format()</code> 메서드)에 있는 다른 모든 기능은 지원되지 않습니다. 이러한 기능은 연산자 또는 메서드의 수신자를 텍스트로 처리하는 것을 의미하며, 이는 텍스트/바이트 분리(text / bytes separation)에 반합니다 (예를 들어, <code class="language-plaintext highlighter-rouge">%d</code>를 포맷 코드로 허용하는 것은 <code class="language-plaintext highlighter-rouge">bytes</code> 객체가 실제로 ASCII 호환 텍스트 문자열임을 의미합니다).</p>
+
+<p>지원되지 않는 기능 중에는 대부분의 타입별 포맷 코드뿐만 아니라 패딩(padding) 또는 정렬(alignment)과 같은 다양한 레이아웃 지정자도 포함됩니다. 또한, <code class="language-plaintext highlighter-rouge">str</code> 객체는 <code class="language-plaintext highlighter-rouge">%s</code> 포맷 코드를 사용하더라도 포매팅 연산의 인수로 허용되지 않습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">__format__</code>은 호출되지 않습니다.</p>
+
+<h2 id="비판-criticisms">비판 (Criticisms)</h2>
+
+<ul>
+  <li><strong>개발 및 유지보수 비용:</strong> Python 3.3에서는 ASCII 또는 latin-1로 인코딩하는 것이 <code class="language-plaintext highlighter-rouge">memcpy</code>만큼 빠르지만 (별도의 객체를 생성하더라도), 개발자들은 Python 3.4 이전 버전을 지원하려면 어쨌든 바이너리 포매팅의 부재를 해결해야 할 것입니다.</li>
+  <li><strong>성능:</strong> <code class="language-plaintext highlighter-rouge">bytes.join()</code>은 <code class="language-plaintext highlighter-rouge">bytes</code> 문자열을 결합하는 데 <code class="language-plaintext highlighter-rouge">format</code>보다 지속적으로 빠릅니다 (이것이 사실인지 의문이 제기됨).</li>
+  <li><strong>대안:</strong> 포매팅 함수는 내장 타입에 추가하는 대신 서드 파티 모듈(third party module)로 구현될 수 있습니다.</li>
+</ul>
+
+<h2 id="다른-제안-other-proposals">다른 제안 (Other proposals)</h2>
+
+<h3 id="새로운-type-데이터-타입-a-new-type-datatype">새로운 <code class="language-plaintext highlighter-rouge">type</code> 데이터 타입 (A new type datatype)</h3>
+
+<p>“네트워크 프로그래밍”에 특화된 새로운 데이터 타입을 생성하는 것이 제안되었습니다. 이 PEP의 작성자들은 이것이 역효과를 낳을 것이라고 믿습니다. Python 3는 이미 바이너리 데이터 조작을 위한 여러 주요 타입(<code class="language-plaintext highlighter-rouge">bytes</code>, <code class="language-plaintext highlighter-rouge">bytearray</code>, <code class="language-plaintext highlighter-rouge">memoryview</code>, <code class="language-plaintext highlighter-rouge">io.BytesIO</code>)을 가지고 있습니다.</p>
+
+<p>또 다른 타입을 추가하는 것은 사용자에게 더 많은 혼란을 주고, 라이브러리 간의 상호 운용성을 더욱 어렵게 만들 것입니다 (필요한 변환으로 인해 잠재적으로 최적이 아닐 수도 있음).</p>
+
+<p>더욱이, 하나의 타입이 아니라 두 개의 타입이 필요할 것입니다: 하나는 불변 타입(해싱을 허용하기 위해), 다른 하나는 가변 타입(네트워크 메시지 작업 시 효율적인 축적이 자주 필요하므로).</p>
+
+<h2 id="해결-resolution">해결 (Resolution)</h2>
+
+<p>이 PEP는 <code class="language-plaintext highlighter-rouge">modulo</code> 연산자와 함께 <code class="language-plaintext highlighter-rouge">bytes</code> 객체를 위한 더욱 확장된 포매팅 언어를 도입하는 PEP 461의 승인으로 인해 폐기되었습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/459/" class="pagination--pager" title="[Withdrawn] PEP 459 - Standard Metadata Extensions for Python Software Packages
+">Previous</a>
+    
+    
+      <a href="/python/pep/461/" class="pagination--pager" title="[Final] PEP 461 - Adding % formatting to bytes and bytearray
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

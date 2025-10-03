@@ -1,0 +1,681 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Rejected] PEP 220 - Coroutines, Generators, Continuations | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 220: ‘Coroutines, Generators, Continuations’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Rejected] PEP 220 - Coroutines, Generators, Continuations">
+<meta property="og:url" content="http://localhost:4000/python/pep/220/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 220: ‘Coroutines, Generators, Continuations’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T16:38:41+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T16:38:41+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/220/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Rejected] PEP 220 - Coroutines, Generators, Continuations">
+    <meta itemprop="description" content="Python Enhancement Proposal 220: ‘Coroutines, Generators, Continuations’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T16:38:41+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T16:38:41+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Rejected] PEP 220 - Coroutines, Generators, Continuations
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T16:38:41+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-220--코루틴-제너레이터-연속-continuations-번역-및-요약">PEP 220 – 코루틴, 제너레이터, 연속 (Continuations) 번역 및 요약</a><ul><li><a href="#문서-상태-거부됨-rejected">문서 상태: 거부됨 (Rejected)</a></li><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#핵심-개념-설명">핵심 개념 설명</a></li><li><a href="#pep-220의-의의-비록-거부되었지만">PEP 220의 의의 (비록 거부되었지만)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0220/">PEP 220 - Coroutines, Generators, Continuations</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Rejected</td>
+        <td><strong>유형:</strong> Informational</td>
+        <td><strong>작성일:</strong> 14-Aug-2000</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h2 id="pep-220--코루틴-제너레이터-연속-continuations-번역-및-요약">PEP 220 – 코루틴, 제너레이터, 연속 (Continuations) 번역 및 요약</h2>
+
+<h3 id="문서-상태-거부됨-rejected">문서 상태: 거부됨 (Rejected)</h3>
+<p><strong>주의:</strong> 이 PEP는 거부되었습니다.</p>
+
+<hr />
+
+<h3 id="개요-abstract">개요 (Abstract)</h3>
+
+<p>이 PEP 220은 “Stackless PEP”에서 설명된 변경 사항들이 왜 필요한지를 보여줍니다. 현재 저수준의 <code class="language-plaintext highlighter-rouge">continuations</code> 모듈이 존재하며, 이를 통해 코루틴 (coroutines), 제너레이터 (generators) 그리고 “그린” 스레드 (green threads)를 구현할 수 있습니다. 코루틴과 제너레이터를 쉽게 생성할 수 있도록 돕는 더 고수준의 모듈이 필요하며 (현재 개발 중입니다), 이 PEP의 주요 목표는 코루틴, 제너레이터, 그리고 그린 스레드가 일반적인 프로그래밍 문제를 어떻게 단순화할 수 있는지를 보여주는 데 있습니다.</p>
+
+<h3 id="핵심-개념-설명">핵심 개념 설명</h3>
+
+<p>이 PEP는 Python의 비동기 및 동시성 프로그래밍의 기초가 되는 중요한 개념들을 다루고 있습니다. 비록 이 PEP 자체는 거부되었지만, 여기서 논의된 아이디어들은 이후 Python의 <code class="language-plaintext highlighter-rouge">async/await</code> 문법과 <code class="language-plaintext highlighter-rouge">concurrent.futures</code> 모듈 등 다른 제안과 구현에 영향을 미쳤습니다.</p>
+
+<ol>
+  <li>
+    <p><strong>Coroutines (코루틴):</strong>
+코루틴은 함수 실행을 일시 중지하고 나중에 중단했던 지점부터 다시 시작할 수 있는 서브루틴의 한 형태입니다. 일반적인 함수는 한 번 실행되면 처음부터 끝까지 완료되지만, 코루틴은 여러 진입점과 종료점을 가질 수 있습니다. 이는 특히 비동기 프로그래밍에서 I/O 작업과 같이 시간이 오래 걸리는 작업을 기다리는 동안 CPU를 다른 작업에 넘겨줄 때 유용합니다. Python에서는 <code class="language-plaintext highlighter-rouge">async def</code>와 <code class="language-plaintext highlighter-rouge">await</code> 키워드를 통해 코루틴을 지원합니다.</p>
+  </li>
+  <li>
+    <p><strong>Generators (제너레이터):</strong>
+제너레이터는 이터레이터 (iterator)를 생성하는 특별한 종류의 함수입니다. 일반 함수가 <code class="language-plaintext highlighter-rouge">return</code>을 사용하여 단일 값을 반환하는 것과 달리, 제너레이터 함수는 <code class="language-plaintext highlighter-rouge">yield</code> 키워드를 사용하여 일련의 값을 “생성”하고 각 <code class="language-plaintext highlighter-rouge">yield</code> 문에서 실행을 일시 중단할 수 있습니다. 다음 값이 요청될 때 제너레이터는 중단되었던 지점부터 실행을 다시 시작합니다. 이는 특히 메모리 효율적으로 대량의 데이터를 처리할 때 유용하며, 코루틴의 초기 형태로도 활용되었습니다.</p>
+  </li>
+  <li>
+    <p><strong>Continuations (연속):</strong>
+연속은 프로그램의 실행 상태를 캡처하고 저장하여 나중에 해당 지점부터 실행을 재개할 수 있도록 하는 컴퓨터 과학 개념입니다. 이는 프로그램의 “나머지” 실행을 나타냅니다. 이 PEP에서는 저수준의 <code class="language-plaintext highlighter-rouge">continuations</code> 모듈을 언급하며, 이를 통해 코루틴이나 그린 스레드를 구현할 수 있음을 시사합니다. 연속은 복잡한 제어 흐름을 구현하는 데 사용될 수 있지만, 이해하고 사용하기 어렵다는 단점이 있어 Python의 고수준 추상화에서는 직접적으로 노출되지 않는 경향이 있습니다.</p>
+  </li>
+  <li>
+    <p><strong>“Green” Threads (그린 스레드):</strong>
+그린 스레드는 운영 체제가 아닌 사용자 레벨에서 관리되는 스레드입니다. 이는 언어 런타임 또는 가상 머신 (VM)에 의해 스케줄링되고 관리됩니다. 운영 체제 스레드에 비해 컨텍스트 스위칭 오버헤드가 적고 더 가볍기 때문에 수많은 동시 작업을 생성할 때 효율적일 수 있습니다. Python의 초기 동시성 라이브러리 중 일부 (예: <code class="language-plaintext highlighter-rouge">eventlet</code>, <code class="language-plaintext highlighter-rouge">gevent</code>)는 그린 스레드와 유사한 개념을 사용하여 비동기 I/O를 처리했습니다.</p>
+  </li>
+</ol>
+
+<h3 id="pep-220의-의의-비록-거부되었지만">PEP 220의 의의 (비록 거부되었지만)</h3>
+
+<p>PEP 220은 Stackless Python 프로젝트의 아이디어를 Python 언어의 주류로 가져오려는 시도 중 하나였습니다. Stackless Python은 스택리스 (stackless) 코루틴을 통해 수천 개의 작은 작업을 효율적으로 관리할 수 있도록 설계된 Python 인터프리터의 변형입니다.</p>
+
+<p>이 PEP가 거부된 주요 이유는 Python 언어의 복잡성을 증가시키고, 당시에는 더 간단하고 직관적인 <code class="language-plaintext highlighter-rouge">async/await</code>와 같은 고수준의 비동기 패러다임이 아직 충분히 무르익지 않았기 때문일 수 있습니다. 그러나 이 PEP에서 다루는 코루틴, 제너레이터, 그리고 그린 스레드와 같은 개념들은 Python의 동시성 및 비동기 프로그래밍 발전에 중요한 논의의 시작점이 되었으며, 이후 Python 3.4에서 <code class="language-plaintext highlighter-rouge">yield from</code>, Python 3.5에서 <code class="language-plaintext highlighter-rouge">async/await</code> 문법이 도입되는 데 간접적인 영향을 미쳤습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/219/" class="pagination--pager" title="[Deferred] PEP 219 - Stackless Python
+">Previous</a>
+    
+    
+      <a href="/python/pep/221/" class="pagination--pager" title="[Final] PEP 221 - Import As
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

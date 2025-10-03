@@ -1,0 +1,748 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 519 - Adding a file system path protocol | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 519: ‘Adding a file system path protocol’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 519 - Adding a file system path protocol">
+<meta property="og:url" content="http://localhost:4000/python/pep/519/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 519: ‘Adding a file system path protocol’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T23:13:13+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T23:13:13+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/519/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 519 - Adding a file system path protocol">
+    <meta itemprop="description" content="Python Enhancement Proposal 519: ‘Adding a file system path protocol’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T23:13:13+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T23:13:13+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 519 - Adding a file system path protocol
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T23:13:13+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-519--파일-시스템-경로-프로토콜-추가">PEP 519 – 파일 시스템 경로 프로토콜 추가</a><ul><li><a href="#요약-abstract">요약 (Abstract)</a></li><li><a href="#도입-배경-rationale">도입 배경 (Rationale)</a></li><li><a href="#제안-proposal">제안 (Proposal)</a><ul><li><a href="#프로토콜-protocol">프로토콜 (Protocol)</a></li><li><a href="#표준-라이브러리-변경-standard-library-changes">표준 라이브러리 변경 (Standard library changes)</a></li><li><a href="#c-api">C API</a></li></ul></li><li><a href="#하위-호환성-backwards-compatibility">하위 호환성 (Backwards compatibility)</a></li><li><a href="#구현-implementation">구현 (Implementation)</a></li><li><a href="#거부된-아이디어-rejected-ideas">거부된 아이디어 (Rejected Ideas)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0519/">PEP 519 - Adding a file system path protocol</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 11-May-2016</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>다음은 Python Enhancement Proposal (PEP) 519, “Adding a file system path protocol”의 내용 요약 및 번역입니다. 이 PEP는 파일 시스템 경로를 나타내는 객체들이 <code class="language-plaintext highlighter-rouge">str</code> 또는 <code class="language-plaintext highlighter-rouge">bytes</code> 표현을 제공할 수 있는 프로토콜을 제안하며, 기존 <code class="language-plaintext highlighter-rouge">str</code> 및 <code class="language-plaintext highlighter-rouge">bytes</code> 경로만 허용하던 Python 표준 라이브러리 API들이 이러한 경로 객체를 활용할 수 있도록 업데이트하는 것을 목표로 합니다.</p>
+
+<hr />
+
+<h1 id="pep-519--파일-시스템-경로-프로토콜-추가">PEP 519 – 파일 시스템 경로 프로토콜 추가</h1>
+
+<h2 id="요약-abstract">요약 (Abstract)</h2>
+<p>이 PEP는 파일 시스템 경로를 나타내는 클래스들이 <code class="language-plaintext highlighter-rouge">str</code> 또는 <code class="language-plaintext highlighter-rouge">bytes</code> 표현을 제공할 수 있는 프로토콜을 제안합니다. 또한, 기존에는 <code class="language-plaintext highlighter-rouge">str</code> 및/또는 <code class="language-plaintext highlighter-rouge">bytes</code> 파일 시스템 경로만 허용했던 Python 표준 라이브러리의 변경 사항들을 제안하여, 경로 객체(path objects)의 사용을 용이하게 합니다. 목표는 사용자들이 풍부한 경로 객체로 전환하도록 돕는 동시에, <code class="language-plaintext highlighter-rouge">str</code> 또는 <code class="language-plaintext highlighter-rouge">bytes</code>를 기대하는 코드와 쉽게 작업할 수 있는 방법을 제공하는 것입니다.</p>
+
+<h2 id="도입-배경-rationale">도입 배경 (Rationale)</h2>
+<p>과거 Python에서 파일 시스템 경로는 주로 문자열(strings) 또는 바이트(bytes)로 표현되었습니다. 이는 C 언어에서 파일 시스템 경로를 <code class="language-plaintext highlighter-rouge">const char *</code>로 표현하는 방식에서 비롯된 것입니다. 이러한 방식은 사용할 수 있지만, 모든 <code class="language-plaintext highlighter-rouge">str</code> 또는 <code class="language-plaintext highlighter-rouge">bytes</code>가 유효한 파일 시스템 경로를 나타내는 것은 아니라는 문제가 있습니다. 예를 들어, 아무 문자열이나 경로처럼 동작하게 만들 수 있어 혼란을 야기할 수 있습니다.</p>
+
+<p>Python 3.4에서는 PEP 428을 통해 <code class="language-plaintext highlighter-rouge">pathlib</code> 모듈이 도입되어 파일 시스템 경로를 더 풍부한 객체 표현으로 격상시키려 했습니다. 그러나 <code class="language-plaintext highlighter-rouge">pathlib</code>는 표준 라이브러리 내에서의 지원 부족으로 인해 채택률이 낮았습니다. <code class="language-plaintext highlighter-rouge">pathlib</code> 사용자는 경로 객체를 <code class="language-plaintext highlighter-rouge">str(path)</code>와 같이 수동으로 문자열로 변환해야 했으며, 이는 오류 발생 가능성이 높다고 여겨졌습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">str()</code> 함수를 통한 변환의 문제는 거의 모든 Python 객체가 문자열 표현을 가지고 있어, 실제 경로가 아닌 객체도 <code class="language-plaintext highlighter-rouge">str()</code>을 통해 문자열로 변환될 수 있다는 점입니다(예: <code class="language-plaintext highlighter-rouge">str(None)</code>이 <code class="language-plaintext highlighter-rouge">builtins.open()</code>에 사용될 수 있음). 또한, <code class="language-plaintext highlighter-rouge">os.DirEntry</code> 객체는 <code class="language-plaintext highlighter-rouge">path</code> 속성을 통해 경로를 노출하는 반면, <code class="language-plaintext highlighter-rouge">pathlib</code> 객체는 직접적인 공통 인터페이스가 없어 불편함이 있었습니다. 이러한 문제들을 해결하기 위해, 모든 경로 표현 객체가 자신이 경로임을 명시하고, 낮은 수준의 표현(low-level representation)을 추출할 수 있는 공통 인터페이스, 즉 새로운 프로토콜이 필요하게 되었습니다.</p>
+
+<h2 id="제안-proposal">제안 (Proposal)</h2>
+<p>이 PEP의 제안은 두 가지 부분으로 나뉩니다. 첫째는 객체가 파일 시스템 경로 표현을 선언하고 제공하기 위한 프로토콜 제안이고, 둘째는 이 새로운 프로토콜을 지원하기 위한 Python 표준 라이브러리의 변경 사항입니다. 이 변경 사항들은 <code class="language-plaintext highlighter-rouge">pathlib</code> 모듈의 임시(provisional) 상태를 해제하는 결과로 이어질 것입니다.</p>
+
+<h3 id="프로토콜-protocol">프로토콜 (Protocol)</h3>
+<p>파일 시스템 경로 객체로 간주될 객체는 다음 추상 기본 클래스(<code class="language-plaintext highlighter-rouge">abc.ABC</code>)로 정의된 프로토콜을 구현해야 합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">abc</span>
+<span class="kn">import</span> <span class="n">typing</span> <span class="k">as</span> <span class="n">t</span>
+
+<span class="k">class</span> <span class="nc">PathLike</span><span class="p">(</span><span class="n">abc</span><span class="p">.</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">파일 시스템 경로 프로토콜을 구현하기 위한 추상 기본 클래스.</span><span class="sh">"""</span>
+    <span class="nd">@abc.abstractmethod</span>
+    <span class="k">def</span> <span class="nf">__fspath__</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">t</span><span class="p">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">]:</span>
+        <span class="sh">"""</span><span class="s">객체의 파일 시스템 경로 표현을 반환합니다.</span><span class="sh">"""</span>
+        <span class="k">raise</span> <span class="nb">NotImplementedError</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">__fspath__()</code> 메서드는 경로의 <code class="language-plaintext highlighter-rouge">str</code> 또는 <code class="language-plaintext highlighter-rouge">bytes</code> 표현을 반환해야 합니다. <code class="language-plaintext highlighter-rouge">str</code> 표현은 인간이 읽기 쉽고 역사적으로 경로를 표현하는 방식이었기 때문에 선호되는 낮은 수준의 경로 표현입니다.</p>
+
+<h3 id="표준-라이브러리-변경-standard-library-changes">표준 라이브러리 변경 (Standard library changes)</h3>
+<p>Python 표준 라이브러리에서 파일 시스템 경로를 허용하는 대부분의 API는 경로 객체를 수용하도록 업데이트될 예정입니다.</p>
+
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">builtins</code></strong>:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">open()</code> 함수는 경로 객체를 허용하도록 업데이트됩니다.</li>
+    </ul>
+  </li>
+  <li><strong><code class="language-plaintext highlighter-rouge">os</code></strong>:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">os.fspath()</code> 함수가 추가됩니다. 이 함수는 <code class="language-plaintext highlighter-rouge">PathLike</code> 객체, <code class="language-plaintext highlighter-rouge">str</code>, <code class="language-plaintext highlighter-rouge">bytes</code>를 인자로 받아 <code class="language-plaintext highlighter-rouge">str</code> 또는 <code class="language-plaintext highlighter-rouge">bytes</code> 표현을 반환합니다. <code class="language-plaintext highlighter-rouge">str</code> 또는 <code class="language-plaintext highlighter-rouge">bytes</code>가 인자로 들어오면 그대로 반환하고, <code class="language-plaintext highlighter-rouge">__fspath__()</code>가 <code class="language-plaintext highlighter-rouge">str</code> 또는 <code class="language-plaintext highlighter-rouge">bytes</code>가 아닌 다른 것을 반환하면 <code class="language-plaintext highlighter-rouge">TypeError</code>를 발생시킵니다.
+        <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">typing</span> <span class="k">as</span> <span class="n">t</span>
+<span class="k">def</span> <span class="nf">fspath</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">t</span><span class="p">.</span><span class="n">Union</span><span class="p">[</span><span class="n">PathLike</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">t</span><span class="p">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">]:</span>
+<span class="c1"># ... 구현 세부 사항 ...
+</span><span class="k">pass</span>
+</code></pre></div>        </div>
+      </li>
+      <li><code class="language-plaintext highlighter-rouge">os.fsencode()</code> 및 <code class="language-plaintext highlighter-rouge">os.fsdecode()</code> 함수는 경로 객체를 허용하도록 업데이트됩니다. 이 함수들은 <code class="language-plaintext highlighter-rouge">__fspath__()</code>를 호출하여 경로 객체를 <code class="language-plaintext highlighter-rouge">str</code> 또는 <code class="language-plaintext highlighter-rouge">bytes</code>로 변환한 다음, 기존의 인코딩/디코딩 작업을 수행합니다.</li>
+      <li><code class="language-plaintext highlighter-rouge">os.DirEntry</code> 객체는 <code class="language-plaintext highlighter-rouge">__fspath__()</code> 메서드를 가지게 되며, 이는 현재 <code class="language-plaintext highlighter-rouge">path</code> 속성과 동일한 값을 반환합니다.</li>
+      <li><code class="language-plaintext highlighter-rouge">PathLike</code> 추상 기본 클래스는 <code class="language-plaintext highlighter-rouge">os.PathLike</code>라는 이름으로 <code class="language-plaintext highlighter-rouge">os</code> 모듈에 추가됩니다.</li>
+    </ul>
+  </li>
+  <li><strong><code class="language-plaintext highlighter-rouge">os.path</code></strong>:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">os.path</code>의 다양한 경로 조작 함수들은 경로 객체를 허용하도록 업데이트됩니다. 다형적인 함수(bytes와 strings를 모두 허용하는)의 경우, 단순히 <code class="language-plaintext highlighter-rouge">os.fspath()</code>를 사용하도록 업데이트됩니다.</li>
+    </ul>
+  </li>
+  <li><strong><code class="language-plaintext highlighter-rouge">pathlib</code></strong>:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">pathlib.PurePath</code> 및 <code class="language-plaintext highlighter-rouge">pathlib.Path</code>의 생성자는 <code class="language-plaintext highlighter-rouge">PathLike</code> 객체를 허용하도록 업데이트됩니다. <code class="language-plaintext highlighter-rouge">bytes</code> 경로 표현은 계속해서 허용하지 않으므로, <code class="language-plaintext highlighter-rouge">__fspath__()</code>가 <code class="language-plaintext highlighter-rouge">bytes</code>를 반환하면 예외가 발생합니다.</li>
+      <li><code class="language-plaintext highlighter-rouge">path</code> 속성은 이 PEP에 의해 중복되므로 제거됩니다. (이 속성은 어떤 출시된 Python 버전에도 포함되지 않았으므로 하위 호환성 문제는 없습니다.)</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="c-api">C API</h3>
+<p>C API는 <code class="language-plaintext highlighter-rouge">os.fspath()</code>와 동등한 <code class="language-plaintext highlighter-rouge">PyOS_FSPath()</code> 함수를 얻게 됩니다.</p>
+
+<h2 id="하위-호환성-backwards-compatibility">하위 호환성 (Backwards compatibility)</h2>
+<p>명시적인 하위 호환성 문제는 없습니다. 객체가 우연히 <code class="language-plaintext highlighter-rouge">__fspath__()</code> 메서드를 이미 정의하고 있지 않는 한, 기존 코드가 중단되거나 의미가 암묵적으로 변경될 것으로 예상할 이유가 없습니다.</p>
+
+<p>Python 3.6 이전 버전에서 경로 객체를 지원하려는 라이브러리는 <code class="language-plaintext highlighter-rouge">if hasattr(path, "__fspath__") else path</code>와 같은 관용구를 사용하여 <code class="language-plaintext highlighter-rouge">path.__fspath__()</code>를 호출할 수 있습니다.</p>
+
+<h2 id="구현-implementation">구현 (Implementation)</h2>
+<p>이 PEP에서 Python 3.6에 제안된 주요 변경 사항들은 다음과 같습니다 (대부분 완료됨):</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">pathlib</code>에서 <code class="language-plaintext highlighter-rouge">path</code> 속성 제거</li>
+  <li><code class="language-plaintext highlighter-rouge">pathlib</code>의 임시 상태 제거</li>
+  <li><code class="language-plaintext highlighter-rouge">os.PathLike</code> 추가</li>
+  <li><code class="language-plaintext highlighter-rouge">PyOS_FSPath()</code> 추가</li>
+  <li><code class="language-plaintext highlighter-rouge">os.fspath()</code> 추가</li>
+  <li><code class="language-plaintext highlighter-rouge">os.fsencode()</code> 및 <code class="language-plaintext highlighter-rouge">os.fsdecode()</code> 업데이트</li>
+  <li><code class="language-plaintext highlighter-rouge">pathlib.PurePath</code> 및 <code class="language-plaintext highlighter-rouge">pathlib.Path</code> 업데이트 (<code class="language-plaintext highlighter-rouge">__fspath__()</code> 추가 및 생성자에 <code class="language-plaintext highlighter-rouge">os.PathLike</code> 지원 추가)</li>
+  <li><code class="language-plaintext highlighter-rouge">DirEntry</code>에 <code class="language-plaintext highlighter-rouge">__fspath__()</code> 추가</li>
+  <li><code class="language-plaintext highlighter-rouge">builtins.open()</code> 업데이트</li>
+  <li><code class="language-plaintext highlighter-rouge">os.path</code> 업데이트</li>
+  <li>“path-like”에 대한 용어집 항목 추가</li>
+  <li>“What’s New” 문서 업데이트</li>
+</ul>
+
+<h2 id="거부된-아이디어-rejected-ideas">거부된 아이디어 (Rejected Ideas)</h2>
+<ul>
+  <li><strong>프로토콜 메서드의 다른 이름:</strong> <code class="language-plaintext highlighter-rouge">__path__</code>, <code class="language-plaintext highlighter-rouge">__pathname__</code>, <code class="language-plaintext highlighter-rouge">__fspathname__</code> 등이 제안되었으나, <code class="language-plaintext highlighter-rouge">__fspath__</code>가 불필요하게 길지 않으면서 모호하지 않다는 이유로 선택되었습니다.</li>
+  <li><strong>별도의 <code class="language-plaintext highlighter-rouge">str</code>/<code class="language-plaintext highlighter-rouge">bytes</code> 메서드:</strong> <code class="language-plaintext highlighter-rouge">__fspath__()</code>가 <code class="language-plaintext highlighter-rouge">str</code>만 반환하고 <code class="language-plaintext highlighter-rouge">bytes</code>를 반환하는 <code class="language-plaintext highlighter-rouge">__fspathb__()</code>를 별도로 두자는 제안도 있었으나, <code class="language-plaintext highlighter-rouge">bytes</code> 반환이 드물고 <code class="language-plaintext highlighter-rouge">os</code> 모듈의 함수들이 더 나은 추상화를 제공한다고 판단되어 거부되었습니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">__fspath__()</code>가 <code class="language-plaintext highlighter-rouge">str</code>만 반환:</strong> <code class="language-plaintext highlighter-rouge">bytes</code>가 인코딩 정보가 부족하여 다루기 어렵다는 점과 PEP 383의 <code class="language-plaintext highlighter-rouge">surrogateescape</code>를 통해 모든 파일 시스템 경로를 <code class="language-plaintext highlighter-rouge">str</code>로 표현할 수 있다는 이유로 <code class="language-plaintext highlighter-rouge">str</code>만 반환하도록 하자는 논의가 있었습니다. 그러나 <code class="language-plaintext highlighter-rouge">bytes</code>를 통한 경로 표현이 완전히 사라지지 않을 것이며, <code class="language-plaintext highlighter-rouge">pathlib</code>와 같은 경로 객체를 사용하는 방향으로 유도하는 것이 더 바람직하다고 결론 내려졌습니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">__fspath__</code>가 속성(attribute)으로:</strong> 메서드가 아닌 속성으로 구현하자는 아이디어는 프로토콜이 주로 “매직 메서드”로 구현되어 왔고, 경로 객체의 낮은 수준 표현이 항상 미리 계산되어 있을 것이라는 보장이 없어 사용자에게 오해를 줄 수 있다는 이유로 거부되었습니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">os.fspathb()</code> 제공:</strong> <code class="language-plaintext highlighter-rouge">os.getcwd()</code> / <code class="language-plaintext highlighter-rouge">os.getcwdb()</code>와 같은 구조를 따르기 위해 <code class="language-plaintext highlighter-rouge">os.fspath()</code>가 <code class="language-plaintext highlighter-rouge">str</code>만 반환하고 <code class="language-plaintext highlighter-rouge">bytes</code>만 반환하는 <code class="language-plaintext highlighter-rouge">os.fspathb()</code>를 도입하자는 제안도 있었으나, 이 PEP가 파일 시스템의 데이터와 직접적으로 작업하지 않는다는 점을 고려하여 불필요하다고 판단되었습니다. <code class="language-plaintext highlighter-rouge">os.fsencode()</code>가 유사한 기능을 제공할 것입니다.</li>
+</ul>
+
+<hr />
+<p>이 PEP는 Python이 파일 시스템 경로를 다루는 방식에 있어 중요한 전환점을 마련했습니다. <code class="language-plaintext highlighter-rouge">pathlib</code>와 같은 풍부한 경로 객체의 사용을 장려하고, 기존 <code class="language-plaintext highlighter-rouge">str</code>/<code class="language-plaintext highlighter-rouge">bytes</code> 기반 API와의 상호 운용성을 강화하여 Python 개발자들이 더욱 견고하고 유연한 파일 시스템 관련 코드를 작성할 수 있도록 돕습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/518/" class="pagination--pager" title="[Final] PEP 518 - Specifying Minimum Build System Requirements for Python Projects
+">Previous</a>
+    
+    
+      <a href="/python/pep/520/" class="pagination--pager" title="[Final] PEP 520 - Preserving Class Attribute Definition Order
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

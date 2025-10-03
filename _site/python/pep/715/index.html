@@ -1,0 +1,783 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 715 - Disabling bdist_egg distribution uploads on PyPI | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 715: ‘Disabling bdist_egg distribution uploads on PyPI’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 715 - Disabling bdist_egg distribution uploads on PyPI">
+<meta property="og:url" content="http://localhost:4000/python/pep/715/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 715: ‘Disabling bdist_egg distribution uploads on PyPI’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T13:13:33+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T13:13:33+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/715/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 715 - Disabling bdist_egg distribution uploads on PyPI">
+    <meta itemprop="description" content="Python Enhancement Proposal 715: ‘Disabling bdist_egg distribution uploads on PyPI’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T13:13:33+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T13:13:33+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 715 - Disabling bdist_egg distribution uploads on PyPI
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T13:13:33+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-715--pypi에서-bdist_egg-배포-업로드-비활성화">PEP 715 – PyPI에서 bdist_egg 배포 업로드 비활성화</a><ul><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#배경-rationale">배경 (Rationale)</a><ul><li><a href="#선행-작업-previous-work">선행 작업 (Previous Work)</a></li><li><a href="#bdist_egg-형식-the-bdist_egg-format">bdist_egg 형식 (The bdist_egg format)</a></li><li><a href="#egg-파일-확장자-the-egg-file-extension">.egg 파일 확장자 (The .egg file extension)</a></li></ul></li><li><a href="#제거-과정-removal-process">제거 과정 (Removal Process)</a><ul><li><a href="#선례-prior-art">선례 (Prior Art)</a></li></ul></li><li><a href="#하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</a><ul><li><a href="#제한적인-영향-limited-impact">제한적인 영향 (Limited Impact)</a></li><li><a href="#호스팅된-파일-hosted-files">호스팅된 파일 (Hosted Files)</a></li><li><a href="#유예-기간-deprecation-period">유예 기간 (Deprecation Period)</a></li></ul></li><li><a href="#보안-문제-security-implications">보안 문제 (Security Implications)</a></li><li><a href="#교육-방법-how-to-teach-this">교육 방법 (How To Teach This)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a><ul><li><a href="#개요-abstract-1">개요 (Abstract)</a></li><li><a href="#배경-rationale-1">배경 (Rationale)</a><ul><li><a href="#bdist_egg-형식의-문제점-the-bdist_egg-format">bdist_egg 형식의 문제점 (The bdist_egg format)</a></li><li><a href="#egg-파일-확장자-the-egg-file-extension-1">.egg 파일 확장자 (The .egg file extension)</a></li></ul></li><li><a href="#제거-과정-removal-process-1">제거 과정 (Removal Process)</a></li><li><a href="#하위-호환성-backwards-compatibility-1">하위 호환성 (Backwards Compatibility)</a></li><li><a href="#보안-문제-security-implications-1">보안 문제 (Security Implications)</a></li><li><a href="#교육-방법-how-to-teach-this-1">교육 방법 (How To Teach This)</a></li></ul></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0715/">PEP 715 - Disabling bdist_egg distribution uploads on PyPI</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 06-Jun-2023</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-715--pypi에서-bdist_egg-배포-업로드-비활성화">PEP 715 – PyPI에서 <code class="language-plaintext highlighter-rouge">bdist_egg</code> 배포 업로드 비활성화</h1>
+
+<h2 id="개요-abstract">개요 (Abstract)</h2>
+
+<p>이 PEP(Python Enhancement Proposal)는 PyPI에서 <code class="language-plaintext highlighter-rouge">bdist_egg</code> 배포 유형의 새로운 업로드를 점진적으로 중단(deprecate)하고 최종적으로 비활성화할 것을 권고합니다. 이와 함께, <code class="language-plaintext highlighter-rouge">.egg</code> 접미사를 가진 배포 파일명의 새로운 업로드 역시 중단하고 비활성화할 것을 제안합니다.</p>
+
+<p>이 PEP가 시행된 후에는 PyPI가 <code class="language-plaintext highlighter-rouge">sdist</code>와 <code class="language-plaintext highlighter-rouge">bdist_wheel</code> 유형의 새로운 업로드만 허용하게 됩니다. 이는 각각 <code class="language-plaintext highlighter-rouge">.tar.gz</code> / <code class="language-plaintext highlighter-rouge">.zip</code> 및 <code class="language-plaintext highlighter-rouge">.whl</code> 접미사를 가진 파일에 해당합니다.</p>
+
+<p>이 PEP는 이전에 업로드된 <code class="language-plaintext highlighter-rouge">bdist_egg</code> 배포나 <code class="language-plaintext highlighter-rouge">.egg</code> 접미사를 가진 파일을 제거하거나 다른 방식으로 영향을 주지 않을 것을 권고합니다.</p>
+
+<h2 id="배경-rationale">배경 (Rationale)</h2>
+
+<h3 id="선행-작업-previous-work">선행 작업 (Previous Work)</h3>
+
+<p>이 제안의 기반은 PEP 527에 의해 마련되었습니다. PEP 527은 사용 빈도가 낮거나 거의 없는 일부 파일 확장자와 배포 유형에 대한 업로드 지원을 점진적으로 중단하고 궁극적으로 제거할 것을 제안했습니다.</p>
+
+<p>특히, PEP 527은 <code class="language-plaintext highlighter-rouge">bdist_dumb</code>, <code class="language-plaintext highlighter-rouge">bdist_rpm</code>, <code class="language-plaintext highlighter-rouge">bdist_dmg</code>, <code class="language-plaintext highlighter-rouge">bdist_msi</code>, <code class="language-plaintext highlighter-rouge">bdist_wininst</code> 배포 유형과 <code class="language-plaintext highlighter-rouge">.tar</code>, <code class="language-plaintext highlighter-rouge">.tar.bz2</code>, <code class="language-plaintext highlighter-rouge">.tar.xz</code>, <code class="language-plaintext highlighter-rouge">.tar.Z</code>, <code class="language-plaintext highlighter-rouge">.tgz</code>, <code class="language-plaintext highlighter-rouge">.tbz</code> 파일 확장자를 가진 배포 파일명에 대한 제거를 제안했습니다. PEP 527은 Warehouse PR #7529를 통해 2020년 4월 13일에 완전히 시행되었습니다.</p>
+
+<h3 id="bdist_egg-형식-the-bdist_egg-format"><code class="language-plaintext highlighter-rouge">bdist_egg</code> 형식 (The bdist_egg format)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">bdist_egg</code> 파일 유형은 egg 형식의 배포를 식별합니다. egg 형식은 2004년 <code class="language-plaintext highlighter-rouge">setuptools</code>에 의해 도입되었으며, 빌드된 배포판을 위한 표준화된 형식으로 2012년 PEP 427에 의해 처음 도입된 Wheel 형식과 기능적으로 거의 동일합니다.</p>
+
+<p>오랜 기간 존재했음에도 불구하고, egg 형식은 PyPI에서 제한적으로만 채택되었습니다. 2023년 5월 한 달 동안 PyPI에 업로드된 전체 배포판 중 <code class="language-plaintext highlighter-rouge">bdist_egg</code> 업로드는 0.2%에 불과했습니다. 또한, <code class="language-plaintext highlighter-rouge">pip</code>은 2016년에 <code class="language-plaintext highlighter-rouge">--egg</code> 옵션을 비권장(deprecated)했으며, <code class="language-plaintext highlighter-rouge">setuptools</code>는 2019년부터 egg 지원을 비권장으로 간주하고 있습니다. <code class="language-plaintext highlighter-rouge">build</code> 도구는 <code class="language-plaintext highlighter-rouge">sdist</code>와 <code class="language-plaintext highlighter-rouge">bdist_wheel</code> 파일 유형만 지원합니다.</p>
+
+<p>위의 사항들을 고려할 때, 이 PEP는 PEP 527에서 제시된 것과 동일한 정당성을 바탕으로 <code class="language-plaintext highlighter-rouge">bdist_egg</code> 형식의 제거를 제안합니다:</p>
+
+<ul>
+  <li>Egg 배포는 광범위한 생태계에서 사용이 제한적이므로, 상호 이익이 없는 유지보수 부담을 야기합니다.</li>
+  <li>추가적인 빌드 배포 형식을 유지하는 것은 최종 사용자에게 혼란을 줄 수 있으며, 사용자들이 실수로 <code class="language-plaintext highlighter-rouge">wheel</code> 형식 대신 egg 형식을 선택할 수 있습니다.</li>
+</ul>
+
+<p>이 PEP는 또한 표준화 및 중복성 측면에서 제거의 이유를 제시합니다. egg 형식은 어떤 PEP나 다른 커뮤니티 표준에 의해 표준화되지 않았으며, 표준화되어 잘 지원되는 대안(Wheel)과 크게 중복됩니다.</p>
+
+<h3 id="egg-파일-확장자-the-egg-file-extension"><code class="language-plaintext highlighter-rouge">.egg</code> 파일 확장자 (The .egg file extension)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">.egg</code> 파일 확장자는 <code class="language-plaintext highlighter-rouge">bdist_egg</code> 형식의 배포에만 사용됩니다. 따라서 PyPI가 <code class="language-plaintext highlighter-rouge">bdist_egg</code> 배포의 새로운 업로드를 비활성화하는 시나리오에서는 더 이상 목적이 없습니다.</p>
+
+<h2 id="제거-과정-removal-process">제거 과정 (Removal Process)</h2>
+
+<p>이 PEP는 PyPI에서 기존 파일을 제거할 것을 제안하지 않으며, 단지 새로운 파일의 업로드만 허용하지 않을 것을 제안합니다.</p>
+
+<p>PyPI는 한 달의 유예 기간(deprecation period)을 제공할 것입니다. 유예 기간이 시작될 때, 2023년 1월 1일 이후 하나 이상의 egg 배포를 업로드한 프로젝트의 관리자들에게 egg 배포 업로드 지원 종료에 대한 일회성 이메일이 발송됩니다.</p>
+
+<p>유예 기간 동안 사용자들은 새로운 프로젝트와 기존 프로젝트 모두에 egg 배포를 계속 업로드할 수 있습니다. 이 기간 동안 egg 배포를 업로드하면 프로젝트의 모든 관리자에게 위와 유사한 이메일이 발송되어 지원 종료가 임박했음을 다시 한 번 알립니다.</p>
+
+<p>유예 기간이 종료된 후에는 PyPI에서 egg 배포 업로드 지원이 중단됩니다.</p>
+
+<h3 id="선례-prior-art">선례 (Prior Art)</h3>
+
+<p>위의 제거 과정은 PEP 527의 제거 과정을 기반으로 하되, 다음과 같은 변경 사항이 적용되었습니다:</p>
+
+<ul>
+  <li>유예 기간 동안 모든 프로젝트가 egg를 업로드할 수 있도록 허용됩니다. 이전에는 업로드했던 프로젝트만 허용되었던 것과 다릅니다.</li>
+  <li>유예 기간 시작 시 발송되는 일회성 이메일 외에도, 유예 기간 동안 egg를 업로드할 때마다 관리자에게 이메일이 발송됩니다.</li>
+</ul>
+
+<h2 id="하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</h2>
+
+<h3 id="제한적인-영향-limited-impact">제한적인 영향 (Limited Impact)</h3>
+
+<p>배경 섹션에서 언급했듯이, 이 PEP는 대다수의 PyPI 사용자 및 프로젝트에 거의 영향을 미치지 않을 것으로 예상됩니다. 지난 1년 반 동안 커뮤니티의 상당한 조율을 통해 몇 안 되는 마지막 사용 사례에 대한 영향을 최소화했습니다.</p>
+
+<h3 id="호스팅된-파일-hosted-files">호스팅된 파일 (Hosted Files)</h3>
+
+<p>이 PEP는 이미 PyPI에 업로드된 egg 배포를 제거할 것을 제안하지 않습니다. 이전에 업로드된 모든 egg 배포는 계속 다운로드 가능하며, 기존 사용자들이 계속 다운로드할 수 있도록 보장합니다.</p>
+
+<h3 id="유예-기간-deprecation-period">유예 기간 (Deprecation Period)</h3>
+
+<p>이 PEP는 PyPI에 이전에 egg 배포를 업로드했던 프로젝트에 대해 1개월의 유예 기간을 명시하는 위에서 설명한 제거 프로세스를 사용합니다. 유예 기간 종료 후에는 PyPI에서 새로운 egg 배포 업로드 지원이 중단됩니다.</p>
+
+<h2 id="보안-문제-security-implications">보안 문제 (Security Implications)</h2>
+
+<p>이 PEP는 egg 배포에 대한 업로드 지원을 제거하는 것과 관련된 긍정적 또는 부정적인 보안 문제를 식별하지 않습니다.</p>
+
+<h2 id="교육-방법-how-to-teach-this">교육 방법 (How To Teach This)</h2>
+
+<p>제거 과정의 일환으로, PyPI는 2023년에 이전에 egg 배포를 업로드했던 프로젝트의 모든 관리자에게 이메일을 보낼 것입니다.</p>
+
+<p>또한, PyPI는 PyPI 블로그에 유예 기간의 시작과 종료를 공개적으로 알리는 게시물을 작성할 것입니다.</p>
+
+<h2 id="저작권-copyright">저작권 (Copyright)</h2>
+
+<p>이 문서는 퍼블릭 도메인 또는 CC0-1.0-Universal 라이선스 중 더 관대한 조건으로 제공됩니다.## PEP 715 – PyPI에서 <code class="language-plaintext highlighter-rouge">bdist_egg</code> 배포 업로드 비활성화</p>
+
+<h3 id="개요-abstract-1">개요 (Abstract)</h3>
+
+<p>PEP 715는 PyPI(Python Package Index)에서 <code class="language-plaintext highlighter-rouge">bdist_egg</code> 배포 유형과 <code class="language-plaintext highlighter-rouge">.egg</code> 확장자를 가진 파일의 새로운 업로드를 점진적으로 중단(deprecate)하고 최종적으로 비활성화할 것을 제안합니다. 이 변경 후에는 PyPI가 <code class="language-plaintext highlighter-rouge">sdist</code> (소스 배포, <code class="language-plaintext highlighter-rouge">.tar.gz</code> / <code class="language-plaintext highlighter-rouge">.zip</code> 파일)와 <code class="language-plaintext highlighter-rouge">bdist_wheel</code> (빌드된 Wheel 배포, <code class="language-plaintext highlighter-rouge">.whl</code> 파일) 유형의 새로운 업로드만 허용하게 됩니다. 중요한 점은, 이미 PyPI에 업로드된 기존 <code class="language-plaintext highlighter-rouge">bdist_egg</code> 배포나 <code class="language-plaintext highlighter-rouge">.egg</code> 파일은 제거되지 않으며 계속 다운로드 가능하다는 것입니다.</p>
+
+<h3 id="배경-rationale-1">배경 (Rationale)</h3>
+
+<p>이 제안은 과거 PEP 527의 선례를 따릅니다. PEP 527은 사용량이 적은 파일 확장자와 배포 유형(예: <code class="language-plaintext highlighter-rouge">bdist_dumb</code>, <code class="language-plaintext highlighter-rouge">bdist_rpm</code>, <code class="language-plaintext highlighter-rouge">.tar</code>, <code class="language-plaintext highlighter-rouge">.tgz</code> 등)에 대한 업로드 지원을 제거했습니다.</p>
+
+<h4 id="bdist_egg-형식의-문제점-the-bdist_egg-format"><code class="language-plaintext highlighter-rouge">bdist_egg</code> 형식의 문제점 (The bdist_egg format)</h4>
+
+<p><code class="language-plaintext highlighter-rouge">bdist_egg</code> 형식은 2004년 <code class="language-plaintext highlighter-rouge">setuptools</code>에 의해 도입되었지만, 2012년 PEP 427에 의해 표준화된 <code class="language-plaintext highlighter-rouge">wheel</code> 형식과 기능적으로 유사하면서도 채택률은 매우 낮았습니다.</p>
+
+<ul>
+  <li>2023년 5월 기준으로 PyPI에 업로드된 전체 배포 중 <code class="language-plaintext highlighter-rouge">bdist_egg</code>는 0.2%에 불과했습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">pip</code>은 2016년에 <code class="language-plaintext highlighter-rouge">--egg</code> 옵션을 비권장했으며, <code class="language-plaintext highlighter-rouge">setuptools</code>는 2019년부터 egg 지원을 비권장하고 있습니다.</li>
+  <li>최신 빌드 도구인 <code class="language-plaintext highlighter-rouge">build</code>는 <code class="language-plaintext highlighter-rouge">sdist</code>와 <code class="language-plaintext highlighter-rouge">bdist_wheel</code>만 지원합니다.</li>
+</ul>
+
+<p>이러한 이유로 PEP 715는 <code class="language-plaintext highlighter-rouge">bdist_egg</code> 형식의 제거를 제안합니다:</p>
+
+<ul>
+  <li><strong>유지보수 부담:</strong> Egg 배포는 PyPI 생태계 전반에 걸쳐 사용이 제한적임에도 불구하고, 플랫폼 측에 불필요한 유지보수 부담을 줍니다.</li>
+  <li><strong>사용자 혼란:</strong> 두 가지 빌드 배포 형식을 유지하는 것은 사용자들에게 혼란을 주며, <code class="language-plaintext highlighter-rouge">wheel</code> 대신 egg를 잘못 선택하게 만들 수 있습니다.</li>
+  <li><strong>표준화 및 중복:</strong> egg 형식은 어떤 PEP나 커뮤니티 표준에 의해 표준화되지 않았으며, 이미 표준화되고 잘 지원되는 <code class="language-plaintext highlighter-rouge">wheel</code> 형식과 크게 중복됩니다.</li>
+</ul>
+
+<h4 id="egg-파일-확장자-the-egg-file-extension-1"><code class="language-plaintext highlighter-rouge">.egg</code> 파일 확장자 (The .egg file extension)</h4>
+
+<p><code class="language-plaintext highlighter-rouge">.egg</code> 파일 확장자는 <code class="language-plaintext highlighter-rouge">bdist_egg</code> 배포 형식에만 사용됩니다. 따라서 <code class="language-plaintext highlighter-rouge">bdist_egg</code> 업로드가 비활성화되면 이 확장자 또한 더 이상 필요하지 않습니다.</p>
+
+<h3 id="제거-과정-removal-process-1">제거 과정 (Removal Process)</h3>
+
+<p>이 PEP는 기존 파일의 제거가 아닌, 새로운 업로드만 금지합니다.</p>
+
+<ol>
+  <li><strong>유예 기간:</strong> PyPI는 1개월의 유예 기간을 제공합니다.</li>
+  <li><strong>초기 알림:</strong> 유예 기간 시작 시, 2023년 1월 1일 이후 egg 배포를 업로드한 프로젝트의 관리자들에게 egg 배포 업로드 지원 종료에 대한 이메일이 발송됩니다.</li>
+  <li><strong>기간 중 알림:</strong> 유예 기간 동안 egg 배포를 업로드하면 해당 프로젝트의 모든 관리자에게 지원 종료 임박을 다시 알리는 이메일이 발송됩니다.</li>
+  <li><strong>지원 중단:</strong> 유예 기간 종료 후, PyPI에서 egg 배포 업로드 지원이 완전히 중단됩니다.</li>
+</ol>
+
+<p>이 과정은 PEP 527의 선례를 따르지만, 유예 기간 동안 모든 프로젝트가 egg를 업로드할 수 있도록 허용하고, 업로드 시마다 추가 알림을 보낸다는 점에서 차이가 있습니다.</p>
+
+<h3 id="하위-호환성-backwards-compatibility-1">하위 호환성 (Backwards Compatibility)</h3>
+
+<ul>
+  <li><strong>제한적인 영향:</strong> 이 PEP는 대다수의 PyPI 사용자 및 프로젝트에 거의 영향을 미치지 않을 것으로 예상됩니다. 지난 1년 반 동안 커뮤니티 조율을 통해 영향을 최소화했습니다.</li>
+  <li><strong>기존 파일 유지:</strong> 이미 PyPI에 업로드된 모든 egg 배포는 계속 다운로드 가능하여 기존 사용자들에게 영향을 주지 않습니다.</li>
+</ul>
+
+<h3 id="보안-문제-security-implications-1">보안 문제 (Security Implications)</h3>
+
+<p>이 PEP는 egg 배포 업로드 지원 제거와 관련된 긍정적 또는 부정적인 보안 문제를 식별하지 않았습니다.</p>
+
+<h3 id="교육-방법-how-to-teach-this-1">교육 방법 (How To Teach This)</h3>
+
+<p>PyPI는 2023년에 egg 배포를 업로드했던 프로젝트 관리자들에게 이메일을 보낼 예정입니다. 또한, PyPI 블로그에 유예 기간의 시작과 종료를 알리는 게시물을 게시할 것입니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/714/" class="pagination--pager" title="[Accepted] PEP 714 - Rename dist-info-metadata in the Simple API
+">Previous</a>
+    
+    
+      <a href="/python/pep/718/" class="pagination--pager" title="[Draft] PEP 718 - Subscriptable functions
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,1230 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 673 - Self Type | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 673: ‘Self Type’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 673 - Self Type">
+<meta property="og:url" content="http://localhost:4000/python/pep/673/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 673: ‘Self Type’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T10:07:14+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T10:07:14+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/673/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 673 - Self Type">
+    <meta itemprop="description" content="Python Enhancement Proposal 673: ‘Self Type’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T10:07:14+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T10:07:14+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 673 - Self Type
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T10:07:14+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-673--self-타입">PEP 673 – Self 타입</a><ul><li><a href="#요약-abstract">요약 (Abstract)</a></li><li><a href="#동기-motivation">동기 (Motivation)</a><ul><li><a href="#사용-통계-usage-statistics">사용 통계 (Usage statistics)</a></li></ul></li><li><a href="#명세-specification">명세 (Specification)</a><ul><li><a href="#메서드-시그니처에서의-사용-use-in-method-signatures">메서드 시그니처에서의 사용 (Use in Method Signatures)</a></li><li><a href="#클래스메서드-시그니처에서의-사용-use-in-classmethod-signatures">클래스메서드 시그니처에서의 사용 (Use in Classmethod Signatures)</a></li><li><a href="#파라미터-타입에서의-사용-use-in-parameter-types">파라미터 타입에서의 사용 (Use in Parameter Types)</a></li><li><a href="#속성-어노테이션에서의-사용-use-in-attribute-annotations">속성 어노테이션에서의 사용 (Use in Attribute Annotations)</a></li><li><a href="#제네릭-클래스에서의-사용-use-in-generic-classes">제네릭 클래스에서의 사용 (Use in Generic Classes)</a></li><li><a href="#프로토콜에서의-사용-use-in-protocols">프로토콜에서의 사용 (Use in Protocols)</a></li><li><a href="#self의-유효한-위치-valid-locations-for-self">Self의 유효한 위치 (Valid Locations for Self)</a></li></ul></li><li><a href="#런타임-동작-runtime-behavior">런타임 동작 (Runtime behavior)</a></li><li><a href="#거부된-대안-rejected-alternatives">거부된 대안 (Rejected Alternatives)</a><ul><li><a href="#타입-검사기가-반환-타입을-추론하도록-허용-allow-the-type-checker-to-infer-the-return-type">타입 검사기가 반환 타입을 추론하도록 허용 (Allow the Type Checker to Infer the Return Type)</a></li></ul></li><li><a href="#참고-구현-reference-implementations">참고 구현 (Reference Implementations)</a></li><li><a href="#자료-resources">자료 (Resources)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0673/">PEP 673 - Self Type</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 10-Nov-2021</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-673--self-타입">PEP 673 – <code class="language-plaintext highlighter-rouge">Self</code> 타입</h1>
+
+<h2 id="요약-abstract">요약 (Abstract)</h2>
+
+<p>이 PEP는 메서드가 자신의 클래스 인스턴스를 반환할 때 이를 어노테이션(annotation)하는 간단하고 직관적인 방법을 제안합니다. 이 방식은 기존의 <code class="language-plaintext highlighter-rouge">TypeVar</code> 기반 접근 방식(PEP 484에 명시됨)과 동일하게 작동하지만, 더 간결하고 이해하기 쉽습니다.</p>
+
+<h2 id="동기-motivation">동기 (Motivation)</h2>
+
+<p>자신의 클래스와 동일한 인스턴스를 반환하는 메서드를 작성하는 것은 흔한 사용 사례입니다. 예를 들어, 일반적으로 <code class="language-plaintext highlighter-rouge">self</code>를 반환하는 경우입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Shape</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">set_scale</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span>
+        <span class="k">return</span> <span class="n">self</span>
+
+<span class="nc">Shape</span><span class="p">().</span><span class="nf">set_scale</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span> <span class="c1"># =&gt; Shape 타입이어야 합니다.
+</span></code></pre></div></div>
+
+<p>반환 타입을 명시하는 한 가지 방법은 현재 클래스(예: <code class="language-plaintext highlighter-rouge">Shape</code>)로 지정하는 것입니다. 이 메서드를 사용하면 타입 검사기가 예상대로 <code class="language-plaintext highlighter-rouge">Shape</code> 타입을 추론합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Shape</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">set_scale</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Shape</span><span class="p">:</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span>
+        <span class="k">return</span> <span class="n">self</span>
+
+<span class="nc">Shape</span><span class="p">().</span><span class="nf">set_scale</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span> <span class="c1"># =&gt; Shape
+</span></code></pre></div></div>
+
+<p>그러나 <code class="language-plaintext highlighter-rouge">Shape</code>의 서브클래스에서 <code class="language-plaintext highlighter-rouge">set_scale</code>을 호출하면, 타입 검사기는 여전히 반환 타입을 <code class="language-plaintext highlighter-rouge">Shape</code>으로 추론합니다. 이는 아래와 같은 상황에서 문제가 될 수 있습니다. 예를 들어, 기본 클래스에는 없는 속성이나 메서드를 사용하려고 할 때 타입 검사기가 오류를 발생시킵니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Circle</span><span class="p">(</span><span class="n">Shape</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">set_radius</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Circle</span><span class="p">:</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">r</span>
+        <span class="k">return</span> <span class="n">self</span>
+
+<span class="nc">Circle</span><span class="p">().</span><span class="nf">set_scale</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span> <span class="c1"># *Shape* 타입으로 추론, Circle이 아님
+</span><span class="nc">Circle</span><span class="p">().</span><span class="nf">set_scale</span><span class="p">(</span><span class="mf">0.5</span><span class="p">).</span><span class="nf">set_radius</span><span class="p">(</span><span class="mf">2.7</span><span class="p">)</span> <span class="c1"># =&gt; 에러: Shape에는 set_radius 속성이 없습니다.
+</span></code></pre></div></div>
+
+<p>이러한 경우에 대한 현재의 해결책은 <code class="language-plaintext highlighter-rouge">TypeVar</code>를 정의하고, 기본 클래스를 바운드(bound)로 지정한 후, 이를 <code class="language-plaintext highlighter-rouge">self</code> 파라미터와 반환 타입의 어노테이션으로 사용하는 것입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">TypeVar</span>
+
+<span class="n">TShape</span> <span class="o">=</span> <span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">TShape</span><span class="sh">"</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="sh">"</span><span class="s">Shape</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Shape</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">set_scale</span><span class="p">(</span><span class="n">self</span><span class="p">:</span> <span class="n">TShape</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TShape</span><span class="p">:</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span>
+        <span class="k">return</span> <span class="n">self</span>
+
+<span class="k">class</span> <span class="nc">Circle</span><span class="p">(</span><span class="n">Shape</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">set_radius</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Circle</span><span class="p">:</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">radius</span>
+        <span class="k">return</span> <span class="n">self</span>
+
+<span class="nc">Circle</span><span class="p">().</span><span class="nf">set_scale</span><span class="p">(</span><span class="mf">0.5</span><span class="p">).</span><span class="nf">set_radius</span><span class="p">(</span><span class="mf">2.7</span><span class="p">)</span> <span class="c1"># =&gt; Circle
+</span></code></pre></div></div>
+
+<p>하지만 이 방법은 장황하고 직관적이지 않습니다. <code class="language-plaintext highlighter-rouge">self</code>는 일반적으로 명시적으로 어노테이션되지 않기 때문에, 위의 해결책은 쉽게 떠오르지 않을 뿐더러, <code class="language-plaintext highlighter-rouge">TypeVar</code>의 바운드(<code class="language-plaintext highlighter-rouge">bound="Shape"</code>)나 <code class="language-plaintext highlighter-rouge">self</code>에 대한 어노테이션을 잊어버리기 쉽습니다.</p>
+
+<p>이러한 어려움 때문에 사용자들은 종종 포기하고 <code class="language-plaintext highlighter-rouge">Any</code>와 같은 대체 타입을 사용하거나, 아예 타입 어노테이션을 생략하게 됩니다. 이 두 가지 모두 코드의 타입 안전성(type safety)을 떨어뜨립니다.</p>
+
+<p>이 PEP는 위의 의도를 표현하는 더 직관적이고 간결한 방법을 제안합니다. 우리는 감싸고 있는(encapsulating) 클래스에 바운드된 타입 변수를 나타내는 특별한 형태인 <code class="language-plaintext highlighter-rouge">Self</code>를 도입합니다. 위와 같은 상황에서, 사용자는 단순히 반환 타입을 <code class="language-plaintext highlighter-rouge">Self</code>로 어노테이션하면 됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">Self</span>
+
+<span class="k">class</span> <span class="nc">Shape</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">set_scale</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span>
+        <span class="k">return</span> <span class="n">self</span>
+
+<span class="k">class</span> <span class="nc">Circle</span><span class="p">(</span><span class="n">Shape</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">set_radius</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">radius</span>
+        <span class="k">return</span> <span class="n">self</span>
+</code></pre></div></div>
+
+<p>반환 타입을 <code class="language-plaintext highlighter-rouge">Self</code>로 어노테이션함으로써, 우리는 더 이상 기본 클래스에 명시적인 바운드를 가진 <code class="language-plaintext highlighter-rouge">TypeVar</code>를 선언할 필요가 없습니다. 반환 타입 <code class="language-plaintext highlighter-rouge">Self</code>는 함수가 <code class="language-plaintext highlighter-rouge">self</code>를 반환한다는 사실을 반영하며 이해하기 쉽습니다.</p>
+
+<p>위 예제에서처럼, 타입 검사기는 <code class="language-plaintext highlighter-rouge">Circle().set_scale(0.5)</code>의 타입을 예상대로 <code class="language-plaintext highlighter-rouge">Circle</code>로 정확하게 추론할 것입니다.</p>
+
+<h3 id="사용-통계-usage-statistics">사용 통계 (Usage statistics)</h3>
+
+<p>우리는 인기 있는 오픈 소스 프로젝트들을 분석했으며, 위와 같은 패턴이 <code class="language-plaintext highlighter-rouge">dict</code> 또는 <code class="language-plaintext highlighter-rouge">Callable</code>과 같은 인기 있는 타입만큼 자주 사용된다는 것을 발견했습니다 (약 40%). 예를 들어, 2021년 10월 기준으로 typeshed에서만 이러한 “Self” 타입은 523회 사용되었으며, <code class="language-plaintext highlighter-rouge">dict</code>는 1286회, <code class="language-plaintext highlighter-rouge">Callable</code>은 1314회 사용되었습니다. 이는 <code class="language-plaintext highlighter-rouge">Self</code> 타입이 상당히 자주 사용될 것이며, 사용자들은 이 더 간단한 접근 방식으로부터 많은 이점을 얻을 수 있음을 시사합니다.</p>
+
+<p>Python 타입 사용자들도 제안 문서와 GitHub에서 이 기능을 자주 요청했습니다.</p>
+
+<h2 id="명세-specification">명세 (Specification)</h2>
+
+<h3 id="메서드-시그니처에서의-사용-use-in-method-signatures">메서드 시그니처에서의 사용 (Use in Method Signatures)</h3>
+
+<p>메서드 시그니처에서 사용되는 <code class="language-plaintext highlighter-rouge">Self</code>는 해당 클래스에 바운드된 <code class="language-plaintext highlighter-rouge">TypeVar</code>처럼 처리됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">Self</span>
+
+<span class="k">class</span> <span class="nc">Shape</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">set_scale</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span>
+        <span class="k">return</span> <span class="n">self</span>
+</code></pre></div></div>
+
+<p>위 코드는 다음 코드와 동일하게 처리됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">TypeVar</span>
+
+<span class="n">SelfShape</span> <span class="o">=</span> <span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">SelfShape</span><span class="sh">"</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="sh">"</span><span class="s">Shape</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Shape</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">set_scale</span><span class="p">(</span><span class="n">self</span><span class="p">:</span> <span class="n">SelfShape</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SelfShape</span><span class="p">:</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span>
+        <span class="k">return</span> <span class="n">self</span>
+</code></pre></div></div>
+
+<p>이것은 서브클래스에서도 동일하게 작동합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Circle</span><span class="p">(</span><span class="n">Shape</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">set_radius</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">radius</span>
+        <span class="k">return</span> <span class="n">self</span>
+</code></pre></div></div>
+
+<p>위 코드는 다음 코드와 동일하게 처리됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">SelfCircle</span> <span class="o">=</span> <span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">SelfCircle</span><span class="sh">"</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="sh">"</span><span class="s">Circle</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Circle</span><span class="p">(</span><span class="n">Shape</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">set_radius</span><span class="p">(</span><span class="n">self</span><span class="p">:</span> <span class="n">SelfCircle</span><span class="p">,</span> <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SelfCircle</span><span class="p">:</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">radius</span>
+        <span class="k">return</span> <span class="n">self</span>
+</code></pre></div></div>
+
+<p>한 가지 구현 전략은 전처리 단계에서 전자를 후자로 단순히 “desugar”(구문 설탕 제거)하는 것입니다. 메서드가 시그니처에 <code class="language-plaintext highlighter-rouge">Self</code>를 사용하면, 메서드 내 <code class="language-plaintext highlighter-rouge">self</code>의 타입은 <code class="language-plaintext highlighter-rouge">Self</code>가 됩니다. 다른 경우에는 <code class="language-plaintext highlighter-rouge">self</code>의 타입은 감싸는(enclosing) 클래스로 유지됩니다.</p>
+
+<h3 id="클래스메서드-시그니처에서의-사용-use-in-classmethod-signatures">클래스메서드 시그니처에서의 사용 (Use in Classmethod Signatures)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Self</code> 타입 어노테이션은 자신이 작동하는 클래스의 인스턴스를 반환하는 클래스메서드(classmethod)에서도 유용합니다. 예를 들어, 다음 스니펫의 <code class="language-plaintext highlighter-rouge">from_config</code>는 주어진 <code class="language-plaintext highlighter-rouge">config</code>로부터 <code class="language-plaintext highlighter-rouge">Shape</code> 객체를 만듭니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Shape</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span> <span class="bp">...</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_config</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Shape</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nf">cls</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="sh">"</span><span class="s">scale</span><span class="sh">"</span><span class="p">])</span>
+</code></pre></div></div>
+
+<p>그러나 이렇게 하면 <code class="language-plaintext highlighter-rouge">Circle.from_config(...)</code>가 <code class="language-plaintext highlighter-rouge">Shape</code> 타입의 값을 반환하는 것으로 추론되는데, 실제로는 <code class="language-plaintext highlighter-rouge">Circle</code>이어야 합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Circle</span><span class="p">(</span><span class="n">Shape</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">circumference</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span> <span class="bp">...</span>
+
+<span class="n">shape</span> <span class="o">=</span> <span class="n">Shape</span><span class="p">.</span><span class="nf">from_config</span><span class="p">({</span><span class="sh">"</span><span class="s">scale</span><span class="sh">"</span><span class="p">:</span> <span class="mf">7.0</span><span class="p">})</span> <span class="c1"># =&gt; Shape
+</span><span class="n">circle</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">.</span><span class="nf">from_config</span><span class="p">({</span><span class="sh">"</span><span class="s">scale</span><span class="sh">"</span><span class="p">:</span> <span class="mf">7.0</span><span class="p">})</span> <span class="c1"># =&gt; *Shape* 타입으로 추론, Circle이 아님
+</span><span class="n">circle</span><span class="p">.</span><span class="nf">circumference</span><span class="p">()</span> <span class="c1"># 에러: `Shape`에는 `circumference` 속성이 없습니다.
+</span></code></pre></div></div>
+
+<p>이에 대한 현재의 해결책은 직관적이지 않고 오류 발생 가능성이 높습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Self</span> <span class="o">=</span> <span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">Self</span><span class="sh">"</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="sh">"</span><span class="s">Shape</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># TypeVar 이름 충돌을 피하기 위해 이름을 다르게 할 수도 있습니다.
+</span>
+<span class="k">class</span> <span class="nc">Shape</span><span class="p">:</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_config</span><span class="p">(</span>
+        <span class="n">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">Self</span><span class="p">],</span> <span class="c1"># 복잡한 어노테이션
+</span>        <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nf">cls</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="sh">"</span><span class="s">scale</span><span class="sh">"</span><span class="p">])</span>
+</code></pre></div></div>
+
+<p>우리는 <code class="language-plaintext highlighter-rouge">Self</code>를 직접 사용하는 것을 제안합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">Self</span>
+
+<span class="k">class</span> <span class="nc">Shape</span><span class="p">:</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_config</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nf">cls</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="sh">"</span><span class="s">scale</span><span class="sh">"</span><span class="p">])</span>
+</code></pre></div></div>
+
+<p>이는 복잡한 <code class="language-plaintext highlighter-rouge">cls: type[Self]</code> 어노테이션과 바운드가 있는 <code class="language-plaintext highlighter-rouge">TypeVar</code> 선언을 피하게 해줍니다. 다시 말하지만, 후자의 코드는 전자의 코드와 동일하게 동작합니다.</p>
+
+<h3 id="파라미터-타입에서의-사용-use-in-parameter-types">파라미터 타입에서의 사용 (Use in Parameter Types)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Self</code>의 또 다른 용도는 현재 클래스의 인스턴스를 기대하는 파라미터를 어노테이션하는 것입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Self</span> <span class="o">=</span> <span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">Self</span><span class="sh">"</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="sh">"</span><span class="s">Shape</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Shape</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">difference</span><span class="p">(</span><span class="n">self</span><span class="p">:</span> <span class="n">Self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">apply</span><span class="p">(</span><span class="n">self</span><span class="p">:</span> <span class="n">Self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Self</span><span class="p">],</span> <span class="bp">None</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span> <span class="bp">...</span>
+</code></pre></div></div>
+
+<p>우리는 동일한 동작을 위해 <code class="language-plaintext highlighter-rouge">Self</code>를 직접 사용하는 것을 제안합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">Self</span>
+
+<span class="k">class</span> <span class="nc">Shape</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">difference</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">apply</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Self</span><span class="p">],</span> <span class="bp">None</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span> <span class="bp">...</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">self: Self</code>를 명시하는 것이 무해하기 때문에, 일부 사용자들은 위 코드를 다음과 같이 작성하는 것이 더 읽기 쉽다고 생각할 수도 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Shape</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">difference</span><span class="p">(</span><span class="n">self</span><span class="p">:</span> <span class="n">Self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span> <span class="bp">...</span>
+</code></pre></div></div>
+
+<h3 id="속성-어노테이션에서의-사용-use-in-attribute-annotations">속성 어노테이션에서의 사용 (Use in Attribute Annotations)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Self</code>의 또 다른 용도는 속성(attribute)을 어노테이션하는 것입니다. 한 가지 예시는 요소가 현재 클래스의 서브클래스여야 하는 <code class="language-plaintext highlighter-rouge">LinkedList</code>를 가질 때입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">TypeVar</span>
+
+<span class="n">T</span> <span class="o">=</span> <span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">T</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">LinkedList</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+    <span class="n">value</span><span class="p">:</span> <span class="n">T</span>
+    <span class="nb">next</span><span class="p">:</span> <span class="n">LinkedList</span><span class="p">[</span><span class="n">T</span><span class="p">]</span> <span class="o">|</span> <span class="bp">None</span> <span class="o">=</span> <span class="bp">None</span> <span class="c1"># OK
+</span>    <span class="c1"># LinkedList[int](value=1, next=LinkedList[int](value=2)) # OK
+</span>    <span class="c1"># LinkedList[int](value=1, next=LinkedList[str](value="hello")) # Not OK
+</span></code></pre></div></div>
+
+<p>그러나 <code class="language-plaintext highlighter-rouge">next</code> 속성을 <code class="language-plaintext highlighter-rouge">LinkedList[T]</code>로 어노테이션하면 서브클래스와 함께 유효하지 않은 구성이 허용됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">OrdinalLinkedList</span><span class="p">(</span><span class="n">LinkedList</span><span class="p">[</span><span class="nb">int</span><span class="p">]):</span>
+    <span class="k">def</span> <span class="nf">ordinal_value</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nf">as_ordinal</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">value</span><span class="p">)</span>
+
+<span class="c1"># LinkedList[int]는 OrdinalLinkedList의 서브클래스가 아니므로
+# 허용되어서는 안 되지만, 타입 검사기는 이를 허용합니다.
+</span><span class="n">xs</span> <span class="o">=</span> <span class="nc">OrdinalLinkedList</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="nb">next</span><span class="o">=</span><span class="n">LinkedList</span><span class="p">[</span><span class="nb">int</span><span class="p">](</span><span class="n">value</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="k">if</span> <span class="n">xs</span><span class="p">.</span><span class="nb">next</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">xs</span><span class="p">.</span><span class="nb">next</span><span class="p">.</span><span class="nf">ordinal_value</span><span class="p">())</span> <span class="c1"># 런타임 에러.
+</span></code></pre></div></div>
+
+<p>우리는 이 제약 조건을 <code class="language-plaintext highlighter-rouge">next: Self | None</code>을 사용하여 표현하는 것을 제안합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">Self</span>
+<span class="kn">from</span> <span class="n">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">TypeVar</span>
+
+<span class="n">T</span> <span class="o">=</span> <span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">T</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">LinkedList</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+    <span class="n">value</span><span class="p">:</span> <span class="n">T</span>
+    <span class="nb">next</span><span class="p">:</span> <span class="n">Self</span> <span class="o">|</span> <span class="bp">None</span> <span class="o">=</span> <span class="bp">None</span>
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">OrdinalLinkedList</span><span class="p">(</span><span class="n">LinkedList</span><span class="p">[</span><span class="nb">int</span><span class="p">]):</span>
+    <span class="k">def</span> <span class="nf">ordinal_value</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nf">str</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">value</span><span class="p">)</span> <span class="c1"># 예제에 맞게 변경
+</span>
+<span class="n">xs</span> <span class="o">=</span> <span class="nc">OrdinalLinkedList</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="nb">next</span><span class="o">=</span><span class="n">LinkedList</span><span class="p">[</span><span class="nb">int</span><span class="p">](</span><span class="n">value</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="c1"># 타입 에러: OrdinalLinkedList가 예상되었지만, LinkedList[int]를 받았습니다.
+</span>
+<span class="k">if</span> <span class="n">xs</span><span class="p">.</span><span class="nb">next</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">xs</span><span class="p">.</span><span class="nb">next</span> <span class="o">=</span> <span class="nc">OrdinalLinkedList</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="nb">next</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span> <span class="c1"># OK
+</span>    <span class="n">xs</span><span class="p">.</span><span class="nb">next</span> <span class="o">=</span> <span class="n">LinkedList</span><span class="p">[</span><span class="nb">int</span><span class="p">](</span><span class="n">value</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="nb">next</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span> <span class="c1"># Not OK (타입 에러)
+</span></code></pre></div></div>
+
+<p>위 코드는 <code class="language-plaintext highlighter-rouge">Self</code> 타입을 포함하는 각 속성을 해당 타입을 반환하는 <code class="language-plaintext highlighter-rouge">@property</code>처럼 취급하는 것과 의미론적으로 동일합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">TypeVar</span>
+
+<span class="n">T</span> <span class="o">=</span> <span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">T</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">Self</span> <span class="o">=</span> <span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">Self</span><span class="sh">"</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="sh">"</span><span class="s">LinkedList</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># 내부적으로 이렇게 처리될 수 있음
+</span>
+<span class="k">class</span> <span class="nc">LinkedList</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+    <span class="n">value</span><span class="p">:</span> <span class="n">T</span>
+    <span class="n">_next</span><span class="p">:</span> <span class="n">Any</span> <span class="c1"># 실제 내부 저장소
+</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="n">self</span><span class="p">:</span> <span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span> <span class="o">|</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">_next</span>
+
+    <span class="nd">@next.setter</span>
+    <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="n">self</span><span class="p">:</span> <span class="n">Self</span><span class="p">,</span> <span class="nb">next</span><span class="p">:</span> <span class="n">Self</span> <span class="o">|</span> <span class="bp">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">_next</span> <span class="o">=</span> <span class="nb">next</span>
+
+<span class="k">class</span> <span class="nc">OrdinalLinkedList</span><span class="p">(</span><span class="n">LinkedList</span><span class="p">[</span><span class="nb">int</span><span class="p">]):</span>
+    <span class="k">def</span> <span class="nf">ordinal_value</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nf">str</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">value</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="제네릭-클래스에서의-사용-use-in-generic-classes">제네릭 클래스에서의 사용 (Use in Generic Classes)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Self</code>는 제네릭(Generic) 클래스 메서드에서도 사용할 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">TypeVar</span>
+
+<span class="n">T</span> <span class="o">=</span> <span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">T</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Container</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+    <span class="n">value</span><span class="p">:</span> <span class="n">T</span>
+    <span class="k">def</span> <span class="nf">set_value</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span> <span class="bp">...</span>
+</code></pre></div></div>
+
+<p>이는 다음 코드와 동일합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">TypeVar</span>
+
+<span class="n">T</span> <span class="o">=</span> <span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">T</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">Self</span> <span class="o">=</span> <span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">Self</span><span class="sh">"</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="sh">"</span><span class="s">Container[Any]</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># 내부적으로 이렇게 처리될 수 있음
+</span>
+<span class="k">class</span> <span class="nc">Container</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+    <span class="n">value</span><span class="p">:</span> <span class="n">T</span>
+    <span class="k">def</span> <span class="nf">set_value</span><span class="p">(</span><span class="n">self</span><span class="p">:</span> <span class="n">Self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span> <span class="bp">...</span>
+</code></pre></div></div>
+
+<p>동작은 메서드가 호출된 객체의 타입 인자(type argument)를 보존하는 것입니다. 구체적인 타입 <code class="language-plaintext highlighter-rouge">Container[int]</code>를 가진 객체에서 호출될 때, <code class="language-plaintext highlighter-rouge">Self</code>는 <code class="language-plaintext highlighter-rouge">Container[int]</code>에 바인딩됩니다. 제네릭 타입 <code class="language-plaintext highlighter-rouge">Container[T]</code>를 가진 객체에서 호출될 때, <code class="language-plaintext highlighter-rouge">Self</code>는 <code class="language-plaintext highlighter-rouge">Container[T]</code>에 바인딩됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">object_with_concrete_type</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">int_container</span><span class="p">:</span> <span class="n">Container</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="nc">Container</span><span class="p">()</span> <span class="c1"># 실제 인스턴스화
+</span>    <span class="n">str_container</span><span class="p">:</span> <span class="n">Container</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nc">Container</span><span class="p">()</span> <span class="c1"># 실제 인스턴스화
+</span>    <span class="c1"># reveal_type(int_container.set_value(42)) # =&gt; Container[int] (타입 검사기에서)
+</span>    <span class="c1"># reveal_type(str_container.set_value("hello")) # =&gt; Container[str] (타입 검사기에서)
+</span>
+<span class="k">def</span> <span class="nf">object_with_generic_type</span><span class="p">(</span>
+    <span class="n">container</span><span class="p">:</span> <span class="n">Container</span><span class="p">[</span><span class="n">T</span><span class="p">],</span>
+    <span class="n">value</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Container</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="n">container</span><span class="p">.</span><span class="nf">set_value</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="c1"># =&gt; Container[T]
+</span></code></pre></div></div>
+
+<p>이 PEP는 메서드 <code class="language-plaintext highlighter-rouge">set_value</code> 내 <code class="language-plaintext highlighter-rouge">self.value</code>의 정확한 타입을 명시하지 않습니다. 일부 타입 검사기는 <code class="language-plaintext highlighter-rouge">Self = TypeVar("Self", bound=Container[T])</code>와 같은 클래스-로컬 타입 변수를 사용하여 <code class="language-plaintext highlighter-rouge">Self</code> 타입을 구현하여 정확한 타입 <code class="language-plaintext highlighter-rouge">T</code>를 추론할 수 있습니다. 그러나 클래스-로컬 타입 변수가 표준화된 타입 시스템 기능이 아니라는 점을 감안할 때, <code class="language-plaintext highlighter-rouge">self.value</code>에 대해 <code class="language-plaintext highlighter-rouge">Any</code>를 추론하는 것도 허용됩니다. 이 부분은 타입 검사기에게 맡겨집니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Self[int]</code>와 같이 타입 인자와 함께 <code class="language-plaintext highlighter-rouge">Self</code>를 사용하는 것은 거부됩니다. 이는 <code class="language-plaintext highlighter-rouge">self</code> 파라미터의 타입에 대한 모호성을 유발하고 불필요한 복잡성을 초래하기 때문입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Container</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+    <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span>
+        <span class="n">self</span><span class="p">,</span>
+        <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="c1"># 거부됨
+</span>        <span class="n">other2</span><span class="p">:</span> <span class="n">Self</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span> <span class="c1"># 거부됨
+</span>        <span class="c1"># ...
+</span></code></pre></div></div>
+
+<p>이러한 경우, <code class="language-plaintext highlighter-rouge">self</code>에 대해 명시적인 타입을 사용하는 것을 권장합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Container</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+    <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span>
+        <span class="n">self</span><span class="p">:</span> <span class="n">Container</span><span class="p">[</span><span class="n">T</span><span class="p">],</span>
+        <span class="n">other</span><span class="p">:</span> <span class="n">Container</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+        <span class="n">other2</span><span class="p">:</span> <span class="n">Container</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Container</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span> <span class="bp">...</span>
+</code></pre></div></div>
+
+<h3 id="프로토콜에서의-사용-use-in-protocols">프로토콜에서의 사용 (Use in Protocols)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Self</code>는 클래스에서의 사용과 유사하게 프로토콜(Protocol) 내에서도 유효합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">Protocol</span><span class="p">,</span> <span class="n">Self</span>
+
+<span class="k">class</span> <span class="nc">ShapeProtocol</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="k">def</span> <span class="nf">set_scale</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span>
+        <span class="k">return</span> <span class="n">self</span>
+</code></pre></div></div>
+
+<p>위 코드는 다음 코드와 동일하게 처리됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Protocol</span>
+
+<span class="n">SelfShape</span> <span class="o">=</span> <span class="nc">TypeVar</span><span class="p">(</span><span class="sh">"</span><span class="s">SelfShape</span><span class="sh">"</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="sh">"</span><span class="s">ShapeProtocol</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">ShapeProtocol</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="k">def</span> <span class="nf">set_scale</span><span class="p">(</span><span class="n">self</span><span class="p">:</span> <span class="n">SelfShape</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SelfShape</span><span class="p">:</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span>
+        <span class="k">return</span> <span class="n">self</span>
+</code></pre></div></div>
+
+<p>프로토콜에 바운드된 <code class="language-plaintext highlighter-rouge">TypeVar</code>의 동작에 대한 자세한 내용은 PEP 544를 참조하세요.</p>
+
+<p>클래스의 프로토콜 호환성 검사: 프로토콜이 메서드 또는 속성 어노테이션에 <code class="language-plaintext highlighter-rouge">Self</code>를 사용하는 경우, 클래스 <code class="language-plaintext highlighter-rouge">Foo</code>는 해당 메서드 및 속성 어노테이션에 <code class="language-plaintext highlighter-rouge">Self</code> 또는 <code class="language-plaintext highlighter-rouge">Foo</code> 또는 <code class="language-plaintext highlighter-rouge">Foo</code>의 서브클래스 중 하나를 사용하는 경우 프로토콜과 호환되는 것으로 간주됩니다. 다음 예시를 참조하세요.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">Protocol</span>
+
+<span class="k">class</span> <span class="nc">ShapeProtocol</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">set_scale</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span> <span class="bp">...</span>
+
+<span class="k">class</span> <span class="nc">ReturnSelf</span><span class="p">:</span>
+    <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="k">def</span> <span class="nf">set_scale</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span>
+        <span class="k">return</span> <span class="n">self</span>
+
+<span class="k">class</span> <span class="nc">ReturnConcreteShape</span><span class="p">:</span>
+    <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="k">def</span> <span class="nf">set_scale</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ReturnConcreteShape</span><span class="p">:</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span>
+        <span class="k">return</span> <span class="n">self</span>
+
+<span class="k">class</span> <span class="nc">BadReturnType</span><span class="p">:</span>
+    <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="k">def</span> <span class="nf">set_scale</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span>
+        <span class="k">return</span> <span class="mi">42</span>
+
+<span class="k">class</span> <span class="nc">ReturnDifferentClass</span><span class="p">:</span>
+    <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="k">def</span> <span class="nf">set_scale</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ReturnConcreteShape</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nc">ReturnConcreteShape</span><span class="p">()</span> <span class="c1"># 인스턴스 생성
+</span>
+<span class="k">def</span> <span class="nf">accepts_shape</span><span class="p">(</span><span class="n">shape</span><span class="p">:</span> <span class="n">ShapeProtocol</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">shape</span><span class="p">.</span><span class="nf">set_scale</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="c1"># reveal_type(y) # 타입 검사기에서 타입 확인
+</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">return_self_shape</span><span class="p">:</span> <span class="n">ReturnSelf</span>
+    <span class="n">return_concrete_shape</span><span class="p">:</span> <span class="n">ReturnConcreteShape</span>
+    <span class="n">bad_return_type</span><span class="p">:</span> <span class="n">BadReturnType</span>
+    <span class="n">return_different_class</span><span class="p">:</span> <span class="n">ReturnDifferentClass</span>
+
+    <span class="nf">accepts_shape</span><span class="p">(</span><span class="n">return_self_shape</span><span class="p">)</span> <span class="c1"># OK
+</span>    <span class="nf">accepts_shape</span><span class="p">(</span><span class="n">return_concrete_shape</span><span class="p">)</span> <span class="c1"># OK
+</span>    <span class="nf">accepts_shape</span><span class="p">(</span><span class="n">bad_return_type</span><span class="p">)</span> <span class="c1"># Not OK (반환 타입이 int이므로)
+</span>    <span class="c1"># Not OK (서브클래스가 아닌 다른 클래스를 반환하므로)
+</span>    <span class="nf">accepts_shape</span><span class="p">(</span><span class="n">return_different_class</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="self의-유효한-위치-valid-locations-for-self"><code class="language-plaintext highlighter-rouge">Self</code>의 유효한 위치 (Valid Locations for Self)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Self</code> 어노테이션은 클래스 컨텍스트 내에서만 유효하며, 항상 감싸는(encapsulating) 클래스를 참조합니다. 중첩된 클래스(nested classes)를 포함하는 컨텍스트에서는 <code class="language-plaintext highlighter-rouge">Self</code>가 항상 가장 안쪽 클래스를 참조합니다.</p>
+
+<p>다음과 같은 <code class="language-plaintext highlighter-rouge">Self</code> 사용은 허용됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">ReturnsSelf</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span> <span class="p">...</span> <span class="c1"># 허용됨
+</span>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">bar</span><span class="p">(</span><span class="n">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span> <span class="c1"># 허용됨
+</span>        <span class="k">return</span> <span class="nf">cls</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span> <span class="p">...</span> <span class="c1"># 허용됨
+</span>    <span class="k">def</span> <span class="nf">explicitly_use_self</span><span class="p">(</span><span class="n">self</span><span class="p">:</span> <span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span> <span class="p">...</span> <span class="c1"># 허용됨
+</span>    <span class="c1"># 허용됨 (Self는 다른 타입 내에 중첩될 수 있습니다)
+</span>    <span class="k">def</span> <span class="nf">returns_list</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Self</span><span class="p">]:</span> <span class="p">...</span> <span class="c1"># 허용됨 (Self는 다른 타입 내에 중첩될 수 있습니다)
+</span>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">return_cls</span><span class="p">(</span><span class="n">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">[</span><span class="n">Self</span><span class="p">]:</span> <span class="k">return</span> <span class="n">cls</span>
+
+<span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">ReturnsSelf</span><span class="p">):</span> <span class="c1"># 허용됨 (Self 어노테이션을 사용하는 메서드를 오버라이드할 수 있습니다)
+</span>    <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span> <span class="bp">...</span>
+
+<span class="k">class</span> <span class="nc">TakesSelf</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span> <span class="p">...</span> <span class="c1"># 허용됨
+</span>
+<span class="k">class</span> <span class="nc">Recursive</span><span class="p">:</span> <span class="c1"># 허용됨 (@property가 Self | None을 반환하는 것으로 처리됩니다)
+</span>    <span class="nb">next</span><span class="p">:</span> <span class="n">Self</span> <span class="o">|</span> <span class="bp">None</span>
+
+<span class="k">class</span> <span class="nc">CallableAttribute</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span> <span class="bp">...</span>
+    <span class="c1"># 허용됨 (@property가 Callable 타입을 반환하는 것으로 처리됩니다)
+</span>    <span class="n">bar</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Self</span><span class="p">],</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">foo</span>
+
+<span class="k">class</span> <span class="nc">HasNestedFunction</span><span class="p">:</span>
+    <span class="n">x</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">42</span>
+    <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="c1"># 허용됨 (Self는 HasNestedFunction에 바인딩됩니다).
+</span>        <span class="k">def</span> <span class="nf">nested</span><span class="p">(</span><span class="n">z</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">inner_self</span><span class="p">:</span> <span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+            <span class="nf">print</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+            <span class="nf">print</span><span class="p">(</span><span class="n">inner_self</span><span class="p">.</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">inner_self</span>
+        <span class="nf">nested</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="n">self</span><span class="p">)</span> <span class="c1"># OK
+</span>
+<span class="k">class</span> <span class="nc">Outer</span><span class="p">:</span>
+    <span class="k">class</span> <span class="nc">Inner</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span> <span class="p">...</span> <span class="c1"># 허용됨 (Self는 Inner에 바인딩됩니다)
+</span></code></pre></div></div>
+
+<p>다음과 같은 <code class="language-plaintext highlighter-rouge">Self</code> 사용은 거부됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">bar</span><span class="p">:</span> <span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span> <span class="p">...</span> <span class="c1"># 거부됨 (클래스 내부에 있지 않음)
+</span><span class="n">bar</span><span class="p">:</span> <span class="n">Self</span> <span class="c1"># 거부됨 (클래스 내부에 있지 않음)
+</span>
+<span class="k">class</span> <span class="nc">Foo</span><span class="p">:</span>
+    <span class="c1"># 거부됨 (Self는 unknown으로 처리됩니다).
+</span>    <span class="k">def</span> <span class="nf">has_existing_self_annotation</span><span class="p">(</span><span class="n">self</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span> <span class="bp">...</span>
+
+<span class="k">class</span> <span class="nc">Foo</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">return_concrete_type</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nc">Foo</span><span class="p">()</span> <span class="c1"># 거부됨 (아래 FooChild 참조)
+</span>
+<span class="k">class</span> <span class="nc">FooChild</span><span class="p">(</span><span class="n">Foo</span><span class="p">):</span>
+    <span class="n">child_value</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">42</span>
+    <span class="k">def</span> <span class="nf">child_method</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="c1"># 런타임 시, 이것은 Foo이며 FooChild가 아닙니다.
+</span>        <span class="n">y</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">return_concrete_type</span><span class="p">()</span>
+        <span class="c1"># y.child_value # 런타임 에러: Foo에는 child_value 속성이 없습니다.
+</span>        <span class="c1"># 위 시나리오가 문제가 되므로, Self를 반환할 때는 해당 서브클래스의 인스턴스를
+</span>        <span class="c1"># 생성하여 반환해야 합니다 (예: return self.__class__())
+</span></code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Bar</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+    <span class="k">def</span> <span class="nf">bar</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span> <span class="bp">...</span>
+<span class="k">class</span> <span class="nc">Baz</span><span class="p">(</span><span class="n">Bar</span><span class="p">[</span><span class="n">Self</span><span class="p">]):</span> <span class="p">...</span> <span class="c1"># 거부됨
+</span></code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">Self</code>를 포함하는 타입 별칭(type aliases)은 거부됩니다. 클래스 정의 외부에서 <code class="language-plaintext highlighter-rouge">Self</code>를 지원하려면 타입 검사기에서 많은 특별 처리가 필요할 수 있습니다. 또한 <code class="language-plaintext highlighter-rouge">Self</code>를 클래스 정의 외부에서 사용하는 것이 이 PEP의 나머지 부분과도 상반된다는 점을 고려할 때, 별칭의 추가적인 편리함이 그만한 가치가 있다고 보지 않습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">TupleSelf</span> <span class="o">=</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Self</span><span class="p">,</span> <span class="n">Self</span><span class="p">]</span> <span class="c1"># 거부됨
+</span><span class="k">class</span> <span class="nc">Alias</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">return_tuple</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TupleSelf</span><span class="p">:</span> <span class="c1"># 거부됨
+</span>        <span class="nf">return </span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">self</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">staticmethod</code>에서는 <code class="language-plaintext highlighter-rouge">Self</code>가 거부됩니다. <code class="language-plaintext highlighter-rouge">self</code>나 <code class="language-plaintext highlighter-rouge">cls</code>를 반환할 필요가 없으므로 <code class="language-plaintext highlighter-rouge">Self</code>는 큰 가치를 추가하지 않습니다. 유일하게 가능한 사용 사례는 파라미터 자체를 반환하거나 파라미터로 전달된 컨테이너의 요소를 반환하는 것일 것입니다. 이러한 것들은 추가적인 복잡성만큼의 가치가 없는 것으로 판단됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Base</span><span class="p">:</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">make</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span> <span class="c1"># 거부됨
+</span>        <span class="bp">...</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">return_parameter</span><span class="p">(</span><span class="n">foo</span><span class="p">:</span> <span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span> <span class="c1"># 거부됨
+</span>        <span class="bp">...</span>
+</code></pre></div></div>
+
+<p>마찬가지로, 메타클래스(metaclasses)에서는 <code class="language-plaintext highlighter-rouge">Self</code>가 거부됩니다. 이 PEP의 <code class="language-plaintext highlighter-rouge">Self</code>는 일관되게 동일한 타입(<code class="language-plaintext highlighter-rouge">self</code>의 타입)을 참조합니다. 하지만 메타클래스에서는 서로 다른 메서드 시그니처에서 다른 타입을 참조해야 할 것입니다. 예를 들어, <code class="language-plaintext highlighter-rouge">__mul__</code>에서 반환 타입의 <code class="language-plaintext highlighter-rouge">Self</code>는 감싸는 클래스 <code class="language-plaintext highlighter-rouge">MyMetaclass</code>가 아닌 구현 클래스 <code class="language-plaintext highlighter-rouge">Foo</code>를 참조할 것입니다. 그러나 <code class="language-plaintext highlighter-rouge">__new__</code>에서는 반환 타입의 <code class="language-plaintext highlighter-rouge">Self</code>가 감싸는 클래스 <code class="language-plaintext highlighter-rouge">MyMetaclass</code>를 참조할 것입니다. 혼동을 피하기 위해 이 예외적인 경우는 거부됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MyMetaclass</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span> <span class="c1"># 거부됨
+</span>        <span class="k">return</span> <span class="nf">super</span><span class="p">().</span><span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">__mul__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Self</span><span class="p">]:</span> <span class="c1"># 거부됨
+</span>        <span class="k">return</span> <span class="p">[</span><span class="nf">cls</span><span class="p">()]</span> <span class="o">*</span> <span class="n">count</span>
+
+<span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">MyMetaclass</span><span class="p">):</span> <span class="bp">...</span>
+</code></pre></div></div>
+
+<h2 id="런타임-동작-runtime-behavior">런타임 동작 (Runtime behavior)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">Self</code>는 subscriptable(첨자 사용 가능)하지 않으므로, <code class="language-plaintext highlighter-rouge">typing.NoReturn</code>과 유사한 구현을 제안합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@_SpecialForm</span>
+<span class="k">def</span> <span class="nf">Self</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">클래스에서 </span><span class="sh">"</span><span class="s">self</span><span class="sh">"</span><span class="s">의 타입을 나타내는 데 사용됩니다.
+    예시::
+        from typing import Self
+        class ReturnsSelf:
+            def parse(self, data: bytes) -&gt; Self:
+</span><span class="gp">                ...</span>
+                <span class="k">return</span> <span class="n">self</span>
+    <span class="sh">"""</span>
+    <span class="k">raise</span> <span class="nc">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="si">{</span><span class="n">self</span><span class="si">}</span><span class="s"> is not subscriptable</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="거부된-대안-rejected-alternatives">거부된 대안 (Rejected Alternatives)</h2>
+
+<h3 id="타입-검사기가-반환-타입을-추론하도록-허용-allow-the-type-checker-to-infer-the-return-type">타입 검사기가 반환 타입을 추론하도록 허용 (Allow the Type Checker to Infer the Return Type)</h3>
+
+<p>한 가지 제안은 <code class="language-plaintext highlighter-rouge">Self</code> 타입을 암묵적으로 두고, 타입 검사기가 메서드 본문을 분석하여 반환 타입이 <code class="language-plaintext highlighter-rouge">self</code> 파라미터의 타입과 동일해야 한다고 추론하도록 하는 것입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Shape</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">set_scale</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span>
+        <span class="k">return</span> <span class="n">self</span> <span class="c1"># 타입 검사기가 self를 반환한다는 것을 추론합니다.
+</span></code></pre></div></div>
+
+<p>우리는 “명시적인 것이 암묵적인 것보다 낫다(Explicit Is Better Than Implicit)”는 이유로 이를 거부합니다. 또한, 위 접근 방식은 분석할 메서드 본문이 없는 타입 스텁(type stubs)에서는 실패할 것입니다.</p>
+
+<h2 id="참고-구현-reference-implementations">참고 구현 (Reference Implementations)</h2>
+
+<ul>
+  <li>Mypy: Mypy의 개념 증명(Proof of concept) 구현.</li>
+  <li>Pyright: v1.1.184</li>
+  <li>Self의 런타임 구현: PR.</li>
+</ul>
+
+<h2 id="자료-resources">자료 (Resources)</h2>
+
+<p>Python의 <code class="language-plaintext highlighter-rouge">Self</code> 타입에 대한 유사한 논의는 2016년경 Mypy에서 시작되었습니다. Mypy issue #1212 - SelfType or another way to spell “type of self”를 참조하세요. 그러나 최종적으로 채택된 접근 방식은 “before” 예시에서 보여진 바운드된 <code class="language-plaintext highlighter-rouge">TypeVar</code> 접근 방식이었습니다. 이와 관련된 다른 이슈로는 Mypy issue #2354 - Self types in generic classes가 있습니다.</p>
+
+<p>Pradeep은 PyCon Typing Summit 2021에서 구체적인 제안을 발표했습니다. (녹화된 발표, 슬라이드 참조). James는 typing-sig에서 독립적으로 이 제안을 제기했습니다. (Typing-sig 스레드 참조).</p>
+
+<p>다른 언어들도 감싸는 클래스의 타입을 표현하는 유사한 방법을 가지고 있습니다.</p>
+
+<ul>
+  <li>TypeScript는 <code class="language-plaintext highlighter-rouge">this</code> 타입을 가지고 있습니다 (TypeScript docs).</li>
+  <li>Rust는 <code class="language-plaintext highlighter-rouge">Self</code> 타입을 가지고 있습니다 (Rust docs).</li>
+</ul>
+
+<p>이 PEP에 대한 피드백을 주신 다음 분들께 감사드립니다.
+Jia Chen, Rebecca Chen, Sergei Lebedev, Kaylynn Morgan, Tuomas Suutari, Eric Traut, Alex Waygood, Shannon Zhu, and Никита Соболев.</p>
+
+<h2 id="저작권-copyright">저작권 (Copyright)</h2>
+
+<p>이 문서는 퍼블릭 도메인 또는 CC0-1.0-Universal 라이선스 중 더 관대한 조건으로 배포됩니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/672/" class="pagination--pager" title="[Active] PEP 672 - Unicode-related Security Considerations for Python
+">Previous</a>
+    
+    
+      <a href="/python/pep/674/" class="pagination--pager" title="[Deferred] PEP 674 - Disallow using macros as l-values
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

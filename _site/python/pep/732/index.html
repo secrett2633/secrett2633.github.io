@@ -1,0 +1,768 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Active] PEP 732 - The Python Documentation Editorial Board | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 732: ‘The Python Documentation Editorial Board’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Active] PEP 732 - The Python Documentation Editorial Board">
+<meta property="og:url" content="http://localhost:4000/python/pep/732/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 732: ‘The Python Documentation Editorial Board’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T13:23:00+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T13:23:00+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/732/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Active] PEP 732 - The Python Documentation Editorial Board">
+    <meta itemprop="description" content="Python Enhancement Proposal 732: ‘The Python Documentation Editorial Board’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T13:23:00+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T13:23:00+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Active] PEP 732 - The Python Documentation Editorial Board
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T13:23:00+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-732--python-문서-편집-위원회">PEP 732 – Python 문서 편집 위원회</a><ul><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#배경-motivation">배경 (Motivation)</a></li><li><a href="#상세-내용-specification">상세 내용 (Specification)</a><ul><li><a href="#임무-mandate">임무 (Mandate)</a></li><li><a href="#책임-responsibilities">책임 (Responsibilities)</a></li><li><a href="#범위-scope">범위 (Scope)</a></li><li><a href="#구성-composition">구성 (Composition)</a><ul><li><a href="#편집-위원회-위원-editorial-board-members">편집 위원회 위원 (Editorial Board Members)</a></li><li><a href="#편집-위원회-위원-자격-editorial-board-member-qualifications">편집 위원회 위원 자격 (Editorial Board Member Qualifications)</a></li><li><a href="#임기-term">임기 (Term)</a></li><li><a href="#편집-위원회-규모-변경-changes-to-the-editorial-boards-size">편집 위원회 규모 변경 (Changes to the Editorial Board’s Size)</a></li><li><a href="#공석-vacancies">공석 (Vacancies)</a></li></ul></li><li><a href="#개정-amendments">개정 (Amendments)</a></li><li><a href="#pep-수락-pep-acceptance">PEP 수락 (PEP Acceptance)</a></li><li><a href="#문의-contact">문의 (Contact)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0732/">PEP 732 - The Python Documentation Editorial Board</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Active</td>
+        <td><strong>유형:</strong> Process</td>
+        <td><strong>작성일:</strong> 14-Oct-2023</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h2 id="pep-732--python-문서-편집-위원회">PEP 732 – Python 문서 편집 위원회</h2>
+
+<h3 id="개요-abstract">개요 (Abstract)</h3>
+
+<p>이 PEP(Python Enhancement Proposal)는 Python 문서 편집 위원회(Python Documentation Editorial Board)를 설립하고, 이 편집 위원회가 어떻게 운영될 것인지 제안합니다.</p>
+
+<h3 id="배경-motivation">배경 (Motivation)</h3>
+
+<p>2021년 3월, Steering Council은 문서의 방향을 설정하기 위해 Documentation Working Group (문서 워킹 그룹)의 생성을 승인했습니다. 이 그룹은 이후 보다 전술적인 작업에 중점을 두기 위해 생성된 다른 Documentation Working Group과 구별하기 위해 ‘Editorial Board’로 명칭이 변경되었습니다.</p>
+
+<p>Python 문서의 목적은 현재와 미래의 Python 최종 사용자에게 봉사하는 것입니다. 이를 위해 핵심 개발 커뮤니티와 더 넓은 Python 문서 기여자들이 함께 협력합니다.</p>
+
+<h3 id="상세-내용-specification">상세 내용 (Specification)</h3>
+
+<h4 id="임무-mandate">임무 (Mandate)</h4>
+
+<p>편집 위원회는 다음을 수행합니다.</p>
+
+<ul>
+  <li>Python 문서의 품질을 유지하고 개선하기 위한 프로세스가 마련되도록 보장합니다.</li>
+  <li>현재와 미래의 사용자에게 봉사하는 커뮤니티 리소스(community resource)로서 Python 문서가 발전하도록 지원합니다.</li>
+  <li>Python 프로그래밍 언어를 발전시키고, 다양하고 국제적인 Python 프로그래머 커뮤니티의 성장을 지원하고 촉진하는 Python Software Foundation (PSF)의 미션(mission)에 따라 행동합니다.</li>
+  <li>문서 기여가 접근 가능하고(accessible), 포괄적이며(inclusive), 지속 가능하도록(sustainable) 보장합니다.</li>
+  <li>문서 콘텐츠에 대한 적절한 의사 결정 프로세스를 확립합니다.</li>
+  <li>결정을 내리기 전에 기여자들 간의 합의를 이루려고 노력합니다.</li>
+  <li>문서 콘텐츠 결정에 대한 최종 중재자(final arbiter) 역할을 합니다.</li>
+</ul>
+
+<h4 id="책임-responsibilities">책임 (Responsibilities)</h4>
+
+<p>위원회는 아래에 명시된 범위 내에서 Python 문서에 대한 결정을 내릴 권한을 가집니다. 예를 들어, 다음을 수행할 수 있습니다.</p>
+
+<ul>
+  <li>Python 문서의 큰 그림 전략을 설정합니다.</li>
+  <li>문서의 의도된 구조를 설정합니다.</li>
+  <li>글쓰기와 디자인 모두에 대한 스타일 및 편집 결정을 내립니다.</li>
+  <li>문서 거버넌스(governance)를 처리합니다 (예: 의사 결정을 주제 전문가에게 위임, 의견 불일치 해결, 결정 등).</li>
+</ul>
+
+<h4 id="범위-scope">범위 (Scope)</h4>
+
+<p>편집 위원회는 다음 내용에 대한 콘텐츠 및 전략을 감독합니다.</p>
+
+<ul>
+  <li><strong>포함 범위 (In scope):</strong>
+    <ul>
+      <li>CPython 문서 (<code class="language-plaintext highlighter-rouge">docs.python.org</code>)</li>
+      <li>CPython 개발 가이드 (<code class="language-plaintext highlighter-rouge">devguide.python.org</code>)</li>
+      <li>CPython 문서 번역</li>
+      <li>PEPs (<code class="language-plaintext highlighter-rouge">peps.python.org</code>)</li>
+    </ul>
+  </li>
+  <li><strong>제외 범위 (Not in scope):</strong>
+    <ul>
+      <li>CPython 코드베이스 내 코드 주석 (Code comments in CPython codebase)</li>
+      <li>CPython docstrings (주석 문자열)</li>
+      <li>PyPA 문서</li>
+      <li><code class="language-plaintext highlighter-rouge">www.python.org</code></li>
+      <li>Python Wiki (<code class="language-plaintext highlighter-rouge">wiki.python.org</code>)</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="구성-composition">구성 (Composition)</h4>
+
+<p>Python 문서 편집 위원회는 5명의 위원으로 구성됩니다.</p>
+
+<h5 id="편집-위원회-위원-editorial-board-members">편집 위원회 위원 (Editorial Board Members)</h5>
+
+<p>초기 편집 위원회 위원은 다음과 같습니다.</p>
+
+<ul>
+  <li>Mariatta Wijaya</li>
+  <li>Ned Batchelder</li>
+  <li>Joanna Jablonski</li>
+  <li>Guido van Rossum</li>
+  <li>Carol Willing</li>
+</ul>
+
+<h5 id="편집-위원회-위원-자격-editorial-board-member-qualifications">편집 위원회 위원 자격 (Editorial Board Member Qualifications)</h5>
+
+<p>편집 위원회 위원은 다음을 갖춰야 합니다.</p>
+
+<ul>
+  <li>Python 프로젝트 철학에 대한 깊은 이해</li>
+  <li>Python 교육 및 개발자 대상 문서화 경험</li>
+  <li>건설적이고 도움이 되는 뛰어난 기여 기록</li>
+  <li>Python에 대한 상당한 기여 이력</li>
+  <li>Python 문서 개선에 시간을 할애하려는 의지</li>
+</ul>
+
+<p>편집 위원회 위원은 교육, 커뮤니케이션, 기술 문서 작성, Python 문서, 접근성(accessibility), 번역 또는 커뮤니티 관리 경험이 있어야 합니다.</p>
+
+<h5 id="임기-term">임기 (Term)</h5>
+
+<p>편집 위원회 위원의 임기는 정해져 있지 않지만, 일반적으로 매년 편집 위원회 구성에 변화가 있을 것으로 예상됩니다. 위원들은 매년 위원직을 계속할 의사가 있는지 확인합니다. 위원들은 언제든지 사임할 수 있습니다.</p>
+
+<p>만약 위원이 한 달 이상 연락이 닿지 않거나 연락이 되지 않는 경우, 나머지 위원들이 투표를 통해 교체를 결정할 수 있습니다.</p>
+
+<h5 id="편집-위원회-규모-변경-changes-to-the-editorial-boards-size">편집 위원회 규모 변경 (Changes to the Editorial Board’s Size)</h5>
+
+<p>매년 주요 Python 릴리스(release) 이후, 편집 위원회는 위원회 규모를 변경해야 하는지 검토합니다. 이는 문서 커뮤니티의 필요가 시간이 지남에 따라 변할 경우 유연성을 제공합니다. 위원회 규모를 늘리기로 결정하려면 현재 위원회의 80%가 참여하는 정족수(quorum) 하에 단순 과반수가 필요합니다.</p>
+
+<p>문서 편집 위원회의 후원 조직으로서 Steering Council은 언제든지 위원회 위원의 수를 변경할 수 있으며, 여기에는 새로운 위원 임명 또는 기존 위원 해고가 포함됩니다.</p>
+
+<h5 id="공석-vacancies">공석 (Vacancies)</h5>
+
+<p>어떤 이유로든 위원회에 공석이 발생하면, 문서 편집 위원회는 잠재적인 위원 후보를 공개적으로 모집합니다. 후보자들은 자격과 봉사 동기를 간략히 기술한 문서를 제출해야 합니다. 현재 편집 위원회 위원들은 현재 위원회의 80%가 참여하는 정족수 하에 단순 과반수 투표로 새로운 위원을 선출합니다.</p>
+
+<h4 id="개정-amendments">개정 (Amendments)</h4>
+
+<p>이 PEP는 문서 편집 위원회의 헌장 역할을 합니다. 위원회 운영에 대한 변경 사항은 새로운 PEP를 통하거나 이 PEP를 변경함으로써 이루어질 수 있습니다. 두 경우 모두, 변경 사항은 커뮤니티 논의 후 Steering Council에 의해 결정됩니다.</p>
+
+<h4 id="pep-수락-pep-acceptance">PEP 수락 (PEP Acceptance)</h4>
+
+<p>PEP 732는 2023년 12월 11일 Python Steering Council에 의해 수락되었습니다.</p>
+
+<p>Steering Council은 PEP에 명시된 범위에 동의하지만, 편집 위원회가 충분히 확립되고 더 높은 우선순위가 처리된 후에는 표준 라이브러리의 docstrings를 포함하도록 범위를 확장하는 것을 고려하는 것이 합리적일 것이라고 언급했습니다.</p>
+
+<h4 id="문의-contact">문의 (Contact)</h4>
+
+<p>편집 위원회에 결정을 요청하려면, 커뮤니티 구성원은 <code class="language-plaintext highlighter-rouge">python/editorial-board</code> 저장소에 이슈를 열 수 있습니다.</p>
+
+<h4 id="저작권-copyright">저작권 (Copyright)</h4>
+
+<p>이 문서는 퍼블릭 도메인(public domain)에 공개되거나 CC0-1.0-Universal 라이선스(license) 하에 제공되며, 둘 중 더 허용적인 조건을 따릅니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/731/" class="pagination--pager" title="[Active] PEP 731 - C API Working Group Charter
+">Previous</a>
+    
+    
+      <a href="/python/pep/733/" class="pagination--pager" title="[Final] PEP 733 - An Evaluation of Python’s Public C API
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

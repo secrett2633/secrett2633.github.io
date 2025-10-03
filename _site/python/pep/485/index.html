@@ -1,0 +1,760 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 485 - A Function for testing approximate equality | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 485: ‘A Function for testing approximate equality’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 485 - A Function for testing approximate equality">
+<meta property="og:url" content="http://localhost:4000/python/pep/485/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 485: ‘A Function for testing approximate equality’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T22:32:41+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T22:32:41+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/485/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 485 - A Function for testing approximate equality">
+    <meta itemprop="description" content="Python Enhancement Proposal 485: ‘A Function for testing approximate equality’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T22:32:41+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T22:32:41+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 485 - A Function for testing approximate equality
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T22:32:41+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-485--근사치-동등성-테스트-함수">PEP 485 – 근사치 동등성 테스트 함수</a><ul><li><a href="#초록-abstract">초록 (Abstract)</a></li><li><a href="#배경-rationale">배경 (Rationale)</a><ul><li><a href="#기존-구현-existing-implementations">기존 구현 (Existing Implementations)</a></li></ul></li><li><a href="#제안된-구현-proposed-implementation">제안된 구현 (Proposed Implementation)</a><ul><li><a href="#비유한non-finite-숫자-처리">비유한(Non-finite) 숫자 처리</a></li><li><a href="#부동-소수점-이외의-타입-non-float-types">부동 소수점 이외의 타입 (Non-float types)</a></li><li><a href="#0-근처에서의-동작-behavior-near-zero">0 근처에서의 동작 (Behavior near zero)</a></li><li><a href="#구현-implementation">구현 (Implementation)</a></li></ul></li><li><a href="#상대-차이-relative-difference">상대 차이 (Relative Difference)</a></li><li><a href="#기본값-defaults">기본값 (Defaults)</a><ul><li><a href="#상대-허용-오차-기본값-relative-tolerance-default">상대 허용 오차 기본값 (Relative Tolerance Default)</a></li><li><a href="#절대-허용-오차-기본값-absolute-tolerance-default">절대 허용 오차 기본값 (Absolute tolerance default)</a></li></ul></li><li><a href="#예상되는-용도-expected-uses">예상되는 용도 (Expected Uses)</a><ul><li><a href="#부적절한-용도-inappropriate-uses">부적절한 용도 (Inappropriate uses)</a></li></ul></li><li><a href="#다른-접근-방식-other-approaches">다른 접근 방식 (Other Approaches)</a><ul><li><a href="#unittesttestcaseassertalmostequal">unittest.TestCase.assertAlmostEqual</a></li><li><a href="#numpyisclose">numpy.isclose()</a></li><li><a href="#boost-floating-point-comparison">Boost floating-point comparison</a></li></ul></li><li><a href="#대안-제안-alternate-proposals">대안 제안 (Alternate Proposals)</a><ul><li><a href="#레시피-a-recipe">레시피 (A Recipe)</a></li><li><a href="#zero_tol">zero_tol</a></li><li><a href="#절대-허용-오차-없음-no-absolute-tolerance">절대 허용 오차 없음 (No absolute tolerance)</a></li></ul></li><li><a href="#참고-자료-references">참고 자료 (References)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0485/">PEP 485 - A Function for testing approximate equality</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 20-Jan-2015</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-485--근사치-동등성-테스트-함수">PEP 485 – 근사치 동등성 테스트 함수</h1>
+
+<h2 id="초록-abstract">초록 (Abstract)</h2>
+<p>이 PEP는 두 값이 서로 근사적으로 같거나 “가까운”지 여부를 판단하는 <code class="language-plaintext highlighter-rouge">isclose()</code> 함수를 표준 라이브러리의 <code class="language-plaintext highlighter-rouge">math</code> 모듈에 추가할 것을 제안합니다.</p>
+
+<h2 id="배경-rationale">배경 (Rationale)</h2>
+<p>부동 소수점 값은 정밀도가 제한되어 있어 일부 값을 정확하게 표현할 수 없으며, 반복적인 계산으로 인해 오류가 누적될 수 있습니다. 이로 인해 부동 소수점 값의 정확한 동등 비교는 특정 상황에서만 사용해야 한다는 것이 일반적인 조언입니다. 프로그래머가 계산된 값이 예상 값에 “가까운”지 여부를 확인하려는 경우가 자주 발생하며, 특히 테스트에서 이러한 필요성이 높습니다. 이러한 근사치 비교는 일반적이지만 구현 방법이 항상 명확하지 않으므로, 이를 위한 표준 라이브러리 함수는 유용한 추가 기능이 될 것입니다.</p>
+
+<h3 id="기존-구현-existing-implementations">기존 구현 (Existing Implementations)</h3>
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">unittest.TestCase.assertAlmostEqual</code></strong>: <code class="language-plaintext highlighter-rouge">unittest</code> 모듈에 포함되어 있지만, <code class="language-plaintext highlighter-rouge">unittest.TestCase</code> 클래스 내에 있어 일반적인 테스트 용도로 사용하기 어렵고, 절대 오차(absolute difference)만을 비교합니다. 부동 소수점 수의 경우 종종 상대 오차(relative error) 비교가 더 적합합니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">numpy.isclose()</code> 및 <code class="language-plaintext highlighter-rouge">allclose()</code></strong>: <code class="language-plaintext highlighter-rouge">numpy</code> 패키지에서 제공되지만, <code class="language-plaintext highlighter-rouge">numpy</code>를 설치해야만 사용할 수 있습니다.</li>
+  <li><strong>기타</strong>: <code class="language-plaintext highlighter-rouge">statistics</code> 패키지의 내부 구현, Stack Overflow 등의 커뮤니티 토론 및 Boost C++ 라이브러리와 APL 언어 등 다른 시스템에서도 유사한 테스트 기능이 제공됩니다. 이러한 기존 구현들은 근사치 비교가 흔히 필요하며 직접 작성하기 쉽지 않다는 것을 보여주므로, 표준 라이브러리에 추가될 만한 후보임을 시사합니다.</li>
+</ul>
+
+<h2 id="제안된-구현-proposed-implementation">제안된 구현 (Proposed Implementation)</h2>
+<p>새로운 <code class="language-plaintext highlighter-rouge">isclose()</code> 함수는 <code class="language-plaintext highlighter-rouge">math</code> 모듈에 추가되며, 다음과 같은 시그니처를 가집니다.
+<code class="language-plaintext highlighter-rouge">isclose(a, b, rel_tol=1e-09, abs_tol=0.0)</code></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">a</code> 및 <code class="language-plaintext highlighter-rouge">b</code>: 근접성을 테스트할 두 값입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">rel_tol</code> (relative tolerance, 상대 허용 오차): <code class="language-plaintext highlighter-rouge">a</code> 또는 <code class="language-plaintext highlighter-rouge">b</code> 중 더 큰 절대값에 비례하여 허용되는 오차의 양입니다. 예를 들어, 5%의 허용 오차를 설정하려면 <code class="language-plaintext highlighter-rouge">rel_tol=0.05</code>를 전달합니다. 기본값은 <code class="language-plaintext highlighter-rouge">1e-09</code>로, 두 값이 약 9자리 소수점까지 동일함을 보장합니다. <code class="language-plaintext highlighter-rouge">rel_tol</code>은 <code class="language-plaintext highlighter-rouge">0.0</code>보다 커야 합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">abs_tol</code> (absolute tolerance, 절대 허용 오차): 0에 가까운 값 비교에 유용한 최소 절대 허용 오차 수준입니다.</li>
+</ul>
+
+<p>오류 검사를 제외하고, 이 함수는 다음 식의 결과를 반환합니다.
+<code class="language-plaintext highlighter-rouge">abs(a-b) &lt;= max( rel_tol * max(abs(a), abs(b)), abs_tol )</code></p>
+
+<p>함수 이름 <code class="language-plaintext highlighter-rouge">isclose</code>는 <code class="language-plaintext highlighter-rouge">isnan</code>, <code class="language-plaintext highlighter-rouge">isinf</code>와 일관성을 유지하기 위해 선택되었습니다.</p>
+
+<h3 id="비유한non-finite-숫자-처리">비유한(Non-finite) 숫자 처리</h3>
+<p><code class="language-plaintext highlighter-rouge">NaN</code> (Not a Number), <code class="language-plaintext highlighter-rouge">inf</code> (infinity), <code class="language-plaintext highlighter-rouge">-inf</code>와 같은 IEEE 754 특수 값은 IEEE 규칙에 따라 처리됩니다. 특히 <code class="language-plaintext highlighter-rouge">NaN</code>은 <code class="language-plaintext highlighter-rouge">NaN</code>을 포함하여 다른 어떤 값과도 가깝다고 간주되지 않습니다. <code class="language-plaintext highlighter-rouge">inf</code>와 <code class="language-plaintext highlighter-rouge">-inf</code>는 오직 자기 자신과만 가깝다고 간주됩니다.</p>
+
+<h3 id="부동-소수점-이외의-타입-non-float-types">부동 소수점 이외의 타입 (Non-float types)</h3>
+<p>주요 사용 사례는 부동 소수점 숫자이지만, 사용자는 다른 숫자 타입도 유사하게 비교하기를 원할 수 있습니다. 이론적으로 <code class="language-plaintext highlighter-rouge">abs()</code>, 곱셈, 비교, 뺄셈을 지원하는 모든 타입에 작동해야 합니다. 그러나 <code class="language-plaintext highlighter-rouge">math</code> 모듈의 구현은 C로 작성되었기 때문에 Python의 덕 타이핑(duck typing)을 쉽게 사용할 수 없습니다. 대신, 함수에 전달되는 값은 계산이 수행되기 전에 <code class="language-plaintext highlighter-rouge">float</code> 타입으로 변환됩니다. <code class="language-plaintext highlighter-rouge">float</code>로 변환할 수 없는 타입이나 값을 전달하면 적절한 예외(TypeError, ValueError 또는 OverflowError)가 발생합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Decimal</code>, <code class="language-plaintext highlighter-rouge">int</code>, <code class="language-plaintext highlighter-rouge">Fraction</code>, <code class="language-plaintext highlighter-rouge">complex</code> 타입의 일부 값들을 수용하도록 코드가 테스트될 것입니다. <code class="language-plaintext highlighter-rouge">complex</code>의 경우, <code class="language-plaintext highlighter-rouge">cmath</code> 모듈에 <code class="language-plaintext highlighter-rouge">cmath.isclose()</code>라는 동반 함수가 추가될 것입니다. <code class="language-plaintext highlighter-rouge">cmath.isclose()</code>에서 허용 오차는 <code class="language-plaintext highlighter-rouge">float</code>로 지정되며, 복소수 값의 절대값(magnitude)이 스케일링 및 비교에 사용됩니다.</p>
+
+<h3 id="0-근처에서의-동작-behavior-near-zero">0 근처에서의 동작 (Behavior near zero)</h3>
+<p>상대 비교는 두 값 중 하나라도 0인 경우 문제가 될 수 있습니다. 0에 대해 상대적으로 작은 값은 없습니다. 이 경우 <code class="language-plaintext highlighter-rouge">abs_tol</code> 매개변수를 사용하여 매우 작거나 0인 상대 허용 오차를 보정할 수 있습니다. 즉, 두 값의 차이가 <code class="language-plaintext highlighter-rouge">abs_tol</code>보다 작으면 항상 가깝다고 간주됩니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">abs_tol</code>의 기본값은 0.0으로 설정됩니다. 이는 일반적인 경우에 적합한 값이 없기 때문입니다. 특정 사용 사례에 대한 예상 값을 모르면 적절한 <code class="language-plaintext highlighter-rouge">abs_tol</code> 값을 알 수 없습니다. 만약 <code class="language-plaintext highlighter-rouge">rel_tol</code> 매개변수를 0.0으로 설정하면, 절대 허용 오차만이 결과에 영향을 미치게 됩니다.</p>
+
+<h3 id="구현-implementation">구현 (Implementation)</h3>
+<p>Python으로 작성된 샘플 구현은 GitHub에서 확인할 수 있습니다.</p>
+
+<h2 id="상대-차이-relative-difference">상대 차이 (Relative Difference)</h2>
+<p>두 숫자가 얼마나 가까운지를 판단하는 방법은 크게 두 가지입니다.</p>
+<ul>
+  <li><strong>절대 차이 (Absolute difference)</strong>: 단순히 <code class="language-plaintext highlighter-rouge">abs(a-b)</code>입니다.</li>
+  <li><strong>상대 차이 (Relative difference)</strong>: <code class="language-plaintext highlighter-rouge">abs(a-b) / scale_factor</code>입니다.</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">isclose()</code> 함수는 상대 차이에 중점을 둡니다. <code class="language-plaintext highlighter-rouge">scale_factor</code>는 일반적으로 다음 중 하나를 사용합니다.</p>
+<ul>
+  <li>입력 값 중 하나의 절대값</li>
+  <li>두 값의 최대 절대값 (Boost “weak” 테스트)</li>
+  <li>두 값의 최소 절대값 (Boost “strong” 테스트)</li>
+  <li>두 값의 산술 평균의 절대값</li>
+</ul>
+
+<p>이 PEP는 대칭성(Symmetry)과 실용성을 고려하여 두 값의 최대 절대값을 사용하는 Boost “weak” 테스트 방식을 채택합니다. 이는 <code class="language-plaintext highlighter-rouge">isclose(a,b)</code>와 <code class="language-plaintext highlighter-rouge">isclose(b,a)</code>가 항상 같은 결과를 반환하여 혼란을 줄이고, 사용자가 인자 순서를 고려할 필요가 없게 합니다. 또한, 매우 큰 허용 오차(large tolerances)의 경우에도 더 유용한 결과를 제공합니다. 예를 들어, 0과 10 사이의 “200% 이내”를 비교할 때, weak 테스트는 True를 반환합니다.</p>
+
+<h2 id="기본값-defaults">기본값 (Defaults)</h2>
+
+<h3 id="상대-허용-오차-기본값-relative-tolerance-default">상대 허용 오차 기본값 (Relative Tolerance Default)</h3>
+<p><code class="language-plaintext highlighter-rouge">rel_tol</code>의 기본값은 <code class="language-plaintext highlighter-rouge">1e-09</code>로 설정됩니다. 이는 Python <code class="language-plaintext highlighter-rouge">float</code>의 약 절반 정밀도에 해당하며, 대부분의 경우 “그냥 작동”할 것으로 예상되는 값입니다. 또한, 이 값은 다양한 비교 방법이 동일한 결과를 산출하는 가장 큰 상대 허용 오차이기도 합니다.</p>
+
+<h3 id="절대-허용-오차-기본값-absolute-tolerance-default">절대 허용 오차 기본값 (Absolute tolerance default)</h3>
+<p><code class="language-plaintext highlighter-rouge">abs_tol</code>의 기본값은 <code class="language-plaintext highlighter-rouge">0.0</code>으로 설정됩니다. 0과의 비교는 일반적인 사용 사례이지만, 특정 사용 사례에 적합한 절대 허용 오차 값은 크게 다르기 때문입니다. “모호함에 직면했을 때는 추측하려는 유혹을 거부하라”는 Zen of Python의 원칙에 따라, 사용자에게 적절한 값을 명시적으로 선택하도록 유도하는 것이 더 안전하다고 판단했습니다.</p>
+
+<h2 id="예상되는-용도-expected-uses">예상되는 용도 (Expected Uses)</h2>
+<p>주요 사용 사례는 다양한 형태의 <strong>테스트</strong>입니다. 계산 결과가 예상 값에 근접하는지 확인하는 데 사용됩니다. 이는 정식 단위 테스트 스위트의 일부일 수도 있고, 명령줄, IPython 노트북, doctests 또는 간단한 <code class="language-plaintext highlighter-rouge">assert</code> 문 내에서 사용될 수도 있습니다. 또한, 암시적 함수(implicit function)의 반복적인 해를 찾는 종료 조건으로도 적합합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">guess</span> <span class="o">=</span> <span class="n">something</span>
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">new_guess</span> <span class="o">=</span> <span class="nf">implicit_function</span><span class="p">(</span><span class="n">guess</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nf">isclose</span><span class="p">(</span><span class="n">new_guess</span><span class="p">,</span> <span class="n">guess</span><span class="p">):</span>
+        <span class="k">break</span>
+    <span class="n">guess</span> <span class="o">=</span> <span class="n">new_guess</span>
+</code></pre></div></div>
+
+<h3 id="부적절한-용도-inappropriate-uses">부적절한 용도 (Inappropriate uses)</h3>
+<p>수치 알고리즘의 정확도를 테스트하는 데 사용할 수도 있지만, 이 경우 수치 해석가는 일반적으로 정교한 오류 전파 분석(error propagation analysis)을 수행해야 하며, ULP (Unit in the Last Place) 비교가 필요할 수도 있습니다. 이 함수가 그러한 상황에서 유용할 수 있지만, 신중한 고려 없이 이 목적으로 사용하도록 의도된 것은 아닙니다.</p>
+
+<h2 id="다른-접근-방식-other-approaches">다른 접근 방식 (Other Approaches)</h2>
+
+<h3 id="unittesttestcaseassertalmostequal"><code class="language-plaintext highlighter-rouge">unittest.TestCase.assertAlmostEqual</code></h3>
+<p>이 메서드는 순수하게 절대 허용 오차 테스트이며, 상대 허용 오차 테스트의 필요성을 다루지 않습니다.</p>
+
+<h3 id="numpyisclose"><code class="language-plaintext highlighter-rouge">numpy.isclose()</code></h3>
+<p><code class="language-plaintext highlighter-rouge">numpy</code>의 <code class="language-plaintext highlighter-rouge">isclose()</code> 함수는 절대 및 상대 허용 오차를 더하는 방식을 사용합니다. 이는 이 PEP에서 제안하는 <code class="language-plaintext highlighter-rouge">max</code> 방식을 사용하는 것과 다릅니다. <code class="language-plaintext highlighter-rouge">numpy</code> 방식은 계산적으로 더 단순하지만, <code class="language-plaintext highlighter-rouge">abs_tol</code>과 <code class="language-plaintext highlighter-rouge">rel_tol</code>의 크기가 비슷할 경우 허용되는 차이가 예상보다 두 배 커질 수 있어 이해하기 어렵게 만들 수 있습니다. 또한, 값이 <code class="language-plaintext highlighter-rouge">abs_tol</code>에 비해 작으면 <code class="language-plaintext highlighter-rouge">rel_tol</code>이 완전히 무시될 수 있습니다.</p>
+
+<h3 id="boost-floating-point-comparison">Boost floating-point comparison</h3>
+<p>Boost 프로젝트는 부동 소수점 비교 함수를 제공하며, “weak” (두 상대 오차 중 큰 값 사용) 및 “strong” (두 상대 오차 중 작은 값 사용) 옵션이 있는 대칭적 접근 방식입니다. 이 PEP는 Boost의 “weak” 접근 방식을 사용합니다. 대부분의 경우 결과가 비슷하고 사용자가 어떤 것을 선택해야 할지 알기 어렵기 때문에, 다른 메서드를 선택하는 옵션을 제공하여 API를 복잡하게 만들 필요는 없다고 판단했습니다.</p>
+
+<h2 id="대안-제안-alternate-proposals">대안 제안 (Alternate Proposals)</h2>
+
+<h3 id="레시피-a-recipe">레시피 (A Recipe)</h3>
+<p>표준 라이브러리 함수를 제공하지 않고, 대신 사용자들이 참고할 레시피를 제공하자는 제안이 있었습니다. 이는 다양한 옵션을 설명하고 사용자가 가장 적절한 것을 선택하도록 할 수 있다는 장점이 있지만, 테스트가 필요한 모든 사람이 함수를 코드베이스에 복사하고 비교 방법을 직접 선택해야 하는 단점이 있습니다.</p>
+
+<h3 id="zero_tol"><code class="language-plaintext highlighter-rouge">zero_tol</code></h3>
+<p><code class="language-plaintext highlighter-rouge">abs_tol</code> 대신 <code class="language-plaintext highlighter-rouge">zero_tol</code> 매개변수를 제공하자는 제안이 있었습니다. 이는 인자 중 하나가 정확히 0인 경우에만 적용되는 절대 허용 오차입니다. 그러나 이는 작은 값이 0에는 “가깝지만” 더 작은 값에는 “가깝지 않다”는 잠재적으로 놀라운 결과를 초래할 수 있습니다.</p>
+
+<h3 id="절대-허용-오차-없음-no-absolute-tolerance">절대 허용 오차 없음 (No absolute tolerance)</h3>
+<p>0과의 비교 문제를 고려하여, 상대 허용 오차만 제공하고 0과의 비교는 실패하도록 하는 방안도 있었습니다. 이 경우 사용자는 0과의 비교 시 <code class="language-plaintext highlighter-rouge">abs(val) &lt; zero_tol</code>과 같은 간단한 절대 테스트를 직접 수행해야 합니다. 그러나 이는 루프나 Comprehension과 같은 값의 시퀀스에 동일한 호출을 사용할 수 없게 만들어 함수의 유용성을 크게 떨어뜨립니다. 기본값 <code class="language-plaintext highlighter-rouge">abs_tol=0.0</code>은 이 제안과 동일한 효과를 냅니다.</p>
+
+<h2 id="참고-자료-references">참고 자료 (References)</h2>
+<ul>
+  <li>Python-ideas list discussion threads</li>
+  <li>Wikipedia page on relative difference</li>
+  <li>Boost project floating-point comparison algorithms</li>
+  <li>
+    <ol>
+      <li>R. H. Lathwell. APL comparison tolerance.</li>
+    </ol>
+  </li>
+</ul>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/484/" class="pagination--pager" title="[Final] PEP 484 - Type Hints
+">Previous</a>
+    
+    
+      <a href="/python/pep/486/" class="pagination--pager" title="[Final] PEP 486 - Make the Python Launcher aware of virtual environments
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

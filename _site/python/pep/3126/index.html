@@ -1,0 +1,826 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Rejected] PEP 3126 - Remove Implicit String Concatenation | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 3126: ‘Remove Implicit String Concatenation’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Rejected] PEP 3126 - Remove Implicit String Concatenation">
+<meta property="og:url" content="http://localhost:4000/python/pep/3126/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 3126: ‘Remove Implicit String Concatenation’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T14:30:11+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T14:30:11+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/3126/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Rejected] PEP 3126 - Remove Implicit String Concatenation">
+    <meta itemprop="description" content="Python Enhancement Proposal 3126: ‘Remove Implicit String Concatenation’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T14:30:11+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T14:30:11+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Rejected] PEP 3126 - Remove Implicit String Concatenation
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T14:30:11+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#개요">개요</a></li><li><a href="#상태-거부됨-rejected">상태: 거부됨 (Rejected)</a></li><li><a href="#동기-motivation">동기 (Motivation)</a></li><li><a href="#문제점-problem">문제점 (Problem)</a></li><li><a href="#해결책-solution">해결책 (Solution)</a></li><li><a href="#우려-사항-concerns">우려 사항 (Concerns)</a><ul><li><a href="#연산자-우선순위-operator-precedence">연산자 우선순위 (Operator Precedence)</a></li><li><a href="#긴-명령-long-commands">긴 명령 (Long Commands)</a></li><li><a href="#정규-표현식-regular-expressions">정규 표현식 (Regular Expressions)</a></li><li><a href="#국제화-internationalization">국제화 (Internationalization)</a></li></ul></li><li><a href="#전환-transition">전환 (Transition)</a></li><li><a href="#열린-문제-open-issues">열린 문제 (Open Issues)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-3126/">PEP 3126 - Remove Implicit String Concatenation</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Rejected</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 29-Apr-2007</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>PEP 3126 – 암시적 문자열 연결 제거 (Remove Implicit String Concatenation)</p>
+
+<h2 id="개요">개요</h2>
+<p>이 문서는 Python 3000(Python 3의 초기 개발 단계 명칭)의 목표 중 하나인 불필요한 기능을 제거하여 언어를 단순화하는 데 기여하기 위해 작성되었습니다. Python은 C 언어에서 많은 파싱 규칙을 물려받았지만, 그 중 일부는 Python에 덜 유용하며 제거되어야 한다고 제안되었습니다.</p>
+
+<p>PEP 3126은 리터럴(literal)의 인접성(adjacency)에만 기반한 암시적 문자열 연결(implicit string concatenation)을 제거할 것을 제안합니다.</p>
+
+<p><strong>현재 (제안 전):</strong></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="sh">"</span><span class="s">abc</span><span class="sh">"</span> <span class="sh">"</span><span class="s">def</span><span class="sh">"</span> <span class="o">==</span> <span class="sh">"</span><span class="s">abcdef</span><span class="sh">"</span>
+</code></pre></div></div>
+
+<p><strong>제안된 변경 후:</strong>
+개발자들은 문자열을 명시적으로 연결해야 합니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="sh">"</span><span class="s">abc</span><span class="sh">"</span> <span class="o">+</span> <span class="sh">"</span><span class="s">def</span><span class="sh">"</span> <span class="o">==</span> <span class="sh">"</span><span class="s">abcdef</span><span class="sh">"</span>
+</code></pre></div></div>
+<p>또는 <code class="language-plaintext highlighter-rouge">join</code> 메서드를 사용할 수 있습니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="sh">""</span><span class="p">.</span><span class="nf">join</span><span class="p">([</span><span class="sh">"</span><span class="s">abc</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">def</span><span class="sh">"</span><span class="p">])</span> <span class="o">==</span> <span class="sh">"</span><span class="s">abcdef</span><span class="sh">"</span>
+</code></pre></div></div>
+
+<h2 id="상태-거부됨-rejected">상태: 거부됨 (Rejected)</h2>
+
+<p>이 PEP는 충분한 지지를 얻지 못했고, 제거하려는 기능이 그렇게 해롭지 않으며, 일부 사용 사례에서는 오히려 어려워질 수 있다는 이유로 거부되었습니다.</p>
+
+<h2 id="동기-motivation">동기 (Motivation)</h2>
+<p>Python 3000의 목표 중 하나는 불필요한 기능을 제거하여 언어를 단순화하는 것입니다. 암시적 문자열 연결은 기존의 다른 기술들(<code class="language-plaintext highlighter-rouge">+</code> 연산자나 <code class="language-plaintext highlighter-rouge">"".join()</code>)을 사용하는 방향으로 제거되어야 합니다. 이는 문법(grammar)을 단순화하고 사용자가 Python에 대해 가지는 ‘머릿속 그림(mental picture)’을 단순화할 것입니다. 많은 현 Python 사용자들은 암시적 연결에 대해 알지 못하며, 아는 사용자 중 상당수는 이를 사용하지 않거나 의도적으로 피합니다. 이 기능을 알고 사용하는 사람들조차 암시적 연산자의 우선순위나 컴파일 시점/실행 시점 계산 조건에 대해 확신 있게 설명하기 어렵습니다.</p>
+
+<h2 id="문제점-problem">문제점 (Problem)</h2>
+<p>암시적 문자열 연결은 겉보기보다 짧은 튜플(tuple)이나 리스트(list)를 초래하여 혼란스럽거나 심지어 조용한(silent) 오류를 유발할 수 있습니다.</p>
+
+<p><strong>예시 1: <code class="language-plaintext highlighter-rouge">TypeError</code> 발생</strong></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">fmt</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">fmt</span> <span class="o">%</span> <span class="n">args</span>
+
+<span class="c1"># 유효해 보이지만, 실제로는 "Bob"과 "Time for dinner"가 암시적으로 연결됩니다.
+# f("User %s got a message %s", "Bob" "Time for dinner")
+# Traceback (most recent call last):
+#   ...
+# TypeError: not enough arguments for format string
+</span></code></pre></div></div>
+<p>위 예시에서 <code class="language-plaintext highlighter-rouge">"Bob" "Time for dinner"</code>는 하나의 문자열 <code class="language-plaintext highlighter-rouge">"BobTime for dinner"</code>로 연결되어 <code class="language-plaintext highlighter-rouge">args</code> 튜플에 하나의 요소만 포함하게 됩니다. 따라서 포맷 문자열에 필요한 두 개의 인수가 제공되지 않아 <code class="language-plaintext highlighter-rouge">TypeError</code>가 발생합니다.</p>
+
+<p><strong>예시 2: 조용한 오류 (Silent Error)</strong></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">g</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">pass</span> <span class="c1"># 실제로는 "arg1 on this linearg2 on this line", None으로 변환됨
+</span><span class="nf">g</span><span class="p">(</span><span class="sh">"</span><span class="s">arg1 on this line</span><span class="sh">"</span> <span class="sh">"</span><span class="s">arg2 on this line</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+<p>이 경우, 두 문자열 리터럴이 암시적으로 연결되어 <code class="language-plaintext highlighter-rouge">g</code> 함수는 예상과 다른 단일 문자열 인수를 받게 됩니다. 이는 디버깅하기 어려운 조용한 오류를 야기할 수 있습니다.</p>
+
+<p><strong>Jason Orendorff의 인용:</strong>
+Scons와 같은 빌드 시스템에서 파일명 리스트를 정의할 때 쉼표를 빼먹는 흔한 실수가 있습니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sourceFiles</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="sh">'</span><span class="s">foo.c</span><span class="sh">'</span>
+    <span class="sh">'</span><span class="s">bar.c</span><span class="sh">'</span><span class="p">,</span> <span class="c1"># 쉼표 누락
+</span>    <span class="sh">'</span><span class="s">q1000x.c</span><span class="sh">'</span>
+<span class="p">]</span>
+</code></pre></div></div>
+<p>이 경우 <code class="language-plaintext highlighter-rouge">'foo.cbar.c'</code> 파일을 찾을 수 없다는 오류가 발생하여 혼란을 줄 수 있습니다.</p>
+
+<h2 id="해결책-solution">해결책 (Solution)</h2>
+<p>Python에서 문자열은 객체이며 <code class="language-plaintext highlighter-rouge">__add__</code> 연산자를 지원하므로, <code class="language-plaintext highlighter-rouge">+</code> 연산자를 사용하여 명시적으로 문자열을 연결할 수 있습니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="sh">"</span><span class="s">abc</span><span class="sh">"</span> <span class="o">+</span> <span class="sh">"</span><span class="s">def</span><span class="sh">"</span>
+</code></pre></div></div>
+<p>리터럴의 경우, 이 덧셈 연산은 컴파일러에 의해 최적화될 수 있으며, CPython 컴파일러는 이미 그렇게 하고 있습니다.</p>
+
+<p>다른 기존 대안으로는 여러 줄 문자열(triple-quoted strings)과 <code class="language-plaintext highlighter-rouge">join</code> 메서드가 있습니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="sh">"""</span><span class="s">이 문자열은 여러 줄에 걸쳐 있습니다. 선행 공백을 제거하거나 재포맷하려면 Textwrap.dedent와 같은 것을 사용할 수 있습니다.</span><span class="sh">"""</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="sh">""</span><span class="p">.</span><span class="nf">join</span><span class="p">([</span><span class="sh">"</span><span class="s">empty</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">string</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">joiner</span><span class="sh">"</span><span class="p">])</span> <span class="o">==</span> <span class="sh">"</span><span class="s">emptystringjoiner</span><span class="sh">"</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">.</span><span class="nf">join</span><span class="p">([</span><span class="sh">"</span><span class="s">space</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">string</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">joiner</span><span class="sh">"</span><span class="p">])</span> <span class="o">==</span> <span class="sh">"</span><span class="s">space string joiner</span><span class="sh">"</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="sh">"</span><span class="se">\n</span><span class="sh">"</span><span class="p">.</span><span class="nf">join</span><span class="p">([</span><span class="sh">"</span><span class="s">multiple</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">lines</span><span class="sh">"</span><span class="p">])</span> <span class="o">==</span> <span class="sh">"</span><span class="s">multiple</span><span class="se">\n</span><span class="s">lines</span><span class="sh">"</span> <span class="o">==</span> <span class="p">(</span> <span class="sh">"""</span><span class="s">multiple
+lines</span><span class="sh">"""</span><span class="p">)</span> <span class="c1"># 예시 오류: 원문 그대로 번역했지만, 실제로 """multiple\nlines"""와 일치하지 않습니다.
+</span><span class="bp">True</span>
+</code></pre></div></div>
+
+<h2 id="우려-사항-concerns">우려 사항 (Concerns)</h2>
+
+<h3 id="연산자-우선순위-operator-precedence">연산자 우선순위 (Operator Precedence)</h3>
+<p>Guido van Rossum은 이 변경이 <code class="language-plaintext highlighter-rouge">%</code>와 같은 다른 문자열 연산자와의 몇 가지 엣지 케이스 때문에 PEP로 다루어져야 한다고 언급했습니다. (참고: <code class="language-plaintext highlighter-rouge">str %</code>는 PEP 3101 – Advanced String Formatting에 의해 제거될 수 있습니다.)</p>
+
+<p>해결책은 괄호를 사용하여 우선순위를 명시하는 것입니다. 이는 현재도 사용 가능한 방법입니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 가장 명확하며, 현재 작동하고 계속 작동하며, 이미 최적화가 가능합니다.
+</span><span class="p">(</span><span class="sh">"</span><span class="s">abc %s def</span><span class="sh">"</span> <span class="o">+</span> <span class="sh">"</span><span class="s">ghi</span><span class="sh">"</span><span class="p">)</span> <span class="o">%</span> <span class="n">var</span>
+
+<span class="c1"># 현재 이미 작동합니다. 우선순위 때문에 최적화를 인식하기는 더 어렵지만, 의미는 변하지 않습니다.
+</span><span class="sh">"</span><span class="s">abc</span><span class="sh">"</span> <span class="o">+</span> <span class="sh">"</span><span class="s">def %s ghi</span><span class="sh">"</span> <span class="o">%</span> <span class="n">var</span>
+</code></pre></div></div>
+
+<p><strong>과거와 미래의 변경:</strong></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 모듈러스(%)가 덧셈(+)보다 우선순위가 높기 때문에 이미 실패합니다.
+# ("abc %s def" + "ghi" % var)
+</span>
+<span class="c1"># 인접성(adjacency)이 모듈러스보다 우선순위가 높기 때문에 현재만 작동합니다.
+# 이 기능은 더 이상 사용할 수 없게 될 것입니다.
+# "abc %s" "def" % var
+</span>
+<span class="c1"># 따라서 2 to 3 변환기는 이를 (이미 유효한):
+# ("abc %s" + "def") % var
+# 로 자동으로 대체할 수 있습니다.
+</span></code></pre></div></div>
+
+<h3 id="긴-명령-long-commands">긴 명령 (Long Commands)</h3>
+<p>SQL 쿼리와 같이 긴 명령을 가독성 있게 작성하는 데 암시적 연결이 사용되곤 했습니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rows</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">executesql</span><span class="p">(</span><span class="sh">"</span><span class="s">select cities.city, state, country</span><span class="sh">"</span>
+                       <span class="sh">"</span><span class="s"> from cities, venues, events, addresses</span><span class="sh">"</span>
+                       <span class="sh">"</span><span class="s"> where cities.city like %s</span><span class="sh">"</span>
+                       <span class="sh">"</span><span class="s"> and events.active = 1</span><span class="sh">"</span>
+                       <span class="sh">"</span><span class="s"> and venues.address = addresses.id</span><span class="sh">"</span>
+                       <span class="sh">"</span><span class="s"> and addresses.city = cities.id</span><span class="sh">"</span>
+                       <span class="sh">"</span><span class="s"> and events.venue = venues.id</span><span class="sh">"</span><span class="p">,</span> <span class="p">(</span><span class="n">city</span><span class="p">,))</span>
+</code></pre></div></div>
+<p>대안으로는 여러 줄 문자열(triple-quoted strings), <code class="language-plaintext highlighter-rouge">+</code> 연산자, 그리고 <code class="language-plaintext highlighter-rouge">.join</code> 메서드가 있습니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">query</span><span class="o">=</span><span class="sh">"""</span><span class="s">select cities.city, state, country from cities, venues, events, addresses where cities.city like %s and events.active = 1</span><span class="sh">"</span><span class="s"> and venues.address = addresses.id and addresses.city = cities.id and events.venue = venues.id</span><span class="sh">"""</span>
+
+<span class="n">query</span><span class="o">=</span><span class="p">(</span> <span class="sh">"</span><span class="s">select cities.city, state, country</span><span class="sh">"</span>
+      <span class="o">+</span> <span class="sh">"</span><span class="s"> from cities, venues, events, addresses</span><span class="sh">"</span>
+      <span class="o">+</span> <span class="sh">"</span><span class="s"> where cities.city like %s</span><span class="sh">"</span>
+      <span class="o">+</span> <span class="sh">"</span><span class="s"> and events.active = 1</span><span class="sh">"</span>
+      <span class="o">+</span> <span class="sh">"</span><span class="s"> and venues.address = addresses.id</span><span class="sh">"</span>
+      <span class="o">+</span> <span class="sh">"</span><span class="s"> and addresses.city = cities.id</span><span class="sh">"</span>
+      <span class="o">+</span> <span class="sh">"</span><span class="s"> and events.venue = venues.id</span><span class="sh">"</span>
+      <span class="p">)</span>
+
+<span class="n">query</span><span class="o">=</span><span class="sh">"</span><span class="se">\n</span><span class="sh">"</span><span class="p">.</span><span class="nf">join</span><span class="p">([</span><span class="sh">"</span><span class="s">select cities.city, state, country</span><span class="sh">"</span><span class="p">,</span>
+                 <span class="sh">"</span><span class="s"> from cities, venues, events, addresses</span><span class="sh">"</span><span class="p">,</span>
+                 <span class="sh">"</span><span class="s"> where cities.city like %s</span><span class="sh">"</span><span class="p">,</span>
+                 <span class="sh">"</span><span class="s"> and events.active = 1</span><span class="sh">"</span><span class="p">,</span>
+                 <span class="sh">"</span><span class="s"> and venues.address = addresses.id</span><span class="sh">"</span><span class="p">,</span>
+                 <span class="sh">"</span><span class="s"> and addresses.city = cities.id</span><span class="sh">"</span><span class="p">,</span>
+                 <span class="sh">"</span><span class="s"> and events.venue = venues.id</span><span class="sh">"</span><span class="p">])</span>
+
+<span class="c1"># 위의 어떤 쿼리 문자열도 원래 방식과 동일하게 인라인(inline)으로 사용할 수 있습니다.
+</span><span class="n">rows</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">executesql</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">(</span><span class="n">city</span><span class="p">,))</span>
+</code></pre></div></div>
+
+<h3 id="정규-표현식-regular-expressions">정규 표현식 (Regular Expressions)</h3>
+<p>복잡한 정규 표현식은 각 구성 요소가 다른 줄에 있고 주석이 뒤따르는 여러 암시적으로 연결된 문자열로 작성되기도 했습니다. <code class="language-plaintext highlighter-rouge">+</code> 연산자를 삽입할 수 있지만, 이는 정규 표현식의 가독성을 저해할 수 있습니다. 대안으로는 <code class="language-plaintext highlighter-rouge">re.VERBOSE</code> 옵션을 사용하거나 <code class="language-plaintext highlighter-rouge">+=</code>를 사용하여 정규 표현식을 구성하는 방법이 있습니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 암시적 연결에 의존하는 기존 관용구
+</span><span class="n">r</span> <span class="o">=</span> <span class="p">(</span><span class="sh">'</span><span class="s">a{20}</span><span class="sh">'</span> <span class="c1"># Twenty A's
+</span>     <span class="sh">'</span><span class="s">b{5}</span><span class="sh">'</span>  <span class="c1"># Followed by Five B's
+</span>    <span class="p">)</span>
+
+<span class="c1"># 기계적 대체 (이미 작동함)
+</span><span class="n">r</span> <span class="o">=</span> <span class="p">(</span><span class="sh">'</span><span class="s">a{20}</span><span class="sh">'</span> <span class="o">+</span> <span class="c1"># Twenty A's
+</span>     <span class="sh">'</span><span class="s">b{5}</span><span class="sh">'</span>  <span class="c1"># Followed by Five B's
+</span>    <span class="p">)</span>
+
+<span class="c1"># re.VERBOSE 플래그와 함께 컴파일되는 여러 줄 문자열 (이미 작동함)
+</span><span class="n">r</span> <span class="o">=</span> <span class="sh">'''</span><span class="s">a{20} # Twenty A</span><span class="sh">'</span><span class="s">s
+b{5} # Followed by Five B</span><span class="sh">'</span><span class="s">s
+</span><span class="sh">'''</span>
+
+<span class="c1"># +=를 사용하여 구성 (이미 작동함)
+</span><span class="n">r</span> <span class="o">=</span> <span class="sh">'</span><span class="s">a{20}</span><span class="sh">'</span> <span class="c1"># Twenty A's
+</span><span class="n">r</span> <span class="o">+=</span> <span class="sh">'</span><span class="s">b{5}</span><span class="sh">'</span> <span class="c1"># Followed by Five B's
+</span></code></pre></div></div>
+
+<h3 id="국제화-internationalization">국제화 (Internationalization)</h3>
+<p><code class="language-plaintext highlighter-rouge">xgettext</code>와 같은 일부 국제화 도구는 암시적 연결에 대해 특별히 처리되어 왔지만, Python의 명시적 연결에 대해서는 그렇지 않습니다.
+이러한 도구들은 (이미 유효한) <code class="language-plaintext highlighter-rouge">_("some string" + " and more of it")</code>와 같은 형태의 문자열을 추출하지 못하지만, <code class="language-plaintext highlighter-rouge">_("some string" " and more of it")</code>와 같은 형태에 대해서는 특별한 처리 기능이 있는 경우가 많습니다.</p>
+
+<p>매우 긴 줄을 사용하거나 여러 줄 문자열을 사용하는 방법도 있지만, 이러한 해결책은 코드의 가독성을 일부 희생합니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 특정 길이 이상의 줄은 불편합니다.
+</span><span class="nf">_</span><span class="p">(</span><span class="sh">"</span><span class="s">some string and more of it</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># 공백 변경은 이상적이지 않습니다.
+</span><span class="nf">_</span><span class="p">(</span><span class="sh">"""</span><span class="s">Some string and more of it</span><span class="sh">"""</span><span class="p">)</span>
+<span class="nf">_</span><span class="p">(</span><span class="sh">"""</span><span class="s">Some string
+and more of it</span><span class="sh">"""</span><span class="p">)</span>
+<span class="nf">_</span><span class="p">(</span><span class="sh">"</span><span class="s">Some string </span><span class="se">\
+</span><span class="s">and more of it</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+<p>이 문제에 대한 좋은 단기적인 해결책은 없다고 언급되었습니다.</p>
+
+<h2 id="전환-transition">전환 (Transition)</h2>
+<p>제안된 새로운 구성(명시적 <code class="language-plaintext highlighter-rouge">+</code> 연산이나 <code class="language-plaintext highlighter-rouge">join</code> 메서드 사용)은 현재 Python에서도 유효하며 즉시 사용할 수 있습니다.
+2 to 3 변환기(translator)는 <code class="language-plaintext highlighter-rouge">("str1" "str2")</code>와 같은 형태를 <code class="language-plaintext highlighter-rouge">("str1" + "str2")</code>로, <code class="language-plaintext highlighter-rouge">("line1" #comment "line2")</code>와 같은 형태를 <code class="language-plaintext highlighter-rouge">("line1" + #comments "line2")</code>로 기계적으로 변경하도록 만들 수 있습니다. 사용자가 다른 관용구를 사용하려면 Python 2에서도 이미 유효하므로, 변환기를 패치하는 대신 원본 소스에서 직접 편집할 수 있습니다.</p>
+
+<h2 id="열린-문제-open-issues">열린 문제 (Open Issues)</h2>
+<p>외부 텍스트 추출 도구, 특히 <code class="language-plaintext highlighter-rouge">xgettext</code>를 더 잘 지원할 수 있는 방법이 있는가?</p>
+
+<h2 id="저작권-copyright">저작권 (Copyright)</h2>
+<p>이 문서는 퍼블릭 도메인(public domain)에 공개되었습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/3125/" class="pagination--pager" title="[Rejected] PEP 3125 - Remove Backslash Continuation
+">Previous</a>
+    
+    
+      <a href="/python/pep/3127/" class="pagination--pager" title="[Final] PEP 3127 - Integer Literal Support and Syntax
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

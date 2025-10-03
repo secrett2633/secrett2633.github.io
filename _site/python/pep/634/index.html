@@ -1,0 +1,841 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 634 - Structural Pattern Matching: Specification | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 634: ‘Structural Pattern Matching: Specification’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 634 - Structural Pattern Matching: Specification">
+<meta property="og:url" content="http://localhost:4000/python/pep/634/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 634: ‘Structural Pattern Matching: Specification’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T01:25:49+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T01:25:49+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/634/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 634 - Structural Pattern Matching: Specification">
+    <meta itemprop="description" content="Python Enhancement Proposal 634: ‘Structural Pattern Matching: Specification’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T01:25:49+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T01:25:49+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 634 - Structural Pattern Matching: Specification
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T01:25:49+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#개요">개요</a></li><li><a href="#추상-abstract">추상 (Abstract)</a></li><li><a href="#구문-및-의미론-syntax-and-semantics">구문 및 의미론 (Syntax and Semantics)</a><ul><li><a href="#개요-및-용어-overview-and-terminology">개요 및 용어 (Overview and Terminology)</a></li><li><a href="#match-문-the-match-statement">match 문 (The Match Statement)</a><ul><li><a href="#match-의미론-match-semantics">match 의미론 (Match Semantics)</a></li></ul></li><li><a href="#가드-guards">가드 (Guards)</a></li><li><a href="#반박할-수-없는-case-블록-irrefutable-case-blocks">반박할 수 없는 case 블록 (Irrefutable case blocks)</a></li><li><a href="#패턴-patterns">패턴 (Patterns)</a><ul><li><a href="#as-패턴-as-patterns">AS 패턴 (AS Patterns)</a></li><li><a href="#or-패턴-or-patterns">OR 패턴 (OR Patterns)</a></li><li><a href="#리터럴-패턴-literal-patterns">리터럴 패턴 (Literal Patterns)</a></li><li><a href="#캡처-패턴-capture-patterns">캡처 패턴 (Capture Patterns)</a></li><li><a href="#와일드카드-패턴-wildcard-pattern">와일드카드 패턴 (Wildcard Pattern)</a></li><li><a href="#값-패턴-value-patterns">값 패턴 (Value Patterns)</a></li><li><a href="#그룹-패턴-group-patterns">그룹 패턴 (Group Patterns)</a></li><li><a href="#시퀀스-패턴-sequence-patterns">시퀀스 패턴 (Sequence Patterns)</a></li><li><a href="#매핑-패턴-mapping-patterns">매핑 패턴 (Mapping Patterns)</a></li><li><a href="#클래스-패턴-class-patterns">클래스 패턴 (Class Patterns)</a></li></ul></li></ul></li><li><a href="#부작용-및-정의되지-않은-동작-side-effects-and-undefined-behavior">부작용 및 정의되지 않은 동작 (Side Effects and Undefined Behavior)</a></li><li><a href="#표준-라이브러리-the-standard-library">표준 라이브러리 (The Standard Library)</a></li><li><a href="#부록-a--전체-문법-appendix-a--full-grammar">부록 A – 전체 문법 (Appendix A – Full Grammar)</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0634/">PEP 634 - Structural Pattern Matching: Specification</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 12-Sep-2020</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h2 id="개요">개요</h2>
+<p>이 문서는 Python 3.10에 도입된 <code class="language-plaintext highlighter-rouge">match</code> 문의 핵심 기능인 구조적 패턴 매칭(Structural Pattern Matching)에 대한 기술 명세를 제공합니다. PEP 634는 이전의 PEP 622를 세 부분으로 나눈 것 중 하나로, 패턴 매칭의 <em>구현 및 동작 방식</em>에 초점을 맞춥니다. 동기 및 합리적인 이유에 대해서는 PEP 635를, 개념 및 사용법에 대한 자세한 소개는 PEP 636 튜토리얼을 참조하는 것이 좋습니다.</p>
+
+<h2 id="추상-abstract">추상 (Abstract)</h2>
+<p>이 PEP는 <code class="language-plaintext highlighter-rouge">match</code> 문에 대한 기술 명세를 제공합니다. 이는 PEP 622를 대체하며, PEP 622는 다음 세 부분으로 나뉘었습니다.</p>
+
+<ul>
+  <li>PEP 634: 명세 (Specification)</li>
+  <li>PEP 635: 동기 및 합리적인 이유 (Motivation and Rationale)</li>
+  <li>PEP 636: 튜토리얼 (Tutorial)</li>
+</ul>
+
+<p>이 PEP는 의도적으로 설명이 배제되어 있으며, 동기 및 설계 선택에 대한 모든 설명은 PEP 635에 있습니다. 처음 접하는 독자는 개념, 구문 및 패턴의 의미론에 대한 부드러운 소개를 제공하는 PEP 636부터 시작하는 것이 좋습니다.</p>
+
+<h2 id="구문-및-의미론-syntax-and-semantics">구문 및 의미론 (Syntax and Semantics)</h2>
+<p>전체 문법은 부록 A를 참조하세요.</p>
+
+<h3 id="개요-및-용어-overview-and-terminology">개요 및 용어 (Overview and Terminology)</h3>
+<p>패턴 매칭 과정은 <code class="language-plaintext highlighter-rouge">case</code> 다음에 오는 <code class="language-plaintext highlighter-rouge">패턴 (pattern)</code>과 <code class="language-plaintext highlighter-rouge">match</code> 다음에 오는 <code class="language-plaintext highlighter-rouge">subject 값 (subject value)</code>을 입력으로 받습니다. 이 과정을 설명하는 문구로는 “패턴이 subject 값과 매치된다” 또는 “우리는 패턴을 subject 값에 매치시킨다” 등이 있습니다.</p>
+
+<p>패턴 매칭의 주요 결과는 <code class="language-plaintext highlighter-rouge">성공 (success)</code> 또는 <code class="language-plaintext highlighter-rouge">실패 (failure)</code>입니다. 성공의 경우, “패턴이 성공한다”, “매치가 성공한다”, 또는 “패턴이 subject 값에 매치된다”고 말할 수 있습니다.</p>
+
+<p>많은 경우 패턴은 하위 패턴(subpatterns)을 포함하며, 성공 또는 실패는 해당 하위 패턴을 값에 (예: OR 패턴의 경우) 또는 값의 일부에 (예: 시퀀스 패턴의 경우) 매치시키는 성공 또는 실패에 따라 결정됩니다. 이 과정은 일반적으로 전체 결과가 결정될 때까지 하위 패턴을 왼쪽에서 오른쪽으로 처리합니다. 예를 들어, OR 패턴은 첫 번째로 성공하는 하위 패턴에서 성공하는 반면, 시퀀스 패턴은 첫 번째로 실패하는 하위 패턴에서 실패합니다.</p>
+
+<p>패턴 매칭의 부수적인 결과는 하나 이상의 이름 바인딩(name bindings)일 수 있습니다. “패턴이 값을 이름에 바인딩한다”고 말할 수 있습니다. 첫 번째 성공까지 시도된 하위 패턴의 경우, 성공한 하위 패턴으로 인한 바인딩만 유효합니다. 첫 번째 실패까지 시도하는 경우, 바인딩이 병합됩니다. 이 경우에 적용되는 몇 가지 추가 규칙은 아래에서 설명합니다.</p>
+
+<h3 id="match-문-the-match-statement"><code class="language-plaintext highlighter-rouge">match</code> 문 (The Match Statement)</h3>
+<p><code class="language-plaintext highlighter-rouge">match</code> 문의 구문은 다음과 같습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">match_stmt</span><span class="p">:</span> <span class="sh">"</span><span class="s">match</span><span class="sh">"</span> <span class="n">subject_expr</span> <span class="sh">'</span><span class="s">:</span><span class="sh">'</span> <span class="n">NEWLINE</span> <span class="n">INDENT</span> <span class="n">case_block</span><span class="o">+</span> <span class="n">DEDENT</span>
+<span class="n">subject_expr</span><span class="p">:</span>
+    <span class="o">|</span> <span class="n">star_named_expression</span> <span class="sh">'</span><span class="s">,</span><span class="sh">'</span> <span class="n">star_named_expressions</span><span class="err">?</span>
+    <span class="o">|</span> <span class="n">named_expression</span>
+<span class="n">case_block</span><span class="p">:</span> <span class="sh">"</span><span class="s">case</span><span class="sh">"</span> <span class="n">patterns</span> <span class="p">[</span><span class="n">guard</span><span class="p">]</span> <span class="sh">'</span><span class="s">:</span><span class="sh">'</span> <span class="n">block</span>
+<span class="n">guard</span><span class="p">:</span> <span class="sh">'</span><span class="s">if</span><span class="sh">'</span> <span class="n">named_expression</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">match</code>와 <code class="language-plaintext highlighter-rouge">case</code> 키워드는 <code class="language-plaintext highlighter-rouge">소프트 키워드 (soft keywords)</code>입니다. 즉, 다른 문법적 맥락에서는 예약어가 아닙니다. 이는 <code class="language-plaintext highlighter-rouge">match</code> 문 또는 <code class="language-plaintext highlighter-rouge">case</code> 블록의 일부일 때만 키워드로 인식되며, 다른 모든 맥락에서는 변수 또는 인자 이름으로 사용할 수 있음을 의미합니다.</p>
+
+<h4 id="match-의미론-match-semantics"><code class="language-plaintext highlighter-rouge">match</code> 의미론 (Match Semantics)</h4>
+<p><code class="language-plaintext highlighter-rouge">match</code> 문은 먼저 subject 표현식을 평가합니다. 쉼표가 있는 경우 표준 규칙을 사용하여 튜플이 생성됩니다.</p>
+
+<p>결과 subject 값은 이를 성공적으로 매치하고 (있는 경우) guard 조건이 “truthy”인 첫 번째 <code class="language-plaintext highlighter-rouge">case</code> 블록을 선택하는 데 사용됩니다. 해당하는 <code class="language-plaintext highlighter-rouge">case</code> 블록이 없으면 <code class="language-plaintext highlighter-rouge">match</code> 문이 완료됩니다. 그렇지 않으면 선택된 <code class="language-plaintext highlighter-rouge">case</code> 블록의 블록이 실행됩니다. 복합 문 내부에 중첩된 블록을 실행하는 일반적인 규칙(예: <code class="language-plaintext highlighter-rouge">if</code> 문)이 적용됩니다.</p>
+
+<p>성공적인 패턴 매치 중에 생성된 이름 바인딩은 실행된 블록 이후에도 유지되며 <code class="language-plaintext highlighter-rouge">match</code> 문 이후에 사용할 수 있습니다.</p>
+
+<p>실패한 패턴 매치 중에도 일부 하위 패턴은 성공할 수 있습니다. 예를 들어, <code class="language-plaintext highlighter-rouge">(0, x, 1)</code> 패턴을 <code class="language-plaintext highlighter-rouge">[0, 1, 2]</code> 값과 매치할 때, 리스트 요소가 왼쪽에서 오른쪽으로 매치된다면 하위 패턴 <code class="language-plaintext highlighter-rouge">x</code>는 성공할 수 있습니다. 구현은 이러한 부분 매치에 대한 영구적인 바인딩을 만들지 여부를 선택할 수 있습니다. <code class="language-plaintext highlighter-rouge">match</code> 문을 포함하는 사용자 코드는 실패한 매치에 의해 바인딩이 생성된다는 것에 의존해서는 안 되며, 또한 변수가 실패한 매치에 의해 변경되지 않는다고 가정해서도 안 됩니다. 이 동작 부분은 의도적으로 지정되지 않아 다양한 구현이 최적화를 추가할 수 있도록 하고, 이 기능의 확장성을 제한할 수 있는 의미론적 제약을 도입하는 것을 방지합니다.</p>
+
+<p>정확한 패턴 바인딩 규칙은 패턴 유형에 따라 다르며 아래에 명시됩니다.</p>
+
+<h3 id="가드-guards">가드 (Guards)</h3>
+<p><code class="language-plaintext highlighter-rouge">case</code> 블록에 가드가 있는 경우, <code class="language-plaintext highlighter-rouge">case</code> 블록의 패턴이 성공하면 가드 내의 표현식이 평가됩니다. 이때 예외가 발생하면 예외는 위로 전파됩니다. 그렇지 않고 조건이 “truthy”이면 <code class="language-plaintext highlighter-rouge">case</code> 블록이 선택됩니다. “falsy”이면 <code class="language-plaintext highlighter-rouge">case</code> 블록은 선택되지 않습니다.</p>
+
+<p>가드는 표현식이므로 부작용(side effects)을 가질 수 있습니다. 가드 평가는 첫 번째 <code class="language-plaintext highlighter-rouge">case</code> 블록부터 마지막 <code class="language-plaintext highlighter-rouge">case</code> 블록까지 하나씩 진행되어야 하며, 패턴이 모두 성공하지 않는 <code class="language-plaintext highlighter-rouge">case</code> 블록은 건너뛰어야 합니다. (즉, 해당 패턴이 성공하는지 여부를 결정하는 것이 순서에 상관없이 발생할 수 있더라도, 가드 평가는 순서대로 발생해야 합니다.) <code class="language-plaintext highlighter-rouge">case</code> 블록이 선택되면 가드 평가는 중지되어야 합니다.</p>
+
+<h3 id="반박할-수-없는-case-블록-irrefutable-case-blocks">반박할 수 없는 <code class="language-plaintext highlighter-rouge">case</code> 블록 (Irrefutable case blocks)</h3>
+<p>패턴이 구문만으로 항상 성공할 것이라고 증명할 수 있으면 <code class="language-plaintext highlighter-rouge">반박할 수 없는 (irrefutable)</code> 것으로 간주됩니다. 특히 <code class="language-plaintext highlighter-rouge">캡처 패턴 (capture patterns)</code> 및 <code class="language-plaintext highlighter-rouge">와일드카드 패턴 (wildcard patterns)</code>은 반박할 수 없으며, 왼쪽이 반박할 수 없는 AS 패턴, 적어도 하나의 반박할 수 없는 패턴을 포함하는 OR 패턴, 그리고 괄호로 묶인 반박할 수 없는 패턴도 마찬가지입니다.</p>
+
+<p>가드가 없고 패턴이 반박할 수 없는 경우 <code class="language-plaintext highlighter-rouge">case</code> 블록은 반박할 수 없는 것으로 간주됩니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">match</code> 문은 최대 하나의 반박할 수 없는 <code class="language-plaintext highlighter-rouge">case</code> 블록을 가질 수 있으며, 이는 반드시 마지막에 와야 합니다.</p>
+
+<h3 id="패턴-patterns">패턴 (Patterns)</h3>
+<p>패턴의 최상위 구문은 다음과 같습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">patterns</span><span class="p">:</span> <span class="n">open_sequence_pattern</span> <span class="o">|</span> <span class="n">pattern</span>
+<span class="n">pattern</span><span class="p">:</span> <span class="n">as_pattern</span> <span class="o">|</span> <span class="n">or_pattern</span>
+<span class="n">as_pattern</span><span class="p">:</span> <span class="n">or_pattern</span> <span class="sh">'</span><span class="s">as</span><span class="sh">'</span> <span class="n">capture_pattern</span>
+<span class="n">or_pattern</span><span class="p">:</span> <span class="sh">'</span><span class="s">|</span><span class="sh">'</span><span class="p">.</span><span class="n">closed_pattern</span><span class="o">+</span>
+<span class="n">closed_pattern</span><span class="p">:</span>
+    <span class="o">|</span> <span class="n">literal_pattern</span>
+    <span class="o">|</span> <span class="n">capture_pattern</span>
+    <span class="o">|</span> <span class="n">wildcard_pattern</span>
+    <span class="o">|</span> <span class="n">value_pattern</span>
+    <span class="o">|</span> <span class="n">group_pattern</span>
+    <span class="o">|</span> <span class="n">sequence_pattern</span>
+    <span class="o">|</span> <span class="n">mapping_pattern</span>
+    <span class="o">|</span> <span class="n">class_pattern</span>
+</code></pre></div></div>
+
+<h4 id="as-패턴-as-patterns">AS 패턴 (AS Patterns)</h4>
+<p>구문: <code class="language-plaintext highlighter-rouge">as_pattern: or_pattern 'as' capture_pattern</code></p>
+
+<p>AS 패턴은 <code class="language-plaintext highlighter-rouge">as</code> 키워드의 왼쪽에 있는 OR 패턴을 subject에 매치시킵니다. 실패하면 AS 패턴도 실패합니다. 그렇지 않으면 AS 패턴은 subject를 <code class="language-plaintext highlighter-rouge">as</code> 키워드의 오른쪽에 있는 이름에 바인딩하고 성공합니다.</p>
+
+<h4 id="or-패턴-or-patterns">OR 패턴 (OR Patterns)</h4>
+<p>구문: <code class="language-plaintext highlighter-rouge">or_pattern: '|'.closed_pattern+</code></p>
+
+<p>두 개 이상의 패턴이 수직 막대(<code class="language-plaintext highlighter-rouge">|</code>)로 구분된 경우 이를 OR 패턴이라고 합니다. 단일 <code class="language-plaintext highlighter-rouge">closed pattern</code>은 그 자체입니다.</p>
+
+<p>마지막 하위 패턴만 반박할 수 있습니다. 각 하위 패턴은 동일한 이름 집합을 바인딩해야 합니다.</p>
+
+<p>OR 패턴은 성공하는 하위 패턴이 나올 때까지 각 하위 패턴을 순서대로 subject에 매치시킵니다. 그런 다음 OR 패턴은 성공한 것으로 간주됩니다. 하위 패턴 중 어느 것도 성공하지 못하면 OR 패턴은 실패합니다.</p>
+
+<h4 id="리터럴-패턴-literal-patterns">리터럴 패턴 (Literal Patterns)</h4>
+<p>리터럴 패턴은 subject 값이 리터럴에 의해 표현된 값과 비교하여 같으면 성공합니다.</p>
+
+<ul>
+  <li>숫자와 문자열은 <code class="language-plaintext highlighter-rouge">==</code> 연산자를 사용하여 비교됩니다.</li>
+  <li>싱글톤 리터럴 <code class="language-plaintext highlighter-rouge">None</code>, <code class="language-plaintext highlighter-rouge">True</code>, <code class="language-plaintext highlighter-rouge">False</code>는 <code class="language-plaintext highlighter-rouge">is</code> 연산자를 사용하여 비교됩니다.</li>
+</ul>
+
+<p>F-string은 지원되지 않습니다.</p>
+
+<h4 id="캡처-패턴-capture-patterns">캡처 패턴 (Capture Patterns)</h4>
+<p>구문: <code class="language-plaintext highlighter-rouge">capture_pattern: !"_" NAME</code></p>
+
+<p>단일 밑줄(<code class="language-plaintext highlighter-rouge">_</code>)은 캡처 패턴이 아닙니다. 이는 와일드카드 패턴으로 취급됩니다.</p>
+
+<p>캡처 패턴은 항상 성공합니다. PEP 572의 walrus 연산자(<code class="language-plaintext highlighter-rouge">:=</code>)에 설정된 이름 바인딩 스코프 규칙을 사용하여 subject 값을 이름에 바인딩합니다.</p>
+
+<p>주어진 패턴 내에서, 주어진 이름은 한 번만 바인딩될 수 있습니다.</p>
+
+<h4 id="와일드카드-패턴-wildcard-pattern">와일드카드 패턴 (Wildcard Pattern)</h4>
+<p>구문: <code class="language-plaintext highlighter-rouge">wildcard_pattern: "_"</code></p>
+
+<p>와일드카드 패턴은 항상 성공합니다. 어떤 이름도 바인딩하지 않습니다.</p>
+
+<h4 id="값-패턴-value-patterns">값 패턴 (Value Patterns)</h4>
+<p>구문: <code class="language-plaintext highlighter-rouge">value_pattern: attr</code></p>
+
+<p>패턴의 점으로 구분된 이름은 표준 Python 이름 해석 규칙을 사용하여 찾아집니다. 그러나 동일한 값 패턴이 동일한 <code class="language-plaintext highlighter-rouge">match</code> 문에서 여러 번 나타나는 경우, 인터프리터는 첫 번째로 찾은 값을 캐시하고 재사용할 수 있습니다.</p>
+
+<p>찾아진 값이 subject 값과 비교하여 같으면(<code class="language-plaintext highlighter-rouge">==</code> 연산자 사용) 패턴이 성공합니다.</p>
+
+<h4 id="그룹-패턴-group-patterns">그룹 패턴 (Group Patterns)</h4>
+<p>구문: <code class="language-plaintext highlighter-rouge">group_pattern: '(' pattern ')'</code></p>
+
+<p>괄호로 묶인 패턴은 추가적인 구문을 가지지 않습니다. 사용자가 의도된 그룹화를 강조하기 위해 패턴 주위에 괄호를 추가할 수 있도록 합니다.</p>
+
+<h4 id="시퀀스-패턴-sequence-patterns">시퀀스 패턴 (Sequence Patterns)</h4>
+<p>구문:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sequence_pattern</span><span class="p">:</span>
+    <span class="o">|</span> <span class="sh">'</span><span class="s">[</span><span class="sh">'</span> <span class="p">[</span><span class="n">maybe_sequence_pattern</span><span class="p">]</span> <span class="sh">'</span><span class="s">]</span><span class="sh">'</span>
+    <span class="o">|</span> <span class="sh">'</span><span class="s">(</span><span class="sh">'</span> <span class="p">[</span><span class="n">open_sequence_pattern</span><span class="p">]</span> <span class="sh">'</span><span class="s">)</span><span class="sh">'</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">[...]</code>를 사용하는 시퀀스 패턴과 <code class="language-plaintext highlighter-rouge">(...)</code>를 사용하는 시퀀스 패턴, 그리고 <code class="language-plaintext highlighter-rouge">open sequence pattern</code> 사이에 의미론적 차이는 없습니다.</p>
+
+<p>시퀀스 패턴은 최대 하나의 <code class="language-plaintext highlighter-rouge">스타 하위 패턴 (star subpattern)</code>을 포함할 수 있으며, 이는 어떤 위치에도 올 수 있습니다. 스타 하위 패턴이 없으면 고정 길이 시퀀스 패턴이고, 그렇지 않으면 가변 길이 시퀀스 패턴입니다.</p>
+
+<p>시퀀스 패턴이 성공하려면 subject는 시퀀스여야 합니다. <code class="language-plaintext highlighter-rouge">str</code>, <code class="language-plaintext highlighter-rouge">bytes</code>, <code class="language-plaintext highlighter-rouge">bytearray</code>는 일반적으로 시퀀스로 간주되지만, 위 목록에는 포함되지 않으며 시퀀스 패턴과 매치되지 않습니다.</p>
+
+<p>고정 길이 시퀀스 패턴은 subject 시퀀스의 길이가 하위 패턴의 수와 같지 않으면 실패합니다. 가변 길이 시퀀스 패턴은 subject 시퀀스의 길이가 비스타 하위 패턴의 수보다 적으면 실패합니다.</p>
+
+<h4 id="매핑-패턴-mapping-patterns">매핑 패턴 (Mapping Patterns)</h4>
+<p>구문:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mapping_pattern</span><span class="p">:</span> <span class="sh">'</span><span class="s">{</span><span class="sh">'</span> <span class="p">[</span><span class="n">items_pattern</span><span class="p">]</span> <span class="sh">'</span><span class="s">}</span><span class="sh">'</span>
+<span class="n">key_value_pattern</span><span class="p">:</span>
+    <span class="o">|</span> <span class="p">(</span><span class="n">literal_pattern</span> <span class="o">|</span> <span class="n">value_pattern</span><span class="p">)</span> <span class="sh">'</span><span class="s">:</span><span class="sh">'</span> <span class="n">pattern</span>
+    <span class="o">|</span> <span class="n">double_star_pattern</span>
+<span class="n">double_star_pattern</span><span class="p">:</span> <span class="sh">'</span><span class="s">**</span><span class="sh">'</span> <span class="n">capture_pattern</span>
+</code></pre></div></div>
+
+<p>매핑 패턴은 최대 하나의 <code class="language-plaintext highlighter-rouge">더블 스타 패턴 (double star pattern)</code>을 포함할 수 있으며, 이는 반드시 마지막에 와야 합니다. 매핑 패턴은 중복된 키 값을 포함할 수 없습니다.</p>
+
+<p>매핑 패턴이 성공하려면 subject는 매핑(mapping)이어야 합니다. <code class="language-plaintext highlighter-rouge">dict</code> 및 <code class="language-plaintext highlighter-rouge">mappingproxy</code>와 같은 표준 라이브러리 클래스는 <code class="language-plaintext highlighter-rouge">Py_TPFLAGS_MAPPING</code> 비트가 설정됩니다.</p>
+
+<p>매핑 패턴은 매핑 패턴에 주어진 모든 키가 subject 매핑에 존재하고, 각 키에 대한 패턴이 subject 매핑의 해당 항목과 매치될 때 성공합니다. 키는 항상 <code class="language-plaintext highlighter-rouge">==</code> 연산자로 비교됩니다. <code class="language-plaintext highlighter-rouge">'**' NAME</code> 형식이 있는 경우, 해당 이름은 subject 매핑에서 나머지 키-값 쌍을 포함하는 <code class="language-plaintext highlighter-rouge">dict</code>에 바인딩됩니다.</p>
+
+<p>키-값 쌍은 subject의 <code class="language-plaintext highlighter-rouge">get()</code> 메서드의 두 인자 형식을 사용하여 매치됩니다. 결과적으로 매치되는 키-값 쌍은 매핑에 이미 존재해야 하며, <code class="language-plaintext highlighter-rouge">__missing__</code> 또는 <code class="language-plaintext highlighter-rouge">__getitem__</code>에 의해 즉시 생성되지 않아야 합니다.</p>
+
+<h4 id="클래스-패턴-class-patterns">클래스 패턴 (Class Patterns)</h4>
+<p>구문:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">class_pattern</span><span class="p">:</span>
+    <span class="o">|</span> <span class="n">name_or_attr</span> <span class="sh">'</span><span class="s">(</span><span class="sh">'</span> <span class="p">[</span><span class="n">pattern_arguments</span> <span class="sh">'</span><span class="s">,</span><span class="sh">'</span><span class="err">?</span><span class="p">]</span> <span class="sh">'</span><span class="s">)</span><span class="sh">'</span>
+<span class="n">pattern_arguments</span><span class="p">:</span>
+    <span class="o">|</span> <span class="n">positional_patterns</span> <span class="p">[</span><span class="sh">'</span><span class="s">,</span><span class="sh">'</span> <span class="n">keyword_patterns</span><span class="p">]</span>
+    <span class="o">|</span> <span class="n">keyword_patterns</span>
+</code></pre></div></div>
+
+<p>클래스 패턴은 동일한 키워드를 여러 번 반복할 수 없습니다. <code class="language-plaintext highlighter-rouge">name_or_attr</code>이 내장 <code class="language-plaintext highlighter-rouge">type</code>의 인스턴스가 아니면 <code class="language-plaintext highlighter-rouge">TypeError</code>가 발생합니다.</p>
+
+<p>클래스 패턴은 subject가 <code class="language-plaintext highlighter-rouge">name_or_attr</code>의 인스턴스가 아니면 실패합니다. 이는 <code class="language-plaintext highlighter-rouge">isinstance()</code>를 사용하여 테스트됩니다. 인자가 없으면 <code class="language-plaintext highlighter-rouge">isinstance()</code> 검사가 성공할 때 패턴이 성공합니다.</p>
+
+<p>위치 패턴이 있는 경우, 해당 패턴은 <code class="language-plaintext highlighter-rouge">name_or_attr</code>에 지정된 클래스의 <code class="language-plaintext highlighter-rouge">__match_args__</code> 속성을 사용하여 키워드 패턴으로 변환됩니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">bool</code>, <code class="language-plaintext highlighter-rouge">bytearray</code>, <code class="language-plaintext highlighter-rouge">bytes</code>, <code class="language-plaintext highlighter-rouge">dict</code>, <code class="language-plaintext highlighter-rouge">float</code>, <code class="language-plaintext highlighter-rouge">frozenset</code>, <code class="language-plaintext highlighter-rouge">int</code>, <code class="language-plaintext highlighter-rouge">list</code>, <code class="language-plaintext highlighter-rouge">set</code>, <code class="language-plaintext highlighter-rouge">str</code>, <code class="language-plaintext highlighter-rouge">tuple</code>과 같은 일부 내장 유형의 경우 위치 하위 패턴 처리가 다릅니다.</p>
+
+<h2 id="부작용-및-정의되지-않은-동작-side-effects-and-undefined-behavior">부작용 및 정의되지 않은 동작 (Side Effects and Undefined Behavior)</h2>
+<p>매칭 과정에 의해 명시적으로 생성되는 유일한 부작용은 이름의 바인딩입니다. 그러나 이 과정은 subject 및 그 구성 요소에 대한 속성 접근, 인스턴스 검사, <code class="language-plaintext highlighter-rouge">len()</code>, 동등성(<code class="language-plaintext highlighter-rouge">==</code>) 및 항목 접근에 의존합니다. 또한 값 패턴과 클래스 패턴의 클래스 이름을 평가합니다. 이러한 작업 중 어느 것도 일반적으로 부작용을 일으키지는 않지만, 이론적으로는 발생할 수 있습니다. 이 제안은 어떤 메서드가 호출되는지 또는 몇 번 호출되는지에 대한 어떠한 명세도 의도적으로 제외합니다. 따라서 이 동작은 정의되지 않았으며 사용자 코드는 이에 의존해서는 안 됩니다.</p>
+
+<p>또 다른 정의되지 않은 동작은 (동일한 <code class="language-plaintext highlighter-rouge">case</code> 블록 내에서) 실패하는 다른 패턴이 뒤따르는 캡처 패턴에 의한 변수 바인딩입니다. 이는 구현 전략에 따라 더 빨리 또는 더 늦게 발생할 수 있으며, 유일한 제약은 캡처 변수가 명시적으로 사용하는 가드가 평가되기 전에 설정되어야 한다는 것입니다.</p>
+
+<h2 id="표준-라이브러리-the-standard-library">표준 라이브러리 (The Standard Library)</h2>
+<p>패턴 매칭 사용을 용이하게 하기 위해 표준 라이브러리에 몇 가지 변경 사항이 적용될 것입니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">namedtuple</code> 및 <code class="language-plaintext highlighter-rouge">dataclass</code>는 자동 생성된 <code class="language-plaintext highlighter-rouge">__match_args__</code>를 갖게 됩니다. <code class="language-plaintext highlighter-rouge">dataclass</code>의 경우, 생성된 <code class="language-plaintext highlighter-rouge">__match_args__</code>의 속성 순서는 생성된 <code class="language-plaintext highlighter-rouge">__init__()</code> 메서드의 해당 인자 순서와 동일할 것입니다. <code class="language-plaintext highlighter-rouge">init=False</code>인 필드는 <code class="language-plaintext highlighter-rouge">__match_args__</code>에서 제외됩니다.</p>
+
+<p>또한, 기존 표준 라이브러리 클래스를 검토하고 유익하다고 판단되는 경우 <code class="language-plaintext highlighter-rouge">__match_args__</code>를 추가하기 위한 체계적인 노력이 이루어질 것입니다.</p>
+
+<h2 id="부록-a--전체-문법-appendix-a--full-grammar">부록 A – 전체 문법 (Appendix A – Full Grammar)</h2>
+<p><code class="language-plaintext highlighter-rouge">match_stmt</code>의 전체 문법은 PEP 원문에 상세히 기술되어 있습니다. <code class="language-plaintext highlighter-rouge">match</code> 및 <code class="language-plaintext highlighter-rouge">case</code>는 다른 문법적 맥락에서는 예약어가 아닌 소프트 키워드입니다.</p>
+
+<hr />
+<p>이 문서는 PEP 634 – Structural Pattern Matching: Specification의 내용을 바탕으로 번역 및 정리되었습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/633/" class="pagination--pager" title="[Rejected] PEP 633 - Dependency specification in pyproject.toml using an exploded TOML table
+">Previous</a>
+    
+    
+      <a href="/python/pep/635/" class="pagination--pager" title="[Final] PEP 635 - Structural Pattern Matching: Motivation and Rationale
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

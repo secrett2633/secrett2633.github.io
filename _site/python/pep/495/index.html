@@ -1,0 +1,957 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 495 - Local Time Disambiguation | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 495: ‘Local Time Disambiguation’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 495 - Local Time Disambiguation">
+<meta property="og:url" content="http://localhost:4000/python/pep/495/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 495: ‘Local Time Disambiguation’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T22:40:14+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T22:40:14+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/495/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 495 - Local Time Disambiguation">
+    <meta itemprop="description" content="Python Enhancement Proposal 495: ‘Local Time Disambiguation’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T22:40:14+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T22:40:14+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 495 - Local Time Disambiguation
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T22:40:14+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#초록-abstract">초록 (Abstract)</a></li><li><a href="#도입-배경-rationale">도입 배경 (Rationale)</a></li><li><a href="#용어-terminology">용어 (Terminology)</a></li><li><a href="#제안-proposal">제안 (Proposal)</a><ul><li><a href="#fold-속성-the-fold-attribute">fold 속성 (The “fold” attribute)</a></li><li><a href="#영향을-받는-api-affected-apis">영향을 받는 API (Affected APIs)</a><ul><li><a href="#속성-attributes">속성 (Attributes)</a></li><li><a href="#생성자-constructors">생성자 (Constructors)</a></li><li><a href="#메서드-methods">메서드 (Methods)</a></li><li><a href="#c-api">C-API</a></li></ul></li><li><a href="#영향을-받는-동작-affected-behaviors">영향을 받는 동작 (Affected Behaviors)</a><ul><li><a href="#지금-몇-시인가요-what-time-is-it">지금 몇 시인가요? (What time is it?)</a></li><li><a href="#naive-시간에서-aware-시간으로의-변환-conversion-from-naive-to-aware">naive 시간에서 aware 시간으로의 변환 (Conversion from naive to aware)</a></li><li><a href="#epoch-이후-posix-초에서-변환-conversion-from-posix-seconds-from-epoch">Epoch 이후 POSIX 초에서 변환 (Conversion from POSIX seconds from EPOCH)</a></li><li><a href="#epoch-이후-posix-초로-변환-conversion-to-posix-seconds-from-epoch">Epoch 이후 POSIX 초로 변환 (Conversion to POSIX seconds from EPOCH)</a></li><li><a href="#aware-datetime-인스턴스-aware-datetime-instances">Aware datetime 인스턴스 (Aware datetime instances)</a></li><li><a href="#날짜와-시간-결합-및-분리-combining-and-splitting-date-and-time">날짜와 시간 결합 및 분리 (Combining and splitting date and time)</a></li><li><a href="#pickles">Pickles</a></li></ul></li><li><a href="#표준-라이브러리의-tzinfo-구현-implementations-of-tzinfo-in-the-standard-library">표준 라이브러리의 tzinfo 구현 (Implementations of tzinfo in the Standard Library)</a></li><li><a href="#새로운-tzinfo-구현을-위한-가이드라인-guidelines-for-new-tzinfo-implementations">새로운 tzinfo 구현을 위한 가이드라인 (Guidelines for New tzinfo Implementations)</a><ul><li><a href="#무지는-축복이다-ignorance-is-bliss">무지는 축복이다 (Ignorance is Bliss)</a></li><li><a href="#폴드-안에서-in-the-fold">폴드 안에서 (In the Fold)</a></li><li><a href="#갭을-조심하세요-mind-the-gap">갭을 조심하세요 (Mind the Gap)</a></li><li><a href="#전환-시-규칙-요약-summary-of-rules-at-a-transition">전환 시 규칙 요약 (Summary of Rules at a Transition)</a></li><li><a href="#dst-전환-the-dst-transitions">DST 전환 (The DST Transitions)</a></li></ul></li><li><a href="#시간-산술-및-비교-연산자-temporal-arithmetic-and-comparison-operators">시간 산술 및 비교 연산자 (Temporal Arithmetic and Comparison Operators)</a><ul><li><a href="#aware-datetime-등가-비교-aware-datetime-equality-comparison">Aware datetime 등가 비교 (Aware datetime Equality Comparison)</a></li></ul></li><li><a href="#하위-및-상위-호환성-backward-and-forward-compatibility">하위 및 상위 호환성 (Backward and Forward Compatibility)</a></li><li><a href="#질문과-답변-questions-and-answers">질문과 답변 (Questions and Answers)</a><ul><li><a href="#왜-새-플래그를-isdst라고-부르지-않나요-why-not-call-the-new-flag-isdst">왜 새 플래그를 “isdst”라고 부르지 않나요? (Why not call the new flag “isdst”?)</a></li><li><a href="#왜-fold인가요-why-fold">왜 “fold”인가요? (Why “fold”?)</a></li><li><a href="#first는-무엇인가요-what-is-first">“first”는 무엇인가요? (What is “first”?)</a></li><li><a href="#두-가지-값으로-충분한가요-are-two-values-enough">두 가지 값으로 충분한가요? (Are two values enough?)</a></li></ul></li></ul></li><li><a href="#구현-implementation">구현 (Implementation)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0495/">PEP 495 - Local Time Disambiguation</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 02-Aug-2015</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>PEP 495: 로컬 시간 중의성 해소</p>
+
+<h2 id="초록-abstract">초록 (Abstract)</h2>
+
+<p>이 PEP는 <code class="language-plaintext highlighter-rouge">datetime.time</code> 및 <code class="language-plaintext highlighter-rouge">datetime.datetime</code> 클래스의 인스턴스에 <code class="language-plaintext highlighter-rouge">fold</code>라는 새로운 속성을 추가하는 것을 제안합니다. 이 <code class="language-plaintext highlighter-rouge">fold</code> 속성은 로컬 시간이 동일하지만 실제 시점은 다른 두 시간을 구별하는 데 사용됩니다. <code class="language-plaintext highlighter-rouge">fold</code> 속성의 허용되는 값은 0과 1이며, 0은 중의적인 로컬 시간의 두 가지 가능한 해석 중 이른 시점에 해당하고, 1은 늦은 시점에 해당합니다.</p>
+
+<h2 id="도입-배경-rationale">도입 배경 (Rationale)</h2>
+
+<p>대부분의 지역에서는 로컬 시계가 뒤로 이동하는 시기가 존재했습니다. 이러한 시기에는 로컬 시계가 같은 날 두 번 같은 시간을 표시하는 구간이 발생합니다. 이러한 상황에서는 로컬 시계에 표시되는 정보(또는 Python <code class="language-plaintext highlighter-rouge">datetime</code> 인스턴스에 저장된 정보)만으로는 특정 시점을 식별하기에 불충분합니다. 제안된 해결책은 <code class="language-plaintext highlighter-rouge">datetime</code> 인스턴스에 0과 1의 값을 가지는 속성을 추가하여 두 가지 중의적인 시간을 열거하는 것입니다.</p>
+
+<p>일광 절약 시간 (DST)을 준수하는 지역에서는 보통 가을에 시계를 한 시간 뒤로 되돌립니다. 드물지만 다른 이유로 시계가 뒤로 이동하는 경우도 있습니다. 예를 들어, 우크라이나는 1990년 3월의 봄철 시간 전환을 건너뛰고 대신 1990년 7월 1일에 시계를 뒤로 옮겨 모스크바 시간에서 동유럽 시간으로 변경했습니다. 이 경우 전환 전후 모두 표준(겨울) 시간이 적용되었습니다. DST 및 표준 시간 변경 모두 한 시간 외의 시간 이동을 초래할 수 있습니다.</p>
+
+<h2 id="용어-terminology">용어 (Terminology)</h2>
+
+<p>시계가 뒤로 이동할 때, 우리는 시간 안에 “폴드(fold)”가 생성된다고 말합니다. 시계가 앞으로 이동할 때, “갭(gap)”이 생성됩니다. 폴드 안에 있는 로컬 시간을 “중의적(ambiguous)”이라고 부르며, 갭 안에 있는 로컬 시간을 “누락(missing)”이라고 부릅니다.</p>
+
+<h2 id="제안-proposal">제안 (Proposal)</h2>
+
+<h3 id="fold-속성-the-fold-attribute"><code class="language-plaintext highlighter-rouge">fold</code> 속성 (The “fold” attribute)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">datetime.time</code> 및 <code class="language-plaintext highlighter-rouge">datetime.datetime</code> 클래스의 인스턴스에 <code class="language-plaintext highlighter-rouge">fold</code>라는 속성을 추가할 것을 제안합니다. 이 속성은 중의적인 경우의 두 번째(시간 순서상 늦은) 시점을 나타내는 인스턴스를 제외한 모든 인스턴스에 대해 0의 값을 가져야 합니다. 해당 인스턴스의 경우 값은 1이 됩니다.</p>
+
+<h3 id="영향을-받는-api-affected-apis">영향을 받는 API (Affected APIs)</h3>
+
+<h4 id="속성-attributes">속성 (Attributes)</h4>
+
+<p><code class="language-plaintext highlighter-rouge">datetime.time</code> 및 <code class="language-plaintext highlighter-rouge">datetime.datetime</code> 클래스의 인스턴스는 두 가지 가능한 값(0과 1)을 갖는 새로운 <code class="language-plaintext highlighter-rouge">fold</code> 속성을 갖게 됩니다.</p>
+
+<h4 id="생성자-constructors">생성자 (Constructors)</h4>
+
+<p><code class="language-plaintext highlighter-rouge">datetime.time</code> 및 <code class="language-plaintext highlighter-rouge">datetime.datetime</code> 클래스의 <code class="language-plaintext highlighter-rouge">__new__</code> 메서드는 기본값 0을 갖는 <code class="language-plaintext highlighter-rouge">fold</code>라는 새로운 키워드 전용 인자(keyword-only argument)를 갖게 됩니다. <code class="language-plaintext highlighter-rouge">fold</code> 인수의 값은 반환된 인스턴스의 <code class="language-plaintext highlighter-rouge">fold</code> 속성 값을 초기화하는 데 사용됩니다.</p>
+
+<h4 id="메서드-methods">메서드 (Methods)</h4>
+
+<p><code class="language-plaintext highlighter-rouge">datetime.time</code> 및 <code class="language-plaintext highlighter-rouge">datetime.datetime</code> 클래스의 <code class="language-plaintext highlighter-rouge">replace()</code> 메서드는 <code class="language-plaintext highlighter-rouge">fold</code>라는 새로운 키워드 전용 인자를 갖게 됩니다. 이 인자는 다른 <code class="language-plaintext highlighter-rouge">replace()</code> 인자와 유사하게 동작합니다. <code class="language-plaintext highlighter-rouge">fold</code> 인자가 지정되고 0 또는 1의 값이 주어지면, <code class="language-plaintext highlighter-rouge">replace()</code>에 의해 반환된 새 인스턴스는 해당 값으로 <code class="language-plaintext highlighter-rouge">fold</code> 속성이 설정됩니다.</p>
+
+<h4 id="c-api">C-API</h4>
+
+<p><code class="language-plaintext highlighter-rouge">PyDateTime_DateTime</code> 및 <code class="language-plaintext highlighter-rouge">PyDateTime_Time</code> 객체에서 <code class="language-plaintext highlighter-rouge">fold</code> 값을 추출하기 위한 접근 매크로가 정의됩니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">int PyDateTime_DATE_GET_FOLD(PyDateTime_DateTime *o)</code>: <code class="language-plaintext highlighter-rouge">fold</code> 값을 C <code class="language-plaintext highlighter-rouge">int</code>로 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">int PyDateTime_TIME_GET_FOLD(PyDateTime_Time *o)</code>: <code class="language-plaintext highlighter-rouge">fold</code> 값을 C <code class="language-plaintext highlighter-rouge">int</code>로 반환합니다.</li>
+</ul>
+
+<p>생성된 인스턴스의 <code class="language-plaintext highlighter-rouge">fold</code> 값을 지정하기 위한 추가 인자를 받는 새로운 생성자가 정의됩니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">PyObject* PyDateTime_FromDateAndTimeAndFold(int year, int month, int day, int hour, int minute, int second, int usecond, int fold)</code>: 지정된 연, 월, 일, 시, 분, 초, 마이크로초 및 <code class="language-plaintext highlighter-rouge">fold</code>를 가진 <code class="language-plaintext highlighter-rouge">datetime.datetime</code> 객체를 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">PyObject* PyTime_FromTimeAndFold(int hour, int minute, int second, int usecond, int fold)</code>: 지정된 시, 분, 초, 마이크로초 및 <code class="language-plaintext highlighter-rouge">fold</code>를 가진 <code class="language-plaintext highlighter-rouge">datetime.time</code> 객체를 반환합니다.</li>
+</ul>
+
+<h3 id="영향을-받는-동작-affected-behaviors">영향을 받는 동작 (Affected Behaviors)</h3>
+
+<h4 id="지금-몇-시인가요-what-time-is-it">지금 몇 시인가요? (What time is it?)</h4>
+
+<p>인수 없이 호출된 <code class="language-plaintext highlighter-rouge">datetime.now()</code> 메서드는 시스템 로컬 시간 폴드에서 두 가지 중의적인 시간 중 두 번째 시간을 반환할 때 <code class="language-plaintext highlighter-rouge">fold=1</code>로 설정합니다. <code class="language-plaintext highlighter-rouge">tzinfo</code> 인수를 사용하여 호출될 경우, <code class="language-plaintext highlighter-rouge">fold</code> 값은 <code class="language-plaintext highlighter-rouge">tzinfo.fromutc()</code> 구현에 의해 결정됩니다. <code class="language-plaintext highlighter-rouge">datetime.timezone</code> 클래스 인스턴스(예: <code class="language-plaintext highlighter-rouge">datetime.timezone.utc</code>)가 <code class="language-plaintext highlighter-rouge">tzinfo</code>로 전달되면 반환된 <code class="language-plaintext highlighter-rouge">datetime</code> 인스턴스는 항상 <code class="language-plaintext highlighter-rouge">fold=0</code>을 갖습니다. <code class="language-plaintext highlighter-rouge">datetime.utcnow()</code> 메서드는 영향을 받지 않습니다.</p>
+
+<h4 id="naive-시간에서-aware-시간으로의-변환-conversion-from-naive-to-aware">naive 시간에서 aware 시간으로의 변환 (Conversion from naive to aware)</h4>
+
+<p>naive <code class="language-plaintext highlighter-rouge">datetime</code> 인스턴스를 aware <code class="language-plaintext highlighter-rouge">datetime</code>으로 변환하는 것을 용이하게 하기 위한 새로운 기능이 제안됩니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">astimezone()</code> 메서드는 이제 naive <code class="language-plaintext highlighter-rouge">self</code>에 대해 작동합니다. 이 경우 시스템 로컬 시간대가 가정되며, <code class="language-plaintext highlighter-rouge">fold</code> 플래그는 중의적인 경우 어떤 로컬 시간대가 적용되는지 결정하는 데 사용됩니다.</p>
+
+<p>예를 들어, US/Eastern 시간대로 설정된 시스템에서:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">dt</span> <span class="o">=</span> <span class="nf">datetime</span><span class="p">(</span><span class="mi">2014</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">dt</span><span class="p">.</span><span class="nf">astimezone</span><span class="p">().</span><span class="nf">strftime</span><span class="p">(</span><span class="sh">'</span><span class="s">%D %T %Z%z</span><span class="sh">'</span><span class="p">)</span>
+<span class="sh">'</span><span class="s">11/02/14 01:30:00 EDT-0400</span><span class="sh">'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">dt</span><span class="p">.</span><span class="nf">replace</span><span class="p">(</span><span class="n">fold</span><span class="o">=</span><span class="mi">1</span><span class="p">).</span><span class="nf">astimezone</span><span class="p">().</span><span class="nf">strftime</span><span class="p">(</span><span class="sh">'</span><span class="s">%D %T %Z%z</span><span class="sh">'</span><span class="p">)</span>
+<span class="sh">'</span><span class="s">11/02/14 01:30:00 EST-0500</span><span class="sh">'</span>
+</code></pre></div></div>
+
+<p>이는 <code class="language-plaintext highlighter-rouge">datetime.now(tz)</code>가 <code class="language-plaintext highlighter-rouge">datetime.now().astimezone(tz)</code>와 완전히 동등하다는 것을 의미합니다 (단, <code class="language-plaintext highlighter-rouge">tz</code>는 PEP 이후의 <code class="language-plaintext highlighter-rouge">tzinfo</code> 구현 인스턴스, 즉 <code class="language-plaintext highlighter-rouge">fold</code>를 올바르게 처리하고 설정하는 인스턴스여야 합니다).</p>
+
+<h4 id="epoch-이후-posix-초에서-변환-conversion-from-posix-seconds-from-epoch">Epoch 이후 POSIX 초에서 변환 (Conversion from POSIX seconds from EPOCH)</h4>
+
+<p><code class="language-plaintext highlighter-rouge">datetime.datetime</code>의 정적 메서드 <code class="language-plaintext highlighter-rouge">fromtimestamp()</code>는 반환되는 객체에서 <code class="language-plaintext highlighter-rouge">fold</code> 속성을 적절하게 설정합니다.</p>
+
+<p>예를 들어, US/Eastern 시간대로 설정된 시스템에서:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">datetime</span><span class="p">.</span><span class="nf">fromtimestamp</span><span class="p">(</span><span class="mi">1414906200</span><span class="p">)</span>
+<span class="n">datetime</span><span class="p">.</span><span class="nf">datetime</span><span class="p">(</span><span class="mi">2014</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">datetime</span><span class="p">.</span><span class="nf">fromtimestamp</span><span class="p">(</span><span class="mi">1414906200</span> <span class="o">+</span> <span class="mi">3600</span><span class="p">)</span>
+<span class="n">datetime</span><span class="p">.</span><span class="nf">datetime</span><span class="p">(</span><span class="mi">2014</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">fold</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="epoch-이후-posix-초로-변환-conversion-to-posix-seconds-from-epoch">Epoch 이후 POSIX 초로 변환 (Conversion to POSIX seconds from EPOCH)</h4>
+
+<p><code class="language-plaintext highlighter-rouge">datetime.datetime</code>의 <code class="language-plaintext highlighter-rouge">timestamp()</code> 메서드는 <code class="language-plaintext highlighter-rouge">fold</code> 속성 값만 다른 <code class="language-plaintext highlighter-rouge">datetime.datetime</code> 인스턴스가 중의적이거나 누락된 시간을 나타내는 경우에만 다른 값을 반환합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">datetime.datetime</code> 인스턴스 <code class="language-plaintext highlighter-rouge">dt</code>가 중의적인 시간을 나타낼 때, <code class="language-plaintext highlighter-rouge">s0</code>과 <code class="language-plaintext highlighter-rouge">s1</code>이라는 두 가지 값이 존재합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">datetime.fromtimestamp(s0) == datetime.fromtimestamp(s1) == dt</code></p>
+
+<p>이 경우 <code class="language-plaintext highlighter-rouge">dt.timestamp()</code>는 <code class="language-plaintext highlighter-rouge">dt.fold == 0</code>이면 <code class="language-plaintext highlighter-rouge">s0</code>과 <code class="language-plaintext highlighter-rouge">s1</code> 중 작은 값을 반환하고, 그렇지 않으면 큰 값을 반환합니다.</p>
+
+<p>예를 들어, US/Eastern 시간대로 설정된 시스템에서:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="nf">datetime</span><span class="p">(</span><span class="mi">2014</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">fold</span><span class="o">=</span><span class="mi">0</span><span class="p">).</span><span class="nf">timestamp</span><span class="p">()</span>
+<span class="mf">1414906200.0</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nf">datetime</span><span class="p">(</span><span class="mi">2014</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">fold</span><span class="o">=</span><span class="mi">1</span><span class="p">).</span><span class="nf">timestamp</span><span class="p">()</span>
+<span class="mf">1414909800.0</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">datetime.datetime</code> 인스턴스 <code class="language-plaintext highlighter-rouge">dt</code>가 누락된 시간을 나타낼 때, <code class="language-plaintext highlighter-rouge">datetime.fromtimestamp(s) == dt</code>를 만족하는 <code class="language-plaintext highlighter-rouge">s</code> 값은 없습니다. 하지만 갭의 크기(초)만큼 다른 두 개의 “알아두면 좋은” <code class="language-plaintext highlighter-rouge">s</code> 값을 형성할 수 있습니다.</p>
+
+<p>누락된 <code class="language-plaintext highlighter-rouge">dt</code>에 대해 <code class="language-plaintext highlighter-rouge">dt.timestamp()</code>가 반환하는 값은 <code class="language-plaintext highlighter-rouge">dt.fold == 0</code>이면 두 “알아두면 좋은” 값 중 큰 값을 반환하고, 그렇지 않으면 작은 값을 반환합니다. (이는 오타가 아니며, 중의적인 시간 규칙과 의도적으로 반대입니다.)</p>
+
+<p>예를 들어, US/Eastern 시간대로 설정된 시스템에서:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="nf">datetime</span><span class="p">(</span><span class="mi">2015</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">fold</span><span class="o">=</span><span class="mi">0</span><span class="p">).</span><span class="nf">timestamp</span><span class="p">()</span>
+<span class="mf">1425799800.0</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nf">datetime</span><span class="p">(</span><span class="mi">2015</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">fold</span><span class="o">=</span><span class="mi">1</span><span class="p">).</span><span class="nf">timestamp</span><span class="p">()</span>
+<span class="mf">1425796200.0</span>
+</code></pre></div></div>
+
+<h4 id="aware-datetime-인스턴스-aware-datetime-instances">Aware datetime 인스턴스 (Aware datetime instances)</h4>
+
+<p>PEP 이전의 <code class="language-plaintext highlighter-rouge">tzinfo</code> 구현을 사용하는 사용자들은 aware <code class="language-plaintext highlighter-rouge">datetime</code> 인스턴스의 동작에서 어떤 변화도 보지 못할 것입니다. <code class="language-plaintext highlighter-rouge">fold</code> 속성 값만 다른 두 인스턴스는 <code class="language-plaintext highlighter-rouge">fold</code> 값에 대한 명시적인 접근 외에는 어떤 방법으로도 구별할 수 없습니다. (이는 PEP 이전 구현이 <code class="language-plaintext highlighter-rouge">fold</code> 속성을 사용하지 않기 때문입니다.)</p>
+
+<p>반면에 객체의 <code class="language-plaintext highlighter-rouge">tzinfo</code>가 <code class="language-plaintext highlighter-rouge">fold</code>-aware 구현으로 설정되면, 폴드 또는 갭에서 <code class="language-plaintext highlighter-rouge">fold</code> 값은 <code class="language-plaintext highlighter-rouge">utcoffset()</code>, <code class="language-plaintext highlighter-rouge">dst()</code>, <code class="language-plaintext highlighter-rouge">tzname()</code>, <code class="language-plaintext highlighter-rouge">astimezone()</code>, <code class="language-plaintext highlighter-rouge">strftime()</code> (형식 지정에 “%Z” 또는 “%z” 지시어가 사용된 경우), <code class="language-plaintext highlighter-rouge">isoformat()</code>, <code class="language-plaintext highlighter-rouge">timetuple()</code> 등 여러 메서드의 결과에 영향을 미칩니다.</p>
+
+<h4 id="날짜와-시간-결합-및-분리-combining-and-splitting-date-and-time">날짜와 시간 결합 및 분리 (Combining and splitting date and time)</h4>
+
+<p><code class="language-plaintext highlighter-rouge">datetime.datetime.combine()</code> 메서드는 <code class="language-plaintext highlighter-rouge">fold</code> 속성 값을 결과 <code class="language-plaintext highlighter-rouge">datetime.datetime</code> 인스턴스로 복사합니다.
+<code class="language-plaintext highlighter-rouge">datetime.datetime.time()</code> 메서드는 <code class="language-plaintext highlighter-rouge">fold</code> 속성 값을 결과 <code class="language-plaintext highlighter-rouge">datetime.time</code> 인스턴스로 복사합니다.</p>
+
+<h4 id="pickles">Pickles</h4>
+
+<p><code class="language-plaintext highlighter-rouge">fold</code> 속성의 값은 프로토콜 버전 4 (Python 3.4에서 도입) 이상으로 생성된 pickle에만 저장됩니다.
+<code class="language-plaintext highlighter-rouge">datetime.datetime</code> 및 <code class="language-plaintext highlighter-rouge">datetime.time</code> 객체의 pickle 크기는 변경되지 않습니다. <code class="language-plaintext highlighter-rouge">fold</code> 값은 <code class="language-plaintext highlighter-rouge">datetime.datetime</code> pickle 페이로드의 3번째 바이트의 첫 번째 비트와 <code class="language-plaintext highlighter-rouge">datetime.time</code> 페이로드의 첫 번째 바이트의 첫 번째 비트에 인코딩됩니다. 현재 구현에서 이 바이트들은 월(1-12)과 시간(0-23) 값을 저장하는 데 사용되며, 첫 번째 비트는 항상 0입니다.</p>
+
+<h3 id="표준-라이브러리의-tzinfo-구현-implementations-of-tzinfo-in-the-standard-library">표준 라이브러리의 <code class="language-plaintext highlighter-rouge">tzinfo</code> 구현 (Implementations of tzinfo in the Standard Library)</h3>
+
+<p>이 PEP에서는 <code class="language-plaintext highlighter-rouge">datetime.tzinfo</code> 추상 클래스의 새로운 구현을 제안하지 않습니다. 기존의 (고정 오프셋) 시간대(timezone)는 중의적인 로컬 시간을 도입하지 않으며, <code class="language-plaintext highlighter-rouge">utcoffset()</code> 구현은 <code class="language-plaintext highlighter-rouge">fold</code> 값에 관계없이 현재와 동일한 상수 값을 반환할 것입니다.</p>
+
+<p>추상 <code class="language-plaintext highlighter-rouge">datetime.tzinfo</code> 클래스의 <code class="language-plaintext highlighter-rouge">fromutc()</code> 기본 구현은 변경되지 않습니다. 현재 stdlib의 유일한 <code class="language-plaintext highlighter-rouge">tzinfo</code> 구현(<code class="language-plaintext highlighter-rouge">datetime.timezone</code> 클래스)이 <code class="language-plaintext highlighter-rouge">fromutc()</code>를 오버라이드하기 때문에 어디에도 사용되지 않습니다. 기본 구현을 변경하지 않으면 기본 <code class="language-plaintext highlighter-rouge">fromutc()</code>를 상속하는 PEP 이전의 서드 파티 구현이 의도치 않게 영향을 받지 않는다는 이점이 있습니다.</p>
+
+<h3 id="새로운-tzinfo-구현을-위한-가이드라인-guidelines-for-new-tzinfo-implementations">새로운 <code class="language-plaintext highlighter-rouge">tzinfo</code> 구현을 위한 가이드라인 (Guidelines for New tzinfo Implementations)</h3>
+
+<p>가변 UTC 오프셋(DST 및 기타 원인으로 인한)을 지원하려는 구체적인 <code class="language-plaintext highlighter-rouge">datetime.tzinfo</code> 서브클래스 구현자는 다음 가이드라인을 따라야 합니다.</p>
+
+<h4 id="무지는-축복이다-ignorance-is-bliss">무지는 축복이다 (Ignorance is Bliss)</h4>
+
+<p><code class="language-plaintext highlighter-rouge">utcoffset()</code>, <code class="language-plaintext highlighter-rouge">tzname()</code>, <code class="language-plaintext highlighter-rouge">dst()</code> 메서드의 새로운 구현은 중의적이거나 누락된 시간에 대해 호출되지 않는 한 <code class="language-plaintext highlighter-rouge">fold</code> 값을 무시해야 합니다.</p>
+
+<h4 id="폴드-안에서-in-the-fold">폴드 안에서 (In the Fold)</h4>
+
+<p>새로운 서브클래스는 기본 클래스의 <code class="language-plaintext highlighter-rouge">fromutc()</code> 메서드를 오버라이드하고, 두 개의 다른 UTC 시간 <code class="language-plaintext highlighter-rouge">u0</code>과 <code class="language-plaintext highlighter-rouge">u1</code>(<code class="language-plaintext highlighter-rouge">u0 &lt; u1</code>)이 동일한 로컬 시간 <code class="language-plaintext highlighter-rouge">t</code>에 해당하는 모든 경우에 <code class="language-plaintext highlighter-rouge">fromutc(u0)</code>는 <code class="language-plaintext highlighter-rouge">fold=0</code>인 인스턴스를 반환하고, <code class="language-plaintext highlighter-rouge">fromutc(u1)</code>는 <code class="language-plaintext highlighter-rouge">fold=1</code>인 인스턴스를 반환하도록 구현해야 합니다. 다른 모든 경우에는 반환된 인스턴스는 <code class="language-plaintext highlighter-rouge">fold=0</code>을 가져야 합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">utcoffset()</code>, <code class="language-plaintext highlighter-rouge">tzname()</code>, <code class="language-plaintext highlighter-rouge">dst()</code> 메서드는 <code class="language-plaintext highlighter-rouge">fold</code> 속성 값을 사용하여 중의적인 시간 <code class="language-plaintext highlighter-rouge">t</code>가 전환 전 또는 후의 시간에 해당하는지 여부를 결정해야 합니다. 정의에 따라 <code class="language-plaintext highlighter-rouge">utcoffset()</code>은 폴드를 생성하는 모든 전환 전에는 크고 전환 후에는 작습니다. <code class="language-plaintext highlighter-rouge">tzname()</code> 및 <code class="language-plaintext highlighter-rouge">dst()</code>가 반환하는 값은 전환 유형에 따라 <code class="language-plaintext highlighter-rouge">fold</code> 속성 값에 의존할 수도 있고 의존하지 않을 수도 있습니다.</p>
+
+<h4 id="갭을-조심하세요-mind-the-gap">갭을 조심하세요 (Mind the Gap)</h4>
+
+<p><code class="language-plaintext highlighter-rouge">fromutc()</code> 메서드는 갭 내의 시간을 생성해서는 안 됩니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">utcoffset()</code>, <code class="language-plaintext highlighter-rouge">tzname()</code>, <code class="language-plaintext highlighter-rouge">dst()</code> 메서드가 갭에 속하는 로컬 시간에 대해 호출되면, <code class="language-plaintext highlighter-rouge">fold=0</code>인 경우 전환 전 규칙이 사용되어야 합니다. 그렇지 않으면 전환 후 규칙이 사용되어야 합니다.</p>
+
+<h4 id="전환-시-규칙-요약-summary-of-rules-at-a-transition">전환 시 규칙 요약 (Summary of Rules at a Transition)</h4>
+
+<p>중의적이거나 누락된 시간에 <code class="language-plaintext highlighter-rouge">utcoffset()</code>은 다음 표에 따라 값을 반환해야 합니다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th><code class="language-plaintext highlighter-rouge">fold=0</code></th>
+      <th><code class="language-plaintext highlighter-rouge">fold=1</code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Fold</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">oldoff</code></td>
+      <td><code class="language-plaintext highlighter-rouge">newoff = oldoff - delta</code></td>
+    </tr>
+    <tr>
+      <td><strong>Gap</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">oldoff</code></td>
+      <td><code class="language-plaintext highlighter-rouge">newoff = oldoff + delta</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>여기서 <code class="language-plaintext highlighter-rouge">oldoff</code> (<code class="language-plaintext highlighter-rouge">newoff</code>)는 전환 전 (후) UTC 오프셋이고 <code class="language-plaintext highlighter-rouge">delta</code>는 폴드 또는 갭의 절대 크기입니다.</p>
+
+<h4 id="dst-전환-the-dst-transitions">DST 전환 (The DST Transitions)</h4>
+
+<p>DST 시작 시 도입된 누락된 시간에서 <code class="language-plaintext highlighter-rouge">utcoffset()</code> 및 <code class="language-plaintext highlighter-rouge">dst()</code> 메서드가 반환하는 값은 다음과 같아야 합니다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th><code class="language-plaintext highlighter-rouge">fold=0</code></th>
+      <th><code class="language-plaintext highlighter-rouge">fold=1</code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">utcoffset()</code></td>
+      <td><code class="language-plaintext highlighter-rouge">stdoff</code></td>
+      <td><code class="language-plaintext highlighter-rouge">stdoff + dstoff</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">dst()</code></td>
+      <td><code class="language-plaintext highlighter-rouge">zero</code></td>
+      <td><code class="language-plaintext highlighter-rouge">dstoff</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>DST 종료 시 도입된 중의적인 시간에서 <code class="language-plaintext highlighter-rouge">utcoffset()</code> 및 <code class="language-plaintext highlighter-rouge">dst()</code> 메서드가 반환하는 값은 다음과 같아야 합니다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th><code class="language-plaintext highlighter-rouge">fold=0</code></th>
+      <th><code class="language-plaintext highlighter-rouge">fold=1</code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">utcoffset()</code></td>
+      <td><code class="language-plaintext highlighter-rouge">stdoff + dstoff</code></td>
+      <td><code class="language-plaintext highlighter-rouge">stdoff</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">dst()</code></td>
+      <td><code class="language-plaintext highlighter-rouge">dstoff</code></td>
+      <td><code class="language-plaintext highlighter-rouge">zero</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>여기서 <code class="language-plaintext highlighter-rouge">stdoff</code>는 표준 (비-DST) 오프셋이고, <code class="language-plaintext highlighter-rouge">dstoff</code>는 DST 보정(<code class="language-plaintext highlighter-rouge">timedelta(hours=1)</code>이 일반적)이며, <code class="language-plaintext highlighter-rouge">zero = timedelta(0)</code>입니다.</p>
+
+<h3 id="시간-산술-및-비교-연산자-temporal-arithmetic-and-comparison-operators">시간 산술 및 비교 연산자 (Temporal Arithmetic and Comparison Operators)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">fold</code> 속성의 값은 naive <code class="language-plaintext highlighter-rouge">datetime</code> 인스턴스를 사용하는 모든 연산에서 무시됩니다. 결과적으로 <code class="language-plaintext highlighter-rouge">fold</code> 값만 다른 naive <code class="language-plaintext highlighter-rouge">datetime.datetime</code> 또는 <code class="language-plaintext highlighter-rouge">datetime.time</code> 인스턴스는 같다고 비교됩니다. 이러한 인스턴스를 구별해야 하는 애플리케이션은 <code class="language-plaintext highlighter-rouge">fold</code> 값을 명시적으로 확인하거나 해당 인스턴스를 중의적인 시간이 없는 시간대(예: UTC)로 변환해야 합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">timedelta</code>가 aware 또는 naive <code class="language-plaintext highlighter-rouge">datetime</code> 인스턴스에 추가되거나 빼지는 경우에도 <code class="language-plaintext highlighter-rouge">fold</code> 값은 무시됩니다. <code class="language-plaintext highlighter-rouge">timedelta</code>를 <code class="language-plaintext highlighter-rouge">datetime</code>에 추가(또는 뺄셈)한 결과는 원래 <code class="language-plaintext highlighter-rouge">datetime</code> 인스턴스가 <code class="language-plaintext highlighter-rouge">fold=1</code>이었더라도 항상 <code class="language-plaintext highlighter-rouge">fold</code>가 0으로 설정됩니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">datetime</code> 인스턴스 <code class="language-plaintext highlighter-rouge">t</code>와 <code class="language-plaintext highlighter-rouge">s</code>에 대한 차이 <code class="language-plaintext highlighter-rouge">t - s</code>가 계산되는 방식에는 변경이 제안되지 않습니다.</p>
+
+<p>Naive 및 intra-zone 비교는 <code class="language-plaintext highlighter-rouge">fold</code> 값을 무시하고 현재와 동일한 결과를 반환합니다. (이는 하위 호환성을 유지하는 유일한 방법입니다. <code class="language-plaintext highlighter-rouge">fold</code>를 사용하는 aware intra-zone 비교가 필요하면 먼저 양쪽을 UTC로 변환해야 합니다.)</p>
+
+<p>Inter-zone 뺄셈은 현재와 같이 정의됩니다: <code class="language-plaintext highlighter-rouge">t - s</code>는 <code class="language-plaintext highlighter-rouge">(t - t.utcoffset()) - (s - s.utcoffset()).replace(tzinfo=t.tzinfo)</code>로 계산되지만, <code class="language-plaintext highlighter-rouge">t.tzinfo</code> 또는 <code class="language-plaintext highlighter-rouge">s.tzinfo</code> 중 하나가 PEP 이후 구현인 경우 결과는 <code class="language-plaintext highlighter-rouge">t.fold</code> 및 <code class="language-plaintext highlighter-rouge">s.fold</code>의 값에 따라 달라집니다.</p>
+
+<h4 id="aware-datetime-등가-비교-aware-datetime-equality-comparison">Aware datetime 등가 비교 (Aware datetime Equality Comparison)</h4>
+
+<p>aware <code class="language-plaintext highlighter-rouge">datetime</code> 비교 연산자는 현재와 동일하게 작동하며, 피연산자 중 하나의 <code class="language-plaintext highlighter-rouge">utcoffset()</code> 값이 <code class="language-plaintext highlighter-rouge">fold</code>에 의존할 때 결과는 간접적으로 <code class="language-plaintext highlighter-rouge">fold</code> 값의 영향을 받습니다. 단, 한 가지 예외가 있습니다. inter-zone 비교에서 하나 또는 둘 다의 피연산자가 <code class="language-plaintext highlighter-rouge">utcoffset()</code>이 <code class="language-plaintext highlighter-rouge">fold</code> 속성의 <code class="language-plaintext highlighter-rouge">fold</code> 값에 의존하는 경우, 결과는 <code class="language-plaintext highlighter-rouge">False</code>입니다.</p>
+
+<h3 id="하위-및-상위-호환성-backward-and-forward-compatibility">하위 및 상위 호환성 (Backward and Forward Compatibility)</h3>
+
+<p>이 제안은 <code class="language-plaintext highlighter-rouge">fold</code> 플래그를 명시적으로 읽거나 이를 사용하는 <code class="language-plaintext highlighter-rouge">tzinfo</code> 구현을 사용하지 않는 프로그램에는 거의 영향을 미치지 않습니다. 이러한 프로그램에 대한 유일하게 눈에 띄는 변경 사항은 POSIX 타임스탬프와 상호 변환이 이제 올바르게 왕복한다는 것입니다 (부동 소수점 반올림 오차 내에서). 이전의 잘못된 동작에 대한 해결책을 구현한 프로그램은 수정해야 할 수도 있습니다.</p>
+
+<p>오래된 프로그램으로 생성된 pickle은 완전히 상위 호환성을 유지합니다. 새로운 버전에서 <code class="language-plaintext highlighter-rouge">fold=1</code>로 pickle된 <code class="language-plaintext highlighter-rouge">datetime</code>/<code class="language-plaintext highlighter-rouge">time</code> 인스턴스만 이전 Python 버전에서는 읽을 수 없게 됩니다. <code class="language-plaintext highlighter-rouge">fold=0</code> (기본값) 인스턴스의 pickle은 변경되지 않습니다.</p>
+
+<h3 id="질문과-답변-questions-and-answers">질문과 답변 (Questions and Answers)</h3>
+
+<h4 id="왜-새-플래그를-isdst라고-부르지-않나요-why-not-call-the-new-flag-isdst">왜 새 플래그를 “isdst”라고 부르지 않나요? (Why not call the new flag “isdst”?)</h4>
+
+<p><strong>비기술적 답변 (A non-technical answer)</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">isdst</code>라는 이름은 Daylight Saving Time (DST)과 관련되어 혼란을 줄 수 있습니다. <code class="language-plaintext highlighter-rouge">fold</code>는 DST뿐만 아니라 시계가 뒤로 이동하는 모든 상황을 포괄하는 더 일반적인 개념입니다.</p>
+
+<p><strong>기술적 이유 (A technical reason)</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">time.struct_time</code> 객체의 <code class="language-plaintext highlighter-rouge">tm_isdst</code> 필드는 폴드에서 로컬 시간을 중의적으로 해소하는 데 사용될 수 있지만, 그러한 중의성 해소의 의미론은 이 PEP의 제안과 완전히 다릅니다.
+<code class="language-plaintext highlighter-rouge">tm_isdst</code> 필드의 주요 문제는 시간대에 대한 자세한 정보(이는 <code class="language-plaintext highlighter-rouge">tzinfo</code> 구현에서만 사용 가능)를 알지 못하면 <code class="language-plaintext highlighter-rouge">tm_isdst</code>에 적절한 값을 알 수 없다는 것입니다.
+<code class="language-plaintext highlighter-rouge">tm_isdst</code>와 달리 제안된 <code class="language-plaintext highlighter-rouge">fold</code> 속성은 해당 속성 없이 두 가지 (또는 없음) 해석이 가능하지 않는 한 <code class="language-plaintext highlighter-rouge">datetime</code> 인스턴스의 해석에 영향을 미치지 않습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">tm_isdst</code>와 동일한 의미론을 갖지 않는 <code class="language-plaintext highlighter-rouge">isdst</code>라는 이름을 사용하는 것은 매우 혼란스러울 것이기 때문에 다른 이름이 필요합니다. 또한 <code class="language-plaintext highlighter-rouge">datetime.datetime</code> 클래스에는 이미 <code class="language-plaintext highlighter-rouge">dst()</code>라는 메서드가 있으며, <code class="language-plaintext highlighter-rouge">fold</code>를 “isdst”라고 부르면 “isdst”가 0인데 <code class="language-plaintext highlighter-rouge">dst()</code>는 0이 아니거나 그 반대인 상황이 필연적으로 발생할 것입니다.</p>
+
+<h4 id="왜-fold인가요-why-fold">왜 “fold”인가요? (Why “fold”?)</h4>
+
+<p>Guido van Rossum이 제안했으며, 한 저자가 선호했습니다. 속성의 허용되는 값이 <code class="language-plaintext highlighter-rouge">False</code>/<code class="language-plaintext highlighter-rouge">True</code>에서 <code class="language-plaintext highlighter-rouge">0</code>/<code class="language-plaintext highlighter-rouge">1</code>로 변경된 후 합의가 이루어졌습니다. “fold”라는 명사는 올바른 함의를 가지며 기억하기 쉬운 규칙을 제공하지만, 동시에 근거 없는 가정을 유도하지 않습니다.</p>
+
+<h4 id="first는-무엇인가요-what-is-first">“first”는 무엇인가요? (What is “first”?)</h4>
+
+<p>이는 초기에는 명백한 대안(“second”)이 기존 속성과 충돌하기 때문에 선택된 속성의 작업 이름이었습니다. 주로 <code class="language-plaintext highlighter-rouge">True</code>를 기본값으로 만들 것이라는 이유로 거부되었습니다.</p>
+
+<h4 id="두-가지-값으로-충분한가요-are-two-values-enough">두 가지 값으로 충분한가요? (Are two values enough?)</h4>
+
+<p><code class="language-plaintext highlighter-rouge">fold</code> 속성에 <code class="language-plaintext highlighter-rouge">None</code> 또는 <code class="language-plaintext highlighter-rouge">-1</code> 값을 허용해야 한다는 몇 가지 이유가 제기되었습니다: 하위 호환성, <code class="language-plaintext highlighter-rouge">tm_isdst</code>와의 유사성, 그리고 무효 시간(invalid time)에 대한 엄격한 확인.</p>
+
+<p><strong>하위 호환성 (Backward Compatibility)</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">fold</code> 플래그의 기본값이 <code class="language-plaintext highlighter-rouge">None</code>이면 PEP 이전 동작을 요청하는 신호가 될 수 있어 하위 호환성을 개선할 수 있다는 제안이 있었습니다. 아래 분석을 기반으로 <code class="language-plaintext highlighter-rouge">fold=0</code> 기본값으로 제안된 변경 사항이 충분히 하위 호환성을 갖는다고 판단합니다.</p>
+
+<p>이 PEP는 프로그램이 달리 동일한 <code class="language-plaintext highlighter-rouge">datetime</code> 인스턴스가 다른 <code class="language-plaintext highlighter-rouge">fold</code> 값을 갖는다는 것을 발견할 수 있는 세 가지 방법을 제공합니다: (1) <code class="language-plaintext highlighter-rouge">fold</code> 속성의 명시적 확인; (2) 인스턴스가 naive인 경우 - <code class="language-plaintext highlighter-rouge">astimezone()</code> 메서드를 사용하여 다른 시간대로 변환; 그리고 (3) <code class="language-plaintext highlighter-rouge">timestamp()</code> 메서드를 사용하여 float으로 변환.</p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">tm_isdst</code>와의 유사성 (Analogy with tm_isdst)</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">time.mktime</code> 인터페이스는 <code class="language-plaintext highlighter-rouge">tm_isdst</code> 플래그에 대해 <code class="language-plaintext highlighter-rouge">-1, 0, 1</code> 세 가지 값을 허용합니다. 위에서 설명했듯이, <code class="language-plaintext highlighter-rouge">-1</code> (주어진 시간에 대해 DST가 적용되는지 여부를 <code class="language-plaintext highlighter-rouge">mktime</code>이 나머지 필드에서 결정하도록 요청)이 실제로 유용한 유일한 선택입니다.</p>
+
+<p>그러나 <code class="language-plaintext highlighter-rouge">fold</code> 플래그를 사용하면 <code class="language-plaintext highlighter-rouge">datetime.timestamp()</code>는 대부분의 DST 전환 시간대에서 99.98%의 시간 동안 <code class="language-plaintext highlighter-rouge">tm_isdst=-1</code>을 사용한 <code class="language-plaintext highlighter-rouge">mktime</code>과 동일한 값을 반환합니다. 게다가 <code class="language-plaintext highlighter-rouge">tm_isdst=-1</code>과 같은 동작은 <code class="language-plaintext highlighter-rouge">fold</code> 값에 관계없이 지정됩니다.</p>
+
+<p><strong>엄격한 무효 시간 확인 (Strict Invalid Time Checking)</strong></p>
+
+<p>또 다른 제안은 <code class="language-plaintext highlighter-rouge">fold=-1</code> 또는 <code class="language-plaintext highlighter-rouge">fold=None</code>을 사용하여 프로그램이 폴드와 갭을 처리할 수 있는 수단이 없음을 나타내고, <code class="language-plaintext highlighter-rouge">dt</code>가 중의적이거나 누락된 로컬 시간을 나타낼 때마다 <code class="language-plaintext highlighter-rouge">dt.utcoffset()</code>이 오류를 발생시키도록 하는 것이었습니다.</p>
+
+<p>이 제안의 주요 문제는 <code class="language-plaintext highlighter-rouge">dt.utcoffset()</code>이 오류를 발생시키는 것이 옵션이 아닌 상황에서 내부적으로 사용된다는 것입니다. 예를 들어, 딕셔너리 조회 또는 목록/세트 멤버십 확인 등입니다. 따라서 엄격한 갭/폴드 확인 동작은 별도의 플래그(<code class="language-plaintext highlighter-rouge">dt.utcoffset(raise_on_gap=True, raise_on_fold=False)</code>)로 제어되어야 합니다. 그러나 이 기능은 사용자 코드에서 쉽게 구현할 수 있습니다.</p>
+
+<h2 id="구현-implementation">구현 (Implementation)</h2>
+
+<p>Github fork: <a href="https://github.com/abalkin/cpython/tree/issue24773-s3">https://github.com/abalkin/cpython/tree/issue24773-s3</a>
+Tracker issue: <a href="http://bugs.python.org/issue24773">http://bugs.python.org/issue24773</a></p>
+
+<h2 id="저작권-copyright">저작권 (Copyright)</h2>
+
+<p>이 문서는 퍼블릭 도메인에 공개되었습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/494/" class="pagination--pager" title="[Final] PEP 494 - Python 3.6 Release Schedule
+">Previous</a>
+    
+    
+      <a href="/python/pep/496/" class="pagination--pager" title="[Rejected] PEP 496 - Environment Markers
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

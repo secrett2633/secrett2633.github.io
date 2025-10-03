@@ -1,0 +1,870 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 3134 - Exception Chaining and Embedded Tracebacks | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 3134: ‘Exception Chaining and Embedded Tracebacks’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 3134 - Exception Chaining and Embedded Tracebacks">
+<meta property="og:url" content="http://localhost:4000/python/pep/3134/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 3134: ‘Exception Chaining and Embedded Tracebacks’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T14:33:48+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T14:33:48+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/3134/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 3134 - Exception Chaining and Embedded Tracebacks">
+    <meta itemprop="description" content="Python Enhancement Proposal 3134: ‘Exception Chaining and Embedded Tracebacks’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T14:33:48+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T14:33:48+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 3134 - Exception Chaining and Embedded Tracebacks
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T14:33:48+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-3134--예외-체인exception-chaining-및-임베디드-트레이스백embedded-tracebacks">PEP 3134 – 예외 체인(Exception Chaining) 및 임베디드 트레이스백(Embedded Tracebacks)</a><ul><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#동기-motivation">동기 (Motivation)</a></li><li><a href="#배경-history">배경 (History)</a></li><li><a href="#제안-배경-및-논리-rationale">제안 배경 및 논리 (Rationale)</a></li><li><a href="#암시적-예외-체인-implicit-exception-chaining">암시적 예외 체인 (Implicit Exception Chaining)</a></li><li><a href="#명시적-예외-체인-explicit-exception-chaining">명시적 예외 체인 (Explicit Exception Chaining)</a></li><li><a href="#트레이스백-속성-traceback-attribute">트레이스백 속성 (Traceback Attribute)</a></li><li><a href="#향상된-보고-enhanced-reporting">향상된 보고 (Enhanced Reporting)</a></li><li><a href="#c-api-호환성-c-api-compatibility">C API 호환성 (C API Compatibility)</a></li><li><a href="#호환성-compatibility">호환성 (Compatibility)</a></li><li><a href="#알려진-미해결-문제-open-issues">알려진 미해결 문제 (Open Issues)</a><ul><li><a href="#추가-정보-extra-information">추가 정보 (Extra Information)</a></li><li><a href="#컨텍스트-억제-suppressing-context">컨텍스트 억제 (Suppressing Context)</a></li><li><a href="#예외-유형-제한-limiting-exception-types">예외 유형 제한 (Limiting Exception Types)</a></li><li><a href="#yield-문-yield">yield 문 (yield)</a></li><li><a href="#가비지-컬렉션-garbage-collection">가비지 컬렉션 (Garbage Collection)</a></li></ul></li><li><a href="#향후-호환-가능한-변경-사항-possible-future-compatible-changes">향후 호환 가능한 변경 사항 (Possible Future Compatible Changes)</a></li><li><a href="#향후-비호환-변경-사항-possible-future-incompatible-changes">향후 비호환 변경 사항 (Possible Future Incompatible Changes)</a></li><li><a href="#구현-implementation">구현 (Implementation)</a></li><li><a href="#감사의-글-acknowledgements">감사의 글 (Acknowledgements)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-3134/">PEP 3134 - Exception Chaining and Embedded Tracebacks</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 12-May-2005</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-3134--예외-체인exception-chaining-및-임베디드-트레이스백embedded-tracebacks">PEP 3134 – 예외 체인(Exception Chaining) 및 임베디드 트레이스백(Embedded Tracebacks)</h1>
+
+<p><em>이 문서는 Python 3.0에 도입된 예외 처리 메커니즘 개선 제안인 PEP 3134를 한국어 사용자가 이해하기 쉽도록 번역 및 정리한 것입니다.</em></p>
+
+<h2 id="개요-abstract">개요 (Abstract)</h2>
+
+<p>이 PEP(Python Enhancement Proposal)는 예외 인스턴스에 세 가지 표준 속성을 제안합니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">__context__</code>: 암시적으로 연결된(implicitly chained) 예외를 위한 속성.</li>
+  <li><code class="language-plaintext highlighter-rouge">__cause__</code>: 명시적으로 연결된(explicitly chained) 예외를 위한 속성.</li>
+  <li><code class="language-plaintext highlighter-rouge">__traceback__</code>: 트레이스백(traceback) 정보를 위한 속성.</li>
+</ul>
+
+<p>새로운 <code class="language-plaintext highlighter-rouge">raise ... from</code> 구문은 <code class="language-plaintext highlighter-rouge">__cause__</code> 속성을 설정합니다.</p>
+
+<h2 id="동기-motivation">동기 (Motivation)</h2>
+
+<p>하나의 예외(예외 A)를 처리하는 도중에 다른 예외(예외 B)가 발생할 수 있습니다. 기존 Python(버전 2.4)에서는 이런 경우 예외 B가 전파되고 예외 A는 사라졌습니다. 문제 디버깅을 위해서는 두 예외 모두에 대한 정보를 아는 것이 유용하며, <code class="language-plaintext highlighter-rouge">__context__</code> 속성은 이 정보를 자동으로 유지합니다.</p>
+
+<p>때로는 예외 핸들러(handler)가 추가 정보를 제공하거나 예외 유형을 변환하기 위해 의도적으로 예외를 다시 발생시키는 것이 유용할 수 있습니다. <code class="language-plaintext highlighter-rouge">__cause__</code> 속성은 예외의 직접적인 원인을 명시적으로 기록하는 방법을 제공합니다.</p>
+
+<p>기존 Python 구현에서 예외는 타입(type), 값(value), 트레이스백(traceback)의 세 부분으로 구성됩니다. <code class="language-plaintext highlighter-rouge">sys</code> 모듈은 현재 예외를 <code class="language-plaintext highlighter-rouge">exc_type</code>, <code class="language-plaintext highlighter-rouge">exc_value</code>, <code class="language-plaintext highlighter-rouge">exc_traceback</code> 세 개의 병렬 변수로 노출하며, <code class="language-plaintext highlighter-rouge">sys.exc_info()</code> 함수는 이 세 부분으로 구성된 튜플을 반환합니다. 또한 <code class="language-plaintext highlighter-rouge">raise</code> 문은 이 세 부분을 받는 세 개의 인자 형식을 가집니다. 예외를 조작하려면 이 세 가지를 병렬로 전달해야 하는 경우가 많아 번거롭고 오류가 발생하기 쉬웠습니다. 게다가 <code class="language-plaintext highlighter-rouge">except</code> 문은 값에만 접근할 수 있었고 트레이스백에는 접근할 수 없었습니다. 예외 값에 <code class="language-plaintext highlighter-rouge">__traceback__</code> 속성을 추가함으로써 모든 예외 정보를 한 곳에서 접근할 수 있게 됩니다.</p>
+
+<h2 id="배경-history">배경 (History)</h2>
+
+<ul>
+  <li>2003년 1월, Raymond Hettinger는 <code class="language-plaintext highlighter-rouge">Python-Dev</code>에서 마스킹된 예외(masked exceptions) 문제를 제기하고 C 모듈이 현재 활성 예외에 더 많은 정보를 추가할 수 있도록 <code class="language-plaintext highlighter-rouge">PyErr_FormatAppend()</code> 함수를 제안했습니다.</li>
+  <li>2003년 6월, Brett Cannon이 다시 예외 체인 문제를 언급하면서 긴 토론이 시작되었습니다.</li>
+  <li>Greg Ewing은 원래 예외에 의해 트리거된 언와인딩(unwinding) 중 <code class="language-plaintext highlighter-rouge">finally</code> 블록에서 예외가 발생하는 경우와 원래 예외를 처리하는 <code class="language-plaintext highlighter-rouge">except</code> 블록에서 예외가 발생하는 경우를 구별했습니다.</li>
+  <li>Greg Ewing과 Guido van Rossum 등은 이전에 <code class="language-plaintext highlighter-rouge">Exception</code> 인스턴스에 트레이스백 속성을 추가하는 것을 언급했습니다. 이는 PEP 3000에 언급되어 있습니다.</li>
+  <li>이 PEP는 동일한 아이디어에 대한 또 다른 <code class="language-plaintext highlighter-rouge">Python-Dev</code> 재게시를 계기로 시작되었습니다.</li>
+</ul>
+
+<h2 id="제안-배경-및-논리-rationale">제안 배경 및 논리 (Rationale)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">Python-Dev</code> 토론을 통해 예외 체인에 대한 두 가지 다른 목적의 관심사가 드러났습니다.</p>
+<ol>
+  <li>예기치 않게 발생하는 보조 예외를 처리하기 위해서는 예외가 암시적으로 유지되어야 합니다.</li>
+  <li>예외의 의도적인 변환(translation)을 지원하기 위해서는 예외를 명시적으로 연결할 수 있는 방법이 있어야 합니다.</li>
+</ol>
+
+<p>이 PEP는 이 두 가지 모두를 다룹니다.</p>
+
+<p>체인 예외를 위한 여러 속성 이름이 <code class="language-plaintext highlighter-rouge">Python-Dev</code>에서 제안되었지만, 이 PEP는 명시적으로 연결된 예외에 대해 그 의미가 명확한 <code class="language-plaintext highlighter-rouge">__cause__</code>를 제안합니다. 암시적으로 연결된 예외에 대해서는 <code class="language-plaintext highlighter-rouge">__context__</code>라는 이름을 제안하는데, 이는 시간적 선행(temporal precedence)보다 더 구체적이지만 인과 관계(causation)보다는 덜 구체적인, 즉 “다른 예외를 처리하는 <code class="language-plaintext highlighter-rouge">컨텍스트</code>에서 예외가 발생한다”는 의미를 의도하기 때문입니다.</p>
+
+<p>이 세 속성(<code class="language-plaintext highlighter-rouge">__context__</code>, <code class="language-plaintext highlighter-rouge">__cause__</code>, <code class="language-plaintext highlighter-rouge">__traceback__</code>)에 선행 및 후행 이중 밑줄이 있는 이름을 제안하는 이유는 이들이 Python VM(Virtual Machine)에 의해 설정되기 때문입니다. 일반적인 할당으로는 매우 특별한 경우에만 설정되어야 합니다.</p>
+
+<p>이 PEP는 <code class="language-plaintext highlighter-rouge">except</code> 블록과 <code class="language-plaintext highlighter-rouge">finally</code> 블록에서 발생하는 예외를 동일하게 처리합니다. 트레이스백을 읽으면 예외가 어디에서 발생했는지 명확해지므로, 두 경우를 구별하기 위한 추가 메커니즘은 불필요한 복잡성만 추가할 것입니다.</p>
+
+<p>이 PEP는 현재 동작과의 호환성을 위해 가장 바깥쪽 예외 객체( <code class="language-plaintext highlighter-rouge">except</code> 절에 의해 매칭되는 객체)가 가장 최근에 발생한 예외가 되도록 제안합니다.</p>
+
+<p>또한 트레이스백이 가장 바깥쪽 예외를 마지막에 표시하도록 제안하는데, 이는 트레이스백의 시간 순서(가장 오래된 프레임부터 가장 최근 프레임까지)와 일치하고 실제 발생한 예외를 마지막 줄에서 더 쉽게 찾을 수 있기 때문입니다.</p>
+
+<p>간결성을 위해, 예외를 설정하는 C API 호출은 예외의 <code class="language-plaintext highlighter-rouge">__context__</code>를 자동으로 설정하지 않습니다.</p>
+
+<p>다른 언어의 경우, Java와 Ruby는 <code class="language-plaintext highlighter-rouge">catch</code>/<code class="language-plaintext highlighter-rouge">rescue</code> 또는 <code class="language-plaintext highlighter-rouge">finally</code>/<code class="language-plaintext highlighter-rouge">ensure</code> 절에서 다른 예외가 발생하면 원래 예외를 버립니다. Perl 5는 내장된 구조화된 예외 처리가 없습니다. Perl 6의 RFC 88은 <code class="language-plaintext highlighter-rouge">@@</code>라는 배열에 체인된 예외를 암시적으로 유지하는 예외 메커니즘을 제안합니다. C#의 예외는 다른 예외를 가리킬 수 있는 읽기 전용 <code class="language-plaintext highlighter-rouge">InnerException</code> 속성을 포함합니다. <code class="language-plaintext highlighter-rouge">__cause__</code> 속성은 <code class="language-plaintext highlighter-rouge">InnerException</code>과 동일한 목적을 수행하지만, 이 PEP는 모든 예외의 생성자를 확장하는 대신 새로운 형태의 <code class="language-plaintext highlighter-rouge">raise</code>를 제안합니다.</p>
+
+<p>이 세 속성(<code class="language-plaintext highlighter-rouge">__context__</code>, <code class="language-plaintext highlighter-rouge">__cause__</code>, <code class="language-plaintext highlighter-rouge">__traceback__</code>)이 하나의 제안으로 함께 제시되는 이유는 <code class="language-plaintext highlighter-rouge">__traceback__</code> 속성이 체인 예외에 대한 트레이스백에 편리하게 접근할 수 있도록 해주기 때문입니다.</p>
+
+<h2 id="암시적-예외-체인-implicit-exception-chaining">암시적 예외 체인 (Implicit Exception Chaining)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">__context__</code> 속성을 보여주는 예시입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">/</span> <span class="n">b</span>
+    <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span> <span class="c1"># Python 2.x에서는 'except Exception, exc:'
+</span>        <span class="nf">log</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">log</span><span class="p">(</span><span class="n">exc</span><span class="p">):</span>
+    <span class="nb">file</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="sh">'</span><span class="s">logfile.txt</span><span class="sh">'</span><span class="p">)</span> <span class="c1"># 의도적으로 'w' 모드를 잊음
+</span>    <span class="nf">print</span><span class="p">(</span><span class="n">exc</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="nb">file</span><span class="p">)</span> <span class="c1"># Python 2.x에서는 'print &gt;&gt;file, exc'
+</span>    <span class="nb">file</span><span class="p">.</span><span class="nf">close</span><span class="p">()</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">compute(0, 0)</code>을 호출하면 <code class="language-plaintext highlighter-rouge">ZeroDivisionError</code>가 발생합니다. <code class="language-plaintext highlighter-rouge">compute()</code> 함수는 이 예외를 catch하고 <code class="language-plaintext highlighter-rouge">log(exc)</code>를 호출하지만, <code class="language-plaintext highlighter-rouge">log()</code> 함수는 쓰기 모드로 열리지 않은 파일에 쓰려고 할 때 또 다른 예외를 발생시킵니다.</p>
+
+<p>기존 Python에서는 <code class="language-plaintext highlighter-rouge">compute()</code>의 호출자에게 <code class="language-plaintext highlighter-rouge">IOError</code>가 발생하고 <code class="language-plaintext highlighter-rouge">ZeroDivisionError</code>는 손실됩니다. 이 제안된 변경사항을 적용하면, <code class="language-plaintext highlighter-rouge">IOError</code> 인스턴스에 <code class="language-plaintext highlighter-rouge">ZeroDivisionError</code>를 유지하는 추가 <code class="language-plaintext highlighter-rouge">__context__</code> 속성이 포함됩니다.</p>
+
+<p>제안된 의미론은 다음과 같습니다.</p>
+<ul>
+  <li>각 스레드(thread)는 처음에 <code class="language-plaintext highlighter-rouge">None</code>으로 설정된 예외 컨텍스트를 가집니다.</li>
+  <li>예외가 발생할 때마다, 예외 인스턴스가 <code class="language-plaintext highlighter-rouge">__context__</code> 속성을 이미 가지고 있지 않으면 인터프리터(interpreter)는 이를 스레드의 예외 컨텍스트와 동일하게 설정합니다.</li>
+  <li>예외가 발생한 직후, 스레드의 예외 컨텍스트는 해당 예외로 설정됩니다.</li>
+  <li>인터프리터가 <code class="language-plaintext highlighter-rouge">except</code> 블록을 끝까지 실행하거나 <code class="language-plaintext highlighter-rouge">return</code>, <code class="language-plaintext highlighter-rouge">yield</code>, <code class="language-plaintext highlighter-rouge">continue</code>, <code class="language-plaintext highlighter-rouge">break</code> 문을 실행하여 종료할 때마다 스레드의 예외 컨텍스트는 <code class="language-plaintext highlighter-rouge">None</code>으로 설정됩니다.</li>
+</ul>
+
+<h2 id="명시적-예외-체인-explicit-exception-chaining">명시적 예외 체인 (Explicit Exception Chaining)</h2>
+
+<p>예외 객체의 <code class="language-plaintext highlighter-rouge">__cause__</code> 속성은 항상 <code class="language-plaintext highlighter-rouge">None</code>으로 초기화됩니다. 이는 새로운 형태의 <code class="language-plaintext highlighter-rouge">raise</code> 문에 의해 설정됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">raise</span> <span class="n">EXCEPTION</span> <span class="k">from</span> <span class="n">CAUSE</span>
+</code></pre></div></div>
+<p>이는 다음과 동일합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">exc</span> <span class="o">=</span> <span class="n">EXCEPTION</span>
+<span class="n">exc</span><span class="p">.</span><span class="n">__cause__</span> <span class="o">=</span> <span class="n">CAUSE</span>
+<span class="k">raise</span> <span class="n">exc</span>
+</code></pre></div></div>
+
+<p>다음 예시에서 데이터베이스는 파일 저장소를 포함한 여러 종류의 저장소 구현을 제공합니다. 데이터베이스 설계자는 클라이언트가 저장소 특정 세부 정보를 알 필요 없이 오류가 <code class="language-plaintext highlighter-rouge">DatabaseError</code> 객체로 전파되기를 원하지만, 근본적인 오류 정보는 잃고 싶지 않습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">DatabaseError</span><span class="p">(</span><span class="nb">Exception</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="k">class</span> <span class="nc">FileDatabase</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span> <span class="c1"># PEP 원문에는 Database 클래스 상속이지만, 예시 코드이므로 간략화
+</span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">self</span><span class="p">.</span><span class="nb">file</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">except</span> <span class="nb">IOError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span> <span class="c1"># Python 2.x에서는 'except IOError, exc:'
+</span>            <span class="k">raise</span> <span class="nc">DatabaseError</span><span class="p">(</span><span class="sh">'</span><span class="s">failed to open</span><span class="sh">'</span><span class="p">)</span> <span class="k">from</span> <span class="n">exc</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">open()</code> 호출이 예외를 발생시키면, 문제는 <code class="language-plaintext highlighter-rouge">DatabaseError</code>로 보고되며, <code class="language-plaintext highlighter-rouge">__cause__</code> 속성은 <code class="language-plaintext highlighter-rouge">IOError</code>가 원래 원인임을 나타냅니다.</p>
+
+<h2 id="트레이스백-속성-traceback-attribute">트레이스백 속성 (Traceback Attribute)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">__traceback__</code> 속성을 보여주는 예시입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">traceback</span> <span class="kn">import</span> <span class="n">format_tb</span>
+
+<span class="k">def</span> <span class="nf">do_logged</span><span class="p">(</span><span class="nb">file</span><span class="p">,</span> <span class="n">work</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nf">work</span><span class="p">()</span>
+    <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span> <span class="c1"># Python 2.x에서는 'except Exception, exc:'
+</span>        <span class="nf">write_exception</span><span class="p">(</span><span class="nb">file</span><span class="p">,</span> <span class="n">exc</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">exc</span> <span class="c1"># 예외를 다시 발생시킴
+</span>
+<span class="k">def</span> <span class="nf">write_exception</span><span class="p">(</span><span class="nb">file</span><span class="p">,</span> <span class="n">exc</span><span class="p">):</span>
+    <span class="c1"># ...
+</span>    <span class="n">type_name</span> <span class="o">=</span> <span class="n">exc</span><span class="p">.</span><span class="n">__class__</span><span class="p">.</span><span class="n">__name__</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="nf">str</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="nf">format_tb</span><span class="p">(</span><span class="n">exc</span><span class="p">.</span><span class="n">__traceback__</span><span class="p">)</span>
+    <span class="nb">file</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Type: </span><span class="si">{</span><span class="n">type_name</span><span class="si">}</span><span class="se">\n</span><span class="s">Message: </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="se">\n</span><span class="s">Traceback:</span><span class="se">\n</span><span class="si">{</span><span class="sh">''</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="sh">"</span><span class="p">)</span>
+    <span class="c1"># ...
+</span></code></pre></div></div>
+<p>기존 Python에서는 <code class="language-plaintext highlighter-rouge">do_logged()</code> 함수가 <code class="language-plaintext highlighter-rouge">sys.exc_traceback</code> 또는 <code class="language-plaintext highlighter-rouge">sys.exc_info()</code>에서 트레이스백을 추출하여 값과 트레이스백을 모두 <code class="language-plaintext highlighter-rouge">write_exception()</code>에 전달해야 했습니다. 제안된 변경사항을 적용하면 <code class="language-plaintext highlighter-rouge">write_exception()</code>은 단 하나의 인자만 받고 <code class="language-plaintext highlighter-rouge">__traceback__</code> 속성을 사용하여 예외 정보를 얻습니다.</p>
+
+<p>제안된 의미론은 다음과 같습니다.</p>
+<ul>
+  <li>예외가 catch될 때마다, 예외 인스턴스가 <code class="language-plaintext highlighter-rouge">__traceback__</code> 속성을 이미 가지고 있지 않으면 인터프리터는 이를 새로 catch된 트레이스백으로 설정합니다.</li>
+</ul>
+
+<h2 id="향상된-보고-enhanced-reporting">향상된 보고 (Enhanced Reporting)</h2>
+
+<p>기본 예외 핸들러(default exception handler)는 체인 예외를 보고하도록 수정될 것입니다. 예외 체인은 <code class="language-plaintext highlighter-rouge">__cause__</code>와 <code class="language-plaintext highlighter-rouge">__context__</code> 속성을 따라 탐색되며, <code class="language-plaintext highlighter-rouge">__cause__</code>가 우선순위를 가집니다. 트레이스백의 시간 순서를 유지하기 위해 가장 최근에 발생한 예외가 마지막에 표시됩니다. 즉, 가장 안쪽 예외에 대한 설명으로 시작하여 가장 바깥쪽 예외까지 체인을 거슬러 올라갑니다. 트레이스백은 평소처럼 포맷되며, <code class="language-plaintext highlighter-rouge">__cause__</code> 또는 <code class="language-plaintext highlighter-rouge">__context__</code>에 의해 연결되었는지에 따라 트레이스백 사이에 다음 줄 중 하나가 표시됩니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">The above exception was the direct cause of the following exception:</code> (<code class="language-plaintext highlighter-rouge">__cause__</code>로 연결된 경우)</li>
+  <li><code class="language-plaintext highlighter-rouge">During handling of the above exception, another exception occurred:</code> (<code class="language-plaintext highlighter-rouge">__context__</code>로 연결된 경우)</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">traceback</code> 모듈에서 <code class="language-plaintext highlighter-rouge">format_exception</code>, <code class="language-plaintext highlighter-rouge">print_exception</code>, <code class="language-plaintext highlighter-rouge">print_exc</code>, <code class="language-plaintext highlighter-rouge">print_last</code> 함수는 선택적 <code class="language-plaintext highlighter-rouge">chain</code> 인자(기본값 <code class="language-plaintext highlighter-rouge">True</code>)를 받도록 업데이트될 것입니다. 이 인자가 <code class="language-plaintext highlighter-rouge">True</code>인 경우, 이 함수들은 방금 설명한 대로 전체 예외 체인을 포맷하거나 표시합니다. <code class="language-plaintext highlighter-rouge">False</code>인 경우, 가장 바깥쪽 예외만 포맷하거나 표시합니다. <code class="language-plaintext highlighter-rouge">cgitb</code> 모듈도 전체 예외 체인을 표시하도록 업데이트되어야 합니다.</p>
+
+<h2 id="c-api-호환성-c-api-compatibility">C API 호환성 (C API Compatibility)</h2>
+
+<p>예외를 설정하는 <code class="language-plaintext highlighter-rouge">PyErr_Set*</code> 호출은 예외의 <code class="language-plaintext highlighter-rouge">__context__</code> 속성을 설정하지 않습니다. <code class="language-plaintext highlighter-rouge">PyErr_NormalizeException</code>은 항상 트레이스백 속성을 <code class="language-plaintext highlighter-rouge">tb</code> 인자로, <code class="language-plaintext highlighter-rouge">__context__</code> 및 <code class="language-plaintext highlighter-rouge">__cause__</code> 속성을 <code class="language-plaintext highlighter-rouge">None</code>으로 설정할 것입니다.</p>
+
+<p>새로운 API 함수인 <code class="language-plaintext highlighter-rouge">PyErr_SetContext(context)</code>는 C 프로그래머가 체인 예외 정보를 제공하는 데 도움을 줄 것입니다. 이 함수는 먼저 현재 예외를 인스턴스로 정규화한 다음 <code class="language-plaintext highlighter-rouge">__context__</code> 속성을 설정합니다. 유사한 API 함수인 <code class="language-plaintext highlighter-rouge">PyErr_SetCause(cause)</code>는 <code class="language-plaintext highlighter-rouge">__cause__</code> 속성을 설정할 것입니다.</p>
+
+<h2 id="호환성-compatibility">호환성 (Compatibility)</h2>
+
+<p>체인 예외는 가장 최근 예외의 타입을 노출하므로, 현재와 동일한 <code class="language-plaintext highlighter-rouge">except</code> 절에 계속 매칭될 것입니다.</p>
+
+<p>제안된 변경사항은 예외 인스턴스에 <code class="language-plaintext highlighter-rouge">__context__</code>, <code class="language-plaintext highlighter-rouge">__cause__</code>, <code class="language-plaintext highlighter-rouge">__traceback__</code>이라는 이름의 속성을 설정하거나 사용하는 코드가 아니라면 어떤 코드도 손상시키지 않을 것입니다. 2005년 5월 12일 기준으로 Python 표준 라이브러리에는 이러한 속성에 대한 언급이 없습니다.</p>
+
+<h2 id="알려진-미해결-문제-open-issues">알려진 미해결 문제 (Open Issues)</h2>
+
+<h3 id="추가-정보-extra-information">추가 정보 (Extra Information)</h3>
+
+<p>Walter Dörwald는 예외 타입을 변경하지 않고도 상위 전파(upward propagation) 중에 예외에 추가 정보를 첨부하고 싶다는 바람을 표명했습니다. 이는 유용한 기능일 수 있지만, 이 PEP에서는 다루지 않습니다. 별도의 PEP에서 예외에 대한 다른 정보 속성에 대한 규칙을 설정함으로써 다루어질 수 있습니다.</p>
+
+<h3 id="컨텍스트-억제-suppressing-context">컨텍스트 억제 (Suppressing Context)</h3>
+
+<p>이 PEP에 작성된 바와 같이, <code class="language-plaintext highlighter-rouge">except</code> 또는 <code class="language-plaintext highlighter-rouge">finally</code> 절에서 <code class="language-plaintext highlighter-rouge">exc.__context__</code>를 <code class="language-plaintext highlighter-rouge">None</code>으로 설정해도 <code class="language-plaintext highlighter-rouge">exc</code>가 다시 발생할 때 다시 설정되기 때문에 <code class="language-plaintext highlighter-rouge">__context__</code>를 억제하는 것은 불가능합니다.</p>
+
+<h3 id="예외-유형-제한-limiting-exception-types">예외 유형 제한 (Limiting Exception Types)</h3>
+
+<p>캡슐화(encapsulation)를 개선하기 위해 라이브러리 구현자는 모든 구현 수준 예외를 애플리케이션 수준 예외로 래핑(wrap)하기를 원할 수 있습니다.</p>
+
+<h3 id="yield-문-yield"><code class="language-plaintext highlighter-rouge">yield</code> 문 (yield)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">yield</code> 문이 실행될 때 예외 컨텍스트가 손실됩니다. <code class="language-plaintext highlighter-rouge">yield</code> 이후 프레임을 재개해도 컨텍스트가 복원되지 않습니다. 이 문제는 이 PEP의 범위를 벗어나며, 새로운 문제는 아닙니다.</p>
+
+<h3 id="가비지-컬렉션-garbage-collection">가비지 컬렉션 (Garbage Collection)</h3>
+
+<p>이 제안에 대한 가장 강력한 반대는 예외와 스택 프레임(stack frames) 사이에 순환(cycle)을 생성한다는 것입니다. 순환 가비지(cyclic garbage)의 수집(따라서 자원 해제)이 크게 지연될 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span><span class="p">:</span>
+    <span class="mi">1</span> <span class="o">/</span> <span class="mi">0</span>
+<span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span> <span class="c1"># Python 2.x에서는 'except Exception, err:'
+</span>    <span class="k">pass</span>
+</code></pre></div></div>
+<p>위 코드는 <code class="language-plaintext highlighter-rouge">err</code> -&gt; <code class="language-plaintext highlighter-rouge">traceback</code> -&gt; 스택 프레임 -&gt; <code class="language-plaintext highlighter-rouge">err</code>로 이어지는 순환을 도입하여, 다음 GC(Garbage Collection)가 발생할 때까지 동일한 스코프(scope) 내의 모든 지역 변수(locals)를 유지합니다.</p>
+
+<p>현재는 이러한 지역 변수가 스코프를 벗어납니다. 특히 열린 파일과 같은 “지역” 자원이 빠르게 닫힐 것이라고 가정하는 많은 코드가 있습니다. 만약 닫힘이 다음 GC를 기다려야 한다면 (오늘날에는 잘 작동하는) 프로그램이 파일 핸들 부족을 겪을 수 있습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">__traceback__</code> 속성을 약한 참조(weak reference)로 만들면 순환 가비지 문제를 피할 수 있습니다. 그러나 이는 나중에 예외를 저장하는 것(예: <code class="language-plaintext highlighter-rouge">unittest</code>에서 하는 방식)을 더 어렵게 만들고, <code class="language-plaintext highlighter-rouge">sys</code> 모듈의 정리를 그렇게 많이 허용하지 않을 것입니다. Adam Olsen이 제안한 가능한 대안 솔루션은 스택 프레임에서 <code class="language-plaintext highlighter-rouge">err</code> 변수로의 참조를 변수가 스코프를 벗어날 때 약한 참조로 바꾸는 것입니다.</p>
+
+<h2 id="향후-호환-가능한-변경-사항-possible-future-compatible-changes">향후 호환 가능한 변경 사항 (Possible Future Compatible Changes)</h2>
+
+<p>이러한 변경 사항은 인터프리터 수준에서 예외가 세 개의 튜플이 아닌 단일 객체로 나타나는 것과 일치합니다.</p>
+
+<ul>
+  <li>PEP 340 또는 PEP 343이 수락되면 <code class="language-plaintext highlighter-rouge">__exit__</code>의 세 인자(<code class="language-plaintext highlighter-rouge">type</code>, <code class="language-plaintext highlighter-rouge">value</code>, <code class="language-plaintext highlighter-rouge">traceback</code>)를 단일 예외 인자로 대체합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">sys.exc_type</code>, <code class="language-plaintext highlighter-rouge">sys.exc_value</code>, <code class="language-plaintext highlighter-rouge">sys.exc_traceback</code>, <code class="language-plaintext highlighter-rouge">sys.exc_info()</code>를 단일 멤버인 <code class="language-plaintext highlighter-rouge">sys.exception</code>을 위해 폐지합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">sys.last_type</code>, <code class="language-plaintext highlighter-rouge">sys.last_value</code>, <code class="language-plaintext highlighter-rouge">sys.last_traceback</code>을 단일 멤버인 <code class="language-plaintext highlighter-rouge">sys.last_exception</code>을 위해 폐지합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">raise</code> 문의 세 인자 형식을 한 인자 형식으로 폐지합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">cgitb.html()</code>을 업데이트하여 (type, value, traceback) 튜플의 대안으로 첫 번째 인자로 단일 값을 받도록 합니다.</li>
+</ul>
+
+<h2 id="향후-비호환-변경-사항-possible-future-incompatible-changes">향후 비호환 변경 사항 (Possible Future Incompatible Changes)</h2>
+
+<p>이러한 변경 사항은 Python 3000(Python 3.x)에서 고려해볼 가치가 있을 수 있습니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">sys.exc_type</code>, <code class="language-plaintext highlighter-rouge">sys.exc_value</code>, <code class="language-plaintext highlighter-rouge">sys.exc_traceback</code>, <code class="language-plaintext highlighter-rouge">sys.exc_info()</code> 제거.</li>
+  <li><code class="language-plaintext highlighter-rouge">sys.last_type</code>, <code class="language-plaintext highlighter-rouge">sys.last_value</code>, <code class="language-plaintext highlighter-rouge">sys.last_traceback</code> 제거.</li>
+  <li>세 인자를 받는 <code class="language-plaintext highlighter-rouge">sys.excepthook</code>을 한 인자 API로 대체하고 <code class="language-plaintext highlighter-rouge">cgitb</code> 모듈을 일치시키도록 변경.</li>
+  <li><code class="language-plaintext highlighter-rouge">raise</code> 문의 세 인자 형식 제거.</li>
+  <li><code class="language-plaintext highlighter-rouge">traceback.print_exception</code>을 업데이트하여 <code class="language-plaintext highlighter-rouge">type</code>, <code class="language-plaintext highlighter-rouge">value</code>, <code class="language-plaintext highlighter-rouge">traceback</code> 인자 대신 예외 인자를 받도록 합니다.</li>
+</ul>
+
+<h2 id="구현-implementation">구현 (Implementation)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">__traceback__</code> 및 <code class="language-plaintext highlighter-rouge">__cause__</code> 속성과 새로운 <code class="language-plaintext highlighter-rouge">raise</code> 구문은 리비전 57783에서 구현되었습니다.</p>
+
+<h2 id="감사의-글-acknowledgements">감사의 글 (Acknowledgements)</h2>
+
+<p>Brett Cannon, Greg Ewing, Guido van Rossum, Jeremy Hylton, Phillip J. Eby, Raymond Hettinger, Walter Dörwald, 그리고 다른 분들께 감사드립니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/3133/" class="pagination--pager" title="[Rejected] PEP 3133 - Introducing Roles
+">Previous</a>
+    
+    
+      <a href="/python/pep/3135/" class="pagination--pager" title="[Final] PEP 3135 - New Super
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

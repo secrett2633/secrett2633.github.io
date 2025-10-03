@@ -1,0 +1,798 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 405 - Python Virtual Environments | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 405: ‘Python Virtual Environments’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 405 - Python Virtual Environments">
+<meta property="og:url" content="http://localhost:4000/python/pep/405/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 405: ‘Python Virtual Environments’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T21:28:37+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T21:28:37+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/405/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 405 - Python Virtual Environments">
+    <meta itemprop="description" content="Python Enhancement Proposal 405: ‘Python Virtual Environments’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T21:28:37+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T21:28:37+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 405 - Python Virtual Environments
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T21:28:37+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-405--python-가상-환경">PEP 405 – Python 가상 환경</a><ul><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#동기-motivation">동기 (Motivation)</a></li><li><a href="#사양-specification">사양 (Specification)</a><ul><li><a href="#시스템-site-packages로부터의-격리-isolation-from-system-site-packages">시스템 site-packages로부터의 격리 (Isolation from system site-packages)</a></li><li><a href="#가상-환경-생성-creating-virtual-environments">가상 환경 생성 (Creating virtual environments)</a></li><li><a href="#sysconfig-설치-스키마-및-사용자-사이트-sysconfig-install-schemes-and-user-site">Sysconfig 설치 스키마 및 사용자 사이트 (Sysconfig install schemes and user-site)</a></li><li><a href="#복사본-대-심볼릭-링크-copies-versus-symlinks">복사본 대 심볼릭 링크 (Copies versus symlinks)</a></li><li><a href="#인클루드-파일-include-files">인클루드 파일 (Include files)</a></li><li><a href="#api-api">API (API)</a></li></ul></li><li><a href="#하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</a><ul><li><a href="#sysprefix-의미-분리-splitting-the-meanings-of-sysprefix">sys.prefix 의미 분리 (Splitting the meanings of sys.prefix)</a></li><li><a href="#다른-python-구현에-미치는-영향-impact-on-other-python-implementations">다른 Python 구현에 미치는 영향 (Impact on other Python implementations)</a></li></ul></li><li><a href="#참조-구현-reference-implementation">참조 구현 (Reference Implementation)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0405/">PEP 405 - Python Virtual Environments</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 13-Jun-2011</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h2 id="pep-405--python-가상-환경">PEP 405 – Python 가상 환경</h2>
+
+<p>이 문서는 Python 3.3에 도입된 내장 가상 환경(<code class="language-plaintext highlighter-rouge">venv</code>) 메커니즘을 설명하는 PEP 405에 대한 한국어 번역 및 요약입니다. 이 PEP는 기존 서드파티 가상 환경 도구의 한계를 극복하고, Python 자체에 경량의 가상 환경 기능을 통합하여 개발자들이 의존성 관리 및 프로젝트 격리를 보다 쉽고 안정적으로 수행할 수 있도록 돕는 것을 목표로 합니다.</p>
+
+<h3 id="개요-abstract">개요 (Abstract)</h3>
+
+<p>이 PEP는 자체 <code class="language-plaintext highlighter-rouge">site-packages</code> 디렉토리를 가지며, 시스템 <code class="language-plaintext highlighter-rouge">site-packages</code> 디렉토리와 선택적으로 격리될 수 있는 경량 “가상 환경(virtual environments)” 메커니즘을 Python에 추가할 것을 제안합니다. 각 가상 환경은 자체 Python 바이너리(다양한 Python 버전으로 환경 생성을 허용)를 가지며, <code class="language-plaintext highlighter-rouge">site-packages</code> 디렉토리에 자체적으로 설치된 독립적인 Python 패키지 세트를 가질 수 있지만, 기본 설치된 Python과 표준 라이브러리를 공유합니다.</p>
+
+<h3 id="동기-motivation">동기 (Motivation)</h3>
+
+<p>Python 가상 환경의 유용성은 Ian Bicking의 <code class="language-plaintext highlighter-rouge">virtualenv</code>를 비롯한 기존 서드파티 가상 환경 도구의 인기를 통해 이미 잘 확립되었습니다. 가상 환경은 의존성 관리 및 격리, 시스템 관리자 권한 없이 Python 패키지를 쉽게 설치하고 사용하는 용이성, 여러 Python 버전에서 Python 소프트웨어의 자동화된 테스트 등 다양한 용도로 널리 사용되고 있습니다.</p>
+
+<p>그러나 기존 가상 환경 도구는 Python 자체의 동작 지원 부족으로 어려움을 겪었습니다. 예를 들어, <code class="language-plaintext highlighter-rouge">rvirtualenv</code>와 같이 Python 바이너리를 가상 환경으로 복사하지 않는 도구는 시스템 <code class="language-plaintext highlighter-rouge">site-packages</code> 디렉토리로부터 신뢰할 수 있는 격리를 제공할 수 없었습니다. <code class="language-plaintext highlighter-rouge">virtualenv</code>와 같이 Python 바이너리를 복사하는 도구는 Python의 <code class="language-plaintext highlighter-rouge">site</code> 모듈의 많은 부분을 복제하고, 끊임없이 변경되는 표준 라이브러리 모듈 세트를 시작할 때마다 수동으로 심볼릭 링크/복사해야 하는 부담이 있었습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">PYTHONHOME</code> 환경 변수는 Python의 유일한 기존 내장 가상 환경 솔루션이었지만, 전체 표준 라이브러리를 모든 환경에 복사/심볼릭 링크해야 하는 단점이 있었습니다. 이는 경량 솔루션이 아니며, 심볼릭 링크에 대한 크로스 플랫폼 지원은 여전히 일관성이 없었습니다.</p>
+
+<p>Python에 통합되고 기존 서드파티 도구의 수년간 경험을 바탕으로 한 가상 환경 메커니즘은 유지보수 비용을 낮추고, 안정성을 높이며, 모든 Python 사용자가 더 쉽게 사용할 수 있게 할 것입니다.</p>
+
+<h3 id="사양-specification">사양 (Specification)</h3>
+
+<p>Python 바이너리가 실행될 때, <code class="language-plaintext highlighter-rouge">sys.prefix</code>에 저장될 접두사(prefix)를 결정하려고 시도합니다. 이 접두사는 표준 라이브러리 및 기타 주요 파일을 찾는 데 사용되며, <code class="language-plaintext highlighter-rouge">site</code> 모듈에 의해 <code class="language-plaintext highlighter-rouge">site-packages</code> 디렉토리의 위치를 결정하는 데 사용됩니다.</p>
+
+<p>이 PEP는 이 검색에 새로운 첫 단계를 추가할 것을 제안합니다. Python 실행 파일과 인접하거나 한 디렉토리 위에 <code class="language-plaintext highlighter-rouge">pyvenv.cfg</code> 파일이 발견되면, 이 파일은 <code class="language-plaintext highlighter-rouge">key = value</code> 형식의 줄을 스캔합니다. <code class="language-plaintext highlighter-rouge">home</code> 키가 발견되면, 이는 Python 바이너리가 가상 환경에 속함을 의미하며, <code class="language-plaintext highlighter-rouge">home</code> 키의 값은 이 가상 환경을 생성하는 데 사용된 Python 실행 파일을 포함하는 디렉토리입니다.</p>
+
+<p>이 경우, <code class="language-plaintext highlighter-rouge">home</code> 키의 값을 유효한 Python 바이너리 위치로 사용하여 기본 설치의 접두사를 찾는 방식으로 <code class="language-plaintext highlighter-rouge">prefix</code> 찾기가 정상적으로 진행됩니다. <code class="language-plaintext highlighter-rouge">sys.base_prefix</code>는 이 값으로 설정되고, <code class="language-plaintext highlighter-rouge">sys.prefix</code>는 <code class="language-plaintext highlighter-rouge">pyvenv.cfg</code> 파일을 포함하는 디렉토리로 설정됩니다. (<code class="language-plaintext highlighter-rouge">pyvenv.cfg</code> 파일이 없거나 <code class="language-plaintext highlighter-rouge">home</code> 키를 포함하지 않으면 <code class="language-plaintext highlighter-rouge">prefix</code> 찾기는 정상적으로 진행되며, <code class="language-plaintext highlighter-rouge">sys.prefix</code>는 <code class="language-plaintext highlighter-rouge">sys.base_prefix</code>와 동일하게 됩니다.)</p>
+
+<p>또한, <code class="language-plaintext highlighter-rouge">sys.base_exec_prefix</code>가 추가되고 <code class="language-plaintext highlighter-rouge">sys.exec_prefix</code>와 유사하게 처리됩니다. (<code class="language-plaintext highlighter-rouge">sys.exec_prefix</code>는 <code class="language-plaintext highlighter-rouge">sys.prefix</code>와 동일하지만 플랫폼 특정 파일용입니다. 기본적으로 <code class="language-plaintext highlighter-rouge">sys.prefix</code>와 동일한 값을 가집니다.)</p>
+
+<p><code class="language-plaintext highlighter-rouge">site</code> 및 <code class="language-plaintext highlighter-rouge">sysconfig</code> 표준 라이브러리 모듈은 표준 라이브러리 및 헤더 파일이 <code class="language-plaintext highlighter-rouge">sys.base_prefix</code>/<code class="language-plaintext highlighter-rouge">sys.base_exec_prefix</code>를 기준으로 찾아지도록 수정됩니다. 반면 <code class="language-plaintext highlighter-rouge">site-packages</code> 디렉토리(<code class="language-plaintext highlighter-rouge">sysconfig</code> 용어로 “purelib” 및 “platlib”)는 여전히 <code class="language-plaintext highlighter-rouge">sys.prefix</code>/<code class="language-plaintext highlighter-rouge">sys.exec_prefix</code>를 기준으로 찾아집니다.</p>
+
+<p>따라서 가장 간단한 형태의 Python 가상 환경은 Python 바이너리의 복사본 또는 심볼릭 링크와 <code class="language-plaintext highlighter-rouge">pyvenv.cfg</code> 파일, 그리고 <code class="language-plaintext highlighter-rouge">site-packages</code> 디렉토리만으로 구성됩니다.</p>
+
+<h4 id="시스템-site-packages로부터의-격리-isolation-from-system-site-packages">시스템 <code class="language-plaintext highlighter-rouge">site-packages</code>로부터의 격리 (Isolation from system site-packages)</h4>
+
+<p>기본적으로 가상 환경은 시스템 수준 <code class="language-plaintext highlighter-rouge">site-packages</code> 디렉토리로부터 완전히 격리됩니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">pyvenv.cfg</code> 파일에 <code class="language-plaintext highlighter-rouge">include-system-site-packages</code> 키가 <code class="language-plaintext highlighter-rouge">true</code>(대소문자 구분 없음) 값으로 포함되어 있으면, <code class="language-plaintext highlighter-rouge">site</code> 모듈은 가상 환경 <code class="language-plaintext highlighter-rouge">site-packages</code> 디렉토리 이후에 시스템 <code class="language-plaintext highlighter-rouge">site</code> 디렉토리도 <code class="language-plaintext highlighter-rouge">sys.path</code>에 추가합니다. 따라서 시스템에 설치된 패키지를 여전히 가져올 수 있지만, 가상 환경에 설치된 동일한 이름의 패키지가 우선권을 가집니다.</p>
+
+<p>PEP 370 사용자 수준 <code class="language-plaintext highlighter-rouge">site-packages</code>는 <code class="language-plaintext highlighter-rouge">venv</code> 목적상 시스템 <code class="language-plaintext highlighter-rouge">site-packages</code>의 일부로 간주됩니다. 이는 격리된 <code class="language-plaintext highlighter-rouge">venv</code>에서는 사용할 수 없지만, <code class="language-plaintext highlighter-rouge">include-system-site-packages = true</code> <code class="language-plaintext highlighter-rouge">venv</code>에서는 사용할 수 있습니다.</p>
+
+<h4 id="가상-환경-생성-creating-virtual-environments">가상 환경 생성 (Creating virtual environments)</h4>
+
+<p>이 PEP는 가상 환경 생성을 구현하는 새로운 <code class="language-plaintext highlighter-rouge">venv</code> 모듈을 표준 라이브러리에 추가할 것을 제안합니다. 이 모듈은 <code class="language-plaintext highlighter-rouge">-m</code> 플래그를 사용하여 실행할 수 있습니다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 <span class="nt">-m</span> venv /path/to/new/virtual/environment
+</code></pre></div></div>
+
+<p>더 편리하게 사용하기 위해 <code class="language-plaintext highlighter-rouge">pyvenv</code> 설치 스크립트도 제공됩니다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pyvenv /path/to/new/virtual/environment
+</code></pre></div></div>
+
+<p>이 명령을 실행하면 대상 디렉토리가 생성되고(<code class="language-plaintext highlighter-rouge">pyvenv.cfg</code>) 파일이 배치되며, <code class="language-plaintext highlighter-rouge">home</code> 키는 명령이 실행된 Python 설치를 가리킵니다. 또한 <code class="language-plaintext highlighter-rouge">bin/</code> (Windows에서는 <code class="language-plaintext highlighter-rouge">Scripts</code>) 하위 디렉토리를 생성하여 <code class="language-plaintext highlighter-rouge">python3</code> 실행 파일의 복사본(또는 심볼릭 링크)과 패키징 표준 라이브러리 모듈의 <code class="language-plaintext highlighter-rouge">pysetup3</code> 스크립트(PyPI에서 새 <code class="language-plaintext highlighter-rouge">venv</code>로 패키지를 쉽게 설치할 수 있도록)를 포함합니다. 그리고 (초기에는 비어 있는) <code class="language-plaintext highlighter-rouge">lib/pythonX.Y/site-packages</code> (Windows에서는 <code class="language-plaintext highlighter-rouge">Lib\site-packages</code>) 하위 디렉토리를 생성합니다.</p>
+
+<p>대상 디렉토리가 이미 존재하는 경우 오류가 발생하지만, <code class="language-plaintext highlighter-rouge">--clear</code> 옵션을 제공하면 대상 디렉토리가 삭제되고 가상 환경 생성이 정상적으로 진행됩니다.</p>
+
+<p>생성된 <code class="language-plaintext highlighter-rouge">pyvenv.cfg</code> 파일에는 <code class="language-plaintext highlighter-rouge">include-system-site-packages</code> 키도 포함되며, <code class="language-plaintext highlighter-rouge">pyvenv</code>가 <code class="language-plaintext highlighter-rouge">--system-site-packages</code> 옵션으로 실행되면 <code class="language-plaintext highlighter-rouge">true</code>로, 기본적으로 <code class="language-plaintext highlighter-rouge">false</code>로 설정됩니다.</p>
+
+<p>여러 경로를 <code class="language-plaintext highlighter-rouge">pyvenv</code>에 제공할 수 있으며, 이 경우 주어진 옵션에 따라 각 제공된 경로에 동일한 <code class="language-plaintext highlighter-rouge">venv</code>가 생성됩니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">venv</code> 모듈은 POSIX 및 Windows 시스템용 “셸 활성화 스크립트”도 <code class="language-plaintext highlighter-rouge">venv</code>의 <code class="language-plaintext highlighter-rouge">bin</code> 또는 <code class="language-plaintext highlighter-rouge">Scripts</code> 디렉토리에 배치합니다. 이 스크립트는 단순히 가상 환경의 <code class="language-plaintext highlighter-rouge">bin</code> (또는 <code class="language-plaintext highlighter-rouge">Scripts</code>) 디렉토리를 사용자 셸 <code class="language-plaintext highlighter-rouge">PATH</code>의 맨 앞에 추가합니다. 이는 가상 환경을 사용하는 데 엄격하게 필요하지는 않지만(<code class="language-plaintext highlighter-rouge">venv</code>의 <code class="language-plaintext highlighter-rouge">python</code> 바이너리 또는 스크립트에 대한 명시적 경로를 사용할 수도 있기 때문에), 편리합니다.</p>
+
+<p>가상 환경에 서드파티 패키지가 설치되면 Python 모듈은 <code class="language-plaintext highlighter-rouge">site-packages</code> 디렉토리에, 실행 파일은 <code class="language-plaintext highlighter-rouge">bin/</code> 또는 <code class="language-plaintext highlighter-rouge">Scripts</code>에 배치됩니다.</p>
+
+<h4 id="sysconfig-설치-스키마-및-사용자-사이트-sysconfig-install-schemes-and-user-site">Sysconfig 설치 스키마 및 사용자 사이트 (Sysconfig install schemes and user-site)</h4>
+
+<p>이 접근 방식은 <code class="language-plaintext highlighter-rouge">venv</code>를 위한 새로운 <code class="language-plaintext highlighter-rouge">sysconfig</code> 설치 스키마를 도입하지 않기로 명시적으로 선택합니다. 대신 <code class="language-plaintext highlighter-rouge">sys.prefix</code>를 수정하여 <code class="language-plaintext highlighter-rouge">sys.prefix</code>에 기반한 기존 설치 스키마가 <code class="language-plaintext highlighter-rouge">venv</code>에서 단순히 작동하도록 합니다. <code class="language-plaintext highlighter-rouge">sys.prefix</code>와 관련 없는 경로를 가진 다른 설치 스키마(예: 사용자 사이트 스키마)로의 설치는 <code class="language-plaintext highlighter-rouge">venv</code>에 전혀 영향을 받지 않습니다.</p>
+
+<h4 id="복사본-대-심볼릭-링크-copies-versus-symlinks">복사본 대 심볼릭 링크 (Copies versus symlinks)</h4>
+
+<p>이 PEP의 기술은 복사되거나 심볼릭 링크된 Python 바이너리(및 Windows에서 필요한 기타 DLL)와 일반적으로 동일하게 작동합니다. 가능한 경우 심볼릭 링크가 더 좋지만, 기본 Python 설치가 업그레이드되는 경우 <code class="language-plaintext highlighter-rouge">venv</code>에 복사된 Python 실행 파일이 설치된 표준 라이브러리와 동기화되지 않아 수동 업그레이드가 필요할 수 있습니다.</p>
+
+<p>심볼릭 링크에는 몇 가지 크로스 플랫폼 어려움이 있습니다. 모든 Windows 버전이 심볼릭 링크를 지원하지는 않으며, 지원하는 버전에서도 심볼릭 링크를 생성하려면 종종 관리자 권한이 필요합니다. OS X 프레임워크 빌드의 Python에서 <code class="language-plaintext highlighter-rouge">sys.executable</code>은 실제 Python 바이너리를 실행하는 스텁에 불과합니다. 이 스텁을 심볼릭 링크하는 것은 작동하지 않으며, 복사해야 합니다.</p>
+
+<p>따라서 이 PEP는 Windows 및 OS X 프레임워크 빌드를 제외한 모든 플랫폼에서 바이너리를 심볼릭 링크할 것을 제안합니다. <code class="language-plaintext highlighter-rouge">--symlink</code> 옵션은 적절한 권한이 있는 경우 심볼릭 링크를 지원하는 Windows 버전에서 심볼릭 링크 사용을 강제하는 데 사용할 수 있습니다.</p>
+
+<p>Windows에서 <code class="language-plaintext highlighter-rouge">--symlink</code>를 사용하지 않으면, 기본 Python 설치가 업그레이드될 때 <code class="language-plaintext highlighter-rouge">venv</code>의 Python 바이너리 및 DLL을 업데이트해야 합니다. 그렇지 않으면 업그레이드된 표준 라이브러리와의 불일치 문제가 발생할 수 있습니다. <code class="language-plaintext highlighter-rouge">pyvenv</code> 스크립트는 기존 <code class="language-plaintext highlighter-rouge">venv</code>에 대한 이러한 업그레이드를 쉽게 수행하기 위한 <code class="language-plaintext highlighter-rouge">--upgrade</code> 옵션을 허용합니다.</p>
+
+<h4 id="인클루드-파일-include-files">인클루드 파일 (Include files)</h4>
+
+<p>현재 <code class="language-plaintext highlighter-rouge">virtualenv</code>는 인클루드 파일을 다음과 같이 처리합니다.</p>
+<ul>
+  <li>POSIX 시스템에서 설치된 Python의 인클루드 파일이 <code class="language-plaintext highlighter-rouge">${base_prefix}/include/pythonX.X</code>에 있는 경우, <code class="language-plaintext highlighter-rouge">virtualenv</code>는 <code class="language-plaintext highlighter-rouge">${venv}/include/</code>를 생성하고 <code class="language-plaintext highlighter-rouge">${base_prefix}/include/pythonX.X</code>를 <code class="language-plaintext highlighter-rouge">${venv}/include/pythonX.X</code>에 심볼릭 링크합니다.</li>
+  <li>Windows에서 Python의 인클루드 파일이 <code class="language-plaintext highlighter-rouge">{{ sys.prefix }}</code>/Include에 있고 심볼릭 링크를 안정적으로 사용할 수 없는 경우, <code class="language-plaintext highlighter-rouge">virtualenv</code>는 <code class="language-plaintext highlighter-rouge">{{ sys.prefix }}</code>/Include를 <code class="language-plaintext highlighter-rouge">${venv}/Include</code>로 복사합니다.</li>
+</ul>
+
+<p>이 PEP는 이와는 약간 다른 접근 방식을 제안합니다. 인클루드 파일을 <code class="language-plaintext highlighter-rouge">venv</code>에 심볼릭 링크하거나 복사하는 대신, 헤더 파일이 <code class="language-plaintext highlighter-rouge">prefix</code> 대신 <code class="language-plaintext highlighter-rouge">base_prefix</code>를 기준으로 항상 찾아지도록 <code class="language-plaintext highlighter-rouge">sysconfig</code> 스키마를 수정합니다. (또한 <code class="language-plaintext highlighter-rouge">venv</code> 내에 <code class="language-plaintext highlighter-rouge">include/</code> 디렉토리를 생성하여 설치 프로그램이 환경 내에 설치된 인클루드 파일을 배치할 수 있도록 합니다.)</p>
+
+<h4 id="api-api">API (API)</h4>
+
+<p>위에서 설명한 상위 수준 메서드는 서드파티 가상 환경 생성자가 필요에 따라 환경 생성을 사용자 정의할 수 있는 메커니즘을 제공하는 간단한 API를 사용합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">venv</code> 모듈에는 인스턴스화 시 다음 키워드 인수를 허용하는 <code class="language-plaintext highlighter-rouge">EnvBuilder</code> 클래스가 포함되어 있습니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">system_site_packages</code>: 시스템 Python <code class="language-plaintext highlighter-rouge">site-packages</code>를 환경에서 사용할 수 있는지 여부를 나타내는 부울 값입니다. 기본값은 <code class="language-plaintext highlighter-rouge">False</code>입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">clear</code>: <code class="language-plaintext highlighter-rouge">true</code>인 경우 예외를 발생시키는 대신 기존 대상 디렉토리를 삭제하는 부울 값입니다. 기본값은 <code class="language-plaintext highlighter-rouge">False</code>입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">symlinks</code>: Python 바이너리(및 필요한 DLL 또는 기타 바이너리, 예: <code class="language-plaintext highlighter-rouge">pythonw.exe</code>)를 복사하는 대신 심볼릭 링크를 시도할지 여부를 나타내는 부울 값입니다. 기본값은 <code class="language-plaintext highlighter-rouge">False</code>입니다.</li>
+</ul>
+
+<p>인스턴스화된 <code class="language-plaintext highlighter-rouge">env-builder</code>에는 <code class="language-plaintext highlighter-rouge">create</code> 메서드가 있으며, 이는 가상 환경을 포함할 대상 디렉토리의 경로(절대 경로 또는 현재 디렉토리에 대한 상대 경로)를 필수 인수로 받습니다. <code class="language-plaintext highlighter-rouge">create</code> 메서드는 지정된 디렉토리에 환경을 생성하거나 적절한 예외를 발생시킵니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">venv</code> 모듈은 편의를 위해 모듈 수준 <code class="language-plaintext highlighter-rouge">create</code> 함수도 제공합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">env_dir</span><span class="p">,</span> <span class="n">system_site_packages</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">clear</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">use_symlinks</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="n">builder</span> <span class="o">=</span> <span class="nc">EnvBuilder</span><span class="p">(</span>
+        <span class="n">system_site_packages</span><span class="o">=</span><span class="n">system_site_packages</span><span class="p">,</span>
+        <span class="n">clear</span><span class="o">=</span><span class="n">clear</span><span class="p">,</span>
+        <span class="n">use_symlinks</span><span class="o">=</span><span class="n">use_symlinks</span><span class="p">)</span>
+    <span class="n">builder</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="n">env_dir</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>서드파티 가상 환경 도구 개발자는 제공된 <code class="language-plaintext highlighter-rouge">EnvBuilder</code> 클래스를 기본 클래스로 자유롭게 사용할 수 있습니다. <code class="language-plaintext highlighter-rouge">EnvBuilder</code> 클래스의 <code class="language-plaintext highlighter-rouge">create</code> 메서드는 사용자 정의에 사용할 수 있는 훅을 보여줍니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">env_dir</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">
+    Create a virtualized Python environment in a directory.
+    :param env_dir: The target directory to create an environment in.
+    </span><span class="sh">"""</span>
+    <span class="n">env_dir</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="nf">abspath</span><span class="p">(</span><span class="n">env_dir</span><span class="p">)</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">create_directories</span><span class="p">(</span><span class="n">env_dir</span><span class="p">)</span>
+    <span class="n">self</span><span class="p">.</span><span class="nf">create_configuration</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+    <span class="n">self</span><span class="p">.</span><span class="nf">setup_python</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+    <span class="n">self</span><span class="p">.</span><span class="nf">post_setup</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">create_directories</code>, <code class="language-plaintext highlighter-rouge">create_configuration</code>, <code class="language-plaintext highlighter-rouge">setup_python</code>, <code class="language-plaintext highlighter-rouge">post_setup</code> 각 메서드는 오버라이드할 수 있습니다.</p>
+
+<h3 id="하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</h3>
+
+<h4 id="sysprefix-의미-분리-splitting-the-meanings-of-sysprefix"><code class="language-plaintext highlighter-rouge">sys.prefix</code> 의미 분리 (Splitting the meanings of sys.prefix)</h4>
+
+<p>이러한 방식의 가상 환경 도구는 현재 <code class="language-plaintext highlighter-rouge">sys.prefix</code>에 모두 포함되어 있는 두 가지 의미를 분리할 것을 제안합니다. 즉, “표준 라이브러리는 어디에 있습니까?”와 “서드파티 모듈을 설치해야 하는 <code class="language-plaintext highlighter-rouge">site-packages</code> 위치는 어디입니까?”라는 질문에 대한 답입니다.</p>
+
+<p>이 PEP는 <code class="language-plaintext highlighter-rouge">sys.prefix</code>가 가상 환경(여기서 <code class="language-plaintext highlighter-rouge">site-packages</code>가 발견됨)을 가리키고, <code class="language-plaintext highlighter-rouge">sys.base_prefix</code>는 표준 라이브러리 및 Python 헤더 파일을 가리키도록 하여 <code class="language-plaintext highlighter-rouge">sys.prefix</code>의 문서화된 정의를 수정하는 것을 선호합니다.</p>
+
+<p>이 선택에 대한 근거는 다음과 같습니다.</p>
+<ul>
+  <li>가상 환경의 더 큰 격리 측면에서 오류를 범하는 것이 좋습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">virtualenv</code>는 이미 <code class="language-plaintext highlighter-rouge">sys.prefix</code>를 가상 환경을 가리키도록 수정했으며, 실제로는 문제가 되지 않았습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">setuptools</code>/<code class="language-plaintext highlighter-rouge">distribute</code>에는 수정이 필요하지 않습니다.</li>
+</ul>
+
+<h4 id="다른-python-구현에-미치는-영향-impact-on-other-python-implementations">다른 Python 구현에 미치는 영향 (Impact on other Python implementations)</h4>
+
+<p>이 PEP의 변경 사항 대부분은 다른 Python 구현과 공유되는 표준 라이브러리에서 발생하며 문제가 되지 않을 것입니다.</p>
+
+<p>다른 Python 구현은 <code class="language-plaintext highlighter-rouge">pyvenv.cfg</code> 파일이 있는 경우 이를 찾고 구문 분석하는 것을 포함하여 인터프리터 부트스트랩의 새로운 <code class="language-plaintext highlighter-rouge">sys.prefix</code> 검색 동작을 복제해야 합니다.</p>
+
+<h3 id="참조-구현-reference-implementation">참조 구현 (Reference Implementation)</h3>
+
+<p>참조 구현은 CPython Mercurial 저장소의 클론에서 찾을 수 있습니다. 테스트하려면 <code class="language-plaintext highlighter-rouge">bin/pyvenv /path/to/new/venv</code>를 빌드하고 실행하여 가상 환경을 생성합니다.</p>
+
+<h3 id="저작권-copyright">저작권 (Copyright)</h3>
+
+<p>이 문서는 공개 도메인에 배치되었습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/404/" class="pagination--pager" title="[Final] PEP 404 - Python 2.8 Un-release Schedule
+">Previous</a>
+    
+    
+      <a href="/python/pep/406/" class="pagination--pager" title="[Withdrawn] PEP 406 - Improved Encapsulation of Import State
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

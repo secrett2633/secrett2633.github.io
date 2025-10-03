@@ -1,0 +1,769 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 370 - Per user site-packages directory | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 370: ‘Per user site-packages directory’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 370 - Per user site-packages directory">
+<meta property="og:url" content="http://localhost:4000/python/pep/370/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 370: ‘Per user site-packages directory’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T20:54:08+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T20:54:08+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/370/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 370 - Per user site-packages directory">
+    <meta itemprop="description" content="Python Enhancement Proposal 370: ‘Per user site-packages directory’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T20:54:08+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T20:54:08+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 370 - Per user site-packages directory
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T20:54:08+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-370--사용자별-site-packages-디렉터리">PEP 370 – 사용자별 site-packages 디렉터리</a><ul><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#도입-배경-rationale">도입 배경 (Rationale)</a></li><li><a href="#사양-specification">사양 (Specification)</a><ul><li><a href="#site-디렉터리-site-packages">site 디렉터리 (site-packages)</a></li><li><a href="#사용자-site-디렉터리-user-site-directory">사용자 site 디렉터리 (user site directory)</a></li><li><a href="#사용자-데이터-디렉터리-user-data-directory">사용자 데이터 디렉터리 (user data directory)</a></li><li><a href="#사용자-기본-디렉터리-user-base-directory">사용자 기본 디렉터리 (user base directory)</a></li><li><a href="#사용자-스크립트-디렉터리-user-script-directory">사용자 스크립트 디렉터리 (user script directory)</a></li><li><a href="#windows-관련-사항">Windows 관련 사항</a></li><li><a href="#unix-관련-사항">Unix 관련 사항</a></li><li><a href="#mac-os-x-관련-사항">Mac OS X 관련 사항</a></li></ul></li><li><a href="#구현-implementation">구현 (Implementation)</a></li><li><a href="#하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</a></li><li><a href="#참조-구현-reference-implementation">참조 구현 (Reference Implementation)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li><li><a href="#참고-자료-references">참고 자료 (References)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0370/">PEP 370 - Per user site-packages directory</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 11-Jan-2008</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-370--사용자별-site-packages-디렉터리">PEP 370 – 사용자별 site-packages 디렉터리</h1>
+
+<p><strong>작성자:</strong> Christian Heimes
+<strong>상태:</strong> Final
+<strong>유형:</strong> Standards Track
+<strong>생성일:</strong> 2008년 1월 11일
+<strong>Python 버전:</strong> 2.6, 3.0</p>
+
+<h2 id="개요-abstract">개요 (Abstract)</h2>
+
+<p>이 PEP는 사용자들이 자신의 홈 디렉터리에 Python 패키지를 로컬로 설치할 수 있도록, <strong>사용자별 <code class="language-plaintext highlighter-rouge">site-packages</code> 디렉터리</strong>를 새로 제안합니다.</p>
+
+<h2 id="도입-배경-rationale">도입 배경 (Rationale)</h2>
+
+<p>현재 Python 버전에는 사용자 홈 디렉터리에 패키지를 설치하는 통일된 방법이 없습니다 (Mac Framework 빌드 제외). 사용자들은 시스템 관리자에게 패키지 설치 또는 업데이트를 요청하거나, Virtual Python, Working Env, Virtual Env와 같은 다양한 임시 해결책(workaround) 중 하나를 사용해야 했습니다.</p>
+
+<p>이 PEP의 목표는 기존 도구들을 대체하거나 Python의 격리된 설치를 구현하는 것이 아닙니다. 단지 각 사용자를 위한 추가적인 <code class="language-plaintext highlighter-rouge">site-packages</code> 디렉터리라는 가장 일반적인 사용 사례를 구현하는 것입니다.</p>
+
+<p>이 기능은 <code class="language-plaintext highlighter-rouge">PYTHONPATH</code> 환경 변수를 사용하여 구현할 수 없습니다. 환경 변수는 단순히 <code class="language-plaintext highlighter-rouge">sys.path</code>의 시작 부분에 새 디렉터리를 추가하지만, 해당 디렉터리 내의 <code class="language-plaintext highlighter-rouge">.pth</code> 파일을 파싱(parse)하지 않습니다. 여러 애플리케이션과 Python <code class="language-plaintext highlighter-rouge">egg</code> 파일에는 완전히 기능을 갖춘 <code class="language-plaintext highlighter-rouge">site-packages</code> 경로가 필요합니다.</p>
+
+<h2 id="사양-specification">사양 (Specification)</h2>
+
+<h3 id="site-디렉터리-site-packages"><code class="language-plaintext highlighter-rouge">site</code> 디렉터리 (<code class="language-plaintext highlighter-rouge">site-packages</code>)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">sys.path</code>에 있는 디렉터리입니다. 일반 디렉터리와 달리, 이 디렉터리 내의 <code class="language-plaintext highlighter-rouge">.pth</code> 파일도 처리됩니다.</p>
+
+<h3 id="사용자-site-디렉터리-user-site-directory">사용자 <code class="language-plaintext highlighter-rouge">site</code> 디렉터리 (user site directory)</h3>
+
+<p>사용자의 홈 디렉터리 내에 있는 <code class="language-plaintext highlighter-rouge">site</code> 디렉터리입니다. 사용자 <code class="language-plaintext highlighter-rouge">site</code> 디렉터리는 특정 Python 버전에 종속됩니다. 경로는 주 버전(major)과 부 버전(minor)만을 포함하는 버전 번호를 포함합니다.</p>
+
+<ul>
+  <li><strong>Unix (Mac OS X 포함):</strong> <code class="language-plaintext highlighter-rouge">~/.local/lib/python2.6/site-packages</code></li>
+  <li><strong>Windows:</strong> <code class="language-plaintext highlighter-rouge">%APPDATA%/Python/Python26/site-packages</code></li>
+</ul>
+
+<h3 id="사용자-데이터-디렉터리-user-data-directory">사용자 데이터 디렉터리 (user data directory)</h3>
+
+<p>일반적으로 사용자 <code class="language-plaintext highlighter-rouge">site</code> 디렉터리의 상위 디렉터리입니다. <code class="language-plaintext highlighter-rouge">config</code> 파일, 문서, 이미지 및 번역과 같이 Python 버전에 특화된 데이터를 위한 공간입니다.</p>
+
+<ul>
+  <li><strong>Unix (Mac OS X 포함):</strong> <code class="language-plaintext highlighter-rouge">~/.local/lib/python2.6</code></li>
+  <li><strong>Windows:</strong> <code class="language-plaintext highlighter-rouge">%APPDATA%/Python/Python26</code></li>
+</ul>
+
+<h3 id="사용자-기본-디렉터리-user-base-directory">사용자 기본 디렉터리 (user base directory)</h3>
+
+<p>사용자의 홈 디렉터리 내에 위치합니다. 사용자 <code class="language-plaintext highlighter-rouge">site</code> 디렉터리와 사용자 <code class="language-plaintext highlighter-rouge">config</code> 디렉터리가 이 기본 디렉터리 안에 있습니다. 일부 시스템에서는 이 디렉터리가 타사 앱과 공유될 수 있습니다.</p>
+
+<ul>
+  <li><strong>Unix (Mac OS X 포함):</strong> <code class="language-plaintext highlighter-rouge">~/.local</code></li>
+  <li><strong>Windows:</strong> <code class="language-plaintext highlighter-rouge">%APPDATA%/Python</code></li>
+</ul>
+
+<h3 id="사용자-스크립트-디렉터리-user-script-directory">사용자 스크립트 디렉터리 (user script directory)</h3>
+
+<p>바이너리 및 스크립트 파일을 위한 디렉터리입니다. 여러 Python 버전에서 공유되며, 스크립트의 대상 디렉터리입니다.</p>
+
+<ul>
+  <li><strong>Unix (Mac OS X 포함):</strong> <code class="language-plaintext highlighter-rouge">~/.local/bin</code></li>
+  <li><strong>Windows:</strong> <code class="language-plaintext highlighter-rouge">%APPDATA%/Python/Scripts</code></li>
+</ul>
+
+<h3 id="windows-관련-사항">Windows 관련 사항</h3>
+
+<p>Windows에서는 Application Data 디렉터리 (일명 <code class="language-plaintext highlighter-rouge">APPDATA</code>)가 애플리케이션 데이터를 위한 가장 적절한 장소로 선택되었습니다. Microsoft는 소프트웨어가 <code class="language-plaintext highlighter-rouge">USERPROFILE</code>에 쓰지 않도록 권장하며, “내 문서” 역시 애플리케이션 데이터에 적합하지 않습니다. 코드는 Win32 API를 쿼리하는 대신 <code class="language-plaintext highlighter-rouge">%APPDATA%</code> 환경 변수를 사용합니다.</p>
+
+<p>애플리케이션 데이터 디렉터리는 로밍 프로필(roaming profile)의 일부입니다. 도메인 로그인이 있는 네트워크에서는 애플리케이션 데이터가 중앙 서버에서 복사되거나 복사될 수 있습니다. 이는 로그인 및 로그오프 속도를 저하시킬 수 있습니다. 사용자들은 <code class="language-plaintext highlighter-rouge">PYTHONUSERBASE</code>를 “<code class="language-plaintext highlighter-rouge">%HOMEDRIVE%%HOMEPATH%Applicata Data</code>”와 같은 값으로 설정하여 데이터를 서버에 유지할 수 있습니다. 더 자세한 정보는 로컬 관리자에게 문의해야 합니다.</p>
+
+<h3 id="unix-관련-사항">Unix 관련 사항</h3>
+
+<p>Unix에서는 <code class="language-plaintext highlighter-rouge">~/.python</code>보다 <code class="language-plaintext highlighter-rouge">~/.local</code>이 선택되었는데, 이는 이 디렉터리가 <code class="language-plaintext highlighter-rouge">/usr/local</code>과 유사하게 이미 다른 여러 프로그램에서 사용되고 있기 때문입니다.</p>
+
+<h3 id="mac-os-x-관련-사항">Mac OS X 관련 사항</h3>
+
+<p>Mac OS X에서도 Python은 <code class="language-plaintext highlighter-rouge">~/.local</code> 디렉터리를 사용합니다. Python의 Framework 빌드는 <code class="language-plaintext highlighter-rouge">~/Library/Python/2.6/site-packages</code>를 추가 검색 경로로 포함합니다.</p>
+
+<h2 id="구현-implementation">구현 (Implementation)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">site</code> 모듈에 새로운 메서드 <code class="language-plaintext highlighter-rouge">adduserpackage()</code>가 추가되어 적절한 디렉터리를 검색 경로에 추가합니다. Python이 시작될 때 디렉터리가 존재하지 않으면 추가되지 않습니다. 그러나 사용자 <code class="language-plaintext highlighter-rouge">site</code> 디렉터리와 사용자 <code class="language-plaintext highlighter-rouge">base</code> 디렉터리의 위치는 <code class="language-plaintext highlighter-rouge">distutils</code>를 위한 내부 변수에 저장됩니다.</p>
+
+<p>사용자 <code class="language-plaintext highlighter-rouge">site</code> 디렉터리는 시스템 <code class="language-plaintext highlighter-rouge">site</code> 디렉터리보다 먼저 추가되지만, Python의 검색 경로와 <code class="language-plaintext highlighter-rouge">PYTHONPATH</code> 다음입니다. 이 설정은 사용자가 시스템 관리자가 설치한 패키지보다 다른 버전의 패키지를 설치할 수 있도록 허용하지만, 사용자가 실수로 표준 라이브러리(stdlib) 모듈을 덮어쓰는 것을 방지합니다. <code class="language-plaintext highlighter-rouge">PYTHONPATH</code>를 사용하면 stdlib 모듈을 여전히 덮어쓸 수 있습니다.</p>
+
+<p>보안상의 이유로, 유효 사용자 ID 또는 그룹 ID가 프로세스 UID/GID와 같지 않은 경우 사용자 <code class="language-plaintext highlighter-rouge">site</code> 디렉터리는 <code class="language-plaintext highlighter-rouge">sys.path</code>에 추가되지 않습니다. 이는 <code class="language-plaintext highlighter-rouge">suid</code> 애플리케이션에 대한 코드 주입에 대한 추가적인 장벽입니다. 그러나 Python <code class="language-plaintext highlighter-rouge">suid</code> 스크립트는 항상 <code class="language-plaintext highlighter-rouge">-E</code> 및 <code class="language-plaintext highlighter-rouge">-s</code> 옵션을 사용해야 하며, 그렇지 않으면 사용자가 자신의 코드를 몰래 삽입할 수 있습니다.</p>
+
+<p>사용자 <code class="language-plaintext highlighter-rouge">site</code> 디렉터리는 새로운 옵션 <code class="language-plaintext highlighter-rouge">-s</code> 또는 환경 변수 <code class="language-plaintext highlighter-rouge">PYTHONNOUSERSITE</code>를 통해 비활성화할 수 있습니다. 이 기능은 <code class="language-plaintext highlighter-rouge">site.ENABLE_USER_SITE</code>를 <code class="language-plaintext highlighter-rouge">False</code>로 설정하여 전역적으로 비활성화할 수 있습니다. 이는 <code class="language-plaintext highlighter-rouge">site.py</code>를 편집하여 설정해야 하며, <code class="language-plaintext highlighter-rouge">sitecustomize.py</code> 또는 그 이후에는 변경할 수 없습니다.</p>
+
+<p>사용자 <code class="language-plaintext highlighter-rouge">base</code> 디렉터리의 경로는 환경 변수 <code class="language-plaintext highlighter-rouge">PYTHONUSERBASE</code>로 덮어쓸 수 있습니다. <code class="language-plaintext highlighter-rouge">PYTHONUSERBASE</code>가 설정되지 않았거나 비어 있는 경우 기본 위치가 사용됩니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">distutils.command.install</code> (<code class="language-plaintext highlighter-rouge">setup.py install</code>)은 사용자 <code class="language-plaintext highlighter-rouge">site</code> 디렉터리에 패키지를 설치하기 위한 새로운 인자 <code class="language-plaintext highlighter-rouge">--user</code>를 얻습니다. 필요한 디렉터리는 필요할 때 생성됩니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">distutils.command.build_ext</code> (<code class="language-plaintext highlighter-rouge">setup.py build_ext</code>)는 새로운 인자 <code class="language-plaintext highlighter-rouge">--user</code>를 얻으며, 이는 사용자 <code class="language-plaintext highlighter-rouge">base</code> 디렉터리의 <code class="language-plaintext highlighter-rouge">include/</code> 및 <code class="language-plaintext highlighter-rouge">lib/</code> 디렉터리를 헤더 파일 및 라이브러리 검색 경로에 추가합니다. 또한 <code class="language-plaintext highlighter-rouge">lib/</code> 디렉터리를 <code class="language-plaintext highlighter-rouge">rpath</code>에 추가합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">site</code> 모듈은 사용자 <code class="language-plaintext highlighter-rouge">base</code> 또는 사용자 <code class="language-plaintext highlighter-rouge">site</code> 디렉터리의 경로를 표준 출력으로 인쇄하기 위한 두 가지 인자 <code class="language-plaintext highlighter-rouge">--user-base</code>와 <code class="language-plaintext highlighter-rouge">--user-site</code>를 얻습니다. 이 기능은 스크립팅을 위한 것으로, 예를 들어 <code class="language-plaintext highlighter-rouge">./configure --prefix $(python2.5 -m site --user-base)</code>와 같이 사용될 수 있습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">distutils.sysconfig</code>는 <code class="language-plaintext highlighter-rouge">site</code>의 private 변수에 접근하는 메서드를 얻게 될 것입니다. (아직 구현되지 않음)</p>
+
+<p>Windows 업데이터도 업데이트해야 합니다. 이는 새 Explorer 창에서 사용자 <code class="language-plaintext highlighter-rouge">site</code> 디렉터리를 여는 메뉴 항목을 생성해야 합니다.</p>
+
+<h2 id="하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</h2>
+
+<p>확정되지 않음 (TBD)</p>
+
+<h2 id="참조-구현-reference-implementation">참조 구현 (Reference Implementation)</h2>
+
+<p>참조 구현은 버그 트래커에서 확인할 수 있습니다.</p>
+
+<h2 id="저작권-copyright">저작권 (Copyright)</h2>
+
+<p>이 문서는 퍼블릭 도메인에 공개되었습니다.</p>
+
+<h2 id="참고-자료-references">참고 자료 (References)</h2>
+
+<ul>
+  <li>Virtual Python</li>
+  <li>Working Env</li>
+  <li>Virtual Env</li>
+  <li>참조 구현 (reference implementation)</li>
+  <li>MSDN: CSIDL</li>
+  <li>사용자별 <code class="language-plaintext highlighter-rouge">site-packages</code> 디렉터리에 대한 초기 제안</li>
+  <li><code class="language-plaintext highlighter-rouge">~/.local/</code> 제안</li>
+  <li>APPDATA 토론</li>
+  <li>보안 문제 및 <code class="language-plaintext highlighter-rouge">-s</code> 옵션</li>
+  <li><code class="language-plaintext highlighter-rouge">bin</code> 디렉터리에 대한 논의</li>
+  <li>freedesktop.org XGD basedir 사양에서 <code class="language-plaintext highlighter-rouge">~/.local</code> 언급</li>
+  <li>Mac용 <code class="language-plaintext highlighter-rouge">~/.local</code> 및 <code class="language-plaintext highlighter-rouge">usercustomize</code> 파일</li>
+  <li>Windows의 로밍 프로필</li>
+</ul>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/369/" class="pagination--pager" title="[Withdrawn] PEP 369 - Post import hooks
+">Previous</a>
+    
+    
+      <a href="/python/pep/371/" class="pagination--pager" title="[Final] PEP 371 - Addition of the multiprocessing package to the standard library
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

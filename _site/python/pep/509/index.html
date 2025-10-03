@@ -1,0 +1,934 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Superseded] PEP 509 - Add a private version to dict | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 509: ‘Add a private version to dict’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Superseded] PEP 509 - Add a private version to dict">
+<meta property="og:url" content="http://localhost:4000/python/pep/509/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 509: ‘Add a private version to dict’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T22:55:06+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T22:55:06+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/509/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Superseded] PEP 509 - Add a private version to dict">
+    <meta itemprop="description" content="Python Enhancement Proposal 509: ‘Add a private version to dict’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T22:55:06+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T22:55:06+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Superseded] PEP 509 - Add a private version to dict
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T22:55:06+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-509--dict에-private-버전-추가">PEP 509 – dict에 Private 버전 추가</a><ul><li><a href="#초록-abstract">초록 (Abstract)</a></li><li><a href="#배경-rationale">배경 (Rationale)</a></li><li><a href="#가드-예시-guard-example">가드 예시 (Guard example)</a></li><li><a href="#dict-버전-활용-usage-of-the-dict-version">dict 버전 활용 (Usage of the dict version)</a><ul><li><a href="#메서드-호출-속도-향상-speedup-method-calls">메서드 호출 속도 향상 (Speedup method calls)</a></li><li><a href="#가드를-이용한-특수화된-함수-specialized-functions-using-guards">가드를 이용한 특수화된 함수 (Specialized functions using guards)</a></li><li><a href="#pyjion">Pyjion</a></li><li><a href="#cython">Cython</a></li><li><a href="#unladen-swallow">Unladen Swallow</a></li></ul></li><li><a href="#변경-사항-changes">변경 사항 (Changes)</a></li><li><a href="#하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</a></li><li><a href="#구현-및-성능-implementation-and-performance">구현 및 성능 (Implementation and Performance)</a></li><li><a href="#정수-오버플로우-integer-overflow">정수 오버플로우 (Integer overflow)</a></li><li><a href="#대안-alternatives">대안 (Alternatives)</a><ul><li><a href="#python-레벨에서-읽기-전용-__version__-속성으로-버전-노출-expose-the-version-at-python-level-as-a-read-only-__version__-property">Python 레벨에서 읽기 전용 __version__ 속성으로 버전 노출 (Expose the version at Python level as a read-only __version__ property)</a></li><li><a href="#각-딕셔너리-엔트리에-버전-추가-add-a-version-to-each-dict-entry">각 딕셔너리 엔트리에 버전 추가 (Add a version to each dict entry)</a></li><li><a href="#새로운-dict-하위-타입-추가-add-a-new-dict-subtype">새로운 dict 하위 타입 추가 (Add a new dict subtype)</a></li></ul></li><li><a href="#선행-연구-prior-art">선행 연구 (Prior Art)</a><ul><li><a href="#메서드-캐시-및-타입-버전-태그-method-cache-and-type-version-tag">메서드 캐시 및 타입 버전 태그 (Method cache and type version tag)</a></li><li><a href="#globals--builtins-캐시-globals--builtins-cache">Globals / builtins 캐시 (Globals / builtins cache)</a></li><li><a href="#cached-globalsbuiltins-lookup-캐시된-전역내장-조회">Cached globals+builtins lookup (캐시된 전역+내장 조회)</a></li><li><a href="#guard-against-changing-dict-during-iteration-반복-중-딕셔너리-변경-방지">Guard against changing dict during iteration (반복 중 딕셔너리 변경 방지)</a></li><li><a href="#pysizer">PySizer</a></li></ul></li><li><a href="#논의-discussion">논의 (Discussion)</a></li><li><a href="#수락-acceptance">수락 (Acceptance)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0509/">PEP 509 - Add a private version to dict</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Superseded</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 04-Jan-2016</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-509--dict에-private-버전-추가">PEP 509 – dict에 Private 버전 추가</h1>
+
+<h2 id="초록-abstract">초록 (Abstract)</h2>
+<p>이 PEP는 내장 <code class="language-plaintext highlighter-rouge">dict</code> 타입에 새로운 private 버전을 추가할 것을 제안합니다. 이 버전은 각 딕셔너리 생성 시, 그리고 각 딕셔너리 변경 시마다 증가하여, 네임스페이스(namespace)에 대한 빠른 가드(guard)를 구현하는 데 사용됩니다.</p>
+
+<h2 id="배경-rationale">배경 (Rationale)</h2>
+<p>Python에서 내장 <code class="language-plaintext highlighter-rouge">dict</code> 타입은 다양한 명령어에서 사용됩니다. 예를 들어, <code class="language-plaintext highlighter-rouge">LOAD_GLOBAL</code> 명령어는 전역 네임스페이스나 내장(builtins) 네임스페이스에서 변수를 찾습니다 (두 번의 <code class="language-plaintext highlighter-rouge">dict</code> 조회). Python은 <code class="language-plaintext highlighter-rouge">builtins</code> 네임스페이스, <code class="language-plaintext highlighter-rouge">globals</code> 네임스페이스, 타입 네임스페이스, 인스턴스 네임스페이스 등에서 <code class="language-plaintext highlighter-rouge">dict</code>를 활용합니다. (함수의) 로컬 네임스페이스는 일반적으로 배열로 최적화되지만, <code class="language-plaintext highlighter-rouge">dict</code>가 될 수도 있습니다.</p>
+
+<p>Python은 거의 모든 것이 런타임에 수정될 수 있기 때문에 최적화하기 어렵습니다. 내장 함수, 함수 코드, 전역 변수, 로컬 변수 등이 변경될 수 있기 때문입니다. Python의 의미론(semantics)을 존중하면서 최적화를 구현하려면 “무언가가 변경될 때”를 감지해야 합니다. 이러한 검사를 “가드(guards)”라고 부릅니다.</p>
+
+<p>최적화의 속도 향상은 가드 검사의 속도에 달려 있습니다. 이 PEP는 네임스페이스에 대한 빠른 가드를 구현하기 위해 딕셔너리에 private 버전을 추가할 것을 제안합니다.</p>
+
+<p>대부분의 네임스페이스에서 딕셔너리 버전이 변경되지 않는 일반적인 경우, 딕셔너리 조회를 건너뛸 수 있습니다. 버전은 전역적으로(globally) 고유하므로, 버전을 확인하는 것만으로 네임스페이스 딕셔너리가 새 딕셔너리로 교체되지 않았는지 확인할 수 있습니다.</p>
+
+<p>딕셔너리 버전이 변경되지 않을 때, 가드의 성능은 감시하는 딕셔너리 엔트리의 수에 의존하지 않습니다. 복잡도는 O(1)입니다.</p>
+
+<p>최적화의 예시로, 전역 변수의 값을 함수 상수로 복사하는 것을 들 수 있습니다. 이 최적화는 전역 변수가 복사된 후 수정되었는지 확인하기 위해 전역 변수에 대한 가드를 필요로 합니다. 전역 변수가 수정되지 않으면, 함수는 캐시된 복사본을 사용합니다. 전역 변수가 수정되면, 함수는 일반 조회를 사용하고, 다음 함수 호출에 대한 가드 검사 오버헤드를 제거하기 위해 함수를 역최적화(deoptimize)할 수도 있습니다.</p>
+
+<p>함수를 전문화하기 위한 가드의 구체적인 사용법과 Python 정적 최적화 도구에 대한 더 일반적인 배경은 <a href="https://peps.python.org/pep-0510/">PEP 510 – Specialized functions with guards</a>를 참조하세요.</p>
+
+<h2 id="가드-예시-guard-example">가드 예시 (Guard example)</h2>
+<p>가상의 <code class="language-plaintext highlighter-rouge">dict_get_version(dict)</code> 함수를 사용하여 딕셔너리 엔트리가 수정되었는지 (생성, 업데이트 또는 삭제) 확인하는 빠른 가드의 의사 코드(pseudo-code)는 다음과 같습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">UNSET</span> <span class="o">=</span> <span class="nf">object</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">GuardDictKey</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="nb">dict</span> <span class="o">=</span> <span class="nb">dict</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">key</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">UNSET</span><span class="p">)</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">version</span> <span class="o">=</span> <span class="nf">dict_get_version</span><span class="p">(</span><span class="nb">dict</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">딕셔너리 엔트리가 변경되지 않았고 딕셔너리가 교체되지 않았다면 True를 반환합니다.</span><span class="sh">"""</span>
+        <span class="c1"># 딕셔너리의 버전을 읽습니다.
+</span>        <span class="n">version</span> <span class="o">=</span> <span class="nf">dict_get_version</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="nb">dict</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">version</span> <span class="o">==</span> <span class="n">self</span><span class="p">.</span><span class="n">version</span><span class="p">:</span>
+            <span class="c1"># 빠른 경로(Fast-path): 딕셔너리 조회 생략
+</span>            <span class="k">return</span> <span class="bp">True</span>
+
+        <span class="c1"># 딕셔너리에서 값을 조회합니다.
+</span>        <span class="n">value</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nb">dict</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">key</span><span class="p">,</span> <span class="n">UNSET</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="n">self</span><span class="p">.</span><span class="n">value</span><span class="p">:</span>
+            <span class="c1"># 다른 키가 수정되었습니다:
+</span>            <span class="c1"># 새 딕셔너리 버전을 캐시합니다.
+</span>            <span class="n">self</span><span class="p">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">version</span>
+            <span class="k">return</span> <span class="bp">True</span>
+
+        <span class="c1"># 키가 수정되었습니다.
+</span>        <span class="k">return</span> <span class="bp">False</span>
+</code></pre></div></div>
+
+<h2 id="dict-버전-활용-usage-of-the-dict-version"><code class="language-plaintext highlighter-rouge">dict</code> 버전 활용 (Usage of the dict version)</h2>
+
+<h3 id="메서드-호출-속도-향상-speedup-method-calls">메서드 호출 속도 향상 (Speedup method calls)</h3>
+<p>Yury Selivanov는 메서드 호출을 최적화하는 패치를 작성했습니다. 이 패치는 “ceval에 opcode별 캐시 구현” 패치에 의존하며, 이 패치는 <code class="language-plaintext highlighter-rouge">globals</code> 딕셔너리 또는 <code class="language-plaintext highlighter-rouge">builtins</code> 딕셔너리가 수정된 경우 캐시를 무효화하기 위해 딕셔너리 버전을 필요로 합니다.</p>
+
+<p>캐시는 딕셔너리 버전이 전역적으로 고유해야 합니다. 예를 들어, <code class="language-plaintext highlighter-rouge">exec()</code> 함수를 <code class="language-plaintext highlighter-rouge">globals</code> 매개변수와 함께 사용하여 한 네임스페이스에서 함수를 정의하고 다른 네임스페이스에서 호출하는 것이 가능합니다. 이 경우 <code class="language-plaintext highlighter-rouge">globals</code> 딕셔너리가 교체되므로 캐시도 무효화되어야 합니다.</p>
+
+<h3 id="가드를-이용한-특수화된-함수-specialized-functions-using-guards">가드를 이용한 특수화된 함수 (Specialized functions using guards)</h3>
+<p>PEP 510은 가드를 사용한 특수화된 함수를 지원하는 API를 제안합니다. 이는 Python의 의미론을 깨지 않고 Python을 위한 정적 최적화 도구를 구현할 수 있게 합니다.</p>
+
+<p>FAT Python 프로젝트의 <code class="language-plaintext highlighter-rouge">fatoptimizer</code>는 정적 Python 최적화 도구의 한 예입니다. 이 도구는 네임스페이스에 대한 가드를 필요로 하는 많은 최적화를 구현합니다.</p>
+<ul>
+  <li>순수(pure) <code class="language-plaintext highlighter-rouge">builtins</code> 호출: <code class="language-plaintext highlighter-rouge">len("abc")</code>를 <code class="language-plaintext highlighter-rouge">3</code>으로 대체하려면, <code class="language-plaintext highlighter-rouge">builtins.__dict__['len']</code>과 <code class="language-plaintext highlighter-rouge">globals()['len']</code>에 대한 가드가 필요합니다.</li>
+  <li>루프 언롤링(Loop unrolling): <code class="language-plaintext highlighter-rouge">for i in range(...): ...</code>와 같은 루프를 언롤링하려면, <code class="language-plaintext highlighter-rouge">builtins.__dict__['range']</code>와 <code class="language-plaintext highlighter-rouge">globals()['range']</code>에 대한 가드가 필요합니다.</li>
+</ul>
+
+<h3 id="pyjion">Pyjion</h3>
+<p>Pyjion의 두 주요 개발자 중 한 명인 Brett Cannon에 따르면, Pyjion은 최적화를 구현하기 위해 딕셔너리 버전의 이점을 얻을 수 있습니다. Pyjion은 CoreCLR (Microsoft .NET Core 런타임) 기반의 Python용 JIT 컴파일러입니다.</p>
+
+<h3 id="cython">Cython</h3>
+<p>Cython도 최적화를 구현하기 위해 딕셔너리 버전의 이점을 얻을 수 있습니다. Cython은 Python 프로그래밍 언어와 확장된 Cython 프로그래밍 언어 모두를 위한 최적화 정적 컴파일러입니다.</p>
+
+<h3 id="unladen-swallow">Unladen Swallow</h3>
+<p>딕셔너리 버전이 명시적으로 언급되지는 않았지만, <code class="language-plaintext highlighter-rouge">globals</code> 및 <code class="language-plaintext highlighter-rouge">builtins</code> 조회 최적화는 Unladen Swallow 계획의 일부였습니다. (출처: Unladen Swallow ProjectPlan). Unladen Swallow는 LLVM으로 구현된 JIT 컴파일러를 추가한 CPython 2.6.1의 포크였습니다. 이 프로젝트는 2011년에 중단되었습니다.</p>
+
+<h2 id="변경-사항-changes">변경 사항 (Changes)</h2>
+<p><code class="language-plaintext highlighter-rouge">PyDictObject</code> 구조체에 C 타입 <code class="language-plaintext highlighter-rouge">PY_UINT64_T</code> (64비트 부호 없는 정수)를 가진 <code class="language-plaintext highlighter-rouge">ma_version_tag</code> 필드를 추가합니다. 또한 전역 딕셔너리 버전도 추가합니다.</p>
+
+<p>딕셔너리가 생성될 때마다 전역 버전은 증가하고 딕셔너리 버전은 전역 버전으로 초기화됩니다.</p>
+
+<p>딕셔너리 내용이 수정될 때마다 전역 버전은 증가하고 딕셔너리 버전으로 복사되어야 합니다. 내용을 수정할 수 있는 딕셔너리 메서드는 다음과 같습니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">clear()</code></li>
+  <li><code class="language-plaintext highlighter-rouge">pop(key)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">popitem()</code></li>
+  <li><code class="language-plaintext highlighter-rouge">setdefault(key, value)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">__delitem__(key)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">__setitem__(key, value)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">update(...)</code></li>
+</ul>
+
+<p>딕셔너리 메서드가 내용을 변경하지 않을 때 버전을 증가시킬지 여부는 Python 구현에 맡겨집니다. Python 구현은 가드에서 딕셔너리 조회를 피하기 위해 버전을 증가시키지 않기로 결정할 수 있습니다. 딕셔너리 메서드가 내용을 변경하지 않는 경우의 예시는 다음과 같습니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">clear()</code>: 딕셔너리가 이미 비어 있는 경우</li>
+  <li><code class="language-plaintext highlighter-rouge">pop(key)</code>: 키가 존재하지 않는 경우</li>
+  <li><code class="language-plaintext highlighter-rouge">popitem()</code>: 딕셔너리가 비어 있는 경우</li>
+  <li><code class="language-plaintext highlighter-rouge">setdefault(key, value)</code>: 키가 이미 존재하는 경우</li>
+  <li><code class="language-plaintext highlighter-rouge">__delitem__(key)</code>: 키가 존재하지 않는 경우</li>
+  <li><code class="language-plaintext highlighter-rouge">__setitem__(key, value)</code>: 새 값이 현재 값과 동일한 경우</li>
+  <li><code class="language-plaintext highlighter-rouge">update()</code>: 인자 없이 호출되거나 새 값이 현재 값과 동일한 경우</li>
+</ul>
+
+<p>키를 이전 값과 동일한 새 값으로 설정하는 것도 딕셔너리 내용을 수정하는 작업으로 간주됩니다.</p>
+
+<p>두 개의 서로 다른 빈 딕셔너리는 버전만으로 딕셔너리를 식별할 수 있도록 다른 버전을 가져야 합니다. 이는 딕셔너리에 대한 강력한 참조(strong reference)를 저장하지 않고도 네임스페이스가 교체되지 않았는지 가드에서 확인할 수 있게 합니다. 빌린 참조(borrowed reference)를 사용하는 것은 작동하지 않습니다. 이전 딕셔너리가 파괴되면 새 딕셔너리가 동일한 메모리 주소에 할당될 수 있기 때문입니다. 참고로 딕셔너리는 약한 참조(weak references)를 지원하지 않습니다.</p>
+
+<p>버전 증가는 원자적(atomic)이어야 합니다. CPython에서는 GIL(Global Interpreter Lock)이 이미 <code class="language-plaintext highlighter-rouge">dict</code> 메서드를 보호하여 변경 사항을 원자적으로 만듭니다.</p>
+
+<p>가상의 <code class="language-plaintext highlighter-rouge">dict_get_version(dict)</code> 함수를 사용하는 예시는 다음과 같습니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nf">dict_get_version</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="mi">100</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="sh">'</span><span class="s">key</span><span class="sh">'</span><span class="p">]</span> <span class="o">=</span> <span class="sh">'</span><span class="s">value</span><span class="sh">'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nf">dict_get_version</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="mi">101</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="sh">'</span><span class="s">key</span><span class="sh">'</span><span class="p">]</span> <span class="o">=</span> <span class="sh">'</span><span class="s">new value</span><span class="sh">'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nf">dict_get_version</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="mi">102</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">del</span> <span class="n">d</span><span class="p">[</span><span class="sh">'</span><span class="s">key</span><span class="sh">'</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nf">dict_get_version</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="mi">103</span>
+</code></pre></div></div>
+
+<p>이 필드는 정수 오버플로우(integer overflow) 후에 잘못될 수 있는 <code class="language-plaintext highlighter-rouge">version &lt;= old_version</code> 대신 <code class="language-plaintext highlighter-rouge">version_tag == old_version_tag</code>를 사용하여 비교하도록 제안하기 위해 <code class="language-plaintext highlighter-rouge">ma_version</code> 대신 <code class="language-plaintext highlighter-rouge">ma_version_tag</code>로 명명되었습니다.</p>
+
+<h2 id="하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</h2>
+<p><code class="language-plaintext highlighter-rouge">PyDictObject</code> 구조체는 안정적인 ABI(Application Binary Interface)의 일부가 아니며, 새 딕셔너리 버전이 Python 스코프에 노출되지 않으므로 변경 사항은 하위 호환됩니다.</p>
+
+<h2 id="구현-및-성능-implementation-and-performance">구현 및 성능 (Implementation and Performance)</h2>
+<p>이 PEP를 구현하는 패치는 <a href="https://bugs.python.org/issue26058">issue #26058: PEP 509: Add ma_version_tag to PyDictObject</a>에 포함되어 있습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">pybench</code> 및 <code class="language-plaintext highlighter-rouge">timeit</code> 마이크로벤치마크에서 이 패치는 딕셔너리 작업에 오버헤드를 추가하지 않는 것으로 보입니다. 예를 들어, 다음 <code class="language-plaintext highlighter-rouge">timeit</code> 마이크로벤치마크는 변경 전후 모두 318나노초가 걸립니다.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3.6 <span class="nt">-m</span> timeit <span class="s1">'d={1: 0}; d=0; d=0; d=0; del d; del d; d.clear()'</span>
+</code></pre></div></div>
+
+<p>버전이 변경되지 않을 때 <code class="language-plaintext highlighter-rouge">PyDict_GetItem()</code>은 딕셔너리 조회에 14.8ns가 걸리는 반면, 가드 검사는 3.8ns만 걸립니다. 또한 가드는 여러 키를 감시할 수 있습니다. 예를 들어, 함수에서 10개의 전역 변수를 사용하는 최적화의 경우, 10번의 딕셔너리 조회는 148ns가 소요되지만, 버전이 변경되지 않을 때 가드는 여전히 3.8ns만 소요됩니다 (39배 빠름).</p>
+
+<p><code class="language-plaintext highlighter-rouge">fat</code> 모듈은 이러한 가드를 구현합니다. <code class="language-plaintext highlighter-rouge">fat.GuardDict</code>는 딕셔너리 버전을 기반으로 합니다.</p>
+
+<h2 id="정수-오버플로우-integer-overflow">정수 오버플로우 (Integer overflow)</h2>
+<p>구현은 버전을 저장하기 위해 C 타입 <code class="language-plaintext highlighter-rouge">PY_UINT64_T</code>를 사용합니다. 이는 64비트 부호 없는 정수입니다. C 코드는 <code class="language-plaintext highlighter-rouge">version++</code>를 사용합니다. C 표준에 따라 정수 오버플로우 시 버전은 0으로 래핑됩니다 (그리고 계속 증가합니다).</p>
+
+<p>정수 오버플로우 후, 감시하던 딕셔너리 키가 수정되었음에도 불구하고 가드가 성공할 수 있습니다. 이 버그는 이전 가드 검사 이후 정확히 2^64번의 딕셔너리 생성 또는 수정이 있었을 때만 가드 검사에서 발생합니다.</p>
+
+<p>딕셔너리가 1나노초마다 수정된다고 가정하면, 2^64번의 수정은 584년 이상 걸립니다. 32비트 버전을 사용하면 4초밖에 걸리지 않습니다. 그래서 32비트 시스템에서도 64비트 부호 없는 타입이 사용됩니다. C 레벨에서의 딕셔너리 조회는 14.8ns가 걸립니다.</p>
+
+<p>584년에 한 번 발생하는 버그의 위험은 허용 가능합니다.</p>
+
+<h2 id="대안-alternatives">대안 (Alternatives)</h2>
+
+<h3 id="python-레벨에서-읽기-전용-__version__-속성으로-버전-노출-expose-the-version-at-python-level-as-a-read-only-__version__-property">Python 레벨에서 읽기 전용 <code class="language-plaintext highlighter-rouge">__version__</code> 속성으로 버전 노출 (Expose the version at Python level as a read-only <code class="language-plaintext highlighter-rouge">__version__</code> property)</h3>
+<p>이 PEP의 첫 번째 버전은 딕셔너리 버전을 Python 레벨에서 읽기 전용 <code class="language-plaintext highlighter-rouge">__version__</code> 속성으로 노출하고, <code class="language-plaintext highlighter-rouge">collections.UserDict</code>에도 이 속성을 추가할 것을 제안했습니다 (이 타입은 <code class="language-plaintext highlighter-rouge">dict</code> API를 모방해야 하므로).</p>
+
+<p>여기에는 여러 가지 문제가 있습니다.</p>
+<ul>
+  <li>일관성을 유지하고 예기치 않은 문제를 피하려면 모든 매핑(mapping) 타입에 버전을 추가해야 합니다. 실제로 버전은 <code class="language-plaintext highlighter-rouge">dict</code> 타입에서만 필요하므로, 새로운 매핑 타입을 구현하는 것은 이점 없이 추가 작업만 필요하게 됩니다.</li>
+  <li>모든 Python 구현이 이 새로운 속성을 구현해야 하며, 다른 구현들은 딕셔너리 버전을 전혀 사용하지 않을 수도 있는데 더 많은 작업을 부여하게 됩니다.</li>
+  <li>Python 레벨에서 딕셔너리 버전을 노출하면 성능에 대한 잘못된 가정을 초래할 수 있습니다. Python 레벨에서 <code class="language-plaintext highlighter-rouge">dict.__version__</code>을 확인하는 것은 딕셔너리 조회보다 빠르지 않습니다. Python에서 딕셔너리 조회는 48.7ns의 비용이 들고, 버전 확인은 47.5ns의 비용이 들므로 차이는 1.2ns (3%)에 불과합니다.
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>python3.6 <span class="nt">-m</span> timeit <span class="nt">-s</span> <span class="s1">'d = {str(i):i for i in range(100)}'</span> <span class="s1">'d["33"] == 33'</span>
+10000000 loops, best of 3: 0.0487 usec per loop
+<span class="nv">$ </span>python3.6 <span class="nt">-m</span> timeit <span class="nt">-s</span> <span class="s1">'d = {str(i):i for i in range(100)}'</span> <span class="s1">'d.__version__ == 100'</span>
+10000000 loops, best of 3: 0.0475 usec per loop
+</code></pre></div>    </div>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">__version__</code>은 정수 오버플로우 시 래핑될 수 있습니다. 이는 오류를 유발하기 쉽습니다. <code class="language-plaintext highlighter-rouge">dict.__version__ &lt;= guard_version</code>은 잘못되었고, 정수 오버플로우에 대한 버그 위험을 줄이기 위해 (실제로 정수 오버플로우가 발생할 가능성은 낮지만) <code class="language-plaintext highlighter-rouge">dict.__version__ == guard_version</code>을 대신 사용해야 합니다.</li>
+</ul>
+
+<p>속성 이름에 대한 필수적인 ‘bikeshedding’(사소한 것에 대한 불필요한 논쟁)이 있었습니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">__cache_token__</code>: Alyssa Coghlan이 제안한 이름으로, <code class="language-plaintext highlighter-rouge">abc.get_cache_token()</code>에서 유래했습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">__version__</code></li>
+  <li><code class="language-plaintext highlighter-rouge">__version_tag__</code></li>
+  <li><code class="language-plaintext highlighter-rouge">__timestamp__</code></li>
+</ul>
+
+<h3 id="각-딕셔너리-엔트리에-버전-추가-add-a-version-to-each-dict-entry">각 딕셔너리 엔트리에 버전 추가 (Add a version to each dict entry)</h3>
+<p>딕셔너리당 하나의 버전은 값이 예상보다 오래 살아있게 만들 수 있는 강력한 참조(strong reference)를 유지해야 합니다. 각 딕셔너리 엔트리에 버전을 추가하면, 가드는 값에 대한 강력한 참조를 피하기 위해 엔트리 버전 (단순한 정수)만 저장할 수 있습니다. 딕셔너리와 키에 대한 강력한 참조만 필요합니다.</p>
+
+<p>변경 사항: <code class="language-plaintext highlighter-rouge">PyDictKeyEntry</code> 구조체에 <code class="language-plaintext highlighter-rouge">me_version_tag</code> 필드를 추가합니다. 이 필드는 C 타입 <code class="language-plaintext highlighter-rouge">PY_UINT64_T</code>를 가집니다. 키가 생성되거나 수정될 때, 엔트리 버전은 모든 변경 (생성, 수정, 삭제) 시 증가하는 딕셔너리 버전으로 설정됩니다.</p>
+
+<p>가상의 <code class="language-plaintext highlighter-rouge">dict_get_version(dict)</code> 및 <code class="language-plaintext highlighter-rouge">dict_get_entry_version(dict)</code> 함수를 사용하여 딕셔너리 키가 수정되었는지 확인하는 빠른 가드의 의사 코드는 다음과 같습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">UNSET</span> <span class="o">=</span> <span class="nf">object</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">GuardDictKey</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="nb">dict</span> <span class="o">=</span> <span class="nb">dict</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">key</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">dict_version</span> <span class="o">=</span> <span class="nf">dict_get_version</span><span class="p">(</span><span class="nb">dict</span><span class="p">)</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">entry_version</span> <span class="o">=</span> <span class="nf">dict_get_entry_version</span><span class="p">(</span><span class="nb">dict</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">딕셔너리 엔트리가 변경되지 않았고 딕셔너리가 교체되지 않았다면 True를 반환합니다.</span><span class="sh">"""</span>
+        <span class="c1"># 딕셔너리의 버전을 읽습니다.
+</span>        <span class="n">dict_version</span> <span class="o">=</span> <span class="nf">dict_get_version</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="nb">dict</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">dict_version</span> <span class="o">==</span> <span class="n">self</span><span class="p">.</span><span class="n">version</span><span class="p">:</span> <span class="c1"># 여기서 self.version 대신 self.dict_version이어야 할 것으로 보입니다 (원문 오류).
+</span>            <span class="c1"># 빠른 경로(Fast-path): 딕셔너리 조회 생략
+</span>            <span class="k">return</span> <span class="bp">True</span>
+
+        <span class="c1"># 엔트리 버전을 읽기 위해 딕셔너리에서 조회합니다.
+</span>        <span class="n">entry_version</span> <span class="o">=</span> <span class="nf">get_dict_key_version</span><span class="p">(</span><span class="nb">dict</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="c1"># 여기서 get_dict_key_version 대신 dict_get_entry_version이어야 할 것으로 보입니다 (원문 오류).
+</span>        <span class="k">if</span> <span class="n">entry_version</span> <span class="o">==</span> <span class="n">self</span><span class="p">.</span><span class="n">entry_version</span><span class="p">:</span>
+            <span class="c1"># 다른 키가 수정되었습니다:
+</span>            <span class="c1"># 새 딕셔너리 버전을 캐시합니다.
+</span>            <span class="n">self</span><span class="p">.</span><span class="n">dict_version</span> <span class="o">=</span> <span class="n">dict_version</span>
+            <span class="n">self</span><span class="p">.</span><span class="n">entry_version</span> <span class="o">=</span> <span class="n">entry_version</span>
+            <span class="k">return</span> <span class="bp">True</span>
+
+        <span class="c1"># 키가 수정되었습니다.
+</span>        <span class="k">return</span> <span class="bp">False</span>
+</code></pre></div></div>
+
+<p>이 옵션의 주요 단점은 메모리 사용량에 미치는 영향입니다. 이는 각 딕셔너리 엔트리의 크기를 증가시키므로, 오버헤드는 버킷(사용되든 안 되든 딕셔너리 엔트리)의 수에 따라 달라집니다. 예를 들어, 64비트 시스템에서는 각 딕셔너리 엔트리의 크기를 8바이트 증가시킵니다.</p>
+
+<p>Python에서는 메모리 사용량이 중요하며, 이를 줄이는 추세입니다. 예시:</p>
+<ul>
+  <li>PEP 393 – Flexible String Representation</li>
+  <li>PEP 412 – Key-Sharing Dictionary</li>
+</ul>
+
+<h3 id="새로운-dict-하위-타입-추가-add-a-new-dict-subtype">새로운 <code class="language-plaintext highlighter-rouge">dict</code> 하위 타입 추가 (Add a new dict subtype)</h3>
+<p>새로운 <code class="language-plaintext highlighter-rouge">verdict</code> 타입을 <code class="language-plaintext highlighter-rouge">dict</code>의 하위 타입으로 추가하는 것을 제안합니다. 가드가 필요할 때, <code class="language-plaintext highlighter-rouge">dict</code> 대신 네임스페이스 (모듈 네임스페이스, 타입 네임스페이스, 인스턴스 네임스페이스 등)에 <code class="language-plaintext highlighter-rouge">verdict</code>를 사용합니다.</p>
+
+<p>가드가 사용되지 않을 때 오버헤드 (CPU, 메모리 사용량)를 추가하지 않도록 <code class="language-plaintext highlighter-rouge">dict</code> 타입은 변경하지 않고 둡니다.</p>
+
+<p>기술적인 문제: CPython 코어를 포함하여 야생(wild)에는 정확한 <code class="language-plaintext highlighter-rouge">dict</code> 타입을 예상하는 많은 C 코드가 있습니다. 문제점:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">exec()</code>는 <code class="language-plaintext highlighter-rouge">globals</code> 및 <code class="language-plaintext highlighter-rouge">locals</code>에 <code class="language-plaintext highlighter-rouge">dict</code>를 필요로 합니다. 많은 코드가 <code class="language-plaintext highlighter-rouge">globals={}</code>를 사용합니다. 호출자가 <code class="language-plaintext highlighter-rouge">globals</code> 매개변수가 수정될 것으로 예상하기 때문에 <code class="language-plaintext highlighter-rouge">dict</code>를 <code class="language-plaintext highlighter-rouge">dict</code> 하위 타입으로 캐스팅하는 것은 불가능합니다 (<code class="language-plaintext highlighter-rouge">dict</code>는 가변(mutable)입니다).</li>
+  <li>C 함수는 객체가 <code class="language-plaintext highlighter-rouge">dict</code> 하위 타입인 경우 <code class="language-plaintext highlighter-rouge">PyObject_xxx()</code> 함수를 호출하는 대신 <code class="language-plaintext highlighter-rouge">PyDict_xxx()</code> 함수를 직접 호출합니다.</li>
+  <li>일부 함수가 정확한 <code class="language-plaintext highlighter-rouge">dict</code> 타입을 요구하는 반면, <code class="language-plaintext highlighter-rouge">PyDict_CheckExact()</code> 검사는 <code class="language-plaintext highlighter-rouge">dict</code> 하위 타입에서 실패합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Python/ceval.c</code>는 네임스페이스에 대한 <code class="language-plaintext highlighter-rouge">dict</code> 하위 타입을 완전히 지원하지 않습니다.</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">exec()</code> 문제는 블로커(blocker) 문제입니다.</p>
+
+<p>다른 문제점:</p>
+<ul>
+  <li>가비지 컬렉터(garbage collector)는 <code class="language-plaintext highlighter-rouge">dict</code> 인스턴스의 “untrack”를 위한 특별한 코드를 가지고 있습니다. <code class="language-plaintext highlighter-rouge">dict</code> 하위 타입이 네임스페이스에 사용되면 가비지 컬렉터가 일부 참조 순환(reference cycles)을 끊지 못할 수 있습니다.</li>
+  <li>일부 함수에는 <code class="language-plaintext highlighter-rouge">dict</code>에 대한 빠른 경로(fast-path)가 있으며, 이는 <code class="language-plaintext highlighter-rouge">dict</code> 하위 타입에서는 사용되지 않으므로 Python을 약간 느리게 만들 수 있습니다.</li>
+</ul>
+
+<h2 id="선행-연구-prior-art">선행 연구 (Prior Art)</h2>
+
+<h3 id="메서드-캐시-및-타입-버전-태그-method-cache-and-type-version-tag">메서드 캐시 및 타입 버전 태그 (Method cache and type version tag)</h3>
+<p>2007년에 Armin Rigo는 메서드 캐시를 구현하는 패치를 작성했습니다. 이는 Python 2.6에 병합되었습니다. 이 패치는 “타입 속성 캐시 버전 태그”(<code class="language-plaintext highlighter-rouge">tp_version_tag</code>)와 타입에 “유효한 버전 태그” 플래그 (<code class="language-plaintext highlighter-rouge">PyTypeObject</code> 구조체)를 추가합니다.</p>
+
+<p>타입 버전 태그는 Python 레벨에 노출되지 않습니다.</p>
+
+<p>버전 태그는 C 타입 <code class="language-plaintext highlighter-rouge">unsigned int</code>를 가집니다. 캐시는 모든 타입이 공유하는 4096개의 엔트리로 구성된 전역 해시 테이블입니다. 캐시는 “빠르게 만들고, 확정적이며 낮은 메모리 사용량을 가지며, 무효화하기 쉽도록” 전역적입니다. 각 캐시 엔트리는 버전 태그를 가집니다. 전역 버전 태그는 다음 버전 태그를 생성하는 데 사용되며, 이 역시 C 타입 <code class="language-plaintext highlighter-rouge">unsigned int</code>를 가집니다.</p>
+
+<p>기본적으로 타입은 버전 태그가 유효하지 않음을 나타내기 위해 “유효한 버전 태그” 플래그가 지워집니다. 타입의 첫 번째 메서드가 캐시될 때, 버전 태그와 “유효한 버전 태그” 플래그가 설정됩니다. 타입이 수정되면, 해당 타입과 그 서브클래스의 “유효한 버전 태그” 플래그가 지워집니다. 나중에 이러한 타입의 캐시 엔트리가 사용될 때, 해당 엔트리는 버전 태그가 오래되었기 때문에 제거됩니다.</p>
+
+<p>정수 오버플로우 시 전체 캐시가 지워지고 전역 버전 태그는 0으로 재설정됩니다.</p>
+
+<p>메서드 캐시 (<a href="https://bugs.python.org/issue1685986">issue #1685986</a>) 및 Python 2.6용으로 업데이트된 Armin의 메서드 캐시 최적화 (<a href="https://bugs.python.org/issue1700288">issue #1700288</a>)를 참조하세요.</p>
+
+<h3 id="globals--builtins-캐시-globals--builtins-cache">Globals / builtins 캐시 (Globals / builtins cache)</h3>
+<p>2010년에 Antoine Pitrou는 <code class="language-plaintext highlighter-rouge">PyDictObject</code> 구조체 (<code class="language-plaintext highlighter-rouge">dict</code> 타입)에 private <code class="language-plaintext highlighter-rouge">ma_version</code> 필드를 추가하는 Globals / builtins 캐시 (<a href="https://bugs.python.org/issue10401">issue #10401</a>)를 제안했습니다. 이 필드는 C 타입 <code class="language-plaintext highlighter-rouge">Py_ssize_t</code>를 가집니다.</p>
+
+<p>이 패치는 함수와 프레임에 “전역 및 내장 캐시”를 추가하고, <code class="language-plaintext highlighter-rouge">LOAD_GLOBAL</code> 및 <code class="language-plaintext highlighter-rouge">STORE_GLOBAL</code> 명령어를 캐시를 사용하도록 변경합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">PyDictObject</code> 구조체에 대한 변경 사항은 이 PEP와 매우 유사합니다.</p>
+
+<h3 id="cached-globalsbuiltins-lookup-캐시된-전역내장-조회">Cached globals+builtins lookup (캐시된 전역+내장 조회)</h3>
+<p>2006년에 Andrea Griffini는 Cached globals+builtins lookup 최적화를 구현하는 패치를 제안했습니다. 이 패치는 <code class="language-plaintext highlighter-rouge">PyDictObject</code> 구조체 (<code class="language-plaintext highlighter-rouge">dict</code> 타입)에 private <code class="language-plaintext highlighter-rouge">timestamp</code> 필드를 추가하며, 이 필드는 C 타입 <code class="language-plaintext highlighter-rouge">size_t</code>를 가집니다.</p>
+
+<p>python-dev 메일링 리스트의 토론: <a href="https://mail.python.org/pipermail/python-dev/2006-December/070285.html">About dictionary lookup caching (December 2006)</a>.</p>
+
+<h3 id="guard-against-changing-dict-during-iteration-반복-중-딕셔너리-변경-방지">Guard against changing dict during iteration (반복 중 딕셔너리 변경 방지)</h3>
+<p>2013년에 Serhiy Storchaka는 반복 중 딕셔너리 변경 방지 (<a href="https://bugs.python.org/issue19332">issue #19332</a>)를 제안했습니다. 이는 <code class="language-plaintext highlighter-rouge">PyDictObject</code> 구조체 (<code class="language-plaintext highlighter-rouge">dict</code> 타입)에 <code class="language-plaintext highlighter-rouge">ma_count</code> 필드를 추가하며, 이 필드는 C 타입 <code class="language-plaintext highlighter-rouge">size_t</code>를 가집니다. 이 필드는 딕셔너리가 수정될 때마다 증가합니다.</p>
+
+<h3 id="pysizer">PySizer</h3>
+<p>PySizer: Python용 메모리 프로파일러, Nick Smallbone의 Google Summer of Code 2005 프로젝트.</p>
+
+<p>이 프로젝트는 CPython 2.4용 패치를 가지고 있으며, 딕셔너리 엔트리에 <code class="language-plaintext highlighter-rouge">key_time</code> 및 <code class="language-plaintext highlighter-rouge">value_time</code> 필드를 추가합니다. 이는 딕셔너리용 전역 프로세스 전체 카운터를 사용하며, 딕셔너리가 수정될 때마다 증가합니다. 이 시간은 자식 객체가 부모 객체에 처음 나타난 시기를 결정하는 데 사용됩니다.</p>
+
+<h2 id="논의-discussion">논의 (Discussion)</h2>
+<p>메일링 리스트 토론 스레드.</p>
+<ul>
+  <li><a href="https://mail.python.org/pipermail/python-dev/2016-April/144062.html">python-dev: Updated PEP 509</a></li>
+  <li><a href="https://mail.python.org/pipermail/python-dev/2016-April/143926.html">python-dev: RFC: PEP 509: Add a private version to dict</a></li>
+  <li><a href="https://mail.python.org/pipermail/python-dev/2016-January/142999.html">python-dev: PEP 509: Add a private version to dict (January 2016)</a></li>
+  <li><a href="https://mail.python.org/pipermail/python-ideas/2016-January/037746.html">python-ideas: RFC: PEP: Add dict.<strong>version</strong> (January 2016)</a></li>
+</ul>
+
+<h2 id="수락-acceptance">수락 (Acceptance)</h2>
+<p>이 PEP는 2016년 9월 7일 Guido van Rossum에 의해 수락되었습니다. 이 PEP의 구현은 이후 저장소에 커밋되었습니다.</p>
+
+<h2 id="저작권-copyright">저작권 (Copyright)</h2>
+<p>이 문서는 공용 도메인에 공개되었습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/508/" class="pagination--pager" title="[Final] PEP 508 - Dependency specification for Python Software Packages
+">Previous</a>
+    
+    
+      <a href="/python/pep/510/" class="pagination--pager" title="[Rejected] PEP 510 - Specialize functions with guards
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

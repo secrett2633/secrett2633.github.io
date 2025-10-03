@@ -1,0 +1,931 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Rejected] PEP 2026 - Calendar versioning for Python | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 2026: ‘Calendar versioning for Python’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Rejected] PEP 2026 - Calendar versioning for Python">
+<meta property="og:url" content="http://localhost:4000/python/pep/2026/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 2026: ‘Calendar versioning for Python’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T14:11:21+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T14:11:21+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/2026/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Rejected] PEP 2026 - Calendar versioning for Python">
+    <meta itemprop="description" content="Python Enhancement Proposal 2026: ‘Calendar versioning for Python’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T14:11:21+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T14:11:21+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Rejected] PEP 2026 - Calendar versioning for Python
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T14:11:21+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#동기-및-배경-motivation-and-rationale">동기 및 배경 (Motivation and rationale)</a><ul><li><a href="#현재-체계-current-scheme">현재 체계 (Current scheme)</a></li><li><a href="#python은-semver보다-먼저-존재-python-predates-semver">Python은 SemVer보다 먼저 존재 (Python predates SemVer)</a></li><li><a href="#캘린더-버전-관리-calendar-versioning">캘린더 버전 관리 (Calendar versioning)</a></li><li><a href="#연간-릴리스-주기-annual-release-cadence">연간 릴리스 주기 (Annual release cadence)</a></li><li><a href="#python을-위한-calver-calver-for-python">Python을 위한 CalVer (CalVer for Python)</a></li><li><a href="#목표가-아닌-사항-non-goals">목표가 아닌 사항 (Non-goals)</a></li></ul></li><li><a href="#명세-specification">명세 (Specification)</a><ul><li><a href="#보안-영향-security-implications">보안 영향 (Security implications)</a></li><li><a href="#교육-방법-how-to-teach-this">교육 방법 (How to teach this)</a></li></ul></li><li><a href="#거부된-아이디어-rejected-ideas">거부된 아이디어 (Rejected ideas)</a><ul><li><a href="#yy0-예-python-260">YY.0 (예: Python 26.0)</a></li><li><a href="#yymm-예-python-2610">YY.MM (예: Python 26.10)</a></li><li><a href="#3yyyy-예-python-32026">3.YYYY (예: Python 3.2026)</a></li><li><a href="#에디션-editions">에디션 (Editions)</a></li><li><a href="#semver-채택-및-4-건너뛰기-adopt-semver-and-skip-4">SemVer 채택 및 4 건너뛰기 (Adopt SemVer and skip 4)</a></li><li><a href="#314-주기-동안의-변경-change-during-314-cycle">3.14 주기 동안의 변경 (Change during 3.14 cycle)</a></li></ul></li><li><a href="#하위-호환성-backwards-compatibility">하위 호환성 (Backwards compatibility)</a><ul><li><a href="#버전-매핑-version-mapping">버전 매핑 (Version mapping)</a></li></ul></li><li><a href="#향후-호환성-forwards-compatibility">향후 호환성 (Forwards compatibility)</a><ul><li><a href="#릴리스-주기-변경-future-change-in-cadence">릴리스 주기 변경 (Future change in cadence)</a></li><li><a href="#calver-포기-no-more-calver">CalVer 포기 (No more CalVer)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-2026/">PEP 2026 - Calendar versioning for Python</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Rejected</td>
+        <td><strong>유형:</strong> Process</td>
+        <td><strong>작성일:</strong> 11-Jun-2024</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>PEP 2026 – Python의 캘린더 버전 관리 (Calendar Versioning for Python)</p>
+
+<p><strong>상태:</strong> Rejected (거부됨)
+<strong>유형:</strong> Process (프로세스)
+<strong>생성일:</strong> 2024년 6월 11일
+<strong>Python 버전:</strong> 3.26
+<strong>논의:</strong> Discourse thread
+<strong>해결:</strong> Discourse message</p>
+
+<hr />
+
+<h3 id="개요-abstract">개요 (Abstract)</h3>
+
+<p>이 PEP는 Python의 버전 관리 체계를 캘린더 연도를 포함하도록 업데이트할 것을 제안합니다. 캘린더 버전 관리(Calendar Versioning, CalVer)는 버전 수를 세고 출시 시기를 찾아보는 대신, 모든 것을 캘린더 시간으로 쉽게 변환할 수 있도록 합니다.</p>
+
+<p>주요 이점은 다음과 같습니다:</p>
+<ul>
+  <li>지원 수명 주기(support lifecycle)가 명확해져서 버전이 언제 처음 출시되었는지 쉽게 알 수 있습니다.</li>
+  <li>유지보수자와 사용자 모두 Deprecation (사용 중단 예정 기능) 관리가 더 쉬워집니다.</li>
+  <li>버전이 언제 EOL (End of Life)에 도달할지 파악하기 더 쉽습니다.</li>
+  <li>특히 새로운 학습자들이 자신의 설치가 얼마나 오래되었는지 이해하는 데 도움이 됩니다.</li>
+  <li>라이브러리 및 애플리케이션에 대해 어떤 Python 버전을 지원해야 할지 판단하기 쉬워집니다.</li>
+</ul>
+
+<p>Python 3.15가 될 예정이었던 버전부터, 버전은 <code class="language-plaintext highlighter-rouge">3.YY.micro</code> 형식을 따르며, 여기서 <code class="language-plaintext highlighter-rouge">YY</code>는 초기 출시 연도의 마지막 두 자리를 나타냅니다.
+예를 들어, Python 3.26은 Python 3.15 대신 2026년에 출시될 것입니다. EOL은 초기 출시 후 5년이므로, Python 3.26은 2031년에 EOL에 도달합니다.</p>
+
+<h3 id="동기-및-배경-motivation-and-rationale">동기 및 배경 (Motivation and rationale)</h3>
+
+<p>2019년에 PEP 602를 통해 연간 릴리스 주기(annual release cycle)를 채택했으며, 이는 캘린더 버전 관리의 길을 열었습니다. 연간 릴리스 캘린더를 채택하면 캘린더 버전 관리로 자연스럽게 전환할 수 있습니다. 예를 들어, 2020년 10월에 출시된 Python 3.9를 “Python 3.20”이라고 부르는 식입니다.</p>
+
+<p>이 PEP는 Python 버전 관리 방식의 변경을 옹호하거나 반대하지 않습니다. 연간 릴리스 주기가 채택된다면, 버전 관리 문제는 별도의 PEP에서 다루어질 것입니다. 이 PEP가 바로 그 문서입니다.</p>
+
+<h4 id="현재-체계-current-scheme">현재 체계 (Current scheme)</h4>
+
+<p>Python 버전은 “A.B.C” 또는 “A.B”로 번호가 매겨집니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">A</code>는 주 버전(major version) 번호로, 언어의 정말 중요한 변경 사항에 대해서만 증가합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">B</code>는 부 버전(minor version) 번호로, 덜 중요한 변경 사항에 대해 증가합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">C</code>는 마이크로 버전(micro version) 번호로, 각 버그 수정 릴리스마다 증가합니다.</li>
+</ul>
+
+<h4 id="python은-semver보다-먼저-존재-python-predates-semver">Python은 SemVer보다 먼저 존재 (Python predates SemVer)</h4>
+
+<p>Semantic Versioning (SemVer)은 릴리스의 의도를 전달하는 것을 목표로 하는 인기 있는 체계입니다. SemVer는 <code class="language-plaintext highlighter-rouge">MAJOR.MINOR.PATCH</code> 번호 체계를 사용하며, 호환되지 않는 API 변경 시 <code class="language-plaintext highlighter-rouge">MAJOR</code>를, 하위 호환 가능한 기능 추가 시 <code class="language-plaintext highlighter-rouge">MINOR</code>를, 하위 호환 가능한 버그 수정 시 <code class="language-plaintext highlighter-rouge">PATCH</code>를 증가시킵니다.</p>
+
+<p>사람들은 종종 Python이 SemVer를 따른다고 가정하고 기능 릴리스에서 Breaking Change (호환성을 깨뜨리는 변경)에 대해 불평합니다. 그러나 Python은 SemVer보다 최소 15년 앞서 존재합니다. SemVer 사양은 2009년에 도입되었고, Python의 맞춤형 체계는 1994년 1.0 릴리스를 위해 소스 제어에 추가되었습니다.</p>
+
+<p>만약 Python이 SemVer를 채택한다면, Deprecation이 제거될 때마다 매년 새로운 Major 버전이 증가해야 할 것입니다.</p>
+
+<h4 id="캘린더-버전-관리-calendar-versioning">캘린더 버전 관리 (Calendar versioning)</h4>
+
+<p>캘린더 버전 관리(CalVer)는 버전 번호에 날짜 요소를 포함하는 방식입니다. 예를 들어, Ubuntu와 Black은 연도와 월을 사용하고 (Ubuntu 24.04는 2024년 4월 출시), pip과 PyCharm은 연도만 사용합니다.</p>
+
+<p>다음은 CalVer를 사용하는 몇 가지 프로젝트 및 언어의 예입니다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">프로젝트/언어</th>
+      <th style="text-align: left">형식</th>
+      <th style="text-align: left">예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Ubuntu</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">YY.0M.micro</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">24.04</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Black</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">YY.MM.micro</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">24.1.0</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">pip</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">YY.minor.micro</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">24.0</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">PyCharm</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">YYYY.minor.micro</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">2024.1</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Ada, Algol, C, C++, Fortran, ECMAScript (JavaScript)</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">YY</code> 또는 <code class="language-plaintext highlighter-rouge">YYYY</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">2023</code> (ECMAScript)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="연간-릴리스-주기-annual-release-cadence">연간 릴리스 주기 (Annual release cadence)</h4>
+
+<p>2019년 이후로 Python은 매년 릴리스를 하고 있습니다.</p>
+
+<ul>
+  <li>3.15.0은 2026년에 릴리스될 예정입니다.</li>
+  <li>3.16.0은 2027년에 릴리스될 예정입니다.</li>
+  <li>(중략)</li>
+</ul>
+
+<p>이것은 일종의 캘린더 기반이지만, 11년만큼 오프셋되어 있습니다.</p>
+
+<h4 id="python을-위한-calver-calver-for-python">Python을 위한 CalVer (CalVer for Python)</h4>
+
+<p>가장 간단한 CalVer 옵션은 Major 버전 3을 유지하고, Minor 버전에 연도를 인코딩하는 것입니다.
+예를 들어, 3.26은 2026년에 릴리스됩니다. 이는 릴리스가 언제 처음 나왔는지 명확하게 해줍니다.</p>
+
+<ul>
+  <li>3.26.0은 2026년에 릴리스될 것입니다.</li>
+  <li>3.27.0은 2027년에 릴리스될 것입니다.</li>
+  <li>(중략)</li>
+</ul>
+
+<p><strong>Deprecation 제거의 명확성 (Clarity of deprecation removal)</strong>
+Deprecation 경고는 종종 제거될 버전을 언급합니다.
+예: <code class="language-plaintext highlighter-rouge">DeprecationWarning: 'ctypes.SetPointerType' is deprecated and slated for removal in Python 3.15</code>
+CalVer를 알게 되면, 경고에서 조치를 취해야 할 기간을 즉시 알 수 있습니다.
+예: <code class="language-plaintext highlighter-rouge">DeprecationWarning: 'ctypes.SetPointerType' is deprecated and slated for removal in Python 3.26</code></p>
+
+<p><strong>지원 수명 주기의 명확성 (Clarity of support lifecycle)</strong>
+현재는 릴리스의 EOL 시점을 파악하는 것이 다소 까다롭습니다. 먼저 초기 출시일을 찾아보고 5년을 더해야 합니다.
+예: “Python 3.11은 언제 EOL인가요?” -&gt; “3.11은 2022년에 출시되었고, EOL은 5년 후인 2027년입니다.”
+그러나 초기 출시 연도가 버전 자체에 있다면 훨씬 쉽습니다.
+예: “Python 3.26은 언제 EOL인가요?” -&gt; “26 + 5 =31”</p>
+
+<p><strong>설치 연령의 명확성 (Clarity of installation age)</strong>
+버전에 연도가 포함되면 설치된 Python이 얼마나 오래되었는지 쉽게 파악할 수 있습니다. CalVer를 알면, 2035년에 Python 3.26을 사용하고 있다면, 이 버전이 9년 전에 처음 출시되었고 아마 업그레이드할 시기라는 것을 명확히 알 수 있습니다. 이는 사람들이 보안 지원을 받는 지원되는 릴리스로 전환하도록 유도하고, 오래된 설치를 사용하는 새로운 사용자들을 가르치는 데 도움이 될 수 있습니다.</p>
+
+<p><strong>버전 지원의 명확성 (Clarity of version support)</strong>
+CalVer는 어떤 Python 버전을 지원해야 할지 판단하기 쉽게 만듭니다.
+예를 들어, CalVer 없이 2031년에 최소 호환 Python 버전을 3.19로 설정하는 것은 버전 채택 및 지원에 대한 공격적인 가정을 설정하는 것입니다. 그러나 CalVer를 사용하면 2031년에 최소 버전을 3.30으로 설정하는 것이 더 명확합니다.</p>
+
+<p>또한, 모든 CPython 상위 버전을 지원하는 라이브러리 유지보수자는 5개 버전(프리릴리스 포함 시 6개)을 테스트해야 합니다. CalVer를 사용하면 유지보수자는 어떤 버전이 현재 사용 중이고 테스트가 필요한지 한눈에 알 수 있습니다.</p>
+
+<h4 id="목표가-아닌-사항-non-goals">목표가 아닌 사항 (Non-goals)</h4>
+
+<ul>
+  <li>현재 체계와 마찬가지로, 버그 수정 및 보안 릴리스에 대해서만 Micro 버전이 증가하며, Major 및 Minor 버전은 변경되지 않습니다.</li>
+  <li>PEP 602 (Python의 연간 릴리스 주기)에 대한 변경은 없습니다. 즉, 기능 버전 개발 기간(17개월), 지원 기간(전체 지원 2년, 보안 수정 3년), 연간 10월 릴리스 주기는 변경되지 않습니다.</li>
+</ul>
+
+<h3 id="명세-specification">명세 (Specification)</h3>
+
+<p>Python 버전은 <code class="language-plaintext highlighter-rouge">3.YY.micro</code> 형식으로 번호가 매겨집니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">3</code>은 Major 버전 번호로, 항상 3입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">YY</code>는 Minor 버전 번호로, 짧은 연도 번호입니다 (<code class="language-plaintext highlighter-rouge">{year} - 2000</code>).</li>
+  <li><code class="language-plaintext highlighter-rouge">micro</code>는 Micro 버전 번호로, 각 버그 수정 또는 보안 릴리스마다 증가합니다.</li>
+</ul>
+
+<p>Major 버전 3은 유지됩니다. Python 3는 브랜드이며, Python 4는 없을 것입니다.
+2100년에는 Minor 버전이 <code class="language-plaintext highlighter-rouge">2100-2000 = 100</code>이 되므로, 버전은 <code class="language-plaintext highlighter-rouge">3.100.0</code>이 됩니다.</p>
+
+<p>Python 3.14는 이 변경 전의 마지막 버전으로 2025년에 출시됩니다. Python 3.26은 이 변경 후의 첫 버전으로 2026년에 출시됩니다. Python 3.15부터 3.25까지의 버전은 존재하지 않을 것입니다.</p>
+
+<h4 id="보안-영향-security-implications">보안 영향 (Security implications)</h4>
+
+<p>알려진 보안 영향은 없습니다. 버그 수정 및 보안 단계의 기간이나 타이밍에는 변화가 없습니다.</p>
+
+<h4 id="교육-방법-how-to-teach-this">교육 방법 (How to teach this)</h4>
+
+<p>이 변경 사항은 블로그, 3.14 릴리스 노트, 문서, 그리고 커뮤니티와의 소통을 통해 발표될 것입니다. 이 변경은 3.14 다음 버전 (3.15 대신 3.26)을 대상으로 합니다. 3.15/3.26 릴리스를 위한 개발은 2025년 5월에 시작될 예정이며, 첫 알파는 2025년 10월, 초기 릴리스는 2026년 10월에 있을 것입니다.</p>
+
+<h3 id="거부된-아이디어-rejected-ideas">거부된 아이디어 (Rejected ideas)</h3>
+
+<p>몇 가지 대안적인 CalVer 체계와 SemVer 채택이 논의되었으나, 호환성 문제 및 복잡성 등의 이유로 거부되었습니다.</p>
+
+<h4 id="yy0-예-python-260">YY.0 (예: Python 26.0)</h4>
+
+<p>Major 버전을 연도로 바꾸는 아이디어 (예: 2026년에 Python 26.0)는 다음과 같은 이유로 거부되었습니다.</p>
+<ul>
+  <li>Python 버전 4에 대한 큰 수요가 없습니다. 2to3와 같은 전환을 반복하고 싶지 않습니다.</li>
+  <li>GIL 제거(PEP 703)와 같은 큰 변화를 위해 Python 4를 남겨둘 수 있지만, Steering Council은 Free-threading의 점진적인 도입을 명확히 했습니다.</li>
+  <li>Major 버전을 변경하면 <code class="language-plaintext highlighter-rouge">sysconfig.get_config_var("py_version_nodot")</code>과 같은 플랫폼 호환성 태그(Platform compatibility tags)가 복잡해집니다.</li>
+  <li>Major 버전이 3이라는 가정이나 버전 부분이 항상 한 자리 숫자라는 가정 등, 버전 변경으로 인해 기존 코드가 깨질 수 있습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">python3</code> 명령어의 처리가 복잡해집니다.</li>
+  <li>CPython 자체 내에서도 Major 버전이 3이라고 가정하는 부분이 있어 업데이트가 필요합니다.</li>
+</ul>
+
+<p>결론적으로, YY.0 버전 관리의 이점은 결합된 비용에 비해 크지 않으므로 거부되었습니다.</p>
+
+<h4 id="yymm-예-python-2610">YY.MM (예: Python 26.10)</h4>
+
+<p>YY.0 버전 관리에 더해, 릴리스 월을 Minor 버전에 포함시키는 아이디어(예: Ubuntu 및 Black처럼)도 논의되었습니다. 이는 출시 연도 및 EOL 시점을 명확히 할 수 있지만, YY.0와 동일한 많은 이유로 거부되었습니다.</p>
+
+<h4 id="3yyyy-예-python-32026">3.YYYY (예: Python 3.2026)</h4>
+
+<p>Minor 버전을 4자리 연도 (예: Python 3.2026)로 사용하는 아이디어는 연도임을 더 명확하게 보여주고 Ubuntu 버전과의 혼동을 피할 수 있습니다. 그러나 CPython의 C API <code class="language-plaintext highlighter-rouge">PY_VERSION_HEX</code> 매크로 변경 필요성 및 2자리에서 4자리로 변경 시 더 많은 코드 파손 가능성 때문에 거부되었습니다.</p>
+
+<h4 id="에디션-editions">에디션 (Editions)</h4>
+
+<p>Rust 언어의 “Editions”와 같이 “Python 3.15 (2026 Edition)”과 같은 연도 레이블을 추가하는 것은 두 개의 숫자를 추적해야 하므로 거부되었습니다.</p>
+
+<h4 id="semver-채택-및-4-건너뛰기-adopt-semver-and-skip-4">SemVer 채택 및 4 건너뛰기 (Adopt SemVer and skip 4)</h4>
+
+<p>문제적인 4.0을 건너뛰고 SemVer를 채택하여 Python 5.0 (2026년), 6.0 (2027년) 등으로 가는 아이디어도 논의되었습니다. 그러나 이 방식은 캘린더 버전 관리의 이점을 얻을 수 없고, 3.x에서 벗어나는 것이 코드에 파괴적인 변화를 가져올 것이므로 거부되었습니다.</p>
+
+<h4 id="314-주기-동안의-변경-change-during-314-cycle">3.14 주기 동안의 변경 (Change during 3.14 cycle)</h4>
+
+<p>Python 3.14 릴리스는 예정대로 진행되어야 합니다.</p>
+
+<h3 id="하위-호환성-backwards-compatibility">하위 호환성 (Backwards compatibility)</h3>
+
+<p>이 버전 변경은 고려된 CalVer 옵션 중에서 가장 안전합니다. Major 버전 3을 유지하고 Minor 버전은 여전히 두 자리 숫자입니다. Minor 버전은 결국 세 자리로 변경될 수 있지만, 이는 예측 가능하고 먼 미래의 일이며 계획할 수 있습니다. <code class="language-plaintext highlighter-rouge">python3</code> 실행 파일은 유지됩니다.</p>
+
+<h4 id="버전-매핑-version-mapping">버전 매핑 (Version mapping)</h4>
+
+<p>3.15부터 3.25까지의 버전은 건너뛰어집니다. 이러한 버전에 대해 계획되었던 기능, Deprecation 및 제거 사항은 새로운 버전 번호로 다시 매핑됩니다.
+예를 들어, 3.16에서 제거될 예정이었던 Deprecation은 대신 3.27에서 제거될 것입니다.</p>
+
+<p>다음은 구 버전과 새 버전, 그리고 초기 출시 연도의 매핑입니다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">구 버전</th>
+      <th style="text-align: left">새 버전</th>
+      <th style="text-align: left">초기 출시 연도</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">3.14</td>
+      <td style="text-align: left">3.14</td>
+      <td style="text-align: left">2025</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">3.15</td>
+      <td style="text-align: left">3.26</td>
+      <td style="text-align: left">2026</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">3.16</td>
+      <td style="text-align: left">3.27</td>
+      <td style="text-align: left">2027</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">3.17</td>
+      <td style="text-align: left">3.28</td>
+      <td style="text-align: left">2028</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">3.18</td>
+      <td style="text-align: left">3.29</td>
+      <td style="text-align: left">2029</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">3.19</td>
+      <td style="text-align: left">3.30</td>
+      <td style="text-align: left">2030</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">(중략)</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">3.25</td>
+      <td style="text-align: left">3.36</td>
+      <td style="text-align: left">2036</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="향후-호환성-forwards-compatibility">향후 호환성 (Forwards compatibility)</h3>
+
+<p>이 PEP는 PEP 602에 정의된 연간 릴리스 주기에는 변경을 제안하지 않습니다. 그러나 미래에 주기를 변경하기로 결정하더라도 CalVer는 이를 방해하지 않습니다.</p>
+
+<h4 id="릴리스-주기-변경-future-change-in-cadence">릴리스 주기 변경 (Future change in cadence)</h4>
+
+<ul>
+  <li><strong>더 적은 빈도 (Less frequent):</strong> 매년 1회 미만으로 릴리스하더라도 제안된 CalVer 체계는 여전히 작동하며, 릴리스를 예상할 연도를 사람들이 알 수 있도록 돕습니다.</li>
+  <li><strong>더 많은 빈도 (More frequent):</strong> 매년 1회 이상 릴리스하는 경우, 다양한 CalVer 옵션 또는 CalVer를 포기하는 옵션들이 제시되었습니다. Major 버전 3을 유지하면서 Minor 버전을 3자리 또는 4자리로 변경하는 옵션은 기존 코드가 2자리 Minor 버전을 가정하는 경우에 문제가 될 수 있습니다.</li>
+</ul>
+
+<h4 id="calver-포기-no-more-calver">CalVer 포기 (No more CalVer)</h4>
+
+<p>현재 CalVer를 채택하더라도 미래에 CalVer에서 벗어나 원래 체계, SemVer 또는 다른 체계로 돌아가는 것을 막지는 않습니다.</p>
+
+<hr />
+<p><strong>PEP 2026 요약:</strong>
+이 PEP는 Python의 버전 관리 체계를 <code class="language-plaintext highlighter-rouge">3.YY.micro</code> (YY는 출시 연도) 형식으로 변경하는 캘린더 버전 관리(CalVer)를 제안했습니다. 이 제안의 주요 목표는 Python 릴리스의 지원 수명 주기, Deprecation 제거, 설치 연령 및 버전 지원에 대한 명확성을 높이는 것이었습니다. 이를 통해 사용자와 유지보수자가 버전을 더 쉽게 이해하고 관리할 수 있도록 돕고자 했습니다.</p>
+
+<p>그러나 이 PEP는 최종적으로 <strong>거부</strong>되었습니다. 거부된 아이디어 섹션에서 <code class="language-plaintext highlighter-rouge">YY.0</code>, <code class="language-plaintext highlighter-rouge">YY.MM</code>, <code class="language-plaintext highlighter-rouge">3.YYYY</code>와 같은 다른 CalVer 체계와 SemVer 채택이 논의되었으나, 기존 에코시스템과의 하위 호환성 문제, <code class="language-plaintext highlighter-rouge">python3</code> 명령어 및 CPython 내부 코드에 대한 변경 필요성, 그리고 예상되는 복잡성 및 비용 등의 이유로 대부분 거부되었습니다.</p>
+
+<p>제안된 <code class="language-plaintext highlighter-rouge">3.YY.micro</code> 방식은 가장 안전한 CalVer 옵션으로 간주되었으며, 3.15부터 3.25까지의 버전 번호를 건너뛰고 3.26부터 캘린더 연도를 Minor 버전에 반영할 계획이었습니다. 하지만 결국 이 제안은 거부되었으며, Python은 현재의 버전 관리 체계를 유지하게 되었습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/806/" class="pagination--pager" title="[Draft] PEP 806 - Mixed sync/async context managers with precise async marking
+">Previous</a>
+    
+    
+      <a href="/python/pep/3000/" class="pagination--pager" title="[Final] PEP 3000 - Python 3000
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

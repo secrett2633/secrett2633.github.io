@@ -1,0 +1,691 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Rejected] PEP 666 - Reject Foolish Indentation | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 666: ‘Reject Foolish Indentation’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Rejected] PEP 666 - Reject Foolish Indentation">
+<meta property="og:url" content="http://localhost:4000/python/pep/666/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 666: ‘Reject Foolish Indentation’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T10:02:26+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T10:02:26+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/666/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Rejected] PEP 666 - Reject Foolish Indentation">
+    <meta itemprop="description" content="Python Enhancement Proposal 666: ‘Reject Foolish Indentation’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T10:02:26+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T10:02:26+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Rejected] PEP 666 - Reject Foolish Indentation
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T10:02:26+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#초록-abstract">초록 (Abstract)</a></li><li><a href="#도입-배경-rationale">도입 배경 (Rationale)</a></li><li><a href="#참고-자료-references">참고 자료 (References)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0666/">PEP 666 - Reject Foolish Indentation</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Rejected</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 03-Dec-2001</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>PEP 666 – 어리석은 들여쓰기 거부 (Reject Foolish Indentation)</p>
+
+<ul>
+  <li><strong>작성자:</strong> Laura Creighton <lac at="" strakt.com=""></lac></li>
+  <li><strong>상태:</strong> Rejected (거부됨)</li>
+  <li><strong>유형:</strong> Standards Track</li>
+  <li><strong>생성일:</strong> 2001년 12월 3일</li>
+  <li><strong>Python 버전:</strong> 2.2</li>
+  <li><strong>게시 이력:</strong> 2001년 12월 5일</li>
+</ul>
+
+<hr />
+
+<h2 id="초록-abstract">초록 (Abstract)</h2>
+
+<p>모든 Python 개발자는 탭(tabs)과 공백(spaces)을 혼용하는 것이 좋지 않다는 점에 동의합니다. 일부 개발자들은 이보다 더 나아가 특정한 들여쓰기 방식만을 고집하곤 합니다. 이 PEP는 개발자들이 자신이 원하는 Python의 동작 방식을 정의할 수 있도록 하여, 자신이 선호하는 방식으로만 프로그램이 실행되고 그렇지 않은 방식으로는 실행되지 않도록 하는 것을 제안합니다. 이는 커맨드 라인 스위치를 통해 구현될 것입니다. 프로그래머가 원하는 방식으로 포맷되지 않은 프로그램은 <code class="language-plaintext highlighter-rouge">IndentationError</code>를 발생시키게 됩니다.</p>
+
+<p>구체적인 제안은 다음과 같습니다:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">python -TNone</code>: 탭이 하나라도 있으면 실행을 거부합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">python -Tn</code>: 탭이 정확히 <code class="language-plaintext highlighter-rouge">n</code>개의 공백이 아닐 경우 실행을 거부합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">python -TOnly</code>: 블록이 탭이 아닌 다른 것으로 들여쓰기 된 경우 실행을 거부합니다.</li>
+</ul>
+
+<p>탭과 공백을 혼용하는 사람들은 당연히 자신들의 프로그램이 실행되지 않는다는 것을 알게 될 것입니다. 아쉽게도, 이들에게 원격으로 전기 충격을 줄 방법을 찾지는 못했습니다. (하지만 누군가 이 방법을 찾아낸다면, 이 옵션을 PEP에 추가하게 되어 기쁠 것입니다.)</p>
+
+<h2 id="도입-배경-rationale">도입 배경 (Rationale)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">python-list@python.org</code> (일명 <code class="language-plaintext highlighter-rouge">comp.lang.python</code>) 메일링 리스트는 주기적으로 탭과 공백에 대한 논쟁으로 들끓습니다. Python에서 들여쓰기가 문법적으로 중요하다는 점을 고려할 때, 이는 피할 수 없는 현상입니다. 이러한 논쟁은 문제 해결에 전혀 도움이 되지 않으며, 단지 여러 사람들을 좌절시키고 화나게 할 뿐입니다. 결국 서로에게 무례한 말을 하기 시작하며 이는 모두에게 슬픈 일입니다. 또한, Python으로 무언가를 만드는 데 사용할 수 있는 귀중한 시간을 낭비하고 있다는 점도 슬픕니다. 더욱이, Python 커뮤니티 전체의 대외적인 측면에서 볼 때, 이는 상당히 불행한 일입니다. 탭과 공백에 대해 게시물을 올리지 않는 사람들은 (놀랍게도) 눈에 띄지 않지만, 게시물을 올리는 사람들은 나머지 우리를 다소 어리석게 보이게 만듭니다.</p>
+
+<p>문제는 ‘당신과 나의 귀중한 시간을 낭비하지 마세요’라고 정중하게 말할 방법이 없다는 것입니다. 이미 격렬한 논쟁(flame war) 한가운데 있는 사람들은 당신이 그들을 동정하여 행동한다고 믿으려 하지 않으며, 자신들의 시간이 자신들 마음대로 쓸 수 있는 시간이라고 당연히 주장합니다. 이들은 이 비참한 논쟁에 끈적한 당밀에 갇힌 파리처럼 갇혀 있으며, 스스로 벗어날 수 없다는 것은 자명합니다. 벗어날 수 있었다면 이미 그렇게 했을 것입니다.</p>
+
+<p>하지만 오늘 저는 ‘n’ 키가 들러붙어 키보드를 청소하는 데 시간을 보내야 했습니다. 그래서 이 사람들에게 연민을 느끼는 것 외에도 상당히 짜증이 납니다. 이 PEP를 작성하면, Guido에게 신속하게 거부해달라고 요청할 수 있을 것이라고 생각합니다. 그러면 다음에 이 논쟁이 다시 시작될 때, 우리는 ‘Guido는 탭을 싫어하는 사람들이나 탭만 쓰는 사람들에게 맞춰서 상황을 바꾸지 않을 것이므로, 이 대화는 시간 낭비입니다’라고 말할 수 있습니다. 그러면 모든 사람들은 조용히 다음을 믿을 수 있습니다.
+a) 자신이 옳고,
+b) 다른 사람들은 바보이며,
+c) 바보들과 연구실을 공유할 필요가 없다는 것이 부인할 수 없는 행운이라는 점입니다. (이는 논쟁하는 사람들이 _지금_도 할 수 있는 일이지만, 분명히 잊어버린 것 같습니다.)</p>
+
+<p>그리고 <code class="language-plaintext highlighter-rouge">python-list</code>는 새로 온 사람들에게 너무 적대적인지 여부보다는, 너무 잘난 척하는지에 대해 다시 걱정할 수 있게 될 것입니다. 아마도 누군가는 Python 2.2의 Non-Classic 클래스에서 <code class="language-plaintext highlighter-rouge">__getattr__</code>과 <code class="language-plaintext highlighter-rouge">__getattribute__</code>의 차이점이 무엇인지 저에게 설명해 줄 수 있을 것입니다. 이것은 제가 현재 탭 관련 스레드 한가운데에 어리석게 게시한 질문입니다. 저는 그 질문에 대한 답을 알고 싶습니다.</p>
+
+<p>이 제안이 받아들여진다면, 아마도 누군가에게 엄청난 양의 작업이 필요할 것입니다. 그러나 저는 이 제안이 받아들여지기를 원하지 않으므로 신경 쓰지 않습니다.</p>
+
+<h2 id="참고-자료-references">참고 자료 (References)</h2>
+
+<p>Tim Peters가 이미 (개인 서신으로) 답변해주었습니다. 제 초기 2.2 버전에는 <code class="language-plaintext highlighter-rouge">__getattribute__</code>가 없었고, <code class="language-plaintext highlighter-rouge">__getattr__</code>은 현재의 <code class="language-plaintext highlighter-rouge">__getattribute__</code>처럼 구현되었습니다. 이는 수정되었습니다. 중요한 결론은 제 데코레이터 패턴(Decorator Pattern)이 안전하며 세상이 평화롭다는 것입니다.</p>
+
+<h2 id="저작권-copyright">저작권 (Copyright)</h2>
+
+<p>이 문서는 퍼블릭 도메인(public domain)에 있습니다.
+최종 수정: 2025년 2월 1일 08:55:40 GMT</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/665/" class="pagination--pager" title="[Rejected] PEP 665 - A file format to list Python dependencies for reproducibility of an application
+">Previous</a>
+    
+    
+      <a href="/python/pep/667/" class="pagination--pager" title="[Final] PEP 667 - Consistent views of namespaces
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,694 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Rejected] PEP 231 - findattr() | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 231: ‘findattr()’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Rejected] PEP 231 - findattr()">
+<meta property="og:url" content="http://localhost:4000/python/pep/231/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 231: ‘findattr()’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T16:58:10+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T16:58:10+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/231/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Rejected] PEP 231 - findattr()">
+    <meta itemprop="description" content="Python Enhancement Proposal 231: ‘findattr()’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T16:58:10+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T16:58:10+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Rejected] PEP 231 - <strong>findattr</strong>()
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T16:58:10+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-231--__findattr__에-대한-번역-및-요약">PEP 231 – __findattr__()에 대한 번역 및 요약</a><ul><li><a href="#소개">소개</a></li><li><a href="#배경">배경</a></li><li><a href="#제안-내용">제안 내용</a></li><li><a href="#기존-프로토콜과의-주요-차이점">기존 프로토콜과의 주요 차이점</a></li><li><a href="#예시">예시</a></li><li><a href="#거부-rejection">거부 (Rejection)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0231/">PEP 231 - <strong>findattr</strong>()</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Rejected</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 30-Nov-2000</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h2 id="pep-231--__findattr__에-대한-번역-및-요약">PEP 231 – <code class="language-plaintext highlighter-rouge">__findattr__()</code>에 대한 번역 및 요약</h2>
+
+<p><strong>상태:</strong> Rejected (거부됨)
+<strong>작성자:</strong> Barry Warsaw
+<strong>생성일:</strong> 2000년 11월 30일
+<strong>Python 버전:</strong> 2.1</p>
+
+<h3 id="소개">소개</h3>
+
+<p>PEP 231은 Python 인스턴스의 속성 조회(lookup) 및 수정 메커니즘을 확장하는 제안으로, 순수 Python만으로 다양한 흥미로운 프로그래밍 모델을 구현할 수 있도록 하는 것을 목표로 했습니다. 이 제안은 <code class="language-plaintext highlighter-rouge">__findattr__()</code>이라는 새로운 특수 메서드를 도입하여 기존 <code class="language-plaintext highlighter-rouge">__getattr__()</code> 및 <code class="language-plaintext highlighter-rouge">__setattr__()</code>의 제한 사항을 해결하고자 했습니다.</p>
+
+<h3 id="배경">배경</h3>
+
+<p>Python은 <code class="language-plaintext highlighter-rouge">__getattr__()</code> 및 <code class="language-plaintext highlighter-rouge">__setattr__()</code>과 같은 특수 메서드를 통해 속성 접근을 사용자 정의할 수 있는 기능을 제공합니다. 그러나 이러한 메서드에는 특정 제한 사항이 있어, 엄격한 Java Bean과 유사한 인터페이스나 Zope 스타일의 Acquisition과 같은 특정 프로그래밍 기법을 순수 Python만으로는 구현하기 어려웠습니다. 예를 들어 Zope는 <code class="language-plaintext highlighter-rouge">ExtensionClass</code>라는 C 확장과 Python의 메타클래스 훅을 사용하여 이 문제를 해결했지만, 이는 C 확장을 필요로 하고 Python의 내부 메커니즘에 의존하며 이해하고 사용하기 어렵다는 단점이 있었습니다. 이 PEP는 “클래스/타입 이분법(class/type dichotomy)” 문제를 해결하는 것과는 별개로, 최소한의 수정으로 위와 같은 프로그래밍 구성을 가능하게 하는 80% 솔루션을 제공하고자 했습니다.</p>
+
+<h3 id="제안-내용">제안 내용</h3>
+
+<p>이 PEP는 다음과 같은 의미를 갖는 <code class="language-plaintext highlighter-rouge">__findattr__()</code>이라는 새로운 특수 메서드를 추가할 것을 제안했습니다.</p>
+
+<ul>
+  <li>클래스에 <code class="language-plaintext highlighter-rouge">__findattr__()</code>이 정의되면, 모든 인스턴스 속성 해석 시 <code class="language-plaintext highlighter-rouge">__getattr__()</code> 및 <code class="language-plaintext highlighter-rouge">__setattr__()</code> 대신 호출됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">__findattr__()</code>은 재귀적으로 호출되지 않습니다. 즉, 특정 인스턴스의 <code class="language-plaintext highlighter-rouge">__findattr__()</code>이 호출 스택에 있는 동안, 해당 인스턴스의 추가 속성 접근은 표준 <code class="language-plaintext highlighter-rouge">__getattr__()</code> 및 <code class="language-plaintext highlighter-rouge">__setattr__()</code> 메서드를 사용합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">__findattr__()</code>은 속성 접근(‘getting’) 및 속성 수정(‘setting’) 모두에 대해 호출됩니다. 속성 삭제(deletion)에 대해서는 호출되지 않습니다.</li>
+  <li>‘getting’을 위해 호출될 때는 하나의 인자(self 제외)로 접근하려는 속성의 이름이 전달됩니다. ‘setting’을 위해 호출될 때는 세 번째 인자로 설정할 값이 전달됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">__findattr__()</code> 메서드는 <code class="language-plaintext highlighter-rouge">__getattr__()</code> 및 <code class="language-plaintext highlighter-rouge">__setattr__()</code>과 동일한 캐싱(caching) 의미를 가집니다. 즉, 클래스 정의 시점에 클래스에 존재하면 사용되지만, 나중에 클래스에 추가되면 사용되지 않습니다.</li>
+</ul>
+
+<h3 id="기존-프로토콜과의-주요-차이점">기존 프로토콜과의 주요 차이점</h3>
+
+<p><code class="language-plaintext highlighter-rouge">__findattr__()</code>의 의미론은 기존 <code class="language-plaintext highlighter-rouge">__getattr__()</code> 및 <code class="language-plaintext highlighter-rouge">__setattr__()</code> 프로토콜과 다음과 같은 주요 차이점을 가집니다.</p>
+
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">__getattr__()</code>의 한계:</strong> <code class="language-plaintext highlighter-rouge">__getattr__()</code>은 속성이 인스턴스의 <code class="language-plaintext highlighter-rouge">__dict__</code>에 존재하면 호출되지 않습니다. 이는 효율성 때문이기도 하지만, <code class="language-plaintext highlighter-rouge">__setattr__()</code>이 인스턴스의 속성에 접근할 방법이 없어 재귀 호출을 방지하기 위함이었습니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">__setattr__()</code>의 한계:</strong> <code class="language-plaintext highlighter-rouge">__setattr__()</code>은 “self.name = foo”와 같은 “일반적인” 구문을 사용하여 인스턴스 속성을 설정할 수 없었습니다. 이렇게 하면 <code class="language-plaintext highlighter-rouge">__setattr__()</code>이 재귀적으로 호출되기 때문입니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">__findattr__()</code>의 동작:</strong> <code class="language-plaintext highlighter-rouge">__findattr__()</code>은 속성이 <code class="language-plaintext highlighter-rouge">__dict__</code>에 있든 없든 항상 호출됩니다. 그리고 인스턴스 객체 내부의 플래그(flag)가 <code class="language-plaintext highlighter-rouge">__findattr__()</code>의 재귀 호출을 방지합니다. 이를 통해 클래스는 모든 속성 접근에 대해 어떤 동작을 수행할 기회를 가질 수 있으며, ‘get’과 ‘set’ 모두에 대해 호출되므로 모든 속성 접근에 대해 유사한 정책을 쉽게 작성할 수 있습니다. 효율성 문제는 확장된 메커니즘이 사용될 때만 비용이 발생하므로 크게 문제되지 않습니다.</li>
+</ul>
+
+<h3 id="예시">예시</h3>
+
+<p>이 제안은 Java Bean과 유사한 객체 인터페이스 구현을 허용하여, 꾸밈없는 속성 접근 및 수정이 함수형 인터페이스로 투명하게 매핑될 수 있도록 합니다. 또한, 순수 Python으로 암시적(implicit) 및 명시적(explicit) Acquisition을 구현하는 복잡한 예시와, C++와 유사한 접근 제어를 구현하는 예시도 제시되었습니다.</p>
+
+<h3 id="거부-rejection">거부 (Rejection)</h3>
+
+<p>PEP 231은 최종적으로 거부되었습니다. 주된 거부 이유는 다음과 같습니다.</p>
+
+<ul>
+  <li><strong>재귀 방지 기능의 문제:</strong> 재귀 방지 기능에 심각한 문제가 있었습니다. 제안된 방식으로는 스레드 안전(thread-safe)하지 않았으며, 스레드 안전한 해결책은 다른 문제를 야기했습니다. <code class="language-plaintext highlighter-rouge">__findattr__</code> 내부와 외부에서 모두 호출되어야 하는 코드를 작성하기 어렵게 만드는 등, 재귀 방지 기능의 유용성 자체가 명확하지 않았습니다. 반대로 재귀 방지 기능이 없으면 <code class="language-plaintext highlighter-rouge">__findattr__</code>이 자기 자신을 재귀적으로 호출하게 되어 구현하기 어려워집니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">__getattr__</code>과 <code class="language-plaintext highlighter-rouge">__setattr__</code>의 충분성:</strong> 속성 ‘getting’과 ‘setting’ 모두에 대해 <code class="language-plaintext highlighter-rouge">__findattr__</code>을 지원하는 것이 얼마나 유용한지에 대한 의문이 있었습니다. <code class="language-plaintext highlighter-rouge">__setattr__</code>은 이미 모든 경우에 호출되고 있었습니다.</li>
+  <li><strong>대체 구현 가능성:</strong> 제안된 예시들은 인스턴스 변수를 자체 이름으로 저장하지 않도록 주의를 기울이면 기존 <code class="language-plaintext highlighter-rouge">__getattr__</code>을 사용하여 모두 구현할 수 있었습니다.</li>
+</ul>
+
+<p>결론적으로, <code class="language-plaintext highlighter-rouge">__findattr__()</code>의 재귀 방지 메커니즘에 대한 적절한 해결책을 찾기 어려웠고, 기존 <code class="language-plaintext highlighter-rouge">__getattr__()</code>과 <code class="language-plaintext highlighter-rouge">__setattr__()</code>로도 제안된 대부분의 기능을 구현할 수 있다는 점 때문에 PEP 231은 거부되었습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/230/" class="pagination--pager" title="[Final] PEP 230 - Warning Framework
+">Previous</a>
+    
+    
+      <a href="/python/pep/232/" class="pagination--pager" title="[Final] PEP 232 - Function Attributes
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

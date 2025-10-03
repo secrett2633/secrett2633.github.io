@@ -1,0 +1,681 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 477 - Backport ensurepip (PEP 453) to Python 2.7 | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 477: ‘Backport ensurepip (PEP 453) to Python 2.7’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 477 - Backport ensurepip (PEP 453) to Python 2.7">
+<meta property="og:url" content="http://localhost:4000/python/pep/477/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 477: ‘Backport ensurepip (PEP 453) to Python 2.7’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T22:22:24+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T22:22:24+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/477/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 477 - Backport ensurepip (PEP 453) to Python 2.7">
+    <meta itemprop="description" content="Python Enhancement Proposal 477: ‘Backport ensurepip (PEP 453) to Python 2.7’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T22:22:24+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T22:22:24+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 477 - Backport ensurepip (PEP 453) to Python 2.7
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T22:22:24+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-477--python-27에-ensurepip-pep-453-백포트">PEP 477 – Python 2.7에 ensurepip (PEP 453) 백포트</a><ul><li><a href="#개요">개요</a></li><li><a href="#도입-배경-rationale">도입 배경 (Rationale)</a></li><li><a href="#자동-호출-automatic-invocation">자동 호출 (Automatic Invocation)</a></li><li><a href="#문서-documentation">문서 (Documentation)</a></li><li><a href="#다운스트림-배포자에-의한-ensurepip-비활성화">다운스트림 배포자에 의한 ensurepip 비활성화</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0477/">PEP 477 - Backport ensurepip (PEP 453) to Python 2.7</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 26-Aug-2014</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h2 id="pep-477--python-27에-ensurepip-pep-453-백포트">PEP 477 – Python 2.7에 ensurepip (PEP 453) 백포트</h2>
+
+<h3 id="개요">개요</h3>
+
+<p>이 문서는 PEP 453에 의해 Python 3.4에 추가된 <code class="language-plaintext highlighter-rouge">ensurepip</code> 모듈을 Python 2.7 버전으로 백포트(backport)할 것을 제안합니다. 또한, Python 2.7 Windows 및 OSX 설치 프로그램에 <code class="language-plaintext highlighter-rouge">ensurepip</code>의 자동 호출 기능을 추가할 것을 제안합니다. 하지만 <code class="language-plaintext highlighter-rouge">Makefile</code>에는 자동 호출을 추가하지 않을 것을 명시합니다.</p>
+
+<p>더불어, 패키지 배포 및 설치 가이드에 대한 문서 변경 사항을 Python 3.4와 동일하게 업데이트하여 <code class="language-plaintext highlighter-rouge">ensurepip</code> 모듈을 사용하여 설치 프로그램을 부트스트랩하는 방법을 참조하도록 제안합니다.</p>
+
+<h3 id="도입-배경-rationale">도입 배경 (Rationale)</h3>
+
+<p>Python 2.7은 사실상 Python의 장기 지원(LTS) 릴리스이자 2.x 시리즈의 마지막 버전이며, 여전히 많은 사용자들이 Python 2.7을 주 버전으로 사용하고 있습니다. 이 사용자들은 더 넓은 Python 생태계에 참여하기 위해 패키징 도구를 부트스트랩하는 올바른 방법을 수동으로 찾아야만 했습니다.</p>
+
+<p>이 PEP는 최종 사용자들이 더 넓은 Python 생태계에 최대한 쉽게 참여할 수 있도록 하는 것이 세 가지 주요 이유로 중요하다고 주장합니다.</p>
+
+<ol>
+  <li><strong>Python 2.x에서 3.x로의 마이그레이션 지원:</strong> Python 2.x에서 3.x로의 마이그레이션은 <code class="language-plaintext highlighter-rouge">six</code>, <code class="language-plaintext highlighter-rouge">modernize</code>, <code class="language-plaintext highlighter-rouge">future</code>와 같은 서드파티 모듈을 통해 완화될 수 있는 여러 난관을 가지고 있습니다. 그러나 이러한 도구를 사용하려면 프로젝트를 사용하는 모든 사람이 이 패키지들을 설치할 도구를 가지고 있어야 합니다.</li>
+  <li><strong>새로운 패키징 표준 및 도구 활용:</strong> Python 2.x에서 3.x로의 마이그레이션을 돕는 도구 외에도, Python 3에 새로 추가되었지만 PyPI에서 백포트 버전으로 제공되는 여러 모듈이 있습니다. 이는 사람들이 2.x 및 3.x 호환 소프트웨어를 작성하고, Python 2에서 Python 3의 일부 새로운 기능을 사용할 수 있도록 돕습니다. 또한, 사용자들은 제안되고 있는 새로운 표준을 따르는 Python 패키지를 생성하기 위한 여러 도구(<code class="language-plaintext highlighter-rouge">setuptools</code>, <code class="language-plaintext highlighter-rouge">Wheel</code>, <code class="language-plaintext highlighter-rouge">twine</code> 등)가 필요합니다. 이러한 도구들은 더 안전하고, 빠르며, 신뢰할 수 있는 패키징 도구 체인을 가능하게 하지만, 먼저 패키지 관리자를 설치하는 방법을 알아야 한다면 사용하기 어려울 수 있습니다.</li>
+  <li><strong>Python 생태계 접근성 향상:</strong> Python의 가장 큰 강점 중 하나는 PyPI를 통해 배포되는 방대한 라이브러리와 프로젝트 생태계입니다. 그러나 이 넓은 생태계의 혜택을 의미 있게 누리려면, 일부 신규 사용자를 포함한 최종 사용자들이 어떤 패키지 관리자를 얻을지, 어떻게 얻을지, 그리고 최종적으로 먼저 설치해야 하는지에 대한 결정을 내려야 합니다.</li>
+</ol>
+
+<p>또한, 다른 Python 구현체들도 PEP 453의 이점을 인지하고 있으며, PyPy와 Jython 모두 <code class="language-plaintext highlighter-rouge">ensurepip</code>를 2.7 런타임으로 백포트할 계획을 가지고 있습니다.</p>
+
+<h3 id="자동-호출-automatic-invocation">자동 호출 (Automatic Invocation)</h3>
+
+<p>PEP 453은 <code class="language-plaintext highlighter-rouge">ensurepip</code>가 <code class="language-plaintext highlighter-rouge">Makefile</code> 및 Windows, OSX 설치 프로그램에서 기본적으로 자동 호출되도록 했습니다. 이를 통해 기본적으로 모든 사용자가 <code class="language-plaintext highlighter-rouge">pip</code>이 이미 설치된 Python을 얻을 수 있었습니다. 그러나 이 PEP는 Python 2.7 Windows 및 macOS X 설치 프로그램에는 적합하지만, Python 2.7의 일반적인 <code class="language-plaintext highlighter-rouge">Makefile</code>에는 적합하지 않다고 판단합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Makefile</code>의 주요 사용자들은 Python 자체를 배포하는 다운스트림 패키지 관리자입니다. 이러한 다운스트림 배포자들은 일반적으로 <code class="language-plaintext highlighter-rouge">pip</code>이 <code class="language-plaintext highlighter-rouge">ensurepip</code>를 통해 설치되는 것을 원하지 않으며, 최종 사용자가 자체 패키지 관리자를 통해 설치하기를 선호합니다. <code class="language-plaintext highlighter-rouge">Makefile</code>에서 <code class="language-plaintext highlighter-rouge">ensurepip</code>를 자동으로 호출하지 않으면, 이러한 배포자들이 <code class="language-plaintext highlighter-rouge">ensurepip</code>가 백포트되었다는 사실을 무시하고 <code class="language-plaintext highlighter-rouge">pip</code>이 그것을 통해 설치되지 않도록 할 수 있습니다.</p>
+
+<p>OSX 및 Windows 설치 프로그램의 주요 사용자들은 자신의 컴퓨터에 Python을 설치하려는 최종 사용자들입니다. 이 사용자들에게는 더 지원되는 메커니즘을 통해 Python에 <code class="language-plaintext highlighter-rouge">pip</code>을 설치할 수 있는 패키지 관리자가 없습니다. 이러한 이유로 이 PEP는 OSX 및 Windows에서 기본적으로 설치하는 것이 최선의 조치라고 믿습니다.</p>
+
+<h3 id="문서-documentation">문서 (Documentation)</h3>
+
+<p>이 PEP의 일환으로, Python 3.4용으로 업데이트된 패키징 배포 및 설치 가이드가 Python 2.7으로 백포트될 것입니다.</p>
+
+<h3 id="다운스트림-배포자에-의한-ensurepip-비활성화">다운스트림 배포자에 의한 <code class="language-plaintext highlighter-rouge">ensurepip</code> 비활성화</h3>
+
+<p><code class="language-plaintext highlighter-rouge">venv</code> 모듈에서 사용되기 때문에 다운스트림 배포자들은 Python 3.4에서 <code class="language-plaintext highlighter-rouge">ensurepip</code> 모듈을 비활성화할 수 없습니다. 그러나 Python 2.7에는 그러한 모듈이 없으므로, 다운스트림 배포자들이 <code class="language-plaintext highlighter-rouge">ensurepip</code> 모듈을 패치하여 아무것도 설치하지 못하도록 하는 것이 명시적으로 허용됩니다.</p>
+
+<p>만약 다운스트림 배포자가 Python 2.7에서 <code class="language-plaintext highlighter-rouge">ensurepip</code>를 완전히 비활성화하고자 한다면, 적어도 모듈은 제공하고 <code class="language-plaintext highlighter-rouge">python -m ensurepip</code> 스타일 호출은 허용해야 합니다. 하지만 이 경우 오류를 발생시키거나 0이 아닌 종료 코드로 종료하고, <code class="language-plaintext highlighter-rouge">stderr</code>에 사용자들이 <code class="language-plaintext highlighter-rouge">ensurepip</code> 대신 무엇을 사용해야 하는지 안내하는 오류 메시지를 출력해야 합니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/476/" class="pagination--pager" title="[Final] PEP 476 - Enabling certificate verification by default for stdlib http clients
+">Previous</a>
+    
+    
+      <a href="/python/pep/478/" class="pagination--pager" title="[Final] PEP 478 - Python 3.5 Release Schedule
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

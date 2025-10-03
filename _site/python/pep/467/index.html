@@ -1,0 +1,732 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Draft] PEP 467 - Minor API improvements for binary sequences | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 467: ‘Minor API improvements for binary sequences’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Draft] PEP 467 - Minor API improvements for binary sequences">
+<meta property="og:url" content="http://localhost:4000/python/pep/467/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 467: ‘Minor API improvements for binary sequences’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T22:14:25+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T22:14:25+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/467/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Draft] PEP 467 - Minor API improvements for binary sequences">
+    <meta itemprop="description" content="Python Enhancement Proposal 467: ‘Minor API improvements for binary sequences’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T22:14:25+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T22:14:25+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Draft] PEP 467 - Minor API improvements for binary sequences
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T22:14:25+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-467--바이너리-시퀀스를-위한-사소한-api-개선-minor-api-improvements-for-binary-sequences">PEP 467 – 바이너리 시퀀스를 위한 사소한 API 개선 (Minor API improvements for binary sequences)</a><ul><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#배경-rationale">배경 (Rationale)</a></li><li><a href="#동기-motivation">동기 (Motivation)</a></li><li><a href="#제안-내용-proposals">제안 내용 (Proposals)</a><ul><li><a href="#1-개수-및-바이트-초기화-시퀀스-생성자-명시적-추가-addition-of-explicit-count-and-byte-initialised-sequence-constructors">1. “개수 및 바이트 초기화 시퀀스” 생성자 명시적 추가 (Addition of explicit “count and byte initialised sequence” constructors)</a></li><li><a href="#2-단일-바이트-생성자-명시적-추가-addition-of-explicit-single-byte-constructors">2. “단일 바이트” 생성자 명시적 추가 (Addition of explicit “single byte” constructors)</a></li><li><a href="#3-단일-바이트를-검색하는-getbyte-메서드-추가-addition-of-getbyte-method-to-retrieve-a-single-byte">3. 단일 바이트를 검색하는 getbyte 메서드 추가 (Addition of “getbyte” method to retrieve a single byte)</a></li><li><a href="#4-bytes-객체를-생성하는-최적화된-이터레이터-메서드-추가-addition-of-optimised-iterator-methods-that-produce-bytes-objects">4. bytes 객체를 생성하는 최적화된 이터레이터 메서드 추가 (Addition of optimised iterator methods that produce bytes objects)</a></li></ul></li><li><a href="#설계-논의-design-discussion">설계 논의 (Design discussion)</a><ul><li><a href="#0으로-초기화된-시퀀스를-생성하기-위해-시퀀스-반복에-의존하지-않는-이유-why-not-rely-on-sequence-repetition-to-create-zero-initialised-sequences">0으로 초기화된 시퀀스를 생성하기 위해 시퀀스 반복에 의존하지 않는 이유 (Why not rely on sequence repetition to create zero-initialised sequences?)</a></li><li><a href="#현재-해결-방법-current-workarounds">현재 해결 방법 (Current Workarounds)</a></li><li><a href="#원래-제안되었던-빌트인-함수-생략-omitting-the-originally-proposed-builtin-function">원래 제안되었던 빌트인 함수 생략 (Omitting the originally proposed builtin function)</a></li></ul></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0467/">PEP 467 - Minor API improvements for binary sequences</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Draft</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 30-Mar-2014</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h2 id="pep-467--바이너리-시퀀스를-위한-사소한-api-개선-minor-api-improvements-for-binary-sequences">PEP 467 – 바이너리 시퀀스를 위한 사소한 API 개선 (Minor API improvements for binary sequences)</h2>
+
+<h3 id="개요-abstract">개요 (Abstract)</h3>
+<p>이 PEP는 <code class="language-plaintext highlighter-rouge">bytes</code> 및 <code class="language-plaintext highlighter-rouge">bytearray</code> 타입의 API에 작은 조정을 제안하여 바이너리 도메인(binary domain) 내에서 작업하는 것을 더 쉽게 만드는 것을 목표로 합니다. 주요 제안 내용은 다음과 같습니다:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">fromsize</code> 대체 생성자 추가</li>
+  <li><code class="language-plaintext highlighter-rouge">fromint</code> 대체 생성자 추가</li>
+  <li><code class="language-plaintext highlighter-rouge">getbyte</code> 바이트 검색 메서드 추가</li>
+  <li><code class="language-plaintext highlighter-rouge">iterbytes</code> 대체 이터레이터 추가</li>
+</ul>
+
+<p>마지막 두 가지(<code class="language-plaintext highlighter-rouge">getbyte</code> 및 <code class="language-plaintext highlighter-rouge">iterbytes</code>)는 <code class="language-plaintext highlighter-rouge">memoryview</code>에도 추가될 예정입니다.</p>
+
+<h3 id="배경-rationale">배경 (Rationale)</h3>
+<p>Python 3 언어 사양의 초기 개발 과정에서, 임의의 바이너리 데이터를 위한 핵심 <code class="language-plaintext highlighter-rouge">bytes</code> 타입은 현재 <code class="language-plaintext highlighter-rouge">bytearray</code>라고 불리는 가변 타입으로 시작되었습니다. Python 3 시리즈 전반에 걸쳐 바이너리 도메인에서 작동하는 다른 측면들도 발전해 왔으며, 예를 들어 PEP 461이 있습니다.</p>
+
+<h3 id="동기-motivation">동기 (Motivation)</h3>
+<p>Python 3와 <code class="language-plaintext highlighter-rouge">str</code> 및 <code class="language-plaintext highlighter-rouge">bytes</code>의 분리 이후, 프로그래밍의 작지만 중요한 영역인 와이어 포맷(wire format) 프로토콜은 다루기 다소 어려워졌고 훨씬 더 고통스러워졌습니다. 이 프로그래밍 영역은 바이너리 데이터와 ASCII 호환 텍스트 세그먼트(ASCII-encoded text)의 혼합으로 특징지어집니다. 새로운 생성자, 메서드 및 이터레이터의 추가는 새로운 와이어 포맷 코드를 작성하고 기존 코드를 업데이트하는 데 도움이 될 것입니다. 일반적인 사용 사례로는 dbf 및 pdf 파일 형식, 이메일 형식, FTP 및 HTTP 통신 등이 있습니다.</p>
+
+<h3 id="제안-내용-proposals">제안 내용 (Proposals)</h3>
+
+<h4 id="1-개수-및-바이트-초기화-시퀀스-생성자-명시적-추가-addition-of-explicit-count-and-byte-initialised-sequence-constructors">1. “개수 및 바이트 초기화 시퀀스” 생성자 명시적 추가 (Addition of explicit “count and byte initialised sequence” constructors)</h4>
+<p>기본 생성자(예: <code class="language-plaintext highlighter-rouge">bytes(1) -&gt; b'\x00'</code>)를 통해 0으로 채워진 <code class="language-plaintext highlighter-rouge">bytes</code> 유사 객체를 생성하는 권장되지 않는 동작을 대체하기 위해, 이 PEP는 <code class="language-plaintext highlighter-rouge">bytes</code>와 <code class="language-plaintext highlighter-rouge">bytearray</code> 모두에 <code class="language-plaintext highlighter-rouge">fromsize</code>라는 명시적인 대체 생성자를 클래스 메서드로 추가할 것을 제안합니다. 첫 번째 인수는 개수(<code class="language-plaintext highlighter-rouge">count</code>)이며, 두 번째 인수는 사용할 채움 바이트(<code class="language-plaintext highlighter-rouge">fill byte</code>)이고 기본값은 <code class="language-plaintext highlighter-rouge">\x00</code>입니다.</p>
+
+<p>예시:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="nb">bytes</span><span class="p">.</span><span class="nf">fromsize</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="sa">b</span><span class="sh">'</span><span class="se">\x00\x00\x00</span><span class="sh">'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">bytearray</span><span class="p">.</span><span class="nf">fromsize</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="nf">bytearray</span><span class="p">(</span><span class="sa">b</span><span class="sh">'</span><span class="se">\x00\x00\x00</span><span class="sh">'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">bytes</span><span class="p">.</span><span class="nf">fromsize</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="sa">b</span><span class="sh">'</span><span class="se">\x0a</span><span class="sh">'</span><span class="p">)</span>
+<span class="sa">b</span><span class="sh">'</span><span class="se">\x0a\x0a\x0a\x0a\x0a</span><span class="sh">'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">bytearray</span><span class="p">.</span><span class="nf">fromsize</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="sa">b</span><span class="sh">'</span><span class="se">\x0a</span><span class="sh">'</span><span class="p">)</span>
+<span class="nf">bytearray</span><span class="p">(</span><span class="sa">b</span><span class="sh">'</span><span class="se">\x0a\x0a\x0a\x0a\x0a</span><span class="sh">'</span><span class="p">)</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">fromsize</code>는 단일 정수가 전달될 때 현재 생성자가 작동하는 방식과 동일하게 동작하지만, 필요할 경우 0이 아닌 채움 값을 허용합니다.</p>
+
+<h4 id="2-단일-바이트-생성자-명시적-추가-addition-of-explicit-single-byte-constructors">2. “단일 바이트” 생성자 명시적 추가 (Addition of explicit “single byte” constructors)</h4>
+<p>텍스트 <code class="language-plaintext highlighter-rouge">chr</code> 함수의 바이너리 대응물로서, 이 PEP는 <code class="language-plaintext highlighter-rouge">bytes</code>와 <code class="language-plaintext highlighter-rouge">bytearray</code> 모두에 <code class="language-plaintext highlighter-rouge">fromint</code>라는 명시적인 대체 생성자를 클래스 메서드로 추가할 것을 제안합니다.</p>
+
+<p>예시:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="nb">bytes</span><span class="p">.</span><span class="nf">fromint</span><span class="p">(</span><span class="mi">65</span><span class="p">)</span>
+<span class="sa">b</span><span class="sh">'</span><span class="s">A</span><span class="sh">'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">bytearray</span><span class="p">.</span><span class="nf">fromint</span><span class="p">(</span><span class="mi">65</span><span class="p">)</span>
+<span class="nf">bytearray</span><span class="p">(</span><span class="sa">b</span><span class="sh">'</span><span class="s">A</span><span class="sh">'</span><span class="p">)</span>
+</code></pre></div></div>
+<p>이 메서드들은 0에서 255 (포함) 범위의 정수만 허용합니다.
+범위를 벗어나는 값이나 잘못된 타입이 전달될 경우 <code class="language-plaintext highlighter-rouge">ValueError</code> 또는 <code class="language-plaintext highlighter-rouge">TypeError</code>가 발생합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">ord</code> 빌트인 함수의 문서는 <code class="language-plaintext highlighter-rouge">bytes.fromint</code>가 바이너리 데이터의 주된 역 연산(primary inverse operation)이며, <code class="language-plaintext highlighter-rouge">chr</code>은 텍스트 데이터의 역 연산임을 명시적으로 기록하도록 업데이트될 것입니다. <code class="language-plaintext highlighter-rouge">bytearray.fromint</code>도 존재함이 언급될 것입니다.</p>
+
+<p>동작상 <code class="language-plaintext highlighter-rouge">bytes.fromint(x)</code>는 현재 <code class="language-plaintext highlighter-rouge">bytes([x])</code>와 동일하며 (<code class="language-plaintext highlighter-rouge">bytearray</code>도 마찬가지), 새로운 표기법은 발견하기 쉽고 읽기 쉬울 것으로 예상됩니다 (특히 바이너리 시퀀스 타입의 인덱싱 연산과 함께 사용될 때). 별도의 메서드로서, 이 새로운 표기법은 <code class="language-plaintext highlighter-rouge">map</code>과 같은 고차 함수(higher order functions)와 더 잘 작동할 것입니다.</p>
+
+<p>이 새로운 메서드들은 임의로 큰 정수를 임의로 긴 <code class="language-plaintext highlighter-rouge">bytes</code> 객체로 변환할 수 있는 기존 <code class="language-plaintext highlighter-rouge">int.to_bytes</code> 변환 메서드와 동일한 수준의 일반적인 정수 지원을 의도적으로 제공하지 않습니다. 단일 바이트에 맞는 양의 정수만 허용하는 제한은 바이트 순서 정보가 필요 없고 음수를 처리할 필요가 없음을 의미합니다. 새로운 메서드 문서는 임의의 정수 처리가 필요한 사용 사례에 대해 <code class="language-plaintext highlighter-rouge">int.to_bytes</code>를 참조하도록 안내할 것입니다.</p>
+
+<h4 id="3-단일-바이트를-검색하는-getbyte-메서드-추가-addition-of-getbyte-method-to-retrieve-a-single-byte">3. 단일 바이트를 검색하는 <code class="language-plaintext highlighter-rouge">getbyte</code> 메서드 추가 (Addition of “getbyte” method to retrieve a single byte)</h4>
+<p>이 PEP는 <code class="language-plaintext highlighter-rouge">bytes</code>, <code class="language-plaintext highlighter-rouge">bytearray</code>, <code class="language-plaintext highlighter-rouge">memoryview</code>에 항상 <code class="language-plaintext highlighter-rouge">bytes</code> 객체를 반환하는 <code class="language-plaintext highlighter-rouge">getbyte</code> 메서드를 추가할 것을 제안합니다.</p>
+
+<p>예시:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="sa">b</span><span class="sh">'</span><span class="s">abc</span><span class="sh">'</span><span class="p">.</span><span class="nf">getbyte</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="sa">b</span><span class="sh">'</span><span class="s">a</span><span class="sh">'</span>
+</code></pre></div></div>
+<p>존재하지 않는 인덱스를 요청하면 <code class="language-plaintext highlighter-rouge">IndexError</code>가 발생합니다.</p>
+
+<h4 id="4-bytes-객체를-생성하는-최적화된-이터레이터-메서드-추가-addition-of-optimised-iterator-methods-that-produce-bytes-objects">4. <code class="language-plaintext highlighter-rouge">bytes</code> 객체를 생성하는 최적화된 이터레이터 메서드 추가 (Addition of optimised iterator methods that produce bytes objects)</h4>
+<p>이 PEP는 <code class="language-plaintext highlighter-rouge">bytes</code>, <code class="language-plaintext highlighter-rouge">bytearray</code>, <code class="language-plaintext highlighter-rouge">memoryview</code>에 정수 대신 길이가 1인 <code class="language-plaintext highlighter-rouge">bytes</code> 객체를 생성하는 최적화된 <code class="language-plaintext highlighter-rouge">iterbytes</code> 메서드를 추가할 것을 제안합니다.</p>
+
+<p>예시:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">data</span><span class="p">.</span><span class="nf">iterbytes</span><span class="p">():</span> <span class="c1"># x는 정수 대신 길이가 1인 `bytes` 객체
+</span>    <span class="c1"># ...
+</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nf">tuple</span><span class="p">(</span><span class="sa">b</span><span class="sh">"</span><span class="s">ABC</span><span class="sh">"</span><span class="p">.</span><span class="nf">iterbytes</span><span class="p">())</span>
+<span class="p">(</span><span class="sa">b</span><span class="sh">'</span><span class="s">A</span><span class="sh">'</span><span class="p">,</span> <span class="sa">b</span><span class="sh">'</span><span class="s">B</span><span class="sh">'</span><span class="p">,</span> <span class="sa">b</span><span class="sh">'</span><span class="s">C</span><span class="sh">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="설계-논의-design-discussion">설계 논의 (Design discussion)</h3>
+
+<h4 id="0으로-초기화된-시퀀스를-생성하기-위해-시퀀스-반복에-의존하지-않는-이유-why-not-rely-on-sequence-repetition-to-create-zero-initialised-sequences">0으로 초기화된 시퀀스를 생성하기 위해 시퀀스 반복에 의존하지 않는 이유 (Why not rely on sequence repetition to create zero-initialised sequences?)</h4>
+<p>0으로 초기화된 시퀀스는 시퀀스 반복을 통해 생성할 수 있습니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="sa">b</span><span class="sh">'</span><span class="se">\x00</span><span class="sh">'</span> <span class="o">*</span> <span class="mi">3</span>
+<span class="sa">b</span><span class="sh">'</span><span class="se">\x00\x00\x00</span><span class="sh">'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nf">bytearray</span><span class="p">(</span><span class="sa">b</span><span class="sh">'</span><span class="se">\x00</span><span class="sh">'</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span>
+<span class="nf">bytearray</span><span class="p">(</span><span class="sa">b</span><span class="sh">'</span><span class="se">\x00\x00\x00</span><span class="sh">'</span><span class="p">)</span>
+</code></pre></div></div>
+<p>그러나 <code class="language-plaintext highlighter-rouge">bytearray</code> 타입이 처음 설계될 때도 마찬가지였으며, 타입 생성자에 명시적인 지원을 추가하기로 결정되었습니다. 그 후 변경 불가능한 <code class="language-plaintext highlighter-rouge">bytes</code> 타입은 PEP 3137에서 도입될 때 그 기능을 상속받았습니다. 이 PEP는 원래의 설계 결정을 재검토하는 것이 아니라, 사용자들이 바이너리 시퀀스 생성자의 현재 동작을 때때로 혼란스러워하기 때문에 표기법을 변경하는 것입니다. 특히, <code class="language-plaintext highlighter-rouge">bytes(x)</code> (여기서 <code class="language-plaintext highlighter-rouge">x</code>는 정수)가 이 PEP의 <code class="language-plaintext highlighter-rouge">bytes.fromint(x)</code> 제안처럼 동작해야 한다는 합리적인 주장이 있습니다. 두 동작을 별도의 클래스 메서드로 제공함으로써 이러한 모호성을 피합니다.</p>
+
+<h4 id="현재-해결-방법-current-workarounds">현재 해결 방법 (Current Workarounds)</h4>
+<p>거의 10년이 지난 후에도 바이트 이터레이션(byte iteration)을 위한 최선의 해결책에 대한 합의는 없는 것으로 보입니다.</p>
+
+<h4 id="원래-제안되었던-빌트인-함수-생략-omitting-the-originally-proposed-builtin-function">원래 제안되었던 빌트인 함수 생략 (Omitting the originally proposed builtin function)</h4>
+<p>스티어링 위원회(Steering Council)에 제출되었을 때, 이 PEP는 <code class="language-plaintext highlighter-rouge">bytes.fromint</code>와 동일한 동작을 하는 <code class="language-plaintext highlighter-rouge">bchr</code> 빌트인 함수를 도입할 것을 제안하여 Python 2의 <code class="language-plaintext highlighter-rouge">ord</code> / <code class="language-plaintext highlighter-rouge">chr</code> / <code class="language-plaintext highlighter-rouge">unichr</code> 트리오를 다른 명명 체계(<code class="language-plaintext highlighter-rouge">ord</code> / <code class="language-plaintext highlighter-rouge">bchr</code> / <code class="language-plaintext highlighter-rouge">chr</code>)로 재현했습니다. SC는 동일한 작업을 수행하는 두 가지 방법을 제공할 만큼 이 기능이 충분히 자주 필요하다고 생각하지 않았으며, 특히 그중 하나가 새로운 빌트인 함수일 때는 더욱 그렇다고 지적했습니다. 따라서 이 제안 부분은 <code class="language-plaintext highlighter-rouge">bytes.fromint</code> 대체 생성자와 중복되므로 삭제되었습니다. 이 메서드를 자주 사용하는 개발자는 대신 자신만의 <code class="language-plaintext highlighter-rouge">bchr = bytes.fromint</code> 별칭을 정의할 수 있습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/466/" class="pagination--pager" title="[Final] PEP 466 - Network Security Enhancements for Python 2.7.x
+">Previous</a>
+    
+    
+      <a href="/python/pep/468/" class="pagination--pager" title="[Final] PEP 468 - Preserving the order of **kwargs in a function.
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

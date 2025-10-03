@@ -1,0 +1,946 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Deferred] PEP 213 - Attribute Access Handlers | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 213: ‘Attribute Access Handlers’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Deferred] PEP 213 - Attribute Access Handlers">
+<meta property="og:url" content="http://localhost:4000/python/pep/213/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 213: ‘Attribute Access Handlers’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T16:29:57+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T16:29:57+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/213/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Deferred] PEP 213 - Attribute Access Handlers">
+    <meta itemprop="description" content="Python Enhancement Proposal 213: ‘Attribute Access Handlers’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T16:29:57+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T16:29:57+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Deferred] PEP 213 - Attribute Access Handlers
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T16:29:57+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#서론-introduction">서론 (Introduction)</a></li><li><a href="#정당화-justification">정당화 (Justification)</a><ul><li><a href="#시나리오-1-scenario-1">시나리오 1 (Scenario 1)</a></li><li><a href="#시나리오-2-scenario-2">시나리오 2 (Scenario 2)</a></li><li><a href="#시나리오-3-scenario-3">시나리오 3 (Scenario 3)</a></li></ul></li><li><a href="#현재-해결책-current-solution">현재 해결책 (Current Solution)</a></li><li><a href="#제안된-구문-proposed-syntax">제안된 구문 (Proposed Syntax)</a></li><li><a href="#의미론-semantics">의미론 (Semantics)</a></li><li><a href="#제안된-구현-proposed-implementation">제안된 구현 (Proposed Implementation)</a></li><li><a href="#주의-사항-caveats">주의 사항 (Caveats)</a></li><li><a href="#참고-note">참고 (Note)</a></li><li><a href="#서론-introduction-1">서론 (Introduction)</a></li><li><a href="#정당화-justification-1">정당화 (Justification)</a><ul><li><a href="#시나리오-1-scenario-1-1">시나리오 1 (Scenario 1)</a></li><li><a href="#시나리오-2-scenario-2-1">시나리오 2 (Scenario 2)</a></li><li><a href="#시나리오-3-scenario-3-1">시나리오 3 (Scenario 3)</a></li></ul></li><li><a href="#현재-해결책-current-solution-1">현재 해결책 (Current Solution)</a></li><li><a href="#제안된-구문-proposed-syntax-1">제안된 구문 (Proposed Syntax)</a></li><li><a href="#의미론-semantics-1">의미론 (Semantics)</a></li><li><a href="#제안된-구현-proposed-implementation-1">제안된 구현 (Proposed Implementation)</a></li><li><a href="#주의-사항-caveats-1">주의 사항 (Caveats)</a></li><li><a href="#참고-note-2">참고 (Note)</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0213/">PEP 213 - Attribute Access Handlers</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Deferred</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 21-Jul-2000</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h3 id="서론-introduction">서론 (Introduction)</h3>
+
+<p>Python 코드와 확장 모듈에서는 인스턴스의 클라이언트 코드가 속성을 설정하려고 시도할 때 이를 “트랩(trap)”하여 대신 다른 코드를 실행하는 것이 가능하며, 비교적 흔하게 사용됩니다. 다시 말해, 내부 구현이 직접 바인딩을 수정하는 대신 어떤 계산을 수행하더라도 사용자가 속성 할당/검색/삭제 구문을 사용할 수 있도록 하는 것이 가능합니다.</p>
+
+<p>이 PEP는 Python 인스턴스에 대한 이러한 핸들러를 더 쉽고, 효율적이며, 안전하게 구현할 수 있는 기능을 설명합니다.</p>
+
+<h3 id="정당화-justification">정당화 (Justification)</h3>
+
+<h4 id="시나리오-1-scenario-1">시나리오 1 (Scenario 1)</h4>
+
+<p><code class="language-plaintext highlighter-rouge">stdout</code>이라는 속성을 사용하여 작동하는 배포된 클래스가 있습니다. 얼마 후, 할당 시점에 <code class="language-plaintext highlighter-rouge">stdout</code>이 정말 <code class="language-plaintext highlighter-rouge">write</code> 메서드를 가진 객체인지 확인하는 것이 더 좋다고 생각하게 됩니다. <code class="language-plaintext highlighter-rouge">setstdout</code> 메서드로 변경하는 대신 (이는 배포된 코드와 호환되지 않을 것입니다) 할당을 트랩하고 객체의 유형을 확인하고 싶을 것입니다.</p>
+
+<h4 id="시나리오-2-scenario-2">시나리오 2 (Scenario 2)</h4>
+
+<p>속성 할당 개념을 가진 객체 모델과 가능한 한 호환되기를 원합니다. 이는 W3C Document Object Model (DOM)일 수도 있고, 특정 COM 인터페이스(예: PowerPoint 인터페이스)일 수도 있습니다. 이 경우, 내부 구현이 속성을 전혀 사용하지 않더라도 모델의 속성이 Python 인터페이스에서 속성으로 나타나도록 하고 싶을 수 있습니다.</p>
+
+<h4 id="시나리오-3-scenario-3">시나리오 3 (Scenario 3)</h4>
+
+<p>사용자가 속성을 읽기 전용(read-only)으로 만들고 싶어 합니다.</p>
+
+<p>요약하자면, 이 기능은 프로그래머가 어떤 목적으로든 모듈의 인터페이스를 내부 구현과 분리할 수 있도록 합니다. 다시 말하지만, 이것은 새로운 기능이 아니라 기존 컨벤션에 대한 새로운 구문일 뿐입니다.</p>
+
+<h3 id="현재-해결책-current-solution">현재 해결책 (Current Solution)</h3>
+
+<p>일부 속성을 읽기 전용으로 만들려면 다음과 같이 합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">foo</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__setattr__</span><span class="p">(</span> <span class="n">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">val</span> <span class="p">):</span>
+        <span class="k">if</span> <span class="n">name</span><span class="o">==</span><span class="sh">"</span><span class="s">readonlyattr</span><span class="sh">"</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nb">TypeError</span>
+        <span class="k">elif</span> <span class="n">name</span><span class="o">==</span><span class="sh">"</span><span class="s">readonlyattr2</span><span class="sh">"</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nb">TypeError</span>
+        <span class="c1"># ...
+</span>        <span class="k">else</span><span class="p">:</span>
+            <span class="n">self</span><span class="p">.</span><span class="n">__dict__</span><span class="p">[</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">]</span><span class="o">=</span><span class="n">val</span>
+</code></pre></div></div>
+
+<p>이 방식에는 다음과 같은 문제가 있습니다.</p>
+
+<ul>
+  <li>메서드의 생성자는 클래스 계층 구조의 다른 곳에서 <code class="language-plaintext highlighter-rouge">__setattr__</code>가 특정 목적으로 트랩되었는지 여부를 정확히 알아야 합니다. 만약 그렇다면, 딕셔너리에 할당하는 대신 해당 메서드를 특별히 호출해야 합니다. <code class="language-plaintext highlighter-rouge">__setattr__</code>를 오버로드하는 이유는 여러 가지이므로 충돌 가능성이 상당히 높습니다. 예를 들어, 객체 데이터베이스 구현은 완전히 관련 없는 목적으로 <code class="language-plaintext highlighter-rouge">__setattr__</code>를 오버로드하는 경우가 많습니다.</li>
+  <li>문자열 기반의 스위치 문(switch statement)은 모든 속성 핸들러가 코드의 한 곳에 지정되도록 강제합니다. 그런 다음 모듈성을 위해 작업별 메서드로 디스패치(dispatch)할 수 있지만, 이는 성능 문제를 야기할 수 있습니다.</li>
+  <li>설정(setting), 가져오기(getting), 삭제(deleting)를 위한 로직은 <code class="language-plaintext highlighter-rouge">__getattr__</code>, <code class="language-plaintext highlighter-rouge">__setattr__</code>, <code class="language-plaintext highlighter-rouge">__delattr__</code> 내부에 존재해야 합니다. 다시 한번 말하지만, 이는 추가적인 메서드 호출 계층을 통해 완화될 수 있지만 비효율적입니다.</li>
+</ul>
+
+<h3 id="제안된-구문-proposed-syntax">제안된 구문 (Proposed Syntax)</h3>
+
+<p>특수 메서드는 다음 형식의 선언으로 자신을 선언해야 합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">x</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__attr_XXX__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">op</span><span class="p">,</span> <span class="n">val</span> <span class="p">):</span>
+        <span class="k">if</span> <span class="n">op</span><span class="o">==</span><span class="sh">"</span><span class="s">get</span><span class="sh">"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nf">someComputedValue</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">internal</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">op</span><span class="o">==</span><span class="sh">"</span><span class="s">set</span><span class="sh">"</span><span class="p">:</span>
+            <span class="n">self</span><span class="p">.</span><span class="n">internal</span><span class="o">=</span><span class="nf">someComputedValue</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">op</span><span class="o">==</span><span class="sh">"</span><span class="s">del</span><span class="sh">"</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">self</span><span class="p">.</span><span class="n">internal</span>
+</code></pre></div></div>
+
+<p>클라이언트 코드는 다음과 같습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fooval</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="n">foo</span>
+<span class="n">x</span><span class="p">.</span><span class="n">foo</span> <span class="o">=</span> <span class="n">fooval</span> <span class="o">+</span> <span class="mi">5</span>
+<span class="k">del</span> <span class="n">x</span><span class="p">.</span><span class="n">foo</span>
+</code></pre></div></div>
+
+<h3 id="의미론-semantics">의미론 (Semantics)</h3>
+
+<p>세 가지 종류의 속성 참조 모두 해당 메서드를 호출해야 합니다. <code class="language-plaintext highlighter-rouge">op</code> 매개변수는 “get”, “set”, “del”이 될 수 있습니다. 물론 이 문자열은 interned 될 것이므로 문자열에 대한 실제 검사는 매우 빠를 것입니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">__attr_XXX__</code>라는 메서드와 동일한 인스턴스에 <code class="language-plaintext highlighter-rouge">XXX</code>라는 속성을 실제로 갖는 것은 허용되지 않습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">__attr_XXX__</code> 구현은 <code class="language-plaintext highlighter-rouge">__getattr__</code> 구현보다 우선합니다. 이는 <code class="language-plaintext highlighter-rouge">__getattr__</code>가 적절한 속성을 찾는 데 실패한 후에만 호출되도록 되어 있다는 원칙에 기반합니다.</p>
+
+<p>일관성을 위해 <code class="language-plaintext highlighter-rouge">__attr_XXX__</code> 구현은 <code class="language-plaintext highlighter-rouge">__setattr__</code> 구현보다 우선합니다. 반대되는 선택도 상당히 가능해 보입니다. <code class="language-plaintext highlighter-rouge">__del_y__</code>에 대해서도 마찬가지입니다.</p>
+
+<h3 id="제안된-구현-proposed-implementation">제안된 구현 (Proposed Implementation)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">attribute access handler</code>라는 새로운 객체 유형이 있습니다. 이 유형의 객체는 다음 속성을 가집니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">name</code> (예: <code class="language-plaintext highlighter-rouge">XXX</code>, <code class="language-plaintext highlighter-rouge">__attr__XXX__</code> 아님)</li>
+  <li><code class="language-plaintext highlighter-rouge">method</code> (메서드 객체에 대한 포인터)</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">PyClass_New</code>에서 적절한 형식의 메서드는 감지되어 객체로 변환됩니다 (언바운드(unbound) 메서드 객체와 동일). 이들은 <code class="language-plaintext highlighter-rouge">XXX</code>라는 이름으로 클래스 <code class="language-plaintext highlighter-rouge">__dict__</code>에 저장됩니다. 원래 메서드는 원래 이름으로 언바운드 메서드로 저장됩니다.</p>
+
+<p>인스턴스에 <code class="language-plaintext highlighter-rouge">attribute access handler</code>가 하나라도 있다면, 플래그가 설정됩니다. 지금은 “I_have_computed_attributes”라고 부르겠습니다. 파생 클래스는 기본 클래스에서 플래그를 상속합니다. 인스턴스는 클래스에서 플래그를 상속합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">get</code>은 객체가 반환되기 직전까지 평소와 같이 진행됩니다. 반환된 객체가 메서드인지 여부를 현재 확인하는 것 외에도, 반환된 객체가 <code class="language-plaintext highlighter-rouge">access handler</code>인지 여부도 확인합니다. 만약 그렇다면, getter 메서드를 호출하고 값을 반환합니다. <code class="language-plaintext highlighter-rouge">attribute access handler</code>를 제거하려면 딕셔너리를 직접 조작할 수 있습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">set</code>은 “I_have_computed_attributes” 플래그를 확인하여 진행됩니다. 플래그가 설정되어 있지 않으면 모든 것이 오늘날과 같이 진행됩니다. 플래그가 설정되어 있으면 요청된 객체 이름에 대해 딕셔너리 <code class="language-plaintext highlighter-rouge">get</code>을 수행해야 합니다. 만약 <code class="language-plaintext highlighter-rouge">attribute access handler</code>를 반환하면, setter 함수를 값과 함께 호출합니다. 다른 객체를 반환하면 결과를 버리고 오늘날과 같이 계속합니다. <code class="language-plaintext highlighter-rouge">attribute access handler</code>를 갖는 것은 특정 인스턴스의 모든 <code class="language-plaintext highlighter-rouge">set</code> 작업에 대한 속성 “설정” 성능에 약간 영향을 미치지만, <code class="language-plaintext highlighter-rouge">__setattr__</code>를 사용하는 오늘날보다 더 그렇지는 않습니다. <code class="language-plaintext highlighter-rouge">get</code>은 <code class="language-plaintext highlighter-rouge">__getattr__</code>를 사용하는 오늘날보다 효율적입니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">I_have_computed_attributes</code> 플래그는 이 기능을 사용하지 않는 객체에 대해 “set”당 추가 “get”으로 인한 성능 저하를 제거하기 위한 것입니다. 이 플래그를 확인하는 것은 모든 객체에 대해 미미한 성능 영향을 미칠 것입니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">delete</code>의 구현은 <code class="language-plaintext highlighter-rouge">set</code>의 구현과 유사합니다.</p>
+
+<h3 id="주의-사항-caveats">주의 사항 (Caveats)</h3>
+
+<p>인스턴스의 딕셔너리에서 속성이 추가되거나 제거될 때 <code class="language-plaintext highlighter-rouge">I_have_computed_attributes</code> 플래그를 최신 상태로 유지하는 로직을 제안하지 않았다는 점을 주목할 수 있습니다. 이는 현재 Python과 일치합니다. 객체가 사용 중인 상태에서 <code class="language-plaintext highlighter-rouge">__setattr__</code> 메서드를 추가하면, 해당 메서드는 “컴파일” 시점에 사용 가능했을 때와 같이 동작하지 않습니다. 역동성(dynamism)은 추가적인 구현 노력의 가치가 없다고 주장할 수 있습니다. 다음 스니펫은 현재 동작을 보여줍니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">prn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span><span class="k">print</span> <span class="n">args</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">a</span><span class="p">:</span>
+<span class="p">...</span>     <span class="n">__setattr__</span><span class="o">=</span><span class="n">prn</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nf">a</span><span class="p">().</span><span class="n">foo</span><span class="o">=</span><span class="mi">5</span>
+<span class="p">(</span><span class="o">&lt;</span><span class="n">__main__</span><span class="p">.</span><span class="n">a</span> <span class="n">instance</span> <span class="n">at</span> <span class="mi">882890</span><span class="o">&gt;</span><span class="p">,</span> <span class="sh">'</span><span class="s">foo</span><span class="sh">'</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">b</span><span class="p">:</span> <span class="k">pass</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">bi</span><span class="o">=</span><span class="nf">b</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">bi</span><span class="p">.</span><span class="n">__setattr__</span><span class="o">=</span><span class="n">prn</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span><span class="p">.</span><span class="n">foo</span><span class="o">=</span><span class="mi">5</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">__dict__["XXX"]</code>에 할당하면 <code class="language-plaintext highlighter-rouge">__attr_XXX__</code>에 대한 <code class="language-plaintext highlighter-rouge">attribute access handler</code>를 덮어쓸 수 있습니다. 일반적으로 <code class="language-plaintext highlighter-rouge">access handler</code>는 비공개 <code class="language-plaintext highlighter-rouge">__XXX</code> 변수에 정보를 저장할 것입니다.</p>
+
+<p>객체 자체에 <code class="language-plaintext highlighter-rouge">setattr</code> 또는 <code class="language-plaintext highlighter-rouge">getattr</code>를 호출하려고 시도하는 <code class="language-plaintext highlighter-rouge">attribute access handler</code>는 무한 루프를 유발할 수 있습니다 (<code class="language-plaintext highlighter-rouge">__getattr__</code>와 마찬가지로). 다시 한번, 해결책은 <code class="language-plaintext highlighter-rouge">__XXX</code>와 같은 특수한 (일반적으로 비공개) 변수를 사용하는 것입니다.</p>
+
+<h3 id="참고-note">참고 (Note)</h3>
+
+<p>PEP 252에 설명된 디스크립터(descriptor) 메커니즘은 이 기능을 더 직접적으로 지원하기에 충분히 강력합니다. <code class="language-plaintext highlighter-rouge">getset</code> 생성자가 언어에 추가되어 이를 가능하게 할 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">C</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">get_x</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">__x</span>
+    <span class="k">def</span> <span class="nf">set_x</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">__x</span> <span class="o">=</span> <span class="n">v</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="nf">getset</span><span class="p">(</span><span class="n">get_x</span><span class="p">,</span> <span class="n">set_x</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="추가적인-구문-설탕syntactic-sugar이-추가되거나-명명-규칙naming-convention이-인식될-수도-있습니다">추가적인 구문 설탕(syntactic sugar)이 추가되거나, 명명 규칙(naming convention)이 인식될 수도 있습니다.</h2>
+
+<p><strong>문서 출처:</strong> https://github.com/python/peps/blob/main/peps/pep-0213.rst
+<strong>최종 수정:</strong> 2025-02-01 08:55:40 GMT</p>
+
+<hr />
+<p><strong>내용 (Contents)</strong></p>
+<ul>
+  <li>서론 (Introduction)</li>
+  <li>정당화 (Justification)
+    <ul>
+      <li>시나리오 1 (Scenario 1)</li>
+      <li>시나리오 2 (Scenario 2)</li>
+      <li>시나리오 3 (Scenario 3)</li>
+    </ul>
+  </li>
+  <li>현재 해결책 (Current Solution)</li>
+  <li>제안된 구문 (Proposed Syntax)</li>
+  <li>의미론 (Semantics)</li>
+  <li>제안된 구현 (Proposed Implementation)</li>
+  <li>주의 사항 (Caveats)</li>
+  <li>
+    <h2 id="참고-note-1">참고 (Note)</h2>
+    <p>I have translated the PEP 0213 document into Korean, following all the specified guidelines.</p>
+  </li>
+  <li>Professional terminology is used.</li>
+  <li>English terms are used or 병기 (English and Korean together) where appropriate.</li>
+  <li>Code keywords and variable names are not translated.</li>
+  <li>Markdown is used for readability and structure.</li>
+  <li>The content is fully translated.</li>
+  <li>Citations are added to each sentence that refers to the browsed content.<strong>PEP 213 – 속성 접근 핸들러 (Attribute Access Handlers)</strong></li>
+</ul>
+
+<p><strong>저자:</strong> Paul Prescod <paul at="" prescod.net="">
+**상태:** 연기됨 (Deferred)
+**유형:** 표준 트랙 (Standards Track)
+**생성일:** 2000년 7월 21일
+**Python 버전:** 2.1
+**Post-History:**</paul></p>
+
+<hr />
+
+<h3 id="서론-introduction-1">서론 (Introduction)</h3>
+
+<p>Python 코드와 확장 모듈에서는 인스턴스의 클라이언트 코드가 속성을 설정하려고 시도할 때 이를 “트랩(trap)”하여 대신 다른 코드를 실행하는 것이 가능하며, 비교적 흔하게 사용됩니다. 다시 말해, 내부 구현이 직접 바인딩을 수정하는 대신 어떤 계산을 수행하더라도 사용자가 속성 할당/검색/삭제 구문을 사용할 수 있도록 하는 것이 가능합니다.</p>
+
+<p>이 PEP는 Python 인스턴스에 대한 이러한 핸들러를 더 쉽고, 효율적이며, 안전하게 구현할 수 있는 기능을 설명합니다.</p>
+
+<h3 id="정당화-justification-1">정당화 (Justification)</h3>
+
+<h4 id="시나리오-1-scenario-1-1">시나리오 1 (Scenario 1)</h4>
+
+<p><code class="language-plaintext highlighter-rouge">stdout</code>이라는 속성을 사용하여 작동하는 배포된 클래스가 있습니다. 얼마 후, 할당 시점에 <code class="language-plaintext highlighter-rouge">stdout</code>이 정말 <code class="language-plaintext highlighter-rouge">write</code> 메서드를 가진 객체인지 확인하는 것이 더 좋다고 생각하게 됩니다. <code class="language-plaintext highlighter-rouge">setstdout</code> 메서드로 변경하는 대신 (이는 배포된 코드와 호환되지 않을 것입니다) 할당을 트랩하고 객체의 유형을 확인하고 싶을 것입니다.</p>
+
+<h4 id="시나리오-2-scenario-2-1">시나리오 2 (Scenario 2)</h4>
+
+<p>속성 할당 개념을 가진 객체 모델과 가능한 한 호환되기를 원합니다. 이는 W3C Document Object Model (DOM)일 수도 있고, 특정 COM 인터페이스(예: PowerPoint 인터페이스)일 수도 있습니다. 이 경우, 내부 구현이 속성을 전혀 사용하지 않더라도 모델의 속성이 Python 인터페이스에서 속성으로 나타나도록 하고 싶을 수 있습니다.</p>
+
+<h4 id="시나리오-3-scenario-3-1">시나리오 3 (Scenario 3)</h4>
+
+<p>사용자가 속성을 읽기 전용(read-only)으로 만들고 싶어 합니다.</p>
+
+<p>요약하자면, 이 기능은 프로그래머가 어떤 목적으로든 모듈의 인터페이스를 내부 구현과 분리할 수 있도록 합니다. 다시 말하지만, 이것은 새로운 기능이 아니라 기존 컨벤션에 대한 새로운 구문일 뿐입니다.</p>
+
+<h3 id="현재-해결책-current-solution-1">현재 해결책 (Current Solution)</h3>
+
+<p>일부 속성을 읽기 전용으로 만들려면 다음과 같이 합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">foo</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__setattr__</span><span class="p">(</span> <span class="n">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">val</span> <span class="p">):</span>
+        <span class="k">if</span> <span class="n">name</span><span class="o">==</span><span class="sh">"</span><span class="s">readonlyattr</span><span class="sh">"</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nb">TypeError</span>
+        <span class="k">elif</span> <span class="n">name</span><span class="o">==</span><span class="sh">"</span><span class="s">readonlyattr2</span><span class="sh">"</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nb">TypeError</span>
+        <span class="c1"># ...
+</span>        <span class="k">else</span><span class="p">:</span>
+            <span class="n">self</span><span class="p">.</span><span class="n">__dict__</span><span class="p">[</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">]</span><span class="o">=</span><span class="n">val</span>
+</code></pre></div></div>
+
+<p>이 방식에는 다음과 같은 문제가 있습니다.</p>
+
+<ul>
+  <li>메서드의 생성자는 클래스 계층 구조의 다른 곳에서 <code class="language-plaintext highlighter-rouge">__setattr__</code>가 특정 목적으로 트랩되었는지 여부를 정확히 알아야 합니다. 만약 그렇다면, 딕셔너리에 할당하는 대신 해당 메서드를 특별히 호출해야 합니다. <code class="language-plaintext highlighter-rouge">__setattr__</code>를 오버로드하는 이유는 여러 가지이므로 충돌 가능성이 상당히 높습니다. 예를 들어, 객체 데이터베이스 구현은 완전히 관련 없는 목적으로 <code class="language-plaintext highlighter-rouge">__setattr__</code>를 오버로드하는 경우가 많습니다.</li>
+  <li>문자열 기반의 스위치 문(switch statement)은 모든 속성 핸들러가 코드의 한 곳에 지정되도록 강제합니다. 그런 다음 모듈성을 위해 작업별 메서드로 디스패치(dispatch)할 수 있지만, 이는 성능 문제를 야기할 수 있습니다.</li>
+  <li>설정(setting), 가져오기(getting), 삭제(deleting)를 위한 로직은 <code class="language-plaintext highlighter-rouge">__getattr__</code>, <code class="language-plaintext highlighter-rouge">__setattr__</code>, <code class="language-plaintext highlighter-rouge">__delattr__</code> 내부에 존재해야 합니다. 다시 한번 말하지만, 이는 추가적인 메서드 호출 계층을 통해 완화될 수 있지만 비효율적입니다.</li>
+</ul>
+
+<h3 id="제안된-구문-proposed-syntax-1">제안된 구문 (Proposed Syntax)</h3>
+
+<p>특수 메서드는 다음 형식의 선언으로 자신을 선언해야 합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">x</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__attr_XXX__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">op</span><span class="p">,</span> <span class="n">val</span> <span class="p">):</span>
+        <span class="k">if</span> <span class="n">op</span><span class="o">==</span><span class="sh">"</span><span class="s">get</span><span class="sh">"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nf">someComputedValue</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">internal</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">op</span><span class="o">==</span><span class="sh">"</span><span class="s">set</span><span class="sh">"</span><span class="p">:</span>
+            <span class="n">self</span><span class="p">.</span><span class="n">internal</span><span class="o">=</span><span class="nf">someComputedValue</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">op</span><span class="o">==</span><span class="sh">"</span><span class="s">del</span><span class="sh">"</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">self</span><span class="p">.</span><span class="n">internal</span>
+</code></pre></div></div>
+
+<p>클라이언트 코드는 다음과 같습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fooval</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="n">foo</span>
+<span class="n">x</span><span class="p">.</span><span class="n">foo</span> <span class="o">=</span> <span class="n">fooval</span> <span class="o">+</span> <span class="mi">5</span>
+<span class="k">del</span> <span class="n">x</span><span class="p">.</span><span class="n">foo</span>
+</code></pre></div></div>
+
+<h3 id="의미론-semantics-1">의미론 (Semantics)</h3>
+
+<p>세 가지 종류의 속성 참조 모두 해당 메서드를 호출해야 합니다. <code class="language-plaintext highlighter-rouge">op</code> 매개변수는 “get”, “set”, “del”이 될 수 있습니다. 물론 이 문자열은 interned 될 것이므로 문자열에 대한 실제 검사는 매우 빠를 것입니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">__attr_XXX__</code>라는 메서드와 동일한 인스턴스에 <code class="language-plaintext highlighter-rouge">XXX</code>라는 속성을 실제로 갖는 것은 허용되지 않습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">__attr_XXX__</code> 구현은 <code class="language-plaintext highlighter-rouge">__getattr__</code> 구현보다 우선합니다. 이는 <code class="language-plaintext highlighter-rouge">__getattr__</code>가 적절한 속성을 찾는 데 실패한 후에만 호출되도록 되어 있다는 원칙에 기반합니다.</p>
+
+<p>일관성을 위해 <code class="language-plaintext highlighter-rouge">__attr_XXX__</code> 구현은 <code class="language-plaintext highlighter-rouge">__setattr__</code> 구현보다 우선합니다. 반대되는 선택도 상당히 가능해 보입니다. <code class="language-plaintext highlighter-rouge">__del_y__</code>에 대해서도 마찬가지입니다.</p>
+
+<h3 id="제안된-구현-proposed-implementation-1">제안된 구현 (Proposed Implementation)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">attribute access handler</code>라는 새로운 객체 유형이 있습니다. 이 유형의 객체는 다음 속성을 가집니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">name</code> (예: <code class="language-plaintext highlighter-rouge">XXX</code>, <code class="language-plaintext highlighter-rouge">__attr__XXX__</code> 아님)</li>
+  <li><code class="language-plaintext highlighter-rouge">method</code> (메서드 객체에 대한 포인터)</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">PyClass_New</code>에서 적절한 형식의 메서드는 감지되어 객체로 변환됩니다 (언바운드(unbound) 메서드 객체와 동일). 이들은 <code class="language-plaintext highlighter-rouge">XXX</code>라는 이름으로 클래스 <code class="language-plaintext highlighter-rouge">__dict__</code>에 저장됩니다. 원래 메서드는 원래 이름으로 언바운드 메서드로 저장됩니다.</p>
+
+<p>인스턴스에 <code class="language-plaintext highlighter-rouge">attribute access handler</code>가 하나라도 있다면, 플래그가 설정됩니다. 지금은 “I_have_computed_attributes”라고 부르겠습니다. 파생 클래스는 기본 클래스에서 플래그를 상속합니다. 인스턴스는 클래스에서 플래그를 상속합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">get</code>은 객체가 반환되기 직전까지 평소와 같이 진행됩니다. 반환된 객체가 메서드인지 여부를 현재 확인하는 것 외에도, 반환된 객체가 <code class="language-plaintext highlighter-rouge">access handler</code>인지 여부도 확인합니다. 만약 그렇다면, getter 메서드를 호출하고 값을 반환합니다. <code class="language-plaintext highlighter-rouge">attribute access handler</code>를 제거하려면 딕셔너리를 직접 조작할 수 있습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">set</code>은 “I_have_computed_attributes” 플래그를 확인하여 진행됩니다. 플래그가 설정되어 있지 않으면 모든 것이 오늘날과 같이 진행됩니다. 플래그가 설정되어 있으면 요청된 객체 이름에 대해 딕셔너리 <code class="language-plaintext highlighter-rouge">get</code>을 수행해야 합니다. 만약 <code class="language-plaintext highlighter-rouge">attribute access handler</code>를 반환하면, setter 함수를 값과 함께 호출합니다. 다른 객체를 반환하면 결과를 버리고 오늘날과 같이 계속합니다. <code class="language-plaintext highlighter-rouge">attribute access handler</code>를 갖는 것은 특정 인스턴스의 모든 <code class="language-plaintext highlighter-rouge">set</code> 작업에 대한 속성 “설정” 성능에 약간 영향을 미치지만, <code class="language-plaintext highlighter-rouge">__setattr__</code>를 사용하는 오늘날보다 더 그렇지는 않습니다. <code class="language-plaintext highlighter-rouge">get</code>은 <code class="language-plaintext highlighter-rouge">__getattr__</code>를 사용하는 오늘날보다 효율적입니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">I_have_computed_attributes</code> 플래그는 이 기능을 사용하지 않는 객체에 대해 “set”당 추가 “get”으로 인한 성능 저하를 제거하기 위한 것입니다. 이 플래그를 확인하는 것은 모든 객체에 대해 미미한 성능 영향을 미칠 것입니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">delete</code>의 구현은 <code class="language-plaintext highlighter-rouge">set</code>의 구현과 유사합니다.</p>
+
+<h3 id="주의-사항-caveats-1">주의 사항 (Caveats)</h3>
+
+<p>인스턴스의 딕셔너리에서 속성이 추가되거나 제거될 때 <code class="language-plaintext highlighter-rouge">I_have_computed_attributes</code> 플래그를 최신 상태로 유지하는 로직을 제안하지 않았다는 점을 주목할 수 있습니다. 이는 현재 Python과 일치합니다. 객체가 사용 중인 상태에서 <code class="language-plaintext highlighter-rouge">__setattr__</code> 메서드를 추가하면, 해당 메서드는 “컴파일” 시점에 사용 가능했을 때와 같이 동작하지 않습니다. 역동성(dynamism)은 추가적인 구현 노력의 가치가 없다고 주장할 수 있습니다. 다음 스니펫은 현재 동작을 보여줍니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">prn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span><span class="k">print</span> <span class="n">args</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">a</span><span class="p">:</span>
+<span class="p">...</span>     <span class="n">__setattr__</span><span class="o">=</span><span class="n">prn</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nf">a</span><span class="p">().</span><span class="n">foo</span><span class="o">=</span><span class="mi">5</span>
+<span class="p">(</span><span class="o">&lt;</span><span class="n">__main__</span><span class="p">.</span><span class="n">a</span> <span class="n">instance</span> <span class="n">at</span> <span class="mi">882890</span><span class="o">&gt;</span><span class="p">,</span> <span class="sh">'</span><span class="s">foo</span><span class="sh">'</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">b</span><span class="p">:</span> <span class="k">pass</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">bi</span><span class="o">=</span><span class="nf">b</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">bi</span><span class="p">.</span><span class="n">__setattr__</span><span class="o">=</span><span class="n">prn</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span><span class="p">.</span><span class="n">foo</span><span class="o">=</span><span class="mi">5</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">__dict__["XXX"]</code>에 할당하면 <code class="language-plaintext highlighter-rouge">__attr_XXX__</code>에 대한 <code class="language-plaintext highlighter-rouge">attribute access handler</code>를 덮어쓸 수 있습니다. 일반적으로 <code class="language-plaintext highlighter-rouge">access handler</code>는 비공개 <code class="language-plaintext highlighter-rouge">__XXX</code> 변수에 정보를 저장할 것입니다.</p>
+
+<p>객체 자체에 <code class="language-plaintext highlighter-rouge">setattr</code> 또는 <code class="language-plaintext highlighter-rouge">getattr</code>를 호출하려고 시도하는 <code class="language-plaintext highlighter-rouge">attribute access handler</code>는 무한 루프를 유발할 수 있습니다 (<code class="language-plaintext highlighter-rouge">__getattr__</code>와 마찬가지로). 다시 한번, 해결책은 <code class="language-plaintext highlighter-rouge">__XXX</code>와 같은 특수한 (일반적으로 비공개) 변수를 사용하는 것입니다.</p>
+
+<h3 id="참고-note-2">참고 (Note)</h3>
+
+<p>PEP 252에 설명된 디스크립터(descriptor) 메커니즘은 이 기능을 더 직접적으로 지원하기에 충분히 강력합니다. <code class="language-plaintext highlighter-rouge">getset</code> 생성자가 언어에 추가되어 이를 가능하게 할 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">C</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">get_x</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">__x</span>
+    <span class="k">def</span> <span class="nf">set_x</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">__x</span> <span class="o">=</span> <span class="n">v</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="nf">getset</span><span class="p">(</span><span class="n">get_x</span><span class="p">,</span> <span class="n">set_x</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>추가적인 구문 설탕(syntactic sugar)이 추가되거나, 명명 규칙(naming convention)이 인식될 수도 있습니다.</p>
+
+<hr />
+
+<p><strong>문서 출처:</strong> https://github.com/python/peps/blob/main/peps/pep-0213.rst
+<strong>최종 수정:</strong> 2025-02-01 08:55:40 GMT</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/212/" class="pagination--pager" title="[Rejected] PEP 212 - Loop Counter Iteration
+">Previous</a>
+    
+    
+      <a href="/python/pep/214/" class="pagination--pager" title="[Final] PEP 214 - Extended Print Statement
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

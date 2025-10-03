@@ -1,0 +1,724 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Accepted] PEP 8016 - The Steering Council Model | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 8016: ‘The Steering Council Model’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Accepted] PEP 8016 - The Steering Council Model">
+<meta property="og:url" content="http://localhost:4000/python/pep/8016/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 8016: ‘The Steering Council Model’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T19:30:11+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T19:30:11+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/8016/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Accepted] PEP 8016 - The Steering Council Model">
+    <meta itemprop="description" content="Python Enhancement Proposal 8016: ‘The Steering Council Model’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T19:30:11+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T19:30:11+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Accepted] PEP 8016 - The Steering Council Model
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T19:30:11+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-8016--스티어링-위원회-모델">PEP 8016 – 스티어링 위원회 모델</a><ul><li><a href="#요약">요약</a></li><li><a href="#pep-수용">PEP 수용</a></li><li><a href="#제안-배경-rationale">제안 배경 (Rationale)</a></li><li><a href="#명세-specification">명세 (Specification)</a><ul><li><a href="#스티어링-위원회-the-steering-council">스티어링 위원회 (The Steering Council)</a></li><li><a href="#핵심-팀-the-core-team">핵심 팀 (The Core Team)</a></li><li><a href="#문서-변경-changing-this-document">문서 변경 (Changing this document)</a></li></ul></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-8016/">PEP 8016 - The Steering Council Model</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Accepted</td>
+        <td><strong>유형:</strong> Informational</td>
+        <td><strong>작성일:</strong> 01-Nov-2018</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h2 id="pep-8016--스티어링-위원회-모델">PEP 8016 – 스티어링 위원회 모델</h2>
+
+<h3 id="요약">요약</h3>
+
+<p>PEP 8016은 Python 거버넌스 모델을 <strong>스티어링 위원회(Steering Council)</strong> 중심으로 제안하는 문서입니다. 이 위원회는 광범위한 권한을 가지지만, 이 권한을 가능한 한 드물게 행사하려고 노력합니다. 대신, 다른 801x 시리즈 PEP에서 제안된 것과 같은 표준 프로세스를 수립하는 데 이 권한을 사용합니다. 이는 큰 변경사항을 독립적으로 검토할 수 있는 작은 변경사항들로 나누는 일반적인 철학을 따릅니다. 하나의 PEP에서 모든 것을 시도하기보다는, 향후 거버넌스 결정을 위한 최소한이지만 견고한 기반을 제공하는 데 중점을 둡니다.</p>
+
+<p><strong>참고:</strong> 이 PEP는 역사적인 목적으로 유지되지만, 현재 공식 거버넌스 문서는 <a href="https://peps.python.org/pep-0013/">PEP 13</a>입니다.</p>
+
+<h3 id="pep-수용">PEP 수용</h3>
+
+<p>PEP 8016은 2018년 12월 17일 월요일에 PEP 8001에 설명된 핵심 개발자 투표를 통해 수용되었습니다.</p>
+
+<h3 id="제안-배경-rationale">제안 배경 (Rationale)</h3>
+
+<p>이 제안의 주요 목표는 다음과 같습니다:</p>
+
+<ul>
+  <li><strong>따분함 유지 (Be boring):</strong> 거버넌스 전문가는 아니며, Python이 새롭고 시도되지 않은 거버넌스 모델을 실험하는 좋은 장소라고 생각하지 않습니다. 따라서 이 제안은 가능한 한 성숙하고 잘 알려져 있으며 이전에 테스트된 프로세스를 고수합니다. 대부분의 대규모 성공적인 F/OSS 프로젝트에서 가장 흔한 접근 방식은 ‘거의 개입하지 않는’ 위원회이며, 세부 사항은 Django의 거버넌스에서 직접 파생되었습니다.</li>
+  <li><strong>단순함 유지 (Be simple):</strong> 위원회, (위원회를 선출하는) 핵심 팀, 그리고 문서 변경 프로세스 등, 작동에 필요한 최소한의 요소로 간소화하려고 노력했습니다. 목표는 ‘최소 실행 가능한 거버넌스 (Minimum Viable Governance)’입니다.</li>
+  <li><strong>포괄성 유지 (Be comprehensive):</strong> 정의해야 할 사항에 대해서는 모든 기반을 다루려고 노력했습니다. 다시는 이런 종류의 위기를 겪고 싶지 않기 때문입니다. 명확하고 모호하지 않은 규칙은 혼란과 불만을 최소화하는 데 도움이 됩니다.</li>
+  <li><strong>유연하고 경량화 (Be flexible and light-weight):</strong> 함께 작업하기 위한 최상의 프로세스를 찾는 데 시간과 실험이 필요하다는 것을 알고 있습니다. 이 문서를 가능한 한 최소한으로 유지함으로써, 나중에 조정할 수 있는 최대한의 유연성을 유지하고, 전체 프로젝트 투표와 같이 무겁고 불안감을 유발하는 프로세스의 필요성을 최소화합니다.</li>
+</ul>
+
+<h3 id="명세-specification">명세 (Specification)</h3>
+
+<h4 id="스티어링-위원회-the-steering-council">스티어링 위원회 (The Steering Council)</h4>
+
+<ul>
+  <li><strong>구성 (Composition):</strong> 스티어링 위원회는 5명으로 구성된 위원회입니다.</li>
+  <li><strong>임무 (Mandate):</strong> 스티어링 위원회는 다음을 위해 노력합니다.
+    <ul>
+      <li>Python 언어 및 CPython 인터프리터의 품질과 안정성을 유지합니다.</li>
+      <li>기여를 가능한 한 접근하기 쉽고, 포괄적이며, 지속 가능하게 만듭니다.</li>
+      <li>핵심 팀과 PSF(Python Software Foundation) 간의 관계를 공식화하고 유지합니다.</li>
+      <li>PEP에 대한 적절한 의사결정 프로세스를 수립합니다.</li>
+      <li>공식적인 자격으로 행동하기 전에 기여자 및 핵심 팀 사이의 합의를 추구합니다.</li>
+      <li>다른 모든 방법이 실패한 결정에 대한 “최종 항소 법원” 역할을 합니다.</li>
+    </ul>
+  </li>
+  <li><strong>권한 (Powers):</strong> 위원회는 프로젝트에 대한 결정을 내릴 광범위한 권한을 가집니다. 예를 들어, 다음을 수행할 수 있습니다.
+    <ul>
+      <li>PEP를 수락하거나 거부합니다.</li>
+      <li>프로젝트의 행동 강령을 강제하거나 업데이트합니다.</li>
+      <li>PSF와 협력하여 프로젝트 자산을 관리합니다.</li>
+      <li>권한의 일부를 다른 소위원회 또는 프로세스에 위임합니다.
+그러나 이 PEP를 수정하거나, 이 PEP에 명시된 메커니즘을 통해서만 핵심 팀의 구성원 자격에 영향을 미칠 수 있습니다. 위원회는 이러한 권한을 가능한 한 적게 사용하는 방법을 찾아야 합니다. 투표 대신 합의를 추구하는 것이 좋습니다. 개별 PEP에 대해 결정하기보다 PEP 의사결정을 위한 표준 프로세스를 정의하는 것이 좋습니다. 개별 사례에 대해 결정하기보다 행동 강령 위원회를 설립하는 것이 좋습니다.
+권한을 사용하기 위해 위원회는 투표를 합니다. 모든 위원회 구성원은 투표하거나 명시적으로 기권해야 합니다. 특정 투표에 이해 상충이 있는 구성원은 기권해야 합니다. 통과하려면 기권하지 않은 위원회 구성원의 과반수 지지가 필요합니다. 가능한 한 위원회의 심의와 투표는 공개적으로 진행됩니다.</li>
+    </ul>
+  </li>
+  <li><strong>위원 선출 (Electing the council):</strong> 위원회 선거는 두 단계로 구성됩니다.
+    <ul>
+      <li><strong>1단계:</strong> 후보자들이 봉사할 의사를 표명합니다. 후보자는 핵심 팀 구성원의 추천을 받아야 하며, 자천도 허용됩니다.</li>
+      <li><strong>2단계:</strong> 각 핵심 팀 구성원은 0명에서 5명까지의 후보자에게 투표할 수 있습니다. 투표는 익명으로 진행되며, 후보자들은 받은 총 득표수에 따라 순위가 매겨집니다. 동점이 발생하면 후보자 간의 상호 합의로 해결하거나 무작위로 당선자를 선택합니다.
+각 단계는 퇴임하는 위원회의 재량에 따라 1~2주 동안 진행됩니다. 초기 선거의 경우 두 단계 모두 2주 동안 진행됩니다. 선거 프로세스는 퇴임하는 스티어링 위원회가 지명한 선거관리관이 관리합니다. 초기 선거의 경우 선거관리관은 PSF 전무이사가 지명합니다.</li>
+    </ul>
+  </li>
+  <li><strong>임기 (Term):</strong> 각 기능 릴리스(feature release) 이후 새로운 위원회가 선출됩니다. 각 위원회의 임기는 선거 결과가 확정된 때부터 다음 위원회의 임기가 시작될 때까지입니다. 임기 제한은 없습니다.</li>
+  <li><strong>결원 (Vacancies):</strong> 위원회 구성원은 언제든지 사임할 수 있습니다. 정규 임기 중 결원이 발생하면 위원회는 투표를 통해 남은 임기를 채울 대체자를 임명할 수 있습니다. 위원회 구성원이 한 달 이상 연락이 두절되면, 나머지 위원회가 투표하여 교체할 수 있습니다.</li>
+  <li><strong>이해 상충 (Conflicts of interest):</strong> 위원회 구성원이 자신이나 고용주보다는 Python의 최선의 이익을 위해 행동할 것이라고 신뢰하지만, 특정 회사가 Python 개발을 지배하는 것처럼 보이는 것만으로도 해롭고 신뢰를 저해할 수 있습니다. 이해 상충의 외관을 피하기 위해, 위원회 구성원 중 단일 고용주에 속한 사람은 최대 2명으로 제한됩니다.</li>
+  <li><strong>핵심 팀 구성원 퇴출 (Ejecting core team members):</strong> 예외적인 상황(예: 심각하고 지속적인 행동 강령 위반)에서는 본인의 의사에 반하여 핵심 팀에서 누군가를 제거해야 할 수도 있습니다. 이는 스티어링 위원회 투표로 이루어질 수 있지만, 다른 스티어링 위원회 투표와 달리 최소 3분의 2의 다수결이 필요합니다.</li>
+  <li><strong>불신임 투표 (Vote of no confidence):</strong> 예외적인 상황에서 핵심 팀은 불신임 투표를 통해 현직 위원회 구성원 또는 전체 위원회를 해임할 수 있습니다.</li>
+</ul>
+
+<h4 id="핵심-팀-the-core-team">핵심 팀 (The Core Team)</h4>
+
+<ul>
+  <li><strong>역할 (Role):</strong> 핵심 팀은 Python을 관리하는 신뢰받는 자원봉사자 그룹입니다. 프로젝트 목표 달성에 필요한 많은 역할, 특히 높은 수준의 신뢰를 요구하는 역할을 수행합니다. 그들은 프로젝트의 미래를 형성하는 결정을 내립니다.</li>
+  <li><strong>특권 (Prerogatives):</strong> 핵심 팀 구성원은 공식 투표에 참여할 수 있으며, 일반적으로 새로운 팀 구성원을 지명하고 스티어링 위원회를 선출하는 데 참여합니다.</li>
+  <li><strong>멤버십 (Membership):</strong> Python 핵심 팀 구성원은 다음을 입증합니다.
+    <ul>
+      <li>Python 프로젝트 철학에 대한 깊은 이해.</li>
+      <li>건설적이고 도움이 되는 뛰어난 실적.</li>
+      <li>어떤 형태로든 프로젝트 목표에 대한 상당한 기여.</li>
+      <li>Python 개선에 시간을 할애하려는 의지.
+핵심 팀 멤버십은 Python 프로젝트의 철학 및 목표와 잘 부합하는 지속적이고 가치 있는 노력을 인정하는 것입니다. 핵심 팀 투표에서 최소 3분의 2의 찬성표를 받고 스티어링 위원회의 거부권이 없으면 부여됩니다. 핵심 팀 구성원은 항상 유망한 기여자를 찾고, 프로젝트가 어떻게 관리되는지 가르치며, 준비가 되면 핵심 팀 투표에 이름을 제출합니다. 핵심 팀 멤버십에는 시간 제한이 없습니다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="문서-변경-changing-this-document">문서 변경 (Changing this document)</h4>
+
+<p>이 문서의 변경은 핵심 팀 투표에서 최소 3분의 2의 찬성표를 필요로 합니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/8015/" class="pagination--pager" title="[Rejected] PEP 8015 - Organization of the Python community
+">Previous</a>
+    
+    
+      <a href="/python/pep/8100/" class="pagination--pager" title="[Final] PEP 8100 - January 2019 Steering Council election
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

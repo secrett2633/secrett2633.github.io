@@ -1,0 +1,696 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Accepted] PEP 658 - Serve Distribution Metadata in the Simple Repository API | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 658: ‘Serve Distribution Metadata in the Simple Repository API’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Accepted] PEP 658 - Serve Distribution Metadata in the Simple Repository API">
+<meta property="og:url" content="http://localhost:4000/python/pep/658/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 658: ‘Serve Distribution Metadata in the Simple Repository API’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T09:54:18+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T09:54:18+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/658/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Accepted] PEP 658 - Serve Distribution Metadata in the Simple Repository API">
+    <meta itemprop="description" content="Python Enhancement Proposal 658: ‘Serve Distribution Metadata in the Simple Repository API’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T09:54:18+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T09:54:18+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Accepted] PEP 658 - Serve Distribution Metadata in the Simple Repository API
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T09:54:18+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-658--simple-repository-api에서-배포-메타데이터-제공">PEP 658 – Simple Repository API에서 배포 메타데이터 제공</a><ul><li><a href="#개요">개요</a></li><li><a href="#동기-motivation">동기 (Motivation)</a></li><li><a href="#배경-rationale">배경 (Rationale)</a></li><li><a href="#명세-specification">명세 (Specification)</a></li><li><a href="#하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</a></li><li><a href="#기각된-아이디어-rejected-ideas">기각된 아이디어 (Rejected Ideas)</a><ul><li><a href="#1-프로젝트-페이지에-메타데이터-내용-포함-put-metadata-content-on-the-project-page">1. 프로젝트 페이지에 메타데이터 내용 포함 (Put metadata content on the project page)</a></li><li><a href="#2-배포-내의-더-많은-파일-노출-expose-more-files-in-the-distribution">2. 배포 내의 더 많은 파일 노출 (Expose more files in the distribution)</a></li><li><a href="#3-프로젝트-페이지에-메타데이터-파일의-url-명시-explicitly-specify-the-metadata-files-url-on-the-project-page">3. 프로젝트 페이지에 메타데이터 파일의 URL 명시 (Explicitly specify the metadata file’s URL on the project page)</a></li></ul></li><li><a href="#참조-references">참조 (References)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0658/">PEP 658 - Serve Distribution Metadata in the Simple Repository API</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Accepted</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 10-May-2021</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-658--simple-repository-api에서-배포-메타데이터-제공">PEP 658 – Simple Repository API에서 배포 메타데이터 제공</h1>
+
+<h2 id="개요">개요</h2>
+<p>이 문서는 PEP 503 “simple” 저장소 API에서 배포(distribution)의 <code class="language-plaintext highlighter-rouge">METADATA</code> 파일을 노출하기 위해 앵커 태그(anchor tag)를 추가할 것을 제안합니다. <code class="language-plaintext highlighter-rouge">data-dist-info-metadata</code> 속성이 도입되어 주어진 배포에서 해당 파일을 독립적으로 가져올 수 있음을 나타냅니다.</p>
+
+<h2 id="동기-motivation">동기 (Motivation)</h2>
+<p>최근 도구들에 의해 보편화된 패키지 관리 워크플로우는 배포를 설치할 의도 없이 배포 메타데이터를 검사해야 할 필요성을 증가시키고 있습니다. 또한, 메타데이터를 기반으로 프로젝트의 여러 배포 중에서 선택하기 위해 많은 배포를 다운로드하는 경우가 발생합니다. 이로 인해 불필요하게 많은 데이터를 다운로드하고 폐기하게 되는데, 이는 비효율적이며 사용자 경험을 저해합니다.</p>
+
+<h2 id="배경-rationale">배경 (Rationale)</h2>
+<p>도구들은 HTTP 범위 요청(range requests)을 통해 Wheel 파일을 부분적으로 다운로드하여 다운로드 크기를 줄이는 방법을 모색해왔습니다. 그러나 이 방법은 저장소 서버에 추가적인 런타임 요구사항을 발생시킵니다. 또한, 메타데이터 파일을 찾기 위해 Wheel 파일의 파일 목록을 가져오기 위한 별도의 요청이 필요하므로 추가적인 오버헤드가 발생합니다.</p>
+
+<p>따라서 서버가 메타데이터 파일을 미리 추출하여 독립적인 파일로 제공함으로써, 추가 요청 및 ZIP 파일 검사 없이 메타데이터를 얻을 수 있도록 하는 것이 바람직합니다.</p>
+
+<p>Core Metadata Specification 에 정의된 메타데이터 파일은 일반적인 사용 사례에 필요한 정보를 포함하고 있으므로 저장소에서 직접 제공될 것입니다. 이 메타데이터는 Wheel 및 sdist 와 같은 표준 준수 배포에 대해서만 제공되어야 하며, <code class="language-plaintext highlighter-rouge">.dist-info</code> 디렉터리에 있는 Wheel의 <code class="language-plaintext highlighter-rouge">METADATA</code> 파일 과 같이 배포의 정식 메타데이터 파일과 동일해야 합니다.</p>
+
+<p>클라이언트가 별도로 제공되는 메타데이터 파일을 선택할 수 있는지 여부를 나타내기 위해 배포 파일의 앵커 링크에 HTML 속성이 필요합니다. 이 속성은 클라이언트 측 검증을 위한 메타데이터 내용의 해시(hash)도 제공하는 데 사용됩니다. 속성이 없다는 것은 배포 내용 또는 저장소 지원 부족으로 인해 해당 배포에 별도의 메타데이터 항목이 제공되지 않음을 나타냅니다.</p>
+
+<h2 id="명세-specification">명세 (Specification)</h2>
+<p>Simple Repository의 프로젝트 페이지에서, 각 배포를 가리키는 앵커 태그(anchor tag)는 <code class="language-plaintext highlighter-rouge">data-dist-info-metadata</code> 속성을 가질 수 있습니다. 이 속성의 존재는 해당 앵커 태그가 나타내는 배포가 Core Metadata 파일을 포함하고 있으며, 이 파일은 배포가 처리되거나 설치될 때 수정되지 않음을 의미합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">data-dist-info-metadata</code> 속성이 존재하면, 저장소는 배포 파일 이름에 <code class="language-plaintext highlighter-rouge">.metadata</code>를 덧붙인 형태로 배포의 Core Metadata 파일을 배포와 함께 제공해야 합니다. 예를 들어, <code class="language-plaintext highlighter-rouge">/files/distribution-1.0-py3.none.any.whl</code>에서 제공되는 배포의 Core Metadata는 <code class="language-plaintext highlighter-rouge">/files/distribution-1.0-py3.none.any.whl.metadata</code>에 위치합니다. 이는 PEP 503이 GPG 서명 파일의 위치를 지정하는 방식과 유사합니다.</p>
+
+<p>저장소는 Core Metadata 파일의 해시를 <code class="language-plaintext highlighter-rouge">data-dist-info-metadata</code> 속성의 값으로 제공해야 합니다. 이때 <code class="language-plaintext highlighter-rouge">&lt;hashname&gt;=&lt;hashvalue&gt;</code> 구문을 사용하며, <code class="language-plaintext highlighter-rouge">&lt;hashname&gt;</code>은 사용된 해시 함수의 소문자 이름이고, <code class="language-plaintext highlighter-rouge">&lt;hashvalue&gt;</code>는 16진수로 인코딩된 다이제스트(digest)입니다. 해시를 사용할 수 없는 경우, 저장소는 <code class="language-plaintext highlighter-rouge">true</code>를 속성의 값으로 사용할 수 있습니다.</p>
+
+<h2 id="하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</h2>
+<p>앵커 태그에 <code class="language-plaintext highlighter-rouge">data-dist-info-metadata</code> 속성이 없는 경우, 도구들은 메타데이터를 검사하기 위해 배포를 다운로드하는 현재의 동작으로 되돌아갈 것으로 예상됩니다.</p>
+
+<p>새로운 <code class="language-plaintext highlighter-rouge">data-dist-info-metadata</code> 속성을 지원하지 않는 이전 도구들은 이 속성을 무시하고, 메타데이터를 검사하기 위해 배포를 다운로드하는 현재의 동작을 유지할 것으로 예상됩니다. 이는 이전에 추가된 <code class="language-plaintext highlighter-rouge">data-</code> 속성들이 기존 도구들에 대해 작동하도록 예상되는 방식과 유사합니다.</p>
+
+<h2 id="기각된-아이디어-rejected-ideas">기각된 아이디어 (Rejected Ideas)</h2>
+
+<h3 id="1-프로젝트-페이지에-메타데이터-내용-포함-put-metadata-content-on-the-project-page">1. 프로젝트 페이지에 메타데이터 내용 포함 (Put metadata content on the project page)</h3>
+<p>도구들은 프로젝트 페이지에 이미 있는 정보 외에 배포에서 일반적으로 종속성 정보만 필요로 하기 때문에, PEP 503에 명시된 <code class="language-plaintext highlighter-rouge">data-requires-python</code> 속성처럼 저장소가 프로젝트 페이지에 직접 정보를 포함할 수 있다는 제안이 있었습니다.</p>
+
+<p>이 접근 방식은 배포가 임의로 긴 종속성 목록(필수 및 선택 포함)을 포함할 수 있고, 프로젝트의 모든 배포에 대한 정보를 포함하는 것이 순수한 절약으로 이어질지 불분명하다는 이유로 폐기되었습니다. 대부분의 배포에 대한 정보는 결국 필요 없게 되기 때문입니다. 메타데이터를 별도로 제공함으로써 데이터 사용량이 검사된 배포 수에 비례하게 되어 성능을 더 잘 예측할 수 있습니다.</p>
+
+<h3 id="2-배포-내의-더-많은-파일-노출-expose-more-files-in-the-distribution">2. 배포 내의 더 많은 파일 노출 (Expose more files in the distribution)</h3>
+<p>메타데이터 파일만 제공하는 대신 전체 <code class="language-plaintext highlighter-rouge">.dist-info</code> 디렉터리를 별도의 부분으로 제공하자는 제안이 있었습니다. 그러나 HTTP를 통해 여러 파일을 하나의 엔티티로 제공하려면 저장소 서버가 원래 배포에서 파일을 추출한 후 별도로 다시 압축해야 하며, 배포 자체가 설치되지 않을 때 <code class="language-plaintext highlighter-rouge">METADATA</code> 파일 외의 다른 파일에 대한 현재 사용 사례는 없습니다.</p>
+
+<p>이 접근 방식은 미래에 다른 파일들이 도입되는 것을 배제하지 않으며, 함께 제공하거나 개별적으로 제공할 수 있습니다.</p>
+
+<h3 id="3-프로젝트-페이지에-메타데이터-파일의-url-명시-explicitly-specify-the-metadata-files-url-on-the-project-page">3. 프로젝트 페이지에 메타데이터 파일의 URL 명시 (Explicitly specify the metadata file’s URL on the project page)</h3>
+<p>이 초안의 초기 버전에서는 <code class="language-plaintext highlighter-rouge">data-dist-info-metadata</code> 속성에 메타데이터 파일의 URL을 넣을 것을 제안했습니다. 그러나 저장소가 결정된 위치에 메타데이터 파일을 제공하도록 요구하는 것이 검색 가능성(discoverability)에 더 좋다고 판단되었습니다. 현재 접근 방식은 또한 프로젝트 페이지의 크기를 줄이는 추가적인 이점도 있습니다.</p>
+
+<h2 id="참조-references">참조 (References)</h2>
+<ul>
+  <li>[core-metadata] https://packaging.python.org/specifications/core-metadata/</li>
+  <li>[dist-info] https://packaging.python.org/specifications/recording-installed-packages/</li>
+  <li>[wheel] https://packaging.python.org/specifications/binary-distribution-format/</li>
+  <li>[sdist] https://packaging.python.org/specifications/source-distribution-format/</li>
+</ul>
+
+<h2 id="저작권-copyright">저작권 (Copyright)</h2>
+<p>이 문서는 퍼블릭 도메인 또는 CC0-1.0-Universal 라이선스 중 더 관대한 조건으로 배포됩니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/657/" class="pagination--pager" title="[Final] PEP 657 - Include Fine Grained Error Locations in Tracebacks
+">Previous</a>
+    
+    
+      <a href="/python/pep/659/" class="pagination--pager" title="[Final] PEP 659 - Specializing Adaptive Interpreter
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,761 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Draft] PEP 781 - MakeTYPE_CHECKINGa built-in constant | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 781: ‘MakeTYPE_CHECKINGa built-in constant’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Draft] PEP 781 - MakeTYPE_CHECKINGa built-in constant">
+<meta property="og:url" content="http://localhost:4000/python/pep/781/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 781: ‘MakeTYPE_CHECKINGa built-in constant’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T13:57:36+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T13:57:36+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/781/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Draft] PEP 781 - MakeTYPE_CHECKINGa built-in constant">
+    <meta itemprop="description" content="Python Enhancement Proposal 781: ‘MakeTYPE_CHECKINGa built-in constant’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T13:57:36+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T13:57:36+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Draft] PEP 781 - MakeTYPE_CHECKINGa built-in constant
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T13:57:36+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-781--type_checking을-내장built-in-상수로-만들기">PEP 781 – TYPE_CHECKING을 내장(Built-in) 상수로 만들기</a><ul><li><a href="#개요">개요</a></li><li><a href="#도입-배경-motivation">도입 배경 (Motivation)</a><ul><li><a href="#타입-어노테이션과-임포트import-부담">타입 어노테이션과 임포트(Import) 부담</a></li><li><a href="#typing-모듈-임포트의-성능-문제">typing 모듈 임포트의 성능 문제</a></li><li><a href="#표준화된-접근-방식의-필요성">표준화된 접근 방식의 필요성</a></li></ul></li><li><a href="#제안-내용-specification">제안 내용 (Specification)</a><ul><li><a href="#type_checking-내장-상수">TYPE_CHECKING 내장 상수</a></li><li><a href="#typingtype_checking의-deprecation">typing.TYPE_CHECKING의 Deprecation</a></li></ul></li><li><a href="#하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</a></li><li><a href="#교육-방법-how-to-teach-this">교육 방법 (How to Teach This)</a></li><li><a href="#채택되지-않은-아이디어-rejected-ideas">채택되지 않은 아이디어 (Rejected Ideas)</a><ul><li><a href="#타입-검사-전용-코드-제거-eliminate-type-checking-only-code">타입 검사 전용 코드 제거 (Eliminate type-checking-only code)</a></li><li><a href="#import-typing-최적화-optimize-import-typing">import typing 최적화 (Optimize import typing)</a></li><li><a href="#개요-1">개요</a></li><li><a href="#도입-배경-motivation-1">도입 배경 (Motivation)</a><ul><li><a href="#타입-어노테이션의-부상과-import-부담">타입 어노테이션의 부상과 import 부담</a></li><li><a href="#typing-모듈-임포트의-성능-문제-1">typing 모듈 임포트의 성능 문제</a></li><li><a href="#표준화된-접근-방식의-필요성-1">표준화된 접근 방식의 필요성</a></li></ul></li><li><a href="#제안-내용-specification-1">제안 내용 (Specification)</a><ul><li><a href="#type_checking-내장-상수-1">TYPE_CHECKING 내장 상수</a></li><li><a href="#typingtype_checking의-deprecation-1">typing.TYPE_CHECKING의 Deprecation</a></li></ul></li><li><a href="#하위-호환성-backwards-compatibility-1">하위 호환성 (Backwards Compatibility)</a></li><li><a href="#교육-방법-how-to-teach-this-1">교육 방법 (How to Teach This)</a></li><li><a href="#채택되지-않은-아이디어-rejected-ideas-1">채택되지 않은 아이디어 (Rejected Ideas)</a><ul><li><a href="#타입-검사-전용-코드-제거-eliminate-type-checking-only-code-1">타입 검사 전용 코드 제거 (Eliminate type-checking-only code)</a></li><li><a href="#import-typing-최적화-optimize-import-typing-1">import typing 최적화 (Optimize import typing)</a></li></ul></li></ul></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0781/">PEP 781 - MakeTYPE_CHECKINGa built-in constant</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Draft</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 24-Mar-2025</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-781--type_checking을-내장built-in-상수로-만들기">PEP 781 – <code class="language-plaintext highlighter-rouge">TYPE_CHECKING</code>을 내장(Built-in) 상수로 만들기</h1>
+
+<h2 id="개요">개요</h2>
+<p>이 문서는 Python 3.15에 도입될 예정인 <code class="language-plaintext highlighter-rouge">PEP 781 – Make TYPE_CHECKING a built-in constant</code>에 대한 번역 및 요약본입니다. 이 PEP는 <code class="language-plaintext highlighter-rouge">TYPE_CHECKING</code>이라는 새로운 내장 변수를 추가하여, Python 코드에 타입 어노테이션(type annotations)을 작성하는 경험을 개선하는 것을 목표로 합니다. 이 변수는 정적 타입 체커(static type checker)가 코드를 분석할 때는 <code class="language-plaintext highlighter-rouge">True</code>로 평가되고, 일반적인 런타임 실행 중에는 <code class="language-plaintext highlighter-rouge">False</code>로 평가됩니다. 기존의 <code class="language-plaintext highlighter-rouge">typing.TYPE_CHECKING</code>과는 달리, 별도의 import 문이 필요 없다는 것이 주요 특징입니다.</p>
+
+<h2 id="도입-배경-motivation">도입 배경 (Motivation)</h2>
+
+<h3 id="타입-어노테이션과-임포트import-부담">타입 어노테이션과 임포트(Import) 부담</h3>
+<p>PEP 484에서 정의된 타입 어노테이션은 Python 커뮤니티에서 널리 채택되었습니다. 하지만 타입 어노테이션이 완전히 적용된 코드는 필요한 이름을 스코프(scope)로 가져오기 위해 더 많은 임포트가 필요하며, 신중하게 설계하지 않으면 임포트 사이클(import cycles)을 유발할 수 있다는 문제가 있었습니다. 이러한 문제는 PEP 563 및 PEP 649를 통해 타입 어노테이션의 지연 평가(deferred evaluation) 메커니즘이 도입되면서 어느 정도 해소되었습니다. PEP 563에서 언급했듯이 “타입 힌트는 … 계산적으로 무료가 아니다”라는 점은 중요한 부분입니다. 이에 따라 처음에는 순환 임포트를 해결하는 데 도움을 주기 위해 <code class="language-plaintext highlighter-rouge">typing.TYPE_CHECKING</code> 상수가 도입되었습니다.</p>
+
+<h3 id="typing-모듈-임포트의-성능-문제"><code class="language-plaintext highlighter-rouge">typing</code> 모듈 임포트의 성능 문제</h3>
+<p>명령줄 인터페이스, 애플리케이션 또는 핵심 라이브러리와 같이 시작 시간(startup time)이 중요한 상황에서, 개발자들은 런타임 실행에 필요 없는 모든 임포트 문을 <code class="language-plaintext highlighter-rouge">TYPE_CHECKING</code> 블록 내에 배치하거나, 특정 임포트를 함수 내로 지연시키곤 했습니다. 그러나 <code class="language-plaintext highlighter-rouge">typing</code> 모듈 자체를 임포트하는 데 최대 10ms가 소요될 수 있는데, 이는 Python이 초기화되는 시간보다 길 수 있습니다. <code class="language-plaintext highlighter-rouge">typing</code> 모듈을 임포트하는 데 걸리는 시간은 분명히 무시할 수 없는 수준입니다.</p>
+
+<h3 id="표준화된-접근-방식의-필요성">표준화된 접근 방식의 필요성</h3>
+<p>현재 개발자들은 <code class="language-plaintext highlighter-rouge">typing</code>에서 <code class="language-plaintext highlighter-rouge">TYPE_CHECKING</code>을 임포트하는 것을 피하기 위해 <code class="language-plaintext highlighter-rouge">TYPE_CHECKING = False</code>와 같은 모듈 수준 변수를 정의하거나 <code class="language-plaintext highlighter-rouge">if False: # TYPE_CHECKING</code>과 같은 코드를 사용합니다. 표준화된 방법을 제공하면 많은 도구가 동일한 동작을 일관되게 구현할 수 있습니다. 또한, 일부 정적 타입 체커가 로컬 상수(local constants)를 허용하지 않고 <code class="language-plaintext highlighter-rouge">typing.TYPE_CHECKING</code>만 인식하는 경우가 있으므로, 보장된 의미론(guaranteed semantics)을 가진 단일 동작으로 생태계 내의 서드파티 도구들을 표준화할 수 있게 됩니다.</p>
+
+<h2 id="제안-내용-specification">제안 내용 (Specification)</h2>
+
+<h3 id="type_checking-내장-상수"><code class="language-plaintext highlighter-rouge">TYPE_CHECKING</code> 내장 상수</h3>
+<p>PEP 781은 <code class="language-plaintext highlighter-rouge">TYPE_CHECKING</code>을 내장 상수(built-in constant)로 추가할 것을 제안합니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">TYPE_CHECKING</code>의 런타임 값은 <code class="language-plaintext highlighter-rouge">False</code>입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">True</code>, <code class="language-plaintext highlighter-rouge">False</code>, <code class="language-plaintext highlighter-rouge">None</code>, <code class="language-plaintext highlighter-rouge">__debug__</code>와는 달리, <code class="language-plaintext highlighter-rouge">TYPE_CHECKING</code>은 실제 상수(real constant)가 아닙니다. 따라서 이 변수에 값을 할당해도 <code class="language-plaintext highlighter-rouge">SyntaxError</code>가 발생하지 않습니다.</li>
+  <li>정적 타입 체커는 <code class="language-plaintext highlighter-rouge">typing.TYPE_CHECKING</code>과 유사하게 <code class="language-plaintext highlighter-rouge">TYPE_CHECKING</code>을 <code class="language-plaintext highlighter-rouge">True</code>로 처리해야 합니다.</li>
+</ul>
+
+<h3 id="typingtype_checking의-deprecation"><code class="language-plaintext highlighter-rouge">typing.TYPE_CHECKING</code>의 Deprecation</h3>
+<p>이 PEP가 채택되면, 새로운 내장 <code class="language-plaintext highlighter-rouge">TYPE_CHECKING</code> 상수가 권장되는 접근 방식이 됩니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">typing.TYPE_CHECKING</code>을 임포트하는 것은 <code class="language-plaintext highlighter-rouge">deprecated</code>될 예정입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">typing</code> 모듈의 런타임 영향을 최소화하기 위해, 이 <code class="language-plaintext highlighter-rouge">deprecation</code>은 Python 3.13의 EOL(End of Life)이 예정된 2029년 10월 이후에나 <code class="language-plaintext highlighter-rouge">DeprecationWarning</code>을 발생시킬 것입니다.</li>
+  <li>대신, 타입 체커는 검사 대상 프로그램의 버전이 Python 3.14 이상으로 지정된 경우, 이러한 <code class="language-plaintext highlighter-rouge">deprecated</code> 사용에 대해 경고할 수 있습니다.</li>
+</ul>
+
+<h2 id="하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</h2>
+<p><code class="language-plaintext highlighter-rouge">TYPE_CHECKING</code>은 할당을 금지하지 않으므로, 기존에 <code class="language-plaintext highlighter-rouge">TYPE_CHECKING</code>을 사용하던 코드는 계속 작동합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 이 코드는 계속 작동합니다.
+</span><span class="n">TYPE_CHECKING</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+</code></pre></div></div>
+<p>사용자는 Python 3.13 또는 이전 버전 사용을 중단한 후에 <code class="language-plaintext highlighter-rouge">TYPE_CHECKING</code>에 대한 할당을 제거할 수 있습니다.</p>
+
+<h2 id="교육-방법-how-to-teach-this">교육 방법 (How to Teach This)</h2>
+<ul>
+  <li>런타임에 타입 검사 전용 코드를 건너뛰려면 <code class="language-plaintext highlighter-rouge">if TYPE_CHECKING:</code>을 사용하세요.</li>
+  <li>Python 3.14 이전 버전을 지원해야 하는 경우 <code class="language-plaintext highlighter-rouge">from typing import TYPE_CHECKING</code>을 사용하세요.</li>
+  <li><code class="language-plaintext highlighter-rouge">TYPE_CHECKING = False</code> 또는 <code class="language-plaintext highlighter-rouge">if False: # TYPE_CHECKING</code>와 같은 우회 방법(workarounds)은 계속 작동하지만 권장되지는 않습니다.</li>
+</ul>
+
+<h2 id="채택되지-않은-아이디어-rejected-ideas">채택되지 않은 아이디어 (Rejected Ideas)</h2>
+
+<h3 id="타입-검사-전용-코드-제거-eliminate-type-checking-only-code">타입 검사 전용 코드 제거 (Eliminate type-checking-only code)</h3>
+<p>컴파일 시 타입 검사 전용 코드를 제거하기 위해 <code class="language-plaintext highlighter-rouge">__type_checking__</code>이라는 실제 상수(real constant)를 추가하는 방안이 고려되었습니다.
+그러나 언어에 실제 상수를 추가하는 것은 언어의 복잡성을 증가시킵니다. 타입 검사 전용 코드를 제거함으로써 얻는 이점은 이러한 복잡성을 정당화하기에 충분하지 않다고 판단되었습니다.</p>
+
+<h3 id="import-typing-최적화-optimize-import-typing"><code class="language-plaintext highlighter-rouge">import typing</code> 최적화 (Optimize import typing)</h3>
+<p>미래의 최적화를 통해 시작 시간 때문에 <code class="language-plaintext highlighter-rouge">typing</code> 모듈을 임포트하지 않아도 되는 경우가 생길 수 있습니다.
+하지만 그러한 최적화가 이루어지더라도, 임베디드 시스템(embedded systems)이나 브라우저(browsers)에서 Python을 실행하는 경우와 같이 임포트를 최소화하는 것이 여전히 유용한 사용 사례가 있을 것입니다.
+따라서 <code class="language-plaintext highlighter-rouge">typing</code> 모듈 외부에서 타입 검사 전용 코드를 건너뛰기 위한 상수를 정의하는 것은 여전히 가치가 있습니다.## PEP 781 – <code class="language-plaintext highlighter-rouge">TYPE_CHECKING</code>을 내장(Built-in) 상수로 만들기</p>
+
+<h3 id="개요-1">개요</h3>
+<p>이 Python Enhancement Proposal (PEP) 781은 <code class="language-plaintext highlighter-rouge">TYPE_CHECKING</code>이라는 새로운 내장 변수를 Python에 추가하여 타입 어노테이션(type annotations)을 사용하는 Python 코드 작성 경험을 개선하는 것을 제안합니다. 이 변수는 코드가 정적 타입 체커(static type checker)에 의해 분석될 때는 <code class="language-plaintext highlighter-rouge">True</code>로 평가되며, 일반적인 런타임 실행 중에는 <code class="language-plaintext highlighter-rouge">False</code>로 평가됩니다. 기존의 <code class="language-plaintext highlighter-rouge">typing.TYPE_CHECKING</code>과 달리, 이 새로운 내장 상수는 별도의 <code class="language-plaintext highlighter-rouge">import</code> 문 없이 사용할 수 있다는 장점이 있습니다.</p>
+
+<h3 id="도입-배경-motivation-1">도입 배경 (Motivation)</h3>
+
+<h4 id="타입-어노테이션의-부상과-import-부담">타입 어노테이션의 부상과 <code class="language-plaintext highlighter-rouge">import</code> 부담</h4>
+<p>PEP 484를 통해 Python에 도입된 타입 어노테이션은 널리 사용되고 있습니다. 하지만 완전히 어노테이션된 코드는 필요한 타입 이름을 스코프(scope)로 가져오기 위해 많은 <code class="language-plaintext highlighter-rouge">import</code> 문을 필요로 하며, 이는 신중하게 설계하지 않으면 <code class="language-plaintext highlighter-rouge">import cycle</code>을 유발할 수 있습니다. 이러한 문제를 해결하기 위해 PEP 563과 PEP 649는 타입 어노테이션의 지연 평가(deferred evaluation) 메커니즘을 도입했습니다. <code class="language-plaintext highlighter-rouge">PEP 563</code>이 지적했듯이 “타입 힌트는 … 계산적으로 무료가 아니다”라는 점은 중요하며, <code class="language-plaintext highlighter-rouge">typing.TYPE_CHECKING</code> 상수는 원래 순환 임포트를 해결하는 데 도움을 주기 위해 도입되었습니다.</p>
+
+<h4 id="typing-모듈-임포트의-성능-문제-1"><code class="language-plaintext highlighter-rouge">typing</code> 모듈 임포트의 성능 문제</h4>
+<p>명령줄 인터페이스(CLI), 애플리케이션 또는 핵심 라이브러리와 같이 시작 시간(startup time)이 중요한 시나리오에서, 개발자들은 런타임 실행에 필요 없는 모든 <code class="language-plaintext highlighter-rouge">import</code> 문을 <code class="language-plaintext highlighter-rouge">TYPE_CHECKING</code> 블록 내에 배치하거나 특정 <code class="language-plaintext highlighter-rouge">import</code>를 함수 내로 지연시키기도 합니다. 그러나 <code class="language-plaintext highlighter-rouge">typing</code> 모듈 자체를 임포트하는 데 최대 10밀리초(ms)가 소요될 수 있는데, 이는 Python 인터프리터가 초기화되는 시간보다 길 수 있습니다. <code class="language-plaintext highlighter-rouge">typing</code> 모듈 임포트에 소요되는 시간은 무시할 수 없는 오버헤드입니다.</p>
+
+<h4 id="표준화된-접근-방식의-필요성-1">표준화된 접근 방식의 필요성</h4>
+<p>현재 개발자들은 <code class="language-plaintext highlighter-rouge">typing</code> 모듈에서 <code class="language-plaintext highlighter-rouge">TYPE_CHECKING</code>을 <code class="language-plaintext highlighter-rouge">import</code>하는 것을 피하기 위해 <code class="language-plaintext highlighter-rouge">TYPE_CHECKING = False</code>와 같은 모듈 수준 변수를 정의하거나 <code class="language-plaintext highlighter-rouge">if False: # TYPE_CHECKING</code>과 같은 코드를 사용합니다. 표준화된 <code class="language-plaintext highlighter-rouge">TYPE_CHECKING</code> 내장 상수를 제공함으로써, 다양한 도구들이 동일한 동작을 일관되게 구현할 수 있게 됩니다. 또한, 일부 정적 타입 체커는 로컬 상수(local constants)를 인식하지 못하고 <code class="language-plaintext highlighter-rouge">typing.TYPE_CHECKING</code>만 인식하는 경우가 있으므로, 보장된 의미론(guaranteed semantics)을 가진 단일 동작으로 생태계 내의 서드파티 도구들을 표준화할 수 있게 됩니다.</p>
+
+<h3 id="제안-내용-specification-1">제안 내용 (Specification)</h3>
+
+<h4 id="type_checking-내장-상수-1"><code class="language-plaintext highlighter-rouge">TYPE_CHECKING</code> 내장 상수</h4>
+<p>PEP 781은 <code class="language-plaintext highlighter-rouge">TYPE_CHECKING</code>을 내장 상수(built-in constant)로 추가할 것을 제안합니다.</p>
+<ul>
+  <li><strong>런타임 값:</strong> <code class="language-plaintext highlighter-rouge">TYPE_CHECKING</code>의 런타임 값은 항상 <code class="language-plaintext highlighter-rouge">False</code>입니다.</li>
+  <li><strong>할당 가능성:</strong> <code class="language-plaintext highlighter-rouge">True</code>, <code class="language-plaintext highlighter-rouge">False</code>, <code class="language-plaintext highlighter-rouge">None</code>, <code class="language-plaintext highlighter-rouge">__debug__</code>와 같은 “진정한(real)” 상수와는 달리, <code class="language-plaintext highlighter-rouge">TYPE_CHECKING</code>은 실제 상수가 아닙니다. 따라서 이 변수에 값을 재할당해도 <code class="language-plaintext highlighter-rouge">SyntaxError</code>가 발생하지 않습니다.</li>
+  <li><strong>타입 체커 동작:</strong> 정적 타입 체커는 <code class="language-plaintext highlighter-rouge">typing.TYPE_CHECKING</code>과 유사하게 <code class="language-plaintext highlighter-rouge">TYPE_CHECKING</code>을 <code class="language-plaintext highlighter-rouge">True</code>로 처리해야 합니다.</li>
+</ul>
+
+<h4 id="typingtype_checking의-deprecation-1"><code class="language-plaintext highlighter-rouge">typing.TYPE_CHECKING</code>의 Deprecation</h4>
+<p>이 PEP가 채택되면, 새로운 내장 <code class="language-plaintext highlighter-rouge">TYPE_CHECKING</code> 상수가 타입 검사 전용 코드에 권장되는 접근 방식이 됩니다.</p>
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">deprecated</code> 예정:</strong> <code class="language-plaintext highlighter-rouge">typing.TYPE_CHECKING</code>을 임포트하는 것은 <code class="language-plaintext highlighter-rouge">deprecated</code>될 예정입니다.</li>
+  <li><strong>경고 시점:</strong> <code class="language-plaintext highlighter-rouge">typing</code> 모듈의 런타임 영향을 최소화하기 위해, 이 <code class="language-plaintext highlighter-rouge">deprecation</code>은 Python 3.13의 EOL(End of Life)이 예정된 2029년 10월 이후에야 <code class="language-plaintext highlighter-rouge">DeprecationWarning</code>을 발생시킬 것입니다.</li>
+  <li><strong>타입 체커 경고:</strong> 대신, 타입 체커는 검사 대상 프로그램의 버전이 Python 3.14 이상으로 지정된 경우, <code class="language-plaintext highlighter-rouge">typing.TYPE_CHECKING</code>과 같은 <code class="language-plaintext highlighter-rouge">deprecated</code> 사용에 대해 경고할 수 있습니다.</li>
+</ul>
+
+<h3 id="하위-호환성-backwards-compatibility-1">하위 호환성 (Backwards Compatibility)</h3>
+<p><code class="language-plaintext highlighter-rouge">TYPE_CHECKING</code>이 값 할당을 금지하지 않으므로, 기존에 <code class="language-plaintext highlighter-rouge">TYPE_CHECKING</code>을 사용하던 코드는 계속해서 문제없이 작동합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 이 코드는 Python 3.14+에서도 계속 작동합니다.
+</span><span class="n">TYPE_CHECKING</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+</code></pre></div></div>
+<p>사용자는 Python 3.13 또는 이전 버전 사용을 중단한 후에 <code class="language-plaintext highlighter-rouge">TYPE_CHECKING</code>에 대한 사용자 정의 할당을 제거할 수 있습니다.</p>
+
+<h3 id="교육-방법-how-to-teach-this-1">교육 방법 (How to Teach This)</h3>
+<ul>
+  <li><strong>타입 검사 전용 코드:</strong> 런타임에 타입 검사 전용 코드를 건너뛰려면 <code class="language-plaintext highlighter-rouge">if TYPE_CHECKING:</code>을 사용하세요.</li>
+  <li><strong>이전 버전 지원:</strong> Python 3.14 이전 버전을 지원해야 하는 경우에는 <code class="language-plaintext highlighter-rouge">from typing import TYPE_CHECKING</code>을 계속 사용해야 합니다.</li>
+  <li><strong>기존 우회 방법:</strong> <code class="language-plaintext highlighter-rouge">TYPE_CHECKING = False</code> 또는 <code class="language-plaintext highlighter-rouge">if False: # TYPE_CHECKING</code>와 같은 기존의 우회 방법(workarounds)은 계속 작동하지만, 더 이상 권장되지 않습니다.</li>
+</ul>
+
+<h3 id="채택되지-않은-아이디어-rejected-ideas-1">채택되지 않은 아이디어 (Rejected Ideas)</h3>
+
+<h4 id="타입-검사-전용-코드-제거-eliminate-type-checking-only-code-1">타입 검사 전용 코드 제거 (Eliminate type-checking-only code)</h4>
+<p>컴파일 시 타입 검사 전용 코드를 완전히 제거하기 위해 <code class="language-plaintext highlighter-rouge">__type_checking__</code>이라는 “진정한” 상수를 추가하는 방안이 고려되었습니다.
+그러나 언어에 실제 상수를 추가하는 것은 언어의 복잡성을 증가시킵니다. 타입 검사 전용 코드를 제거함으로써 얻는 이점은 이러한 언어 복잡성 증가를 정당화하기에 충분하지 않다고 판단되었습니다.</p>
+
+<h4 id="import-typing-최적화-optimize-import-typing-1"><code class="language-plaintext highlighter-rouge">import typing</code> 최적화 (Optimize import typing)</h4>
+<p>미래에는 <code class="language-plaintext highlighter-rouge">typing</code> 모듈 임포트의 시작 시간 오버헤드를 줄이는 최적화가 이루어져, <code class="language-plaintext highlighter-rouge">typing</code> 모듈 임포트를 피해야 할 필요가 줄어들 수도 있습니다.
+하지만 그러한 최적화가 이루어지더라도, 임베디드 시스템(embedded systems)이나 브라우저(browsers)에서 Python을 실행하는 경우와 같이 <code class="language-plaintext highlighter-rouge">import</code>를 최소화하는 것이 여전히 유용한 사용 사례가 있을 것입니다.
+따라서 <code class="language-plaintext highlighter-rouge">typing</code> 모듈 외부에서 타입 검사 전용 코드를 건너뛰기 위한 상수를 정의하는 것은 여전히 가치가 있습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/780/" class="pagination--pager" title="[Draft] PEP 780 - ABI features as environment markers
+">Previous</a>
+    
+    
+      <a href="/python/pep/782/" class="pagination--pager" title="[Final] PEP 782 - Add PyBytesWriter C API
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

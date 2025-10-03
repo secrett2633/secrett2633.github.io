@@ -1,0 +1,824 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Active] PEP 7 - Style Guide for C Code | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 7: ‘Style Guide for C Code’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Active] PEP 7 - Style Guide for C Code">
+<meta property="og:url" content="http://localhost:4000/python/pep/7/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 7: ‘Style Guide for C Code’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T15:43:52+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T15:43:52+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/7/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Active] PEP 7 - Style Guide for C Code">
+    <meta itemprop="description" content="Python Enhancement Proposal 7: ‘Style Guide for C Code’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T15:43:52+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T15:43:52+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Active] PEP 7 - Style Guide for C Code
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T15:43:52+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-7--c-코드-스타일-가이드">PEP 7 – C 코드 스타일 가이드</a><ul><li><a href="#서론">서론</a></li><li><a href="#c-표준">C 표준</a></li><li><a href="#일반적인-c-코드-컨벤션">일반적인 C 코드 컨벤션</a></li><li><a href="#코드-레이아웃-code-lay-out">코드 레이아웃 (Code Lay-out)</a></li><li><a href="#명명-규칙-naming-conventions">명명 규칙 (Naming Conventions)</a></li><li><a href="#문서화-문자열-documentation-strings-docstrings">문서화 문자열 (Documentation Strings, Docstrings)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0007/">PEP 7 - Style Guide for C Code</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Active</td>
+        <td><strong>유형:</strong> Process</td>
+        <td><strong>작성일:</strong> 05-Jul-2001</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-7--c-코드-스타일-가이드">PEP 7 – C 코드 스타일 가이드</h1>
+
+<ul>
+  <li><strong>작성자:</strong> Guido van Rossum, Barry Warsaw</li>
+  <li><strong>상태:</strong> Active (활성)</li>
+  <li><strong>유형:</strong> Process (프로세스)</li>
+  <li><strong>작성일:</strong> 2001년 7월 5일</li>
+</ul>
+
+<h2 id="서론">서론</h2>
+
+<p>이 문서는 Python의 C 구현(C implementation)을 구성하는 C 코드에 대한 코딩 컨벤션(coding conventions)을 제공합니다. Python 코드의 스타일 가이드라인을 설명하는 동반 정보성 PEP (PEP 8)도 참고해 주십시오.</p>
+
+<p>규칙은 때로 깨질 수도 있다는 점을 명심하십시오. 특정 규칙을 깨야 하는 두 가지 좋은 이유가 있습니다:</p>
+
+<ol>
+  <li>규칙을 적용하면 코드를 읽기 어려워지는 경우, 특히 규칙에 익숙한 사람에게도 마찬가지일 때.</li>
+  <li>이미 규칙을 어기고 있는 주변 코드와의 일관성을 유지하기 위해 (역사적인 이유 때문일 수 있음) – 물론 이것은 남이 만든 엉망진창을 정리할 기회이기도 합니다 (진정한 XP 스타일).</li>
+</ol>
+
+<h2 id="c-표준">C 표준</h2>
+
+<p>다음 표준을 따르십시오. 관련 표준에 없는 기능의 경우, CPython 특정 래퍼(wrapper)를 사용하십시오 (예: <code class="language-plaintext highlighter-rouge">_Py_atomic_store_int32</code>, <code class="language-plaintext highlighter-rouge">Py_ALWAYS_INLINE</code>, <code class="language-plaintext highlighter-rouge">Py_ARITHMETIC_RIGHT_SHIFT</code>; 공개 헤더의 <code class="language-plaintext highlighter-rouge">_Py_ALIGNED_DEF</code>). 이러한 래퍼를 추가할 때는 지원되지 않는 컴파일러에 대해 쉽게 조정할 수 있도록 노력하십시오.</p>
+
+<ul>
+  <li>Python 3.11 및 최신 버전은 선택적 기능 없이 C11을 사용합니다. 공용 C API는 C99 및 C++와 호환되어야 합니다.</li>
+  <li>Python 3.6부터 3.10까지는 여러 C99 기능을 선택적으로 사용하는 C89를 사용합니다:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">&lt;stdint.h&gt;</code> 및 <code class="language-plaintext highlighter-rouge">&lt;inttypes.h&gt;</code>의 표준 정수 타입. 고정 폭 정수 타입(fixed width integer types)을 요구합니다.</li>
+      <li><code class="language-plaintext highlighter-rouge">static inline</code> 함수</li>
+      <li>지정된 초기화(designated initializers) (특히 타입 선언에 유용)</li>
+      <li>혼합된 선언(intermingled declarations)</li>
+      <li>부울(booleans)</li>
+      <li>C++ 스타일 한 줄 주석</li>
+    </ul>
+  </li>
+  <li>Python 3.6 이전 버전은 ANSI/ISO 표준 C (1989년 버전)를 사용했습니다. 이는 다른 많은 것들 중에서, 모든 선언이 블록의 맨 위에 있어야 함을 의미했습니다.</li>
+</ul>
+
+<p>(이 문서를 읽는 사용자에게 상기시키자면: 이 PEP는 스타일 가이드입니다; 이 규칙들은 깨질 수도 있습니다.)</p>
+
+<h2 id="일반적인-c-코드-컨벤션">일반적인 C 코드 컨벤션</h2>
+
+<ul>
+  <li>GCC나 MSVC와 같은 컴파일러별 확장(compiler-specific extensions)을 사용하지 마십시오. 예를 들어, 후행 백슬래시(trailing backslashes) 없이 여러 줄 문자열을 작성하지 마십시오.</li>
+  <li>모든 함수 선언 및 정의는 완전한 프로토타입(full prototypes)을 사용해야 합니다. 즉, 모든 인수의 타입을 지정하고 인수가 없는 함수를 선언할 때는 <code class="language-plaintext highlighter-rouge">(void)</code>를 사용하십시오.</li>
+  <li>주요 컴파일러(gcc, VC++, 기타)에서 컴파일러 경고가 없어야 합니다.</li>
+  <li>새로운 코드에서는 매크로(macros)보다 <code class="language-plaintext highlighter-rouge">static inline</code> 함수를 선호해야 합니다.</li>
+</ul>
+
+<h2 id="코드-레이아웃-code-lay-out">코드 레이아웃 (Code Lay-out)</h2>
+
+<ul>
+  <li>4칸 들여쓰기(4-space indents)를 사용하고 탭(tabs)은 전혀 사용하지 마십시오.</li>
+  <li>어떤 줄도 79자를 넘어서는 안 됩니다. 이 규칙과 앞선 규칙이 코드를 작성할 충분한 공간을 제공하지 않는다면, 코드가 너무 복잡한 것이므로 서브루틴(subroutines) 사용을 고려하십시오.</li>
+  <li>어떤 줄도 공백(whitespace)으로 끝나서는 안 됩니다. 의미 있는 후행 공백이 필요하다고 생각된다면 다시 생각해 보십시오 – 다른 사람의 에디터가 일상적으로 이를 삭제할 수 있습니다.</li>
+  <li>
+    <p>함수 정의 스타일: 함수 이름은 1열에, 가장 바깥쪽 중괄호(curly braces)는 1열에, 지역 변수 선언 뒤에는 빈 줄을 두십시오.</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">static</span> <span class="kt">int</span> <span class="nf">extra_ivars</span><span class="p">(</span><span class="n">PyTypeObject</span> <span class="o">*</span><span class="n">type</span><span class="p">,</span> <span class="n">PyTypeObject</span> <span class="o">*</span><span class="n">base</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">t_size</span> <span class="o">=</span> <span class="n">PyType_BASICSIZE</span><span class="p">(</span><span class="n">type</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">b_size</span> <span class="o">=</span> <span class="n">PyType_BASICSIZE</span><span class="p">(</span><span class="n">base</span><span class="p">);</span>
+    <span class="n">assert</span><span class="p">(</span><span class="n">t_size</span> <span class="o">&gt;=</span> <span class="n">b_size</span><span class="p">);</span> <span class="cm">/* type smaller than base! */</span>
+    <span class="p">...</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>코드 구조: <code class="language-plaintext highlighter-rouge">if</code>, <code class="language-plaintext highlighter-rouge">for</code>와 같은 키워드와 그 다음에 오는 왼쪽 괄호 사이에 한 칸 공백을 두십시오. 괄호 안에는 공백을 두지 마십시오. C에서는 생략할 수 있는 곳이라도 모든 곳에 중괄호가 필요하지만, 다른 방식으로 수정하지 않는 코드에는 추가하지 마십시오. 모든 새로운 C 코드에는 중괄호가 필요합니다. 중괄호는 다음과 같이 포맷팅해야 합니다:</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="n">mro</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">return</code> 문에는 불필요한 괄호를 사용하지 마십시오:</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">return</span><span class="p">(</span><span class="n">albatross</span><span class="p">);</span> <span class="cm">/* incorrect */</span>
+</code></pre></div>    </div>
+
+    <p>대신:</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">return</span> <span class="n">albatross</span><span class="p">;</span> <span class="cm">/* correct */</span>
+</code></pre></div>    </div>
+  </li>
+  <li>함수 및 매크로 호출 스타일: <code class="language-plaintext highlighter-rouge">foo(a, b, c)</code> – 열린 괄호 앞에 공백 없음, 괄호 안에 공백 없음, 쉼표 앞에 공백 없음, 각 쉼표 뒤에 한 칸 공백.</li>
+  <li>할당(assignment), 부울(Boolean), 비교(comparison) 연산자 주위에는 항상 공백을 두십시오. 많은 연산자를 사용하는 표현식에서는 가장 바깥쪽(가장 낮은 우선순위) 연산자 주위에 공백을 추가하십시오.</li>
+  <li>
+    <p>긴 줄 끊기: 가능하다면 가장 바깥쪽 인수 목록의 쉼표 뒤에서 끊으십시오. 항상 적절하게 계속되는 줄(continuation lines)을 들여쓰십시오. 예:</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">PyErr_Format</span><span class="p">(</span><span class="n">PyExc_TypeError</span><span class="p">,</span>
+             <span class="s">"cannot create '%.100s' instances"</span><span class="p">,</span>
+             <span class="n">type</span><span class="o">-&gt;</span><span class="n">tp_name</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>이항 연산자(binary operator)에서 긴 표현식을 끊을 때는 다음과 같이 중괄호를 포맷팅해야 합니다:</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="n">type</span><span class="o">-&gt;</span><span class="n">tp_dictoffset</span> <span class="o">!=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span>
+    <span class="n">base</span><span class="o">-&gt;</span><span class="n">tp_dictoffset</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span>
+    <span class="n">type</span><span class="o">-&gt;</span><span class="n">tp_dictoffset</span> <span class="o">==</span> <span class="n">b_size</span> <span class="o">&amp;&amp;</span>
+    <span class="p">(</span><span class="kt">size_t</span><span class="p">)</span><span class="n">t_size</span> <span class="o">==</span> <span class="n">b_size</span> <span class="o">+</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">PyObject</span> <span class="o">*</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> <span class="cm">/* "__dict__" 추가만 "용서" */</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+    <p>줄 끝에 연산자를 두는 것도 괜찮습니다. 특히 주변 코드와의 일관성을 유지하기 위해서라면 (자세한 내용은 PEP 8을 참조하십시오).</p>
+  </li>
+  <li>여러 줄 매크로(multi-line macros)에서 줄 연속 문자(line continuation characters)를 수직으로 정렬하십시오.</li>
+  <li>
+    <p>문(statement)으로 사용하도록 의도된 매크로는 <code class="language-plaintext highlighter-rouge">do { ... } while (0)</code> 매크로 관용구(idiom)를 사용해야 하며, 마지막 세미콜론은 없습니다. 예:</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define ADD_INT_MACRO(MOD, INT) \
+    do { \
+        if (PyModule_AddIntConstant((MOD), (#INT), (INT)) &lt; 0) { \
+            goto error; \
+        } \
+    } while (0)
+</span><span class="c1">// 세미콜론이 있는 문처럼 사용: ADD_INT_MACRO(m, SOME_CONSTANT);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>사용 후에는 파일 지역 매크로(file local macros)를 <code class="language-plaintext highlighter-rouge">#undef</code>하십시오.</li>
+  <li>함수, 구조체 정의, 함수 내의 주요 섹션 주위에 빈 줄을 두십시오.</li>
+  <li>주석(comments)은 설명하는 코드 앞에 오도록 하십시오.</li>
+  <li>
+    <p>모든 함수와 전역 변수는 게시된 인터페이스(published interface)의 일부가 아닌 한 <code class="language-plaintext highlighter-rouge">static</code>으로 선언되어야 합니다. 외부 함수 및 변수의 경우, <code class="language-plaintext highlighter-rouge">Include</code> 디렉터리의 적절한 헤더 파일에 항상 선언이 있어야 하며, 다음과 같이 <code class="language-plaintext highlighter-rouge">PyAPI_FUNC()</code> 매크로와 <code class="language-plaintext highlighter-rouge">PyAPI_DATA()</code> 매크로를 사용합니다:</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">PyAPI_FUNC</span><span class="p">(</span><span class="n">PyObject</span> <span class="o">*</span><span class="p">)</span> <span class="n">PyObject_Repr</span><span class="p">(</span><span class="n">PyObject</span> <span class="o">*</span><span class="p">);</span>
+<span class="n">PyAPI_DATA</span><span class="p">(</span><span class="n">PyTypeObject</span><span class="p">)</span> <span class="n">PySuper_Type</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="명명-규칙-naming-conventions">명명 규칙 (Naming Conventions)</h2>
+
+<ul>
+  <li>공개 함수(public functions)에는 <code class="language-plaintext highlighter-rouge">Py</code> 접두사를 사용하고, <code class="language-plaintext highlighter-rouge">static</code> 함수에는 절대 사용하지 마십시오.</li>
+  <li><code class="language-plaintext highlighter-rouge">Py_</code> 접두사는 <code class="language-plaintext highlighter-rouge">Py_FatalError</code>와 같은 전역 서비스 루틴(global service routines)을 위해 예약되어 있습니다. 특정 그룹의 루틴(예: 특정 객체 타입 API)은 <code class="language-plaintext highlighter-rouge">PyString_</code>와 같은 더 긴 접두사를 사용합니다.</li>
+  <li>공개 함수와 변수는 밑줄(underscores)이 있는 <code class="language-plaintext highlighter-rouge">MixedCase</code>를 사용합니다. 예: <code class="language-plaintext highlighter-rouge">PyObject_GetAttr</code>, <code class="language-plaintext highlighter-rouge">Py_BuildValue</code>, <code class="language-plaintext highlighter-rouge">PyExc_TypeError</code>.</li>
+  <li>때때로 “내부(internal)” 함수가 로더(loader)에 보여야 할 때가 있습니다. 이를 위해 <code class="language-plaintext highlighter-rouge">_Py</code> 접두사를 사용합니다. 예: <code class="language-plaintext highlighter-rouge">_PyObject_Dump</code>.</li>
+  <li>매크로는 <code class="language-plaintext highlighter-rouge">MixedCase</code> 접두사를 사용한 다음 대문자를 사용해야 합니다. 예: <code class="language-plaintext highlighter-rouge">PyString_AS_STRING</code>, <code class="language-plaintext highlighter-rouge">Py_PRINT_RAW</code>.</li>
+  <li>매크로 매개변수(Macro parameters)는 <code class="language-plaintext highlighter-rouge">ALL_CAPS</code> 스타일을 사용하여 C 변수 및 구조체 멤버와 쉽게 구별되도록 해야 합니다.</li>
+</ul>
+
+<h2 id="문서화-문자열-documentation-strings-docstrings">문서화 문자열 (Documentation Strings, Docstrings)</h2>
+
+<ul>
+  <li>문서화 문자열(docstrings)에는 <code class="language-plaintext highlighter-rouge">PyDoc_STR()</code> 또는 <code class="language-plaintext highlighter-rouge">PyDoc_STRVAR()</code> 매크로를 사용하여 docstrings 없이 Python을 빌드할 수 있도록 지원하십시오 (<code class="language-plaintext highlighter-rouge">./configure --without-doc-strings</code>).</li>
+  <li>
+    <p>각 함수 docstring의 첫 번째 줄은 인수와 반환 값에 대한 간략한 요약을 제공하는 “시그니처 라인(signature line)”이어야 합니다. 예를 들어:</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">PyDoc_STRVAR</span><span class="p">(</span><span class="n">myfunction__doc__</span><span class="p">,</span> <span class="s">"myfunction(name, value) -&gt; bool</span><span class="se">\n\n</span><span class="s">\
+Determine whether name and value make a valid pair."</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>시그니처 라인과 설명 텍스트 사이에는 항상 빈 줄을 포함하십시오.</li>
+  <li>함수의 반환 값이 항상 <code class="language-plaintext highlighter-rouge">None</code>인 경우 (의미 있는 반환 값이 없기 때문에), 반환 타입 표시를 포함하지 마십시오.</li>
+  <li>
+    <p>여러 줄 docstring을 작성할 때는 위 예시와 같이 항상 백슬래시 연속(backslash continuations) 또는 문자열 리터럴 연결(string literal concatenation)을 사용해야 합니다:</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">PyDoc_STRVAR</span><span class="p">(</span><span class="n">myfunction__doc__</span><span class="p">,</span> <span class="s">"myfunction(name, value) -&gt; bool</span><span class="se">\n\n</span><span class="s">"</span>
+                               <span class="s">"Determine whether name and value make a valid pair."</span><span class="p">);</span>
+</code></pre></div>    </div>
+    <p>일부 C 컴파일러는 둘 다 없이 문자열 리터럴을 허용하지만:</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* BAD -- 이렇게 하지 마십시오! */</span>
+<span class="n">PyDoc_STRVAR</span><span class="p">(</span><span class="n">myfunction__doc__</span><span class="p">,</span> <span class="s">"myfunction(name, value) -&gt; bool</span><span class="se">\n\n</span><span class="err">
+</span><span class="s">Determine whether name and value make a valid pair."</span><span class="p">);</span>
+</code></pre></div>    </div>
+    <p>모든 컴파일러가 그러는 것은 아닙니다. MSVC 컴파일러는 이에 대해 불평하는 것으로 알려져 있습니다.</p>
+  </li>
+</ul>
+
+<h2 id="저작권-copyright">저작권 (Copyright)</h2>
+
+<p>이 문서는 퍼블릭 도메인(public domain)에 있습니다.</p>
+
+<hr />
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/6/" class="pagination--pager" title="[Superseded] PEP 6 - Bug Fix Releases
+">Previous</a>
+    
+    
+      <a href="/python/pep/8/" class="pagination--pager" title="[Active] PEP 8 - Style Guide for Python Code
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

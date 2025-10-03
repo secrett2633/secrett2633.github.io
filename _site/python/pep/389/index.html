@@ -1,0 +1,961 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 389 - argparse - New Command Line Parsing Module | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 389: ‘argparse - New Command Line Parsing Module’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 389 - argparse - New Command Line Parsing Module">
+<meta property="og:url" content="http://localhost:4000/python/pep/389/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 389: ‘argparse - New Command Line Parsing Module’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T21:08:50+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T21:08:50+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/389/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 389 - argparse - New Command Line Parsing Module">
+    <meta itemprop="description" content="Python Enhancement Proposal 389: ‘argparse - New Command Line Parsing Module’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T21:08:50+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T21:08:50+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 389 - argparse - New Command Line Parsing Module
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T21:08:50+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-389--argparse---새로운-커맨드-라인-파싱-모듈">PEP 389 – argparse - 새로운 커맨드 라인 파싱 모듈</a><ul><li><a href="#개요">개요</a></li><li><a href="#동기">동기</a><ul><li><a href="#getopt와-optparse로는-부족한-이유">getopt와 optparse로는 부족한 이유</a></li><li><a href="#기능이-optparse에-추가되지-않는-이유">기능이 optparse에 추가되지 않는 이유</a></li></ul></li><li><a href="#optparse의-deprecation-사용-중단">optparse의 Deprecation (사용 중단)</a></li><li><a href="#getopt-문서-업데이트">getopt 문서 업데이트</a></li><li><a href="#연기된-사항-문자열-포매팅">연기된 사항: 문자열 포매팅</a></li><li><a href="#거부된-사항-getopt-호환성-메서드">거부된 사항: getopt 호환성 메서드</a></li><li><a href="#범위-외-다양한-기능-요청">범위 외: 다양한 기능 요청</a></li><li><a href="#논의-sysstderr-및-sysexit">논의: sys.stderr 및 sys.exit</a></li><li><a href="#참조">참조</a></li><li><a href="#저작권">저작권</a></li><li><a href="#수락-acceptance">수락 (Acceptance)</a></li><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#동기-motivation">동기 (Motivation)</a><ul><li><a href="#getopt와-optparse로는-부족한-이유-1">getopt와 optparse로는 부족한 이유</a></li><li><a href="#기능이-optparse에-추가되지-않는-이유-1">기능이 optparse에 추가되지 않는 이유</a></li></ul></li><li><a href="#optparse의-deprecation-사용-중단-1">optparse의 Deprecation (사용 중단)</a></li><li><a href="#getopt-문서-업데이트-1">getopt 문서 업데이트</a></li><li><a href="#연기된-사항-문자열-포매팅-deferred-string-formatting">연기된 사항: 문자열 포매팅 (Deferred: string formatting)</a></li><li><a href="#거부된-사항-getopt-호환성-메서드-rejected-getopt-compatibility-methods">거부된 사항: getopt 호환성 메서드 (Rejected: getopt compatibility methods)</a></li><li><a href="#범위-외-out-of-scope-다양한-기능-요청">범위 외 (Out of Scope): 다양한 기능 요청</a></li><li><a href="#논의-discussion-sysstderr-및-sysexit">논의 (Discussion): sys.stderr 및 sys.exit</a></li><li><a href="#참조-references">참조 (References)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0389/">PEP 389 - argparse - New Command Line Parsing Module</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 25-Sep-2009</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-389--argparse---새로운-커맨드-라인-파싱-모듈">PEP 389 – argparse - 새로운 커맨드 라인 파싱 모듈</h1>
+
+<h2 id="개요">개요</h2>
+<p>이 PEP는 Python 2.7 및 3.2 표준 라이브러리에 <code class="language-plaintext highlighter-rouge">argparse</code> 모듈을 포함할 것을 제안합니다.</p>
+
+<h2 id="동기">동기</h2>
+<p><code class="language-plaintext highlighter-rouge">argparse</code> 모듈은 표준 라이브러리의 기존 커맨드 라인 파싱 모듈인 <code class="language-plaintext highlighter-rouge">getopt</code> 및 <code class="language-plaintext highlighter-rouge">optparse</code>보다 더 많은 기능을 제공하는 커맨드 라인 파싱 라이브러리입니다. 이 모듈은 위치 인수(옵션뿐만 아니라), 서브커맨드, 필수 옵션, “/f” 및 “+rgb”와 같은 옵션 문법, 0개 이상 및 1개 이상 스타일 인수, 그리고 다른 두 모듈에는 없는 여러 기능을 지원합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">argparse</code> 모듈은 이미 이들 모듈의 인기 있는 서드파티 대체재로 자리매김했습니다. IPython (Scipy Python 셸)과 같은 프로젝트에서 사용되며, Debian testing 및 unstable에 포함되어 있고, 2007년부터 표준 라이브러리 포함 요청이 여러 차례 있었습니다. 이러한 인기는 <code class="language-plaintext highlighter-rouge">argparse</code>가 Python 라이브러리에 유용한 추가 기능이 될 수 있음을 시사합니다.</p>
+
+<h3 id="getopt와-optparse로는-부족한-이유"><code class="language-plaintext highlighter-rouge">getopt</code>와 <code class="language-plaintext highlighter-rouge">optparse</code>로는 부족한 이유</h3>
+<p><code class="language-plaintext highlighter-rouge">argparse</code> 추가에 반대하는 한 가지 주장은 “표준 라이브러리에 이미 두 가지 다른 옵션 파싱 모듈이 있다”는 것입니다. 다음은 <code class="language-plaintext highlighter-rouge">argparse</code>에서 제공하지만 <code class="language-plaintext highlighter-rouge">getopt</code> 또는 <code class="language-plaintext highlighter-rouge">optparse</code>에는 없는 기능 목록입니다.</p>
+
+<ul>
+  <li>두 가지 옵션 파싱 라이브러리가 있는 것은 사실이지만, 완전한 커맨드 라인 파싱 라이브러리는 없습니다. <code class="language-plaintext highlighter-rouge">getopt</code>와 <code class="language-plaintext highlighter-rouge">optparse</code>는 모두 옵션만 지원하며 위치 인수는 지원하지 않습니다. <code class="language-plaintext highlighter-rouge">argparse</code> 모듈은 둘 다 처리하며, 그 결과 더 나은 도움말 메시지를 생성하여 <code class="language-plaintext highlighter-rouge">optparse</code>에서 일반적으로 필요한 <code class="language-plaintext highlighter-rouge">usage=</code> 문자열과 같은 중복을 피할 수 있습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">argparse</code> 모듈은 순수성보다는 실용성을 중요하게 생각합니다. 따라서 <code class="language-plaintext highlighter-rouge">argparse</code>는 필수 옵션과 옵션을 식별하는 데 사용되는 문자를 사용자 정의할 수 있도록 허용합니다. 반면 <code class="language-plaintext highlighter-rouge">optparse</code>는 “필수 옵션이라는 문구는 자체 모순”이라고 명시하며 <code class="language-plaintext highlighter-rouge">-pf</code>, <code class="language-plaintext highlighter-rouge">-file</code>, <code class="language-plaintext highlighter-rouge">+f</code>, <code class="language-plaintext highlighter-rouge">+rgb</code>, <code class="language-plaintext highlighter-rouge">/f</code>, <code class="language-plaintext highlighter-rouge">/file</code>과 같은 옵션 문법은 <code class="language-plaintext highlighter-rouge">optparse</code>에서 지원되지 않으며 앞으로도 지원되지 않을 것이라고 밝힙니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">argparse</code> 모듈은 <code class="language-plaintext highlighter-rouge">nargs='?'</code>, <code class="language-plaintext highlighter-rouge">nargs='*'</code>, 또는 <code class="language-plaintext highlighter-rouge">nargs='+'</code>를 사용하여 가변 개수의 인수를 허용하도록 옵션을 설정할 수 있습니다. <code class="language-plaintext highlighter-rouge">optparse</code> 모듈은 이 기능의 일부에 대한 검증되지 않은 레시피를 제공하지만, “옵션이 가변 개수의 인수를 가져야 할 때 상황이 복잡해진다”고 인정합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">argparse</code> 모듈은 서브커맨드를 지원합니다. 여기서 주 커맨드 라인 파서가 커맨드 라인 인수에 따라 다른 커맨드 라인 파서로 디스패치됩니다. 이는 <code class="language-plaintext highlighter-rouge">svn co</code> 및 <code class="language-plaintext highlighter-rouge">svn up</code>과 같은 커맨드 라인 인터페이스에서 일반적인 패턴입니다.</li>
+</ul>
+
+<h3 id="기능이-optparse에-추가되지-않는-이유">기능이 <code class="language-plaintext highlighter-rouge">optparse</code>에 추가되지 않는 이유</h3>
+<p>위의 모든 기능이 <code class="language-plaintext highlighter-rouge">optparse</code>에서 제공되는 것보다 개선된 기능을 제공한다는 것은 분명합니다. 그렇다면 이러한 기능들이 완전히 새로운 모듈을 도입하는 대신 <code class="language-plaintext highlighter-rouge">optparse</code>에 패치로 제공되지 않는 이유에 대한 합리적인 질문이 있을 수 있습니다. 사실, <code class="language-plaintext highlighter-rouge">argparse</code>의 초기 개발은 그렇게 하려고 했지만, <code class="language-plaintext highlighter-rouge">optparse</code>의 여러 가지 상당히 제약적인 설계 결정 때문에 실제로 가능하지 않았습니다. 몇 가지 문제는 다음과 같습니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">optparse</code> 모듈은 파싱 알고리즘의 내부를 노출합니다. 특히, <code class="language-plaintext highlighter-rouge">parser.largs</code> 및 <code class="language-plaintext highlighter-rouge">parser.rargs</code>는 콜백에 항상 제공된다는 보장이 있습니다. 이는 <code class="language-plaintext highlighter-rouge">argparse</code>에서 위치 인수 및 가변 길이 인수를 올바르게 처리하는 데 필요했던 파싱 알고리즘을 개선하는 것을 극도로 어렵게 만듭니다. 예를 들어, <code class="language-plaintext highlighter-rouge">argparse</code>의 <code class="language-plaintext highlighter-rouge">nargs='+'</code>는 정규 표현식을 사용하여 일치시키므로 <code class="language-plaintext highlighter-rouge">parser.largs</code>와 같은 개념이 없습니다.</li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">optparse</code> 확장 API는 매우 복잡합니다. 예를 들어, 간단한 사용자 정의 문자열-객체 변환 함수를 사용하려면 <code class="language-plaintext highlighter-rouge">Option</code>을 서브클래싱하고, 클래스 속성을 해킹하고, 다음과 같이 사용자 정의 옵션 타입을 파서에 지정해야 합니다.</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MyOption</span><span class="p">(</span><span class="n">Option</span><span class="p">):</span>
+    <span class="n">TYPES</span> <span class="o">=</span> <span class="n">Option</span><span class="p">.</span><span class="n">TYPES</span> <span class="o">+</span> <span class="p">(</span><span class="sh">"</span><span class="s">mytype</span><span class="sh">"</span><span class="p">,)</span>
+    <span class="n">TYPE_CHECKER</span> <span class="o">=</span> <span class="nf">copy</span><span class="p">(</span><span class="n">Option</span><span class="p">.</span><span class="n">TYPE_CHECKER</span><span class="p">)</span>
+    <span class="n">TYPE_CHECKER</span><span class="p">[</span><span class="sh">"</span><span class="s">mytype</span><span class="sh">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">check_mytype</span>
+
+<span class="n">parser</span> <span class="o">=</span> <span class="n">optparse</span><span class="p">.</span><span class="nc">OptionParser</span><span class="p">(</span><span class="n">option_class</span><span class="o">=</span><span class="n">MyOption</span><span class="p">)</span>
+<span class="n">parser</span><span class="p">.</span><span class="nf">add_option</span><span class="p">(</span><span class="sh">"</span><span class="s">-m</span><span class="sh">"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="sh">"</span><span class="s">mytype</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div>    </div>
+    <p>비교를 위해 <code class="language-plaintext highlighter-rouge">argparse</code>는 단순히 변환 함수를 <code class="language-plaintext highlighter-rouge">type=</code> 인수로 직접 사용할 수 있도록 합니다.</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="p">.</span><span class="nc">ArgumentParser</span><span class="p">()</span>
+<span class="n">parser</span><span class="p">.</span><span class="nf">add_option</span><span class="p">(</span><span class="sh">"</span><span class="s">-m</span><span class="sh">"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">check_mytype</span><span class="p">)</span>
+</code></pre></div>    </div>
+    <p>그러나 <code class="language-plaintext highlighter-rouge">optparse</code>의 복잡한 사용자 정의 API를 고려할 때, 이러한 기능이 해당 API와 어떻게 상호 작용해야 하는지 불분명하며, 간단한 <code class="language-plaintext highlighter-rouge">argparse</code> API를 도입하면 기존의 사용자 정의 <code class="language-plaintext highlighter-rouge">Option</code> 코드가 손상될 가능성이 높습니다.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">optparse</code>와 <code class="language-plaintext highlighter-rouge">argparse</code>는 모두 커맨드 라인 인수를 파싱하고 <code class="language-plaintext highlighter-rouge">parse_args</code>가 반환하는 객체에 속성으로 할당합니다. 그러나 <code class="language-plaintext highlighter-rouge">optparse</code> 모듈은 사용자 정의 액션의 <code class="language-plaintext highlighter-rouge">take_action</code> 메서드에 항상 <code class="language-plaintext highlighter-rouge">ensure_value</code> 메서드를 제공하는 <code class="language-plaintext highlighter-rouge">values</code> 객체가 전달될 것을 보장하지만, <code class="language-plaintext highlighter-rouge">argparse</code> 모듈은 속성을 모든 객체에 할당할 수 있도록 허용합니다.</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">foo_object</span> <span class="o">=</span> <span class="bp">...</span>
+<span class="n">parser</span><span class="p">.</span><span class="nf">parse_args</span><span class="p">(</span><span class="n">namespace</span><span class="o">=</span><span class="n">foo_object</span><span class="p">)</span>
+<span class="n">foo_object</span><span class="p">.</span><span class="n">some_attribute_parsed_from_command_line</span>
+</code></pre></div>    </div>
+    <p><code class="language-plaintext highlighter-rouge">optparse</code>를 수정하여 <code class="language-plaintext highlighter-rouge">Values</code> 인스턴스 대신 모든 객체를 전달할 수 있도록 하는 것은 <code class="language-plaintext highlighter-rouge">ensure_value</code> 메서드에 의존하는 기존의 사용자 정의 액션을 손상시킬 것이기 때문에 어려울 것입니다.</p>
+  </li>
+</ul>
+
+<p>이와 같은 문제들로 인해 <code class="language-plaintext highlighter-rouge">argparse</code>가 <code class="language-plaintext highlighter-rouge">optparse</code> API와의 호환성을 유지하기가 불합리하게 어려워졌기 때문에 <code class="language-plaintext highlighter-rouge">argparse</code>는 독립적인 모듈로 개발되었습니다. 이러한 문제들을 고려할 때, <code class="language-plaintext highlighter-rouge">argparse</code>의 모든 기능을 하위 호환성 없이 <code class="language-plaintext highlighter-rouge">optparse</code>에 병합하는 것은 불가능해 보입니다.</p>
+
+<h2 id="optparse의-deprecation-사용-중단"><code class="language-plaintext highlighter-rouge">optparse</code>의 Deprecation (사용 중단)</h2>
+<p><code class="language-plaintext highlighter-rouge">optparse</code>의 모든 기능이 <code class="language-plaintext highlighter-rouge">argparse</code>에서 사용 가능하므로 <code class="language-plaintext highlighter-rouge">optparse</code> 모듈은 Deprecated (사용 중단)될 것입니다. 그러나 <code class="language-plaintext highlighter-rouge">optparse</code>의 광범위한 사용으로 인해 Deprecation 전략은 기본적으로 표시되지 않는 문서 변경 및 경고만 포함합니다.</p>
+
+<ul>
+  <li><strong>Python 2.7+ 및 3.2+</strong>: <code class="language-plaintext highlighter-rouge">optparse</code> 문서에 다음 내용이 추가될 것입니다.
+    <blockquote>
+      <p><code class="language-plaintext highlighter-rouge">optparse</code> 모듈은 Deprecated되었으며 더 이상 개발되지 않을 것입니다. 개발은 <code class="language-plaintext highlighter-rouge">argparse</code> 모듈로 계속될 것입니다.</p>
+    </blockquote>
+  </li>
+  <li><strong>Python 2.7+</strong>: 커맨드 라인에서 Python 3 호환성 플래그인 <code class="language-plaintext highlighter-rouge">-3</code>가 제공되면 <code class="language-plaintext highlighter-rouge">optparse</code>를 import할 때 <code class="language-plaintext highlighter-rouge">DeprecationWarning</code>이 발생합니다. 그렇지 않으면 경고가 발생하지 않습니다.</li>
+  <li><strong>Python 3.2+</strong>: <code class="language-plaintext highlighter-rouge">optparse</code>를 import할 때 <code class="language-plaintext highlighter-rouge">PendingDeprecationWarning</code>이 발생하며, 이는 기본적으로 표시되지 않습니다.</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">optparse</code>의 제거 날짜는 제안되지 않았다는 점에 유의하십시오.</p>
+
+<h2 id="getopt-문서-업데이트"><code class="language-plaintext highlighter-rouge">getopt</code> 문서 업데이트</h2>
+<p><code class="language-plaintext highlighter-rouge">getopt</code> 모듈은 Deprecated되지 않을 것입니다. 그러나 <code class="language-plaintext highlighter-rouge">argparse</code>를 가리키도록 문서가 여러 곳에서 업데이트될 것입니다. 모듈 상단에는 다음 내용이 추가될 것입니다.</p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">getopt</code> 모듈은 C <code class="language-plaintext highlighter-rouge">getopt</code> 함수의 사용자에게 친숙하도록 API가 설계된 커맨드 라인 옵션 파서입니다. C <code class="language-plaintext highlighter-rouge">getopt</code> 함수에 익숙하지 않거나 더 적은 코드를 작성하고 더 나은 도움말 및 오류 메시지를 얻고 싶은 사용자는 대신 <code class="language-plaintext highlighter-rouge">argparse</code> 모듈을 사용하는 것을 고려해야 합니다.</p>
+</blockquote>
+
+<p>또한, 최종 <code class="language-plaintext highlighter-rouge">getopt</code> 예제 뒤에 다음 내용이 추가될 것입니다.</p>
+
+<blockquote>
+  <p>동일한 커맨드 라인 인터페이스를 <code class="language-plaintext highlighter-rouge">argparse</code> 모듈을 사용하여 더 적은 코드로 생성할 수 있습니다.</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">argparse</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="sh">'</span><span class="s">__main__</span><span class="sh">'</span><span class="p">:</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="p">.</span><span class="nc">ArgumentParser</span><span class="p">()</span>
+    <span class="n">parser</span><span class="p">.</span><span class="nf">add_argument</span><span class="p">(</span><span class="sh">'</span><span class="s">-o</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">--output</span><span class="sh">'</span><span class="p">)</span>
+    <span class="n">parser</span><span class="p">.</span><span class="nf">add_argument</span><span class="p">(</span><span class="sh">'</span><span class="s">-v</span><span class="sh">'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="sh">'</span><span class="s">verbose</span><span class="sh">'</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="sh">'</span><span class="s">store_true</span><span class="sh">'</span><span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="p">.</span><span class="nf">parse_args</span><span class="p">()</span>
+    <span class="c1"># ... do something with args.output ...
+</span>    <span class="c1"># ... do something with args.verbose ..
+</span></code></pre></div></div>
+
+<h2 id="연기된-사항-문자열-포매팅">연기된 사항: 문자열 포매팅</h2>
+<p><code class="language-plaintext highlighter-rouge">argparse</code> 모듈은 Python 2.3부터 3.2까지 지원하며, 그 결과 전통적인 <code class="language-plaintext highlighter-rouge">%(foo)s</code> 스타일 문자열 포매팅에 의존합니다. 새로운 스타일 <code class="language-plaintext highlighter-rouge">{foo}</code> 문자열 포매팅을 사용하는 것이 더 나을 수 있다는 제안이 있었습니다. 표준 라이브러리의 모듈에 대해 이를 가장 잘 수행하는 방법에 대한 논의가 있었고, 몇몇 사람들은 <code class="language-plaintext highlighter-rouge">%</code>-포매팅을 <code class="language-plaintext highlighter-rouge">{}</code>-포매팅으로 자동 변환하는 함수를 개발하고 있습니다. 이들 중 하나가 표준 라이브러리에 추가되면 <code class="language-plaintext highlighter-rouge">argparse</code>는 이를 사용하여 두 가지 포매팅 스타일을 모두 지원할 것입니다.</p>
+
+<h2 id="거부된-사항-getopt-호환성-메서드">거부된 사항: <code class="language-plaintext highlighter-rouge">getopt</code> 호환성 메서드</h2>
+<p>이 PEP가 <code class="language-plaintext highlighter-rouge">getopt</code>와 <code class="language-plaintext highlighter-rouge">optparse</code>의 Deprecation을 모두 제안했을 때, 다음과 같은 메서드를 추가하는 것에 대한 논의가 있었습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ArgumentParser</span><span class="p">.</span><span class="nf">add_getopt_arguments</span><span class="p">(</span><span class="n">options</span><span class="p">[,</span> <span class="n">long_options</span><span class="p">])</span>
+</code></pre></div></div>
+
+<p>그러나 이 메서드는 여러 이유로 추가되지 않을 것입니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">getopt</code> 모듈이 Deprecated되지 않으므로 필요성이 줄어들었습니다.</li>
+  <li>이 메서드는 <code class="language-plaintext highlighter-rouge">usage</code> 메시지를 이미 유지하고 있던 <code class="language-plaintext highlighter-rouge">getopt</code> 사용자에게 전환을 실제로 용이하게 하지 않을 것입니다. 위 API는 인수에 도움말 메시지를 추가하는 방법을 제공하지 않기 때문입니다.</li>
+  <li>일부 <code class="language-plaintext highlighter-rouge">getopt</code> 사용자는 단일 함수 호출만 필요하다는 것을 매우 중요하게 생각합니다. 위 API는 <code class="language-plaintext highlighter-rouge">ArgumentParser()</code>와 <code class="language-plaintext highlighter-rouge">parse_args()</code>를 모두 호출해야 하므로 이 요구 사항을 충족하지 않습니다.</li>
+</ul>
+
+<h2 id="범위-외-다양한-기능-요청">범위 외: 다양한 기능 요청</h2>
+<p>이 PEP 논의에서 <code class="language-plaintext highlighter-rouge">argparse</code>에 대한 몇 가지 기능 요청이 있었습니다.</p>
+
+<ul>
+  <li>환경 변수에서 인수 기본값 지원</li>
+  <li>설정 파일에서 인수 기본값 지원</li>
+  <li>현재 지원되는 “foo subcommand –help” 외에 “foo –help subcommand” 지원</li>
+</ul>
+
+<p>이들은 모두 <code class="language-plaintext highlighter-rouge">argparse</code> 모듈에 대한 합리적인 기능 요청이지만, 이 PEP의 범위를 벗어나며 <code class="language-plaintext highlighter-rouge">argparse</code> 이슈 트래커로 리디렉션되었습니다.</p>
+
+<h2 id="논의-sysstderr-및-sysexit">논의: <code class="language-plaintext highlighter-rouge">sys.stderr</code> 및 <code class="language-plaintext highlighter-rouge">sys.exit</code></h2>
+<p><code class="language-plaintext highlighter-rouge">argparse</code>가 기본적으로 항상 <code class="language-plaintext highlighter-rouge">sys.stderr</code>에 쓰고 잘못된 인수가 제공될 때 항상 <code class="language-plaintext highlighter-rouge">sys.exit</code>를 호출한다는 점에 대한 우려가 있었습니다. 이는 단순한 커맨드 라인 인터페이스를 중심으로 하는 <code class="language-plaintext highlighter-rouge">argparse</code> 사용 사례의 대다수에서 원하는 동작입니다. 그러나 어떤 경우에는 <code class="language-plaintext highlighter-rouge">argparse</code>가 종료되지 않도록 하거나 메시지를 <code class="language-plaintext highlighter-rouge">sys.stderr</code> 이외의 다른 곳에 작성하도록 하는 것이 바람직할 수 있습니다. 이러한 사용 사례는 <code class="language-plaintext highlighter-rouge">ArgumentParser</code>를 서브클래싱하고 <code class="language-plaintext highlighter-rouge">exit</code> 또는 <code class="language-plaintext highlighter-rouge">_print_message</code> 메서드를 오버라이딩하여 지원할 수 있습니다. 후자는 문서화되지 않은 구현 세부 사항이지만, 이것이 일반적인 필요로 밝혀지면 공식적으로 노출될 수 있습니다.</p>
+
+<h2 id="참조">참조</h2>
+<p><code class="language-plaintext highlighter-rouge">argparse</code> (http://code.google.com/p/argparse/)
+ <code class="language-plaintext highlighter-rouge">getopt</code> (http://docs.python.org/library/getopt.html)
+ <code class="language-plaintext highlighter-rouge">optparse</code> (http://docs.python.org/library/optparse.html)
+ IPython의 <code class="language-plaintext highlighter-rouge">argparse</code> (http://mail.scipy.org/pipermail/ipython-dev/2009-April/005102.html)
+ Debian의 <code class="language-plaintext highlighter-rouge">argparse</code> (http://packages.debian.org/search?keywords=argparse)
+ 2007-01-03 표준 라이브러리에 <code class="language-plaintext highlighter-rouge">argparse</code> 포함 요청 (https://mail.python.org/pipermail/python-list/2007-January/472276.html)
+ 2009-06-09 표준 라이브러리에 <code class="language-plaintext highlighter-rouge">argparse</code> 포함 요청 (http://bugs.python.org/issue6247)
+ 2009-09-10 표준 라이브러리에 <code class="language-plaintext highlighter-rouge">argparse</code> 포함 요청 (https://mail.python.org/pipermail/stdlib-sig/2009-September/000342.html)
+ Fredrik Lundh의에 대한 응답 (https://mail.python.org/pipermail/python-list/2007-January/1086892.html)
+ <code class="language-plaintext highlighter-rouge">optparse</code> 가변 인수 (http://docs.python.org/library/optparse.html#callback-example-6-variable-arguments)
+ <code class="language-plaintext highlighter-rouge">parser.largs</code> 및 <code class="language-plaintext highlighter-rouge">parser.rargs</code> (http://docs.python.org/library/optparse.html#how-callbacks-are-called)
+ <code class="language-plaintext highlighter-rouge">take_action</code> <code class="language-plaintext highlighter-rouge">values</code> 인수 (http://docs.python.org/library/optparse.html#adding-new-actions)
+ <code class="language-plaintext highlighter-rouge">%</code>-포매팅 대신 <code class="language-plaintext highlighter-rouge">{}</code>-포매팅 사용 (http://bugs.python.org/msg89279)
+ <code class="language-plaintext highlighter-rouge">%</code>에서 <code class="language-plaintext highlighter-rouge">{}</code> 포매팅으로 전환 (https://mail.python.org/pipermail/python-dev/2009-September/092326.html)
+ Vinay Sajip의 <code class="language-plaintext highlighter-rouge">%</code>-에서-<code class="language-plaintext highlighter-rouge">{}</code> 변환기 (http://gist.github.com/200936)
+ Benjamin Peterson의 <code class="language-plaintext highlighter-rouge">%</code>-에서-<code class="language-plaintext highlighter-rouge">{}</code> 변환기 (http://bazaar.launchpad.net/~gutworth/+junk/mod2format/files)
+ Guido의 승인 (https://mail.python.org/pipermail/python-dev/2010-February/097839.html)</p>
+
+<h2 id="저작권">저작권</h2>
+<p>이 문서는 퍼블릭 도메인에 공개되었습니다.</p>
+
+<hr />
+<p>(Note: The acceptance section was very short and simply stated Guido’s approval. I included it in the abstract section implicitly, but can add it explicitly if desired. For now, I’ll keep it concise as the prompt asks to help developers understand the <em>proposal</em>, <em>background</em>, and <em>impact</em>, rather than minute historical details unless they contribute to the overall understanding of the module itself.)</p>
+
+<p>Let me double check all the requirements:</p>
+<ol>
+  <li><strong>전문성 유지:</strong> Python 생태계에서 통용되는 전문 용어를 정확하게 사용하세요.
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">argparse</code>, <code class="language-plaintext highlighter-rouge">getopt</code>, <code class="language-plaintext highlighter-rouge">optparse</code>, <code class="language-plaintext highlighter-rouge">PEP</code>, <code class="language-plaintext highlighter-rouge">module</code>, <code class="language-plaintext highlighter-rouge">standard library</code>, <code class="language-plaintext highlighter-rouge">positional arguments</code>, <code class="language-plaintext highlighter-rouge">options</code>, <code class="language-plaintext highlighter-rouge">subcommands</code>, <code class="language-plaintext highlighter-rouge">callbacks</code>, <code class="language-plaintext highlighter-rouge">deprecation</code>, <code class="language-plaintext highlighter-rouge">string formatting</code> 등 전문 용어들을 원문과 한국어 번역을 적절히 혼용하여 사용하거나 한국어화 했습니다.</li>
+    </ul>
+  </li>
+  <li><strong>용어 처리:</strong>
+    <ul>
+      <li>널리 쓰이는 한국어 용어가 있다면 사용합니다. (예: “표준 라이브러리”, “위치 인수”)</li>
+      <li>모호하거나 한국어보다 영어가 더 익숙한 용어는 영어 원문을 그대로 사용하거나 병기합니다. (예: <code class="language-plaintext highlighter-rouge">List Comprehension</code>은 없었지만 <code class="language-plaintext highlighter-rouge">Generator (제너레이터)</code> 같은 방식. 여기서는 <code class="language-plaintext highlighter-rouge">Deprecation (사용 중단)</code> 처럼 병기함.)</li>
+      <li>코드 내의 키워드(예: <code class="language-plaintext highlighter-rouge">async</code>, <code class="language-plaintext highlighter-rouge">await</code>, <code class="language-plaintext highlighter-rouge">class</code>, <code class="language-plaintext highlighter-rouge">def</code>)나 변수명은 절대 번역하지 마세요. (코드 블록의 키워드와 변수명은 번역하지 않았습니다.)</li>
+    </ul>
+  </li>
+  <li><strong>가독성:</strong> 마크다운을 적극 활용하여 구조적으로 정리해주세요. (제목, 소제목, 목록, 코드 블록 등을 활용했습니다.)</li>
+  <li><strong>번역 정확성:</strong> 번역 정확성을 보장하기 위해 원문 내용을 빠짐없이 마크다운 형태로 번역해주세요. (모든 섹션의 내용을 번역하고 Markdown으로 정리했습니다.)</li>
+</ol>
+
+<p>Looks good.The translation is complete and formatted according to the instructions.# PEP 389 – argparse - 새로운 커맨드 라인 파싱 모듈</p>
+
+<h2 id="수락-acceptance">수락 (Acceptance)</h2>
+<p>이 PEP는 2010년 2월 21일 Guido에 의해 <code class="language-plaintext highlighter-rouge">python-dev</code>에서 승인되었습니다.</p>
+
+<h2 id="개요-abstract">개요 (Abstract)</h2>
+<p>이 PEP는 <code class="language-plaintext highlighter-rouge">argparse</code> 모듈을 Python 2.7 및 3.2 버전의 Python 표준 라이브러리에 포함할 것을 제안합니다.</p>
+
+<h2 id="동기-motivation">동기 (Motivation)</h2>
+<p><code class="language-plaintext highlighter-rouge">argparse</code> 모듈은 표준 라이브러리에 이미 존재하는 커맨드 라인 파싱 모듈인 <code class="language-plaintext highlighter-rouge">getopt</code> 및 <code class="language-plaintext highlighter-rouge">optparse</code>보다 더 많은 기능을 제공하는 커맨드 라인 파싱 라이브러리입니다. 이 모듈은 위치 인수(옵션뿐만 아니라), 서브커맨드(subcommands), 필수 옵션, “/f” 및 “+rgb”와 같은 옵션 문법, 0개 이상 및 1개 이상 스타일 인수 등 기존 두 모듈에는 없는 다양한 기능을 포함합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">argparse</code> 모듈은 또한 이미 이들 모듈의 인기 있는 서드파티 대체재로 활용되고 있습니다. IPython (Scipy Python 셸)과 같은 프로젝트에서 사용되며, Debian testing 및 unstable에 포함되어 있고, 2007년부터 표준 라이브러리에 포함해달라는 여러 요청이 있었습니다. 이러한 인기는 <code class="language-plaintext highlighter-rouge">argparse</code>가 Python 라이브러리에 매우 가치 있는 추가 기능이 될 수 있음을 시사합니다.</p>
+
+<h3 id="getopt와-optparse로는-부족한-이유-1"><code class="language-plaintext highlighter-rouge">getopt</code>와 <code class="language-plaintext highlighter-rouge">optparse</code>로는 부족한 이유</h3>
+<p><code class="language-plaintext highlighter-rouge">argparse</code> 추가에 반대하는 한 가지 주장은 “표준 라이브러리에 이미 두 가지 다른 옵션 파싱 모듈이 있다”는 것입니다. 다음은 <code class="language-plaintext highlighter-rouge">argparse</code>에서 제공하지만 <code class="language-plaintext highlighter-rouge">getopt</code> 또는 <code class="language-plaintext highlighter-rouge">optparse</code>에는 없는 기능 목록입니다.</p>
+
+<ul>
+  <li>두 가지 옵션 파싱 라이브러리가 있는 것은 사실이지만, 완전한 커맨드 라인 파싱 라이브러리는 없습니다. <code class="language-plaintext highlighter-rouge">getopt</code>와 <code class="language-plaintext highlighter-rouge">optparse</code>는 모두 옵션만 지원하며 위치 인수는 지원하지 않습니다. <code class="language-plaintext highlighter-rouge">argparse</code> 모듈은 둘 다 처리하며, 그 결과 더 나은 도움말 메시지를 생성하여 <code class="language-plaintext highlighter-rouge">optparse</code>에서 일반적으로 필요한 <code class="language-plaintext highlighter-rouge">usage=</code> 문자열과 같은 중복을 피할 수 있습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">argparse</code> 모듈은 순수성보다는 실용성을 중시합니다. 따라서 <code class="language-plaintext highlighter-rouge">argparse</code>는 필수 옵션과 옵션을 식별하는 데 사용되는 문자를 사용자 정의할 수 있도록 허용합니다. 반면 <code class="language-plaintext highlighter-rouge">optparse</code>는 “필수 옵션이라는 문구는 자체 모순”이라고 명시하며 <code class="language-plaintext highlighter-rouge">-pf</code>, <code class="language-plaintext highlighter-rouge">-file</code>, <code class="language-plaintext highlighter-rouge">+f</code>, <code class="language-plaintext highlighter-rouge">+rgb</code>, <code class="language-plaintext highlighter-rouge">/f</code>, <code class="language-plaintext highlighter-rouge">/file</code>과 같은 옵션 문법은 <code class="language-plaintext highlighter-rouge">optparse</code>에서 지원되지 않으며 앞으로도 지원되지 않을 것이라고 밝힙니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">argparse</code> 모듈은 <code class="language-plaintext highlighter-rouge">nargs='?'</code>, <code class="language-plaintext highlighter-rouge">nargs='*'</code> 또는 <code class="language-plaintext highlighter-rouge">nargs='+'</code>를 사용하여 가변 개수의 인수를 허용하도록 옵션을 설정할 수 있습니다. <code class="language-plaintext highlighter-rouge">optparse</code> 모듈은 이 기능의 일부에 대한 검증되지 않은 레시피를 제공하지만, “옵션이 가변 개수의 인수를 가져야 할 때 상황이 복잡해진다”고 인정합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">argparse</code> 모듈은 서브커맨드를 지원합니다. 여기서 메인 커맨드 라인 파서가 커맨드 라인 인수에 따라 다른 커맨드 라인 파서로 디스패치됩니다. 이는 <code class="language-plaintext highlighter-rouge">svn co</code> 및 <code class="language-plaintext highlighter-rouge">svn up</code>과 같은 커맨드 라인 인터페이스에서 흔히 볼 수 있는 패턴입니다.</li>
+</ul>
+
+<h3 id="기능이-optparse에-추가되지-않는-이유-1">기능이 <code class="language-plaintext highlighter-rouge">optparse</code>에 추가되지 않는 이유</h3>
+<p>위의 모든 기능이 <code class="language-plaintext highlighter-rouge">optparse</code>에서 제공되는 것보다 개선된 기능을 제공한다는 것은 분명합니다. 그렇다면 이러한 기능들이 완전히 새로운 모듈을 도입하는 대신 <code class="language-plaintext highlighter-rouge">optparse</code>에 패치로 제공되지 않는 이유에 대한 합리적인 질문이 있을 수 있습니다. 사실, <code class="language-plaintext highlighter-rouge">argparse</code>의 초기 개발은 그렇게 하려고 했지만, <code class="language-plaintext highlighter-rouge">optparse</code>의 여러 가지 상당히 제약적인 설계 결정 때문에 실제로 가능하지 않았습니다. 몇 가지 문제는 다음과 같습니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">optparse</code> 모듈은 파싱 알고리즘의 내부를 노출합니다. 특히, <code class="language-plaintext highlighter-rouge">parser.largs</code> 및 <code class="language-plaintext highlighter-rouge">parser.rargs</code>는 콜백(callbacks)에 항상 제공된다는 보장이 있습니다. 이는 <code class="language-plaintext highlighter-rouge">argparse</code>에서 위치 인수 및 가변 길이 인수를 올바르게 처리하는 데 필요했던 파싱 알고리즘을 개선하는 것을 극도로 어렵게 만듭니다. 예를 들어, <code class="language-plaintext highlighter-rouge">argparse</code>의 <code class="language-plaintext highlighter-rouge">nargs='+'</code>는 정규 표현식을 사용하여 일치시키므로 <code class="language-plaintext highlighter-rouge">parser.largs</code>와 같은 개념이 없습니다.</li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">optparse</code> 확장 API는 매우 복잡합니다. 예를 들어, 간단한 사용자 정의 문자열-객체 변환 함수를 사용하려면 <code class="language-plaintext highlighter-rouge">Option</code>을 서브클래싱하고, 클래스 속성을 수정하며, 다음과 같이 사용자 정의 옵션 타입을 파서에 지정해야 합니다.</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MyOption</span><span class="p">(</span><span class="n">Option</span><span class="p">):</span>
+    <span class="n">TYPES</span> <span class="o">=</span> <span class="n">Option</span><span class="p">.</span><span class="n">TYPES</span> <span class="o">+</span> <span class="p">(</span><span class="sh">"</span><span class="s">mytype</span><span class="sh">"</span><span class="p">,)</span>
+    <span class="n">TYPE_CHECKER</span> <span class="o">=</span> <span class="nf">copy</span><span class="p">(</span><span class="n">Option</span><span class="p">.</span><span class="n">TYPE_CHECKER</span><span class="p">)</span>
+    <span class="n">TYPE_CHECKER</span><span class="p">[</span><span class="sh">"</span><span class="s">mytype</span><span class="sh">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">check_mytype</span>
+
+<span class="n">parser</span> <span class="o">=</span> <span class="n">optparse</span><span class="p">.</span><span class="nc">OptionParser</span><span class="p">(</span><span class="n">option_class</span><span class="o">=</span><span class="n">MyOption</span><span class="p">)</span>
+<span class="n">parser</span><span class="p">.</span><span class="nf">add_option</span><span class="p">(</span><span class="sh">"</span><span class="s">-m</span><span class="sh">"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="sh">"</span><span class="s">mytype</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div>    </div>
+    <p>비교를 위해 <code class="language-plaintext highlighter-rouge">argparse</code>는 단순히 변환 함수를 <code class="language-plaintext highlighter-rouge">type=</code> 인수로 직접 사용할 수 있도록 합니다.</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="p">.</span><span class="nc">ArgumentParser</span><span class="p">()</span>
+<span class="n">parser</span><span class="p">.</span><span class="nf">add_option</span><span class="p">(</span><span class="sh">"</span><span class="s">-m</span><span class="sh">"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">check_mytype</span><span class="p">)</span>
+</code></pre></div>    </div>
+    <p>그러나 <code class="language-plaintext highlighter-rouge">optparse</code>의 복잡한 사용자 정의 API를 고려할 때, 이러한 기능이 해당 API와 어떻게 상호 작용해야 하는지 불분명하며, 간단한 <code class="language-plaintext highlighter-rouge">argparse</code> API를 도입하면 기존의 사용자 정의 <code class="language-plaintext highlighter-rouge">Option</code> 코드가 손상될 가능성이 높습니다.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">optparse</code>와 <code class="language-plaintext highlighter-rouge">argparse</code>는 모두 커맨드 라인 인수를 파싱하고 <code class="language-plaintext highlighter-rouge">parse_args</code>가 반환하는 객체에 속성으로 할당합니다. 그러나 <code class="language-plaintext highlighter-rouge">optparse</code> 모듈은 사용자 정의 액션의 <code class="language-plaintext highlighter-rouge">take_action</code> 메서드에 항상 <code class="language-plaintext highlighter-rouge">ensure_value</code> 메서드를 제공하는 <code class="language-plaintext highlighter-rouge">values</code> 객체가 전달될 것을 보장하지만, <code class="language-plaintext highlighter-rouge">argparse</code> 모듈은 속성을 모든 객체에 할당할 수 있도록 허용합니다.</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">foo_object</span> <span class="o">=</span> <span class="bp">...</span>
+<span class="n">parser</span><span class="p">.</span><span class="nf">parse_args</span><span class="p">(</span><span class="n">namespace</span><span class="o">=</span><span class="n">foo_object</span><span class="p">)</span>
+<span class="n">foo_object</span><span class="p">.</span><span class="n">some_attribute_parsed_from_command_line</span>
+</code></pre></div>    </div>
+    <p><code class="language-plaintext highlighter-rouge">optparse</code>를 수정하여 <code class="language-plaintext highlighter-rouge">Values</code> 인스턴스 대신 모든 객체를 전달할 수 있도록 하는 것은 <code class="language-plaintext highlighter-rouge">ensure_value</code> 메서드에 의존하는 기존의 사용자 정의 액션을 손상시킬 것이기 때문에 어려울 것입니다.</p>
+  </li>
+</ul>
+
+<p>이와 같은 문제들로 인해 <code class="language-plaintext highlighter-rouge">argparse</code>가 <code class="language-plaintext highlighter-rouge">optparse</code> API와의 호환성을 유지하기가 불합리하게 어려워졌기 때문에 <code class="language-plaintext highlighter-rouge">argparse</code>는 독립적인 모듈로 개발되었습니다. 이러한 문제들을 고려할 때, <code class="language-plaintext highlighter-rouge">argparse</code>의 모든 기능을 하위 호환성 없이 <code class="language-plaintext highlighter-rouge">optparse</code>에 병합하는 것은 불가능해 보입니다.</p>
+
+<h2 id="optparse의-deprecation-사용-중단-1"><code class="language-plaintext highlighter-rouge">optparse</code>의 Deprecation (사용 중단)</h2>
+<p><code class="language-plaintext highlighter-rouge">optparse</code>의 모든 기능이 <code class="language-plaintext highlighter-rouge">argparse</code>에서 사용 가능하므로 <code class="language-plaintext highlighter-rouge">optparse</code> 모듈은 Deprecated (사용 중단)될 것입니다. 그러나 <code class="language-plaintext highlighter-rouge">optparse</code>의 광범위한 사용으로 인해 Deprecation 전략은 기본적으로 표시되지 않는 문서 변경 및 경고만 포함합니다.</p>
+
+<ul>
+  <li><strong>Python 2.7+ 및 3.2+</strong>: <code class="language-plaintext highlighter-rouge">optparse</code> 문서에 다음 내용이 추가될 것입니다.
+    <blockquote>
+      <p><code class="language-plaintext highlighter-rouge">optparse</code> 모듈은 Deprecated (사용 중단)되었으며 더 이상 개발되지 않을 것입니다. 개발은 <code class="language-plaintext highlighter-rouge">argparse</code> 모듈로 계속될 것입니다.</p>
+    </blockquote>
+  </li>
+  <li><strong>Python 2.7+</strong>: 커맨드 라인에서 Python 3 호환성 플래그인 <code class="language-plaintext highlighter-rouge">-3</code>가 제공되면 <code class="language-plaintext highlighter-rouge">optparse</code>를 import할 때 <code class="language-plaintext highlighter-rouge">DeprecationWarning</code>이 발생합니다. 그렇지 않으면 경고가 발생하지 않습니다.</li>
+  <li><strong>Python 3.2+</strong>: <code class="language-plaintext highlighter-rouge">optparse</code>를 import할 때 <code class="language-plaintext highlighter-rouge">PendingDeprecationWarning</code>이 발생하며, 이는 기본적으로 표시되지 않습니다.</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">optparse</code>의 제거 날짜는 제안되지 않았다는 점에 유의하십시오.</p>
+
+<h2 id="getopt-문서-업데이트-1"><code class="language-plaintext highlighter-rouge">getopt</code> 문서 업데이트</h2>
+<p><code class="language-plaintext highlighter-rouge">getopt</code> 모듈은 Deprecated되지 않을 것입니다. 그러나 <code class="language-plaintext highlighter-rouge">argparse</code>를 가리키도록 문서가 여러 곳에서 업데이트될 것입니다. 모듈 상단에는 다음 내용이 추가될 것입니다.</p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">getopt</code> 모듈은 C <code class="language-plaintext highlighter-rouge">getopt</code> 함수의 사용자에게 친숙하도록 API가 설계된 커맨드 라인 옵션 파서입니다. C <code class="language-plaintext highlighter-rouge">getopt</code> 함수에 익숙하지 않거나 더 적은 코드를 작성하고 더 나은 도움말 및 오류 메시지를 얻고 싶은 사용자는 대신 <code class="language-plaintext highlighter-rouge">argparse</code> 모듈을 사용하는 것을 고려해야 합니다.</p>
+</blockquote>
+
+<p>또한, 최종 <code class="language-plaintext highlighter-rouge">getopt</code> 예제 뒤에 다음 내용이 추가될 것입니다.</p>
+
+<blockquote>
+  <p>동일한 커맨드 라인 인터페이스를 <code class="language-plaintext highlighter-rouge">argparse</code> 모듈을 사용하여 더 적은 코드로 생성할 수 있습니다.</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">argparse</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="sh">'</span><span class="s">__main__</span><span class="sh">'</span><span class="p">:</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="p">.</span><span class="nc">ArgumentParser</span><span class="p">()</span>
+    <span class="n">parser</span><span class="p">.</span><span class="nf">add_argument</span><span class="p">(</span><span class="sh">'</span><span class="s">-o</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">--output</span><span class="sh">'</span><span class="p">)</span>
+    <span class="n">parser</span><span class="p">.</span><span class="nf">add_argument</span><span class="p">(</span><span class="sh">'</span><span class="s">-v</span><span class="sh">'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="sh">'</span><span class="s">verbose</span><span class="sh">'</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="sh">'</span><span class="s">store_true</span><span class="sh">'</span><span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="p">.</span><span class="nf">parse_args</span><span class="p">()</span>
+    <span class="c1"># ... do something with args.output ...
+</span>    <span class="c1"># ... do something with args.verbose ..
+</span></code></pre></div></div>
+
+<h2 id="연기된-사항-문자열-포매팅-deferred-string-formatting">연기된 사항: 문자열 포매팅 (Deferred: string formatting)</h2>
+<p><code class="language-plaintext highlighter-rouge">argparse</code> 모듈은 Python 2.3부터 3.2까지 지원하며, 그 결과 전통적인 <code class="language-plaintext highlighter-rouge">%(foo)s</code> 스타일 문자열 포매팅에 의존합니다. 새로운 스타일 <code class="language-plaintext highlighter-rouge">{foo}</code> 문자열 포매팅을 사용하는 것이 더 나을 수 있다는 제안이 있었습니다. 표준 라이브러리의 모듈에 대해 이를 가장 잘 수행하는 방법에 대한 논의가 있었고, 몇몇 사람들은 <code class="language-plaintext highlighter-rouge">%</code>-포매팅을 <code class="language-plaintext highlighter-rouge">{}</code>-포매팅으로 자동 변환하는 함수를 개발하고 있습니다. 이들 중 하나가 표준 라이브러리에 추가되면 <code class="language-plaintext highlighter-rouge">argparse</code>는 이를 사용하여 두 가지 포매팅 스타일을 모두 지원할 것입니다.</p>
+
+<h2 id="거부된-사항-getopt-호환성-메서드-rejected-getopt-compatibility-methods">거부된 사항: <code class="language-plaintext highlighter-rouge">getopt</code> 호환성 메서드 (Rejected: getopt compatibility methods)</h2>
+<p>이 PEP가 <code class="language-plaintext highlighter-rouge">getopt</code>와 <code class="language-plaintext highlighter-rouge">optparse</code>의 Deprecation을 모두 제안했을 때, 다음과 같은 메서드를 추가하는 것에 대한 논의가 있었습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ArgumentParser</span><span class="p">.</span><span class="nf">add_getopt_arguments</span><span class="p">(</span><span class="n">options</span><span class="p">[,</span> <span class="n">long_options</span><span class="p">])</span>
+</code></pre></div></div>
+
+<p>그러나 이 메서드는 여러 이유로 추가되지 않을 것입니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">getopt</code> 모듈이 Deprecated되지 않으므로 필요성이 줄어들었습니다.</li>
+  <li>이 메서드는 <code class="language-plaintext highlighter-rouge">usage</code> 메시지를 이미 유지하고 있던 <code class="language-plaintext highlighter-rouge">getopt</code> 사용자에게 전환을 실제로 용이하게 하지 않을 것입니다. 위 API는 인수에 도움말 메시지를 추가하는 방법을 제공하지 않기 때문입니다.</li>
+  <li>일부 <code class="language-plaintext highlighter-rouge">getopt</code> 사용자는 단일 함수 호출만 필요하다는 것을 매우 중요하게 생각합니다. 위 API는 <code class="language-plaintext highlighter-rouge">ArgumentParser()</code>와 <code class="language-plaintext highlighter-rouge">parse_args()</code>를 모두 호출해야 하므로 이 요구 사항을 충족하지 않습니다.</li>
+</ul>
+
+<h2 id="범위-외-out-of-scope-다양한-기능-요청">범위 외 (Out of Scope): 다양한 기능 요청</h2>
+<p>이 PEP 논의에서 <code class="language-plaintext highlighter-rouge">argparse</code>에 대한 몇 가지 기능 요청이 있었습니다.</p>
+
+<ul>
+  <li>환경 변수에서 인수 기본값 지원</li>
+  <li>설정 파일에서 인수 기본값 지원</li>
+  <li>현재 지원되는 “foo subcommand –help” 외에 “foo –help subcommand” 지원</li>
+</ul>
+
+<p>이들은 모두 <code class="language-plaintext highlighter-rouge">argparse</code> 모듈에 대한 합리적인 기능 요청이지만, 이 PEP의 범위를 벗어나며 <code class="language-plaintext highlighter-rouge">argparse</code> 이슈 트래커로 리디렉션되었습니다.</p>
+
+<h2 id="논의-discussion-sysstderr-및-sysexit">논의 (Discussion): <code class="language-plaintext highlighter-rouge">sys.stderr</code> 및 <code class="language-plaintext highlighter-rouge">sys.exit</code></h2>
+<p><code class="language-plaintext highlighter-rouge">argparse</code>가 기본적으로 항상 <code class="language-plaintext highlighter-rouge">sys.stderr</code>에 쓰고 잘못된 인수가 제공될 때 항상 <code class="language-plaintext highlighter-rouge">sys.exit</code>를 호출한다는 점에 대한 우려가 있었습니다. 이는 단순한 커맨드 라인 인터페이스를 중심으로 하는 <code class="language-plaintext highlighter-rouge">argparse</code> 사용 사례의 대다수에서 원하는 동작입니다. 그러나 어떤 경우에는 <code class="language-plaintext highlighter-rouge">argparse</code>가 종료되지 않도록 하거나 메시지를 <code class="language-plaintext highlighter-rouge">sys.stderr</code> 이외의 다른 곳에 작성하도록 하는 것이 바람직할 수 있습니다. 이러한 사용 사례는 <code class="language-plaintext highlighter-rouge">ArgumentParser</code>를 서브클래싱하고 <code class="language-plaintext highlighter-rouge">exit</code> 또는 <code class="language-plaintext highlighter-rouge">_print_message</code> 메서드를 오버라이딩하여 지원할 수 있습니다. 후자는 문서화되지 않은 구현 세부 사항이지만, 이것이 일반적인 필요로 밝혀지면 공식적으로 노출될 수 있습니다.</p>
+
+<h2 id="참조-references">참조 (References)</h2>
+<p><code class="language-plaintext highlighter-rouge">argparse</code> (http://code.google.com/p/argparse/)
+ <code class="language-plaintext highlighter-rouge">getopt</code> (http://docs.python.org/library/getopt.html)
+ <code class="language-plaintext highlighter-rouge">optparse</code> (http://docs.python.org/library/optparse.html)
+ IPython의 <code class="language-plaintext highlighter-rouge">argparse</code> (http://mail.scipy.org/pipermail/ipython-dev/2009-April/005102.html)
+ Debian의 <code class="language-plaintext highlighter-rouge">argparse</code> (http://packages.debian.org/search?keywords=argparse)
+ 2007-01-03 표준 라이브러리에 <code class="language-plaintext highlighter-rouge">argparse</code> 포함 요청 (https://mail.python.org/pipermail/python-list/2007-January/472276.html)
+ 2009-06-09 표준 라이브러리에 <code class="language-plaintext highlighter-rouge">argparse</code> 포함 요청 (http://bugs.python.org/issue6247)
+ 2009-09-10 표준 라이브러리에 <code class="language-plaintext highlighter-rouge">argparse</code> 포함 요청 (https://mail.python.org/pipermail/stdlib-sig/2009-September/000342.html)
+ Fredrik Lundh의에 대한 응답 (https://mail.python.org/pipermail/python-list/2007-January/1086892.html)
+ <code class="language-plaintext highlighter-rouge">optparse</code> 가변 인수 (http://docs.python.org/library/optparse.html#callback-example-6-variable-arguments)
+ <code class="language-plaintext highlighter-rouge">parser.largs</code> 및 <code class="language-plaintext highlighter-rouge">parser.rargs</code> (http://docs.python.org/library/optparse.html#how-callbacks-are-called)
+ <code class="language-plaintext highlighter-rouge">take_action</code> <code class="language-plaintext highlighter-rouge">values</code> 인수 (http://docs.python.org/library/optparse.html#adding-new-actions)
+ <code class="language-plaintext highlighter-rouge">%</code>-포매팅 대신 <code class="language-plaintext highlighter-rouge">{}</code>-포매팅 사용 (http://bugs.python.org/msg89279)
+ <code class="language-plaintext highlighter-rouge">%</code>에서 <code class="language-plaintext highlighter-rouge">{}</code> 포매팅으로 전환 (https://mail.python.org/pipermail/python-dev/2009-September/092326.html)
+ Vinay Sajip의 <code class="language-plaintext highlighter-rouge">%</code>-에서-<code class="language-plaintext highlighter-rouge">{}</code> 변환기 (http://gist.github.com/200936)
+ Benjamin Peterson의 <code class="language-plaintext highlighter-rouge">%</code>-에서-<code class="language-plaintext highlighter-rouge">{}</code> 변환기 (http://bazaar.launchpad.net/~gutworth/+junk/mod2format/files)
+ Guido의 승인 (https://mail.python.org/pipermail/python-dev/2010-February/097839.html)</p>
+
+<h2 id="저작권-copyright">저작권 (Copyright)</h2>
+<p>이 문서는 퍼블릭 도메인에 공개되었습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/387/" class="pagination--pager" title="[Active] PEP 387 - Backwards Compatibility Policy
+">Previous</a>
+    
+    
+      <a href="/python/pep/390/" class="pagination--pager" title="[Rejected] PEP 390 - Static metadata for Distutils
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,781 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 338 - Executing modules as scripts | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 338: ‘Executing modules as scripts’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 338 - Executing modules as scripts">
+<meta property="og:url" content="http://localhost:4000/python/pep/338/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 338: ‘Executing modules as scripts’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T18:45:56+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T18:45:56+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/338/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 338 - Executing modules as scripts">
+    <meta itemprop="description" content="Python Enhancement Proposal 338: ‘Executing modules as scripts’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T18:45:56+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T18:45:56+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 338 - Executing modules as scripts
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T18:45:56+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-338--모듈을-스크립트로-실행하기">PEP 338 – 모듈을 스크립트로 실행하기</a><ul><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#도입-배경-rationale">도입 배경 (Rationale)</a></li><li><a href="#제안의-범위-scope-of-this-proposal">제안의 범위 (Scope of this proposal)</a></li><li><a href="#현재-동작-current-behaviour">현재 동작 (Current Behaviour)</a></li><li><a href="#제안된-의미론-proposed-semantics">제안된 의미론 (Proposed Semantics)</a></li><li><a href="#참조-구현-reference-implementation">참조 구현 (Reference Implementation)</a><ul><li><a href="#run_modulemod_name-init_globals-run_name-alter_sys">run_module(mod_name[, init_globals][, run_name][, alter_sys])</a></li></ul></li><li><a href="#임포트-문과-메인-모듈-import-statements-and-the-main-module">임포트 문과 메인 모듈 (Import Statements and the Main Module)</a></li><li><a href="#해결된-문제-resolved-issues">해결된 문제 (Resolved Issues)</a></li><li><a href="#대안-alternatives">대안 (Alternatives)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0338/">PEP 338 - Executing modules as scripts</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 16-Oct-2004</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-338--모듈을-스크립트로-실행하기">PEP 338 – 모듈을 스크립트로 실행하기</h1>
+
+<ul>
+  <li><strong>작성자:</strong> Alyssa Coghlan</li>
+  <li><strong>상태:</strong> Final (최종)</li>
+  <li><strong>유형:</strong> Standards Track</li>
+  <li><strong>생성일:</strong> 2004년 10월 16일</li>
+  <li><strong>Python 버전:</strong> 2.5</li>
+  <li><strong>요약:</strong> 이 PEP는 <code class="language-plaintext highlighter-rouge">-m</code> 명령줄 스위치 또는 <code class="language-plaintext highlighter-rouge">runpy.run_module(modulename)</code> 함수를 통해 모든 Python 모듈을 스크립트로 실행하는 의미론을 정의합니다.</li>
+</ul>
+
+<h2 id="개요-abstract">개요 (Abstract)</h2>
+
+<p>이 PEP는 <code class="language-plaintext highlighter-rouge">-m</code> 명령줄 스위치를 사용하거나 <code class="language-plaintext highlighter-rouge">runpy.run_module(modulename)</code>을 호출하여 모든 Python 모듈을 스크립트처럼 실행하기 위한 의미론을 정의합니다. Python 2.4에서 구현된 <code class="language-plaintext highlighter-rouge">-m</code> 스위치는 매우 제한적이었으나, 이 PEP는 PEP 302의 임포트 훅(import hooks)을 활용하여 코드 객체에 접근할 수 있는 모든 모듈을 실행할 수 있도록 제안합니다.</p>
+
+<h2 id="도입-배경-rationale">도입 배경 (Rationale)</h2>
+
+<p>Python 2.4는 <code class="language-plaintext highlighter-rouge">-m</code> 명령줄 스위치를 도입하여 Python 모듈 이름 공간을 사용하여 모듈을 스크립트로 실행할 수 있도록 했습니다. 이는 <code class="language-plaintext highlighter-rouge">pdb</code>나 <code class="language-plaintext highlighter-rouge">profile</code>과 같은 표준 라이브러리 모듈을 실행하는 데 유용했습니다. 그러나 패키지 내부에 위치한 모듈(예: <code class="language-plaintext highlighter-rouge">pychecker</code>의 <code class="language-plaintext highlighter-rouge">pychecker.checker</code> 모듈)을 실행하는 기능은 Python 2.4 구현에서 제외되었습니다. 이 기능의 구현이 훨씬 복잡하고 명확한 전략이 없었기 때문입니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">python-dev</code> 커뮤니티는 이 기능을 Python 2.5로 연기하고, PEP 프로세스를 통해 제대로 구현하는 것이 좋다고 판단했습니다. 또한, 기존 <code class="language-plaintext highlighter-rouge">-m</code> 버전은 <code class="language-plaintext highlighter-rouge">zipimport</code>나 다른 형태의 대체 임포트 동작(예: frozen modules)을 지원하지 않는다는 문제도 지적되었습니다.</p>
+
+<p>이 기능을 C로 작성하는 것보다 Python 모듈로 제공하는 것이 훨씬 쉽고, CPython 인터프리터에만 국한되지 않고 모든 Python 프로그램에서 사용할 수 있도록 합니다. CPython의 명령줄 스위치는 이 새로운 모듈을 활용하도록 재작성될 수 있습니다. <code class="language-plaintext highlighter-rouge">profile</code>, <code class="language-plaintext highlighter-rouge">pdb</code>와 같이 다른 스크립트를 실행하는 스크립트들도 새로운 모듈을 사용하여 실행할 스크립트를 <code class="language-plaintext highlighter-rouge">-m</code> 스타일로 식별하는 기능을 제공할 수 있습니다.</p>
+
+<h2 id="제안의-범위-scope-of-this-proposal">제안의 범위 (Scope of this proposal)</h2>
+
+<p>Python 2.4에서 <code class="language-plaintext highlighter-rouge">-m</code>으로 찾은 모듈은 마치 파일 이름이 명령줄에 제공된 것처럼 실행됩니다. 이 PEP의 목표는 패키지 내부의 모듈이나 <code class="language-plaintext highlighter-rouge">zipimport</code>와 같은 대체 임포트 메커니즘을 통해 접근하는 모듈에 대해서도 이 규칙이 최대한 적용되도록 하는 것입니다.</p>
+
+<p>이 PEP는 Python 모듈을 스크립트로도 유용하게 만드는 관용구(idiom)를 변경하려는 것이 아님을 명시해야 합니다 (PEP 299 참조). 이 문제는 PEP 338이 다루는 특정 기능과 직교(orthogonal)하는 것으로 간주됩니다.</p>
+
+<h2 id="현재-동작-current-behaviour">현재 동작 (Current Behaviour)</h2>
+
+<p>새로운 의미론을 설명하기 전에 Python 2.4의 기존 의미론을 살펴보는 것이 중요합니다. (현재 소스 코드와 명령줄 도움말에만 정의되어 있습니다).</p>
+
+<ul>
+  <li>명령줄에서 <code class="language-plaintext highlighter-rouge">-m</code>이 사용되면, 옵션 목록은 즉시 종료됩니다 ( <code class="language-plaintext highlighter-rouge">-c</code>와 유사).</li>
+  <li>인수는 최상위(top-level) Python 모듈의 이름으로 해석됩니다 (즉, <code class="language-plaintext highlighter-rouge">sys.path</code>에서 찾을 수 있는 모듈).</li>
+  <li>모듈이 발견되고 <code class="language-plaintext highlighter-rouge">PY_SOURCE</code> 또는 <code class="language-plaintext highlighter-rouge">PY_COMPILED</code> 유형인 경우, 명령줄은 <code class="language-plaintext highlighter-rouge">python &lt;options&gt; -m &lt;module&gt; &lt;args&gt;</code>에서 <code class="language-plaintext highlighter-rouge">python &lt;options&gt; &lt;filename&gt; &lt;args&gt;</code>로 효과적으로 재해석됩니다. 여기에는 <code class="language-plaintext highlighter-rouge">sys.argv[0]</code>을 올바르게 설정하는 것도 포함됩니다. (일부 스크립트는 이에 의존합니다 - Python 자체의 <code class="language-plaintext highlighter-rouge">regrtest.py</code>가 한 예입니다).</li>
+  <li>모듈을 찾을 수 없거나 올바른 유형이 아니면 오류가 발생합니다.</li>
+</ul>
+
+<h2 id="제안된-의미론-proposed-semantics">제안된 의미론 (Proposed Semantics)</h2>
+
+<p>제안된 의미론은 매우 간단합니다. <code class="language-plaintext highlighter-rouge">-m</code>을 사용하여 모듈을 실행하는 경우, PEP 302 임포트 메커니즘을 사용하여 모듈을 찾고 컴파일된 코드를 가져온 다음, 최상위 모듈에 대한 의미론에 따라 모듈을 실행합니다. 인터프리터는 새로운 표준 라이브러리 함수인 <code class="language-plaintext highlighter-rouge">runpy.run_module</code>을 호출하여 이를 수행합니다.</p>
+
+<p>이는 Python의 임포트 메커니즘이 패키지 내부의 모듈을 찾는 방식 때문에 필요합니다. 패키지는 초기화 중에 자체 <code class="language-plaintext highlighter-rouge">__path__</code> 변수를 수정할 수 있습니다. 또한, 경로는 <code class="language-plaintext highlighter-rouge">*.pth</code> 파일의 영향을 받을 수 있으며, 일부 패키지는 <code class="language-plaintext highlighter-rouge">sys.metapath</code>에 사용자 정의 로더(custom loaders)를 설치합니다. 따라서 Python이 모듈을 안정적으로 찾을 수 있는 유일한 방법은 포함하는 패키지를 임포트하고 PEP 302 임포트 훅을 사용하여 Python 코드에 접근하는 것입니다.</p>
+
+<p>실행될 모듈을 찾는 과정에서 포함하는 패키지를 임포트해야 할 수도 있습니다. 이러한 패키지 임포트가 실행될 모듈에 미치는 영향은 다음과 같습니다.</p>
+
+<ul>
+  <li>포함하는 패키지가 <code class="language-plaintext highlighter-rouge">sys.modules</code>에 있게 됩니다.</li>
+  <li>패키지 초기화의 외부 효과 (예: 설치된 임포트 훅, 로거, <code class="language-plaintext highlighter-rouge">atexit</code> 핸들러 등).</li>
+</ul>
+
+<h2 id="참조-구현-reference-implementation">참조 구현 (Reference Implementation)</h2>
+
+<p>참조 구현은 SourceForge에서 사용할 수 있으며 (), 라이브러리 참조 문서도 제공됩니다 (). 이 구현은 두 부분으로 구성됩니다.</p>
+
+<ol>
+  <li>제안된 표준 라이브러리 모듈 <code class="language-plaintext highlighter-rouge">runpy</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">-m</code> 스위치 구현 코드의 수정. 모듈을 직접 실행하려 하지 않고 항상 <code class="language-plaintext highlighter-rouge">runpy.run_module</code>에 위임하도록 변경됩니다.</li>
+</ol>
+
+<p>위임은 다음과 같은 형태를 가집니다:
+<code class="language-plaintext highlighter-rouge">runpy.run_module(sys.argv[0], run_name="__main__", alter_sys=True)</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">run_module</code>은 <code class="language-plaintext highlighter-rouge">runpy</code>가 공개 API에서 노출하는 유일한 함수입니다.</p>
+
+<h3 id="run_modulemod_name-init_globals-run_name-alter_sys"><code class="language-plaintext highlighter-rouge">run_module(mod_name[, init_globals][, run_name][, alter_sys])</code></h3>
+
+<p>지정된 모듈의 코드를 실행하고 결과 모듈 전역(globals) 딕셔너리를 반환합니다. 모듈의 코드는 먼저 표준 임포트 메커니즘을 사용하여 찾은 다음 (자세한 내용은 PEP 302 참조), 새로운 모듈 이름 공간에서 실행됩니다.</p>
+
+<ul>
+  <li>선택적 딕셔너리 인수 <code class="language-plaintext highlighter-rouge">init_globals</code>는 코드가 실행되기 전에 전역 딕셔너리를 미리 채우는 데 사용될 수 있습니다. 제공된 딕셔너리는 수정되지 않습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">__name__</code>, <code class="language-plaintext highlighter-rouge">__file__</code>, <code class="language-plaintext highlighter-rouge">__loader__</code>, <code class="language-plaintext highlighter-rouge">__builtins__</code>와 같은 특수 전역 변수는 모듈 코드가 실행되기 전에 전역 딕셔너리에 설정됩니다.
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">__name__</code>은 <code class="language-plaintext highlighter-rouge">run_name</code> 인수가 제공되면 해당 값으로 설정되고, 그렇지 않으면 원래 <code class="language-plaintext highlighter-rouge">mod_name</code> 인수로 설정됩니다.</li>
+      <li><code class="language-plaintext highlighter-rouge">__loader__</code>는 모듈의 코드를 가져오는 데 사용된 PEP 302 모듈 로더로 설정됩니다.</li>
+      <li><code class="language-plaintext highlighter-rouge">__file__</code>은 모듈 로더가 제공하는 이름으로 설정됩니다. 로더가 파일명 정보를 제공하지 않으면 <code class="language-plaintext highlighter-rouge">None</code>으로 설정됩니다.</li>
+      <li><code class="language-plaintext highlighter-rouge">__builtins__</code>는 <code class="language-plaintext highlighter-rouge">__builtin__</code> 모듈의 최상위 이름 공간에 대한 참조로 자동으로 초기화됩니다.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">alter_sys</code> 인수가 제공되고 <code class="language-plaintext highlighter-rouge">True</code>로 평가되면, <code class="language-plaintext highlighter-rouge">sys.argv[0]</code>은 <code class="language-plaintext highlighter-rouge">__file__</code> 값으로 업데이트되고, <code class="language-plaintext highlighter-rouge">sys.modules[__name__]</code>은 실행 중인 모듈의 임시 모듈 객체로 업데이트됩니다. 이 함수가 반환되기 전에 <code class="language-plaintext highlighter-rouge">sys.argv[0]</code>과 <code class="language-plaintext highlighter-rouge">sys.modules[__name__]</code>은 원래 값으로 복원됩니다.</li>
+</ul>
+
+<p>스크립트로 호출될 때 <code class="language-plaintext highlighter-rouge">runpy</code> 모듈은 첫 번째 인수로 제공된 모듈을 찾아 실행합니다. <code class="language-plaintext highlighter-rouge">sys.argv[0]</code> (이는 <code class="language-plaintext highlighter-rouge">runpy</code> 모듈 자체를 참조합니다)을 삭제하여 <code class="language-plaintext highlighter-rouge">sys.argv</code>를 조정한 다음, <code class="language-plaintext highlighter-rouge">run_module(sys.argv[0], run_name="__main__", alter_sys=True)</code>를 호출합니다.</p>
+
+<h2 id="임포트-문과-메인-모듈-import-statements-and-the-main-module">임포트 문과 메인 모듈 (Import Statements and the Main Module)</h2>
+
+<p>Python 2.5b1 출시 후, 이 PEP와 PEP 328 (명시적 상대 임포트) 사이에 놀라운 상호작용이 드러났습니다. 메인 모듈에서는 명시적 상대 임포트(explicit relative imports)가 작동하지 않습니다. 이는 상대 임포트가 <code class="language-plaintext highlighter-rouge">__name__</code>에 의존하여 패키지 계층 구조에서 현재 모듈의 위치를 결정하기 때문입니다. 메인 모듈에서 <code class="language-plaintext highlighter-rouge">__name__</code> 값은 항상 <code class="language-plaintext highlighter-rouge">'__main__'</code>이므로, 명시적 상대 임포트는 항상 실패합니다 (패키지 내부의 모듈에서만 작동하기 때문입니다).</p>
+
+<p>메인 모듈이 직접 실행될 때 암시적 상대 임포트(implicit relative imports)가 작동하는 것처럼 보이지만, <code class="language-plaintext highlighter-rouge">-m</code>을 사용하여 실행될 때는 실패하는 이유를 조사한 결과, 이러한 임포트는 실제로는 항상 절대 임포트(absolute imports)로 처리되는 것으로 나타났습니다. 직접 실행 방식 때문에 실행된 모듈을 포함하는 패키지가 <code class="language-plaintext highlighter-rouge">sys.path</code>에 추가되어, 그 형제 모듈(sibling modules)이 실제로는 최상위 모듈로 임포트됩니다. 이는 직접 실행될 수 있는 모듈(예: 테스트 모듈 또는 유틸리티 스크립트)에서 암시적 상대 임포트를 사용하면 애플리케이션에 형제 모듈의 여러 복사본이 생길 수 있습니다.</p>
+
+<p>Python 2.5 릴리스에서는 메인 모듈로 사용될 모든 모듈에서 항상 절대 임포트를 사용하는 것을 권장합니다. 여기서 <code class="language-plaintext highlighter-rouge">-m</code> 스위치가 이점을 제공합니다. <code class="language-plaintext highlighter-rouge">-m</code>은 메인 모듈을 포함하는 디렉토리 대신 현재 디렉토리를 <code class="language-plaintext highlighter-rouge">sys.path</code>에 삽입합니다. 이는 현재 디렉토리에 패키지의 최상위 디렉토리가 있는 한, <code class="language-plaintext highlighter-rouge">-m</code>을 사용하여 패키지 내부의 모듈을 실행할 수 있음을 의미합니다. 패키지가 <code class="language-plaintext highlighter-rouge">sys.path</code>의 다른 곳에 설치되어 있지 않아도 절대 임포트는 올바르게 작동합니다. 모듈이 직접 실행되고 형제 모듈을 검색하기 위해 절대 임포트를 사용하는 경우, 최상위 패키지 디렉토리가 <code class="language-plaintext highlighter-rouge">sys.path</code> 어딘가에 설치되어 있어야 합니다 (현재 디렉토리가 자동으로 추가되지 않기 때문입니다).</p>
+
+<p>다음은 예시 파일 레이아웃입니다:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>devel/
+    pkg/
+        __init__.py
+        moduleA.py
+        moduleB.py
+    test/
+        __init__.py
+        test_A.py
+        test_B.py
+</code></pre></div></div>
+
+<p>현재 디렉토리가 <code class="language-plaintext highlighter-rouge">devel</code>이거나 <code class="language-plaintext highlighter-rouge">devel</code>이 이미 <code class="language-plaintext highlighter-rouge">sys.path</code>에 있고, 테스트 모듈이 절대 임포트(예: <code class="language-plaintext highlighter-rouge">import pkg.moduleA</code>)를 사용하여 테스트 대상 모듈을 가져오는 한, PEP 338은 테스트를 다음과 같이 실행할 수 있도록 허용합니다:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python <span class="nt">-m</span> pkg.test.test_A
+python <span class="nt">-m</span> pkg.test.test_B
+</code></pre></div></div>
+
+<p>메인 모듈이 <code class="language-plaintext highlighter-rouge">-m</code>으로 실행될 때 상대 임포트가 지원되어야 하는지 여부는 Python 2.6에서 다시 논의될 문제입니다. 이를 허용하려면 Python의 임포트 의미론이나 모듈이 메인 모듈임을 나타내는 의미론에 변경이 필요하므로 서둘러 결정할 사안이 아닙니다.</p>
+
+<h2 id="해결된-문제-resolved-issues">해결된 문제 (Resolved Issues)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">runpy</code> 모듈 개발에 영향을 미친 몇 가지 핵심 설계 결정이 있었습니다.</p>
+
+<ul>
+  <li><strong>특수 변수 설정</strong>: <code class="language-plaintext highlighter-rouge">__name__</code>, <code class="language-plaintext highlighter-rouge">__file__</code>, <code class="language-plaintext highlighter-rouge">__loader__</code>와 같은 특수 변수는 모듈이 실행되기 전에 모듈의 전역 이름 공간에 설정됩니다. <code class="language-plaintext highlighter-rouge">run_module</code>은 이 값을 변경하므로, 제공된 딕셔너리를 직접 변이시키지 않습니다. (만약 그랬다면, <code class="language-plaintext highlighter-rouge">globals()</code>를 이 함수에 전달했을 때 심각한 부작용이 발생할 수 있습니다.)</li>
+  <li><strong>정보 부족 시 처리</strong>: 때로는 특수 변수를 채우는 데 필요한 정보를 얻을 수 없을 때가 있습니다. 너무 똑똑하게 처리하려 하지 않고, 관련 정보를 결정할 수 없을 때는 이 변수들을 단순히 <code class="language-plaintext highlighter-rouge">None</code>으로 설정합니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">alter_sys</code> 인수에 대한 보호</strong>: <code class="language-plaintext highlighter-rouge">alter_sys</code> 인수에 대한 특별한 보호는 없습니다. 이로 인해 파일명 정보를 사용할 수 없는 경우 <code class="language-plaintext highlighter-rouge">sys.argv[0]</code>이 <code class="language-plaintext highlighter-rouge">None</code>으로 설정될 수 있습니다.</li>
+  <li><strong>스레드 문제</strong>: <code class="language-plaintext highlighter-rouge">alter_sys</code>가 <code class="language-plaintext highlighter-rouge">True</code>로 설정될 때 발생하는 잠재적 스레딩 문제를 피하기 위해 임포트 락(import lock)은 사용되지 않습니다. 대신, 스레드 코드는 이 플래그를 사용하지 않도록 권장됩니다.</li>
+</ul>
+
+<h2 id="대안-alternatives">대안 (Alternatives)</h2>
+
+<p>고려되었던 첫 번째 대안 구현은 패키지의 <code class="language-plaintext highlighter-rouge">__path__</code> 변수를 무시하고 메인 패키지 디렉토리만 살펴보는 것이었습니다. 이러한 동작을 가진 Python 스크립트는 <code class="language-plaintext highlighter-rouge">execmodule</code> 쿡북 레시피 () 토론에서 찾을 수 있습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">execmodule</code> 쿡북 레시피 자체는 이 PEP의 초기 버전에서 제안된 메커니즘이었습니다 (PEP 작성자가 PEP 302를 읽기 전).</p>
+
+<p>두 접근 방식 모두 <code class="language-plaintext highlighter-rouge">-m</code> 스위치의 주요 목표(명령줄에서 실행할 모듈을 찾기 위해 전체 Python 이름 공간을 사용할 수 있도록 하는 것)를 충족하지 못했기 때문에 거부되었습니다.</p>
+
+<p>이 PEP의 초기 버전에는 <code class="language-plaintext highlighter-rouge">exec</code>가 로컬 딕셔너리와 함수 객체에서 코드를 처리하는 방식에 대한 몇 가지 잘못된 가정이 포함되어 있었습니다. 이러한 잘못된 가정은 이제 제거된 불필요한 설계 복잡성을 초래했습니다. <code class="language-plaintext highlighter-rouge">run_code</code>는 <code class="language-plaintext highlighter-rouge">exec</code>의 모든 특이점을 공유합니다.</p>
+
+<p>또한, 초기 버전의 PEP는 <code class="language-plaintext highlighter-rouge">-m</code> 스위치 업데이트를 구현하는 데 필요한 단일 <code class="language-plaintext highlighter-rouge">run_module()</code> 함수보다 더 광범위한 API를 노출했습니다. 단순성을 위해 이러한 추가 함수는 제안된 API에서 제외되었습니다.</p>
+
+<p>SVN에서의 초기 구현 이후, 초기 애플리케이션 스크립트를 실행할 때 임포트 락을 유지하는 것이 올바르지 않다는 것이 분명해졌습니다 (예: <code class="language-plaintext highlighter-rouge">python -m test.regrtest test_threadedimport</code>가 실패했습니다). 따라서 <code class="language-plaintext highlighter-rouge">run_module</code> 함수는 모듈을 실제로 검색하는 동안에만 임포트 락을 유지하며, <code class="language-plaintext highlighter-rouge">alter_sys</code>가 설정되어 있어도 실행 전에 락을 해제합니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/337/" class="pagination--pager" title="[Deferred] PEP 337 - Logging Usage in the Standard Library
+">Previous</a>
+    
+    
+      <a href="/python/pep/339/" class="pagination--pager" title="[Withdrawn] PEP 339 - Design of the CPython Compiler
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

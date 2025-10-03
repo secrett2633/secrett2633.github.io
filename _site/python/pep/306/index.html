@@ -1,0 +1,707 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Withdrawn] PEP 306 - How to Change Python’s Grammar | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 306: ‘How to Change Python’s Grammar’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Withdrawn] PEP 306 - How to Change Python’s Grammar">
+<meta property="og:url" content="http://localhost:4000/python/pep/306/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 306: ‘How to Change Python’s Grammar’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T18:09:57+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T18:09:57+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/306/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Withdrawn] PEP 306 - How to Change Python’s Grammar">
+    <meta itemprop="description" content="Python Enhancement Proposal 306: ‘How to Change Python’s Grammar’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T18:09:57+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T18:09:57+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Withdrawn] PEP 306 - How to Change Python’s Grammar
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T18:09:57+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-306--python-문법-변경-방법">PEP 306 – Python 문법 변경 방법</a><ul><li><a href="#목차">목차</a></li><li><a href="#참고-note">참고 (Note)</a></li><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#배경-rationale">배경 (Rationale)</a></li><li><a href="#체크리스트-checklist">체크리스트 (Checklist)</a></li><li><a href="#참고-자료-references">참고 자료 (References)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0306/">PEP 306 - How to Change Python’s Grammar</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Withdrawn</td>
+        <td><strong>유형:</strong> Informational</td>
+        <td><strong>작성일:</strong> 29-Jan-2003</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-306--python-문법-변경-방법">PEP 306 – Python 문법 변경 방법</h1>
+
+<ul>
+  <li><strong>작성자:</strong> Michael Hudson, Jack Diederich, Alyssa Coghlan, Benjamin Peterson</li>
+  <li><strong>상태:</strong> 철회됨 (Withdrawn)</li>
+  <li><strong>유형:</strong> 정보 제공 (Informational)</li>
+  <li><strong>생성일:</strong> 2003년 1월 29일</li>
+</ul>
+
+<h2 id="목차">목차</h2>
+<ul>
+  <li><a href="#참고-note">참고 (Note)</a></li>
+  <li><a href="#개요-abstract">개요 (Abstract)</a></li>
+  <li><a href="#배경-rationale">배경 (Rationale)</a></li>
+  <li><a href="#체크리스트-checklist">체크리스트 (Checklist)</a></li>
+  <li><a href="#참고-자료-references">참고 자료 (References)</a></li>
+  <li><a href="#저작권-copyright">저작권 (Copyright)</a></li>
+</ul>
+
+<hr />
+
+<h2 id="참고-note">참고 (Note)</h2>
+<p>이 PEP는 Python 개발자 가이드의 “Changing CPython’s Grammar” 섹션으로 이동되었습니다.</p>
+
+<h2 id="개요-abstract">개요 (Abstract)</h2>
+<p>Python의 문법을 변경하는 것은 단순히 <code class="language-plaintext highlighter-rouge">Grammar/Grammar</code> 파일과 <code class="language-plaintext highlighter-rouge">Python/compile.c</code> 파일을 수정하는 것 이상을 의미합니다. 이 PEP는 문법 변경 시 함께 수정되어야 하는 여러 요소들을 체크리스트 형태로 제공하는 것을 목표로 합니다.</p>
+
+<p>이 문서는 완전하지 않을 수 있습니다. 누락된 부분이 있다면, 소유권에 대한 저자의 감정을 상하게 할 염려 없이 직접 추가하거나, 버그를 보고하고 <code class="language-plaintext highlighter-rouge">mwh</code>에게 할당해 주십시오.</p>
+
+<p>이 PEP는 여러 이유로 Python 문법 해킹(grammar hacking)에 대한 자세한 지침서(instruction manual)로 의도된 것은 아닙니다.</p>
+
+<h2 id="배경-rationale">배경 (Rationale)</h2>
+<p>사람들은 종종 문법 변경 시 실수를 저지릅니다. 예를 들어, 바닥 나눗셈(floor division) 연산자 <code class="language-plaintext highlighter-rouge">//</code>를 추가했을 때, <code class="language-plaintext highlighter-rouge">parser</code> 모듈이 제대로 작동하지 않는다는 사실을 누군가가 발견하는 데 1년 이상이 걸렸습니다. 이러한 문제들을 방지하기 위해 문법 변경 시 고려해야 할 사항들을 정리할 필요가 있었습니다.</p>
+
+<h2 id="체크리스트-checklist">체크리스트 (Checklist)</h2>
+<p>Python 문법을 변경할 때 확인하고 수정해야 할 주요 구성 요소들은 다음과 같습니다:</p>
+
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">Grammar/Grammar</code></strong>: Python의 문법 규칙을 정의하는 핵심 파일입니다. 이 파일은 당연히 수정해야 합니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">Parser/Python.asdl</code></strong>: 문법 변경에 맞춰 Abstract Syntax Tree (AST) 정의를 변경해야 할 수 있습니다. <code class="language-plaintext highlighter-rouge">make</code> 명령을 실행하여 <code class="language-plaintext highlighter-rouge">Include/Python-ast.h</code> 및 <code class="language-plaintext highlighter-rouge">Python/Python-ast.c</code> 파일을 재생성해야 합니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">Python/ast.c</code></strong>: 문법 변경과 관련된 AST 객체를 생성하도록 수정해야 합니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">Lib/compiler/ast.py</code></strong>: pure-python AST 객체에도 일치하는 변경 사항을 적용해야 합니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">Parser/pgen</code></strong>: 파서(parser) 생성 도구인 <code class="language-plaintext highlighter-rouge">pgen</code>을 다시 실행하여 <code class="language-plaintext highlighter-rouge">Include/graminit.h</code> 및 <code class="language-plaintext highlighter-rouge">Python/graminit.c</code>를 재생성해야 합니다. (일반적으로 <code class="language-plaintext highlighter-rouge">make</code> 명령이 이 과정을 처리합니다.)</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">Python/symbtable.c</code></strong>: 컴파일 과정 바로 전에 발생하는 심볼(symbol) 수집 단계를 처리하는 파일이므로, 문법 변경에 따라 수정이 필요할 수 있습니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">Python/compile.c</code></strong>: 새로운 문법 구조(production)에 대한 Opcode를 생성하기 위해 <code class="language-plaintext highlighter-rouge">compiler_*</code> 함수들을 생성하거나 수정해야 합니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">Lib/symbol.py</code>, <code class="language-plaintext highlighter-rouge">Lib/token.py</code>, <code class="language-plaintext highlighter-rouge">Lib/keyword.py</code></strong>: 새로운 심볼, 토큰 또는 키워드를 추가하는 경우 이 파일들을 재생성해야 할 수 있습니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">parser</code> 모듈</strong>: 새로운 문법을 <code class="language-plaintext highlighter-rouge">test_parser</code>에 추가하고, <code class="language-plaintext highlighter-rouge">Modules/parsermodule.c</code> 파일이 테스트를 통과할 때까지 수정해야 합니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">test_grammar.py</code></strong>: 새로운 문법 사용 사례를 <code class="language-plaintext highlighter-rouge">test_grammar.py</code>에 추가해야 합니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">compiler</code> 패키지</strong>: 표준 라이브러리와 테스트 스위트를 <code class="language-plaintext highlighter-rouge">compiler</code> 패키지로 컴파일한 다음, 제대로 실행되는지 확인하는 것이 좋은 테스트 방법입니다. (이는 Python 2.x에서만 필요합니다.)</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">Lib/tokenizer.py</code></strong>: Python의 토큰(token) 구조 자체를 변경한 경우, <code class="language-plaintext highlighter-rouge">Lib/tokenizer.py</code> 라이브러리 모듈도 변경해야 합니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">pyclbr</code> 모듈</strong>: 특정 변경 사항은 라이브러리 모듈 <code class="language-plaintext highlighter-rouge">pyclbr</code>에 대한 조정을 필요로 할 수 있습니다.</li>
+  <li><strong>문서화 (Documentation)</strong>: 모든 변경 사항에 대한 문서를 작성해야 합니다!</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">Python/Python-ast.c</code></strong>: 모든 내용이 체크인(check-in)된 후, <code class="language-plaintext highlighter-rouge">Python/Python-ast.c</code> 파일에 새로운 변경 사항이 생길 수 있습니다. 이 (생성된) 파일에는 생성 시점의 SVN 소스 버전이 포함되어 있기 때문입니다. 이를 피할 방법은 없으며, 이 파일을 별도로 제출해야 합니다.</li>
+</ul>
+
+<h2 id="참고-자료-references">참고 자료 (References)</h2>
+<ul>
+  <li>CPython Developer’s Guide: Changing CPython’s Grammar
+<code class="language-plaintext highlighter-rouge">https://devguide.python.org/grammar/</code></li>
+  <li>SF Bug #676521, parser module validation failure
+<code class="language-plaintext highlighter-rouge">https://bugs.python.org/issue676521</code></li>
+</ul>
+
+<h2 id="저작권-copyright">저작권 (Copyright)</h2>
+<p>이 문서는 퍼블릭 도메인(public domain)에 공개되었습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/305/" class="pagination--pager" title="[Final] PEP 305 - CSV File API
+">Previous</a>
+    
+    
+      <a href="/python/pep/307/" class="pagination--pager" title="[Final] PEP 307 - Extensions to the pickle protocol
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

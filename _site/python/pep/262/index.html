@@ -1,0 +1,757 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Rejected] PEP 262 - A Database of Installed Python Packages | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 262: ‘A Database of Installed Python Packages’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Rejected] PEP 262 - A Database of Installed Python Packages">
+<meta property="og:url" content="http://localhost:4000/python/pep/262/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 262: ‘A Database of Installed Python Packages’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T17:44:46+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T17:44:46+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/262/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Rejected] PEP 262 - A Database of Installed Python Packages">
+    <meta itemprop="description" content="Python Enhancement Proposal 262: ‘A Database of Installed Python Packages’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T17:44:46+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T17:44:46+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Rejected] PEP 262 - A Database of Installed Python Packages
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T17:44:46+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#개요">개요</a></li><li><a href="#도입-배경-및-목표">도입 배경 및 목표</a></li><li><a href="#데이터베이스-위치">데이터베이스 위치</a></li><li><a href="#데이터베이스-내용">데이터베이스 내용</a><ul><li><a href="#pkg-info-섹션">PKG-INFO 섹션</a></li><li><a href="#files-섹션">FILES 섹션</a></li><li><a href="#requires-섹션">REQUIRES 섹션</a></li><li><a href="#provides-섹션">PROVIDES 섹션</a></li></ul></li><li><a href="#api-설명">API 설명</a><ul><li><a href="#installationdatabase-클래스-인터페이스">InstallationDatabase 클래스 인터페이스</a></li><li><a href="#distribution-클래스-속성-및-메서드">Distribution 클래스 속성 및 메서드</a></li></ul></li><li><a href="#거부된-제안">거부된 제안</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0262/">PEP 262 - A Database of Installed Python Packages</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Rejected</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 08-Jul-2001</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>PEP 262 – 설치된 Python 패키지 데이터베이스</p>
+
+<h2 id="개요">개요</h2>
+<p>이 PEP는 시스템에 설치된 Python 소프트웨어의 데이터베이스 형식을 설명합니다.</p>
+
+<p><strong>참고:</strong> 이 PEP는 PEP 345 및 PEP 376에 의해 대체되었으며, 이 PEP들은 승인되었습니다. 따라서 이 PEP는 (암시적으로) 거부되었습니다.</p>
+
+<h2 id="도입-배경-및-목표">도입 배경 및 목표</h2>
+<p>설치된 Python 배포판 및 해당 버전을 파악하는 방법을 제공하고 CPAN, APT, RPM과 유사한 기능을 제공하는 것을 목표로 합니다. 지원되어야 할 필수 사용 사례는 다음과 같습니다:</p>
+<ul>
+  <li>시스템에 배포판 X가 설치되어 있는가?</li>
+  <li>배포판 X의 어떤 버전이 설치되어 있는가?</li>
+  <li>배포판 X의 새 버전을 어디서 찾을 수 있는가?</li>
+  <li>배포판 X가 시스템에 어떤 파일을 설치했는가?</li>
+  <li>파일 <code class="language-plaintext highlighter-rouge">x/y/z.py</code>는 어떤 배포판에서 온 것인가?</li>
+  <li>누군가 <code class="language-plaintext highlighter-rouge">x/y/z.py</code>를 로컬에서 수정했는가?</li>
+  <li>이 소프트웨어에 필요한 다른 배포판은 무엇인가?</li>
+  <li>이 배포판이 제공하는 Python 모듈은 무엇인가?</li>
+</ul>
+
+<h2 id="데이터베이스-위치">데이터베이스 위치</h2>
+<p>데이터베이스는 <code class="language-plaintext highlighter-rouge">&lt;prefix&gt;/lib/python&lt;version&gt;/install-db/</code> 아래의 파일들에 저장됩니다. 이 위치는 이 PEP의 나머지 부분에서 <code class="language-plaintext highlighter-rouge">INSTALLDB</code>라고 불립니다.</p>
+
+<p>데이터베이스의 구조는 의도적으로 단순하게 유지됩니다. 이 디렉토리 또는 그 하위 디렉토리(있는 경우)의 각 파일은 단일 배포판을 설명합니다. RPM과 같은 Python 소프트웨어의 바이너리 패키징은 해당 파일을 <code class="language-plaintext highlighter-rouge">INSTALLDB</code> 디렉토리에 설치하는 것만으로 Python의 데이터베이스를 업데이트할 수 있습니다.</p>
+
+<p>하위 디렉토리를 스캔하는 이유는 데이터베이스 디렉토리에 너무 많은 항목이 포함된 경우 디렉토리 기반 인덱싱 체계로 전환할 수 있기 때문입니다.</p>
+
+<h2 id="데이터베이스-내용">데이터베이스 내용</h2>
+<p><code class="language-plaintext highlighter-rouge">INSTALLDB</code> 또는 그 하위 디렉토리의 각 파일은 단일 배포판을 설명하며 다음 내용을 포함합니다:</p>
+<ul>
+  <li>파일의 섹션을 나열하는 첫 줄 (예: <code class="language-plaintext highlighter-rouge">'PKG-INFO FILES REQUIRES PROVIDES'</code>). 섹션은 항상 빈 줄로 구분됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Distutils</code>를 사용하여 설치하는 배포판은 데이터베이스를 자동으로 업데이트해야 합니다. 자체 설치 방식을 사용하는 배포판은 데이터베이스의 API를 사용하여 수동으로 자체 항목을 추가하거나 업데이트해야 합니다. RPM 또는 <code class="language-plaintext highlighter-rouge">pkgadd</code>와 같은 시스템 패키지 관리자는 <code class="language-plaintext highlighter-rouge">INSTALLDB</code> 디렉토리에 새 파일을 생성할 수 있습니다.</li>
+</ul>
+
+<h3 id="pkg-info-섹션">PKG-INFO 섹션</h3>
+<p>PEP 241, “Metadata for Python Software Packages”에 설명된 대로 파일의 배포판 정보를 포함하는 초기 RFC 822 헤더 세트입니다.</p>
+
+<h3 id="files-섹션">FILES 섹션</h3>
+<p>배포판이 설치한 각 파일에 대한 항목입니다. <code class="language-plaintext highlighter-rouge">.pyc</code> 및 <code class="language-plaintext highlighter-rouge">.pyo</code> 파일과 같은 생성된 파일과 배포판이 설치한 원래 <code class="language-plaintext highlighter-rouge">.py</code> 파일도 이 목록에 포함됩니다. 그러나 체크섬은 저장되거나 확인되지 않습니다.</p>
+
+<p>각 파일의 항목은 다음 필드를 포함하는 단일 탭으로 구분된 줄입니다:</p>
+<ul>
+  <li>시스템에 설치된 파일의 전체 경로</li>
+  <li>파일의 크기</li>
+  <li>파일의 권한. Windows에서는 이 필드가 항상 ‘unknown’입니다.</li>
+  <li>파일의 소유자 및 그룹 (탭으로 구분). Windows에서는 이 필드들이 모두 ‘unknown’입니다.</li>
+  <li>파일의 SHA1 다이제스트 (16진수로 인코딩). <code class="language-plaintext highlighter-rouge">*.pyc</code> 파일과 같은 생성된 파일의 경우 이 필드는 파일의 체크섬을 확인해서는 안 됨을 나타내는 “-” 문자열을 포함해야 합니다.</li>
+</ul>
+
+<h3 id="requires-섹션">REQUIRES 섹션</h3>
+<p>이 섹션은 이 모듈 배포판이 제대로 실행되는 데 필요한 서비스를 나타내는 문자열 목록입니다. 이 목록에는 배포판 이름(“python-stdlib”)과 모듈 이름(“rfc822”, “htmllib”, “email”, “email.Charset”)이 포함됩니다. <code class="language-plaintext highlighter-rouge">distutils.core.setup()</code> 함수의 추가 <code class="language-plaintext highlighter-rouge">requires</code> 인수에 의해 지정됩니다.</p>
+
+<h3 id="provides-섹션">PROVIDES 섹션</h3>
+<p>이 섹션은 설치된 배포판이 제공하는 서비스를 나타내는 문자열 목록입니다. 이 목록에는 배포판 이름(“python-stdlib”)과 모듈 이름(“rfc822”, “htmllib”, “email”, “email.Charset”)이 포함됩니다.</p>
+
+<h2 id="api-설명">API 설명</h2>
+<p>기본 클래스는 <code class="language-plaintext highlighter-rouge">InstallationDatabase</code>이며, 코드는 <code class="language-plaintext highlighter-rouge">distutils/install_db.py</code>에 있습니다. <code class="language-plaintext highlighter-rouge">InstallationDatabase</code>는 설치된 배포판에 대한 모든 정보를 포함하는 <code class="language-plaintext highlighter-rouge">Distribution</code> 인스턴스를 반환합니다.</p>
+
+<h3 id="installationdatabase-클래스-인터페이스"><code class="language-plaintext highlighter-rouge">InstallationDatabase</code> 클래스 인터페이스</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">InstallationDatabase</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">InstallationDatabase(path:string)
+        지정된 경로를 루트로 하는 설치 데이터베이스를 읽습니다.
+        path가 None이면 INSTALLDB가 기본값으로 사용됩니다.
+        </span><span class="sh">"""</span>
+    <span class="k">def</span> <span class="nf">get_distribution</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">distribution_name</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">get_distribution(distribution_name:string) : Distribution
+        단일 배포판에 해당하는 객체를 가져옵니다.
+        </span><span class="sh">"""</span>
+    <span class="k">def</span> <span class="nf">list_distributions</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">list_distributions() : [Distribution]
+        시스템에 설치된 모든 배포판 목록을 특정 순서 없이 반환합니다.
+        </span><span class="sh">"""</span>
+    <span class="k">def</span> <span class="nf">find_distribution</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">find_file(path:string) : Distribution
+        </span><span class="sh">'</span><span class="s">path</span><span class="sh">'</span><span class="s"> 파일을 포함하는 배포판을 검색하고 반환합니다.
+        파일이 InstallationDatabase가 아는 어떤 배포판에도 속하지 않으면 None을 반환합니다.
+        </span><span class="sh">"""</span>
+</code></pre></div></div>
+
+<h3 id="distribution-클래스-속성-및-메서드"><code class="language-plaintext highlighter-rouge">Distribution</code> 클래스 속성 및 메서드</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Distribution</span><span class="p">:</span>
+    <span class="sh">"""</span><span class="s">인스턴스 속성:
+    name : string (배포판 이름)
+    files : {string : (size:int, perms:int, owner:string, group:string, digest:string)}
+            이 배포판에 의해 설치된 파일의 경로와 파일 정보(크기, 권한, 소유자, 그룹, 다이제스트)를 매핑하는 딕셔너리.
+    version : distutils.version.Version (이 배포판의 버전)
+    platform : [string]
+    summary : string
+    description : string
+    keywords : string
+    home_page : string
+    author : string
+    author_email : string
+    license : string
+    </span><span class="sh">"""</span>
+    <span class="k">def</span> <span class="nf">add_file</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">add_file(path:string):None
+        설치된 파일에 대한 크기, 소유권 등 정보를 기록합니다.
+        </span><span class="sh">"""</span>
+    <span class="k">def</span> <span class="nf">has_file</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">has_file(path:string) : Boolean
+        지정된 경로가 이 배포판의 파일에 속하면 True를 반환합니다.
+        </span><span class="sh">"""</span>
+    <span class="k">def</span> <span class="nf">check_file</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">check_file(path:string) : Boolean
+        파일의 크기, 체크섬, 소유권이 일치하는지 확인하고 일치하면 True를 반환합니다.
+        </span><span class="sh">"""</span>
+</code></pre></div></div>
+
+<h2 id="거부된-제안">거부된 제안</h2>
+<ul>
+  <li><strong>단일 대형 텍스트 파일 또는 <code class="language-plaintext highlighter-rouge">anydbm</code> 파일 사용 대신 배포판당 하나의 텍스트 파일 사용:</strong> 성능이 중요한 문제가 아니며, 확장성 문제도 없을 것으로 예상되고, 개별 텍스트 파일이 RPM 또는 DPKG와 같은 설치 프로그램과 호환되기 때문에 거부되었습니다.</li>
+  <li><strong>Windows에서 파일 권한 및 소유자/그룹 저장:</strong> Windows는 소유권 및 접근 권한을 지원하지만, 이를 읽고 설정하려면 <code class="language-plaintext highlighter-rouge">win32all</code> 확장이 필요하며, 이는 Windows용 기본 Python 설치 프로그램에는 존재하지 않기 때문에 거부되었습니다.</li>
+</ul>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/261/" class="pagination--pager" title="[Final] PEP 261 - Support for “wide” Unicode characters
+">Previous</a>
+    
+    
+      <a href="/python/pep/263/" class="pagination--pager" title="[Final] PEP 263 - Defining Python Source Code Encodings
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

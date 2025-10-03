@@ -1,0 +1,926 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 705 - TypedDict: Read-only items | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 705: ‘TypedDict: Read-only items’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 705 - TypedDict: Read-only items">
+<meta property="og:url" content="http://localhost:4000/python/pep/705/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 705: ‘TypedDict: Read-only items’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T13:08:52+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T13:08:52+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/705/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 705 - TypedDict: Read-only items">
+    <meta itemprop="description" content="Python Enhancement Proposal 705: ‘TypedDict: Read-only items’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T13:08:52+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T13:08:52+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 705 - TypedDict: Read-only items
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T13:08:52+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-705--typeddict-읽기-전용-항목-read-only-items">PEP 705 – TypedDict: 읽기 전용 항목 (Read-only items)</a><ul><li><a href="#초록-abstract">초록 (Abstract)</a></li><li><a href="#동기-motivation">동기 (Motivation)</a><ul><li><a href="#순수-함수-pure-functions">순수 함수 (Pure functions)</a></li><li><a href="#중첩된-딕셔너리-업데이트-updating-nested-dicts">중첩된 딕셔너리 업데이트 (Updating nested dicts)</a></li></ul></li><li><a href="#근거-rationale">근거 (Rationale)</a></li><li><a href="#명세-specification">명세 (Specification)</a><ul><li><a href="#typingreadonly-타입-한정자">typing.ReadOnly 타입 한정자</a></li><li><a href="#대안적인-함수형-문법-alternative-functional-syntax">대안적인 함수형 문법 (Alternative functional syntax)</a></li><li><a href="#다른-특별한-타입과의-상호작용-interaction-with-other-special-types">다른 특별한 타입과의 상호작용 (Interaction with other special types)</a></li><li><a href="#상속-inheritance">상속 (Inheritance)</a></li><li><a href="#타입-일관성-type-consistency">타입 일관성 (Type consistency)</a></li><li><a href="#update-메서드">update 메서드</a></li><li><a href="#키워드-인수-타이핑-keyword-argument-typing">키워드 인수 타이핑 (Keyword argument typing)</a></li><li><a href="#런타임-동작-runtime-behavior">런타임 동작 (Runtime behavior)</a></li></ul></li><li><a href="#하위-호환성-backwards-compatibility">하위 호환성 (Backwards compatibility)</a></li><li><a href="#보안-영향-security-implications">보안 영향 (Security implications)</a></li><li><a href="#가르치는-방법-how-to-teach-this">가르치는 방법 (How to teach this)</a></li><li><a href="#참고-구현-reference-implementation">참고 구현 (Reference implementation)</a></li><li><a href="#기각된-대안-rejected-alternatives">기각된 대안 (Rejected alternatives)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0705/">PEP 705 - TypedDict: Read-only items</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 07-Nov-2022</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-705--typeddict-읽기-전용-항목-read-only-items">PEP 705 – TypedDict: 읽기 전용 항목 (Read-only items)</h1>
+
+<h2 id="초록-abstract">초록 (Abstract)</h2>
+<p>PEP 589는 고정된 키 집합을 가진 딕셔너리를 위한 구조적 타입인 <code class="language-plaintext highlighter-rouge">TypedDict</code>를 정의합니다. 그러나 <code class="language-plaintext highlighter-rouge">TypedDict</code>는 가변(mutable) 타입이기 때문에, 읽기 전용 매개변수를 받는 메서드를 정확하게 타입 애너테이션하기 어려워 유효한 입력까지 막는 문제가 있었습니다. 이 PEP는 이러한 용도를 지원하기 위해 새로운 타입 한정자(type qualifier)인 <code class="language-plaintext highlighter-rouge">typing.ReadOnly</code>를 제안합니다. 이 제안은 Python 문법을 변경하지 않습니다. <code class="language-plaintext highlighter-rouge">TypedDict</code>의 읽기 전용 키 사용에 대한 올바른 사용법은 정적 타입 체커(static type checker)에 의해서만 강제되며, Python 자체에서는 런타임에 강제되지 않습니다.</p>
+
+<h2 id="동기-motivation">동기 (Motivation)</h2>
+
+<p>문자열 키를 가진 (중첩될 수 있는) 딕셔너리를 사용하여 구조화된 데이터를 표현하는 것은 Python 프로그램에서 흔한 패턴입니다. PEP 589는 이러한 값들을 미리 정확한 타입을 알고 있을 때 타입 검사할 수 있도록 하지만, 더 구체적인 변형(예: 값이 서브타입이거나 가능한 타입의 유니온을 제한하는 경우)을 받아들이는 읽기 전용 코드를 작성하기는 어렵습니다. 이는 특히 광범위한 입력 구조를 지원하고 일반적으로 입력을 수정할 필요가 없는 서비스 API를 작성할 때 흔히 발생하는 문제입니다.</p>
+
+<h3 id="순수-함수-pure-functions">순수 함수 (Pure functions)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Movie</code> 타입을 사용하는 <code class="language-plaintext highlighter-rouge">movie_string</code> 함수를 예로 들어보겠습니다. <code class="language-plaintext highlighter-rouge">Movie</code> 타입은 <code class="language-plaintext highlighter-rouge">TypedDict</code>로 정의됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">NotRequired</span><span class="p">,</span> <span class="n">TypedDict</span>
+
+<span class="k">class</span> <span class="nc">Movie</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">year</span><span class="p">:</span> <span class="n">NotRequired</span><span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="bp">None</span><span class="p">]</span>
+
+<span class="k">class</span> <span class="nc">MovieRecord</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">year</span><span class="p">:</span> <span class="nb">int</span>
+
+<span class="k">def</span> <span class="nf">movie_string</span><span class="p">(</span><span class="n">movie</span><span class="p">:</span> <span class="n">Movie</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">movie</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sh">"</span><span class="s">year</span><span class="sh">"</span><span class="p">)</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">movie</span><span class="p">[</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="sh">'</span><span class="si">{</span><span class="n">movie</span><span class="p">[</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">]</span><span class="si">}</span><span class="s"> (</span><span class="si">{</span><span class="n">movie</span><span class="p">[</span><span class="sh">"</span><span class="s">year</span><span class="sh">"</span><span class="p">]</span><span class="si">}</span><span class="s">)</span><span class="sh">'</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">MovieRecord</code> 인스턴스를 <code class="language-plaintext highlighter-rouge">movie_string</code>에 전달하려고 하면 타입 체커(예: mypy)는 오류를 발생시킵니다. <code class="language-plaintext highlighter-rouge">Movie</code> 클래스에는 <code class="language-plaintext highlighter-rouge">MovieRecord</code>의 타입 제약 조건을 위반할 수 있는 변경(mutator) 메서드가 존재하기 때문입니다. 이러한 문제는 <code class="language-plaintext highlighter-rouge">Movie</code>에 변경 메서드가 없을 경우 사라집니다. 이를 위해 PEP 544 Protocol을 사용하여 불변 인터페이스를 정의할 수 있지만, 이는 반복적이고 오류 발생 가능성이 높으며 <code class="language-plaintext highlighter-rouge">__contains__()</code>, <code class="language-plaintext highlighter-rouge">keys()</code>와 같은 중요한 메서드 정의가 누락됩니다.</p>
+
+<h3 id="중첩된-딕셔너리-업데이트-updating-nested-dicts">중첩된 딕셔너리 업데이트 (Updating nested dicts)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">TypedDict</code>의 구조적 타이핑은 수정하는 항목의 타입만 제약하는 업데이트 함수를 작성할 수 있도록 고안되었습니다. 그러나 딕셔너리를 중첩하기 시작하면 문제가 발생합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">HasTimestamp</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">timestamp</span><span class="p">:</span> <span class="nb">float</span>
+
+<span class="k">class</span> <span class="nc">Logs</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">timestamp</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">loglines</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+
+<span class="k">class</span> <span class="nc">HasTimestampedMetadata</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">metadata</span><span class="p">:</span> <span class="n">HasTimestamp</span>
+
+<span class="k">class</span> <span class="nc">UserAudit</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">metadata</span><span class="p">:</span> <span class="n">Logs</span>
+
+<span class="k">def</span> <span class="nf">update_metadata_timestamp</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="n">HasTimestampedMetadata</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">d</span><span class="p">[</span><span class="sh">"</span><span class="s">metadata</span><span class="sh">"</span><span class="p">][</span><span class="sh">"</span><span class="s">timestamp</span><span class="sh">"</span><span class="p">]</span> <span class="o">=</span> <span class="nf">now</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">rename_user</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="n">UserAudit</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">d</span><span class="p">[</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
+
+<span class="nf">update_metadata_timestamp</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="c1"># Type check error: "metadata" is not of type HasTimestamp
+</span></code></pre></div></div>
+<p>위 예제에서 <code class="language-plaintext highlighter-rouge">update_metadata_timestamp(d)</code> 호출 시 타입 검사 오류가 발생합니다. 이는 <code class="language-plaintext highlighter-rouge">HasTimestampedMetadata</code> 인스턴스가 가지고 있는 <code class="language-plaintext highlighter-rouge">metadata</code> 항목을 다른 <code class="language-plaintext highlighter-rouge">HasTimestamp</code> 인스턴스로 덮어쓸 수 있는데, 이 다른 인스턴스는 더 이상 <code class="language-plaintext highlighter-rouge">Logs</code> 인스턴스가 아닐 수 있기 때문에 발생합니다. Python 3.11부터 제네릭(generics)을 사용하면 이 문제를 해결할 수 있지만, 중첩된 딕셔너리마다 타입 매개변수가 필요하여 매우 복잡해집니다.</p>
+
+<h2 id="근거-rationale">근거 (Rationale)</h2>
+
+<p>이러한 문제들은 <code class="language-plaintext highlighter-rouge">TypedDict</code>의 하나 이상의 항목을 업데이트하는 기능을 제거함으로써 해결될 수 있습니다. 이는 항목이 불변(immutable)하다는 의미는 아닙니다. 기본 딕셔너리에 대한 참조는 여전히 존재할 수 있으며, 다른 호환 가능한 타입에서 해당 항목에 대한 변경 작업을 수행할 수 있습니다. 이러한 항목들은 “읽기 전용”이며, 이를 위해 새로운 <code class="language-plaintext highlighter-rouge">typing.ReadOnly</code> 타입 한정자를 도입합니다.</p>
+
+<p>첫 번째 동기 예시의 <code class="language-plaintext highlighter-rouge">movie_string</code> 함수는 이제 다음과 같이 타입 애너테이션될 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">NotRequired</span><span class="p">,</span> <span class="n">ReadOnly</span><span class="p">,</span> <span class="n">TypedDict</span>
+
+<span class="k">class</span> <span class="nc">Movie</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">ReadOnly</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">year</span><span class="p">:</span> <span class="n">ReadOnly</span><span class="p">[</span><span class="n">NotRequired</span><span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="bp">None</span><span class="p">]]</span>
+
+<span class="k">def</span> <span class="nf">movie_string</span><span class="p">(</span><span class="n">movie</span><span class="p">:</span> <span class="n">Movie</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">movie</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sh">"</span><span class="s">year</span><span class="sh">"</span><span class="p">)</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">movie</span><span class="p">[</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="sh">'</span><span class="si">{</span><span class="n">movie</span><span class="p">[</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">]</span><span class="si">}</span><span class="s"> (</span><span class="si">{</span><span class="n">movie</span><span class="p">[</span><span class="sh">"</span><span class="s">year</span><span class="sh">"</span><span class="p">]</span><span class="si">}</span><span class="s">)</span><span class="sh">'</span>
+</code></pre></div></div>
+
+<p>읽기 전용 항목과 비(非)읽기 전용 항목의 혼합이 허용되어 두 번째 동기 예시도 올바르게 애너테이션될 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">HasTimestamp</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">timestamp</span><span class="p">:</span> <span class="nb">float</span>
+
+<span class="k">class</span> <span class="nc">HasTimestampedMetadata</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">metadata</span><span class="p">:</span> <span class="n">ReadOnly</span><span class="p">[</span><span class="n">HasTimestamp</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">update_metadata_timestamp</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="n">HasTimestampedMetadata</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">d</span><span class="p">[</span><span class="sh">"</span><span class="s">metadata</span><span class="sh">"</span><span class="p">][</span><span class="sh">"</span><span class="s">timestamp</span><span class="sh">"</span><span class="p">]</span> <span class="o">=</span> <span class="nf">now</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">Logs</span><span class="p">(</span><span class="n">HasTimestamp</span><span class="p">):</span>
+    <span class="n">loglines</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+
+<span class="k">class</span> <span class="nc">UserAudit</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">metadata</span><span class="p">:</span> <span class="n">Logs</span>
+
+<span class="k">def</span> <span class="nf">rename_user</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="n">UserAudit</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">d</span><span class="p">[</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
+
+<span class="nf">update_metadata_timestamp</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="c1"># 이제 OK
+</span></code></pre></div></div>
+<p>이러한 이점 외에도, 함수의 인수를 읽기 전용으로 표시함으로써 (읽기 전용 항목을 가진 <code class="language-plaintext highlighter-rouge">TypedDict</code>를 사용하여) 타입 체커뿐만 아니라 사용자에게도 함수가 입력을 수정하지 않을 것이라는 점을 명확히 전달하여, 함수 인터페이스의 바람직한 속성을 제공합니다. 이 PEP는 <code class="language-plaintext highlighter-rouge">ReadOnly</code>가 <code class="language-plaintext highlighter-rouge">TypedDict</code> 내에서만 유효하도록 제안합니다. 프로토콜(protocols)과 같은 추가 컨텍스트에서 지원하는 것은 향후 확장될 수 있습니다.</p>
+
+<h2 id="명세-specification">명세 (Specification)</h2>
+
+<p>새로운 <code class="language-plaintext highlighter-rouge">typing.ReadOnly</code> 타입 한정자가 추가됩니다.</p>
+
+<h3 id="typingreadonly-타입-한정자"><code class="language-plaintext highlighter-rouge">typing.ReadOnly</code> 타입 한정자</h3>
+
+<p><code class="language-plaintext highlighter-rouge">typing.ReadOnly</code> 타입 한정자는 <code class="language-plaintext highlighter-rouge">TypedDict</code> 정의에서 선언된 항목이 변경(추가, 수정 또는 제거)될 수 없음을 나타내는 데 사용됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">ReadOnly</span><span class="p">,</span> <span class="n">TypedDict</span>
+
+<span class="k">class</span> <span class="nc">Band</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">members</span><span class="p">:</span> <span class="n">ReadOnly</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
+
+<span class="n">blur</span><span class="p">:</span> <span class="n">Band</span> <span class="o">=</span> <span class="p">{</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">blur</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">members</span><span class="sh">"</span><span class="p">:</span> <span class="p">[]}</span>
+<span class="n">blur</span><span class="p">[</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">]</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Blur</span><span class="sh">"</span> <span class="c1"># OK: "name"은 읽기 전용이 아님
+</span><span class="n">blur</span><span class="p">[</span><span class="sh">"</span><span class="s">members</span><span class="sh">"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sh">"</span><span class="s">Damon Albarn</span><span class="sh">"</span><span class="p">]</span> <span class="c1"># 타입 검사 오류: "members"는 읽기 전용임
+</span><span class="n">blur</span><span class="p">[</span><span class="sh">"</span><span class="s">members</span><span class="sh">"</span><span class="p">].</span><span class="nf">append</span><span class="p">(</span><span class="sh">"</span><span class="s">Damon Albarn</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># OK: 리스트 자체는 가변임
+</span></code></pre></div></div>
+
+<h3 id="대안적인-함수형-문법-alternative-functional-syntax">대안적인 함수형 문법 (Alternative functional syntax)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">TypedDict</code>의 대안적인 함수형 문법도 새로운 타입 한정자를 지원합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Band</span> <span class="o">=</span> <span class="nc">TypedDict</span><span class="p">(</span><span class="sh">"</span><span class="s">Band</span><span class="sh">"</span><span class="p">,</span> <span class="p">{</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="sh">"</span><span class="s">members</span><span class="sh">"</span><span class="p">:</span> <span class="n">ReadOnly</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]})</span>
+</code></pre></div></div>
+
+<h3 id="다른-특별한-타입과의-상호작용-interaction-with-other-special-types">다른 특별한 타입과의 상호작용 (Interaction with other special types)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">ReadOnly[]</code>는 <code class="language-plaintext highlighter-rouge">Required[]</code>, <code class="language-plaintext highlighter-rouge">NotRequired[]</code>, <code class="language-plaintext highlighter-rouge">Annotated[]</code>와 어떤 중첩 순서로든 함께 사용할 수 있습니다. 이는 PEP 655에서 도입된 동작과 일치합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">Annotated</span><span class="p">,</span> <span class="n">NotRequired</span><span class="p">,</span> <span class="n">ReadOnly</span><span class="p">,</span> <span class="n">Required</span><span class="p">,</span> <span class="n">TypedDict</span>
+<span class="c1"># ... (ValueRange는 예시용 가상의 타입)
+</span>
+<span class="k">class</span> <span class="nc">Movie</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">title</span><span class="p">:</span> <span class="n">ReadOnly</span><span class="p">[</span><span class="n">Required</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="c1"># OK
+</span>    <span class="n">year</span><span class="p">:</span> <span class="n">ReadOnly</span><span class="p">[</span><span class="n">NotRequired</span><span class="p">[</span><span class="n">Annotated</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nc">ValueRange</span><span class="p">(</span><span class="o">-</span><span class="mi">9999</span><span class="p">,</span> <span class="mi">9999</span><span class="p">)]]]</span> <span class="c1"># OK
+</span>
+<span class="k">class</span> <span class="nc">Movie2</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">title</span><span class="p">:</span> <span class="n">Required</span><span class="p">[</span><span class="n">ReadOnly</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="c1"># OK
+</span>    <span class="n">year</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">NotRequired</span><span class="p">[</span><span class="n">ReadOnly</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="nc">ValueRange</span><span class="p">(</span><span class="o">-</span><span class="mi">9999</span><span class="p">,</span> <span class="mi">9999</span><span class="p">)]</span> <span class="c1"># OK
+</span></code></pre></div></div>
+
+<h3 id="상속-inheritance">상속 (Inheritance)</h3>
+
+<p>서브클래스는 읽기 전용 항목을 비(非)읽기 전용으로 재선언하여 변경 가능하게 만들 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">NamedDict</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">ReadOnly</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+
+<span class="k">class</span> <span class="nc">Album</span><span class="p">(</span><span class="n">NamedDict</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="c1"># 'name'을 비-읽기 전용으로 재선언
+</span>    <span class="n">year</span><span class="p">:</span> <span class="nb">int</span>
+
+<span class="n">album</span><span class="p">:</span> <span class="n">Album</span> <span class="o">=</span> <span class="p">{</span> <span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">Flood</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">year</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1990</span> <span class="p">}</span>
+<span class="n">album</span><span class="p">[</span><span class="sh">"</span><span class="s">year</span><span class="sh">"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1973</span>
+<span class="n">album</span><span class="p">[</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">]</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Dark Side Of The Moon</span><span class="sh">"</span> <span class="c1"># OK: 'name'은 Album에서 읽기 전용이 아님
+</span></code></pre></div></div>
+
+<p>읽기 전용 항목이 재선언되지 않으면 계속 읽기 전용으로 유지됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Album</span><span class="p">(</span><span class="n">NamedDict</span><span class="p">):</span>
+    <span class="n">year</span><span class="p">:</span> <span class="nb">int</span> <span class="c1"># 'name'은 재선언되지 않으므로 ReadOnly 유지
+</span>
+<span class="n">album</span><span class="p">:</span> <span class="n">Album</span> <span class="o">=</span> <span class="p">{</span> <span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">Flood</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">year</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1990</span> <span class="p">}</span>
+<span class="n">album</span><span class="p">[</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">]</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Dark Side Of The Moon</span><span class="sh">"</span> <span class="c1"># 타입 검사 오류: 'name'은 Album에서 읽기 전용임
+</span></code></pre></div></div>
+<p>서브클래스는 읽기 전용 항목의 값 타입을 좁힐 수 있습니다. 또한, 슈퍼클래스에서는 읽기 전용이지만 필수가 아닌 항목을 서브클래스에서 필수로 만들 수 있습니다.</p>
+
+<h3 id="타입-일관성-type-consistency">타입 일관성 (Type consistency)</h3>
+
+<p>이 섹션은 PEP 589에 도입된 타입 일관성 규칙을 이 PEP의 새로운 기능을 포함하도록 업데이트합니다. 특히, 이 새로운 기능을 사용하지 않는 어떤 타입 쌍이라도 기존에 일관적이었다면(그리고 그 경우에만) 이 새로운 규칙 하에서도 일관적일 것입니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">TypedDict</code> 타입 <code class="language-plaintext highlighter-rouge">A</code>가 <code class="language-plaintext highlighter-rouge">TypedDict</code> <code class="language-plaintext highlighter-rouge">B</code>와 구조적으로 호환되면 일관적입니다. 이는 다음 모든 조건이 충족될 때만 참입니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">B</code>의 각 항목에 대해 <code class="language-plaintext highlighter-rouge">A</code>는 해당 키를 가져야 합니다. 단, <code class="language-plaintext highlighter-rouge">B</code>의 항목이 읽기 전용이고, 필수 사항이 아니며, 최상위 값 타입(<code class="language-plaintext highlighter-rouge">ReadOnly[NotRequired[object]]</code>)인 경우는 예외입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">B</code>의 각 항목에 대해 <code class="language-plaintext highlighter-rouge">A</code>가 해당 키를 가지고 있다면, <code class="language-plaintext highlighter-rouge">A</code>의 해당 값 타입은 <code class="language-plaintext highlighter-rouge">B</code>의 값 타입과 일관적이어야 합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">B</code>의 각 비(非)읽기 전용 항목에 대해, 해당 값 타입은 <code class="language-plaintext highlighter-rouge">A</code>의 해당 값 타입과 일관적이어야 합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">B</code>의 각 필수 키에 대해, <code class="language-plaintext highlighter-rouge">A</code>의 해당 키는 필수여야 합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">B</code>의 각 비(非)필수 키에 대해, <code class="language-plaintext highlighter-rouge">B</code>에서 항목이 읽기 전용이 아니라면, <code class="language-plaintext highlighter-rouge">A</code>의 해당 키는 필수가 아니어야 합니다.</li>
+</ul>
+
+<p>읽기 전용 항목은 공변적(covariantly)으로 동작하며, 변경될 수 없습니다. 이는 <code class="language-plaintext highlighter-rouge">Sequence</code>와 같은 컨테이너 타입과 유사하며, 불변적(invariantly)으로 동작하는 비(非)읽기 전용 항목과는 다릅니다.</p>
+
+<h3 id="update-메서드"><code class="language-plaintext highlighter-rouge">update</code> 메서드</h3>
+
+<p>기존 타입 검사 규칙 외에, 읽기 전용 항목을 포함하는 <code class="language-plaintext highlighter-rouge">TypedDict</code>가 해당 키를 선언하는 다른 <code class="language-plaintext highlighter-rouge">TypedDict</code>로 업데이트될 경우 타입 체커는 오류를 발생시켜야 합니다. 단, 선언된 값이 하위 타입(bottom type)인 <code class="language-plaintext highlighter-rouge">Never</code>인 경우는 예외입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">typing</span>
+
+<span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">ReadOnly</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+    <span class="n">y</span><span class="p">:</span> <span class="nb">int</span>
+
+<span class="n">a1</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="p">{</span> <span class="sh">"</span><span class="s">x</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="sh">"</span><span class="s">y</span><span class="sh">"</span><span class="p">:</span> <span class="mi">2</span> <span class="p">}</span>
+<span class="n">a2</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="p">{</span> <span class="sh">"</span><span class="s">x</span><span class="sh">"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="sh">"</span><span class="s">y</span><span class="sh">"</span><span class="p">:</span> <span class="mi">4</span> <span class="p">}</span>
+<span class="n">a1</span><span class="p">.</span><span class="nf">update</span><span class="p">(</span><span class="n">a2</span><span class="p">)</span> <span class="c1"># 타입 검사 오류: "x"는 A에서 읽기 전용임
+</span>
+<span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">typing</span><span class="p">.</span><span class="n">NotRequired</span><span class="p">[</span><span class="n">typing</span><span class="p">.</span><span class="n">Never</span><span class="p">]</span>
+    <span class="n">y</span><span class="p">:</span> <span class="n">ReadOnly</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">update_a</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">B</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">a</span><span class="p">.</span><span class="nf">update</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="c1"># 타입 검사 허용: "x"는 b에 설정될 수 없음
+</span></code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">Never</code> 타입은 어떤 값과도 일치하지 않으므로, 이 타입으로 애너테이션된 항목은 항상 부재(absent)해야 합니다.</p>
+
+<h3 id="키워드-인수-타이핑-keyword-argument-typing">키워드 인수 타이핑 (Keyword argument typing)</h3>
+
+<p>PEP 692는 <code class="language-plaintext highlighter-rouge">TypedDict</code>로 <code class="language-plaintext highlighter-rouge">**kwargs</code>를 애너테이션하기 위해 <code class="language-plaintext highlighter-rouge">Unpack</code>을 도입했습니다. 이러한 방식으로 사용되는 <code class="language-plaintext highlighter-rouge">TypedDict</code>의 하나 이상의 항목을 읽기 전용으로 표시해도 메서드의 타입 시그니처에는 영향을 미치지 않습니다. 그러나 함수 본문에서 해당 항목이 수정되는 것을 방지합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">Protocol</span><span class="p">,</span> <span class="n">Unpack</span>
+
+<span class="k">class</span> <span class="nc">Args</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">key1</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">key2</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="k">class</span> <span class="nc">ReadOnlyArgs</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">key1</span><span class="p">:</span> <span class="n">ReadOnly</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+    <span class="n">key2</span><span class="p">:</span> <span class="n">ReadOnly</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+
+<span class="k">class</span> <span class="nc">Function</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Unpack</span><span class="p">[</span><span class="n">Args</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span> <span class="bp">...</span>
+
+<span class="k">def</span> <span class="nf">impl</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Unpack</span><span class="p">[</span><span class="n">ReadOnlyArgs</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">kwargs</span><span class="p">[</span><span class="sh">"</span><span class="s">key1</span><span class="sh">"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span> <span class="c1"># 타입 검사 오류: key1은 읽기 전용임
+</span>
+<span class="n">fn</span><span class="p">:</span> <span class="n">Function</span> <span class="o">=</span> <span class="n">impl</span> <span class="c1"># 타입 검사 허용: 함수 시그니처는 동일함
+</span></code></pre></div></div>
+
+<h3 id="런타임-동작-runtime-behavior">런타임 동작 (Runtime behavior)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">TypedDict</code> 타입은 두 개의 새로운 속성인 <code class="language-plaintext highlighter-rouge">__readonly_keys__</code>와 <code class="language-plaintext highlighter-rouge">__mutable_keys__</code>를 얻게 되며, 각각 모든 읽기 전용 키와 비(非)읽기 전용 키를 포함하는 <code class="language-plaintext highlighter-rouge">frozenset</code>이 됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">ReadOnly</span><span class="p">,</span> <span class="n">TypedDict</span>
+
+<span class="k">class</span> <span class="nc">Example</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">a</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">b</span><span class="p">:</span> <span class="n">ReadOnly</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+    <span class="n">c</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">d</span><span class="p">:</span> <span class="n">ReadOnly</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+
+<span class="k">assert</span> <span class="n">Example</span><span class="p">.</span><span class="n">__readonly_keys__</span> <span class="o">==</span> <span class="nf">frozenset</span><span class="p">({</span><span class="sh">'</span><span class="s">b</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">d</span><span class="sh">'</span><span class="p">})</span>
+<span class="k">assert</span> <span class="n">Example</span><span class="p">.</span><span class="n">__mutable_keys__</span> <span class="o">==</span> <span class="nf">frozenset</span><span class="p">({</span><span class="sh">'</span><span class="s">a</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">c</span><span class="sh">'</span><span class="p">})</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">typing.get_type_hints</code>는 <code class="language-plaintext highlighter-rouge">include_extras</code>가 <code class="language-plaintext highlighter-rouge">True</code>인 경우를 제외하고 모든 <code class="language-plaintext highlighter-rouge">ReadOnly</code> 타입 한정자를 제거합니다. <code class="language-plaintext highlighter-rouge">typing.get_origin</code> 및 <code class="language-plaintext highlighter-rouge">typing.get_args</code>는 <code class="language-plaintext highlighter-rouge">ReadOnly</code>를 인식하도록 업데이트됩니다.</p>
+
+<h2 id="하위-호환성-backwards-compatibility">하위 호환성 (Backwards compatibility)</h2>
+
+<p>이 PEP는 <code class="language-plaintext highlighter-rouge">TypedDict</code>에 새로운 기능을 추가하므로, <code class="language-plaintext highlighter-rouge">TypedDict</code> 타입을 검사하는 코드는 이를 지원하도록 변경해야 합니다. 이는 주로 타입 체커에 영향을 미칠 것으로 예상됩니다.</p>
+
+<h2 id="보안-영향-security-implications">보안 영향 (Security implications)</h2>
+
+<p>이 PEP로 인해 알려진 보안상의 결과는 없습니다.</p>
+
+<h2 id="가르치는-방법-how-to-teach-this">가르치는 방법 (How to teach this)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">typing</code> 모듈 문서에 다음과 같은 변경 사항을 추가할 것을 제안합니다.</p>
+<ul>
+  <li>이 PEP를 다른 나열된 PEP에 추가합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">typing.ReadOnly</code>를 추가하고 <code class="language-plaintext highlighter-rouge">TypedDict</code> 및 이 PEP에 링크합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">TypedDict</code> 항목에 다음 텍스트를 추가합니다: “ReadOnly 타입 한정자는 <code class="language-plaintext highlighter-rouge">TypedDict</code> 정의에서 선언된 항목이 읽을 수 있지만 변경(추가, 수정 또는 제거)될 수 없음을 나타냅니다. 이는 값의 정확한 타입을 아직 알 수 없을 때 유용하며, 따라서 값을 수정하면 구조적 서브타입을 손상시킬 수 있습니다.” (예제 삽입)</li>
+</ul>
+
+<h2 id="참고-구현-reference-implementation">참고 구현 (Reference implementation)</h2>
+
+<p>pyright 1.1.333 버전에서 이 제안이 완전히 구현되었습니다.</p>
+
+<h2 id="기각된-대안-rejected-alternatives">기각된 대안 (Rejected alternatives)</h2>
+
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">TypedMapping</code> 프로토콜 타입:</strong> 초기 버전에서는 <code class="language-plaintext highlighter-rouge">ReadOnly</code> <code class="language-plaintext highlighter-rouge">TypedDict</code>와 유사하지만 런타임 타입이 <code class="language-plaintext highlighter-rouge">dict</code>일 필요가 없는 <code class="language-plaintext highlighter-rouge">TypedMapping</code> 프로토콜 타입을 제안했으나, 복잡성 대비 강력한 사용 사례가 부족하여 보류되었습니다.</li>
+  <li><strong>고차(Higher-order) <code class="language-plaintext highlighter-rouge">ReadOnly</code> 타입:</strong> 매개변수에서 변경자 메서드를 제거하는 일반화된 고차 타입(<code class="language-plaintext highlighter-rouge">ReadOnly[MovieRecord]</code> 등)이 고려되었지만, <code class="language-plaintext highlighter-rouge">TypedDict</code> 서브클래스 이외의 더 넓은 타입 집합에 대한 적용 문제와 중첩 타입에 대한 질문을 야기하여 범위가 좁게 유지되었습니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">Readonly</code>라는 타입 이름 사용:</strong> 하이픈이 들어간 “Read-only”의 CamelCase 변환 규칙에 따라 <code class="language-plaintext highlighter-rouge">ReadOnly</code>가 선택되었습니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">Final</code> 애너테이션 재사용:</strong> <code class="language-plaintext highlighter-rouge">Final</code>은 재할당 및 서브클래스에서의 재정의를 방지하지만, <code class="language-plaintext highlighter-rouge">ReadOnly</code>의 의도와 일치하지 않아 혼란을 피하기 위해 새로운 한정자를 도입했습니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">readonly</code> 플래그:</strong> <code class="language-plaintext highlighter-rouge">TypedDict</code> 전체를 읽기 전용으로 만드는 <code class="language-plaintext highlighter-rouge">readonly=True</code> 플래그가 고려되었으나, 상속 시 혼란을 야기하고 추가적인 타입 표현이 불가능하여 제거되었습니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">copy</code> 및 다른 메서드를 통한 읽기 전용 한정자 제거 지원:</strong> 타입 체커가 <code class="language-plaintext highlighter-rouge">copy.copy()</code>나 딕셔너리 병합(<code class="language-plaintext highlighter-rouge">|</code>)을 통해 읽기 전용 한정자를 제거할 수 있도록 지원하는 방안이 논의되었으나, <code class="language-plaintext highlighter-rouge">typeshed</code>에 이를 표현할 방법이 없고 복잡성 때문에 보류되었습니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">TypedDict</code>에서 미지정 키 방지:</strong> <code class="language-plaintext highlighter-rouge">TypedDict</code>에서 선언되지 않은 키의 포함을 명시적으로 방지하는 방안(예: <code class="language-plaintext highlighter-rouge">@final</code> 데코레이터 또는 <code class="language-plaintext highlighter-rouge">other_keys=Never</code> 플래그)이 고려되었으나, 타입 체커의 동작 변화와 PEP 728에서 더 광범위하게 다루어질 예정이므로 이 PEP에서는 다루지 않기로 했습니다.</li>
+</ul>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/704/" class="pagination--pager" title="[Withdrawn] PEP 704 - Require virtual environments by default for package installers
+">Previous</a>
+    
+    
+      <a href="/python/pep/706/" class="pagination--pager" title="[Final] PEP 706 - Filter for tarfile.extractall
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

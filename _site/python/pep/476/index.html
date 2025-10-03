@@ -1,0 +1,719 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 476 - Enabling certificate verification by default for stdlib http clients | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 476: ‘Enabling certificate verification by default for stdlib http clients’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 476 - Enabling certificate verification by default for stdlib http clients">
+<meta property="og:url" content="http://localhost:4000/python/pep/476/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 476: ‘Enabling certificate verification by default for stdlib http clients’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T22:22:04+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T22:22:04+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/476/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 476 - Enabling certificate verification by default for stdlib http clients">
+    <meta itemprop="description" content="Python Enhancement Proposal 476: ‘Enabling certificate verification by default for stdlib http clients’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T22:22:04+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T22:22:04+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 476 - Enabling certificate verification by default for stdlib http clients
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T22:22:04+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-476--stdlib-http-클라이언트에-기본적으로-인증서-검증-활성화">PEP 476 – stdlib HTTP 클라이언트에 기본적으로 인증서 검증 활성화</a><ul><li><a href="#초록-abstract">초록 (Abstract)</a></li><li><a href="#도입-배경-rationale">도입 배경 (Rationale)</a></li><li><a href="#기술적-세부-사항-technical-details">기술적 세부 사항 (Technical Details)</a><ul><li><a href="#신뢰-데이터베이스-trust-database">신뢰 데이터베이스 (Trust database)</a></li><li><a href="#하위-호환성-backwards-compatibility">하위 호환성 (Backwards compatibility)</a></li><li><a href="#옵트아웃-opting-out">옵트아웃 (Opting out)</a></li><li><a href="#다른-프로토콜-other-protocols">다른 프로토콜 (Other protocols)</a></li></ul></li><li><a href="#python-버전-python-versions">Python 버전 (Python Versions)</a></li><li><a href="#구현-implementation">구현 (Implementation)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0476/">PEP 476 - Enabling certificate verification by default for stdlib http clients</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 28-Aug-2014</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h2 id="pep-476--stdlib-http-클라이언트에-기본적으로-인증서-검증-활성화">PEP 476 – <code class="language-plaintext highlighter-rouge">stdlib</code> HTTP 클라이언트에 기본적으로 인증서 검증 활성화</h2>
+
+<h3 id="초록-abstract">초록 (Abstract)</h3>
+<p>현재 Python 표준 라이브러리의 HTTP 클라이언트(<code class="language-plaintext highlighter-rouge">urllib</code>, <code class="language-plaintext highlighter-rouge">urllib2</code>, <code class="language-plaintext highlighter-rouge">http</code>, <code class="language-plaintext highlighter-rouge">httplib</code> 모듈)는 <code class="language-plaintext highlighter-rouge">https://</code> URL을 처리할 때 TLS 스트림을 사용하지만, 서버의 X509 인증서가 신뢰할 수 있는 CA(인증 기관)에 의해 서명되었는지, 그리고 인증서의 Common Name 또는 Subject Alternate Name이 요청된 호스트와 일치하는지 실제로 검증하지 않습니다. 이러한 검사 누락으로 인해 공격자가 중간자(Man-in-the-Middle) 공격을 쉽게 수행하고 트래픽을 변경할 수 있습니다.</p>
+
+<p>이 PEP는 Python HTTP 클라이언트에 X509 인증서 서명 및 호스트명 검증을 기본적으로 활성화할 것을 제안하며, 필요에 따라 개별 호출 단위로 이 기능을 비활성화(opt-out)할 수 있도록 합니다. 이 변경사항은 Python 2.7.9, 3.4.3 및 3.5 버전부터 적용되었습니다.</p>
+
+<h3 id="도입-배경-rationale">도입 배경 (Rationale)</h3>
+<p><code class="language-plaintext highlighter-rouge">HTTPS</code>의 “S”는 “보안(Secure)”을 의미합니다. Python 사용자들은 <code class="language-plaintext highlighter-rouge">HTTPS</code>를 사용할 때 보안 연결을 기대하지만, 현재 Python은 이러한 기대를 충족시키지 못하고 있습니다. 겉보기에는 간단해 보이는 API가 사용자들을 오도하고 있는 상황입니다.</p>
+
+<p>많은 Python 사용자들은 이러한 유효성 검사가 수행되지 않는다는 사실을 인지하지 못했으며, 이를 알게 되면 충격을 받습니다. <code class="language-plaintext highlighter-rouge">requests</code> 라이브러리(기본적으로 이러한 검사를 활성화함)의 인기는 이러한 검사가 과도한 부담이 아니라는 것을 보여주며, <code class="language-plaintext highlighter-rouge">requests</code>가 표준 라이브러리 클라이언트보다 주요 보안 개선 사항으로 널리 권장된다는 사실은 많은 사용자들이 도구에서 “기본 보안”에 대한 더 높은 기준을 기대한다는 것을 의미합니다.</p>
+
+<p>Python이 이 문제에 대해 부주의했다는 점을 인지하지 못한 다양한 애플리케이션의 실패는 정기적인 CVE(Common Vulnerabilities and Exposures) 할당의 원인이 되고 있습니다.</p>
+
+<h3 id="기술적-세부-사항-technical-details">기술적 세부 사항 (Technical Details)</h3>
+
+<h4 id="신뢰-데이터베이스-trust-database">신뢰 데이터베이스 (Trust database)</h4>
+<p>이 PEP는 모든 플랫폼에서 시스템이 제공하는 인증서 데이터베이스를 사용할 것을 제안합니다. 이러한 데이터베이스를 찾을 수 없는 경우 오류가 발생하며, 사용자는 문제를 해결하기 위해 명시적으로 위치를 지정해야 합니다.</p>
+
+<p>이 목표는 새로운 <code class="language-plaintext highlighter-rouge">ssl._create_default_https_context</code> 함수를 추가함으로써 달성됩니다. 이 함수는 <code class="language-plaintext highlighter-rouge">ssl.create_default_context</code>와 동일합니다. <code class="language-plaintext highlighter-rouge">http.client</code>는 <code class="language-plaintext highlighter-rouge">ssl._create_stdlib_context</code> 대신 <code class="language-plaintext highlighter-rouge">ssl._create_default_https_context</code>를 사용하도록 변경됩니다. 또한 <code class="language-plaintext highlighter-rouge">ssl._create_stdlib_context</code>는 <code class="language-plaintext highlighter-rouge">ssl._create_unverified_context</code>로 이름이 변경됩니다(하위 호환성을 위해 별칭은 유지됩니다).</p>
+
+<p>이 PEP는 시스템 제공 인증서 데이터베이스를 사용하는 것을 제안합니다. 이전 논의에서는 Mozilla의 인증서 데이터베이스를 번들로 제공하고 이를 기본값으로 사용하는 방안이 제안되었으나, 다음과 같은 여러 이유로 채택되지 않았습니다.</p>
+<ul>
+  <li>플랫폼 신뢰 데이터베이스를 사용하면 Python 개발자의 유지 보수 부담이 줄어듭니다. 자체 신뢰 데이터베이스를 제공하면 인증서가 폐기될 때마다 릴리스를 해야 합니다.</li>
+  <li>Linux 벤더 및 다른 다운스트림(downstream)은 Mozilla 인증서를 번들에서 제외할 것이며, 이는 행동의 파편화를 초래합니다.</li>
+  <li>플랫폼 저장소를 사용하면 기업 내부 CA와 같은 상황을 더 쉽게 처리할 수 있습니다.</li>
+</ul>
+
+<p>OpenSSL에는 <code class="language-plaintext highlighter-rouge">SSL_CERT_DIR</code> 및 <code class="language-plaintext highlighter-rouge">SSL_CERT_FILE</code>이라는 두 개의 환경 변수가 있으며, 이를 사용하여 Python이 다른 인증서 데이터베이스를 가리키도록 할 수 있습니다.</p>
+
+<h4 id="하위-호환성-backwards-compatibility">하위 호환성 (Backwards compatibility)</h4>
+<p>이 변경으로 인해 일부 HTTPS 연결이 핸드셰이크 중에 예외(Exception)를 발생시키면서 “깨지는” 것처럼 보일 수 있습니다. 그러나 이는 오해의 소지가 있습니다. 사실 이러한 연결은 현재 “조용히 실패하고” 있으며, HTTPS URL은 기밀성(confidentiality)과 인증(authentication)에 대한 기대를 나타냅니다. Python이 사용자의 요청이 실제로 이루어졌는지 검증하지 않는다는 사실은 버그이며, “오류는 절대 조용히 넘어가지 않아야 한다(Errors should never pass silently)”는 원칙에도 위배됩니다.</p>
+
+<p>그럼에도 불구하고 자체 서명(self-signed)되었거나 잘못된 인증서를 가진 서버에 접근해야 하는 사용자들은 사용자 정의 신뢰 루트를 가진 컨텍스트를 제공하거나 유효성 검사를 비활성화하는 컨텍스트를 제공하여 그렇게 할 수 있습니다(가능한 경우 전자를 강력히 권장). 사용자들은 필요한 인증서를 시스템 신뢰 저장소에 추가하여 전역적으로 신뢰할 수도 있습니다.</p>
+
+<p>Twisted의 14.0 릴리스도 동일한 변경을 적용했으며, 거의 반대에 부딪히지 않았습니다.</p>
+
+<h4 id="옵트아웃-opting-out">옵트아웃 (Opting out)</h4>
+<p>단일 연결에서 인증서 검증을 비활성화하려는 사용자는 <code class="language-plaintext highlighter-rouge">urllib.urlopen</code>에 <code class="language-plaintext highlighter-rouge">context</code> 인자를 제공하여 이를 달성할 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">ssl</span>
+<span class="c1"># 이는 이전과 동일한 동작을 복원합니다.
+</span><span class="n">context</span> <span class="o">=</span> <span class="n">ssl</span><span class="p">.</span><span class="nf">_create_unverified_context</span><span class="p">()</span>
+<span class="n">urllib</span><span class="p">.</span><span class="nf">urlopen</span><span class="p">(</span><span class="sh">"</span><span class="s">https://no-valid-cert</span><span class="sh">"</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>이 PEP를 구현하는 Python 버전에서 <code class="language-plaintext highlighter-rouge">ssl</code> 모듈을 몽키패치(monkeypatching)하여 전역적으로 검증을 비활성화하는 것도 가능하지만, 이는 강력히 권장되지 않습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">ssl</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">_create_unverified_https_context</span> <span class="o">=</span> <span class="n">ssl</span><span class="p">.</span><span class="n">_create_unverified_context</span>
+<span class="k">except</span> <span class="nb">AttributeError</span><span class="p">:</span>
+    <span class="c1"># 기본적으로 HTTPS 인증서를 검증하지 않는 레거시 Python
+</span>    <span class="k">pass</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># HTTPS 검증을 지원하지 않는 대상 환경 처리
+</span>    <span class="n">ssl</span><span class="p">.</span><span class="n">_create_default_https_context</span> <span class="o">=</span> <span class="n">_create_unverified_https_context</span>
+</code></pre></div></div>
+
+<p>이 지침은 주로 이 PEP를 구현하는 최신 Python 버전을 레거시 환경(HTTPS 연결에 대한 인증서 검증을 아직 지원하지 않는)에서 채택하려는 시스템 관리자를 위한 것입니다. 예를 들어, 관리자는 Python의 표준 운영 환경에서 <code class="language-plaintext highlighter-rouge">sitecustomize.py</code>에 위 몽키패치를 추가하여 옵트아웃할 수 있습니다. 애플리케이션 및 라이브러리는 (시스템 관리자가 제어하는 ​​구성 설정에 대한 응답으로가 아니라면) 프로세스 전체에 이 변경 사항을 적용해서는 안 됩니다.</p>
+
+<p>특히 보안에 민감한 애플리케이션은 기본 Python 구현의 기본 동작에 의존하기보다 항상 명시적으로 애플리케이션이 정의한 <code class="language-plaintext highlighter-rouge">SSLContext</code>를 제공해야 합니다.</p>
+
+<h4 id="다른-프로토콜-other-protocols">다른 프로토콜 (Other protocols)</h4>
+<p>이 PEP는 HTTP 클라이언트에 대해서만 이러한 수준의 유효성 검사를 요구하며, SMTP와 같은 다른 프로토콜에는 적용되지 않습니다. 이는 HTTPS 서버의 상당수가 브라우저가 수행하는 유효성 검사 덕분에 올바른 인증서를 가지고 있지만, 다른 프로토콜의 경우 자체 서명되거나 잘못된 인증서가 훨씬 더 흔하기 때문입니다.</p>
+
+<h3 id="python-버전-python-versions">Python 버전 (Python Versions)</h3>
+<p>이 PEP는 3.4.x, 3.5 및 2.7.X 브랜치 모두에서 발생할 변경 사항을 설명합니다. 2.7.X의 경우, PEP 466에서 이미 백포트된 기능 외에도 <code class="language-plaintext highlighter-rouge">httplib</code>에 <code class="language-plaintext highlighter-rouge">context</code>(<code class="language-plaintext highlighter-rouge">SSLContext</code>) 인수를 백포트해야 합니다.</p>
+
+<h3 id="구현-implementation">구현 (Implementation)</h3>
+<ul>
+  <li>Issue 22366: <code class="language-plaintext highlighter-rouge">urllib.request.urlopen</code>에 <code class="language-plaintext highlighter-rouge">context</code> 인자 추가.</li>
+  <li>Issue 22417: 이 PEP의 핵심 내용을 구현.</li>
+</ul>
+
+<h3 id="저작권-copyright">저작권 (Copyright)</h3>
+<p>이 문서는 퍼블릭 도메인에 공개되었습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/475/" class="pagination--pager" title="[Final] PEP 475 - Retry system calls failing with EINTR
+">Previous</a>
+    
+    
+      <a href="/python/pep/477/" class="pagination--pager" title="[Final] PEP 477 - Backport ensurepip (PEP 453) to Python 2.7
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,778 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Rejected] PEP 212 - Loop Counter Iteration | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 212: ‘Loop Counter Iteration’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Rejected] PEP 212 - Loop Counter Iteration">
+<meta property="og:url" content="http://localhost:4000/python/pep/212/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 212: ‘Loop Counter Iteration’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T16:28:28+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T16:28:28+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/212/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Rejected] PEP 212 - Loop Counter Iteration">
+    <meta itemprop="description" content="Python Enhancement Proposal 212: ‘Loop Counter Iteration’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T16:28:28+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T16:28:28+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Rejected] PEP 212 - Loop Counter Iteration
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T16:28:28+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-212--루프-카운터-반복-loop-counter-iteration">PEP 212 – 루프 카운터 반복 (Loop Counter Iteration)</a><ul><li><a href="#거부-통지-rejection-notice">거부 통지 (Rejection Notice)</a></li><li><a href="#서론-introduction">서론 (Introduction)</a></li><li><a href="#동기-motivation">동기 (Motivation)</a></li><li><a href="#루프-카운터-반복-loop-counter-iteration">루프 카운터 반복 (Loop counter iteration)</a></li><li><a href="#제안된-해결책-the-proposed-solutions">제안된 해결책 (The Proposed Solutions)</a><ul><li><a href="#예약되지-않은-키워드-인덱싱-non-reserved-keyword-indexing">예약되지 않은 키워드 인덱싱 (Non-reserved keyword indexing)</a></li><li><a href="#내장-함수-indices-및-irange-built-in-functions-indices-and-irange">내장 함수 indices 및 irange (Built-in functions indices and irange)</a></li><li><a href="#시퀀스-객체에-대한-메서드-methods-for-sequence-objects">시퀀스 객체에 대한 메서드 (Methods for sequence objects)</a></li></ul></li><li><a href="#구현-implementations">구현 (Implementations)</a></li><li><a href="#하위-호환성-문제-backward-compatibility-issues">하위 호환성 문제 (Backward Compatibility Issues)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li><li><a href="#참고-자료-references">참고 자료 (References)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0212/">PEP 212 - Loop Counter Iteration</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Rejected</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 22-Aug-2000</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-212--루프-카운터-반복-loop-counter-iteration">PEP 212 – 루프 카운터 반복 (Loop Counter Iteration)</h1>
+
+<ul>
+  <li><strong>저자:</strong> Peter Schneider-Kamp <nowonder at="" nowonder.de=""></nowonder></li>
+  <li><strong>상태:</strong> Rejected (거부됨)</li>
+  <li><strong>유형:</strong> Standards Track</li>
+  <li><strong>생성일:</strong> 2000년 8월 22일</li>
+  <li><strong>Python 버전:</strong> 2.1</li>
+  <li><strong>이력:</strong> (내용 없음)</li>
+</ul>
+
+<h2 id="거부-통지-rejection-notice">거부 통지 (Rejection Notice)</h2>
+
+<p>이 PEP는 거부되었습니다. PEP 279에서 도입된 <code class="language-plaintext highlighter-rouge">enumerate()</code> 함수가 이 PEP에서 제안된 사용 사례를 충족하며, PEP 저자와 연락이 닿지 않았습니다.</p>
+
+<h2 id="서론-introduction">서론 (Introduction)</h2>
+
+<p>이 PEP는 <code class="language-plaintext highlighter-rouge">for-루프</code>에서 루프 카운터를 노출하는 기능에 대해 설명합니다. 이는 자주 제안되는 기능이며, 이 PEP는 해당 기능의 상태와 소유권을 추적합니다. 기능에 대한 설명과 함께 이를 지원하기 위해 필요한 변경 사항을 설명합니다. 또한 메일링 리스트 포럼에서 진행된 논의를 요약하고, 필요한 경우 추가 정보에 대한 URL을 제공합니다. 이 파일의 CVS 개정 기록에는 확정적인 이력 정보가 포함되어 있습니다.</p>
+
+<h2 id="동기-motivation">동기 (Motivation)</h2>
+
+<p>Python의 표준 <code class="language-plaintext highlighter-rouge">for-루프</code>는 시퀀스의 요소를 순회합니다. 하지만 종종 인덱스만 순회하거나 요소와 인덱스를 모두 순회해야 하는 경우가 있습니다.</p>
+
+<p>이를 수행하기 위해 사용되는 일반적인 관용구(idiom)는 직관적이지 않습니다. 이 PEP는 인덱스를 노출하는 두 가지 다른 방법을 제안합니다.</p>
+
+<h2 id="루프-카운터-반복-loop-counter-iteration">루프 카운터 반복 (Loop counter iteration)</h2>
+
+<p>인덱스를 순회하기 위한 현재 관용구는 내장 함수 <code class="language-plaintext highlighter-rouge">range</code>를 사용합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)):</span>
+    <span class="c1"># 인덱스 i를 사용한 작업
+</span></code></pre></div></div>
+
+<p>요소와 인덱스를 모두 순회하는 것은 이전 관용구나 새로운 내장 함수 <code class="language-plaintext highlighter-rouge">zip</code>을 사용하여 달성할 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)):</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">sequence</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="c1"># 인덱스 i와 요소 e를 사용한 작업
+</span></code></pre></div></div>
+
+<p>또는:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="nf">zip</span><span class="p">(</span><span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)),</span> <span class="n">sequence</span><span class="p">):</span>
+    <span class="c1"># 인덱스 i와 요소 e를 사용한 작업
+</span></code></pre></div></div>
+
+<h2 id="제안된-해결책-the-proposed-solutions">제안된 해결책 (The Proposed Solutions)</h2>
+
+<p>세 가지 해결책이 논의되었습니다. 하나는 예약되지 않은 키워드를 추가하고, 다른 하나는 두 개의 내장 함수를 추가합니다. 세 번째 해결책은 시퀀스 객체에 메서드를 추가하는 것입니다.</p>
+
+<h3 id="예약되지-않은-키워드-인덱싱-non-reserved-keyword-indexing">예약되지 않은 키워드 인덱싱 (Non-reserved keyword indexing)</h3>
+
+<p>이 해결책은 <code class="language-plaintext highlighter-rouge">for-루프</code>의 문법을 확장하여 선택적인 <code class="language-plaintext highlighter-rouge">&lt;variable&gt; indexing</code> 절을 추가하는 것입니다. 이 절은 <code class="language-plaintext highlighter-rouge">in</code> 절 대신 사용될 수도 있습니다.</p>
+
+<p>이렇게 하면 시퀀스의 인덱스를 순회하는 방식은 다음과 같습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="n">indexing</span> <span class="n">sequence</span><span class="p">:</span>
+    <span class="c1"># 인덱스 i를 사용한 작업
+</span></code></pre></div></div>
+
+<p>마찬가지로 인덱스와 요소를 모두 순회하는 방식은 다음과 같습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="n">indexing</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">sequence</span><span class="p">:</span>
+    <span class="c1"># 인덱스 i와 요소 e를 사용한 작업
+</span></code></pre></div></div>
+
+<h3 id="내장-함수-indices-및-irange-built-in-functions-indices-and-irange">내장 함수 <code class="language-plaintext highlighter-rouge">indices</code> 및 <code class="language-plaintext highlighter-rouge">irange</code> (Built-in functions <code class="language-plaintext highlighter-rouge">indices</code> and <code class="language-plaintext highlighter-rouge">irange</code>)</h3>
+
+<p>이 해결책은 두 개의 내장 함수 <code class="language-plaintext highlighter-rouge">indices</code>와 <code class="language-plaintext highlighter-rouge">irange</code>를 추가합니다. 이들의 의미는 다음과 같이 설명할 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">indices</span><span class="p">(</span><span class="n">sequence</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">irange</span><span class="p">(</span><span class="n">sequence</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nf">zip</span><span class="p">(</span><span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)),</span> <span class="n">sequence</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>이 함수들은 eagerly 또는 lazily하게 구현될 수 있으며, 여러 시퀀스 인수를 받도록 쉽게 확장할 수 있어야 합니다.</p>
+
+<p>이 함수들을 사용하면 인덱스만 순회하거나 요소와 인덱스를 모두 순회하는 관용구가 단순해집니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">indices</span><span class="p">(</span><span class="n">sequence</span><span class="p">):</span>
+    <span class="c1"># 인덱스 i를 사용한 작업
+</span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="nf">irange</span><span class="p">(</span><span class="n">sequence</span><span class="p">):</span>
+    <span class="c1"># 인덱스 i와 요소 e를 사용한 작업
+</span></code></pre></div></div>
+
+<h3 id="시퀀스-객체에-대한-메서드-methods-for-sequence-objects">시퀀스 객체에 대한 메서드 (Methods for sequence objects)</h3>
+
+<p>이 해결책은 시퀀스에 <code class="language-plaintext highlighter-rouge">indices</code>, <code class="language-plaintext highlighter-rouge">items</code>, <code class="language-plaintext highlighter-rouge">values</code> 메서드를 추가하는 것을 제안합니다. 이 메서드들은 각각 인덱스만 순회, 인덱스와 요소 모두 순회, 요소만 순회를 가능하게 합니다.</p>
+
+<p>이는 인덱스 순회와 요소 및 인덱스 동시 순회를 위한 관용구를 엄청나게 단순화할 것입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">sequence</span><span class="p">.</span><span class="nf">indices</span><span class="p">():</span>
+    <span class="c1"># 인덱스 i를 사용한 작업
+</span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">sequence</span><span class="p">.</span><span class="nf">items</span><span class="p">():</span>
+    <span class="c1"># 인덱스 i와 요소 e를 사용한 작업
+</span></code></pre></div></div>
+
+<p>추가적으로, 시퀀스 및 딕셔너리의 요소를 일관된 방식으로 순회할 수 있게 합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">sequence_or_dict</span><span class="p">.</span><span class="nf">values</span><span class="p">():</span>
+    <span class="c1"># 요소 e를 사용한 작업
+</span></code></pre></div></div>
+
+<h2 id="구현-implementations">구현 (Implementations)</h2>
+
+<p>세 가지 해결책 모두에 대해 SourceForge에 패치가 존재합니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">for i indexing a in l</code>: <code class="language-plaintext highlighter-rouge">for-루프</code> 카운터 노출</li>
+  <li><code class="language-plaintext highlighter-rouge">indices()</code> 및 <code class="language-plaintext highlighter-rouge">irange()</code>를 내장 함수에 추가</li>
+  <li><code class="language-plaintext highlighter-rouge">listobject</code>에 <code class="language-plaintext highlighter-rouge">items()</code> 메서드 추가</li>
+</ul>
+
+<p>이 모든 제안은 BDFL(Benevolent Dictator For Life)에 의해 검토되고 거부되었습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">indexing</code> 키워드는 문법에서 단순한 이름(NAME)이므로 <code class="language-plaintext highlighter-rouge">indexing</code>의 일반적인 사용을 방해하지 않습니다.</p>
+
+<h2 id="하위-호환성-문제-backward-compatibility-issues">하위 호환성 문제 (Backward Compatibility Issues)</h2>
+
+<p>추가되는 키워드가 없고 기존 코드의 의미가 변경되지 않으므로, 세 가지 해결책 모두 기존 코드를 손상시키지 않고 구현할 수 있습니다.</p>
+
+<h2 id="저작권-copyright">저작권 (Copyright)</h2>
+
+<p>이 문서는 퍼블릭 도메인에 공개되었습니다.</p>
+
+<h2 id="참고-자료-references">참고 자료 (References)</h2>
+
+<p>PEP 212 – Loop Counter Iteration | peps.python.org
+ Lockstep Iteration, PEP 201
+ http://sourceforge.net/patch/download.php?id=101138
+ http://sourceforge.net/patch/download.php?id=101129
+ http://sourceforge.net/patch/download.php?id=101178</p>
+
+<hr />
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/211/" class="pagination--pager" title="[Rejected] PEP 211 - Adding A New Outer Product Operator
+">Previous</a>
+    
+    
+      <a href="/python/pep/213/" class="pagination--pager" title="[Deferred] PEP 213 - Attribute Access Handlers
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

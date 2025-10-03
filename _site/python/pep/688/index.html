@@ -1,0 +1,722 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 688 - Making the buffer protocol accessible in Python | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 688: ‘Making the buffer protocol accessible in Python’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 688 - Making the buffer protocol accessible in Python">
+<meta property="og:url" content="http://localhost:4000/python/pep/688/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 688: ‘Making the buffer protocol accessible in Python’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T10:13:02+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T10:13:02+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/688/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 688 - Making the buffer protocol accessible in Python">
+    <meta itemprop="description" content="Python Enhancement Proposal 688: ‘Making the buffer protocol accessible in Python’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T10:13:02+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T10:13:02+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 688 - Making the buffer protocol accessible in Python
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T10:13:02+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-688--python에서-버퍼-프로토콜-접근성-확보">PEP 688 – Python에서 버퍼 프로토콜 접근성 확보</a><ul><li><a href="#초록-abstract">초록 (Abstract)</a></li><li><a href="#동기-motivation">동기 (Motivation)</a></li><li><a href="#합리적-근거-rationale">합리적 근거 (Rationale)</a><ul><li><a href="#현재의-대안-current-options">현재의 대안 (Current options)</a></li><li><a href="#버퍼의-종류-kinds-of-buffers">버퍼의 종류 (Kinds of buffers)</a></li></ul></li><li><a href="#명세-specification">명세 (Specification)</a><ul><li><a href="#python-레벨-버퍼-프로토콜-python-level-buffer-protocol">Python 레벨 버퍼 프로토콜 (Python-level buffer protocol)</a></li><li><a href="#inspectbufferflags">inspect.BufferFlags</a></li><li><a href="#collectionsabcbuffer">collections.abc.Buffer</a></li><li><a href="#bytes에-대한-특별한-의미-제거-no-special-meaning-for-bytes">bytes에 대한 특별한 의미 제거 (No special meaning for bytes)</a></li></ul></li><li><a href="#하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</a><ul><li><a href="#__buffer__-및-__release_buffer__-속성">__buffer__ 및 __release_buffer__ 속성</a></li><li><a href="#bytes-특별-사례-제거">bytes 특별 사례 제거</a></li></ul></li><li><a href="#교육-방법-how-to-teach-this">교육 방법 (How to Teach This)</a></li><li><a href="#채택되지-않은-아이디어-rejected-ideas">채택되지 않은 아이디어 (Rejected Ideas)</a><ul><li><a href="#typesbuffer">types.Buffer</a></li><li><a href="#bytearray를-bytes와-호환되게-유지-keep-bytearray-compatible-with-bytes">bytearray를 bytes와 호환되게 유지 (Keep bytearray compatible with bytes)</a></li><li><a href="#가변-버퍼와-불변-버퍼-구분-distinguish-between-mutable-and-immutable-buffers">가변 버퍼와 불변 버퍼 구분 (Distinguish between mutable and immutable buffers)</a></li></ul></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0688/">PEP 688 - Making the buffer protocol accessible in Python</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 23-Apr-2022</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h2 id="pep-688--python에서-버퍼-프로토콜-접근성-확보">PEP 688 – Python에서 버퍼 프로토콜 접근성 확보</h2>
+
+<h3 id="초록-abstract">초록 (Abstract)</h3>
+<p>이 PEP는 현재 C 코드에서만 접근 가능한 버퍼 프로토콜(buffer protocol)에 대해 Python 레벨 API를 제안합니다. 이를 통해 타입 체커(type checker)가 객체가 프로토콜을 구현하는지 여부를 평가할 수 있게 됩니다.</p>
+
+<h3 id="동기-motivation">동기 (Motivation)</h3>
+<p>CPython C API는 객체의 기본 메모리에 접근하기 위한 다용도 메커니즘인 버퍼 프로토콜을 제공합니다. 이 프로토콜은 PEP 3118에서 도입되었으며, 이진 데이터를 받아들이는 함수는 일반적으로 버퍼 프로토콜을 구현하는 모든 객체를 처리하도록 작성됩니다. 현재 Python 코드에서는 객체가 버퍼 프로토콜을 지원하는지 여부를 검사할 방법이 없습니다. 또한, 정적 타입 시스템(static type system)은 이 프로토콜을 나타내는 타입 어노테이션(type annotation)을 제공하지 않아, 제네릭 버퍼를 허용하는 코드의 타입 어노테이션을 작성할 때 문제가 발생했습니다.</p>
+
+<p>유사하게, Python으로 작성된 클래스가 버퍼 프로토콜을 지원하는 것은 불가능했습니다. Python에서 버퍼 클래스를 만들 수 있다면 사용자는 C 버퍼 객체를 쉽게 래핑(wrap)하거나, 버퍼 프로토콜을 사용하는 API의 동작을 테스트할 수 있을 것입니다.</p>
+
+<h3 id="합리적-근거-rationale">합리적 근거 (Rationale)</h3>
+
+<h4 id="현재의-대안-current-options">현재의 대안 (Current options)</h4>
+<p>타입 시스템에서 버퍼 타입을 어노테이션하기 위한 두 가지 알려진 방법이 있었지만, 둘 다 적절하지 않았습니다.</p>
+<ol>
+  <li><strong>typeshed의 타입 별칭(type alias):</strong> <code class="language-plaintext highlighter-rouge">bytes</code>, <code class="language-plaintext highlighter-rouge">bytearray</code>, <code class="language-plaintext highlighter-rouge">memoryview</code>, <code class="language-plaintext highlighter-rouge">array.array</code>와 같은 표준 라이브러리의 잘 알려진 버퍼 타입을 나열하는 방식입니다. 이 방법은 표준 라이브러리에는 작동하지만, 서드 파티 버퍼 타입에는 적용되지 않습니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">typing.ByteString</code> 문서:</strong> <code class="language-plaintext highlighter-rouge">bytes</code>를 <code class="language-plaintext highlighter-rouge">bytes</code>, <code class="language-plaintext highlighter-rouge">bytearray</code>, <code class="language-plaintext highlighter-rouge">memoryview</code> 타입의 시퀀스를 나타내는 약어로 사용할 수 있다고 명시되어 있습니다. 그러나 이 사용법은 어떤 타이핑 PEP에서도 명시되지 않았고, 모든 가능한 버퍼 타입을 포함하지 않으며, 타입 어노테이션에서 <code class="language-plaintext highlighter-rouge">bytes</code> 타입을 모호하게 만듭니다. 예를 들어, <code class="language-plaintext highlighter-rouge">bytes</code> 객체에는 유효하지만 <code class="language-plaintext highlighter-rouge">memoryview</code> 객체에는 유효하지 않은 많은 연산이 있으며, 함수가 <code class="language-plaintext highlighter-rouge">bytes</code>는 허용하지만 <code class="language-plaintext highlighter-rouge">memoryview</code>는 허용하지 않는 경우가 있을 수 있습니다.</li>
+</ol>
+
+<h4 id="버퍼의-종류-kinds-of-buffers">버퍼의 종류 (Kinds of buffers)</h4>
+<p>C 버퍼 프로토콜은 스트라이드(stride), 연속성(contiguity), 쓰기 지원 등 여러 옵션을 지원합니다. 이 중 일부는 타입 시스템에서 유용할 수 있지만, C 버퍼 프로토콜에서는 대부분의 옵션을 타입 객체에서 직접 쿼리할 수 없습니다. 특정 플래그를 지원하는지 여부를 파악하는 유일한 방법은 실제로 버퍼를 요청하는 것이며, <code class="language-plaintext highlighter-rouge">memoryview</code>와 같은 일부 타입의 경우 지원되는 플래그가 인스턴스에 따라 달라집니다. 결과적으로 타입 시스템에서 이러한 플래그 지원을 표현하기는 어렵습니다.</p>
+
+<h3 id="명세-specification">명세 (Specification)</h3>
+
+<h4 id="python-레벨-버퍼-프로토콜-python-level-buffer-protocol">Python 레벨 버퍼 프로토콜 (Python-level buffer protocol)</h4>
+<p>PEP 688은 <code class="language-plaintext highlighter-rouge">__buffer__</code>와 <code class="language-plaintext highlighter-rouge">__release_buffer__</code>라는 두 가지 Python 레벨 특수 메서드를 추가할 것을 제안합니다. 이 메서드를 구현하는 Python 클래스는 C 코드에서 버퍼로 사용될 수 있으며, 반대로 C로 구현된 버퍼 프로토콜을 지원하는 클래스는 Python 코드에서 접근 가능한 합성 메서드(synthesized methods)를 얻게 됩니다.</p>
+
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">__buffer__(self, flags: int, /) -&gt; memoryview</code></strong>: 이 메서드는 <code class="language-plaintext highlighter-rouge">memoryview()</code> 생성자와 같이 Python 객체에서 버퍼를 생성하기 위해 호출됩니다. C의 <code class="language-plaintext highlighter-rouge">bf_getbuffer</code> 슬롯에 해당하며, <code class="language-plaintext highlighter-rouge">memoryview</code> 객체를 반환해야 합니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">__release_buffer__(self, buffer: memoryview, /) -&gt; None</code></strong>: 이 메서드는 <code class="language-plaintext highlighter-rouge">__buffer__</code>에 의해 반환된 버퍼가 더 이상 필요 없을 때 호출되어야 합니다. C의 <code class="language-plaintext highlighter-rouge">bf_releasebuffer</code> 슬롯에 해당하며, 버퍼 프로토콜의 선택적 부분입니다. <code class="language-plaintext highlighter-rouge">__buffer__</code>를 직접 호출하는 Python 코드는 버퍼 사용이 끝나면 동일한 객체에 대해 <code class="language-plaintext highlighter-rouge">__release_buffer__</code>를 호출해야 합니다.</li>
+</ul>
+
+<h4 id="inspectbufferflags"><code class="language-plaintext highlighter-rouge">inspect.BufferFlags</code></h4>
+<p><code class="language-plaintext highlighter-rouge">__buffer__</code> 구현을 돕기 위해 <code class="language-plaintext highlighter-rouge">enum.IntFlag</code>의 서브클래스인 <code class="language-plaintext highlighter-rouge">inspect.BufferFlags</code>가 추가됩니다. 이 열거형(enum)은 C 버퍼 프로토콜에 정의된 모든 플래그를 포함합니다.</p>
+
+<h4 id="collectionsabcbuffer"><code class="language-plaintext highlighter-rouge">collections.abc.Buffer</code></h4>
+<p>새로운 추상 베이스 클래스(Abstract Base Class, ABC)인 <code class="language-plaintext highlighter-rouge">collections.abc.Buffer</code>가 추가되며, 이는 <code class="language-plaintext highlighter-rouge">__buffer__</code> 메서드를 요구합니다. 이 클래스는 주로 타입 어노테이션에 사용됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">collections.abc</span> <span class="kn">import</span> <span class="n">Buffer</span>
+
+<span class="k">def</span> <span class="nf">need_buffer</span><span class="p">(</span><span class="n">b</span><span class="p">:</span> <span class="n">Buffer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">memoryview</span><span class="p">:</span>
+    <span class="k">return</span> <span class="nf">memoryview</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+
+<span class="nf">need_buffer</span><span class="p">(</span><span class="sa">b</span><span class="sh">"</span><span class="s">xy</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># ok
+</span><span class="nf">need_buffer</span><span class="p">(</span><span class="sh">"</span><span class="s">xy</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># 정적 타입 체커에 의해 거부됨 (rejected by static type checkers)
+</span></code></pre></div></div>
+<p>또한, <code class="language-plaintext highlighter-rouge">isinstance</code> 및 <code class="language-plaintext highlighter-rouge">issubclass</code> 검사에도 사용할 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">collections.abc</span> <span class="kn">import</span> <span class="n">Buffer</span>
+<span class="nf">isinstance</span><span class="p">(</span><span class="sa">b</span><span class="sh">"</span><span class="s">xy</span><span class="sh">"</span><span class="p">,</span> <span class="n">Buffer</span><span class="p">)</span> <span class="c1"># True
+</span><span class="nf">issubclass</span><span class="p">(</span><span class="nb">bytes</span><span class="p">,</span> <span class="n">Buffer</span><span class="p">)</span> <span class="c1"># True
+</span><span class="nf">issubclass</span><span class="p">(</span><span class="nb">memoryview</span><span class="p">,</span> <span class="n">Buffer</span><span class="p">)</span> <span class="c1"># True
+</span><span class="nf">isinstance</span><span class="p">(</span><span class="sh">"</span><span class="s">xy</span><span class="sh">"</span><span class="p">,</span> <span class="n">Buffer</span><span class="p">)</span> <span class="c1"># False
+</span><span class="nf">issubclass</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Buffer</span><span class="p">)</span> <span class="c1"># False
+</span></code></pre></div></div>
+
+<h4 id="bytes에-대한-특별한-의미-제거-no-special-meaning-for-bytes"><code class="language-plaintext highlighter-rouge">bytes</code>에 대한 특별한 의미 제거 (No special meaning for bytes)</h4>
+<p><code class="language-plaintext highlighter-rouge">bytes</code>가 다른 <code class="language-plaintext highlighter-rouge">ByteString</code> 타입의 약어로 사용될 수 있다는 특별한 경우는 타이핑 문서에서 제거될 것입니다. <code class="language-plaintext highlighter-rouge">collections.abc.Buffer</code>가 대안으로 제공됨에 따라 <code class="language-plaintext highlighter-rouge">bytes</code>를 약어로 허용할 정당한 이유가 없어집니다.</p>
+
+<h3 id="하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</h3>
+
+<h4 id="__buffer__-및-__release_buffer__-속성"><code class="language-plaintext highlighter-rouge">__buffer__</code> 및 <code class="language-plaintext highlighter-rouge">__release_buffer__</code> 속성</h4>
+<p>이 PEP의 런타임 변경 사항은 새로운 기능만 추가하므로 하위 호환성 문제는 거의 없습니다. 그러나 다른 목적으로 <code class="language-plaintext highlighter-rouge">__buffer__</code> 또는 <code class="language-plaintext highlighter-rouge">__release_buffer__</code> 속성을 사용하는 코드는 영향을 받을 수 있습니다. 조사 결과, 이 PEP의 <code class="language-plaintext highlighter-rouge">__buffer__</code> 메서드 사용은 PyPy와의 상호 운용성을 개선하고 주요 Python 패키지의 현재 버전에 영향을 미치지 않을 것입니다. <code class="language-plaintext highlighter-rouge">__release_buffer__</code>라는 이름은 공개적으로 접근 가능한 코드에서 사용되지 않습니다.</p>
+
+<h4 id="bytes-특별-사례-제거"><code class="language-plaintext highlighter-rouge">bytes</code> 특별 사례 제거</h4>
+<p>타입 체커에서 <code class="language-plaintext highlighter-rouge">bytes</code>의 특별한 동작을 제거하라는 권고는 사용자에게 하위 호환성 영향을 미칩니다. <code class="language-plaintext highlighter-rouge">mypy</code>를 사용한 실험에 따르면, <code class="language-plaintext highlighter-rouge">bytes</code> 승격(promotion)이 제거될 경우 타입 검사에 사용하는 여러 주요 오픈 소스 프로젝트에서 새로운 오류가 발생할 것입니다. 이러한 오류 중 상당수는 <code class="language-plaintext highlighter-rouge">typeshed</code>의 스텁(stub) 파일을 개선하여 수정할 수 있습니다. 전반적으로 이 변경은 타입 안정성을 향상시키고 타입 시스템을 더 일관성 있게 만듭니다.</p>
+
+<h3 id="교육-방법-how-to-teach-this">교육 방법 (How to Teach This)</h3>
+<p><code class="language-plaintext highlighter-rouge">typing.python.org</code> 및 <code class="language-plaintext highlighter-rouge">mypy</code> 치트 시트(cheat sheet)와 같은 문서의 적절한 위치에 <code class="language-plaintext highlighter-rouge">collections.abc.Buffer</code>를 가리키는 설명을 추가할 것입니다. 타입 체커는 오류 메시지에 추가적인 지침을 제공할 수 있습니다. 예를 들어, 버퍼 객체가 <code class="language-plaintext highlighter-rouge">bytes</code>만 허용하도록 어노테이션된 함수에 전달될 때, 오류 메시지는 <code class="language-plaintext highlighter-rouge">collections.abc.Buffer</code> 사용을 제안하는 설명을 포함할 수 있습니다.</p>
+
+<h3 id="채택되지-않은-아이디어-rejected-ideas">채택되지 않은 아이디어 (Rejected Ideas)</h3>
+
+<h4 id="typesbuffer"><code class="language-plaintext highlighter-rouge">types.Buffer</code></h4>
+<p>이전 버전의 PEP에서는 <code class="language-plaintext highlighter-rouge">__instancecheck__</code>가 C로 구현된 새로운 <code class="language-plaintext highlighter-rouge">types.Buffer</code> 타입을 추가하여 <code class="language-plaintext highlighter-rouge">isinstance()</code> 검사를 통해 타입이 버퍼 프로토콜을 구현하는지 확인할 수 있도록 제안했습니다. 그러나 이 접근 방식은 <code class="language-plaintext highlighter-rouge">types.Buffer</code>가 명목(nominal) 타입이지 구조(structural) 타입이 아니므로 나머지 타입 시스템과 잘 통합되지 않습니다. 예를 들어, “버퍼 프로토콜과 <code class="language-plaintext highlighter-rouge">__len__</code>을 모두 지원하는 객체”를 표현할 방법이 없었습니다. 현재 제안은 <code class="language-plaintext highlighter-rouge">__buffer__</code>가 다른 특수 메서드와 동일하게 작동하므로, <code class="language-plaintext highlighter-rouge">Protocol</code>을 사용하여 다른 메서드와 결합할 수 있습니다.</p>
+
+<h4 id="bytearray를-bytes와-호환되게-유지-keep-bytearray-compatible-with-bytes"><code class="language-plaintext highlighter-rouge">bytearray</code>를 <code class="language-plaintext highlighter-rouge">bytes</code>와 호환되게 유지 (Keep bytearray compatible with bytes)</h4>
+<p><code class="language-plaintext highlighter-rouge">memoryview</code>가 항상 <code class="language-plaintext highlighter-rouge">bytes</code>와 호환되도록 하는 특별한 경우는 제거하고 <code class="language-plaintext highlighter-rouge">bytearray</code>의 경우는 유지하자는 제안이 있었습니다. 그러나 여러 표준 라이브러리 함수(예: <code class="language-plaintext highlighter-rouge">re.compile</code>, <code class="language-plaintext highlighter-rouge">socket.getaddrinfo</code>)는 <code class="language-plaintext highlighter-rouge">bytes</code>는 허용하지만 <code class="language-plaintext highlighter-rouge">bytearray</code>는 허용하지 않습니다. 대부분의 코드베이스에서 <code class="language-plaintext highlighter-rouge">bytearray</code>는 흔한 타입이 아니며, PEP 688은 사용자가 허용되는 타입을 명시적으로 지정하거나(<code class="language-plaintext highlighter-rouge">PEP 544</code>의 <code class="language-plaintext highlighter-rouge">Protocol</code> 사용) 선호합니다.</p>
+
+<h4 id="가변-버퍼와-불변-버퍼-구분-distinguish-between-mutable-and-immutable-buffers">가변 버퍼와 불변 버퍼 구분 (Distinguish between mutable and immutable buffers)</h4>
+<p>버퍼 타입 내에서 가장 자주 사용되는 구분은 버퍼의 가변성(mutability) 여부입니다. 일부 함수는 가변 버퍼만 허용하고, 다른 함수는 모든 버퍼를 허용합니다. 이전 버전의 PEP는 <code class="language-plaintext highlighter-rouge">bf_releasebuffer</code> 슬롯의 존재 여부를 사용하여 버퍼 타입이 가변인지 여부를 결정할 것을 제안했지만, 이 규칙은 대부분의 표준 라이브러리 버퍼 타입에는 적용되지만 절대적이지는 않습니다. (예: NumPy 배열은 가변이지만 이 슬롯이 없음) 현재 버퍼 프로토콜은 버퍼 타입이 가변 또는 불변 버퍼를 나타내는지 여부를 안정적으로 판단할 방법을 제공하지 않으므로, 이 PEP는 이 구분에 대한 타입 시스템 지원을 추가하지 않습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/687/" class="pagination--pager" title="[Accepted] PEP 687 - Isolating modules in the standard library
+">Previous</a>
+    
+    
+      <a href="/python/pep/689/" class="pagination--pager" title="[Final] PEP 689 - Unstable C API tier
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

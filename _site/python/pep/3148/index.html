@@ -1,0 +1,736 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 3148 - futures - execute computations asynchronously | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 3148: ‘futures - execute computations asynchronously’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 3148 - futures - execute computations asynchronously">
+<meta property="og:url" content="http://localhost:4000/python/pep/3148/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 3148: ‘futures - execute computations asynchronously’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T14:39:26+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T14:39:26+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/3148/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 3148 - futures - execute computations asynchronously">
+    <meta itemprop="description" content="Python Enhancement Proposal 3148: ‘futures - execute computations asynchronously’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T14:39:26+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T14:39:26+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 3148 - futures - execute computations asynchronously
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T14:39:26+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#도입-배경-motivation">도입 배경 (Motivation)</a></li><li><a href="#사양-specification">사양 (Specification)</a><ul><li><a href="#명명-naming">명명 (Naming)</a></li><li><a href="#인터페이스-interface">인터페이스 (Interface)</a><ul><li><a href="#executor">Executor</a></li><li><a href="#processpoolexecutor">ProcessPoolExecutor</a></li><li><a href="#threadpoolexecutor">ThreadPoolExecutor</a></li><li><a href="#future-객체-future-objects">Future 객체 (Future Objects)</a></li><li><a href="#내부-future-메서드-internal-future-methods">내부 Future 메서드 (Internal Future Methods)</a></li><li><a href="#모듈-함수-module-functions">모듈 함수 (Module Functions)</a></li></ul></li><li><a href="#예시">예시</a></li></ul></li><li><a href="#설계-근거-rationale">설계 근거 (Rationale)</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-3148/">PEP 3148 - futures - execute computations asynchronously</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 16-Oct-2009</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>PEP 3148 – futures - 비동기 연산 실행</p>
+
+<h2 id="개요-abstract">개요 (Abstract)</h2>
+
+<p>이 PEP는 스레드와 프로세스를 활용하여 호출 가능한(callable) 객체의 연산을 용이하게 하는 패키지 설계를 제안합니다. 이 패키지는 비동기 연산을 추상화하여 개발자가 병렬 처리 로직을 직접 관리하는 복잡성을 줄이고, 더 쉽고 효율적인 동시성 프로그래밍을 가능하게 합니다.</p>
+
+<h2 id="도입-배경-motivation">도입 배경 (Motivation)</h2>
+
+<p>Python은 현재 멀티스레드 및 멀티프로세스 애플리케이션을 구축하기 위한 강력한 기본 요소를 제공하지만, 단순한 작업을 병렬화하는 것은 많은 노력을 필요로 합니다. 예를 들어, 명시적으로 프로세스/스레드를 시작하고, 작업/결과 큐를 구성하며, 완료 또는 기타 종료 조건(예: 실패, 타임아웃)을 기다리는 과정이 복잡합니다. 또한, 각 구성 요소가 자체 병렬 실행 전략을 사용할 경우, 전역 프로세스/스레드 제한을 가진 애플리케이션을 설계하는 것이 어렵습니다. <code class="language-plaintext highlighter-rouge">futures</code> 패키지는 이러한 복잡성을 추상화하여 개발자가 더 쉽게 병렬 연산을 수행할 수 있도록 돕습니다.</p>
+
+<h2 id="사양-specification">사양 (Specification)</h2>
+
+<h3 id="명명-naming">명명 (Naming)</h3>
+
+<p>제안된 패키지는 “futures”라고 불리며 새로운 최상위 패키지인 “concurrent” 안에 위치합니다. “concurrent” 네임스페이스에 포함시키는 이유는 다음과 같습니다:</p>
+<ol>
+  <li>기존의 <code class="language-plaintext highlighter-rouge">from __future__ import x</code> 구문과의 혼동을 방지합니다.</li>
+  <li>라이브러리가 동시성(concurrency)과 관련이 있음을 명확하게 나타냅니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">multiprocessing.Pool</code> 작업과 같이 기존의 동시성 관련 라이브러리들을 미래에 이 네임스페이스로 이동하거나 추가할 수 있는 기반을 마련합니다.</li>
+</ol>
+
+<h3 id="인터페이스-interface">인터페이스 (Interface)</h3>
+
+<p>제안된 패키지는 두 가지 핵심 클래스인 <code class="language-plaintext highlighter-rouge">Executor</code>와 <code class="language-plaintext highlighter-rouge">Future</code>를 제공합니다. <code class="language-plaintext highlighter-rouge">Executor</code>는 호출 가능한 객체와 인수를 받아 비동기 작업 요청을 처리하고, 해당 작업의 실행을 나타내는 <code class="language-plaintext highlighter-rouge">Future</code> 객체를 반환합니다.</p>
+
+<h4 id="executor">Executor</h4>
+
+<p><code class="language-plaintext highlighter-rouge">Executor</code>는 비동기적으로 호출을 실행하는 메서드를 제공하는 추상 클래스입니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">submit(fn, *args, **kwargs)</code>: <code class="language-plaintext highlighter-rouge">fn(*args, **kwargs)</code>로 실행될 호출 가능 객체를 스케줄링하고, 해당 호출의 실행을 나타내는 <code class="language-plaintext highlighter-rouge">Future</code> 인스턴스를 반환합니다. 이 메서드는 <code class="language-plaintext highlighter-rouge">Executor</code> 서브클래스에서 구현되어야 하는 추상 메서드입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">map(func, *iterables, timeout=None)</code>: <code class="language-plaintext highlighter-rouge">map(func, *iterables)</code>와 유사하지만, <code class="language-plaintext highlighter-rouge">func</code>가 비동기적으로 실행되며 여러 <code class="language-plaintext highlighter-rouge">func</code> 호출이 동시에 이루어질 수 있습니다. 반환된 이터레이터는 <code class="language-plaintext highlighter-rouge">__next__()</code>가 호출되었을 때 <code class="language-plaintext highlighter-rouge">map()</code>에 대한 원래 호출로부터 <code class="language-plaintext highlighter-rouge">timeout</code> 초 후에 결과가 사용 가능하지 않으면 <code class="language-plaintext highlighter-rouge">TimeoutError</code>를 발생시킵니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">shutdown(wait=True)</code>: 현재 보류 중인 퓨처들의 실행이 완료되면 사용 중인 리소스를 해제해야 함을 Executor에 알립니다. <code class="language-plaintext highlighter-rouge">shutdown</code> 이후의 <code class="language-plaintext highlighter-rouge">Executor.submit</code> 및 <code class="language-plaintext highlighter-rouge">Executor.map</code> 호출은 <code class="language-plaintext highlighter-rouge">RuntimeError</code>를 발생시킵니다. <code class="language-plaintext highlighter-rouge">wait</code>가 <code class="language-plaintext highlighter-rouge">True</code>이면 모든 보류 중인 퓨처가 실행을 마치고 관련 리소스가 해제될 때까지 이 메서드는 반환되지 않습니다. <code class="language-plaintext highlighter-rouge">wait</code>가 <code class="language-plaintext highlighter-rouge">False</code>이면 즉시 반환되며, 리소스는 모든 퓨처가 완료된 후에 해제됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">__enter__()</code>, <code class="language-plaintext highlighter-rouge">__exit__(exc_type, exc_val, exc_tb)</code>: 컨텍스트 매니저로 <code class="language-plaintext highlighter-rouge">Executor</code>를 사용할 때, <code class="language-plaintext highlighter-rouge">__exit__</code>는 <code class="language-plaintext highlighter-rouge">Executor.shutdown(wait=True)</code>를 호출합니다.</li>
+</ul>
+
+<h4 id="processpoolexecutor">ProcessPoolExecutor</h4>
+
+<p><code class="language-plaintext highlighter-rouge">ProcessPoolExecutor</code> 클래스는 프로세스 풀을 사용하여 호출을 비동기적으로 실행하는 <code class="language-plaintext highlighter-rouge">Executor</code> 서브클래스입니다. <code class="language-plaintext highlighter-rouge">ProcessPoolExecutor.submit</code>에 전달되는 호출 가능한 객체와 인수는 <code class="language-plaintext highlighter-rouge">multiprocessing</code> 모듈과 동일한 제약 조건에 따라 <code class="language-plaintext highlighter-rouge">pickle</code> 가능해야 합니다. <code class="language-plaintext highlighter-rouge">ProcessPoolExecutor</code>에 제출된 호출 가능 객체 내에서 <code class="language-plaintext highlighter-rouge">Executor</code> 또는 <code class="language-plaintext highlighter-rouge">Future</code> 메서드를 호출하면 교착 상태(deadlock)가 발생할 수 있습니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">__init__(max_workers)</code>: 최대 <code class="language-plaintext highlighter-rouge">max_workers</code> 수의 프로세스 풀을 사용하여 호출을 비동기적으로 실행합니다. <code class="language-plaintext highlighter-rouge">max_workers</code>가 <code class="language-plaintext highlighter-rouge">None</code>이거나 제공되지 않으면 머신이 가진 프로세서 수만큼 워커 프로세스가 생성됩니다.</li>
+</ul>
+
+<h4 id="threadpoolexecutor">ThreadPoolExecutor</h4>
+
+<p><code class="language-plaintext highlighter-rouge">ThreadPoolExecutor</code> 클래스는 스레드 풀을 사용하여 호출을 비동기적으로 실행하는 <code class="language-plaintext highlighter-rouge">Executor</code> 서브클래스입니다. <code class="language-plaintext highlighter-rouge">Future</code>와 관련된 호출 가능 객체가 다른 <code class="language-plaintext highlighter-rouge">Future</code>의 결과를 기다릴 때 교착 상태가 발생할 수 있습니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">__init__(max_workers)</code>: 최대 <code class="language-plaintext highlighter-rouge">max_workers</code> 수의 스레드 풀을 사용하여 호출을 비동기적으로 실행합니다.</li>
+</ul>
+
+<h4 id="future-객체-future-objects">Future 객체 (Future Objects)</h4>
+
+<p><code class="language-plaintext highlighter-rouge">Future</code> 클래스는 호출 가능 객체의 비동기 실행을 캡슐화합니다. <code class="language-plaintext highlighter-rouge">Future</code> 인스턴스는 <code class="language-plaintext highlighter-rouge">Executor.submit</code>에 의해 반환됩니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">cancel()</code>: 호출을 취소하려고 시도합니다. 호출이 현재 실행 중인 경우 취소할 수 없으며 <code class="language-plaintext highlighter-rouge">False</code>를 반환하고, 그렇지 않으면 호출이 취소되고 <code class="language-plaintext highlighter-rouge">True</code>를 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">cancelled()</code>: 호출이 성공적으로 취소되었으면 <code class="language-plaintext highlighter-rouge">True</code>를 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">running()</code>: 호출이 현재 실행 중이며 취소할 수 없으면 <code class="language-plaintext highlighter-rouge">True</code>를 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">done()</code>: 호출이 성공적으로 취소되었거나 실행이 완료되었으면 <code class="language-plaintext highlighter-rouge">True</code>를 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">result(timeout=None)</code>: 호출에 의해 반환된 값을 반환합니다. 호출이 아직 완료되지 않은 경우 이 메서드는 <code class="language-plaintext highlighter-rouge">timeout</code> 초까지 기다립니다. <code class="language-plaintext highlighter-rouge">timeout</code> 내에 완료되지 않으면 <code class="language-plaintext highlighter-rouge">TimeoutError</code>가 발생합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">exception(timeout=None)</code>: 호출에 의해 발생된 예외를 반환합니다. <code class="language-plaintext highlighter-rouge">result</code>와 유사하게 동작하며, 호출이 예외를 발생시키지 않고 완료되면 <code class="language-plaintext highlighter-rouge">None</code>을 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">add_done_callback(fn)</code>: 퓨처가 취소되거나 실행을 마쳤을 때 호출될 <code class="language-plaintext highlighter-rouge">fn</code>을 퓨처에 연결합니다. <code class="language-plaintext highlighter-rouge">fn</code>은 퓨처를 유일한 인수로 받아 호출됩니다.</li>
+</ul>
+
+<h4 id="내부-future-메서드-internal-future-methods">내부 Future 메서드 (Internal Future Methods)</h4>
+
+<p>다음 <code class="language-plaintext highlighter-rouge">Future</code> 메서드들은 단위 테스트 및 <code class="language-plaintext highlighter-rouge">Executor</code> 구현에서 사용하기 위한 것입니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">set_running_or_notify_cancel()</code>: <code class="language-plaintext highlighter-rouge">Future</code>와 관련된 작업을 실행하기 전에 <code class="language-plaintext highlighter-rouge">Executor</code> 구현에서 호출해야 합니다. <code class="language-plaintext highlighter-rouge">False</code>를 반환하면 <code class="language-plaintext highlighter-rouge">Future</code>가 취소되었음을 의미하며, <code class="language-plaintext highlighter-rouge">True</code>를 반환하면 <code class="language-plaintext highlighter-rouge">Future</code>가 취소되지 않고 실행 중 상태로 전환되었음을 의미합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">set_result(result)</code>: <code class="language-plaintext highlighter-rouge">Future</code>와 관련된 작업의 결과를 설정합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">set_exception(exception)</code>: <code class="language-plaintext highlighter-rouge">Future</code>와 관련된 작업의 결과를 주어진 <code class="language-plaintext highlighter-rouge">Exception</code>으로 설정합니다.</li>
+</ul>
+
+<h4 id="모듈-함수-module-functions">모듈 함수 (Module Functions)</h4>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">wait(fs, timeout=None, return_when=ALL_COMPLETED)</code>: <code class="language-plaintext highlighter-rouge">fs</code>에 주어진 <code class="language-plaintext highlighter-rouge">Future</code> 인스턴스들이 완료되기를 기다립니다. 완료된 퓨처를 담는 “done” 세트와 미완료된 퓨처를 담는 “not_done” 세트의 명명된 2-튜플을 반환합니다. <code class="language-plaintext highlighter-rouge">return_when</code> 인수는 메서드가 언제 반환될지 지정합니다 (<code class="language-plaintext highlighter-rouge">FIRST_COMPLETED</code>, <code class="language-plaintext highlighter-rouge">FIRST_EXCEPTION</code>, <code class="language-plaintext highlighter-rouge">ALL_COMPLETED</code>).</li>
+  <li><code class="language-plaintext highlighter-rouge">as_completed(fs, timeout=None)</code>: <code class="language-plaintext highlighter-rouge">fs</code>에 주어진 <code class="language-plaintext highlighter-rouge">Future</code> 인스턴스들이 완료(완료되거나 취소됨)될 때마다 해당 퓨처를 반환하는 이터레이터를 제공합니다.</li>
+</ul>
+
+<h3 id="예시">예시</h3>
+
+<p>PEP는 <code class="language-plaintext highlighter-rouge">ProcessPoolExecutor</code>를 사용하여 소수(prime number)를 확인하는 예시와 <code class="language-plaintext highlighter-rouge">ThreadPoolExecutor</code>를 사용하여 웹 페이지를 크롤링하는 예시를 제공합니다. 이 예시들은 <code class="language-plaintext highlighter-rouge">concurrent.futures</code> 모듈이 복잡한 동시성 로직 없이 어떻게 병렬 작업을 쉽게 처리할 수 있는지 보여줍니다.</p>
+
+<h2 id="설계-근거-rationale">설계 근거 (Rationale)</h2>
+
+<p>이 모듈의 제안된 설계는 Java의 <code class="language-plaintext highlighter-rouge">java.util.concurrent</code> 패키지에 크게 영향을 받았습니다. Java와 마찬가지로 이 모듈의 개념적 기반은 비동기 연산의 진행 상황과 결과를 나타내는 <code class="language-plaintext highlighter-rouge">Future</code> 클래스입니다. <code class="language-plaintext highlighter-rouge">Future</code> 클래스는 스레드, 프로세스 또는 원격 프로시저 호출을 사용한 평가에 사용될 수 있습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Future</code> 객체는 <code class="language-plaintext highlighter-rouge">Executor</code> 클래스의 구체적인 구현체에 의해 생성됩니다. 참조 구현은 프로세스 또는 스레드 풀을 사용하여 연산을 적극적으로 평가하는 클래스를 제공합니다.</p>
+
+<p>이 제안은 Python 언어 구문이나 의미에 어떤 변경도 도입하지 않습니다. PEP 3148에 대한 논의를 통해 <code class="language-plaintext highlighter-rouge">Executor</code> 클래스는 추상 기본 클래스로 만들어졌고, <code class="language-plaintext highlighter-rouge">Future.remove_done_callback</code> 메서드는 사용 사례 부족으로 제거되었으며, <code class="language-plaintext highlighter-rouge">Future.add_done_callback</code> 메서드는 동일한 호출 가능 객체를 여러 번 추가할 수 있도록 수정되었습니다. 또한, <code class="language-plaintext highlighter-rouge">Future</code> 클래스의 변경 메서드는 해당 퓨처를 생성한 <code class="language-plaintext highlighter-rouge">Executor</code>에만 비공개임을 나타내기 위해 문서화가 개선되었습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/3147/" class="pagination--pager" title="[Final] PEP 3147 - PYC Repository Directories
+">Previous</a>
+    
+    
+      <a href="/python/pep/3149/" class="pagination--pager" title="[Final] PEP 3149 - ABI version tagged .so files
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

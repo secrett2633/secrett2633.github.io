@@ -1,0 +1,753 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Withdrawn] PEP 242 - Numeric Kinds | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 242: ‘Numeric Kinds’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Withdrawn] PEP 242 - Numeric Kinds">
+<meta property="og:url" content="http://localhost:4000/python/pep/242/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 242: ‘Numeric Kinds’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T17:13:00+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T17:13:00+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/242/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Withdrawn] PEP 242 - Numeric Kinds">
+    <meta itemprop="description" content="Python Enhancement Proposal 242: ‘Numeric Kinds’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T17:13:00+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T17:13:00+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Withdrawn] PEP 242 - Numeric Kinds
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T17:13:00+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-242--숫자-종류-numeric-kinds">PEP 242 – 숫자 종류 (Numeric Kinds)</a><ul><li><a href="#요약-abstract">요약 (Abstract)</a></li><li><a href="#배경-rationale">배경 (Rationale)</a></li><li><a href="#지원되는-정수-및-부동-소수점-종류-supported-kinds-of-ints-and-floats">지원되는 정수 및 부동 소수점 종류 (Supported Kinds of Ints and Floats)</a></li><li><a href="#종류-객체-kind-objects">종류 객체 (Kind Objects)</a></li><li><a href="#kinds-모듈의-속성-attributes-of-module-kinds">kinds 모듈의 속성 (Attributes of Module kinds)</a></li><li><a href="#복소수-complex-numbers">복소수 (Complex Numbers)</a></li><li><a href="#예시-examples">예시 (Examples)</a></li><li><a href="#철회됨-withdrawn">철회됨 (Withdrawn)</a></li><li><a href="#공개된-문제-open-issues">공개된 문제 (Open Issues)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0242/">PEP 242 - Numeric Kinds</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Withdrawn</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 17-Mar-2001</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-242--숫자-종류-numeric-kinds">PEP 242 – 숫자 종류 (Numeric Kinds)</h1>
+
+<h2 id="요약-abstract">요약 (Abstract)</h2>
+<p>이 제안은 사용자가 숫자 연산의 정밀도(precision)와 범위(range)를 선택적으로 제어할 수 있도록 하여, 한 번 작성된 코드가 원하는 최소한의 정밀도와 범위를 보장하면서 어떤 환경에서든 실행될 수 있도록 합니다. 이 제안은 기존 코드와 하위 호환성을 유지하며, 십진수 리터럴(decimal literals)의 의미를 명확히 합니다.</p>
+
+<h2 id="배경-rationale">배경 (Rationale)</h2>
+<p>현재 Fortran 90을 제외한 모든 언어에서는 부동 소수점(floating point)을 사용하는 프로그램을 이식성(portability) 있게 작성하여 플랫폼에 관계없이 거의 동일한 결과를 얻거나, 불가능할 경우 컴파일 오류를 발생시키도록 하는 것이 불가능합니다. Python은 현재 C 구현에서 C의 <code class="language-plaintext highlighter-rouge">double</code>과 동일한 단일 부동 소수점 타입만 가지고 있습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">single</code> 또는 <code class="language-plaintext highlighter-rouge">quad</code> float에 해당하는 타입은 존재하지 않습니다. 이러한 타입을 직접 도입하려 하면 언어가 복잡해지고, 그 후의 사용도 이식성이 떨어지게 됩니다. 이 제안은 Fortran 90의 “kind” 솔루션과 유사하며, Python 환경에 맞게 조정되었습니다. 이 기능을 사용하면 <code class="language-plaintext highlighter-rouge">myprecision.py</code> 파일의 인수를 변경함으로써 전체 계산의 정밀도 수준을 한 줄만 수정하여 전환할 수 있습니다. 만약 특정 머신에서 원하는 정밀도가 지원되지 않으면, 프로그램은 잘못된 결과를 내는 대신 오류를 발생시킵니다. 이러한 스타일로 코딩할 경우 오류를 발생시킬 루틴을 미리 호출하므로, 이는 컴파일되지 않는 것 다음으로 좋은 방법입니다.</p>
+
+<h2 id="지원되는-정수-및-부동-소수점-종류-supported-kinds-of-ints-and-floats">지원되는 정수 및 부동 소수점 종류 (Supported Kinds of Ints and Floats)</h2>
+<p>복소수(complex numbers)는 Python이 복소수 없이 빌드될 수 있으므로 아래에서 별도로 다룹니다.</p>
+
+<p>각 Python 컴파일러는 원하는 만큼의 정수(integer) 및 부동 소수점(floating point) 숫자 “종류(kinds)”를 정의할 수 있습니다. 단, 기존 <code class="language-plaintext highlighter-rouge">int</code>와 <code class="language-plaintext highlighter-rouge">long</code>에 해당하는 최소 두 가지 정수 종류와 현재의 <code class="language-plaintext highlighter-rouge">float</code>에 해당하는 최소 한 가지 부동 소수점 종류를 지원해야 합니다.</p>
+
+<p>이러한 필수 종류들의 범위와 정밀도는 현재와 마찬가지로 프로세서에 따라 다르지만, 임의의 정수를 담을 수 있는 “long integer” 종류는 예외입니다.</p>
+
+<p>내장 함수 <code class="language-plaintext highlighter-rouge">int()</code>, <code class="language-plaintext highlighter-rouge">long()</code>, <code class="language-plaintext highlighter-rouge">float()</code>는 현재와 같이 입력을 이러한 기본 종류로 변환합니다. (참고로 유니코드 문자열은 실제로 다른 “종류”의 문자열이며, 충분한 지식을 가진 사람은 이 PEP를 확장하여 해당 경우를 다룰 수도 있습니다.)</p>
+
+<p>각 타입(정수, 부동 소수점) 내에서 컴파일러는 증가된 범위 및/또는 정밀도의 숫자를 담을 수 있는 능력에 따라 선형적으로 정렬된 종류 집합을 지원합니다.</p>
+
+<h2 id="종류-객체-kind-objects">종류 객체 (Kind Objects)</h2>
+<p><code class="language-plaintext highlighter-rouge">kinds</code>라는 모듈에 두 개의 새로운 표준 함수가 정의됩니다. 이 함수들은 호출 가능한 “kind 객체(kind objects)”를 반환합니다. 각 정수 또는 부동 소수점 kind 객체 <code class="language-plaintext highlighter-rouge">f</code>는 <code class="language-plaintext highlighter-rouge">result = f(x)</code> 시그니처를 가지며, 각 복소수 kind 객체는 <code class="language-plaintext highlighter-rouge">result = f(x, y=0.)</code> 시그니처를 가집니다.</p>
+
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">int_kind(n)</code></strong>: <code class="language-plaintext highlighter-rouge">n &gt;= 1</code>인 정수 인수에 대해, 열린 구간 <code class="language-plaintext highlighter-rouge">(-10**n, 10**n)</code> 내의 정수를 담을 수 있는 정수 종류를 반환하는 호출 가능한 객체를 반환합니다. 이 kind 객체는 <code class="language-plaintext highlighter-rouge">long</code>을 포함한 정수를 인수로 받습니다. <code class="language-plaintext highlighter-rouge">n == 0</code>인 경우, Python 리터럴 <code class="language-plaintext highlighter-rouge">0</code>에 해당하는 kind 객체를 반환합니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">float_kind(nd, n)</code></strong>: <code class="language-plaintext highlighter-rouge">nd &gt;= 0</code> 및 <code class="language-plaintext highlighter-rouge">n &gt;= 1</code>에 대해, 최소 <code class="language-plaintext highlighter-rouge">nd</code> 자리의 정밀도와 닫힌 구간 <code class="language-plaintext highlighter-rouge">[-n, n]</code> 내의 10진수 지수(base-10 exponent)를 가진 부동 소수점 숫자를 담을 수 있는 부동 소수점 종류를 반환하는 호출 가능한 객체를 반환합니다. 이 kind 객체는 정수 또는 부동 소수점을 인수로 받습니다.
+<code class="language-plaintext highlighter-rouge">nd</code>와 <code class="language-plaintext highlighter-rouge">n</code>이 모두 0인 경우, Python 리터럴 <code class="language-plaintext highlighter-rouge">0.0</code>에 해당하는 kind 객체를 반환합니다.</li>
+</ul>
+
+<p>컴파일러는 해당 타입에 대해 원하는 속성을 가진, 사용 가능한 종류 집합 중에서 가장 작은 kind 객체를 반환합니다. 특정 구현에서 원하는 품질을 가진 종류가 없으면 <code class="language-plaintext highlighter-rouge">OverflowError</code> 예외가 발생합니다. kind 함수는 인수를 대상 종류로 변환하지만, 결과가 대상 종류의 범위에 맞지 않으면 <code class="language-plaintext highlighter-rouge">OverflowError</code> 예외가 발생합니다.</p>
+
+<p>호출 가능한 동작 외에도, kind 객체는 해당 종류의 특성을 나타내는 속성을 가집니다.</p>
+
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">name</code></strong>: 종류의 이름입니다. 표준 종류는 <code class="language-plaintext highlighter-rouge">int</code>, <code class="language-plaintext highlighter-rouge">long</code>, <code class="language-plaintext highlighter-rouge">double</code>로 불립니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">typecode</code></strong>: <code class="language-plaintext highlighter-rouge">Numeric</code> 또는 <code class="language-plaintext highlighter-rouge">array</code> 모듈과 함께 사용하여 이 종류의 배열을 형성하는 데 적합한 단일 문자열입니다. 표준 타입의 <code class="language-plaintext highlighter-rouge">typecode</code>는 각각 <code class="language-plaintext highlighter-rouge">'i'</code>, <code class="language-plaintext highlighter-rouge">'O'</code>, <code class="language-plaintext highlighter-rouge">'d'</code>입니다.</li>
+</ul>
+
+<p>정수 종류는 다음과 같은 추가 속성을 가집니다:</p>
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">MAX</code></strong>: 이 종류의 허용 가능한 최대 정수이며, <code class="language-plaintext highlighter-rouge">long</code> 종류의 경우 <code class="language-plaintext highlighter-rouge">None</code>입니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">MIN</code></strong>: 이 종류의 허용 가능한 가장 작은(음수) 정수이며, <code class="language-plaintext highlighter-rouge">long</code> 종류의 경우 <code class="language-plaintext highlighter-rouge">None</code>입니다.</li>
+</ul>
+
+<p>부동 소수점 종류는 표준 헤더 파일 “float.h”에서 해당 C 타입의 해당 값과 동일한 속성을 가집니다:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">MAX</code>, <code class="language-plaintext highlighter-rouge">MIN</code>, <code class="language-plaintext highlighter-rouge">DIG</code>, <code class="language-plaintext highlighter-rouge">MANT_DIG</code>, <code class="language-plaintext highlighter-rouge">EPSILON</code>, <code class="language-plaintext highlighter-rouge">MAX_EXP</code>, <code class="language-plaintext highlighter-rouge">MAX_10_EXP</code>, <code class="language-plaintext highlighter-rouge">MIN_EXP</code>, <code class="language-plaintext highlighter-rouge">MIN_10_EXP</code>, <code class="language-plaintext highlighter-rouge">RADIX</code>, <code class="language-plaintext highlighter-rouge">ROUNDS</code> (<code class="language-plaintext highlighter-rouge">float.h</code>의 <code class="language-plaintext highlighter-rouge">FLT_RADIX</code>, <code class="language-plaintext highlighter-rouge">FLT_ROUNDS</code>와 동일).
+이 값들은 <code class="language-plaintext highlighter-rouge">MAX</code>, <code class="language-plaintext highlighter-rouge">MIN</code>, <code class="language-plaintext highlighter-rouge">EPSILON</code>을 제외하고는 정수 타입이며, 이들은 해당 종류에 해당하는 Python 부동 소수점 타입입니다.</li>
+</ul>
+
+<h2 id="kinds-모듈의-속성-attributes-of-module-kinds"><code class="language-plaintext highlighter-rouge">kinds</code> 모듈의 속성 (Attributes of Module <code class="language-plaintext highlighter-rouge">kinds</code>)</h2>
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">int_kinds</code></strong>: 사용 가능한 정수 종류의 목록으로, 가장 낮은 종류부터 가장 높은 종류까지 정렬되어 있습니다. 정의에 따라 <code class="language-plaintext highlighter-rouge">int_kinds[-1]</code>은 <code class="language-plaintext highlighter-rouge">long</code> 종류입니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">float_kinds</code></strong>: 사용 가능한 부동 소수점 종류의 목록으로, 가장 낮은 종류부터 가장 높은 종류까지 정렬되어 있습니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">default_int_kind</code></strong>: Python 리터럴 <code class="language-plaintext highlighter-rouge">0</code>에 해당하는 kind 객체입니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">default_long_kind</code></strong>: Python 리터럴 <code class="language-plaintext highlighter-rouge">0L</code>에 해당하는 kind 객체입니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">default_float_kind</code></strong>: Python 리터럴 <code class="language-plaintext highlighter-rouge">0.0</code>에 해당하는 kind 객체입니다.</li>
+</ul>
+
+<h2 id="복소수-complex-numbers">복소수 (Complex Numbers)</h2>
+<p>지원되는 경우, 복소수(complex numbers)는 동일한 종류의 부동 소수점 숫자인 실수부와 허수부를 가집니다. Python 컴파일러가 복소수를 지원한다면, 지원하는 각 부동 소수점 종류에 대한 복소수 대응 타입을 지원해야 합니다.</p>
+
+<p>복소수가 지원되는 경우, <code class="language-plaintext highlighter-rouge">kinds</code> 모듈에서 다음을 사용할 수 있습니다.</p>
+
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">complex_kind(nd, n)</code></strong>: <code class="language-plaintext highlighter-rouge">nd</code> 자리의 정밀도와 <code class="language-plaintext highlighter-rouge">[-n, n]</code> 범위의 10진수 지수를 가진 부동 소수점 종류 <code class="language-plaintext highlighter-rouge">float_kind(nd, n)</code>의 구성 요소(<code class="language-plaintext highlighter-rouge">.real</code>, <code class="language-plaintext highlighter-rouge">.imag</code>)를 각각 가지는 복소수를 담을 수 있는 복소수 종류를 반환하는 호출 가능한 객체를 반환합니다. 이 kind 객체는 정수, 실수 또는 복소수 종류의 인수를 하나 받거나, 각각 정수 또는 실수인 두 인수를 받습니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">complex_kinds</code></strong>: 사용 가능한 복소수 종류의 목록으로, 가장 낮은 종류부터 가장 높은 종류까지 정렬되어 있습니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">default_complex_kind</code></strong>: Python 리터럴 <code class="language-plaintext highlighter-rouge">0.0j</code>에 해당하는 kind 객체입니다. 이 종류의 이름은 <code class="language-plaintext highlighter-rouge">doublecomplex</code>이고, <code class="language-plaintext highlighter-rouge">typecode</code>는 <code class="language-plaintext highlighter-rouge">'D'</code>입니다.</li>
+</ul>
+
+<p>복소수 kind 객체는 다음 추가 속성을 가집니다:</p>
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">floatkind</code></strong>: 해당 <code class="language-plaintext highlighter-rouge">float</code> 타입의 kind 객체입니다.</li>
+</ul>
+
+<h2 id="예시-examples">예시 (Examples)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">myprecision.py</code> 모듈 내:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">kinds</span>
+<span class="n">tinyint</span> <span class="o">=</span> <span class="n">kinds</span><span class="p">.</span><span class="nf">int_kind</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">single</span> <span class="o">=</span> <span class="n">kinds</span><span class="p">.</span><span class="nf">float_kind</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
+<span class="n">double</span> <span class="o">=</span> <span class="n">kinds</span><span class="p">.</span><span class="nf">float_kind</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
+<span class="n">csingle</span> <span class="o">=</span> <span class="n">kinds</span><span class="p">.</span><span class="nf">complex_kind</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>나머지 코드에서:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">myprecision</span> <span class="kn">import</span> <span class="n">tinyint</span><span class="p">,</span> <span class="n">single</span><span class="p">,</span> <span class="n">double</span><span class="p">,</span> <span class="n">csingle</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="nf">tinyint</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="nf">double</span><span class="p">(</span><span class="mf">1.e20</span><span class="p">)</span>
+<span class="n">z</span> <span class="o">=</span> <span class="mf">1.2</span> <span class="c1"># 내장 float는 기본 float 종류를 반환하며 속성은 알 수 없음
+</span><span class="n">w</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="nf">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># 하지만 다음 경우, w는 "double" 종류임을 알 수 있음
+</span><span class="n">w</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="nf">double</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+<span class="n">u</span> <span class="o">=</span> <span class="nf">csingle</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">z</span> <span class="o">*</span> <span class="mf">1.0j</span><span class="p">)</span>
+<span class="n">u2</span> <span class="o">=</span> <span class="nf">csingle</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">z</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+</code></pre></div></div>
+<p>위 예시에서 <code class="language-plaintext highlighter-rouge">myprecision.py</code>의 인수를 변경함으로써 전체 코드가 어떻게 더 높은 정밀도로 변경될 수 있는지 주목하세요.</p>
+
+<p>참고: <code class="language-plaintext highlighter-rouge">single != double</code>이 보장되지는 않지만, <code class="language-plaintext highlighter-rouge">double(1.e20)</code>이 15자리 십진수 정밀도와 최대 <code class="language-plaintext highlighter-rouge">10**300</code>의 범위를 가진 숫자를 담거나, <code class="language-plaintext highlighter-rouge">float_kind</code> 호출이 실패할 것이 보장됩니다.</p>
+
+<h2 id="철회됨-withdrawn">철회됨 (Withdrawn)</h2>
+<p><strong>중요: 이 PEP는 철회되었습니다.</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">kinds</code> 모듈은 표준 라이브러리에 추가되지 않을 것입니다. 이 제안에 대한 반대는 없었지만, 이를 사용하려는 관심이 미미하여 모듈을 표준 라이브러리에 추가할 정당성이 충분하지 않았습니다. 대신, 이 모듈은 Numerical Python 사이트에서 별도의 배포 항목으로 제공될 예정입니다. Numerical Python의 다음 릴리스에서는 더 이상 Numeric 배포의 일부가 아닐 것입니다.</p>
+
+<h2 id="공개된-문제-open-issues">공개된 문제 (Open Issues)</h2>
+<p>현재 제기된 공개 문제는 없습니다.</p>
+
+<h2 id="저작권-copyright">저작권 (Copyright)</h2>
+<p>이 문서는 공용 도메인(public domain)으로 지정되었습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/241/" class="pagination--pager" title="[Superseded] PEP 241 - Metadata for Python Software Packages
+">Previous</a>
+    
+    
+      <a href="/python/pep/243/" class="pagination--pager" title="[Withdrawn] PEP 243 - Module Repository Upload Mechanism
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

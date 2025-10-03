@@ -1,0 +1,985 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 742 - Narrowing types with TypeIs | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 742: ‘Narrowing types with TypeIs’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 742 - Narrowing types with TypeIs">
+<meta property="og:url" content="http://localhost:4000/python/pep/742/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 742: ‘Narrowing types with TypeIs’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T13:33:17+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T13:33:17+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/742/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 742 - Narrowing types with TypeIs">
+    <meta itemprop="description" content="Python Enhancement Proposal 742: ‘Narrowing types with TypeIs’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T13:33:17+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T13:33:17+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 742 - Narrowing types with TypeIs
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T13:33:17+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-742--typeis를-사용한-타입-내로잉">PEP 742 – TypeIs를 사용한 타입 내로잉</a><ul><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#동기-motivation">동기 (Motivation)</a></li><li><a href="#근거-rationale">근거 (Rationale)</a></li><li><a href="#사양-specification">사양 (Specification)</a><ul><li><a href="#타입-내로잉-동작-type-narrowing-behavior">타입 내로잉 동작 (Type narrowing behavior)</a></li><li><a href="#예시-examples">예시 (Examples)</a></li><li><a href="#서브타이핑-subtyping">서브타이핑 (Subtyping)</a></li></ul></li><li><a href="#하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</a></li><li><a href="#보안-고려사항-security-implications">보안 고려사항 (Security Implications)</a></li><li><a href="#교육-방법-how-to-teach-this">교육 방법 (How to Teach This)</a><ul><li><a href="#typeis-사용-시점-when-to-use-typeis">TypeIs 사용 시점 (When to use TypeIs)</a></li><li><a href="#안전한-typeis-함수-작성-writing-a-safe-typeis-function">안전한 TypeIs 함수 작성 (Writing a safe TypeIs function)</a></li><li><a href="#typeis와-typeguard-typeis-and-typeguard">TypeIs와 TypeGuard (TypeIs and TypeGuard)</a></li></ul></li><li><a href="#참조-구현-reference-implementation">참조 구현 (Reference Implementation)</a></li><li><a href="#거부된-아이디어-rejected-ideas">거부된 아이디어 (Rejected Ideas)</a><ul><li><a href="#typeguard의-동작-변경-change-the-behavior-of-typeguard">TypeGuard의 동작 변경 (Change the behavior of TypeGuard)</a></li><li><a href="#아무것도-하지-않음-do-nothing">아무것도 하지 않음 (Do nothing)</a></li><li><a href="#대체-이름-alternative-names">대체 이름 (Alternative names)</a></li></ul></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0742/">PEP 742 - Narrowing types with TypeIs</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 07-Feb-2024</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-742--typeis를-사용한-타입-내로잉">PEP 742 – <code class="language-plaintext highlighter-rouge">TypeIs</code>를 사용한 타입 내로잉</h1>
+
+<p><strong>저자:</strong> Jelle Zijlstra
+<strong>상태:</strong> Final
+<strong>타입:</strong> Standards Track - Typing
+<strong>생성일:</strong> 2024년 2월 7일
+<strong>Python 버전:</strong> 3.13</p>
+
+<h2 id="개요-abstract">개요 (Abstract)</h2>
+
+<p>이 PEP는 새로운 특수 형태인 <code class="language-plaintext highlighter-rouge">TypeIs</code>를 제안합니다. <code class="language-plaintext highlighter-rouge">TypeIs</code>는 빌트인 함수 <code class="language-plaintext highlighter-rouge">isinstance()</code>와 유사하게 값의 타입을 내로잉하는 데 사용될 수 있는 함수에 주석(annotate)을 달 수 있도록 합니다. 기존의 <code class="language-plaintext highlighter-rouge">typing.TypeGuard</code> 특수 형태와 달리, <code class="language-plaintext highlighter-rouge">TypeIs</code>는 조건문의 <code class="language-plaintext highlighter-rouge">if</code>와 <code class="language-plaintext highlighter-rouge">else</code> 두 브랜치(branches) 모두에서 타입을 내로잉할 수 있습니다.</p>
+
+<h2 id="동기-motivation">동기 (Motivation)</h2>
+
+<p>타입이 지정된 Python 코드에서는 조건문을 기반으로 변수의 타입을 내로잉해야 하는 경우가 많습니다. 예를 들어, 함수가 두 가지 타입의 유니온(union)을 받을 때, <code class="language-plaintext highlighter-rouge">isinstance()</code> 검사를 사용하여 두 타입을 구별할 수 있습니다. 타입 체커(type checkers)는 일반적으로 다양한 빌트인 함수 및 연산자를 기반으로 타입 내로잉을 지원하지만, 때로는 사용자 정의 함수를 사용하여 타입 내로잉을 수행하는 것이 유용할 수 있습니다.</p>
+
+<p>이러한 사용 사례를 지원하기 위해 PEP 647은 <code class="language-plaintext highlighter-rouge">typing.TypeGuard</code> 특수 형태를 도입하여 사용자가 타입 가드(type guards)를 정의할 수 있도록 했습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">assert_type</span><span class="p">,</span> <span class="n">TypeGuard</span>
+
+<span class="k">def</span> <span class="nf">is_str</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TypeGuard</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nf">is_str</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="nf">assert_type</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nf">assert_type</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">object</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>그러나 <code class="language-plaintext highlighter-rouge">typing.TypeGuard</code>의 동작 방식에는 몇 가지 한계가 있어 많은 일반적인 사용 사례에 덜 유용합니다. 특히 다음과 같은 문제가 있습니다:</p>
+<ul>
+  <li>타입 체커는 타입 가드가 <code class="language-plaintext highlighter-rouge">True</code>를 반환하는 경우, <code class="language-plaintext highlighter-rouge">TypeGuard</code>의 반환 타입을 정확히 내로잉된 타입으로 사용해야 합니다. 변수의 타입에 대한 기존 지식을 활용할 수 없습니다.</li>
+  <li>타입 가드가 <code class="language-plaintext highlighter-rouge">False</code>를 반환하는 경우, 타입 체커는 추가적인 내로잉을 적용할 수 없습니다.</li>
+</ul>
+
+<p>예를 들어, 표준 라이브러리 함수 <code class="language-plaintext highlighter-rouge">inspect.isawaitable()</code>은 인자가 <code class="language-plaintext highlighter-rouge">awaitable</code> 객체인지 여부를 반환하며, <code class="language-plaintext highlighter-rouge">typeshed</code>는 현재 다음과 같이 주석되어 있습니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">isawaitable</span><span class="p">(</span><span class="nb">object</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TypeGuard</span><span class="p">[</span><span class="n">Awaitable</span><span class="p">[</span><span class="n">Any</span><span class="p">]]:</span> <span class="bp">...</span>
+</code></pre></div></div>
+
+<p>이 함수의 동작에 대해 <code class="language-plaintext highlighter-rouge">mypy</code>에 보고된 이슈가 있었는데, 사용자는 다음 동작을 관찰했습니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">inspect</span>
+<span class="kn">from</span> <span class="n">collections.abc</span> <span class="kn">import</span> <span class="n">Awaitable</span>
+<span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">reveal_type</span><span class="p">,</span> <span class="n">Any</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">t</span><span class="p">:</span> <span class="n">Awaitable</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">inspect</span><span class="p">.</span><span class="nf">isawaitable</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+        <span class="nf">reveal_type</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="c1"># Awaitable[Any]
+</span>    <span class="k">else</span><span class="p">:</span>
+        <span class="nf">reveal_type</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="c1"># Awaitable[int] | int
+</span></code></pre></div></div>
+
+<p>이 동작은 PEP 647과 일치하지만, 사용자의 기대와는 달랐습니다. 사용자는 <code class="language-plaintext highlighter-rouge">if</code> 브랜치에서는 <code class="language-plaintext highlighter-rouge">t</code>의 타입이 <code class="language-plaintext highlighter-rouge">Awaitable[int]</code>로, <code class="language-plaintext highlighter-rouge">else</code> 브랜치에서는 <code class="language-plaintext highlighter-rouge">int</code>로 내로잉되기를 기대했습니다. 이 PEP는 정확히 그러한 동작을 제공하는 새로운 구문을 제안합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">TypeGuard</code>의 현재 동작으로 인해 발생한 다른 문제들의 예시는 다음과 같습니다:</p>
+<ul>
+  <li>Python 타이핑 이슈 (<code class="language-plaintext highlighter-rouge">numpy.isscalar</code>)</li>
+  <li>Python 타이핑 이슈 (<code class="language-plaintext highlighter-rouge">dataclasses.is_dataclass()</code>)</li>
+  <li>Pyright 이슈 (<code class="language-plaintext highlighter-rouge">typing.TypeGuard</code>가 <code class="language-plaintext highlighter-rouge">isinstance()</code>처럼 작동하기를 기대)</li>
+  <li>Pyright 이슈 (<code class="language-plaintext highlighter-rouge">else</code> 브랜치에서의 내로잉 기대)</li>
+  <li>Mypy 이슈 (<code class="language-plaintext highlighter-rouge">else</code> 브랜치에서의 내로잉 기대)</li>
+  <li>Mypy 이슈 (여러 <code class="language-plaintext highlighter-rouge">TypeGuard</code> 결합)</li>
+  <li>Mypy 이슈 (<code class="language-plaintext highlighter-rouge">else</code> 브랜치에서의 내로잉 기대)</li>
+  <li>Mypy 이슈 (사용자 정의 함수가 <code class="language-plaintext highlighter-rouge">inspect.isawaitable()</code>과 유사)</li>
+  <li>Typeshed 이슈 (<code class="language-plaintext highlighter-rouge">asyncio.iscoroutinefunction</code>)</li>
+</ul>
+
+<h2 id="근거-rationale">근거 (Rationale)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">typing.TypeGuard</code>의 현재 동작과 관련된 문제들은 타입 시스템을 개선하여 다른 타입 내로잉 동작을 허용하도록 강제합니다. PEP 724는 기존 <code class="language-plaintext highlighter-rouge">typing.TypeGuard</code> 구문의 동작을 변경할 것을 제안했지만, 해당 변경으로 인한 하위 호환성(backwards compatibility) 문제가 너무 심각하다고 판단했습니다. 대신, 원하는 시맨틱(semantics)을 가진 새로운 특수 형태를 추가할 것을 제안합니다.</p>
+
+<p>이로 인해 유사한 목적과 시맨틱을 가진 두 가지 구문이 존재하게 되는 안타까운 상황이 발생함을 인지하고 있습니다. 그러나 이 PEP에서 제안하는 새로운 형태인 <code class="language-plaintext highlighter-rouge">TypeIs</code>의 동작이 사용자들에게 더 유용할 가능성이 높다고 생각하며, 따라서 <code class="language-plaintext highlighter-rouge">TypeGuard</code>보다 <code class="language-plaintext highlighter-rouge">TypeIs</code>를 더 일반적으로 적용 가능한 도구로 문서에서 강조해야 한다고 권장합니다. 하지만 <code class="language-plaintext highlighter-rouge">TypeGuard</code>의 시맨틱도 때때로 유용하므로, 이를 더 이상 사용하지 않도록 권고(deprecate)하거나 제거할 것을 제안하지는 않습니다. 장기적으로는 대부분의 사용자가 <code class="language-plaintext highlighter-rouge">TypeIs</code>를 사용하고, <code class="language-plaintext highlighter-rouge">TypeGuard</code>는 그 동작이 특별히 요구되는 드문 경우에만 사용되어야 합니다.</p>
+
+<h2 id="사양-specification">사양 (Specification)</h2>
+
+<p>새로운 특수 형태인 <code class="language-plaintext highlighter-rouge">TypeIs</code>가 <code class="language-plaintext highlighter-rouge">typing</code> 모듈에 추가됩니다. <code class="language-plaintext highlighter-rouge">TypeIs</code>의 사용법, 동작 및 런타임 구현은 <code class="language-plaintext highlighter-rouge">typing.TypeGuard</code>와 유사합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">TypeIs</code>는 단일 인자를 받으며 함수의 반환 타입으로 사용될 수 있습니다. <code class="language-plaintext highlighter-rouge">TypeIs</code>를 반환하도록 주석된 함수를 타입 내로잉 함수(type narrowing function)라고 합니다. 타입 내로잉 함수는 <code class="language-plaintext highlighter-rouge">bool</code> 값을 반환해야 하며, 타입 체커는 모든 반환 경로가 <code class="language-plaintext highlighter-rouge">bool</code>을 반환하는지 확인해야 합니다.</p>
+
+<p>타입 내로잉 함수는 하나 이상의 위치 인자(positional argument)를 받아야 합니다. 타입 내로잉 동작은 함수에 전달된 첫 번째 위치 인자에 적용됩니다. 함수는 추가 인자를 받을 수 있지만, 이들은 타입 내로잉의 영향을 받지 않습니다. 타입 내로잉 함수가 인스턴스 메서드(instance method) 또는 클래스 메서드(class method)로 구현된 경우, 첫 번째 위치 인자는 두 번째 매개변수(<code class="language-plaintext highlighter-rouge">self</code> 또는 <code class="language-plaintext highlighter-rouge">cls</code> 다음)에 매핑됩니다.</p>
+
+<h3 id="타입-내로잉-동작-type-narrowing-behavior">타입 내로잉 동작 (Type narrowing behavior)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">TypeIs</code>의 동작을 명시하기 위해 다음 용어를 사용합니다:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">I</code> = <code class="language-plaintext highlighter-rouge">TypeIs</code> 입력 타입 (TypeIs input type)</li>
+  <li><code class="language-plaintext highlighter-rouge">R</code> = <code class="language-plaintext highlighter-rouge">TypeIs</code> 반환 타입 (TypeIs return type)</li>
+  <li><code class="language-plaintext highlighter-rouge">A</code> = 타입 내로잉 함수에 전달된 인자의 타입 (내로잉 전) (Type of argument passed to type narrowing function (pre-narrowed))</li>
+  <li><code class="language-plaintext highlighter-rouge">NP</code> = 내로잉된 타입 (긍정; <code class="language-plaintext highlighter-rouge">TypeIs</code>가 <code class="language-plaintext highlighter-rouge">True</code>를 반환할 때 사용) (Narrowed type (positive; used when TypeIs returned True))</li>
+  <li><code class="language-plaintext highlighter-rouge">NN</code> = 내로잉된 타입 (부정; <code class="language-plaintext highlighter-rouge">TypeIs</code>가 <code class="language-plaintext highlighter-rouge">False</code>를 반환할 때 사용) (Narrowed type (negative; used when TypeIs returned False))</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">narrower</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">I</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TypeIs</span><span class="p">[</span><span class="n">R</span><span class="p">]:</span> <span class="bp">...</span>
+
+<span class="k">def</span> <span class="nf">func1</span><span class="p">(</span><span class="n">val</span><span class="p">:</span> <span class="n">A</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nf">narrower</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+        <span class="nf">assert_type</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">NP</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nf">assert_type</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">NN</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>반환 타입 <code class="language-plaintext highlighter-rouge">R</code>은 <code class="language-plaintext highlighter-rouge">I</code>와 일관되어야 합니다. 이 조건이 충족되지 않으면 타입 체커는 오류를 발생시켜야 합니다.</p>
+
+<p>공식적으로, <code class="language-plaintext highlighter-rouge">NP</code> 타입은 <code class="language-plaintext highlighter-rouge">A</code>와 <code class="language-plaintext highlighter-rouge">R</code>의 교집합(intersection)인 <code class="language-plaintext highlighter-rouge">A∧R</code>로 내로잉되어야 하고, <code class="language-plaintext highlighter-rouge">NN</code> 타입은 <code class="language-plaintext highlighter-rouge">A</code>와 <code class="language-plaintext highlighter-rouge">R</code>의 보수(complement)의 교집합인 <code class="language-plaintext highlighter-rouge">A∧¬R</code>로 내로잉되어야 합니다. 실제로는 엄격한 타입 가드에 대한 이론적인 타입은 Python 타입 시스템에서 정확하게 표현될 수 없습니다. 타입 체커는 이러한 타입에 대한 실용적인 근사치를 사용해야 합니다. 경험적으로, 타입 체커는 <code class="language-plaintext highlighter-rouge">isinstance()</code>를 처리하는 것과 동일한 타입 내로잉 로직을 사용하고 일관된 결과를 얻어야 합니다. 이 지침은 향후 타입 시스템이 확장될 경우 변경 및 개선을 허용합니다.</p>
+
+<h3 id="예시-examples">예시 (Examples)</h3>
+
+<p>타입 내로잉은 긍정적인 경우와 부정적인 경우 모두에 적용됩니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">TypeIs</span><span class="p">,</span> <span class="n">assert_type</span>
+
+<span class="k">def</span> <span class="nf">is_str</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TypeIs</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nf">is_str</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="nf">assert_type</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nf">assert_type</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>최종 내로잉된 타입은 인자의 이전에 알려진 타입의 제약 조건 때문에 <code class="language-plaintext highlighter-rouge">R</code>보다 더 좁을 수 있습니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">collections.abc</span> <span class="kn">import</span> <span class="n">Awaitable</span>
+<span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">TypeIs</span><span class="p">,</span> <span class="n">assert_type</span>
+<span class="kn">import</span> <span class="n">inspect</span>
+
+<span class="k">def</span> <span class="nf">isawaitable</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TypeIs</span><span class="p">[</span><span class="n">Awaitable</span><span class="p">[</span><span class="n">Any</span><span class="p">]]:</span>
+    <span class="k">return</span> <span class="n">inspect</span><span class="p">.</span><span class="nf">isawaitable</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Awaitable</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nf">isawaitable</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="c1"># 타입 체커는 더 정확한 타입인 "Awaitable[int] | (int &amp; Awaitable[Any])"를 추론할 수도 있습니다.
+</span>        <span class="nf">assert_type</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Awaitable</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nf">assert_type</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>입력 타입과 일관되지 않는 타입으로 내로잉하는 것은 오류입니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">TypeIs</span>
+
+<span class="k">def</span> <span class="nf">is_str</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TypeIs</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="c1"># 타입 체커 오류 발생
+</span>    <span class="bp">...</span>
+</code></pre></div></div>
+
+<h3 id="서브타이핑-subtyping">서브타이핑 (Subtyping)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">TypeIs</code>는 콜백 프로토콜(callback protocols) 및 <code class="language-plaintext highlighter-rouge">Callable</code> 특수 형태와 같이 호출 가능한(callable) 객체의 반환 타입으로도 유효합니다. 이러한 맥락에서 <code class="language-plaintext highlighter-rouge">TypeIs</code>는 <code class="language-plaintext highlighter-rouge">bool</code>의 서브타입(subtype)으로 취급됩니다. 예를 들어, <code class="language-plaintext highlighter-rouge">Callable[..., TypeIs[int]]</code>는 <code class="language-plaintext highlighter-rouge">Callable[..., bool]</code>에 할당 가능(assignable)합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">TypeGuard</code>와 달리, <code class="language-plaintext highlighter-rouge">TypeIs</code>는 인자 타입에 대해 불변(invariant)입니다: <code class="language-plaintext highlighter-rouge">B</code>가 <code class="language-plaintext highlighter-rouge">A</code>의 서브타입이더라도 <code class="language-plaintext highlighter-rouge">TypeIs[B]</code>는 <code class="language-plaintext highlighter-rouge">TypeIs[A]</code>의 서브타입이 아닙니다. 그 이유를 설명하기 위해 다음 예시를 고려해보세요:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">TypeIs</span>
+
+<span class="k">def</span> <span class="nf">takes_narrower</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">narrower</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">object</span><span class="p">],</span> <span class="n">TypeIs</span><span class="p">[</span><span class="nb">int</span><span class="p">]]):</span>
+    <span class="k">if</span> <span class="nf">narrower</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="nf">print</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># x는 int
+</span>    <span class="k">else</span><span class="p">:</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello </span><span class="sh">"</span> <span class="o">+</span> <span class="n">x</span><span class="p">)</span> <span class="c1"># x는 str
+</span>
+<span class="k">def</span> <span class="nf">is_bool</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TypeIs</span><span class="p">[</span><span class="nb">bool</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span>
+
+<span class="nf">takes_narrower</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">is_bool</span><span class="p">)</span> <span class="c1"># 오류: is_bool은 TypeIs[int]가 아님
+</span></code></pre></div></div>
+<p>(<code class="language-plaintext highlighter-rouge">bool</code>은 <code class="language-plaintext highlighter-rouge">int</code>의 서브타입임에 유의하십시오.) 이 코드는 런타임에 실패합니다. 왜냐하면 <code class="language-plaintext highlighter-rouge">narrower</code>가 <code class="language-plaintext highlighter-rouge">False</code>를 반환하고 (<code class="language-plaintext highlighter-rouge">1</code>은 <code class="language-plaintext highlighter-rouge">bool</code>이 아니므로) <code class="language-plaintext highlighter-rouge">takes_narrower()</code>에서 <code class="language-plaintext highlighter-rouge">else</code> 브랜치가 실행되기 때문입니다. 만약 <code class="language-plaintext highlighter-rouge">takes_narrower(1, is_bool)</code> 호출이 허용되었다면, 타입 체커는 이 오류를 감지하지 못했을 것입니다.</p>
+
+<h2 id="하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</h2>
+
+<p>이 PEP는 새로운 특수 형태만을 제안하므로, 하위 호환성에 대한 영향은 없습니다.</p>
+
+<h2 id="보안-고려사항-security-implications">보안 고려사항 (Security Implications)</h2>
+
+<p>알려진 보안 고려사항은 없습니다.</p>
+
+<h2 id="교육-방법-how-to-teach-this">교육 방법 (How to Teach This)</h2>
+
+<p>타입 힌팅에 대한 입문 자료는 타입 내로잉을 논의할 때 <code class="language-plaintext highlighter-rouge">isinstance()</code>와 같은 다른 내로잉 구문과 함께 <code class="language-plaintext highlighter-rouge">TypeIs</code>를 다루어야 합니다. 문서는 <code class="language-plaintext highlighter-rouge">typing.TypeGuard</code>보다 <code class="language-plaintext highlighter-rouge">TypeIs</code>를 강조해야 합니다. 후자가 더 이상 사용되지 않는 것은 아니며 그 동작이 때때로 유용하지만, <code class="language-plaintext highlighter-rouge">TypeIs</code>의 동작이 일반적으로 더 직관적이며 대부분의 사용자가 <code class="language-plaintext highlighter-rouge">TypeIs</code>를 먼저 선택할 것으로 예상합니다.</p>
+
+<h3 id="typeis-사용-시점-when-to-use-typeis"><code class="language-plaintext highlighter-rouge">TypeIs</code> 사용 시점 (When to use TypeIs)</h3>
+
+<p>Python 코드는 종종 <code class="language-plaintext highlighter-rouge">isinstance()</code>와 같은 함수를 사용하여 값의 가능한 다양한 타입들을 구별합니다. 타입 체커는 <code class="language-plaintext highlighter-rouge">isinstance()</code> 및 다양한 다른 검사들을 이해하고 이를 사용하여 변수의 타입을 내로잉합니다. 그러나 때로는 더 복잡한 검사를 여러 곳에서 재사용하거나, 타입 체커가 이해하지 못하는 검사를 사용하는 경우가 있습니다. 이러한 경우, <code class="language-plaintext highlighter-rouge">TypeIs</code> 함수를 정의하여 검사를 수행하고 타입 체커가 이를 사용하여 변수의 타입을 내로잉할 수 있도록 할 수 있습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">TypeIs</code> 함수는 단일 인자를 받아 <code class="language-plaintext highlighter-rouge">TypeIs[T]</code>를 반환하도록 주석됩니다. 여기서 <code class="language-plaintext highlighter-rouge">T</code>는 내로잉하려는 타입입니다. 함수는 인자가 <code class="language-plaintext highlighter-rouge">T</code> 타입과 호환되면 <code class="language-plaintext highlighter-rouge">True</code>를, 그렇지 않으면 <code class="language-plaintext highlighter-rouge">False</code>를 반환해야 합니다. 이 함수는 <code class="language-plaintext highlighter-rouge">isinstance()</code>를 사용하는 것과 마찬가지로 <code class="language-plaintext highlighter-rouge">if</code> 검사에서 사용될 수 있습니다. 예를 들면 다음과 같습니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">TypeIs</span><span class="p">,</span> <span class="n">Literal</span>
+
+<span class="nb">type</span> <span class="n">Direction</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="sh">"</span><span class="s">N</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">E</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">S</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">W</span><span class="sh">"</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">is_direction</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TypeIs</span><span class="p">[</span><span class="n">Direction</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">{</span><span class="sh">"</span><span class="s">N</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">E</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">S</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">W</span><span class="sh">"</span><span class="p">}</span>
+
+<span class="k">def</span> <span class="nf">maybe_direction</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nf">is_direction</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s"> is a cardinal direction</span><span class="sh">"</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s"> is not a cardinal direction</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="안전한-typeis-함수-작성-writing-a-safe-typeis-function">안전한 <code class="language-plaintext highlighter-rouge">TypeIs</code> 함수 작성 (Writing a safe TypeIs function)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">TypeIs</code> 함수를 사용하면 타입 체커의 타입 내로잉 동작을 재정의할 수 있습니다. 이는 강력한 도구이지만, 잘못 작성된 <code class="language-plaintext highlighter-rouge">TypeIs</code> 함수는 불건전한(unsound) 타입 검사로 이어질 수 있고 타입 체커가 이러한 오류를 감지할 수 없기 때문에 위험할 수 있습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">TypeIs[T]</code>를 반환하는 함수가 안전하려면, 인자가 타입 <code class="language-plaintext highlighter-rouge">T</code>와 호환되는 경우에만 <code class="language-plaintext highlighter-rouge">True</code>를 반환해야 하고, 그렇지 않으면 <code class="language-plaintext highlighter-rouge">False</code>를 반환해야 합니다. 이 조건이 충족되지 않으면 타입 체커는 잘못된 타입을 추론할 수 있습니다.</p>
+
+<p>다음은 올바른(<code class="language-plaintext highlighter-rouge">Correct</code>) 및 잘못된(<code class="language-plaintext highlighter-rouge">Incorrect</code>) <code class="language-plaintext highlighter-rouge">TypeIs</code> 함수의 예시입니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">TypeIs</span>
+
+<span class="c1"># 올바름 (Correct)
+</span><span class="k">def</span> <span class="nf">good_typeis</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TypeIs</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+
+<span class="c1"># 잘못됨: 모든 int에 대해 True를 반환하지 않음 (Incorrect: does not return True for all ints)
+</span><span class="k">def</span> <span class="nf">bad_typeis1</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TypeIs</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span>
+
+<span class="c1"># 잘못됨: 일부 비-int 값에 대해 True를 반환함 (Incorrect: returns True for some non-ints)
+</span><span class="k">def</span> <span class="nf">bad_typeis2</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TypeIs</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>다음 함수는 잘못 작성된 <code class="language-plaintext highlighter-rouge">TypeIs</code> 함수를 사용할 때 발생할 수 있는 일부 오류를 보여줍니다. 이러한 오류는 타입 체커에 의해 감지되지 않습니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">caller</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nf">bad_typeis1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>  <span class="c1"># int로 내로잉됨
+</span>        <span class="nf">print</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># str로 내로잉됨 (잘못됨)
+</span>        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello </span><span class="sh">"</span> <span class="o">+</span> <span class="n">x</span><span class="p">)</span> <span class="c1"># x가 음의 int일 경우 런타임 오류 발생
+</span>    <span class="k">if</span> <span class="nf">bad_typeis2</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>  <span class="c1"># int로 내로잉됨
+</span>        <span class="c1"># 잘못된 TypeIs 때문에, y가 float일 경우 런타임에 이 브랜치가 실행됩니다.
+</span>        <span class="nf">print</span><span class="p">(</span><span class="n">y</span><span class="p">.</span><span class="nf">bit_count</span><span class="p">())</span> <span class="c1"># 런타임 오류: 이 메서드는 int에만 존재하고 float에는 없습니다.
+</span>    <span class="k">else</span><span class="p">:</span>  <span class="c1"># float으로 내로잉됨 (런타임에 결코 실행되지 않음)
+</span>        <span class="k">pass</span>
+</code></pre></div></div>
+
+<p>다음은 더 복잡한 타입에 대한 올바른 <code class="language-plaintext highlighter-rouge">TypeIs</code> 함수의 예시입니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">TypedDict</span><span class="p">,</span> <span class="n">TypeIs</span>
+
+<span class="k">class</span> <span class="nc">Point</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">y</span><span class="p">:</span> <span class="nb">int</span>
+
+<span class="k">def</span> <span class="nf">is_point</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TypeIs</span><span class="p">[</span><span class="n">Point</span><span class="p">]:</span>
+    <span class="nf">return </span><span class="p">(</span>
+        <span class="nf">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span>
+        <span class="nf">all</span><span class="p">(</span><span class="nf">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">x</span><span class="p">)</span> <span class="ow">and</span>
+        <span class="sh">"</span><span class="s">x</span><span class="sh">"</span> <span class="ow">in</span> <span class="n">x</span> <span class="ow">and</span> <span class="sh">"</span><span class="s">y</span><span class="sh">"</span> <span class="ow">in</span> <span class="n">x</span> <span class="ow">and</span>
+        <span class="nf">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="sh">"</span><span class="s">x</span><span class="sh">"</span><span class="p">],</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span>
+        <span class="nf">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="sh">"</span><span class="s">y</span><span class="sh">"</span><span class="p">],</span> <span class="nb">int</span><span class="p">)</span>
+    <span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="typeis와-typeguard-typeis-and-typeguard"><code class="language-plaintext highlighter-rouge">TypeIs</code>와 <code class="language-plaintext highlighter-rouge">TypeGuard</code> (TypeIs and TypeGuard)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">TypeIs</code>와 <code class="language-plaintext highlighter-rouge">typing.TypeGuard</code>는 모두 사용자 정의 함수를 기반으로 변수의 타입을 내로잉하기 위한 도구입니다. 둘 다 인자를 받아 입력 인자가 내로잉된 타입과 호환되는지 여부에 따라 불리언(boolean)을 반환하는 함수에 주석을 달 수 있습니다. 이러한 함수는 <code class="language-plaintext highlighter-rouge">if</code> 검사에서 변수의 타입을 내로잉하는 데 사용될 수 있습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">TypeIs</code>는 일반적으로 가장 직관적인 동작을 가지지만, 더 많은 제한을 도입합니다. <code class="language-plaintext highlighter-rouge">TypeGuard</code>는 다음 경우에 사용하기에 적절한 도구입니다:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">list[object]</code>에서 <code class="language-plaintext highlighter-rouge">list[int]</code>와 같이 입력 타입과 호환되지 않는 타입으로 내로잉하려는 경우. <code class="language-plaintext highlighter-rouge">TypeIs</code>는 호환되는 타입 간에만 내로잉을 허용합니다.</li>
+  <li>함수가 내로잉된 타입과 호환되는 모든 입력 값에 대해 <code class="language-plaintext highlighter-rouge">True</code>를 반환하지 않는 경우. 예를 들어, 양의 정수에 대해서만 <code class="language-plaintext highlighter-rouge">True</code>를 반환하는 <code class="language-plaintext highlighter-rouge">TypeGuard[int]</code>를 가질 수 있습니다.</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">TypeIs</code>와 <code class="language-plaintext highlighter-rouge">TypeGuard</code>는 다음과 같은 방식으로 다릅니다:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">TypeIs</code>는 내로잉된 타입이 입력 타입의 서브타입이어야 하는 반면, <code class="language-plaintext highlighter-rouge">TypeGuard</code>는 그렇지 않습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">TypeGuard</code> 함수가 <code class="language-plaintext highlighter-rouge">True</code>를 반환할 때, 타입 체커는 변수의 타입을 <code class="language-plaintext highlighter-rouge">TypeGuard</code> 타입과 정확히 일치하도록 내로잉합니다. <code class="language-plaintext highlighter-rouge">TypeIs</code> 함수가 <code class="language-plaintext highlighter-rouge">True</code>를 반환할 때, 타입 체커는 변수의 이전에 알려진 타입과 <code class="language-plaintext highlighter-rouge">TypeIs</code> 타입을 결합하여 더 정밀한 타입을 추론할 수 있습니다 (기술적으로는 교집합(intersection type)으로 알려져 있습니다).</li>
+  <li><code class="language-plaintext highlighter-rouge">TypeGuard</code> 함수가 <code class="language-plaintext highlighter-rouge">False</code>를 반환할 때, 타입 체커는 변수의 타입을 전혀 내로잉할 수 없습니다. <code class="language-plaintext highlighter-rouge">TypeIs</code> 함수가 <code class="language-plaintext highlighter-rouge">False</code>를 반환할 때, 타입 체커는 변수의 타입에서 <code class="language-plaintext highlighter-rouge">TypeIs</code> 타입을 제외하도록 내로잉할 수 있습니다.</li>
+</ul>
+
+<p>이러한 동작은 다음 예시에서 볼 수 있습니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">TypeGuard</span><span class="p">,</span> <span class="n">TypeIs</span><span class="p">,</span> <span class="n">reveal_type</span><span class="p">,</span> <span class="n">final</span>
+
+<span class="k">class</span> <span class="nc">Base</span><span class="p">:</span> <span class="bp">...</span>
+<span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span> <span class="bp">...</span>
+<span class="nd">@final</span>
+<span class="k">class</span> <span class="nc">Unrelated</span><span class="p">:</span> <span class="bp">...</span>
+
+<span class="k">def</span> <span class="nf">is_base_typeguard</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TypeGuard</span><span class="p">[</span><span class="n">Base</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Base</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">is_base_typeis</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TypeIs</span><span class="p">[</span><span class="n">Base</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Base</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">use_typeguard</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Child</span> <span class="o">|</span> <span class="n">Unrelated</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nf">is_base_typeguard</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="nf">reveal_type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Base
+</span>    <span class="k">else</span><span class="p">:</span>
+        <span class="nf">reveal_type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Child | Unrelated
+</span>
+<span class="k">def</span> <span class="nf">use_typeis</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Child</span> <span class="o">|</span> <span class="n">Unrelated</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nf">is_base_typeis</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="nf">reveal_type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Child
+</span>    <span class="k">else</span><span class="p">:</span>
+        <span class="nf">reveal_type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Unrelated
+</span></code></pre></div></div>
+
+<h2 id="참조-구현-reference-implementation">참조 구현 (Reference Implementation)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">TypeIs</code> 특수 형태는 <code class="language-plaintext highlighter-rouge">typing_extensions</code> 모듈에 구현되었으며 <code class="language-plaintext highlighter-rouge">typing_extensions 4.10.0</code>에서 릴리스될 예정입니다.</p>
+
+<p>여러 타입 체커에서 구현이 가능합니다:</p>
+<ul>
+  <li>Mypy: 풀 리퀘스트 오픈</li>
+  <li>Pyanalyze: 풀 리퀘스트</li>
+  <li>Pyright: 버전 1.1.351에 추가됨</li>
+</ul>
+
+<h2 id="거부된-아이디어-rejected-ideas">거부된 아이디어 (Rejected Ideas)</h2>
+
+<h3 id="typeguard의-동작-변경-change-the-behavior-of-typeguard"><code class="language-plaintext highlighter-rouge">TypeGuard</code>의 동작 변경 (Change the behavior of TypeGuard)</h3>
+
+<p>PEP 724는 이전에 <code class="language-plaintext highlighter-rouge">typing.TypeGuard</code>의 지정된 동작을 변경하여 가드의 반환 타입이 입력 타입과 일관성이 있다면 <code class="language-plaintext highlighter-rouge">TypeIs</code>에 대해 여기서 제안된 동작이 적용되도록 제안했습니다. 이 제안은 몇 가지 중요한 장점이 있었습니다. 런타임 변경이 필요 없으므로 타입 체커에서만 변경이 필요하여 사용자가 새롭고 일반적으로 더 직관적인 동작을 쉽게 활용할 수 있게 해줍니다.</p>
+
+<p>그러나 이 접근 방식에는 몇 가지 주요 문제가 있습니다. PEP 647에 지정된 기존 시맨틱을 기대하며 <code class="language-plaintext highlighter-rouge">TypeGuard</code> 함수를 작성한 사용자들은 타입 체커가 코드를 해석하는 방식에서 미묘하고 잠재적으로 호환성을 깨뜨리는(breaking changes) 변경을 겪을 수 있습니다. <code class="language-plaintext highlighter-rouge">TypeGuard</code>의 분할된 동작, 즉 반환 타입이 입력 타입과 일관성이 있는 경우와 없는 경우에 다르게 작동하는 방식은 사용자에게 혼란을 줄 수 있습니다. 타이핑 위원회(Typing Council)는 PEP 724에 찬성하는 합의에 도달하지 못했고, 그 결과 이 대안적인 PEP를 제안하게 되었습니다.</p>
+
+<h3 id="아무것도-하지-않음-do-nothing">아무것도 하지 않음 (Do nothing)</h3>
+
+<p>이 PEP와 PEP 724에서 제안된 대안 모두 단점을 가지고 있습니다. 후자의 단점은 위에서 논의되었습니다. 이 PEP의 경우, 매우 유사한 시맨틱을 가진 두 가지 특수 형태를 도입하며, 현재 <code class="language-plaintext highlighter-rouge">TypeGuard</code>를 사용하고 있지만 다른 내로잉 시맨틱이 더 나은 사용자들에게 잠재적으로 긴 마이그레이션 경로를 만들 수 있습니다.</p>
+
+<p>따라서 한 가지 방법은 아무것도 하지 않고 타입 시스템의 현재 한계에 만족하는 것입니다. 그러나 “동기” 섹션에서 설명한 현재 <code class="language-plaintext highlighter-rouge">TypeGuard</code>의 한계는 타입 시스템을 변경하여 해결할 가치가 있을 만큼 중요하다고 생각합니다. 아무런 변경도 하지 않으면 사용자들은 <code class="language-plaintext highlighter-rouge">TypeGuard</code>에서 동일한 비직관적인 동작을 계속해서 경험하게 될 것이며, 타입 시스템은 <code class="language-plaintext highlighter-rouge">inspect.isawaitable</code>과 같은 일반적인 타입 내로잉 함수를 제대로 표현할 수 없을 것입니다.</p>
+
+<h3 id="대체-이름-alternative-names">대체 이름 (Alternative names)</h3>
+
+<p>이 PEP는 현재 <code class="language-plaintext highlighter-rouge">TypeIs</code>라는 이름을 제안하고 있으며, <code class="language-plaintext highlighter-rouge">TypeIs[T]</code> 특수 형태가 인자가 <code class="language-plaintext highlighter-rouge">T</code> 타입인지 여부를 반환한다는 점을 강조하고 TypeScript의 구문을 반영합니다. 이 PEP의 이전 버전에서도 다른 이름들이 고려되었습니다.</p>
+
+<p>고려되었던 옵션들은 다음과 같습니다:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">IsInstance</code> (Paul Moore의 게시물): 새로운 구문이 빌트인 <code class="language-plaintext highlighter-rouge">isinstance()</code>와 유사하게 작동한다는 점을 강조합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Narrowed</code> 또는 <code class="language-plaintext highlighter-rouge">NarrowedTo</code>: <code class="language-plaintext highlighter-rouge">TypeNarrower</code>보다 짧지만 “type narrowing”과의 연결을 유지합니다 (Eric Traut 제안).</li>
+  <li><code class="language-plaintext highlighter-rouge">Predicate</code> 또는 <code class="language-plaintext highlighter-rouge">TypePredicate</code>: 이 기능에 대한 TypeScript의 이름인 “type predicates”를 반영합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">StrictTypeGuard</code> (PEP 724의 초기 초안): 새로운 구문이 <code class="language-plaintext highlighter-rouge">typing.TypeGuard</code>보다 더 엄격한 버전의 타입 내로잉을 수행한다는 점을 강조합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">TypeCheck</code> (Nicolas Tessore의 게시물): 검사의 이진적(binary) 성격을 강조합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">TypeNarrower</code>: 함수가 인자 타입을 내로잉한다는 점을 강조합니다. 이 PEP의 이전 버전에서 사용되었습니다.</li>
+</ul>
+
+<hr />
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/741/" class="pagination--pager" title="[Final] PEP 741 - Python Configuration C API
+">Previous</a>
+    
+    
+      <a href="/python/pep/743/" class="pagination--pager" title="[Draft] PEP 743 - Add Py_COMPAT_API_VERSION to the Python C API
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,1272 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 3108 - Standard Library Reorganization | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 3108: ‘Standard Library Reorganization’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 3108 - Standard Library Reorganization">
+<meta property="og:url" content="http://localhost:4000/python/pep/3108/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 3108: ‘Standard Library Reorganization’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T14:20:43+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T14:20:43+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/3108/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 3108 - Standard Library Reorganization">
+    <meta itemprop="description" content="Python Enhancement Proposal 3108: ‘Standard Library Reorganization’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T14:20:43+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T14:20:43+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 3108 - Standard Library Reorganization
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T14:20:43+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-3108--표준-라이브러리-재편성">PEP 3108 – 표준 라이브러리 재편성</a><ul><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#제거할-모듈-modules-to-remove">제거할 모듈 (Modules to Remove)</a><ul><li><a href="#이전에-더-이상-사용되지-않음-previously-deprecated-완료">이전에 더 이상 사용되지 않음 (Previously deprecated) [완료]</a></li><li><a href="#최소한으로-사용되는-플랫폼-특정-모듈-platform-specific-with-minimal-use-완료">최소한으로 사용되는 플랫폼 특정 모듈 (Platform-specific with minimal use) [완료]</a><ul><li><a href="#irix">IRIX</a></li><li><a href="#mac-특정-모듈-mac-specific-modules">Mac 특정 모듈 (Mac-specific modules)</a></li><li><a href="#solaris">Solaris</a></li></ul></li><li><a href="#거의-사용되지-않음-hardly-used-완료">거의 사용되지 않음 (Hardly used) [완료]</a></li><li><a href="#obsolete-구식-완료">Obsolete (구식) [완료]</a></li><li><a href="#유지-관리-부담-maintenance-burden">유지 관리 부담 (Maintenance Burden)</a></li></ul></li><li><a href="#이름-변경할-모듈-modules-to-rename">이름 변경할 모듈 (Modules to Rename)</a><ul><li><a href="#pep-8-위반-pep-8-violations-완료">PEP 8 위반 (PEP 8 violations) [완료]</a></li><li><a href="#동일-인터페이스의-c-및-python-구현-병합-merging-c-and-python-implementations-of-the-same-interface">동일 인터페이스의 C 및 Python 구현 병합 (Merging C and Python implementations of the same interface)</a></li><li><a href="#공개적으로-문서화된-인터페이스가-없음-no-public-documented-interface-완료">공개적으로 문서화된 인터페이스가 없음 (No public, documented interface) [완료]</a></li><li><a href="#잘못-선택된-이름-poorly-chosen-names-완료">잘못 선택된 이름 (Poorly chosen names) [완료]</a></li><li><a href="#모듈-그룹화-grouping-of-modules-완료">모듈 그룹화 (Grouping of modules) [완료]</a><ul><li><a href="#dbm-패키지">dbm 패키지</a></li><li><a href="#html-패키지">html 패키지</a></li><li><a href="#http-패키지">http 패키지</a></li><li><a href="#tkinter-패키지">tkinter 패키지</a></li><li><a href="#urllib-패키지">urllib 패키지</a></li><li><a href="#xmlrpc-패키지">xmlrpc 패키지</a></li></ul></li></ul></li><li><a href="#전환-계획-transition-plan">전환 계획 (Transition Plan)</a><ul><li><a href="#문제점-issues">문제점 (Issues)</a></li><li><a href="#제거될-모듈의-경우-for-modules-to-be-removed">제거될 모듈의 경우 (For modules to be removed)</a><ul><li><a href="#python-30에서">Python 3.0에서</a></li><li><a href="#python-26에서">Python 2.6에서</a></li></ul></li><li><a href="#모듈-이름-변경-renaming-of-modules">모듈 이름 변경 (Renaming of modules)</a><ul><li><a href="#python-30에서-1">Python 3.0에서</a></li><li><a href="#python-26에서-1">Python 2.6에서</a></li></ul></li></ul></li><li><a href="#미해결-문제-open-issues">미해결 문제 (Open Issues)</a><ul><li><a href="#stdlib-외부에서-유지-관리되는-모듈의-이름-변경-renaming-of-modules-maintained-outside-of-the-stdlib">stdlib 외부에서 유지 관리되는 모듈의 이름 변경 (Renaming of modules maintained outside of the stdlib)</a></li></ul></li><li><a href="#거부된-아이디어-rejected-ideas">거부된 아이디어 (Rejected Ideas)</a><ul><li><a href="#원래-제거가-제안되었던-모듈-modules-that-were-originally-suggested-for-removal">원래 제거가 제안되었던 모듈 (Modules that were originally suggested for removal)</a></li><li><a href="#새로운-최상위-패키지-도입-introducing-a-new-top-level-package">새로운 최상위 패키지 도입 (Introducing a new top-level package)</a></li><li><a href="#테마-관련-모듈을-포함할-새-패키지-도입-introducing-new-packages-to-contain-theme-related-modules">테마 관련 모듈을 포함할 새 패키지 도입 (Introducing new packages to contain theme-related modules)</a></li></ul></li><li><a href="#참고-자료-references">참고 자료 (References)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-3108/">PEP 3108 - Standard Library Reorganization</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 01-Jan-2007</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h2 id="pep-3108--표준-라이브러리-재편성">PEP 3108 – 표준 라이브러리 재편성</h2>
+
+<ul>
+  <li><strong>작성자</strong>: Brett Cannon <brett at="" python.org=""></brett></li>
+  <li><strong>상태</strong>: Final (최종)</li>
+  <li><strong>유형</strong>: Standards Track (표준 트랙)</li>
+  <li><strong>생성일</strong>: 2007년 1월 1일</li>
+  <li><strong>Python 버전</strong>: 3.0</li>
+  <li><strong>최종 기록</strong>: 2008년 4월 28일</li>
+</ul>
+
+<hr />
+
+<h3 id="개요-abstract">개요 (Abstract)</h3>
+
+<p>언어 자체와 마찬가지로 Python의 표준 라이브러리(Standard Library, stdlib)는 수년 동안 매우 풍부하게 성장해왔습니다. 그러나 시간이 지남에 따라 일부 모듈은 더 이상 Python에 포함될 필요가 없어졌습니다. 또한 Python이 처음 등장한 이래로 모듈에 대한 명명 규칙이 도입되었지만, 모든 모듈이 이 규칙을 따르지는 않았습니다.</p>
+
+<p>Python 3.0은 장기적으로 유용성이 없는 모듈을 제거할 기회를 제공합니다. 이 기회를 통해 모듈이 Python 스타일 가이드(Style Guide)를 따르도록 이름을 변경할 수도 있습니다. 이 PEP는 Python 3.0에 포함되어서는 안 되거나 이름이 변경되어야 할 모듈들을 나열합니다.</p>
+
+<h3 id="제거할-모듈-modules-to-remove">제거할 모듈 (Modules to Remove)</h3>
+
+<p>Guido는 Py3K(Python 3000)를 위해 “오래되고 불필요한 것(silly old stuff)”들이 표준 라이브러리에서 삭제되어야 한다고 밝혔습니다. 이는 의도적으로 개방적인 지침입니다. 제거될 각 모듈은 더 이상 Python과 함께 배포되어서는 안 되는 이유에 대한 정당성을 가져야 합니다. 여기에는 Python 2.x에서 더 이상 사용되지 않는(deprecated) 모듈이거나, 더 이상 널리 사용되지 않는 플랫폼을 위한 모듈인 경우가 포함됩니다.</p>
+
+<p>이 PEP의 섹션에서는 제거될 다양한 모듈을 나열합니다. 각 하위 섹션은 모듈이 제거되는 다른 이유를 나타냅니다. 각 모듈은 특정 하위 섹션에 나열되는 것 외에도, 실제로 제거될 가치가 있는 모듈만 제거되도록 하기 위해 특정 정당성을 가져야 합니다.</p>
+
+<p>“고유하게 편집된(uniquely edited)” 이후의 기간을 언급할 때, 이는 전체 stdlib에 걸쳐 보편적으로 적용된 변경 사항이 아니라, 해당 모듈에 대해 특별히 체크인(checkin)이 수행된 이후의 기간을 의미합니다. 편집 시간이 “고유”로 표시되지 않은 경우, 이는 파일이 마지막으로 편집된 시점을 의미합니다.</p>
+
+<h4 id="이전에-더-이상-사용되지-않음-previously-deprecated-완료">이전에 더 이상 사용되지 않음 (Previously deprecated) [완료]</h4>
+
+<p>PEP 4는 stdlib에서 더 이상 사용되지 않는(deprecated) 모든 모듈을 나열합니다. 명시된 동기는 PEP 4에 나열된 동기를 따릅니다. Python 3.0의 첫 번째 알파 릴리스 시점에 이 PEP에 나열된 모든 모듈은 제거될 것입니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">lib-old</code>의 모든 내용도 제거됩니다. 이 모듈들은 이미 import되지 않도록 제거되었지만, 코드를 사용하는 사용자를 위해 Python 배포판에 보관되어 있었습니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">cfmfile</code>: Python 2.4부터 명확한 이유 없이 deprecated로 문서화되었습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">cl</code>: Python 2.0 또는 그 이전부터 Obsolete(구식)로 문서화되었습니다. SGI 하드웨어 인터페이스였습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">md5</code>: <code class="language-plaintext highlighter-rouge">hashlib</code> 모듈로 대체되었습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">mimetools</code>: 이전 버전에서 Obsolete로 문서화되었습니다. <code class="language-plaintext highlighter-rouge">email</code> 패키지로 대체되었습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">MimeWriter</code>: <code class="language-plaintext highlighter-rouge">email</code> 패키지로 대체되었습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">mimify</code>: <code class="language-plaintext highlighter-rouge">email</code> 패키지로 대체되었습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">multifile</code>: <code class="language-plaintext highlighter-rouge">email</code> 패키지로 대체되었습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">posixfile</code>: 잠금(locking)은 <code class="language-plaintext highlighter-rouge">fcntl.lockf()</code>를 통해 더 잘 처리됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">rfc822</code>: <code class="language-plaintext highlighter-rouge">email</code> 패키지로 대체되었습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">sha</code>: <code class="language-plaintext highlighter-rouge">hashlib</code> 패키지로 대체되었습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">sv</code>: Python 2.0 또는 그 이전부터 Obsolete로 문서화되었습니다. 구식 SGI Indigo 하드웨어 인터페이스였습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">timing</code>: Python 2.0 또는 그 이전부터 Obsolete로 문서화되었습니다. <code class="language-plaintext highlighter-rouge">time.clock()</code>이 더 나은 시간 해상도를 제공합니다.</li>
+</ul>
+
+<h4 id="최소한으로-사용되는-플랫폼-특정-모듈-platform-specific-with-minimal-use-완료">최소한으로 사용되는 플랫폼 특정 모듈 (Platform-specific with minimal use) [완료]</h4>
+
+<p>Python은 많은 플랫폼을 지원하지만, 일부는 널리 사용되거나 유지 관리되지 않습니다. 그리고 이러한 플랫폼 중 일부에는 해당 플랫폼 사용자에게 제한적인 용도로만 사용되는 모듈이 있습니다. 유용성이 제한적이기 때문에 Python 개발 팀이 이러한 모듈의 유지 관리 부담을 더 이상 지지 않는 것이 더 좋습니다.</p>
+
+<p>아래 언급된 모듈들은 문서화되어 있습니다. 명시된 플랫폼에 대한 모든 문서화되지 않은 모듈도 제거됩니다.</p>
+
+<h5 id="irix">IRIX</h5>
+
+<p>IRIX 운영 체제는 더 이상 생산되지 않습니다. 이 사실 때문에 <code class="language-plaintext highlighter-rouge">plat-irix[56]</code> 디렉토리에서 모든 모듈을 제거하는 것이 합리적이라고 판단되었습니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">AL</code>/<code class="language-plaintext highlighter-rouge">al</code>: Indy 및 Indigo 워크스테이션에서 사운드 지원을 제공했습니다. 두 워크스테이션 모두 더 이상 사용할 수 없습니다. 코드가 3년 동안 고유하게 편집되지 않았습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">cd</code>/<code class="language-plaintext highlighter-rouge">CD</code>: SGI 시스템용 CD 드라이브 제어입니다. SGI는 더 이상 IRIX가 설치된 머신을 판매하지 않습니다. 코드가 14년 동안 고유하게 편집되지 않았습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">cddb</code>, <code class="language-plaintext highlighter-rouge">cdplayer</code>, <code class="language-plaintext highlighter-rouge">ERRNO</code>, <code class="language-plaintext highlighter-rouge">FILE</code>, <code class="language-plaintext highlighter-rouge">GET</code>, <code class="language-plaintext highlighter-rouge">GLWS</code>, <code class="language-plaintext highlighter-rouge">IN</code>, <code class="language-plaintext highlighter-rouge">IOCTL</code>, <code class="language-plaintext highlighter-rouge">panel</code>, <code class="language-plaintext highlighter-rouge">panelparser</code>, <code class="language-plaintext highlighter-rouge">readcd</code>, <code class="language-plaintext highlighter-rouge">SV</code>, <code class="language-plaintext highlighter-rouge">torgb</code>, <code class="language-plaintext highlighter-rouge">WAIT</code>: 문서화되지 않았습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">cl</code>/<code class="language-plaintext highlighter-rouge">CL</code>/<code class="language-plaintext highlighter-rouge">CL_old</code>: SGI 시스템용 압축 라이브러리입니다. SGI는 더 이상 IRIX가 설치된 머신을 판매하지 않습니다. 코드가 14년 동안 고유하게 편집되지 않았습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">DEVICE</code>/<code class="language-plaintext highlighter-rouge">GL</code>/<code class="language-plaintext highlighter-rouge">gl</code>/<code class="language-plaintext highlighter-rouge">cgen</code>/<code class="language-plaintext highlighter-rouge">cgensuport</code>: OpenGL의 전신인 GL 액세스입니다. 최소 8년 동안 편집되지 않았습니다. 서드파티 라이브러리(PyOpenGL)가 더 나은 지원을 제공합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">FL</code>/<code class="language-plaintext highlighter-rouge">fl</code>/<code class="language-plaintext highlighter-rouge">flp</code>: FORMS 라이브러리의 래퍼입니다. FORMS는 12년 동안 편집되지 않았습니다. 라이브러리가 널리 사용되지 않습니다. Google 검색의 첫 8개 결과는 <code class="language-plaintext highlighter-rouge">fl</code>에 대한 Python 문서입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">fm</code>: IRIS 폰트 관리자(Font Manager) 라이브러리의 래퍼입니다. 더 이상 IRIX와 함께 제공되지 않는 SGI 머신에서만 사용할 수 있습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">imgfile</code>: <code class="language-plaintext highlighter-rouge">imglib</code> 이미지 파일(.rgb 파일)용 SGI <code class="language-plaintext highlighter-rouge">libimage</code> 라이브러리의 래퍼입니다. Python Imaging Library는 읽기 전용 지원을 제공합니다. 13년 동안 고유하게 편집되지 않았습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">jpeg</code>: JPEG (압축/해제) 래퍼입니다. 코드가 9년 동안 고유하게 편집되지 않았습니다. 서드파티 라이브러리(Python Imaging Library)가 더 나은 지원을 제공합니다.</li>
+</ul>
+
+<h5 id="mac-특정-모듈-mac-specific-modules">Mac 특정 모듈 (Mac-specific modules)</h5>
+
+<p>Mac 특정 모듈은 제대로 유지 관리되지 않습니다(예: 많은 모듈을 자동 생성하는 데 사용되는 <code class="language-plaintext highlighter-rouge">bgen</code> 도구는 UCS-4를 지원하도록 업데이트된 적이 없습니다). 또한 Python이 이렇게 많은 OS 특정 모듈을 유지 관리하는 것은 적절하지 않습니다. 따라서 <code class="language-plaintext highlighter-rouge">Lib/plat-mac</code> 및 <code class="language-plaintext highlighter-rouge">Mac</code> 아래의 모든 모듈은 제거됩니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">urllib</code>에서 사용하기 위한 프록시 액세스용 스텁(stub) 모듈이 제공될 것입니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">_builtinSuites</code>, <code class="language-plaintext highlighter-rouge">Audio_mac</code>, <code class="language-plaintext highlighter-rouge">applesingle</code>, <code class="language-plaintext highlighter-rouge">appletrawmain</code>, <code class="language-plaintext highlighter-rouge">appletrunner</code>, <code class="language-plaintext highlighter-rouge">argvemulator</code>, <code class="language-plaintext highlighter-rouge">bgenlocations</code>, <code class="language-plaintext highlighter-rouge">bundlebuilder</code>, <code class="language-plaintext highlighter-rouge">CodeWarrior</code>, <code class="language-plaintext highlighter-rouge">Explorer</code>, <code class="language-plaintext highlighter-rouge">Finder</code>, <code class="language-plaintext highlighter-rouge">macerrors</code>, <code class="language-plaintext highlighter-rouge">macostools</code>, <code class="language-plaintext highlighter-rouge">macresource</code>, <code class="language-plaintext highlighter-rouge">Nav</code>, <code class="language-plaintext highlighter-rouge">Netscape</code>, <code class="language-plaintext highlighter-rouge">OSATerminology</code>, <code class="language-plaintext highlighter-rouge">pimp</code>, <code class="language-plaintext highlighter-rouge">PixMapWrapper</code>, <code class="language-plaintext highlighter-rouge">StdSuites</code>, <code class="language-plaintext highlighter-rouge">SystemEvents</code>, <code class="language-plaintext highlighter-rouge">Terminal</code>, <code class="language-plaintext highlighter-rouge">terminalcommand</code>: 문서화되지 않았습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">aepack</code>, <code class="language-plaintext highlighter-rouge">aetools</code>, <code class="language-plaintext highlighter-rouge">aetypes</code>, <code class="language-plaintext highlighter-rouge">gensuitemodule</code>, <code class="language-plaintext highlighter-rouge">MiniAEFrame</code>: 서드파티 모듈을 통한 OSA 지원이 더 좋습니다 (Appscript). 하드코딩된 엔디안(endianness)으로 인해 Intel Mac에서 문제가 발생합니다. Carbon 패키지 의존적인 경우 이름 변경이 필요할 수 있습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">autoGIL</code>: <code class="language-plaintext highlighter-rouge">CFRunLoop</code>와 Python을 사용하는 데 매우 좋지 않은 모델입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">buildtools</code>: Python 2.3부터 명확한 이유 없이 deprecated로 문서화되었습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Carbon</code>: Carbon 개발은 중단되었습니다. 64비트 시스템을 완전히 지원하지 않습니다. UCS-4 유니코드 Python 빌드를 지원하도록 업데이트된 적이 없는 <code class="language-plaintext highlighter-rouge">bgen</code>에 의존합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">ColorPicker</code>, <code class="language-plaintext highlighter-rouge">EasyDialogs</code>: GUI에는 Cocoa를 사용하는 것이 더 좋습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">findertools</code>: 더 이상 유용하지 않습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">FrameWork</code>: 문서화가 불충분합니다. Carbon Events를 지원하도록 업데이트되지 않았습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">ic</code>, <code class="language-plaintext highlighter-rouge">icglue</code>, <code class="language-plaintext highlighter-rouge">icopen</code>: OS X에서는 필요하지 않습니다. 일반적으로 좋지 않은 동작인 ‘open’을 대체하기 위한 것이었습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">MacOS</code>: <code class="language-plaintext highlighter-rouge">binhex</code>의 제거도 의미할 것입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">videoreader</code>: 더 이상 사용되지 않습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">W</code>: 더 이상 Python과 함께 배포되지 않습니다.</li>
+</ul>
+
+<h5 id="solaris">Solaris</h5>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">SUNAUDIODEV</code>/<code class="language-plaintext highlighter-rouge">sunaudiodev</code>: Sun 머신의 사운드 카드 액세스입니다. 코드가 8년 이상 고유하게 편집되지 않았습니다.</li>
+</ul>
+
+<h4 id="거의-사용되지-않음-hardly-used-완료">거의 사용되지 않음 (Hardly used) [완료]</h4>
+
+<p>일부 플랫폼 독립적인 모듈은 거의 사용되지 않습니다. 여기에는 쉬운 재구현 가능성, 매우 작은 사용자층 또는 최신 표준을 따르지 않는 점을 포함하여 여러 가지 가능한 설명이 있습니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">audiodev</code>: 문서화되지 않았습니다. 5년 동안 편집되지 않았습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">imputil</code>: 문서화되지 않았습니다. 절대 임포트(absolute imports)를 지원하도록 업데이트된 적이 없습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">mutex</code>: 세마포어(semaphore)와 큐(queue)를 사용하여 쉽게 구현할 수 있습니다. 잠금 시도에서 블록할 수 없습니다. 15년 전 추가된 이후 고유하게 편집되지 않았습니다. ‘sched’ 모듈에서만 유용합니다. 스레드 안전(thread-safe)하지 않습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">stringold</code>: 문자열 객체의 메서드에 대한 함수 버전입니다. Python 1.6 이후로 Obsolete되었습니다. 문자열 객체 또는 모듈에 없는 기능은 <code class="language-plaintext highlighter-rouge">string</code> 모듈로 이동될 것입니다(주로 상수).</li>
+  <li><code class="language-plaintext highlighter-rouge">sunaudio</code>: 문서화되지 않았습니다. 7년 이상 편집되지 않았습니다. <code class="language-plaintext highlighter-rouge">sunau</code> 모듈은 유사한 기능을 제공합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">toaiff</code>: 문서화되지 않았습니다. 시스템에 <code class="language-plaintext highlighter-rouge">sox</code> 라이브러리가 설치되어 있어야 합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">user</code>: 애플리케이션이 자체 모듈 이름을 지정하고, 존재 여부를 확인하고, 발견되면 import하도록 허용함으로써 쉽게 처리할 수 있습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">new</code>: ‘types’ 모듈에서 이름을 단순히 다시 바인딩(rebinding)한 것입니다. 대부분의 유형을 쉽게 얻기 위해 <code class="language-plaintext highlighter-rouge">type</code> 내장 함수를 호출할 수도 있습니다. Docstring은 27241 리비전(2002-06-15) 이후로 이 모듈이 더 이상 유용하지 않다고 명시합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">pure</code>: Pure Atria가 Rational에 인수되고 Rational이 IBM에 인수되기 전에 작성되었습니다 (즉, 매우 오래되었습니다).</li>
+  <li><code class="language-plaintext highlighter-rouge">test.testall</code>: <code class="language-plaintext highlighter-rouge">regrtest</code> 이전 시대의 것입니다.</li>
+</ul>
+
+<h4 id="obsolete-구식-완료">Obsolete (구식) [완료]</h4>
+
+<p>Obsolete가 된다는 것은 stdlib의 다른 모듈이나 널리 배포된 서드파티 라이브러리가 해당 모듈이 의도한 목적에 대해 더 나은 해결책을 제공한다는 것을 의미합니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Bastion</code>/<code class="language-plaintext highlighter-rouge">rexec</code>: 제한된 실행/보안 기능입니다. Python 2.3에서 비활성화되었습니다. 안전하지 않은 모듈로 간주되었습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">bsddb185</code>: <code class="language-plaintext highlighter-rouge">bsddb3</code>로 대체되었습니다. 기본적으로 빌드되지 않습니다. 문서는 “새 코드에서 이 모듈을 직접 사용해서는 안 됩니다”라고 명시합니다. PyPI에서 외부적으로 사용할 수 있습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Canvas</code>: 2000년부터 Guido의 주석에서 Obsolete로 표시되었습니다 (http://bugs.python.org/issue210677 참조). <code class="language-plaintext highlighter-rouge">Tkinter.Canvas</code> 클래스를 사용하는 것이 더 좋습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">commands</code>: <code class="language-plaintext highlighter-rouge">subprocess</code> 모듈이 대체합니다 (PEP 324). <code class="language-plaintext highlighter-rouge">getstatus()</code>를 제거하고 나머지는 <code class="language-plaintext highlighter-rouge">subprocess</code>로 이동합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">compiler</code>: 내장 컴파일러와 stdlib 패키지를 모두 유지 관리하는 것은 불필요합니다. 컴파일러가 생성한 AST를 사용할 수 있습니다. AST에서 컴파일하는 메커니즘을 추가해야 합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">dircache</code>: 미미하게 사용됩니다. 쉽게 복제할 수 있습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">dl</code>: <code class="language-plaintext highlighter-rouge">ctypes</code>가 동일한 기능에 대해 더 나은 지원을 제공합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">fpformat</code>: 모든 기능이 문자열 보간(string interpolation)으로 지원됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">htmllib</code>: <code class="language-plaintext highlighter-rouge">HTMLParser</code>로 대체되었습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">ihooks</code>: 문서화되지 않았습니다. Python 2.3부터 비활성화된 <code class="language-plaintext highlighter-rouge">rexec</code>와 함께 사용하기 위한 것입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">imageop</code>: 서드파티 라이브러리(Python Imaging Library)가 더 나은 지원을 제공합니다. 유닛 테스트는 <code class="language-plaintext highlighter-rouge">rgbimg</code>와 <code class="language-plaintext highlighter-rouge">imgfile</code>에 의존했습니다. <code class="language-plaintext highlighter-rouge">rgbimg</code>는 Python 2.6에서 제거되었습니다. <code class="language-plaintext highlighter-rouge">imgfile</code>은 이 PEP에서 제거될 예정입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">linuxaudiodev</code>: <code class="language-plaintext highlighter-rouge">ossaudiodev</code>로 대체되었습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">mhlib</code>: 개별 모듈로 제거되어야 합니다; 대신 <code class="language-plaintext highlighter-rouge">mailbox</code>를 사용하십시오.</li>
+  <li><code class="language-plaintext highlighter-rouge">popen2</code>: <code class="language-plaintext highlighter-rouge">subprocess</code> 모듈이 대체합니다 (PEP 324).</li>
+  <li><code class="language-plaintext highlighter-rouge">sgmllib</code>: SGML을 완전히 구문 분석하지 않습니다. 제거될 예정인 <code class="language-plaintext highlighter-rouge">htmllib</code>를 지원하기 위해 stdlib에 있었습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">sre</code>: 이전에 deprecated되었습니다; 대신 <code class="language-plaintext highlighter-rouge">re</code>를 import하십시오.</li>
+  <li><code class="language-plaintext highlighter-rouge">stat</code> [TODO: 모든 사용을 <code class="language-plaintext highlighter-rouge">os.stat()</code>으로 옮겨야 함]: <code class="language-plaintext highlighter-rouge">os.stat()</code>은 이제 속성(attribute)이 있는 튜플을 반환합니다. 모듈의 함수는 <code class="language-plaintext highlighter-rouge">os.stat</code>이 반환하는 객체의 메서드로 만들어져야 합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">statvfs</code>: <code class="language-plaintext highlighter-rouge">os.statvfs</code>는 이제 속성이 있는 튜플을 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">thread</code>: 사람들은 대신 <code class="language-plaintext highlighter-rouge">threading</code>을 사용해야 합니다. <code class="language-plaintext highlighter-rouge">thread</code>를 <code class="language-plaintext highlighter-rouge">_thread</code>로 이름을 변경합니다. <code class="language-plaintext highlighter-rouge">dummy_thread</code>를 deprecated하고 <code class="language-plaintext highlighter-rouge">_dummy_thread</code>로 이름을 변경합니다. <code class="language-plaintext highlighter-rouge">thread.get_ident</code>를 <code class="language-plaintext highlighter-rouge">threading</code>으로 이동합니다. Guido는 이전에 deprecated를 지지했습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">urllib</code>: <code class="language-plaintext highlighter-rouge">urllib2</code>로 대체되었습니다. <code class="language-plaintext highlighter-rouge">urllib</code>에 고유한 기능은 <code class="language-plaintext highlighter-rouge">urllib</code> 패키지에 유지됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">UserDict</code> [완료: 3.0] [TODO: 2.6 처리]: 유형(types)이 상위 클래스(superclass)가 될 수 있으므로 유용성이 떨어졌습니다. 유용한 부분은 <code class="language-plaintext highlighter-rouge">collections</code> 모듈로 이동되었습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">UserList</code>/<code class="language-plaintext highlighter-rouge">UserString</code> [완료]: 유형(types)이 상위 클래스(superclass)가 될 수 있으므로 유용하지 않습니다. <code class="language-plaintext highlighter-rouge">collections</code> 모듈로 이동되었습니다.</li>
+</ul>
+
+<h4 id="유지-관리-부담-maintenance-burden">유지 관리 부담 (Maintenance Burden)</h4>
+
+<p>수년 동안 특정 모듈은 Python 개발자들에게 유지 관리 측면에서 큰 부담이 되어왔습니다. 이러한 상황에서는 모듈을 커뮤니티에 맡겨 유지 관리하도록 함으로써 Python 개발자들이 언어 지원 및 과도한 시간과 노력을 요구하지 않는 다른 표준 라이브러리 모듈에 더 집중할 수 있도록 하는 것이 더 좋습니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">bsddb3</code>: http://www.jcea.es/programacion/pybsddb.htm 에서 외부적으로 유지 관리됩니다. 일관성 없는 테스트 불안정성이 있습니다. Berkeley DB는 Python과 다른 릴리스 일정을 따르므로, 바인딩이 반드시 사용 가능한 것과 동기화되지 않습니다.</li>
+</ul>
+
+<h3 id="이름-변경할-모듈-modules-to-rename">이름 변경할 모듈 (Modules to Rename)</h3>
+
+<p>PEP 8이 생겨나기 전에 많은 모듈이 stdlib에 존재했습니다. 이로 인해 일부 명명 불일치 및 네임스페이스(namespace)가 불필요하게 커지는 문제(namespace bloat)가 발생했으며, 이는 해결되어야 합니다.</p>
+
+<h4 id="pep-8-위반-pep-8-violations-완료">PEP 8 위반 (PEP 8 violations) [완료]</h4>
+
+<p>PEP 8은 모듈이 “짧고, 모두 소문자로 된 이름을 가져야 하며”, “가독성을 향상시키는 경우 밑줄(underscores)을 사용할 수 있다”고 명시합니다. 패키지 이름에서는 밑줄 사용이 권장되지 않습니다. 다음 모듈은 PEP 8을 위반하며, 패키지로 이동하여 이름이 변경되지 않는 한 원래 이름을 유지합니다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">현재 이름 (Current Name)</th>
+      <th style="text-align: left">대체 이름 (Replacement Name)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">_winreg</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">winreg</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ConfigParser</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">configparser</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">copy_reg</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">copyreg</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Queue</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">queue</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">SocketServer</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">socketserver</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="동일-인터페이스의-c-및-python-구현-병합-merging-c-and-python-implementations-of-the-same-interface">동일 인터페이스의 C 및 Python 구현 병합 (Merging C and Python implementations of the same interface)</h4>
+
+<p>일부 인터페이스는 Python 및 C 구현을 모두 가지고 있습니다. 속도를 위해 C 구현을 가지고 있고 Python 구현을 대체(fallback)로 사용하는 것은 좋지만, stdlib에서 두 구현을 독립적으로 노출할 필요는 없습니다. Python 3.0에서는 두 가지 구현이 있는 모든 인터페이스가 단일 공용 인터페이스로 병합됩니다.</p>
+
+<p>C 모듈은 참조 구현(Python 구현이 참조 구현임)이 아니라는 사실을 명확히 하기 위해 선행 밑줄(leading underscore)이 주어집니다. 이는 C와 Python 버전 간의 모든 의미론적 차이가 Python 3.0 이전에 처리되어야 하며, 그렇지 않으면 C 구현이 수정될 때까지 제거될 것임을 의미합니다.</p>
+
+<p>아래 나열되지 않은 한 가지 인터페이스는 <code class="language-plaintext highlighter-rouge">xml.etree.ElementTree</code>입니다. 이것은 외부에서 유지 관리되는 모듈이므로 Python 개발 팀의 직접적인 이름 변경 통제하에 있지 않습니다. 이에 대한 논의는 “Open Issues” 섹션을 참조하십시오.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">pickle</code>/<code class="language-plaintext highlighter-rouge">cPickle</code> [완료]: <code class="language-plaintext highlighter-rouge">cPickle</code>을 <code class="language-plaintext highlighter-rouge">_pickle</code>로 이름을 변경합니다. C 구현의 의미론적 완전성(semantic completeness)은 확인되지 않았습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">profile</code>/<code class="language-plaintext highlighter-rouge">cProfile</code> [TODO]: <code class="language-plaintext highlighter-rouge">cProfile</code>을 <code class="language-plaintext highlighter-rouge">_profile</code>로 이름을 변경합니다. C 구현의 의미론적 완전성(semantic completeness)은 확인되지 않았습니다. (참고: Python 3.3 현재 <code class="language-plaintext highlighter-rouge">profile</code>/<code class="language-plaintext highlighter-rouge">cProfile</code> 병합은 일어나지 않았으며, 폐기된 것으로 간주됩니다).</li>
+  <li><code class="language-plaintext highlighter-rouge">StringIO</code>/<code class="language-plaintext highlighter-rouge">cStringIO</code> [완료]: 클래스를 <code class="language-plaintext highlighter-rouge">io</code> 모듈에 추가합니다.</li>
+</ul>
+
+<h4 id="공개적으로-문서화된-인터페이스가-없음-no-public-documented-interface-완료">공개적으로 문서화된 인터페이스가 없음 (No public, documented interface) [완료]</h4>
+
+<p>stdlib에는 정의된 공개 인터페이스가 없는 여러 모듈이 있습니다. 이 모듈들은 노출된 다른 모듈의 지원 코드로 존재합니다. 직접 사용하기 위한 것이 아니므로, 이 사실을 반영하도록 이름을 변경해야 합니다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">현재 이름 (Current Name)</th>
+      <th style="text-align: left">대체 이름 (Replacement Name)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">markupbase</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">_markupbase</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="잘못-선택된-이름-poorly-chosen-names-완료">잘못 선택된 이름 (Poorly chosen names) [완료]</h4>
+
+<p>일부 모듈은 나중에 생각해보니 잘못 선택된 이름을 가지고 있었습니다. 2.x 시리즈를 넘어 그 나쁜 이름이 지속되는 것을 막기 위해 이름을 변경해야 합니다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">현재 이름 (Current Name)</th>
+      <th style="text-align: left">대체 이름 (Replacement Name)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">repr</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">reprlib</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">test.test_support</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">test.support</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="모듈-그룹화-grouping-of-modules-완료">모듈 그룹화 (Grouping of modules) [완료]</h4>
+
+<p>stdlib가 성장함에 따라 그 안에 여러 영역이 확장되어 여러 모듈을 포함하게 되었습니다 (예: 데이터베이스 파일 지원). 따라서 관련 모듈을 패키지로 그룹화하는 것이 합리적입니다.</p>
+
+<h5 id="dbm-패키지"><code class="language-plaintext highlighter-rouge">dbm</code> 패키지</h5>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">현재 이름 (Current Name)</th>
+      <th style="text-align: left">대체 이름 (Replacement Name)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">anydbm</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">dbm.__init__</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">dbhash</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">dbm.bsd</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">dbm</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">dbm.ndbm</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">dumbdm</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">dbm.dumb</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">gdbm</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">dbm.gnu</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">whichdb</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">dbm.__init__</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>주석</em>: <code class="language-plaintext highlighter-rouge">dbm.__init__</code>은 <code class="language-plaintext highlighter-rouge">anydbm</code>과 <code class="language-plaintext highlighter-rouge">whichdb</code>를 결합할 수 있습니다. 두 모듈의 공개 API에 이름 충돌이 없고, 두 모듈의 사용법이 밀접하게 관련되어 있기 때문입니다.</p>
+
+<h5 id="html-패키지"><code class="language-plaintext highlighter-rouge">html</code> 패키지</h5>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">현재 이름 (Current Name)</th>
+      <th style="text-align: left">대체 이름 (Replacement Name)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">HTMLParser</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">html.parser</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">htmlentitydefs</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">html.entities</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h5 id="http-패키지"><code class="language-plaintext highlighter-rouge">http</code> 패키지</h5>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">현재 이름 (Current Name)</th>
+      <th style="text-align: left">대체 이름 (Replacement Name)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">httplib</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">http.client</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">BaseHTTPServer</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">http.server</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">CGIHTTPServer</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">http.server</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">SimpleHTTPServer</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">http.server</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Cookie</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">http.cookies</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">cookielib</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">http.cookiejar</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>주석</em>: <code class="language-plaintext highlighter-rouge">http.server</code> 모듈은 지정된 모듈들을 이름 충돌 없이 안전하게 결합할 수 있습니다.</p>
+
+<h5 id="tkinter-패키지"><code class="language-plaintext highlighter-rouge">tkinter</code> 패키지</h5>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">현재 이름 (Current Name)</th>
+      <th style="text-align: left">대체 이름 (Replacement Name)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Dialog</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tkinter.dialog</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">FileDialog</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tkinter.filedialog</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">FixTk</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tkinter._fix</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ScrolledText</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tkinter.scrolledtext</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">SimpleDialog</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tkinter.simpledialog</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Tix</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tkinter.tix</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Tkconstants</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tkinter.constants</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Tkdnd</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tkinter.dnd</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Tkinter</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tkinter.__init__</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tkColorChooser</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tkinter.colorchooser</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tkCommonDialog</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tkinter.commondialog</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tkFileDialog</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tkinter.filedialog</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tkFont</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tkinter.font</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tkMessageBox</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tkinter.messagebox</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tkSimpleDialog</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tkinter.simpledialog</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">turtle</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tkinter.turtle</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>주석</em>: <code class="language-plaintext highlighter-rouge">tkinter.filedialog</code>는 <code class="language-plaintext highlighter-rouge">FileDialog</code>와 <code class="language-plaintext highlighter-rouge">tkFileDialog</code>를 이름 충돌 없이 안전하게 결합할 수 있습니다. <code class="language-plaintext highlighter-rouge">tkinter.simpledialog</code>는 <code class="language-plaintext highlighter-rouge">SimpleDialog</code>와 <code class="language-plaintext highlighter-rouge">tkSimpleDialog</code>를 이름 충돌 없이 안전하게 결합할 수 있습니다.</p>
+
+<h5 id="urllib-패키지"><code class="language-plaintext highlighter-rouge">urllib</code> 패키지</h5>
+
+<p>원래 이 새 패키지는 <code class="language-plaintext highlighter-rouge">url</code>로 명명될 예정이었으나, 이 이름이 변수명으로 흔히 사용되기 때문에 <code class="language-plaintext highlighter-rouge">urllib</code> 이름을 유지하고 기존 모듈들을 새 패키지 안으로 옮기는 것이 더 낫다고 판단되었습니다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">현재 이름 (Current Name)</th>
+      <th style="text-align: left">대체 이름 (Replacement Name)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">urllib2</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">urllib.request</code>, <code class="language-plaintext highlighter-rouge">urllib.error</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">urlparse</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">urllib.parse</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">urllib</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">urllib.parse</code>, <code class="language-plaintext highlighter-rouge">urllib.request</code>, <code class="language-plaintext highlighter-rouge">urllib.error</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">robotparser</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">urllib.robotparser</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>주석</em>: <code class="language-plaintext highlighter-rouge">urllib</code>의 인용(quoting) 관련 함수는 <code class="language-plaintext highlighter-rouge">urllib.parse</code>에 추가될 것입니다. <code class="language-plaintext highlighter-rouge">urllib.URLOpener</code>와 <code class="language-plaintext highlighter-rouge">urllib.FancyUrlOpener</code>는 두 모듈의 문서가 업데이트되는 한 <code class="language-plaintext highlighter-rouge">urllib.request</code>에 추가될 것입니다.</p>
+
+<h5 id="xmlrpc-패키지"><code class="language-plaintext highlighter-rouge">xmlrpc</code> 패키지</h5>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">현재 이름 (Current Name)</th>
+      <th style="text-align: left">대체 이름 (Replacement Name)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">xmlrpclib</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">xmlrpc.client</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">DocXMLRPCServer</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">xmlrpc.server</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">SimpleXMLRPCServer</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">xmlrpc.server</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>주석</em>: <code class="language-plaintext highlighter-rouge">xmlrpc.server</code>로 결합되는 모듈들은 이름 충돌이 없으므로 안전하게 병합될 수 있습니다.</p>
+
+<h3 id="전환-계획-transition-plan">전환 계획 (Transition Plan)</h3>
+
+<h4 id="문제점-issues">문제점 (Issues)</h4>
+
+<p>이 PEP와 관련된 문제점은 다음과 같습니다:</p>
+<ul>
+  <li>Issue 2775: 마스터 추적 문제</li>
+  <li>Issue 2828: <code class="language-plaintext highlighter-rouge">undoc.rst</code> 정리</li>
+</ul>
+
+<h4 id="제거될-모듈의-경우-for-modules-to-be-removed">제거될 모듈의 경우 (For modules to be removed)</h4>
+
+<p>모듈 제거의 경우, Python 3.0에서 먼저 모듈을 제거하여 의존성이 어디에 있는지 확인하는 것이 가장 쉽습니다. 이렇게 하면 <code class="language-plaintext highlighter-rouge">DeprecationWarning</code> 억제가 필요한 코드를 더 쉽게 찾을 수 있습니다.</p>
+
+<h5 id="python-30에서">Python 3.0에서</h5>
+
+<ul>
+  <li>모듈을 제거합니다.</li>
+  <li>관련 테스트를 제거합니다.</li>
+  <li>모든 문서(일반적으로 모듈의 문서 파일 및 라이브러리 참조 파일의 해당 항목)를 제거합니다.</li>
+  <li>필요한 경우 <code class="language-plaintext highlighter-rouge">Modules/Setup.dist</code> 및 <code class="language-plaintext highlighter-rouge">setup.py</code>를 편집합니다.</li>
+  <li>( <code class="language-plaintext highlighter-rouge">-uall</code>을 사용하여) 회귀 테스트 스위트(regression test suite)를 실행하고, 제거된 모듈의 import 실패로 인해 건너뛰어진 테스트가 있는지 확인합니다.</li>
+  <li>(적절한 <code class="language-plaintext highlighter-rouge">Misc/NEWS</code> 항목과 함께) 변경 사항을 체크인합니다.</li>
+  <li>이 PEP를 업데이트하여 3.0 단계가 완료되었음을 기록합니다.</li>
+</ul>
+
+<h5 id="python-26에서">Python 2.6에서</h5>
+
+<ul>
+  <li>
+    <p>deprecated된 모듈이 Python으로 구현된 경우, 실행되는 코드의 첫 부분으로 다음 코드를 추가합니다(모듈 이름과 경고 import를 필요한 대로 조정):</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">warnings</span> <span class="kn">import</span> <span class="n">warnpy3k</span>
+<span class="nf">warnpy3k</span><span class="p">(</span><span class="sh">"</span><span class="s">the XXX module has been removed in Python 3.0</span><span class="sh">"</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">del</span> <span class="n">warnpy3k</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>확장 모듈(extension module)인 경우 다음을 추가합니다:</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="n">PyErr_WarnPy3k</span><span class="p">(</span><span class="s">"the XXX module has been removed in "</span> <span class="s">"Python 3.0"</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+</code></pre></div>    </div>
+    <p>( <code class="language-plaintext highlighter-rouge">Misc/TextMate</code>에서 제공되는 Python-Dev TextMate 번들은 이 모든 것을 생성하는 명령을 포함합니다.)</p>
+  </li>
+  <li>
+    <p>문서를 업데이트합니다. 자체 문서 파일이 있는 모듈의 경우, <code class="language-plaintext highlighter-rouge">deprecated</code> 지시어와 함께 모듈 지시어에 <code class="language-plaintext highlighter-rouge">:deprecated:</code> 옵션을 사용하여 2.6에서 deprecated되지만 3.0에서는 모듈이 제거됨을 명시합니다.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.. deprecated:: 2.6
+   The :mod:`XXX` module has been removed in Python 3.0.
+</code></pre></div>    </div>
+  </li>
+  <li>단순히 파일에 나열된 모듈(예: <code class="language-plaintext highlighter-rouge">undoc.rst</code>)의 경우 <code class="language-plaintext highlighter-rouge">warning</code> 지시어를 사용합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">test_py3kwarn</code>에서 모듈 삭제 테스트에 모듈을 추가합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">test.test_support.import_module(name, deprecated=True)</code>를 사용하여 모듈의 테스트 코드에서 경고를 억제합니다.</li>
+  <li>적절한 <code class="language-plaintext highlighter-rouge">Misc/NEWS</code> 항목과 함께 변경 사항을 체크인합니다 (이 체크인은 Py3K에서 차단!).</li>
+  <li>이 PEP를 업데이트하여 2.6 단계가 완료되었음을 기록합니다.</li>
+</ul>
+
+<h4 id="모듈-이름-변경-renaming-of-modules">모듈 이름 변경 (Renaming of modules)</h4>
+
+<p>새 모듈 이름으로 전환하는 데 도움이 되도록 2to3 리팩토링 도구의 이름 변경 지원이 사용될 것입니다. <code class="language-plaintext highlighter-rouge">import</code> 문은 <code class="language-plaintext highlighter-rouge">as</code> 키워드를 사용하여 새 이름으로 import하면서 모듈 네임스페이스를 이전 이름에 바인딩하도록 다시 작성됩니다(키워드가 이미 사용되지 않은 경우, 그렇지 않으면 재할당된 이름은 그대로 두고 import되는 모듈만 변경해야 합니다). <code class="language-plaintext highlighter-rouge">fix_imports</code> fixer는 이 접근 방식의 예시입니다.</p>
+
+<h5 id="python-30에서-1">Python 3.0에서</h5>
+
+<ul>
+  <li>샌드박스에서 2to3를 업데이트하여 이름 변경을 지원합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">svn move</code>를 사용하여 모듈 이름을 변경합니다.</li>
+  <li>stdlib의 모든 <code class="language-plaintext highlighter-rouge">import</code> 문을 새 이름을 사용하도록 업데이트합니다 (<code class="language-plaintext highlighter-rouge">2to3</code>의 <code class="language-plaintext highlighter-rouge">fix_imports</code> fixer를 가장 쉬운 해결책으로 사용).</li>
+  <li>모듈 자체 문서에서 이름을 변경합니다.</li>
+  <li>문서의 모든 참조를 이전 이름에서 새 이름으로 업데이트합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">regrtest.py -uall</code>을 실행하여 이름 변경이 작동했는지 확인합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Misc/NEWS</code>에 항목을 추가합니다.</li>
+  <li>변경 사항을 커밋합니다.</li>
+</ul>
+
+<h5 id="python-26에서-1">Python 2.6에서</h5>
+
+<ul>
+  <li>
+    <p>모듈 문서에 Python 3.0에서 모듈 이름이 변경되었음을 언급하는 메모를 추가합니다.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.. note:: The :mod:`OLDNAME` module has been renamed to :mod:`NEWNAME` in Python 3.0.
+</code></pre></div>    </div>
+  </li>
+  <li>문서 변경 사항을 커밋합니다.</li>
+  <li>Py3K에서 리비전을 차단합니다.</li>
+</ul>
+
+<h3 id="미해결-문제-open-issues">미해결 문제 (Open Issues)</h3>
+
+<h4 id="stdlib-외부에서-유지-관리되는-모듈의-이름-변경-renaming-of-modules-maintained-outside-of-the-stdlib">stdlib 외부에서 유지 관리되는 모듈의 이름 변경 (Renaming of modules maintained outside of the stdlib)</h4>
+
+<p><code class="language-plaintext highlighter-rouge">xml.etree.ElementTree</code>는 PEP 8 명명 표준을 충족하지 않을 뿐만 아니라 노출된 C 구현도 가지고 있습니다. PEP 360에 따라 외부에서 유지 관리되는 패키지입니다. 유지 관리자에게 PEP 8을 따르고 C 구현을 숨기도록 이름 변경을 요청할 것입니다.</p>
+
+<h3 id="거부된-아이디어-rejected-ideas">거부된 아이디어 (Rejected Ideas)</h3>
+
+<h4 id="원래-제거가-제안되었던-모듈-modules-that-were-originally-suggested-for-removal">원래 제거가 제안되었던 모듈 (Modules that were originally suggested for removal)</h4>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">asynchat</code>/<code class="language-plaintext highlighter-rouge">asyncore</code>: Josiah Carlson이 모듈을 유지 관리하겠다고 했습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">audioop</code>/<code class="language-plaintext highlighter-rouge">sunau</code>/<code class="language-plaintext highlighter-rouge">aifc</code>: 형식(format)이 여전히 사용되는 오디오 모듈입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">base64</code>/<code class="language-plaintext highlighter-rouge">quopri</code>/<code class="language-plaintext highlighter-rouge">uu</code>: 모두 여전히 널리 사용됩니다. <code class="language-plaintext highlighter-rouge">codecs</code> 모듈은 기본 사용법에 대해 그렇게 좋은 API를 제공하지 않습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">fileinput</code>: <code class="language-plaintext highlighter-rouge">stdin</code>으로 작업해야 할 때 유용합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">linecache</code>: 내부적으로 여러 곳에서 사용됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">nis</code>: NIS의 새 설치가 여전히 발생하고 있다는 사람들의 증언이 있습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">getopt</code>: <code class="language-plaintext highlighter-rouge">optparse</code>보다 간단합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">repr</code>: 오버라이딩(overriding)의 기초로 유용합니다. 내부적으로 사용됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">sched</code>: 시뮬레이션에 유용합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">symtable</code>/<code class="language-plaintext highlighter-rouge">_symtable</code>: 문서가 작성되었습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">telnetlib</code>: 빠르고 간단한 원격 액세스에 정말 편리합니다. 일부 하드웨어는 구성 및 쿼리(querying)를 위해 Telnet을 지원합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Tkinter</code>: IDLE의 존재를 막을 것입니다. 기본적으로 사용 가능한 GUI 툴킷이 없을 것입니다.</li>
+</ul>
+
+<h4 id="새로운-최상위-패키지-도입-introducing-a-new-top-level-package">새로운 최상위 패키지 도입 (Introducing a new top-level package)</h4>
+
+<p>전체 stdlib를 자체 패키지 내에 배치해야 한다는 제안이 있었습니다. 이 PEP는 이 문제가 자체적인 설계 문제(명명, import 의미론에서 특별한 고려 사항이 필요한지 등)를 가지고 있기 때문에 다루지 않을 것입니다. 이 PEP 내의 모든 내용은 새 최상위 패키지가 도입되더라도 쉽게 처리될 수 있습니다.</p>
+
+<h4 id="테마-관련-모듈을-포함할-새-패키지-도입-introducing-new-packages-to-contain-theme-related-modules">테마 관련 모듈을 포함할 새 패키지 도입 (Introducing new packages to contain theme-related modules)</h4>
+
+<p>이 PEP를 작성하는 동안 stdlib에 특정 테마가 나타나는 것이 발견되었습니다. 과거에 사람들은 유사한 테마를 공유하는 모듈(예: 오디오)을 수집하는 데 도움이 되는 새 패키지를 도입할 것을 제안했습니다. 일부 새 패키지를 제안하기 위해 “Open Issue”가 생성되었습니다.</p>
+
+<p>그러나 결국 아이디어를 추진할 만큼 충분한 지지를 얻지 못했습니다. 대신 이름 단순화가 PEP를 만드는 주요 원동력으로 선택되었습니다.</p>
+
+<h3 id="참고-자료-references">참고 자료 (References)</h3>
+
+<ul>
+  <li>Python-Dev email: “Py3k release schedule worries” (https://mail.python.org/pipermail/python-3000/2006-December/005130.html)</li>
+  <li>Python-Dev email: Autoloading? (https://mail.python.org/pipermail/python-dev/2005-October/057244.html)</li>
+  <li>2to3 refactoring tool (http://svn.python.org/view/sandbox/trunk/2to3/)</li>
+  <li>PyOpenGL (http://pyopengl.sourceforge.net/)</li>
+  <li>Python Imaging Library (PIL) (http://www.pythonware.com/products/pil/)</li>
+  <li>Twisted (http://twistedmatrix.com/trac/)</li>
+  <li>SGI Press Release: End of General Availability for MIPS IRIX Products – December 2006 (http://www.sgi.com/support/mips_irix.html)</li>
+  <li>FORMS Library by Mark Overmars (ftp://ftp.cs.ruu.nl/pub/SGI/FORMS)</li>
+  <li>appscript (http://appscript.sourceforge.net/)</li>
+  <li>_ast module (http://docs.python.org/library/ast.html)</li>
+  <li>python-dev email: getting compiler package failures (https://mail.python.org/pipermail/python-3000/2007-May/007615.html)</li>
+</ul>
+
+<h3 id="저작권-copyright">저작권 (Copyright)</h3>
+
+<p>이 문서는 퍼블릭 도메인(public domain)에 공개되었습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/3107/" class="pagination--pager" title="[Final] PEP 3107 - Function Annotations
+">Previous</a>
+    
+    
+      <a href="/python/pep/3109/" class="pagination--pager" title="[Final] PEP 3109 - Raising Exceptions in Python 3000
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

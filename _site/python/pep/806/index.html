@@ -1,0 +1,806 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Draft] PEP 806 - Mixed sync/async context managers with precise async marking | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 806: ‘Mixed sync/async context managers with precise async marking’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Draft] PEP 806 - Mixed sync/async context managers with precise async marking">
+<meta property="og:url" content="http://localhost:4000/python/pep/806/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 806: ‘Mixed sync/async context managers with precise async marking’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T14:10:48+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T14:10:48+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/806/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Draft] PEP 806 - Mixed sync/async context managers with precise async marking">
+    <meta itemprop="description" content="Python Enhancement Proposal 806: ‘Mixed sync/async context managers with precise async marking’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T14:10:48+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T14:10:48+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Draft] PEP 806 - Mixed sync/async context managers with precise async marking
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T14:10:48+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#초록-abstract">초록 (Abstract)</a></li><li><a href="#동기-motivation">동기 (Motivation)</a></li><li><a href="#실제-영향-real-world-impact">실제 영향 (Real-World Impact)</a></li><li><a href="#이론적-근거-rationale">이론적 근거 (Rationale)</a></li><li><a href="#명세-specification">명세 (Specification)</a></li><li><a href="#하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</a></li><li><a href="#가르치는-방법-how-to-teach-this">가르치는 방법 (How to Teach This)</a></li><li><a href="#기각된-아이디어-rejected-ideas">기각된 아이디어 (Rejected Ideas)</a><ul><li><a href="#우회책-as_acm-래퍼-workaround-an-as_acm-wrapper">우회책: as_acm() 래퍼 (Workaround: an as_acm() wrapper)</a></li><li><a href="#우회책-asyncexitstack-사용-workaround-using-asyncexitstack">우회책: AsyncExitStack 사용 (Workaround: using AsyncExitStack)</a></li><li><a href="#우회책-asyncexitstack-기반-헬퍼-workaround-asyncexitstack--based-helper">우회책: AsyncExitStack 기반 헬퍼 (Workaround: AsyncExitStack -based helper)</a></li><li><a href="#구문-async-with-sync_cm-async_cm-허용-syntax-allow-async-with-sync_cm-async_cm">구문: async with sync_cm, async_cm: 허용 (Syntax: allow async with sync_cm, async_cm:)</a></li><li><a href="#구문-단일-라인-with-async--금지-syntax-ban-single-line-with-async-">구문: 단일 라인 with async ... 금지 (Syntax: ban single-line with async ...)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0806/">PEP 806 - Mixed sync/async context managers with precise async marking</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Draft</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 05-Sep-2025</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>PEP 806 – 혼합 동기/비동기 컨텍스트 관리자 (정확한 비동기 표기법)</p>
+
+<h2 id="초록-abstract">초록 (Abstract)</h2>
+
+<p>현재 Python에서는 <code class="language-plaintext highlighter-rouge">with</code> 또는 <code class="language-plaintext highlighter-rouge">async with</code> 문을 사용하여 여러 컨텍스트 관리자를 한 번에 처리할 수 있지만, 이들은 각각 동기(synchronous) 또는 비동기(asynchronous) 컨텍스트 관리자로만 구성되어야 합니다. 동기 컨텍스트 관리자와 비동기 컨텍스트 관리자를 함께 사용해야 하는 경우, 개발자는 깊게 중첩된 문장을 사용하거나 <code class="language-plaintext highlighter-rouge">AsyncExitStack</code>과 같은 위험한 우회 방법을 사용해야 했습니다.</p>
+
+<p>이 PEP는 단일 <code class="language-plaintext highlighter-rouge">with</code> 문에서 동기 및 비동기 컨텍스트 관리자를 모두 허용하며, 개별 비동기 컨텍스트 관리자에 <code class="language-plaintext highlighter-rouge">async</code> 키워드를 접두사로 붙이는 방식을 제안합니다. 이 변경은 불필요한 중첩을 없애고 코드 가독성을 향상시키며, 비동기 코드의 명시성을 유지하면서 사용 편의성을 개선합니다.</p>
+
+<h2 id="동기-motivation">동기 (Motivation)</h2>
+
+<p>최신 Python 애플리케이션은 동기 및 비동기 컨텍스트 관리자를 혼합하여 여러 리소스를 획득해야 하는 경우가 많습니다. 모든 컨텍스트 관리자가 동기이거나 모든 컨텍스트 관리자가 비동기인 경우에는 단일 문으로 여러 컨텍스트 관리자를 처리할 수 있지만, 둘을 혼합하면 “지옥의 계단(staircase of doom)”과 같은 과도한 들여쓰기가 발생합니다.</p>
+
+<p>예시:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">async</span> <span class="k">def</span> <span class="nf">process_data</span><span class="p">():</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="nf">acquire_lock</span><span class="p">()</span> <span class="k">as</span> <span class="n">lock</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nf">temp_directory</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmpdir</span><span class="p">:</span>
+            <span class="k">async</span> <span class="k">with</span> <span class="nf">connect_to_db</span><span class="p">(</span><span class="n">cache</span><span class="o">=</span><span class="n">tmpdir</span><span class="p">)</span> <span class="k">as</span> <span class="n">db</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="sh">'</span><span class="s">config.json</span><span class="sh">'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="sh">'</span><span class="s">utf-8</span><span class="sh">'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="c1"># 실제 로직을 시작하기 전에 16칸 깊이로 들여쓰기 됨
+</span>                    <span class="n">config</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="nf">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+                    <span class="k">await</span> <span class="n">db</span><span class="p">.</span><span class="nf">execute</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="sh">'</span><span class="s">query</span><span class="sh">'</span><span class="p">])</span>
+                    <span class="c1"># ... 더 많은 처리
+</span></code></pre></div></div>
+<p>이러한 과도한 들여쓰기는 컨텍스트 관리자의 바람직한 의미에도 불구하고 사용을 저해합니다.</p>
+
+<p>이 PEP가 적용되면 위 함수는 다음과 같이 작성할 수 있습니다:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">async</span> <span class="k">def</span> <span class="nf">process_data</span><span class="p">():</span>
+    <span class="nf">with </span><span class="p">(</span>
+        <span class="k">async</span> <span class="nf">acquire_lock</span><span class="p">()</span> <span class="k">as</span> <span class="n">lock</span><span class="p">,</span>
+        <span class="nf">temp_directory</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmpdir</span><span class="p">,</span>
+        <span class="k">async</span> <span class="nf">connect_to_db</span><span class="p">(</span><span class="n">cache</span><span class="o">=</span><span class="n">tmpdir</span><span class="p">)</span> <span class="k">as</span> <span class="n">db</span><span class="p">,</span>
+        <span class="nf">open</span><span class="p">(</span><span class="sh">'</span><span class="s">config.json</span><span class="sh">'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="sh">'</span><span class="s">utf-8</span><span class="sh">'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="nf">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">db</span><span class="p">.</span><span class="nf">execute</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="sh">'</span><span class="s">query</span><span class="sh">'</span><span class="p">])</span>
+        <span class="c1"># ... 더 많은 처리
+</span></code></pre></div></div>
+<p>이 간결한 대안은 동기 및 비동기 컨텍스트 관리자 간에 전환할 때마다 새로운 수준의 들여쓰기를 강제하지 않습니다. 동시에, 기존 키워드만 사용하여 현재 구문보다 <code class="language-plaintext highlighter-rouge">async</code> 키워드로 비동기 코드를 더 정확하게 구별합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">async with</code> 문의 사용이 중단되는 것을 제안하지 않으며, 단일 라인 문에서는 <code class="language-plaintext highlighter-rouge">async with</code>의 계속 사용을 지지합니다. 이는 <code class="language-plaintext highlighter-rouge">async</code>가 비동기 컨텍스트 관리자를 여는 각 라인의 첫 번째 비공백 토큰이 되도록 하기 위함입니다.</p>
+
+<p>하지만 이 제안은 <code class="language-plaintext highlighter-rouge">with async some_ctx()</code>를 허용하여, 단일 코드 스타일의 강제보다는 일관된 구문 설계를 중요하게 생각합니다. 이는 스타일 가이드, 린터, 포매터 등에 의해 처리될 것으로 예상됩니다.</p>
+
+<h2 id="실제-영향-real-world-impact">실제 영향 (Real-World Impact)</h2>
+
+<p>이 개선 사항은 Python 개발자들이 일상적으로 겪는 어려움을 해결합니다. 한 산업 코드베이스를 조사한 결과, 만 개 이상의 함수에 적어도 하나의 비동기 컨텍스트 관리자가 포함되어 있었으며, 이 중 19%는 동기 컨텍스트 관리자도 포함하고 있었습니다. 비동기 함수는 비동기 컨텍스트 관리자를 포함하는 것만큼 동기 컨텍스트 관리자를 약 3분의 2 정도 자주 포함합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">with</code>와 <code class="language-plaintext highlighter-rouge">async with</code> 문을 모두 포함하는 함수의 39%는 제안된 구문으로 즉시 전환할 수 있었지만, 이는 동기 컨텍스트 관리자의 회피 및 ‘기각된 아이디어(Rejected Ideas)’ 섹션에 나열된 우회책 사용으로 인한 느슨한 하한선입니다. 무작위 함수 샘플을 검사한 결과, 이 PEP가 수락된다면 컨텍스트 관리자를 포함하는 비동기 함수의 20%에서 50% 사이가 <code class="language-plaintext highlighter-rouge">with async</code>를 사용할 것으로 추정됩니다.</p>
+
+<p>더 넓은 생태계에서는 이 비율이 5%에서 20% 범위로 낮아질 것으로 예상됩니다. 조사된 코드베이스는 Trio와 함께 구조화된 동시성을 사용하며, PEP 533 및 PEP 789에서 논의된 문제를 완화하기 위해 컨텍스트 관리자를 광범위하게 사용합니다.</p>
+
+<h2 id="이론적-근거-rationale">이론적 근거 (Rationale)</h2>
+
+<p>비동기 데이터베이스 연결이나 API 클라이언트, 동기 파일 작업과 같은 혼합 동기/비동기 컨텍스트 관리자는 최신 Python 애플리케이션에서 흔히 사용됩니다. 현재 구문은 개발자에게 깊게 중첩된 코드 또는 <code class="language-plaintext highlighter-rouge">AsyncExitStack</code>과 같은 오류 발생 가능성이 있는 우회책 중에서 선택하도록 강요합니다.</p>
+
+<p>이 PEP는 기존 패턴을 기반으로 한 최소한의 구문 변경으로 이 문제를 해결합니다. 개별 컨텍스트 관리자를 <code class="language-plaintext highlighter-rouge">async</code>로 표시할 수 있게 함으로써, 불필요한 중첩을 없애면서도 비동기 코드에 대한 Python의 명시적인 접근 방식을 유지합니다.</p>
+
+<p>구현은 문법 설탕(syntactic sugar)으로, 런타임 오버헤드가 전혀 발생하지 않도록 합니다. 새로운 구문은 개발자가 현재 작성하는 것과 동일한 중첩된 <code class="language-plaintext highlighter-rouge">with</code> 및 <code class="language-plaintext highlighter-rouge">async with</code> 문으로 역변환(desugar)됩니다. 이 접근 방식은 새로운 프로토콜, 기존 컨텍스트 관리자에 대한 변경, 또는 이해해야 할 새로운 런타임 동작을 요구하지 않습니다.</p>
+
+<h2 id="명세-specification">명세 (Specification)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">with (..., async ...):</code> 구문은 현재의 다중 컨텍스트 <code class="language-plaintext highlighter-rouge">with</code> 문과 동일한 방식으로 컨텍스트 관리자 시퀀스로 역변환됩니다. 단, <code class="language-plaintext highlighter-rouge">async</code> 키워드가 접두사로 붙은 컨텍스트 관리자는 <code class="language-plaintext highlighter-rouge">__aenter__</code> / <code class="language-plaintext highlighter-rouge">__aexit__</code> 프로토콜을 사용합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">with</code> 문만 수정됩니다. <code class="language-plaintext highlighter-rouge">async with async ctx():</code>는 문법 오류입니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">ast.withitem</code> 노드는 <code class="language-plaintext highlighter-rouge">ast.comprehension</code>의 기존 <code class="language-plaintext highlighter-rouge">is_async</code> 속성을 따라 새로운 <code class="language-plaintext highlighter-rouge">is_async</code> 정수 속성을 얻습니다. <code class="language-plaintext highlighter-rouge">async with</code> 문 항목의 경우, 이 속성은 항상 <code class="language-plaintext highlighter-rouge">1</code>입니다. 일반 <code class="language-plaintext highlighter-rouge">with</code> 문 항목의 경우, <code class="language-plaintext highlighter-rouge">async</code> 키워드가 있으면 속성이 <code class="language-plaintext highlighter-rouge">1</code>이고, 그렇지 않으면 <code class="language-plaintext highlighter-rouge">0</code>입니다. 이를 통해 AST는 기존 AST 처리 도구와의 하위 호환성을 유지하면서 어떤 컨텍스트 관리자가 비동기 프로토콜을 사용해야 하는지 정확하게 표현할 수 있습니다.</p>
+
+<h2 id="하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</h2>
+
+<p>이 변경은 완전히 하위 호환됩니다. 유일하게 관찰 가능한 차이점은 이전에 <code class="language-plaintext highlighter-rouge">SyntaxError</code>를 발생시키던 특정 구문이 이제 성공적으로 실행된다는 것입니다.</p>
+
+<p>컨텍스트 관리자를 구현하는 라이브러리(표준 라이브러리 및 서드 파티)는 수정 없이 새로운 구문에서 작동합니다. 소스 코드와 직접 작동하는 라이브러리 및 도구는 새로운 구문과 마찬가지로 사소한 업데이트가 필요할 것입니다.</p>
+
+<h2 id="가르치는-방법-how-to-teach-this">가르치는 방법 (How to Teach This)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">async with</code>와 함께 또는 직후에 “혼합 컨텍스트 관리자(mixed context managers)”를 소개하는 것을 권장합니다. 예를 들어, 튜토리얼은 다음을 다룰 수 있습니다:</p>
+<ul>
+  <li><strong>기본 컨텍스트 관리자:</strong> 단일 <code class="language-plaintext highlighter-rouge">with</code> 문으로 시작합니다.</li>
+  <li><strong>다중 컨텍스트 관리자:</strong> 현재의 쉼표 구문을 보여줍니다.</li>
+  <li><strong>비동기 컨텍스트 관리자:</strong> <code class="language-plaintext highlighter-rouge">async with</code>를 소개합니다.</li>
+  <li><strong>혼합 컨텍스트:</strong> “각 비동기 컨텍스트 관리자를 <code class="language-plaintext highlighter-rouge">async</code>로 표시합니다”.</li>
+</ul>
+
+<h2 id="기각된-아이디어-rejected-ideas">기각된 아이디어 (Rejected Ideas)</h2>
+
+<h3 id="우회책-as_acm-래퍼-workaround-an-as_acm-wrapper">우회책: <code class="language-plaintext highlighter-rouge">as_acm()</code> 래퍼 (Workaround: an <code class="language-plaintext highlighter-rouge">as_acm()</code> wrapper)</h3>
+
+<p>동기 컨텍스트 관리자를 비동기 컨텍스트 관리자로 래핑하는 헬퍼 함수를 구현하는 것은 쉽습니다. 예를 들어:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@contextmanager</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">as_acm</span><span class="p">(</span><span class="n">sync_cm</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">sync_cm</span> <span class="k">as</span> <span class="n">result</span><span class="p">:</span>
+        <span class="k">await</span> <span class="nf">sleep</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">yield</span> <span class="n">result</span>
+
+<span class="k">async</span> <span class="nf">with </span><span class="p">(</span>
+    <span class="nf">acquire_lock</span><span class="p">(),</span>
+    <span class="nf">as_acm</span><span class="p">(</span><span class="nf">open</span><span class="p">(</span><span class="sh">'</span><span class="s">file</span><span class="sh">'</span><span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="bp">...</span>
+</code></pre></div></div>
+<p>이는 거의 모든 코드에 권장되는 우회책입니다. 그러나 취소를 허용하기 위해 비동기 런타임으로 다시 호출하는 것(예: <code class="language-plaintext highlighter-rouge">await sleep(0)</code> 실행)이 바람직하지 않은 경우가 있습니다. 다른 한편으로, <code class="language-plaintext highlighter-rouge">await sleep(0)</code>을 생략하면 구문적 <code class="language-plaintext highlighter-rouge">await</code> / <code class="language-plaintext highlighter-rouge">async for</code> / <code class="language-plaintext highlighter-rouge">async with</code>가 항상 비동기 런타임으로 다시 호출(또는 예외 발생)한다는 추이적 속성이 깨집니다. 현재 이 속성을 강제하는 코드베이스는 거의 없지만, 이는 교착 상태(deadlock)를 방지하는 데 필수적이며, 따라서 생태계의 더 깔끔한 기반을 선호합니다.</p>
+
+<h3 id="우회책-asyncexitstack-사용-workaround-using-asyncexitstack">우회책: <code class="language-plaintext highlighter-rouge">AsyncExitStack</code> 사용 (Workaround: using <code class="language-plaintext highlighter-rouge">AsyncExitStack</code>)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">AsyncExitStack</code>은 동기 및/또는 비동기 컨텍스트 관리자의 명시적 진입을 허용하는 강력한 저수준 인터페이스를 제공합니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">async</span> <span class="k">with</span> <span class="n">contextlib</span><span class="p">.</span><span class="nc">AsyncExitStack</span><span class="p">()</span> <span class="k">as</span> <span class="n">stack</span><span class="p">:</span>
+    <span class="k">await</span> <span class="n">stack</span><span class="p">.</span><span class="nf">enter_async_context</span><span class="p">(</span><span class="nf">acquire_lock</span><span class="p">())</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">stack</span><span class="p">.</span><span class="nf">enter_context</span><span class="p">(</span><span class="nf">open</span><span class="p">(</span><span class="sh">'</span><span class="s">file</span><span class="sh">'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="sh">'</span><span class="s">utf-8</span><span class="sh">'</span><span class="p">))</span>
+    <span class="bp">...</span>
+</code></pre></div></div>
+<p>그러나 <code class="language-plaintext highlighter-rouge">AsyncExitStack</code>은 상당한 복잡성과 오류 가능성을 초래합니다. 구문적으로 컨텍스트 관리자를 사용하는 것이 보장하는 속성(예: ‘후입선출(last-in, first-out)’ 순서)을 위반하기 쉽습니다.</p>
+
+<h3 id="우회책-asyncexitstack-기반-헬퍼-workaround-asyncexitstack--based-helper">우회책: <code class="language-plaintext highlighter-rouge">AsyncExitStack</code> 기반 헬퍼 (Workaround: AsyncExitStack -based helper)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">AsyncExitStack</code>의 직접적인 사용으로 인한 단점 중 일부를 피하는 <code class="language-plaintext highlighter-rouge">multicontext()</code> 래퍼를 구현할 수도 있습니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">async</span> <span class="k">with</span> <span class="nf">multicontext</span><span class="p">(</span>
+    <span class="nf">acquire_lock</span><span class="p">(),</span>
+    <span class="nf">open</span><span class="p">(</span><span class="sh">'</span><span class="s">file</span><span class="sh">'</span><span class="p">),</span>
+<span class="p">)</span> <span class="nf">as </span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">_</span><span class="p">):</span>
+    <span class="bp">...</span>
+</code></pre></div></div>
+<p>하지만 이 헬퍼는 <code class="language-plaintext highlighter-rouge">as</code> 절의 지역성을 깨뜨려, 의도치 않게 yield된 변수를 잘못 할당하기 쉽게 만듭니다 (코드 샘플에서와 같이). 또한 태그가 지정된 유니온(tagged union)과 같은 것을 사용하여 동기 컨텍스트 관리자와 비동기 컨텍스트 관리자를 구별해야 하거나(예: <code class="language-plaintext highlighter-rouge">async_ @ acquire_lock()</code> 작동) 또는 동기 및 비동기 컨텍스트 관리자 프로토콜을 모두 구현하는 객체에 대해 무엇을 할지 추측해야 합니다. 마지막으로, <code class="language-plaintext highlighter-rouge">contextlib.nested()</code>가 다중 인자 <code class="language-plaintext highlighter-rouge">with</code> 문을 선호하여 폐기된 이유가 되었던 예외 처리에 대한 오류 발생 가능성이 있는 의미를 가집니다.</p>
+
+<h3 id="구문-async-with-sync_cm-async_cm-허용-syntax-allow-async-with-sync_cm-async_cm">구문: <code class="language-plaintext highlighter-rouge">async with sync_cm, async_cm:</code> 허용 (Syntax: allow <code class="language-plaintext highlighter-rouge">async with sync_cm, async_cm:</code>)</h3>
+
+<p>이 제안의 초기 초안은 적어도 하나의 비동기 컨텍스트 관리자가 있는 경우, 컨텍스트 관리자를 혼합할 때 전체 문장에 <code class="language-plaintext highlighter-rouge">async with</code>를 사용했습니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 기각된 접근 방식
+</span><span class="k">async</span> <span class="nf">with </span><span class="p">(</span>
+    <span class="nf">acquire_lock</span><span class="p">(),</span>
+    <span class="nf">open</span><span class="p">(</span><span class="sh">'</span><span class="s">config.json</span><span class="sh">'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">,</span> <span class="c1"># 실제로는 동기, 놀랍게도!
+</span><span class="p">):</span>
+    <span class="bp">...</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">async</code> 컨텍스트 관리자를 요구하는 것은 구문/스케줄러 링크를 유지하지만, 미래 코드 변경에 눈에 띄지 않는 제약을 가하는 대가를 치릅니다. 여러 컨텍스트 관리자 중 하나를 제거하면, 그것이 마지막 비동기 컨텍스트 관리자였을 경우 런타임 오류가 발생할 수 있습니다.</p>
+
+<p>명시적인 것이 암시적인 것보다 낫습니다 (<code class="language-plaintext highlighter-rouge">Explicit is better than implicit</code>).</p>
+
+<h3 id="구문-단일-라인-with-async--금지-syntax-ban-single-line-with-async-">구문: 단일 라인 <code class="language-plaintext highlighter-rouge">with async ...</code> 금지 (Syntax: ban single-line <code class="language-plaintext highlighter-rouge">with async ...</code>)</h3>
+
+<p>제안된 구문은 제한될 수 있습니다. 예를 들어, <code class="language-plaintext highlighter-rouge">async</code>를 괄호로 묶인 다중 컨텍스트 <code class="language-plaintext highlighter-rouge">with</code> 문의 라인 첫 번째 토큰으로만 배치하도록 할 수 있습니다. 이것이 실제로 권장되는 사용 방식이며, 대부분의 사용이 이 패턴을 따를 것으로 예상됩니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">async with ctx():</code> 또는 <code class="language-plaintext highlighter-rouge">with async ctx():</code> 둘 중 하나를 작성할 수 있는 옵션은 모호성으로 인해 약간의 혼란을 야기할 수 있지만, 구문을 통해 선호하는 스타일을 강제하는 것은 Python을 배우는 것을 더 혼란스럽게 만들 것이라고 생각하며, 따라서 간단한 구문 규칙과 커뮤니티의 사용법에 대한 관습을 선호합니다.</p>
+
+<p>예를 들어, 다음 코드 샘플 중 어느 시점(있다면)에서 구문이 허용되지 않아야 하는지는 명확하지 않다고 생각합니다:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">with </span><span class="p">(</span>
+    <span class="nf">sync_context</span><span class="p">()</span> <span class="k">as</span> <span class="n">foo</span><span class="p">,</span>
+    <span class="k">async</span> <span class="nf">a_context</span><span class="p">()</span> <span class="k">as</span> <span class="n">bar</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="bp">...</span>
+<span class="nf">with </span><span class="p">(</span>
+    <span class="nf">sync_context</span><span class="p">()</span> <span class="k">as</span> <span class="n">foo</span><span class="p">,</span>
+    <span class="k">async</span> <span class="nf">a_context</span><span class="p">()</span>
+<span class="p">):</span>
+    <span class="bp">...</span>
+<span class="nf">with </span><span class="p">(</span>
+    <span class="c1"># sync_context() as foo,
+</span>    <span class="k">async</span> <span class="nf">a_context</span><span class="p">()</span>
+<span class="p">):</span>
+    <span class="bp">...</span>
+<span class="nf">with </span><span class="p">(</span><span class="k">async</span> <span class="nf">a_context</span><span class="p">()):</span>
+    <span class="bp">...</span>
+<span class="k">with</span> <span class="k">async</span> <span class="nf">a_context</span><span class="p">():</span>
+    <span class="bp">...</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/804/" class="pagination--pager" title="[Draft] PEP 804 - An external dependency registry and name mapping mechanism
+">Previous</a>
+    
+    
+      <a href="/python/pep/2026/" class="pagination--pager" title="[Rejected] PEP 2026 - Calendar versioning for Python
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

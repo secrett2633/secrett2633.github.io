@@ -1,0 +1,763 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Active] PEP 676 - PEP Infrastructure Process | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 676: ‘PEP Infrastructure Process’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Active] PEP 676 - PEP Infrastructure Process">
+<meta property="og:url" content="http://localhost:4000/python/pep/676/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 676: ‘PEP Infrastructure Process’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T10:08:50+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T10:08:50+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/676/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Active] PEP 676 - PEP Infrastructure Process">
+    <meta itemprop="description" content="Python Enhancement Proposal 676: ‘PEP Infrastructure Process’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T10:08:50+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T10:08:50+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Active] PEP 676 - PEP Infrastructure Process
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T10:08:50+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#개요">개요</a></li><li><a href="#동기-motivation">동기 (Motivation)</a></li><li><a href="#근거-rationale">근거 (Rationale)</a><ul><li><a href="#인프라-단순화-및-중앙-집중화-simplifying-and-centralising-infrastructure">인프라 단순화 및 중앙 집중화 (Simplifying and Centralising Infrastructure)</a></li><li><a href="#삶의-질-개선-및-문제-해결-quality-of-life-improvements-and-resolving-issues">삶의 질 개선 및 문제 해결 (Quality-of-Life Improvements and Resolving Issues)</a></li></ul></li><li><a href="#명세-specification">명세 (Specification)</a></li><li><a href="#하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</a></li><li><a href="#보안-영향-security-implications">보안 영향 (Security Implications)</a></li><li><a href="#교육-방법-how-to-teach-this">교육 방법 (How to Teach This)</a></li><li><a href="#참조-구현-reference-implementation">참조 구현 (Reference Implementation)</a></li><li><a href="#거부된-아이디어-rejected-ideas">거부된 아이디어 (Rejected Ideas)</a></li><li><a href="#감사-acknowledgements">감사 (Acknowledgements)</a></li><li><a href="#각주-footnotes">각주 (Footnotes)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0676/">PEP 676 - PEP Infrastructure Process</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Active</td>
+        <td><strong>유형:</strong> Process</td>
+        <td><strong>작성일:</strong> 01-Nov-2021</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>파이썬 PEP 676 – PEP 인프라 프로세스 번역 및 설명</p>
+
+<h2 id="개요">개요</h2>
+<p>PEP 676은 reStructuredText 파일에서 HTML 웹페이지로 PEP 파일을 렌더링하는 인프라를 다룹니다. 이 제안은 PEP 독자, 작성자 및 편집자를 위한 자체 포함되고 유지보수 가능한 솔루션을 명확히 하는 것을 목표로 합니다.</p>
+
+<h2 id="동기-motivation">동기 (Motivation)</h2>
+<p>2021년 11월 기준으로, Python Enhancement Proposals (PEP)는 여러 시스템과 여러 단계를 거쳐 렌더링되고 있었습니다. CI (Continuous Integration) 작업이 docutils 스크립트를 실행하여 모든 PEP 파일을 개별적으로 렌더링한 후, 생성된 tar 아카이브를 서버에 업로드하고, 이 아카이브는 python.org 웹사이트에서 주기적으로 검색되어 렌더링되었습니다.</p>
+
+<p>이러한 방식은 python.org 웹사이트가 원시 HTML 업로드를 처리하고 PEP 렌더링을 담당하도록 강제하여, 특정 경우에는 문제 제기 지점을 모호하게 만들었습니다.</p>
+
+<p>이 PEP는 자체 포함된 PEP 렌더링을 위한 명세를 제공하며, 이를 통해 다음과 같은 이점을 얻을 수 있습니다:</p>
+<ul>
+  <li>PEP 지원을 위한 분산된 구성의 양을 줄입니다.</li>
+  <li>PEP를 읽고, 쓰고, 검토하는 사람들을 위한 삶의 질(quality-of-life) 개선을 가능하게 합니다.</li>
+  <li>여러 미해결 문제를 해결하고, 향후 개선을 위한 기반을 마련합니다.</li>
+  <li>자원봉사 유지보수자의 시간을 절약합니다.</li>
+</ul>
+
+<p>PEP는 최상위 도메인인 <code class="language-plaintext highlighter-rouge">peps.python.org</code>를 통해 접근되며 (예: <code class="language-plaintext highlighter-rouge">peps.python.org/pep-0008</code>), PEP 렌더링을 지원하는 모든 사용자 정의 도구는 <code class="language-plaintext highlighter-rouge">python/peps</code> 저장소에서 호스팅될 것을 제안합니다.</p>
+
+<h2 id="근거-rationale">근거 (Rationale)</h2>
+
+<h3 id="인프라-단순화-및-중앙-집중화-simplifying-and-centralising-infrastructure">인프라 단순화 및 중앙 집중화 (Simplifying and Centralising Infrastructure)</h3>
+<p>2021년 11월 기준으로, PEP 작성자나 편집자가 로컬에서 PEP 파일을 렌더링하려면 <code class="language-plaintext highlighter-rouge">python/peps</code> 저장소 외부에 존재하는 문서를 따라 python.org 웹사이트의 전체 로컬 인스턴스를 생성하고 여러 분산된 스크립트를 실행해야 했습니다.</p>
+
+<p>이와 대조적으로, 제안된 구현은 단일 <code class="language-plaintext highlighter-rouge">Makefile</code>과 Python 스크립트를 제공하여 모든 PEP 파일을 렌더링하며, 웹 서버 또는 로컬 파일 시스템을 대상으로 하는 옵션을 제공합니다.</p>
+
+<p>모든 도구를 단일 저장소에 호스팅하면 문제 제기 지점이 명확해져, 문제 분류(triage)에 소요되는 자원봉사 시간을 줄일 수 있습니다. 또한, PEP 렌더링 인프라의 범위가 명확하게 정의되므로, 단순화되고 중앙 집중화된 도구는 추가 개선 사항에 대한 진입 장벽을 낮출 수도 있습니다.</p>
+
+<h3 id="삶의-질-개선-및-문제-해결-quality-of-life-improvements-and-resolving-issues">삶의 질 개선 및 문제 해결 (Quality-of-Life Improvements and Resolving Issues)</h3>
+<p>PEP를 읽는 데 필요한 추가 기능에 대한 여러 요청이 있었습니다:</p>
+<ul>
+  <li>구문 강조 (syntax highlighting)</li>
+  <li><code class="language-plaintext highlighter-rouge">.. code-block::</code> 지시어 사용</li>
+  <li>SVG 이미지 지원</li>
+  <li>활자체 인용 부호 (typographic quotation marks)</li>
+  <li>추가 푸터 정보 (additional footer information)</li>
+  <li>intersphinx 기능</li>
+  <li>다크 모드 테마 (dark mode theme)</li>
+</ul>
+
+<p>이러한 기능들은 이 제안으로 인한 “쉬운 성공(easy wins)”이며, PEP 사용자 (검토자 및 작성자 포함)의 삶의 질을 향상시킬 것입니다. 예를 들어, 현재 (2021년 11월 기준) 시스템은 주기적으로 실행되어 PEP에 대한 업데이트가 즉시 배포될 수 없어 생산성을 저해했습니다. 참조 구현은 저장소에 대한 모든 커밋에서 모든 PEP를 렌더링하고 게시하여 이 문제를 해결합니다.</p>
+
+<p>참조 구현은 여러 문제를 해결합니다. 예를 들어:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">python.org</code>의 스타일시트가 목록 스타일을 존중하지 않았습니다.</li>
+  <li>PEP 내 이미지 업데이트 지원이 <code class="language-plaintext highlighter-rouge">python.org</code>에서 어려웠습니다.</li>
+</ul>
+
+<p>Read the Docs 또는 Netlify와 같은 서드파티 제공업체는 Pull Request 자동 렌더링과 같은 기능으로 이러한 경험을 향상시킬 수 있습니다.</p>
+
+<h2 id="명세-specification">명세 (Specification)</h2>
+<p>PEP 파일을 HTML로 렌더링하기 위한 제안된 명세는 참조 구현과 동일합니다.</p>
+
+<ul>
+  <li>렌더링된 PEP는 <code class="language-plaintext highlighter-rouge">peps.python.org</code>에서 제공되어야 합니다 (<code class="language-plaintext highlighter-rouge">MUST</code>).</li>
+  <li>이들은 정적 파일로 호스팅되는 것이 좋으며 (<code class="language-plaintext highlighter-rouge">SHOULD</code>), CDN (Content Delivery Network) 뒤에 있을 수 있습니다 (<code class="language-plaintext highlighter-rouge">MAY</code>).</li>
+  <li>Pull Request 미리보기를 렌더링하는 서비스가 제공되어야 합니다 (<code class="language-plaintext highlighter-rouge">SHOULD</code>). 이 서비스는 호스팅 및 배포 솔루션과 통합될 수 있습니다 (<code class="language-plaintext highlighter-rouge">MAY</code>).</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">python.org</code> 도메인에 대해 다음 리디렉션 규칙이 생성되어야 합니다 (<code class="language-plaintext highlighter-rouge">MUST</code>):</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">/peps/</code> -&gt; <code class="language-plaintext highlighter-rouge">https://peps.python.org/</code></li>
+  <li><code class="language-plaintext highlighter-rouge">/dev/peps/</code> -&gt; <code class="language-plaintext highlighter-rouge">https://peps.python.org/</code></li>
+  <li><code class="language-plaintext highlighter-rouge">/peps/(.*)\.html</code> -&gt; <code class="language-plaintext highlighter-rouge">https://peps.python.org/$1</code></li>
+  <li><code class="language-plaintext highlighter-rouge">/dev/peps/(.*)</code> -&gt; <code class="language-plaintext highlighter-rouge">https://peps.python.org/$1</code></li>
+</ul>
+
+<p>다음 <code class="language-plaintext highlighter-rouge">nginx</code> 구성으로 이를 달성할 수 있습니다:</p>
+<div class="language-nginx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">location</span> <span class="p">~</span> <span class="sr">^/dev/peps/?(.*)$</span> <span class="p">{</span>
+    <span class="kn">return</span> <span class="mi">308</span> <span class="s">https://peps.python.org/</span><span class="nv">$1</span><span class="n">/</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">location</span> <span class="p">~</span> <span class="sr">^/peps/(.*)\.html$</span> <span class="p">{</span>
+    <span class="kn">return</span> <span class="mi">308</span> <span class="s">https://peps.python.org/</span><span class="nv">$1</span><span class="n">/</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">location</span> <span class="s">^/(dev/)?peps(/.*)?</span>$ <span class="p">{</span>
+    <span class="kn">return</span> <span class="mi">308</span> <span class="s">https://peps.python.org/</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>이전 버전과의 호환성을 위해 URL fragment를 보존하는 리디렉션이 구현되어야 합니다 (<code class="language-plaintext highlighter-rouge">MUST</code>).</p>
+
+<h2 id="하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</h2>
+<p>새로운 정식 URL로의 서버 측 리디렉션 덕분에, 이전에 게시된 자료에서 이전 URL 스키마를 참조하는 링크는 계속 작동합니다. 모든 PEP는 계속해서 올바르게 렌더링되며, 참조 구현의 사용자 정의 스타일시트는 일부 요소 (특히 코드 블록 및 블록 인용)에 대한 표시를 개선합니다. 따라서 이 PEP는 하위 호환성 문제를 일으키지 않습니다.</p>
+
+<h2 id="보안-영향-security-implications">보안 영향 (Security Implications)</h2>
+<p><code class="language-plaintext highlighter-rouge">python.org</code> 메인 웹사이트는 더 이상 원시 HTML 업로드를 처리하지 않아 잠재적인 위협 벡터를 닫습니다. PEP 렌더링 및 배포 프로세스는 최신, 잘 유지보수되는 코드와 안전한 자동화 플랫폼을 사용하여 잠재적인 공격 표면을 더욱 줄입니다. 따라서 부정적인 보안 영향은 없습니다.</p>
+
+<h2 id="교육-방법-how-to-teach-this">교육 방법 (How to Teach This)</h2>
+<p>새로운 정식 URL은 문서에 공개될 것입니다. 그러나 이는 주로 백엔드 인프라 변경이며, 최종 사용자에게 미치는 영향은 최소화되어야 합니다. PEP 1과 PEP 12는 필요에 따라 업데이트될 것입니다.</p>
+
+<h2 id="참조-구현-reference-implementation">참조 구현 (Reference Implementation)</h2>
+<p>제안된 구현은 일련의 Pull Request를 통해 <code class="language-plaintext highlighter-rouge">python/peps</code> 저장소에 병합되었습니다. 이는 사용자 정의 테마 (밝고 어두운 색상 스킴 지원) 및 확장과 함께 Sphinx 문서 시스템을 사용합니다.</p>
+
+<p>이 시스템은 이미 모든 커밋에서 모든 PEP를 자동으로 렌더링하고 <code class="language-plaintext highlighter-rouge">python.github.io/peps</code>에 게시합니다. 시스템의 상위 수준 문서는 PEP를 로컬에서 렌더링하는 방법과 시스템의 구현에 대해 다룹니다.</p>
+
+<h2 id="거부된-아이디어-rejected-ideas">거부된 아이디어 (Rejected Ideas)</h2>
+<p>현재 (2021년 11월 기준) 렌더링 프로세스를 수정하여 위에서 언급된 삶의 질 개선 및 문제 완화의 일부를 포함하는 것이 가능했을 것입니다. 그러나 이 방법은 분산된 도구 문제를 해결하지 못할 것이라고 판단되었습니다.</p>
+
+<p>제안된 렌더링 시스템의 출력을 사용하여 <code class="language-plaintext highlighter-rouge">python.org</code>로 가져오는 것도 가능했을 것입니다. 하지만 이는 많은 복잡성이 추가될 뿐 제거되는 복잡성은 없으므로, 두 가지 경우 중 최악의 시나리오가 될 것이라고 주장되었습니다.</p>
+
+<h2 id="감사-acknowledgements">감사 (Acknowledgements)</h2>
+<ul>
+  <li>Hugo van Kemenade</li>
+  <li>Pablo Galindo Salgado</li>
+  <li>Éric Araujo</li>
+  <li>Mariatta C.A.M. Gerlach</li>
+</ul>
+
+<h2 id="각주-footnotes">각주 (Footnotes)</h2>
+<p>예를 들어, pythondotorg#1024, pythondotorg#1038, pythondotorg#1387, pythondotorg#1388, pythondotorg#1393, pythondotorg#1564, pythondotorg#1913
+ (1, 2) 요청됨: pythondotorg#1063, pythondotorg#1206, pythondotorg#1638, peps#159, peps#1571의 댓글, peps#1577
+ 요청됨: peps#701
+ 요청됨: peps#165
+ 요청됨: pythondotorg#1564
+ 요청됨: peps#2의 댓글
+ 요청됨: python-dev
+ 2021년 11월 기준, peps#1387, pythondotorg#824, pythondotorg#1556 참조
+ 구현 PR: peps#1930, peps#1931, peps#1932, peps#1933, peps#1934</p>
+
+<h2 id="저작권-copyright">저작권 (Copyright)</h2>
+<p>이 문서는 퍼블릭 도메인 또는 CC0-1.0-Universal 라이선스 중 더 관대한 라이선스에 따라 배포됩니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/675/" class="pagination--pager" title="[Final] PEP 675 - Arbitrary Literal String Type
+">Previous</a>
+    
+    
+      <a href="/python/pep/677/" class="pagination--pager" title="[Rejected] PEP 677 - Callable Type Syntax
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,768 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 3149 - ABI version tagged .so files | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 3149: ‘ABI version tagged .so files’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 3149 - ABI version tagged .so files">
+<meta property="og:url" content="http://localhost:4000/python/pep/3149/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 3149: ‘ABI version tagged .so files’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T14:39:52+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T14:39:52+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/3149/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 3149 - ABI version tagged .so files">
+    <meta itemprop="description" content="Python Enhancement Proposal 3149: ‘ABI version tagged .so files’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T14:39:52+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T14:39:52+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 3149 - ABI version tagged .so files
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T14:39:52+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-3149--abi-버전-태그가-지정된-so-파일">PEP 3149 – ABI 버전 태그가 지정된 .so 파일</a><ul><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#배경-background">배경 (Background)</a></li><li><a href="#제안의-근거-rationale">제안의 근거 (Rationale)</a></li><li><a href="#제안-proposal">제안 (Proposal)</a></li><li><a href="#입증된-접근-방식-proven-approach">입증된 접근 방식 (Proven Approach)</a></li><li><a href="#windows-지원-windows">Windows 지원 (Windows)</a></li><li><a href="#pep-384-stable-abi">PEP 384 (Stable ABI)</a></li><li><a href="#대안-alternatives">대안 (Alternatives)</a><ul><li><a href="#독립적인-디렉터리-또는-심볼릭-링크-independent-directories-or-symlinks">독립적인 디렉터리 또는 심볼릭 링크 (Independent directories or symlinks)</a></li><li><a href="#확장-모듈이-있는-패키지를-공유하지-않음-dont-share-packages-with-extension-modules">확장 모듈이 있는 패키지를 공유하지 않음 (Don’t share packages with extension modules)</a></li></ul></li><li><a href="#참조-구현-reference-implementation">참조 구현 (Reference implementation)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-3149/">PEP 3149 - ABI version tagged .so files</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 09-Jul-2010</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h2 id="pep-3149--abi-버전-태그가-지정된-so-파일">PEP 3149 – ABI 버전 태그가 지정된 .so 파일</h2>
+
+<h3 id="개요-abstract">개요 (Abstract)</h3>
+<p>이 PEP(Python Enhancement Proposal)는 Python의 <code class="language-plaintext highlighter-rouge">import</code> 메커니즘을 확장하여 확장 모듈 파일(.so)을 유사한 방식으로 함께 배치할 수 있는 기능을 정의합니다. 이는 선택적인 빌드-타임(build-time) 기능으로, Python 배포판이 여러 Python 주(major) 버전을 동시에 더 쉽게 제공할 수 있도록 돕습니다.</p>
+
+<p>이 제안은 PEP 3147에서 순수(pure) Python 소스 코드의 공유를 개선하기 위해 설명된 기능에 대한 보조적인(adjunct) 기능입니다. PEP 3147은 각 소스 파일과 함께 여러 바이트 컴파일 파일(.pyc)을 함께 배치할 수 있도록 했습니다.</p>
+
+<h3 id="배경-background">배경 (Background)</h3>
+<p>PEP 3147은 시스템에 여러 Python 버전이 있을 때 순수 Python 패키지의 파일 시스템 레이아웃을 정의했습니다. 예를 들어, Python 3.2 및 3.3이 설치된 시스템에서 <code class="language-plaintext highlighter-rouge">one.py</code> 및 <code class="language-plaintext highlighter-rouge">two.py</code> 소스 모듈을 포함하는 <code class="language-plaintext highlighter-rouge">alpha</code> 패키지가 있는 경우, 바이트 컴파일 후의 파일 시스템 레이아웃은 다음과 같습니다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>alpha/
+    __pycache__/
+        __init__.cpython-32.pyc
+        __init__.cpython-33.pyc
+        one.cpython-32.pyc
+        one.cpython-33.pyc
+        two.cpython-32.pyc
+        two.cpython-33.pyc
+    __init__.py
+    one.py
+    two.py
+</code></pre></div></div>
+
+<p>확장 모듈이 포함된 패키지의 경우, 모듈의 <code class="language-plaintext highlighter-rouge">.so</code> 파일에도 유사한 차별화가 필요합니다. 서로 다른 Python 주 버전용으로 컴파일된 확장 모듈은 ABI(Application Binary Interface) 변경으로 인해 서로 호환되지 않습니다. 또한, 동일한 Python 버전이라도 다른 구성/컴파일 옵션(예: <code class="language-plaintext highlighter-rouge">--with-wide-unicode</code>)은 다른 ABI를 초래할 수 있습니다.</p>
+
+<p>PEP 384는 안정적인 ABI를 정의하지만, 이는 Python 빌드 또는 주 버전 간의 확장 모듈 비호환성을 최소화할 뿐 완전히 제거하지는 못합니다. 따라서 확장 모듈 파일 이름을 구별하기 위한 메커니즘이 제안됩니다.</p>
+
+<h3 id="제안의-근거-rationale">제안의 근거 (Rationale)</h3>
+<p>Ubuntu 및 Debian과 같은 Linux 배포판은 사용자에게 여러 Python 버전을 동시에 제공합니다. 예를 들어, Ubuntu 9.10 Karmic Koala 사용자는 Python 2.5, 2.6, 3.1을 설치할 수 있으며, Python 2.6이 기본값입니다.</p>
+
+<p>사용 가능한 Python 버전 간에 최대한 많은 것을 공유하기 위해 이러한 배포판은 타사 패키지 모듈(<code class="language-plaintext highlighter-rouge">.pyc</code> 및 <code class="language-plaintext highlighter-rouge">.so</code> 파일)을 <code class="language-plaintext highlighter-rouge">/usr/share/pyshared</code>에 설치하고 <code class="language-plaintext highlighter-rouge">/usr/lib/pythonX.Y/dist-packages</code>에서 심볼릭 링크(symlink)합니다. PEP 3147 이전(즉, Python 3.2 미만)에는 다양한 설치된 Python 버전으로 바이트 컴파일된 <code class="language-plaintext highlighter-rouge">.pyc</code> 파일이 서로 이름 충돌을 일으켰기 때문에 심볼릭 링크가 존재했습니다. Python 3.2 이상 버전의 경우, <code class="language-plaintext highlighter-rouge">.pyc</code> 파일이 더 이상 파일 시스템 이름 충돌을 일으키지 않으므로 모든 순수 Python 패키지를 공유할 수 있습니다. 이러한 심볼릭 링크를 제거하면 Python 배포가 더 간단하고 견고해집니다.</p>
+
+<p>공유 라이브러리 확장에서도 유사한 상황이 발생합니다. 확장 모듈은 일반적으로 <code class="language-plaintext highlighter-rouge">foo</code> 확장 모듈에 대해 <code class="language-plaintext highlighter-rouge">foo.so</code>로 이름이 지정되기 때문에, <code class="language-plaintext highlighter-rouge">foo</code>가 여러 Python 버전용으로 제공되면 이 또한 이름 충돌을 일으킬 수 있습니다.</p>
+
+<p>또한, 동일한 Python 버전이라도 다른 구성/컴파일 옵션은 확장 모듈에 다른 ABI를 제공할 수 있습니다. 예를 들어 POSIX 시스템에서는 <code class="language-plaintext highlighter-rouge">--with-pydebug</code>, <code class="language-plaintext highlighter-rouge">--with-pymalloc</code>, <code class="language-plaintext highlighter-rouge">--with-wide-unicode</code> 구성 옵션이 모두 ABI를 변경합니다. 이 PEP는 <code class="language-plaintext highlighter-rouge">.so</code> 확장 모듈 파일의 파일 이름에 빌드-타임 옵션을 인코딩할 것을 제안합니다.</p>
+
+<p>PyPy도 이 PEP의 혜택을 받아 API용으로 빌드되었지만 다른 <code class="language-plaintext highlighter-rouge">.so</code> 태그를 가진 확장 모듈의 이름 충돌을 피할 수 있습니다.</p>
+
+<h3 id="제안-proposal">제안 (Proposal)</h3>
+<p>Python 인터프리터 빌드-타임에 선택된 구성/컴파일 옵션은 확장 모듈의 공유 라이브러리 파일 이름에 인코딩됩니다. 이 “태그(tag)”는 모듈 기본 이름과 공유 라이브러리의 운영 파일 시스템 확장자 사이에 나타납니다.</p>
+
+<p>다음 정보는 공유 라이브러리 파일 이름에 <strong>반드시</strong> 포함되어야 합니다.</p>
+<ul>
+  <li>Python 구현 (예: <code class="language-plaintext highlighter-rouge">cpython</code>, <code class="language-plaintext highlighter-rouge">pypy</code>, <code class="language-plaintext highlighter-rouge">jython</code> 등)</li>
+  <li>인터프리터의 주(major) 및 부(minor) 버전 번호</li>
+</ul>
+
+<p>이 두 필드는 하이픈으로 구분되며, 주 및 부 버전 번호 사이에는 점이 나타나지 않습니다. 예를 들어, <code class="language-plaintext highlighter-rouge">cpython-32</code>와 같습니다.</p>
+
+<p>Python 구현은 필요에 따라 파일 이름 태그에 추가 플래그를 포함할 수 있습니다. 예를 들어, POSIX 시스템에서는 다음 플래그도 파일 이름에 기여합니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">--with-pydebug</code> (플래그: <code class="language-plaintext highlighter-rouge">d</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">--with-pymalloc</code> (플래그: <code class="language-plaintext highlighter-rouge">m</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">--with-wide-unicode</code> (플래그: <code class="language-plaintext highlighter-rouge">u</code>)</li>
+</ul>
+
+<p>기본적으로 Python 3.2에서 <code class="language-plaintext highlighter-rouge">configure</code>는 <code class="language-plaintext highlighter-rouge">--with-pymalloc</code>을 활성화하므로 공유 라이브러리 파일 이름은 <code class="language-plaintext highlighter-rouge">foo.cpython-32m.so</code>와 같이 나타납니다. 다른 두 플래그도 활성화되면 파일 이름은 <code class="language-plaintext highlighter-rouge">foo.cpython-32dmu.so</code>가 됩니다.</p>
+
+<p>공유 라이브러리 파일 이름 태그는 무조건적으로 사용되며 변경할 수 없습니다. 태그와 확장 모듈 접미사는 <code class="language-plaintext highlighter-rouge">sysconfig</code> 모듈을 통해 다음 변수로 사용할 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">sysconfig</span><span class="p">.</span><span class="nf">get_config_var</span><span class="p">(</span><span class="sh">'</span><span class="s">EXT_SUFFIX</span><span class="sh">'</span><span class="p">)</span>
+<span class="sh">'</span><span class="s">.cpython-32mu.so</span><span class="sh">'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">sysconfig</span><span class="p">.</span><span class="nf">get_config_var</span><span class="p">(</span><span class="sh">'</span><span class="s">SOABI</span><span class="sh">'</span><span class="p">)</span>
+<span class="sh">'</span><span class="s">cpython-32mu</span><span class="sh">'</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">$SOABI</code>는 태그만 포함하고, <code class="language-plaintext highlighter-rouge">$EXT_SUFFIX</code>는 공유 라이브러리 파일의 플랫폼 확장자를 포함하며, 확장 모듈 이름에 추가되는 정확한 접미사입니다.</p>
+
+<p>임의의 패키지 <code class="language-plaintext highlighter-rouge">foo</code>에 대해 배포 패키지가 설치되었을 때 다음과 같은 파일이 보일 수 있습니다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/lib/python/foo.cpython-32m.so
+/usr/lib/python/foo.cpython-33m.so
+</code></pre></div></div>
+<p>(이 경로들은 예시일 뿐입니다. 배포판은 원하는 파일 시스템 레이아웃을 자유롭게 사용할 수 있으며, 이 PEP의 어떤 내용도 Python의 소스 빌드(from-source builds)가 설치되는 위치를 변경하지 않습니다.)</p>
+
+<p>Python의 동적 모듈 로더는 빌드-타임 옵션과 일치하는 태그를 가진 공유 라이브러리 확장 모듈을 인식하고 임포트합니다. 하위 호환성을 위해 Python은 태그 없는 확장 모듈(예: <code class="language-plaintext highlighter-rouge">foo.so</code>)도 계속 임포트합니다.</p>
+
+<p>이 공유 라이브러리 태그는 파일 시스템 어디에서 빌드되든 관계없이 모든 <code class="language-plaintext highlighter-rouge">distutils</code> 기반 확장 모듈에 전역적으로 사용됩니다. <code class="language-plaintext highlighter-rouge">distutils</code> 이외의 수단으로 빌드된 확장 모듈은 태그를 수동으로 계산하거나 태그 없는 <code class="language-plaintext highlighter-rouge">.so</code> 파일 이름으로 폴백(fallback)해야 합니다.</p>
+
+<h3 id="입증된-접근-방식-proven-approach">입증된 접근 방식 (Proven Approach)</h3>
+<p>여기에 설명된 접근 방식은 Python 및 확장 모듈의 디버그 빌드(debug builds)에 다른 확장자를 사용하는 Debian 및 Ubuntu 시스템에서 이미 입증되었습니다. Windows의 디버그 빌드도 이미 동적 라이브러리에 다른 파일 확장자를 사용하며, 실제로 <code class="language-plaintext highlighter-rouge">.dll</code> 파일 이름에 Python 주 및 부 버전을 인코딩합니다(이 PEP에서 제안하는 방식과는 다르게).</p>
+
+<h3 id="windows-지원-windows">Windows 지원 (Windows)</h3>
+<p>이 PEP는 <code class="language-plaintext highlighter-rouge">configure</code> 스크립트를 사용하는 POSIX 시스템의 빌드 문제만 다룹니다. Windows 또는 다른 플랫폼 지원이 이 PEP에서 명시적으로 허용되지 않는 것은 아니지만, 그러한 플랫폼에서 지원을 평가, 설명 및 구현하려면 플랫폼 전문 지식이 필요합니다. 현재로서는 이 PEP의 기능이 Windows에 유용한지 명확하지 않습니다.</p>
+
+<h3 id="pep-384-stable-abi">PEP 384 (Stable ABI)</h3>
+<p>PEP 384는 확장 모듈을 위한 안정적인 ABI를 정의합니다. 이론적으로 PEP 384가 보편적으로 채택되면 모든 확장 모듈이 모든 Python 버전과 호환될 수 있으므로 이 PEP의 필요성이 없어질 것입니다. 하지만 실제로는 보편적인 채택을 달성하는 것이 불가능하며, 위에서 설명한 대로 다른 빌드-타임 플래그가 여전히 ABI에 영향을 미칩니다. 따라서 안정적인 ABI가 있더라도 이 PEP는 여전히 필요할 수 있습니다.</p>
+
+<p>전체 사양은 PEP 384에 있지만, 관련 문제에 대한 논의는 다음과 같습니다.
+PEP 384는 <code class="language-plaintext highlighter-rouge">Py_LIMITED_API</code>로 확장 기능이 컴파일된 경우 API 버전으로 3이 전달되는 <code class="language-plaintext highlighter-rouge">PyModule_Create()</code>에 대한 변경 사항을 설명합니다. 이는 <code class="language-plaintext highlighter-rouge">PYTHON_API_VERSION</code>을 반영하기 위해 <code class="language-plaintext highlighter-rouge">PYTHON_ABI_VERSION</code>이라는 공식 매크로로 형식화되어야 합니다. ABI가 호환되지 않는 방식으로 변경되면 이 버전 번호가 증가할 것입니다. 공유를 용이하게 하기 위해 Python은 이름에 <code class="language-plaintext highlighter-rouge">PYTHON_ABI_VERSION</code> 번호가 포함된 확장 모듈을 검색하도록 확장될 것입니다. 접두사 <code class="language-plaintext highlighter-rouge">abi</code>는 Python의 사용을 위해 예약됩니다.</p>
+
+<p>따라서, PEP 384의 초기 구현에서 Python이 기본 플래그 세트로 구성될 때 확장 모듈 <code class="language-plaintext highlighter-rouge">foo</code>가 임포트될 때 다음 파일 이름(이 순서로)을 검색합니다.</p>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">foo.cpython-XYm.so</code></li>
+  <li><code class="language-plaintext highlighter-rouge">foo.abi3.so</code></li>
+  <li><code class="language-plaintext highlighter-rouge">foo.so</code></li>
+</ol>
+
+<p><code class="language-plaintext highlighter-rouge">distutils</code>의 <code class="language-plaintext highlighter-rouge">build_ext</code> 명령도 모듈 작성자가 해당 ABI 버전을 지원한다고 표시할 때 <code class="language-plaintext highlighter-rouge">abi3</code> 태그가 있는 공유 라이브러리 파일로 컴파일하도록 확장되어야 합니다. 이는 <code class="language-plaintext highlighter-rouge">Extension</code> 클래스에 다음과 같은 키워드 인수를 추가하는 방식으로 하위 호환성을 유지하면서 수행할 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Extension</span><span class="p">(</span><span class="sh">'</span><span class="s">foo</span><span class="sh">'</span><span class="p">,</span> <span class="p">[</span><span class="sh">'</span><span class="s">foo.c</span><span class="sh">'</span><span class="p">],</span> <span class="n">abi</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Martin v. Löwis는 이 PEP가 PEP 384에 적용되는지에 대한 자신의 생각을 설명했습니다. 요약하면 다음과 같습니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">--with-pydebug</code>는 <code class="language-plaintext highlighter-rouge">PyObject</code>의 레이아웃을 변경하므로 안정적인 ABI에 의해 지원되지 않습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">--with-pymalloc</code>은 이 문제와 관련이 없습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">--with-wide-unicode</code>는 더 까다롭지만, Martin은 안정적인 ABI가 플랫폼의 <code class="language-plaintext highlighter-rouge">wchar_t</code>와 일치하는 <code class="language-plaintext highlighter-rouge">Py_UNICODE</code>를 사용하도록 강제하는 경향이 있습니다.</li>
+</ul>
+
+<h3 id="대안-alternatives">대안 (Alternatives)</h3>
+<p>이 아이디어가 처음 도입된 초기 <code class="language-plaintext highlighter-rouge">python-dev</code> 스레드에서 몇 가지 대안이 제안되었습니다. 완전성을 위해 채택되지 않은 이유와 함께 여기에 나열됩니다.</p>
+
+<h4 id="독립적인-디렉터리-또는-심볼릭-링크-independent-directories-or-symlinks">독립적인 디렉터리 또는 심볼릭 링크 (Independent directories or symlinks)</h4>
+<p>Debian 및 Ubuntu는 단순히 해당 Python 버전의 확장 모듈만 포함하는 버전별 디렉터리를 <code class="language-plaintext highlighter-rouge">sys.path</code>에 추가할 수 있습니다. 또는 PEP 3147에서 제거된 심볼릭 링크 트릭을 공유 라이브러리에 대해서만 유지할 수 있습니다. 이 접근 방식은 PEP 3147이 피하려는 본질적인 복잡성을 전파하고, 확장 모듈 수가 전체 Python 패키지 수보다 훨씬 적을 때에도 모든 모듈을 검색하기 위해 잠재적으로 여러 추가 디렉터리를 추가하므로 거부되었습니다. 예를 들어, 넓은 유니코드 포함 여부, <code class="language-plaintext highlighter-rouge">pydebug</code> 포함 여부, <code class="language-plaintext highlighter-rouge">pymalloc</code> 포함 여부에 따라 빌드가 제공되면 검색되는 디렉터리 수가 크게 증가합니다.</p>
+
+<h4 id="확장-모듈이-있는-패키지를-공유하지-않음-dont-share-packages-with-extension-modules">확장 모듈이 있는 패키지를 공유하지 않음 (Don’t share packages with extension modules)</h4>
+<p>확장 모듈이 있는 Python 패키지를 배포판의 모든 지원되는 Python 버전 간에 공유하지 않아야 한다는 제안이 있었습니다. PEP 3149가 채택되더라도 확장 모듈은 모든 지원되는 Python 버전용으로 컴파일되어야 하므로, 그러한 패키지를 공유하는 것이 어쨌든 유용하지 않을 수 있습니다. 그러나 확장 기능이 있는 패키지를 공유하지 않는 것은 여러 가지 이유로 실현 불가능합니다.</p>
+
+<p>순수 Python 패키지가 한 버전에서 공유되는데, 다음 릴리스에서 속도 향상을 위해 확장 모듈이 추가되면 갑자기 공유되지 않아야 할까요? 또한, 모든 확장 공유 라이브러리가 지원되는 모든 Python 버전용으로 한 번 컴파일되고 배포되더라도, <code class="language-plaintext highlighter-rouge">.so</code> 파일만 복제하는 것과 모든 <code class="language-plaintext highlighter-rouge">.py</code> 파일을 복제하는 것 사이에는 큰 차이가 있습니다. 추가 크기는 그러한 패키지의 다운로드 시간을 증가시키고, 더 즉각적으로는 이미 제한된 배포 CD-ROM의 공간 압력을 증가시킵니다.</p>
+
+<h3 id="참조-구현-reference-implementation">참조 구현 (Reference implementation)</h3>
+<p>이 코드에 대한 작업은 Python 3.2로 병합될 준비가 될 때까지 Launchpad의 Bazaar 브랜치에서 추적됩니다. 작업 중인 diff도 볼 수 있으며, 새로운 변경 사항이 업로드될 때 자동으로 업데이트됩니다.</p>
+
+<h3 id="저작권-copyright">저작권 (Copyright)</h3>
+<p>이 문서는 퍼블릭 도메인에 공개되었습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/3148/" class="pagination--pager" title="[Final] PEP 3148 - futures - execute computations asynchronously
+">Previous</a>
+    
+    
+      <a href="/python/pep/3150/" class="pagination--pager" title="[Deferred] PEP 3150 - Statement local namespaces (aka “given” clause)
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

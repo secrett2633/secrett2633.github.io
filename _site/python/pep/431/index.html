@@ -1,0 +1,756 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Superseded] PEP 431 - Time zone support improvements | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 431: ‘Time zone support improvements’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Superseded] PEP 431 - Time zone support improvements">
+<meta property="og:url" content="http://localhost:4000/python/pep/431/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 431: ‘Time zone support improvements’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T21:43:32+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T21:43:32+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/431/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Superseded] PEP 431 - Time zone support improvements">
+    <meta itemprop="description" content="Python Enhancement Proposal 431: ‘Time zone support improvements’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T21:43:32+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T21:43:32+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Superseded] PEP 431 - Time zone support improvements
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T21:43:32+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-431--시간대-지원-개선">PEP 431 – 시간대 지원 개선</a><ul><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#철회-withdrawal">철회 (Withdrawal)</a></li><li><a href="#제안-proposal">제안 (Proposal)</a><ul><li><a href="#구체적인-시간대-지원-concrete-time-zone-support">구체적인 시간대 지원 (Concrete Time Zone Support)</a></li><li><a href="#로컬-시간대-가져오기-getting-the-local-time-zone">로컬 시간대 가져오기 (Getting the Local Time Zone)</a></li><li><a href="#모호한-시간-처리-ambiguous-times">모호한 시간 처리 (Ambiguous Times)</a></li></ul></li><li><a href="#구현-api-implementation-api">구현 API (Implementation API)</a><ul><li><a href="#zoneinfo-데이터베이스-the-zoneinfo-database">zoneinfo 데이터베이스 (The zoneinfo database)</a></li><li><a href="#datetime-모듈-변경-사항-changes-in-the-datetime-module">datetime 모듈 변경 사항 (Changes in the datetime module)</a><ul><li><a href="#새-클래스-dsttimezone">새 클래스 dsttimezone</a></li><li><a href="#새-함수-zoneinfonamenone-db_pathnone">새 함수 zoneinfo(name=None, db_path=None)</a></li><li><a href="#새로운-매개변수-is_dst">새로운 매개변수 is_dst</a></li><li><a href="#새로운-예외-new-exceptions">새로운 예외 (New exceptions)</a></li><li><a href="#새로운-컬렉션-new-collections">새로운 컬렉션 (New collections)</a></li></ul></li><li><a href="#tzdata-update-패키지-the-tzdata-update-package">tzdata-update 패키지 (The tzdata-update package)</a></li></ul></li><li><a href="#pytz-api와의-차이점-differences-from-the-pytz-api">pytz API와의 차이점 (Differences from the pytz API)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0431/">PEP 431 - Time zone support improvements</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Superseded</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 11-Dec-2012</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-431--시간대-지원-개선">PEP 431 – 시간대 지원 개선</h1>
+
+<h2 id="개요-abstract">개요 (Abstract)</h2>
+
+<p>이 PEP는 Python 표준 라이브러리에 구체적인 시간대 지원을 구현하고, 일광 절약 시간(DST) 변경 시 모호한 시간 지정을 처리하기 위한 시간대 API 개선을 제안했습니다.</p>
+
+<h2 id="철회-withdrawal">철회 (Withdrawal)</h2>
+
+<p>PEP 431은 오랜 논의 끝에 철회되었습니다. <code class="language-plaintext highlighter-rouge">datetime</code> 모듈의 구현에서 문제라고 생각했던 부분이 의도적인 설계 결정으로 밝혀졌기 때문입니다. 예를 들어, <code class="language-plaintext highlighter-rouge">datetime</code>은 시간대 산술(time zone arithmetic) 시 DST 전환을 완전히 무시하도록 설계되었으며, 모호한 <code class="language-plaintext highlighter-rouge">datetime</code>을 구분하지 않도록 의도되었습니다. 따라서 이 PEP에서 제안했던 <code class="language-plaintext highlighter-rouge">is_dst</code> 플래그는 유용한 기능을 할 수 없어 무의미해졌습니다.</p>
+
+<p><strong>업데이트:</strong> 이 PEP는 이후 <strong>PEP 615 “표준 라이브러리의 IANA 시간대 데이터베이스 지원(Support for the IANA Time Zone Database in the Standard Library)”</strong>에 의해 대체되었으며, 이 PEP 615에 따라 Python 3.9에 <code class="language-plaintext highlighter-rouge">zoneinfo</code> 모듈이 추가되었습니다.</p>
+
+<h2 id="제안-proposal">제안 (Proposal)</h2>
+
+<h3 id="구체적인-시간대-지원-concrete-time-zone-support">구체적인 시간대 지원 (Concrete Time Zone Support)</h3>
+
+<p>Python의 표준 라이브러리는 고정 오프셋을 지원하는 <code class="language-plaintext highlighter-rouge">tzinfo</code> 베이스 클래스 외에 구체적인 시간대 구현을 제공하지 않았습니다. 시간대를 제대로 지원하려면 DST 변경을 포함하여 현재 및 과거의 모든 시간대에 대한 데이터베이스가 필요합니다. 그러나 이러한 정보는 자주 변경되므로, Python 릴리스에 포함되더라도 몇 달 안에 구식이 될 수 있습니다.</p>
+
+<p>따라서 시간대 지원은 주로 <code class="language-plaintext highlighter-rouge">pytz</code>와 <code class="language-plaintext highlighter-rouge">dateutil</code>이라는 두 개의 서드파티 모듈을 통해서만 가능했습니다. 이 두 모듈은 “zoneinfo” 데이터베이스를 포함하고 래핑합니다. “tz” 또는 “The Olsen database”라고도 불리는 이 데이터베이스는 시간대에 대한 사실상의 표준이며, OS X를 포함한 대부분의 Unix 및 Unix 계열 운영 체제에 포함되어 있습니다.</p>
+
+<p>이러한 배경을 바탕으로, PEP 431은 <code class="language-plaintext highlighter-rouge">zoneinfo</code> 데이터를 지원하는 코드를 표준 라이브러리에 포함하되, 기본적으로 운영 체제의 <code class="language-plaintext highlighter-rouge">zoneinfo</code> 데이터 사본을 사용하도록 제안했습니다. 운영 체제는 일반적으로 자체 업데이트 메커니즘을 통해 이 데이터를 최신 상태로 유지합니다.</p>
+
+<p>Windows와 같이 <code class="language-plaintext highlighter-rouge">zoneinfo</code> 데이터베이스를 포함하지 않는 운영 체제의 경우, Python 소스 배포판에 <code class="language-plaintext highlighter-rouge">zoneinfo</code> 데이터베이스 사본이 포함되며, 최신 <code class="language-plaintext highlighter-rouge">zoneinfo</code> 데이터베이스를 포함하는 배포판은 Python Package Index에서도 제공되어 <code class="language-plaintext highlighter-rouge">easy_install</code> 또는 <code class="language-plaintext highlighter-rouge">pip</code>과 같은 패키징 도구로 쉽게 설치할 수 있도록 제안되었습니다.</p>
+
+<h3 id="로컬-시간대-가져오기-getting-the-local-time-zone">로컬 시간대 가져오기 (Getting the Local Time Zone)</h3>
+
+<p>Unix 시스템에서는 사용 중인 시간대의 이름을 찾는 표준적인 방법이 없습니다. EST, PDT와 같은 시간대 약어 정보만 제공되는데, 이 약어들은 모호한 경우가 많아 현재 위치한 시간대를 정확히 파악하기 어렵습니다.</p>
+
+<p>그러나 컴파일된 시간대 정보는 <code class="language-plaintext highlighter-rouge">/etc/localtime</code>에 위치하므로, 시간대 이름을 모르더라도 올바른 시간대 정보를 가진 로컬 시간대 객체를 생성하는 것이 가능합니다. 이에 따라 <code class="language-plaintext highlighter-rouge">datetime</code> 모듈에 로컬 시간대를 반환하는 함수를 제공해야 한다고 제안되었습니다. 이 지원은 Lennart Regebro의 <code class="language-plaintext highlighter-rouge">tzlocal</code> 모듈을 새로운 <code class="language-plaintext highlighter-rouge">datetime</code> 모듈에 통합함으로써 이루어질 예정이었습니다.</p>
+
+<p>Windows의 경우, 로컬 Windows 시간대 이름을 조회하고, Unicode 컨소시엄에서 제공하는 Windows 시간대 이름과 <code class="language-plaintext highlighter-rouge">zoneinfo</code> 시간대 이름 간의 매핑을 사용하여 <code class="language-plaintext highlighter-rouge">zoneinfo</code> 시간대로 변환하도록 제안되었습니다.</p>
+
+<h3 id="모호한-시간-처리-ambiguous-times">모호한 시간 처리 (Ambiguous Times)</h3>
+
+<p>일광 절약 시간(DST)이 해제될 때 시계는 한 시간 뒤로 돌아갑니다. 이로 인해 해당 시간 동안의 시간은 DST 적용 상태와 비적용 상태로 두 번 발생하게 됩니다. 반대로 DST가 시작될 때는 한 시간이 사라집니다.</p>
+
+<p>기존의 시간대 API는 DST 전환 중 발생하는 두 가지 모호한 시간을 구별할 수 없었습니다. 예를 들어, 스톡홀름에서는 <code class="language-plaintext highlighter-rouge">2012-10-28 02:00:00</code>이 UTC 기준 <code class="language-plaintext highlighter-rouge">2012-10-28 00:00:00</code>과 <code class="language-plaintext highlighter-rouge">2012-10-28 01:00:00</code>에 두 번 발생합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">pytz</code>는 이 문제를 해결하기 위해 <code class="language-plaintext highlighter-rouge">tzinfo</code> 객체의 여러 메서드에 <code class="language-plaintext highlighter-rouge">is_dst</code> 매개변수를 추가하여 필요할 때 시간을 명확하게 구분할 수 있도록 했습니다. PEP 431은 이러한 <code class="language-plaintext highlighter-rouge">is_dst</code> 매개변수를 <code class="language-plaintext highlighter-rouge">datetime</code> API의 관련 메서드에 추가하여 이 기능을 <code class="language-plaintext highlighter-rouge">datetime</code>에 직접 통합할 것을 제안했습니다.</p>
+
+<h2 id="구현-api-implementation-api">구현 API (Implementation API)</h2>
+
+<h3 id="zoneinfo-데이터베이스-the-zoneinfo-database"><code class="language-plaintext highlighter-rouge">zoneinfo</code> 데이터베이스 (The zoneinfo database)</h3>
+
+<p>Python 소스 제어 시스템의 <code class="language-plaintext highlighter-rouge">Lib/tzdata</code> 디렉터리에 최신 버전의 <code class="language-plaintext highlighter-rouge">zoneinfo</code> 데이터베이스를 포함하도록 제안되었습니다. 이 데이터베이스는 모든 Python 기능 및 버그 수정 릴리스 전에 업데이트되어야 합니다. 소스에서 설치할 때 이 데이터베이스의 설치를 활성화/비활성화하는 새로운 <code class="language-plaintext highlighter-rouge">configure</code> 옵션인 <code class="language-plaintext highlighter-rouge">--enable-internal-timezone-database</code> 및 <code class="language-plaintext highlighter-rouge">--disable-internal-timezone-database</code>가 구현될 예정이었습니다.</p>
+
+<h3 id="datetime-모듈-변경-사항-changes-in-the-datetime-module"><code class="language-plaintext highlighter-rouge">datetime</code> 모듈 변경 사항 (Changes in the datetime module)</h3>
+
+<p>새로운 시간대 지원의 공개 API는 하나의 새 클래스, 하나의 새 함수, 하나의 새 예외 및 네 개의 새 컬렉션을 포함할 예정이었습니다. 또한, <code class="language-plaintext highlighter-rouge">datetime</code> 객체의 여러 메서드에 새로운 <code class="language-plaintext highlighter-rouge">is_dst</code> 매개변수가 추가될 예정이었습니다.</p>
+
+<h4 id="새-클래스-dsttimezone">새 클래스 <code class="language-plaintext highlighter-rouge">dsttimezone</code></h4>
+
+<p>이 클래스는 DST 지원을 구현하는 <code class="language-plaintext highlighter-rouge">tzinfo</code> 베이스 클래스의 구체적인 구현을 제공합니다.</p>
+
+<h4 id="새-함수-zoneinfonamenone-db_pathnone">새 함수 <code class="language-plaintext highlighter-rouge">zoneinfo(name=None, db_path=None)</code></h4>
+
+<p>이 함수는 유효한 <code class="language-plaintext highlighter-rouge">zoneinfo</code> 시간대(예: “US/Eastern”, “Europe/Warsaw”, “Etc/GMT”)를 지정하는 <code class="language-plaintext highlighter-rouge">name</code> 문자열을 받습니다. <code class="language-plaintext highlighter-rouge">name</code>이 제공되지 않으면 로컬 시간대를 조회합니다. 유효하지 않은 <code class="language-plaintext highlighter-rouge">zone</code> 이름이 주어지거나 로컬 시간대를 검색할 수 없으면 <code class="language-plaintext highlighter-rouge">UnknownTimeZoneError</code> 예외를 발생시킵니다.</p>
+
+<p>이 함수는 또한 사용할 <code class="language-plaintext highlighter-rouge">zoneinfo</code> 데이터베이스의 위치에 대한 선택적 경로인 <code class="language-plaintext highlighter-rouge">db_path</code>를 받을 수 있습니다. 지정되지 않은 경우, 함수는 다음 순서로 데이터베이스를 찾습니다:</p>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">tzdata-update</code> 모듈이 설치되어 있는지 확인하고 해당 데이터베이스를 사용합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">/usr/share/zoneinfo</code>에 데이터베이스가 있으면 사용합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Lib/tzdata</code>에 있는 Python 제공 데이터베이스를 사용합니다.</li>
+</ol>
+
+<h4 id="새로운-매개변수-is_dst">새로운 매개변수 <code class="language-plaintext highlighter-rouge">is_dst</code></h4>
+
+<p>DST 전환 시 시간 모호성을 처리하기 위해 여러 메서드에 새로운 <code class="language-plaintext highlighter-rouge">is_dst</code> 매개변수가 추가될 예정이었습니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">tzinfo.utcoffset(dt, is_dst=False)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">tzinfo.dst(dt, is_dst=False)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">tzinfo.tzname(dt, is_dst=False)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">datetime.astimezone(tz, is_dst=False)</code></li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">is_dst</code> 매개변수는 <code class="language-plaintext highlighter-rouge">False</code>(기본값), <code class="language-plaintext highlighter-rouge">True</code>, 또는 <code class="language-plaintext highlighter-rouge">None</code>이 될 수 있습니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">False</code>: 주어진 <code class="language-plaintext highlighter-rouge">datetime</code>이 일광 절약 시간 중이 아닌 것으로 해석되어야 함을 지정합니다. 이는 기존 동작을 유지하기 위한 기본값입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">True</code>: 주어진 <code class="language-plaintext highlighter-rouge">datetime</code>이 일광 절약 시간 중인 것으로 해석되어야 함을 지정합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">None</code>: 지정된 시간이 DST 전환 중 모호한 경우 <code class="language-plaintext highlighter-rouge">AmbiguousTimeError</code> 예외를 발생시킵니다. 또한 DST로 전환할 때 “사라진 시간(missing time)” 중에 시간이 지정된 경우 <code class="language-plaintext highlighter-rouge">NonExistentTimeError</code>를 발생시킵니다.</li>
+</ul>
+
+<h4 id="새로운-예외-new-exceptions">새로운 예외 (New exceptions)</h4>
+
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">UnknownTimeZoneError</code></strong>: <code class="language-plaintext highlighter-rouge">KeyError</code>의 서브클래스로, 찾을 수 없는 시간대 지정을 제공할 때 발생합니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">InvalidTimeError</code></strong>: <code class="language-plaintext highlighter-rouge">AmbiguousTimeError</code>와 <code class="language-plaintext highlighter-rouge">NonExistentTimeError</code>의 기본 클래스 역할을 하며, 이 두 예외를 개별적으로 포착할 수 있게 합니다. <code class="language-plaintext highlighter-rouge">ValueError</code>의 서브클래스입니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">AmbiguousTimeError</code></strong>: <code class="language-plaintext highlighter-rouge">is_dst</code>를 <code class="language-plaintext highlighter-rouge">None</code>으로 설정하고 모호한 <code class="language-plaintext highlighter-rouge">datetime</code> 지정을 제공할 때 발생합니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">NonExistentTimeError</code></strong>: <code class="language-plaintext highlighter-rouge">is_dst</code>를 <code class="language-plaintext highlighter-rouge">None</code>으로 설정하고 일광 절약 시간 때문에 존재하지 않는 시간을 <code class="language-plaintext highlighter-rouge">datetime</code> 지정으로 제공할 때 발생합니다.</li>
+</ul>
+
+<h4 id="새로운-컬렉션-new-collections">새로운 컬렉션 (New collections)</h4>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">all_timezones</code>: 사용할 수 있는 시간대 이름의 전체 목록을 알파벳순으로 정렬합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">common_timezones</code>: 유용하고 현재 사용되는 시간대 목록을 알파벳순으로 정렬합니다.</li>
+</ul>
+
+<h3 id="tzdata-update-패키지-the-tzdata-update-package"><code class="language-plaintext highlighter-rouge">tzdata-update</code> 패키지 (The tzdata-update package)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">zoneinfo</code> 데이터베이스는 <code class="language-plaintext highlighter-rouge">easy_install</code>/<code class="language-plaintext highlighter-rouge">pip</code>/<code class="language-plaintext highlighter-rouge">buildout</code>으로 쉽게 설치할 수 있도록 패키징될 예정이었습니다. 이 패키지는 설치에 필요한 코드 외에는 어떠한 Python 코드도 설치하거나 포함하지 않습니다. 내부 데이터베이스와 동일한 도구로 최신 상태를 유지하며, <code class="language-plaintext highlighter-rouge">zoneinfo</code> 데이터베이스가 업데이트될 때마다 릴리스되고 동일한 버전 스키마를 사용할 예정이었습니다.</p>
+
+<h2 id="pytz-api와의-차이점-differences-from-the-pytz-api"><code class="language-plaintext highlighter-rouge">pytz</code> API와의 차이점 (Differences from the pytz API)</h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">pytz</code>는 <code class="language-plaintext highlighter-rouge">tzinfo</code>에 <code class="language-plaintext highlighter-rouge">is_dst</code>가 없다는 점을 해결하기 위해 <code class="language-plaintext highlighter-rouge">localize()</code> 및 <code class="language-plaintext highlighter-rouge">normalize()</code> 함수를 제공했지만, <code class="language-plaintext highlighter-rouge">is_dst</code>가 <code class="language-plaintext highlighter-rouge">datetime.tzinfo</code>에 직접 구현되면 더 이상 필요하지 않습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">pytz</code>의 <code class="language-plaintext highlighter-rouge">timezone()</code> 함수는 Python 3.2에서 도입된 <code class="language-plaintext highlighter-rouge">timezone</code> 클래스와의 충돌을 피하기 위해 <code class="language-plaintext highlighter-rouge">zoneinfo()</code>로 명명될 예정이었습니다. <code class="language-plaintext highlighter-rouge">zoneinfo()</code>는 인자 없이 호출될 경우 로컬 시간대를 반환할 예정이었습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">pytz.StaticTzInfo</code> 클래스는 정적 시간대에 대한 <code class="language-plaintext highlighter-rouge">is_dst</code> 지원을 제공했지만, <code class="language-plaintext highlighter-rouge">is_dst</code> 지원이 <code class="language-plaintext highlighter-rouge">datetime.tzinfo</code>에 포함되면 더 이상 필요하지 않습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">InvalidTimeError</code>는 <code class="language-plaintext highlighter-rouge">ValueError</code>의 서브클래스입니다.</li>
+</ul>
+
+<h2 id="저작권-copyright">저작권 (Copyright)</h2>
+
+<p>이 문서는 퍼블릭 도메인에 공개되었습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/430/" class="pagination--pager" title="[Final] PEP 430 - Migrating to Python 3 as the default online documentation
+">Previous</a>
+    
+    
+      <a href="/python/pep/432/" class="pagination--pager" title="[Withdrawn] PEP 432 - Restructuring the CPython startup sequence
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

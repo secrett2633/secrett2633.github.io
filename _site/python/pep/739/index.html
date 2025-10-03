@@ -1,0 +1,1004 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Accepted] PEP 739 - build-details.json1.0 — a static description file for Python build details | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 739: ‘build-details.json1.0 — a static description file for Python build details’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Accepted] PEP 739 - build-details.json1.0 — a static description file for Python build details">
+<meta property="og:url" content="http://localhost:4000/python/pep/739/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 739: ‘build-details.json1.0 — a static description file for Python build details’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T13:28:50+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T13:28:50+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/739/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Accepted] PEP 739 - build-details.json1.0 — a static description file for Python build details">
+    <meta itemprop="description" content="Python Enhancement Proposal 739: ‘build-details.json1.0 — a static description file for Python build details’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T13:28:50+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T13:28:50+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Accepted] PEP 739 - build-details.json1.0 — a static description file for Python build details
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T13:28:50+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-739--build-detailsjson-10--python-빌드-세부-정보를-위한-정적-설명-파일">PEP 739 – build-details.json 1.0 — Python 빌드 세부 정보를 위한 정적 설명 파일</a><ul><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#제안-배경-rationale">제안 배경 (Rationale)</a></li><li><a href="#범위-scope">범위 (Scope)</a></li><li><a href="#명세-specification">명세 (Specification)</a></li><li><a href="#형식-format">형식 (Format)</a><ul><li><a href="#schema_version">schema_version</a></li><li><a href="#base_prefix">base_prefix</a></li><li><a href="#base_interpreter">base_interpreter</a></li><li><a href="#platform">platform</a></li><li><a href="#language">language</a><ul><li><a href="#languageversion">language.version</a></li><li><a href="#languageversion_info">language.version_info</a><ul><li><a href="#languageversion_infomajor">language.version_info.major</a></li><li><a href="#languageversion_infominor">language.version_info.minor</a></li><li><a href="#languageversion_infomicro">language.version_info.micro</a></li><li><a href="#languageversion_inforeleaselevel">language.version_info.releaselevel</a></li><li><a href="#languageversion_infoserial">language.version_info.serial</a></li></ul></li></ul></li><li><a href="#implementation">implementation</a><ul><li><a href="#implementationname">implementation.name</a></li><li><a href="#implementationversion">implementation.version</a><ul><li><a href="#implementationversionmajor">implementation.version.major</a></li><li><a href="#implementationversionminor">implementation.version.minor</a></li><li><a href="#implementationversionmicro">implementation.version.micro</a></li><li><a href="#implementationversionreleaselevel">implementation.version.releaselevel</a></li><li><a href="#implementationversionserial">implementation.version.serial</a></li></ul></li></ul></li><li><a href="#abi">abi</a><ul><li><a href="#abiflags">abi.flags</a></li><li><a href="#abiextension_suffix">abi.extension_suffix</a></li><li><a href="#abistable_abi_suffix">abi.stable_abi_suffix</a></li></ul></li><li><a href="#suffixes">suffixes</a></li><li><a href="#libpython">libpython</a><ul><li><a href="#libpythondynamic">libpython.dynamic</a></li><li><a href="#libpythondynamic_stableabi">libpython.dynamic_stableabi</a></li><li><a href="#libpythonstatic">libpython.static</a></li><li><a href="#libpythonlink_extensions">libpython.link_extensions</a></li></ul></li><li><a href="#c_api">c_api</a><ul><li><a href="#c_apiheaders">c_api.headers</a></li><li><a href="#c_apipkgconfig_path">c_api.pkgconfig_path</a></li></ul></li><li><a href="#arbitrary_data">arbitrary_data</a></li></ul></li><li><a href="#예시-example">예시 (Example)</a></li><li><a href="#기각된-아이디어-rejected-ideas">기각된 아이디어 (Rejected Ideas)</a><ul><li><a href="#환경별-데이터-포함-including-environment-specific-data">환경별 데이터 포함 (Including environment-specific data)</a></li></ul></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0739/">PEP 739 - build-details.json1.0 — a static description file for Python build details</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Accepted</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 19-Dec-2023</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h2 id="pep-739--build-detailsjson-10--python-빌드-세부-정보를-위한-정적-설명-파일">PEP 739 – <code class="language-plaintext highlighter-rouge">build-details.json</code> 1.0 — Python 빌드 세부 정보를 위한 정적 설명 파일</h2>
+
+<h3 id="개요-abstract">개요 (Abstract)</h3>
+<p>이 PEP는 Python 설치의 빌드 세부 정보를 포함하는 정적 설명 파일인 <code class="language-plaintext highlighter-rouge">build-details.json</code>을 소개합니다. 이 문서는 파일 형식 버전 1.0의 정의와 이 파일의 표준 위치를 지정합니다.</p>
+
+<h3 id="제안-배경-rationale">제안 배경 (Rationale)</h3>
+<p>Python 설치를 조사(introspect)할 때, 코드를 실행하는 것은 종종 바람직하지 않거나 불가능할 수 있습니다. 정적 설명 파일을 사용하면 인터프리터를 실행할 필요 없이 Python 설치의 다양한 빌드 세부 정보를 확인할 수 있습니다. 이는 교차 컴파일(cross-compilation), Python 런처(launchers) 등과 같은 사용 사례에 유용합니다.</p>
+
+<h3 id="범위-scope">범위 (Scope)</h3>
+<p><code class="language-plaintext highlighter-rouge">build-details.json</code>은 설치 전체에 걸쳐 적용되는 파일입니다. 즉, Python 설치의 모든 환경에서 일정하게 유지되는 정보만 포함해야 합니다. <code class="language-plaintext highlighter-rouge">site-packages</code> 경로와 같이 Python 환경에 특정한 정보는 이 파일의 범위에 포함되지 않습니다. PEP 작성자들은 향후 PEP를 통해 정적 환경 설명 파일이 도입될 것으로 예상하고 있습니다.</p>
+
+<h3 id="명세-specification">명세 (Specification)</h3>
+<p>Python 3.14부터 이 PEP 또는 향후 버전에서 지정된 형식을 따르는 <code class="language-plaintext highlighter-rouge">build-details.json</code>이라는 파일이 플랫폼 독립적인 표준 라이브러리 디렉터리(예: <code class="language-plaintext highlighter-rouge">/usr/lib/python3.14/build-details.json</code>)에 설치되어야 합니다. 단, 기술적인 제약으로 인해 불가능한 경우는 예외입니다.</p>
+
+<p><strong>주의사항 (Attention)</strong>
+이 PEP에서 지정한 표준 위치 외에도, <code class="language-plaintext highlighter-rouge">build-details.json</code> 파일은 추가적인 위치에 다른 이름으로 설치될 수 있습니다. 그럼에도 불구하고, 파일은 표준 위치에서 계속 사용할 수 있어야 합니다. 실제로 PEP 작성자들은 향후 PEP에서 더 나은 검색 가능성을 가진 추가 설치 위치를 정의할 것으로 예상합니다.</p>
+
+<h3 id="형식-format">형식 (Format)</h3>
+<p>형식 명세는 아래 제공된 JSON Schema 정의에 의해 정의되며, 여기서는 사람이 읽을 수 있는 형식으로 렌더링됩니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">$schema</code>: <code class="language-plaintext highlighter-rouge">https://json-schema.org/draft/2020-12/schema</code></li>
+  <li><code class="language-plaintext highlighter-rouge">$id</code>: <code class="language-plaintext highlighter-rouge">https://github.com/python/peps/blob/main/peps/pep-0739/python-build-info-v1.0.schema.json</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Title</code>: <code class="language-plaintext highlighter-rouge">build-details.json</code> — Python 설치의 빌드 세부 정보가 포함된 정적 설명 파일</li>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">object</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Additional properties</code>: 허용되지 않음</li>
+</ul>
+
+<h4 id="schema_version"><code class="language-plaintext highlighter-rouge">schema_version</code></h4>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">string</code> (상수 — <code class="language-plaintext highlighter-rouge">1.0</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">Description</code>: 스키마 버전. <code class="language-plaintext highlighter-rouge">&lt;MAJOR&gt;.&lt;MINOR&gt;</code> 형식의 문자열이며, <code class="language-plaintext highlighter-rouge">&lt;MAJOR&gt;</code>와 <code class="language-plaintext highlighter-rouge">&lt;MINOR&gt;</code>는 패딩 없는 숫자이고 버전의 주(major) 및 부(minor) 구성 요소를 나타냅니다. 버전은 버전 문자열을 십진수로 해석하여 산술적으로 비교할 수 있습니다. 이 명세 버전의 경우, 이 값은 상수이며 <code class="language-plaintext highlighter-rouge">1.0</code>이어야 합니다. 향후 이 스키마의 버전은 더 높은 버전 번호를 사용해야 합니다. 향후 이 스키마의 버전은 역호환성이 있다고 판단되지 않는 한 다른 스키마 버전과 동일한 주 버전 구성 요소를 사용해서는 안 됩니다. 즉, 해석된 데이터의 의미가 달라지거나 새로운 명세에서 유효한 데이터가 이전 명세에서 유효하지 않게 되는 방식으로 현재 명세의 어떤 부분도 변경하거나 확장할 수 없습니다. (단, 추가 속성으로 인한 오류는 예외).</li>
+  <li><code class="language-plaintext highlighter-rouge">Required</code>: <code class="language-plaintext highlighter-rouge">True</code></li>
+</ul>
+
+<h4 id="base_prefix"><code class="language-plaintext highlighter-rouge">base_prefix</code></h4>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">string</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Description</code>: Python 설치의 기본 접두사(base prefix). 절대 경로이거나 이 파일이 포함된 디렉터리에 대한 상대 경로입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Examples</code>: <code class="language-plaintext highlighter-rouge">/usr</code>, <code class="language-plaintext highlighter-rouge">../..</code> 등.</li>
+  <li><code class="language-plaintext highlighter-rouge">Required</code>: <code class="language-plaintext highlighter-rouge">True</code></li>
+</ul>
+
+<h4 id="base_interpreter"><code class="language-plaintext highlighter-rouge">base_interpreter</code></h4>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">string</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Description</code>: 기본 설치의 Python 인터프리터 경로. 절대 경로이거나 <code class="language-plaintext highlighter-rouge">base_prefix</code>에 대한 상대 경로입니다. 설치에 인터프리터 실행 파일이 제공되는 경우 이 필드가 있어야 합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Examples</code>: <code class="language-plaintext highlighter-rouge">/usr/bin/python</code>, <code class="language-plaintext highlighter-rouge">bin/python</code> 등.</li>
+  <li><code class="language-plaintext highlighter-rouge">Required</code>: <code class="language-plaintext highlighter-rouge">False</code></li>
+</ul>
+
+<h4 id="platform"><code class="language-plaintext highlighter-rouge">platform</code></h4>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">string</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Description</code>: 시스템 플랫폼 문자열. 이 필드는 <code class="language-plaintext highlighter-rouge">sysconfig.get_platform()</code>과 동일해야 합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Examples</code>: <code class="language-plaintext highlighter-rouge">linux-x86_64</code> 등.</li>
+  <li><code class="language-plaintext highlighter-rouge">Required</code>: <code class="language-plaintext highlighter-rouge">True</code></li>
+</ul>
+
+<h4 id="language"><code class="language-plaintext highlighter-rouge">language</code></h4>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">object</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Description</code>: Python 언어 명세와 관련된 세부 정보를 포함하는 객체.</li>
+  <li><code class="language-plaintext highlighter-rouge">Required</code>: <code class="language-plaintext highlighter-rouge">True</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Additional properties</code>: 허용되지 않음</li>
+</ul>
+
+<h5 id="languageversion"><code class="language-plaintext highlighter-rouge">language.version</code></h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">string</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Description</code>: Python 언어 버전의 문자열 표현 — 주(major) 및 부(minor) 구성 요소만으로 구성된 버전 문자열입니다. 이 필드는 <code class="language-plaintext highlighter-rouge">sysconfig.get_python_version()</code>과 동일해야 합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Examples</code>: <code class="language-plaintext highlighter-rouge">3.14</code> 등.</li>
+  <li><code class="language-plaintext highlighter-rouge">Required</code>: <code class="language-plaintext highlighter-rouge">True</code></li>
+</ul>
+
+<h5 id="languageversion_info"><code class="language-plaintext highlighter-rouge">language.version_info</code></h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">object</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Description</code>: <code class="language-plaintext highlighter-rouge">sys.version_info</code> 형식의 객체. 이 섹션은 <code class="language-plaintext highlighter-rouge">sys.version_info</code>와 동일해야 합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Examples</code>: <code class="language-plaintext highlighter-rouge">{'major': 3, 'minor': 14, 'micro': 1, 'releaselevel': 'final', 'serial': 0}</code> 등.</li>
+  <li><code class="language-plaintext highlighter-rouge">Required</code>: <code class="language-plaintext highlighter-rouge">False</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Additional properties</code>: 허용되지 않음</li>
+</ul>
+
+<h6 id="languageversion_infomajor"><code class="language-plaintext highlighter-rouge">language.version_info.major</code></h6>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">number</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Required</code>: <code class="language-plaintext highlighter-rouge">True</code></li>
+</ul>
+
+<h6 id="languageversion_infominor"><code class="language-plaintext highlighter-rouge">language.version_info.minor</code></h6>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">number</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Required</code>: <code class="language-plaintext highlighter-rouge">True</code></li>
+</ul>
+
+<h6 id="languageversion_infomicro"><code class="language-plaintext highlighter-rouge">language.version_info.micro</code></h6>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">number</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Required</code>: <code class="language-plaintext highlighter-rouge">True</code></li>
+</ul>
+
+<h6 id="languageversion_inforeleaselevel"><code class="language-plaintext highlighter-rouge">language.version_info.releaselevel</code></h6>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">string</code> (enum — <code class="language-plaintext highlighter-rouge">alpha</code>, <code class="language-plaintext highlighter-rouge">beta</code>, <code class="language-plaintext highlighter-rouge">candidate</code>, <code class="language-plaintext highlighter-rouge">final</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">Required</code>: <code class="language-plaintext highlighter-rouge">True</code></li>
+</ul>
+
+<h6 id="languageversion_infoserial"><code class="language-plaintext highlighter-rouge">language.version_info.serial</code></h6>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">number</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Required</code>: <code class="language-plaintext highlighter-rouge">True</code></li>
+</ul>
+
+<h4 id="implementation"><code class="language-plaintext highlighter-rouge">implementation</code></h4>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">object</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Description</code>: Python 구현(implementation)과 관련된 세부 정보를 포함하는 객체. 이 섹션은 <code class="language-plaintext highlighter-rouge">sys.implementation</code>과 동일해야 합니다. PEP 421에 정의된 명세를 따르며, 이는 필수 키 외에 구현별 키도 존재할 수 있지만 밑줄로 접두사를 붙여야 함을 의미합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Required</code>: <code class="language-plaintext highlighter-rouge">True</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Additional properties</code>: 허용</li>
+</ul>
+
+<h5 id="implementationname"><code class="language-plaintext highlighter-rouge">implementation.name</code></h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">string</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Description</code>: Python 구현의 소문자 이름.</li>
+  <li><code class="language-plaintext highlighter-rouge">Examples</code>: <code class="language-plaintext highlighter-rouge">cpython</code>, <code class="language-plaintext highlighter-rouge">pypy</code> 등.</li>
+  <li><code class="language-plaintext highlighter-rouge">Required</code>: <code class="language-plaintext highlighter-rouge">True</code></li>
+</ul>
+
+<h5 id="implementationversion"><code class="language-plaintext highlighter-rouge">implementation.version</code></h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">object</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Description</code>: <code class="language-plaintext highlighter-rouge">sys.version_info</code> 형식의 객체로, 구현 버전을 포함합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Examples</code>:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">{'major': 3, 'minor': 14, 'micro': 1, 'releaselevel': 'final', 'serial': 0}</code></li>
+      <li><code class="language-plaintext highlighter-rouge">{'major': 7, 'minor': 3, 'micro': 16, 'releaselevel': 'final', 'serial': 0}</code> 등.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">Required</code>: <code class="language-plaintext highlighter-rouge">True</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Additional properties</code>: 허용되지 않음</li>
+</ul>
+
+<h6 id="implementationversionmajor"><code class="language-plaintext highlighter-rouge">implementation.version.major</code></h6>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">number</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Required</code>: <code class="language-plaintext highlighter-rouge">True</code></li>
+</ul>
+
+<h6 id="implementationversionminor"><code class="language-plaintext highlighter-rouge">implementation.version.minor</code></h6>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">number</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Required</code>: <code class="language-plaintext highlighter-rouge">True</code></li>
+</ul>
+
+<h6 id="implementationversionmicro"><code class="language-plaintext highlighter-rouge">implementation.version.micro</code></h6>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">number</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Required</code>: <code class="language-plaintext highlighter-rouge">True</code></li>
+</ul>
+
+<h6 id="implementationversionreleaselevel"><code class="language-plaintext highlighter-rouge">implementation.version.releaselevel</code></h6>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">string</code> (enum — <code class="language-plaintext highlighter-rouge">alpha</code>, <code class="language-plaintext highlighter-rouge">beta</code>, <code class="language-plaintext highlighter-rouge">candidate</code>, <code class="language-plaintext highlighter-rouge">final</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">Required</code>: <code class="language-plaintext highlighter-rouge">True</code></li>
+</ul>
+
+<h6 id="implementationversionserial"><code class="language-plaintext highlighter-rouge">implementation.version.serial</code></h6>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">number</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Required</code>: <code class="language-plaintext highlighter-rouge">True</code></li>
+</ul>
+
+<h4 id="abi"><code class="language-plaintext highlighter-rouge">abi</code></h4>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">object</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Description</code>: ABI(Application Binary Interface)와 관련된 세부 정보를 포함하는 객체.</li>
+  <li><code class="language-plaintext highlighter-rouge">Required</code>: <code class="language-plaintext highlighter-rouge">False</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Additional properties</code>: 허용되지 않음</li>
+</ul>
+
+<h5 id="abiflags"><code class="language-plaintext highlighter-rouge">abi.flags</code></h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">array</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Description</code>: 확장자 접미사를 계산하는 데 사용되는 빌드 구성 플래그. 플래그는 확장자 접미사에 나타나는 순서대로 정의되어야 합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Examples</code>: <code class="language-plaintext highlighter-rouge">['t', 'd']</code> 등.</li>
+  <li><code class="language-plaintext highlighter-rouge">Required</code>: <code class="language-plaintext highlighter-rouge">True</code></li>
+</ul>
+
+<h5 id="abiextension_suffix"><code class="language-plaintext highlighter-rouge">abi.extension_suffix</code></h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">string</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Description</code>: 현재 구현 버전으로 빌드된 확장자에 사용되는 접미사. Python 구현이 확장을 지원하는 경우 이 필드가 있어야 하며, 그렇지 않으면 이 항목은 누락됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Examples</code>: <code class="language-plaintext highlighter-rouge">.cpython-314-x86_64-linux-gnu.so</code> 등.</li>
+  <li><code class="language-plaintext highlighter-rouge">Required</code>: <code class="language-plaintext highlighter-rouge">False</code></li>
+</ul>
+
+<h5 id="abistable_abi_suffix"><code class="language-plaintext highlighter-rouge">abi.stable_abi_suffix</code></h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">string</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Description</code>: Stable ABI(안정적인 ABI)에 대해 빌드된 확장자에 사용되는 접미사. Python 구현에 안정적인 ABI 확장자 접미사가 있는 경우 이 필드가 있어야 하며, 그렇지 않으면 이 항목은 누락됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Examples</code>: <code class="language-plaintext highlighter-rouge">.abi3.so</code> 등.</li>
+  <li><code class="language-plaintext highlighter-rouge">Required</code>: <code class="language-plaintext highlighter-rouge">False</code></li>
+</ul>
+
+<h4 id="suffixes"><code class="language-plaintext highlighter-rouge">suffixes</code></h4>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">object</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Description</code>: 유형별로 그룹화된 유효한 모듈 접미사. Python 설치가 외부 파일 가져오기(importing external files)를 지원하는 경우 이 섹션이 있어야 하며, <code class="language-plaintext highlighter-rouge">importlib.machinery.*_SUFFIXES</code> 속성과 동일해야 합니다. 또한, Python 구현이 <code class="language-plaintext highlighter-rouge">importlib.machinery</code> 모듈에 나열된 것 외에 다른 확장 유형을 제공하는 경우 해당 유형에 대한 하위 섹션을 추가할 수 있습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Examples</code>:
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"source"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">".py"</span><span class="p">],</span><span class="w">
+  </span><span class="nl">"bytecode"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">".pyc"</span><span class="p">],</span><span class="w">
+  </span><span class="nl">"optimized_bytecode"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">".pyc"</span><span class="p">],</span><span class="w">
+  </span><span class="nl">"debug_bytecode"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">".pyc"</span><span class="p">],</span><span class="w">
+  </span><span class="nl">"extensions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">".cpython-313-x86_64-linux-gnu.so"</span><span class="p">,</span><span class="w"> </span><span class="s2">".abi3.so"</span><span class="p">,</span><span class="w"> </span><span class="s2">".so"</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">Required</code>: <code class="language-plaintext highlighter-rouge">False</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Additional properties</code>: 허용</li>
+</ul>
+
+<h4 id="libpython"><code class="language-plaintext highlighter-rouge">libpython</code></h4>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">object</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Description</code>: <code class="language-plaintext highlighter-rouge">libpython</code> 라이브러리와 관련된 세부 정보를 포함하는 객체. Python 설치가 <code class="language-plaintext highlighter-rouge">libpython</code> 라이브러리를 제공하는 경우 이 섹션이 있어야 하며, 그렇지 않으면 이 섹션은 누락됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Required</code>: <code class="language-plaintext highlighter-rouge">False</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Additional properties</code>: 허용되지 않음</li>
+</ul>
+
+<h5 id="libpythondynamic"><code class="language-plaintext highlighter-rouge">libpython.dynamic</code></h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">string</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Description</code>: 동적 <code class="language-plaintext highlighter-rouge">libpython</code> 라이브러리 경로. 절대 경로이거나 <code class="language-plaintext highlighter-rouge">base_prefix</code>에 대한 상대 경로입니다. Python 설치가 동적 <code class="language-plaintext highlighter-rouge">libpython</code> 라이브러리를 제공하는 경우 이 필드가 있어야 하며, 그렇지 않으면 이 항목은 누락됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Examples</code>: <code class="language-plaintext highlighter-rouge">/usr/lib/libpython3.14.so.1.0</code>, <code class="language-plaintext highlighter-rouge">lib/libpython3.14.so.1.0</code> 등.</li>
+  <li><code class="language-plaintext highlighter-rouge">Required</code>: <code class="language-plaintext highlighter-rouge">False</code></li>
+</ul>
+
+<h5 id="libpythondynamic_stableabi"><code class="language-plaintext highlighter-rouge">libpython.dynamic_stableabi</code></h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">string</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Description</code>: 안정적인 ABI(Stable ABI)를 위한 동적 <code class="language-plaintext highlighter-rouge">libpython</code> 라이브러리 경로. 절대 경로이거나 <code class="language-plaintext highlighter-rouge">base_prefix</code>에 대한 상대 경로입니다. Python 설치가 Stable ABI를 대상으로 하는 동적 <code class="language-plaintext highlighter-rouge">libpython</code> 라이브러리를 제공하는 경우 이 필드가 있어야 하며, 그렇지 않으면 이 항목은 누락됩니다. 이 키가 존재하는 경우 <code class="language-plaintext highlighter-rouge">dynamic</code>도 설정되어야 합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Examples</code>: <code class="language-plaintext highlighter-rouge">/usr/lib/libpython3.so</code>, <code class="language-plaintext highlighter-rouge">lib/libpython3.so</code> 등.</li>
+  <li><code class="language-plaintext highlighter-rouge">Required</code>: <code class="language-plaintext highlighter-rouge">False</code></li>
+</ul>
+
+<h5 id="libpythonstatic"><code class="language-plaintext highlighter-rouge">libpython.static</code></h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">string</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Description</code>: 정적 <code class="language-plaintext highlighter-rouge">libpython</code> 라이브러리 경로. 절대 경로이거나 <code class="language-plaintext highlighter-rouge">base_prefix</code>에 대한 상대 경로입니다. Python 설치가 정적 <code class="language-plaintext highlighter-rouge">libpython</code> 라이브러리를 제공하는 경우 이 필드가 있어야 하며, 그렇지 않으면 이 항목은 누락됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Examples</code>: <code class="language-plaintext highlighter-rouge">/usr/lib/python3.14/config-3.14-x86_64-linux-gnu/libpython3.14.a</code>, <code class="language-plaintext highlighter-rouge">lib/python3.14/config-3.14-x86_64-linux-gnu/libpython3.14.a</code> 등.</li>
+  <li><code class="language-plaintext highlighter-rouge">Required</code>: <code class="language-plaintext highlighter-rouge">False</code></li>
+</ul>
+
+<h5 id="libpythonlink_extensions"><code class="language-plaintext highlighter-rouge">libpython.link_extensions</code></h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">boolean</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Description</code>: 동적 <code class="language-plaintext highlighter-rouge">libpython</code>에 대해 빌드된 확장자가 이에 연결되어야 하는지 여부. Python 설치가 동적 <code class="language-plaintext highlighter-rouge">libpython</code> 라이브러리를 제공하는 경우 이 필드가 있어야 하며, 그렇지 않으면 이 항목은 누락됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Required</code>: <code class="language-plaintext highlighter-rouge">False</code></li>
+</ul>
+
+<h4 id="c_api"><code class="language-plaintext highlighter-rouge">c_api</code></h4>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">object</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Description</code>: Python C API와 관련된 세부 정보를 포함하는 객체. Python 구현이 C API를 제공하는 경우 이 섹션이 있어야 하며, 그렇지 않으면 이 섹션은 누락됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Required</code>: <code class="language-plaintext highlighter-rouge">False</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Additional properties</code>: 허용되지 않음</li>
+</ul>
+
+<h5 id="c_apiheaders"><code class="language-plaintext highlighter-rouge">c_api.headers</code></h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">string</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Description</code>: C API 헤더 경로. 절대 경로이거나 <code class="language-plaintext highlighter-rouge">base_prefix</code>에 대한 상대 경로입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Examples</code>: <code class="language-plaintext highlighter-rouge">/usr/include/python3.14</code>, <code class="language-plaintext highlighter-rouge">include/python3.14</code> 등.</li>
+  <li><code class="language-plaintext highlighter-rouge">Required</code>: <code class="language-plaintext highlighter-rouge">True</code></li>
+</ul>
+
+<h5 id="c_apipkgconfig_path"><code class="language-plaintext highlighter-rouge">c_api.pkgconfig_path</code></h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">string</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Description</code>: <code class="language-plaintext highlighter-rouge">pkg-config</code> 정의 파일 경로. 절대 경로이거나 <code class="language-plaintext highlighter-rouge">base_prefix</code>에 대한 상대 경로입니다. Python 구현이 <code class="language-plaintext highlighter-rouge">pkg-config</code> 정의 파일을 제공하는 경우 이 필드가 있어야 하며, 그렇지 않으면 이 섹션은 누락됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Examples</code>: <code class="language-plaintext highlighter-rouge">/usr/lib/pkgconfig</code>, <code class="language-plaintext highlighter-rouge">lib/pkgconfig</code> 등.</li>
+  <li><code class="language-plaintext highlighter-rouge">Required</code>: <code class="language-plaintext highlighter-rouge">False</code></li>
+</ul>
+
+<h4 id="arbitrary_data"><code class="language-plaintext highlighter-rouge">arbitrary_data</code></h4>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Type</code>: <code class="language-plaintext highlighter-rouge">object</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Description</code>: 추가 임의 데이터(extra arbitrary data)를 포함하는 객체. 이는 이 명세에 포함되지 않은 모든 관련 데이터를 포함하기 위한 비상 탈출구(escape-hatch) 역할을 합니다. 구현자는 이 섹션에 어떤 데이터를 제공할지 선택할 수 있습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Required</code>: <code class="language-plaintext highlighter-rouge">False</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Additional properties</code>: 허용</li>
+</ul>
+
+<h3 id="예시-example">예시 (Example)</h3>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"schema_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"base_prefix"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/usr"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"base_interpreter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/usr/bin/python"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"platform"</span><span class="p">:</span><span class="w"> </span><span class="s2">"linux-x86_64"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"language"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.14"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"version_info"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"major"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"minor"</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"micro"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"releaselevel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"alpha"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"serial"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"implementation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cpython"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"major"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"minor"</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"micro"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"releaselevel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"alpha"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"serial"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"hexversion"</span><span class="p">:</span><span class="w"> </span><span class="mi">51249312</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"cache_tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cpython-314"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"_multiarch"</span><span class="p">:</span><span class="w"> </span><span class="s2">"x86_64-linux-gnu"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"abi"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"flags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"t"</span><span class="p">,</span><span class="w"> </span><span class="s2">"d"</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"extension_suffix"</span><span class="p">:</span><span class="w"> </span><span class="s2">".cpython-314-x86_64-linux-gnu.so"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"stable_abi_suffix"</span><span class="p">:</span><span class="w"> </span><span class="s2">".abi3.so"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"suffixes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"source"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">".py"</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"bytecode"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">".pyc"</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"optimized_bytecode"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">".pyc"</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"debug_bytecode"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">".pyc"</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"extensions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">".cpython-314-x86_64-linux-gnu.so"</span><span class="p">,</span><span class="w"> </span><span class="s2">".abi3.so"</span><span class="p">,</span><span class="w"> </span><span class="s2">".so"</span><span class="p">]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"libpython"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"dynamic"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/usr/lib/libpython3.14.so.1.0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"dynamic_stableabi"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/usr/lib/libpython3.so"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"static"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/usr/lib/python3.14/config-3.14-x86_64-linux-gnu/libpython3.14.a"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"link_extensions"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"c_api"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"headers"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/usr/include/python3.14"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"pkgconfig_path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/usr/lib/pkgconfig"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="기각된-아이디어-rejected-ideas">기각된 아이디어 (Rejected Ideas)</h3>
+
+<h4 id="환경별-데이터-포함-including-environment-specific-data">환경별 데이터 포함 (Including environment-specific data)</h4>
+<p>이 PEP 논의에서 주요 요청 중 하나는 <code class="language-plaintext highlighter-rouge">site-packages</code> 경로와 같은 다른 종류의 정보 포함이었습니다. PEP 작성자들은 Python 환경에 관한 정보는 별도의 파일로 제공되어야 한다고 판단했습니다.</p>
+
+<p>환경별 데이터를 구성 파일에 포함한다는 것은 해당 파일이 환경에 종속적이라는 의미이며, 가상 환경(virtual environments)은 자체 구성 파일이 필요하게 됩니다. 이는 가상 환경이 기본 Python 설치 업데이트 후에도 유지되므로, 정적 구성 파일이 오래되어 데이터가 신뢰할 수 없게 될 가능성을 만들고, 그 목적을 저해한다는 문제가 있습니다.</p>
+
+<p>제안된 해결책은 이 PEP에서 부분적으로 구현되었으며, 기본 Python 설치와 관련된 <code class="language-plaintext highlighter-rouge">build-details.json</code> 파일과 특정 환경과 관련된 <code class="language-plaintext highlighter-rouge">environment.json</code> 파일을 갖는 것입니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">build-details.json</code>이 Python 배포의 일부가 됨에 따라, 기본 Python 설치가 업데이트될 때 <code class="language-plaintext highlighter-rouge">build-details.json</code>도 함께 업데이트되어 정적 설명 파일이 절대 오래되지 않도록 보장합니다.</p>
+
+<h3 id="저작권-copyright">저작권 (Copyright)</h3>
+<p>이 문서는 퍼블릭 도메인 또는 CC0-1.0-Universal 라이선스 중 더 관대한 조건에 따라 제공됩니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/738/" class="pagination--pager" title="[Final] PEP 738 - Adding Android as a supported platform
+">Previous</a>
+    
+    
+      <a href="/python/pep/740/" class="pagination--pager" title="[Final] PEP 740 - Index support for digital attestations
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

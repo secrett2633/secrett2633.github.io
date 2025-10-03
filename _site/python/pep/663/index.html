@@ -1,0 +1,1000 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Rejected] PEP 663 - Standardizing Enum str(), repr(), and format() behaviors | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 663: ‘Standardizing Enum str(), repr(), and format() behaviors’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Rejected] PEP 663 - Standardizing Enum str(), repr(), and format() behaviors">
+<meta property="og:url" content="http://localhost:4000/python/pep/663/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 663: ‘Standardizing Enum str(), repr(), and format() behaviors’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T09:57:11+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T09:57:11+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/663/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Rejected] PEP 663 - Standardizing Enum str(), repr(), and format() behaviors">
+    <meta itemprop="description" content="Python Enhancement Proposal 663: ‘Standardizing Enum str(), repr(), and format() behaviors’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T09:57:11+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T09:57:11+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Rejected] PEP 663 - Standardizing Enum str(), repr(), and format() behaviors
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T09:57:11+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-663--enum의-str-repr-format-동작-표준화">PEP 663 – Enum의 str(), repr(), format() 동작 표준화</a><ul><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#동기-motivation">동기 (Motivation)</a></li><li><a href="#근거-rationale">근거 (Rationale)</a></li><li><a href="#명세-specification">명세 (Specification)</a><ul><li><a href="#enum의-repr-str-format-변경-이전-및-신규">Enum의 repr(), str(), format() 변경 (이전 및 신규)</a></li><li><a href="#flag의-repr-str-format-변경-이전-및-신규">Flag의 repr(), str(), format() 변경 (이전 및 신규)</a></li><li><a href="#최종-enum-repr-str-format">최종 Enum repr(), str(), format()</a></li><li><a href="#최종-flag-repr-str-format">최종 Flag repr(), str(), format()</a></li></ul></li><li><a href="#하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0663/">PEP 663 - Standardizing Enum str(), repr(), and format() behaviors</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Rejected</td>
+        <td><strong>유형:</strong> Informational</td>
+        <td><strong>작성일:</strong> 30-Jun-2021</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-663--enum의-str-repr-format-동작-표준화">PEP 663 – Enum의 <code class="language-plaintext highlighter-rouge">str()</code>, <code class="language-plaintext highlighter-rouge">repr()</code>, <code class="language-plaintext highlighter-rouge">format()</code> 동작 표준화</h1>
+
+<ul>
+  <li><strong>작성자:</strong> Ethan Furman</li>
+  <li><strong>상태:</strong> Rejected (거부됨)</li>
+  <li><strong>타입:</strong> Informational (정보성)</li>
+  <li><strong>생성일:</strong> 2021년 6월 30일</li>
+  <li><strong>Python 버전:</strong> 3.11</li>
+  <li><strong>해결:</strong> Python-Dev 메시지</li>
+</ul>
+
+<h2 id="개요-abstract">개요 (Abstract)</h2>
+
+<p>이 PEP는 다양한 <code class="language-plaintext highlighter-rouge">Enum</code> 타입의 <code class="language-plaintext highlighter-rouge">repr()</code>, <code class="language-plaintext highlighter-rouge">str()</code>, 그리고 <code class="language-plaintext highlighter-rouge">format()</code> 메서드를 의도된 목적에 더 잘 부합하도록 업데이트하는 것을 제안합니다. 예를 들어, <code class="language-plaintext highlighter-rouge">IntEnum</code>의 <code class="language-plaintext highlighter-rouge">str()</code>은 <code class="language-plaintext highlighter-rouge">format()</code>과 일치하도록 변경되며, 사용자가 정의한 <code class="language-plaintext highlighter-rouge">int-enum</code>은 <code class="language-plaintext highlighter-rouge">format()</code>이 <code class="language-plaintext highlighter-rouge">str()</code>과 일치하도록 변경됩니다. 모든 경우에 <code class="language-plaintext highlighter-rouge">enum</code>의 <code class="language-plaintext highlighter-rouge">str()</code>과 <code class="language-plaintext highlighter-rouge">format()</code>은 동일하게 유지됩니다(사용자가 <code class="language-plaintext highlighter-rouge">format()</code>을 오버라이드하지 않는 한).</p>
+
+<p>또한, 데코레이트된 <code class="language-plaintext highlighter-rouge">enum</code>의 <code class="language-plaintext highlighter-rouge">str()</code>, <code class="language-plaintext highlighter-rouge">repr()</code> (및 <code class="language-plaintext highlighter-rouge">format()</code>)을 유효한 전역 참조(예: <code class="language-plaintext highlighter-rouge">&lt;RegexFlag.IGNORECASE: 2&gt;</code> 대신 <code class="language-plaintext highlighter-rouge">re.IGNORECASE</code>)로 변경하는 전역 <code class="language-plaintext highlighter-rouge">enum</code> 데코레이터를 추가하는 것을 제안합니다.</p>
+
+<h2 id="동기-motivation">동기 (Motivation)</h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">IntEnum</code>과 <code class="language-plaintext highlighter-rouge">IntFlag</code>의 <code class="language-plaintext highlighter-rouge">str()</code>이 값이 아닌 다른 형태로 출력되어 기존 상수를 대체할 때 버그를 유발하고 추가 작업을 필요하게 만들었습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">enum</code> 멤버의 <code class="language-plaintext highlighter-rouge">str()</code>과 <code class="language-plaintext highlighter-rouge">format()</code>이 다르면 혼란을 줄 수 있습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">StrEnum</code>이 도입되면서 <code class="language-plaintext highlighter-rouge">str()</code>이 자신의 값이어야 한다는 요구사항이 다른 <code class="language-plaintext highlighter-rouge">Enum</code> 타입의 <code class="language-plaintext highlighter-rouge">str()</code>과는 일관성이 없었습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Flag</code> 멤버의 반복(iteration)은 <code class="language-plaintext highlighter-rouge">repr()</code>에 직접적인 영향을 미치는데, 이 방식이 비우아하거나 최악의 경우 버그를 유발할 수 있습니다.</li>
+</ul>
+
+<h2 id="근거-rationale">근거 (Rationale)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">Enum</code>은 표준 라이브러리에서 점점 더 보편화되고 있습니다. <code class="language-plaintext highlighter-rouge">enum</code> 멤버를 <code class="language-plaintext highlighter-rouge">repr()</code>을 통해 인식할 수 있고, 이 <code class="language-plaintext highlighter-rouge">repr()</code>이 파싱하기 쉽다는 점은 코드 이해 및 디버깅에 유용하며 시간과 노력을 절약할 수 있습니다.</p>
+
+<p>하지만, 데이터 타입이 혼합된 <code class="language-plaintext highlighter-rouge">enum</code> (예: <code class="language-plaintext highlighter-rouge">IntEnum</code>, <code class="language-plaintext highlighter-rouge">IntFlag</code>, 새로운 <code class="language-plaintext highlighter-rouge">StrEnum</code>)은 대체하려는 기존 상수와의 하위 호환성을 더 많이 확보해야 합니다. 특히 <code class="language-plaintext highlighter-rouge">str(replacement_enum_member) == str(original_constant)</code>이 참이어야 하며, <code class="language-plaintext highlighter-rouge">format()</code>도 마찬가지여야 합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">IntEnum</code>, <code class="language-plaintext highlighter-rouge">IntFlag</code>, <code class="language-plaintext highlighter-rouge">StrEnum</code>은 기존 정수 및 문자열 상수를 가능한 한 완벽하게 대체할 수 있어야 합니다. 이러한 목표를 위해, 각 <code class="language-plaintext highlighter-rouge">enum</code>의 <code class="language-plaintext highlighter-rouge">str()</code> 출력은 그 고유한 값이어야 합니다. 예를 들어, <code class="language-plaintext highlighter-rouge">Color</code>가 <code class="language-plaintext highlighter-rouge">IntEnum</code>이라면:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">Color</span><span class="p">.</span><span class="n">RED</span>
+<span class="o">&lt;</span><span class="n">Color</span><span class="p">.</span><span class="n">RED</span><span class="p">:</span> <span class="mi">1</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nf">str</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="n">RED</span><span class="p">)</span>
+<span class="sh">'</span><span class="s">1</span><span class="sh">'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nf">format</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="n">RED</span><span class="p">)</span>
+<span class="sh">'</span><span class="s">1</span><span class="sh">'</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">format()</code>은 이미 올바른 출력을 생성하고 있으므로, <code class="language-plaintext highlighter-rouge">str()</code>만 업데이트가 필요합니다.</p>
+
+<p>가능한 한 <code class="language-plaintext highlighter-rouge">enum</code> 멤버의 <code class="language-plaintext highlighter-rouge">str()</code>, <code class="language-plaintext highlighter-rouge">repr()</code>, <code class="language-plaintext highlighter-rouge">format()</code>은 표준 라이브러리 전반에 걸쳐 표준화되어야 합니다. 그러나 Python 3.10까지는 표준 라이브러리의 여러 <code class="language-plaintext highlighter-rouge">enum</code>이 사용자 정의 <code class="language-plaintext highlighter-rouge">str()</code> 및/또는 <code class="language-plaintext highlighter-rouge">repr()</code>을 가지고 있습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Flag</code>의 <code class="language-plaintext highlighter-rouge">repr()</code>은 현재 포함해서는 안 되는 별칭(aliases)을 포함하고 있습니다. 이 문제를 해결하면 특정 경우에 <code class="language-plaintext highlighter-rouge">repr()</code>이 변경될 것입니다.</p>
+
+<h2 id="명세-specification">명세 (Specification)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">enum</code> 사용에는 크게 세 가지 범주가 있습니다:</p>
+
+<ol>
+  <li><strong>Simple (단순):</strong> <code class="language-plaintext highlighter-rouge">Enum</code> 또는 <code class="language-plaintext highlighter-rouge">Flag</code>와 같이 데이터 타입 믹스인(mixin) 없이 새로운 <code class="language-plaintext highlighter-rouge">enum</code> 클래스가 생성됩니다.</li>
+  <li><strong>Drop-in Replacement (드롭인 대체):</strong> <code class="language-plaintext highlighter-rouge">IntEnum</code>, <code class="language-plaintext highlighter-rouge">IntFlag</code>, <code class="language-plaintext highlighter-rouge">StrEnum</code>과 같이 <code class="language-plaintext highlighter-rouge">int</code> 또는 <code class="language-plaintext highlighter-rouge">str</code>을 서브클래싱하고 <code class="language-plaintext highlighter-rouge">int.__str__</code> 또는 <code class="language-plaintext highlighter-rouge">str.__str__</code>을 사용하는 새로운 <code class="language-plaintext highlighter-rouge">enum</code> 클래스가 생성됩니다.</li>
+  <li><strong>User-mixed enums and flags (사용자 혼합 <code class="language-plaintext highlighter-rouge">enum</code> 및 <code class="language-plaintext highlighter-rouge">flag</code>):</strong> 사용자가 <code class="language-plaintext highlighter-rouge">enum.IntEnum</code> 등을 사용하는 대신 자신만의 정수, 실수, 문자열 등 <code class="language-plaintext highlighter-rouge">enum</code>을 생성합니다.</li>
+</ol>
+
+<p>또한 두 가지 스타일이 있습니다:</p>
+
+<ol>
+  <li><strong>Normal (일반):</strong> 열거 멤버가 자신의 클래스에 남아 있으며 <code class="language-plaintext highlighter-rouge">classname.membername</code>으로 접근되고, 클래스 이름이 <code class="language-plaintext highlighter-rouge">repr()</code>과 <code class="language-plaintext highlighter-rouge">str()</code>에 (적절한 경우) 표시됩니다.</li>
+  <li><strong>Global (전역):</strong> 열거 멤버가 해당 모듈의 전역 네임스페이스로 복사되며, 모듈 이름이 <code class="language-plaintext highlighter-rouge">repr()</code>과 <code class="language-plaintext highlighter-rouge">str()</code>에 (적절한 경우) 표시됩니다.</li>
+</ol>
+
+<p>다음 두 표는 위 분류에 따라 <code class="language-plaintext highlighter-rouge">enum</code>과 <code class="language-plaintext highlighter-rouge">flag</code>의 <code class="language-plaintext highlighter-rouge">repr()</code>, <code class="language-plaintext highlighter-rouge">str()</code>, <code class="language-plaintext highlighter-rouge">format()</code>이 어떻게 변경되는지를 보여줍니다. (빈 셀은 변경 없음)</p>
+
+<h3 id="enum의-repr-str-format-변경-이전-및-신규">Enum의 <code class="language-plaintext highlighter-rouge">repr()</code>, <code class="language-plaintext highlighter-rouge">str()</code>, <code class="language-plaintext highlighter-rouge">format()</code> 변경 (이전 및 신규)</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">style</th>
+      <th style="text-align: left">category</th>
+      <th style="text-align: left">enum repr() (3.10)</th>
+      <th style="text-align: left">enum repr() (new)</th>
+      <th style="text-align: left">enum str() (3.10)</th>
+      <th style="text-align: left">enum str() (new)</th>
+      <th style="text-align: left">enum format() (3.10)</th>
+      <th style="text-align: left">enum format() (new)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">normal</td>
+      <td style="text-align: left">simple</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">&lt;Hue.LIGHT: -1&gt;</code></td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Hue.LIGHT</code></td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Hue.LIGHT</code></td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">user mixed</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">&lt;Grey.WHITE: 1&gt;</code></td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Grey.WHITE</code></td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Grey.WHITE</code></td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">int drop-in</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">&lt;Hue.LIGHT: -1&gt;</code></td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Hue.LIGHT</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">-1</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">-1</code></td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">global</td>
+      <td style="text-align: left">simple</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">&lt;Hue.LIGHT: -1&gt;</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tools.LIGHT</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Hue.LIGHT</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">LIGHT</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Hue.LIGHT</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">LIGHT</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">user mixed</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">&lt;Grey.WHITE: 1&gt;</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tools.WHITE</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Grey.WHITE</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">WHITE</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Grey.WHITE</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">WHITE</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">int drop-in</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">&lt;Hue.LIGHT: -1&gt;</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tools.LIGHT</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Hue.LIGHT</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">-1</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">-1</code></td>
+      <td style="text-align: left"> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="flag의-repr-str-format-변경-이전-및-신규">Flag의 <code class="language-plaintext highlighter-rouge">repr()</code>, <code class="language-plaintext highlighter-rouge">str()</code>, <code class="language-plaintext highlighter-rouge">format()</code> 변경 (이전 및 신규)</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">style</th>
+      <th style="text-align: left">category</th>
+      <th style="text-align: left">flag repr() (3.10)</th>
+      <th style="text-align: left">flag repr() (new)</th>
+      <th style="text-align: left">flag str() (3.10)</th>
+      <th style="text-align: left">flag str() (new)</th>
+      <th style="text-align: left">flag format() (3.10)</th>
+      <th style="text-align: left">flag format() (new)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">normal</td>
+      <td style="text-align: left">simple</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">&lt;Color.RED|GREEN: 3&gt;</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">&lt;Color(3): RED|GREEN&gt;</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Color.RED|GREEN</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Color.RED|Color.GREEN</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Color.RED|GREEN</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Color.RED|Color.GREEN</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">user mixed</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">&lt;Grey.WHITE: 1&gt;</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">&lt;Grey(1): WHITE&gt;</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">1</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Grey.WHITE</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">1</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Grey.WHITE</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">int drop-in</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">&lt;Color.RED|GREEN: 3&gt;</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">&lt;Color(3): RED|GREEN&gt;</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Color.RED|GREEN</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">3</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Color.RED|GREEN</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">3</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">global</td>
+      <td style="text-align: left">simple</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">&lt;Color.RED|GREEN: 3&gt;</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tools.RED|tools.GREEN</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Color.RED|GREEN</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">RED|GREEN</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Color.RED|GREEN</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">RED|GREEN</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">user mixed</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">&lt;Grey.WHITE: 1&gt;</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tools.WHITE</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Grey.WHITE</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">WHITE</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">1</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">WHITE</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">int drop-in</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">&lt;Color.RED|GREEN: 3&gt;</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tools.RED|tools.GREEN</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Color.RED|GREEN</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">3</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Color.RED|GREEN</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">3</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>최종 결과 표는 다음과 같습니다:</p>
+
+<h3 id="최종-enum-repr-str-format">최종 Enum <code class="language-plaintext highlighter-rouge">repr()</code>, <code class="language-plaintext highlighter-rouge">str()</code>, <code class="language-plaintext highlighter-rouge">format()</code></h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">style</th>
+      <th style="text-align: left">category</th>
+      <th style="text-align: left">enum repr()</th>
+      <th style="text-align: left">enum str()</th>
+      <th style="text-align: left">enum format()</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">normal</td>
+      <td style="text-align: left">simple</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">&lt;Hue.LIGHT: -1&gt;</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Hue.LIGHT</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Hue.LIGHT</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">user mixed</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">&lt;Grey.WHITE: 1&gt;</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Grey.WHITE</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Grey.WHITE</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">int drop-in</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">&lt;Hue.LIGHT: -1&gt;</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">-1</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">-1</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">global</td>
+      <td style="text-align: left">simple</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tools.LIGHT</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">LIGHT</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">LIGHT</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">user mixed</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tools.WHITE</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">WHITE</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">WHITE</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">int drop-in</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tools.LIGHT</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">-1</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">-1</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="최종-flag-repr-str-format">최종 Flag <code class="language-plaintext highlighter-rouge">repr()</code>, <code class="language-plaintext highlighter-rouge">str()</code>, <code class="language-plaintext highlighter-rouge">format()</code></h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">style</th>
+      <th style="text-align: left">category</th>
+      <th style="text-align: left">flag repr()</th>
+      <th style="text-align: left">flag str()</th>
+      <th style="text-align: left">flag format()</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">normal</td>
+      <td style="text-align: left">simple</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">&lt;Color(3): RED|GREEN&gt;</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Color.RED|Color.GREEN</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Color.RED|Color.GREEN</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">user mixed</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">&lt;Grey(1): WHITE&gt;</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Grey.WHITE</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Grey.WHITE</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">int drop-in</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">&lt;Color(3): RED|GREEN&gt;</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">3</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">3</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">global</td>
+      <td style="text-align: left">simple</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tools.RED|tools.GREEN</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">RED|GREEN</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">RED|GREEN</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">user mixed</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tools.WHITE</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">WHITE</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">WHITE</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">int drop-in</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">tools.RED|tools.GREEN</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">3</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">3</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>보시다시피, <code class="language-plaintext highlighter-rouge">repr()</code>은 주로 멤버가 전역(global)인지 여부에 영향을 받으며, <code class="language-plaintext highlighter-rouge">str()</code>은 전역이거나 드롭인 대체(drop-in replacement)인지 여부에 영향을 받습니다. 드롭인 대체 상태가 더 높은 우선순위를 가집니다. 또한, 이전 스타일이 결함이 있었기 때문에 <code class="language-plaintext highlighter-rouge">flag</code>의 기본 <code class="language-plaintext highlighter-rouge">repr()</code>과 <code class="language-plaintext highlighter-rouge">str()</code>도 변경되었습니다.</p>
+
+<h2 id="하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</h2>
+
+<p>주요 Python 버전 간에 문자열화된 객체의 하위 호환성은 보장되지 않으며, 소프트웨어가 테스트, 문서, 데이터 구조 및/또는 코드 생성에서 <code class="language-plaintext highlighter-rouge">enum</code>의 <code class="language-plaintext highlighter-rouge">repr()</code>, <code class="language-plaintext highlighter-rouge">str()</code>, <code class="language-plaintext highlighter-rouge">format()</code> 출력을 사용하는 경우 하위 호환성 문제가 발생할 것입니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">enum</code> 멤버의 일반적인 사용법은 변경되지 않습니다. 예를 들어, <code class="language-plaintext highlighter-rouge">re.ASCII</code>는 여전히 <code class="language-plaintext highlighter-rouge">re.ASCII</code>로 사용될 수 있으며 256과 계속 동일하게 비교됩니다.</p>
+
+<p>이전 출력을 유지해야 하는 경우(예: 다른 Python 버전 간의 호환성을 보장하기 위해), 소프트웨어 프로젝트는 적절한 메서드를 오버라이드(override)하여 자체 <code class="language-plaintext highlighter-rouge">enum</code> 기본 클래스를 생성해야 합니다.</p>
+
+<p>드롭인(drop-in) 카테고리의 <code class="language-plaintext highlighter-rouge">str()</code>을 변경함으로써, <code class="language-plaintext highlighter-rouge">IntEnum</code> 등이 기존 상수를 대체하는 데 사용될 때 향후 발생할 수 있는 문제를 실제로 방지할 수 있습니다.</p>
+
+<h2 id="저작권-copyright">저작권 (Copyright)</h2>
+
+<p>이 문서는 퍼블릭 도메인 또는 CC0-1.0-Universal 라이선스 중 더 관대한 조건으로 배포됩니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/662/" class="pagination--pager" title="[Rejected] PEP 662 - Editable installs via virtual wheels
+">Previous</a>
+    
+    
+      <a href="/python/pep/664/" class="pagination--pager" title="[Active] PEP 664 - Python 3.11 Release Schedule
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

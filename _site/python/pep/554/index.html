@@ -1,0 +1,1146 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Superseded] PEP 554 - Multiple Interpreters in the Stdlib | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 554: ‘Multiple Interpreters in the Stdlib’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Superseded] PEP 554 - Multiple Interpreters in the Stdlib">
+<meta property="og:url" content="http://localhost:4000/python/pep/554/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 554: ‘Multiple Interpreters in the Stdlib’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T23:40:00+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T23:40:00+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/554/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Superseded] PEP 554 - Multiple Interpreters in the Stdlib">
+    <meta itemprop="description" content="Python Enhancement Proposal 554: ‘Multiple Interpreters in the Stdlib’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T23:40:00+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T23:40:00+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Superseded] PEP 554 - Multiple Interpreters in the Stdlib
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T23:40:00+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-554--stdlib의-다중-인터프리터-multiple-interpreters-in-the-stdlib">PEP 554 – stdlib의 다중 인터프리터 (Multiple Interpreters in the Stdlib)</a><ul><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#제안-proposal">제안 (Proposal)</a><ul><li><a href="#interpreters-모듈-the-interpreters-module">interpreters 모듈 (The “interpreters” Module)</a></li><li><a href="#interpreters-모듈-api-요약">interpreters 모듈 API 요약</a></li><li><a href="#concurrentfuturesinterpreterpoolexecutor">concurrent.futures.InterpreterPoolExecutor</a></li><li><a href="#확장-모듈-관리자를-위한-도움-help-for-extension-module-maintainers">확장 모듈 관리자를 위한 도움 (Help for Extension Module Maintainers)</a></li></ul></li><li><a href="#예시-examples">예시 (Examples)</a><ul><li><a href="#현재-os-스레드에서-격리된-코드-실행">현재 OS 스레드에서 격리된 코드 실행</a></li><li><a href="#다른-스레드에서-실행">다른 스레드에서 실행</a></li><li><a href="#인터프리터-사전-채우기">인터프리터 사전 채우기</a></li><li><a href="#예외-처리-handling-an-exception">예외 처리 (Handling an exception)</a></li><li><a href="#예외-다시-발생-re-raising-an-exception">예외 다시 발생 (Re-raising an exception)</a></li><li><a href="#__main__-네임스페이스와-상호작용">__main__ 네임스페이스와 상호작용</a></li><li><a href="#os-파이프를-이용한-동기화">OS 파이프를 이용한 동기화</a></li><li><a href="#파일-디스크립터-공유">파일 디스크립터 공유</a></li><li><a href="#pickle을-통한-객체-전달">pickle을 통한 객체 전달</a></li><li><a href="#인터프리터의-stdout-캡처">인터프리터의 stdout 캡처</a></li><li><a href="#채널을-이용한-통신">채널을 이용한 통신</a></li><li><a href="#memoryview-공유-map-reduce-예시">memoryview 공유 (Map-Reduce 예시)</a></li></ul></li><li><a href="#도입-배경-rationale">도입 배경 (Rationale)</a><ul><li><a href="#우려-사항-concerns">우려 사항 (Concerns)</a></li><li><a href="#서브-인터프리터에-대하여-about-subinterpreters">서브 인터프리터에 대하여 (About Subinterpreters)</a></li><li><a href="#interpreters-모듈-api">interpreters 모듈 API</a></li><li><a href="#잡히지-않은-예외-uncaught-exceptions">잡히지 않은 예외 (Uncaught Exceptions)</a></li><li><a href="#인터프리터-제한-사항-interpreter-restrictions">인터프리터 제한 사항 (Interpreter Restrictions)</a></li><li><a href="#통신-api-api-for-communication">통신 API (API For Communication)</a><ul><li><a href="#공유-가능한-타입-shareable-types">공유 가능한 타입 (Shareable Types)</a></li><li><a href="#os-파이프를-통한-통신-communicating-through-os-pipes">OS 파이프를 통한 통신 (Communicating Through OS Pipes)</a></li><li><a href="#채널-channels">채널 (Channels)</a></li><li><a href="#공유-객체에-대한-주의사항-caveats-for-shared-objects">공유 객체에 대한 주의사항 (Caveats For Shared Objects)</a></li></ul></li><li><a href="#문서화-documentation">문서화 (Documentation)</a></li></ul></li><li><a href="#대안-솔루션-alternative-solutions">대안 솔루션 (Alternative Solutions)</a></li><li><a href="#미해결-질문-open-questions">미해결 질문 (Open Questions)</a></li><li><a href="#연기된-기능-deferred-functionality">연기된 기능 (Deferred Functionality)</a></li><li><a href="#거부된-아이디어-rejected-ideas">거부된 아이디어 (Rejected Ideas)</a></li><li><a href="#구현-implementation">구현 (Implementation)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0554/">PEP 554 - Multiple Interpreters in the Stdlib</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Superseded</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 05-Sep-2017</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>주어진 URL의 PEP 554 문서를 바탕으로 한국어 번역 및 요약을 제공합니다. 이 문서는 Python 3.12에서 [PEP 684]를 통해 per-interpreter GIL이 도입된 이후 특히 중요해진 <code class="language-plaintext highlighter-rouge">stdlib</code>에 다중 인터프리터를 추가하는 제안입니다.</p>
+
+<hr />
+
+<h1 id="pep-554--stdlib의-다중-인터프리터-multiple-interpreters-in-the-stdlib">PEP 554 – <code class="language-plaintext highlighter-rouge">stdlib</code>의 다중 인터프리터 (Multiple Interpreters in the Stdlib)</h1>
+
+<ul>
+  <li><strong>작성자:</strong> Eric Snow</li>
+  <li><strong>상태:</strong> 대체됨 (Superseded) - 이 PEP의 내용은 [PEP 734]로 이어집니다.</li>
+  <li><strong>유형:</strong> 표준 트랙 (Standards Track)</li>
+  <li><strong>생성일:</strong> 2017년 9월 5일</li>
+  <li><strong>Python 버전:</strong> 3.13</li>
+  <li><strong>대체된 PEP:</strong> [PEP 734]</li>
+</ul>
+
+<h2 id="개요-abstract">개요 (Abstract)</h2>
+
+<p>CPython은 1.5 버전(1997년)부터 동일 프로세스 내에서 여러 개의 인터프리터(“서브 인터프리터”라고도 함)를 지원해왔습니다. 이 기능은 C-API를 통해 사용할 수 있었으며, 서로 간의 상대적인 격리를 통해 새로운 형태의 동시성(concurrency) 접근 방식을 가능하게 합니다.</p>
+
+<p>이 제안은 <code class="language-plaintext highlighter-rouge">stdlib</code>에 <code class="language-plaintext highlighter-rouge">interpreters</code> 모듈을 도입합니다. 이 모듈은 C-API에서 이미 제공하는 다중 인터프리터의 기본 기능과 인터프리터 간 통신을 위한 기본 지원을 노출합니다. 특히 [PEP 684]가 Python 3.12에 per-interpreter GIL을 도입한 이후 이 모듈은 더욱 중요해졌습니다.</p>
+
+<h2 id="제안-proposal">제안 (Proposal)</h2>
+
+<p>핵심 요약은 다음과 같습니다.</p>
+
+<ol>
+  <li>새로운 <code class="language-plaintext highlighter-rouge">stdlib</code> 모듈인 “<code class="language-plaintext highlighter-rouge">interpreters</code>“를 추가합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">concurrent.futures.InterpreterPoolExecutor</code>를 추가합니다.</li>
+  <li>확장 모듈(Extension Module) 관리자를 위한 도움을 제공합니다.</li>
+</ol>
+
+<h3 id="interpreters-모듈-the-interpreters-module"><code class="language-plaintext highlighter-rouge">interpreters</code> 모듈 (The “interpreters” Module)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">interpreters</code> 모듈은 다중 인터프리터 기능에 대한 고수준 인터페이스를 제공하며, 새로운 저수준 <code class="language-plaintext highlighter-rouge">_interpreters</code> 모듈(threading 모듈과 유사)을 래핑합니다. 이 모듈은 CPython에 이미 존재하는 다중 인터프리터 지원을 노출하는 것 외에도, 인터프리터 간에 데이터를 전달하기 위한 기본적인 메커니즘을 지원합니다. 이는 대상 서브 인터프리터의 <code class="language-plaintext highlighter-rouge">__main__</code> 모듈에 “공유 가능한(shareable)” 객체를 설정하는 것을 포함합니다. <code class="language-plaintext highlighter-rouge">os.pipe()</code>와 같은 일부 객체는 추가 통신에 사용될 수 있습니다. 이 모듈은 또한 교차 인터프리터 통신의 시연으로 “채널(channels)”의 최소한의 구현을 제공할 것입니다.</p>
+
+<p>객체는 생성된 인터프리터에 묶여 있기 때문에 인터프리터 간에 공유되지 않습니다. 대신, 객체의 데이터가 인터프리터 간에 전달됩니다.</p>
+
+<h3 id="interpreters-모듈-api-요약"><code class="language-plaintext highlighter-rouge">interpreters</code> 모듈 API 요약</h3>
+
+<p>다음은 <code class="language-plaintext highlighter-rouge">interpreters</code> 모듈의 API 요약입니다.</p>
+
+<p><strong>인터프리터 생성 및 사용:</strong></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">list_all() -&gt; [Interpreter]</code>: 존재하는 모든 인터프리터를 가져옵니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">get_current() -&gt; Interpreter</code>: 현재 실행 중인 인터프리터를 가져옵니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">get_main() -&gt; Interpreter</code>: 메인 인터프리터를 가져옵니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">create() -&gt; Interpreter</code>: 새로운 (유휴) Python 인터프리터를 초기화합니다.</li>
+</ul>
+
+<p><strong><code class="language-plaintext highlighter-rouge">class Interpreter</code>:</strong></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">.id</code>: 인터프리터의 ID (읽기 전용).</li>
+  <li><code class="language-plaintext highlighter-rouge">.is_running() -&gt; bool</code>: 인터프리터가 현재 코드를 실행 중인지 여부.</li>
+  <li><code class="language-plaintext highlighter-rouge">.close()</code>: 인터프리터를 종료하고 파괴합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">.set_main_attrs(**kwargs)</code>: <code class="language-plaintext highlighter-rouge">__main__</code>에 “공유 가능한” 객체를 바인딩합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">.get_main_attr(name)</code>: <code class="language-plaintext highlighter-rouge">__main__</code>에서 “공유 가능한” 객체를 가져옵니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">.exec(src_str, /)</code>: 주어진 소스 코드를 (현재 스레드에서) 인터프리터에서 실행합니다.</li>
+</ul>
+
+<p><strong>인터프리터 간 통신:</strong></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">is_shareable(obj) -&gt; Bool</code>: 객체의 데이터를 인터프리터 간에 전달할 수 있는지 여부.</li>
+  <li><code class="language-plaintext highlighter-rouge">create_channel() -&gt; (RecvChannel, SendChannel)</code>: 인터프리터 간 데이터 전달을 위한 새로운 채널을 생성합니다.</li>
+</ul>
+
+<h3 id="concurrentfuturesinterpreterpoolexecutor"><code class="language-plaintext highlighter-rouge">concurrent.futures.InterpreterPoolExecutor</code></h3>
+
+<p><code class="language-plaintext highlighter-rouge">ThreadPoolExecutor</code>를 확장하여 각 스레드 작업을 서브 인터프리터에서 실행하는 실행자(executor)가 추가될 것입니다. 초기에는 <code class="language-plaintext highlighter-rouge">Interpreter.exec()</code>가 받아들이는 작업(예: 문자열 스크립트)만 지원되지만, 나중에는 함수 지원 및 작업과 인수를 pickle로 직렬화하는 별도의 메서드도 지원될 수 있습니다.</p>
+
+<h3 id="확장-모듈-관리자를-위한-도움-help-for-extension-module-maintainers">확장 모듈 관리자를 위한 도움 (Help for Extension Module Maintainers)</h3>
+
+<p>다단계 초기화([PEP 489])를 구현하는 확장 모듈은 격리되어 다중 인터프리터와 호환되는 것으로 간주됩니다. 그렇지 않은 경우 “호환되지 않는” 것으로 간주됩니다.</p>
+
+<p>많은 확장 모듈이 여전히 호환되지 않습니다. 호환성 문제를 완화하고 호환성을 가속화하기 위해 다음과 같은 조치를 취할 것입니다.</p>
+
+<ul>
+  <li>확장 모듈이 다중 인터프리터 사용을 지원할 필요가 없음을 명확히 합니다.</li>
+  <li>호환되지 않는 모듈이 서브 인터프리터에서 임포트될 때 <code class="language-plaintext highlighter-rouge">ImportError</code>를 발생시킵니다.</li>
+  <li>관리자가 호환성을 달성하는 데 도움이 되는 자료(예: 문서)를 제공합니다.</li>
+  <li>Cython 및 PyPI에서 가장 많이 사용되는 확장 모듈의 관리자에게 연락하여 피드백을 받고 지원을 제공합니다.</li>
+</ul>
+
+<h2 id="예시-examples">예시 (Examples)</h2>
+
+<h3 id="현재-os-스레드에서-격리된-코드-실행">현재 OS 스레드에서 격리된 코드 실행</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">interp</span> <span class="o">=</span> <span class="n">interpreters</span><span class="p">.</span><span class="nf">create</span><span class="p">()</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">'</span><span class="s">before</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">interp</span><span class="p">.</span><span class="nf">exec</span><span class="p">(</span><span class="sh">'</span><span class="s">print(</span><span class="sh">"</span><span class="s">during</span><span class="sh">"</span><span class="s">)</span><span class="sh">'</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">'</span><span class="s">after</span><span class="sh">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="다른-스레드에서-실행">다른 스레드에서 실행</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">interp</span> <span class="o">=</span> <span class="n">interpreters</span><span class="p">.</span><span class="nf">create</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">run</span><span class="p">():</span>
+    <span class="n">interp</span><span class="p">.</span><span class="nf">exec</span><span class="p">(</span><span class="sh">'</span><span class="s">print(</span><span class="sh">"</span><span class="s">during</span><span class="sh">"</span><span class="s">)</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">threading</span><span class="p">.</span><span class="nc">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">run</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">'</span><span class="s">before</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">t</span><span class="p">.</span><span class="nf">start</span><span class="p">()</span>
+<span class="n">t</span><span class="p">.</span><span class="nf">join</span><span class="p">()</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">'</span><span class="s">after</span><span class="sh">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="인터프리터-사전-채우기">인터프리터 사전 채우기</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">interp</span> <span class="o">=</span> <span class="n">interpreters</span><span class="p">.</span><span class="nf">create</span><span class="p">()</span>
+<span class="n">interp</span><span class="p">.</span><span class="nf">exec</span><span class="p">(</span><span class="n">tw</span><span class="p">.</span><span class="nf">dedent</span><span class="p">(</span><span class="sh">"""</span><span class="s">
+    import some_lib
+    import an_expensive_module
+    some_lib.set_up()
+</span><span class="sh">"""</span><span class="p">))</span>
+<span class="nf">wait_for_request</span><span class="p">()</span>
+<span class="n">interp</span><span class="p">.</span><span class="nf">exec</span><span class="p">(</span><span class="n">tw</span><span class="p">.</span><span class="nf">dedent</span><span class="p">(</span><span class="sh">"""</span><span class="s">
+    some_lib.handle_request()
+</span><span class="sh">"""</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h3 id="예외-처리-handling-an-exception">예외 처리 (Handling an exception)</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">interp</span> <span class="o">=</span> <span class="n">interpreters</span><span class="p">.</span><span class="nf">create</span><span class="p">()</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">interp</span><span class="p">.</span><span class="nf">exec</span><span class="p">(</span><span class="n">tw</span><span class="p">.</span><span class="nf">dedent</span><span class="p">(</span><span class="sh">"""</span><span class="s">
+        raise KeyError
+    </span><span class="sh">"""</span><span class="p">))</span>
+<span class="k">except</span> <span class="n">interpreters</span><span class="p">.</span><span class="n">RunFailedError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">got the error from the subinterpreter: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="예외-다시-발생-re-raising-an-exception">예외 다시 발생 (Re-raising an exception)</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">interp</span> <span class="o">=</span> <span class="n">interpreters</span><span class="p">.</span><span class="nf">create</span><span class="p">()</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">interp</span><span class="p">.</span><span class="nf">exec</span><span class="p">(</span><span class="n">tw</span><span class="p">.</span><span class="nf">dedent</span><span class="p">(</span><span class="sh">"""</span><span class="s">
+            raise KeyError
+        </span><span class="sh">"""</span><span class="p">))</span>
+    <span class="k">except</span> <span class="n">interpreters</span><span class="p">.</span><span class="n">RunFailedError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">exc</span><span class="p">.</span><span class="n">__cause__</span>
+<span class="k">except</span> <span class="nb">KeyError</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">got a KeyError from the subinterpreter</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="__main__-네임스페이스와-상호작용"><code class="language-plaintext highlighter-rouge">__main__</code> 네임스페이스와 상호작용</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">interp</span> <span class="o">=</span> <span class="n">interpreters</span><span class="p">.</span><span class="nf">create</span><span class="p">()</span>
+<span class="n">interp</span><span class="p">.</span><span class="nf">set_main_attrs</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">interp</span><span class="p">.</span><span class="nf">exec</span><span class="p">(</span><span class="n">tw</span><span class="p">.</span><span class="nf">dedent</span><span class="p">(</span><span class="sh">"""</span><span class="s">
+    res = do_something(a, b)
+</span><span class="sh">"""</span><span class="p">))</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">interp</span><span class="p">.</span><span class="nf">get_main_attr</span><span class="p">(</span><span class="sh">'</span><span class="s">res</span><span class="sh">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="os-파이프를-이용한-동기화">OS 파이프를 이용한 동기화</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">interp</span> <span class="o">=</span> <span class="n">interpreters</span><span class="p">.</span><span class="nf">create</span><span class="p">()</span>
+<span class="n">r1</span><span class="p">,</span> <span class="n">s1</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="nf">pipe</span><span class="p">()</span>
+<span class="n">r2</span><span class="p">,</span> <span class="n">s2</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="nf">pipe</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">task</span><span class="p">():</span>
+    <span class="n">interp</span><span class="p">.</span><span class="nf">exec</span><span class="p">(</span><span class="n">tw</span><span class="p">.</span><span class="nf">dedent</span><span class="p">(</span><span class="sa">f</span><span class="sh">"""</span><span class="s">
+        import os
+        os.read(</span><span class="si">{</span><span class="n">r1</span><span class="si">}</span><span class="s">, 1)
+        print(</span><span class="sh">'</span><span class="s">during B</span><span class="sh">'</span><span class="s">)
+        os.write(</span><span class="si">{</span><span class="n">s2</span><span class="si">}</span><span class="s">, b</span><span class="sh">''</span><span class="s">)
+    </span><span class="sh">"""</span><span class="p">))</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">threading</span><span class="p">.</span><span class="nc">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">task</span><span class="p">)</span>
+<span class="n">t</span><span class="p">.</span><span class="nf">start</span><span class="p">()</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">'</span><span class="s">before</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">os</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="sa">b</span><span class="sh">''</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">'</span><span class="s">during A</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">os</span><span class="p">.</span><span class="nf">read</span><span class="p">(</span><span class="n">r2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">'</span><span class="s">after</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">t</span><span class="p">.</span><span class="nf">join</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h3 id="파일-디스크립터-공유">파일 디스크립터 공유</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">interp</span> <span class="o">=</span> <span class="n">interpreters</span><span class="p">.</span><span class="nf">create</span><span class="p">()</span>
+<span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="sh">'</span><span class="s">spamspamspam</span><span class="sh">'</span><span class="p">)</span> <span class="k">as</span> <span class="n">infile</span><span class="p">:</span>
+    <span class="n">interp</span><span class="p">.</span><span class="nf">set_main_attrs</span><span class="p">(</span><span class="n">fd</span><span class="o">=</span><span class="n">infile</span><span class="p">.</span><span class="nf">fileno</span><span class="p">())</span>
+    <span class="n">interp</span><span class="p">.</span><span class="nf">exec</span><span class="p">(</span><span class="n">tw</span><span class="p">.</span><span class="nf">dedent</span><span class="p">(</span><span class="sa">f</span><span class="sh">"""</span><span class="s">
+        import os
+        for line in os.fdopen(fd):
+            print(line)
+    </span><span class="sh">"""</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h3 id="pickle을-통한-객체-전달">pickle을 통한 객체 전달</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">interp</span> <span class="o">=</span> <span class="n">interpreters</span><span class="p">.</span><span class="nf">create</span><span class="p">()</span>
+<span class="n">r</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="nf">pipe</span><span class="p">()</span>
+<span class="n">interp</span><span class="p">.</span><span class="nf">exec</span><span class="p">(</span><span class="n">tw</span><span class="p">.</span><span class="nf">dedent</span><span class="p">(</span><span class="sa">f</span><span class="sh">"""</span><span class="s">
+    import os
+    import pickle
+    reader = </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s">
+</span><span class="sh">"""</span><span class="p">))</span>
+<span class="n">interp</span><span class="p">.</span><span class="nf">exec</span><span class="p">(</span><span class="n">tw</span><span class="p">.</span><span class="nf">dedent</span><span class="p">(</span><span class="sh">"""</span><span class="s">
+    data = b</span><span class="sh">''</span><span class="s">
+    c = os.read(reader, 1)
+    while c != b</span><span class="sh">'</span><span class="se">\\</span><span class="s">x00</span><span class="sh">'</span><span class="s">:
+        data += c
+        c = os.read(reader, 1)
+    obj = pickle.loads(data)
+    do_something(obj)
+    c = os.read(reader, 1)
+</span><span class="sh">"""</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="nb">input</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pickle</span><span class="p">.</span><span class="nf">dumps</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+    <span class="n">os</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="n">os</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="sa">b</span><span class="sh">'</span><span class="se">\x00</span><span class="sh">'</span><span class="p">)</span>
+    <span class="n">os</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="sa">b</span><span class="sh">'</span><span class="se">\x00</span><span class="sh">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="인터프리터의-stdout-캡처">인터프리터의 <code class="language-plaintext highlighter-rouge">stdout</code> 캡처</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">interp</span> <span class="o">=</span> <span class="n">interpreters</span><span class="p">.</span><span class="nf">create</span><span class="p">()</span>
+<span class="n">stdout</span> <span class="o">=</span> <span class="n">io</span><span class="p">.</span><span class="nc">StringIO</span><span class="p">()</span>
+<span class="k">with</span> <span class="n">contextlib</span><span class="p">.</span><span class="nf">redirect_stdout</span><span class="p">(</span><span class="n">stdout</span><span class="p">):</span>
+    <span class="n">interp</span><span class="p">.</span><span class="nf">exec</span><span class="p">(</span><span class="n">tw</span><span class="p">.</span><span class="nf">dedent</span><span class="p">(</span><span class="sh">"""</span><span class="s">
+        print(</span><span class="sh">'</span><span class="s">spam!</span><span class="sh">'</span><span class="s">)
+    </span><span class="sh">"""</span><span class="p">))</span>
+<span class="nf">assert</span><span class="p">(</span><span class="n">stdout</span><span class="p">.</span><span class="nf">getvalue</span><span class="p">()</span> <span class="o">==</span> <span class="sh">'</span><span class="s">spam!</span><span class="sh">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="채널을-이용한-통신">채널을 이용한 통신</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tasks_recv</span><span class="p">,</span> <span class="n">tasks</span> <span class="o">=</span> <span class="n">interpreters</span><span class="p">.</span><span class="nf">create_channel</span><span class="p">()</span>
+<span class="n">results</span><span class="p">,</span> <span class="n">results_send</span> <span class="o">=</span> <span class="n">interpreters</span><span class="p">.</span><span class="nf">create_channel</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">worker</span><span class="p">():</span>
+    <span class="n">interp</span> <span class="o">=</span> <span class="n">interpreters</span><span class="p">.</span><span class="nf">create</span><span class="p">()</span>
+    <span class="n">interp</span><span class="p">.</span><span class="nf">set_main_attrs</span><span class="p">(</span><span class="n">tasks</span><span class="o">=</span><span class="n">tasks_recv</span><span class="p">,</span> <span class="n">results</span><span class="o">=</span><span class="n">results_send</span><span class="p">)</span>
+    <span class="n">interp</span><span class="p">.</span><span class="nf">exec</span><span class="p">(</span><span class="n">tw</span><span class="p">.</span><span class="nf">dedent</span><span class="p">(</span><span class="sh">"""</span><span class="s">
+        def handle_request(req): ...
+        def capture_exception(exc): ...
+        while True:
+            try:
+                req = tasks.recv()
+            except Exception:  # channel closed
+                break
+            try:
+                res = handle_request(req)
+            except Exception as exc:
+                res = capture_exception(exc)
+            results.send_nowait(res)
+    </span><span class="sh">"""</span><span class="p">))</span>
+
+<span class="n">threads</span> <span class="o">=</span> <span class="p">[</span><span class="n">threading</span><span class="p">.</span><span class="nc">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">worker</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">20</span><span class="p">)]</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">threads</span><span class="p">:</span>
+    <span class="n">t</span><span class="p">.</span><span class="nf">start</span><span class="p">()</span>
+
+<span class="n">requests</span> <span class="o">=</span> <span class="bp">...</span>
+<span class="k">for</span> <span class="n">req</span> <span class="ow">in</span> <span class="n">requests</span><span class="p">:</span>
+    <span class="n">tasks</span><span class="p">.</span><span class="nf">send</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+<span class="n">tasks</span><span class="p">.</span><span class="nf">close</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">threads</span><span class="p">:</span>
+    <span class="n">t</span><span class="p">.</span><span class="nf">join</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h3 id="memoryview-공유-map-reduce-예시"><code class="language-plaintext highlighter-rouge">memoryview</code> 공유 (Map-Reduce 예시)</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">data</span><span class="p">,</span> <span class="n">chunksize</span> <span class="o">=</span> <span class="nf">read_large_data_set</span><span class="p">()</span>
+<span class="n">buf</span> <span class="o">=</span> <span class="nf">memoryview</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">numchunks</span> <span class="o">=</span> <span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="n">chunksize</span>  <span class="c1"># Changed / to // for integer division
+</span><span class="n">results</span> <span class="o">=</span> <span class="nf">memoryview</span><span class="p">(</span><span class="sa">b</span><span class="sh">'</span><span class="se">\0</span><span class="sh">'</span> <span class="o">*</span> <span class="n">numchunks</span><span class="p">)</span>
+<span class="n">tasks_recv</span><span class="p">,</span> <span class="n">tasks</span> <span class="o">=</span> <span class="n">interpreters</span><span class="p">.</span><span class="nf">create_channel</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">worker</span><span class="p">():</span>
+    <span class="n">interp</span> <span class="o">=</span> <span class="n">interpreters</span><span class="p">.</span><span class="nf">create</span><span class="p">()</span>
+    <span class="n">interp</span><span class="p">.</span><span class="nf">set_main_attrs</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">buf</span><span class="p">,</span> <span class="n">results</span><span class="o">=</span><span class="n">results</span><span class="p">,</span> <span class="n">tasks</span><span class="o">=</span><span class="n">tasks_recv</span><span class="p">)</span>
+    <span class="n">interp</span><span class="p">.</span><span class="nf">exec</span><span class="p">(</span><span class="n">tw</span><span class="p">.</span><span class="nf">dedent</span><span class="p">(</span><span class="sh">"""</span><span class="s">
+        while True:
+            try:
+                req = tasks.recv()
+            except Exception:  # channel closed
+                break
+            resindex, start, end = req
+            chunk = data[start: end]
+            res = reduce_chunk(chunk)
+            results[resindex] = res
+    </span><span class="sh">"""</span><span class="p">))</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">threading</span><span class="p">.</span><span class="nc">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">worker</span><span class="p">)</span>
+<span class="n">t</span><span class="p">.</span><span class="nf">start</span><span class="p">()</span>
+
+<span class="c1"># workers_running() 함수는 예시를 위해 가정된 함수입니다.
+</span><span class="k">def</span> <span class="nf">workers_running</span><span class="p">():</span>
+    <span class="c1"># 실제 구현에서는 워커 스레드의 상태를 확인해야 합니다.
+</span>    <span class="k">return</span> <span class="bp">True</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">numchunks</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nf">workers_running</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="nc">RuntimeError</span><span class="p">(</span><span class="sh">"</span><span class="s">No workers running</span><span class="sh">"</span><span class="p">)</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">i</span> <span class="o">*</span> <span class="n">chunksize</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">chunksize</span>
+    <span class="k">if</span> <span class="n">end</span> <span class="o">&gt;</span> <span class="nf">len</span><span class="p">(</span><span class="n">buf</span><span class="p">):</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
+    <span class="n">tasks</span><span class="p">.</span><span class="nf">send</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">))</span> <span class="c1"># Adjusted order to match worker's req unpacking
+</span><span class="n">tasks</span><span class="p">.</span><span class="nf">close</span><span class="p">()</span>
+<span class="n">t</span><span class="p">.</span><span class="nf">join</span><span class="p">()</span>
+<span class="nf">use_results</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="도입-배경-rationale">도입 배경 (Rationale)</h2>
+
+<p>동일 프로세스 내에서 여러 인터프리터에서 코드를 실행하는 것은 유용한 수준의 격리를 제공합니다. 이는 여러 방식으로 활용될 수 있으며, 서브 인터프리터는 이러한 격리를 확장할 수 있는 잘 정의된 프레임워크를 제공합니다 ([PEP 684] 참조).</p>
+
+<p>Alyssa (Nick) Coghlan은 멀티 프로세싱과의 비교를 통해 몇 가지 이점을 설명했습니다. 서브 인터프리터 간 통신은 공유 메모리를 통한 서브 프로세스 통신과 유사하게 작동할 것으로 예상됩니다. 외부 관점에서 단일 프로세스로 보이며 OS에 추가적인 부담을 주지 않는다는 장점이 있습니다. 또한, OS가 기본적으로 제공하는 프로세스 격리에 구멍을 뚫을 필요가 없으므로 보안 위험 프로필도 다릅니다.</p>
+
+<p>CPython은 1.5 버전부터 다중 인터프리터를 지원했지만, C-API를 통해서만 접근 가능했기 때문에 널리 사용되지 못했습니다. <code class="language-plaintext highlighter-rouge">stdlib</code>에 기존 기능을 노출하면 이러한 상황을 역전시키는 데 도움이 될 것입니다.</p>
+
+<p>이 제안은 동일한 Python 프로세스 내에서 서로 격리된 다중 인터프리터의 기본 기능을 활성화하는 데 중점을 둡니다.</p>
+
+<h3 id="우려-사항-concerns">우려 사항 (Concerns)</h3>
+
+<ul>
+  <li><strong>“서브 인터프리터는 그만한 가치가 없다”</strong>: 일부는 서브 인터프리터가 Python의 공식적인 부분이 될 만큼 충분한 이점을 제공하지 않는다고 주장합니다. 그러나 다중 인터프리터는 격리된 실행 스레드에 초점을 맞춘 새로운 동시성 모델을 제공하며, [PEP 684]를 통해 GIL로 인해 불가능했던 다중 CPU 코어 동시 사용 가능성을 제공합니다.</li>
+  <li><strong>“stdlib에 다중 인터프리터 지원을 추가하는 것은 C 확장 모듈 작성자에게 추가적인 부담을 준다”</strong>: C 전역 변수를 사용하여 내부 상태를 저장하는 확장 모듈은 다중 인터프리터 환경에서 문제가 될 수 있습니다. [PEP 3121] 및 [PEP 489]는 이 문제에 대한 해결책을 제시했습니다. 이 PEP는 실제 추가 유지 관리 부담이 적고, 서브 인터프리터의 전반적인 이점이 이러한 비용을 상쇄할 만큼 충분히 크다고 주장합니다.</li>
+  <li><strong>“새로운 동시성 API를 만드는 것은 더 많은 고민과 실험이 필요하다”</strong>: 이 PEP는 새로운 동시성 API를 제안하는 것이 아닙니다. 대신, Python에는 비교적 새로운 동시성 모델과 관련된 패턴을 따르는 코드를 작성하는 데 사용될 수 있는 최소한의 도구(예: 서브 인터프리터, 채널)를 노출합니다.</li>
+  <li><strong>“GIL을 여전히 공유한다면 서브 인터프리터를 노출하는 것은 의미가 없다”</strong>: 이는 흔한 오해입니다. 이 PEP는 인터프리터가 더 이상 GIL을 공유하지 않는다는 약속을 포함하지 않습니다. 가치는 기존 기능의 노출을 늘리고, (대부분) 격리된 인터프리터 실행을 노출하며, per-interpreter GIL을 준비하고, 실험을 장려하는 데 있습니다.</li>
+  <li><strong>“데이터 공유는 멀티 코어 시나리오에서 캐시 성능에 부정적인 영향을 미칠 수 있다”</strong>: 현재 인터프리터 간에 데이터를 실제로 공유할 계획이 없으며, 대신 복사하는 데 중점을 두므로 문제가 되지 않을 것입니다.</li>
+</ul>
+
+<h3 id="서브-인터프리터에-대하여-about-subinterpreters">서브 인터프리터에 대하여 (About Subinterpreters)</h3>
+
+<ul>
+  <li><strong>동시성 (Concurrency)</strong>: CPython의 인터프리터에 내재된 의도적인 격리는 Communicating Sequential Processes (CSP)와 같은 메시지 전달 방식을 통한 격리된 실행 스레드에 초점을 맞춘 동시성 모델에 잘 맞습니다.</li>
+  <li><strong>공유 데이터 (Shared Data)</strong>: CPython의 인터프리터는 스레드와 달리 본질적으로 격리되어 있습니다. 따라서 동일한 공유 메모리 통신 접근 방식은 작동하지 않습니다. 객체는 생성된 인터프리터에 묶여 있으므로 인터프리터 간에 객체를 안전하게 공유하는 데 제약이 있습니다. 이 제안은 <code class="language-plaintext highlighter-rouge">Interpreter.set_main_attrs()</code>를 사용하여 <code class="language-plaintext highlighter-rouge">__main__</code> 모듈에 “공유 가능한” 객체를 설정하는 최소한의 솔루션을 제시합니다.</li>
+  <li><strong>인터프리터 격리 (Interpreter Isolation)</strong>: CPython의 인터프리터는 서로 엄격하게 격리되도록 의도되었습니다. 각 인터프리터는 모든 모듈, 클래스, 함수 및 변수의 자체 사본을 가집니다. 그러나 파일 디스크립터, 저수준 환경 변수, 프로세스 메모리, 내장 타입(예: <code class="language-plaintext highlighter-rouge">dict</code>, <code class="language-plaintext highlighter-rouge">bytes</code>), 싱글톤(예: <code class="language-plaintext highlighter-rouge">None</code>), 내장/확장/frozen 모듈의 기초 정적 모듈 데이터와 같은 일부 프로세스 전역 상태는 공유됩니다. 또한, C 전역 변수에 의존하는 확장 모듈과 같은 버그나 잘못된 구현으로 인해 일부 격리가 불완전합니다.</li>
+  <li><strong>기존 사용 (Existing Usage)</strong>: 다중 인터프리터 지원은 널리 사용되는 기능은 아니었습니다. <code class="language-plaintext highlighter-rouge">mod_wsgi</code>, OpenStack Ceph, JEP 등 몇 가지 사례가 있었지만, 기능의 유용성을 판단할 수 있는 충분한 샘플은 아닙니다.</li>
+</ul>
+
+<h3 id="interpreters-모듈-api"><code class="language-plaintext highlighter-rouge">interpreters</code> 모듈 API</h3>
+
+<p>모듈은 다음 함수들을 제공합니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">list_all() -&gt; [Interpreter]</code>: 존재하는 모든 인터프리터 목록을 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">get_current() -&gt; Interpreter</code>: 현재 실행 중인 인터프리터를 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">get_main() -&gt; Interpreter</code>: 메인 인터프리터를 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">create() -&gt; Interpreter</code>: 새 Python 인터프리터를 초기화하고 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">is_shareable(obj) -&gt; bool</code>: 객체가 인터프리터 간에 “공유”될 수 있는지 여부를 반환합니다.</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">Interpreter</code> 클래스의 상세 메서드는 “API summary for interpreters module” 섹션을 참조하십시오.</p>
+
+<h3 id="잡히지-않은-예외-uncaught-exceptions">잡히지 않은 예외 (Uncaught Exceptions)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Interpreter.exec()</code>에서 잡히지 않은 예외는 <code class="language-plaintext highlighter-rouge">interp.exec()</code>가 호출된 코드에 “효과적으로” 전파됩니다. 예외가 인터프리터 간에 유출되는 것을 방지하기 위해, 예외와 트레이스백의 대리자(surrogate)를 생성하여 (<code class="language-plaintext highlighter-rouge">traceback.TracebackException</code> 참조) 새로운 <code class="language-plaintext highlighter-rouge">interpreters.RunFailedError</code>의 <code class="language-plaintext highlighter-rouge">__cause__</code>로 설정하고 이 <code class="language-plaintext highlighter-rouge">RunFailedError</code>를 발생시킵니다.</p>
+
+<h3 id="인터프리터-제한-사항-interpreter-restrictions">인터프리터 제한 사항 (Interpreter Restrictions)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">interpreters.create()</code>로 생성된 모든 새 인터프리터는 실행하는 코드에 특정 제한 사항이 있습니다.</p>
+
+<ul>
+  <li>다단계 초기화를 구현하지 않는 확장 모듈 임포트 실패.</li>
+  <li>데몬 스레드(daemon threads) 생성 불가.</li>
+  <li><code class="language-plaintext highlighter-rouge">os.fork()</code> 허용 안됨 (따라서 멀티프로세싱 불가).</li>
+  <li><code class="language-plaintext highlighter-rouge">os.exec*()</code> 허용 안됨 (하지만 서브프로세스처럼 “fork+exec”는 허용).</li>
+</ul>
+
+<p>기존 C-API로 생성된 인터프리터와 “메인” 인터프리터는 이러한 제한 사항이 없습니다.</p>
+
+<h3 id="통신-api-api-for-communication">통신 API (API For Communication)</h3>
+
+<p>객체 간 데이터 공유(통신) 메커니즘이 없으면 다중 인터프리터 지원은 덜 유용합니다. 이 제안에서는 실제 Python 객체를 인터프리터 간에 공유하는 것을 피하고, <code class="language-plaintext highlighter-rouge">Interpreter.set_main_attrs()</code> 메서드를 통해 <code class="language-plaintext highlighter-rouge">__main__</code> 모듈의 전역 변수를 설정하는 기본 메커니즘을 제공합니다. 값은 “공유 가능(shareable)”해야 합니다.</p>
+
+<h4 id="공유-가능한-타입-shareable-types">공유 가능한 타입 (Shareable Types)</h4>
+
+<p>객체는 해당 타입이 공유 가능한 인스턴스를 지원하는 경우 “공유 가능”합니다. 타입은 객체를 인터프리터 독립적인 데이터로 변환하고 다른 쪽에서 다시 객체로 변환하는 데 사용되는 새로운 내부 프로토콜을 구현해야 합니다.</p>
+
+<p>초기에는 다음과 같은 최소한의 간단하고 불변하는 내장 타입이 지원될 것입니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">None</code></li>
+  <li><code class="language-plaintext highlighter-rouge">bool</code></li>
+  <li><code class="language-plaintext highlighter-rouge">bytes</code></li>
+  <li><code class="language-plaintext highlighter-rouge">str</code></li>
+  <li><code class="language-plaintext highlighter-rouge">int</code></li>
+  <li><code class="language-plaintext highlighter-rouge">float</code></li>
+</ul>
+
+<p>또한, 초기에는 <code class="language-plaintext highlighter-rouge">memoryview</code> (PEP 3118 버퍼 공유 허용) 및 채널과 같은 소수의 복잡한 타입도 지원됩니다.</p>
+
+<h4 id="os-파이프를-통한-통신-communicating-through-os-pipes">OS 파이프를 통한 통신 (Communicating Through OS Pipes)</h4>
+
+<p>전용 통신 객체가 없더라도 <code class="language-plaintext highlighter-rouge">os.pipe()</code>와 같은 기존 도구를 사용할 수 있습니다.</p>
+
+<h4 id="채널-channels">채널 (Channels)</h4>
+
+<p><code class="language-plaintext highlighter-rouge">interpreters</code> 모듈에는 인터프리터 간에 객체 데이터를 전달하기 위한 전용 솔루션인 <strong>채널</strong>이 포함될 것입니다. 채널은 파이프, 큐, CSP의 채널에서 영감을 받은 단방향 FIFO(First-In, First-Out) 메커니즘입니다. 채널은 <code class="language-plaintext highlighter-rouge">send</code>와 <code class="language-plaintext highlighter-rouge">receive</code> 두 가지 작업을 가집니다. 핵심은 채널이 Python 객체 자체보다는 객체에서 파생된 데이터를 전송한다는 것입니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">interpreters</code> 모듈은 채널과 관련된 다음 함수를 제공합니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">create_channel() -&gt; (RecvChannel, SendChannel)</code>: 새 채널을 생성하고 채널 끝에 해당하는 <code class="language-plaintext highlighter-rouge">RecvChannel</code>과 <code class="language-plaintext highlighter-rouge">SendChannel</code>을 반환합니다.</li>
+</ul>
+
+<p>모듈은 또한 다음 채널 관련 클래스를 제공합니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">class RecvChannel(id)</code>: 채널의 수신 끝.
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">recv(*, timeout=None)</code>: 채널에서 다음 객체를 반환합니다.</li>
+      <li><code class="language-plaintext highlighter-rouge">recv_nowait(default=None)</code>: 채널에서 다음 객체를 반환합니다.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">class SendChannel(id)</code>: 채널의 송신 끝.
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">send(obj, *, timeout=None)</code>: 객체(즉, 해당 데이터)를 채널의 “recv” 끝으로 보냅니다.</li>
+      <li><code class="language-plaintext highlighter-rouge">send_nowait(obj)</code>: 객체를 채널의 “recv” 끝으로 보냅니다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="공유-객체에-대한-주의사항-caveats-for-shared-objects">공유 객체에 대한 주의사항 (Caveats For Shared Objects)</h4>
+
+<p>다시 말하지만, Python 객체는 인터프리터 간에 공유되지 않습니다. 그러나 어떤 경우에는 해당 객체가 래핑하는 데이터가 실제로 공유될 수도 있습니다(예: [PEP 3118] 버퍼). 이러한 경우 원본 인터프리터의 객체는 다른 인터프리터에서 공유 데이터가 더 이상 사용되지 않을 때까지 유지됩니다.</p>
+
+<h3 id="문서화-documentation">문서화 (Documentation)</h3>
+
+<p>새로운 <code class="language-plaintext highlighter-rouge">stdlib</code> 문서 페이지에는 다음 내용이 포함될 것입니다.</p>
+
+<ul>
+  <li>확장 모듈이 다중 인터프리터 지원을 요구하지 않는다는 명확한 주석.</li>
+  <li>서브 인터프리터에 대한 설명.</li>
+  <li>다중 인터프리터 사용 방법(및 통신 방법)에 대한 간략한 예시.</li>
+  <li>다중 인터프리터 사용의 한계 요약.</li>
+  <li>다중 인터프리터 호환성을 보장하기 위한 자료 링크.</li>
+  <li>이 PEP의 API 정보 대부분.</li>
+</ul>
+
+<h2 id="대안-솔루션-alternative-solutions">대안 솔루션 (Alternative Solutions)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">concurrent.futures</code> 또는 <code class="language-plaintext highlighter-rouge">multiprocessing</code> 모듈에 인터프리터 지원을 추가하는 것은 적합하지 않습니다. 명확한 지원은 <code class="language-plaintext highlighter-rouge">interpreters</code> 모듈에 있어야 합니다.</p>
+
+<h2 id="미해결-질문-open-questions">미해결 질문 (Open Questions)</h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">interp.exec()</code>가 현재 스레드에서 실행되는 것이 너무 혼란스러울까요?</li>
+  <li><code class="language-plaintext highlighter-rouge">interp.exec()</code> 및 <code class="language-plaintext highlighter-rouge">Interpreter.set_main_attrs()</code> / <code class="language-plaintext highlighter-rouge">Interpreter.get_main_attr()</code>에 지금 pickle 폴백을 추가해야 할까요?</li>
+  <li><code class="language-plaintext highlighter-rouge">interp.exec()</code>에서 (제한된) 함수를 지금 지원해야 할까요?</li>
+  <li><code class="language-plaintext highlighter-rouge">Interpreter.close()</code>를 <code class="language-plaintext highlighter-rouge">Interpreter.destroy()</code>로 이름을 바꿔야 할까요?</li>
+  <li>채널이 있으니 <code class="language-plaintext highlighter-rouge">Interpreter.get_main_attr()</code>를 삭제해야 할까요?</li>
+  <li>채널은 자체 PEP로 분리되어야 할까요?</li>
+</ul>
+
+<h2 id="연기된-기능-deferred-functionality">연기된 기능 (Deferred Functionality)</h2>
+
+<p>이 제안을 최소한으로 유지하기 위해 다음 기능들은 향후 고려를 위해 제외되었습니다.</p>
+
+<ul>
+  <li>편의성 API 추가 (예: <code class="language-plaintext highlighter-rouge">Interpreter.run()</code> 또는 <code class="language-plaintext highlighter-rouge">Interpreter.call()</code>).</li>
+  <li>현재 스레드에서 실행되는 인터프리터에 대한 혼란 방지.</li>
+  <li>“<code class="language-plaintext highlighter-rouge">running</code>“과 “<code class="language-plaintext highlighter-rouge">has threads</code>” 명확화.</li>
+  <li>공유를 위한 Dunder 메서드 (<code class="language-plaintext highlighter-rouge">__xid__</code>).</li>
+  <li><code class="language-plaintext highlighter-rouge">Interpreter.call()</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">Interpreter.run_in_thread()</code>.</li>
+  <li>동기화 프리미티브(Synchronization Primitives).</li>
+  <li>CSP 라이브러리.</li>
+  <li>문법적 지원.</li>
+  <li><code class="language-plaintext highlighter-rouge">multiprocessing</code> 통합.</li>
+  <li>C 확장 모듈 <code class="language-plaintext highlighter-rouge">opt-in/opt-out</code>.</li>
+  <li>채널 오염(Poisoning channels).</li>
+  <li><code class="language-plaintext highlighter-rouge">__main__</code> 재설정.</li>
+  <li>인터프리터 상태 재설정 (<code class="language-plaintext highlighter-rouge">Interpreter.reset()</code>).</li>
+  <li>기존 인터프리터 상태 복사 (<code class="language-plaintext highlighter-rouge">Interpreter.copy()</code>).</li>
+  <li>공유 가능한 파일 디스크립터 및 소켓.</li>
+  <li><code class="language-plaintext highlighter-rouge">async</code> 통합.</li>
+  <li>이터레이션(iteration) 지원.</li>
+  <li>채널 컨텍스트 관리자.</li>
+  <li>파이프 및 큐.</li>
+  <li><code class="language-plaintext highlighter-rouge">send()</code>에서 락 반환.</li>
+  <li>채널의 우선순위 지원.</li>
+  <li>설정 상속 지원.</li>
+  <li>예외 공유 가능하게 만들기.</li>
+  <li>직렬화를 통해 모든 것을 공유 가능하게 만들기.</li>
+  <li><code class="language-plaintext highlighter-rouge">RunFailedError.__cause__</code>를 lazy하게 만들기.</li>
+  <li><code class="language-plaintext highlighter-rouge">interp.exec()</code>에서 값 반환.</li>
+  <li>공유 가능한 동기화 프리미티브 추가.</li>
+  <li><code class="language-plaintext highlighter-rouge">SystemExit</code> 및 <code class="language-plaintext highlighter-rouge">KeyboardInterrupt</code> 다르게 전파.</li>
+  <li>채널 끝 클래스에 명시적 <code class="language-plaintext highlighter-rouge">release()</code> 및 <code class="language-plaintext highlighter-rouge">close()</code> 추가.</li>
+  <li><code class="language-plaintext highlighter-rouge">SendChannel.send_buffer()</code> 추가.</li>
+  <li>스레드에서 자동 실행.</li>
+</ul>
+
+<h2 id="거부된-아이디어-rejected-ideas">거부된 아이디어 (Rejected Ideas)</h2>
+
+<ul>
+  <li><strong>명시적 채널 연관 (Explicit channel association)</strong>: <code class="language-plaintext highlighter-rouge">recv()</code> 및 <code class="language-plaintext highlighter-rouge">send()</code> 호출 시 인터프리터가 채널과 암시적으로 연관되는 방식이 유지됩니다. 명시적인 <code class="language-plaintext highlighter-rouge">add_channel()</code>/<code class="language-plaintext highlighter-rouge">remove_channel()</code> 메서드는 불필요한 복잡성만 추가한다고 판단되었습니다.</li>
+  <li><strong>파이프 기반 API 추가</strong>: 두 인터프리터 간의 단방향 FIFO 파이프는 대부분의 사용 사례에 충분하지만, 채널을 통한 다대다 단방향 FIFO를 지원하는 것이 더 큰 이점을 제공합니다.</li>
+  <li><strong>큐 기반 API 추가</strong>: 큐와 버퍼링된 채널은 거의 동일하지만, <code class="language-plaintext highlighter-rouge">stdlib</code>의 <code class="language-plaintext highlighter-rouge">queue.Queue</code>와의 혼동을 피하기 위해 “Channel”이라는 이름이 사용되었습니다.</li>
+  <li><strong>“enumerate”</strong>: <code class="language-plaintext highlighter-rouge">list_all()</code> 함수는 모든 인터프리터 목록을 제공합니다. <code class="language-plaintext highlighter-rouge">threading</code> 모듈의 <code class="language-plaintext highlighter-rouge">enumerate()</code>와 달리, “list_all”이라는 이름은 Python 사용자에게 더 명확하다고 판단되었습니다.</li>
+  <li><strong>인터프리터 간 예외 유출 방지를 위한 대안 솔루션</strong>: <code class="language-plaintext highlighter-rouge">RunFailedError</code>를 발생시키고 <code class="language-plaintext highlighter-rouge">__cause__</code>에 원본 예외의 안전한 프록시를 래핑하는 현재 방식이 채택되었습니다. 이는 예외 객체 및 트레이스백이 인터프리터 경계를 넘어 유출되는 것을 방지합니다.</li>
+  <li><strong>각 새 인터프리터를 항상 자체 스레드와 연관시키기</strong>: 인터프리터는 본질적으로 스레드에 묶여 있지 않으며, <code class="language-plaintext highlighter-rouge">Interpreter.exec()</code> 호출만 스레드에 묶입니다. 각 인터프리터를 자체 스레드와 연관시키는 것은 C-API와의 차이, 암시적인 스레드 생성의 마법, 비효율성, 유효한 사용 사례 방해 등의 문제로 거부되었습니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">Interpreter.exec()</code>에 여러 동시 호출 허용</strong>: 각 인터프리터는 하나의 <code class="language-plaintext highlighter-rouge">__main__</code> 모듈만 가지므로, 동시 호출을 허용하면 <code class="language-plaintext highlighter-rouge">__main__</code> 공유를 처리하거나 새로운 메커니즘을 발명해야 하는 복잡성이 발생합니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">RunFailedError</code>에 “reraise” 메서드 추가</strong>: <code class="language-plaintext highlighter-rouge">__cause__</code>를 사용하는 것만으로도 충분히 유용하다고 판단되어 <code class="language-plaintext highlighter-rouge">reraise</code> 메서드는 불필요하다고 판단되었습니다.</li>
+</ul>
+
+<h2 id="구현-implementation">구현 (Implementation)</h2>
+
+<p>PEP의 구현은 4가지 부분으로 나뉩니다.</p>
+
+<ol>
+  <li>이 PEP에서 설명하는 고수준 모듈 (대부분 저수준 C 확장 모듈의 가벼운 래퍼)</li>
+  <li>저수준 C 확장 모듈.</li>
+  <li>저수준 모듈에 필요한 내부 C-API에 대한 추가 기능.</li>
+  <li>저수준 모듈을 촉진하는 CPython 런타임의 보조 수정/변경.</li>
+</ol>
+
+<p>대부분의 구현은 이미 완료되었거나 거의 완료되었습니다. 특히 <code class="language-plaintext highlighter-rouge">_xxsubinterpreters</code> 모듈로 병합된 저수준 모듈은 테스트 목적으로 사용되고 있습니다.
+이 PEP 554의 구현 노력은 CPython의 멀티 코어 지원 개선을 목표로 하는 더 큰 프로젝트의 일부로 추적되고 있습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/553/" class="pagination--pager" title="[Final] PEP 553 - Built-in breakpoint()
+">Previous</a>
+    
+    
+      <a href="/python/pep/555/" class="pagination--pager" title="[Withdrawn] PEP 555 - Context-local variables (contextvars)
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

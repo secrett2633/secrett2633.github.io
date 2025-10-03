@@ -1,0 +1,838 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Rejected] PEP 319 - Python Synchronize/Asynchronize Block | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 319: ‘Python Synchronize/Asynchronize Block’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Rejected] PEP 319 - Python Synchronize/Asynchronize Block">
+<meta property="og:url" content="http://localhost:4000/python/pep/319/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 319: ‘Python Synchronize/Asynchronize Block’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T18:29:20+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T18:29:20+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/319/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Rejected] PEP 319 - Python Synchronize/Asynchronize Block">
+    <meta itemprop="description" content="Python Enhancement Proposal 319: ‘Python Synchronize/Asynchronize Block’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T18:29:20+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T18:29:20+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Rejected] PEP 319 - Python Synchronize/Asynchronize Block
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T18:29:20+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#초록-abstract">초록 (Abstract)</a></li><li><a href="#선언-pronouncement">선언 (Pronouncement)</a></li><li><a href="#synchronize-키워드">‘synchronize’ 키워드</a></li><li><a href="#asynchronize-키워드">‘asynchronize’ 키워드</a></li><li><a href="#동기화-대상-synchronization-targets">동기화 대상 (Synchronization Targets)</a></li><li><a href="#기타-동기화-패턴-other-patterns-that-synchronize">기타 동기화 패턴 (Other Patterns that Synchronize)</a></li><li><a href="#형식-문법-formal-syntax">형식 문법 (Formal Syntax)</a></li><li><a href="#제안된-구현-proposed-implementation">제안된 구현 (Proposed Implementation)</a></li><li><a href="#하위-호환성-backward-compatibility">하위 호환성 (Backward Compatibility)</a></li><li><a href="#pep-310-신뢰할-수-있는-획득해제-쌍-with-키워드">PEP 310 신뢰할 수 있는 획득/해제 쌍 (with 키워드)</a></li><li><a href="#java는-어떻게-하는가-how-java-does-it">Java는 어떻게 하는가 (How Java Does It)</a></li><li><a href="#jython은-어떻게-하는가-how-jython-does-it">Jython은 어떻게 하는가 (How Jython Does It)</a></li><li><a href="#python에-제안된-변경-사항-요약-summary-of-proposed-changes-to-python">Python에 제안된 변경 사항 요약 (Summary of Proposed Changes to Python)</a></li><li><a href="#위험-risks">위험 (Risks)</a></li><li><a href="#반대-의견-dissenting-opinion">반대 의견 (Dissenting Opinion)</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0319/">PEP 319 - Python Synchronize/Asynchronize Block</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Rejected</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 24-Feb-2003</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>PEP 319 – Python Synchronize/Asynchronize 블록</p>
+
+<p><strong>상태:</strong> 거부됨 (Rejected)
+<strong>작성자:</strong> Michel Pelletier
+<strong>생성일:</strong> 2003년 2월 24일
+<strong>Python 버전:</strong> 2.4
+<strong>참고:</strong> 이 PEP는 PEP 343에 찬성하여 거부되었습니다.</p>
+
+<hr />
+
+<h2 id="초록-abstract">초록 (Abstract)</h2>
+
+<p>이 PEP는 Python에 ‘synchronize’와 ‘asynchronize’라는 두 가지 새로운 키워드를 추가할 것을 제안합니다. 이 키워드들은 멀티스레드 환경에서 공유 데이터에 접근할 때 발생하는 동시성 문제를 보다 간결하고 안전하게 처리하기 위한 목적으로 제시되었습니다.</p>
+
+<h2 id="선언-pronouncement">선언 (Pronouncement)</h2>
+
+<p>이 PEP는 PEP 343에 찬성하여 거부되었습니다. PEP 343은 ‘with’ 문을 도입하여 자원 관리 및 동기화와 같은 패턴을 보다 일반적이고 유연하게 처리할 수 있도록 했습니다.</p>
+
+<h2 id="synchronize-키워드">‘synchronize’ 키워드</h2>
+
+<p>Python에서 코드 동기화의 개념은 저수준(low-level)에 속합니다. 현재 프로그래머는 다음과 같은 의사 코드 패턴의 세부 사항을 인지하고 있어야 동기화 코드를 작성할 수 있습니다.</p>
+
+<p><strong>현재의 동기화 패턴:</strong></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">initialize_lock</span><span class="p">()</span>
+<span class="bp">...</span>
+<span class="nf">acquire_lock</span><span class="p">()</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="nf">change_shared_data</span><span class="p">()</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="nf">release_lock</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>이 <code class="language-plaintext highlighter-rouge">try/finally</code> 블록 내에서 락(lock)을 획득하고 해제하는 코드는 오류가 발생하기 쉬워 악명 높은 동시성 스레드 락킹 문제를 야기할 수 있습니다.</p>
+
+<p>PEP 319는 위 코드를 다음과 같이 대체할 것을 제안합니다.</p>
+
+<p><strong>제안된 ‘synchronize’ 패턴:</strong></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">synchronize</span><span class="p">:</span>
+    <span class="nf">change_shared_data</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>이 방식의 장점은 문법이 더 간단하고 사용자 오류의 가능성이 줄어든다는 것입니다.</p>
+
+<h2 id="asynchronize-키워드">‘asynchronize’ 키워드</h2>
+
+<p>‘synchronize’ 블록 내에서 코드를 실행하는 동안, 프로그래머는 잠시 비동기적으로 실행하여 블로킹 I/O 루틴이나 불확실한 시간을 필요로 하고 동기화를 요구하지 않는 다른 작업을 수행하기를 원할 수 있습니다. 이 코드는 일반적으로 다음 패턴을 따릅니다.</p>
+
+<p><strong>현재의 비동기화 패턴 (동기화 블록 내):</strong></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">initialize_lock</span><span class="p">()</span>
+<span class="bp">...</span>
+<span class="nf">acquire_lock</span><span class="p">()</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="nf">change_shared_data</span><span class="p">()</span>
+    <span class="nf">release_lock</span><span class="p">()</span> <span class="c1"># 비동기 상태로 전환
+</span>    <span class="nf">do_blocking_io</span><span class="p">()</span>
+    <span class="nf">acquire_lock</span><span class="p">()</span> <span class="c1"># 다시 동기화
+</span>    <span class="nf">change_shared_data2</span><span class="p">()</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="nf">release_lock</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>코드의 비동기 섹션은 시각적으로 명확하지 않아 주석으로 표시해야 합니다. 제안된 ‘asynchronize’ 키워드를 사용하면 이 코드는 훨씬 깔끔해지고 이해하기 쉬워지며 오류 발생 가능성이 줄어듭니다.</p>
+
+<p><strong>제안된 ‘asynchronize’ 패턴:</strong></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">synchronize</span><span class="p">:</span>
+    <span class="nf">change_shared_data</span><span class="p">()</span>
+    <span class="n">asynchronize</span><span class="p">:</span>
+        <span class="nf">do_blocking_io</span><span class="p">()</span>
+    <span class="nf">change_shared_data2</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>비동기 블록이 아닌 곳에서 ‘asynchronize’ 키워드를 만나면 오류가 발생하거나 경고가 발생할 수 있습니다 (모든 코드 블록은 암묵적으로 비동기적이기 때문입니다). 이 키워드는 특히 메인 루프 내에서 블로킹 I/O를 위해 락을 해제하는 패턴에 유용하며, CPython 인터프리터 자체에서도 이 패턴이 광범위하게 사용됩니다.</p>
+
+<h2 id="동기화-대상-synchronization-targets">동기화 대상 (Synchronization Targets)</h2>
+
+<p>제안된 ‘synchronize’ 및 ‘asynchronize’ 키워드는 코드 블록을 동기화합니다. 그러나 프로그래머는 스레드가 동기화할 대상 객체를 지정하기를 원할 수 있습니다. 모든 객체는 동기화 대상이 될 수 있습니다.</p>
+
+<p>예를 들어, 두 개의 큐를 개별적으로 동기화하는 <code class="language-plaintext highlighter-rouge">TwoWayQueue</code> 클래스에서 <code class="language-plaintext highlighter-rouge">synchronize queue:</code>와 같이 특정 객체에 대한 동기화를 지정할 수 있습니다. 현재 Python에서는 이 기능을 위해 큐와 락을 연결하는 별도의 클래스를 정의해야 합니다.</p>
+
+<p><strong>제안된 <code class="language-plaintext highlighter-rouge">synchronize</code> 키워드를 사용한 <code class="language-plaintext highlighter-rouge">TwoWayQueue</code> 예시:</strong></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">TwoWayQueue</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">front</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">rear</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># ... (putFront, getFront, putRear, getRear 메서드 생략)
+</span>
+    <span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">queue</span><span class="p">):</span>
+        <span class="n">synchronize</span> <span class="n">queue</span><span class="p">:</span> <span class="c1"># 'queue' 객체를 동기화 대상으로 지정
+</span>            <span class="n">queue</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">queue</span><span class="p">):</span>
+        <span class="n">synchronize</span> <span class="n">queue</span><span class="p">:</span> <span class="c1"># 'queue' 객체를 동기화 대상으로 지정
+</span>            <span class="n">item</span> <span class="o">=</span> <span class="n">queue</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">del</span> <span class="n">queue</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">item</span>
+</code></pre></div></div>
+
+<p><strong>현재 Python에서의 동일한 기능 (락 객체를 직접 관리):</strong></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">thread</span>
+
+<span class="k">class</span> <span class="nc">LockableQueue</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">queue</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">lock</span> <span class="o">=</span> <span class="n">thread</span><span class="p">.</span><span class="nf">allocate_lock</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">TwoWayQueue</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">front</span> <span class="o">=</span> <span class="nc">LockableQueue</span><span class="p">()</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">rear</span> <span class="o">=</span> <span class="nc">LockableQueue</span><span class="p">()</span>
+
+    <span class="c1"># ... (putFront, getFront, putRear, getRear 메서드 생략)
+</span>
+    <span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">queue</span><span class="p">):</span>
+        <span class="n">queue</span><span class="p">.</span><span class="n">lock</span><span class="p">.</span><span class="nf">acquire</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">queue</span><span class="p">.</span><span class="n">queue</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">queue</span><span class="p">.</span><span class="n">lock</span><span class="p">.</span><span class="nf">release</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">queue</span><span class="p">):</span>
+        <span class="n">queue</span><span class="p">.</span><span class="n">lock</span><span class="p">.</span><span class="nf">acquire</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="n">queue</span><span class="p">.</span><span class="n">queue</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">del</span> <span class="n">queue</span><span class="p">.</span><span class="n">queue</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">item</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">queue</span><span class="p">.</span><span class="n">lock</span><span class="p">.</span><span class="nf">release</span><span class="p">()</span>
+</code></pre></div></div>
+<p>이전 예제는 락을 큐와 연결하기 위해 추가 클래스를 정의해야 했지만, 첫 번째 예제에서는 <code class="language-plaintext highlighter-rouge">synchronize</code> 키워드가 이 연결을 내부적으로 투명하게 수행합니다.</p>
+
+<h2 id="기타-동기화-패턴-other-patterns-that-synchronize">기타 동기화 패턴 (Other Patterns that Synchronize)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">acquire</code> 및 <code class="language-plaintext highlighter-rouge">release</code> 메서드에 인수를 제공해야 하는 경우나 락이 한 코드 블록에서 획득되고 다른 블록에서 해제되는 경우에는 <code class="language-plaintext highlighter-rouge">synchronize</code> 및 <code class="language-plaintext highlighter-rouge">asynchronize</code> 키워드가 락 메서드의 사용을 완전히 대체할 수 없습니다. Zope의 <code class="language-plaintext highlighter-rouge">ZRendevous</code> 클래스 예시를 통해 이러한 경우를 보여줍니다. 이 클래스는 명시적인 락 풀(pool)을 사용하며, 락의 획득 및 해제가 다른 코드 블록에서 이루어져 <code class="language-plaintext highlighter-rouge">synchronize</code>를 직접 사용할 수 없는 경우도 있습니다.</p>
+
+<p>초보 프로그래머에게 ‘synchronize’와 ‘asynchronize’는 여러 <code class="language-plaintext highlighter-rouge">try/finally</code> 블록에서 다른 락에 대한 여러 <code class="language-plaintext highlighter-rouge">acquire</code> 및 <code class="language-plaintext highlighter-rouge">release</code> 메서드를 처리할 때 발생하는 많은 문제를 제거할 수 있습니다.</p>
+
+<h2 id="형식-문법-formal-syntax">형식 문법 (Formal Syntax)</h2>
+
+<p>제안된 동기화 문법은 다음과 같습니다.</p>
+
+<pre><code class="language-bnf">synchronize_stmt: 'synchronize' [test] ':' suite
+asynchronize_stmt: 'asynchronize' [test] ':' suite
+compound_stmt: ... | synchronized_stmt | asynchronize_stmt
+</code></pre>
+
+<p>여기서 <code class="language-plaintext highlighter-rouge">test</code>는 동기화 대상 객체를 나타내며, <code class="language-plaintext highlighter-rouge">suite</code>는 동기화될 코드 블록입니다.</p>
+
+<h2 id="제안된-구현-proposed-implementation">제안된 구현 (Proposed Implementation)</h2>
+
+<p>이 PEP의 작성자는 아직 구현을 탐색하지 않았습니다. 주요 구현 문제는 동기화 블록 동안 정확히 무엇이 락되고 언락되는지입니다. 대상 인수가 없는 ‘synchronize’ 키워드 사용 시(unqualified synchronized block)에는 락이 생성되어 동기화된 코드 블록 객체와 연결될 수 있습니다. ‘synchronize’ 블록 내에서 ‘asynchronize’ 키워드가 발생하면 내부 블록이 실행되기 전에 코드 블록 락이 해제되고, 내부 블록이 종료될 때 다시 락이 설정됩니다. 특정 동기화 대상이 지정되면 해당 객체에 락이 연결됩니다.</p>
+
+<h2 id="하위-호환성-backward-compatibility">하위 호환성 (Backward Compatibility)</h2>
+
+<p>하위 호환성은 <code class="language-plaintext highlighter-rouge">from __future__</code> 구문 (PEP 236)과 새로운 경고 프레임워크 (PEP 230)를 통해 해결됩니다. 개발자는 <code class="language-plaintext highlighter-rouge">from __future__ import threadsync</code>와 같은 문장을 사용하여 이 새로운 문법을 사용할 수 있습니다. 또한, ‘synchronize’ 또는 ‘asynchronize’를 식별자로 사용하는 모든 코드는 Python에서 경고를 발행합니다.</p>
+
+<h2 id="pep-310-신뢰할-수-있는-획득해제-쌍-with-키워드">PEP 310 신뢰할 수 있는 획득/해제 쌍 (<code class="language-plaintext highlighter-rouge">with</code> 키워드)</h2>
+
+<p>PEP 310은 <code class="language-plaintext highlighter-rouge">synchronize</code>와 동일한 기능을 수행할 수 있는 <code class="language-plaintext highlighter-rouge">with</code> 키워드를 제안합니다 (단, <code class="language-plaintext highlighter-rouge">asynchronize</code> 기능은 없습니다). 다음 패턴:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">initialize_lock</span><span class="p">()</span>
+<span class="k">with</span> <span class="n">the_lock</span><span class="p">:</span>
+    <span class="nf">change_shared_data</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>는 제안된 <code class="language-plaintext highlighter-rouge">synchronize the_lock: change_shared_data()</code>와 동일합니다. PEP 310의 <code class="language-plaintext highlighter-rouge">with</code> 문은 기존 락에 대해 동기화해야 하는 반면, 이 PEP는 자격 없는(unqualified) <code class="language-plaintext highlighter-rouge">synchronize</code> 문이 전역적, 내부적, 투명한 락에 대해서도 동기화할 것을 제안합니다. <code class="language-plaintext highlighter-rouge">with</code> 문은 락 초기화를 요구하는 반면, <code class="language-plaintext highlighter-rouge">synchronize</code> 문은 락을 포함한 모든 대상 객체에 대해 동기화할 수 있습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">with</code> 문은 동기화보다 더 추상적이며 다양한 목적(예: 트랜잭션 관리)에 사용될 수 있습니다. 반면, <code class="language-plaintext highlighter-rouge">synchronize</code> 및 <code class="language-plaintext highlighter-rouge">asynchronize</code> 키워드는 스레드 동기화 외의 다른 일반적인 획득/해제 패턴에는 사용될 수 없습니다.</p>
+
+<h2 id="java는-어떻게-하는가-how-java-does-it">Java는 어떻게 하는가 (How Java Does It)</h2>
+
+<p>Java는 ‘synchronized’ 키워드를 정의합니다 (이 PEP의 ‘synchronize’와 문법적 시제 차이에 유의). 이 키워드는 모든 객체에 대해 한정되어야 하며, <code class="language-plaintext highlighter-rouge">synchronized (Expression) Block</code>과 같은 문법을 가집니다. <code class="language-plaintext highlighter-rouge">Expression</code>은 <code class="language-plaintext highlighter-rouge">Block</code>이 동기화될 유효한 객체를 생성해야 합니다.</p>
+
+<h2 id="jython은-어떻게-하는가-how-jython-does-it">Jython은 어떻게 하는가 (How Jython Does It)</h2>
+
+<p>Jython은 정적 메서드 ‘make_synchronized’를 가진 ‘synchronize’ 클래스를 사용합니다. 이 메서드는 하나의 호출 가능한 인수를 받아 인수를 감싸는 새롭고 동기화된 호출 가능한 “래퍼(wrapper)”를 반환합니다.</p>
+
+<h2 id="python에-제안된-변경-사항-요약-summary-of-proposed-changes-to-python">Python에 제안된 변경 사항 요약 (Summary of Proposed Changes to Python)</h2>
+
+<p>언어에 새로운 ‘synchronize’ 및 ‘asynchronize’ 키워드를 추가하는 것이었습니다.</p>
+
+<h2 id="위험-risks">위험 (Risks)</h2>
+
+<ul>
+  <li>이 PEP는 Python 언어에 두 개의 키워드를 추가하여 기존 코드를 손상시킬 수 있었습니다.</li>
+  <li>테스트할 구현이 없었습니다.</li>
+  <li>당시 Python 프로그래머가 직면한 가장 중요한 문제는 아니었습니다 (비록 꽤 악명 높은 문제이기는 했습니다).</li>
+  <li>Java의 유사 키워드는 과거 분사형 ‘synchronized’였지만, 이 PEP는 Python의 정신에 더 가깝게 현재 시제 ‘synchronize’를 제안했습니다.</li>
+</ul>
+
+<h2 id="반대-의견-dissenting-opinion">반대 의견 (Dissenting Opinion)</h2>
+
+<p>이 PEP는 python-dev 메일링 리스트에서 논의되지 않았습니다.</p>
+
+<hr />
+<p>Copyright: 이 문서는 퍼블릭 도메인에 공개되었습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/318/" class="pagination--pager" title="[Final] PEP 318 - Decorators for Functions and Methods
+">Previous</a>
+    
+    
+      <a href="/python/pep/320/" class="pagination--pager" title="[Final] PEP 320 - Python 2.4 Release Schedule
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

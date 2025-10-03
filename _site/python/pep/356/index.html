@@ -1,0 +1,735 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 356 - Python 2.5 Release Schedule | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 356: ‘Python 2.5 Release Schedule’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 356 - Python 2.5 Release Schedule">
+<meta property="og:url" content="http://localhost:4000/python/pep/356/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 356: ‘Python 2.5 Release Schedule’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T19:03:07+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T19:03:07+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/356/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 356 - Python 2.5 Release Schedule">
+    <meta itemprop="description" content="Python Enhancement Proposal 356: ‘Python 2.5 Release Schedule’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T19:03:07+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T19:03:07+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 356 - Python 2.5 Release Schedule
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T19:03:07+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-356--python-25-릴리스-스케줄">PEP 356 – Python 2.5 릴리스 스케줄</a><ul><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#릴리스-관리자-release-manager">릴리스 관리자 (Release Manager)</a></li><li><a href="#릴리스-스케줄-release-schedule">릴리스 스케줄 (Release Schedule)</a></li><li><a href="#python-25에-포함된-주요-기능들-completed-features-for-25">Python 2.5에 포함된 주요 기능들 (Completed features for 2.5)</a><ul><li><a href="#pep-관련-기능들">PEP 관련 기능들</a></li><li><a href="#기타-주목할-만한-기능들">기타 주목할 만한 기능들</a></li></ul></li><li><a href="#26으로-연기된-기능들-deferred-until-26">2.6으로 연기된 기능들 (Deferred until 2.6)</a></li><li><a href="#오픈-이슈-open-issues">오픈 이슈 (Open issues)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0356/">PEP 356 - Python 2.5 Release Schedule</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Informational</td>
+        <td><strong>작성일:</strong> 07-Feb-2006</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h2 id="pep-356--python-25-릴리스-스케줄">PEP 356 – Python 2.5 릴리스 스케줄</h2>
+
+<p>이 문서는 Python 2.5의 개발 및 릴리스 스케줄을 설명하는 PEP(Python Enhancement Proposal)입니다. 주로 PEP 규모의 항목들을 다루며, 소규모 기능은 첫 번째 베타 릴리스까지 추가될 수 있고, 버그는 최종 릴리스까지 수정될 수 있습니다.</p>
+
+<h3 id="개요-abstract">개요 (Abstract)</h3>
+<p>PEP 356은 Python 2.5의 개발 및 릴리스 스케줄을 상세히 기술합니다. 주요 관심사는 PEP 규모의 제안들이며, 작은 기능들은 첫 번째 베타 릴리스까지 포함될 수 있었습니다. 버그는 최종 릴리스 전까지 수정 가능했습니다.</p>
+
+<p>최소 두 번의 알파 릴리스, 두 번의 베타 릴리스, 그리고 한 번의 릴리스 후보(Release Candidate)가 계획되었으며, 최종 릴리스는 2006년 9월 12일로 예정되었습니다.</p>
+
+<h3 id="릴리스-관리자-release-manager">릴리스 관리자 (Release Manager)</h3>
+<p>Anthony Baxter가 릴리스 관리자(Release Manager)를 맡았습니다. Martin von Loewis는 Windows 설치 프로그램을, Ronald Oussoren은 Mac 설치 프로그램을, Fred Drake는 문서 패키지를, Sean Reifschneider는 RPM을 빌드했습니다.</p>
+
+<h3 id="릴리스-스케줄-release-schedule">릴리스 스케줄 (Release Schedule)</h3>
+<p>Python 2.5의 릴리스 스케줄은 다음과 같이 진행되었습니다 (모두 완료됨):</p>
+<ul>
+  <li><strong>alpha 1:</strong> 2006년 4월 5일</li>
+  <li><strong>alpha 2:</strong> 2006년 4월 27일</li>
+  <li><strong>beta 1:</strong> 2006년 6월 20일</li>
+  <li><strong>beta 2:</strong> 2006년 7월 11일</li>
+  <li><strong>beta 3:</strong> 2006년 8월 3일</li>
+  <li><strong>rc 1:</strong> 2006년 8월 17일</li>
+  <li><strong>rc 2:</strong> 2006년 9월 12일</li>
+  <li><strong>final:</strong> 2006년 9월 19일</li>
+</ul>
+
+<h3 id="python-25에-포함된-주요-기능들-completed-features-for-25">Python 2.5에 포함된 주요 기능들 (Completed features for 2.5)</h3>
+
+<p>Python 2.5 릴리스에는 다음과 같은 중요한 PEP 및 기능들이 포함되었습니다:</p>
+
+<h4 id="pep-관련-기능들">PEP 관련 기능들</h4>
+<ul>
+  <li><strong>PEP 308: Conditional Expressions (조건부 표현식)</strong>: <code class="language-plaintext highlighter-rouge">A if condition else B</code>와 같은 삼항 연산자 도입.</li>
+  <li><strong>PEP 309: Partial Function Application (부분 함수 적용)</strong>: <code class="language-plaintext highlighter-rouge">functools.partial</code>을 통한 함수 인자 부분 적용.</li>
+  <li><strong>PEP 314: Metadata for Python Software Packages v1.1</strong>: Python 소프트웨어 패키지 메타데이터 표준 업데이트.</li>
+  <li><strong>PEP 328: Absolute/Relative Imports (절대/상대 임포트)</strong>: 모듈 임포트 방식 개선.</li>
+  <li><strong>PEP 338: Executing Modules as Scripts (모듈을 스크립트로 실행)</strong>: <code class="language-plaintext highlighter-rouge">-m</code> 옵션을 통한 모듈 실행 기능.</li>
+  <li><strong>PEP 341: Unified try-except/try-finally to try-except-finally</strong>: <code class="language-plaintext highlighter-rouge">try-except-finally</code> 문의 통합.</li>
+  <li><strong>PEP 342: Coroutines via Enhanced Generators (강화된 제너레이터를 통한 코루틴)</strong>: <code class="language-plaintext highlighter-rouge">yield from</code> (Python 3.3에 도입)의 전신 격인 <code class="language-plaintext highlighter-rouge">generator.send()</code> 등 제너레이터 메서드 도입으로 코루틴 구현의 기반을 마련.</li>
+  <li><strong>PEP 343: The “with” Statement (<code class="language-plaintext highlighter-rouge">with</code> 문)</strong>: <code class="language-plaintext highlighter-rouge">with</code> 문 도입으로 컨텍스트 관리 프로토콜(<code class="language-plaintext highlighter-rouge">__enter__</code>, <code class="language-plaintext highlighter-rouge">__exit__</code>)을 사용하는 리소스 관리를 간편하게 함 (예: 파일, 락).</li>
+  <li><strong>PEP 352: Required Superclass for Exceptions (예외를 위한 필수 슈퍼클래스)</strong>: 모든 사용자 정의 예외가 <code class="language-plaintext highlighter-rouge">BaseException</code> (또는 그 서브클래스)를 상속하도록 강제.</li>
+  <li><strong>PEP 353: Using ssize_t as the index type (인덱스 타입으로 ssize_t 사용)</strong>: C API에서 인덱스 타입으로 <code class="language-plaintext highlighter-rouge">ssize_t</code>를 사용하여 더 큰 시퀀스 지원.</li>
+  <li><strong>PEP 357: Allowing Any Object to be Used for Slicing (어떤 객체든 슬라이싱에 사용 가능)</strong>: 슬라이싱 작업에 더 다양한 객체를 사용할 수 있도록 허용.</li>
+</ul>
+
+<h4 id="기타-주목할-만한-기능들">기타 주목할 만한 기능들</h4>
+<ul>
+  <li>기본 인코딩이 ASCII로 변경되었습니다.</li>
+  <li>AST(Abstract Syntax Tree) 기반 컴파일러가 도입되었고, 새로운 <code class="language-plaintext highlighter-rouge">_ast</code> 모듈을 통해 Python에서 C AST에 접근할 수 있게 되었습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">any()</code> 및 <code class="language-plaintext highlighter-rouge">all()</code> 빌트인(Built-in) 진리 함수가 추가되었습니다.</li>
+  <li><strong>새로운 표준 라이브러리 모듈:</strong>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">cProfile</code>: 최소한의 오버헤드로 장시간 실행되는 애플리케이션 프로파일링에 적합.</li>
+      <li><code class="language-plaintext highlighter-rouge">ctypes</code>: Windows 설치 프로그램의 선택적 구성 요소. 외부 C 라이브러리 호출을 지원.</li>
+      <li><code class="language-plaintext highlighter-rouge">ElementTree</code> 및 <code class="language-plaintext highlighter-rouge">cElementTree</code>: XML 파싱 및 생성을 위한 라이브러리.</li>
+      <li><code class="language-plaintext highlighter-rouge">hashlib</code>: SHA-224, -256, -384, -512 지원을 추가 (기존 <code class="language-plaintext highlighter-rouge">md5</code> 및 <code class="language-plaintext highlighter-rouge">sha</code> 모듈 대체).</li>
+      <li><code class="language-plaintext highlighter-rouge">msilib</code>: MSI 파일 생성 및 <code class="language-plaintext highlighter-rouge">distutils</code>의 <code class="language-plaintext highlighter-rouge">bdist_msi</code>를 위함.</li>
+      <li><code class="language-plaintext highlighter-rouge">pysqlite</code>: SQLite 데이터베이스 바인딩.</li>
+      <li><code class="language-plaintext highlighter-rouge">uuid</code>: UUID(Universally Unique Identifier) 생성.</li>
+      <li><code class="language-plaintext highlighter-rouge">wsgiref</code>: WSGI(Web Server Gateway Interface) 참조 구현.</li>
+    </ul>
+  </li>
+  <li>쉐도우 패스워드(shadow passwords) 읽기 지원이 추가되었습니다.</li>
+  <li>Unicode 4.1 UCD 지원이 추가되었습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">warnings</code>, <code class="language-plaintext highlighter-rouge">linecache</code>, <code class="language-plaintext highlighter-rouge">inspect</code>, <code class="language-plaintext highlighter-rouge">traceback</code>, <code class="language-plaintext highlighter-rouge">site</code>, <code class="language-plaintext highlighter-rouge">doctest</code> 모듈에 PEP 302 <code class="language-plaintext highlighter-rouge">zipfile</code> / <code class="language-plaintext highlighter-rouge">__loader__</code> 지원이 추가되었습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">pybench</code> Python 벤치마크 스위트가 추가되었습니다.</li>
+  <li>메일박스(mailboxes)에 대한 쓰기 지원이 추가되었습니다.</li>
+  <li>“fat” Mac 바이너리(Intel 및 PPC) 빌드 지원이 추가되었습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">functools</code>에 래퍼(wrapper) 함수 작성을 돕는 새로운 유틸리티가 추가되었습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">pyexpat</code>가 expat 2.0을 사용하도록 업그레이드되었습니다.</li>
+  <li>Python 코어가 <code class="language-plaintext highlighter-rouge">g++</code>로 깨끗하게 컴파일되도록 개선되었습니다.</li>
+</ul>
+
+<h3 id="26으로-연기된-기능들-deferred-until-26">2.6으로 연기된 기능들 (Deferred until 2.6)</h3>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">distutils</code> 패키지의 <code class="language-plaintext highlighter-rouge">bdist_deb</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">distutils</code> 패키지의 <code class="language-plaintext highlighter-rouge">bdist_egg</code>.</li>
+  <li>순수 Python <code class="language-plaintext highlighter-rouge">pgen</code> 모듈.</li>
+  <li><code class="language-plaintext highlighter-rouge">fpectl</code> 모듈 제거 (고려).</li>
+  <li><code class="language-plaintext highlighter-rouge">Modules/</code> 내의 모든 것이 <code class="language-plaintext highlighter-rouge">g++</code>로 깔끔하게 빌드되도록 변경하는 작업.</li>
+</ul>
+
+<h3 id="오픈-이슈-open-issues">오픈 이슈 (Open issues)</h3>
+<p>릴리스 전에 해결되어야 할 버그는 없었으나, 2.5.1 또는 그 이후 버전으로 연기된 몇몇 버그와 문서화 및 테스트 관련 이슈들이 있었습니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">socket</code> 모듈의 스레드 안전성 문제 (https://bugs.python.org/issue1544279).</li>
+  <li>Windows에서 <code class="language-plaintext highlighter-rouge">tools</code> 및 <code class="language-plaintext highlighter-rouge">demo</code> 누락 문제 (https://bugs.python.org/issue1541420).</li>
+  <li>중첩된 <code class="language-plaintext highlighter-rouge">try/finally</code>에서 <code class="language-plaintext highlighter-rouge">continue</code> 사용 시 크래시 (https://bugs.python.org/issue1542451).</li>
+  <li><code class="language-plaintext highlighter-rouge">gettext.py</code> 버그 (https://bugs.python.org/issue1475523).</li>
+  <li><code class="language-plaintext highlighter-rouge">%-formatting</code> 및 <code class="language-plaintext highlighter-rouge">dicts</code> 관련 문제 (https://bugs.python.org/issue1467929).</li>
+  <li><code class="language-plaintext highlighter-rouge">unicode()</code>가 <code class="language-plaintext highlighter-rouge">LookupError</code>를 발생시키지 않는 문제 (https://bugs.python.org/issue1446043).</li>
+</ul>
+
+<p>또한, <code class="language-plaintext highlighter-rouge">pkgutil</code>, <code class="language-plaintext highlighter-rouge">runpy</code>, <code class="language-plaintext highlighter-rouge">pydoc</code>에 대한 PEP 302 변경 사항이 문서화되어야 했고, <code class="language-plaintext highlighter-rouge">test_zipfile64</code> 테스트의 긴 실행 시간 및 디스크 공간 문제, 그리고 문서화되지 않은 C 모듈의 제거 여부 등이 논의되었습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/354/" class="pagination--pager" title="[Superseded] PEP 354 - Enumerations in Python
+">Previous</a>
+    
+    
+      <a href="/python/pep/357/" class="pagination--pager" title="[Final] PEP 357 - Allowing Any Object to be Used for Slicing
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

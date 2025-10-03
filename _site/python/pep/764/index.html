@@ -1,0 +1,845 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Draft] PEP 764 - Inline typed dictionaries | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 764: ‘Inline typed dictionaries’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Draft] PEP 764 - Inline typed dictionaries">
+<meta property="og:url" content="http://localhost:4000/python/pep/764/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 764: ‘Inline typed dictionaries’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T13:45:41+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T13:45:41+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/764/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Draft] PEP 764 - Inline typed dictionaries">
+    <meta itemprop="description" content="Python Enhancement Proposal 764: ‘Inline typed dictionaries’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T13:45:41+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T13:45:41+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Draft] PEP 764 - Inline typed dictionaries
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T13:45:41+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-764--인라인-typeddict-제안-inline-typed-dictionaries">PEP 764 – 인라인 TypedDict 제안 (Inline typed dictionaries)</a><ul><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#동기-motivation">동기 (Motivation)</a></li><li><a href="#이론적-근거-rationale">이론적 근거 (Rationale)</a></li><li><a href="#상세-사양-specification">상세 사양 (Specification)</a><ul><li><a href="#타이핑-사양-변경-typing-specification-changes">타이핑 사양 변경 (Typing specification changes)</a></li><li><a href="#런타임-동작-runtime-behavior">런타임 동작 (Runtime behavior)</a></li></ul></li><li><a href="#하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</a></li><li><a href="#보안-영향-security-implications">보안 영향 (Security Implications)</a></li><li><a href="#교육-방법-how-to-teach-this">교육 방법 (How to Teach This)</a></li><li><a href="#참조-구현-reference-implementation">참조 구현 (Reference Implementation)</a><ul><li><a href="#런타임-구현-runtime-implementation">런타임 구현 (Runtime implementation)</a></li></ul></li><li><a href="#거부된-아이디어-rejected-ideas">거부된 아이디어 (Rejected Ideas)</a><ul><li><a href="#어노테이션에서-함수형-문법-사용-using-the-functional-syntax-in-annotations">어노테이션에서 함수형 문법 사용 (Using the functional syntax in annotations)</a></li><li><a href="#단일-타입-인자와-함께-dict-또는-typingdict-사용-using-dict-or-typingdict-with-a-single-type-argument">단일 타입 인자와 함께 dict 또는 typing.Dict 사용 (Using dict or typing.Dict with a single type argument)</a></li><li><a href="#단순-딕셔너리-사용-using-a-simple-dictionary">단순 딕셔너리 사용 (Using a simple dictionary)</a></li><li><a href="#다른-typeddict-확장-extending-other-typed-dictionaries">다른 TypedDict 확장 (Extending other typed dictionaries)</a></li></ul></li><li><a href="#미해결-문제-open-issues">미해결 문제 (Open Issues)</a><ul><li><a href="#인라인-typeddict와-추가-항목-inline-typed-dictionaries-and-extra-items">인라인 TypedDict와 추가 항목 (Inline typed dictionaries and extra items)</a></li></ul></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0764/">PEP 764 - Inline typed dictionaries</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Draft</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 25-Oct-2024</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h2 id="pep-764--인라인-typeddict-제안-inline-typed-dictionaries">PEP 764 – 인라인 TypedDict 제안 (Inline typed dictionaries)</h2>
+
+<h3 id="개요-abstract">개요 (Abstract)</h3>
+<p><a href="https://peps.python.org/pep-0589/">PEP 589</a>는 <code class="language-plaintext highlighter-rouge">TypedDict</code>를 생성하기 위한 클래스 기반 및 함수형(functional) 문법을 정의합니다. 그러나 이 두 방식 모두 클래스를 정의하거나 값에 할당하는 과정을 필요로 합니다. 특정 상황, 특히 <code class="language-plaintext highlighter-rouge">TypedDict</code>가 한 번만 사용되는 경우, 이는 불필요한 보일러플레이트(boilerplate) 코드를 추가할 수 있습니다.</p>
+
+<p>이 PEP는 <code class="language-plaintext highlighter-rouge">TypedDict</code> 타입을 서브스크립트(subscripting)하는 새로운 인라인(inline) 문법을 추가할 것을 제안합니다.</p>
+
+<p>예시:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">TypedDict</span>
+
+<span class="k">def</span> <span class="nf">get_movie</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">TypedDict</span><span class="p">[{</span><span class="sh">'</span><span class="s">name</span><span class="sh">'</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="sh">'</span><span class="s">year</span><span class="sh">'</span><span class="p">:</span> <span class="nb">int</span><span class="p">}]:</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="sh">'</span><span class="s">name</span><span class="sh">'</span><span class="p">:</span> <span class="sh">'</span><span class="s">Blade Runner</span><span class="sh">'</span><span class="p">,</span>
+        <span class="sh">'</span><span class="s">year</span><span class="sh">'</span><span class="p">:</span> <span class="mi">1982</span><span class="p">,</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+<h3 id="동기-motivation">동기 (Motivation)</h3>
+<p>Python 딕셔너리(dictionaries)는 언어의 필수적인 데이터 구조이며, 함수에서 구조화된 데이터를 반환하거나 받는 데 자주 사용됩니다. 그러나 <code class="language-plaintext highlighter-rouge">TypedDict</code> 클래스를 정의하는 과정은 다음과 같은 이유로 번거로울 수 있습니다:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">TypedDict</code>는 이름을 요구하지만, 그 이름이 항상 중요하지 않을 수 있습니다.</li>
+  <li>중첩된 딕셔너리는 두 개 이상의 클래스 정의를 필요로 합니다.</li>
+</ul>
+
+<p>중첩된 구조화된 데이터를 반환하는 간단한 함수를 예로 들어보겠습니다:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">TypedDict</span>
+
+<span class="k">class</span> <span class="nc">ProductionCompany</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">location</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="k">class</span> <span class="nc">Movie</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">year</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">production</span><span class="p">:</span> <span class="n">ProductionCompany</span>
+
+<span class="k">def</span> <span class="nf">get_movie</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Movie</span><span class="p">:</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="sh">'</span><span class="s">name</span><span class="sh">'</span><span class="p">:</span> <span class="sh">'</span><span class="s">Blade Runner</span><span class="sh">'</span><span class="p">,</span>
+        <span class="sh">'</span><span class="s">year</span><span class="sh">'</span><span class="p">:</span> <span class="mi">1982</span><span class="p">,</span>
+        <span class="sh">'</span><span class="s">production</span><span class="sh">'</span><span class="p">:</span> <span class="p">{</span>
+            <span class="sh">'</span><span class="s">name</span><span class="sh">'</span><span class="p">:</span> <span class="sh">'</span><span class="s">Warner Bros.</span><span class="sh">'</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">location</span><span class="sh">'</span><span class="p">:</span> <span class="sh">'</span><span class="s">California</span><span class="sh">'</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="이론적-근거-rationale">이론적 근거 (Rationale)</h3>
+<p>새로운 인라인 문법은 이러한 문제들을 해결하는 데 사용될 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">get_movie</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">TypedDict</span><span class="p">[{</span><span class="sh">'</span><span class="s">name</span><span class="sh">'</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="sh">'</span><span class="s">year</span><span class="sh">'</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="sh">'</span><span class="s">production</span><span class="sh">'</span><span class="p">:</span> <span class="n">TypedDict</span><span class="p">[{</span><span class="sh">'</span><span class="s">name</span><span class="sh">'</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="sh">'</span><span class="s">location</span><span class="sh">'</span><span class="p">:</span> <span class="nb">str</span><span class="p">}]}]:</span>
+    <span class="bp">...</span>
+</code></pre></div></div>
+
+<p>인라인 <code class="language-plaintext highlighter-rouge">TypedDict</code>는 함수형 또는 클래스 기반 문법만큼 유용하지는 않지만, 별칭(alias)으로 변수에 할당할 수 있습니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">InlineTD</span> <span class="o">=</span> <span class="n">TypedDict</span><span class="p">[{</span><span class="sh">'</span><span class="s">name</span><span class="sh">'</span><span class="p">:</span> <span class="nb">str</span><span class="p">}]</span>
+<span class="k">def</span> <span class="nf">get_movie</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">InlineTD</span><span class="p">:</span>
+    <span class="bp">...</span>
+</code></pre></div></div>
+
+<h3 id="상세-사양-specification">상세 사양 (Specification)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">TypedDict</code> 스페셜 폼(special form)은 서브스크립트가 가능해지며, 함수형 문법과 동일한 의미론(semantics)을 따르는 단일 타입 인자(type argument)로 <code class="language-plaintext highlighter-rouge">dict</code>를 허용합니다 (딕셔너리 키는 필드 이름을 나타내는 문자열이며, 값은 유효한 Annotation 표현식입니다). 중괄호 생성자(<code class="language-plaintext highlighter-rouge">{k: &lt;type&gt;}</code>) 내의 쉼표로 구분된 <code class="language-plaintext highlighter-rouge">key: value</code> 쌍 목록만 허용되며, 타입 인자로 직접 지정되어야 합니다 (즉, 이전에 <code class="language-plaintext highlighter-rouge">dict</code> 인스턴스가 할당된 변수를 사용하는 것은 허용되지 않습니다).</p>
+
+<p>인라인 <code class="language-plaintext highlighter-rouge">TypedDict</code>는 익명(anonymous)으로 참조될 수 있는데, 이는 특정 이름이 없음을 의미합니다 (런타임 동작 섹션 참조).</p>
+
+<p>중첩된 인라인 딕셔너리를 정의하는 것이 가능합니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Movie</span> <span class="o">=</span> <span class="n">TypedDict</span><span class="p">[{</span><span class="sh">'</span><span class="s">name</span><span class="sh">'</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="sh">'</span><span class="s">production</span><span class="sh">'</span><span class="p">:</span> <span class="n">TypedDict</span><span class="p">[{</span><span class="sh">'</span><span class="s">location</span><span class="sh">'</span><span class="p">:</span> <span class="nb">str</span><span class="p">}]}]</span>
+<span class="c1"># 참고: 다음은 업데이트된 `type_expression` 문법에 따라 유효하지 않습니다:
+# Movie = TypedDict[{'name': str, 'production': {'location': str}}]
+</span></code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">total</code>과 같은 클래스 인자를 지정하는 것은 불가능하지만, 개별 필드에 대해서는 어떤 타입 한정자(qualifier)도 사용할 수 있습니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Movie</span> <span class="o">=</span> <span class="n">TypedDict</span><span class="p">[{</span><span class="sh">'</span><span class="s">name</span><span class="sh">'</span><span class="p">:</span> <span class="n">NotRequired</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="sh">'</span><span class="s">year</span><span class="sh">'</span><span class="p">:</span> <span class="n">ReadOnly</span><span class="p">[</span><span class="nb">int</span><span class="p">]}]</span>
+</code></pre></div></div>
+
+<p>인라인 <code class="language-plaintext highlighter-rouge">TypedDict</code>는 암묵적으로 <code class="language-plaintext highlighter-rouge">total</code>이며, 모든 키가 존재해야 합니다. 따라서 <code class="language-plaintext highlighter-rouge">Required</code> 타입 한정자를 사용하는 것은 중복입니다.</p>
+
+<p>타입 변수(Type variables)는 외부 스코프(scope)에 바인딩되어 있다면 인라인 <code class="language-plaintext highlighter-rouge">TypedDict</code>에서 허용됩니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">C</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+    <span class="n">inline_td</span><span class="p">:</span> <span class="n">TypedDict</span><span class="p">[{</span><span class="sh">'</span><span class="s">name</span><span class="sh">'</span><span class="p">:</span> <span class="n">T</span><span class="p">}]</span> <span class="c1"># OK, `T`는 클래스 `C`의 스코프에 있습니다.
+</span><span class="nf">reveal_type</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="nb">int</span><span class="p">]().</span><span class="n">inline_td</span><span class="p">[</span><span class="sh">'</span><span class="s">name</span><span class="sh">'</span><span class="p">])</span> <span class="c1"># Revealed type is 'int'
+</span>
+<span class="k">def</span> <span class="nf">fn</span><span class="p">[</span><span class="n">T</span><span class="p">](</span><span class="n">arg</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TypedDict</span><span class="p">[{</span><span class="sh">'</span><span class="s">name</span><span class="sh">'</span><span class="p">:</span> <span class="n">T</span><span class="p">}]:</span> <span class="p">...</span> <span class="c1"># OK: `T`는 함수 `fn`의 스코프에 있습니다.
+</span><span class="nf">reveal_type</span><span class="p">(</span><span class="nf">fn</span><span class="p">(</span><span class="sh">'</span><span class="s">a</span><span class="sh">'</span><span class="p">)[</span><span class="sh">'</span><span class="s">name</span><span class="sh">'</span><span class="p">])</span> <span class="c1"># Revealed type is 'str'
+</span>
+<span class="nb">type</span> <span class="n">InlineTD</span><span class="p">[</span><span class="n">T</span><span class="p">]</span> <span class="o">=</span> <span class="n">TypedDict</span><span class="p">[{</span><span class="sh">'</span><span class="s">name</span><span class="sh">'</span><span class="p">:</span> <span class="n">T</span><span class="p">}]</span> <span class="c1"># OK, `T`는 타입 별칭의 스코프에 있습니다.
+</span>
+<span class="n">T</span> <span class="o">=</span> <span class="nc">TypeVar</span><span class="p">(</span><span class="sh">'</span><span class="s">T</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">InlineTD</span> <span class="o">=</span> <span class="n">TypedDict</span><span class="p">[{</span><span class="sh">'</span><span class="s">name</span><span class="sh">'</span><span class="p">:</span> <span class="n">T</span><span class="p">}]</span> <span class="c1"># OK, 이전 타입 별칭과 동일하지만 구식 문법을 사용합니다.
+</span>
+<span class="k">def</span> <span class="nf">func</span><span class="p">():</span>
+    <span class="n">InlineTD</span> <span class="o">=</span> <span class="n">TypedDict</span><span class="p">[{</span><span class="sh">'</span><span class="s">name</span><span class="sh">'</span><span class="p">:</span> <span class="n">T</span><span class="p">}]</span> <span class="c1"># Not OK: `T`는 `func`의 스코프에 바인딩되지 않은 타입 변수를 참조합니다.
+</span></code></pre></div></div>
+
+<p>인라인 <code class="language-plaintext highlighter-rouge">TypedDict</code>는 확장될 수 있습니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">InlineTD</span> <span class="o">=</span> <span class="n">TypedDict</span><span class="p">[{</span><span class="sh">'</span><span class="s">a</span><span class="sh">'</span><span class="p">:</span> <span class="nb">int</span><span class="p">}]</span>
+<span class="k">class</span> <span class="nc">SubTD</span><span class="p">(</span><span class="n">InlineTD</span><span class="p">):</span>
+    <span class="k">pass</span>
+</code></pre></div></div>
+
+<h4 id="타이핑-사양-변경-typing-specification-changes">타이핑 사양 변경 (Typing specification changes)</h4>
+<p>인라인 <code class="language-plaintext highlighter-rouge">TypedDict</code>는 새로운 종류의 타입 표현식(type expression)을 추가합니다. 이에 따라 <code class="language-plaintext highlighter-rouge">type_expression</code> 프로덕션은 인라인 문법을 포함하도록 업데이트될 것입니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">new-type_expression ::= type_expression | &lt;TypedDict&gt; '[' '{' (string: ':' annotation_expression ',')* '}' ']'</code>
+(여기서 <code class="language-plaintext highlighter-rouge">string</code>은 모든 문자열 리터럴입니다.)</p>
+
+<h4 id="런타임-동작-runtime-behavior">런타임 동작 (Runtime behavior)</h4>
+<p>인라인 <code class="language-plaintext highlighter-rouge">TypedDict</code>를 생성하면 새로운 클래스가 생성됩니다. 따라서 <code class="language-plaintext highlighter-rouge">T1</code>과 <code class="language-plaintext highlighter-rouge">T2</code>는 동일한 타입입니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">TypedDict</span>
+<span class="n">T1</span> <span class="o">=</span> <span class="nc">TypedDict</span><span class="p">(</span><span class="sh">'</span><span class="s">T1</span><span class="sh">'</span><span class="p">,</span> <span class="p">{</span><span class="sh">'</span><span class="s">a</span><span class="sh">'</span><span class="p">:</span> <span class="nb">int</span><span class="p">})</span>
+<span class="n">T2</span> <span class="o">=</span> <span class="n">TypedDict</span><span class="p">[{</span><span class="sh">'</span><span class="s">a</span><span class="sh">'</span><span class="p">:</span> <span class="nb">int</span><span class="p">}]</span>
+</code></pre></div></div>
+
+<p>인라인 <code class="language-plaintext highlighter-rouge">TypedDict</code>는 익명으로 의도되었으므로, 해당 <code class="language-plaintext highlighter-rouge">__name__</code> 속성은 <code class="language-plaintext highlighter-rouge">&lt;inline TypedDict&gt;</code> 문자열 리터럴로 설정됩니다. 향후에는 명명된 클래스와 구별할 수 있도록 명시적인 클래스 속성이 추가될 수 있습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">TypedDict</code>는 클래스로 문서화되어 있지만, 정의 방식은 구현 세부 사항(implementation detail)입니다. <code class="language-plaintext highlighter-rouge">TypedDict</code>가 서브스크립트 가능하도록 구현이 조정되어야 합니다.</p>
+
+<h3 id="하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</h3>
+<p>이 PEP는 하위 호환성을 깨뜨리는 변경 사항을 포함하지 않습니다.</p>
+
+<h3 id="보안-영향-security-implications">보안 영향 (Security Implications)</h3>
+<p>이 PEP로 인해 발생하는 알려진 보안 문제는 없습니다.</p>
+
+<h3 id="교육-방법-how-to-teach-this">교육 방법 (How to Teach This)</h3>
+<p>새로운 인라인 문법은 <code class="language-plaintext highlighter-rouge">typing</code> 모듈 문서와 타이핑 사양 모두에 문서화될 것입니다.</p>
+
+<p>복잡한 딕셔너리 구조가 사용될 때, 모든 것을 한 줄에 정의하면 가독성을 해칠 수 있습니다. 코드 포맷터(Code formatters)는 인라인 타입 딕셔너리를 여러 줄에 걸쳐 포맷팅하여 도움을 줄 수 있습니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">edit_movie</span><span class="p">(</span>
+    <span class="n">movie</span><span class="p">:</span> <span class="n">TypedDict</span><span class="p">[{</span>
+        <span class="sh">'</span><span class="s">name</span><span class="sh">'</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="sh">'</span><span class="s">year</span><span class="sh">'</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="sh">'</span><span class="s">production</span><span class="sh">'</span><span class="p">:</span> <span class="n">TypedDict</span><span class="p">[{</span>
+            <span class="sh">'</span><span class="s">location</span><span class="sh">'</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="p">}],</span>
+    <span class="p">}],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="bp">...</span>
+</code></pre></div></div>
+
+<h3 id="참조-구현-reference-implementation">참조 구현 (Reference Implementation)</h3>
+<p>Mypy는 실험적인 기능으로 유사한 문법을 지원합니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">test_values</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">{</span><span class="sh">"</span><span class="s">int</span><span class="sh">"</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="sh">"</span><span class="s">str</span><span class="sh">"</span><span class="p">:</span> <span class="nb">str</span><span class="p">}:</span>
+    <span class="k">return</span> <span class="p">{</span><span class="sh">"</span><span class="s">int</span><span class="sh">"</span><span class="p">:</span> <span class="mi">42</span><span class="p">,</span> <span class="sh">"</span><span class="s">str</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">test</span><span class="sh">"</span><span class="p">}</span>
+</code></pre></div></div>
+<p>이 PEP에 대한 지원은 이 풀 리퀘스트에서 추가됩니다.
+Pyright는 버전 1.1.387에서 새로운 문법에 대한 지원을 추가했습니다.</p>
+
+<h4 id="런타임-구현-runtime-implementation">런타임 구현 (Runtime implementation)</h4>
+<p>필요한 변경 사항은 이 풀 리퀘스트의 <code class="language-plaintext highlighter-rouge">typing_extensions</code>에 처음 구현되었습니다.</p>
+
+<h3 id="거부된-아이디어-rejected-ideas">거부된 아이디어 (Rejected Ideas)</h3>
+
+<h4 id="어노테이션에서-함수형-문법-사용-using-the-functional-syntax-in-annotations">어노테이션에서 함수형 문법 사용 (Using the functional syntax in annotations)</h4>
+<p>대안적인 함수형 문법을 어노테이션으로 직접 사용할 수 있었습니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">get_movie</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nc">TypedDict</span><span class="p">(</span><span class="sh">'</span><span class="s">Movie</span><span class="sh">'</span><span class="p">,</span> <span class="p">{</span><span class="sh">'</span><span class="s">title</span><span class="sh">'</span><span class="p">:</span> <span class="nb">str</span><span class="p">}):</span>
+    <span class="bp">...</span>
+</code></pre></div></div>
+<p>그러나 호출 표현식(call expressions)은 현재 이러한 컨텍스트에서 여러 가지 이유(처리 비용이 많이 들고, 평가가 표준화되어 있지 않음)로 지원되지 않습니다. 또한, 때로는 중요하지 않은 이름이 필요할 것입니다.</p>
+
+<h4 id="단일-타입-인자와-함께-dict-또는-typingdict-사용-using-dict-or-typingdict-with-a-single-type-argument">단일 타입 인자와 함께 <code class="language-plaintext highlighter-rouge">dict</code> 또는 <code class="language-plaintext highlighter-rouge">typing.Dict</code> 사용 (Using dict or typing.Dict with a single type argument)</h4>
+<p>동일한 개념을 표현하기 위해 단일 타입 인자와 함께 <code class="language-plaintext highlighter-rouge">dict</code> 또는 <code class="language-plaintext highlighter-rouge">typing.Dict</code>를 재사용할 수 있었습니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">get_movie</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[{</span><span class="sh">'</span><span class="s">title</span><span class="sh">'</span><span class="p">:</span> <span class="nb">str</span><span class="p">}]:</span>
+    <span class="bp">...</span>
+</code></pre></div></div>
+<p>이것은 <code class="language-plaintext highlighter-rouge">typing</code>에서 <code class="language-plaintext highlighter-rouge">TypedDict</code>를 import할 필요를 없애주지만, 이 해결책에는 몇 가지 단점이 있습니다.</p>
+
+<ul>
+  <li>타입 체커(type checkers)의 경우, <code class="language-plaintext highlighter-rouge">dict</code>는 두 개의 타입 변수를 가진 일반 클래스입니다. <code class="language-plaintext highlighter-rouge">dict</code>가 단일 타입 인자로 파라미터화(parametrized)되도록 허용하려면 타입 체커의 특별한 케이스 처리가 필요합니다. 이는 파라미터화 오버로드(overloads)를 표현할 방법이 없기 때문입니다. 반면에 <code class="language-plaintext highlighter-rouge">TypedDict</code>는 이미 스페셜 폼입니다.</li>
+  <li>향후 작업이 인라인 <code class="language-plaintext highlighter-rouge">TypedDict</code>가 할 수 있는 기능을 확장하더라도, <code class="language-plaintext highlighter-rouge">dict</code>와 기호(symbol)를 공유하는 것의 영향에 대해 걱정할 필요가 없습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">typing.Dict</code>는 <a href="https://peps.python.org/pe585/">PEP 585</a>에 의해 더 이상 사용되지 않습니다 (제거 계획은 없지만). 새로운 타이핑 기능에 이를 사용하면 사용자에게 혼란을 줄 것입니다 (그리고 코드 린터(linters)의 변경이 필요할 것입니다).</li>
+</ul>
+
+<h4 id="단순-딕셔너리-사용-using-a-simple-dictionary">단순 딕셔너리 사용 (Using a simple dictionary)</h4>
+<p><code class="language-plaintext highlighter-rouge">TypedDict</code> 클래스를 서브스크립트하는 대신, 일반 딕셔너리를 어노테이션으로 사용할 수 있었습니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">get_movie</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">{</span><span class="sh">'</span><span class="s">title</span><span class="sh">'</span><span class="p">:</span> <span class="nb">str</span><span class="p">}:</span>
+    <span class="bp">...</span>
+</code></pre></div></div>
+<p>그러나 <a href="https://peps.python.org/pep-0584/">PEP 584</a>는 딕셔너리에 대한 union 연산자를 추가했고, <a href="https://peps.python.org/pep-0604/">PEP 604</a>는 union 타입을 도입했습니다. 두 기능 모두 비트와이즈 OR(<code class="language-plaintext highlighter-rouge">|</code>) 연산자를 사용하므로, 특히 런타임 인트로스펙션(introspection)의 경우 다음과 같은 사용 사례가 호환되지 않습니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 딕셔너리가 병합됩니다:
+</span><span class="k">def</span> <span class="nf">fn</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">{</span><span class="sh">'</span><span class="s">a</span><span class="sh">'</span><span class="p">:</span> <span class="nb">int</span><span class="p">}</span> <span class="o">|</span> <span class="p">{</span><span class="sh">'</span><span class="s">b</span><span class="sh">'</span><span class="p">:</span> <span class="nb">str</span><span class="p">}:</span> <span class="bp">...</span>
+
+<span class="c1"># 런타임에 타입 에러를 발생시킵니다:
+</span><span class="k">def</span> <span class="nf">fn</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">{</span><span class="sh">'</span><span class="s">a</span><span class="sh">'</span><span class="p">:</span> <span class="nb">int</span><span class="p">}</span> <span class="o">|</span> <span class="nb">int</span><span class="p">:</span> <span class="bp">...</span>
+</code></pre></div></div>
+
+<h4 id="다른-typeddict-확장-extending-other-typed-dictionaries">다른 TypedDict 확장 (Extending other typed dictionaries)</h4>
+<p>다른 <code class="language-plaintext highlighter-rouge">TypedDict</code>를 확장하는 기능을 갖기 위해 여러 문법이 사용될 수 있었습니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">InlineBase</span> <span class="o">=</span> <span class="n">TypedDict</span><span class="p">[{</span><span class="sh">'</span><span class="s">a</span><span class="sh">'</span><span class="p">:</span> <span class="nb">int</span><span class="p">}]</span>
+<span class="n">Inline</span> <span class="o">=</span> <span class="n">TypedDict</span><span class="p">[</span><span class="n">InlineBase</span><span class="p">,</span> <span class="p">{</span><span class="sh">'</span><span class="s">b</span><span class="sh">'</span><span class="p">:</span> <span class="nb">int</span><span class="p">}]</span>
+<span class="c1"># 또는, 슬라이스를 제공하여:
+# Inline = TypedDict[{'b': int} : (InlineBase,)]
+</span></code></pre></div></div>
+<p>인라인 <code class="language-plaintext highlighter-rouge">TypedDict</code>는 기존 문법의 하위 집합만 지원하도록 의도되었으므로, 추가되는 복잡성을 고려할 때 이 확장 메커니즘을 지원하는 것은 충분히 설득력이 없습니다.
+만약 인터섹션(intersections)이 타입 시스템에 추가된다면, 이 사용 사례를 다룰 수 있을 것입니다.</p>
+
+<h3 id="미해결-문제-open-issues">미해결 문제 (Open Issues)</h3>
+
+<h4 id="인라인-typeddict와-추가-항목-inline-typed-dictionaries-and-extra-items">인라인 TypedDict와 추가 항목 (Inline typed dictionaries and extra items)</h4>
+<p><a href="https://peps.python.org/pep-0728/">PEP 728</a>은 닫힌(closed) <code class="language-plaintext highlighter-rouge">TypedDict</code>의 개념을 도입합니다. 이 PEP가 승인된다면, 인라인 <code class="language-plaintext highlighter-rouge">TypedDict</code>는 기본적으로 닫힌 상태가 될 것입니다. 이는 이 PEP가 그에 따라 업데이트될 수 있도록 PEP 728이 먼저 처리되어야 함을 의미합니다.</p>
+
+<h3 id="저작권-copyright">저작권 (Copyright)</h3>
+<p>이 문서는 퍼블릭 도메인(public domain) 또는 CC0-1.0-Universal 라이선스(둘 중 더 관대한 라이선스)로 배포됩니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/763/" class="pagination--pager" title="[Draft] PEP 763 - Limiting deletions on PyPI
+">Previous</a>
+    
+    
+      <a href="/python/pep/765/" class="pagination--pager" title="[Final] PEP 765 - Disallow return/break/continue that exit a finally block
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

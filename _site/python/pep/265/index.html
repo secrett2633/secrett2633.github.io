@@ -1,0 +1,780 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Rejected] PEP 265 - Sorting Dictionaries by Value | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 265: ‘Sorting Dictionaries by Value’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Rejected] PEP 265 - Sorting Dictionaries by Value">
+<meta property="og:url" content="http://localhost:4000/python/pep/265/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 265: ‘Sorting Dictionaries by Value’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T17:48:48+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T17:48:48+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/265/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Rejected] PEP 265 - Sorting Dictionaries by Value">
+    <meta itemprop="description" content="Python Enhancement Proposal 265: ‘Sorting Dictionaries by Value’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T17:48:48+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T17:48:48+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Rejected] PEP 265 - Sorting Dictionaries by Value
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T17:48:48+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#1-개요-abstract">1. 개요 (Abstract)</a></li><li><a href="#2-bdfl의-결정-bdfl-pronouncement">2. BDFL의 결정 (BDFL Pronouncement)</a></li><li><a href="#3-도입-배경-motivation">3. 도입 배경 (Motivation)</a></li><li><a href="#4-제안된-해결책-rationale">4. 제안된 해결책 (Rationale)</a><ul><li><a href="#41-items-메서드에-파라미터-추가">4.1. items() 메서드에 파라미터 추가</a></li><li><a href="#42-새로운-딕셔너리-메서드-추가">4.2. 새로운 딕셔너리 메서드 추가</a></li></ul></li><li><a href="#5-구현-implementation">5. 구현 (Implementation)</a></li><li><a href="#6-우려-사항-concerns">6. 우려 사항 (Concerns)</a></li><li><a href="#7-참고-자료-references">7. 참고 자료 (References)</a></li><li><a href="#8-저작권-copyright">8. 저작권 (Copyright)</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0265/">PEP 265 - Sorting Dictionaries by Value</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Rejected</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 08-Aug-2001</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>PEP 265 – 값(Value)으로 딕셔너리 정렬</p>
+
+<h2 id="1-개요-abstract">1. 개요 (Abstract)</h2>
+
+<p>이 PEP는 딕셔너리에 “값(value)으로 정렬”하는 기능을 추가할 것을 제안합니다. 이 제안의 주된 이점은 현재 초보자가 이해하기 어렵고 모든 개발자가 구현하기 번거로운 일반적인 Python 숙어(idiom)에 대해 “batteries included (기본 제공)” 지원을 제공하는 것입니다.</p>
+
+<h2 id="2-bdfl의-결정-bdfl-pronouncement">2. BDFL의 결정 (BDFL Pronouncement)</h2>
+
+<p>이 PEP는 <strong>거부되었습니다 (Rejected)</strong>. 그 이유는 Python 2.4에 <code class="language-plaintext highlighter-rouge">sorted()</code> 내장 함수가 도입되면서 이 기능의 필요성이 대부분 충족되었기 때문입니다.</p>
+
+<p>예시:</p>
+<ul>
+  <li>값(value)을 기준으로 딕셔너리의 아이템을 정렬하려면:
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="n">operator</span> <span class="kn">import</span> <span class="n">itemgetter</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="sh">'</span><span class="s">a</span><span class="sh">'</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="sh">'</span><span class="s">b</span><span class="sh">'</span><span class="p">:</span><span class="mi">23</span><span class="p">,</span> <span class="sh">'</span><span class="s">c</span><span class="sh">'</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="sh">'</span><span class="s">d</span><span class="sh">'</span><span class="p">:</span><span class="mi">17</span><span class="p">,</span> <span class="sh">'</span><span class="s">e</span><span class="sh">'</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nf">sorted</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="nf">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="nf">itemgetter</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="p">[(</span><span class="sh">'</span><span class="s">b</span><span class="sh">'</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="p">(</span><span class="sh">'</span><span class="s">d</span><span class="sh">'</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span> <span class="p">(</span><span class="sh">'</span><span class="s">c</span><span class="sh">'</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="sh">'</span><span class="s">a</span><span class="sh">'</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="sh">'</span><span class="s">e</span><span class="sh">'</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span>
+</code></pre></div>    </div>
+  </li>
+  <li>값(value)을 기준으로 키(key)만 정렬하려면:
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="nf">sorted</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">d</span><span class="p">.</span><span class="n">__getitem__</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="p">[</span><span class="sh">'</span><span class="s">b</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">d</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">c</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">a</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">e</span><span class="sh">'</span><span class="p">]</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>또한, Python 2.5의 <code class="language-plaintext highlighter-rouge">heapq.nlargest()</code> 함수는 가장 높은 값(value)을 가진 소수의 아이템만 찾는 일반적인 사용 사례를 해결합니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="n">heapq</span> <span class="kn">import</span> <span class="n">nlargest</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="n">operator</span> <span class="kn">import</span> <span class="n">itemgetter</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="sh">'</span><span class="s">a</span><span class="sh">'</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="sh">'</span><span class="s">b</span><span class="sh">'</span><span class="p">:</span><span class="mi">23</span><span class="p">,</span> <span class="sh">'</span><span class="s">c</span><span class="sh">'</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="sh">'</span><span class="s">d</span><span class="sh">'</span><span class="p">:</span><span class="mi">17</span><span class="p">,</span> <span class="sh">'</span><span class="s">e</span><span class="sh">'</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nf">nlargest</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">d</span><span class="p">.</span><span class="nf">items</span><span class="p">(),</span> <span class="nf">itemgetter</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="p">[(</span><span class="sh">'</span><span class="s">b</span><span class="sh">'</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="p">(</span><span class="sh">'</span><span class="s">d</span><span class="sh">'</span><span class="p">,</span> <span class="mi">17</span><span class="p">)]</span>
+</code></pre></div></div>
+
+<h2 id="3-도입-배경-motivation">3. 도입 배경 (Motivation)</h2>
+
+<p>딕셔너리의 일반적인 사용 사례 중 하나는 발생 횟수를 세는 것입니다. 특정 <code class="language-plaintext highlighter-rouge">key</code>가 처음 등장하면 <code class="language-plaintext highlighter-rouge">d[key]</code>의 값을 1로 설정하고, 이후 등장할 때마다 값을 증가시킵니다. <code class="language-plaintext highlighter-rouge">get()</code> 메서드를 사용하면 이 작업을 간결하게 수행할 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+</code></pre></div></div>
+
+<p>모든 발생 횟수를 센 후에는, 결과 딕셔너리를 발생 횟수(값) 순서대로 출력하는 경우가 많으며, 종종 가장 큰 값부터 출력합니다. 이는 딕셔너리의 아이템을 값(value)으로 정렬할 필요로 이어집니다.</p>
+
+<p>Python에서 이를 수행하는 일반적인 방법은 다음과 같습니다.</p>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">d.items()</code>를 사용하여 딕셔너리의 아이템 리스트를 얻습니다.</li>
+  <li>각 아이템 튜플의 순서를 <code class="language-plaintext highlighter-rouge">(key, value)</code>에서 <code class="language-plaintext highlighter-rouge">(value, key)</code>로 바꿉니다 (반전시킵니다).</li>
+  <li>리스트를 정렬합니다. Python은 튜플의 첫 번째 아이템을 기준으로 리스트를 정렬하므로, 이렇게 하면 (반전된) 아이템 리스트가 값(value)으로 정렬됩니다.</li>
+  <li>원한다면 리스트를 뒤집고, 튜플을 다시 <code class="language-plaintext highlighter-rouge">(key, value)</code>로 되돌릴 수 있습니다. (하지만 대부분의 경우 <code class="language-plaintext highlighter-rouge">(value, key)</code> 순서로도 충분합니다.)</li>
+</ol>
+
+<p>예시:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="sh">'</span><span class="s">a</span><span class="sh">'</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="sh">'</span><span class="s">b</span><span class="sh">'</span><span class="p">:</span><span class="mi">23</span><span class="p">,</span> <span class="sh">'</span><span class="s">c</span><span class="sh">'</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="sh">'</span><span class="s">d</span><span class="sh">'</span><span class="p">:</span><span class="mi">17</span><span class="p">,</span> <span class="sh">'</span><span class="s">e</span><span class="sh">'</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">items</span> <span class="o">=</span> <span class="p">[(</span><span class="n">v</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">d</span><span class="p">.</span><span class="nf">items</span><span class="p">()]</span> <span class="c1"># (value, key) 튜플 리스트 생성
+</span><span class="o">&gt;&gt;&gt;</span> <span class="n">items</span><span class="p">.</span><span class="nf">sort</span><span class="p">()</span> <span class="c1"># 값으로 정렬
+</span><span class="o">&gt;&gt;&gt;</span> <span class="n">items</span><span class="p">.</span><span class="nf">reverse</span><span class="p">()</span> <span class="c1"># 내림차순으로 만들기 (가장 큰 값이 먼저 오도록)
+</span><span class="o">&gt;&gt;&gt;</span> <span class="n">items</span> <span class="o">=</span> <span class="p">[(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">items</span><span class="p">]</span> <span class="c1"># 다시 (key, value)로 변환
+</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">items</span>
+<span class="p">[(</span><span class="sh">'</span><span class="s">b</span><span class="sh">'</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="p">(</span><span class="sh">'</span><span class="s">d</span><span class="sh">'</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span> <span class="p">(</span><span class="sh">'</span><span class="s">c</span><span class="sh">'</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="sh">'</span><span class="s">a</span><span class="sh">'</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="sh">'</span><span class="s">e</span><span class="sh">'</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span>
+</code></pre></div></div>
+
+<p>이 방법은 작동하지만 두 가지 면에서 “사용하기 어렵습니다”.</p>
+<ol>
+  <li>이 숙어(idiom)는 숙련된 Python 개발자에게는 알려져 있지만, 초보자에게는 그 알고리즘(아이템 튜플 순서 반전)이나 구현 방식(고급 기능인 리스트 컴프리헨션 사용) 면에서 전혀 분명하지 않습니다.</li>
+  <li>반복적으로 많은 “번거로운(grunge)” 코드를 입력해야 하므로, 지루하고 실수를 유발할 수 있습니다.</li>
+</ol>
+
+<p>따라서 PEP 265는 Python이 초보자가 이해하기 쉽고(또는 이해할 필요조차 없이) 모든 사용자가 사용하기 쉬운, 딕셔너리를 값(value)으로 정렬하는 방법을 제공하기를 원했습니다.</p>
+
+<h2 id="4-제안된-해결책-rationale">4. 제안된 해결책 (Rationale)</h2>
+
+<p>팀 피터스(Tim Peters)가 지적했듯이, 이 종류의 문제는 “모든 사람에게 모든 것이 되려”는 문제를 야기합니다. 따라서, PEP는 범위를 제한하여 “적절한 지점(sweet spot)”을 목표로 삼으려 했습니다. 특이한 경우(예: 사용자 정의 비교 함수를 통한 정렬)는 기존 방법을 사용하여 “수동으로” 처리할 수 있습니다.</p>
+
+<p>몇 가지 간단한 가능성들이 논의되었습니다.</p>
+
+<h3 id="41-items-메서드에-파라미터-추가">4.1. <code class="language-plaintext highlighter-rouge">items()</code> 메서드에 파라미터 추가</h3>
+
+<p>딕셔너리의 <code class="language-plaintext highlighter-rouge">items()</code> 메서드에 새 파라미터를 추가하여 완전한 하위 호환성을 유지할 수 있습니다.</p>
+
+<ul>
+  <li><strong>(1) <code class="language-plaintext highlighter-rouge">items(sort_by_values=0, reversed=0)</code></strong></li>
+  <li><strong>(2) <code class="language-plaintext highlighter-rouge">items(sort_by_values=0)</code></strong>: 리스트를 뒤집는 것은 충분히 쉽기 때문에 <code class="language-plaintext highlighter-rouge">reversed</code> 파라미터는 생략할 수 있습니다.</li>
+</ul>
+
+<p>또는 <code class="language-plaintext highlighter-rouge">items()</code>가 단순히 <code class="language-plaintext highlighter-rouge">(key, value)</code> 순서를 제어하게 할 수 있습니다.</p>
+
+<ul>
+  <li><strong>(3) <code class="language-plaintext highlighter-rouge">items(values_first=0)</code></strong>:
+이 방식은 다른 방식보다 적은 작업을 수행하지만, 값으로 정렬 문제에서 가장 복잡하고 까다로운 부분인 아이템 튜플의 순서를 반전시키는 것을 용이하게 합니다.
+사용 예시:
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">items</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="nf">items</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># (value, key) 순서로 아이템을 가져옴
+</span><span class="n">items</span><span class="p">.</span><span class="nf">sort</span><span class="p">()</span>
+<span class="n">items</span><span class="p">.</span><span class="nf">reverse</span><span class="p">()</span> <span class="c1"># (원하는 경우)
+</span></code></pre></div>    </div>
+
+    <p>이 세 가지 접근 방식의 주요 단점은 파라미터가 없는 <code class="language-plaintext highlighter-rouge">items()</code> 호출 시 기본 파라미터 처리에 따른 추가 오버헤드입니다. (하지만 <code class="language-plaintext highlighter-rouge">items()</code>가 주로 값으로 정렬된 리스트를 생성하는 데 사용된다고 가정하면 실제로는 단점이 아닐 수 있습니다.)</p>
+  </li>
+</ul>
+
+<h3 id="42-새로운-딕셔너리-메서드-추가">4.2. 새로운 딕셔너리 메서드 추가</h3>
+
+<p>“정렬”을 구현하는 새로운 딕셔너리 메서드를 추가하는 대안도 있습니다. 이 접근 방식은 두 가지 이점을 제공합니다.</p>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">items()</code> 메서드에 오버헤드를 추가하는 것을 방지합니다.</li>
+  <li>초보자에게 더 접근하기 쉽습니다. 딕셔너리를 정렬하는 메서드를 찾을 때 이 메서드를 발견하고, 값으로 정렬을 달성하기 위해 튜플 반전 및 리스트 정렬의 미묘한 부분을 이해할 필요가 없습니다.</li>
+</ol>
+
+<p>키/값으로 정렬하고 오름차순/내림차순으로 정렬하는 네 가지 기본 가능성을 허용하기 위해 다음과 같은 메서드를 추가할 수 있습니다.</p>
+
+<ul>
+  <li><strong>(4) <code class="language-plaintext highlighter-rouge">sorted_items(by_value=0, reversed=0)</code></strong>:
+가장 일반적인 경우는 <code class="language-plaintext highlighter-rouge">by_value=1, reversed=1</code>일 것으로 예상되지만, 여기 제시된 기본값은 사용자에게 혼란을 줄 가능성이 적을 것입니다. <code class="language-plaintext highlighter-rouge">sorted_items()</code>는 <code class="language-plaintext highlighter-rouge">items()</code> 뒤에 <code class="language-plaintext highlighter-rouge">sort()</code>를 호출하는 것과 동일하게 작동할 것입니다.</li>
+</ul>
+
+<p>마지막으로 (최후의 수단으로) 다음을 사용할 수도 있습니다.</p>
+
+<ul>
+  <li><strong>(5) <code class="language-plaintext highlighter-rouge">items_sorted_by_value(reversed=0)</code></strong></li>
+</ul>
+
+<h2 id="5-구현-implementation">5. 구현 (Implementation)</h2>
+
+<p>제안된 딕셔너리 메서드들은 C로 구현될 필요가 있을 것입니다. 구현은 Python의 기존 메커니즘에 몇 가지 호출을 추가하는 것에 불과하므로 상당히 간단할 것으로 예상됩니다.</p>
+
+<h2 id="6-우려-사항-concerns">6. 우려 사항 (Concerns)</h2>
+
+<p>가능성 1부터 3에서 이미 다루었던 런타임 오버헤드를 제외하고, 이 제안에 대한 우려 사항은 아마도 “기능 비대화(feature bloat)” 및/또는 “코드 비대화(code bloat)” 범주에 속할 것입니다. 하지만 PEP 작성자는 여기에 제시된 몇 가지 제안이 매우 최소한의 비대화를 초래하여, 비대화와 “부가 가치(value added)” 사이의 좋은 균형점을 찾을 것이라고 믿었습니다.</p>
+
+<p>팀 피터스(Tim Peters)는 이 기능을 C로 구현하는 것이 오늘날 Python으로 구현하는 것보다 크게 빠르지 않을 수 있다고 언급했습니다. 그러나 여기서 의도된 주요 이점은 “접근성”과 “사용 용이성”이지 “속도”가 아닙니다. 따라서 (일반적인 <code class="language-plaintext highlighter-rouge">items()</code>의 경우) 눈에 띄게 느려지지 않는 한 속도는 고려 사항이 아닐 수 있습니다.</p>
+
+<h2 id="7-참고-자료-references">7. 참고 자료 (References)</h2>
+
+<p>2001년 8월 comp.lang.python에서 “counting occurrences”라는 관련 스레드가 있었습니다. 여기에는 재사용 가능한 Python 함수 및 클래스로 구현하여 값으로 정렬 문제를 체계화하는 접근 방식의 예시가 포함되어 있습니다.</p>
+
+<h2 id="8-저작권-copyright">8. 저작권 (Copyright)</h2>
+
+<p>이 문서는 퍼블릭 도메인(public domain)에 공개되었습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/264/" class="pagination--pager" title="[Final] PEP 264 - Future statements in simulated shells
+">Previous</a>
+    
+    
+      <a href="/python/pep/266/" class="pagination--pager" title="[Withdrawn] PEP 266 - Optimizing Global Variable/Attribute Access
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

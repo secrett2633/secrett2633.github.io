@@ -1,0 +1,779 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 792 - Project status markers in the simple index | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 792: ‘Project status markers in the simple index’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 792 - Project status markers in the simple index">
+<meta property="og:url" content="http://localhost:4000/python/pep/792/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 792: ‘Project status markers in the simple index’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T14:05:09+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T14:05:09+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/792/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 792 - Project status markers in the simple index">
+    <meta itemprop="description" content="Python Enhancement Proposal 792: ‘Project status markers in the simple index’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T14:05:09+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T14:05:09+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 792 - Project status markers in the simple index
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T14:05:09+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-792--simple-index에-프로젝트-상태-마커-추가-project-status-markers-in-the-simple-index">PEP 792 – simple index에 프로젝트 상태 마커 추가 (Project status markers in the simple index)</a><ul><li><a href="#초록-abstract">초록 (Abstract)</a></li><li><a href="#배경-및-동기-rationale-and-motivation">배경 및 동기 (Rationale and Motivation)</a></li><li><a href="#명세-specification">명세 (Specification)</a><ul><li><a href="#프로젝트-상태-마커-project-status-markers">프로젝트 상태 마커 (Project status markers)</a></li><li><a href="#인덱스-api의-상태-마커-status-markers-in-the-index-apis">인덱스 API의 상태 마커 (Status markers in the index APIs)</a></li></ul></li><li><a href="#향후-고려-사항-future-considerations">향후 고려 사항 (Future Considerations)</a></li><li><a href="#보안-영향-security-implications">보안 영향 (Security Implications)</a></li><li><a href="#교육-방법-how-to-teach-this">교육 방법 (How to Teach This)</a></li><li><a href="#거부된-아이디어-rejected-ideas">거부된 아이디어 (Rejected Ideas)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0792/">PEP 792 - Project status markers in the simple index</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 21-May-2025</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-792--simple-index에-프로젝트-상태-마커-추가-project-status-markers-in-the-simple-index">PEP 792 – simple index에 프로젝트 상태 마커 추가 (Project status markers in the simple index)</h1>
+
+<h2 id="초록-abstract">초록 (Abstract)</h2>
+
+<p>이 PEP는 simple index에서 제공되는 표준화된 프로젝트 상태 마커(project status markers) 세트와, 이러한 마커를 HTML 및 JSON simple index에서 통신하는 메커니즘을 제안합니다.</p>
+
+<h2 id="배경-및-동기-rationale-and-motivation">배경 및 동기 (Rationale and Motivation)</h2>
+
+<p>프로젝트의 “상태”는 Python 패키징 생태계의 규모와 복잡성이 증가함에 따라 더욱 중요해지는 중요한 메타데이터입니다. 프로젝트가 유지보수되고 있는지 또는 사용하기에 적합한지 판단하는 데 프로젝트 상태(또는 최근 활동과 같은 대리 지표)를 아는 것이 유용합니다.</p>
+
+<p>현재 Python 패키징에는 프로젝트의 “상태”를 전달하는 최소 세 가지 메커니즘이 있습니다.</p>
+
+<ol>
+  <li><strong>Trove 분류자 (Trove classifiers):</strong> PEP 301에 명시된 대로 배포 패키지 메타데이터에 포함될 수 있습니다. 유연하지만, 상태를 업데이트할 때마다 새로운 배포를 푸시해야 하며, 이전 배포의 분류자는 업데이트될 수 없다는 한계가 있습니다.</li>
+  <li><strong>Yanking (회수):</strong> PEP 592에 명시된 대로 배포 및 릴리스를 “yanked”로 표시할 수 있습니다. 이는 종속성 해결에 적합하지 않은 것으로 간주되며, 특정 릴리스에 대한 단일 목적의 상태 표시입니다.</li>
+  <li><strong>PyPI 프로젝트 상태 (PyPI project statuses):</strong> 전체 프로젝트(모든 릴리스 및 배포)에 적용됩니다. PyPI 관리자는 프로젝트를 “quarantine”할 수 있고, 프로젝트 소유자는 “archive”할 수 있습니다. 그러나 이 상태는 현재 PyPI의 API를 통해 노출되지 않고 사용자 대면 웹페이지에만 렌더링됩니다.</li>
+</ol>
+
+<p>현재 프로젝트 상태 지표 중 기계 판독 가능(machine-readable), 일반적(general), 인덱스 독립적(index-agnostic), 그리고 릴리스별 또는 배포별이 아닌 프로젝트 전체에 적용되는 네 가지 특성을 모두 만족하는 것은 없습니다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">메커니즘</th>
+      <th style="text-align: left">기계 판독 가능</th>
+      <th style="text-align: left">일반적</th>
+      <th style="text-align: left">인덱스 독립적</th>
+      <th style="text-align: left">프로젝트 전체</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Trove 분류자</td>
+      <td style="text-align: left">✅</td>
+      <td style="text-align: left">✅</td>
+      <td style="text-align: left">✅</td>
+      <td style="text-align: left">❌</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Yanking</td>
+      <td style="text-align: left">✅</td>
+      <td style="text-align: left">❌</td>
+      <td style="text-align: left">✅</td>
+      <td style="text-align: left">✅</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">PyPI 프로젝트 상태</td>
+      <td style="text-align: left">✅</td>
+      <td style="text-align: left">✅</td>
+      <td style="text-align: left">❌</td>
+      <td style="text-align: left">✅</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>이 PEP는 위 네 가지 조건을 모두 만족하는 인덱스 독립적인 메커니즘으로 PyPI의 프로젝트 상태를 채택할 것을 제안합니다.</p>
+
+<h2 id="명세-specification">명세 (Specification)</h2>
+
+<p>이 PEP는 프로젝트 상태 마커 세트와 표준 HTML 및 JSON 인덱스에서의 표현이라는 두 가지 측면을 명시합니다.</p>
+
+<h3 id="프로젝트-상태-마커-project-status-markers">프로젝트 상태 마커 (Project status markers)</h3>
+
+<p>프로젝트는 항상 정확히 하나의 상태를 가집니다. 명시적으로 상태가 명시되지 않으면 프로젝트는 <code class="language-plaintext highlighter-rouge">active</code> 상태로 간주됩니다. 인덱스는 필요에 따라 이 PEP에 지정된 상태 마커의 하위 집합을 구현할 수 있습니다.</p>
+
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">active</code></strong>: 프로젝트가 활성화된 상태입니다. 이것이 프로젝트의 기본 상태입니다.
+    <ul>
+      <li><strong>인덱스 의미론:</strong> 새 배포 업로드를 허용하고 기존 배포 다운로드를 제공해야 합니다.</li>
+      <li><strong>인스톨러 의미론:</strong> 없음.</li>
+    </ul>
+  </li>
+  <li><strong><code class="language-plaintext highlighter-rouge">archived</code></strong>: 프로젝트가 향후 업데이트될 예정이 없습니다.
+    <ul>
+      <li><strong>인덱스 의미론:</strong> 새 배포 업로드를 허용하지 않지만, 기존 배포 다운로드를 제공해야 합니다.</li>
+      <li><strong>인스톨러 의미론:</strong> 프로젝트 아카이브에 대한 경고를 생성할 수 있습니다.</li>
+    </ul>
+  </li>
+  <li><strong><code class="language-plaintext highlighter-rouge">quarantined</code></strong>: 프로젝트가 일반적으로 사용하기에 안전하지 않은 것으로 간주됩니다(예: 멀웨어).
+    <ul>
+      <li><strong>인덱스 의미론:</strong> 새 배포 업로드를 허용하지 않으며, 프로젝트의 어떤 배포도 다운로드 제공을 해서는 안 됩니다.</li>
+      <li><strong>인스톨러 의미론:</strong> 프로젝트 격리에 대한 경고를 생성할 수 있습니다.</li>
+    </ul>
+  </li>
+  <li><strong><code class="language-plaintext highlighter-rouge">deprecated</code></strong>: 프로젝트가 더 이상 사용되지 않으며, 다른 프로젝트로 대체되었을 수 있습니다.
+    <ul>
+      <li><strong>인덱스 의미론:</strong> <code class="language-plaintext highlighter-rouge">active</code>와 동일한 의미론을 가집니다.</li>
+      <li><strong>인스톨러 의미론:</strong> 프로젝트의 비추천(deprecation)에 대한 경고를 생성할 수 있습니다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="인덱스-api의-상태-마커-status-markers-in-the-index-apis">인덱스 API의 상태 마커 (Status markers in the index APIs)</h3>
+
+<p>이 PEP는 인덱스 API의 버전 1.4를 정의합니다. 모든 변경 사항은 루트 인덱스 응답이 아닌 각 프로젝트의 인덱스 응답 내에서 프로젝트 수준에서 발생합니다.</p>
+
+<ul>
+  <li><strong>HTML index</strong>:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">pypi:repository-version</code>을 <code class="language-plaintext highlighter-rouge">1.4</code>로 정의해야 합니다.</li>
+      <li>프로젝트의 상태 마커를 <code class="language-plaintext highlighter-rouge">content</code>로 갖는 <code class="language-plaintext highlighter-rouge">pypi:project-status</code> 메타 태그를 추가해야 합니다. (프로젝트가 <code class="language-plaintext highlighter-rouge">active</code>인 경우 생략 가능)</li>
+      <li>프로젝트 상태의 맥락을 설명하는 자유 형식 텍스트를 <code class="language-plaintext highlighter-rouge">content</code>로 갖는 <code class="language-plaintext highlighter-rouge">pypi:project-status-reason</code> 메타 태그를 포함할 수 있습니다. (<code class="language-plaintext highlighter-rouge">active</code>이거나 이유가 없는 경우 생략 가능)</li>
+    </ul>
+  </li>
+  <li><strong>JSON index</strong>:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">meta.api-version</code>을 <code class="language-plaintext highlighter-rouge">1.4</code>로 정의해야 합니다.</li>
+      <li>프로젝트의 상태 마커를 값으로 갖는 <code class="language-plaintext highlighter-rouge">project-status.state</code> 키를 JSON 응답에 포함해야 합니다. (<code class="language-plaintext highlighter-rouge">active</code>인 경우 생략 가능)</li>
+      <li>프로젝트 상태의 맥락을 설명하는 자유 형식 텍스트를 값으로 갖는 <code class="language-plaintext highlighter-rouge">project-status.reason</code> 키를 JSON 응답에 포함할 수 있습니다. (<code class="language-plaintext highlighter-rouge">active</code>이거나 이유가 없는 경우 생략 가능)</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="향후-고려-사항-future-considerations">향후 고려 사항 (Future Considerations)</h2>
+
+<p>이 PEP는 <code class="language-plaintext highlighter-rouge">active</code>, <code class="language-plaintext highlighter-rouge">archived</code>, <code class="language-plaintext highlighter-rouge">quarantined</code>, <code class="language-plaintext highlighter-rouge">deprecated</code>의 네 가지 프로젝트 상태 마커만 정의합니다. 향후 PEP 또는 PyPA 표준 프로세스에서 필요에 따라 추가 상태 마커를 정의할 수 있습니다. 또한, 사용자 제어 메타데이터(예: 프로젝트 아카이브에 대한 설명)를 포함하도록 프로젝트 상태 메커니즘을 확장하는 것도 고려될 수 있습니다.</p>
+
+<h2 id="보안-영향-security-implications">보안 영향 (Security Implications)</h2>
+
+<p>이 PEP는 프로젝트 상태 마커 추가와 관련된 긍정적 또는 부정적인 보안 영향을 식별하지 않습니다.</p>
+
+<h2 id="교육-방법-how-to-teach-this">교육 방법 (How to Teach This)</h2>
+
+<p>Python 커뮤니티에 이 PEP를 교육하는 데는 두 가지 측면이 있습니다.</p>
+
+<ol>
+  <li><strong>일반 패키지 유지보수자:</strong> 프로젝트를 아카이브하거나 비추천하는 등의 프로젝트 상태 마커를 설정하는 능력에 대해 알려야 합니다. PyPI와 협력하여 유지보수자 지향 문서 및 커뮤니케이션(블로그 게시물, PyPI 사용자 문서 업데이트 포함)을 제공할 예정입니다.</li>
+  <li><strong>인스톨러 및 인덱스 유지보수자:</strong> 새로운 프로젝트 상태 마커와 이를 해석하는 방법에 대해 알려야 합니다. PEP 저자는 PyPI에 참조 구현을 수행하고, pip과 같은 인기 있는 인스톨러 유지보수자와 협력하여 프로젝트 상태를 어느 정도 노출할지 결정하도록 도울 것입니다.</li>
+</ol>
+
+<h2 id="거부된-아이디어-rejected-ideas">거부된 아이디어 (Rejected Ideas)</h2>
+
+<ul>
+  <li><strong>“예약된” 키 사용 (Using “reserved” keys):</strong> 표준을 직접 표준화하는 대신 기존 메커니즘 내에서 비표준 방식으로 통신하는 방법이 고려되었지만, 표준화된 의미론 부족 및 HTML simple index에 동등한 메커니즘이 없다는 단점으로 인해 거부되었습니다.</li>
+  <li><strong>PyPI의 비표준 JSON API에 프로젝트 마커 추가 (Project markers in PyPI’s non-standard JSON API):</strong> PyPI의 비표준 JSON API에만 프로젝트 상태 마커를 노출하는 방안도 고려되었으나, 표준 및 비표준 API 간의 차이를 심화시킨다는 단점으로 인해 거부되었습니다.</li>
+  <li><strong>동시에 여러 프로젝트 상태 마커 사용 (Multiple project status markers at once):</strong> 초기 버전에서는 프로젝트가 <code class="language-plaintext highlighter-rouge">archived</code>와 <code class="language-plaintext highlighter-rouge">quarantined</code>와 같이 동시에 여러 마커를 가질 수 있도록 지원하는 것을 고려했지만, 의미론 병합 시 충돌 해결 메커니즘 및 마커 간의 배타성 상태 머신을 지정해야 하는 복잡성 때문에 거부되었습니다.</li>
+</ul>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/791/" class="pagination--pager" title="[Draft] PEP 791 - intmath — module for integer-specific mathematics functions
+">Previous</a>
+    
+    
+      <a href="/python/pep/793/" class="pagination--pager" title="[Draft] PEP 793 - PyModExport: A new entry point for C extension modules
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

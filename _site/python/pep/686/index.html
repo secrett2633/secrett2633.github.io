@@ -1,0 +1,759 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Accepted] PEP 686 - Make UTF-8 mode default | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 686: ‘Make UTF-8 mode default’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Accepted] PEP 686 - Make UTF-8 mode default">
+<meta property="og:url" content="http://localhost:4000/python/pep/686/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 686: ‘Make UTF-8 mode default’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T10:12:32+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T10:12:32+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/686/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Accepted] PEP 686 - Make UTF-8 mode default">
+    <meta itemprop="description" content="Python Enhancement Proposal 686: ‘Make UTF-8 mode default’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T10:12:32+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T10:12:32+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Accepted] PEP 686 - Make UTF-8 mode default
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T10:12:32+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-686--utf-8-모드-기본값으로-설정">PEP 686 – UTF-8 모드 기본값으로 설정</a><ul><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#동기-motivation">동기 (Motivation)</a></li><li><a href="#명세-specification">명세 (Specification)</a><ul><li><a href="#utf-8-모드-기본값으로-활성화-enable-utf-8-mode-by-default">UTF-8 모드 기본값으로 활성화 (Enable UTF-8 mode by default)</a></li><li><a href="#localegetencoding">locale.getencoding()</a></li><li><a href="#encodinglocale-옵션-수정-fixing-encodinglocale-option">encoding="locale" 옵션 수정 (Fixing encoding=”locale” option)</a></li></ul></li><li><a href="#하위-호환성-backward-compatibility">하위 호환성 (Backward Compatibility)</a><ul><li><a href="#선행-사례-preceding-examples">선행 사례 (Preceding examples)</a></li></ul></li><li><a href="#기각된-대안-rejected-alternative">기각된 대안 (Rejected Alternative)</a><ul><li><a href="#암시적-인코딩-사용-중단-deprecate-implicit-encoding">암시적 인코딩 사용 중단 (Deprecate implicit encoding)</a></li><li><a href="#파이프pipe에-pythonioencoding-사용-use-pythonioencoding-for-pipes">파이프(PIPE)에 PYTHONIOENCODING 사용 (Use PYTHONIOENCODING for PIPEs)</a></li></ul></li><li><a href="#교육-방법-how-to-teach-this">교육 방법 (How to teach this)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0686/">PEP 686 - Make UTF-8 mode default</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Accepted</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 18-Mar-2022</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h2 id="pep-686--utf-8-모드-기본값으로-설정">PEP 686 – UTF-8 모드 기본값으로 설정</h2>
+
+<ul>
+  <li><strong>작성자</strong>: Inada Naoki</li>
+  <li><strong>상태</strong>: Accepted (승인됨)</li>
+  <li><strong>유형</strong>: Standards Track (표준 트랙)</li>
+  <li><strong>생성일</strong>: 2022년 3월 18일</li>
+  <li><strong>Python 버전</strong>: 3.15</li>
+  <li><strong>해결</strong>: Discourse 메시지</li>
+</ul>
+
+<h3 id="개요-abstract">개요 (Abstract)</h3>
+
+<p>이 PEP(Python Enhancement Proposal)는 Python의 UTF-8 모드를 기본값으로 활성화할 것을 제안합니다. 이 변경으로 인해, 파이썬은 파일, 표준 입출력(stdio), 그리고 파이프(pipe)의 기본 인코딩으로 일관되게 UTF-8을 사용하게 됩니다.</p>
+
+<h3 id="동기-motivation">동기 (Motivation)</h3>
+
+<p>UTF-8은 사실상 텍스트 인코딩의 표준이 되었습니다.</p>
+
+<ul>
+  <li>Python 소스 파일의 기본 인코딩은 UTF-8입니다.</li>
+  <li>JSON, TOML, YAML과 같은 데이터 형식은 UTF-8을 사용합니다.</li>
+  <li>Visual Studio Code 및 Windows 메모장을 포함한 대부분의 텍스트 에디터가 기본적으로 UTF-8을 사용합니다.</li>
+  <li>대부분의 웹사이트와 인터넷상의 텍스트 데이터는 UTF-8을 사용합니다.</li>
+  <li>Node.js, Go, Rust, Java를 포함한 많은 인기 프로그래밍 언어도 기본적으로 UTF-8을 사용합니다.</li>
+</ul>
+
+<p>파이썬의 기본 인코딩을 UTF-8로 변경하면 이러한 다른 시스템 및 언어와의 상호 운용성이 더욱 쉬워집니다.</p>
+
+<p>또한, 유닉스(Unix)를 사용하는 많은 파이썬 개발자들이 기본 인코딩이 플랫폼에 따라 다르다는 사실을 잊곤 합니다. 그들은 UTF-8로 인코딩된 텍스트 파일(예: JSON, TOML, Markdown, Python 소스 파일)을 읽을 때 <code class="language-plaintext highlighter-rouge">encoding="utf-8"</code> 옵션을 생략하는 경우가 많습니다. 이러한 일관성 없는 기본 인코딩은 많은 버그를 유발합니다.</p>
+
+<h3 id="명세-specification">명세 (Specification)</h3>
+
+<h4 id="utf-8-모드-기본값으로-활성화-enable-utf-8-mode-by-default">UTF-8 모드 기본값으로 활성화 (Enable UTF-8 mode by default)</h4>
+
+<p>Python 3.15부터 파이썬은 기본적으로 UTF-8 모드를 활성화합니다.</p>
+
+<p>사용자는 <code class="language-plaintext highlighter-rouge">PYTHONUTF8=0</code> 환경 변수를 설정하거나 <code class="language-plaintext highlighter-rouge">-X utf8=0</code> 옵션을 사용하여 여전히 UTF-8 모드를 비활성화할 수 있습니다.</p>
+
+<h4 id="localegetencoding"><code class="language-plaintext highlighter-rouge">locale.getencoding()</code></h4>
+
+<p>UTF-8 모드는 <code class="language-plaintext highlighter-rouge">locale.getpreferredencoding(False)</code>에 영향을 미치므로, UTF-8 모드와 관계없이 로케일(locale) 인코딩을 가져올 수 있는 API가 필요합니다.</p>
+
+<p>이를 위해 <code class="language-plaintext highlighter-rouge">locale.getencoding()</code> API가 추가됩니다. 이 함수도 로케일 인코딩을 반환하지만, UTF-8 모드의 영향을 무시합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">warn_default_encoding</code> 옵션이 지정되면, <code class="language-plaintext highlighter-rouge">locale.getpreferredencoding()</code>은 <code class="language-plaintext highlighter-rouge">open()</code> 함수와 유사하게 <code class="language-plaintext highlighter-rouge">EncodingWarning</code>을 발생시킬 것입니다 (PEP 597 참조). 이 API는 Python 3.11에 추가되었습니다.</p>
+
+<h4 id="encodinglocale-옵션-수정-fixing-encodinglocale-option"><code class="language-plaintext highlighter-rouge">encoding="locale"</code> 옵션 수정 (Fixing encoding=”locale” option)</h4>
+
+<p>PEP 597은 <code class="language-plaintext highlighter-rouge">TextIOWrapper</code>에 <code class="language-plaintext highlighter-rouge">encoding="locale"</code> 옵션을 추가했습니다. 이 옵션은 로케일 인코딩을 명시적으로 지정하는 데 사용됩니다. <code class="language-plaintext highlighter-rouge">TextIOWrapper</code>는 기본 텍스트 인코딩과 관계없이 이 옵션이 지정되면 로케일 인코딩을 사용해야 합니다.</p>
+
+<p>하지만 현재는 <code class="language-plaintext highlighter-rouge">encoding="locale"</code>이 지정되더라도 UTF-8 모드에서는 <code class="language-plaintext highlighter-rouge">TextIOWrapper</code>가 “UTF-8”을 사용합니다. 이 동작은 PEP 597의 동기와 일치하지 않습니다. 이는 파이썬이 기본 텍스트 인코딩을 변경할 때 UTF-8 모드를 기본값으로 만들 것을 예상하지 못했기 때문입니다.</p>
+
+<p>이러한 불일치는 UTF-8 모드를 기본값으로 만들기 전에 수정되어야 합니다. <code class="language-plaintext highlighter-rouge">TextIOWrapper</code>는 UTF-8 모드에서도 <code class="language-plaintext highlighter-rouge">encoding="locale"</code>이 전달될 때 로케일 인코딩을 사용해야 합니다. 이 문제는 Python 3.11에서 수정되었습니다.</p>
+
+<h3 id="하위-호환성-backward-compatibility">하위 호환성 (Backward Compatibility)</h3>
+
+<p>대부분의 유닉스(Unix) 시스템은 UTF-8 로케일을 사용하며, 로케일이 C 또는 POSIX일 때 파이썬은 UTF-8 모드를 활성화합니다. 따라서 이 변경 사항은 주로 윈도우(Windows) 사용자에게 영향을 미칩니다.</p>
+
+<p>파이썬 프로그램이 기본 인코딩에 의존하는 경우, 이 변경으로 인해 <code class="language-plaintext highlighter-rouge">UnicodeError</code>, 깨진 문자(mojibake) 또는 심지어 조용한 데이터 손상이 발생할 수 있습니다. 따라서 이 변경 사항은 크게 공지되어야 합니다.</p>
+
+<p>이러한 하위 호환성 문제를 해결하기 위한 지침은 다음과 같습니다:</p>
+
+<ol>
+  <li><strong>UTF-8 모드 비활성화</strong>: <code class="language-plaintext highlighter-rouge">PYTHONUTF8=0</code> 또는 <code class="language-plaintext highlighter-rouge">-X utf8=0</code>을 사용하여 UTF-8 모드를 비활성화합니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">EncodingWarning</code> 사용</strong>: <code class="language-plaintext highlighter-rouge">EncodingWarning</code> (PEP 597)을 사용하여 UTF-8 모드가 영향을 미치는 모든 위치를 찾습니다.</li>
+  <li><strong>인코딩 옵션 명시</strong>:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">encoding</code> 옵션이 생략된 경우, <code class="language-plaintext highlighter-rouge">encoding="utf-8"</code> 또는 <code class="language-plaintext highlighter-rouge">encoding="locale"</code> 사용을 고려합니다.</li>
+      <li><code class="language-plaintext highlighter-rouge">locale.getpreferredencoding()</code>이 사용된 경우, <code class="language-plaintext highlighter-rouge">"utf-8"</code> 또는 <code class="language-plaintext highlighter-rouge">locale.getencoding()</code> 사용을 고려합니다.</li>
+    </ul>
+  </li>
+  <li><strong>UTF-8 모드로 애플리케이션 테스트</strong>: 변경 사항을 적용한 후 UTF-8 모드를 활성화하여 애플리케이션을 테스트합니다.</li>
+</ol>
+
+<h4 id="선행-사례-preceding-examples">선행 사례 (Preceding examples)</h4>
+
+<ul>
+  <li>루비(Ruby)는 2020년 Ruby 3.0에서 윈도우 환경의 기본 <code class="language-plaintext highlighter-rouge">external_encoding</code>을 UTF-8로 변경했습니다.</li>
+  <li>자바(Java)는 2022년 JDK 18에서 기본 텍스트 인코딩을 UTF-8로 변경했습니다.</li>
+</ul>
+
+<p>두 언어 모두 하위 호환성을 위한 옵션을 제공하지만, 파이썬의 PEP 597 <code class="language-plaintext highlighter-rouge">EncodingWarning</code>과 같은 경고는 제공하지 않습니다.</p>
+
+<h3 id="기각된-대안-rejected-alternative">기각된 대안 (Rejected Alternative)</h3>
+
+<h4 id="암시적-인코딩-사용-중단-deprecate-implicit-encoding">암시적 인코딩 사용 중단 (Deprecate implicit encoding)</h4>
+
+<p>기본 인코딩 사용을 더 이상 권장하지 않는 방안이 고려되었습니다.</p>
+
+<p>그러나 기본 인코딩이 ASCII 텍스트를 읽고 쓰는 데만 사용되는 경우가 많습니다. 또한, 이러한 경고는 유닉스에서 실행되는 비-크로스 플랫폼(non-cross platform) 애플리케이션에는 유용하지 않습니다.</p>
+
+<p>따라서 사용자에게 모든 곳에서 인코딩을 명시하도록 강제하는 것은 너무 번거롭습니다. 많은 <code class="language-plaintext highlighter-rouge">DeprecationWarning</code>을 발생시키면 사용자들이 경고를 무시하게 될 것입니다.</p>
+
+<p>PEP 387은 하위 호환되지 않는 변경 사항에 대해 경고를 추가하도록 요구하지만, <code class="language-plaintext highlighter-rouge">DeprecationWarning</code> 사용을 필수로 하지는 않습니다. 따라서 선택적 <code class="language-plaintext highlighter-rouge">EncodingWarning</code>을 사용하는 것은 PEP 387을 위반하지 않습니다.</p>
+
+<p>자바(Java)도 JEP 400에서 이 아이디어를 기각했습니다.</p>
+
+<h4 id="파이프pipe에-pythonioencoding-사용-use-pythonioencoding-for-pipes">파이프(PIPE)에 <code class="language-plaintext highlighter-rouge">PYTHONIOENCODING</code> 사용 (Use PYTHONIOENCODING for PIPEs)</h4>
+
+<p>하위 호환성 문제를 완화하기 위해 <code class="language-plaintext highlighter-rouge">subprocess</code> 모듈의 파이프 기본 인코딩으로 <code class="language-plaintext highlighter-rouge">PYTHONIOENCODING</code>을 사용하는 방안이 고려되었습니다.</p>
+
+<p>이 아이디어를 사용하면 사용자는 UTF-8 모드에서도 <code class="language-plaintext highlighter-rouge">subprocess.Popen(text=True)</code>에 레거시(legacy) 인코딩을 사용할 수 있습니다.</p>
+
+<p>하지만 이 아이디어는 “기본 인코딩”을 복잡하게 만들고, 이 또한 하위 호환되지 않는 변경입니다.</p>
+
+<p>따라서 이 아이디어는 기각되었습니다. 사용자는 <code class="language-plaintext highlighter-rouge">text=True</code>를 <code class="language-plaintext highlighter-rouge">encoding="utf-8"</code> 또는 <code class="language-plaintext highlighter-rouge">encoding="locale"</code>로 대체할 때까지 UTF-8 모드를 비활성화할 수 있습니다.</p>
+
+<h3 id="교육-방법-how-to-teach-this">교육 방법 (How to teach this)</h3>
+
+<p><strong>새로운 사용자(New users)의 경우:</strong> 이 변경은 가르쳐야 할 내용을 줄여줍니다. 사용자들은 첫해에 텍스트 인코딩에 대해 배울 필요가 없으며, 비-UTF-8 텍스트 파일을 사용해야 할 때 배우면 됩니다.</p>
+
+<p><strong>기존 사용자(Existing users)의 경우:</strong> “하위 호환성” 섹션을 참조하십시오.</p>
+
+<h3 id="저작권-copyright">저작권 (Copyright)</h3>
+
+<p>이 문서는 퍼블릭 도메인(Public Domain)에 공개되거나 CC0-1.0-Universal 라이선스(둘 중 더 자유로운 조건)에 따라 배포됩니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/685/" class="pagination--pager" title="[Final] PEP 685 - Comparison of extra names for optional distribution dependencies
+">Previous</a>
+    
+    
+      <a href="/python/pep/687/" class="pagination--pager" title="[Accepted] PEP 687 - Isolating modules in the standard library
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

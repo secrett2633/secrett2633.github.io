@@ -1,0 +1,809 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 3137 - Immutable Bytes and Mutable Buffer | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 3137: ‘Immutable Bytes and Mutable Buffer’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 3137 - Immutable Bytes and Mutable Buffer">
+<meta property="og:url" content="http://localhost:4000/python/pep/3137/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 3137: ‘Immutable Bytes and Mutable Buffer’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T14:34:47+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T14:34:47+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/3137/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 3137 - Immutable Bytes and Mutable Buffer">
+    <meta itemprop="description" content="Python Enhancement Proposal 3137: ‘Immutable Bytes and Mutable Buffer’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T14:34:47+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T14:34:47+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 3137 - Immutable Bytes and Mutable Buffer
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T14:34:47+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#목표">목표</a></li><li><a href="#도입-배경-introduction">도입 배경 (Introduction)</a></li><li><a href="#장점-advantages">장점 (Advantages)</a></li><li><a href="#명명-naming">명명 (Naming)</a></li><li><a href="#요약-summary">요약 (Summary)</a></li><li><a href="#리터럴-표기법-literal-notations">리터럴 표기법 (Literal Notations)</a></li><li><a href="#기능-functionality">기능 (Functionality)</a><ul><li><a href="#pep-3118-버퍼-api-pep-3118-buffer-api">PEP 3118 버퍼 API (PEP 3118 Buffer API)</a></li><li><a href="#생성자-constructors">생성자 (Constructors)</a></li><li><a href="#비교-comparisons">비교 (Comparisons)</a></li><li><a href="#슬라이싱-slicing">슬라이싱 (Slicing)</a></li><li><a href="#인덱싱-indexing">인덱싱 (Indexing)</a></li><li><a href="#str-및-repr">Str() 및 Repr()</a></li><li><a href="#연산자-operators">연산자 (Operators)</a></li><li><a href="#메서드-methods">메서드 (Methods)</a></li><li><a href="#bytes와-str-타입-bytes-and-the-str-type">Bytes와 Str 타입 (Bytes and the Str Type)</a></li><li><a href="#basestring-타입-the-basestring-type">basestring 타입 (The basestring Type)</a></li><li><a href="#피클링-pickling">피클링 (Pickling)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-3137/">PEP 3137 - Immutable Bytes and Mutable Buffer</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 26-Sep-2007</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>Python Enhancement Proposal (PEP) 3137은 Python 3.0에서 <code class="language-plaintext highlighter-rouge">bytes</code> 타입의 불변성(immutable)과 가변성(mutable)을 명확하게 분리하는 제안입니다. 이 PEP는 초기 Python 3.0a1 버전에서 <code class="language-plaintext highlighter-rouge">bytes</code> 타입이 가변(mutable)으로 도입된 이후, 불변 <code class="language-plaintext highlighter-rouge">bytes</code> 타입의 필요성이 제기되면서 시작되었습니다.</p>
+
+<h2 id="목표">목표</h2>
+<p>Python 개발자들이 이 PEP의 제안 내용, 도입 배경, 그리고 실제 Python 사용에 미치는 영향을 명확하게 이해할 수 있도록 돕는 것입니다.</p>
+
+<h2 id="도입-배경-introduction">도입 배경 (Introduction)</h2>
+<p>Python 3.0a1에서 가변(mutable) <code class="language-plaintext highlighter-rouge">bytes</code> 타입이 출시된 후, 불변(immutable) <code class="language-plaintext highlighter-rouge">bytes</code>를 표현할 방법이 필요하다는 압력이 커졌습니다. 초기에는 PEP 3118의 새로운 버퍼 API를 사용하여 <code class="language-plaintext highlighter-rouge">bytes</code> 객체를 일시적으로 불변하게 만드는 패치가 제안되었지만, 이는 적절한 접근 방식이 아니라고 판단되었습니다.</p>
+
+<p>이후, <code class="language-plaintext highlighter-rouge">bytes</code> 타입을 불변으로 만들고 테스트 스위트의 오류를 수정하는 패치가 준비되었습니다. 이 작업은 <code class="language-plaintext highlighter-rouge">bytes</code>의 가변성에 의존하는 부분이 많지 않다는 것을 보여주었으며, 주로 작은 조각들을 모아 반환 값을 구성하는 코드에서만 가변성이 필요하다는 점이 드러났습니다.</p>
+
+<p>이러한 논의와 <code class="language-plaintext highlighter-rouge">array</code> 모듈을 가변 <code class="language-plaintext highlighter-rouge">bytes</code> 타입의 대안으로 사용하는 것이 이상적이지 않다는 점을 고려하여, 가변 <code class="language-plaintext highlighter-rouge">bytes</code>와 불변 <code class="language-plaintext highlighter-rouge">bytes</code> 타입을 모두 가지는 제안이 나왔고, 이는 긍정적인 반응을 얻어 이 PEP의 필요성을 야기했습니다. 구현 전략 또한 명확해졌는데, 기존 <code class="language-plaintext highlighter-rouge">PyString</code> 구현에서 로케일 지원 및 암시적 유니코드 변환을 제거하여 불변 <code class="language-plaintext highlighter-rouge">bytes</code> 타입으로 사용하고, 새로운 <code class="language-plaintext highlighter-rouge">PyBytes</code> 구현을 가변 <code class="language-plaintext highlighter-rouge">bytes</code> 타입으로 유지하는 방식입니다.</p>
+
+<h2 id="장점-advantages">장점 (Advantages)</h2>
+<ul>
+  <li>불변 <code class="language-plaintext highlighter-rouge">bytes</code> 타입의 한 가지 장점은 코드 객체에서 이를 사용할 수 있다는 점입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">bytes</code>를 키로 사용하여 효율적인 해시 테이블(hash table)을 생성할 수 있게 하여, HTTP 또는 SMTP와 같이 텍스트를 나타내는 <code class="language-plaintext highlighter-rouge">bytes</code> 기반 프로토콜을 파싱할 때 유용할 수 있습니다.</li>
+  <li>Python 2.x에서 바이너리 데이터(또는 인코딩된 텍스트)를 조작하던 코드를 새로운 디자인으로 포팅하는 것이 초기 3.0 디자인(가변 <code class="language-plaintext highlighter-rouge">bytes</code>)을 사용하는 것보다 쉬워집니다. 단순히 <code class="language-plaintext highlighter-rouge">str</code>을 <code class="language-plaintext highlighter-rouge">bytes</code>로 바꾸고 <code class="language-plaintext highlighter-rouge">b'...'</code> 리터럴을 사용하는 것만으로 가능해집니다.</li>
+</ul>
+
+<h2 id="명명-naming">명명 (Naming)</h2>
+<p>Python 레벨에서 다음과 같은 타입 이름을 제안합니다:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">bytes</code>: 불변(immutable) <code class="language-plaintext highlighter-rouge">bytes</code> 배열 (<code class="language-plaintext highlighter-rouge">PyString</code>에 해당)</li>
+  <li><code class="language-plaintext highlighter-rouge">bytearray</code>: 가변(mutable) <code class="language-plaintext highlighter-rouge">bytes</code> 배열 (<code class="language-plaintext highlighter-rouge">PyBytes</code>에 해당)</li>
+  <li><code class="language-plaintext highlighter-rouge">memoryview</code>: 다른 객체에 대한 <code class="language-plaintext highlighter-rouge">bytes</code> 뷰 (<code class="language-plaintext highlighter-rouge">PyMemory</code>에 해당)</li>
+</ul>
+
+<p>이전의 <code class="language-plaintext highlighter-rouge">buffer</code> 타입은 PEP 3118에서 도입된 새로운 <code class="language-plaintext highlighter-rouge">memoryview</code> 타입과 너무 유사하여 중복되므로 제거됩니다.</p>
+
+<h2 id="요약-summary">요약 (Summary)</h2>
+<p>다양한 Python 버전에서의 타입 이름은 다음과 같이 요약됩니다:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">C 이름</th>
+      <th style="text-align: left">2.x repr</th>
+      <th style="text-align: left">3.0a1 repr</th>
+      <th style="text-align: left">3.0a2 repr</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">PyUnicode</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">unicode u''</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">str ''</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">str ''</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">PyString</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">str ''</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">str8 s''</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">bytes b''</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">PyBytes</code></td>
+      <td style="text-align: left">N/A</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">bytes b''</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">bytearray bytearray(b'')</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">PyBuffer</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">buffer</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">buffer</code></td>
+      <td style="text-align: left">N/A</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">PyMemoryView</code></td>
+      <td style="text-align: left">N/A</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">memoryview</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">memoryview &lt;...&gt;</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="리터럴-표기법-literal-notations">리터럴 표기법 (Literal Notations)</h2>
+<p>Python 3.0a1에 도입된 <code class="language-plaintext highlighter-rouge">b'...'</code> 표기법은 불변 <code class="language-plaintext highlighter-rouge">bytes</code> 객체를 반환합니다. 가변 <code class="language-plaintext highlighter-rouge">bytes</code> 배열을 생성하려면 <code class="language-plaintext highlighter-rouge">bytearray(b'...')</code> 또는 <code class="language-plaintext highlighter-rouge">bytearray([...])</code>를 사용합니다. 후자의 형태는 <code class="language-plaintext highlighter-rouge">range(256)</code> 범위의 정수 리스트를 인자로 받습니다.</p>
+
+<h2 id="기능-functionality">기능 (Functionality)</h2>
+
+<h3 id="pep-3118-버퍼-api-pep-3118-buffer-api">PEP 3118 버퍼 API (PEP 3118 Buffer API)</h3>
+<p><code class="language-plaintext highlighter-rouge">bytes</code>와 <code class="language-plaintext highlighter-rouge">bytearray</code> 모두 PEP 3118 버퍼 API를 구현합니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">bytes</code> 타입은 읽기 전용(read-only) 요청만 구현합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">bytearray</code> 타입은 쓰기 가능한(writable) 요청 및 데이터 잠금(data-locked) 요청도 허용합니다.</li>
+  <li>요소 데이터 타입은 항상 <code class="language-plaintext highlighter-rouge">'B'</code>(부호 없는 바이트)입니다.</li>
+</ul>
+
+<h3 id="생성자-constructors">생성자 (Constructors)</h3>
+<p><code class="language-plaintext highlighter-rouge">bytes</code>와 <code class="language-plaintext highlighter-rouge">bytearray</code> 모두에 적용되는 네 가지 형태의 생성자가 있습니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">bytes(&lt;bytes&gt;)</code>, <code class="language-plaintext highlighter-rouge">bytes(&lt;bytearray&gt;)</code>, <code class="language-plaintext highlighter-rouge">bytearray(&lt;bytes&gt;)</code>, <code class="language-plaintext highlighter-rouge">bytearray(&lt;bytearray&gt;)</code>: 간단한 복사 생성자입니다. <code class="language-plaintext highlighter-rouge">bytes(&lt;bytes&gt;)</code>는 (불변) 인자를 반환할 수 있지만, <code class="language-plaintext highlighter-rouge">bytearray(&lt;bytearray&gt;)</code>는 항상 복사본을 만듭니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">bytes(&lt;str&gt;, &lt;encoding&gt;[, &lt;errors&gt;])</code>, <code class="language-plaintext highlighter-rouge">bytearray(&lt;str&gt;, &lt;encoding&gt;[, &lt;errors&gt;])</code>: 텍스트 문자열을 인코딩합니다. <code class="language-plaintext highlighter-rouge">str.encode()</code> 메서드는 불변 <code class="language-plaintext highlighter-rouge">bytes</code> 객체를 반환합니다. <code class="language-plaintext highlighter-rouge">&lt;encoding&gt;</code> 인자는 필수이며, <code class="language-plaintext highlighter-rouge">&lt;errors&gt;</code>는 선택 사항입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">bytes(&lt;memory view&gt;)</code>, <code class="language-plaintext highlighter-rouge">bytearray(&lt;memory view&gt;)</code>: PEP 3118 버퍼 API를 구현하는 모든 객체로부터 <code class="language-plaintext highlighter-rouge">bytes</code> 또는 <code class="language-plaintext highlighter-rouge">bytearray</code> 객체를 생성합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">bytes(&lt;iterable of ints&gt;)</code>, <code class="language-plaintext highlighter-rouge">bytearray(&lt;iterable of ints&gt;)</code>: <code class="language-plaintext highlighter-rouge">range(256)</code> 범위의 정수 스트림으로부터 <code class="language-plaintext highlighter-rouge">bytes</code> 또는 <code class="language-plaintext highlighter-rouge">bytearray</code> 객체를 생성합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">bytes(&lt;int&gt;)</code>, <code class="language-plaintext highlighter-rouge">bytearray(&lt;int&gt;)</code>: 주어진 길이의 0으로 초기화된 <code class="language-plaintext highlighter-rouge">bytes</code> 또는 <code class="language-plaintext highlighter-rouge">bytearray</code> 객체를 생성합니다.</li>
+</ul>
+
+<h3 id="비교-comparisons">비교 (Comparisons)</h3>
+<p><code class="language-plaintext highlighter-rouge">bytes</code>와 <code class="language-plaintext highlighter-rouge">bytearray</code> 타입은 서로 비교 및 정렬이 가능합니다. 예를 들어, <code class="language-plaintext highlighter-rouge">b'abc' == bytearray(b'abc') &lt; b'abd'</code>는 참입니다.
+두 타입 중 하나를 <code class="language-plaintext highlighter-rouge">str</code> 객체와 동등성 비교하면 내용에 관계없이 <code class="language-plaintext highlighter-rouge">False</code>를 반환합니다. <code class="language-plaintext highlighter-rouge">str</code>과의 정렬 비교는 <code class="language-plaintext highlighter-rouge">TypeError</code>를 발생시킵니다.</p>
+
+<h3 id="슬라이싱-slicing">슬라이싱 (Slicing)</h3>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">bytes</code> 객체를 슬라이싱하면 <code class="language-plaintext highlighter-rouge">bytes</code> 객체가 반환됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">bytearray</code> 객체를 슬라이싱하면 <code class="language-plaintext highlighter-rouge">bytearray</code> 객체가 반환됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">bytearray</code> 객체에 대한 슬라이스 할당(slice assignment)은 PEP 3118 버퍼 API를 구현하는 모든 객체 또는 <code class="language-plaintext highlighter-rouge">range(256)</code> 범위의 정수 iterable을 허용합니다.</li>
+</ul>
+
+<h3 id="인덱싱-indexing">인덱싱 (Indexing)</h3>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">bytes</code>와 <code class="language-plaintext highlighter-rouge">bytearray</code>를 인덱싱하면 작은 정수(small ints)를 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">bytearray</code> 객체의 항목에 대한 할당은 <code class="language-plaintext highlighter-rouge">range(256)</code> 범위의 정수를 허용합니다. (바이트 시퀀스에서 할당하려면 슬라이스 할당을 사용합니다.)</li>
+</ul>
+
+<h3 id="str-및-repr"><code class="language-plaintext highlighter-rouge">Str()</code> 및 <code class="language-plaintext highlighter-rouge">Repr()</code></h3>
+<p><code class="language-plaintext highlighter-rouge">str()</code> 및 <code class="language-plaintext highlighter-rouge">repr()</code> 함수는 이들 객체에 대해 동일한 것을 반환합니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">bytes</code> 객체의 <code class="language-plaintext highlighter-rouge">repr()</code>은 <code class="language-plaintext highlighter-rouge">b'...'</code> 스타일의 리터럴을 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">bytearray</code>의 <code class="language-plaintext highlighter-rouge">repr()</code>은 <code class="language-plaintext highlighter-rouge">"bytearray(b'...')" </code>형태의 문자열을 반환합니다.</li>
+</ul>
+
+<h3 id="연산자-operators">연산자 (Operators)</h3>
+<p>다음 연산자들은 언급된 경우를 제외하고 <code class="language-plaintext highlighter-rouge">bytes</code> 및 <code class="language-plaintext highlighter-rouge">bytearray</code> 타입에 의해 구현됩니다:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">b1 + b2</code>: 연결(concatenation). <code class="language-plaintext highlighter-rouge">bytes</code>/<code class="language-plaintext highlighter-rouge">bytearray</code> 혼합 피연산자의 경우, 반환 타입은 첫 번째 인자의 타입입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">b1 += b2</code>: <code class="language-plaintext highlighter-rouge">b1</code>이 <code class="language-plaintext highlighter-rouge">bytearray</code> 객체인 경우 <code class="language-plaintext highlighter-rouge">b1</code>을 변경합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">b * n</code>, <code class="language-plaintext highlighter-rouge">n * b</code>: 반복(repetition); <code class="language-plaintext highlighter-rouge">n</code>은 정수여야 합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">b *= n</code>: <code class="language-plaintext highlighter-rouge">b</code>가 <code class="language-plaintext highlighter-rouge">bytearray</code> 객체인 경우 <code class="language-plaintext highlighter-rouge">b</code>를 변경합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">b1 in b2</code>, <code class="language-plaintext highlighter-rouge">b1 not in b2</code>: 부분 문자열(substring) 테스트; <code class="language-plaintext highlighter-rouge">b1</code>은 PEP 3118 버퍼 API를 구현하는 모든 객체가 될 수 있습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">i in b</code>, <code class="language-plaintext highlighter-rouge">i not in b</code>: 단일 바이트 멤버십(membership) 테스트; <code class="language-plaintext highlighter-rouge">i</code>는 정수여야 합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">len(b)</code>: 바이트 수.</li>
+  <li><code class="language-plaintext highlighter-rouge">hash(b)</code>: 해시 값; <code class="language-plaintext highlighter-rouge">bytes</code> 타입에서만 구현됩니다.
+<code class="language-plaintext highlighter-rouge">%</code> 연산자는 구현되지 않습니다.</li>
+</ul>
+
+<h3 id="메서드-methods">메서드 (Methods)</h3>
+<p>다음 메서드들은 <code class="language-plaintext highlighter-rouge">bytes</code>와 <code class="language-plaintext highlighter-rouge">bytearray</code> 모두에 유사한 의미론으로 구현됩니다. 이들은 <code class="language-plaintext highlighter-rouge">bytes</code> 인자에 대해 PEP 3118 버퍼 API를 구현하는 모든 것을 허용하며, 메서드가 호출된 객체(<code class="language-plaintext highlighter-rouge">self</code>)와 동일한 타입을 반환합니다:
+<code class="language-plaintext highlighter-rouge">.capitalize()</code>, <code class="language-plaintext highlighter-rouge">.center()</code>, <code class="language-plaintext highlighter-rouge">.count()</code>, <code class="language-plaintext highlighter-rouge">.decode()</code>, <code class="language-plaintext highlighter-rouge">.endswith()</code>, <code class="language-plaintext highlighter-rouge">.expandtabs()</code>, <code class="language-plaintext highlighter-rouge">.find()</code>, <code class="language-plaintext highlighter-rouge">.index()</code>, <code class="language-plaintext highlighter-rouge">.isalnum()</code>, <code class="language-plaintext highlighter-rouge">.isalpha()</code>, <code class="language-plaintext highlighter-rouge">.isdigit()</code>, <code class="language-plaintext highlighter-rouge">.islower()</code>, <code class="language-plaintext highlighter-rouge">.isspace()</code>, <code class="language-plaintext highlighter-rouge">.istitle()</code>, <code class="language-plaintext highlighter-rouge">.isupper()</code>, <code class="language-plaintext highlighter-rouge">.join()</code>, <code class="language-plaintext highlighter-rouge">.ljust()</code>, <code class="language-plaintext highlighter-rouge">.lower()</code>, <code class="language-plaintext highlighter-rouge">.lstrip()</code>, <code class="language-plaintext highlighter-rouge">.partition()</code>, <code class="language-plaintext highlighter-rouge">.replace()</code>, <code class="language-plaintext highlighter-rouge">.rfind()</code>, <code class="language-plaintext highlighter-rouge">.rindex()</code>, <code class="language-plaintext highlighter-rouge">.rjust()</code>, <code class="language-plaintext highlighter-rouge">.rpartition()</code>, <code class="language-plaintext highlighter-rouge">.rsplit()</code>, <code class="language-plaintext highlighter-rouge">.rstrip()</code>, <code class="language-plaintext highlighter-rouge">.split()</code>, <code class="language-plaintext highlighter-rouge">.splitlines()</code>, <code class="language-plaintext highlighter-rouge">.startswith()</code>, <code class="language-plaintext highlighter-rouge">.strip()</code>, <code class="language-plaintext highlighter-rouge">.swapcase()</code>, <code class="language-plaintext highlighter-rouge">.title()</code>, <code class="language-plaintext highlighter-rouge">.translate()</code>, <code class="language-plaintext highlighter-rouge">.upper()</code>, <code class="language-plaintext highlighter-rouge">.zfill()</code></p>
+
+<p>이는 Python 2.x의 <code class="language-plaintext highlighter-rouge">str</code> 타입에 있던 메서드들과 정확히 동일한 집합이며, <code class="language-plaintext highlighter-rouge">.encode()</code>는 제외됩니다. 서명과 의미론도 동일합니다. 그러나, 문자, 공백, 소문자 등과 같은 문자 클래스가 사용될 때는 ASCII 정의가 사용됩니다. <code class="language-plaintext highlighter-rouge">.encode()</code> 메서드는 Python 3000에서 인코딩 및 디코딩에 대한 더 엄격한 정의 때문에 제외됩니다.</p>
+
+<p>또한, 두 타입 모두 16진수 값을 포함하는 문자열로부터 객체를 구성하는 클래스 메서드 <code class="language-plaintext highlighter-rouge">.fromhex()</code>를 구현합니다.
+<code class="language-plaintext highlighter-rouge">bytearray</code> 타입은 MutableSequence ABC (PEP 3119 참조)에서 온 다음과 같은 추가 메서드를 구현합니다:
+<code class="language-plaintext highlighter-rouge">.extend()</code>, <code class="language-plaintext highlighter-rouge">.insert()</code>, <code class="language-plaintext highlighter-rouge">.append()</code>, <code class="language-plaintext highlighter-rouge">.reverse()</code>, <code class="language-plaintext highlighter-rouge">.pop()</code>, <code class="language-plaintext highlighter-rouge">.remove()</code></p>
+
+<h3 id="bytes와-str-타입-bytes-and-the-str-type"><code class="language-plaintext highlighter-rouge">Bytes</code>와 <code class="language-plaintext highlighter-rouge">Str</code> 타입 (Bytes and the Str Type)</h3>
+<p>Python 3.0a1의 <code class="language-plaintext highlighter-rouge">bytes</code> 타입과 마찬가지로, <code class="language-plaintext highlighter-rouge">bytes</code>(또는 <code class="language-plaintext highlighter-rouge">bytearray</code>) 객체와 <code class="language-plaintext highlighter-rouge">str</code> 객체를 인코딩을 지정하지 않고 혼합하려는 시도는 <code class="language-plaintext highlighter-rouge">TypeError</code> 예외를 발생시킵니다. (그러나, <code class="language-plaintext highlighter-rouge">bytes</code>/<code class="language-plaintext highlighter-rouge">bytearray</code>와 <code class="language-plaintext highlighter-rouge">str</code> 객체의 동등성 비교는 단순히 <code class="language-plaintext highlighter-rouge">False</code>를 반환합니다.)</p>
+
+<p><code class="language-plaintext highlighter-rouge">bytes</code> 또는 <code class="language-plaintext highlighter-rouge">bytearray</code> 객체와 <code class="language-plaintext highlighter-rouge">str</code> 객체 간의 변환은 항상 인코딩을 사용하여 명시적이어야 합니다. 두 가지 동등한 API가 있습니다:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">str(b, &lt;encoding&gt;[, &lt;errors&gt;])</code>는 <code class="language-plaintext highlighter-rouge">b.decode(&lt;encoding&gt;[, &lt;errors&gt;])</code>와 동일합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">bytes(s, &lt;encoding&gt;[, &lt;errors&gt;])</code>는 <code class="language-plaintext highlighter-rouge">s.encode(&lt;encoding&gt;[, &lt;errors&gt;])</code>와 동일합니다.</li>
+</ul>
+
+<p>한 가지 예외가 있습니다: <code class="language-plaintext highlighter-rouge">str(b)</code>를 작성하여 인코딩을 지정하지 않고 <code class="language-plaintext highlighter-rouge">bytes</code> (또는 <code class="language-plaintext highlighter-rouge">bytearray</code>)를 <code class="language-plaintext highlighter-rouge">str</code>로 변환할 수 있습니다. 이는 <code class="language-plaintext highlighter-rouge">repr(b)</code>와 동일한 결과를 생성합니다. 이 예외는 모든 객체가 출력될 수 있다는 일반적인 약속 때문에 필요하며, 출력은 <code class="language-plaintext highlighter-rouge">str</code>로의 변환의 특별한 경우입니다. 그러나 <code class="language-plaintext highlighter-rouge">bytes</code> 객체를 출력할 때 개별 바이트를 문자로 해석한다는 보장은 없습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">str</code> 타입은 현재 PEP 3118 버퍼 API를 구현하고 있습니다. 이는 가끔 편리할 수 있지만, 버퍼 API를 통해 접근되는 바이트가 플랫폼 의존적인 인코딩을 나타내므로 잠재적으로 혼란스러울 수 있습니다. 따라서 PEP 3118 버퍼 API는 <code class="language-plaintext highlighter-rouge">str</code> 타입에서 제거될 예정입니다.</p>
+
+<h3 id="basestring-타입-the-basestring-type"><code class="language-plaintext highlighter-rouge">basestring</code> 타입 (The basestring Type)</h3>
+<p><code class="language-plaintext highlighter-rouge">basestring</code> 타입은 언어에서 제거될 것입니다. <code class="language-plaintext highlighter-rouge">isinstance(x, basestring)</code>를 사용하던 코드는 <code class="language-plaintext highlighter-rouge">isinstance(x, str)</code>를 사용하도록 변경되어야 합니다.</p>
+
+<h3 id="피클링-pickling">피클링 (Pickling)</h3>
+<p>이 내용은 독자의 연습 문제로 남겨져 있습니다.</p>
+
+<hr />
+<p>이 PEP는 Python 3.0에서 <code class="language-plaintext highlighter-rouge">bytes</code>와 <code class="language-plaintext highlighter-rouge">bytearray</code>라는 두 가지 별개의 타입을 도입하여, 바이너리 데이터 처리를 더욱 명확하고 안전하게 만들었습니다. 불변 <code class="language-plaintext highlighter-rouge">bytes</code>는 해싱 가능한 바이너리 시퀀스에 사용하고, 가변 <code class="language-plaintext highlighter-rouge">bytearray</code>는 바이너리 데이터를 조작할 때 사용함으로써 개발자들이 의도에 맞는 타입을 선택할 수 있도록 돕습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/3136/" class="pagination--pager" title="[Rejected] PEP 3136 - Labeled break and continue
+">Previous</a>
+    
+    
+      <a href="/python/pep/3138/" class="pagination--pager" title="[Final] PEP 3138 - String representation in Python 3000
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,872 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Withdrawn] PEP 469 - Migration of dict iteration code to Python 3 | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 469: ‘Migration of dict iteration code to Python 3’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Withdrawn] PEP 469 - Migration of dict iteration code to Python 3">
+<meta property="og:url" content="http://localhost:4000/python/pep/469/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 469: ‘Migration of dict iteration code to Python 3’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T22:15:48+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T22:15:48+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/469/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Withdrawn] PEP 469 - Migration of dict iteration code to Python 3">
+    <meta itemprop="description" content="Python Enhancement Proposal 469: ‘Migration of dict iteration code to Python 3’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T22:15:48+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T22:15:48+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Withdrawn] PEP 469 - Migration of dict iteration code to Python 3
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T22:15:48+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-469--python-3로의-dict-순회iteration-코드-마이그레이션">PEP 469 – Python 3로의 dict 순회(Iteration) 코드 마이그레이션</a><ul><li><a href="#초록-abstract">초록 (Abstract)</a></li><li><a href="#pep-철회-pep-withdrawal">PEP 철회 (PEP Withdrawal)</a></li><li><a href="#매핑-순회-모델-mapping-iteration-models">매핑 순회 모델 (Mapping iteration models)</a><ul><li><a href="#1-가변-스냅샷lists-as-mutable-snapshots">1. 가변 스냅샷(Lists as mutable snapshots)</a></li><li><a href="#2-이터레이터-객체-iterator-objects">2. 이터레이터 객체 (Iterator objects)</a></li><li><a href="#3-셋-기반-동적-뷰-set-based-dynamic-views">3. 셋 기반 동적 뷰 (Set based dynamic views)</a></li></ul></li><li><a href="#python-3로-직접-마이그레이션-migrating-directly-to-python-3">Python 3로 직접 마이그레이션 (Migrating directly to Python 3)</a></li><li><a href="#python-2와-3의-공통-부분집합으로-마이그레이션-migrating-to-the-common-subset-of-python-2-and-3">Python 2와 3의 공통 부분집합으로 마이그레이션 (Migrating to the common subset of Python 2 and 3)</a></li><li><a href="#python-3에서-python-27-공통-부분집합으로-마이그레이션-migrating-from-python-3-to-the-common-subset-with-python-27">Python 3에서 Python 2.7 공통 부분집합으로 마이그레이션 (Migrating from Python 3 to the common subset with Python 2.7)</a></li><li><a href="#python-35에-대한-가능한-변경사항-possible-changes-to-python-35">Python 3.5+에 대한 가능한 변경사항 (Possible changes to Python 3.5+)</a></li><li><a href="#논의-discussion">논의 (Discussion)</a></li><li><a href="#감사-acknowledgements">감사 (Acknowledgements)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0469/">PEP 469 - Migration of dict iteration code to Python 3</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Withdrawn</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 18-Apr-2014</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h2 id="pep-469--python-3로의-dict-순회iteration-코드-마이그레이션">PEP 469 – Python 3로의 <code class="language-plaintext highlighter-rouge">dict</code> 순회(Iteration) 코드 마이그레이션</h2>
+
+<p><strong>저자:</strong> Alyssa Coghlan
+<strong>상태:</strong> 철회됨 (Withdrawn)
+<strong>유형:</strong> Standards Track
+<strong>작성일:</strong> 2014년 4월 18일
+<strong>Python 버전:</strong> 3.5</p>
+
+<h3 id="초록-abstract">초록 (Abstract)</h3>
+
+<p>Python 3에서는 PEP 3106을 통해 내장 <code class="language-plaintext highlighter-rouge">dict</code> 및 매핑(mapping) API의 설계가 변경되었습니다. 이는 Python 2의 리스트 기반 및 이터레이터(iterator) 기반 API를 통합하고 메모리 효율적인 <code class="language-plaintext highlighter-rouge">set</code> 및 <code class="language-plaintext highlighter-rouge">multiset</code> 뷰(view) 기반 API로 대체한 것입니다. 이 새로운 <code class="language-plaintext highlighter-rouge">dict</code> 순회 방식은 Python 2.7의 <code class="language-plaintext highlighter-rouge">dict</code> 타입에도 새로운 순회 메서드 집합으로 추가되었습니다.</p>
+
+<p>결과적으로, 애플리케이션이 Python 3로 전환될 때 마이그레이션해야 할 세 가지 종류의 <code class="language-plaintext highlighter-rouge">dict</code> 순회 방식이 존재합니다:</p>
+
+<ol>
+  <li><strong>가변 스냅샷(mutable snapshots)으로서의 리스트:</strong> <code class="language-plaintext highlighter-rouge">d.items()</code> → <code class="language-plaintext highlighter-rouge">list(d.items())</code></li>
+  <li><strong>이터레이터 객체(Iterator objects):</strong> <code class="language-plaintext highlighter-rouge">d.iteritems()</code> → <code class="language-plaintext highlighter-rouge">iter(d.items())</code></li>
+  <li><strong>셋(set) 기반 동적 뷰(dynamic views):</strong> <code class="language-plaintext highlighter-rouge">d.viewitems()</code> → <code class="language-plaintext highlighter-rouge">d.items()</code></li>
+</ol>
+
+<p>현재 Python 2의 모든 <code class="language-plaintext highlighter-rouge">dict</code> 순회 코드를 Python 2와 Python 3의 공통 부분집합(common subset)으로 안정적으로 변환하는 방법에 대한 널리 합의된 최선의 방법은 없으며, 특히 이식된 코드의 테스트 커버리지(test coverage)가 제한적일 때 더욱 그렇습니다. 이 PEP는 Python 2 순회 API에 접근할 수 있는 다양한 방법을 검토하고, Python 2.6+ 및 Python 3.0+의 공통 부분집합을 통해 해당 코드를 Python 3로 마이그레이션하는 데 사용할 수 있는 옵션들을 살펴봅니다.</p>
+
+<p>또한 이 PEP는 Python 3.5에 추가될 수 있는 기능들이 있는지, 그리고 이전 버전 지원에 대한 걱정 없이 Python 3로 전환하는 애플리케이션 코드의 전환 프로세스를 완화할 수 있는지에 대한 질문도 고려합니다.</p>
+
+<h3 id="pep-철회-pep-withdrawal">PEP 철회 (PEP Withdrawal)</h3>
+
+<p>이 PEP의 두 번째 초안을 작성하면서, Python 2/3 혼합 매핑 코드의 가독성은 Python 3.5+에 변경사항을 추가하는 것보다 더 나은 헬퍼 함수(helper functions)를 통해 향상될 수 있다는 결론에 도달했습니다. 이 PEP의 주요 가치는 Python 2에서 Python 3로 매핑 순회 코드를 마이그레이션하는 권장 접근 방식에 대한 명확한 기록을 제공하고, 두 버전을 모두 지원하는 혼합 코드를 작성할 때 가독성과 유지보수성을 유지하는 방법을 제안하는 것입니다.</p>
+
+<p>특히, 혼합 코드에서는 매핑 순회 메서드를 직접 호출하는 것을 피하고, 가능한 경우 내장 함수(builtin functions)에 의존하며, 순수한 Python 3 코드에서는 내장 함수와 매핑 메서드의 간단한 조합이 될 수 있지만 Python 2에서 정확히 동일한 의미를 얻기 위해 약간 다르게 처리해야 하는 경우를 위한 추가 헬퍼 함수를 사용할 것을 권장합니다. <code class="language-plaintext highlighter-rouge">pylint</code>와 같은 정적 코드 검사기(static code checkers)는 혼합 코드베이스에서 매핑 순회 메서드의 직접 사용에 대한 선택적 경고를 통해 확장될 수 있습니다.</p>
+
+<h3 id="매핑-순회-모델-mapping-iteration-models">매핑 순회 모델 (Mapping iteration models)</h3>
+
+<p>Python 2.7은 <code class="language-plaintext highlighter-rouge">dict</code> 인스턴스에서 키(keys), 값(values), 아이템(items)을 추출하기 위한 세 가지 메서드 집합을 제공하며, 이는 <code class="language-plaintext highlighter-rouge">dict</code> 타입의 18개 공개 메서드 중 9개를 차지합니다. Python 3에서는 <code class="language-plaintext highlighter-rouge">has_key</code> 메서드도 제거되어 11개 공개 메서드 중 3개로 합리화되었습니다.</p>
+
+<h4 id="1-가변-스냅샷lists-as-mutable-snapshots">1. 가변 스냅샷(Lists as mutable snapshots)</h4>
+
+<p>이는 세 가지 <code class="language-plaintext highlighter-rouge">dict</code> 순회 스타일 중 가장 오래된 것으로, Python 2의 <code class="language-plaintext highlighter-rouge">d.keys()</code>, <code class="language-plaintext highlighter-rouge">d.values()</code>, <code class="language-plaintext highlighter-rouge">d.items()</code> 메서드에 의해 구현됩니다. 이 메서드들은 모두 메서드가 호출된 시점의 매핑 상태 스냅샷인 리스트를 반환합니다. 이는 다음과 같은 결과를 초래합니다:</p>
+
+<ul>
+  <li>원본 객체는 스냅샷의 순회에 영향을 주지 않고 자유롭게 변경될 수 있습니다.</li>
+  <li>스냅샷은 원본 객체와 독립적으로 수정될 수 있습니다.</li>
+  <li>스냅샷은 원본 매핑의 크기에 비례하는 메모리를 소비합니다.</li>
+</ul>
+
+<p>Python 3에서 이러한 작업의 의미론적 동등물은 <code class="language-plaintext highlighter-rouge">list(d.keys())</code>, <code class="language-plaintext highlighter-rouge">list(d.values())</code>, <code class="language-plaintext highlighter-rouge">list(d.items())</code> 입니다.</p>
+
+<h4 id="2-이터레이터-객체-iterator-objects">2. 이터레이터 객체 (Iterator objects)</h4>
+
+<p>Python 2.2에서 <code class="language-plaintext highlighter-rouge">dict</code> 객체는 당시 새로 도입된 이터레이터 프로토콜(iterator protocol)을 지원하게 되어, 딕셔너리에 저장된 키를 직접 순회할 수 있게 되었고, 한 번에 하나의 항목씩 딕셔너리 내용을 순회하기 위해 리스트를 만들 필요가 없어졌습니다. <code class="language-plaintext highlighter-rouge">iter(d)</code>는 키에 대한 이터레이터 객체에 직접 접근을 제공합니다.</p>
+
+<p>Python 2는 <code class="language-plaintext highlighter-rouge">iter(d)</code>와 본질적으로 동의어인 <code class="language-plaintext highlighter-rouge">d.iterkeys()</code> 메서드와 <code class="language-plaintext highlighter-rouge">d.itervalues()</code>, <code class="language-plaintext highlighter-rouge">d.iteritems()</code> 메서드를 제공합니다. 이 이터레이터들은 기본 객체의 “라이브 뷰(live views)”를 제공하므로, 순회 중에 기본 객체의 키 집합이 변경되면 실패할 수 있습니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="nf">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+<span class="p">...</span>     <span class="k">del</span> <span class="n">d</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+<span class="bp">...</span>
+<span class="nc">Traceback </span><span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="sh">"</span><span class="s">&lt;stdin&gt;</span><span class="sh">"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="nb">RuntimeError</span><span class="p">:</span> <span class="n">dictionary</span> <span class="n">changed</span> <span class="n">size</span> <span class="n">during</span> <span class="n">iteration</span>
+</code></pre></div></div>
+
+<p>이터레이터로서, 이러한 객체에 대한 순회는 한 번만 수행됩니다. 이터레이터가 소진되면 다시 순회하려면 원본 매핑으로 돌아가야 합니다.</p>
+
+<p>Python 3에서 매핑에 대한 직접 순회는 Python 2와 동일하게 작동합니다. 메서드 기반 동등물은 없으며, Python 3에서 <code class="language-plaintext highlighter-rouge">d.itervalues()</code> 및 <code class="language-plaintext highlighter-rouge">d.iteritems()</code>의 의미론적 동등물은 각각 <code class="language-plaintext highlighter-rouge">iter(d.values())</code> 및 <code class="language-plaintext highlighter-rouge">iter(d.items())</code> 입니다. <code class="language-plaintext highlighter-rouge">six</code> 및 <code class="language-plaintext highlighter-rouge">future.utils</code> 호환성 모듈은 Python 2와 3 모두에서 효율적인 이터레이터 의미론을 제공하는 <code class="language-plaintext highlighter-rouge">iterkeys()</code>, <code class="language-plaintext highlighter-rouge">itervalues()</code>, <code class="language-plaintext highlighter-rouge">iteritems()</code> 헬퍼 함수도 제공합니다.</p>
+
+<h4 id="3-셋-기반-동적-뷰-set-based-dynamic-views">3. 셋 기반 동적 뷰 (Set based dynamic views)</h4>
+
+<p>Python 3에서 메서드 기반 API로 제공되는 모델은 셋 기반 동적 뷰(technically <code class="language-plaintext highlighter-rouge">values()</code> 뷰의 경우 <code class="language-plaintext highlighter-rouge">multisets</code>)입니다. Python 3에서 <code class="language-plaintext highlighter-rouge">d.keys()</code>, <code class="language-plaintext highlighter-rouge">d.values()</code>, <code class="language-plaintext highlighter-rouge">d.items()</code>에 의해 반환되는 객체는 Python 2에서처럼 현재 상태의 전체 스냅샷을 찍는 대신, 기본 객체의 현재 상태에 대한 “라이브 뷰”를 제공합니다. 이 변경은 많은 상황에서 안전하지만, 직접 순회 API와 마찬가지로 순회 중에 키를 추가하거나 제거하는 것을 피해야 다음과 같은 오류를 방지할 수 있습니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="nf">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">d</span><span class="p">.</span><span class="nf">items</span><span class="p">():</span>
+<span class="p">...</span>     <span class="k">del</span> <span class="n">d</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+<span class="bp">...</span>
+<span class="nc">Traceback </span><span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="sh">"</span><span class="s">&lt;stdin&gt;</span><span class="sh">"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="nb">RuntimeError</span><span class="p">:</span> <span class="n">dictionary</span> <span class="n">changed</span> <span class="n">size</span> <span class="n">during</span> <span class="n">iteration</span>
+</code></pre></div></div>
+
+<p>순회 API와 달리, 이러한 객체는 이터레이터가 아닌 이터러블(iterables)입니다. 즉, 여러 번 순회할 수 있으며, 매번 전체 기본 매핑을 순회합니다. 이러한 의미론은 Python 2.7에서도 <code class="language-plaintext highlighter-rouge">d.viewkeys()</code>, <code class="language-plaintext highlighter-rouge">d.viewvalues()</code>, <code class="language-plaintext highlighter-rouge">d.viewitems()</code> 메서드로 사용할 수 있습니다. <code class="language-plaintext highlighter-rouge">future.utils</code> 호환성 모듈은 Python 2.7 또는 Python 3.x에서 실행될 때 <code class="language-plaintext highlighter-rouge">viewkeys()</code>, <code class="language-plaintext highlighter-rouge">viewvalues()</code>, <code class="language-plaintext highlighter-rouge">viewitems()</code> 헬퍼 함수도 제공합니다.</p>
+
+<h3 id="python-3로-직접-마이그레이션-migrating-directly-to-python-3">Python 3로 직접 마이그레이션 (Migrating directly to Python 3)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">2to3</code> 마이그레이션 도구는 위에서 설명한 의미론적 동등성에 따라 Python 3로의 직접 마이그레이션을 처리합니다:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">d.keys()</code> → <code class="language-plaintext highlighter-rouge">list(d.keys())</code></li>
+  <li><code class="language-plaintext highlighter-rouge">d.values()</code> → <code class="language-plaintext highlighter-rouge">list(d.values())</code></li>
+  <li><code class="language-plaintext highlighter-rouge">d.items()</code> → <code class="language-plaintext highlighter-rouge">list(d.items())</code></li>
+  <li><code class="language-plaintext highlighter-rouge">d.iterkeys()</code> → <code class="language-plaintext highlighter-rouge">iter(d.keys())</code></li>
+  <li><code class="language-plaintext highlighter-rouge">d.itervalues()</code> → <code class="language-plaintext highlighter-rouge">iter(d.values())</code></li>
+  <li><code class="language-plaintext highlighter-rouge">d.iteritems()</code> → <code class="language-plaintext highlighter-rouge">iter(d.items())</code></li>
+  <li><code class="language-plaintext highlighter-rouge">d.viewkeys()</code> → <code class="language-plaintext highlighter-rouge">d.keys()</code></li>
+  <li><code class="language-plaintext highlighter-rouge">d.viewvalues()</code> → <code class="language-plaintext highlighter-rouge">d.values()</code></li>
+  <li><code class="language-plaintext highlighter-rouge">d.viewitems()</code> → <code class="language-plaintext highlighter-rouge">d.items()</code></li>
+</ul>
+
+<p>순회를 위한 9개의 개별 매핑 메서드 대신, 이제 3개의 뷰 메서드만 있으며, 이는 Python 2.7에서 <code class="language-plaintext highlighter-rouge">dict</code> 메서드로 사용할 수 있는 모든 동작을 다루기 위해 두 가지 관련 내장 함수와 간단한 방식으로 결합됩니다. 많은 경우에 <code class="language-plaintext highlighter-rouge">d.keys()</code>는 단순히 <code class="language-plaintext highlighter-rouge">d</code>로 대체될 수 있지만, <code class="language-plaintext highlighter-rouge">2to3</code> 마이그레이션 도구는 이러한 대체를 시도하지 않습니다. 또한 <code class="language-plaintext highlighter-rouge">2to3</code> 마이그레이션 도구는 이러한 객체에 대한 바인딩된(bound) 또는 바인딩되지 않은(unbound) 메서드 참조를 마이그레이션하는 데 자동 지원을 제공하지 않습니다. API가 즉시 호출되는 경우에만 변환을 자동화합니다.</p>
+
+<h3 id="python-2와-3의-공통-부분집합으로-마이그레이션-migrating-to-the-common-subset-of-python-2-and-3">Python 2와 3의 공통 부분집합으로 마이그레이션 (Migrating to the common subset of Python 2 and 3)</h3>
+
+<p>Python 2와 3의 공통 부분집합으로 마이그레이션할 때는 위 변환들이 일반적으로 적절하지 않습니다. 왜냐하면 이들 모두 Python 2에서 중복 리스트를 생성하거나, 적어도 일부 경우에 예상치 못한 다른 의미론을 가지거나, 또는 둘 다 발생하기 때문입니다.</p>
+
+<p>Python 2와 3의 공통 부분집합에서 실행되는 대부분의 코드가 최소한 Python 2.6까지 지원하기 때문에, 매핑 순회 작업 변환에 권장되는 현재 접근 방식은 매핑 값과 매핑 아이템 튜플(item tuples)에 대한 효율적인 순회를 위한 두 가지 헬퍼 함수에 의존합니다:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">d.keys()</code> → <code class="language-plaintext highlighter-rouge">list(d)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">d.values()</code> → <code class="language-plaintext highlighter-rouge">list(itervalues(d))</code></li>
+  <li><code class="language-plaintext highlighter-rouge">d.items()</code> → <code class="language-plaintext highlighter-rouge">list(iteritems(d))</code></li>
+  <li><code class="language-plaintext highlighter-rouge">d.iterkeys()</code> → <code class="language-plaintext highlighter-rouge">iter(d)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">d.itervalues()</code> → <code class="language-plaintext highlighter-rouge">itervalues(d)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">d.iteritems()</code> → <code class="language-plaintext highlighter-rouge">iteritems(d)</code></li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">six</code>와 <code class="language-plaintext highlighter-rouge">future.utils</code> 모두 <code class="language-plaintext highlighter-rouge">itervalues()</code>와 <code class="language-plaintext highlighter-rouge">iteritems()</code>의 적절한 정의를 제공합니다 (본질적으로 중복되는 <code class="language-plaintext highlighter-rouge">iterkeys()</code> 정의와 함께). 사용자 정의 호환성 모듈에서 이러한 함수를 직접 정의하는 것도 비교적 간단합니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span><span class="p">:</span>
+    <span class="nb">dict</span><span class="p">.</span><span class="n">iteritems</span>
+<span class="k">except</span> <span class="nb">AttributeError</span><span class="p">:</span>
+    <span class="c1"># Python 3
+</span>    <span class="k">def</span> <span class="nf">itervalues</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nf">iter</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="nf">values</span><span class="p">())</span>
+    <span class="k">def</span> <span class="nf">iteritems</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nf">iter</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="nf">items</span><span class="p">())</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># Python 2
+</span>    <span class="k">def</span> <span class="nf">itervalues</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">d</span><span class="p">.</span><span class="nf">itervalues</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">iteritems</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">d</span><span class="p">.</span><span class="nf">iteritems</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>현재 가장 큰 가독성 손실은 Python 2에서 기본값이었던 리스트 기반 스냅샷이 실제로 필요한 코드를 변환할 때 발생합니다. 이 가독성 손실은 <code class="language-plaintext highlighter-rouge">listvalues</code> 및 <code class="language-plaintext highlighter-rouge">listitems</code> 헬퍼 함수를 제공함으로써 완화될 수 있으며, 영향을 받는 변환을 다음과 같이 단순화할 수 있습니다:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">d.values()</code> → <code class="language-plaintext highlighter-rouge">listvalues(d)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">d.items()</code> → <code class="language-plaintext highlighter-rouge">listitems(d)</code></li>
+</ul>
+
+<p>해당 호환성 함수 정의는 이터레이터 counterpart만큼 간단합니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span><span class="p">:</span>
+    <span class="nb">dict</span><span class="p">.</span><span class="n">iteritems</span>
+<span class="k">except</span> <span class="nb">AttributeError</span><span class="p">:</span>
+    <span class="c1"># Python 3
+</span>    <span class="k">def</span> <span class="nf">listvalues</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nf">list</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="nf">values</span><span class="p">())</span>
+    <span class="k">def</span> <span class="nf">listitems</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nf">list</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="nf">items</span><span class="p">())</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># Python 2
+</span>    <span class="k">def</span> <span class="nf">listvalues</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">d</span><span class="p">.</span><span class="nf">values</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">listitems</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">d</span><span class="p">.</span><span class="nf">items</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>이러한 확장된 호환성 함수 집합을 사용하면 Python 2 코드는 “관용적인(idiomatic)” 혼합 2/3 코드로 다음과 같이 변환됩니다:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">d.keys()</code> → <code class="language-plaintext highlighter-rouge">list(d)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">d.values()</code> → <code class="language-plaintext highlighter-rouge">listvalues(d)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">d.items()</code> → <code class="language-plaintext highlighter-rouge">listitems(d)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">d.iterkeys()</code> → <code class="language-plaintext highlighter-rouge">iter(d)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">d.itervalues()</code> → <code class="language-plaintext highlighter-rouge">itervalues(d)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">d.iteritems()</code> → <code class="language-plaintext highlighter-rouge">iteritems(d)</code></li>
+</ul>
+
+<p>이는 매핑 메서드와 내장 함수를 직접 사용하는 관용적인 순수 Python 3 코드와 가독성 측면에서 잘 비교됩니다:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">d.keys()</code> → <code class="language-plaintext highlighter-rouge">list(d)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">d.values()</code> → <code class="language-plaintext highlighter-rouge">list(d.values())</code></li>
+  <li><code class="language-plaintext highlighter-rouge">d.items()</code> → <code class="language-plaintext highlighter-rouge">list(d.items())</code></li>
+  <li><code class="language-plaintext highlighter-rouge">d.iterkeys()</code> → <code class="language-plaintext highlighter-rouge">iter(d)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">d.itervalues()</code> → <code class="language-plaintext highlighter-rouge">iter(d.values())</code></li>
+  <li><code class="language-plaintext highlighter-rouge">d.iteritems()</code> → <code class="language-plaintext highlighter-rouge">iter(d.items())</code></li>
+</ul>
+
+<p>이 접근 방식을 사용할 때, 혼합 코드는 매핑 메서드를 직접 호출하지 않고 항상 내장 함수나 헬퍼 함수를 호출하여 Python 2와 Python 3 모두에서 정확히 동일한 의미론을 보장한다는 점도 주목할 만합니다.</p>
+
+<h3 id="python-3에서-python-27-공통-부분집합으로-마이그레이션-migrating-from-python-3-to-the-common-subset-with-python-27">Python 3에서 Python 2.7 공통 부분집합으로 마이그레이션 (Migrating from Python 3 to the common subset with Python 2.7)</h3>
+
+<p>대부분의 마이그레이션은 현재 Python 2에서 직접 Python 3로 또는 Python 2와 Python 3의 공통 부분집합으로 이루어지지만, Python 3에서 시작하여 사용자 요구 또는 Python 3에서 아직 사용할 수 없는 Python 2 라이브러리(Python 3로 포팅하거나 Python 3 호환 대체품을 만드는 것이 간단한 작업이 아님)에 접근하기 위해 나중에 Python 2 지원을 추가하는 새로운 프로젝트의 마이그레이션도 있습니다.</p>
+
+<p>이러한 경우, Python 2.7 호환성만으로 충분한 경우가 많으며, <code class="language-plaintext highlighter-rouge">future.utils</code>가 제공하는 2.7+ 전용 뷰 기반 헬퍼 함수를 사용하면 Python 3 매핑 뷰 메서드에 대한 직접 접근을 Python 2.7과 Python 3 모두와 호환되는 코드로 대체할 수 있습니다 (이것은 변환 차트에서 Python 3 코드가 왼쪽에 있는 유일한 마이그레이션 차트입니다):</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">d.keys()</code> → <code class="language-plaintext highlighter-rouge">viewkeys(d)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">d.values()</code> → <code class="language-plaintext highlighter-rouge">viewvalues(d)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">d.items()</code> → <code class="language-plaintext highlighter-rouge">viewitems(d)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">list(d.keys())</code> → <code class="language-plaintext highlighter-rouge">list(d)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">list(d.values())</code> → <code class="language-plaintext highlighter-rouge">listvalues(d)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">list(d.items())</code> → <code class="language-plaintext highlighter-rouge">listitems(d)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">iter(d.keys())</code> → <code class="language-plaintext highlighter-rouge">iter(d)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">iter(d.values())</code> → <code class="language-plaintext highlighter-rouge">itervalues(d)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">iter(d.items())</code> → <code class="language-plaintext highlighter-rouge">iteritems(d)</code></li>
+</ul>
+
+<p>Python 2에서 공통 부분집합으로의 마이그레이션과 마찬가지로, 혼합 코드가 매핑 메서드를 직접 호출하지 않고 내장 함수와 헬퍼 메서드만 호출하며, 후자가 Python 2와 Python 3 간의 의미론적 차이를 해결한다는 점에 유의하십시오.</p>
+
+<h3 id="python-35에-대한-가능한-변경사항-possible-changes-to-python-35">Python 3.5+에 대한 가능한 변경사항 (Possible changes to Python 3.5+)</h3>
+
+<p>기존 Python 2 코드를 Python 3로 마이그레이션하는 데 잠재적으로 도움이 될 수 있는 주요 제안은 Python 3 매핑 API에 일부 또는 모든 대체 순회 API를 복원하는 것입니다. 특히, 이 PEP의 초기 초안은 Python 2와 Python 3.5+의 공통 부분집합으로 마이그레이션할 때 다음 변환을 가능하게 할 것을 제안했습니다:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">d.keys()</code> → <code class="language-plaintext highlighter-rouge">list(d)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">d.values()</code> → <code class="language-plaintext highlighter-rouge">list(d.itervalues())</code></li>
+  <li><code class="language-plaintext highlighter-rouge">d.items()</code> → <code class="language-plaintext highlighter-rouge">list(d.iteritems())</code></li>
+  <li><code class="language-plaintext highlighter-rouge">d.iterkeys()</code> → <code class="language-plaintext highlighter-rouge">d.iterkeys()</code></li>
+  <li><code class="language-plaintext highlighter-rouge">d.itervalues()</code> → <code class="language-plaintext highlighter-rouge">d.itervalues()</code></li>
+  <li><code class="language-plaintext highlighter-rouge">d.iteritems()</code> → <code class="language-plaintext highlighter-rouge">d.iteritems()</code></li>
+</ul>
+
+<p>이러한 메서드를 복원함으로써 Python 3에 추가되는 언어 복잡성을 완화할 수 있는 방법으로는 즉시 사용 중단(deprecate)하는 것과 <code class="language-plaintext highlighter-rouge">dir()</code> 함수에서 숨기거나 (또는 <code class="language-plaintext highlighter-rouge">pydoc</code>이 함수 사용 중단을 인식하도록 정의하는 방법까지) 포함되었습니다. 그러나 리스트 출력이 실제로 필요한 경우, 해당 제안의 최종 결과는 적절하게 정의된 헬퍼 함수보다 가독성이 떨어지며, 이터레이터 버전의 함수 및 메서드 형식은 가독성 관점에서 거의 동일합니다. 따라서, 중요한 것을 놓치지 않았다면, <code class="language-plaintext highlighter-rouge">listvalues()</code> 및 <code class="language-plaintext highlighter-rouge">listitems()</code> 헬퍼 함수는 Python 3.5+ 매핑 API에 추가할 수 있는 어떤 것보다 혼합 코드의 가독성을 향상시킬 것이며, Python 3 자체의 복잡성에 장기적인 영향을 미치지 않을 것으로 보입니다.</p>
+
+<h3 id="논의-discussion">논의 (Discussion)</h3>
+
+<p>Python 3 마이그레이션이 5년이 지났음에도 불구하고 사용자들이 <code class="language-plaintext highlighter-rouge">dict</code> API 변경을 여전히 마이그레이션에 대한 중요한 장벽으로 여기고 있다는 사실은 이전에 권장되었던 접근 방식에 문제가 있음을 시사합니다. 이 PEP는 이러한 문제들을 탐색하고 이전의 조언(이러한 조언이 존재했다면)이 문제가 될 수 있는 경우를 격리하려고 시도합니다.</p>
+
+<p>Twisted 개발자들의 피드백을 바탕으로 한 저의 평가에 따르면, <code class="language-plaintext highlighter-rouge">d.keys()</code>, <code class="language-plaintext highlighter-rouge">d.values()</code>, <code class="language-plaintext highlighter-rouge">d.items()</code>를 혼합 코드에서 사용하려고 할 때 문제가 발생할 가능성이 가장 큽니다. 표면적으로는 의미론적 차이를 무시해도 안전한 경우가 있을 것처럼 보이지만, 실제로는 “가변 스냅샷”에서 “동적 뷰”로의 변경은 충분히 중요하여 혼합 코드에는 리스트 또는 이터레이터 의미론의 사용을 강제하고, 뷰 의미론의 사용은 순수 Python 3 코드에 맡기는 것이 더 나을 것입니다.</p>
+
+<p>이 접근 방식은 <code class="language-plaintext highlighter-rouge">2to3</code>가 순수 Python 3 코드를 대상으로 자동으로 변환하는 것처럼, Python 2와 Python 3의 공통 부분집합을 대상으로 하는 코드 현대화 스크립트에서 자동화할 수 있을 만큼 충분히 간단하고 안전한 규칙을 생성합니다.</p>
+
+<h3 id="감사-acknowledgements">감사 (Acknowledgements)</h3>
+
+<p>PyCon에서 Twisted 스프린트 테이블에 있던 분들께 이 아이디어(및 다른 여러 주제)에 대한 매우 활발한 토론에 감사드립니다. 특히 상황이 너무 격해졌을 때 중재자 역할을 해주신 Hynek Schlawack님께 감사드립니다. 이메일 피드백을 주신 JP Calderone과 Itamar Turner-Trauring, 그리고 PEP 초기 버전의 python-dev 검토에 참여해주신 분들께도 감사드립니다.</p>
+
+<h3 id="저작권-copyright">저작권 (Copyright)</h3>
+
+<p>이 문서는 퍼블릭 도메인(public domain)으로 지정되었습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/468/" class="pagination--pager" title="[Final] PEP 468 - Preserving the order of **kwargs in a function.
+">Previous</a>
+    
+    
+      <a href="/python/pep/470/" class="pagination--pager" title="[Final] PEP 470 - Removing External Hosting Support on PyPI
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

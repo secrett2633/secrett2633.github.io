@@ -1,0 +1,705 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 3105 - Make print a function | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 3105: ‘Make print a function’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 3105 - Make print a function">
+<meta property="og:url" content="http://localhost:4000/python/pep/3105/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 3105: ‘Make print a function’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T14:17:54+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T14:17:54+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/3105/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 3105 - Make print a function">
+    <meta itemprop="description" content="Python Enhancement Proposal 3105: ‘Make print a function’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T14:17:54+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T14:17:54+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 3105 - Make print a function
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T14:17:54+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-3105--print를-함수로-만들기">PEP 3105 – print를 함수로 만들기</a></li><li><a href="#요약-abstract">요약 (Abstract)</a></li><li><a href="#배경-rationale">배경 (Rationale)</a></li><li><a href="#명세-specification">명세 (Specification)</a></li><li><a href="#하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</a></li><li><a href="#구현-implementation">구현 (Implementation)</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-3105/">PEP 3105 - Make print a function</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 19-Nov-2006</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h3 id="pep-3105--print를-함수로-만들기">PEP 3105 – <code class="language-plaintext highlighter-rouge">print</code>를 함수로 만들기</h3>
+
+<ul>
+  <li><strong>작성자</strong>: Georg Brandl</li>
+  <li><strong>상태</strong>: Final (최종)</li>
+  <li><strong>유형</strong>: Standards Track</li>
+  <li><strong>생성일</strong>: 2006년 11월 19일</li>
+  <li><strong>Python 버전</strong>: 3.0</li>
+</ul>
+
+<h3 id="요약-abstract">요약 (Abstract)</h3>
+<p>이 PEP는 <code class="language-plaintext highlighter-rouge">print</code> 문(statement)을 대체하는 새로운 내장 함수 <code class="language-plaintext highlighter-rouge">print()</code>를 제안하며, 새로운 함수의 특정 시그니처를 제시합니다.</p>
+
+<h3 id="배경-rationale">배경 (Rationale)</h3>
+<p><code class="language-plaintext highlighter-rouge">print</code> 문은 오랫동안 Python 3000(Python 3.x의 초기 명칭)에서 제거될 예정이었던 의심스러운 언어 기능 목록에 포함되어 있었습니다. 이 PEP의 목표는 새로운 것이 아니지만, Python 개발자들 사이에서 논쟁이 많을 수 있습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">print()</code> 함수를 지지하는 주요 논거는 Guido van Rossum의 메시지에서 추출되었으며 다음과 같습니다:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">print</code>는 애플리케이션 수준의 기능 중 유일하게 전용 문법(statement)을 가지고 있습니다. Python에서 문법은 컴파일러의 도움이 없이는 불가능한 경우에 최후의 수단으로 사용됩니다. <code class="language-plaintext highlighter-rouge">print</code>는 이러한 예외에 해당하지 않습니다.</li>
+  <li>애플리케이션 개발 중 <code class="language-plaintext highlighter-rouge">print</code> 출력을 로깅 호출이나 다른 I/O 라이브러리 호출과 같은 더 정교한 방식으로 대체해야 할 필요성을 자주 느낍니다. <code class="language-plaintext highlighter-rouge">print()</code> 함수를 사용하면 간단한 문자열 대체로 가능하지만, 현재는 괄호를 추가하고 <code class="language-plaintext highlighter-rouge">&gt;&gt; stream</code> 스타일 문법을 변환하는 번거로움이 있습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">print</code>에 특별한 문법을 두는 것은 진화에 큰 장벽이 됩니다. 예를 들어, <code class="language-plaintext highlighter-rouge">printf()</code>와 같은 가상의 새로운 함수가 <code class="language-plaintext highlighter-rouge">print()</code> 함수와 공존한다면 그리 이상하지 않을 것입니다.</li>
+  <li>현재는 다른 구분자(separator)를 사용하거나 아예 구분자를 사용하지 않으려는 경우 <code class="language-plaintext highlighter-rouge">print</code> 문을 다른 호출로 쉽게 변환할 방법이 없습니다. 또한, 공백이 아닌 다른 구분자로 객체를 편리하게 출력할 방법도 없습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">print()</code>가 함수라면, 한 모듈 내에서 (<code class="language-plaintext highlighter-rouge">def print(*args):...</code> 와 같이) 또는 프로그램 전체에서 (<code class="language-plaintext highlighter-rouge">__builtin__.print</code>에 다른 함수를 할당하여) 쉽게 교체할 수 있습니다. 현재는 <code class="language-plaintext highlighter-rouge">write()</code> 메서드를 가진 클래스를 작성하여 <code class="language-plaintext highlighter-rouge">sys.stdout</code>에 할당하는 방식으로 가능하지만, 이는 개념적으로 더 큰 도약이며 <code class="language-plaintext highlighter-rouge">print</code>와 다른 수준에서 작동합니다.</li>
+</ul>
+
+<h3 id="명세-specification">명세 (Specification)</h3>
+<p><code class="language-plaintext highlighter-rouge">print()</code> 함수의 시그니처는 다음과 같습니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">print</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="sh">'</span><span class="s"> </span><span class="sh">'</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="sh">'</span><span class="se">\n</span><span class="sh">'</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>다음과 같은 호출:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">sys</span><span class="p">.</span><span class="n">stderr</span><span class="p">)</span>
+</code></pre></div></div>
+<p>은 현재(Python 2.x)의 다음 코드와 동일합니다:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span> <span class="o">&gt;&gt;</span><span class="n">sys</span><span class="p">.</span><span class="n">stderr</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span>
+</code></pre></div></div>
+<p>선택적 인자인 <code class="language-plaintext highlighter-rouge">sep</code>와 <code class="language-plaintext highlighter-rouge">end</code>는 각각 인자들 사이에 무엇을 출력할지, 그리고 인자들 뒤에 무엇을 출력할지를 지정합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">softspace</code> 기능(현재 파일에서 <code class="language-plaintext highlighter-rouge">print</code>가 첫 번째 항목 앞에 공백을 삽입할지 여부를 알려주는 반쯤 비밀스러운 속성)은 제거됩니다. 따라서 현재(Python 2.x)의 다음 코드:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span> <span class="sh">"</span><span class="s">a</span><span class="sh">"</span><span class="p">,</span> <span class="k">print</span>
+</code></pre></div></div>
+<p>(이 코드는 “a”와 줄 바꿈 사이에 공백을 출력하지 않습니다.)에 대한 직접적인 대체는 없습니다.</p>
+
+<h3 id="하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</h3>
+<p>이 PEP에서 제안된 변경사항은 현재(Python 2.x) 대부분의 <code class="language-plaintext highlighter-rouge">print</code> 문을 유효하지 않게 만듭니다. Python 2.x에서 우연히 모든 인자에 괄호를 사용한 <code class="language-plaintext highlighter-rouge">print</code> 문만이 Python 3.0에서 유효한 문법으로 유지되며, 그 중에서도 단일 괄호로 묶인 값을 출력하는 경우에만 동일하게 작동합니다.</p>
+
+<p>예를 들어, Python 2.x에서는:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="nf">print </span><span class="p">(</span><span class="sh">"</span><span class="s">Hello</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">Hello</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nf">print </span><span class="p">(</span><span class="sh">"</span><span class="s">Hello</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">world</span><span class="sh">"</span><span class="p">)</span>
+<span class="p">(</span><span class="sh">'</span><span class="s">Hello</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">world</span><span class="sh">'</span><span class="p">)</span>
+</code></pre></div></div>
+<p>Python 3.0에서는:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="nf">print </span><span class="p">(</span><span class="sh">"</span><span class="s">Hello</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">Hello</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nf">print </span><span class="p">(</span><span class="sh">"</span><span class="s">Hello</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">world</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">Hello</span> <span class="n">world</span>
+</code></pre></div></div>
+<p>다행히 Python 2에서 <code class="language-plaintext highlighter-rouge">print</code>가 문(statement)이었기 때문에, 자동화된 도구로 <code class="language-plaintext highlighter-rouge">print</code> 문을 안정적이고 명확하게 감지하고 대체할 수 있으므로 주요 포팅(porting) 문제는 없을 것입니다 (해당 도구가 작성된다는 가정 하에).</p>
+
+<h3 id="구현-implementation">구현 (Implementation)</h3>
+<p>제안된 변경사항은 Subversion revisions 53685에서 53704 사이의 Python 3000 브랜치에 구현되었습니다. 라이브러리의 대부분의 레거시 코드도 변환되었지만, 배포판에 남아있을 수 있는 모든 <code class="language-plaintext highlighter-rouge">print</code> 문을 찾아 변환하는 작업은 계속 진행 중입니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/3104/" class="pagination--pager" title="[Final] PEP 3104 - Access to Names in Outer Scopes
+">Previous</a>
+    
+    
+      <a href="/python/pep/3106/" class="pagination--pager" title="[Final] PEP 3106 - Revamping dict.keys(), .values() and .items()
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

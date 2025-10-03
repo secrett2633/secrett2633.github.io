@@ -1,0 +1,913 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 255 - Simple Generators | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 255: ‘Simple Generators’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 255 - Simple Generators">
+<meta property="og:url" content="http://localhost:4000/python/pep/255/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 255: ‘Simple Generators’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T17:35:06+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T17:35:06+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/255/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 255 - Simple Generators">
+    <meta itemprop="description" content="Python Enhancement Proposal 255: ‘Simple Generators’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T17:35:06+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T17:35:06+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 255 - Simple Generators
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T17:35:06+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#초록-abstract">초록 (Abstract)</a></li><li><a href="#동기-motivation">동기 (Motivation)</a></li><li><a href="#명세-yield-specification-yield">명세: Yield (Specification: Yield)</a></li><li><a href="#명세-return-specification-return">명세: Return (Specification: Return)</a></li><li><a href="#명세-제너레이터와-예외-전파-specification-generators-and-exception-propagation">명세: 제너레이터와 예외 전파 (Specification: Generators and Exception Propagation)</a></li><li><a href="#명세-tryexceptfinally-specification-tryexceptfinally">명세: Try/Except/Finally (Specification: Try/Except/Finally)</a></li><li><a href="#예시-example">예시 (Example)</a></li><li><a href="#q--a">Q &amp; A</a><ul><li><a href="#왜-def를-재사용하는-대신-새로운-키워드를-사용하지-않았는가">왜 def를 재사용하는 대신 새로운 키워드를 사용하지 않았는가?</a></li><li><a href="#왜-yield에-새로운-키워드를-사용하는가-빌트인-함수-대신에는-안-되는가">왜 yield에 새로운 키워드를 사용하는가? 빌트인 함수 대신에는 안 되는가?</a></li><li><a href="#그러면-새로운-키워드-없이-다른-특별한-구문은-안-되는가">그러면 새로운 키워드 없이 다른 특별한 구문은 안 되는가?</a></li><li><a href="#왜-return을-아예-허용하는가-왜-raise-stopiteration으로-종료를-강제하지-않는가">왜 return을 아예 허용하는가? 왜 raise StopIteration으로 종료를 강제하지 않는가?</a></li><li><a href="#그러면-return에도-표현식을-허용하지-않는가">그러면 return에도 표현식을 허용하지 않는가?</a></li></ul></li><li><a href="#bdfl-선언-bdfl-pronouncements">BDFL 선언 (BDFL Pronouncements)</a></li><li><a href="#참조-구현-reference-implementation">참조 구현 (Reference Implementation)</a></li><li><a href="#각주-및-참고-자료-footnotes-and-references">각주 및 참고 자료 (Footnotes and References)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0255/">PEP 255 - Simple Generators</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 18-May-2001</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>PEP 255 – 간단한 제너레이터 (Simple Generators)</p>
+
+<h2 id="초록-abstract">초록 (Abstract)</h2>
+<p>이 PEP는 Python에 제너레이터(generators)의 개념과 함께 사용되는 새로운 문(statement)인 <code class="language-plaintext highlighter-rouge">yield</code> 문을 도입합니다.</p>
+
+<h2 id="동기-motivation">동기 (Motivation)</h2>
+<p>생산자 함수(producer function)가 생성하는 값들 사이에 상태를 유지해야 하는 복잡한 작업을 수행할 때, 대부분의 프로그래밍 언어는 각 값이 생성될 때마다 호출되는 콜백 함수(callback function)를 생산자의 인자 목록에 추가하는 것 외에는 만족스럽고 효율적인 해결책을 제공하지 않습니다.</p>
+
+<p>예를 들어, 표준 라이브러리의 <code class="language-plaintext highlighter-rouge">tokenize.py</code>는 이 방식을 사용합니다. 호출자는 <code class="language-plaintext highlighter-rouge">tokenize()</code>가 다음 토큰을 찾을 때마다 호출될 <code class="language-plaintext highlighter-rouge">token_eater</code> 함수를 <code class="language-plaintext highlighter-rouge">tokenize()</code>에 전달해야 합니다. 이 방식은 <code class="language-plaintext highlighter-rouge">tokenize</code> 코드를 자연스럽게 작성할 수 있게 하지만, <code class="language-plaintext highlighter-rouge">tokenize</code>를 호출하는 프로그램은 콜백 호출 사이에 어떤 토큰이 마지막으로 보였는지 기억해야 하므로 복잡해지는 경향이 있습니다. <code class="language-plaintext highlighter-rouge">tabnanny.py</code>의 <code class="language-plaintext highlighter-rouge">token_eater</code> 함수가 좋은 예인데, 이는 전역 변수에 상태 머신을 유지하여 콜백 간에 이전에 무엇을 보았고 다음에 무엇을 기대하는지 기억합니다. 이를 올바르게 작동하도록 만드는 것이 어려웠고, 사람들이 이해하기도 여전히 어렵습니다.</p>
+
+<p>다른 대안으로는 <code class="language-plaintext highlighter-rouge">tokenize</code>가 Python 프로그램 전체를 한 번에 큰 리스트로 생성하는 방법이 있습니다. 이렇게 하면 <code class="language-plaintext highlighter-rouge">tokenize</code> 클라이언트 코드를 로컬 변수와 로컬 제어 흐름(예: 루프 및 중첩된 <code class="language-plaintext highlighter-rouge">if</code> 문)을 사용하여 상태를 추적하며 자연스럽게 작성할 수 있습니다. 그러나 이 방법은 현실적이지 않습니다. 프로그램은 매우 클 수 있으므로 전체 파싱 결과를 메모리에 올리는 데 필요한 메모리 양에 미리 제한을 둘 수 없고, 일부 <code class="language-plaintext highlighter-rouge">tokenize</code> 클라이언트는 프로그램 초기에 특정 내용이 나타나는지 여부만 확인하기를 원할 수 있기 때문입니다. 이 경우 전체 프로그램을 먼저 파싱하는 것은 심각한 시간 낭비입니다.</p>
+
+<p>또 다른 대안은 <code class="language-plaintext highlighter-rouge">tokenize</code>를 이터레이터(iterator)로 만들어 <code class="language-plaintext highlighter-rouge">.next()</code> 메서드가 호출될 때마다 다음 토큰을 전달하는 것입니다. 이는 호출자에게는 결과의 큰 리스트와 동일한 방식으로 편리하지만, 메모리 및 “일찍 종료하고 싶다면?”과 같은 단점이 없습니다. 그러나 이 방식은 <code class="language-plaintext highlighter-rouge">tokenize</code>가 <code class="language-plaintext highlighter-rouge">.next()</code> 호출 사이에 상태를 기억하는 부담을 지게 하며, <code class="language-plaintext highlighter-rouge">tokenize.tokenize_loop()</code>를 살펴보면 이것이 얼마나 끔찍한 작업이 될지 쉽게 알 수 있습니다. 일반적인 트리 구조의 노드를 생성하기 위한 재귀 알고리즘을 이터레이터 프레임워크로 변환하려면 재귀를 수동으로 제거하고 순회 상태를 직접 관리해야 합니다.</p>
+
+<p>네 번째 옵션은 생산자와 소비자를 별도의 스레드(threads)에서 실행하는 것입니다. 이를 통해 둘 다 자연스러운 방식으로 상태를 유지할 수 있으므로 양측 모두에게 편리합니다. 하지만 스레드가 없는 플랫폼에서는 작동하지 않으며, 스레드가 있는 플랫폼에서도 매우 느립니다.</p>
+
+<p>마지막 옵션은 경량 코루틴(lightweight coroutines)을 지원하는 Stackless (PEP 219) 변형 Python 구현을 사용하는 것입니다. 이는 스레드 옵션과 유사한 프로그래밍적 이점을 제공하지만 훨씬 효율적입니다. 그러나 Stackless는 Python 코어에 대한 논쟁의 여지가 있는 재고(rethinking)이며, Jython이 동일한 의미론을 구현하는 것이 불가능할 수도 있습니다. 이 PEP는 해당 논쟁을 다룰 곳이 아니므로, 제너레이터가 현재 CPython 구현에 쉽게 통합될 수 있는 방식으로 Stackless 기능의 유용한 하위 집합을 제공하며, 다른 Python 구현에도 비교적 간단하게 적용될 수 있다고 말하는 것으로 충분합니다.</p>
+
+<p>이것이 현재 대안들을 모두 설명한 것입니다. 다른 일부 고급 언어들은 만족스러운 해결책을 제공하는데, 특히 CLU의 이터레이터에서 영감을 받은 Sather의 이터레이터와 모든 표현식이 제너레이터인 독특한 언어인 Icon의 제너레이터가 있습니다. 이들 사이에는 차이점이 있지만, 기본적인 아이디어는 동일합니다. 즉, 호출자에게 중간 결과(“다음 값”)를 반환할 수 있지만, 함수의 로컬 상태를 유지하여 함수가 중단된 지점에서 다시 재개될 수 있는 일종의 함수를 제공하는 것입니다.</p>
+
+<p>매우 간단한 예시:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">fib</span><span class="p">():</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
+    <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">b</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">fib()</code>가 처음 호출되면 <code class="language-plaintext highlighter-rouge">a</code>는 0으로, <code class="language-plaintext highlighter-rouge">b</code>는 1로 설정된 다음 <code class="language-plaintext highlighter-rouge">b</code>를 호출자에게 yield 합니다. 호출자는 1을 받습니다. <code class="language-plaintext highlighter-rouge">fib</code>가 재개되면, <code class="language-plaintext highlighter-rouge">fib</code>의 관점에서는 <code class="language-plaintext highlighter-rouge">yield</code> 문이 <code class="language-plaintext highlighter-rouge">print</code> 문과 거의 동일합니다. <code class="language-plaintext highlighter-rouge">fib</code>는 <code class="language-plaintext highlighter-rouge">yield</code> 이후에 모든 로컬 상태를 그대로 유지한 채 계속됩니다. <code class="language-plaintext highlighter-rouge">a</code>와 <code class="language-plaintext highlighter-rouge">b</code>는 1과 1이 되고, <code class="language-plaintext highlighter-rouge">fib</code>는 <code class="language-plaintext highlighter-rouge">yield</code>로 돌아가 호출자에게 1을 yield 합니다. 이런 식으로 계속됩니다. <code class="language-plaintext highlighter-rouge">fib</code>의 관점에서는 콜백을 통해 순서대로 결과를 전달하는 것과 같습니다. 그러나 호출자의 관점에서는 <code class="language-plaintext highlighter-rouge">fib</code> 호출이 원하는 대로 재개할 수 있는 이터러블(iterable) 객체입니다. 스레드 방식과 마찬가지로, 이 방식은 양측이 가장 자연스러운 방식으로 코드를 작성할 수 있게 합니다. 그러나 스레드 방식과 달리, 이 방식은 효율적으로 모든 플랫폼에서 수행될 수 있습니다. 실제로 제너레이터를 재개하는 것은 함수 호출보다 비용이 많이 들지 않아야 합니다.</p>
+
+<p>동일한 접근 방식이 많은 생산자/소비자 함수에 적용됩니다. 예를 들어, <code class="language-plaintext highlighter-rouge">tokenize.py</code>는 콜백 함수를 인자로 호출하는 대신 다음 토큰을 yield 할 수 있으며, <code class="language-plaintext highlighter-rouge">tokenize</code> 클라이언트는 자연스러운 방식으로 토큰을 반복할 수 있습니다. Python 제너레이터는 일종의 Python 이터레이터이지만, 특히 강력한 종류입니다.</p>
+
+<h2 id="명세-yield-specification-yield">명세: Yield (Specification: Yield)</h2>
+
+<p>새로운 문이 도입됩니다.
+<code class="language-plaintext highlighter-rouge">yield_stmt: "yield" expression_list</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">yield</code>는 새로운 키워드이므로, 초기 릴리스에서는 제너레이터를 사용하려는 모듈이 상단 근처에 <code class="language-plaintext highlighter-rouge">from __future__ import generators</code> 라인을 포함해야 합니다 (자세한 내용은 PEP 236 참조). <code class="language-plaintext highlighter-rouge">future</code> 문 없이 <code class="language-plaintext highlighter-rouge">yield</code> 식별자를 사용하는 모듈은 경고를 발생시킵니다. 다음 릴리스에서는 <code class="language-plaintext highlighter-rouge">yield</code>가 언어 키워드가 되고 <code class="language-plaintext highlighter-rouge">future</code> 문은 더 이상 필요하지 않습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">yield</code> 문은 함수 내부에서만 사용될 수 있습니다. <code class="language-plaintext highlighter-rouge">yield</code> 문을 포함하는 함수를 제너레이터 함수(generator function)라고 합니다. 제너레이터 함수는 모든 면에서 일반 함수 객체이지만, 코드 객체의 <code class="language-plaintext highlighter-rouge">co_flags</code> 멤버에 새로운 <code class="language-plaintext highlighter-rouge">CO_GENERATOR</code> 플래그가 설정됩니다.</p>
+
+<p>제너레이터 함수가 호출될 때, 실제 인수는 일반적인 방식으로 함수-로컬(function-local) 형식 인자 이름에 바인딩되지만, 함수 본문의 코드는 실행되지 않습니다. 대신 제너레이터 이터레이터(generator-iterator) 객체가 반환됩니다. 이 객체는 이터레이터 프로토콜(iterator protocol)을 따르므로, 특히 <code class="language-plaintext highlighter-rouge">for</code> 루프에서 자연스럽게 사용될 수 있습니다. 의도가 문맥상 명확할 경우, “제너레이터(generator)”라는 이름은 제너레이터 함수 또는 제너레이터 이터레이터를 지칭하는 데 사용될 수 있습니다.</p>
+
+<p>제너레이터 이터레이터의 <code class="language-plaintext highlighter-rouge">.next()</code> 메서드가 호출될 때마다, 제너레이터 함수의 본문 코드는 <code class="language-plaintext highlighter-rouge">yield</code> 또는 <code class="language-plaintext highlighter-rouge">return</code> 문(아래 참조)이 나올 때까지 또는 본문의 끝에 도달할 때까지 실행됩니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">yield</code> 문이 나오면 함수의 상태는 “정지(frozen)”되고, <code class="language-plaintext highlighter-rouge">expression_list</code>의 값은 <code class="language-plaintext highlighter-rouge">.next()</code> 호출자에게 반환됩니다. “정지”라는 것은 현재 로컬 변수 바인딩, 명령어 포인터, 내부 평가 스택을 포함한 모든 로컬 상태가 유지된다는 것을 의미합니다. 충분한 정보가 저장되어 다음에 <code class="language-plaintext highlighter-rouge">.next()</code>가 호출될 때, 함수는 <code class="language-plaintext highlighter-rouge">yield</code> 문이 마치 또 다른 외부 호출이었던 것처럼 정확하게 진행할 수 있습니다.</p>
+
+<p><strong>제한:</strong> <code class="language-plaintext highlighter-rouge">try/finally</code> 구성의 <code class="language-plaintext highlighter-rouge">try</code> 절에서는 <code class="language-plaintext highlighter-rouge">yield</code> 문이 허용되지 않습니다. 이는 제너레이터가 다시 재개될 것이라는 보장이 없으므로, <code class="language-plaintext highlighter-rouge">finally</code> 블록이 실행될 것이라는 보장도 없기 때문입니다. 이는 <code class="language-plaintext highlighter-rouge">finally</code>의 목적에 대한 너무 큰 위반입니다.</p>
+
+<p><strong>제한:</strong> 제너레이터는 활성 상태로 실행 중일 때는 재개될 수 없습니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">g</span><span class="p">():</span>
+<span class="p">...</span> <span class="n">i</span> <span class="o">=</span> <span class="n">me</span><span class="p">.</span><span class="nf">next</span><span class="p">()</span>
+<span class="p">...</span> <span class="k">yield</span> <span class="n">i</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">me</span> <span class="o">=</span> <span class="nf">g</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">me</span><span class="p">.</span><span class="nf">next</span><span class="p">()</span>
+<span class="nc">Traceback </span><span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+<span class="bp">...</span>
+<span class="n">File</span> <span class="sh">"</span><span class="s">&lt;string&gt;</span><span class="sh">"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">2</span><span class="p">,</span> <span class="ow">in</span> <span class="n">g</span>
+<span class="nb">ValueError</span><span class="p">:</span> <span class="n">generator</span> <span class="n">already</span> <span class="n">executing</span>
+</code></pre></div></div>
+
+<h2 id="명세-return-specification-return">명세: Return (Specification: Return)</h2>
+
+<p>제너레이터 함수는 다음과 같은 형태의 <code class="language-plaintext highlighter-rouge">return</code> 문을 포함할 수도 있습니다.
+<code class="language-plaintext highlighter-rouge">return</code></p>
+
+<p>제너레이터 본문 내의 <code class="language-plaintext highlighter-rouge">return</code> 문에서는 <code class="language-plaintext highlighter-rouge">expression_list</code>가 허용되지 않습니다 (물론, 제너레이터 내에 중첩된 비-제너레이터 함수의 본문에는 나타날 수 있습니다).</p>
+
+<p><code class="language-plaintext highlighter-rouge">return</code> 문이 나오면, 모든 함수 반환과 마찬가지로 제어가 진행되며, 적절한 <code class="language-plaintext highlighter-rouge">finally</code> 절(있는 경우)을 실행합니다. 그런 다음 <code class="language-plaintext highlighter-rouge">StopIteration</code> 예외가 발생하여 이터레이터가 소진되었음을 알립니다. 명시적인 <code class="language-plaintext highlighter-rouge">return</code> 없이 제어 흐름이 제너레이터 끝에 도달하는 경우에도 <code class="language-plaintext highlighter-rouge">StopIteration</code> 예외가 발생합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">return</code>은 제너레이터 함수와 비-제너레이터 함수 모두에서 “나는 완료되었고, 반환할 흥미로운 것이 없다”는 의미를 가집니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">return</code>이 항상 <code class="language-plaintext highlighter-rouge">StopIteration</code>을 발생하는 것과 동등하지는 않습니다. 차이점은 둘러싼 <code class="language-plaintext highlighter-rouge">try/except</code> 구성이 처리되는 방식에 있습니다. 예를 들어:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">f1</span><span class="p">():</span>
+<span class="p">...</span>     <span class="k">try</span><span class="p">:</span>
+<span class="p">...</span>         <span class="k">return</span>
+<span class="p">...</span>     <span class="k">except</span><span class="p">:</span>
+<span class="p">...</span>         <span class="k">yield</span> <span class="mi">1</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nf">print</span><span class="p">(</span><span class="nf">list</span><span class="p">(</span><span class="nf">f1</span><span class="p">()))</span>
+<span class="p">[]</span>
+</code></pre></div></div>
+<p>이는 어떤 함수에서와 마찬가지로 <code class="language-plaintext highlighter-rouge">return</code>이 단순히 종료하기 때문입니다. 하지만:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">f2</span><span class="p">():</span>
+<span class="p">...</span>     <span class="k">try</span><span class="p">:</span>
+<span class="p">...</span>         <span class="k">raise</span> <span class="nb">StopIteration</span>
+<span class="p">...</span>     <span class="k">except</span><span class="p">:</span>
+<span class="p">...</span>         <span class="k">yield</span> <span class="mi">42</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nf">print</span><span class="p">(</span><span class="nf">list</span><span class="p">(</span><span class="nf">f2</span><span class="p">()))</span>
+<span class="p">[</span><span class="mi">42</span><span class="p">]</span>
+</code></pre></div></div>
+<p>이는 <code class="language-plaintext highlighter-rouge">StopIteration</code>이 다른 예외와 마찬가지로 bare <code class="language-plaintext highlighter-rouge">except</code>에 의해 포착되기 때문입니다.</p>
+
+<h2 id="명세-제너레이터와-예외-전파-specification-generators-and-exception-propagation">명세: 제너레이터와 예외 전파 (Specification: Generators and Exception Propagation)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">StopIteration</code>을 포함하되 이에 국한되지 않는, 처리되지 않은 예외가 제너레이터 함수에 의해 발생하거나 제너레이터 함수를 통과하는 경우, 예외는 일반적인 방식으로 호출자에게 전달되며, 이후 제너레이터 함수를 재개하려는 시도는 <code class="language-plaintext highlighter-rouge">StopIteration</code>을 발생시킵니다. 다시 말해, 처리되지 않은 예외는 제너레이터의 유효 수명을 종료시킵니다.</p>
+
+<p>예시 (관용적이지 않지만 요점을 설명하기 위함):</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">f</span><span class="p">():</span>
+<span class="p">...</span>     <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="mi">0</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">g</span><span class="p">():</span>
+<span class="p">...</span>     <span class="k">yield</span> <span class="nf">f</span><span class="p">()</span> <span class="c1"># 0으로 나누기 예외가 전파됩니다.
+</span><span class="p">...</span>     <span class="k">yield</span> <span class="mi">42</span>  <span class="c1"># 여기에 도달하지 못합니다.
+</span><span class="o">&gt;&gt;&gt;</span> <span class="n">k</span> <span class="o">=</span> <span class="nf">g</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">k</span><span class="p">.</span><span class="nf">next</span><span class="p">()</span>
+<span class="nc">Traceback </span><span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+<span class="n">File</span> <span class="sh">"</span><span class="s">&lt;stdin&gt;</span><span class="sh">"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="err">?</span>
+<span class="n">File</span> <span class="sh">"</span><span class="s">&lt;stdin&gt;</span><span class="sh">"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">2</span><span class="p">,</span> <span class="ow">in</span> <span class="n">g</span>
+<span class="n">File</span> <span class="sh">"</span><span class="s">&lt;stdin&gt;</span><span class="sh">"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">2</span><span class="p">,</span> <span class="ow">in</span> <span class="n">f</span>
+<span class="nb">ZeroDivisionError</span><span class="p">:</span> <span class="n">integer</span> <span class="n">division</span> <span class="ow">or</span> <span class="n">modulo</span> <span class="n">by</span> <span class="n">zero</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">k</span><span class="p">.</span><span class="nf">next</span><span class="p">()</span> <span class="c1"># 그리고 제너레이터는 재개될 수 없습니다.
+</span><span class="nc">Traceback </span><span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+<span class="n">File</span> <span class="sh">"</span><span class="s">&lt;stdin&gt;</span><span class="sh">"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="err">?</span>
+<span class="nb">StopIteration</span>
+<span class="o">&gt;&gt;&gt;</span>
+</code></pre></div></div>
+
+<h2 id="명세-tryexceptfinally-specification-tryexceptfinally">명세: Try/Except/Finally (Specification: Try/Except/Finally)</h2>
+
+<p>앞서 언급했듯이, <code class="language-plaintext highlighter-rouge">try/finally</code> 구성의 <code class="language-plaintext highlighter-rouge">try</code> 절에서는 <code class="language-plaintext highlighter-rouge">yield</code>가 허용되지 않습니다. 결과적으로 제너레이터는 중요한 리소스를 매우 신중하게 할당해야 합니다. 그 외에는 <code class="language-plaintext highlighter-rouge">finally</code> 절, <code class="language-plaintext highlighter-rouge">except</code> 절 또는 <code class="language-plaintext highlighter-rouge">try/except</code> 구성의 <code class="language-plaintext highlighter-rouge">try</code> 절에 <code class="language-plaintext highlighter-rouge">yield</code>가 나타나는 데 제한이 없습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">f</span><span class="p">():</span>
+<span class="p">...</span>     <span class="k">try</span><span class="p">:</span>
+<span class="p">...</span>         <span class="k">yield</span> <span class="mi">1</span>
+<span class="p">...</span>         <span class="k">try</span><span class="p">:</span>
+<span class="p">...</span>             <span class="k">yield</span> <span class="mi">2</span>
+<span class="p">...</span>             <span class="mi">1</span><span class="o">/</span><span class="mi">0</span>
+<span class="p">...</span>             <span class="k">yield</span> <span class="mi">3</span> <span class="c1"># 여기에 도달하지 못합니다.
+</span><span class="p">...</span>         <span class="k">except</span> <span class="nb">ZeroDivisionError</span><span class="p">:</span>
+<span class="p">...</span>             <span class="k">yield</span> <span class="mi">4</span>
+<span class="p">...</span>             <span class="k">yield</span> <span class="mi">5</span>
+<span class="p">...</span>             <span class="k">raise</span>
+<span class="p">...</span>         <span class="k">except</span><span class="p">:</span>
+<span class="p">...</span>             <span class="k">yield</span> <span class="mi">6</span>
+<span class="p">...</span>             <span class="k">yield</span> <span class="mi">7</span> <span class="c1"># 위의 "raise"가 이것을 중단시킵니다.
+</span><span class="p">...</span>         <span class="k">except</span><span class="p">:</span>
+<span class="p">...</span>             <span class="k">yield</span> <span class="mi">8</span>
+<span class="p">...</span>             <span class="k">yield</span> <span class="mi">9</span>
+<span class="p">...</span>         <span class="k">try</span><span class="p">:</span>
+<span class="p">...</span>             <span class="n">x</span> <span class="o">=</span> <span class="mi">12</span>
+<span class="p">...</span>         <span class="k">finally</span><span class="p">:</span>
+<span class="p">...</span>             <span class="k">yield</span> <span class="mi">10</span>
+<span class="p">...</span>             <span class="k">yield</span> <span class="mi">11</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nf">print</span><span class="p">(</span><span class="nf">list</span><span class="p">(</span><span class="nf">f</span><span class="p">()))</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span>
+</code></pre></div></div>
+
+<h2 id="예시-example">예시 (Example)</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 이진 트리 클래스.
+</span><span class="k">class</span> <span class="nc">Tree</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">left</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">right</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">level</span><span class="o">*</span><span class="n">indent</span> <span class="o">+</span> <span class="nf">repr</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">label</span><span class="p">)</span> <span class="c1"># `self.label` 대신 repr(self.label)로 변경
+</span>        <span class="k">if</span> <span class="n">self</span><span class="p">.</span><span class="n">left</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="sh">"</span><span class="se">\n</span><span class="sh">"</span> <span class="o">+</span> <span class="n">self</span><span class="p">.</span><span class="n">left</span><span class="p">.</span><span class="nf">__repr__</span><span class="p">(</span><span class="n">level</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">indent</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">self</span><span class="p">.</span><span class="n">right</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="sh">"</span><span class="se">\n</span><span class="sh">"</span> <span class="o">+</span> <span class="n">self</span><span class="p">.</span><span class="n">right</span><span class="p">.</span><span class="nf">__repr__</span><span class="p">(</span><span class="n">level</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">indent</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">s</span>
+
+    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nf">inorder</span><span class="p">(</span><span class="n">self</span><span class="p">)</span>
+
+<span class="c1"># 리스트에서 트리를 생성합니다.
+</span><span class="k">def</span> <span class="nf">tree</span><span class="p">(</span><span class="n">list_data</span><span class="p">):</span> <span class="c1"># list_data로 변수명 변경
+</span>    <span class="n">n</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="n">list_data</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span> <span class="c1"># 빈 리스트일 때 None 반환하도록 수정
+</span>    <span class="n">i</span> <span class="o">=</span> <span class="n">n</span> <span class="o">//</span> <span class="mi">2</span> <span class="c1"># 정수 나눗셈으로 변경
+</span>    <span class="k">return</span> <span class="nc">Tree</span><span class="p">(</span><span class="n">list_data</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="nf">tree</span><span class="p">(</span><span class="n">list_data</span><span class="p">[:</span><span class="n">i</span><span class="p">]),</span> <span class="nf">tree</span><span class="p">(</span><span class="n">list_data</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:]))</span>
+
+<span class="c1"># 트리의 레이블을 중위 순서(in-order)로 생성하는 재귀 제너레이터.
+</span><span class="k">def</span> <span class="nf">inorder</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">t</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nf">inorder</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">left</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="n">x</span>
+        <span class="k">yield</span> <span class="n">t</span><span class="p">.</span><span class="n">label</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nf">inorder</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">right</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="n">x</span>
+
+<span class="c1"># 시연: 트리를 생성합니다.
+</span><span class="n">t</span> <span class="o">=</span> <span class="nf">tree</span><span class="p">(</span><span class="sh">"</span><span class="s">ABCDEFGHIJKLMNOPQRSTUVWXYZ</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># 트리의 노드를 중위 순서로 출력합니다.
+</span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">t</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="sh">'</span><span class="s"> </span><span class="sh">'</span><span class="p">)</span> <span class="c1"># print 문 수정
+</span><span class="nf">print</span><span class="p">()</span>
+
+<span class="c1"># 비재귀 제너레이터.
+</span><span class="k">def</span> <span class="nf">inorder_non_recursive</span><span class="p">(</span><span class="n">node</span><span class="p">):</span> <span class="c1"># 함수명 변경
+</span>    <span class="n">stack</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
+        <span class="k">while</span> <span class="n">node</span><span class="p">.</span><span class="n">left</span><span class="p">:</span>
+            <span class="n">stack</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="p">.</span><span class="n">left</span>
+        <span class="k">yield</span> <span class="n">node</span><span class="p">.</span><span class="n">label</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="n">node</span><span class="p">.</span><span class="n">right</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">node</span> <span class="o">=</span> <span class="n">stack</span><span class="p">.</span><span class="nf">pop</span><span class="p">()</span>
+            <span class="k">except</span> <span class="nb">IndexError</span><span class="p">:</span>
+                <span class="k">return</span>
+            <span class="k">yield</span> <span class="n">node</span><span class="p">.</span><span class="n">label</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="p">.</span><span class="n">right</span>
+
+<span class="c1"># 비재귀 제너레이터를 실행합니다.
+</span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nf">inorder_non_recursive</span><span class="p">(</span><span class="n">t</span><span class="p">):</span> <span class="c1"># 함수명 변경
+</span>    <span class="nf">print</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="sh">'</span><span class="s"> </span><span class="sh">'</span><span class="p">)</span> <span class="c1"># print 문 수정
+</span><span class="nf">print</span><span class="p">()</span>
+</code></pre></div></div>
+<p>두 출력 블록 모두 다음을 표시합니다.
+<code class="language-plaintext highlighter-rouge">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</code></p>
+
+<h2 id="q--a">Q &amp; A</h2>
+
+<h3 id="왜-def를-재사용하는-대신-새로운-키워드를-사용하지-않았는가">왜 <code class="language-plaintext highlighter-rouge">def</code>를 재사용하는 대신 새로운 키워드를 사용하지 않았는가?</h3>
+<p>BDFL Pronouncements 섹션을 참조하십시오.</p>
+
+<h3 id="왜-yield에-새로운-키워드를-사용하는가-빌트인-함수-대신에는-안-되는가">왜 <code class="language-plaintext highlighter-rouge">yield</code>에 새로운 키워드를 사용하는가? 빌트인 함수 대신에는 안 되는가?</h3>
+<p>파이썬에서 제어 흐름은 키워드를 통해 훨씬 잘 표현되며, <code class="language-plaintext highlighter-rouge">yield</code>는 제어 구조입니다. 또한 Jython에서 효율적인 구현을 위해서는 컴파일러가 컴파일 시간에 잠재적 중단점(suspension points)을 결정할 수 있어야 한다고 여겨지며, 새로운 키워드는 이를 쉽게 만듭니다. CPython 참조 구현 또한 이를 활용하여 어떤 함수가 제너레이터 함수인지 감지합니다.</p>
+
+<h3 id="그러면-새로운-키워드-없이-다른-특별한-구문은-안-되는가">그러면 새로운 키워드 없이 다른 특별한 구문은 안 되는가?</h3>
+<p>예를 들어, <code class="language-plaintext highlighter-rouge">yield 3</code> 대신 다음과 같은 것들을 생각해 볼 수 있습니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">return 3 and continue</code></li>
+  <li><code class="language-plaintext highlighter-rouge">return and continue 3</code></li>
+  <li><code class="language-plaintext highlighter-rouge">return generating 3</code></li>
+  <li><code class="language-plaintext highlighter-rouge">continue return 3</code></li>
+  <li><code class="language-plaintext highlighter-rouge">return &gt;&gt; , 3 from generator</code></li>
+  <li><code class="language-plaintext highlighter-rouge">return &gt;&gt; 3</code></li>
+  <li><code class="language-plaintext highlighter-rouge">return &lt;&lt; 3</code></li>
+  <li><code class="language-plaintext highlighter-rouge">&gt;&gt; 3</code></li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;&lt; 3 * 3</code></li>
+</ul>
+
+<p>수백 개의 메시지 중 세 가지만 이러한 대안을 제시했으며, 위 내용은 그중에서 발췌한 것입니다. 새로운 키워드가 필요 없는 것이 좋겠지만, <code class="language-plaintext highlighter-rouge">yield</code>를 매우 명확하게 만드는 것이 더 좋습니다. <code class="language-plaintext highlighter-rouge">yield</code>가 발생하는 것을 이전에는 의미 없던 키워드나 연산자의 시퀀스를 해석하여 추론하고 싶지 않습니다. 그래도 이것이 충분한 관심을 끈다면, 제안자들은 단일 합의 제안에 합의해야 하며, 귀도(Guido)가 그것에 대해 “선언(Pronounce)”할 것입니다.</p>
+
+<h3 id="왜-return을-아예-허용하는가-왜-raise-stopiteration으로-종료를-강제하지-않는가">왜 <code class="language-plaintext highlighter-rouge">return</code>을 아예 허용하는가? 왜 <code class="language-plaintext highlighter-rouge">raise StopIteration</code>으로 종료를 강제하지 않는가?</h3>
+<p><code class="language-plaintext highlighter-rouge">StopIteration</code>의 메커니즘은 Python 2.1의 <code class="language-plaintext highlighter-rouge">IndexError</code> 메커니즘과 같이 저수준 세부 사항입니다. 구현은 내부적으로 잘 정의된 작업을 수행해야 하며, Python은 고급 사용자를 위해 이러한 메커니즘을 노출합니다. 그러나 이것이 모든 사람에게 그 수준에서 작업하도록 강제해야 한다는 주장은 아닙니다. <code class="language-plaintext highlighter-rouge">return</code>은 어떤 종류의 함수에서든 “나는 완료되었다”를 의미하며, 이는 설명하고 사용하기 쉽습니다. 또한, <code class="language-plaintext highlighter-rouge">return</code>이 <code class="language-plaintext highlighter-rouge">try/except</code> 구성에서 <code class="language-plaintext highlighter-rouge">raise StopIteration</code>과 항상 동등하지는 않습니다 ( “명세: Return” 섹션 참조).</p>
+
+<h3 id="그러면-return에도-표현식을-허용하지-않는가">그러면 <code class="language-plaintext highlighter-rouge">return</code>에도 표현식을 허용하지 않는가?</h3>
+<p>어쩌면 언젠가는 허용할 수도 있습니다. Icon에서는 <code class="language-plaintext highlighter-rouge">return expr</code>이 “나는 완료되었다”와 “하지만 반환할 최종적으로 유용한 값도 있고, 그것이 이것이다”라는 두 가지를 의미합니다. 초기 단계에서는 <code class="language-plaintext highlighter-rouge">return expr</code>에 대한 설득력 있는 사용 사례가 없으므로, 값을 전달하는 데 <code class="language-plaintext highlighter-rouge">yield</code>만 사용하는 것이 더 깔끔합니다.</p>
+
+<h2 id="bdfl-선언-bdfl-pronouncements">BDFL 선언 (BDFL Pronouncements)</h2>
+
+<p><strong>쟁점:</strong> <code class="language-plaintext highlighter-rouge">def</code> 대신 <code class="language-plaintext highlighter-rouge">gen</code> 또는 <code class="language-plaintext highlighter-rouge">generator</code>와 같은 다른 새로운 키워드를 도입하거나 구문을 변경하여 제너레이터 함수를 비-제너레이터 함수와 구분해야 하는가.</p>
+
+<p><strong>반대 (Con):</strong> 실제로 (생각하는 방식에 따라), 제너레이터는 함수이지만, 재개 가능하다는 특징을 가집니다. 그것들이 어떻게 설정되는지에 대한 메커니즘은 비교적 사소한 기술적 문제이며, 새로운 키워드를 도입하는 것은 제너레이터가 시작되는 메커니즘(제너레이터 수명의 중요하지만 작은 부분)을 불필요하게 과도하게 강조할 것입니다.</p>
+
+<p><strong>찬성 (Pro):</strong> 현실적으로 (생각하는 방식에 따라), 제너레이터 함수는 마법처럼 제너레이터 이터레이터를 생성하는 팩토리 함수(factory functions)입니다. 이런 점에서 그것들은 비-제너레이터 함수와 근본적으로 다르며, 함수라기보다는 생성자처럼 작동하므로 <code class="language-plaintext highlighter-rouge">def</code>를 재사용하는 것은 기껏해야 혼란스럽습니다. 본문 내부에 숨겨진 <code class="language-plaintext highlighter-rouge">yield</code> 문만으로는 의미론이 그렇게 다르다는 것을 충분히 경고하지 못합니다.</p>
+
+<p><strong>BDFL (Guido van Rossum):</strong> <code class="language-plaintext highlighter-rouge">def</code>는 그대로 유지됩니다. 양측의 주장이 완전히 설득력 있는 것은 아니어서, 언어 설계자로서의 제 직관에 따라 결정했습니다. 제 직관은 이 PEP에서 제안된 구문이 정확히 맞다는 것을 알려줍니다. 너무 뜨겁지도, 너무 차갑지도 않습니다. 그러나 그리스 신화의 델피 신탁처럼, 왜 그런지는 알려주지 않으므로, PEP 구문에 반대하는 주장에 대한 반박은 없습니다. 제가 내놓을 수 있는 최선은 “FUD”(Fear, Uncertainty, Doubt - 공포, 불확실성, 의심)입니다. 만약 이것이 언어의 첫날부터 존재했다면, 앤드루 쿠클링(Andrew Kuchling)의 “Python Warts” 페이지에 실렸을 것이라고는 거의 의심하지 않습니다.</p>
+
+<h2 id="참조-구현-reference-implementation">참조 구현 (Reference Implementation)</h2>
+<p>현재 구현은 예비 상태이지만 (문서는 없지만 잘 테스트되고 견고함), Python의 CVS 개발 트리의 일부입니다. 이를 사용하려면 소스에서 Python을 빌드해야 합니다. 이는 Neil Schemenauer의 이전 패치에서 파생되었습니다.</p>
+
+<h2 id="각주-및-참고-자료-footnotes-and-references">각주 및 참고 자료 (Footnotes and References)</h2>
+<p>https://www.stackless.com/
+ “Iteration Abstraction in Sather” Murer, Omohundro, Stoutamire and Szyperski http://www.icsi.berkeley.edu/~sather/Publications/toplas.html
+ http://www.cs.arizona.edu/icon/
+ http://python.ca/nas/python/generator.diff
+ 이 구현을 실험하려면 http://sf.net/cvs/?group_id=5470 지침에 따라 CVS에서 Python을 체크아웃하십시오. 표준 테스트 <code class="language-plaintext highlighter-rouge">Lib/test/test_generators.py</code>에는 이 PEP의 모든 예제를 포함한 많은 예제가 있습니다.</p>
+
+<h2 id="저작권-copyright">저작권 (Copyright)</h2>
+<p>이 문서는 퍼블릭 도메인에 공개되었습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/254/" class="pagination--pager" title="[Rejected] PEP 254 - Making Classes Look More Like Types
+">Previous</a>
+    
+    
+      <a href="/python/pep/256/" class="pagination--pager" title="[Rejected] PEP 256 - Docstring Processing System Framework
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

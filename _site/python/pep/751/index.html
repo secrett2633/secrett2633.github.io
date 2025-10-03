@@ -1,0 +1,806 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 751 - A file format to record Python dependencies for installation reproducibility | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 751: ‘A file format to record Python dependencies for installation reproducibility’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 751 - A file format to record Python dependencies for installation reproducibility">
+<meta property="og:url" content="http://localhost:4000/python/pep/751/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 751: ‘A file format to record Python dependencies for installation reproducibility’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T13:40:01+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T13:40:01+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/751/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 751 - A file format to record Python dependencies for installation reproducibility">
+    <meta itemprop="description" content="Python Enhancement Proposal 751: ‘A file format to record Python dependencies for installation reproducibility’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T13:40:01+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T13:40:01+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 751 - A file format to record Python dependencies for installation reproducibility
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T13:40:01+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-751--설치-재현성을-위한-python-종속성-기록-파일-형식">PEP 751 – 설치 재현성을 위한 Python 종속성 기록 파일 형식</a><ul><li><a href="#요약-abstract">요약 (Abstract)</a></li><li><a href="#동기-motivation">동기 (Motivation)</a></li><li><a href="#근거-rationale">근거 (Rationale)</a></li><li><a href="#명세-specification">명세 (Specification)</a><ul><li><a href="#파일-이름-file-name">파일 이름 (File Name)</a></li><li><a href="#파일-형식-file-format">파일 형식 (File Format)</a></li><li><a href="#마커-표현식-구문-추가-additions-to-marker-expression-syntax">마커 표현식 구문 추가 (Additions to marker expression syntax)</a></li><li><a href="#예시-example">예시 (Example)</a></li><li><a href="#설치-installation">설치 (Installation)</a></li><li><a href="#requirementstxt-파일과의-의미론적-차이-semantic-differences-with-requirementstxt-files">requirements.txt 파일과의 의미론적 차이 (Semantic differences with requirements.txt files)</a></li><li><a href="#보안-시사점-security-implications">보안 시사점 (Security Implications)</a></li><li><a href="#교육-방법-how-to-teach-this">교육 방법 (How to Teach This)</a></li></ul></li><li><a href="#거부된-아이디어-rejected-ideas">거부된 아이디어 (Rejected Ideas)</a></li><li><a href="#결론">결론</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0751/">PEP 751 - A file format to record Python dependencies for installation reproducibility</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 24-Jul-2024</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-751--설치-재현성을-위한-python-종속성-기록-파일-형식">PEP 751 – 설치 재현성을 위한 Python 종속성 기록 파일 형식</h1>
+
+<h2 id="요약-abstract">요약 (Abstract)</h2>
+<p>이 PEP는 Python 환경에서 재현 가능한(reproducible) 설치를 가능하게 하는 새로운 종속성 명세 파일 형식을 제안합니다. 이 형식은 사람이 읽을 수 있고(human-readable), 기계적으로 생성될 수 있도록 설계되었습니다. 이 파일을 사용하는 설치 도구는 설치 시점에 종속성 해결(dependency resolution) 과정 없이 무엇을 설치해야 할지 계산할 수 있어야 합니다.</p>
+
+<h2 id="동기-motivation">동기 (Motivation)</h2>
+<p>현재 Python 생태계에는 가상 환경에 어떤 직접 및 간접 종속성을 설치해야 하는지 명시하는 <code class="language-plaintext highlighter-rouge">lock file</code>과 같은 불변(immutable) 레코드를 생성하기 위한 표준이 존재하지 않습니다.</p>
+
+<p>커뮤니티 내에 PDM, <code class="language-plaintext highlighter-rouge">pip freeze</code>, pip-tools, Poetry, uv와 같이 이 문제를 해결하기 위한 최소 다섯 가지의 잘 알려진 솔루션이 있다는 점을 고려할 때, <code class="language-plaintext highlighter-rouge">lock file</code>에 대한 전반적인 수요가 분명히 존재합니다.</p>
+
+<p>이러한 도구들은 지원하는 <code class="language-plaintext highlighter-rouge">locking</code> 시나리오에서도 차이가 있습니다. 예를 들어, <code class="language-plaintext highlighter-rouge">pip freeze</code>와 <code class="language-plaintext highlighter-rouge">pip-tools</code>는 현재 환경에 대한 일회성 <code class="language-plaintext highlighter-rouge">lock file</code>만 생성하는 반면, PDM, Poetry, uv는 여러 환경과 사용 사례를 동시에 <code class="language-plaintext highlighter-rouge">lock</code>할 수 있습니다. 또한, 일부 도구(예: 파일 해시 포함 여부)의 공급망 공격(supply chain attacks)에 대한 보안 기본값 부족에 대한 우려도 있습니다.</p>
+
+<p>표준의 부재는 몇 가지 단점을 야기합니다. <code class="language-plaintext highlighter-rouge">lock file</code>과 연동하려는 모든 도구는 어떤 형식을 지원할지 선택해야 하므로, 잠재적으로 사용자 지원이 어려워질 수 있습니다 (예: Dependabot이나 클라우드 제공업체가 특정 도구만 지원). 이는 도구 간의 이식성(portability)에도 영향을 미쳐 벤더 종속(vendor lock-in)을 초래합니다. 호환성과 상호 운용성이 부족하면 <code class="language-plaintext highlighter-rouge">lock file</code>을 둘러싼 도구들이 분열되어 사용자 및 도구 모두 어떤 <code class="language-plaintext highlighter-rouge">lock file</code> 형식을 사용할지 미리 선택해야 하므로, 다른 형식으로의 전환 비용이 발생합니다 (예: <code class="language-plaintext highlighter-rouge">lock file</code> 감사(auditing) 관련 도구). 단일 형식으로의 통합은 이러한 비용과 장벽을 제거합니다.</p>
+
+<p>커뮤니티에서 표준에 가장 가까운 것은 <code class="language-plaintext highlighter-rouge">pip</code>의 <code class="language-plaintext highlighter-rouge">requirements file</code>이며, 앞서 언급된 모든 도구는 이를 직접 파일 형식으로 사용하거나 내보냅니다 (<code class="language-plaintext highlighter-rouge">requirements.txt</code> 등). 그러나 이 형식은 표준이 아니라 관례적으로 지원됩니다. 또한 <code class="language-plaintext highlighter-rouge">pip</code>의 요구 사항에 맞춰 설계되어 유연성과 사용 편의성이 제한됩니다 (예: 맞춤형 파일 형식). 마지막으로, 기본적으로 보안이 취약합니다 (예: 파일 해시 지원은 완전히 <code class="language-plaintext highlighter-rouge">opt-in</code> 기능이며, <code class="language-plaintext highlighter-rouge">requirements file</code>에 없는 다른 종속성을 찾지 않도록 <code class="language-plaintext highlighter-rouge">pip</code>에 명시적으로 지시해야 합니다).</p>
+
+<p><strong>참고:</strong> PEP 665의 많은 동기가 이 PEP에도 적용됩니다.</p>
+
+<h2 id="근거-rationale">근거 (Rationale)</h2>
+<p>이 PEP가 제안하는 파일 형식은 사람이 읽을 수 있도록(human-readable) 설계되었습니다. 이는 <code class="language-plaintext highlighter-rouge">lock file</code>에 원치 않는 종속성이 포함되지 않았는지 사람이 내용을 감사할 수 있도록 하기 위함입니다.</p>
+
+<p>또한 이 파일 형식은 설치 시점에 <code class="language-plaintext highlighter-rouge">resolver</code>가 필요하지 않도록 설계되었습니다. 이는 <code class="language-plaintext highlighter-rouge">lock file</code>을 소비할 때 무엇이 설치될지 추론하는 것을 크게 단순화합니다. 또한 <code class="language-plaintext highlighter-rouge">lock file</code> 생성보다 훨씬 더 자주 발생하는 설치를 더 빠르게 수행할 수 있게 합니다.</p>
+
+<p>파일의 데이터는 Python으로 작성되지 않은 도구에서도 사용할 수 있어야 합니다. 예를 들어, 클라우드 호스팅 제공업체가 선호하는 프로그래밍 언어로 자체 설치 도구를 작성할 수 있게 합니다. 이는 <code class="language-plaintext highlighter-rouge">lock file</code>을 작성하는 <code class="language-plaintext highlighter-rouge">lockers</code>와 <code class="language-plaintext highlighter-rouge">lock file</code>에서 설치하는 <code class="language-plaintext highlighter-rouge">installers</code>라는 개념을 도입합니다 (두 역할은 동일한 도구일 수 있습니다).</p>
+
+<p>이 파일 형식은 좋은 보안 기본값(security defaults)을 장려해야 합니다. 이 형식은 사람이 직접 작성하도록 의도된 것이 아니므로, 도구가 보안 관련 세부 정보를 제공하는 것이 합리적이며 큰 부담이 되지 않습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">lock file</code>의 내용은 <code class="language-plaintext highlighter-rouge">requirements file</code>이 <code class="language-plaintext highlighter-rouge">lock file</code>로 사용될 때 (예: <code class="language-plaintext highlighter-rouge">pip-tools</code> 및 <code class="language-plaintext highlighter-rouge">pip freeze</code>가 생성하는 결과물) 대다수의 용도를 대체할 수 있어야 합니다. 이는 이 PEP에 명시된 파일 형식이 자체 내부 <code class="language-plaintext highlighter-rouge">lock file</code> 형식을 가진 도구의 최소한 <code class="language-plaintext highlighter-rouge">export target</code> 역할을 할 수 있음을 의미합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">lock file</code>은 <code class="language-plaintext highlighter-rouge">single-use</code> 및 <code class="language-plaintext highlighter-rouge">multi-use</code>일 수 있습니다. <code class="language-plaintext highlighter-rouge">single-use lock file</code>은 <code class="language-plaintext highlighter-rouge">requirements.txt</code> 파일과 같이 단일 사용 사례/목적을 제공하는 파일입니다 (프로젝트에 여러 <code class="language-plaintext highlighter-rouge">requirements file</code>이 있는 것이 드물지 않은 이유). <code class="language-plaintext highlighter-rouge">multi-use lock file</code>은 종종 <code class="language-plaintext highlighter-rouge">extras</code> 및 <code class="language-plaintext highlighter-rouge">Dependency Groups</code>를 통해 단일 파일 내에서 여러 사용 사례를 나타냅니다. 이 PEP는 <code class="language-plaintext highlighter-rouge">extras</code> 및 <code class="language-plaintext highlighter-rouge">dependency groups</code>를 적절하게 지정할 수 있도록 <code class="language-plaintext highlighter-rouge">Environment Markers</code>에 대한 추가 기능을 지원합니다. 이는 단일 <code class="language-plaintext highlighter-rouge">lock file</code>이 이러한 경우를 지원할 수 있게 합니다. 이는 잠재적인 <code class="language-plaintext highlighter-rouge">lock file</code> 수를 줄일 뿐만 아니라, 단일 패키지가 모든 사용 사례에서 일관되어야 할 때 더 쉽게 만듭니다 (여러 <code class="language-plaintext highlighter-rouge">single-use lock file</code>의 경우 여러 <code class="language-plaintext highlighter-rouge">lock file</code> 간의 조정을 필요로 합니다). 이 지원은 이 PEP가 <code class="language-plaintext highlighter-rouge">pyproject.toml</code> 파일에 기록될 수 있는 모든 패키지 설치 관련 데이터를 지원한다는 것을 의미합니다. 이 지원을 통해 일부 도구가 내부 <code class="language-plaintext highlighter-rouge">lock file</code>을 완전히 삭제하고 이 PEP가 명시하는 내용에만 의존할 수 있기를 바랍니다.</p>
+
+<h2 id="명세-specification">명세 (Specification)</h2>
+
+<h3 id="파일-이름-file-name">파일 이름 (File Name)</h3>
+<p><code class="language-plaintext highlighter-rouge">lock file</code>은 <code class="language-plaintext highlighter-rouge">pylock.toml</code>로 이름 지어져야 하며, 특정 이름을 원하거나 여러 <code class="language-plaintext highlighter-rouge">lock file</code>이 존재하는 경우 정규 표현식 <code class="language-plaintext highlighter-rouge">r"^pylock\.([^.]+)\.toml$"</code>과 일치해야 합니다. <code class="language-plaintext highlighter-rouge">.toml</code> 파일 확장자를 사용하는 것은 편집기에서 구문 강조(syntax highlighting)를 쉽게 하고 파일 형식이 사람이 읽을 수 있도록 설계되었음을 강조하기 위함입니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">lock file</code>은 <code class="language-plaintext highlighter-rouge">lock file</code>의 범위에 따라 적절한 디렉토리에 위치해야 합니다. 예를 들어, 단일 <code class="language-plaintext highlighter-rouge">pyproject.toml</code>에 대한 <code class="language-plaintext highlighter-rouge">locking</code>은 <code class="language-plaintext highlighter-rouge">pylock.toml</code>을 동일한 디렉토리에 배치합니다.</p>
+
+<h3 id="파일-형식-file-format">파일 형식 (File Format)</h3>
+<p>파일 형식은 <strong>TOML</strong>입니다.</p>
+
+<p>도구는 <code class="language-plaintext highlighter-rouge">diff</code> 출력의 노이즈를 최소화하기 위해 일관된 방식으로 <code class="language-plaintext highlighter-rouge">lock file</code>을 작성해야 합니다. 테이블의 키는 일관된 순서로 기록되어야 하며, 배열도 일관된 순서로 정렬되어야 합니다.</p>
+
+<p>주요 최상위 키들은 다음과 같습니다:</p>
+
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">lock-version</code></strong>: (필수) 파일 형식 버전. 현재 <code class="language-plaintext highlighter-rouge">1.0</code>.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">environments</code></strong>: (선택) <code class="language-plaintext highlighter-rouge">lock file</code>이 호환되는 <code class="language-plaintext highlighter-rouge">Environment Markers</code> 목록.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">requires-python</code></strong>: (선택) <code class="language-plaintext highlighter-rouge">lock file</code>이 지원하는 최소 Python 버전.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">extras</code></strong>: (선택) 이 <code class="language-plaintext highlighter-rouge">lock file</code>이 지원하는 <code class="language-plaintext highlighter-rouge">extras</code> 목록.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">dependency-groups</code></strong>: (선택) 이 <code class="language-plaintext highlighter-rouge">lock file</code>이 공개적으로 지원하는 <code class="language-plaintext highlighter-rouge">Dependency Groups</code> 목록.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">default-groups</code></strong>: (선택) 기본적으로 설치되어야 할 합성 <code class="language-plaintext highlighter-rouge">dependency group</code>의 이름.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">created-by</code></strong>: (필수) <code class="language-plaintext highlighter-rouge">lock file</code>을 생성한 도구의 이름.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">[[packages]]</code></strong>: (필수) 설치될 수 있는 모든 패키지를 포함하는 테이블 배열.
+    <ul>
+      <li><strong><code class="language-plaintext highlighter-rouge">packages.name</code></strong>: (필수) 정규화된 패키지 이름.</li>
+      <li><strong><code class="language-plaintext highlighter-rouge">packages.version</code></strong>: (선택) 패키지 버전. <code class="language-plaintext highlighter-rouge">sdist</code> 또는 <code class="language-plaintext highlighter-rouge">wheel</code>이 지정될 때 기록되어야 합니다.</li>
+      <li><strong><code class="language-plaintext highlighter-rouge">packages.marker</code></strong>: (선택) 패키지가 설치되어야 할 시점을 지정하는 <code class="language-plaintext highlighter-rouge">environment marker</code>.</li>
+      <li><strong><code class="language-plaintext highlighter-rouge">packages.requires-python</code></strong>: (선택) 패키지의 Python 버전 호환성을 위한 <code class="language-plaintext highlighter-rouge">Version specifier</code>.</li>
+      <li><strong><code class="language-plaintext highlighter-rouge">[[packages.dependencies]]</code></strong>: (선택) 이 패키지의 직접적인 종속성인 다른 <code class="language-plaintext highlighter-rouge">[[packages]]</code> 항목을 기록. 감사 목적으로만 사용되며, 설치 시에는 사용되지 않습니다.</li>
+      <li><strong><code class="language-plaintext highlighter-rouge">[packages.vcs]</code></strong>: (선택, 다른 소스 필드와 상호 배타적) 버전 관리 시스템 (VCS) 소스 트리의 세부 정보.</li>
+      <li><strong><code class="language-plaintext highlighter-rouge">[packages.directory]</code></strong>: (선택, 다른 소스 필드와 상호 배타적) 로컬 디렉토리 소스 트리의 세부 정보.</li>
+      <li><strong><code class="language-plaintext highlighter-rouge">[packages.archive]</code></strong>: (선택, 다른 소스 필드와 상호 배타적) 아카이브 파일 (<code class="language-plaintext highlighter-rouge">wheel</code>, <code class="language-plaintext highlighter-rouge">sdist</code> 포함)에 대한 직접 참조.
+        <ul>
+          <li><strong><code class="language-plaintext highlighter-rouge">packages.archive.hashes</code></strong>: (필수) 파일의 알려진 해시 값. 최소 하나의 해시 알고리즘 (<code class="language-plaintext highlighter-rouge">sha256</code> 권장)을 포함해야 합니다.</li>
+        </ul>
+      </li>
+      <li><strong><code class="language-plaintext highlighter-rouge">packages.index</code></strong>: (선택) <code class="language-plaintext highlighter-rouge">sdist</code> 및/또는 <code class="language-plaintext highlighter-rouge">wheel</code>이 발견된 패키지 인덱스의 기본 URL.</li>
+      <li><strong><code class="language-plaintext highlighter-rouge">[packages.sdist]</code></strong>: (선택, 다른 소스 필드와 상호 배타적) 소스 배포판(Source distribution) 파일 세부 정보.</li>
+      <li><strong><code class="language-plaintext highlighter-rouge">[[packages.wheels]]</code></strong>: (선택) 바이너리 배포판(Binary distribution) <code class="language-plaintext highlighter-rouge">wheel</code> 파일 세부 정보.</li>
+      <li><strong><code class="language-plaintext highlighter-rouge">[[packages.attestation-identities]]</code></strong>: (선택) 이 패키지에 기록된 모든 파일에 대한 증명(attestation) 기록.</li>
+      <li><strong><code class="language-plaintext highlighter-rouge">[packages.tool]</code></strong>: (선택) 패키지 버전 수준의 도구 특정 데이터. 설치에 영향을 주지 않아야 합니다.</li>
+    </ul>
+  </li>
+  <li><strong><code class="language-plaintext highlighter-rouge">[tool]</code></strong>: (선택) <code class="language-plaintext highlighter-rouge">lock file</code> 수준의 도구 특정 데이터. 설치에 영향을 주지 않아야 합니다.</li>
+</ul>
+
+<h3 id="마커-표현식-구문-추가-additions-to-marker-expression-syntax">마커 표현식 구문 추가 (Additions to marker expression syntax)</h3>
+<p>이 PEP는 <code class="language-plaintext highlighter-rouge">Environment Markers</code> 명세에 <code class="language-plaintext highlighter-rouge">extras</code> 및 <code class="language-plaintext highlighter-rouge">dependency_groups</code> 마커를 추가하여 <code class="language-plaintext highlighter-rouge">packages.marker</code> 내에서 <code class="language-plaintext highlighter-rouge">extras</code> 및 <code class="language-plaintext highlighter-rouge">dependency group</code> 관계를 표현할 수 있도록 제안합니다. 이러한 추가 기능은 이 PEP에 정의된 <code class="language-plaintext highlighter-rouge">lock file</code> 컨텍스트 내에서만 적용됩니다.</p>
+
+<p>새로운 마커 <code class="language-plaintext highlighter-rouge">extras</code>와 <code class="language-plaintext highlighter-rouge">dependency_groups</code>가 도입됩니다.
+마커 명세는 값에 <code class="language-plaintext highlighter-rouge">set</code>을 허용하도록 변경됩니다 (기존 <code class="language-plaintext highlighter-rouge">string</code> 및 <code class="language-plaintext highlighter-rouge">version</code> 지원에 더하여).
+마커 표현식 구문은 <code class="language-plaintext highlighter-rouge">set</code>과 관련된 연산을 허용하도록 업데이트됩니다.</p>
+
+<h3 id="예시-example">예시 (Example)</h3>
+<p>PEP 0751 문서에는 <code class="language-plaintext highlighter-rouge">pylock.toml</code> 파일의 예시가 포함되어 있습니다. 이 예시는 <code class="language-plaintext highlighter-rouge">lock-version</code>, <code class="language-plaintext highlighter-rouge">environments</code>, <code class="language-plaintext highlighter-rouge">requires-python</code>, <code class="language-plaintext highlighter-rouge">created-by</code>와 같은 최상위 키와 <code class="language-plaintext highlighter-rouge">attrs</code>, <code class="language-plaintext highlighter-rouge">cattrs</code>, <code class="language-plaintext highlighter-rouge">numpy</code>와 같은 패키지에 대한 자세한 정보(<code class="language-plaintext highlighter-rouge">name</code>, <code class="language-plaintext highlighter-rouge">version</code>, <code class="language-plaintext highlighter-rouge">requires-python</code>, <code class="language-plaintext highlighter-rouge">wheels</code> 및 해시 등)를 보여줍니다. 또한 <code class="language-plaintext highlighter-rouge">[tool]</code> 섹션을 통해 <code class="language-plaintext highlighter-rouge">mousebender</code>라는 도구가 <code class="language-plaintext highlighter-rouge">lock file</code>을 생성하는 데 사용된 명령어를 기록하는 방법을 보여줍니다.</p>
+
+<h3 id="설치-installation">설치 (Installation)</h3>
+<p><code class="language-plaintext highlighter-rouge">lock file</code>로부터 설치하는 과정은 다음과 같은 단계를 포함합니다 (단계 및 순서는 제안사항이며, 요구사항은 지침적입니다):</p>
+
+<ol>
+  <li>설치할 <code class="language-plaintext highlighter-rouge">extras</code> 및 <code class="language-plaintext highlighter-rouge">dependency groups</code>를 수집하고 마커 평가를 위해 각각 <code class="language-plaintext highlighter-rouge">extras</code> 및 <code class="language-plaintext highlighter-rouge">dependency_groups</code>를 설정합니다. 기본적으로 <code class="language-plaintext highlighter-rouge">extras</code>는 빈 <code class="language-plaintext highlighter-rouge">set</code>, <code class="language-plaintext highlighter-rouge">dependency_groups</code>는 <code class="language-plaintext highlighter-rouge">default-groups</code>에서 생성된 <code class="language-plaintext highlighter-rouge">set</code>으로 설정됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">lock-version</code>으로 지정된 메타데이터 버전이 지원되는지 확인합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">requires-python</code>이 지정된 경우, 설치 환경이 요구 사항을 충족하는지 확인합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">environments</code>가 지정된 경우, 최소 하나 이상의 환경 마커 표현식이 충족되는지 확인합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">[[packages]]</code>에 나열된 각 패키지에 대해:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">marker</code>가 지정된 경우, 충족되는지 확인합니다.</li>
+      <li><code class="language-plaintext highlighter-rouge">requires-python</code>이 지정된 경우, 충족되는지 확인합니다.</li>
+      <li>패키지의 다른 충돌하는 인스턴스가 설치 예정되어 있지 않은지 확인합니다.</li>
+      <li>패키지의 소스가 적절하게 지정되었는지 확인합니다.</li>
+      <li>설치할 패키지 목록에 패키지를 추가합니다.</li>
+    </ul>
+  </li>
+  <li>설치할 각 패키지에 대해:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">vcs</code>가 설정된 경우: 지정된 <code class="language-plaintext highlighter-rouge">commit-id</code>로 저장소를 <code class="language-plaintext highlighter-rouge">clone</code>하고, <code class="language-plaintext highlighter-rouge">subdirectory</code>를 고려하여 패키지를 빌드 및 설치합니다.</li>
+      <li><code class="language-plaintext highlighter-rouge">directory</code>가 설정된 경우: <code class="language-plaintext highlighter-rouge">subdirectory</code>를 고려하여 패키지를 빌드 및 설치합니다.</li>
+      <li><code class="language-plaintext highlighter-rouge">archive</code>가 설정된 경우: 파일을 가져오고, 파일 크기와 해시를 검증하며, <code class="language-plaintext highlighter-rouge">subdirectory</code>를 고려하여 패키지를 빌드 및 설치합니다.</li>
+      <li><code class="language-plaintext highlighter-rouge">wheels</code> 항목이 있는 경우: 적절한 <code class="language-plaintext highlighter-rouge">wheel</code> 파일을 찾아 가져오고 (URL/경로 또는 <code class="language-plaintext highlighter-rouge">packages.index</code> 사용), 파일 크기와 해시를 검증한 후 설치합니다.</li>
+      <li><code class="language-plaintext highlighter-rouge">sdist</code>만 설정된 경우: 파일을 가져오고 (URL/경로 또는 <code class="language-plaintext highlighter-rouge">packages.index</code> 사용), 파일 크기와 해시를 검증하며, 패키지를 빌드 및 설치합니다.</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="requirementstxt-파일과의-의미론적-차이-semantic-differences-with-requirementstxt-files"><code class="language-plaintext highlighter-rouge">requirements.txt</code> 파일과의 의미론적 차이 (Semantic differences with requirements.txt files)</h3>
+<p><code class="language-plaintext highlighter-rouge">lock file</code>은 <code class="language-plaintext highlighter-rouge">requirements.txt</code> 파일과 몇 가지 중요한 의미론적 차이를 가집니다:</p>
+
+<ul>
+  <li><strong>보안:</strong> <code class="language-plaintext highlighter-rouge">lock file</code>은 해시, 파일 크기, 파일 발견 위치(인덱스 및 실제 파일 위치)를 필수로 기록하여 감사 및 검증을 돕습니다. <code class="language-plaintext highlighter-rouge">requirements.txt</code>는 해시를 선택적으로 포함할 수 있지만, <code class="language-plaintext highlighter-rouge">opt-in</code> 기능이며 우회될 수 있습니다.</li>
+  <li><strong>명확한 환경 명세:</strong> <code class="language-plaintext highlighter-rouge">lock file</code>은 전체 파일에 대해 지원되는 Python 버전 및 환경을 명시적으로 지정합니다. 이는 <code class="language-plaintext highlighter-rouge">requirements.txt</code>가 특정 플랫폼을 대상으로 하는지 알기 어려운 문제를 해결합니다.</li>
+  <li><strong>구조화된 메타데이터:</strong> <code class="language-plaintext highlighter-rouge">lock file</code>의 <code class="language-plaintext highlighter-rouge">[tool]</code> 테이블은 <code class="language-plaintext highlighter-rouge">requirements.txt</code>의 주석과는 달리 구조화된 방식으로 도구별 메타데이터를 기록할 수 있습니다.</li>
+  <li><strong>다중 사용 (<code class="language-plaintext highlighter-rouge">Multi-use</code>) 지원:</strong> 이 PEP는 <code class="language-plaintext highlighter-rouge">multi-use lock file</code>을 지원하는 반면, <code class="language-plaintext highlighter-rouge">requirements file</code>은 <code class="language-plaintext highlighter-rouge">single-use</code>입니다.</li>
+</ul>
+
+<p>이 PEP는 <code class="language-plaintext highlighter-rouge">requirements file</code>을 완전히 대체하지는 않습니다. <code class="language-plaintext highlighter-rouge">requirements file</code>은 설치 시점 옵션 지정 (예: <code class="language-plaintext highlighter-rouge">--index-url</code>), 다른 <code class="language-plaintext highlighter-rouge">requirements file</code> 참조 (<code class="language-plaintext highlighter-rouge">-r</code>), 환경 변수 사용을 지원하기 때문입니다.</p>
+
+<h3 id="보안-시사점-security-implications">보안 시사점 (Security Implications)</h3>
+<p><code class="language-plaintext highlighter-rouge">security-first</code> 원칙을 기반으로 <code class="language-plaintext highlighter-rouge">lock file</code> 형식을 표준화함으로써 전체 패키지 설치를 더 안전하게 만드는 데 기여할 것으로 기대됩니다. 그러나 이 PEP가 모든 잠재적인 보안 문제를 해결하지는 않습니다.</p>
+
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">lock file</code> 변조</strong>: <code class="language-plaintext highlighter-rouge">lock file</code>이 소스 제어에 적절히 관리되고 감사되지 않으면 악의적인 행위자가 파일을 변조할 수 있습니다. 이는 <code class="language-plaintext highlighter-rouge">lock file</code> 서명 (파일 내 <code class="language-plaintext highlighter-rouge">[tool]</code> 항목 또는 외부 채널을 통해)으로 완화될 수 있습니다.</li>
+  <li><strong>오인 설치 방지</strong>: 이 PEP는 사용자가 잘못된 패키지를 설치하는 것을 막지는 않습니다 (예: <code class="language-plaintext highlighter-rouge">typosquatting</code>을 통한 이름 혼동 공격).</li>
+</ul>
+
+<h3 id="교육-방법-how-to-teach-this">교육 방법 (How to Teach This)</h3>
+<p>사용자들은 다음 사항을 인지해야 합니다:</p>
+
+<ul>
+  <li><strong>재현성</strong>: <code class="language-plaintext highlighter-rouge">lock file</code>은 특정 시점에 설치된 정확한 종속성 집합을 기록하여 미래에 동일한 환경을 재현할 수 있게 합니다. 이는 코드의 우발적인 손상을 방지합니다.</li>
+  <li><strong>협업</strong>: <code class="language-plaintext highlighter-rouge">lock file</code>을 통해 팀원 모두가 동일한 패키지 집합을 설치하여 일관된 개발 환경을 보장할 수 있습니다.</li>
+  <li><strong>보안</strong>: <code class="language-plaintext highlighter-rouge">lock file</code>은 항상 동일한 파일을 설치하도록 보장하여 악성 파일 설치 위험을 줄이고, 의도적인 종속성 업그레이드를 통해 변경 사항을 명확히 합니다.</li>
+  <li><strong>환경 호환성</strong>: <code class="language-plaintext highlighter-rouge">lock file</code>은 특정 환경에만 지원될 수 있습니다. <code class="language-plaintext highlighter-rouge">single-use</code> 또는 <code class="language-plaintext highlighter-rouge">multi-use</code>일 수 있으며, <code class="language-plaintext highlighter-rouge">extras</code> 및 <code class="language-plaintext highlighter-rouge">dependency groups</code>를 통해 다양한 사용 사례를 지원할 수 있습니다.</li>
+  <li><strong>도구 독립성</strong>: 이 PEP를 따르는 <code class="language-plaintext highlighter-rouge">lock file</code>은 명세를 구현하는 모든 <code class="language-plaintext highlighter-rouge">installer</code>에 의해 설치될 수 있습니다. 그러나 다른 <code class="language-plaintext highlighter-rouge">locker</code>를 사용한다고 해서 항상 동일한 결과가 보장되지는 않습니다.</li>
+</ul>
+
+<h2 id="거부된-아이디어-rejected-ideas">거부된 아이디어 (Rejected Ideas)</h2>
+<p>이 PEP를 개발하는 과정에서 여러 아이디어가 논의되었으나 최종적으로 거부되었습니다. 주요 거부 아이디어는 다음과 같습니다:</p>
+
+<ul>
+  <li><strong>설치 목적으로 종속성 그래프 기록</strong>: 종속성 그래프를 기록하는 것은 더 많은 정보를 제공하지만, 감사 용이성에 영향을 미치는 불필요한 복잡성을 추가한다고 판단되었습니다.</li>
+  <li><strong>설치자가 종속성 해결 수행</strong>: 설치자가 종속성 해결을 수행하도록 하는 것은 <code class="language-plaintext highlighter-rouge">lock file</code> 감사를 복잡하게 만들고, <code class="language-plaintext highlighter-rouge">lockers</code>에 복잡성을 집중시키는 것이 더 나을 것으로 판단되었습니다.</li>
+  <li><strong>최소 해시 알고리즘 지원 요구</strong>: 특정 해시 알고리즘을 요구하는 것은 다른 Python 패키징 명세와 일치하지 않으며, 시간이 지남에 따라 알고리즘이 구식이 될 수 있다는 이유로 거부되었습니다.</li>
+  <li><strong>파일 이름 지정 방식</strong>: <code class="language-plaintext highlighter-rouge">*.pylock.toml</code> 사용, <code class="language-plaintext highlighter-rouge">.pylock</code> 확장자 사용, 또는 명명 규칙 없음 등의 아이디어가 있었으나, <code class="language-plaintext highlighter-rouge">pylock.toml</code>이 편집기 구문 강조 및 발견 용이성 측면에서 가장 적합하다고 판단되었습니다.</li>
+  <li><strong>파일 형식으로 JSON 또는 YAML 사용</strong>: TOML이 사람이 읽기 쉽고 <code class="language-plaintext highlighter-rouge">pyproject.toml</code>과의 일관성을 유지하기 위해 선택되었습니다.</li>
+  <li><strong>단일 해시 알고리즘</strong>: 파일 전체에 단일 해시 알고리즘을 강제하는 것은 대용량 파일의 재해시 비용과 유연성 부족으로 인해 거부되었습니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">lock file</code> 내용 자체 해싱 또는 생성 날짜 기록</strong>: <code class="language-plaintext highlighter-rouge">merge conflict</code> 문제를 야기할 수 있어 거부되었습니다.</li>
+  <li><strong>패키지 인덱스 기록</strong>: 불필요한 <code class="language-plaintext highlighter-rouge">bookkeeping</code>으로 간주되어 거부되었습니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">sdist</code> 빌드 요구사항 <code class="language-plaintext highlighter-rouge">locking</code></strong>: 복잡성과 <code class="language-plaintext highlighter-rouge">edge case</code> 문제로 인해 이 PEP에서 다루지 않고 미래의 PEP로 미뤄졌습니다.</li>
+  <li><strong>전용 <code class="language-plaintext highlighter-rouge">direct</code> 키</strong>: <code class="language-plaintext highlighter-rouge">VCS</code>, <code class="language-plaintext highlighter-rouge">directory</code>, <code class="language-plaintext highlighter-rouge">archive</code>와 같은 직접 URL 참조의 세 가지 경우가 명시적으로 정의되어 있으므로 불필요하다고 판단되었습니다.</li>
+</ul>
+
+<h2 id="결론">결론</h2>
+<p>PEP 751은 Python 생태계의 오랜 문제였던 재현 가능한 종속성 설치를 위한 표준화된 <code class="language-plaintext highlighter-rouge">lock file</code> 형식인 <code class="language-plaintext highlighter-rouge">pylock.toml</code>을 제안합니다. 이 형식은 사람이 읽을 수 있고 기계적으로 생성되며, 설치 시점에 종속성 해결 없이 빠른 설치를 목표로 합니다. 보안, 감사 용이성, <code class="language-plaintext highlighter-rouge">multi-use</code> 시나리오 지원에 중점을 두며, 기존 <code class="language-plaintext highlighter-rouge">requirements.txt</code> 파일의 한계를 극복하는 것을 목표로 합니다. 이 PEP는 Python 패키징 도구들이 일관되고 상호 운용 가능한 방식으로 종속성을 관리할 수 있는 기반을 마련하여, 개발자와 사용자 모두에게 이점을 제공할 것입니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/750/" class="pagination--pager" title="[Final] PEP 750 - Template Strings
+">Previous</a>
+    
+    
+      <a href="/python/pep/752/" class="pagination--pager" title="[Draft] PEP 752 - Implicit namespaces for package repositories
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,909 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 461 - Adding % formatting to bytes and bytearray | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 461: ‘Adding % formatting to bytes and bytearray’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 461 - Adding % formatting to bytes and bytearray">
+<meta property="og:url" content="http://localhost:4000/python/pep/461/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 461: ‘Adding % formatting to bytes and bytearray’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T22:09:29+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T22:09:29+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/461/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 461 - Adding % formatting to bytes and bytearray">
+    <meta itemprop="description" content="Python Enhancement Proposal 461: ‘Adding % formatting to bytes and bytearray’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T22:09:29+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T22:09:29+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 461 - Adding % formatting to bytes and bytearray
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T22:09:29+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-461-bytes-및-bytearray에--포매팅-추가">PEP 461: bytes 및 bytearray에 % 포매팅 추가</a><ul><li><a href="#요약-abstract">요약 (Abstract)</a></li><li><a href="#배경-및-동기-rationale-and-motivation">배경 및 동기 (Rationale and Motivation)</a></li><li><a href="#bytes-및-bytearray-포매팅을-위한-제안된-semantics">bytes 및 bytearray 포매팅을 위한 제안된 Semantics</a><ul><li><a href="#-인터폴레이션">%-인터폴레이션</a></li><li><a href="#python-2와의-호환성-compatibility-with-python-2">Python 2와의 호환성 (Compatibility with Python 2)</a></li><li><a href="#제안된-변경사항-proposed-variations">제안된 변경사항 (Proposed variations)</a></li></ul></li><li><a href="#반대-의견-objections">반대 의견 (Objections)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul></li><li><a href="#pep-461--bytes-및-bytearray에--포매팅-추가">PEP 461 – bytes 및 bytearray에 % 포매팅 추가</a><ul><li><a href="#요약-abstract-1">요약 (Abstract)</a></li><li><a href="#배경-rationale-및-동기-motivation">배경 (Rationale) 및 동기 (Motivation)</a></li><li><a href="#bytes-및-bytearray-포매팅을-위한-제안된-semantics-1">bytes 및 bytearray 포매팅을 위한 제안된 Semantics</a><ul><li><a href="#-인터폴레이션-1">%-인터폴레이션</a></li><li><a href="#python-2와의-호환성-compatibility-with-python-2-1">Python 2와의 호환성 (Compatibility with Python 2)</a></li><li><a href="#제안되었으나-거부된-변경사항-proposed-variations">제안되었으나 거부된 변경사항 (Proposed Variations)</a></li></ul></li><li><a href="#반대-의견-objections-1">반대 의견 (Objections)</a></li><li><a href="#저작권-copyright-1">저작권 (Copyright)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0461/">PEP 461 - Adding % formatting to bytes and bytearray</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 13-Jan-2014</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-461-bytes-및-bytearray에--포매팅-추가">PEP 461: <code class="language-plaintext highlighter-rouge">bytes</code> 및 <code class="language-plaintext highlighter-rouge">bytearray</code>에 <code class="language-plaintext highlighter-rouge">%</code> 포매팅 추가</h1>
+
+<ul>
+  <li><strong>작성자:</strong> Ethan Furman</li>
+  <li><strong>상태:</strong> Final (최종)</li>
+  <li><strong>유형:</strong> Standards Track</li>
+  <li><strong>생성일:</strong> 2014년 1월 13일</li>
+  <li><strong>Python 버전:</strong> 3.5</li>
+  <li><strong>해결:</strong> Python-Dev 메시지</li>
+</ul>
+
+<h2 id="요약-abstract">요약 (Abstract)</h2>
+
+<p>이 PEP는 Python 2의 <code class="language-plaintext highlighter-rouge">str</code> 타입과 유사한 <code class="language-plaintext highlighter-rouge">%</code> 포매팅 연산을 <code class="language-plaintext highlighter-rouge">bytes</code> 및 <code class="language-plaintext highlighter-rouge">bytearray</code> 객체에 추가할 것을 제안합니다.</p>
+
+<h2 id="배경-및-동기-rationale-and-motivation">배경 및 동기 (Rationale and Motivation)</h2>
+
+<p>인터폴레이션(interpolation)은 일반적으로 문자열(string) 연산으로 여겨지지만, <code class="language-plaintext highlighter-rouge">bytes</code> 또는 <code class="language-plaintext highlighter-rouge">bytearray</code> 객체에 대한 인터폴레이션이 필요한 경우가 있습니다. 이러한 기능이 없을 때 발생하는 추가적인 작업은 코드의 전반적인 가독성을 저해합니다.</p>
+
+<p>Python 3에서 <code class="language-plaintext highlighter-rouge">str</code>과 <code class="language-plaintext highlighter-rouge">bytes</code> 타입이 분리되면서, 프로그래밍의 작지만 중요한 영역 중 하나인 “와이어 포맷 프로토콜(wire format protocols)” 작업이 약간 더 어려워지고 훨씬 더 고통스러워졌습니다. 이 영역은 바이너리 데이터와 ASCII 호환 텍스트 세그먼트(ASCII 인코딩된 텍스트)가 혼합된 것이 특징입니다. <code class="language-plaintext highlighter-rouge">bytes</code> 및 <code class="language-plaintext highlighter-rouge">bytearray</code>에 제한적인 <code class="language-plaintext highlighter-rouge">%</code> 인터폴레이션을 다시 도입함으로써 새로운 와이어 포맷 코드를 작성하고 Python 2의 와이어 포맷 코드를 포팅하는 데 도움이 될 것입니다.</p>
+
+<p>일반적인 사용 사례로는 <code class="language-plaintext highlighter-rouge">dbf</code> 및 <code class="language-plaintext highlighter-rouge">pdf</code> 파일 포맷, 이메일 포맷, FTP 및 HTTP 통신 등이 있습니다.</p>
+
+<h2 id="bytes-및-bytearray-포매팅을-위한-제안된-semantics"><code class="language-plaintext highlighter-rouge">bytes</code> 및 <code class="language-plaintext highlighter-rouge">bytearray</code> 포매팅을 위한 제안된 Semantics</h2>
+
+<h3 id="-인터폴레이션"><code class="language-plaintext highlighter-rouge">%</code>-인터폴레이션</h3>
+
+<p>모든 숫자 포매팅 코드 (<code class="language-plaintext highlighter-rouge">d</code>, <code class="language-plaintext highlighter-rouge">i</code>, <code class="language-plaintext highlighter-rouge">o</code>, <code class="language-plaintext highlighter-rouge">u</code>, <code class="language-plaintext highlighter-rouge">x</code>, <code class="language-plaintext highlighter-rouge">X</code>, <code class="language-plaintext highlighter-rouge">e</code>, <code class="language-plaintext highlighter-rouge">E</code>, <code class="language-plaintext highlighter-rouge">f</code>, <code class="language-plaintext highlighter-rouge">F</code>, <code class="language-plaintext highlighter-rouge">g</code>, <code class="language-plaintext highlighter-rouge">G</code> 및 Python 3에 추가될 수 있는 모든 코드)가 지원되며, <code class="language-plaintext highlighter-rouge">str</code> 타입과 동일하게 작동합니다. 여기에는 패딩(padding), 정렬(justification) 및 기타 관련 수정자(현재 <code class="language-plaintext highlighter-rouge">#</code>, <code class="language-plaintext highlighter-rouge">0</code>, <code class="language-plaintext highlighter-rouge">-</code>, <code class="language-plaintext highlighter-rouge">space</code>, <code class="language-plaintext highlighter-rouge">+</code> 및 Python 3에 추가될 수 있는 모든 것)가 포함됩니다. 허용되는 비숫자 코드는 <code class="language-plaintext highlighter-rouge">c</code>, <code class="language-plaintext highlighter-rouge">b</code>, <code class="language-plaintext highlighter-rouge">a</code>뿐이며, <code class="language-plaintext highlighter-rouge">s</code>는 <code class="language-plaintext highlighter-rouge">b</code>의 동의어(synonym)입니다.</p>
+
+<p>숫자 코드의 경우, <code class="language-plaintext highlighter-rouge">str</code>과 <code class="language-plaintext highlighter-rouge">bytes</code> (또는 <code class="language-plaintext highlighter-rouge">bytearray</code>) 인터폴레이션의 유일한 차이점은 이러한 코드의 결과가 유니코드(unicode)가 아닌 ASCII 인코딩된 텍스트라는 것입니다. 즉, 모든 숫자 포매팅 코드 <code class="language-plaintext highlighter-rouge">%x</code>에 대해 <code class="language-plaintext highlighter-rouge">b"%x" % val</code>은 <code class="language-plaintext highlighter-rouge">("%x" % val).encode("ascii")</code>와 동일합니다.</p>
+
+<p><strong>예시:</strong></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="sa">b</span><span class="sh">'</span><span class="s">%4x</span><span class="sh">'</span> <span class="o">%</span> <span class="mi">10</span>
+<span class="sa">b</span><span class="sh">'</span><span class="s"> a</span><span class="sh">'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="sa">b</span><span class="sh">'</span><span class="s">%#4x</span><span class="sh">'</span> <span class="o">%</span> <span class="mi">10</span>
+<span class="sa">b</span><span class="sh">'</span><span class="s"> 0xa</span><span class="sh">'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="sa">b</span><span class="sh">'</span><span class="s">%04X</span><span class="sh">'</span> <span class="o">%</span> <span class="mi">10</span>
+<span class="sa">b</span><span class="sh">'</span><span class="s">000A</span><span class="sh">'</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">%c</code>는 단일 바이트를 삽입합니다. 이는 <code class="language-plaintext highlighter-rouge">range(256)</code> 범위의 정수이거나 길이가 1인 <code class="language-plaintext highlighter-rouge">bytes</code> 인자여야 하며, <code class="language-plaintext highlighter-rouge">str</code>은 허용되지 않습니다.</p>
+
+    <p><strong>예시:</strong></p>
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="sa">b</span><span class="sh">'</span><span class="s">%c</span><span class="sh">'</span> <span class="o">%</span> <span class="mi">48</span>
+<span class="sa">b</span><span class="sh">'</span><span class="s">0</span><span class="sh">'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="sa">b</span><span class="sh">'</span><span class="s">%c</span><span class="sh">'</span> <span class="o">%</span> <span class="sa">b</span><span class="sh">'</span><span class="s">a</span><span class="sh">'</span>
+<span class="sa">b</span><span class="sh">'</span><span class="s">a</span><span class="sh">'</span>
+</code></pre></div>    </div>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">%b</code>는 일련의 바이트를 삽입합니다. 이 바이트는 두 가지 방법 중 하나로 수집됩니다:
+    <ul>
+      <li>입력 타입이 <code class="language-plaintext highlighter-rouge">Py_buffer</code>를 지원하는 경우, 이를 사용하여 필요한 바이트를 수집합니다.</li>
+      <li>입력 타입이 다른 경우, 해당 객체의 <code class="language-plaintext highlighter-rouge">__bytes__</code> 메서드를 사용합니다. 이 메서드가 없으면 <code class="language-plaintext highlighter-rouge">TypeError</code>가 발생합니다.</li>
+    </ul>
+
+    <p>특히, <code class="language-plaintext highlighter-rouge">%b</code>는 숫자나 <code class="language-plaintext highlighter-rouge">str</code>을 허용하지 않습니다. <code class="language-plaintext highlighter-rouge">str</code>은 문자열을 바이트로 변환하는 데 인코딩이 필요하며, 시스템이 이를 추측하는 것을 거부하므로 거부됩니다. 숫자가 거부되는 이유는 다음과 같습니다:</p>
+    <ul>
+      <li>어떤 숫자가 허용되는지 모호합니다(float? Decimal? Fraction? 사용자 정의 타입?).</li>
+      <li>숫자를 허용하면 숫자와 숫자의 텍스트 표현(예: <code class="language-plaintext highlighter-rouge">3.14</code>와 <code class="language-plaintext highlighter-rouge">'3.14'</code>) 사이에 모호성이 발생할 수 있습니다.</li>
+      <li>와이어 포맷의 특성을 고려할 때, 명시적인 것이 암시적인 것보다 훨씬 낫습니다.</li>
+    </ul>
+
+    <p><code class="language-plaintext highlighter-rouge">%s</code>는 Python 2/3 코드베이스를 더 쉽게 유지 관리하기 위한 유일한 목적으로 <code class="language-plaintext highlighter-rouge">%b</code>의 동의어로 포함됩니다. Python 3 전용 코드는 <code class="language-plaintext highlighter-rouge">%b</code>를 사용해야 합니다.</p>
+
+    <p><strong>예시:</strong></p>
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="sa">b</span><span class="sh">'</span><span class="s">%b</span><span class="sh">'</span> <span class="o">%</span> <span class="sa">b</span><span class="sh">'</span><span class="s">abc</span><span class="sh">'</span>
+<span class="sa">b</span><span class="sh">'</span><span class="s">abc</span><span class="sh">'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="sa">b</span><span class="sh">'</span><span class="s">%b</span><span class="sh">'</span> <span class="o">%</span> <span class="sh">'</span><span class="s">some string</span><span class="sh">'</span><span class="p">.</span><span class="nf">encode</span><span class="p">(</span><span class="sh">'</span><span class="s">utf8</span><span class="sh">'</span><span class="p">)</span>
+<span class="sa">b</span><span class="sh">'</span><span class="s">some string</span><span class="sh">'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="sa">b</span><span class="sh">'</span><span class="s">%b</span><span class="sh">'</span> <span class="o">%</span> <span class="mf">3.14</span>
+<span class="nc">Traceback </span><span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+<span class="bp">...</span>
+<span class="nb">TypeError</span><span class="p">:</span> <span class="sa">b</span><span class="sh">'</span><span class="s">%b</span><span class="sh">'</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">accept</span> <span class="sh">'</span><span class="s">float</span><span class="sh">'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="sa">b</span><span class="sh">'</span><span class="s">%b</span><span class="sh">'</span> <span class="o">%</span> <span class="sh">'</span><span class="s">hello world!</span><span class="sh">'</span>
+<span class="nc">Traceback </span><span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+<span class="bp">...</span>
+<span class="nb">TypeError</span><span class="p">:</span> <span class="sa">b</span><span class="sh">'</span><span class="s">%b</span><span class="sh">'</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">accept</span> <span class="sh">'</span><span class="s">str</span><span class="sh">'</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">%a</code>는 인터폴레이션된 값에 대해 <code class="language-plaintext highlighter-rouge">repr(some_obj).encode('ascii', 'backslashreplace')</code>와 동일한 결과를 제공합니다. 사용 사례에는 새로운 프로토콜 개발 및 스트림에 랜드마크(landmarks) 작성, 기존 프로토콜로 들어가는 데이터를 디버깅하여 문제가 프로토콜 자체인지 또는 잘못된 데이터인지 확인하는 것, 직렬화 포맷의 대체(fall-back), 또는 <code class="language-plaintext highlighter-rouge">__bytes__</code> 정의가 적절하지 않지만 읽을 수 있고 유익한 표현이 필요한 모든 상황이 포함됩니다.</p>
+
+    <p><code class="language-plaintext highlighter-rouge">%r</code>은 Python 2/3 코드베이스를 더 쉽게 유지 관리하기 위한 유일한 목적으로 <code class="language-plaintext highlighter-rouge">%a</code>의 동의어로 포함됩니다. Python 3 전용 코드는 <code class="language-plaintext highlighter-rouge">%a</code>를 사용해야 합니다.</p>
+
+    <p><strong>예시:</strong></p>
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="sa">b</span><span class="sh">'</span><span class="s">%a</span><span class="sh">'</span> <span class="o">%</span> <span class="mf">3.14</span>
+<span class="sa">b</span><span class="sh">'</span><span class="s">3.14</span><span class="sh">'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="sa">b</span><span class="sh">'</span><span class="s">%a</span><span class="sh">'</span> <span class="o">%</span> <span class="sa">b</span><span class="sh">'</span><span class="s">abc</span><span class="sh">'</span>
+<span class="sa">b</span><span class="sh">"</span><span class="s">b</span><span class="sh">'</span><span class="s">abc</span><span class="sh">'"</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="sa">b</span><span class="sh">'</span><span class="s">%a</span><span class="sh">'</span> <span class="o">%</span> <span class="sh">'</span><span class="s">def</span><span class="sh">'</span>
+<span class="sa">b</span><span class="sh">"'</span><span class="s">def</span><span class="sh">'"</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="python-2와의-호환성-compatibility-with-python-2">Python 2와의 호환성 (Compatibility with Python 2)</h3>
+
+<p>위에서 언급했듯이, <code class="language-plaintext highlighter-rouge">%s</code> 및 <code class="language-plaintext highlighter-rouge">%r</code>은 Python 2에서 마이그레이션을 용이하게 하거나, Python 2와 단일 코드베이스를 유지하기 위한 목적으로만 포함됩니다. 이는 현재 Python 2 <code class="language-plaintext highlighter-rouge">str</code> 타입을 바이트 컨테이너로 사용하고 따라서 <code class="language-plaintext highlighter-rouge">%s</code>를 바이트 인터폴레이터로 사용하는 모듈이 많기 때문에 중요합니다.</p>
+
+<p>그러나 새로운 Python 3 전용 코드에서는 <code class="language-plaintext highlighter-rouge">%b</code> 및 <code class="language-plaintext highlighter-rouge">%a</code>를 사용해야 하므로, <code class="language-plaintext highlighter-rouge">%s</code> 및 <code class="language-plaintext highlighter-rouge">%r</code>은 즉시 Deprecated(사용 중단 예정)되지만, 3.x 시리즈에서 제거되지는 않을 것입니다.</p>
+
+<h3 id="제안된-변경사항-proposed-variations">제안된 변경사항 (Proposed variations)</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">%b</code>에 <code class="language-plaintext highlighter-rouge">str</code> 인자가 주어졌을 때 자동으로 <code class="language-plaintext highlighter-rouge">.encode('ascii','strict')</code>를 사용하도록 제안되었지만, 이는 간헐적인 오류를 유발할 수 있으므로 거부되었습니다. 문제가 되는 지점을 올바르게 수정할 수 있도록 연산이 항상 실패하는 것이 낫습니다.</li>
+  <li>값이 <code class="language-plaintext highlighter-rouge">str</code>일 때 <code class="language-plaintext highlighter-rouge">%b</code>가 ASCII 인코딩된 <code class="language-plaintext highlighter-rouge">repr</code>을 반환하도록 제안되었지만(예: <code class="language-plaintext highlighter-rouge">b'%b' % 'abc'</code> –&gt; <code class="language-plaintext highlighter-rouge">b“'abc'”</code>), 이는 문제 지점과 멀리 떨어진 디버깅하기 어려운 오류를 유발할 수 있으므로 거부되었습니다. 문제가 되는 지점을 쉽게 수정할 수 있도록 연산이 항상 실패하는 것이 낫습니다.</li>
+  <li>원래 이 PEP는 포맷 스타일 포매팅(<code class="language-plaintext highlighter-rouge">format</code> 메서드)도 추가할 것을 제안했지만, <code class="language-plaintext highlighter-rouge">format</code> 및 관련 메커니즘은 모두 엄격하게 텍스트(<code class="language-plaintext highlighter-rouge">str</code>) 기반이라고 결정되어 제외되었습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">__ascii__</code>, <code class="language-plaintext highlighter-rouge">__format_bytes__</code> 등 다양한 새로운 특별 메서드(special methods)가 제안되었지만, 현재로서는 필요하지 않으며, 실제 사용에서 이 솔루션의 단점이 드러나면 나중에 다시 논의될 수 있습니다.</li>
+  <li>경쟁 PEP인 PEP 460 (<code class="language-plaintext highlighter-rouge">Add binary interpolation and formatting</code>)도 존재합니다.</li>
+</ul>
+
+<h2 id="반대-의견-objections">반대 의견 (Objections)</h2>
+
+<p>이 PEP에 대한 주요 반대 의견은 두 가지 주제의 변형이었습니다:</p>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">bytes</code> 및 <code class="language-plaintext highlighter-rouge">bytearray</code> 타입은 인코딩에 대한 가정이 없는 순수한 바이너리 데이터를 위한 것이다.</li>
+  <li>ASCII 인코딩을 가정하는 <code class="language-plaintext highlighter-rouge">%</code> 인터폴레이션을 제공하는 것은 “매력적인 성가심(attractive nuisance)”이 될 것이며, Python 2의 <code class="language-plaintext highlighter-rouge">str</code> / 유니코드 텍스트 모델의 문제점으로 다시 돌아가게 할 것이다.</li>
+</ol>
+
+<p>논의 중에 드러났듯이, <code class="language-plaintext highlighter-rouge">bytes</code> 및 <code class="language-plaintext highlighter-rouge">bytearray</code>는 혼합된 바이너리 데이터와 ASCII 호환 세그먼트(예: <code class="language-plaintext highlighter-rouge">dbf</code> 및 <code class="language-plaintext highlighter-rouge">pdf</code>와 같은 파일 포맷, <code class="language-plaintext highlighter-rouge">ftp</code> 및 이메일과 같은 네트워크 프로토콜)에도 사용됩니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">bytes</code> 및 <code class="language-plaintext highlighter-rouge">bytearray</code>는 이미 <code class="language-plaintext highlighter-rouge">upper()</code>, <code class="language-plaintext highlighter-rouge">isalpha()</code>, <code class="language-plaintext highlighter-rouge">expandtabs()</code> 등 ASCII 호환 인코딩을 가정하는 여러 메서드를 가지고 있습니다. 매우 제한적인 미니 언어를 가진 <code class="language-plaintext highlighter-rouge">%</code> 인터폴레이션은 이미 존재하는 메서드보다 더 성가시지 않을 것입니다.</p>
+
+<p>일부는 십진수(decimal)만으로도 충분하다는 주장으로 모든 범위의 숫자 포매팅 코드를 허용하는 것에 반대했지만, 적어도 두 가지 포맷(<code class="language-plaintext highlighter-rouge">dbf</code> 및 <code class="language-plaintext highlighter-rouge">pdf</code>)은 비십진수(non-decimal numbers)를 사용합니다.</p>
+
+<h2 id="저작권-copyright">저작권 (Copyright)</h2>
+
+<p>이 문서는 공개 도메인(public domain)에 있습니다.</p>
+
+<p>—다음은 Python Enhancement Proposal (PEP) 461 문서의 내용에 대한 번역 및 정리입니다.</p>
+
+<hr />
+
+<h1 id="pep-461--bytes-및-bytearray에--포매팅-추가">PEP 461 – <code class="language-plaintext highlighter-rouge">bytes</code> 및 <code class="language-plaintext highlighter-rouge">bytearray</code>에 <code class="language-plaintext highlighter-rouge">%</code> 포매팅 추가</h1>
+
+<ul>
+  <li><strong>작성자:</strong> Ethan Furman</li>
+  <li><strong>상태:</strong> Final (최종)</li>
+  <li><strong>유형:</strong> Standards Track</li>
+  <li><strong>생성일:</strong> 2014년 1월 13일</li>
+  <li><strong>Python 버전:</strong> 3.5</li>
+  <li><strong>해결:</strong> Python-Dev 메시지</li>
+</ul>
+
+<h2 id="요약-abstract-1">요약 (Abstract)</h2>
+
+<p>이 PEP는 Python 2의 <code class="language-plaintext highlighter-rouge">str</code> 타입과 유사한 <code class="language-plaintext highlighter-rouge">%</code> 포매팅 연산을 <code class="language-plaintext highlighter-rouge">bytes</code> 및 <code class="language-plaintext highlighter-rouge">bytearray</code> 객체에 추가할 것을 제안합니다.</p>
+
+<h2 id="배경-rationale-및-동기-motivation">배경 (Rationale) 및 동기 (Motivation)</h2>
+
+<p>인터폴레이션(interpolation)은 일반적으로 문자열(string) 연산으로 간주되지만, <code class="language-plaintext highlighter-rouge">bytes</code> 또는 <code class="language-plaintext highlighter-rouge">bytearray</code> 객체에 대한 인터폴레이션이 필요한 경우가 있습니다. 이러한 기능이 없을 때 필요한 추가적인 작업은 코드의 전반적인 가독성을 떨어뜨립니다.</p>
+
+<p>Python 3에서 <code class="language-plaintext highlighter-rouge">str</code>과 <code class="language-plaintext highlighter-rouge">bytes</code> 타입이 분리되면서, “와이어 포맷 프로토콜(wire format protocols)”과 같은 특정 프로그래밍 영역의 작업이 다소 어려워졌습니다. 이 영역은 바이너리 데이터와 ASCII 호환 텍스트 세그먼트(즉, ASCII 인코딩된 텍스트)가 혼합되어 사용되는 것이 특징입니다. <code class="language-plaintext highlighter-rouge">bytes</code> 및 <code class="language-plaintext highlighter-rouge">bytearray</code>에 제한적인 <code class="language-plaintext highlighter-rouge">%</code> 인터폴레이션을 다시 도입함으로써 새로운 와이어 포맷 코드를 작성하고 기존 Python 2 와이어 포맷 코드를 Python 3으로 포팅하는 데 도움이 될 것입니다.</p>
+
+<p>일반적인 사용 사례로는 <code class="language-plaintext highlighter-rouge">dbf</code> 및 <code class="language-plaintext highlighter-rouge">pdf</code> 파일 포맷, 이메일 포맷, FTP 및 HTTP 통신 등이 있습니다.</p>
+
+<h2 id="bytes-및-bytearray-포매팅을-위한-제안된-semantics-1"><code class="language-plaintext highlighter-rouge">bytes</code> 및 <code class="language-plaintext highlighter-rouge">bytearray</code> 포매팅을 위한 제안된 Semantics</h2>
+
+<h3 id="-인터폴레이션-1"><code class="language-plaintext highlighter-rouge">%</code>-인터폴레이션</h3>
+
+<p>모든 숫자 포매팅 코드 (<code class="language-plaintext highlighter-rouge">d</code>, <code class="language-plaintext highlighter-rouge">i</code>, <code class="language-plaintext highlighter-rouge">o</code>, <code class="language-plaintext highlighter-rouge">u</code>, <code class="language-plaintext highlighter-rouge">x</code>, <code class="language-plaintext highlighter-rouge">X</code>, <code class="language-plaintext highlighter-rouge">e</code>, <code class="language-plaintext highlighter-rouge">E</code>, <code class="language-plaintext highlighter-rouge">f</code>, <code class="language-plaintext highlighter-rouge">F</code>, <code class="language-plaintext highlighter-rouge">g</code>, <code class="language-plaintext highlighter-rouge">G</code>, 그리고 향후 Python 3에 추가될 수 있는 모든 코드)가 지원됩니다. 이들은 <code class="language-plaintext highlighter-rouge">str</code> 타입과 동일하게 작동하며, 패딩(padding), 정렬(justification), 그리고 기타 관련 수정자(현재 <code class="language-plaintext highlighter-rouge">#</code>, <code class="language-plaintext highlighter-rouge">0</code>, <code class="language-plaintext highlighter-rouge">-</code>, <code class="language-plaintext highlighter-rouge">space</code>, <code class="language-plaintext highlighter-rouge">+</code>, 그리고 향후 Python 3에 추가될 수 있는 모든 것)를 포함합니다. 허용되는 비숫자 코드(non-numeric codes)는 <code class="language-plaintext highlighter-rouge">c</code>, <code class="language-plaintext highlighter-rouge">b</code>, <code class="language-plaintext highlighter-rouge">a</code>뿐이며, <code class="language-plaintext highlighter-rouge">%s</code>는 <code class="language-plaintext highlighter-rouge">%b</code>의 동의어(synonym)입니다.</p>
+
+<p>숫자 코드의 경우, <code class="language-plaintext highlighter-rouge">str</code>과 <code class="language-plaintext highlighter-rouge">bytes</code> (또는 <code class="language-plaintext highlighter-rouge">bytearray</code>) 인터폴레이션의 유일한 차이점은 이러한 코드의 결과가 유니코드(unicode)가 아닌 ASCII 인코딩된 텍스트라는 것입니다. 다시 말해, 모든 숫자 포매팅 코드 <code class="language-plaintext highlighter-rouge">%x</code>에 대해 <code class="language-plaintext highlighter-rouge">b"%x" % val</code>은 <code class="language-plaintext highlighter-rouge">("%x" % val).encode("ascii")</code>와 동일합니다.</p>
+
+<p><strong>예시:</strong></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="sa">b</span><span class="sh">'</span><span class="s">%4x</span><span class="sh">'</span> <span class="o">%</span> <span class="mi">10</span>
+<span class="sa">b</span><span class="sh">'</span><span class="s"> a</span><span class="sh">'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="sa">b</span><span class="sh">'</span><span class="s">%#4x</span><span class="sh">'</span> <span class="o">%</span> <span class="mi">10</span>
+<span class="sa">b</span><span class="sh">'</span><span class="s"> 0xa</span><span class="sh">'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="sa">b</span><span class="sh">'</span><span class="s">%04X</span><span class="sh">'</span> <span class="o">%</span> <span class="mi">10</span>
+<span class="sa">b</span><span class="sh">'</span><span class="s">000A</span><span class="sh">'</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">%c</code>는 단일 바이트를 삽입합니다. 이는 <code class="language-plaintext highlighter-rouge">range(256)</code> 범위의 정수이거나 길이가 1인 <code class="language-plaintext highlighter-rouge">bytes</code> 인자여야 하며, <code class="language-plaintext highlighter-rouge">str</code>은 허용되지 않습니다.</p>
+
+    <p><strong>예시:</strong></p>
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="sa">b</span><span class="sh">'</span><span class="s">%c</span><span class="sh">'</span> <span class="o">%</span> <span class="mi">48</span>
+<span class="sa">b</span><span class="sh">'</span><span class="s">0</span><span class="sh">'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="sa">b</span><span class="sh">'</span><span class="s">%c</span><span class="sh">'</span> <span class="o">%</span> <span class="sa">b</span><span class="sh">'</span><span class="s">a</span><span class="sh">'</span>
+<span class="sa">b</span><span class="sh">'</span><span class="s">a</span><span class="sh">'</span>
+</code></pre></div>    </div>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">%b</code>는 일련의 바이트를 삽입합니다. 이 바이트는 다음 두 가지 방법 중 하나로 수집됩니다:
+    <ul>
+      <li>입력 타입이 <code class="language-plaintext highlighter-rouge">Py_buffer</code>를 지원하는 경우, 이를 사용하여 필요한 바이트를 수집합니다.</li>
+      <li>입력 타입이 다른 경우, 해당 객체의 <code class="language-plaintext highlighter-rouge">__bytes__</code> 메서드를 사용합니다. 이 메서드가 없으면 <code class="language-plaintext highlighter-rouge">TypeError</code>가 발생합니다.</li>
+    </ul>
+
+    <p>특히, <code class="language-plaintext highlighter-rouge">%b</code>는 숫자나 <code class="language-plaintext highlighter-rouge">str</code>을 허용하지 않습니다. <code class="language-plaintext highlighter-rouge">str</code>은 문자열을 바이트로 변환하는 데 인코딩이 필요하지만 시스템이 이를 추측하는 것을 거부하기 때문에 거부됩니다. 숫자가 거부되는 이유는 다음과 같습니다:</p>
+    <ul>
+      <li>허용되는 숫자의 범위가 모호합니다(float, Decimal, Fraction, 사용자 정의 타입 등).</li>
+      <li>숫자를 허용하면 숫자 값과 숫자의 텍스트 표현(예: <code class="language-plaintext highlighter-rouge">3.14</code>와 <code class="language-plaintext highlighter-rouge">'3.14'</code>) 사이에 모호성이 발생할 수 있습니다.</li>
+      <li>와이어 포맷의 특성상 명시적인 것이 암시적인 것보다 훨씬 바람직합니다.</li>
+    </ul>
+
+    <p><code class="language-plaintext highlighter-rouge">%s</code>는 Python 2/3 코드베이스의 유지 관리를 용이하게 하기 위한 유일한 목적으로 <code class="language-plaintext highlighter-rouge">%b</code>의 동의어로 포함됩니다. Python 3 전용 코드는 <code class="language-plaintext highlighter-rouge">%b</code>를 사용해야 합니다.</p>
+
+    <p><strong>예시:</strong></p>
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="sa">b</span><span class="sh">'</span><span class="s">%b</span><span class="sh">'</span> <span class="o">%</span> <span class="sa">b</span><span class="sh">'</span><span class="s">abc</span><span class="sh">'</span>
+<span class="sa">b</span><span class="sh">'</span><span class="s">abc</span><span class="sh">'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="sa">b</span><span class="sh">'</span><span class="s">%b</span><span class="sh">'</span> <span class="o">%</span> <span class="sh">'</span><span class="s">some string</span><span class="sh">'</span><span class="p">.</span><span class="nf">encode</span><span class="p">(</span><span class="sh">'</span><span class="s">utf8</span><span class="sh">'</span><span class="p">)</span>
+<span class="sa">b</span><span class="sh">'</span><span class="s">some string</span><span class="sh">'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="sa">b</span><span class="sh">'</span><span class="s">%b</span><span class="sh">'</span> <span class="o">%</span> <span class="mf">3.14</span>
+<span class="nc">Traceback </span><span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+<span class="bp">...</span>
+<span class="nb">TypeError</span><span class="p">:</span> <span class="sa">b</span><span class="sh">'</span><span class="s">%b</span><span class="sh">'</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">accept</span> <span class="sh">'</span><span class="s">float</span><span class="sh">'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="sa">b</span><span class="sh">'</span><span class="s">%b</span><span class="sh">'</span> <span class="o">%</span> <span class="sh">'</span><span class="s">hello world!</span><span class="sh">'</span>
+<span class="nc">Traceback </span><span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+<span class="bp">...</span>
+<span class="nb">TypeError</span><span class="p">:</span> <span class="sa">b</span><span class="sh">'</span><span class="s">%b</span><span class="sh">'</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">accept</span> <span class="sh">'</span><span class="s">str</span><span class="sh">'</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">%a</code>는 인터폴레이션된 값에 대해 <code class="language-plaintext highlighter-rouge">repr(some_obj).encode('ascii', 'backslashreplace')</code>와 동일한 결과를 제공합니다. 이는 새로운 프로토콜 개발 시 스트림에 랜드마크를 작성하거나, 기존 프로토콜로 들어가는 데이터를 디버깅하여 문제의 원인이 프로토콜 자체인지 잘못된 데이터인지 확인하는 경우, 직렬화 포맷의 대체(fall-back) 용도, 또는 <code class="language-plaintext highlighter-rouge">__bytes__</code> 정의가 적절하지 않지만 읽을 수 있고 유익한 표현이 필요한 모든 상황에서 유용합니다.</p>
+
+    <p><code class="language-plaintext highlighter-rouge">%r</code>은 Python 2/3 코드베이스의 유지 관리를 용이하게 하기 위한 유일한 목적으로 <code class="language-plaintext highlighter-rouge">%a</code>의 동의어로 포함됩니다. Python 3 전용 코드는 <code class="language-plaintext highlighter-rouge">%a</code>를 사용해야 합니다.</p>
+
+    <p><strong>예시:</strong></p>
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="sa">b</span><span class="sh">'</span><span class="s">%a</span><span class="sh">'</span> <span class="o">%</span> <span class="mf">3.14</span>
+<span class="sa">b</span><span class="sh">'</span><span class="s">3.14</span><span class="sh">'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="sa">b</span><span class="sh">'</span><span class="s">%a</span><span class="sh">'</span> <span class="o">%</span> <span class="sa">b</span><span class="sh">'</span><span class="s">abc</span><span class="sh">'</span>
+<span class="sa">b</span><span class="sh">"</span><span class="s">b</span><span class="sh">'</span><span class="s">abc</span><span class="sh">'"</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="sa">b</span><span class="sh">'</span><span class="s">%a</span><span class="sh">'</span> <span class="o">%</span> <span class="sh">'</span><span class="s">def</span><span class="sh">'</span>
+<span class="sa">b</span><span class="sh">"'</span><span class="s">def</span><span class="sh">'"</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="python-2와의-호환성-compatibility-with-python-2-1">Python 2와의 호환성 (Compatibility with Python 2)</h3>
+
+<p>위에서 언급했듯이, <code class="language-plaintext highlighter-rouge">%s</code> 및 <code class="language-plaintext highlighter-rouge">%r</code>은 Python 2에서 마이그레이션을 용이하게 하거나, Python 2와 단일 코드베이스를 유지하기 위한 목적으로만 포함됩니다. 이는 현재 Python 2의 <code class="language-plaintext highlighter-rouge">str</code> 타입을 바이트 컨테이너로 사용하고 <code class="language-plaintext highlighter-rouge">%s</code>를 바이트 인터폴레이터로 사용하는 모듈들이 많기 때문에 중요합니다.</p>
+
+<p>그러나 새로운 Python 3 전용 코드에서는 <code class="language-plaintext highlighter-rouge">%b</code> 및 <code class="language-plaintext highlighter-rouge">%a</code>를 사용해야 하므로, <code class="language-plaintext highlighter-rouge">%s</code> 및 <code class="language-plaintext highlighter-rouge">%r</code>은 즉시 Deprecated(사용 중단 예정)되지만, 3.x 시리즈에서 제거되지는 않을 것입니다.</p>
+
+<h3 id="제안되었으나-거부된-변경사항-proposed-variations">제안되었으나 거부된 변경사항 (Proposed Variations)</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">%b</code>에 <code class="language-plaintext highlighter-rouge">str</code> 인자가 주어졌을 때 자동으로 <code class="language-plaintext highlighter-rouge">.encode('ascii','strict')</code>를 사용하도록 제안되었으나, 간헐적인 오류를 유발할 수 있어 거부되었습니다. 문제가 되는 지점을 명확히 파악하고 수정하기 위해 연산이 항상 실패하는 것이 더 낫다고 판단했습니다.</li>
+  <li>값이 <code class="language-plaintext highlighter-rouge">str</code>일 때 <code class="language-plaintext highlighter-rouge">%b</code>가 ASCII 인코딩된 <code class="language-plaintext highlighter-rouge">repr</code>을 반환하도록 제안되었으나, 이는 문제 발생 지점과 멀리 떨어진 디버깅하기 어려운 오류를 유발할 수 있어 거부되었습니다.</li>
+  <li>원래 이 PEP는 포맷 스타일(<code class="language-plaintext highlighter-rouge">str.format</code> 메서드와 같은) 포매팅도 추가할 것을 제안했지만, <code class="language-plaintext highlighter-rouge">format</code> 및 관련 메커니즘은 모두 엄격하게 텍스트(<code class="language-plaintext highlighter-rouge">str</code>) 기반이라고 결정되어 제외되었습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">__ascii__</code>, <code class="language-plaintext highlighter-rouge">__format_bytes__</code> 등 다양한 새로운 특별 메서드(special methods)가 제안되었으나, 현재로서는 필요하지 않으며, 실제 사용에서 이 솔루션의 단점이 드러나면 나중에 다시 논의될 수 있다고 언급되었습니다.</li>
+  <li>경쟁 PEP인 PEP 460 (<code class="language-plaintext highlighter-rouge">Add binary interpolation and formatting</code>)도 존재합니다.</li>
+</ul>
+
+<h2 id="반대-의견-objections-1">반대 의견 (Objections)</h2>
+
+<p>이 PEP에 대한 주요 반대 의견은 크게 두 가지 주제였습니다:</p>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">bytes</code> 및 <code class="language-plaintext highlighter-rouge">bytearray</code> 타입은 인코딩에 대한 가정이 없는 순수한 바이너리 데이터를 위한 것이다.</li>
+  <li>ASCII 인코딩을 가정하는 <code class="language-plaintext highlighter-rouge">%</code> 인터폴레이션을 제공하는 것은 “매력적인 성가심(attractive nuisance)”이 되어, Python 2의 <code class="language-plaintext highlighter-rouge">str</code> / 유니코드 텍스트 모델의 문제점으로 다시 돌아가게 할 것이다.</li>
+</ol>
+
+<p>그러나 논의 과정에서, <code class="language-plaintext highlighter-rouge">bytes</code> 및 <code class="language-plaintext highlighter-rouge">bytearray</code>는 <code class="language-plaintext highlighter-rouge">dbf</code> 및 <code class="language-plaintext highlighter-rouge">pdf</code>와 같은 파일 포맷, <code class="language-plaintext highlighter-rouge">ftp</code> 및 이메일과 같은 네트워크 프로토콜 등 혼합된 바이너리 데이터와 ASCII 호환 세그먼트에도 사용된다는 점이 강조되었습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">bytes</code> 및 <code class="language-plaintext highlighter-rouge">bytearray</code>는 이미 <code class="language-plaintext highlighter-rouge">upper()</code>, <code class="language-plaintext highlighter-rouge">isalpha()</code>, <code class="language-plaintext highlighter-rouge">expandtabs()</code> 등 ASCII 호환 인코딩을 가정하는 여러 메서드를 가지고 있습니다. 매우 제한적인 미니 언어를 가진 <code class="language-plaintext highlighter-rouge">%</code> 인터폴레이션은 기존 메서드보다 더 큰 문제가 되지 않을 것입니다.</p>
+
+<p>일부에서는 십진수(decimal)만으로도 충분하다는 주장으로 모든 범위의 숫자 포매팅 코드를 허용하는 것에 반대했지만, 적어도 두 가지 포맷(<code class="language-plaintext highlighter-rouge">dbf</code> 및 <code class="language-plaintext highlighter-rouge">pdf</code>)은 비십진수(non-decimal numbers)를 사용합니다.</p>
+
+<h2 id="저작권-copyright-1">저작권 (Copyright)</h2>
+
+<p>이 문서는 공개 도메인(public domain)에 있습니다.</p>
+
+<hr />
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/460/" class="pagination--pager" title="[Withdrawn] PEP 460 - Add binary interpolation and formatting
+">Previous</a>
+    
+    
+      <a href="/python/pep/462/" class="pagination--pager" title="[Withdrawn] PEP 462 - Core development workflow automation for CPython
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

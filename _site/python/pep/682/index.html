@@ -1,0 +1,732 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 682 - Format Specifier for Signed Zero | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 682: ‘Format Specifier for Signed Zero’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 682 - Format Specifier for Signed Zero">
+<meta property="og:url" content="http://localhost:4000/python/pep/682/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 682: ‘Format Specifier for Signed Zero’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T10:10:49+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T10:10:49+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/682/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 682 - Format Specifier for Signed Zero">
+    <meta itemprop="description" content="Python Enhancement Proposal 682: ‘Format Specifier for Signed Zero’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T10:10:49+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T10:10:49+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 682 - Format Specifier for Signed Zero
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T10:10:49+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#개요">개요</a></li><li><a href="#동기-motivation">동기 (Motivation)</a></li><li><a href="#근거-rationale">근거 (Rationale)</a></li><li><a href="#사양-specification">사양 (Specification)</a><ul><li><a href="#설계-노트-design-notes">설계 노트 (Design Notes)</a></li></ul></li><li><a href="#하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</a></li><li><a href="#교육-방법-how-to-teach-this">교육 방법 (How to Teach This)</a></li><li><a href="#참조-구현-reference-implementation">참조 구현 (Reference Implementation)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0682/">PEP 682 - Format Specifier for Signed Zero</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 29-Jan-2022</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>PEP 682 – 부호 있는 0에 대한 형식 지정자</p>
+
+<h2 id="개요">개요</h2>
+<p>이 문서는 Python의 <code class="language-plaintext highlighter-rouge">float</code> 및 <code class="language-plaintext highlighter-rouge">Decimal</code> 타입이 부호 있는 0(예: <code class="language-plaintext highlighter-rouge">-0.0</code>)을 표현할 수 있음에도 불구하고, 많은 수학 분야에서 음수 0이 예상치 못하거나 원치 않는 결과로 여겨지는 문제를 다룹니다. 특히 숫자 결과(종종 반올림된)를 표시할 때 이러한 경향이 두드러집니다. 이 PEP는 음수 0을 양수 0으로 정규화할 수 있도록 문자열 형식 지정(string format specification)을 확장하는 것을 제안합니다.</p>
+
+<h2 id="동기-motivation">동기 (Motivation)</h2>
+<p>음수 0은 다음과 같이 존재합니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span>
+<span class="o">-</span><span class="mf">0.0</span>
+</code></pre></div></div>
+<p>숫자를 포매팅(formatting)할 때, 음수 0은 반올림(rounding)의 결과로 나타날 수 있습니다. 사용자의 의도가 실제로 정밀도(precision)를 버리는 것이라고 가정할 때, 반올림된 결과의 음수 0과 양수 0 사이의 구별은 원치 않는 부산물로 간주될 수 있습니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">(.</span><span class="mi">002</span><span class="p">,</span> <span class="o">-</span><span class="p">.</span><span class="mi">001</span><span class="p">,</span> <span class="p">.</span><span class="mi">060</span><span class="p">):</span>
+<span class="p">...</span> <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="si">{</span><span class="n">x</span><span class="si">:</span> <span class="p">.</span><span class="mi">1</span><span class="n">f</span><span class="si">}</span><span class="sh">'</span><span class="p">)</span>
+<span class="mf">0.0</span>
+<span class="o">-</span><span class="mf">0.0</span>
+<span class="mf">0.1</span>
+</code></pre></div></div>
+<p>음수 0의 부호를 제거하는 다양한 접근 방식이 있습니다. 양수 0을 추가하여 조건문 없이 달성할 수 있습니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mf">0.</span>
+<span class="mf">0.0</span>
+</code></pre></div></div>
+<p>포매팅 시 음수 0을 정규화하려면, 입력 값에 대해 중복되고 오류 발생 가능성이 있는 사전 반올림(pre-rounding)을 수행해야 합니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">(.</span><span class="mi">002</span><span class="p">,</span> <span class="o">-</span><span class="p">.</span><span class="mi">001</span><span class="p">,</span> <span class="p">.</span><span class="mi">060</span><span class="p">):</span>
+<span class="p">...</span> <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="si">{</span><span class="nf">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.</span><span class="si">:</span> <span class="p">.</span><span class="mi">1</span><span class="n">f</span><span class="si">}</span><span class="sh">'</span><span class="p">)</span>
+<span class="mf">0.0</span>
+<span class="mf">0.0</span>
+<span class="mf">0.1</span>
+</code></pre></div></div>
+<p>언어에 관계없이 프로그래머들이 음수 0을 억제하는 방법을 자주 찾고 있으며, 다양한 해결책(사전 반올림, 사후 정규표현식 등)을 사용한다는 충분한 증거가 있습니다. 예를 들면 다음과 같습니다.</p>
+<ul>
+  <li>Python에서 음수 0을 항상 양수 0으로 포맷하는 방법 (Python, 사후 정규표현식)</li>
+  <li>(Iron)Python에서 modulo 연산자 및 “음수 0”과 관련된 포매팅 문제 (Python, 사전 반올림)</li>
+  <li>Java에서 0일 경우 음수 부호 (Java, 사후 정규표현식)</li>
+  <li>작은 음수가 “-0”으로 출력되는 것을 방지 (Objective-C, 사용자 정의 숫자 포매터)</li>
+</ul>
+
+<p>대신, 숫자 문자열 포매팅이 이미 제공하는 모든 기능 위에 음수 0을 정규화하는 일급(first-class) 옵션을 원합니다.</p>
+
+<h2 id="근거-rationale">근거 (Rationale)</h2>
+<p>포맷된 숫자 출력에서 음수 0이 원치 않는 경우가 있습니다. 오히려 원치 않는 경우가 더 흔하다고 볼 수 있습니다. 형식 지정(format specification)을 확장하는 것이 이를 지원하는 가장 좋은 방법입니다. 왜냐하면 숫자 포매팅은 이미 반올림을 포함하고 있으며, 음수 0의 정규화는 반올림 후에 이루어져야 하기 때문입니다.</p>
+
+<p>포매팅 전에 숫자를 사전 반올림하고 정규화하는 것이 가능하지만, 반올림이 형식 지정자와 정확히 일치하지 않으면 번거롭고 오류가 발생하기 쉽습니다. 또한, 포매팅을 래핑하는 함수는 정밀도 정보를 추출하기 위해 형식 지정자를 파싱해야 할 것입니다. 예를 들어, 1차원 숫자 배열을 포맷하는 다음 유틸리티가 이러한 사전 반올림으로 인해 얼마나 복잡해질지 고려해보세요.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">format_vector</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">format_spec</span><span class="o">=</span><span class="sh">'</span><span class="s">8.2f</span><span class="sh">'</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">Format a vector (any iterable) using given per-term format string.</span><span class="sh">"""</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="sh">"</span><span class="s">[</span><span class="si">{</span><span class="sh">'</span><span class="s">,</span><span class="sh">'</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="si">{</span><span class="n">term</span><span class="si">:{</span><span class="n">format_spec</span><span class="si">}}</span><span class="sh">'</span><span class="s"> for term in v)</span><span class="si">}</span><span class="s">]</span><span class="sh">"</span>
+</code></pre></div></div>
+<p>현재까지 음수 0에 대한 포매팅 옵션을 제공하는 다른 널리 사용되는 언어나 라이브러리는 없는 것으로 보입니다. 그러나 아래에 지정된 것과 동일한 <code class="language-plaintext highlighter-rouge">z</code> 옵션 구문 및 의미 체계가 C++ <code class="language-plaintext highlighter-rouge">std::format()</code>에 대해 제안되었습니다. 이 제안은 C++20에서는 철회되었지만, C++23에서는 합의된 제안이 약속되었습니다. (이 PEP를 촉발한 원래 기능 요청은 C++ 제안에 대한 지식 없이 주장되었습니다.)</p>
+
+<p>Rust 개발자들이 출력에서 음수 0을 억제할지 여부를 논의했을 때, 그들은 다른 언어에 대한 작은 설문 조사를 했습니다. 특히, 음수 0 처리 옵션을 제공하는 언어는 언급되지 않았습니다.</p>
+
+<h2 id="사양-specification">사양 (Specification)</h2>
+<p><code class="language-plaintext highlighter-rouge">sign</code> 다음에 선택적이고 리터럴인 <code class="language-plaintext highlighter-rouge">z</code>가 Format Specification Mini-Language에 추가됩니다.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[[fill]align][sign][z][#][0][width][grouping_option][.precision][type]
+</code></pre></div></div>
+<p>여기서 <code class="language-plaintext highlighter-rouge">z</code>는 부동 소수점(floating-point) 표현 타입(format specification documentation에 정의된 <code class="language-plaintext highlighter-rouge">f</code>, <code class="language-plaintext highlighter-rouge">g</code> 등)에 허용됩니다. <code class="language-plaintext highlighter-rouge">z</code> 지원은 각 숫자 타입의 <code class="language-plaintext highlighter-rouge">.__format__()</code> 메서드에 의해 제공되며, 이 지정자를 f-string, 내장 <code class="language-plaintext highlighter-rouge">format()</code> 및 <code class="language-plaintext highlighter-rouge">str.format()</code>에서 사용할 수 있도록 합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">z</code>가 존재하면, 음수 0(원래 값이든 반올림 결과이든)은 양수 0으로 정규화됩니다.</p>
+
+<p><strong>요약:</strong></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="p">.</span><span class="mi">00001</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="sa">f</span><span class="sh">'</span><span class="si">{</span><span class="n">x</span><span class="si">:</span><span class="n">z</span><span class="p">.</span><span class="mi">1</span><span class="n">f</span><span class="si">}</span><span class="sh">'</span>
+<span class="sh">'</span><span class="s">0.0</span><span class="sh">'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="n">decimal</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="n">decimal</span><span class="p">.</span><span class="nc">Decimal</span><span class="p">(</span><span class="sh">'</span><span class="s">-.00001</span><span class="sh">'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="sh">'</span><span class="s">{:+z.1f}</span><span class="sh">'</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="sh">'</span><span class="s">+0.0</span><span class="sh">'</span>
+</code></pre></div></div>
+
+<h3 id="설계-노트-design-notes">설계 노트 (Design Notes)</h3>
+<p>이 해결책은 옵트인(opt-in) 방식이어야 합니다. 왜냐하면 숫자를 포매팅할 때 음수 0을 예상하거나 의존하는 프로그램의 동작을 변경할 수 없기 때문입니다.</p>
+
+<p>제안된 확장은 의도적으로 <code class="language-plaintext highlighter-rouge">[sign][z]</code>이며 <code class="language-plaintext highlighter-rouge">[sign[z]]</code>가 아닙니다. <code class="language-plaintext highlighter-rouge">sign</code>의 기본값(<code class="language-plaintext highlighter-rouge">-</code>)은 널리 알려져 있거나 명시적으로 작성되지 않으므로, 이 <code class="language-plaintext highlighter-rouge">z</code> 옵션을 사용하기 위해 모든 사람이 이를 배워야 하는 것을 피할 수 있습니다.</p>
+
+<p>f-string, 내장 <code class="language-plaintext highlighter-rouge">format()</code>, <code class="language-plaintext highlighter-rouge">str.format()</code>은 새로운 옵션에 접근할 수 있지만, <code class="language-plaintext highlighter-rouge">%</code> 포매팅은 그렇지 않습니다. <code class="language-plaintext highlighter-rouge">,</code> 옵션(PEP 378)의 경우와 같이 <code class="language-plaintext highlighter-rouge">%</code> 포매팅을 새로운 옵션으로 확장하지 않는 선례가 이미 있습니다.</p>
+
+<p>C99 <code class="language-plaintext highlighter-rouge">printf</code>는 <code class="language-plaintext highlighter-rouge">z</code> 옵션 문자를 다른 목적으로 이미 사용합니다. 즉, <code class="language-plaintext highlighter-rouge">unsigned</code> 타입(<code class="language-plaintext highlighter-rouge">u</code>)이 <code class="language-plaintext highlighter-rouge">size_t</code>의 길이와 일치하도록 한정하는 것입니다. 그러나 부호 있는 0 옵션은 정수 표현 타입에 대해 <code class="language-plaintext highlighter-rouge">z</code>를 특별히 허용하지 않으므로, C 언어가 이 새로운 옵션을 채택하고자 한다면 두 가지 사용법을 명확하게 구분할 수 있습니다.</p>
+
+<h2 id="하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</h2>
+<p>새로운 포매팅 동작은 옵트인(opt-in) 방식이므로, 기존 프로그램의 숫자 포매팅에는 영향을 미치지 않습니다.</p>
+
+<h2 id="교육-방법-how-to-teach-this">교육 방법 (How to Teach This)</h2>
+<p>일반적인 Python 입문 과정에서는 문자열 포매팅을 자세히 다루지 않을 것입니다. 이러한 과정에서는 조정할 필요가 없습니다. 문자열 형식 지정의 세부 사항을 다루는 과정의 경우, 포매팅에 의해 0으로 반올림되는 음수 값에 대한 <code class="language-plaintext highlighter-rouge">z</code> 옵션의 효과를 보여주는 단일 예제만으로도 충분할 것입니다. 다른 사람의 코드에서 이 기능을 접하는 독립적인 개발자의 경우, 라이브러리 참조 설명서의 Format Specification Mini-Language 섹션을 참조하는 것으로 충분할 것입니다.</p>
+
+<h2 id="참조-구현-reference-implementation">참조 구현 (Reference Implementation)</h2>
+<p>참조 구현은 pull request #30049에 존재합니다.</p>
+
+<h2 id="저작권-copyright">저작권 (Copyright)</h2>
+<p>이 문서는 퍼블릭 도메인(public domain) 또는 CC0-1.0-Universal 라이선스 중 더 관대한 라이선스에 따라 제공됩니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/681/" class="pagination--pager" title="[Final] PEP 681 - Data Class Transforms
+">Previous</a>
+    
+    
+      <a href="/python/pep/683/" class="pagination--pager" title="[Final] PEP 683 - Immortal Objects, Using a Fixed Refcount
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

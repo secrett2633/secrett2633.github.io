@@ -1,0 +1,804 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Draft] PEP 780 - ABI features as environment markers | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 780: ‘ABI features as environment markers’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Draft] PEP 780 - ABI features as environment markers">
+<meta property="og:url" content="http://localhost:4000/python/pep/780/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 780: ‘ABI features as environment markers’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T13:57:13+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T13:57:13+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/780/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Draft] PEP 780 - ABI features as environment markers">
+    <meta itemprop="description" content="Python Enhancement Proposal 780: ‘ABI features as environment markers’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T13:57:13+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T13:57:13+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Draft] PEP 780 - ABI features as environment markers
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T13:57:13+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#동기-motivation">동기 (Motivation)</a></li><li><a href="#근거-rationale">근거 (Rationale)</a><ul><li><a href="#free-threaded-python에-대한-미래-지향적-관점-a-forward-looking-view-on-free-threaded-python">Free-threaded Python에 대한 미래 지향적 관점 (A Forward Looking View on Free-Threaded Python)</a></li><li><a href="#다른-pep와의-관계-relation-to-other-peps">다른 PEP와의 관계 (Relation to Other PEPs)</a></li></ul></li><li><a href="#사양-specification">사양 (Specification)</a><ul><li><a href="#abi-기능-abi-features">ABI 기능 (ABI Features)</a></li><li><a href="#sys_abi_features-환경-마커-the-sys_abi_features-environment-marker">sys_abi_features 환경 마커 (The sys_abi_features Environment Marker)</a></li></ul></li><li><a href="#예시-examples">예시 (Examples)</a><ul><li><a href="#free-threaded-python을-위한-cython-pre-release-요구-require-cython-pre-release-for-free-threaded-python">Free-threaded Python을 위한 Cython Pre-release 요구 (Require Cython Pre-release for Free-Threaded Python)</a></li><li><a href="#32비트-windows가-아닌-경우-scipy-요구-require-scipy-unless-on-32-bit-win32">32비트 Windows가 아닌 경우 SciPy 요구 (Require SciPy Unless on 32-bit win32)</a></li><li><a href="#디버깅-기능이-있는-free-threaded-인터프리터를-위한-numpy-요구-require-numpy-for-a-free-threaded-interpreter-with-debugging-capabilities">디버깅 기능이 있는 Free-threaded 인터프리터를 위한 NumPy 요구 (Require NumPy for a Free-Threaded Interpreter With Debugging Capabilities)</a></li></ul></li><li><a href="#하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</a><ul><li><a href="#감사-및-업데이트-도구-audit-and-update-tools">감사 및 업데이트 도구 (Audit and Update Tools)</a></li></ul></li><li><a href="#보안-영향-security-implications">보안 영향 (Security Implications)</a></li><li><a href="#교육-방법-how-to-teach-this">교육 방법 (How to Teach This)</a></li><li><a href="#참조-구현-reference-implementation">참조 구현 (Reference Implementation)</a></li><li><a href="#거부된-아이디어-rejected-ideas">거부된 아이디어 (Rejected Ideas)</a><ul><li><a href="#확장-메커니즘-extension-mechanism">확장 메커니즘 (Extension Mechanism)</a></li></ul></li><li><a href="#미해결-문제-open-issues">미해결 문제 (Open Issues)</a><ul><li><a href="#기타-환경-마커-other-environment-markers">기타 환경 마커 (Other Environment Markers)</a></li><li><a href="#기타-도구-other-tooling">기타 도구 (Other Tooling)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0780/">PEP 780 - ABI features as environment markers</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Draft</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 21-Mar-2025</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>PEP 780 – 환경 마커로서의 ABI 기능</p>
+
+<h2 id="개요-abstract">개요 (Abstract)</h2>
+<p>이 PEP는 새로운 <code class="language-plaintext highlighter-rouge">sys_abi_features</code> 환경 마커를 통해 프로젝트 종속성에 ABI(Application Binary Interface) 기능을 환경 마커로 사용하는 방법을 정의합니다. PEP 508(이후 Dependency specifiers로 이동)은 종속성을 사용해야 하는 시기를 설명하는 규칙에 따라 종속성을 지정하기 위해 환경 마커를 도입했습니다. 이 PEP는 Python 인터프리터의 특정 ABI 기능에 따라 종속성을 지정할 수 있도록 환경 마커를 확장합니다. 이를 위해 일련의 ABI 기능을 정의하고, 새로운 마커 변수인 <code class="language-plaintext highlighter-rouge">sys_abi_features</code>로서 환경 마커에서 이러한 기능을 사용할 수 있도록 지정합니다.</p>
+
+<h2 id="동기-motivation">동기 (Motivation)</h2>
+<p>2015년에 PEP 508은 환경 조건에 따라 종속성을 지정하기 위한 환경 마커를 확립했습니다. CPython의 Free-threaded(자유 스레드) 개발은 인터프리터가 빌드된 다양한 ABI 기능을 구별하기 위한 환경 마커의 필요성을 강조했습니다. 예를 들어, 현재 환경 마커를 사용하여 GIL(Global Interpreter Lock)이 활성화된 CPython 인터프리터와 Free-threaded CPython 인터프리터를 구별할 수 있는 방법이 없습니다. 이는 Free-threading의 채택 및 점진적인 배포에 실제적인 문제를 야기합니다.</p>
+
+<p>Python 패키지가 Free-threaded CPython과 호환되도록 만들 때, 모든 빌드 및 런타임 종속성도 호환되어야 합니다. 현재 메타데이터에 호환되는 종속성의 첫 번째 버전을 정확하게 캡처하는 것은 불가능하며, GIL이 활성화된 빌드의 종속성 최소 버전을 높이는 것은 패키지 간의 불필요한 호환성 제한을 야기하므로 일반적으로 바람직하지 않습니다.</p>
+
+<p>이러한 문제에 대한 몇 가지 구체적인 예시는 “Environment marker for free-threading” Discourse 스레드에서 논의되었습니다.</p>
+<ul>
+  <li><strong>Cython:</strong> Free-threading에 대한 (실험적) 지원은 master 브랜치에만 있으며, 이미 <code class="language-plaintext highlighter-rouge">cp313t</code> 휠을 게시하는 많은 프로젝트에서 사용됩니다. 잘못된 Cython 버전을 선택하면 많은 모호한 빌드 실패 및 런타임 충돌이 발생합니다. 메타데이터가 이를 표현할 수 있다면 도움이 될 것입니다 (예: Free-threaded Python을 위한 Cython Pre-release 요구 사항 참조).</li>
+  <li><strong>CFFI:</strong> 아직 Free-threading을 지원하지 않으며, 유지보수자 중 한 명인 Armin Rigo는 <code class="language-plaintext highlighter-rouge">cffi</code>를 포크(fork)하고 Free-threading 지원을 구현한 다음, 기능이 “합리적으로 잘 테스트된 (테스트를 통해 또는, 이 경우 더 나은 방법은 다양한 다른 프로젝트에서 사용됨을 통해)” 후에 단일 대규모 PR로 CFFI 프로젝트로 돌아오는 것이 좋은 아이디어일 수 있다고 언급했습니다. <code class="language-plaintext highlighter-rouge">cffi</code>에 의존하는 많은 프로젝트가 있습니다. 이들은 Free-threading에 대해서만 포크에 의존하는 것은 괜찮겠지만, <code class="language-plaintext highlighter-rouge">&gt;=3.13</code> 또는 모든 Python 버전에 대해 포크에 의존하는 것은 훨씬 더 큰 요구 사항이며, 배포 패키지 관리자에게 더 큰 혼란을 줄 수 있습니다.</li>
+</ul>
+
+<p>이러한 구체적인 예시는 올해 후반에 Cython과 CFFI가 호환 가능한 릴리스를 통해 해결될 수 있지만, 동일한 문제는 스택의 더 높은 곳에서 반복될 것입니다. Free-threading의 배포는 수년이 걸릴 것으로 예상되며, Free-threading을 위한 환경 마커는 이러한 배포를 훨씬 쉽게 만들 것입니다.</p>
+
+<p>환경 마커로 아직 다루지 않는 또 다른 중요한 ABI 기능은 인터프리터의 비트(bitness)입니다. 대부분의 경우 <code class="language-plaintext highlighter-rouge">sys_platform</code> 또는 <code class="language-plaintext highlighter-rouge">platform_system</code> 마커로 충분합니다. 플랫폼당 단일 비트만 사용되기 때문입니다. 그러나 Windows에서는 그렇지 않습니다. x86-64 Windows에서는 32비트 및 64비트 Python 인터프리터가 모두 널리 사용됩니다. 둘을 구별할 수 없는 것은 컴파일된 확장 기능을 제공하는 패키지와 관련이 있을 수 있습니다. 예를 들어, SciPy는 <code class="language-plaintext highlighter-rouge">win32</code> 휠을 제공하지 않습니다 (Fortran 지원이 있는 적합한 32비트 컴파일러 툴체인이 없기 때문에 불가능합니다). 이러한 휠이 없는 것은 특히 SciPy가 선택적 종속성일 뿐인 프로젝트에서 불편할 수 있습니다. 이 경우, SciPy가 Windows의 32비트 인터프리터가 아닌 경우에만 필요하다고 지정할 수 있다면 유용할 것입니다 (예: 32비트 win32가 아닌 경우 SciPy 요구 사항 참조). 이는 휠 누락으로 인한 소스에서 설치 실패를 방지할 수 있습니다.</p>
+
+<h2 id="근거-rationale">근거 (Rationale)</h2>
+<p>이 PEP의 목표는 기존 생태계에 최소한의 영향을 미치면서 핵심 기능을 도입하는 것입니다. PEP 508에서 제안된 기존 문법은 새로운 환경 마커를 포함하도록 간단하게 확장될 수 있습니다.</p>
+
+<h3 id="free-threaded-python에-대한-미래-지향적-관점-a-forward-looking-view-on-free-threaded-python">Free-threaded Python에 대한 미래 지향적 관점 (A Forward Looking View on Free-Threaded Python)</h3>
+<p>Free-threading에 대한 수락된 제안인 PEP 703은 Free-threaded Python의 배포가 점진적이어야 한다고 명시하고 있으며, 이는 Python Steering Council에 의해 PEP 703 수락 게시물에서 여러 릴리스에 걸친 3단계 프로세스를 의미한다고 명확히 했습니다. 따라서 이 PEP의 메커니즘이 Free-threading 또는 Non-free-threading이 기본 또는 유일한 옵션일 수 있는 Python 인터프리터에 유용하도록 보장하는 것이 중요합니다.</p>
+
+<p>이 문서를 작성하는 시점에 Free-threaded Python은 Phase I: 실험 단계에 있습니다. 이 단계에서는 패키지 작성자가 점진적으로 지원을 추가함에 따라 Free-threaded Python으로의 전환을 돕기 위해 제안된 환경 마커가 절실히 필요합니다.</p>
+
+<p>지원하는 패키지 수가 증가하고 특히 Phase II: 지원되지만 기본값은 아님 단계에서는 전환을 돕기 위한 환경 마커에 대한 강한 필요성이 여전히 예상됩니다.</p>
+
+<p>Free-threaded Python이 Phase III: 기본 단계에 진입하면 환경 마커의 필요성은 감소할 것이지만, 이 시점에서는 GIL이 활성화된 Python이 완전히 단계적으로 폐지될지는 명확하지 않습니다 (비표준 빌드 옵션으로 계속 사용할 수 있습니다). 만약 계속 유지된다면, ABI 기능 감지에 대한 역방향 필요성이 발생할 수 있습니다.</p>
+
+<p>실제로 세 단계 모두에서 패키지 작성자는 ABI 기능에 따라 종속성의 특정 버전을 선택해야 할 수 있으며, 시간이 지남에 따라 기본값이 GIL 활성화에서 Free-threading으로 변경됩니다.</p>
+
+<p>ABI 기능은 변화하는 Python 생태계에서 예측 가능한 미래에 유용성과 단순성을 보장하기 위해 이를 염두에 두고 설계되었습니다.</p>
+
+<h3 id="다른-pep와의-관계-relation-to-other-peps">다른 PEP와의 관계 (Relation to Other PEPs)</h3>
+<p>이 PEP는 ABI 기능에 대한 집합 의미론(set semantics)으로 환경 마커를 확장합니다. PEP 751은 록 파일(lock file) 특정 환경 마커에 대한 유사한 확장을 포함합니다. 비록 두 PEP가 독립적으로 개발되었지만, 새로운 집합 의미론 측면에서 겹치는 부분에서 호환됩니다.</p>
+
+<h2 id="사양-specification">사양 (Specification)</h2>
+<p>이 문서에서 “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, “OPTIONAL” 키워드는 RFC 2119에 설명된 대로 해석됩니다.</p>
+
+<h3 id="abi-기능-abi-features">ABI 기능 (ABI Features)</h3>
+<p>ABI 기능은 Python 인터프리터의 본질적인 속성으로, 간단하고 이해하기 쉬운 문자열로 표현됩니다. 그러나 모든 기능이 모든 Python 인터프리터 또는 Python 버전에 동등하게 적용되는 것은 아닙니다. 예를 들어, Free-threaded 인터프리터와 GIL 활성화 인터프리터의 구별은 CPython 3.13부터만 관련이 있지만, 인터프리터의 비트는 모든 인터프리터에 관련이 있습니다.</p>
+
+<p>모든 인터프리터는 명시된 대로 다음 ABI 기능을 처리해야 합니다. 특정 인터프리터로 제한되는 ABI 기능은 다른 인터프리터에서 제공되어서는 안 됩니다. 기능은 그룹으로 세분화되며, 각 그룹에는 정확히 하나의 기능이 있어야 합니다. 단, 그룹이 선택 사항으로 표시된 경우에는 최대 하나의 기능만 있어야 합니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">free-threading</code> 또는 <code class="language-plaintext highlighter-rouge">gil-enabled</code> (CPython만 해당)
+    <ul>
+      <li>Python 인터프리터가 Free-threaded이면 <code class="language-plaintext highlighter-rouge">free-threading</code> 기능이 있어야 하고 <code class="language-plaintext highlighter-rouge">gil-enabled</code> 기능은 없어야 합니다.</li>
+      <li>그렇지 않으면 <code class="language-plaintext highlighter-rouge">gil-enabled</code> 기능이 있어야 하고 <code class="language-plaintext highlighter-rouge">free-threading</code> 기능은 없어야 합니다.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">debug</code> (CPython만 해당, 선택 사항)
+    <ul>
+      <li>이 ABI 기능은 <code class="language-plaintext highlighter-rouge">--with-pydebug</code> CPython 빌드를 위해 예약되어 있습니다.</li>
+      <li>인터프리터가 <code class="language-plaintext highlighter-rouge">Py_DEBUG</code> 기능을 가진 CPython 인터프리터인 경우 <code class="language-plaintext highlighter-rouge">debug</code> 기능이 있어야 합니다. POSIX 시스템에서는 이는 <code class="language-plaintext highlighter-rouge">sys.abiflags</code>의 Python 표현 “d”에 해당합니다.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">32-bit</code> 또는 <code class="language-plaintext highlighter-rouge">64-bit</code> (선택 사항)
+    <ul>
+      <li>인터프리터의 비트, 즉 32비트 또는 64비트 빌드인지 여부입니다.</li>
+      <li>비트를 알 수 없거나 32비트도 64비트도 아닌 경우 이 기능은 없어야 합니다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="sys_abi_features-환경-마커-the-sys_abi_features-environment-marker"><code class="language-plaintext highlighter-rouge">sys_abi_features</code> 환경 마커 (The sys_abi_features Environment Marker)</h3>
+<p>종속성 사양에서 ABI 기능을 사용할 수 있도록 하기 위해 새로운 환경 마커 변수 <code class="language-plaintext highlighter-rouge">sys_abi_features</code>가 종속성 지정자 형식에 추가됩니다.</p>
+
+<p>이를 위해 PEP 508에 명시되고 Dependency specifiers에서 유지되는 문법을 확장하고 가능한 값을 문서화해야 합니다.</p>
+
+<p>문법은 <code class="language-plaintext highlighter-rouge">env_var</code>의 정의를 다음과 같이 보강하여 <code class="language-plaintext highlighter-rouge">sys_abi_features</code> 마커 변수를 포함하도록 확장됩니다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>env_var = ('python_version' | 'python_full_version' | 'os_name' | 'sys_platform' | 'platform_release' | 'platform_system' | 'platform_version' | 'platform_machine' | 'platform_python_implementation' | 'implementation_name' | 'implementation_version' | 'sys_abi_features' | 'extra' # ONLY when defined by a containing layer )
+</code></pre></div></div>
+<p>문법과 마찬가지로 Dependency specifiers의 환경 마커 개요 테이블도 다음 행을 추가하여 보강됩니다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Marker</th>
+      <th style="text-align: left">Python equivalent</th>
+      <th style="text-align: left">Sample values</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">sys_abi_features</code></td>
+      <td style="text-align: left">no direct equivalent available</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">{'free-threading', '64-bit'}</code> , <code class="language-plaintext highlighter-rouge">{'gil-enabled', 'debug', '32-bit'}</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>이러한 추가 사항을 통해 ABI 기능은 <code class="language-plaintext highlighter-rouge">in</code> 연산자를 사용하여 기능의 존재를 테스트하거나 <code class="language-plaintext highlighter-rouge">not in</code> 연산자를 사용하여 기능의 부재를 테스트하여 종속성 사양에서 사용할 수 있습니다.</p>
+
+<h2 id="예시-examples">예시 (Examples)</h2>
+
+<h3 id="free-threaded-python을-위한-cython-pre-release-요구-require-cython-pre-release-for-free-threaded-python">Free-threaded Python을 위한 Cython Pre-release 요구 (Require Cython Pre-release for Free-Threaded Python)</h3>
+<p>Free-threaded Python 인터프리터에 대해서만 Cython의 pre-release 버전을 요구하려면 다음 종속성 사양을 사용할 수 있습니다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cython &gt;3.1.0a1; "free-threading" in sys_abi_features
+cython ==3.0.*; "free-threading" not in sys_abi_features
+</code></pre></div></div>
+
+<h3 id="32비트-windows가-아닌-경우-scipy-요구-require-scipy-unless-on-32-bit-win32">32비트 Windows가 아닌 경우 SciPy 요구 (Require SciPy Unless on 32-bit win32)</h3>
+<p>Windows의 32비트 인터프리터가 아닌 경우 SciPy를 요구하려면 다음 종속성 사양을 사용할 수 있습니다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scipy; platform_system != "Windows" or "32-bit" not in sys_abi_features
+</code></pre></div></div>
+
+<h3 id="디버깅-기능이-있는-free-threaded-인터프리터를-위한-numpy-요구-require-numpy-for-a-free-threaded-interpreter-with-debugging-capabilities">디버깅 기능이 있는 Free-threaded 인터프리터를 위한 NumPy 요구 (Require NumPy for a Free-Threaded Interpreter With Debugging Capabilities)</h3>
+<p>디버깅 기능이 있는 Free-threaded 인터프리터에 대해서만 NumPy를 요구하려면 다음 종속성을 사용할 수 있습니다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>numpy; "free-threading" in sys_abi_features and "debug" in sys_abi_features
+</code></pre></div></div>
+
+<h2 id="하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</h2>
+<p>이것은 기존 환경 마커에 대한 순수한 확장이며 기존 환경 마커 또는 종속성 사양에 영향을 미치지 않으므로 직접적인 하위 호환성 문제는 없습니다.</p>
+
+<p>그러나 이 기능의 도입은 특히 <code class="language-plaintext highlighter-rouge">pyproject.toml</code> 및 <code class="language-plaintext highlighter-rouge">requirements.txt</code>의 데이터를 검사하려는 많은 생태계 도구에 영향을 미칩니다.</p>
+
+<h3 id="감사-및-업데이트-도구-audit-and-update-tools">감사 및 업데이트 도구 (Audit and Update Tools)</h3>
+<p><code class="language-plaintext highlighter-rouge">requirements.txt</code> 파일에 표현된 Python 종속성 데이터를 이해하는 광범위한 도구(예: Dependabot, Tidelift 등)가 있습니다.</p>
+
+<p>이러한 도구는 종속성 데이터를 검사하고, 경우에 따라 도구 지원 또는 완전 자동 업데이트를 제공합니다. 처음에 이러한 도구가 새로운 환경 마커를 지원하지 않을 것이며, 광범위한 생태계 지원이 제공되기까지 수개월 또는 심지어 수년이 걸릴 수 있다고 예상됩니다.</p>
+
+<p>결과적으로 새로운 환경 마커를 사용하는 사용자는 사용을 시작하는 시점에 워크플로우 및 도구 지원의 저하를 경험할 수 있습니다. 이는 종속성 데이터가 인코딩되는 위치 및 방법에 대한 모든 새로운 표준에 해당합니다.</p>
+
+<h2 id="보안-영향-security-implications">보안 영향 (Security Implications)</h2>
+<p>이 PEP는 프로젝트에서 종속성 정보를 지정하기 위한 새로운 구문을 도입합니다. 그러나 종속성을 처리하거나 해결하기 위한 새로 지정된 메커니즘을 도입하지는 않습니다.</p>
+
+<p>따라서 종속성을 설치하는 데 이미 사용될 수 있는 모든 도구에 내재된 것 외에는 보안 문제가 없습니다. 즉, 악성 종속성이 <code class="language-plaintext highlighter-rouge">requirements.txt</code> 파일에 지정될 수 있는 것과 마찬가지로 여기에 지정될 수 있습니다.</p>
+
+<h2 id="교육-방법-how-to-teach-this">교육 방법 (How to Teach This)</h2>
+<p>환경 마커의 사용은 Dependency specifiers에서 잘 확립되고 주로 전달됩니다. 새로운 환경 마커는 동일한 문서에 소개될 수 있습니다. 또한 패키지 작성자와 사용자 모두를 위해 Python free-threading 가이드에서 Free-threading 관련 지침을 제공할 수 있습니다.</p>
+
+<h2 id="참조-구현-reference-implementation">참조 구현 (Reference Implementation)</h2>
+<p>환경 마커에 대한 참조 구현은 <code class="language-plaintext highlighter-rouge">packaging</code> 라이브러리의 포크인 Environment markers for ABI features에서 사용할 수 있습니다.</p>
+
+<p>데모 패키지도 사용할 수 있습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">pip</code>은 내부적으로 <code class="language-plaintext highlighter-rouge">packaging</code>의 벤더링된 복사본을 사용하므로, 위에서 링크된 참조 구현으로 벤더링된 <code class="language-plaintext highlighter-rouge">packaging</code>을 대체하는 패치된 <code class="language-plaintext highlighter-rouge">pip</code> 버전도 제공됩니다.</p>
+
+<h2 id="거부된-아이디어-rejected-ideas">거부된 아이디어 (Rejected Ideas)</h2>
+
+<h3 id="확장-메커니즘-extension-mechanism">확장 메커니즘 (Extension Mechanism)</h3>
+<p>주제에 대한 초기 논의(<code class="language-plaintext highlighter-rouge">Environment marker for free-threading</code>)에서 환경 마커에 대한 일반적인 확장 메커니즘 아이디어가 제기되었습니다. 미래에 새로운 환경 마커가 필요할 경우 전체 PEP 프로세스를 생략하는 것이 매력적이지만, 두 가지 주요 과제가 있습니다.</p>
+
+<p>첫째, 완전히 동적인 메커니즘은 종속성 사양의 정적 분석에 의존하는 도구에 어려움을 줄 것입니다. 이는 동적인 메커니즘이 채택되더라도 새로운 환경 마커는 여전히 PEP에서 명시되어야 할 가능성이 높다는 것을 의미합니다.</p>
+
+<p>둘째, 동적인 메커니즘의 도입은 <code class="language-plaintext highlighter-rouge">packaging</code> 라이브러리에서 더 복잡한 구현을 요구할 것이며, 이는 현재 접근 방식에서 크게 벗어나는 것입니다.</p>
+
+<h2 id="미해결-문제-open-issues">미해결 문제 (Open Issues)</h2>
+
+<h3 id="기타-환경-마커-other-environment-markers">기타 환경 마커 (Other Environment Markers)</h3>
+<p>지금 당장 다른 환경 마커가 필요한 경우 이 PEP를 확장하여 포함할 수 있습니다.</p>
+
+<h3 id="기타-도구-other-tooling">기타 도구 (Other Tooling)</h3>
+<p>참조 구현은 <code class="language-plaintext highlighter-rouge">packaging</code> 라이브러리 및 <code class="language-plaintext highlighter-rouge">pip</code>을 기반으로 합니다. 이를 통해 여러 빌드 백엔드로 패키지를 빌드하고 설치할 수 있음을 확인했습니다. 참조 구현에 다른 도구를 추가해야 할 수도 있습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/779/" class="pagination--pager" title="[Accepted] PEP 779 - Criteria for supported status for free-threaded Python
+">Previous</a>
+    
+    
+      <a href="/python/pep/781/" class="pagination--pager" title="[Draft] PEP 781 - MakeTYPE_CHECKINGa built-in constant
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

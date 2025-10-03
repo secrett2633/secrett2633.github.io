@@ -1,0 +1,843 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Accepted] PEP 668 - Marking Python base environments as “externally managed” | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 668: ‘Marking Python base environments as “externally managed”’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Accepted] PEP 668 - Marking Python base environments as “externally managed”">
+<meta property="og:url" content="http://localhost:4000/python/pep/668/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 668: ‘Marking Python base environments as “externally managed”’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T10:04:11+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T10:04:11+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/668/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Accepted] PEP 668 - Marking Python base environments as “externally managed”">
+    <meta itemprop="description" content="Python Enhancement Proposal 668: ‘Marking Python base environments as “externally managed”’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T10:04:11+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T10:04:11+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Accepted] PEP 668 - Marking Python base environments as “externally managed”
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T10:04:11+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-668--python-기본-환경을-외부-관리로-표시">PEP 668 – Python 기본 환경을 “외부 관리”로 표시</a><ul><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#용어-terminology">용어 (Terminology)</a></li><li><a href="#동기-motivation">동기 (Motivation)</a></li><li><a href="#근거-rationale">근거 (Rationale)</a></li><li><a href="#사용-사례-use-cases">사용 사례 (Use cases)</a></li><li><a href="#사양-specification">사양 (Specification)</a><ul><li><a href="#인터프리터를-외부-관리로-표시-marking-an-interpreter-as-using-an-external-package-manager">인터프리터를 외부 관리로 표시 (Marking an interpreter as using an external package manager)</a></li><li><a href="#대상-sysconfig-스키마에만-쓰기-writing-to-only-the-target-sysconfig-scheme">대상 sysconfig 스키마에만 쓰기 (Writing to only the target sysconfig scheme)</a></li></ul></li><li><a href="#배포판을-위한-권장-사항-recommendations-for-distros">배포판을 위한 권장 사항 (Recommendations for distros)</a></li><li><a href="#하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</a></li><li><a href="#보안-영향-security-implications">보안 영향 (Security Implications)</a></li><li><a href="#대안-alternatives">대안 (Alternatives)</a><ul><li><a href="#시스템-python-system-python">시스템 Python (System Python)</a></li></ul></li><li><a href="#구현-노트-implementation-notes">구현 노트 (Implementation Notes)</a></li><li><a href="#참고-자료-references">참고 자료 (References)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0668/">PEP 668 - Marking Python base environments as “externally managed”</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Accepted</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 18-May-2021</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h2 id="pep-668--python-기본-환경을-외부-관리로-표시">PEP 668 – Python 기본 환경을 “외부 관리”로 표시</h2>
+
+<h3 id="개요-abstract">개요 (Abstract)</h3>
+<p>이 PEP는 OS 패키지 관리자와 <code class="language-plaintext highlighter-rouge">pip</code>와 같은 Python 전용 패키지 관리 도구 간의 오랜 충돌 문제를 해결하기 위한 메커니즘을 제안합니다. 역사적으로 Python 전용 패키지 관리 도구는 암묵적인 전역 컨텍스트에 패키지를 설치하는 것이 기본 동작이었지만, 가상 환경(virtual environment)의 표준화와 보급으로 인해 대부분의 경우 (전부는 아니지만) 가상 환경 내에서 Python 전용 패키지 관리 도구를 사용하는 것이 더 나은 해결책이 되었습니다.</p>
+
+<p>이 제안은 Python 설치가 <code class="language-plaintext highlighter-rouge">pip</code>와 같은 도구에 자신의 전역 패키지 설치 컨텍스트가 OS 패키지 관리자와 같은 외부 수단에 의해 관리되고 있음을 알리는 방법을 제공합니다. 기본적으로 Python 전용 패키지 관리 도구는 인터프리터의 전역 컨텍스트에 패키지를 설치하거나 제거하지 않아야 하며, 대신 최종 사용자에게 가상 환경 사용을 유도해야 한다고 명시하고 있습니다.</p>
+
+<p>또한, <code class="language-plaintext highlighter-rouge">sysconfig</code> 스키마에 대한 해석을 표준화하여, Python 전용 패키지 관리자가 인터프리터 전체 컨텍스트에 패키지를 설치하려는 경우, 외부 패키지 관리자와의 충돌을 피하고 외부 패키지 관리자가 제공하는 소프트웨어를 손상시킬 위험을 줄이는 방식으로 수행할 수 있도록 합니다.</p>
+
+<h3 id="용어-terminology">용어 (Terminology)</h3>
+<p>이 PEP에서 사용되는 몇 가지 핵심 용어는 명확성을 위해 특정 방식으로 정의됩니다.</p>
+
+<ul>
+  <li><strong>distro (배포판):</strong> Debian, Fedora, FreeBSD와 같은 운영 체제 또는 Homebrew, MacPorts와 같은 오버레이 배포판을 의미합니다. Python 인터프리터, Python으로 작성된 소프트웨어, 기타 언어로 작성된 소프트웨어 등 다양한 종류의 소프트웨어 모음을 지칭합니다.</li>
+  <li><strong>package (패키지):</strong> Python 내에서 설치 및 사용될 수 있는 소프트웨어 단위를 의미합니다. 이는 Python Package Index (PyPI)에서 사용되는 “배포 패키지(distribution package)” 또는 단순히 “패키지”를 지칭합니다.</li>
+  <li><strong>Python-specific package manager (Python 전용 패키지 관리자):</strong> Python 패키징 표준(PEP 376, PEP 427 등)에 따라 Python 패키지를 설치, 업그레이드 및/또는 제거하는 도구입니다. 가장 널리 사용되는 예는 <code class="language-plaintext highlighter-rouge">pip</code>입니다.</li>
+  <li><strong>distro package manager (배포판 패키지 관리자):</strong> <code class="language-plaintext highlighter-rouge">apt</code>, <code class="language-plaintext highlighter-rouge">dpkg</code>, <code class="language-plaintext highlighter-rouge">dnf</code>, <code class="language-plaintext highlighter-rouge">rpm</code>, <code class="language-plaintext highlighter-rouge">pacman</code>, <code class="language-plaintext highlighter-rouge">brew</code>와 같이 배포판의 패키지를 설치, 업그레이드 및/또는 제거하는 도구입니다. Python 패키지뿐만 아니라 비-Python 패키지도 설치할 수 있으며, 일반적으로 PEP 376과 무관한 자체 설치 소프트웨어 데이터베이스를 가집니다. 이 문서에서는 “external package manager” 또는 “system’s package manager”라는 용어도 사용합니다.</li>
+  <li><strong>shadow (쉐도잉):</strong> 설치된 Python 패키지에서 파일을 제거하지 않고 다른 패키지가 임포트(import) 시 우선적으로 선택되도록 하는 것을 의미합니다.</li>
+</ul>
+
+<h3 id="동기-motivation">동기 (Motivation)</h3>
+<p>Python의 인기로 인해 소프트웨어 배포판(distro)은 두 가지 목적으로 Python을 제공합니다. 첫째, 최종 사용자가 자체적으로 사용할 수 있는 소프트웨어 패키지로, 둘째, 배포판 내 다른 소프트웨어의 언어 종속성(language dependency)으로 사용됩니다.</p>
+
+<p>문제는 최종 사용자가 가상 환경 외부에서 <code class="language-plaintext highlighter-rouge">pip</code>와 같은 도구를 사용하여 Python 패키지를 설치할 경우, 새로 설치된 패키지가 배포판에 포함된 Python 소프트웨어에 가시적(visible)이라는 점입니다. 만약 새로 설치된 패키지(또는 그 종속성)가 배포판을 통해 설치된 패키지보다 새로운 버전이거나 하위 호환성(backwards-incompatible)이 없는 버전일 경우, 배포판에 포함된 소프트웨어가 손상될 수 있습니다.</p>
+
+<p>이는 배포판의 무결성(integrity)에 심각한 문제를 야기할 수 있습니다. 예를 들어, Fedora의 <code class="language-plaintext highlighter-rouge">dnf</code> 명령어를 <code class="language-plaintext highlighter-rouge">pip install</code> 명령어로 의도치 않게 손상시켜 복구가 어려워지는 경우가 발생할 수 있습니다. <code class="language-plaintext highlighter-rouge">sudo pip install</code>과 <code class="language-plaintext highlighter-rouge">pip install --user</code> 모두 이 문제에 해당합니다.</p>
+
+<p>더 큰 문제는 <code class="language-plaintext highlighter-rouge">sudo pip uninstall</code>을 통해 복구하려 할 때 발생합니다. 시스템 패키지 관리자가 제공한 패키지까지 제거될 수 있으며, 심지어 패키지를 업그레이드할 때도 <code class="language-plaintext highlighter-rouge">pip</code>가 OS가 제공한 이전 버전을 제거하려 시도할 수 있습니다. 이 시점에서 시스템을 일관된 상태로 복구하는 것이 불가능해질 수 있습니다.</p>
+
+<p>이러한 문제를 해결하기 위해, Python 라이브러리나 애플리케이션을 설치하는 가장 좋은 방법은 (배포판 패키지를 사용하지 않을 경우) 가상 환경을 사용하는 것이라는 합의가 이루어졌습니다. <code class="language-plaintext highlighter-rouge">venv</code> 모듈을 통한 가상 환경 사용은 시스템 소프트웨어를 손상시키는 것을 방지합니다.</p>
+
+<p>그러나 특정 경우(예: Sphinx나 Ansible과 같은 확장 기능을 설치할 때)에는 배포판 외부에 있는 Python 패키지를 의도적으로 설치하여 배포판 제공 명령어의 동작에 영향을 미치게 하는 것이 유용합니다. 이러한 경우, <code class="language-plaintext highlighter-rouge">pip</code>와 같은 도구는 시스템 패키지 관리자가 소유한 파일을 삭제하지 않고도 <code class="language-plaintext highlighter-rouge">sys.path</code>의 특정 디렉토리에 패키지를 설치할 수 있어야 합니다.</p>
+
+<p>따라서 이 PEP는 다음 두 가지를 제안합니다.</p>
+<ol>
+  <li>Python 인터프리터의 배포자가 해당 인터프리터의 패키지가 Python 외부 수단에 의해 관리됨을 표시하는 방법을 제공합니다. 이를 통해 <code class="language-plaintext highlighter-rouge">pip</code>와 같은 Python 전용 도구는 특별히 재정의하지 않는 한, 인터프리터의 전역 <code class="language-plaintext highlighter-rouge">sys.path</code>에 설치된 패키지를 변경(추가, 업그레이드/다운그레이드, 제거)하지 않아야 합니다. 이 메커니즘은 옵트인(opt-in) 방식입니다.</li>
+  <li>인터프리터의 전역 컨텍스트에 패키지를 설치할 때 (표시되지 않은 인터프리터이거나 표시를 재정의하는 경우), Python 전용 패키지 관리자는 파일을 생성할 <code class="language-plaintext highlighter-rouge">sysconfig</code> 스키마의 디렉토리 내에서만 파일을 수정하거나 삭제해야 한다는 규칙을 설정합니다. 이를 통해 배포자는 관리 패키지용과 사용자 설치 패키지용으로 두 개의 디렉토리를 설정하고, 사용자 패키지 설치가 외부 패키지 관리자가 소유한 파일을 삭제하거나 덮어쓰지 않도록 할 수 있습니다.</li>
+</ol>
+
+<h3 id="근거-rationale">근거 (Rationale)</h3>
+
+<p>첫 번째 동작 변경은 <code class="language-plaintext highlighter-rouge">EXTERNALLY-MANAGED</code>라는 마커 파일(marker file)을 생성하는 것을 포함합니다. 이 파일의 존재는 가상 환경이 아닌 패키지 설치가 OS 패키지 관리자와 같은 Python 외부 수단에 의해 관리됨을 나타냅니다. 이 파일은 기본 <code class="language-plaintext highlighter-rouge">sysconfig</code> 스키마의 <code class="language-plaintext highlighter-rouge">stdlib</code> 디렉토리에 위치하도록 지정되어, <code class="language-plaintext highlighter-rouge">sys.path</code>의 특정 위치가 아닌 전체 인터프리터/설치를 표시합니다. 이는 시스템 전체에 호환되지 않는 새 버전의 패키지를 설치하거나 (<code class="language-plaintext highlighter-rouge">sudo pip install</code> 등), 사용자 계정에만 설치하더라도 표준 Python 명령어의 <code class="language-plaintext highlighter-rouge">sys.path</code>에 위치하여 문제를 일으킬 수 있는 두 가지 관련 문제를 해결하기 위함입니다.</p>
+
+<p>두 번째 동작 변경은 이미 이러한 종류의 문제를 겪었던 배포판의 기존 <code class="language-plaintext highlighter-rouge">sysconfig</code> 설정을 활용하며, 특히 Python 전용 패키지 관리자가 외부 패키지 관리자가 소유한 파일을 삭제하거나 덮어쓰는 문제를 해결합니다.</p>
+
+<h3 id="사용-사례-use-cases">사용 사례 (Use cases)</h3>
+<p>이 PEP의 변경된 동작은 가능한 많은 사용 사례에 대해 “올바른 작동”을 의도합니다. 이 섹션에서는 PEP가 구현된 후 <code class="language-plaintext highlighter-rouge">pip install</code>과 같은 Python 전용 설치 도구가 기본적으로 설치를 허용하는지, 그리고 외부 패키지 관리자가 제공한 패키지를 삭제하는 것이 허용되는지 여부를 중점적으로 다룹니다.</p>
+
+<p>다음은 주요 사용 사례를 요약한 표입니다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">경우 설명</th>
+      <th style="text-align: left"><code class="language-plaintext highlighter-rouge">pip install</code> 허용 여부</th>
+      <th style="text-align: left">외부 설치 패키지 삭제 허용 여부</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">1. 패치되지 않은 CPython</td>
+      <td style="text-align: left">현재 허용; 계속 허용</td>
+      <td style="text-align: left">현재 허용; 계속 허용</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">2. 배포판 <code class="language-plaintext highlighter-rouge">/usr/bin/python3</code></td>
+      <td style="text-align: left">현재 허용; <code class="language-plaintext highlighter-rouge">EXTERNALLY-MANAGED</code> 파일 추가 시 허용 안 됨</td>
+      <td style="text-align: left">현재 허용(Debian 제외); <code class="language-plaintext highlighter-rouge">EXTERNALLY-MANAGED</code> 파일 추가 시 허용 안 됨</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">3. 가상 환경 내 배포판 Python</td>
+      <td style="text-align: left">현재 허용; 계속 허용</td>
+      <td style="text-align: left">외부 설치 패키지 없음</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">4. <code class="language-plaintext highlighter-rouge">--system-site-packages</code>를 사용한 가상 환경 내 배포판 Python</td>
+      <td style="text-align: left">현재 허용; 계속 허용</td>
+      <td style="text-align: left">현재 허용 안 됨; 계속 허용 안 됨</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">5. Docker 컨테이너 내 배포판 Python</td>
+      <td style="text-align: left">현재 허용; <code class="language-plaintext highlighter-rouge">EXTERNALLY-MANAGED</code> 파일 추가 시 허용 안 됨</td>
+      <td style="text-align: left">현재 허용; <code class="language-plaintext highlighter-rouge">EXTERNALLY-MANAGED</code> 파일 추가 시 허용 안 됨</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">6. Conda 환경</td>
+      <td style="text-align: left">현재 허용; 계속 허용</td>
+      <td style="text-align: left">현재 허용; 계속 허용</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">7. 개발자 중심 배포판</td>
+      <td style="text-align: left">현재 허용; <code class="language-plaintext highlighter-rouge">EXTERNALLY-MANAGED</code> 파일 추가 시 허용 안 됨</td>
+      <td style="text-align: left">현재 종종 허용; <code class="language-plaintext highlighter-rouge">sysconfig</code> 구성 시 허용 안 됨</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">8. 배포판 패키지 빌드</td>
+      <td style="text-align: left">현재 허용; 계속 허용 가능</td>
+      <td style="text-align: left">현재 허용; 허용 안 됨</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">9. 배포판 Python stdlib를 복사한 <code class="language-plaintext highlighter-rouge">PYTHONHOME</code></td>
+      <td style="text-align: left">현재 허용; 허용 안 됨</td>
+      <td style="text-align: left">현재 허용; 허용 안 됨</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">10. 상위 Python stdlib를 복사한 <code class="language-plaintext highlighter-rouge">PYTHONHOME</code></td>
+      <td style="text-align: left">현재 허용; 계속 허용</td>
+      <td style="text-align: left">현재 허용; 계속 허용</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>주요 변경사항은 배포판의 <code class="language-plaintext highlighter-rouge">/usr/bin/python3</code> 환경에서 <code class="language-plaintext highlighter-rouge">EXTERNALLY-MANAGED</code> 파일을 추가하여 <code class="language-plaintext highlighter-rouge">pip install</code>을 기본적으로 비활성화하고, 시스템 관리 패키지를 삭제하지 않도록 하는 것입니다. 컨테이너 이미지의 경우, 기본적으로 마커 파일이 존재하더라도 사용자가 패키지를 설치할 수 있도록 해당 파일을 제거하지 않거나 재정의할 수 있습니다.</p>
+
+<h3 id="사양-specification">사양 (Specification)</h3>
+
+<h4 id="인터프리터를-외부-관리로-표시-marking-an-interpreter-as-using-an-external-package-manager">인터프리터를 외부 관리로 표시 (Marking an interpreter as using an external package manager)</h4>
+<p>Python 전용 패키지 설치 프로그램(<code class="language-plaintext highlighter-rouge">pip</code> 등)이 특정 Python 컨텍스트에 패키지를 설치하기 전에, 기본적으로 다음 검사를 수행해야 합니다.</p>
+<ol>
+  <li>가상 환경 외부에서 실행 중인가? (<code class="language-plaintext highlighter-rouge">sys.prefix == sys.base_prefix</code> 여부로 판단)</li>
+  <li><code class="language-plaintext highlighter-rouge">sysconfig.get_path("stdlib", sysconfig.get_default_scheme())</code>로 식별된 디렉토리에 <code class="language-plaintext highlighter-rouge">EXTERNALLY-MANAGED</code> 파일이 존재하는가?</li>
+</ol>
+
+<p>두 조건이 모두 참이면, 설치 프로그램은 “가상 환경 외부에서는 이 Python 인터프리터 디렉토리에 패키지 설치가 비활성화되어 있다”는 오류 메시지와 함께 종료해야 합니다.</p>
+
+<p>설치 프로그램은 <code class="language-plaintext highlighter-rouge">--break-system-packages</code>와 같은 명령줄 플래그를 통해 사용자가 이러한 규칙을 재정의할 수 있는 방법을 제공해야 합니다. 이 옵션은 기본적으로 활성화되지 않아야 하며, 사용 시 위험하다는 의미를 내포해야 합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">EXTERNALLY-MANAGED</code> 파일은 표준 라이브러리 <code class="language-plaintext highlighter-rouge">configparser</code> 모듈로 파싱할 수 있는 INI 스타일의 메타데이터 파일입니다. 파일에 <code class="language-plaintext highlighter-rouge">[externally-managed]</code> 섹션이 포함되어 있다면, 설치 프로그램은 파일에 지정된 오류 메시지를 찾아 출력해야 합니다. 오류 메시지는 언어 코드(<code class="language-plaintext highlighter-rouge">Error-de_DE</code> 등)에 따라 지역화될 수 있으며, 적절한 키가 없으면 기본 <code class="language-plaintext highlighter-rouge">Error</code> 키를 사용합니다. 파일에서 오류 메시지를 찾을 수 없거나 파싱할 수 없는 경우, 설치 프로그램은 자체적으로 정의된 오류 메시지를 사용하여 사용자에게 가상 환경 생성을 제안해야 합니다.</p>
+
+<p>Python 패키지 배포판을 관리하는 소프트웨어 배포자는 일반적으로 <code class="language-plaintext highlighter-rouge">EXTERNALLY-MANAGED</code> 파일을 <code class="language-plaintext highlighter-rouge">stdlib</code> 디렉토리에 포함해야 합니다. 예를 들어, Debian은 다음과 같은 내용을 포함할 수 있습니다.</p>
+
+<div class="language-ini highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">[externally-managed]</span><span class="w">
+</span><span class="py">Error</span><span class="p">=</span><span class="s">To install Python packages system-wide, try apt install python3-xyz, where xyz is the package you are trying to install. If you wish to install a non-Debian-packaged Python package, create a virtual environment using python3 -m venv path/to/venv. Then use path/to/venv/bin/python and path/to/venv/bin/pip. Make sure you have python3-full installed. If you wish to install a non-Debian packaged Python application, it may be easiest to use pipx install xyz, which will manage a virtual environment for you. Make sure you have pipx installed. See /usr/share/doc/python3.9/README.venv for more information.</span>
+</code></pre></div></div>
+
+<p>특정 컨텍스트(예: 단일 애플리케이션 컨테이너 이미지)에서는 배포자가 <code class="language-plaintext highlighter-rouge">EXTERNALLY-MANAGED</code> 파일을 포함하지 않기로 선택할 수 있습니다.</p>
+
+<h4 id="대상-sysconfig-스키마에만-쓰기-writing-to-only-the-target-sysconfig-scheme">대상 <code class="language-plaintext highlighter-rouge">sysconfig</code> 스키마에만 쓰기 (Writing to only the target sysconfig scheme)</h4>
+<p>설치 프로그램이 <code class="language-plaintext highlighter-rouge">sysconfig</code> 스키마에 설치할 때, 이 PEP는 설치 프로그램이 해당 스키마 외부의 파일을 수정하거나 삭제해서는 안 된다고 명시합니다. 예를 들어, 패키지를 업그레이드하고 해당 패키지가 이미 다른 스키마의 디렉토리에 설치되어 있다면, 기존 파일은 그대로 두어야 합니다.
+업그레이드 중에 기존 설치를 쉐도잉하게 된다면, 설치 프로그램은 실행 마지막에 경고를 출력하는 것이 권장됩니다.</p>
+
+<h3 id="배포판을-위한-권장-사항-recommendations-for-distros">배포판을 위한 권장 사항 (Recommendations for distros)</h3>
+<p>이 섹션은 비규범적(non-normative)이며, 배포판이 특별한 이유가 없는 한 따라야 할 모범 사례를 제공합니다.</p>
+
+<ul>
+  <li><strong>설치를 외부 관리로 표시 (Mark the installation as externally managed):</strong> 배포판은 <code class="language-plaintext highlighter-rouge">stdlib</code> 디렉토리에 <code class="language-plaintext highlighter-rouge">EXTERNALLY-MANAGED</code> 파일을 생성해야 합니다.</li>
+  <li><strong>사용자를 가상 환경으로 안내 (Guide users towards virtual environments):</strong> 이 파일은 배포판의 패키지 관리자를 통해 시스템 전체 패키지를 설치하는 방법과 가상 환경을 설정하는 방법을 모두 알려주는 유용하고 배포판 관련 오류 메시지를 포함해야 합니다. <code class="language-plaintext highlighter-rouge">pipx</code>와 같은 도구를 패키징하고 오류 메시지에서 제안하는 것을 고려해야 합니다. <code class="language-plaintext highlighter-rouge">pipx</code>는 애플리케이션만을 위한 가상 환경을 자동으로 생성하여, Python 사용자가 아닌 최종 사용자가 Python 기반 소프트웨어를 설치할 때 더 나은 기본값을 제공합니다.</li>
+  <li><strong>컨테이너 이미지에 마커 파일 유지 (Keep the marker file in container images):</strong> 단일 애플리케이션 컨테이너 이미지(예: Docker 컨테이너 이미지)용 공식 이미지를 생성하는 배포판은 <code class="language-plaintext highlighter-rouge">EXTERNALLY-MANAGED</code> 파일을 유지해야 합니다.</li>
+  <li><strong>별도의 배포판 및 로컬 디렉토리 생성 (Create separate distro and local directories):</strong> 배포판은 시스템 인터프리터의 <code class="language-plaintext highlighter-rouge">sys.path</code>에 두 개의 별도 경로를 두어야 합니다. 하나는 배포판 설치 패키지용이고, 다른 하나는 로컬 시스템 관리자가 설치한 패키지용입니다. 그리고 <code class="language-plaintext highlighter-rouge">sysconfig.get_default_scheme()</code>가 후자 경로를 가리키도록 구성해야 합니다. 이는 <code class="language-plaintext highlighter-rouge">pip</code>와 같은 도구가 배포판 설치 패키지를 수정하지 않도록 보장합니다. 로컬 시스템 관리자용 경로는 <code class="language-plaintext highlighter-rouge">sys.path</code>에서 배포판 경로보다 먼저 와서 로컬 설치가 배포판 패키지보다 우선하도록 해야 합니다. 예를 들어, Fedora와 Debian은 <code class="language-plaintext highlighter-rouge">/usr/local</code>을 로컬 설치 패키지용으로, <code class="language-plaintext highlighter-rouge">/usr</code>를 배포판 설치 패키지용으로 사용하여 이 분할을 구현합니다.</li>
+</ul>
+
+<h3 id="하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</h3>
+<p>이러한 모든 메커니즘은 새로운 배포판 릴리스와 <code class="language-plaintext highlighter-rouge">pip</code>와 같은 도구의 새 버전에만 제안됩니다.</p>
+
+<p>주요 버전 개념이 있는 배포판은 새로운 주요 버전에서만 마커 파일을 추가하거나 <code class="language-plaintext highlighter-rouge">sysconfig</code> 스키마를 변경하는 것을 강력히 권장합니다. 그렇지 않으면 기존 시스템에서 Python 전용 패키지 관리자를 통해 설치된 소프트웨어가 관리 불가능해질 위험이 있습니다.</p>
+
+<p>패키지 설치 도구의 특정 하위 호환성 문제점은 이전 버전의 <code class="language-plaintext highlighter-rouge">virtualenv</code>가 생성한 환경을 관리하는 것일 수 있습니다. <code class="language-plaintext highlighter-rouge">sys.base_prefix != sys.prefix</code>를 사용하는 <code class="language-plaintext highlighter-rouge">pyvenv.cfg</code> 메커니즘을 통해 가상 환경을 감지할 수 있지만, 이전 버전의 <code class="language-plaintext highlighter-rouge">virtualenv</code>는 <code class="language-plaintext highlighter-rouge">sys.real_prefix</code> 속성을 설정하는 방식을 사용했으므로, 가상 환경을 견고하게 감지하기 위한 로직은 <code class="language-plaintext highlighter-rouge">sys.base_prefix != sys.prefix or hasattr(sys, "real_prefix")</code>와 같이 되어야 합니다.</p>
+
+<h3 id="보안-영향-security-implications">보안 영향 (Security Implications)</h3>
+<p>이 기능의 목적은 보안 경계를 구현하는 것이 아닙니다. 의도치 않은 변경이 사용자의 환경을 예기치 않게 손상시키는 것을 방지하기 위함입니다. 즉, 가상 환경 외부에서 <code class="language-plaintext highlighter-rouge">pip install</code>을 제한하는 이유는 보안 위험 때문이 아니라, “하나의 명확한 방법이 있어야 한다”는 원칙을 따르기 위함이며, 그 방법은 가상 환경을 사용하는 것입니다.</p>
+
+<p>마커 파일이 존재할 때 설치 시도는 보안 사고가 아니며, 이에 대한 감사 이벤트(auditing event)를 발생시킬 필요가 없습니다. 마커 파일 자체는 표준 라이브러리 디렉토리에 위치하며, 이는 신뢰할 수 있는 위치입니다.</p>
+
+<h3 id="대안-alternatives">대안 (Alternatives)</h3>
+<p>이 PEP는 여러 유사한 제안을 고려했지만, 주로 “근거(Rationale)” 섹션의 경우별 분석에서 동작을 보존하기 위해 기각하거나 연기했습니다.</p>
+
+<ul>
+  <li><strong>마커 파일 위치:</strong> <code class="language-plaintext highlighter-rouge">sys.path</code>에 마커 파일을 두어 특정 디렉토리를 쓰지 못하도록 표시하는 것은 호환되지 않는 설치 문제를 해결하지 못합니다. 또한, <code class="language-plaintext highlighter-rouge">sysconfig</code> 스키마의 새 속성으로 만드는 것은 재정의하기 어렵습니다. <code class="language-plaintext highlighter-rouge">/etc</code>에 두는 것은 특정 Python 설치와 관련이 없어 부적절합니다. <code class="language-plaintext highlighter-rouge">pip.conf</code>나 <code class="language-plaintext highlighter-rouge">distutils.cfg</code>에 두는 것은 이 메커니즘이 특정 도구에 국한되지 않기 때문에 적절하지 않습니다.</li>
+  <li><strong>파일 형식:</strong> TOML 형식이 고려되었으나, 표준 라이브러리에 구현이 없고 현재 <code class="language-plaintext highlighter-rouge">configparser</code>가 이미 다른 패키징 메타데이터에 사용되고 만족스러우므로 INI 형식이 선택되었습니다.</li>
+  <li><strong>쉐도잉 방지:</strong> 외부 패키지 관리자가 설치한 패키지를 쉐도잉하는 것을 기본적으로 허용하지 않는 방안도 고려되었으나, 이는 추가적인 사용자 경험 복잡성을 야기하고 합법적인 쉐도잉 사용 사례가 존재하기 때문에 기각되었습니다. 대신 쉐도잉 시 경고를 출력하는 것이 권장됩니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">INSTALLER</code> 파일 사용:</strong> PEP 376의 <code class="language-plaintext highlighter-rouge">INSTALLER</code> 파일은 특정 패키지에 국한되며, 전체 환경에 대한 정보를 제공하지 않으므로 사용되지 않습니다.</li>
+  <li><strong>가상 환경 내 설치 비활성화:</strong> 가상 환경 내에서 패키지 설치를 비활성화할 특별한 강력한 사용 사례가 없다고 판단되어 포함되지 않았습니다.</li>
+</ul>
+
+<h4 id="시스템-python-system-python">시스템 Python (System Python)</h4>
+<p>배포판 소프트웨어가 <code class="language-plaintext highlighter-rouge">sys.path</code>에 배포판 <code class="language-plaintext highlighter-rouge">site-packages</code> 디렉토리만 포함하고 로컬 관리자나 사용자별 <code class="language-plaintext highlighter-rouge">site-packages</code>를 무시하는 “시스템 Python” 또는 “플랫폼 Python” 개념이 논의되었지만, 이는 하위 호환성 문제가 있고 구현이 훨씬 복잡하여 이 PEP의 범위를 벗어납니다. 이 PEP는 “시스템 Python”과 같은 제안과 독립적이며, 더 대상 지향적이고 최소한의 변경을 통해 시스템 소프트웨어 손상 위험을 줄이는 것을 목표로 합니다.</p>
+
+<h3 id="구현-노트-implementation-notes">구현 노트 (Implementation Notes)</h3>
+<p>이 섹션은 비규범적이며 사양 및 잠재적 구현에 관련된 참고 사항을 포함합니다.</p>
+
+<p>현재 <code class="language-plaintext highlighter-rouge">pip</code>는 대상 <code class="language-plaintext highlighter-rouge">sysconfig</code> 스키마를 직접 선택하는 방법을 노출하지 않지만, 설치 시 스키마를 찾는 세 가지 방식이 있습니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">pip install</code>: <code class="language-plaintext highlighter-rouge">sysconfig.get_default_scheme()</code>를 호출합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">pip install --prefix=/some/path</code>: <code class="language-plaintext highlighter-rouge">sysconfig.get_preferred_scheme('prefix')</code>를 호출합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">pip install --user</code>: <code class="language-plaintext highlighter-rouge">sysconfig.get_preferred_scheme('user')</code>를 호출합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">pip install --target=/some/path</code>: 어떤 스키마도 찾지 않고 <code class="language-plaintext highlighter-rouge">/some/path</code>에 직접 씁니다.</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">is_virtual_environment</code>의 구현 및 <code class="language-plaintext highlighter-rouge">EXTERNALLY-MANAGED</code> 파일을 로드하고 오류 메시지를 찾는 로직은 구현을 중앙 집중화하기 위해 표준 라이브러리(<code class="language-plaintext highlighter-rouge">sys</code> 및 <code class="language-plaintext highlighter-rouge">sysconfig</code>)에 추가될 수 있습니다.</p>
+
+<h3 id="참고-자료-references">참고 자료 (References)</h3>
+<p>이 문제들과 이전 해결 시도에 대한 추가 배경 정보는 Debian 버그 771794 (2014년), Fedora의 2018년 기사 “Making sudo pip safe”, pip 이슈 5605, 5722 (2018년), 그리고 PyCon US 2019 이후 논의 스레드 “Playing nice with external package managers”를 참조하십시오.</p>
+
+<ul>
+  <li><a href="https://pip.pypa.io/en/stable/">pip 공식 문서</a></li>
+  <li><a href="https://setuptools.readthedocs.io/en/latest/deprecated/easy_install.html">setuptools easy_install 문서</a></li>
+  <li><a href="https://conda.io">Conda 공식 웹사이트</a></li>
+</ul>
+
+<h3 id="저작권-copyright">저작권 (Copyright)</h3>
+<p>이 문서는 퍼블릭 도메인 또는 CC0-1.0-Universal 라이선스 중 더 관대한 조건에 따라 배포됩니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/667/" class="pagination--pager" title="[Final] PEP 667 - Consistent views of namespaces
+">Previous</a>
+    
+    
+      <a href="/python/pep/669/" class="pagination--pager" title="[Final] PEP 669 - Low Impact Monitoring for CPython
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,724 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Active] PEP 731 - C API Working Group Charter | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 731: ‘C API Working Group Charter’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Active] PEP 731 - C API Working Group Charter">
+<meta property="og:url" content="http://localhost:4000/python/pep/731/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 731: ‘C API Working Group Charter’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T13:22:44+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T13:22:44+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/731/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Active] PEP 731 - C API Working Group Charter">
+    <meta itemprop="description" content="Python Enhancement Proposal 731: ‘C API Working Group Charter’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T13:22:44+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T13:22:44+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Active] PEP 731 - C API Working Group Charter
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T13:22:44+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#동기-motivation">동기 (Motivation)</a></li><li><a href="#명세-specification">명세 (Specification)</a><ul><li><a href="#구성원-members">구성원 (Members)</a></li><li><a href="#임무-mandate">임무 (Mandate)</a></li><li><a href="#운영-및-프로세스-operations-and-process">운영 및 프로세스 (Operations and process)</a></li><li><a href="#스티어링-카운슬과의-관계-relationship-with-the-steering-council">스티어링 카운슬과의 관계 (Relationship with the Steering Council)</a></li><li><a href="#개정-amendments">개정 (Amendments)</a></li><li><a href="#연락처-contact">연락처 (Contact)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0731/">PEP 731 - C API Working Group Charter</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Active</td>
+        <td><strong>유형:</strong> Process</td>
+        <td><strong>작성일:</strong> 11-Oct-2023</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>PEP 731은 Python C API 워킹 그룹(Working Group)의 설립을 제안하는 문서로, 이 워킹 그룹은 Python C API의 개발 및 유지보수를 감독하고 조율하는 역할을 담당합니다.</p>
+
+<h2 id="개요-abstract">개요 (Abstract)</h2>
+
+<p>이 PEP는 Python C API의 개발 및 유지보수를 감독하고 조율하는 역할을 하는 Python 코어 개발자들로 구성된 소규모 위원회인 C API 워킹 그룹의 설립을 제안합니다.</p>
+
+<p>워킹 그룹은 Python C API와 관련된 문서, 테스트 스위트(test suites) 및 도구(tooling)를 유지관리합니다. 스티어링 카운슬(Steering Council)로부터 위임받아, 개별 API 함수, 타입(types) 등의 추가 또는 제거부터 다소 급진적인 새로운 설계의 수용에 이르기까지 C API 변경 사항에 대한 결정 권한을 가집니다.</p>
+
+<p>워킹 그룹의 임무는 모든 Python 사용자, 특히 CPython 환경에서든, 다른 Python 구현을 사용하든, 또는 C++ 및 Rust와 같은 다른 프로그래밍 언어를 위한 바인딩 프레임워크를 사용하든 관계없이 Python C API를 사용하는 모든 코드의 유지보수자들의 이익을 대변하는 것입니다.</p>
+
+<p>워킹 그룹은 Python 스티어링 카운슬의 뜻에 따라 운영되며, 이 문서는 워킹 그룹의 헌장 역할을 합니다.</p>
+
+<h2 id="동기-motivation">동기 (Motivation)</h2>
+
+<p>코어 개발자 스프린트(sprints) 및 언어 서밋(Language Summits)에서의 수많은 논의와 대면 회의, 그리고 C API의 문제점 및 이해관계자들에 대한 철저한 조사가 있었음에도 불구하고, 다음과 같은 많은 논쟁적인 문제들에 대해 합의에 도달하지 못했습니다.</p>
+
+<ul>
+  <li>새로운 API 함수 설계를 위한 규칙</li>
+  <li>호환성 처리 방법</li>
+  <li>오류 처리(error handling)를 위한 최적의 전략</li>
+  <li>Stable ABI 및 Limited API의 미래</li>
+  <li>핸들 기반(handle-based) API 규칙으로 전환할지 여부(및 방법)</li>
+</ul>
+
+<p>일반적인 의견은 너무 많은 이해관계자, 제안, 요구 사항, 제약 조건 및 규칙이 존재하여 소규모의 신뢰할 수 있는 결정 그룹 없이는 진전을 이루기 어렵다는 것입니다.</p>
+
+<p>2023년 솔트레이크시티에서 열린 언어 서밋에서는 문제점 목록 작성을 시작하기로 결정했습니다. 2023년 브르노에서 열린 코어 개발자 스프린트에서 이 작업은 거의 완료되었고, 논의 끝에 영원히 정체되지 않도록 워킹 그룹을 설립하는 것이 다음 단계라는 결론에 도달했습니다.</p>
+
+<p>스티어링 카운슬은 이러한 워킹 그룹의 공식적인 설립을 예상하고, C API에 대한 결정을 워킹 그룹에 위임하겠다는 의사를 표명했습니다.</p>
+
+<h2 id="명세-specification">명세 (Specification)</h2>
+
+<p>새로운 그룹인 C API 워킹 그룹의 생성을 제안합니다. 이 그룹은 Python C API의 개발 및 유지보수를 감독하고 조율하는 역할을 담당합니다. 워킹 그룹은 작업의 기본 원칙을 수립하고 코어 개발자들이 참조할 수 있는 가이드라인을 발행함으로써 이 역할을 수행할 것입니다.</p>
+
+<p>“운영 및 프로세스” 섹션에서 워킹 그룹이 어떻게 운영되고 관리되는지 설명합니다.</p>
+
+<h3 id="구성원-members">구성원 (Members)</h3>
+
+<p>워킹 그룹의 구성원은 다음과 같습니다.</p>
+
+<ul>
+  <li>Erlend Aasland</li>
+  <li>Michael Droettboom</li>
+  <li>Petr Viktorin</li>
+  <li>Serhiy Storchaka</li>
+  <li>Steve Dower</li>
+  <li>Victor Stinner</li>
+</ul>
+
+<h3 id="임무-mandate">임무 (Mandate)</h3>
+
+<p>워킹 그룹의 임무는 Python C API가 특정 그룹을 부당하게 선호하지 않고 모든 API 사용자 및 기여자에게 적합하도록 보장하는 것입니다. 워킹 그룹은 모범적인 이해관계자들, 그들의 필요와 선호를 파악하고, 이러한 필요를 공정하고 지속 가능하게 충족하기 위한 계획을 수립할 것입니다. 또한, 이 계획의 실행을 감독합니다.</p>
+
+<h3 id="운영-및-프로세스-operations-and-process">운영 및 프로세스 (Operations and process)</h3>
+
+<p>워킹 그룹은 저명한 Python 코어 개발자들로 구성된 최소 3명 이상의 구성원을 가집니다. 구성원들은 다양한 이해관계자들의 필요를 신중하게 고려해야 합니다.</p>
+
+<p>스티어링 카운슬이 초기 워킹 그룹을 임명합니다. 워킹 그룹 구성원의 임기 제한은 없습니다. 워킹 그룹 구성원은 언제든지 어떤 이유로든 자신의 직책을 사임할 수 있습니다. 구성원들은 시간이 지남에 따라 바뀔 것으로 예상됩니다.</p>
+
+<p>교체자를 결정하기 위해 코어 개발자 커뮤니티에서 추천을 받습니다. 자기 추천도 허용됩니다. 기존 워킹 그룹은 후보자 중에서 교체 구성원을 결정합니다. 이는 독단적으로 이루어질 것으로 예상되지만, 워킹 그룹은 투표를 포함하여 적절하다고 판단되는 모든 방법으로 교체자를 선택할 수 있습니다.</p>
+
+<p>워킹 그룹은 스티어링 카운슬에 계속해서 책임이 있습니다. 스티어링 카운슬은 언제든지 어떤 이유로든 (공개적으로 또는 비공개적으로) 워킹 그룹의 구성에 대한 특정 변경을 지시하거나 비특정 변경을 요청할 수 있습니다.</p>
+
+<p>이것이 특별히 민주적인 구조는 아니며 워킹 그룹에 많은 신뢰를 부여한다는 점을 인정합니다. 그러나 Python 커뮤니티는 완전히 민주적이지 않은 구조로도 오랫동안 성공을 거두었습니다! 워킹 그룹의 자체 관리, 구성원 순환, 그리고 스티어링 카운슬에 대한 책임이 C API 워킹 그룹이 커뮤니티의 필요를 충족하는 데 충분할 것이라고 믿습니다.</p>
+
+<p>워킹 그룹은 주로 GitHub 이슈(issues) 및 PR(Pull Requests) 검토를 통해 운영될 수 있습니다. 정기 회의는 필요하지 않을 수 있지만, 워킹 그룹은 화상 통화, 비공개 채팅 또는 내부적으로 결정하는 다른 메커니즘을 설정할 수 있습니다.</p>
+
+<p>워킹 그룹은 투명성을 목표로 하며, 가능하다면 모든 결정을 discuss.python.org에 공개적으로 게시하고 그 이유를 설명해야 합니다. 결정을 내리기 전에 워킹 그룹은 관심 있는 모든 커뮤니티 구성원(다양한 범주의 이해관계자 예시)에게 의견을 제시할 기회를 주어야 합니다. 논의 시작과 워킹 그룹의 결정 사이에 최소 일주일의 간격이 있어야 합니다.</p>
+
+<h3 id="스티어링-카운슬과의-관계-relationship-with-the-steering-council">스티어링 카운슬과의 관계 (Relationship with the Steering Council)</h3>
+
+<p>현재와 마찬가지로 Python 스티어링 카운슬은 Python C API의 전반적인 방향에 대한 책임을 유지하며, 표준 PEP 검토 프로세스(커뮤니티 논의 등)를 사용하여 C API와 관련된 PEP에 대한 결정을 계속 내립니다. C API 워킹 그룹은 C API와 관련된 PEP에 대해 스티어링 카운슬에 서면 의견과 권고를 제공합니다.</p>
+
+<p>그러나 워킹 그룹은 더 작은 C API 변경 사항을 직접 만들 수 있습니다. 스티어링 카운슬은 일부 PEP에 대한 결정을 워킹 그룹에 위임할 수도 있습니다(다른 PEP 위임과 동일하게).</p>
+
+<h3 id="개정-amendments">개정 (Amendments)</h3>
+
+<p>이 PEP는 워킹 그룹의 헌장 역할을 합니다. 운영 변경은 새로운 PEP를 통해 이루어지거나 이 PEP를 변경함으로써 이루어질 수 있습니다. 두 경우 모두, 커뮤니티 논의 후 스티어링 카운슬이 변경 사항을 결정합니다.</p>
+
+<h3 id="연락처-contact">연락처 (Contact)</h3>
+
+<p>C API 워킹 그룹에 결정을 요청하려면 커뮤니티 구성원은 <code class="language-plaintext highlighter-rouge">capi-workgroup/decisions</code> 저장소에 이슈를 열 수 있습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/730/" class="pagination--pager" title="[Final] PEP 730 - Adding iOS as a supported platform
+">Previous</a>
+    
+    
+      <a href="/python/pep/732/" class="pagination--pager" title="[Active] PEP 732 - The Python Documentation Editorial Board
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

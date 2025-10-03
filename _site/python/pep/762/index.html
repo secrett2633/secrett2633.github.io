@@ -1,0 +1,734 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 762 - REPL-acing the default REPL | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 762: ‘REPL-acing the default REPL’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 762 - REPL-acing the default REPL">
+<meta property="og:url" content="http://localhost:4000/python/pep/762/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 762: ‘REPL-acing the default REPL’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T13:44:46+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T13:44:46+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/762/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 762 - REPL-acing the default REPL">
+    <meta itemprop="description" content="Python Enhancement Proposal 762: ‘REPL-acing the default REPL’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T13:44:46+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T13:44:46+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 762 - REPL-acing the default REPL
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T13:44:46+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-762--기본-repl-교체-repl-acing-the-default-repl">PEP 762 – 기본 REPL 교체 (REPL-acing the default REPL)</a><ul><li><a href="#초록-abstract">초록 (Abstract)</a></li><li><a href="#동기-motivation">동기 (Motivation)</a></li><li><a href="#근거-rationale">근거 (Rationale)</a></li><li><a href="#명세-specification">명세 (Specification)</a></li><li><a href="#하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</a></li><li><a href="#보안-영향-security-implications">보안 영향 (Security Implications)</a></li><li><a href="#교육-방법-how-to-teach-this">교육 방법 (How to Teach This)</a></li><li><a href="#거부된-아이디어-rejected-ideas">거부된 아이디어 (Rejected Ideas)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0762/">PEP 762 - REPL-acing the default REPL</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Informational</td>
+        <td><strong>작성일:</strong> 11-Oct-2024</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h2 id="pep-762--기본-repl-교체-repl-acing-the-default-repl">PEP 762 – 기본 REPL 교체 (REPL-acing the default REPL)</h2>
+
+<h3 id="초록-abstract">초록 (Abstract)</h3>
+
+<p>이 PEP는 Python 3.13부터 도입될 새로운 REPL (Read-Eval-Print Loop), 즉 대화형 모드의 구현을 설명합니다. 새로운 REPL은 Python으로 작성되었으며, 다중 라인 편집, 구문 강조(syntax highlighting), 사용자 지정 명령(custom commands) 등 현대 사용자들이 기대하는 기능들을 제공하여 전반적인 대화형 경험을 개선하는 것을 목표로 합니다.</p>
+
+<h3 id="동기-motivation">동기 (Motivation)</h3>
+
+<p>Python 3.12까지 CPython의 대화형 셸은 파서의 특별한 모드로 C로 작성되었습니다. 이로 인해 유지 보수 및 확장이 어려웠고, 커서 이동이나 히스토리 추적과 같은 기본 기능을 위해 GNU readline 또는 이에 상응하는 라이브러리에 의존했습니다. 이 라이브러리 없이 컴파일된 Python은 매우 제한적인 대화형 모드를 제공했습니다. 이러한 복잡성은 기여를 저해하고 새로운 기능 구현을 어렵게 만들었으며, 그 결과 CPython 대화형 셸은 현대적인 REPL에 대한 사용자 기대에 뒤처지게 되었습니다.</p>
+
+<p>이전 버전의 REPL에는 다중 라인 편집 및 히스토리, 사용자 지정 명령, 구문 강조, 복사 및 붙여넣기(copy and paste)의 인체 공학적 처리와 같이 현대적인 REPL에서 사용자들이 기대하는 많은 기능이 없었습니다. 특히 종속성을 제어할 수 없고 자체 패키지를 설치할 수 없는 환경의 사용자들, 예를 들어 언어를 배우는 학습자나 교육자들에게는 이러한 기능 부족이 사용자 경험에 큰 영향을 미쳤습니다. C 구현에서 이러한 문제들을 해결하려면 AST 매칭과 같은 복잡한 해결책이 필요하여 코드베이스에 엄청난 복잡성을 추가할 것입니다.</p>
+
+<p>새로운 REPL을 Python으로 작성함으로써, 이러한 한계점을 해결하고 CPython의 대화형 경험을 현대적인 기대치와 기능에 맞게 개선하고 있습니다.</p>
+
+<h3 id="근거-rationale">근거 (Rationale)</h3>
+
+<p>새로운 REPL을 C 대신 Python으로 구현함으로써 기여자들의 진입 장벽이 크게 낮아졌습니다. 이 변화는 REPL을 테스트, 검증, 수정하기 쉽게 만들어 커뮤니티 참여를 늘리고 기능 개발 속도를 높였습니다. 코드베이스의 접근성 향상은 REPL이 더 빠르게 발전하고 사용자 요구에 더 잘 반응할 것으로 기대됩니다.</p>
+
+<p>새로운 REPL 구현은 처음부터 작성하는 대신 PyREPL을 기반으로 합니다. 이는 여러 운영 체제 및 터미널 에뮬레이터에서 일관되게 작동하는 터미널 애플리케이션을 개발하는 것이 복잡한 작업이기 때문입니다. PyPy 프로젝트에서 검증된 PyREPL을 채택함으로써, 처음부터 시작하는 대신 기존의 검증된 코드를 활용할 수 있습니다.</p>
+
+<p>REPL 구현을 위해 PyPy와 코드베이스를 공유하는 것은 두 프로젝트 모두에 상호 이점을 제공합니다. 이를 통해 유지 관리 노력 공유, 빠른 버그 수정 및 기능 개선이 가능해져 CPython과 PyPy 사용자 모두에게 이점을 줄 수 있습니다.</p>
+
+<p>이전 C로 작성된 REPL은 탐색, 히스토리 보존 및 호출, 자동 완성, 구성 가능한 키보드 동작과 같은 특정 기능을 허용하기 위해 “readline” 또는 “editline” 라이브러리를 백엔드로 활용했습니다. PyREPL은 이러한 라이브러리를 사용하지 않고 대부분의 다른 기능을 셸의 일부로 직접 구현합니다. 비록 기존 readline/editline 구성이 PyREPL과 호환되지 않는다는 의미이지만, 향상된 기능과 개선된 확장성이 전반적으로 더 큰 이점이라고 판단합니다.</p>
+
+<p>이전 REPL은 사용자 지정 명령을 제대로 구현하기 어렵게 만들었습니다. 예를 들어, <code class="language-plaintext highlighter-rouge">exit</code> 명령은 전역 네임스페이스에 삽입된 사용자 지정 객체의 메서드 호출로 구현되어, 사용자들이 단순히 <code class="language-plaintext highlighter-rouge">exit</code>을 입력했을 때 <code class="language-plaintext highlighter-rouge">exit()</code>과 같이 올바른 사용법을 프롬프트하는 등 직관적이지 않은 동작을 유발했습니다.</p>
+
+<h3 id="명세-specification">명세 (Specification)</h3>
+
+<p>PyREPL은 기존 C 구현과 함께 <code class="language-plaintext highlighter-rouge">_pyrepl</code>이라는 새로운 프라이빗 Python 모듈로 구현됩니다. 첫 번째 구현에서는 다음과 같은 주요 기능들을 도입합니다.</p>
+
+<ul>
+  <li><strong>다중 라인 히스토리 및 편집 (Multi-line History and Editing):</strong> 사용자는 여러 줄에 걸쳐 명령 히스토리를 탐색하고 편집할 수 있어 복잡한 코드 블록을 다듬고 재사용하는 능력이 향상됩니다.
+    <ul>
+      <li>다중 라인 블록 편집 시 PEP 8 권장 사항과 일치하는 4칸 자동 들여쓰기를 제공합니다.</li>
+      <li>위/아래 화살표 키를 사용하여 명령 히스토리에 접근할 수 있습니다.</li>
+      <li><code class="language-plaintext highlighter-rouge">Ctrl + S</code> (정방향) 및 <code class="language-plaintext highlighter-rouge">Ctrl + R</code> (역방향) 또는 <code class="language-plaintext highlighter-rouge">PageUp</code> 및 <code class="language-plaintext highlighter-rouge">PageDown</code> 키를 사용하여 히스토리를 검색할 수 있습니다.</li>
+    </ul>
+  </li>
+  <li><strong>복사 및 붙여넣기 (Copying and Pasting):</strong> 지원되는 터미널 에뮬레이터에서는 브라켓 붙여넣기 기능(bracketed pasting)을 감지하고 사용하여 즉시 실행되거나 잘못된 자동 들여쓰기 없이 코드 블록을 투명하게 붙여넣을 수 있습니다.
+    <ul>
+      <li>이 모드를 지원하지 않는 터미널 에뮬레이터의 경우, <code class="language-plaintext highlighter-rouge">F3</code> 키를 눌러 수동 붙여넣기 모드(manual paste mode)에 진입하여 여러 줄의 코드 스니펫을 쉽게 삽입할 수 있습니다.</li>
+      <li><code class="language-plaintext highlighter-rouge">F2</code> 키를 통해 히스토리 보기(history view)에 진입하여 명령 프롬프트나 출력 없이 코드 블록을 복사할 수 있습니다.</li>
+    </ul>
+  </li>
+  <li><strong>F1을 통한 도움말 (Help via F1):</strong> 표준 <code class="language-plaintext highlighter-rouge">Help</code> 모듈은 <code class="language-plaintext highlighter-rouge">F1</code> 키를 통해 접근할 수 있습니다.</li>
+  <li><strong>사용자 지정 명령 (Custom Commands):</strong> <code class="language-plaintext highlighter-rouge">exit</code>과 같은 사용자 지정 명령 구현을 더 자연스럽고 사용자 친화적인 방식으로 지원하여 기존의 함수 호출 해결 방법을 피합니다.
+    <ul>
+      <li>초기 사용자 지정 명령 목록에는 <code class="language-plaintext highlighter-rouge">exit</code>, <code class="language-plaintext highlighter-rouge">quit</code>, <code class="language-plaintext highlighter-rouge">copyright</code>, <code class="language-plaintext highlighter-rouge">help</code>, <code class="language-plaintext highlighter-rouge">clear</code>가 포함됩니다.</li>
+    </ul>
+  </li>
+  <li><strong>색상 (Colors):</strong> 프롬프트 및 예외 트레이스백(exception tracebacks)과 같은 출력의 특정 요소에 색상이 적용됩니다. <code class="language-plaintext highlighter-rouge">NO_COLOR</code>, <code class="language-plaintext highlighter-rouge">FORCE_COLOR</code>, <code class="language-plaintext highlighter-rouge">PYTHON_COLORS</code> 환경 변수를 사용하여 색상을 제어할 수 있습니다.</li>
+</ul>
+
+<p>이러한 기능들은 대화형 Python 경험을 크게 향상시키고, 현대적인 개발 환경 및 사용자 기대에 부합하게 만듭니다. Python으로 구현함으로써 다음과 같은 이점을 제공합니다.</p>
+
+<ul>
+  <li><strong>더 쉬운 테스트 및 검증 (Easier Testing and Validation):</strong> Python 코드는 C 코드보다 테스트 작성이 훨씬 간단하여 기존 및 이전 기능에 대한 더 포괄적인 테스트 커버리지를 가능하게 합니다.</li>
+  <li><strong>낮은 기여 장벽 (Lower Contribution Barrier):</strong> C에 비해 Python의 접근성은 더 많은 커뮤니티 기여를 장려하여 더 빠른 기능 개발 및 버그 수정을 이끌어냅니다.</li>
+  <li><strong>유연성 (Flexibility):</strong> Python 구현은 확장 및 수정이 더 쉬워 핵심 개발자와 기여자 모두에게 새로운 기능 및 개선 사항에 대한 개발 속도를 향상시킵니다.</li>
+</ul>
+
+<h3 id="하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</h3>
+
+<p>PyREPL 구현은 기존 Python 코드와의 완전한 하위 호환성을 유지하도록 설계되었습니다. 이전 기본 REPL은 폴백(fallback)으로 보존되며, 사용자 지정 워크플로우가 필요한 경우 또는 환경 제약으로 인해 새 REPL을 사용할 수 없는 경우에 사용할 수 있습니다. <code class="language-plaintext highlighter-rouge">PYTHON_BASIC_REPL</code> 환경 변수를 <code class="language-plaintext highlighter-rouge">1</code>로 설정하여 이전 기본 REPL을 명시적으로 선택할 수 있습니다.</p>
+
+<p>PyREPL 도입으로 기존 기능이 제거되지 않습니다. PyREPL에서 사용할 수 없는 이전 기본 REPL의 모든 기능은 폴백으로 사용할 수 있는 이전 기본 REPL에 보존되고 유지됩니다. 특히 <code class="language-plaintext highlighter-rouge">inputrc</code> 또는 <code class="language-plaintext highlighter-rouge">editrc</code> 파일에서 사용자 지정 입력 구성을 계속 사용하려는 사용자는 이전 기본 REPL을 계속 사용할 수 있습니다. PyREPL에 <code class="language-plaintext highlighter-rouge">inputrc</code> 및 <code class="language-plaintext highlighter-rouge">editrc</code> 지원은 명시적으로 계획되어 있지 않습니다.</p>
+
+<p>부드러운 전환을 위해 PyREPL과 이전 기본 REPL 간 전환 방법에 대한 명확한 문서가 제공됩니다.</p>
+
+<h3 id="보안-영향-security-implications">보안 영향 (Security Implications)</h3>
+
+<p>이 제안으로 인한 보안 영향은 없습니다.</p>
+
+<h3 id="교육-방법-how-to-teach-this">교육 방법 (How to Teach This)</h3>
+
+<p>PyREPL 도입에는 문서와 튜토리얼이 동반됩니다. 교육의 주요 초점 영역은 다음과 같습니다.</p>
+
+<ul>
+  <li>다중 라인 편집, 붙여넣기 모드 및 기타 새로운 기능 사용에 대한 자세한 설명.</li>
+  <li>사용자 지정 명령 (기존 및 새로운 명령).</li>
+  <li>이전 readline/editline 기반 구성과의 차이점을 포함하여 새 REPL로 전환하는 방법.</li>
+</ul>
+
+<h3 id="거부된-아이디어-rejected-ideas">거부된 아이디어 (Rejected Ideas)</h3>
+
+<p>여러 대안적 접근 방식이 고려되었지만 궁극적으로 거부되었습니다.</p>
+
+<ul>
+  <li><strong>현재 C 구현 확장:</strong> 최대 하위 호환성을 유지하겠지만, 너무 복잡하고 근본적인 한계점을 해결하지 못할 것으로 판단되었습니다.</li>
+  <li><strong>새로운 REPL을 처음부터 개발:</strong> 크로스 플랫폼 터미널 애플리케이션 생성의 복잡성과 기존의 검증된 코드를 활용하려는 이유로 거부되었습니다.</li>
+  <li><strong>다른 기존 REPL 구현 사용:</strong> IPython, bpython, ptpython, xonsh와 같은 여러 대안을 검토했지만, PyREPL은 성숙도, 기능 세트 및 추가 종속성 부족의 조합으로 선택되었습니다. PyPy 구현과의 정렬도 주요 요인이었습니다.</li>
+</ul>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/761/" class="pagination--pager" title="[Active] PEP 761 - Deprecating PGP signatures for CPython artifacts
+">Previous</a>
+    
+    
+      <a href="/python/pep/763/" class="pagination--pager" title="[Draft] PEP 763 - Limiting deletions on PyPI
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

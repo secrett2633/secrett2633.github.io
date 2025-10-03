@@ -1,0 +1,653 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[논문리뷰] WorldForge: Unlocking Emergent 3D/4D Generation in Video Diffusion Model via Training-Free Guidance | secrett2633</title>
+<meta name="description" content="Ruibo Li이 [arXiv]에 게시한 ‘WorldForge: Unlocking Emergent 3D/4D Generation in Video Diffusion Model via Training-Free Guidance’ 논문에 대한 자세한 리뷰입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[논문리뷰] WorldForge: Unlocking Emergent 3D/4D Generation in Video Diffusion Model via Training-Free Guidance">
+<meta property="og:url" content="http://localhost:4000/ai/review/2025-9-19-WorldForge_Unlocking_Emergent_3D4D_Generation_in_Video_Diffusion_Model_via_Training-Free_Guidance/">
+
+
+  <meta property="og:description" content="Ruibo Li이 [arXiv]에 게시한 ‘WorldForge: Unlocking Emergent 3D/4D Generation in Video Diffusion Model via Training-Free Guidance’ 논문에 대한 자세한 리뷰입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-19T13:12:21+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-19T13:12:21+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/ai/review/2025-9-19-WorldForge_Unlocking_Emergent_3D4D_Generation_in_Video_Diffusion_Model_via_Training-Free_Guidance/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[논문리뷰] WorldForge: Unlocking Emergent 3D/4D Generation in Video Diffusion Model via Training-Free Guidance">
+    <meta itemprop="description" content="Ruibo Li이 [arXiv]에 게시한 ‘WorldForge: Unlocking Emergent 3D/4D Generation in Video Diffusion Model via Training-Free Guidance’ 논문에 대한 자세한 리뷰입니다.">
+    <meta itemprop="datePublished" content="2025-09-19T13:12:21+09:00">
+    <meta itemprop="dateModified" content="2025-09-19T13:12:21+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[논문리뷰] WorldForge: Unlocking Emergent 3D/4D Generation in Video Diffusion Model via Training-Free Guidance
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-19T13:12:21+09:00">September 19, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#핵심-연구-목표">핵심 연구 목표</a></li><li><a href="#핵심-방법론">핵심 방법론</a></li><li><a href="#주요-결과">주요 결과</a></li><li><a href="#ai-실무자를-위한-시사점">AI 실무자를 위한 시사점</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>링크:</strong> <a href="https://arxiv.org/abs/2509.15130">논문 PDF로 바로 열기</a></p>
+</blockquote>
+
+<p><strong>저자:</strong> Chenxi Song, Yanming Yang, Tong Zhao, Ruibo Li, Chi Zhang</p>
+
+<h2 id="핵심-연구-목표">핵심 연구 목표</h2>
+<p>본 연구는 기존 비디오 확산 모델(VDM)이 3D/4D 작업에서 겪는 <code class="language-plaintext highlighter-rouge">제어 가능성</code>, <code class="language-plaintext highlighter-rouge">시공간 일관성</code>, <code class="language-plaintext highlighter-rouge">기하학적 충실도</code>의 한계를 해결하고자 합니다. 특히, <code class="language-plaintext highlighter-rouge">재훈련이나 미세 조정 없이</code> VDM의 풍부한 사전 지식을 활용하여 <code class="language-plaintext highlighter-rouge">정밀한 카메라 궤적 제어</code>를 가능하게 하면서도 <code class="language-plaintext highlighter-rouge">사진처럼 사실적인 콘텐츠 생성</code> 및 <code class="language-plaintext highlighter-rouge">일반화 능력</code>을 유지하는 것을 목표로 합니다.</p>
+
+<h2 id="핵심-방법론">핵심 방법론</h2>
+<p>WorldForge는 세 가지 상호 보완적인 <code class="language-plaintext highlighter-rouge">훈련 없는(training-free) 추론 시간 가이드 프레임워크</code>로 구성됩니다. 첫째, <strong>Intra-Step Recursive Refinement (IRR)</strong>는 각 <code class="language-plaintext highlighter-rouge">노이즈 제거 단계</code> 내에 <code class="language-plaintext highlighter-rouge">마이크로 예측-교정 루프</code>를 삽입하여 <code class="language-plaintext highlighter-rouge">정확한 궤적 주입</code>을 가능하게 합니다. 둘째, <strong>Flow-Gated Latent Fusion (FLF)</strong>은 <code class="language-plaintext highlighter-rouge">광학 흐름 유사성</code>을 활용하여 <code class="language-plaintext highlighter-rouge">움직임 관련 잠재 채널</code>에만 궤적 정보를 선별적으로 주입하고 <code class="language-plaintext highlighter-rouge">외형 관련 채널</code>은 수정하지 않아 <code class="language-plaintext highlighter-rouge">움직임과 외형을 분리</code>합니다. 셋째, <strong>Dual-Path Self-Corrective Guidance (DSG)</strong>는 <code class="language-plaintext highlighter-rouge">안내 경로</code>와 <code class="language-plaintext highlighter-rouge">비안내 경로</code>를 비교하여 <code class="language-plaintext highlighter-rouge">궤적 드리프트</code>를 적응적으로 교정함으로써 <code class="language-plaintext highlighter-rouge">기하학적 정합성</code>과 <code class="language-plaintext highlighter-rouge">지각적 충실도</code>를 향상시킵니다.</p>
+
+<h2 id="주요-결과">주요 결과</h2>
+<p>제안된 방법은 <code class="language-plaintext highlighter-rouge">정적 3D 장면 생성</code> 및 <code class="language-plaintext highlighter-rouge">동적 4D 장면 재렌더링</code> 모두에서 <code class="language-plaintext highlighter-rouge">최첨단(SOTA) 기준선</code>을 일관되게 능가하는 성능을 보였습니다. 정적 3D 작업에서 <strong>FID 96.08↓</strong>, <strong>CLIP_sim 0.948↑</strong>, 동적 4D 작업에서 <strong>FVD 93.17↓</strong>, <strong>CLIP-Vsim 0.938↑</strong>를 달성했으며, 카메라 궤적 정확도에서도 <strong>ATE 0.077↓</strong>, <strong>RPE-T 0.086↓</strong>, <strong>RPE-R 0.221↓</strong> (정적) 및 <strong>ATE 0.527↓</strong>, <strong>RPE-T 0.826↓</strong>, <strong>RPE-R 2.690↓</strong> (동적)으로 기존 훈련 기반 및 훈련 없는 방법론보다 우수했습니다.</p>
+
+<h2 id="ai-실무자를-위한-시사점">AI 실무자를 위한 시사점</h2>
+<p>이 연구는 <code class="language-plaintext highlighter-rouge">기존 비디오 확산 모델</code>의 <code class="language-plaintext highlighter-rouge">사전 훈련된 잠재 세계 지식</code>을 <code class="language-plaintext highlighter-rouge">추가 훈련 없이</code> <code class="language-plaintext highlighter-rouge">3D/4D 생성</code> 및 <code class="language-plaintext highlighter-rouge">정밀한 카메라 제어</code>와 같은 복잡한 공간 지능 작업에 활용하는 <code class="language-plaintext highlighter-rouge">새로운 패러다임</code>을 제시합니다. <code class="language-plaintext highlighter-rouge">IRR</code>, <code class="language-plaintext highlighter-rouge">FLF</code>, <code class="language-plaintext highlighter-rouge">DSG</code>와 같은 <code class="language-plaintext highlighter-rouge">추론 시간 가이드</code> 메커니즘은 <code class="language-plaintext highlighter-rouge">모델의 재훈련 없이</code> <code class="language-plaintext highlighter-rouge">고품질 출력</code>과 <code class="language-plaintext highlighter-rouge">정확한 궤적 일관성</code>을 보장하므로, <code class="language-plaintext highlighter-rouge">운영 비용</code>을 크게 줄이고 <code class="language-plaintext highlighter-rouge">다양한 비디오 편집 및 렌더링 응용 프로그램</code>에 쉽게 통합될 수 있습니다. <strong>Warp-and-repaint</strong> 방식의 <code class="language-plaintext highlighter-rouge">노이즈</code>와 <code class="language-plaintext highlighter-rouge">기하학적 불일치</code> 문제를 효과적으로 완화하여, <code class="language-plaintext highlighter-rouge">실제 환경</code>에서의 <code class="language-plaintext highlighter-rouge">안정적이고 제어 가능한 비디오 합성</code>에 대한 실용적인 솔루션을 제공합니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 리뷰는 AI로 작성되었습니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#3d-4d-generation" class="page__taxonomy-item" rel="tag">3D/4D Generation</a><span class="sep">, </span>
+    
+      <a href="/tags/#camera-trajectory-control" class="page__taxonomy-item" rel="tag">Camera Trajectory Control</a><span class="sep">, </span>
+    
+      <a href="/tags/#geometric-consistency" class="page__taxonomy-item" rel="tag">Geometric Consistency</a><span class="sep">, </span>
+    
+      <a href="/tags/#inference-time-optimization" class="page__taxonomy-item" rel="tag">Inference-Time Optimization</a><span class="sep">, </span>
+    
+      <a href="/tags/#novel-view-synthesis" class="page__taxonomy-item" rel="tag">Novel View Synthesis</a><span class="sep">, </span>
+    
+      <a href="/tags/#review" class="page__taxonomy-item" rel="tag">Review</a><span class="sep">, </span>
+    
+      <a href="/tags/#training-free-guidance" class="page__taxonomy-item" rel="tag">Training-Free Guidance</a><span class="sep">, </span>
+    
+      <a href="/tags/#video-diffusion-models" class="page__taxonomy-item" rel="tag">Video Diffusion Models</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#review" class="page__taxonomy-item" rel="tag">Review</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-19">September 19, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/ai/review/2025-9-19-Unleashing_the_Potential_of_Multimodal_LLMs_for_Zero-Shot_Spatio-Temporal_Video_Grounding/" class="pagination--pager" title="[논문리뷰] Unleashing the Potential of Multimodal LLMs for Zero-Shot Spatio-Temporal Video Grounding
+">Previous</a>
+    
+    
+      <a href="/ai/review/2025-9-22-A_Vision-Language-Action-Critic_Model_for_Robotic_Real-World_Reinforcement_Learning/" class="pagination--pager" title="[논문리뷰] A Vision-Language-Action-Critic Model for Robotic Real-World Reinforcement Learning
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

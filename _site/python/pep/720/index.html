@@ -1,0 +1,1268 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Draft] PEP 720 - Cross-compiling Python packages | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 720: ‘Cross-compiling Python packages’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Draft] PEP 720 - Cross-compiling Python packages">
+<meta property="og:url" content="http://localhost:4000/python/pep/720/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 720: ‘Cross-compiling Python packages’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T13:14:54+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T13:14:54+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/720/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Draft] PEP 720 - Cross-compiling Python packages">
+    <meta itemprop="description" content="Python Enhancement Proposal 720: ‘Cross-compiling Python packages’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T13:14:54+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T13:14:54+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Draft] PEP 720 - Cross-compiling Python packages
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T13:14:54+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-720--python-패키지-교차-컴파일">PEP 720 – Python 패키지 교차 컴파일</a><ul><li><a href="#목차">목차</a></li><li><a href="#초록">초록</a></li><li><a href="#동기">동기</a></li><li><a href="#분석">분석</a><ul><li><a href="#서론">서론</a></li><li><a href="#upstream-지원">Upstream 지원</a></li><li><a href="#적절한-cross-build-지원을-제공하는-프로젝트">적절한 Cross-Build 지원을 제공하는 프로젝트</a></li><li><a href="#downstream-접근-방식">Downstream 접근 방식</a><ul><li><a href="#cross-build-환경">Cross-Build 환경</a></li><li><a href="#타겟-환경-위장-faking-the-target-environment">타겟 환경 위장 (Faking the target environment)</a></li></ul></li><li><a href="#환경-인트로스펙션-environment-introspection">환경 인트로스펙션 (Environment Introspection)</a></li><li><a href="#cpython-및-유사-구현체">CPython (및 유사 구현체)</a><ul><li><a href="#sysconfig-설정-변수">sysconfig 설정 변수</a></li></ul></li></ul></li><li><a href="#관련-정보">관련 정보</a><ul><li><a href="#확장-모듈은-언제-libpython에-링크되어야-하는가">확장 모듈은 언제 libpython에 링크되어야 하는가?</a></li><li><a href="#prefix-exec_prefix-base_prefix-base_exec_prefix란-무엇인가">prefix, exec_prefix, base_prefix, base_exec_prefix란 무엇인가?</a></li></ul></li><li><a href="#사례-연구">사례 연구</a><ul><li><a href="#crossenv">crossenv</a></li><li><a href="#conda-forge">conda-forge</a></li><li><a href="#yocto-project">Yocto Project</a></li><li><a href="#buildroot">Buildroot</a></li><li><a href="#pyodide">Pyodide</a></li><li><a href="#beeware">Beeware</a></li><li><a href="#python-for-android">python-for-android</a></li><li><a href="#kivy-ios">kivy-ios</a></li><li><a href="#aidlearning">AidLearning</a></li><li><a href="#qpython">QPython</a></li><li><a href="#pyqtdeploy">pyqtdeploy</a></li><li><a href="#chaquopy">Chaquopy</a></li><li><a href="#edk-ii">EDK II</a></li><li><a href="#activepython">ActivePython</a></li><li><a href="#termux">Termux</a></li></ul></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0720/">PEP 720 - Cross-compiling Python packages</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Draft</td>
+        <td><strong>유형:</strong> Informational</td>
+        <td><strong>작성일:</strong> 01-Jul-2023</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h2 id="pep-720--python-패키지-교차-컴파일">PEP 720 – Python 패키지 교차 컴파일</h2>
+
+<ul>
+  <li><strong>작성자:</strong> Filipe Laíns <lains at="" python.org=""></lains></li>
+  <li><strong>PEP 담당자:</strong></li>
+  <li><strong>상태:</strong> 초안 (Draft)</li>
+  <li><strong>유형:</strong> 정보성 (Informational)</li>
+  <li><strong>작성일:</strong> 2023년 7월 1일</li>
+  <li><strong>Python 버전:</strong> 3.12</li>
+</ul>
+
+<h3 id="목차">목차</h3>
+
+<ul>
+  <li><a href="#초록">초록</a></li>
+  <li><a href="#동기">동기</a></li>
+  <li><a href="#분석">분석</a>
+    <ul>
+      <li><a href="#서론">서론</a></li>
+      <li><a href="#upstream-지원">Upstream 지원</a></li>
+      <li><a href="#적절한-cross-build-지원을-제공하는-프로젝트">적절한 Cross-Build 지원을 제공하는 프로젝트</a></li>
+      <li><a href="#downstream-접근-방식">Downstream 접근 방식</a>
+        <ul>
+          <li><a href="#cross-build-환경">Cross-Build 환경</a></li>
+          <li><a href="#타겟-환경-위장-faking-the-target-environment">타겟 환경 위장 (Faking the target environment)</a></li>
+        </ul>
+      </li>
+      <li><a href="#환경-인트로스펙션-environment-introspection">환경 인트로스펙션 (Environment Introspection)</a></li>
+      <li><a href="#cpython-및-유사-구현체">CPython (및 유사 구현체)</a>
+        <ul>
+          <li><a href="#sysconfig-설정-변수">sysconfig 설정 변수</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#관련-정보">관련 정보</a>
+    <ul>
+      <li><a href="#확장-모듈은-언제-libpython에-링크되어야-하는가">확장 모듈은 언제 <code class="language-plaintext highlighter-rouge">libpython</code>에 링크되어야 하는가?</a></li>
+      <li><a href="#prefix-exec_prefix-base_prefix-base_exec_prefix란-무엇인가"><code class="language-plaintext highlighter-rouge">prefix</code>, <code class="language-plaintext highlighter-rouge">exec_prefix</code>, <code class="language-plaintext highlighter-rouge">base_prefix</code>, <code class="language-plaintext highlighter-rouge">base_exec_prefix</code>란 무엇인가?</a></li>
+    </ul>
+  </li>
+  <li><a href="#사례-연구">사례 연구</a>
+    <ul>
+      <li><a href="#crossenv">crossenv</a></li>
+      <li><a href="#conda-forge">conda-forge</a></li>
+      <li><a href="#yocto-project">Yocto Project</a></li>
+      <li><a href="#buildroot">Buildroot</a></li>
+      <li><a href="#pyodide">Pyodide</a></li>
+      <li><a href="#beeware">Beeware</a></li>
+      <li><a href="#python-for-android">python-for-android</a></li>
+      <li><a href="#kivy-ios">kivy-ios</a></li>
+      <li><a href="#aidlearning">AidLearning</a></li>
+      <li><a href="#qpython">QPython</a></li>
+      <li><a href="#pyqtdeploy">pyqtdeploy</a></li>
+      <li><a href="#chaquopy">Chaquopy</a></li>
+      <li><a href="#edk-ii">EDK II</a></li>
+      <li><a href="#activepython">ActivePython</a></li>
+      <li><a href="#termux">Termux</a></li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="초록">초록</h3>
+
+<p>이 PEP는 다운스트림 프로젝트의 교차 컴파일(cross-compilation) 현황을 문서화하려는 시도입니다. 이 문서는 배포자(리눅스 배포판, WASM 환경 제공자 등)가 서드 파티 확장 모듈과 같은 다운스트림 프로젝트를 교차 컴파일하기 위해 현재 사용하고 있는 접근 방식에 대한 개요를 제공합니다.</p>
+
+<h3 id="동기">동기</h3>
+
+<p>이 PEP는 교차 컴파일의 어려움을 설명하고 향후 개선 제안을 위한 보조 문서 역할을 하기 위해 작성되었습니다.</p>
+
+<h3 id="분석">분석</h3>
+
+<h4 id="서론">서론</h4>
+
+<p>이 문제를 해결하기 위해 여러 가지 접근 방식이 사용되고 있으며, 사용자로부터 요구되는 상호작용 수준도 다양하지만, 모두 상당한 노력을 필요로 합니다. 이는 Python 패키징 생태계에 표준화된 교차 컴파일 인프라가 부족하기 때문이며, 이는 교차 빌드의 복잡성에서 비롯되어 막대한 작업이 됩니다.</p>
+
+<h4 id="upstream-지원">Upstream 지원</h4>
+
+<p>CPython, setuptools 등 일부 주요 프로젝트는 교차 컴파일을 돕기 위한 지원을 제공하지만, 이는 비공식적이며 “최선을 다하는” 수준에 그칩니다. 예를 들어, <code class="language-plaintext highlighter-rouge">sysconfig</code> 모듈은 <code class="language-plaintext highlighter-rouge">_PYTHON_SYSCONFIGDATA_NAME</code> 환경 변수를 통해 데이터 모듈 이름을 덮어쓸 수 있도록 하며, 이는 교차 빌드에 필요합니다. 또한 <code class="language-plaintext highlighter-rouge">setuptools</code>는 널리 사용되는 “환경 위장(environment faking)” 워크플로우와 호환되도록 로직을 조정/수정하기 위한 패치를 받아들입니다.</p>
+
+<p>Upstream 프로젝트에서 자체적인 지원이 부족하여 교차 컴파일은 취약하고 사용자로부터 상당한 노력을 요구하지만, 동시에 표준화의 부족은 이 기능이 어떻게 제공되어야 하는지에 대한 명확성이 없기 때문에 Upstream에서 지원을 개선하기 어렵게 만듭니다.</p>
+
+<h4 id="적절한-cross-build-지원을-제공하는-프로젝트">적절한 Cross-Build 지원을 제공하는 프로젝트</h4>
+
+<p><code class="language-plaintext highlighter-rouge">scikit-build</code>와 <code class="language-plaintext highlighter-rouge">meson-python</code>과 같이 적어도 적절한 교차 컴파일 지원을 제공하는 몇몇 최신 Python 패키지 빌드 백엔드가 있습니다. 이 두 프로젝트는 외부의 성숙한 빌드 시스템인 CMake와 Meson을 Python 패키징에 통합하므로, 교차 빌드 지원은 이들로부터 상속됩니다.</p>
+
+<h4 id="downstream-접근-방식">Downstream 접근 방식</h4>
+
+<p>교차 컴파일 접근 방식은 설계상 광범위한 사용자 상호작용을 요구하는 것부터 (이상적으로는) 거의 요구하지 않는 것까지 다양한 스펙트럼에 걸쳐 있습니다. 일반적으로 이들은 교차 빌드 환경을 사용하거나 타겟 환경을 위장하는 두 가지 주요 전략 중 하나를 기반으로 합니다.</p>
+
+<h5 id="cross-build-환경">Cross-Build 환경</h5>
+
+<p>이 방식은 Python 인터프리터를 정상적으로 실행하고 프로젝트의 빌드 시스템이 제공하는 교차 빌드를 활용하는 것입니다. 그러나 위에서 본 바와 같이 Upstream 지원이 부족하여 이 접근 방식은 소수의 프로젝트에서만 작동합니다. 이 방식이 실패할 경우, 일반적인 전략은 올바른 툴체인, 시스템 세부 정보 등을 사용하도록 빌드 시스템 코드를 패치하는 것입니다.</p>
+
+<p>이 접근 방식은 종종 패키지별 패치가 필요하므로 많은 사용자 상호작용을 요구합니다.</p>
+
+<ul>
+  <li><strong>예시:</strong> <code class="language-plaintext highlighter-rouge">python-for-android</code>, <code class="language-plaintext highlighter-rouge">kivy-ios</code> 등.</li>
+</ul>
+
+<h5 id="타겟-환경-위장-faking-the-target-environment">타겟 환경 위장 (Faking the target environment)</h5>
+
+<p>사용자 입력 요구 사항을 줄이는 것을 목표로 하는 인기 있는 접근 방식은 타겟 환경을 위장하는 것입니다. 이는 일반적으로 Python 인터프리터를 Monkeypatch하여 타겟 시스템의 인터프리터를 모방하도록 하는 것으로, <code class="language-plaintext highlighter-rouge">sys</code> 모듈의 여러 속성, <code class="language-plaintext highlighter-rouge">sysconfig</code> 데이터 등을 변경하는 것을 포함합니다. 이 전략을 사용하면 빌드 백엔드는 교차 빌드 지원이 전혀 필요 없으며, 코드 변경 없이 작동해야 합니다.</p>
+
+<p>그러나 안타깝게도 타겟 환경을 완전히 위장하는 것은 불가능합니다. 여기에는 여러 가지 이유가 있는데, 주요 이유 중 하나는 실행 중인 인터프리터를 실제로 인트로스펙션해야 하는 코드를 손상시키기 때문입니다. 결과적으로, 타겟처럼 보이도록 Python을 Monkeypatch하는 것은 매우 까다롭습니다. 가장 적은 손상을 달성하기 위해 인터프리터의 특정 측면만 패치할 수 있습니다. 따라서 빌드 백엔드는 일부 코드 변경이 필요할 수 있지만, 일반적으로 이전 접근 방식보다 훨씬 작습니다. 이는 이 기술의 본질적인 한계이며, 이 전략은 여전히 일부 사용자 상호작용을 요구합니다.</p>
+
+<p>그럼에도 불구하고 이 전략은 위의 접근 방식보다 훨씬 더 많은 프로젝트에서 별다른 설정 없이 작동하며, 이러한 경우 훨씬 적은 노력을 필요로 합니다. 이는 일반적이지는 않지만, 필요한 사용자 상호작용의 양을 줄이는 데 성공적입니다.</p>
+
+<ul>
+  <li><strong>예시:</strong> <code class="language-plaintext highlighter-rouge">crossenv</code>, <code class="language-plaintext highlighter-rouge">conda-forge</code> 등.</li>
+</ul>
+
+<h4 id="환경-인트로스펙션-environment-introspection">환경 인트로스펙션 (Environment Introspection)</h4>
+
+<p>위에서 설명했듯이, 대부분의 빌드 시스템 코드는 빌드가 발생하는 시스템과 타겟 시스템이 동일하다는 가정 하에 작성되므로, 빌드를 안내하기 위해 인트로스펙션이 일반적으로 사용됩니다.</p>
+
+<p>이 섹션에서는 이것이 어떻게 이루어지는지에 대한 대부분의 방법을 문서화하려고 합니다. 이는 빌드 시스템에 필요한 환경 세부 정보에 대한 적절한 개요를 제공해야 합니다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">스니펫</th>
+      <th style="text-align: left">설명</th>
+      <th style="text-align: left">변동성 (Variance)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">importlib.machinery.EXTENSION_SUFFIXES</code></td>
+      <td style="text-align: left">이 인터프리터가 지원하는 확장 (네이티브 모듈) 접미사. 이는 구현 정의(implementation-defined)이지만, 일반적으로 구현, 시스템 아키텍처, 빌드 구성, Python 언어 버전 및 구현 버전 (존재하는 경우)에 따라 다릅니다.</td>
+      <td style="text-align: left">구현, 시스템 아키텍처, 빌드 구성, Python 언어 버전, 구현 버전에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">importlib.machinery.SOURCE_SUFFIXES</code></td>
+      <td style="text-align: left">이 인터프리터가 지원하는 소스 (순수 Python) 접미사. 이는 구현 정의(implementation-defined)이지만, 일반적으로 (특이한 구현이나 시스템을 제외하고) 다르지 않습니다.</td>
+      <td style="text-align: left">구현 정의이지만, 보통 다르지 않음.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">importlib.machinery.all_suffixes()</code></td>
+      <td style="text-align: left">이 인터프리터가 지원하는 모든 모듈 파일 접미사. <code class="language-plaintext highlighter-rouge">importlib.machinery.*_SUFFIXES</code> 속성의 합집합이어야 합니다. 이는 구현 정의(implementation-defined)이지만, 일반적으로 구현, 시스템 아키텍처, 빌드 구성, Python 언어 버전 및 구현 버전 (존재하는 경우)에 따라 다릅니다. 자세한 내용은 위 항목들을 참조하십시오.</td>
+      <td style="text-align: left">구현, 시스템 아키텍처, 빌드 구성, Python 언어 버전, 구현 버전에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">sys.abiflags</code></td>
+      <td style="text-align: left">PEP 3149에 지정된 ABI 플래그.</td>
+      <td style="text-align: left">빌드 구성에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">sys.api_version</code></td>
+      <td style="text-align: left">C API 버전.</td>
+      <td style="text-align: left">Python 설치에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">sys.base_prefix</code></td>
+      <td style="text-align: left">플랫폼 독립적인 파일이 설치되는 설치 전체 디렉터리의 <code class="language-plaintext highlighter-rouge">prefix</code>.</td>
+      <td style="text-align: left">플랫폼 및 설치에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">sys.base_exec_prefix</code></td>
+      <td style="text-align: left">플랫폼 종속적인 파일이 설치되는 설치 전체 디렉터리의 <code class="language-plaintext highlighter-rouge">prefix</code>.</td>
+      <td style="text-align: left">플랫폼 및 설치에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">sys.byteorder</code></td>
+      <td style="text-align: left">네이티브 바이트 순서.</td>
+      <td style="text-align: left">플랫폼에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">sys.builtin_module_names</code></td>
+      <td style="text-align: left">Python 인터프리터에 컴파일된 모든 모듈의 이름.</td>
+      <td style="text-align: left">플랫폼, 시스템 아키텍처, 빌드 구성에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">sys.exec_prefix</code></td>
+      <td style="text-align: left">플랫폼 독립적인 파일이 설치되는 사이트별 디렉터리의 <code class="language-plaintext highlighter-rouge">prefix</code>. 사이트별 디렉터리와 관련되므로, 표준 가상 환경 구현에서는 가상 환경별 경로가 됩니다.</td>
+      <td style="text-align: left">플랫폼, 설치, 환경에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">sys.executable</code></td>
+      <td style="text-align: left">사용 중인 Python 인터프리터의 경로.</td>
+      <td style="text-align: left">설치에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">with open(sys.executable, 'rb') as f: ...</code> (ELF 파일 감지)</td>
+      <td style="text-align: left">Python 인터프리터가 ELF 파일인지 여부 및 ELF 헤더. 이 접근 방식은 설치의 타겟 아키텍처를 식별하는 데 사용됩니다 (예시).</td>
+      <td style="text-align: left">설치에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">sys.float_info</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">float.h</code>에 정의된 float 타입에 대한 하위 수준 정보.</td>
+      <td style="text-align: left">아키텍처 및 플랫폼에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">sys.getandroidapilevel()</code></td>
+      <td style="text-align: left">Android API 수준을 나타내는 정수.</td>
+      <td style="text-align: left">플랫폼에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">sys.getwindowsversion()</code></td>
+      <td style="text-align: left">시스템의 Windows 버전.</td>
+      <td style="text-align: left">플랫폼에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">sys.hexversion</code></td>
+      <td style="text-align: left">정수로 인코딩된 Python 버전.</td>
+      <td style="text-align: left">Python 언어 버전에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">sys.implementation</code></td>
+      <td style="text-align: left">인터프리터 구현 세부 정보. 인터프리터 구현, Python 언어 버전 및 구현 버전 (존재하는 경우)에 따라 다릅니다. 아키텍처 종속적인 정보도 포함할 수 있으므로 시스템 아키텍처에 따라서도 다를 수 있습니다.</td>
+      <td style="text-align: left">인터프리터 구현, Python 언어 버전, 구현 버전, 시스템 아키텍처에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">sys.int_info</code></td>
+      <td style="text-align: left">Python 내부 정수 표현에 대한 하위 수준 정보.</td>
+      <td style="text-align: left">아키텍처, 플랫폼, 구현, 빌드 및 런타임 플래그에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">sys.maxsize</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Py_ssize_t</code> 타입 변수가 가질 수 있는 최대 값.</td>
+      <td style="text-align: left">아키텍처, 플랫폼, 구현에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">sys.maxunicode</code></td>
+      <td style="text-align: left">가장 큰 유니코드 코드 포인트의 값.</td>
+      <td style="text-align: left">구현 및 Python 3.3 이전 버전에서는 빌드에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">sys.platform</code></td>
+      <td style="text-align: left">플랫폼 식별자.</td>
+      <td style="text-align: left">플랫폼에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">sys.prefix</code></td>
+      <td style="text-align: left">플랫폼 종속적인 파일이 설치되는 사이트별 디렉터리의 <code class="language-plaintext highlighter-rouge">prefix</code>. 사이트별 디렉터리와 관련되므로, 표준 가상 환경 구현에서는 가상 환경별 경로가 됩니다.</td>
+      <td style="text-align: left">플랫폼, 설치, 환경에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">sys.platlibdir</code></td>
+      <td style="text-align: left">플랫폼별 라이브러리 디렉터리.</td>
+      <td style="text-align: left">플랫폼 및 벤더에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">sys.version_info</code></td>
+      <td style="text-align: left">인터프리터에 의해 구현된 Python 언어 버전. 타겟 Python 버전과 다른 경우 다릅니다.</td>
+      <td style="text-align: left">타겟 Python 버전이 동일하지 않은 경우 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">sys.thread_info</code></td>
+      <td style="text-align: left">스레드 구현에 대한 정보.</td>
+      <td style="text-align: left">플랫폼 및 구현에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">sys.winver</code></td>
+      <td style="text-align: left">Windows 레지스트리 키를 형성하는 데 사용되는 버전 번호.</td>
+      <td style="text-align: left">플랫폼 및 구현에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">sysconfig.get_config_vars()</code></td>
+      <td style="text-align: left">Python 배포판 설정 변수. 실행 중인 컨텍스트에 따라 <code class="language-plaintext highlighter-rouge">prefix</code>, <code class="language-plaintext highlighter-rouge">exec_prefix</code> 등과 같은 변수 세트를 포함하며, Python 구현 및 시스템에 따라 일부 추가 변수를 포함할 수 있습니다.</td>
+      <td style="text-align: left">동일하지 않은 빌드 간에 일반적으로 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">sysconfig.get_config_var(...)</code></td>
+      <td style="text-align: left">Python 배포판 설정 변수.</td>
+      <td style="text-align: left">동일하지 않은 빌드 간에 일반적으로 다름.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="cpython-및-유사-구현체">CPython (및 유사 구현체)</h4>
+
+<h5 id="sysconfig-설정-변수">sysconfig 설정 변수</h5>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">이름</th>
+      <th style="text-align: left">예시 값</th>
+      <th style="text-align: left">설명</th>
+      <th style="text-align: left">변동성</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">SOABI</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">cpython-311-x86_64-linux-gnu</code></td>
+      <td style="text-align: left">ABI 문자열 — PEP 3149에 의해 정의됨.</td>
+      <td style="text-align: left">구현, 시스템 아키텍처, Python 언어 버전, 구현 버전에 따라 다름 (존재하는 경우).</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">SHLIB_SUFFIX</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">.so</code></td>
+      <td style="text-align: left">공유 라이브러리 접미사.</td>
+      <td style="text-align: left">플랫폼에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">EXT_SUFFIX</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">.cpython-311-x86_64-linux-gnu.so</code></td>
+      <td style="text-align: left">인터프리터별 Python 확장 (네이티브 모듈) 접미사 — 일반적으로 <code class="language-plaintext highlighter-rouge">.{SOABI}.{SHLIB_SUFFIX}</code>로 정의됨.</td>
+      <td style="text-align: left">구현, 시스템 아키텍처, Python 언어 버전, 구현 버전에 따라 다름 (존재하는 경우).</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">LDLIBRARY</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">libpython3.11.so</code></td>
+      <td style="text-align: left">공유 <code class="language-plaintext highlighter-rouge">libpython</code> 라이브러리 이름 — 사용 가능한 경우. 사용 불가능한 경우, 변수는 비어 있으며, 사용 가능한 경우 라이브러리는 <code class="language-plaintext highlighter-rouge">LIBDIR</code>에 위치해야 합니다.</td>
+      <td style="text-align: left">구현, 시스템 아키텍처, 빌드 구성, Python 언어 버전, 구현 버전에 따라 다름 (존재하는 경우).</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">PY3LIBRARY</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">libpython3.so</code></td>
+      <td style="text-align: left">Python 3 전용 (주 버전 바운드만) <code class="language-plaintext highlighter-rouge">libpython</code> 라이브러리 이름 — 사용 가능한 경우. 사용 불가능한 경우, 변수는 비어 있으며, 사용 가능한 경우 라이브러리는 <code class="language-plaintext highlighter-rouge">LIBDIR</code>에 위치해야 합니다.</td>
+      <td style="text-align: left">구현, 시스템 아키텍처, 빌드 구성, Python 언어 버전, 구현 버전에 따라 다름 (존재하는 경우).</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">LIBRARY</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">libpython3.11.a</code></td>
+      <td style="text-align: left">정적 <code class="language-plaintext highlighter-rouge">libpython</code> 라이브러리 이름 — 사용 가능한 경우. 사용 불가능한 경우, 변수는 비어 있으며, 사용 가능한 경우 라이브러리는 <code class="language-plaintext highlighter-rouge">LIBDIR</code>에 위치해야 합니다.</td>
+      <td style="text-align: left">구현, 시스템 아키텍처, 빌드 구성, Python 언어 버전, 구현 버전에 따라 다름 (존재하는 경우).</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Py_DEBUG</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">0</code></td>
+      <td style="text-align: left">디버그 빌드 여부.</td>
+      <td style="text-align: left">빌드 구성에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">WITH_PYMALLOC</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">1</code></td>
+      <td style="text-align: left">이 빌드에 <code class="language-plaintext highlighter-rouge">pymalloc</code> 지원이 있는지 여부.</td>
+      <td style="text-align: left">빌드 구성에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Py_TRACE_REFS</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">0</code></td>
+      <td style="text-align: left">참조 추적 (디버그 빌드 전용)이 활성화되었는지 여부.</td>
+      <td style="text-align: left">빌드 구성에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Py_UNICODE_SIZE</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">2</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Py_UNICODE</code> 객체의 크기 (바이트 단위). 이 변수는 CPython 3.3 이전 버전에만 존재하며, PEP 393 이전에는 유니코드 객체에 UCS2 또는 UCS4를 사용하는지 감지하는 데 일반적으로 사용되었습니다.</td>
+      <td style="text-align: left">빌드 구성에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Py_ENABLE_SHARED</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">1</code></td>
+      <td style="text-align: left">공유 <code class="language-plaintext highlighter-rouge">libpython</code>이 사용 가능한지 여부.</td>
+      <td style="text-align: left">빌드 구성에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">PY_ENABLE_SHARED</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">1</code></td>
+      <td style="text-align: left">공유 <code class="language-plaintext highlighter-rouge">libpython</code>이 사용 가능한지 여부.</td>
+      <td style="text-align: left">빌드 구성에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">CC</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">gcc</code></td>
+      <td style="text-align: left">Python 배포판을 빌드하는 데 사용된 C 컴파일러.</td>
+      <td style="text-align: left">빌드 구성에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">CXX</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">g++</code></td>
+      <td style="text-align: left">Python 배포판을 빌드하는 데 사용된 C++ 컴파일러.</td>
+      <td style="text-align: left">빌드 구성에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">CFLAGS</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">-DNDEBUG -g -fwrapv ...</code></td>
+      <td style="text-align: left">Python 배포판을 빌드하는 데 사용된 C 컴파일러 플래그.</td>
+      <td style="text-align: left">빌드 구성에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">py_version</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">3.11.3</code></td>
+      <td style="text-align: left">Python 버전의 전체 형식.</td>
+      <td style="text-align: left">Python 언어 버전에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">py_version_short</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">3.11</code></td>
+      <td style="text-align: left">주요 및 부 버전 번호만 포함하는 Python 버전의 사용자 지정 형식.</td>
+      <td style="text-align: left">Python 언어 버전에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">py_version_nodot</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">311</code></td>
+      <td style="text-align: left">주요 및 부 버전 번호만 포함하고 점이 없는 Python 버전의 사용자 지정 형식.</td>
+      <td style="text-align: left">Python 언어 버전에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">prefix</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">/usr</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">sys.prefix</code>와 동일합니다. 위 표의 항목을 참조하십시오.</td>
+      <td style="text-align: left">플랫폼, 설치, 환경에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">base</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">/usr</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">sys.prefix</code>와 동일합니다. 위 표의 항목을 참조하십시오.</td>
+      <td style="text-align: left">플랫폼, 설치, 환경에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">exec_prefix</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">/usr</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">sys.exec_prefix</code>와 동일합니다. 위 표의 항목을 참조하십시오.</td>
+      <td style="text-align: left">플랫폼, 설치, 환경에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">platbase</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">/usr</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">sys.exec_prefix</code>와 동일합니다. 위 표의 항목을 참조하십시오.</td>
+      <td style="text-align: left">플랫폼, 설치, 환경에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">installed_base</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">/usr</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">sys.base_prefix</code>와 동일합니다. 위 표의 항목을 참조하십시오.</td>
+      <td style="text-align: left">플랫폼 및 설치에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">installed_platbase</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">/usr</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">sys.base_exec_prefix</code>와 동일합니다. 위 표의 항목을 참조하십시오.</td>
+      <td style="text-align: left">플랫폼 및 설치에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">platlibdir</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">lib</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">sys.platlibdir</code>와 동일합니다. 위 표의 항목을 참조하십시오.</td>
+      <td style="text-align: left">플랫폼 및 벤더에 따라 다름.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">SIZEOF_*</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">4</code></td>
+      <td style="text-align: left">특정 C 타입 (<code class="language-plaintext highlighter-rouge">double</code>, <code class="language-plaintext highlighter-rouge">float</code> 등)의 크기.</td>
+      <td style="text-align: left">시스템 아키텍처 및 빌드 세부 정보에 따라 다름.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="관련-정보">관련 정보</h3>
+
+<p>빌드 시스템에 필요한 일부 정보(예: 플랫폼 특이성)는 여러 곳에 흩어져 있으며, 이를 기반으로 하는 가정을 가진 코드를 식별하는 것은 종종 어렵습니다. 이 섹션에서는 가장 관련성 높은 사례를 문서화하려고 합니다.</p>
+
+<h4 id="확장-모듈은-언제-libpython에-링크되어야-하는가">확장 모듈은 언제 <code class="language-plaintext highlighter-rouge">libpython</code>에 링크되어야 하는가?</h4>
+
+<p><strong>간단한 답변:</strong> Windows에서는 예외 없이 링크해야 합니다. POSIX 플랫폼에서는 Android, Cygwin 및 기타 Windows 기반 POSIX 유사 플랫폼을 제외하고는 링크할 필요가 없습니다.</p>
+
+<p>동적 로딩을 위한 확장 모듈을 빌드할 때, 타겟 플랫폼에 따라 <code class="language-plaintext highlighter-rouge">libpython</code>에 링크해야 할 수도 있습니다.</p>
+
+<p>Windows에서는 모든 심볼이 링크 시점에 해결되어야 하므로 확장 모듈은 <code class="language-plaintext highlighter-rouge">libpython</code>에 링크해야 합니다. Cygwin, MinGW, 또는 MSYS와 같은 Windows 기반 POSIX 유사 플랫폼도 <code class="language-plaintext highlighter-rouge">libpython</code>에 링크해야 합니다.</p>
+
+<p>대부분의 POSIX 플랫폼에서는 인터프리터(또는 임베딩 시 해당 실행 파일/라이브러리)가 이미 <code class="language-plaintext highlighter-rouge">libpython</code>에 링크되어 있기 때문에 심볼을 사용할 수 있으므로 <code class="language-plaintext highlighter-rouge">libpython</code>에 링크할 필요가 없습니다. 확장 모듈을 <code class="language-plaintext highlighter-rouge">libpython</code>에 링크하지 않으면 정적 Python 빌드에 의해 로드될 수 있으므로, 가능하면 그렇게 하는 것이 바람직합니다 (GH-65735 참조).</p>
+
+<p>모든 POSIX 플랫폼에서 항상 그런 것은 아니므로 확인해야 합니다. 한 예로 Android가 있는데, 여기서는 기본 실행 파일 및 <code class="language-plaintext highlighter-rouge">LD_PRELOAD</code> 항목만 <code class="language-plaintext highlighter-rouge">RTLD_GLOBAL</code>로 간주되어 (즉, 의존성은 <code class="language-plaintext highlighter-rouge">RTLD_LOCAL</code>임), 확장 모듈을 로드할 때 <code class="language-plaintext highlighter-rouge">libpython</code> 심볼을 사용할 수 없게 됩니다.</p>
+
+<h4 id="prefix-exec_prefix-base_prefix-base_exec_prefix란-무엇인가"><code class="language-plaintext highlighter-rouge">prefix</code>, <code class="language-plaintext highlighter-rouge">exec_prefix</code>, <code class="language-plaintext highlighter-rouge">base_prefix</code>, <code class="language-plaintext highlighter-rouge">base_exec_prefix</code>란 무엇인가?</h4>
+
+<p>이들은 Python 초기화 시 설정되는 <code class="language-plaintext highlighter-rouge">sys</code> 속성으로, 실행 환경을 설명합니다. 아래 표에 따라 설치/환경 파일이 설치되는 디렉터리의 <code class="language-plaintext highlighter-rouge">prefix</code>를 나타냅니다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">이름</th>
+      <th style="text-align: left">대상 파일 유형</th>
+      <th style="text-align: left">환경 범위</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">prefix</code></td>
+      <td style="text-align: left">플랫폼 독립적 (순수 Python)</td>
+      <td style="text-align: left">사이트별 (site-specific)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">exec_prefix</code></td>
+      <td style="text-align: left">플랫폼 종속적 (네이티브 코드)</td>
+      <td style="text-align: left">사이트별 (site-specific)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">base_prefix</code></td>
+      <td style="text-align: left">플랫폼 독립적 (순수 Python)</td>
+      <td style="text-align: left">설치 전체 (installation-wide)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">base_exec_prefix</code></td>
+      <td style="text-align: left">플랫폼 종속적 (네이티브 코드)</td>
+      <td style="text-align: left">설치 전체 (installation-wide)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>사이트별 <code class="language-plaintext highlighter-rouge">prefix</code>는 가상 환경 내에서 다르기 때문에, <code class="language-plaintext highlighter-rouge">sys.prefix != sys.base_prefix</code>를 확인하는 것이 가상 환경 내에 있는지 확인하는 데 일반적으로 사용됩니다.</p>
+
+<h3 id="사례-연구">사례 연구</h3>
+
+<h4 id="crossenv">crossenv</h4>
+
+<ul>
+  <li><strong>설명:</strong> Python 확장 모듈 교차 컴파일을 위한 가상 환경.</li>
+  <li><strong>URL:</strong> <code class="language-plaintext highlighter-rouge">https://github.com/benfogle/crossenv</code></li>
+  <li><code class="language-plaintext highlighter-rouge">crossenv</code>는 특정 시나리오에서 타겟 머신을 에뮬레이션하려고 시도하는 Monkeypatch된 Python 설치를 포함하는 가상 환경을 생성하는 도구입니다. 이 접근 방식에 대한 자세한 내용은 “타겟 환경 위장 (Faking the target environment)” 섹션에서 찾을 수 있습니다.</li>
+</ul>
+
+<h4 id="conda-forge">conda-forge</h4>
+
+<ul>
+  <li><strong>설명:</strong> <code class="language-plaintext highlighter-rouge">conda</code> 패키지 관리자를 위한 커뮤니티 주도의 레시피, 빌드 인프라 및 배포 컬렉션.</li>
+  <li><strong>URL:</strong> <code class="language-plaintext highlighter-rouge">https://conda-forge.org/</code></li>
+  <li>XXX: 이 섹션은 PEP 초안이 공개되면 Jaime가 요약할 예정입니다.</li>
+  <li>XXX: 수정된 <code class="language-plaintext highlighter-rouge">crossenv</code>를 사용합니다.</li>
+</ul>
+
+<h4 id="yocto-project">Yocto Project</h4>
+
+<ul>
+  <li><strong>설명:</strong> Yocto Project는 하드웨어 아키텍처에 관계없이 개발자가 맞춤형 Linux 기반 시스템을 생성하는 데 도움이 되는 오픈 소스 협업 프로젝트입니다.</li>
+  <li><strong>URL:</strong> <code class="language-plaintext highlighter-rouge">https://www.yoctoproject.org/</code></li>
+  <li>XXX: 메일링 리스트에 이메일을 보냈습니다.</li>
+  <li>TODO</li>
+</ul>
+
+<h4 id="buildroot">Buildroot</h4>
+
+<ul>
+  <li><strong>설명:</strong> Buildroot는 교차 컴파일을 통해 임베디드 Linux 시스템을 생성하는 간단하고 효율적이며 사용하기 쉬운 도구입니다.</li>
+  <li><strong>URL:</strong> <code class="language-plaintext highlighter-rouge">https://buildroot.org/</code></li>
+  <li>TODO</li>
+</ul>
+
+<h4 id="pyodide">Pyodide</h4>
+
+<ul>
+  <li><strong>설명:</strong> Pyodide는 WebAssembly를 기반으로 하는 브라우저 및 Node.js용 Python 배포판입니다.</li>
+  <li><strong>URL:</strong> <code class="language-plaintext highlighter-rouge">https://pyodide.org/en/stable/</code></li>
+  <li>XXX: Hood가 이 섹션을 검토/확장해야 합니다.</li>
+  <li>Pyodide는 Emscripten 툴체인을 사용하여 WebAssembly로 컴파일된 Python 배포판을 제공합니다.</li>
+  <li>이는 CPython 설치 및 일부 외부 구성 요소의 여러 측면을 패치합니다. 순수 Python 및 <code class="language-plaintext highlighter-rouge">wasm32/Emscripten</code> Wheel을 모두 지원하는 사용자 지정 패키지 관리자 <code class="language-plaintext highlighter-rouge">micropip</code>도 배포판의 일부로 제공됩니다. 이 외에도 선택된 서드 파티 패키지 세트가 포함된 리포지토리도 제공되며 기본적으로 활성화되어 있습니다.</li>
+</ul>
+
+<h4 id="beeware">Beeware</h4>
+
+<ul>
+  <li><strong>설명:</strong> BeeWare를 사용하면 Python으로 앱을 작성하고 여러 플랫폼에 릴리스할 수 있습니다.</li>
+  <li><strong>URL:</strong> <code class="language-plaintext highlighter-rouge">https://beeware.org/</code></li>
+  <li>TODO</li>
+</ul>
+
+<h4 id="python-for-android">python-for-android</h4>
+
+<ul>
+  <li><strong>설명:</strong> Python 애플리케이션을 Android APK로 전환.</li>
+  <li><strong>URL:</strong> <code class="language-plaintext highlighter-rouge">https://github.com/kivy/python-for-android</code></li>
+  <li><code class="language-plaintext highlighter-rouge">python-for-android</code>는 Android에 Python 앱을 패키징하는 도구입니다. 앱 및 해당 의존성을 포함하는 Python 배포판을 생성합니다.</li>
+  <li>순수 Python 의존성은 자동으로 일반적인 방식으로 처리되지만, 네이티브 의존성은 레시피(recipe)가 필요합니다. 인기 있는 의존성을 위한 레시피 세트가 제공되지만, 사용자는 다른 모든 네이티브 의존성에 대해 자체 레시피를 제공해야 합니다.</li>
+</ul>
+
+<h4 id="kivy-ios">kivy-ios</h4>
+
+<ul>
+  <li><strong>설명:</strong> iOS용 Python/Kivy/기타 라이브러리 컴파일을 위한 툴체인.</li>
+  <li><strong>URL:</strong> <code class="language-plaintext highlighter-rouge">https://github.com/kivy/kivy-ios</code></li>
+  <li><code class="language-plaintext highlighter-rouge">kivy-ios</code>는 iOS에 Python 앱을 패키징하는 도구입니다. 앱 및 해당 의존성을 포함하는 Python 배포판을 빌드하기 위한 툴체인과, 툴체인과 통합되는 Xcode 프로젝트를 생성하고 관리하기 위한 CLI를 제공합니다.</li>
+  <li>앱 의존성에 대해서는 <code class="language-plaintext highlighter-rouge">python-for-android</code> (Kivy 프로젝트에서 유지 관리)와 동일한 접근 방식을 사용합니다. 즉, 순수 Python 의존성은 자동으로 처리되지만, 네이티브 의존성은 레시피가 필요하며, 프로젝트는 인기 있는 의존성을 위한 레시피를 제공합니다.</li>
+</ul>
+
+<h4 id="aidlearning">AidLearning</h4>
+
+<ul>
+  <li><strong>설명:</strong> AI, Android, Linux, ARM: Android+Linux 통합 생태계를 기반으로 하는 AI 애플리케이션 개발 플랫폼.</li>
+  <li><strong>URL:</strong> <code class="language-plaintext highlighter-rouge">https://github.com/aidlearning/AidLearning-FrameWork</code></li>
+  <li>TODO</li>
+</ul>
+
+<h4 id="qpython">QPython</h4>
+
+<ul>
+  <li><strong>설명:</strong> QPython은 Android용 Python 엔진입니다.</li>
+  <li><strong>URL:</strong> <code class="language-plaintext highlighter-rouge">https://github.com/qpython-android/qpython</code></li>
+  <li>TODO</li>
+</ul>
+
+<h4 id="pyqtdeploy">pyqtdeploy</h4>
+
+<ul>
+  <li><strong>설명:</strong> <code class="language-plaintext highlighter-rouge">pyqtdeploy</code>는 PyQt 애플리케이션을 배포하기 위한 도구입니다.</li>
+  <li><strong>URL:</strong> <code class="language-plaintext highlighter-rouge">https://www.riverbankcomputing.com/software/pyqtdeploy/</code></li>
+  <li>TODO</li>
+</ul>
+
+<h4 id="chaquopy">Chaquopy</h4>
+
+<ul>
+  <li><strong>설명:</strong> Chaquopy는 Android 앱에 Python 구성 요소를 포함하는 데 필요한 모든 것을 제공합니다.</li>
+  <li><strong>URL:</strong> <code class="language-plaintext highlighter-rouge">https://chaquo.com/chaquopy/</code></li>
+  <li>TODO</li>
+</ul>
+
+<h4 id="edk-ii">EDK II</h4>
+
+<ul>
+  <li><strong>설명:</strong> EDK II는 UEFI 및 PI 사양을 위한 현대적이고 기능이 풍부한 교차 플랫폼 펌웨어 개발 환경입니다.</li>
+  <li><strong>URL:</strong> <code class="language-plaintext highlighter-rouge">https://github.com/tianocore/edk2-libc/tree/master/AppPkg/Applications/Python</code></li>
+  <li>TODO</li>
+</ul>
+
+<h4 id="activepython">ActivePython</h4>
+
+<ul>
+  <li><strong>설명:</strong> Windows, Linux, Mac OS X, Solaris, HP-UX 및 AIX에서 쉬운 설치와 교차 플랫폼 호환성에 중점을 둔 상업 등급의 품질 보증 Python 배포판.</li>
+  <li><strong>URL:</strong> <code class="language-plaintext highlighter-rouge">https://www.activestate.com/products/python/</code></li>
+  <li>TODO</li>
+</ul>
+
+<h4 id="termux">Termux</h4>
+
+<ul>
+  <li><strong>설명:</strong> Termux는 루팅이나 설정 없이 바로 작동하는 Android 터미널 에뮬레이터이자 Linux 환경 앱입니다.</li>
+  <li><strong>URL:</strong> <code class="language-plaintext highlighter-rouge">https://termux.dev/en/</code></li>
+  <li>TODO</li>
+</ul>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/719/" class="pagination--pager" title="[Active] PEP 719 - Python 3.13 Release Schedule
+">Previous</a>
+    
+    
+      <a href="/python/pep/721/" class="pagination--pager" title="[Final] PEP 721 - Using tarfile.data_filter for source distribution extraction
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

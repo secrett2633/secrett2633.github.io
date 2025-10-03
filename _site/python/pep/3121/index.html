@@ -1,0 +1,785 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 3121 - Extension Module Initialization and Finalization | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 3121: ‘Extension Module Initialization and Finalization’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 3121 - Extension Module Initialization and Finalization">
+<meta property="og:url" content="http://localhost:4000/python/pep/3121/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 3121: ‘Extension Module Initialization and Finalization’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T14:27:55+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T14:27:55+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/3121/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 3121 - Extension Module Initialization and Finalization">
+    <meta itemprop="description" content="Python Enhancement Proposal 3121: ‘Extension Module Initialization and Finalization’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T14:27:55+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T14:27:55+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 3121 - Extension Module Initialization and Finalization
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T14:27:55+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-3121--확장-모듈-초기화-및-종료">PEP 3121 – 확장 모듈 초기화 및 종료</a><ul><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#문제점-problems">문제점 (Problems)</a><ul><li><a href="#모듈-종료-module-finalization">모듈 종료 (Module Finalization)</a></li><li><a href="#진입점-이름-충돌-entry-point-name-conflicts">진입점 이름 충돌 (Entry point name conflicts)</a></li><li><a href="#진입점-시그니처-entry-point-signature">진입점 시그니처 (Entry point signature)</a></li><li><a href="#다중-인터프리터-multiple-interpreters">다중 인터프리터 (Multiple Interpreters)</a></li></ul></li><li><a href="#사양-specification">사양 (Specification)</a></li><li><a href="#예시-example">예시 (Example)</a></li><li><a href="#논의-discussion">논의 (Discussion)</a></li><li><a href="#참고-자료-references">참고 자료 (References)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-3121/">PEP 3121 - Extension Module Initialization and Finalization</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 27-Apr-2007</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-3121--확장-모듈-초기화-및-종료">PEP 3121 – 확장 모듈 초기화 및 종료</h1>
+
+<p><em>본 문서는 역사적 문서입니다. 최신 규범 문서는 <code class="language-plaintext highlighter-rouge">PyInit_modulename()</code> 및 <code class="language-plaintext highlighter-rouge">PyModuleDef</code>에서 확인할 수 있습니다.</em></p>
+
+<h2 id="개요-abstract">개요 (Abstract)</h2>
+
+<p>현재 확장 모듈(Extension Module)의 초기화 과정에는 몇 가지 문제점이 있습니다. 모듈에 대한 정리(cleanup) 기능이 없고, 진입점(entry point) 이름이 충돌을 일으킬 수 있으며, 진입 함수가 일반적인 호출 규칙을 따르지 않고, 다중 인터프리터(Multiple Interpreters)를 제대로 지원하지 못하고 있습니다. 이 PEP는 이러한 문제들을 해결하고자 합니다.</p>
+
+<h2 id="문제점-problems">문제점 (Problems)</h2>
+
+<h3 id="모듈-종료-module-finalization">모듈 종료 (Module Finalization)</h3>
+
+<p>현재 확장 모듈은 일반적으로 한 번 초기화된 후 “영원히” 존재합니다. 유일한 예외는 <code class="language-plaintext highlighter-rouge">Py_Finalize()</code>가 호출될 때인데, 이때 초기화 루틴이 두 번째로 호출됩니다. 이는 리소스 관리 관점에서 좋지 않습니다. 초기화가 호출될 때마다 메모리 및 다른 리소스가 할당될 수 있지만, 이를 회수할 방법이 없습니다. 결과적으로, 현재 Python이 할당한 모든 리소스를 완전히 해제할 방법이 없습니다.</p>
+
+<h3 id="진입점-이름-충돌-entry-point-name-conflicts">진입점 이름 충돌 (Entry point name conflicts)</h3>
+
+<p>현재 진입점은 <code class="language-plaintext highlighter-rouge">init&lt;module&gt;</code>이라고 명명됩니다. 이 이름은 <code class="language-plaintext highlighter-rouge">init&lt;something&gt;</code>과 같이 다른 심볼(symbol)과 충돌할 수 있습니다. 특히, 과거에 <code class="language-plaintext highlighter-rouge">initsocket</code>이 충돌을 일으킨 적이 있습니다 (이 특정 문제는 모듈 이름을 <code class="language-plaintext highlighter-rouge">_socket</code>으로 변경하면서 부수적으로 해결되었습니다).</p>
+
+<h3 id="진입점-시그니처-entry-point-signature">진입점 시그니처 (Entry point signature)</h3>
+
+<p>현재 진입점은 <code class="language-plaintext highlighter-rouge">void</code>를 반환하는 프로시저(procedure)입니다. 이는 일반적인 호출 규칙에서 벗어납니다. 호출자는 <code class="language-plaintext highlighter-rouge">PyErr_Occurred</code>를 확인해야만 초기화 중 오류가 발생했는지 여부를 알 수 있습니다. 진입점은 생성된 모듈인 <code class="language-plaintext highlighter-rouge">PyObject*</code>를 반환해야 하며, 예외 발생 시에는 <code class="language-plaintext highlighter-rouge">NULL</code>을 반환해야 합니다.</p>
+
+<h3 id="다중-인터프리터-multiple-interpreters">다중 인터프리터 (Multiple Interpreters)</h3>
+
+<p>현재 확장 모듈은 모든 인터프리터(Interpreter)에서 상태를 공유합니다. 이는 인터프리터 간에 바람직하지 않은 정보 누출(information leakage)을 초래할 수 있습니다. 하나의 스크립트가 확장 모듈 내의 객체를 영구적으로 손상시켜 다른 인터프리터의 모든 스크립트를 망가뜨릴 수 있습니다.</p>
+
+<h2 id="사양-specification">사양 (Specification)</h2>
+
+<p>모듈 초기화 루틴의 시그니처는 다음과 같이 변경됩니다.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">PyObject</span> <span class="o">*</span><span class="n">PyInit_</span><span class="o">&lt;</span><span class="n">modulename</span><span class="o">&gt;</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>초기화 루틴은 모듈이 임포트될 때 인터프리터당 한 번 호출됩니다. 이때마다 새로운 모듈 객체를 반환해야 합니다.</p>
+
+<p>C 변수에 모듈별 상태를 저장하기 위해, 각 모듈 객체는 해당 모듈에 의해서만 해석되는 메모리 블록을 포함하게 됩니다. 모듈에 사용되는 메모리 양은 모듈 생성 시점에 지정됩니다.</p>
+
+<p>초기화 함수 외에도 모듈은 여러 추가 콜백(callback) 함수를 구현할 수 있습니다. 이 함수들은 모듈의 <code class="language-plaintext highlighter-rouge">tp_traverse</code>, <code class="language-plaintext highlighter-rouge">tp_clear</code>, <code class="language-plaintext highlighter-rouge">tp_free</code> 함수가 호출될 때, 그리고 모듈이 다시 로드될 때(reloaded) 호출됩니다.</p>
+
+<p>전체 모듈 정의는 <code class="language-plaintext highlighter-rouge">struct PyModuleDef</code>에 통합됩니다.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">PyModuleDef</span><span class="p">{</span>
+    <span class="n">PyModuleDef_Base</span> <span class="n">m_base</span><span class="p">;</span>  <span class="cm">/* 인터프리터가 채울 필드 */</span>
+    <span class="n">Py_ssize_t</span> <span class="n">m_size</span><span class="p">;</span>        <span class="cm">/* 모듈별 데이터의 크기 */</span>
+    <span class="n">PyMethodDef</span> <span class="o">*</span><span class="n">m_methods</span><span class="p">;</span>
+    <span class="n">inquiry</span> <span class="n">m_reload</span><span class="p">;</span>
+    <span class="n">traverseproc</span> <span class="n">m_traverse</span><span class="p">;</span>
+    <span class="n">inquiry</span> <span class="n">m_clear</span><span class="p">;</span>
+    <span class="n">freefunc</span> <span class="n">m_free</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>모듈 생성은 선택적 <code class="language-plaintext highlighter-rouge">PyModuleDef*</code>를 기대하도록 변경됩니다. 모듈 상태는 널(null)로 초기화됩니다.</p>
+
+<p>각 모듈 메서드에는 모듈 객체가 첫 번째 매개변수로 전달됩니다. 모듈 데이터에 접근하기 위해 다음 함수가 제공됩니다.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span><span class="o">*</span> <span class="nf">PyModule_GetState</span><span class="p">(</span><span class="n">PyObject</span><span class="o">*</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>또한, <code class="language-plaintext highlighter-rouge">sys.modules</code>를 거치는 것보다 더 효율적으로 모듈을 찾기 위해 다음 함수가 제공됩니다.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">PyObject</span><span class="o">*</span> <span class="nf">PyState_FindModule</span><span class="p">(</span><span class="k">struct</span> <span class="n">PyModuleDef</span><span class="o">*</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>이 조회(lookup) 함수는 <code class="language-plaintext highlighter-rouge">m_base</code> 필드에 있는 인덱스를 사용하여 이름이 아닌 인덱스로 모듈을 찾습니다.</p>
+
+<p>모든 Python 객체는 Python 메모리 관리(memory management)를 통해 제어되어야 하므로, 타입 객체(type object) 자체에 메모리 관리되는 상태가 없는 경우를 제외하고 “정적(static)” 타입 객체의 사용은 권장되지 않습니다. 힙 타입(heap types)의 정의를 단순화하기 위해 새로운 메서드가 추가됩니다.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">PyTypeObject</span><span class="o">*</span> <span class="nf">PyType_Copy</span><span class="p">(</span><span class="n">PyTypeObject</span><span class="o">*</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h2 id="예시-example">예시 (Example)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">xxmodule.c</code>는 <code class="language-plaintext highlighter-rouge">initxx</code> 함수를 제거하고 다음 코드를 대신 추가하는 방식으로 변경됩니다.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">xxstate</span><span class="p">{</span>
+    <span class="n">PyObject</span> <span class="o">*</span><span class="n">ErrorObject</span><span class="p">;</span>
+    <span class="n">PyObject</span> <span class="o">*</span><span class="n">Xxo_Type</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="cp">#define xxstate(o) ((struct xxstate*)PyModule_GetState(o))
+</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">xx_traverse</span><span class="p">(</span><span class="n">PyObject</span> <span class="o">*</span><span class="n">m</span><span class="p">,</span> <span class="n">visitproc</span> <span class="n">v</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Py_VISIT</span><span class="p">(</span><span class="n">xxstate</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">ErrorObject</span><span class="p">);</span>
+    <span class="n">Py_VISIT</span><span class="p">(</span><span class="n">xxstate</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">Xxo_Type</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">xx_clear</span><span class="p">(</span><span class="n">PyObject</span> <span class="o">*</span><span class="n">m</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Py_CLEAR</span><span class="p">(</span><span class="n">xxstate</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">ErrorObject</span><span class="p">);</span>
+    <span class="n">Py_CLEAR</span><span class="p">(</span><span class="n">xxstate</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">Xxo_Type</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="k">struct</span> <span class="n">PyModuleDef</span> <span class="n">xxmodule</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">{},</span> <span class="cm">/* m_base */</span>
+    <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">xxstate</span><span class="p">),</span>
+    <span class="o">&amp;</span><span class="n">xx_methods</span><span class="p">,</span>
+    <span class="mi">0</span><span class="p">,</span>  <span class="cm">/* m_reload */</span>
+    <span class="n">xx_traverse</span><span class="p">,</span>
+    <span class="n">xx_clear</span><span class="p">,</span>
+    <span class="mi">0</span><span class="p">,</span>  <span class="cm">/* m_free - m_clear에서 모든 작업이 처리되므로 필요 없음 */</span>
+<span class="p">};</span>
+
+<span class="n">PyObject</span><span class="o">*</span> <span class="nf">PyInit_xx</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">PyObject</span> <span class="o">*</span><span class="n">res</span> <span class="o">=</span> <span class="n">PyModule_New</span><span class="p">(</span><span class="s">"xx"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">xxmodule</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">res</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+
+    <span class="n">xxstate</span><span class="p">(</span><span class="n">res</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">ErrorObject</span> <span class="o">=</span> <span class="n">PyErr_NewException</span><span class="p">(</span><span class="s">"xx.error"</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">xxstate</span><span class="p">(</span><span class="n">res</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">ErrorObject</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Py_DECREF</span><span class="p">(</span><span class="n">res</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">xxstate</span><span class="p">(</span><span class="n">res</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">XxoType</span> <span class="o">=</span> <span class="n">PyType_Copy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Xxo_Type</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">xxstate</span><span class="p">(</span><span class="n">res</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">Xxo_Type</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Py_DECREF</span><span class="p">(</span><span class="n">res</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="논의-discussion">논의 (Discussion)</h2>
+
+<p>Tim Peters는 [1]에서 PythonLabs가 한때 이러한 기능을 고려했으며, 이 PEP에서 현재 지원되지 않는 다음과 같은 추가적인 훅(hook)들을 언급했습니다.</p>
+
+<ul>
+  <li>모듈 객체가 <code class="language-plaintext highlighter-rouge">sys.modules</code>에서 삭제될 때</li>
+  <li><code class="language-plaintext highlighter-rouge">Py_Finalize</code>가 호출될 때</li>
+  <li>Python이 종료될 때</li>
+  <li>Python DLL이 언로드(unload)될 때 (Windows 전용)</li>
+</ul>
+
+<h2 id="참고-자료-references">참고 자료 (References)</h2>
+
+<p>[1] Tim Peters, 이러한 기능에 대한 이전 대화 보고서.
+    <a href="https://mail.python.org/pipermail/python-3000/2006-April/000726.html">https://mail.python.org/pipermail/python-3000/2006-April/000726.html</a></p>
+
+<h2 id="저작권-copyright">저작권 (Copyright)</h2>
+
+<p>이 문서는 퍼블릭 도메인(public domain)에 공개되었습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/3120/" class="pagination--pager" title="[Final] PEP 3120 - Using UTF-8 as the default source encoding
+">Previous</a>
+    
+    
+      <a href="/python/pep/3122/" class="pagination--pager" title="[Rejected] PEP 3122 - Delineation of the main module
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

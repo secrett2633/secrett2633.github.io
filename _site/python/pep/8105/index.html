@@ -1,0 +1,1012 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 8105 - 2024 Term Steering Council election | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 8105: ‘2024 Term Steering Council election’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 8105 - 2024 Term Steering Council election">
+<meta property="og:url" content="http://localhost:4000/python/pep/8105/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 8105: ‘2024 Term Steering Council election’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T19:34:28+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T19:34:28+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/8105/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 8105 - 2024 Term Steering Council election">
+    <meta itemprop="description" content="Python Enhancement Proposal 8105: ‘2024 Term Steering Council election’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T19:34:28+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T19:34:28+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 8105 - 2024 Term Steering Council election
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T19:34:28+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-8105--2024년-임기-steering-council-선거">PEP 8105 – 2024년 임기 Steering Council 선거</a><ul><li><a href="#초록-abstract">초록 (Abstract)</a></li><li><a href="#선거-관리-election-administration">선거 관리 (Election Administration)</a></li><li><a href="#일정-schedule">일정 (Schedule)</a></li><li><a href="#후보자-candidates">후보자 (Candidates)</a></li><li><a href="#유권자-명부-voter-roll">유권자 명부 (Voter Roll)</a></li><li><a href="#선거-구현-election-implementation">선거 구현 (Election Implementation)</a></li><li><a href="#연장된-선거-구현-extended-election-implementation">연장된 선거 구현 (Extended Election Implementation)</a></li><li><a href="#결과-results">결과 (Results)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li><li><a href="#전체-유권자-명부-complete-voter-roll">전체 유권자 명부 (Complete Voter Roll)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-8105/">PEP 8105 - 2024 Term Steering Council election</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Informational</td>
+        <td><strong>작성일:</strong> 23-Oct-2023</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h2 id="pep-8105--2024년-임기-steering-council-선거">PEP 8105 – 2024년 임기 Steering Council 선거</h2>
+
+<p><strong>작성자:</strong> Ee Durbin «ee at python.org»
+<strong>후원자:</strong> Thomas Wouters «thomas at python.org»
+<strong>상태:</strong> 최종 (Final)
+<strong>유형:</strong> 정보 제공 (Informational)
+<strong>주제:</strong> 거버넌스 (Governance)
+<strong>생성일:</strong> 2023년 10월 23일</p>
+
+<hr />
+
+<h3 id="초록-abstract">초록 (Abstract)</h3>
+<p>이 문서는 PEP 13에 명시된 바와 같이 Python Steering Council의 2023년 선거(2024년 임기, 즉 Python 3.13) 일정 및 기타 세부 사항을 설명합니다.</p>
+
+<h3 id="선거-관리-election-administration">선거 관리 (Election Administration)</h3>
+<p>Steering Council은 Python Software Foundation의 인프라 책임자인 Ee Durbin을 선거 관리자로 임명했습니다.</p>
+
+<h3 id="일정-schedule">일정 (Schedule)</h3>
+<p>후보 지명 기간은 2주였으며, 이어서 2주간의 투표 기간이 있었습니다.</p>
+
+<ul>
+  <li><strong>후보 지명 기간:</strong> 2023년 11월 9일 ~ 2023년 11월 22일 AoE (Anywhere on Earth)</li>
+  <li><strong>투표 기간:</strong> 2023년 11월 27일 ~ 2023년 12월 11일 AoE</li>
+</ul>
+
+<h3 id="후보자-candidates">후보자 (Candidates)</h3>
+<p>후보자는 핵심 팀원(core team member)의 지명을 받아야 합니다. 후보자가 핵심 팀원인 경우, 스스로를 지명할 수 있습니다.</p>
+
+<p><strong>지명된 후보자 (이름 가나다순):</strong></p>
+<ul>
+  <li>Barry Warsaw</li>
+  <li>Donghee Na (나동희)</li>
+  <li>Emily Morehouse</li>
+  <li>Gregory P. Smith</li>
+  <li>Mariatta</li>
+  <li>Pablo Galindo Salgado</li>
+  <li>Thomas Wouters</li>
+  <li>Victor Stinner</li>
+</ul>
+
+<p><strong>철회된 지명:</strong> 없음</p>
+
+<h3 id="유권자-명부-voter-roll">유권자 명부 (Voter Roll)</h3>
+<p>모든 활동 중인 Python 핵심 팀원(active Python core team members)은 투표 자격이 있습니다. 활동 상태는 PEP 13에 설명된 대로 결정되며, python/voters 소프트웨어를 통해 구현됩니다.</p>
+
+<p>투표 용지는 이번 선거의 Python Voter Roll을 기반으로 배포되었습니다. 이 파일은 개인 이메일 주소를 포함하고 있어 공개되지 않지만, 모든 유권자 이름 목록이 포함된 전체 유권자 명부(Complete Voter Roll)는 확인할 수 있습니다.</p>
+
+<h3 id="선거-구현-election-implementation">선거 구현 (Election Implementation)</h3>
+<p>선거는 Helios Voting Service를 사용하여 진행되었습니다.</p>
+
+<p><strong>설정 (Configuration):</strong></p>
+<ul>
+  <li><strong>짧은 이름 (Short name):</strong> <code class="language-plaintext highlighter-rouge">2024-python-steering-council</code></li>
+  <li><strong>이름 (Name):</strong> <code class="language-plaintext highlighter-rouge">2024 Python Steering Council Election</code></li>
+  <li><strong>설명 (Description):</strong> PEP 13에 명시된 Python Steering Council 선거. 2024년 임기를 위한 Steering Council 선거입니다.</li>
+  <li><strong>유형 (type):</strong> <code class="language-plaintext highlighter-rouge">Election</code></li>
+  <li><strong>유권자 별칭 사용 (Use voter aliases):</strong> [X] (체크됨)</li>
+  <li><strong>답변 순서 무작위화 (Randomize answer order):</strong> [X] (체크됨)</li>
+  <li><strong>비공개 (Private):</strong> [X] (체크됨)</li>
+  <li><strong>도움 이메일 주소 (Help Email Address):</strong> <code class="language-plaintext highlighter-rouge">psf-election@python.org</code></li>
+  <li><strong>투표 시작 (Voting starts at):</strong> 2023년 11월 27일 12:00 UTC</li>
+  <li><strong>투표 종료 (Voting ends at):</strong> 2023년 12월 11일 12:00 UTC</li>
+</ul>
+
+<p>이는 다음과 같은 선거를 만듭니다:</p>
+<ul>
+  <li>투표는 공개되지 않으며, 유권자 명부에 있는 사람만 참여할 수 있습니다.</li>
+  <li>투표 시작 시 투표 용지가 이메일로 발송됩니다.</li>
+  <li>후보자는 편향을 피하기 위해 무작위 순서로 제시됩니다.</li>
+  <li>유권자의 신원과 투표 용지는 암호화 기술의 발전으로부터 보호됩니다.</li>
+</ul>
+
+<p><strong>질문 (Questions):</strong></p>
+<ul>
+  <li><strong>질문 1:</strong> 0개에서 - (승인) 답변 중에서 선택하십시오. 결과 유형: 절대 (absolute)
+    <ul>
+      <li><strong>질문:</strong> Python Steering Council을 위한 후보자를 선택하십시오.</li>
+      <li><strong>답변 #1 - #N:</strong> 후보자 섹션의 후보자들</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="연장된-선거-구현-extended-election-implementation">연장된 선거 구현 (Extended Election Implementation)</h3>
+<p>발표된 일정과 초기 선거 구현 간의 불일치로 인해, 초기 선거에서 투표권을 행사하지 못한 유권자들에게 추가적인 날짜를 제공하기 위해 연장된 선거가 개최되었습니다.</p>
+
+<p>초기 선거 결과는 연장된 선거 결과와 합산되었습니다. 초기 선거에서 투표하지 않은 유권자만 투표할 수 있었습니다.</p>
+
+<p>이 선거도 Helios Voting Service를 사용하여 진행되었습니다.</p>
+
+<p><strong>설정 (Configuration):</strong></p>
+<ul>
+  <li><strong>짧은 이름 (Short name):</strong> <code class="language-plaintext highlighter-rouge">2024-python-steering-council-extension</code></li>
+  <li><strong>이름 (Name):</strong> <code class="language-plaintext highlighter-rouge">2024 Python Steering Council Election Extension</code></li>
+  <li><strong>설명 (Description):</strong> PEP 13에 명시된 Python Steering Council 선거. 2024년 임기를 위한 Steering Council 선거입니다.</li>
+  <li><strong>유형 (type):</strong> <code class="language-plaintext highlighter-rouge">Election</code></li>
+  <li><strong>유권자 별칭 사용 (Use voter aliases):</strong> [X] (체크됨)</li>
+  <li><strong>답변 순서 무작위화 (Randomize answer order):</strong> [X] (체크됨)</li>
+  <li><strong>비공개 (Private):</strong> [X] (체크됨)</li>
+  <li><strong>도움 이메일 주소 (Help Email Address):</strong> <code class="language-plaintext highlighter-rouge">psf-election@python.org</code></li>
+  <li><strong>투표 시작 (Voting starts at):</strong> 2023년 12월 11일 12:00 UTC</li>
+  <li><strong>투표 종료 (Voting ends at):</strong> 2023년 12월 12일 12:00 UTC</li>
+</ul>
+
+<p>이는 다음과 같은 선거를 만듭니다:</p>
+<ul>
+  <li>투표는 공개되지 않으며, 유권자 명부에 있는 사람만 참여할 수 있습니다.</li>
+  <li>투표 시작 시 투표 용지가 이메일로 발송됩니다.</li>
+  <li>후보자는 편향을 피하기_위해 무작위 순서로 제시됩니다.</li>
+  <li>유권자의 신원과 투표 용지는 암호화 기술의 발전으로부터 보호됩니다.</li>
+</ul>
+
+<p><strong>질문 (Questions):</strong></p>
+<ul>
+  <li><strong>질문 1:</strong> 0개에서 - (승인) 답변 중에서 선택하십시오. 결과 유형: 절대 (absolute)
+    <ul>
+      <li><strong>질문:</strong> Python Steering Council을 위한 후보자를 선택하십시오.</li>
+      <li><strong>답변 #1 - #N:</strong> 후보자 섹션의 후보자들</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="결과-results">결과 (Results)</h3>
+<p>자격 있는 유권자 87명 중 68명이 투표했습니다.</p>
+
+<p><strong>최다 득표자 5명:</strong></p>
+<ul>
+  <li>Pablo Galindo Salgado</li>
+  <li>Gregory P. Smith</li>
+  <li>Barry Warsaw</li>
+  <li>Emily Morehouse</li>
+  <li>Thomas Wouters</li>
+</ul>
+
+<p>PEP 13에 정의된 이해 상충(conflict of interest)은 관찰되지 않았습니다.</p>
+
+<p><strong>전체 득표수는 다음과 같습니다:</strong></p>
+
+<p><strong>초기 선거 (Initial Election)</strong>
+자격 있는 유권자 87명 중 56명이 투표했습니다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">후보자</th>
+      <th style="text-align: left">득표수</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Barry Warsaw</td>
+      <td style="text-align: left">35</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Donghee Na</td>
+      <td style="text-align: left">27</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Emily Morehouse</td>
+      <td style="text-align: left">38</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Gregory P. Smith</td>
+      <td style="text-align: left">42</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Mariatta</td>
+      <td style="text-align: left">25</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Pablo Galindo Salgado</td>
+      <td style="text-align: left">48</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Thomas Wouters</td>
+      <td style="text-align: left">30</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Victor Stinner</td>
+      <td style="text-align: left">27</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>연장된 선거 (Election Extension)</strong>
+초기 선거에서 투표권을 행사하지 못한 자격 있는 유권자 31명 중 12명이 투표했습니다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">후보자</th>
+      <th style="text-align: left">득표수</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Barry Warsaw</td>
+      <td style="text-align: left">8</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Donghee Na</td>
+      <td style="text-align: left">5</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Emily Morehouse</td>
+      <td style="text-align: left">8</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Gregory P. Smith</td>
+      <td style="text-align: left">10</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Mariatta</td>
+      <td style="text-align: left">5</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Pablo Galindo Salgado</td>
+      <td style="text-align: left">12</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Thomas Wouters</td>
+      <td style="text-align: left">10</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Victor Stinner</td>
+      <td style="text-align: left">8</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>합산 결과 (Combined)</strong>
+자격 있는 유권자 87명 중 68명이 투표했습니다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">후보자</th>
+      <th style="text-align: left">득표수</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Barry Warsaw</td>
+      <td style="text-align: left">43</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Donghee Na</td>
+      <td style="text-align: left">32</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Emily Morehouse</td>
+      <td style="text-align: left">46</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Gregory P. Smith</td>
+      <td style="text-align: left">52</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Mariatta</td>
+      <td style="text-align: left">30</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Pablo Galindo Salgado</td>
+      <td style="text-align: left">60</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Thomas Wouters</td>
+      <td style="text-align: left">40</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Victor Stinner</td>
+      <td style="text-align: left">35</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="저작권-copyright">저작권 (Copyright)</h3>
+<p>이 문서는 퍼블릭 도메인(public domain)에 공개되었습니다.</p>
+
+<h3 id="전체-유권자-명부-complete-voter-roll">전체 유권자 명부 (Complete Voter Roll)</h3>
+<p><strong>활동 중인 Python 핵심 개발자 (Active Python core developers):</strong></p>
+
+<ul>
+  <li>Adam Turner</li>
+  <li>Alex Gaynor</li>
+  <li>Alex Waygood</li>
+  <li>Alexander Belopolsky</li>
+  <li>Alyssa Coghlan</li>
+  <li>Ammar Askar</li>
+  <li>Andrew Svetlov</li>
+  <li>Antoine Pitrou</li>
+  <li>Barney Gale</li>
+  <li>Barry Warsaw</li>
+  <li>Batuhan Taskaya</li>
+  <li>Benjamin Peterson</li>
+  <li>Berker Peksağ</li>
+  <li>Brandt Bucher</li>
+  <li>Brett Cannon</li>
+  <li>Brian Curtin</li>
+  <li>C.A.M. Gerlach</li>
+  <li>Carl Friedrich Bolz-Tereick</li>
+  <li>Carl Meyer</li>
+  <li>Carol Willing</li>
+  <li>Cheryl Sabella</li>
+  <li>Chris Withers</li>
+  <li>Christian Heimes</li>
+  <li>Dennis Sweeney</li>
+  <li>Dino Viehland</li>
+  <li>Donghee Na</li>
+  <li>Emily Morehouse</li>
+  <li>Éric Araujo</li>
+  <li>Eric Snow</li>
+  <li>Eric V. Smith</li>
+  <li>Erlend Egeberg Aasland</li>
+  <li>Ethan Furman</li>
+  <li>Ezio Melotti</li>
+  <li>Facundo Batista</li>
+  <li>Filipe Lains</li>
+  <li>Georg Brandl</li>
+  <li>Giampaolo Rodolà</li>
+  <li>Gregory P. Smith</li>
+  <li>Guido van Rossum</li>
+  <li>Hugo van Kemenade</li>
+  <li>Hynek Schlawack</li>
+  <li>Inada Naoki</li>
+  <li>Irit Katriel</li>
+  <li>Ivan Levkivskyi</li>
+  <li>Jason R. Coombs</li>
+  <li>Jelle Zijlstra</li>
+  <li>Jeremy Kloth</li>
+  <li>Joannah Nanjekye</li>
+  <li>Julien Palard</li>
+  <li>Karthikeyan Singaravelan</li>
+  <li>Ken Jin</li>
+  <li>Kumar Aditya</li>
+  <li>Kurt B. Kaiser</li>
+  <li>Kushal Das</li>
+  <li>Larry Hastings</li>
+  <li>Lukasz Langa</li>
+  <li>Lysandros Nikolaou</li>
+  <li>Marc-André Lemburg</li>
+  <li>Mariatta</li>
+  <li>Mark Dickinson</li>
+  <li>Mark Shannon</li>
+  <li>Nathaniel J. Smith</li>
+  <li>Ned Deily</li>
+  <li>Neil Schemenauer</li>
+  <li>Pablo Galindo</li>
+  <li>Paul Ganssle</li>
+  <li>Paul Moore</li>
+  <li>Petr Viktorin</li>
+  <li>Pradyun Gedam</li>
+  <li>R. David Murray</li>
+  <li>Raymond Hettinger</li>
+  <li>Ronald Oussoren</li>
+  <li>Senthil Kumaran</li>
+  <li>Serhiy Storchaka</li>
+  <li>Shantanu Jain</li>
+  <li>Stefan Behnel</li>
+  <li>Stéphane Wirtel</li>
+  <li>Steve Dower</li>
+  <li>Tal Einat</li>
+  <li>Terry Jan Reedy</li>
+  <li>Thomas Wouters</li>
+  <li>Tim Golden</li>
+  <li>Tim Peters</li>
+  <li>Victor Stinner</li>
+  <li>Vinay Sajip</li>
+  <li>Yury Selivanov</li>
+  <li>Zachary Ware</li>
+</ul>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/8104/" class="pagination--pager" title="[Final] PEP 8104 - 2023 Term Steering Council election
+">Previous</a>
+    
+    
+      <a href="/python/pep/8106/" class="pagination--pager" title="[Final] PEP 8106 - 2025 Term Steering Council election
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

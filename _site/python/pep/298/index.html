@@ -1,0 +1,771 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Withdrawn] PEP 298 - The Locked Buffer Interface | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 298: ‘The Locked Buffer Interface’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Withdrawn] PEP 298 - The Locked Buffer Interface">
+<meta property="og:url" content="http://localhost:4000/python/pep/298/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 298: ‘The Locked Buffer Interface’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T18:06:42+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T18:06:42+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/298/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Withdrawn] PEP 298 - The Locked Buffer Interface">
+    <meta itemprop="description" content="Python Enhancement Proposal 298: ‘The Locked Buffer Interface’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T18:06:42+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T18:06:42+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Withdrawn] PEP 298 - The Locked Buffer Interface
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T18:06:42+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#개요">개요</a></li><li><a href="#목표">목표</a><ul><li><a href="#pep-298--잠금된-버퍼-인터페이스">PEP 298 – 잠금된 버퍼 인터페이스</a></li><li><a href="#요약-abstract">요약 (Abstract)</a></li><li><a href="#명세-specification">명세 (Specification)</a></li><li><a href="#구현-implementation">구현 (Implementation)</a></li><li><a href="#하위-호환성-backward-compatibility">하위 호환성 (Backward Compatibility)</a></li><li><a href="#참조-구현-reference-implementation">참조 구현 (Reference Implementation)</a></li><li><a href="#추가-설명의견-additional-notescomments">추가 설명/의견 (Additional Notes/Comments)</a></li><li><a href="#커뮤니티-피드백-community-feedback">커뮤니티 피드백 (Community Feedback)</a></li><li><a href="#참고-자료-references">참고 자료 (References)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0298/">PEP 298 - The Locked Buffer Interface</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Withdrawn</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 26-Jul-2002</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>PEP 298 – 잠금된 버퍼 인터페이스</p>
+
+<h2 id="개요">개요</h2>
+<p>이 문서는 Python 2.3 버전에서 제안된 ‘잠금된 버퍼 인터페이스(Locked Buffer Interface)’에 대한 PEP(Python Enhancement Proposal)를 한국어 사용자가 이해하기 쉽도록 번역 및 정리한 것입니다.</p>
+
+<h2 id="목표">목표</h2>
+<p>Python 개발자들이 이 PEP의 제안 내용, 도입 배경, 그리고 실제 Python 사용에 미치는 영향을 명확하게 이해할 수 있도록 돕습니다.</p>
+
+<hr />
+
+<h3 id="pep-298--잠금된-버퍼-인터페이스">PEP 298 – 잠금된 버퍼 인터페이스</h3>
+
+<ul>
+  <li><strong>작성자:</strong> Thomas Heller</li>
+  <li><strong>상태:</strong> 철회됨 (Withdrawn)</li>
+  <li><strong>유형:</strong> 표준 트랙 (Standards Track)</li>
+  <li><strong>생성일:</strong> 2002년 7월 26일</li>
+  <li><strong>Python 버전:</strong> 2.3</li>
+</ul>
+
+<h3 id="요약-abstract">요약 (Abstract)</h3>
+
+<p>이 PEP는 ‘버퍼 인터페이스(buffer interface)’의 확장으로 ‘잠금된 버퍼 인터페이스’를 제안합니다. 이 인터페이스는 Python 2.2 이하 버전에서 정의된 ‘기존’ 버퍼 인터페이스의 단점을 보완하며, 다음 의미를 가집니다.</p>
+
+<ul>
+  <li>검색된 포인터의 생명 주기는 클라이언트가 명확하게 정의하고 제어합니다.</li>
+  <li>버퍼 크기는 <code class="language-plaintext highlighter-rouge">size_t</code> 데이터 타입으로 반환되어, <code class="language-plaintext highlighter-rouge">sizeof(int) != sizeof(void *)</code>인 플랫폼에서도 대용량 버퍼에 접근할 수 있습니다.
+    <ul>
+      <li>(Guido의 의견: 이 두 번째 내용은 ‘기존’ 버퍼 인터페이스에도 새로운 플래그 비트를 도입하여 변경할 수 있는 부분인 것 같습니다.)</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="명세-specification">명세 (Specification)</h3>
+
+<p>잠금된 버퍼 인터페이스는 이 인터페이스를 구현하기로 선택한 모든 Python 객체의 내부 메모리 블록에 대한 크기와 포인터를 반환하는 새로운 함수들을 노출합니다.</p>
+
+<p>객체로부터 버퍼를 검색하는 것은 해당 객체를 잠금(locked) 상태로 만듭니다. 이 상태에서는 버퍼가 해제되거나(freed), 크기가 변경되거나(resized), 재할당(reallocated)될 수 없습니다. 버퍼가 더 이상 사용되지 않으면, 잠금된 버퍼 인터페이스의 다른 함수를 호출하여 버퍼를 해제(release)함으로써 객체를 다시 잠금 해제(unlocked)해야 합니다.</p>
+
+<p>만약 객체가 생명 주기 동안 버퍼의 크기를 변경하거나 재할당하지 않는다면, 이 해제 함수는 <code class="language-plaintext highlighter-rouge">NULL</code>일 수 있습니다. 이 함수를 호출하지 않으면(만약 <code class="language-plaintext highlighter-rouge">NULL</code>이 아니라면) 프로그래밍 오류이며 예기치 않은 결과를 초래할 수 있습니다.</p>
+
+<p>잠금된 버퍼 인터페이스는 기존 버퍼 인터페이스에 있던 메모리 세그먼트 모델을 생략하며, 단일 메모리 블록만 노출할 수 있습니다. 이 메모리 블록은 전역 인터프리터 록(GIL, Global Interpreter Lock)을 보유하지 않고도 접근할 수 있습니다.</p>
+
+<h3 id="구현-implementation">구현 (Implementation)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Include/object.h</code>에 새로운 플래그를 정의합니다.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* PyBufferProcs contains bf_acquirelockedreadbuffer, bf_acquirelockedwritebuffer, and bf_releaselockedbuffer */</span>
+<span class="cp">#define Py_TPFLAGS_HAVE_LOCKEDBUFFER (1L&lt;&lt;15)
+</span></code></pre></div></div>
+
+<p>이 플래그는 <code class="language-plaintext highlighter-rouge">Py_TPFLAGS_DEFAULT</code>에 포함됩니다.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define Py_TPFLAGS_DEFAULT ( \
+.... Py_TPFLAGS_HAVE_LOCKEDBUFFER | \
+.... 0)
+</span></code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">Include/object.h</code>의 <code class="language-plaintext highlighter-rouge">PyBufferProcs</code> 구조체를 새로운 필드로 확장합니다.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">typedef</span> <span class="nf">size_t</span> <span class="p">(</span><span class="o">*</span><span class="n">acquirelockedreadbufferproc</span><span class="p">)(</span><span class="n">PyObject</span> <span class="o">*</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span> <span class="o">**</span><span class="p">);</span>
+<span class="k">typedef</span> <span class="nf">size_t</span> <span class="p">(</span><span class="o">*</span><span class="n">acquirelockedwritebufferproc</span><span class="p">)(</span><span class="n">PyObject</span> <span class="o">*</span><span class="p">,</span> <span class="kt">void</span> <span class="o">**</span><span class="p">);</span>
+<span class="k">typedef</span> <span class="nf">void</span> <span class="p">(</span><span class="o">*</span><span class="n">releaselockedbufferproc</span><span class="p">)(</span><span class="n">PyObject</span> <span class="o">*</span><span class="p">);</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="n">getreadbufferproc</span> <span class="n">bf_getreadbuffer</span><span class="p">;</span>
+    <span class="n">getwritebufferproc</span> <span class="n">bf_getwritebuffer</span><span class="p">;</span>
+    <span class="n">getsegcountproc</span> <span class="n">bf_getsegcount</span><span class="p">;</span>
+    <span class="n">getcharbufferproc</span> <span class="n">bf_getcharbuffer</span><span class="p">;</span>
+    <span class="cm">/* locked buffer interface functions */</span>
+    <span class="n">acquirelockedreadbufferproc</span> <span class="n">bf_acquirelockedreadbuffer</span><span class="p">;</span>
+    <span class="n">acquirelockedwritebufferproc</span> <span class="n">bf_acquirelockedwritebuffer</span><span class="p">;</span>
+    <span class="n">releaselockedbufferproc</span> <span class="n">bf_releaselockedbuffer</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">PyBufferProcs</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>객체의 타입에서 <code class="language-plaintext highlighter-rouge">Py_TPFLAGS_HAVE_LOCKEDBUFFER</code> 플래그가 설정되어 있으면 새로운 필드가 존재합니다. <code class="language-plaintext highlighter-rouge">Py_TPFLAGS_HAVE_LOCKEDBUFFER</code> 플래그는 <code class="language-plaintext highlighter-rouge">Py_TPFLAGS_HAVE_GETCHARBUFFER</code> 플래그를 의미합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">acquirelockedreadbufferproc</code> 및 <code class="language-plaintext highlighter-rouge">acquirelockedwritebufferproc</code> 함수는 성공 시 메모리 블록의 크기를 바이트 단위로 반환하고, 전달된 <code class="language-plaintext highlighter-rouge">void *</code> 포인터를 채웁니다. 이 함수들이 실패하면(오류가 발생하거나 메모리 블록이 노출되지 않는 경우) <code class="language-plaintext highlighter-rouge">void *</code> 포인터를 <code class="language-plaintext highlighter-rouge">NULL</code>로 설정하고 예외를 발생시켜야 합니다. 이 경우 반환 값은 정의되지 않으며 사용해서는 안 됩니다.</p>
+
+<p>이 함수들이 성공적으로 호출되면, 결국 원래 객체를 인자로 제공하여 <code class="language-plaintext highlighter-rouge">releaselockedbufferproc</code> 호출을 통해 버퍼를 해제해야 합니다. <code class="language-plaintext highlighter-rouge">releaselockedbufferproc</code>는 실패할 수 없습니다. 내부 잠금 카운터를 실제로 유지하는 객체의 경우, <code class="language-plaintext highlighter-rouge">releaselockedbufferproc</code> 함수가 너무 자주 호출되어 음수 잠금 카운터가 되면 치명적인 오류가 됩니다.</p>
+
+<p>‘기존’ 버퍼 인터페이스와 유사하게, 이러한 함수들 중 어떤 것도 <code class="language-plaintext highlighter-rouge">NULL</code>로 설정될 수 있지만, <code class="language-plaintext highlighter-rouge">acquireread/writelockedbufferproc</code> 함수가 구현된 경우 <code class="language-plaintext highlighter-rouge">releaselockedbufferproc</code> 함수도 구현하는 것이 강력히 권장됩니다(비록 아무것도 하지 않더라도). 이는 확장 작성자가 <code class="language-plaintext highlighter-rouge">NULL</code> 값을 확인하고 호출하지 않는 것을 방지하기 위함입니다.</p>
+
+<p>이 함수들은 직접 호출되지 않고, <code class="language-plaintext highlighter-rouge">Include/abstract.h</code>에 선언된 편의 함수(convenience functions)를 통해 호출됩니다.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">PyObject_AcquireLockedReadBuffer</span><span class="p">(</span><span class="n">PyObject</span> <span class="o">*</span><span class="n">obj</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span> <span class="o">**</span><span class="n">buffer</span><span class="p">,</span> <span class="kt">size_t</span> <span class="o">*</span><span class="n">buffer_len</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">PyObject_AcquireLockedWriteBuffer</span><span class="p">(</span><span class="n">PyObject</span> <span class="o">*</span><span class="n">obj</span><span class="p">,</span> <span class="kt">void</span> <span class="o">**</span><span class="n">buffer</span><span class="p">,</span> <span class="kt">size_t</span> <span class="o">*</span><span class="n">buffer_len</span><span class="p">);</span>
+<span class="kt">void</span> <span class="nf">PyObject_ReleaseLockedBuffer</span><span class="p">(</span><span class="n">PyObject</span> <span class="o">*</span><span class="n">obj</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>앞의 두 함수는 성공 시 0을 반환하고, <code class="language-plaintext highlighter-rouge">buffer</code>를 메모리 위치로, <code class="language-plaintext highlighter-rouge">buffer_len</code>을 메모리 블록의 길이를 바이트 단위로 설정합니다. 실패하거나 <code class="language-plaintext highlighter-rouge">obj</code>에 의해 잠금된 버퍼 인터페이스가 구현되지 않은 경우 -1을 반환하고 예외를 설정합니다. 마지막 함수는 아무것도 반환하지 않으며 실패할 수 없습니다.</p>
+
+<h3 id="하위-호환성-backward-compatibility">하위 호환성 (Backward Compatibility)</h3>
+
+<p>이 제안이 구현되면 <code class="language-plaintext highlighter-rouge">PyBufferProcs</code> 구조체의 크기가 변경되지만, 타입의 <code class="language-plaintext highlighter-rouge">tp_flags</code> 슬롯을 사용하여 추가 필드가 있는지 여부를 확인할 수 있습니다.</p>
+
+<h3 id="참조-구현-reference-implementation">참조 구현 (Reference Implementation)</h3>
+
+<p>구현은 SourceForge 패치 관리자에 <code class="language-plaintext highlighter-rouge">https://bugs.python.org/issue652857</code>로 업로드되었습니다.</p>
+
+<h3 id="추가-설명의견-additional-notescomments">추가 설명/의견 (Additional Notes/Comments)</h3>
+
+<p>Python <code class="language-plaintext highlighter-rouge">string</code>, <code class="language-plaintext highlighter-rouge">unicode string</code>, <code class="language-plaintext highlighter-rouge">mmap</code> 객체 및 <code class="language-plaintext highlighter-rouge">array</code> 객체는 잠금된 버퍼 인터페이스를 노출할 것입니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">mmap</code> 및 <code class="language-plaintext highlighter-rouge">array</code> 객체는 버퍼가 활성화된 동안 실제로 잠금 상태에 들어가지만, <code class="language-plaintext highlighter-rouge">string</code> 및 <code class="language-plaintext highlighter-rouge">unicode</code> 객체에는 필요하지 않습니다. 잠금된 <code class="language-plaintext highlighter-rouge">array</code> 객체의 크기 조정은 허용되지 않으며 예외를 발생시킵니다. 잠금된 <code class="language-plaintext highlighter-rouge">mmap</code> 객체를 닫는 것이 오류인지 아니면 잠금 카운터가 0에 도달할 때까지 연기될지는 구현 세부 사항입니다.</p>
+
+<p><strong>Guido의 권장 사항:</strong></p>
+
+<p>“그러나 대부분의 내장 타입(예: <code class="language-plaintext highlighter-rouge">string</code>, <code class="language-plaintext highlighter-rouge">bytes</code>)이 해제 기능을 구현하지 않는다면, 확장이 버퍼를 해제하는 것을 잊어도 작동하는 것처럼 보이는 것이 너무 쉽다는 점이 여전히 매우 우려됩니다. 저는 적어도 일부 내장 타입이 카운터를 사용하여 <code class="language-plaintext highlighter-rouge">acquire/release</code> 기능을 구현하고, 객체가 삭제될 때 카운터가 0인지 어서트(assert)할 것을 권장합니다. 어서트가 실패하면 누군가 객체를 해제하지 않고 객체에 대한 참조를 <code class="language-plaintext highlighter-rouge">DECREF</code>한 것입니다. (규칙은 객체를 <code class="language-plaintext highlighter-rouge">acquire</code>한 동안 객체에 대한 참조를 소유해야 한다는 것입니다.)</p>
+
+<p>문자열의 경우, 문자열 객체가 카운터를 저장하기 위해 4바이트 더 커져야 하므로 비실용적일 수 있습니다. 하지만 새로운 <code class="language-plaintext highlighter-rouge">bytes</code> 객체 (PEP 296)는 카운터를 쉽게 구현할 수 있고, <code class="language-plaintext highlighter-rouge">array</code> 객체도 마찬가지입니다. 그렇게 하면 프로토콜의 올바른 사용을 테스트할 기회가 충분할 것입니다.”</p>
+
+<h3 id="커뮤니티-피드백-community-feedback">커뮤니티 피드백 (Community Feedback)</h3>
+
+<p>Greg Ewing은 잠금된 버퍼 인터페이스가 전혀 필요하지 않다고 의심하며, 포인터를 사용할 때마다 다시 가져오면 일반 버퍼 인터페이스를 사용할 수 있다고 생각했습니다. 하지만 <code class="language-plaintext highlighter-rouge">Py_DECREF()</code>와 같이 무해해 보이는 Python API 호출조차 임의의 Python 코드를 실행할 수 있기 때문에 이는 위험해 보입니다.</p>
+
+<p>이 제안의 첫 번째 버전에는 해제 함수가 없었지만, <code class="language-plaintext highlighter-rouge">mmap</code> 및 <code class="language-plaintext highlighter-rouge">array</code> 객체는 <code class="language-plaintext highlighter-rouge">mmap</code> 객체가 잠기지 않으면 언제든지 닫힐 수 있고 <code class="language-plaintext highlighter-rouge">array</code> 객체가 버퍼의 크기를 변경하거나 재할당할 수 있기 때문에 이를 구현할 수 없었을 것이라는 점이 밝혀졌습니다.</p>
+
+<p>이 PEP는 작성자 외에는 아무도 필요로 하지 않기 때문에 아마도 거부될 것입니다.</p>
+
+<h3 id="참고-자료-references">참고 자료 (References)</h3>
+
+<ul>
+  <li>The buffer interface <code class="language-plaintext highlighter-rouge">https://mail.python.org/pipermail/python-dev/2000-October/009974.html</code></li>
+</ul>
+
+<h3 id="저작권-copyright">저작권 (Copyright)</h3>
+
+<p>이 문서는 퍼블릭 도메인(public domain)으로 지정되었습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/297/" class="pagination--pager" title="[Rejected] PEP 297 - Support for System Upgrades
+">Previous</a>
+    
+    
+      <a href="/python/pep/299/" class="pagination--pager" title="[Rejected] PEP 299 - Special main() function in modules
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

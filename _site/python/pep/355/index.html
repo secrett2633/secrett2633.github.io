@@ -1,0 +1,1218 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Rejected] PEP 355 - Path - Object oriented filesystem paths | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 355: ‘Path - Object oriented filesystem paths’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Rejected] PEP 355 - Path - Object oriented filesystem paths">
+<meta property="og:url" content="http://localhost:4000/python/pep/355/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 355: ‘Path - Object oriented filesystem paths’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T01:12:42+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T01:12:42+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/355/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Rejected] PEP 355 - Path - Object oriented filesystem paths">
+    <meta itemprop="description" content="Python Enhancement Proposal 355: ‘Path - Object oriented filesystem paths’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T01:12:42+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T01:12:42+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Rejected] PEP 355 - Path - Object oriented filesystem paths
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T01:12:42+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#개요">개요</a></li><li><a href="#거부-고지-rejection-notice">거부 고지 (Rejection Notice)</a></li><li><a href="#abstract-요약">Abstract (요약)</a></li><li><a href="#background-배경">Background (배경)</a></li><li><a href="#motivation-동기">Motivation (동기)</a></li><li><a href="#rationale-설계-원칙">Rationale (설계 원칙)</a></li><li><a href="#specification-세부-사양">Specification (세부 사양)</a></li><li><a href="#replacing-older-functions-with-the-path-class-기존-함수를-path-클래스로-대체하기">Replacing older functions with the Path class (기존 함수를 Path 클래스로 대체하기)</a></li><li><a href="#deprecations-비활성화-권고">Deprecations (비활성화 권고)</a></li><li><a href="#closed-issues-해결된-문제">Closed Issues (해결된 문제)</a></li><li><a href="#open-issues-미해결-문제">Open Issues (미해결 문제)</a></li><li><a href="#reference-implementation-참조-구현">Reference Implementation (참조 구현)</a></li><li><a href="#examples-예시">Examples (예시)</a></li><li><a href="#references-and-footnotes-참조-및-각주">References and Footnotes (참조 및 각주)</a></li><li><a href="#copyright-저작권">Copyright (저작권)</a></li><li><a href="#references-and-footnotes-참조-및-각주-1">References and Footnotes (참조 및 각주)</a></li><li><a href="#copyright-저작권-1">Copyright (저작권)</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0355/">PEP 355 - Path - Object oriented filesystem paths</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Rejected</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 24-Jan-2006</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>PEP 355 – Path: 객체 지향 파일 시스템 경로 (거부됨)</p>
+
+<h2 id="개요">개요</h2>
+<p>이 문서는 Python Enhancement Proposal (PEP) 355의 내용을 한국어로 번역하고 요약한 것입니다. PEP 355는 파일 시스템 경로를 객체 지향 방식으로 처리하기 위한 새로운 <code class="language-plaintext highlighter-rouge">Path</code> 클래스를 <code class="language-plaintext highlighter-rouge">os</code> 모듈에 추가할 것을 제안했습니다. 하지만 이 PEP는 최종적으로 거부되었습니다.</p>
+
+<h2 id="거부-고지-rejection-notice">거부 고지 (Rejection Notice)</h2>
+<p>이 PEP는 현재 형태로 거부되었습니다. 제안된 <code class="language-plaintext highlighter-rouge">Path</code> 클래스는 너무 많은 기능을 포함하는 “만물상(kitchen sink)” 형태였으며, 경로를 사용하는 모든 기능을 단일 클래스의 메서드로 구현하는 방식은 안티패턴으로 간주되었습니다. (예: <code class="language-plaintext highlighter-rouge">open()</code>이나 <code class="language-plaintext highlighter-rouge">execfile()</code> 같은 기능은 왜 포함되지 않았는가?) <code class="language-plaintext highlighter-rouge">str</code>을 상속받는 것은 특히 나쁜 아이디어였습니다. 많은 문자열(string) 작업이 경로(path)에 적용될 때 의미가 없기 때문입니다. 이 PEP는 오랫동안 보류되어 왔으며, 논의가 간헐적으로 재점화되었으나, 이제 이 PEP를 종결할 때가 되었다고 결정되었습니다. 덜 과장된 제안이라면 더 받아들여질 수도 있을 것입니다.</p>
+
+<h2 id="abstract-요약">Abstract (요약)</h2>
+<p>이 PEP는 <code class="language-plaintext highlighter-rouge">os</code> 모듈에 새로운 <code class="language-plaintext highlighter-rouge">Path</code> 클래스를 추가하여 경로를 객체 지향 방식으로 처리할 것을 제안합니다. 또한, 관련 함수의 “약한” Deprecation (비활성화 권고)에 대해서도 논의하고 권고합니다.</p>
+
+<h2 id="background-배경">Background (배경)</h2>
+<p>이 PEP에서 제시된 아이디어는 최근의 것이 아니라, 수년 동안 Python 커뮤니티에서 논의되어 왔습니다. 많은 이들이 <code class="language-plaintext highlighter-rouge">os.path</code> 모듈에서 제공하는 파일 경로 조작 API가 부적절하다고 느꼈습니다. <code class="language-plaintext highlighter-rouge">Path</code> 객체에 대한 첫 번째 제안은 2001년 Just van Rossum이 python-dev에서 제기했습니다. 2003년, Jason Orendorff는 경로를 객체로 표현하는 최초의 공개 구현인 “path module” 버전 1.0을 발표했습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">path</code> 모듈은 빠르게 인기를 얻었고, <code class="language-plaintext highlighter-rouge">path</code> 모듈을 Python 표준 라이브러리에 포함시키려는 수많은 시도가 있었습니다.</p>
+
+<p>이 PEP는 <code class="language-plaintext highlighter-rouge">path</code> 모듈에 대해 사람들이 표현한 아이디어와 제안을 요약하고, 수정된 버전이 표준 라이브러리에 포함되어야 한다고 제안합니다.</p>
+
+<h2 id="motivation-동기">Motivation (동기)</h2>
+<p>파일 시스템 경로를 다루는 것은 모든 프로그래밍 언어에서 흔한 작업이며, Python과 같은 고급 언어에서는 매우 일반적입니다. 이 작업에 대한 좋은 지원이 필요한 이유는 다음과 같습니다:</p>
+
+<ul>
+  <li>거의 모든 프로그램이 파일을 액세스하기 위해 경로를 사용합니다. 자주 수행되는 작업은 가능한 한 직관적이고 쉽게 수행될 수 있어야 합니다.</li>
+  <li>이는 Python을 복잡한 셸 스크립트를 대체하기에 더 좋은 언어로 만듭니다.</li>
+  <li>현재 Python은 경로를 처리하기 위해 여러 모듈에 흩어져 있는 많은 함수들을 가지고 있습니다. 이로 인해 초보자와 숙련된 개발자 모두에게 올바른 메서드를 선택하기 어렵습니다.</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">Path</code> 클래스는 현재의 일반적인 방식에 비해 다음과 같은 개선 사항을 제공합니다:</p>
+
+<ul>
+  <li>하나의 “통합된(unified)” 객체가 이전 함수의 모든 기능을 제공합니다.</li>
+  <li><strong>Subclassability (하위 클래스화 가능성)</strong>: <code class="language-plaintext highlighter-rouge">Path</code> 객체는 파일 시스템 경로 외의 다른 경로를 지원하도록 확장될 수 있습니다. 프로그래머는 새로운 API를 배울 필요 없이 <code class="language-plaintext highlighter-rouge">Path</code>에 대한 지식을 재사용하여 확장된 클래스를 다룰 수 있습니다.</li>
+  <li>모든 관련 기능이 한곳에 있기 때문에, 올바른 접근 방식을 배우기 쉽고, 여러 모듈을 뒤져서 올바른 함수를 찾을 필요가 없습니다.</li>
+  <li>Python은 객체 지향 언어입니다. 파일, <code class="language-plaintext highlighter-rouge">datetime</code>, 소켓(socket)과 마찬가지로 경로는 객체이며, 단순히 함수에 전달되는 문자열이 아닙니다. <code class="language-plaintext highlighter-rouge">Path</code> 객체는 본질적으로 Pythonic한 아이디어입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Path</code>는 속성(properties)을 활용합니다. 속성은 더 읽고 쉬운 코드를 만듭니:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> if imgpath.ext == 'jpg':
+     jpegdecode(imgpath)
+</code></pre></div>    </div>
+    <p>이것은 다음보다 낫습니다:</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> if os.path.splitexit(imgpath)[1] == 'jpg':
+     jpegdecode(imgpath)
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="rationale-설계-원칙">Rationale (설계 원칙)</h2>
+<p>다음은 설계의 주요 요점입니다:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Path</code>는 <code class="language-plaintext highlighter-rouge">str</code>을 상속하므로, 문자열 경로명을 기대하는 모든 코드는 수정될 필요가 없으며 기존 코드가 손상되지 않습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Path</code> 객체는 <code class="language-plaintext highlighter-rouge">Path.cwd()</code> 클래스 메서드를 사용하거나, 경로를 나타내는 문자열로 클래스를 인스턴스화하거나, <code class="language-plaintext highlighter-rouge">Path(".")</code>와 동등한 기본 생성자를 사용하여 생성할 수 있습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Path</code>는 일반적인 경로명 조작, 패턴 확장, 패턴 일치(matching) 및 복사를 포함한 다른 고수준 파일 작업을 제공합니다. 기본적으로 <code class="language-plaintext highlighter-rouge">Path</code>는 파일 내용 조작을 제외한 모든 경로 관련 기능을 제공합니다. 파일 내용 조작에는 파일 객체가 더 적합합니다.</li>
+  <li>플랫폼 비호환성은 시스템별 메서드를 인스턴스화하지 않음으로써 처리됩니다.</li>
+</ul>
+
+<h2 id="specification-세부-사양">Specification (세부 사양)</h2>
+<p><code class="language-plaintext highlighter-rouge">Path</code> 클래스는 다음과 같은 공개 인터페이스를 정의합니다 (참조 구현에서 docstring을 추출하고 간결하게 줄였습니다. 자세한 내용은 참조 구현을 참조하십시오).</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Path</span><span class="p">(</span><span class="nb">str</span><span class="p">):</span>
+    <span class="c1"># Special Python methods:
+</span>    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">Path</span>
+        <span class="sh">"""</span><span class="s">
+        *args를 연결하여 새 Path 객체를 생성합니다.
+        *args는 Path 객체 또는 문자열만 포함할 수 있습니다.
+        *args가 비어 있으면 Path(os.curdir)가 생성됩니다.
+        </span><span class="sh">"""</span>
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">more</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">__radd__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span> <span class="bp">...</span>
+
+    <span class="c1"># Alternative constructor.
+</span>    <span class="k">def</span> <span class="nf">cwd</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span> <span class="bp">...</span>
+
+    <span class="c1"># Operations on path strings:
+</span>    <span class="k">def</span> <span class="nf">abspath</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">Path</span>
+        <span class="sh">"""</span><span class="s">자신의 절대 경로를 새 Path 객체로 반환합니다.</span><span class="sh">"""</span>
+    <span class="k">def</span> <span class="nf">normcase</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">normpath</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">realpath</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">expanduser</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">expandvars</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">basename</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">expand</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">splitpath</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+        <span class="sh">"""</span><span class="s">p.splitpath() -&gt; (p.parent, p.name)을 반환합니다.</span><span class="sh">"""</span>
+    <span class="k">def</span> <span class="nf">stripext</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">Path</span>
+        <span class="sh">"""</span><span class="s">p.stripext() -&gt; 경로에서 하나의 파일 확장자를 제거합니다.</span><span class="sh">"""</span>
+    <span class="k">def</span> <span class="nf">splitunc</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="p">...</span> <span class="c1"># 각주 [1] 참조
+</span>    <span class="k">def</span> <span class="nf">splitall</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">relpath</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">relpathto</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">dest</span><span class="p">):</span> <span class="bp">...</span>
+
+    <span class="c1"># Properties about the path:
+</span>    <span class="n">parent</span> <span class="o">=&gt;</span> <span class="n">Path</span>
+        <span class="sh">"""</span><span class="s">이 Path의 부모 디렉토리를 새 Path 객체로 반환합니다.</span><span class="sh">"""</span>
+    <span class="n">name</span> <span class="o">=&gt;</span> <span class="nb">str</span>
+        <span class="sh">"""</span><span class="s">전체 경로 없이 파일 또는 디렉토리의 이름을 반환합니다.</span><span class="sh">"""</span>
+    <span class="n">ext</span> <span class="o">=&gt;</span> <span class="nb">str</span>
+        <span class="sh">"""</span><span class="s">파일 확장자 또는 Path가 확장자 없는 파일이나 디렉토리를 참조하는 경우 빈 문자열.</span><span class="sh">"""</span>
+    <span class="n">drive</span> <span class="o">=&gt;</span> <span class="nb">str</span>
+        <span class="sh">"""</span><span class="s">드라이브 지정자. 드라이브 지정자를 사용하지 않는 시스템에서는 항상 비어 있습니다.</span><span class="sh">"""</span>
+    <span class="n">namebase</span> <span class="o">=&gt;</span> <span class="nb">str</span>
+        <span class="sh">"""</span><span class="s">path.name과 동일하지만 하나의 파일 확장자가 제거됩니다.</span><span class="sh">"""</span>
+    <span class="n">uncshare</span> <span class="c1"># 각주 [1] 참조
+</span>
+    <span class="c1"># Operations that return lists of paths:
+</span>    <span class="k">def</span> <span class="nf">listdir</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">pattern</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">dirs</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">pattern</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">files</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">pattern</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">walk</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">pattern</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">walkdirs</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">pattern</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">walkfiles</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">pattern</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">match</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nb">bool</span>
+        <span class="sh">"""</span><span class="s">self.name이 주어진 패턴과 일치하면 True를 반환합니다.</span><span class="sh">"""</span>
+    <span class="k">def</span> <span class="nf">matchcase</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nb">bool</span>
+        <span class="sh">"""</span><span class="s">match()와 유사하지만 대소문자를 구분하지 않는 파일 시스템에서도 대소문자 구분을 보장합니다.</span><span class="sh">"""</span>
+    <span class="k">def</span> <span class="nf">glob</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
+
+    <span class="c1"># Methods for retrieving information about the filesystem path:
+</span>    <span class="k">def</span> <span class="nf">exists</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">isabs</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">isdir</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">isfile</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">islink</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">ismount</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">samefile</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span> <span class="p">...</span> <span class="c1"># 각주 [1] 참조
+</span>    <span class="k">def</span> <span class="nf">atime</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="p">...</span> <span class="sh">"""</span><span class="s">파일의 마지막 접근 시간.</span><span class="sh">"""</span>
+    <span class="k">def</span> <span class="nf">mtime</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="p">...</span> <span class="sh">"""</span><span class="s">파일의 마지막 수정 시간.</span><span class="sh">"""</span>
+    <span class="k">def</span> <span class="nf">ctime</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="p">...</span> <span class="sh">"""</span><span class="s">
+        일부 시스템(예: Unix)에서는 마지막 변경 시간,
+        다른 시스템(예: Windows)에서는 Path의 생성 시간인 시스템의 ctime을 반환합니다.
+        </span><span class="sh">"""</span>
+    <span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">access</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span> <span class="p">...</span> <span class="c1"># 각주 [1] 참조
+</span>    <span class="k">def</span> <span class="nf">stat</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">lstat</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">statvfs</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="p">...</span> <span class="c1"># 각주 [1] 참조
+</span>    <span class="k">def</span> <span class="nf">pathconf</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span> <span class="p">...</span> <span class="c1"># 각주 [1] 참조
+</span>
+    <span class="c1"># Methods for manipulating information about the filesystem path.
+</span>    <span class="k">def</span> <span class="nf">utime</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="bp">None</span>
+    <span class="k">def</span> <span class="nf">chmod</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="bp">None</span>
+    <span class="k">def</span> <span class="nf">chown</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">uid</span><span class="p">,</span> <span class="n">gid</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="bp">None</span> <span class="c1"># 각주 [1] 참조
+</span>    <span class="k">def</span> <span class="nf">rename</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">new</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="bp">None</span>
+    <span class="k">def</span> <span class="nf">renames</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">new</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="bp">None</span>
+
+    <span class="c1"># Create/delete operations on directories
+</span>    <span class="k">def</span> <span class="nf">mkdir</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="mo">0o777</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">makedirs</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="mo">0o777</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">rmdir</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">removedirs</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+
+    <span class="c1"># Modifying operations on files
+</span>    <span class="k">def</span> <span class="nf">touch</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">unlink</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+
+    <span class="c1"># Modifying operations on links
+</span>    <span class="k">def</span> <span class="nf">link</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">newpath</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">symlink</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">newlink</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">readlink</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">readlinkabs</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+
+    <span class="c1"># High-level functions from shutil
+</span>    <span class="k">def</span> <span class="nf">copyfile</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">dst</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">copymode</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">dst</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">copystat</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">dst</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">dst</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">copy2</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">dst</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">copytree</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">symlinks</span> <span class="o">=</span> <span class="bp">True</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">dst</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">rmtree</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">ignore_errors</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">onerror</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span> <span class="bp">...</span>
+
+    <span class="c1"># Special stuff from os
+</span>    <span class="k">def</span> <span class="nf">chroot</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="p">...</span> <span class="c1"># 각주 [1] 참조
+</span>    <span class="k">def</span> <span class="nf">startfile</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="p">...</span> <span class="c1"># 각주 [1] 참조
+</span></code></pre></div></div>
+<p>각주: 이 메서드는 모든 플랫폼에서 사용 가능하다고 보장되지 않습니다.</p>
+
+<h2 id="replacing-older-functions-with-the-path-class-기존-함수를-path-클래스로-대체하기">Replacing older functions with the Path class (기존 함수를 <code class="language-plaintext highlighter-rouge">Path</code> 클래스로 대체하기)</h2>
+<p>이 섹션에서 “a ==&gt; b”는 b가 a를 대체할 수 있음을 의미합니다.
+다음 예제에서는 <code class="language-plaintext highlighter-rouge">from path import Path</code>로 <code class="language-plaintext highlighter-rouge">Path</code> 클래스가 임포트되었다고 가정합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">os.path.join</code> 대체:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="nf">getcwd</span><span class="p">(),</span> <span class="sh">"</span><span class="s">foobar</span><span class="sh">"</span><span class="p">)</span>    <span class="o">==&gt;</span> <span class="nc">Path</span><span class="p">(</span><span class="n">Path</span><span class="p">.</span><span class="nf">cwd</span><span class="p">(),</span> <span class="sh">"</span><span class="s">foobar</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="sh">"</span><span class="s">foo</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">bar</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">baz</span><span class="sh">"</span><span class="p">)</span>      <span class="o">==&gt;</span> <span class="nc">Path</span><span class="p">(</span><span class="sh">"</span><span class="s">foo</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">bar</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">baz</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">os.path.splitext</code> 대체:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fname</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Python2.4.tar.gz</span><span class="sh">"</span>
+<span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="nf">splitext</span><span class="p">(</span><span class="n">fname</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>            <span class="o">==&gt;</span> <span class="n">fname</span> <span class="o">=</span> <span class="nc">Path</span><span class="p">(</span><span class="sh">"</span><span class="s">Python2.4.tar.gz</span><span class="sh">"</span><span class="p">)</span>
+                                          <span class="n">fname</span><span class="p">.</span><span class="n">ext</span>
+</code></pre></div></div>
+<p>두 부분을 모두 원한다면:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fname</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Python2.4.tar.gz</span><span class="sh">"</span>
+<span class="n">base</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="nf">splitext</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>   <span class="o">==&gt;</span> <span class="n">fname</span> <span class="o">=</span> <span class="nc">Path</span><span class="p">(</span><span class="sh">"</span><span class="s">Python2.4.tar.gz</span><span class="sh">"</span><span class="p">)</span>
+                                          <span class="n">base</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">fname</span><span class="p">.</span><span class="n">namebase</span><span class="p">,</span> <span class="n">fname</span><span class="p">.</span><span class="n">ext</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">glob.glob</code> 대체:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lib_dir</span> <span class="o">=</span> <span class="sh">"</span><span class="s">/lib</span><span class="sh">"</span>
+<span class="n">libs</span> <span class="o">=</span> <span class="n">glob</span><span class="p">.</span><span class="nf">glob</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">lib_dir</span><span class="p">,</span> <span class="sh">"</span><span class="s">*s.o</span><span class="sh">"</span><span class="p">))</span> <span class="o">==&gt;</span> <span class="n">lib_dir</span> <span class="o">=</span> <span class="nc">Path</span><span class="p">(</span><span class="sh">"</span><span class="s">/lib</span><span class="sh">"</span><span class="p">)</span>
+                                                    <span class="n">libs</span> <span class="o">=</span> <span class="n">lib_dir</span><span class="p">.</span><span class="nf">files</span><span class="p">(</span><span class="sh">"</span><span class="s">*.so</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="deprecations-비활성화-권고">Deprecations (비활성화 권고)</h2>
+<p>이 모듈을 표준 라이브러리에 도입하면 여러 기존 모듈 및 함수의 “약한” 비활성화 권고가 필요합니다. 이 모듈과 함수들은 너무 널리 사용되므로, <code class="language-plaintext highlighter-rouge">DeprecationWarning</code>을 생성하는 방식으로 완전히 비활성화할 수는 없습니다. 여기서 “약한 비활성화 권고”는 문서에만 명시하는 것을 의미합니다.</p>
+
+<p>아래 표는 비활성화 권고되어야 할 기존 기능을 나열합니다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Path method/property</th>
+      <th style="text-align: left">Deprecates function</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">normcase()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.path.normcase()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">normpath()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.path.normpath()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">realpath()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.path.realpath()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">expanduser()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.path.expanduser()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">expandvars()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.path.expandvars()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">parent</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.path.dirname()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">name</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.path.basename()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">splitpath()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.path.split()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">drive</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.path.splitdrive()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ext</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.path.splitext()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">splitunc()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.path.splitunc()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">__new__()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.path.join()</code>, <code class="language-plaintext highlighter-rouge">os.curdir</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">listdir()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.listdir()</code> <code class="language-plaintext highlighter-rouge">[fnmatch.filter()]</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">match()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">fnmatch.fnmatch()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">matchcase()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">fnmatch.fnmatchcase()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">glob()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">glob.glob()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">exists()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.path.exists()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">isabs()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.path.isabs()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">isdir()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.path.isdir()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">isfile()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.path.isfile()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">islink()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.path.islink()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ismount()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.path.ismount()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">samefile()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.path.samefile()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">atime()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.path.getatime()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ctime()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.path.getctime()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">mtime()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.path.getmtime()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">size()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.path.getsize()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">cwd()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.getcwd()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">access()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.access()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">stat()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.stat()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">lstat()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.lstat()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">statvfs()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.statvfs()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">pathconf()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.pathconf()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">utime()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.utime()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">chmod()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.chmod()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">chown()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.chown()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">rename()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.rename()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">renames()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.renames()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">mkdir()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.mkdir()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">makedirs()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.makedirs()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">rmdir()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.rmdir()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">removedirs()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.removedirs()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">remove()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.remove()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">unlink()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.unlink()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">link()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.link()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">symlink()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.symlink()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">readlink()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.readlink()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">chroot()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.chroot()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">startfile()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.startfile()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">copyfile()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">shutil.copyfile()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">copymode()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">shutil.copymode()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">copystat()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">shutil.copystat()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">copy()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">shutil.copy()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">copy2()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">shutil.copy2()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">copytree()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">shutil.copytree()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">move()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">shutil.move()</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">rmtree()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">shutil.rmtree()</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><code class="language-plaintext highlighter-rouge">Path</code> 클래스는 <code class="language-plaintext highlighter-rouge">os.path</code>, <code class="language-plaintext highlighter-rouge">shutil</code>, <code class="language-plaintext highlighter-rouge">fnmatch</code>, <code class="language-plaintext highlighter-rouge">glob</code> 전체와 <code class="language-plaintext highlighter-rouge">os</code> 모듈의 상당 부분을 비활성화 권고합니다.</p>
+
+<h2 id="closed-issues-해결된-문제">Closed Issues (해결된 문제)</h2>
+<p>이 PEP가 python-dev에 처음 등장한 이후 여러 논쟁적인 문제가 해결되었습니다:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">__div__()</code> 메서드가 제거되었습니다. <code class="language-plaintext highlighter-rouge">/</code>(나누기) 연산자를 오버로딩하는 것은 “지나친 마법(too much magic)”일 수 있으며, 경로 연결이 나누기로 보일 수 있습니다. 필요하다면 BDFL(Benevolent Dictator For Life)의 결정에 따라 나중에 다시 추가될 수 있습니다. 대신 <code class="language-plaintext highlighter-rouge">__new__()</code>는 <code class="language-plaintext highlighter-rouge">Path</code>와 문자열 객체 모두를 받아들이는 <code class="language-plaintext highlighter-rouge">*args</code> 인수를 받게 되었습니다. <code class="language-plaintext highlighter-rouge">*args</code>는 <code class="language-plaintext highlighter-rouge">os.path.join()</code>을 사용하여 연결되며, 이 함수는 <code class="language-plaintext highlighter-rouge">Path</code> 객체를 구성하는 데 사용됩니다. 이러한 변경으로 문제가 있던 <code class="language-plaintext highlighter-rouge">joinpath()</code> 메서드는 쓸모없어져 제거되었습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">getatime()/atime</code>, <code class="language-plaintext highlighter-rouge">getctime()/ctime</code>, <code class="language-plaintext highlighter-rouge">getmtime()/mtime</code>, <code class="language-plaintext highlighter-rouge">getsize()/size</code> 메서드와 속성은 서로 중복되었습니다. 이들은 <code class="language-plaintext highlighter-rouge">atime()</code>, <code class="language-plaintext highlighter-rouge">ctime()</code>, <code class="language-plaintext highlighter-rouge">mtime()</code>, <code class="language-plaintext highlighter-rouge">size()</code>로 병합되었습니다. 이들이 속성 대신 메서드인 이유는 예상치 못하게 변경될 가능성이 있기 때문입니다. 다음 예제는 항상 어설션(assertion)을 통과한다고 보장할 수 없습니다:
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p</span> <span class="o">=</span> <span class="nc">Path</span><span class="p">(</span><span class="sh">"</span><span class="s">foobar</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="nf">size</span><span class="p">()</span>
+<span class="k">assert</span> <span class="n">p</span><span class="p">.</span><span class="nf">size</span><span class="p">()</span> <span class="o">==</span> <span class="n">s</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="open-issues-미해결-문제">Open Issues (미해결 문제)</h2>
+<p>Jason Orendorff의 <code class="language-plaintext highlighter-rouge">path</code> 모듈의 일부 기능은 생략되었습니다:</p>
+
+<ul>
+  <li>경로를 여는 함수는 내장 <code class="language-plaintext highlighter-rouge">open()</code> 함수로 더 잘 처리됩니다.</li>
+  <li>전체 파일을 읽고 쓰는 함수는 파일 객체의 <code class="language-plaintext highlighter-rouge">read()</code> 및 <code class="language-plaintext highlighter-rouge">write()</code> 메서드로 더 잘 처리됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">chdir()</code> 함수는 포함할 가치가 있을 수 있습니다.</li>
+  <li>비활성화 권고(deprecation) 일정이 설정되어야 합니다. <code class="language-plaintext highlighter-rouge">Path</code>는 얼마나 많은 기능을 구현해야 할까요? 기존 기능 중 얼마나 많은 부분을 언제 비활성화 권고해야 할까요?</li>
+  <li>이름은 분명히 “path” 또는 “Path”여야 하지만, 어디에 위치해야 할까요? 자체 모듈에 있을까요, 아니면 <code class="language-plaintext highlighter-rouge">os</code>에 있을까요?</li>
+  <li><code class="language-plaintext highlighter-rouge">Path</code>가 <code class="language-plaintext highlighter-rouge">str</code> 또는 <code class="language-plaintext highlighter-rouge">unicode</code>를 상속하기 때문에, 다음과 같은 비마법적(non-magic) 공개 메서드가 <code class="language-plaintext highlighter-rouge">Path</code> 객체에서 사용 가능합니다:
+<code class="language-plaintext highlighter-rouge">capitalize()</code>, <code class="language-plaintext highlighter-rouge">center()</code>, <code class="language-plaintext highlighter-rouge">count()</code>, <code class="language-plaintext highlighter-rouge">decode()</code>, <code class="language-plaintext highlighter-rouge">encode()</code>, <code class="language-plaintext highlighter-rouge">endswith()</code>, <code class="language-plaintext highlighter-rouge">expandtabs()</code>, <code class="language-plaintext highlighter-rouge">find()</code>, <code class="language-plaintext highlighter-rouge">index()</code>, <code class="language-plaintext highlighter-rouge">isalnum()</code>, <code class="language-plaintext highlighter-rouge">isalpha()</code>, <code class="language-plaintext highlighter-rouge">isdigit()</code>, <code class="language-plaintext highlighter-rouge">islower()</code>, <code class="language-plaintext highlighter-rouge">isspace()</code>, <code class="language-plaintext highlighter-rouge">istitle()</code>, <code class="language-plaintext highlighter-rouge">isupper()</code>, <code class="language-plaintext highlighter-rouge">join()</code>, <code class="language-plaintext highlighter-rouge">ljust()</code>, <code class="language-plaintext highlighter-rouge">lower()</code>, <code class="language-plaintext highlighter-rouge">lstrip()</code>, <code class="language-plaintext highlighter-rouge">replace()</code>, <code class="language-plaintext highlighter-rouge">rfind()</code>, <code class="language-plaintext highlighter-rouge">rindex()</code>, <code class="language-plaintext highlighter-rouge">rjust()</code>, <code class="language-plaintext highlighter-rouge">rsplit()</code>, <code class="language-plaintext highlighter-rouge">rstrip()</code>, <code class="language-plaintext highlighter-rouge">split()</code>, <code class="language-plaintext highlighter-rouge">splitlines()</code>, <code class="language-plaintext highlighter-rouge">startswith()</code>, <code class="language-plaintext highlighter-rouge">strip()</code>, <code class="language-plaintext highlighter-rouge">swapcase()</code>, <code class="language-plaintext highlighter-rouge">title()</code>, <code class="language-plaintext highlighter-rouge">translate()</code>, <code class="language-plaintext highlighter-rouge">upper()</code>, <code class="language-plaintext highlighter-rouge">zfill()</code>
+python-dev에서는 이러한 상속이 합리적인지에 대해 논쟁이 있었습니다. 대부분의 논의자들은 파일 시스템 경로의 맥락에서 대부분의 문자열 메서드가 의미가 없으며, 단지 불필요한 부담일 뿐이라고 말했습니다. 다른 의견은 문자열을 상속하는 것이 매우 편리하며, <code class="language-plaintext highlighter-rouge">Path</code> 객체에 대해 코드를 “그냥 작동하도록” 만들 수 있어서 적응할 필요가 없다는 것이었습니다.
+문제 중 하나는 Python 수준에서 객체가 <code class="language-plaintext highlighter-rouge">str</code> 또는 <code class="language-plaintext highlighter-rouge">unicode</code>를 상속하지 않는 한, 내장 함수 <code class="language-plaintext highlighter-rouge">open()</code> (및 문자열 또는 버퍼를 기대하는 다른 내장 함수)에 전달할 수 있을 만큼 “문자열과 유사하게” 만들 방법이 없다는 것입니다. 따라서 문자열을 상속하지 않으려면 CPython 코어를 변경해야 합니다.</li>
+  <li>이 새로운 모듈이 대체하려는 함수와 모듈들 (<code class="language-plaintext highlighter-rouge">os.path</code>, <code class="language-plaintext highlighter-rouge">shutil</code>, <code class="language-plaintext highlighter-rouge">fnmatch</code>, <code class="language-plaintext highlighter-rouge">glob</code>, 그리고 <code class="language-plaintext highlighter-rouge">os</code>의 일부)은 하위 호환성을 유지하기 위해 미래의 Python 버전에서도 오랫동안 사용 가능할 것으로 예상됩니다.</li>
+</ul>
+
+<h2 id="reference-implementation-참조-구현">Reference Implementation (참조 구현)</h2>
+<p>현재 <code class="language-plaintext highlighter-rouge">Path</code> 클래스는 표준 라이브러리 모듈인 <code class="language-plaintext highlighter-rouge">fnmatch</code>, <code class="language-plaintext highlighter-rouge">glob</code>, <code class="language-plaintext highlighter-rouge">os</code>, <code class="language-plaintext highlighter-rouge">os.path</code>, <code class="language-plaintext highlighter-rouge">shutil</code>에 대한 얇은 래퍼(thin wrapper)로 구현되어 있습니다. 이 PEP의 의도는 앞서 언급된 모듈의 기능을 <code class="language-plaintext highlighter-rouge">Path</code>로 옮기고, 이들을 비활성화 권고하는 것입니다.</p>
+
+<p>자세한 내용과 구현은 다음을 참조하십시오:
+http://wiki.python.org/moin/PathModule</p>
+
+<h2 id="examples-예시">Examples (예시)</h2>
+<p>이 섹션에서 “a ==&gt; b”는 b가 a를 대체할 수 있음을 의미합니다.</p>
+
+<p>디렉토리 내의 모든 Python 파일을 실행 가능하게 만들기:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">DIR</span> <span class="o">=</span> <span class="sh">'</span><span class="s">/usr/home/guido/bin</span><span class="sh">'</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="p">.</span><span class="nf">listdir</span><span class="p">(</span><span class="n">DIR</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">f</span><span class="p">.</span><span class="nf">endswith</span><span class="p">(</span><span class="sh">'</span><span class="s">.py</span><span class="sh">'</span><span class="p">):</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">DIR</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+        <span class="n">os</span><span class="p">.</span><span class="nf">chmod</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="mo">0o755</span><span class="p">)</span>
+<span class="o">==&gt;</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="nc">Path</span><span class="p">(</span><span class="sh">'</span><span class="s">/usr/home/guido/bin</span><span class="sh">'</span><span class="p">).</span><span class="nf">files</span><span class="p">(</span><span class="sh">"</span><span class="s">*.py</span><span class="sh">"</span><span class="p">):</span>
+    <span class="n">f</span><span class="p">.</span><span class="nf">chmod</span><span class="p">(</span><span class="mo">0o755</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Emacs 백업 파일 삭제:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">delete_backups</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">dirname</span><span class="p">,</span> <span class="n">names</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">name</span><span class="p">.</span><span class="nf">endswith</span><span class="p">(</span><span class="sh">'</span><span class="s">~</span><span class="sh">'</span><span class="p">):</span>
+            <span class="n">os</span><span class="p">.</span><span class="nf">remove</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
+<span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="nf">walk</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">[</span><span class="sh">'</span><span class="s">HOME</span><span class="sh">'</span><span class="p">],</span> <span class="n">delete_backups</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+<span class="o">==&gt;</span>
+<span class="n">d</span> <span class="o">=</span> <span class="nc">Path</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">[</span><span class="sh">'</span><span class="s">HOME</span><span class="sh">'</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">d</span><span class="p">.</span><span class="nf">walkfiles</span><span class="p">(</span><span class="sh">'</span><span class="s">*~</span><span class="sh">'</span><span class="p">):</span>
+    <span class="n">f</span><span class="p">.</span><span class="nf">remove</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>파일의 상대 경로 찾기:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">b</span> <span class="o">=</span> <span class="nc">Path</span><span class="p">(</span><span class="sh">'</span><span class="s">/users/peter/</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="nc">Path</span><span class="p">(</span><span class="sh">'</span><span class="s">/users/peter/synergy/tiki.txt</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">a</span><span class="p">.</span><span class="nf">relpathto</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>경로를 디렉토리와 파일명으로 분할:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sh">"</span><span class="s">/path/to/foo/bar.txt</span><span class="sh">"</span><span class="p">)</span>
+<span class="o">==&gt;</span>
+<span class="nc">Path</span><span class="p">(</span><span class="sh">"</span><span class="s">/path/to/foo/bar.txt</span><span class="sh">"</span><span class="p">).</span><span class="nf">splitpath</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>현재 디렉토리 트리에서 모든 Python 스크립트 나열:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">list</span><span class="p">(</span><span class="nc">Path</span><span class="p">().</span><span class="nf">walkfiles</span><span class="p">(</span><span class="sh">"</span><span class="s">*.py</span><span class="sh">"</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h2 id="references-and-footnotes-참조-및-각주">References and Footnotes (참조 및 각주)</h2>
+<ul>
+  <li>이 메서드는 모든 플랫폼에서 사용 가능하다고 보장되지 않습니다.</li>
+  <li>“(idea) subclassable string: path object?”, van Rossum, 2001.
+<code class="language-plaintext highlighter-rouge">https://mail.python.org/pipermail/python-dev/2001-August/016663.html</code></li>
+  <li>“path module v1.0 released”, Orendorff, 2003.
+<code class="language-plaintext highlighter-rouge">https://mail.python.org/pipermail/python-announce-list/2003-January/001984.html</code></li>
+  <li>“Some RFE for review”, Birkenfeld, 2005.
+<code class="language-plaintext highlighter-rouge">https://mail.python.org/pipermail/python-dev/2005-June/054438.html</code></li>
+  <li>“path module”, Orendorff, 2003.
+<code class="language-plaintext highlighter-rouge">https://mail.python.org/pipermail/python-list/2003-July/174289.html</code></li>
+  <li>“PRE-PEP: new Path class”, Roth, 2004.
+<code class="language-plaintext highlighter-rouge">https://mail.python.org/pipermail/python-list/2004-January/201672.html</code></li>
+  <li><code class="language-plaintext highlighter-rouge">http://wiki.python.org/moin/PathClass</code></li>
+</ul>
+
+<h2 id="copyright-저작권">Copyright (저작권)</h2>
+<p>이 문서는 퍼블릭 도메인에 공개되었습니다.
+최종 수정: 2025-02-01 08:59:27 GMT
+Source: <code class="language-plaintext highlighter-rouge">https://github.com/python/peps/blob/main/peps/pep-0355.rst</code></p>
+
+<hr />
+<p><strong>주의:</strong> 이 PEP는 최종적으로 거부되었으며, 제안된 <code class="language-plaintext highlighter-rouge">Path</code> 클래스는 Python 표준 라이브러리에 포함되지 않았습니다. 하지만 이 PEP에서 다루는 아이디어와 문제점은 이후 <code class="language-plaintext highlighter-rouge">pathlib</code> 모듈과 같은 다른 솔루션의 개발에 영향을 미쳤습니다.
+```</p>
+
+<h2 id="references-and-footnotes-참조-및-각주-1">References and Footnotes (참조 및 각주)</h2>
+<ul>
+  <li>이 메서드는 모든 플랫폼에서 사용 가능하다고 보장되지 않습니다.</li>
+  <li>“(idea) subclassable string: path object?”, van Rossum, 2001.
+<code class="language-plaintext highlighter-rouge">https://mail.python.org/pipermail/python-dev/2001-August/016663.html</code></li>
+  <li>“path module v1.0 released”, Orendorff, 2003.
+<code class="language-plaintext highlighter-rouge">https://mail.python.org/pipermail/python-announce-list/2003-January/001984.html</code></li>
+  <li>“Some RFE for review”, Birkenfeld, 2005.
+<code class="language-plaintext highlighter-rouge">https://mail.python.org/pipermail/python-dev/2005-June/054438.html</code></li>
+  <li>“path module”, Orendorff, 2003.
+<code class="language-plaintext highlighter-rouge">https://mail.python.org/pipermail/python-list/2003-July/174289.html</code></li>
+  <li>“PRE-PEP: new Path class”, Roth, 2004.
+<code class="language-plaintext highlighter-rouge">https://mail.python.org/pipermail/python-list/2004-January/201672.html</code></li>
+  <li><code class="language-plaintext highlighter-rouge">http://wiki.python.org/moin/PathClass</code></li>
+</ul>
+
+<h2 id="copyright-저작권-1">Copyright (저작권)</h2>
+<p>이 문서는 퍼블릭 도메인에 공개되었습니다.
+최종 수정: 2025-02-01 08:59:27 GMT
+Source: <code class="language-plaintext highlighter-rouge">https://github.com/python/peps/blob/main/peps/pep-0355.rst</code></p>
+
+<hr />
+<p><strong>주의:</strong> 이 PEP는 최종적으로 거부되었으며, 제안된 <code class="language-plaintext highlighter-rouge">Path</code> 클래스는 Python 표준 라이브러리에 포함되지 않았습니다. 하지만 이 PEP에서 다루는 아이디어와 문제점은 이후 <code class="language-plaintext highlighter-rouge">pathlib</code> 모듈과 같은 다른 솔루션의 개발에 영향을 미쳤습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/343/" class="pagination--pager" title="[Final] PEP 343 - The “with” Statement
+">Previous</a>
+    
+    
+      <a href="/python/pep/630/" class="pagination--pager" title="[Final] PEP 630 - Isolating Extension Modules
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

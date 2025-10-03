@@ -1,0 +1,655 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[논문리뷰] InternScenes: A Large-scale Simulatable Indoor Scene Dataset with Realistic Layouts | secrett2633</title>
+<meta name="description" content="Wenzhe Cai이 [arXiv]에 게시한 ‘InternScenes: A Large-scale Simulatable Indoor Scene Dataset with Realistic Layouts’ 논문에 대한 자세한 리뷰입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[논문리뷰] InternScenes: A Large-scale Simulatable Indoor Scene Dataset with Realistic Layouts">
+<meta property="og:url" content="http://localhost:4000/ai/review/2025-9-16-InternScenes_A_Large-scale_Simulatable_Indoor_Scene_Dataset_with_Realistic_Layouts/">
+
+
+  <meta property="og:description" content="Wenzhe Cai이 [arXiv]에 게시한 ‘InternScenes: A Large-scale Simulatable Indoor Scene Dataset with Realistic Layouts’ 논문에 대한 자세한 리뷰입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-16T13:16:41+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-16T13:16:41+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/ai/review/2025-9-16-InternScenes_A_Large-scale_Simulatable_Indoor_Scene_Dataset_with_Realistic_Layouts/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[논문리뷰] InternScenes: A Large-scale Simulatable Indoor Scene Dataset with Realistic Layouts">
+    <meta itemprop="description" content="Wenzhe Cai이 [arXiv]에 게시한 ‘InternScenes: A Large-scale Simulatable Indoor Scene Dataset with Realistic Layouts’ 논문에 대한 자세한 리뷰입니다.">
+    <meta itemprop="datePublished" content="2025-09-16T13:16:41+09:00">
+    <meta itemprop="dateModified" content="2025-09-16T13:16:41+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[논문리뷰] InternScenes: A Large-scale Simulatable Indoor Scene Dataset with Realistic Layouts
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-16T13:16:41+09:00">September 16, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#핵심-연구-목표">핵심 연구 목표</a></li><li><a href="#핵심-방법론">핵심 방법론</a></li><li><a href="#주요-결과">주요 결과</a></li><li><a href="#ai-실무자를-위한-시사점">AI 실무자를 위한 시사점</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>링크:</strong> <a href="https://arxiv.org/abs/2509.10813">논문 PDF로 바로 열기</a></p>
+</blockquote>
+
+<p><strong>저자:</strong> Weipeng Zhong, Peizhou Cao, Yichen Jin, Li Luo, Wenzhe Cai, Jingli Lin, Hanqing Wang, Zhaoyang Lyu, Tai Wang, Bo Dai, Xudong Xu, Jiangmiao Pang</p>
+
+<h2 id="핵심-연구-목표">핵심 연구 목표</h2>
+<p>본 연구는 <strong>Embodied AI</strong>의 발전을 위해 기존 3D 장면 데이터셋이 가진 규모, 다양성, 사실적인 레이아웃(특히 작은 객체), 심각한 객체 충돌 문제를 해결하고자 합니다. 궁극적으로, 복잡하고 현실적인 레이아웃을 갖춘 대규모 시뮬레이션 가능 실내 장면 데이터셋인 <strong>InternScenes</strong>를 구축하여 에이전트가 다양한 기술을 학습하고 현실 세계에 견고하게 적응할 수 있는 기반을 마련하는 것을 목표로 합니다.</p>
+
+<h2 id="핵심-방법론">핵심 방법론</h2>
+<p><strong>InternScenes</strong>는 실제 스캔 데이터 (<strong>EmbodiedScan</strong>), 절차적 생성 데이터 (<strong>Infinigen indoors</strong>), 디자이너 생성 데이터의 세 가지 소스를 통합하여 약 <strong>40,000개</strong>의 다양한 실내 장면을 구축했습니다. 실제 스캔 데이터의 경우 <strong>Objaverse</strong> 및 <strong>PartNet-Mobility</strong> 자산으로 객체를 대체하고 <strong>GPT-4o</strong> 및 <strong>InternVL</strong>을 활용한 라벨 매핑 및 포즈 교정 파이프라인을 적용하여 <strong>real-to-sim</strong> 복제본을 생성했습니다. 객체 충돌 문제를 해결하기 위해 <strong>IoU, Ground Loss, Regularization Term</strong>으로 구성된 손실 함수로 대형 가구의 <strong>Oriented Bounding Box (OBB)</strong>를 최적화하고, <strong>SAPIEN</strong> 물리 시뮬레이션을 통해 작은 객체의 물리적 일관성을 확보했습니다.</p>
+
+<h2 id="주요-결과">주요 결과</h2>
+<p><strong>InternScenes</strong>는 <strong>15가지</strong> 유형의 <strong>48,000개</strong> 지역에서 <strong>288개</strong> 객체 클래스에 걸쳐 <strong>1.96M개</strong>의 3D 객체를 포함하며, 각 지역당 평균 <strong>41.5개</strong>의 객체로 매우 복잡하고 사실적인 레이아웃을 제공합니다. 장면 생성 벤치마크에서 <strong>ATISS, DiffuScene</strong>과 같은 기존 모델은 <strong>InternScenes</strong>의 복잡한 레이아웃에서 성능 저하를 보였으나, <strong>PhyScene</strong>은 <strong>물리 기반 가이던스</strong> 덕분에 다른 모델들보다 우수한 성능을 나타냈습니다. <strong>point-goal navigation</strong> 벤치마크에서는 <strong>DD-PPO</strong>가 <strong>23.6%</strong>의 낮은 성공률을, <strong>NavDP</strong>가 <strong>48.3%</strong>의 성공률을 기록하여 복잡한 환경에서의 내비게이션이 여전히 큰 도전임을 입증했습니다.</p>
+
+<h2 id="ai-실무자를-위한-시사점">AI 실무자를 위한 시사점</h2>
+<p><strong>InternScenes</strong>는 <strong>Embodied AI</strong> 모델 학습을 위한 전례 없는 규모와 현실성을 갖춘 시뮬레이션 환경을 제공하여 <strong>장면 생성 및 시각 내비게이션</strong> 분야에서 새로운 연구 과제를 제시합니다. 특히 데이터셋의 복잡한 레이아웃은 <strong>물리적 일관성과 미세 객체 상호작용</strong>을 효과적으로 처리하는 새로운 모델 및 알고리즘 개발의 필요성을 강조합니다. <strong>simulation-ready</strong>한 자산과 오픈 소스 데이터는 AI 개발자들이 <strong>강화 학습 기반 로봇 제어 정책</strong>을 개발하고 <strong>real-to-sim</strong> 격차를 해소하는 데 중요한 자원이 될 것입니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 리뷰는 AI로 작성되었습니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#3d-scene-dataset" class="page__taxonomy-item" rel="tag">3D Scene Dataset</a><span class="sep">, </span>
+    
+      <a href="/tags/#embodied-ai" class="page__taxonomy-item" rel="tag">Embodied AI</a><span class="sep">, </span>
+    
+      <a href="/tags/#object-interaction" class="page__taxonomy-item" rel="tag">Object Interaction</a><span class="sep">, </span>
+    
+      <a href="/tags/#point-goal-navigation" class="page__taxonomy-item" rel="tag">Point-Goal Navigation</a><span class="sep">, </span>
+    
+      <a href="/tags/#real-to-sim" class="page__taxonomy-item" rel="tag">Real-to-Sim</a><span class="sep">, </span>
+    
+      <a href="/tags/#realistic-layouts" class="page__taxonomy-item" rel="tag">Realistic Layouts</a><span class="sep">, </span>
+    
+      <a href="/tags/#review" class="page__taxonomy-item" rel="tag">Review</a><span class="sep">, </span>
+    
+      <a href="/tags/#scene-generation" class="page__taxonomy-item" rel="tag">Scene Generation</a><span class="sep">, </span>
+    
+      <a href="/tags/#simulation-environment" class="page__taxonomy-item" rel="tag">Simulation Environment</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#review" class="page__taxonomy-item" rel="tag">Review</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-16">September 16, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/ai/review/2025-9-16-GAPrune_Gradient-Alignment_Pruning_for_Domain-Aware_Embeddings/" class="pagination--pager" title="[논문리뷰] GAPrune: Gradient-Alignment Pruning for Domain-Aware Embeddings
+">Previous</a>
+    
+    
+      <a href="/ai/review/2025-9-16-LazyDrag_Enabling_Stable_Drag-Based_Editing_on_Multi-Modal_Diffusion_Transformers_via_Explicit_Correspondence/" class="pagination--pager" title="[논문리뷰] LazyDrag: Enabling Stable Drag-Based Editing on Multi-Modal Diffusion Transformers via Explicit Correspondence
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

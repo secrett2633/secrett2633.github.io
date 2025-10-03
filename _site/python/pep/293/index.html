@@ -1,0 +1,762 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 293 - Codec Error Handling Callbacks | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 293: ‘Codec Error Handling Callbacks’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 293 - Codec Error Handling Callbacks">
+<meta property="og:url" content="http://localhost:4000/python/pep/293/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 293: ‘Codec Error Handling Callbacks’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T18:04:55+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T18:04:55+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/293/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 293 - Codec Error Handling Callbacks">
+    <meta itemprop="description" content="Python Enhancement Proposal 293: ‘Codec Error Handling Callbacks’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T18:04:55+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T18:04:55+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 293 - Codec Error Handling Callbacks
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T18:04:55+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-293--코덱-에러-핸들링-콜백">PEP 293 – 코덱 에러 핸들링 콜백</a><ul><li><a href="#요약-abstract">요약 (Abstract)</a></li><li><a href="#사양-specification">사양 (Specification)</a><ul><li><a href="#예외-객체-구조">예외 객체 구조</a></li><li><a href="#기본-제공-콜백-핸들러">기본 제공 콜백 핸들러</a></li></ul></li><li><a href="#도입-배경-rationale">도입 배경 (Rationale)</a></li><li><a href="#구현-참고-사항-implementation-notes">구현 참고 사항 (Implementation Notes)</a></li><li><a href="#하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0293/">PEP 293 - Codec Error Handling Callbacks</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 18-Jun-2002</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-293--코덱-에러-핸들링-콜백">PEP 293 – 코덱 에러 핸들링 콜백</h1>
+
+<ul>
+  <li><strong>작성자</strong>: Walter Dörwald</li>
+  <li><strong>상태</strong>: Final (최종)</li>
+  <li><strong>타입</strong>: Standards Track (표준 트랙)</li>
+  <li><strong>생성일</strong>: 2002년 6월 18일</li>
+  <li><strong>Python 버전</strong>: 2.3</li>
+  <li><strong>사전 이력</strong>: 2002년 6월 19일</li>
+</ul>
+
+<h2 id="요약-abstract">요약 (Abstract)</h2>
+
+<p>이 PEP는 Python의 고정된 코덱 에러 핸들링 방식을 보다 유연한 콜백 기반 접근 방식으로 확장하는 것을 목표로 합니다. 현재 Python은 코덱 에러 핸들러에 대해 “strict”, “replace”, “ignore”와 같은 고정된 에러 핸들링을 사용합니다. 이 PEP는 Python이 함수 콜백을 에러 핸들러로 사용할 수 있는 메커니즘을 설명합니다. 이러한 유연한 에러 핸들러를 통해 표준 코덱 매핑이 적용되지 않는 경우를 위해 폴백(fallback) 솔루션이나 다른 인코딩을 제공하는 등 기존 코덱에 새로운 기능을 추가할 수 있습니다.</p>
+
+<h2 id="사양-specification">사양 (Specification)</h2>
+
+<p>현재 코덱 에러 핸들링 알고리즘은 “strict”, “replace”, “ignore”로 고정되어 있으며, 이러한 알고리즘의 의미는 각 코덱마다 개별적으로 구현됩니다.</p>
+
+<p>제안된 패치는 핸들러 이름을 핸들러 함수에 매핑하는 <code class="language-plaintext highlighter-rouge">codecs</code> 에러 핸들러 레지스트리를 통해 에러 핸들링 알고리즘 세트를 확장 가능하게 만들 것입니다. 이 레지스트리는 다음 두 가지 C 함수를 포함합니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">int PyCodec_RegisterError(const char *name, PyObject *error)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">PyObject *PyCodec_LookupError(const char *name)</code></li>
+</ul>
+
+<p>그리고 이들의 Python counterpart는 다음과 같습니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">codecs.register_error(name, error)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">codecs.lookup_error(name)</code></li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">PyCodec_LookupError</code>는 해당 이름으로 등록된 콜백 함수가 없으면 <code class="language-plaintext highlighter-rouge">LookupError</code>를 발생시킵니다. 인코딩 이름 레지스트리와 유사하게, 콜백 함수를 등록 해제하거나 사용 가능한 함수를 반복할 방법은 없습니다.</p>
+
+<p>콜백 함수는 코덱에 의해 다음과 같이 사용됩니다. 코덱이 인코딩/디코딩 에러를 만나면, 이름으로 콜백 함수를 찾고, 에러에 대한 정보는 예외(exception) 객체에 저장되며, 이 객체를 인수로 콜백이 호출됩니다. 콜백은 어떻게 진행할지에 대한 정보를 반환하거나 예외를 발생시킵니다.</p>
+
+<h3 id="예외-객체-구조">예외 객체 구조</h3>
+
+<p><strong>인코딩(Encoding)의 경우</strong>, 예외 객체는 <code class="language-plaintext highlighter-rouge">UnicodeEncodeError</code> 클래스 형태를 가집니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">UnicodeEncodeError</span><span class="p">(</span><span class="nb">UnicodeError</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="nb">object</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">reason</span><span class="p">):</span>
+        <span class="nb">UnicodeError</span><span class="p">.</span><span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="sh">"</span><span class="s">encoding </span><span class="sh">'</span><span class="s">%s</span><span class="sh">'</span><span class="s"> can</span><span class="sh">'</span><span class="s">t encode characters </span><span class="sh">"</span> <span class="o">+</span>
+                              <span class="sh">"</span><span class="s">in positions %d-%d: %s</span><span class="sh">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">encoding</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">reason</span><span class="p">))</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="n">encoding</span>
+        <span class="n">self</span><span class="p">.</span><span class="nb">object</span> <span class="o">=</span> <span class="nb">object</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">start</span> <span class="o">=</span> <span class="n">start</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">end</span> <span class="o">=</span> <span class="n">end</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">reason</span> <span class="o">=</span> <span class="n">reason</span>
+</code></pre></div></div>
+
+<p>속성들의 의미는 다음과 같습니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">encoding</code>: 인코딩의 이름</li>
+  <li><code class="language-plaintext highlighter-rouge">object</code>: <code class="language-plaintext highlighter-rouge">encode()</code>가 호출된 원본 <code class="language-plaintext highlighter-rouge">unicode</code> 객체</li>
+  <li><code class="language-plaintext highlighter-rouge">start</code>: 인코딩할 수 없는 첫 번째 문자의 위치</li>
+  <li><code class="language-plaintext highlighter-rouge">end</code>: 인코딩할 수 없는 마지막 문자의 위치 + 1 (또는 <code class="language-plaintext highlighter-rouge">object</code>의 길이)</li>
+  <li><code class="language-plaintext highlighter-rouge">reason</code>: <code class="language-plaintext highlighter-rouge">object[start:end]</code>를 인코딩할 수 없는 이유</li>
+</ul>
+
+<p>콜백은 예외 객체를 수정해서는 안 됩니다. 콜백이 예외를 발생시키지 않는다면, 다음 튜플을 반환해야 합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">(replacement, newpos)</code></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">replacement</code>: 인코딩할 수 없는 <code class="language-plaintext highlighter-rouge">object[start:end]</code> 부분 대신 인코더가 인코딩하여 내보낼 <code class="language-plaintext highlighter-rouge">unicode</code> 객체입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">newpos</code>: <code class="language-plaintext highlighter-rouge">object</code> 내의 새로운 위치를 지정하며, 인코더는 <code class="language-plaintext highlighter-rouge">replacement</code>를 인코딩한 후 이 위치부터 인코딩을 계속합니다.</li>
+</ul>
+
+<p><strong>디코딩(Decoding)의 경우</strong>는 인코딩과 유사하게 작동하며, 다음 차이점이 있습니다.</p>
+
+<ul>
+  <li>예외 클래스 이름은 <code class="language-plaintext highlighter-rouge">UnicodeDecodeError</code>이며, <code class="language-plaintext highlighter-rouge">object</code> 속성은 디코더가 현재 디코딩 중인 원본 8비트 문자열입니다.</li>
+  <li>콜백에서 반환된 <code class="language-plaintext highlighter-rouge">replacement</code>는 디코더가 추가 처리 없이 <code class="language-plaintext highlighter-rouge">object[start:end]</code> 부분 대신 그대로 내보낼 <code class="language-plaintext highlighter-rouge">unicode</code> 객체입니다.</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">PyUnicode_TranslateCharmap</code> / <code class="language-plaintext highlighter-rouge">unicode.translate</code>도 콜백 레지스트리를 지원하도록 향상될 것입니다. 이로 인해 <code class="language-plaintext highlighter-rouge">PyUnicode_TranslateCharmap</code>는 다중 문자 대체 문자열을 지원하게 됩니다. <code class="language-plaintext highlighter-rouge">PyUnicode_TranslateCharmap</code>의 경우 예외 클래스는 <code class="language-plaintext highlighter-rouge">UnicodeTranslateError</code>로 명명됩니다.</p>
+
+<h3 id="기본-제공-콜백-핸들러">기본 제공 콜백 핸들러</h3>
+
+<p>제안된 패치는 “backslashreplace”와 “xmlcharrefreplace”라는 두 가지 추가 시스템 콜백 이름을 추가합니다. 이들은 인코딩 및 번역에 사용될 수 있으며, 모든 인코더와 <code class="language-plaintext highlighter-rouge">PyUnicode_TranslateCharmap</code>에서 인플레이스(in-place)로 구현됩니다.</p>
+
+<p>Python에서 이 다섯 가지 콜백의 예시는 다음과 같습니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">strict(exc)</code>: 예외를 그대로 발생시킵니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">ignore(exc)</code>: 에러가 발생한 부분을 무시하고 빈 문자열을 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">replace(exc)</code>: 인코딩/변환 에러 시 <code class="language-plaintext highlighter-rouge">?</code> 또는 <code class="language-plaintext highlighter-rouge">\ufffd</code> 문자로 대체하고, 디코딩 에러 시 <code class="language-plaintext highlighter-rouge">\ufffd</code> 문자로 대체합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">backslashreplace(exc)</code>: 인코딩할 수 없는 문자를 <code class="language-plaintext highlighter-rouge">\x</code>, <code class="language-plaintext highlighter-rouge">\u</code>, <code class="language-plaintext highlighter-rouge">\U</code> 이스케이프 시퀀스로 대체합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">xmlcharrefreplace(exc)</code>: 인코딩할 수 없는 문자를 XML 문자 참조 <code class="language-plaintext highlighter-rouge">&amp;#DDDD;</code> 형태로 대체합니다.</li>
+</ul>
+
+<p>이 다섯 가지 콜백 핸들러는 Python에서 <code class="language-plaintext highlighter-rouge">codecs.strict_error</code>, <code class="language-plaintext highlighter-rouge">codecs.ignore_error</code>, <code class="language-plaintext highlighter-rouge">codecs.replace_error</code>, <code class="language-plaintext highlighter-rouge">codecs.backslashreplace_error</code>, <code class="language-plaintext highlighter-rouge">codecs.xmlcharrefreplace_error</code>로도 접근할 수 있습니다.</p>
+
+<h2 id="도입-배경-rationale">도입 배경 (Rationale)</h2>
+
+<p>대부분의 레거시 인코딩은 전체 유니코드(Unicode) 문자를 지원하지 않습니다. 이러한 경우, 많은 상위 수준 프로토콜은 유니코드 문자를 이스케이프하는 방법을 지원합니다(예: Python 자체는 <code class="language-plaintext highlighter-rouge">\x</code>, <code class="language-plaintext highlighter-rouge">\u</code>, <code class="language-plaintext highlighter-rouge">\U</code> 규칙을 지원하며, XML은 <code class="language-plaintext highlighter-rouge">&amp;#xxx;</code>를 통해 문자 참조를 지원).</p>
+
+<p>이러한 인코딩 알고리즘을 구현할 때, <code class="language-plaintext highlighter-rouge">Unicode</code> 객체의 <code class="language-plaintext highlighter-rouge">encode</code> 메서드 현재 구현에서 문제가 발생합니다. 특정 인코딩으로 인코딩할 수 없는 문자를 결정하려면, <code class="language-plaintext highlighter-rouge">encode</code>가 에러 위치에 대한 정보를 제공하지 않기 때문에 모든 단일 문자를 시도해야 합니다. 이로 인해 인코딩 속도가 극적으로 느려집니다.</p>
+
+<p>예를 들어, 인코딩할 수 없는 문자를 <code class="language-plaintext highlighter-rouge">&amp;#%d;</code>로 바꾸는 코드는 C 코드 대신 Python 코드에서 문자열을 반복하게 되어 약 180배 느려질 수 있습니다. 또한, 이러한 방식은 상태 기반 인코딩(stateful encodings)에 문제를 일으킵니다(예: UTF-16의 BOM).</p>
+
+<p>콜백은 스테이트리스(stateless)여야 합니다. 콜백이 등록되면 전역적으로 사용 가능하며 여러 <code class="language-plaintext highlighter-rouge">encode()</code> 호출에 의해 호출될 수 있기 때문입니다. 스테이트풀 콜백을 사용하려면 <code class="language-plaintext highlighter-rouge">encode</code>/<code class="language-plaintext highlighter-rouge">decode</code>/<code class="language-plaintext highlighter-rouge">translate</code>의 <code class="language-plaintext highlighter-rouge">errors</code> 파라미터가 <code class="language-plaintext highlighter-rouge">char *</code>에서 <code class="language-plaintext highlighter-rouge">PyObject *</code>로 변경되어야 하는데, 이는 많은 C 프로토타입 변경을 필요로 하므로 거부되었습니다.</p>
+
+<h2 id="구현-참고-사항-implementation-notes">구현 참고 사항 (Implementation Notes)</h2>
+
+<ul>
+  <li>새로운 예외 클래스(exception classes)는 현재 구식(old style) Python 클래스입니다. 향상된 성능을 위해 <code class="language-plaintext highlighter-rouge">Exception</code> (및 <code class="language-plaintext highlighter-rouge">UnicodeError</code>)이 C로 구현된 새 형식(new style) 클래스로 변경되면, 내부적으로 새 형식 클래스로 전환할 수 있도록 C API가 구현되었습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">codecs.StreamReaderWriter</code>는 <code class="language-plaintext highlighter-rouge">errors</code> 파라미터를 읽기와 쓰기 모두에 사용하는데, 유연성을 높이기 위해 읽기/쓰기 각각 별도의 파라미터로 변경되어야 합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">PyUnicode_TranslateCharmap</code>의 <code class="language-plaintext highlighter-rouge">errors</code> 파라미터는 Python에서 사용할 수 없으므로, <code class="language-plaintext highlighter-rouge">unicode.translate</code>에 선택적 <code class="language-plaintext highlighter-rouge">errors</code> 인수를 추가하여 이 기능을 노출하고 테스트를 가능하게 해야 합니다.</li>
+  <li>유니코드(Unicode)로/에서 인코딩/디코딩하는 것과 다른 작업을 수행하며 이 새로운 메커니즘을 사용하려는 코덱은 자체 예외 클래스를 정의할 수 있으며, <code class="language-plaintext highlighter-rouge">strict</code> 핸들러는 자동으로 작동합니다. 다른 미리 정의된 에러 핸들러는 유니코드 관련이며 <code class="language-plaintext highlighter-rouge">Unicode(Encode|Decode|Translate)Error</code> 예외 객체를 예상하므로 작동하지 않습니다.</li>
+</ul>
+
+<h2 id="하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">unicode.encode</code>의 <code class="language-plaintext highlighter-rouge">errors="replace"</code>의 의미가 변경되었습니다. 이전 버전은 매핑에 <code class="language-plaintext highlighter-rouge">?</code> 문자가 매핑되지 않아도 항상 <code class="language-plaintext highlighter-rouge">?</code> 문자를 출력 문자열에 저장했습니다. 제안된 패치에서는 콜백에서 반환된 대체 문자열이 매핑 딕셔너리에서 다시 찾아집니다. 그러나 모든 지원되는 인코딩은 ASCII 기반이며 <code class="language-plaintext highlighter-rouge">?</code>를 <code class="language-plaintext highlighter-rouge">?</code>로 매핑하므로 실제로는 문제가 되지 않을 것입니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">errors</code> 인수에 대한 유효하지 않은 값은 이전에는 <code class="language-plaintext highlighter-rouge">ValueError</code>를 발생시켰지만, 이제는 <code class="language-plaintext highlighter-rouge">LookupError</code>를 발생시킵니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/292/" class="pagination--pager" title="[Final] PEP 292 - Simpler String Substitutions
+">Previous</a>
+    
+    
+      <a href="/python/pep/294/" class="pagination--pager" title="[Rejected] PEP 294 - Type Names in the types Module
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

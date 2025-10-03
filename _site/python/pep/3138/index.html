@@ -1,0 +1,800 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 3138 - String representation in Python 3000 | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 3138: ‘String representation in Python 3000’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 3138 - String representation in Python 3000">
+<meta property="og:url" content="http://localhost:4000/python/pep/3138/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 3138: ‘String representation in Python 3000’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T14:35:12+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T14:35:12+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/3138/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 3138 - String representation in Python 3000">
+    <meta itemprop="description" content="Python Enhancement Proposal 3138: ‘String representation in Python 3000’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T14:35:12+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T14:35:12+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 3138 - String representation in Python 3000
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T14:35:12+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-3138--python-3000에서의-문자열-표현-string-representation-in-python-3000">PEP 3138 – Python 3000에서의 문자열 표현 (String representation in Python 3000)</a><ul><li><a href="#요약-abstract">요약 (Abstract)</a></li><li><a href="#동기-motivation">동기 (Motivation)</a></li><li><a href="#명세-specification">명세 (Specification)</a><ul><li><a href="#py_unicode_isprintable-함수-추가">Py_UNICODE_ISPRINTABLE 함수 추가</a></li><li><a href="#repr-문자열-생성-알고리즘-변경">repr() 문자열 생성 알고리즘 변경</a></li><li><a href="#sysstderr-기본-에러-핸들러-변경">sys.stderr 기본 에러 핸들러 변경</a></li><li><a href="#pyobject_ascii-함수-추가">PyObject_ASCII 함수 추가</a></li><li><a href="#ascii-내장-함수-추가">ascii() 내장 함수 추가</a></li><li><a href="#a-문자열-포맷-연산자-및-관련-기능-추가">%a 문자열 포맷 연산자 및 관련 기능 추가</a></li><li><a href="#strisprintable-메서드-추가">str.isprintable() 메서드 추가</a></li></ul></li><li><a href="#근거-rationale">근거 (Rationale)</a></li><li><a href="#대안-솔루션-alternate-solutions">대안 솔루션 (Alternate Solutions)</a></li><li><a href="#하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</a></li><li><a href="#거부된-제안-rejected-proposals">거부된 제안 (Rejected Proposals)</a></li><li><a href="#구현-implementation">구현 (Implementation)</a></li><li><a href="#참조-references">참조 (References)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-3138/">PEP 3138 - String representation in Python 3000</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 05-May-2008</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-3138--python-3000에서의-문자열-표현-string-representation-in-python-3000">PEP 3138 – Python 3000에서의 문자열 표현 (String representation in Python 3000)</h1>
+
+<ul>
+  <li><strong>작성자:</strong> Atsuo Ishimoto <ishimoto at="" gembook.org=""></ishimoto></li>
+  <li><strong>상태:</strong> 최종 (Final)</li>
+  <li><strong>유형:</strong> 표준 트랙 (Standards Track)</li>
+  <li><strong>생성일:</strong> 2008년 5월 5일</li>
+  <li><strong>Python 버전:</strong> 3.0</li>
+  <li><strong>최근 이력:</strong> 2008년 5월 5일, 2008년 6월 5일</li>
+</ul>
+
+<h2 id="요약-abstract">요약 (Abstract)</h2>
+
+<p>이 PEP는 Python 3000(Python 3.x의 초기 명칭)을 위한 새로운 문자열 표현 형식을 제안합니다. Python 3000 이전 버전의 Python에서는 내장 함수 <code class="language-plaintext highlighter-rouge">repr()</code>이 디버깅 및 로깅을 위해 임의의 객체를 인쇄 가능한 ASCII 문자열로 변환했습니다. Python 3000에서는 유니코드 표준을 기반으로 더 넓은 범위의 문자를 ‘인쇄 가능’하다고 간주해야 한다는 제안입니다.</p>
+
+<h2 id="동기-motivation">동기 (Motivation)</h2>
+
+<p>기존 <code class="language-plaintext highlighter-rouge">repr()</code> 함수는 다음 알고리즘을 사용하여 8비트 문자열을 ASCII로 변환합니다.</p>
+
+<ol>
+  <li>CR, LF, TAB 및 <code class="language-plaintext highlighter-rouge">\</code>를 각각 <code class="language-plaintext highlighter-rouge">\r</code>, <code class="language-plaintext highlighter-rouge">\n</code>, <code class="language-plaintext highlighter-rouge">\t</code>, <code class="language-plaintext highlighter-rouge">\\</code>로 변환합니다.</li>
+  <li>다른 인쇄 불가능한 문자(0x00-0x1f, 0x7f)와 비-ASCII 문자(&gt;= 0x80)를 <code class="language-plaintext highlighter-rouge">\xXX</code> 형식으로 변환합니다.</li>
+  <li>인용 부호(‘ 또는 <code class="language-plaintext highlighter-rouge">_</code>)를 백슬래시로 이스케이프하고, 문자열의 시작과 끝에 인용 부호를 추가합니다.</li>
+</ol>
+
+<p>유니코드 문자열의 경우, 다음 추가 변환이 수행됩니다.</p>
+
+<ol>
+  <li>후행 문자 없는 선행 서러게이트 쌍 문자(0xd800-0xdbff 범위이나 0xdc00-0xdfff가 뒤따르지 않는 경우)를 <code class="language-plaintext highlighter-rouge">\uXXXX</code> 형식으로 변환합니다.</li>
+  <li>16비트 문자(&gt;= 0x100)를 <code class="language-plaintext highlighter-rouge">\uXXXX</code> 형식으로 변환합니다.</li>
+  <li>21비트 문자(&gt;= 0x10000) 및 서러게이트 쌍 문자를 <code class="language-plaintext highlighter-rouge">\U00xxxxxx</code> 형식으로 변환합니다.</li>
+</ol>
+
+<p>이 알고리즘은 모든 문자열을 인쇄 가능한 ASCII로 변환하며, <code class="language-plaintext highlighter-rouge">repr()</code>은 디버깅이나 로깅을 위해 문자열을 출력하는 편리하고 안전한 방법으로 사용됩니다. 모든 비-ASCII 문자는 이스케이프되지만, 대부분의 문자열 문자가 ASCII인 경우에는 문제가 되지 않습니다. 그러나 일본어와 같이 문자열의 대부분이 비-ASCII 문자인 다른 언어의 경우, 이는 매우 불편합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">print(aJapaneseString)</code>을 사용하여 읽기 쉬운 문자열을 얻을 수 있지만, 리스트(list)나 튜플(tuple)과 같은 컬렉션(collection)에서 문자열을 출력하는 유사한 해결책은 없습니다. <code class="language-plaintext highlighter-rouge">print(listOfJapaneseStrings)</code>는 <code class="language-plaintext highlighter-rouge">repr()</code>을 사용하여 출력할 문자열을 구성하므로, 결과 문자열은 항상 헥스(hex) 이스케이프된 상태입니다. 또는 <code class="language-plaintext highlighter-rouge">open(japaneseFilename)</code>이 예외를 발생시킬 때, 오류 메시지가 <code class="language-plaintext highlighter-rouge">IOError: [Errno 2] No such file or directory: '\u65e5\u672c\u8a9e'</code>와 같이 표시되어 전혀 도움이 되지 않습니다.</p>
+
+<p>Python 3000은 비-ASCII 식별자(identifier)와 같이 비-라틴어 사용자에게 많은 유용한 기능을 제공하므로, 인쇄 가능한 출력(printable output)에서도 유사한 방식으로 발전한다면 도움이 될 것입니다.</p>
+
+<p>일부 사용자는 이미지와 같은 이진 데이터를 출력할 경우 콘솔이 엉망이 될 것을 우려할 수 있습니다. 그러나 Python 3000에서는 바이트(bytes)와 문자열(strings)이 서로 다른 유형이므로, 콘솔에 이미지를 출력하는 것이 콘솔을 엉망으로 만들 가능성은 낮기 때문에 실제로 이런 일은 발생하지 않을 것입니다.</p>
+
+<p>이 문제는 이전에 Hye-Shik Chang에 의해 논의되었지만, 거부되었습니다.</p>
+
+<h2 id="명세-specification">명세 (Specification)</h2>
+
+<h3 id="py_unicode_isprintable-함수-추가"><code class="language-plaintext highlighter-rouge">Py_UNICODE_ISPRINTABLE</code> 함수 추가</h3>
+
+<p>Python C API에 새로운 함수 <code class="language-plaintext highlighter-rouge">int Py_UNICODE_ISPRINTABLE(Py_UNICODE ch)</code>를 추가합니다. 이 함수는 <code class="language-plaintext highlighter-rouge">repr()</code>이 유니코드 문자 <code class="language-plaintext highlighter-rouge">ch</code>를 이스케이프해야 하는 경우 0을 반환하고, 그렇지 않으면 1을 반환합니다. 이스케이프되어야 할 문자는 유니코드 문자 데이터베이스에서 다음과 같이 정의됩니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Cc</code> (Other, Control): 제어 문자</li>
+  <li><code class="language-plaintext highlighter-rouge">Cf</code> (Other, Format): 형식 문자</li>
+  <li><code class="language-plaintext highlighter-rouge">Cs</code> (Other, Surrogate): 서러게이트 (대리) 문자</li>
+  <li><code class="language-plaintext highlighter-rouge">Co</code> (Other, Private Use): 개인 사용 영역 문자</li>
+  <li><code class="language-plaintext highlighter-rouge">Cn</code> (Other, Not Assigned): 할당되지 않은 문자</li>
+  <li><code class="language-plaintext highlighter-rouge">Zl</code> (Separator, Line): <code class="language-plaintext highlighter-rouge">LINE SEPARATOR</code> (<code class="language-plaintext highlighter-rouge">\u2028</code>)를 의미합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Zp</code> (Separator, Paragraph): <code class="language-plaintext highlighter-rouge">PARAGRAPH SEPARATOR</code> (<code class="language-plaintext highlighter-rouge">\u2029</code>)를 의미합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Zs</code> (Separator, Space): ASCII 공백 (<code class="language-plaintext highlighter-rouge">\x20</code>) 이외의 구분 공백 문자. 모호함을 피하기 위해 이 범주의 문자는 이스케이프되어야 합니다.</li>
+</ul>
+
+<h3 id="repr-문자열-생성-알고리즘-변경"><code class="language-plaintext highlighter-rouge">repr()</code> 문자열 생성 알고리즘 변경</h3>
+
+<p><code class="language-plaintext highlighter-rouge">repr()</code> 문자열을 생성하는 알고리즘은 다음과 같이 변경되어야 합니다.</p>
+
+<ol>
+  <li>CR, LF, TAB 및 <code class="language-plaintext highlighter-rouge">\</code>를 <code class="language-plaintext highlighter-rouge">\r</code>, <code class="language-plaintext highlighter-rouge">\n</code>, <code class="language-plaintext highlighter-rouge">\t</code>, <code class="language-plaintext highlighter-rouge">\\</code>로 변환합니다.</li>
+  <li>인쇄 불가능한 ASCII 문자(0x00-0x1f, 0x7f)를 <code class="language-plaintext highlighter-rouge">\xXX</code> 형식으로 변환합니다.</li>
+  <li>후행 문자 없는 선행 서러게이트 쌍 문자(0xd800-0xdbff 범위이나 0xdc00-0xdfff가 뒤따르지 않는 경우)를 <code class="language-plaintext highlighter-rouge">\uXXXX</code> 형식으로 변환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Py_UNICODE_ISPRINTABLE()</code>이 0을 반환하는 인쇄 불가능한 문자를 <code class="language-plaintext highlighter-rouge">\xXX</code>, <code class="language-plaintext highlighter-rouge">\uXXXX</code> 또는 <code class="language-plaintext highlighter-rouge">\U00xxxxxx</code> 형식으로 변환합니다.</li>
+  <li>인용 부호(<code class="language-plaintext highlighter-rouge">'</code>)를 백슬래시로 이스케이프하고, 문자열의 시작과 끝에 인용 부호를 추가합니다.</li>
+</ol>
+
+<h3 id="sysstderr-기본-에러-핸들러-변경"><code class="language-plaintext highlighter-rouge">sys.stderr</code> 기본 에러 핸들러 변경</h3>
+
+<p><code class="language-plaintext highlighter-rouge">sys.stderr</code>의 유니코드 에러 핸들러(error-handler)를 기본적으로 <code class="language-plaintext highlighter-rouge">'backslashreplace'</code>로 설정합니다.</p>
+
+<h3 id="pyobject_ascii-함수-추가"><code class="language-plaintext highlighter-rouge">PyObject_ASCII</code> 함수 추가</h3>
+
+<p>Python C API에 새로운 함수 <code class="language-plaintext highlighter-rouge">PyObject *PyObject_ASCII(PyObject *o)</code>를 추가합니다. 이 함수는 <code class="language-plaintext highlighter-rouge">PyObject_Repr()</code>을 사용하여 파이썬 객체를 문자열로 변환한 다음, 모든 비-ASCII 문자를 헥스 이스케이프합니다. <code class="language-plaintext highlighter-rouge">PyObject_ASCII()</code>는 Python 2의 <code class="language-plaintext highlighter-rouge">PyObject_Repr()</code>과 동일한 문자열을 생성합니다.</p>
+
+<h3 id="ascii-내장-함수-추가"><code class="language-plaintext highlighter-rouge">ascii()</code> 내장 함수 추가</h3>
+
+<p>새로운 내장 함수 <code class="language-plaintext highlighter-rouge">ascii()</code>를 추가합니다. 이 함수는 <code class="language-plaintext highlighter-rouge">repr()</code>을 사용하여 파이썬 객체를 문자열로 변환한 다음, 모든 비-ASCII 문자를 헥스 이스케이프합니다. <code class="language-plaintext highlighter-rouge">ascii()</code>는 Python 2의 <code class="language-plaintext highlighter-rouge">repr()</code>과 동일한 문자열을 생성합니다.</p>
+
+<h3 id="a-문자열-포맷-연산자-및-관련-기능-추가"><code class="language-plaintext highlighter-rouge">%a</code> 문자열 포맷 연산자 및 관련 기능 추가</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">%a</code> 문자열 포맷 연산자를 추가합니다. <code class="language-plaintext highlighter-rouge">%a</code>는 <code class="language-plaintext highlighter-rouge">repr()</code>을 사용하여 파이썬 객체를 문자열로 변환한 다음, 모든 비-ASCII 문자를 헥스 이스케이프합니다. <code class="language-plaintext highlighter-rouge">%a</code> 포맷 연산자는 Python 2의 <code class="language-plaintext highlighter-rouge">%r</code>과 동일한 문자열을 생성합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">str.format()</code> 메서드에 <code class="language-plaintext highlighter-rouge">!a</code> 변환 플래그를 추가합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">PyUnicode_FromFormat()</code>에 <code class="language-plaintext highlighter-rouge">%A</code> 연산자를 추가합니다.
+이들은 <code class="language-plaintext highlighter-rouge">%a</code> 문자열 포맷 연산자와 같이 모든 객체를 ASCII 문자열로 변환합니다.</li>
+</ul>
+
+<h3 id="strisprintable-메서드-추가"><code class="language-plaintext highlighter-rouge">str.isprintable()</code> 메서드 추가</h3>
+
+<p>문자열 유형에 <code class="language-plaintext highlighter-rouge">isprintable()</code> 메서드를 추가합니다. <code class="language-plaintext highlighter-rouge">str.isprintable()</code>은 문자열의 어떤 문자라도 <code class="language-plaintext highlighter-rouge">repr()</code>이 이스케이프할 경우 <code class="language-plaintext highlighter-rouge">False</code>를 반환하고, 그렇지 않으면 <code class="language-plaintext highlighter-rouge">True</code>를 반환합니다. <code class="language-plaintext highlighter-rouge">isprintable()</code> 메서드는 내부적으로 <code class="language-plaintext highlighter-rouge">Py_UNICODE_ISPRINTABLE()</code> 함수를 호출합니다.</p>
+
+<h2 id="근거-rationale">근거 (Rationale)</h2>
+
+<p>Python 3000의 <code class="language-plaintext highlighter-rouge">repr()</code>은 Python 3000의 문자열과 마찬가지로 ASCII 기반이 아닌 유니코드 기반이어야 합니다. 또한, 로케일(locale) 설정은 출력 장치의 로케일과 반드시 같지 않으므로, 변환이 로케일 설정에 영향을 받아서는 안 됩니다. 예를 들어, 데몬(daemon) 프로세스가 ASCII 설정으로 호출되지만 UTF-8로 로그 파일에 쓰는 것은 일반적인 경우입니다. 또한, 웹 애플리케이션은 HTML 페이지의 인코딩을 기반으로 오류 정보를 더 읽기 쉬운 형태로 보고하고 싶을 수 있습니다.</p>
+
+<p>사용자 콘솔에서 지원하지 않는 문자는 유니코드 인코더의 에러 핸들러에 의해 출력 시 헥스 이스케이프될 수 있습니다. 출력 파일의 에러 핸들러가 <code class="language-plaintext highlighter-rouge">'backslashreplace'</code>인 경우, 그러한 문자는 <code class="language-plaintext highlighter-rouge">UnicodeEncodeError</code>를 발생시키지 않고 헥스 이스케이프됩니다. 예를 들어, 기본 인코딩이 ASCII인 경우 <code class="language-plaintext highlighter-rouge">print('Hello ¢')</code>는 <code class="language-plaintext highlighter-rouge">'Hello \xa2'</code>를 출력합니다. 인코딩이 ISO-8859-1인 경우 <code class="language-plaintext highlighter-rouge">'Hello ¢'</code>가 출력됩니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">sys.stdout</code>의 기본 에러 핸들러는 <code class="language-plaintext highlighter-rouge">'strict'</code>입니다. 출력을 읽는 다른 애플리케이션이 헥스 이스케이프된 문자를 잘못 해석할 수 있으므로, 지원되지 않는 문자는 쓸 때 감지되어야 합니다. 지원되지 않는 문자가 이스케이프되어야 하는 경우, 에러 핸들러를 명시적으로 변경해야 합니다. <code class="language-plaintext highlighter-rouge">sys.stdout</code>과 달리 <code class="language-plaintext highlighter-rouge">sys.stderr</code>는 기본적으로 <code class="language-plaintext highlighter-rouge">UnicodeEncodingError</code>를 발생시키지 않습니다. 이는 기본 에러 핸들러가 <code class="language-plaintext highlighter-rouge">'backslashreplace'</code>이기 때문입니다. 따라서 비-ASCII 문자를 포함하는 오류 메시지를 <code class="language-plaintext highlighter-rouge">sys.stderr</code>로 출력해도 예외가 발생하지 않습니다. 또한, 처리되지 않은 예외(예외 객체, 트레이스백)에 대한 정보는 인터프리터에 의해 예외를 발생시키지 않고 출력됩니다.</p>
+
+<h2 id="대안-솔루션-alternate-solutions">대안 솔루션 (Alternate Solutions)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">repr()</code>을 변경하지 않고 비-라틴어 사용자의 디버깅을 돕기 위해 다른 제안들이 있었습니다.</p>
+
+<ul>
+  <li><strong>리스트(list)나 딕트(dict)를 출력하는 도구 제공:</strong> 디버깅을 위해 출력되어야 하는 문자열은 리스트나 딕트뿐만 아니라 다른 많은 종류의 객체에도 포함되어 있습니다. 파일 객체는 유니코드 파일 이름을 포함하고, 예외 객체는 유니코드 메시지를 포함하는 등, 이러한 문자열은 <code class="language-plaintext highlighter-rouge">repr()</code>될 때 읽기 쉬운 형태로 출력되어야 합니다. 모든 가능한 객체 유형을 출력하는 도구를 구현하는 것은 불가능할 것입니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">sys.displayhook</code> 및 <code class="language-plaintext highlighter-rouge">sys.excepthook</code> 사용:</strong> 대화형 세션의 경우, 헥스 이스케이프된 문자를 원래 문자로 복원하는 훅(hook)을 작성할 수 있습니다. 그러나 이러한 훅은 대화형 Python 세션에서 입력된 표현식의 평가 결과를 출력할 때만 호출되며, <code class="language-plaintext highlighter-rouge">print()</code> 함수, 비-대화형 세션 또는 <code class="language-plaintext highlighter-rouge">logging.debug("%r", ...)</code> 등에는 작동하지 않습니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">sys.stdout</code> 및 <code class="language-plaintext highlighter-rouge">sys.stderr</code> 서브클래싱(subclassing):</strong> 헥스 이스케이프된 문자를 복원하는 서브클래스를 구현하는 것은 어렵습니다. 모든 경우에 이스케이프를 올바르게 되돌리기에 충분한 정보가 문자열이 될 때까지 남아 있지 않기 때문입니다. 예를 들어, <code class="language-plaintext highlighter-rouge">print("\\"+"u0041")</code>는 ‘A’가 아니라 <code class="language-plaintext highlighter-rouge">'\u0041'</code>로 출력되어야 합니다. 그러나 파일 객체를 구별할 기회가 없습니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">unicode_repr()</code>에서 사용되는 인코딩을 조정 가능하게 하고, 기존 <code class="language-plaintext highlighter-rouge">repr()</code>을 기본값으로 설정:</strong> 조정 가능한 <code class="language-plaintext highlighter-rouge">repr()</code>을 사용하면 <code class="language-plaintext highlighter-rouge">repr()</code>의 결과가 예측 불가능해지고, <code class="language-plaintext highlighter-rouge">repr()</code>과 관련된 올바른 코드를 작성하는 것이 불가능해질 수 있습니다. 그리고 현재 <code class="language-plaintext highlighter-rouge">repr()</code>이 기본값이라면, 기존 관행이 유지되고 사용자는 <code class="language-plaintext highlighter-rouge">repr()</code>의 결과로 ASCII 문자열을 기대할 수 있습니다. 사용자 정의 <code class="language-plaintext highlighter-rouge">repr()</code> 함수가 사용될 때 서드파티 애플리케이션이나 라이브러리가 혼란스러워할 수 있습니다.</li>
+</ul>
+
+<h2 id="하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">repr()</code> 변경은 일부 기존 코드, 특히 테스트 코드를 손상시킬 수 있습니다. Python의 회귀 테스트(regression tests) 중 5개가 이 수정으로 인해 실패합니다. Python 2처럼 비-ASCII 문자가 없는 <code class="language-plaintext highlighter-rouge">repr()</code> 문자열이 필요한 경우 다음 함수를 사용할 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">repr_ascii</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nf">str</span><span class="p">(</span><span class="nf">repr</span><span class="p">(</span><span class="n">obj</span><span class="p">).</span><span class="nf">encode</span><span class="p">(</span><span class="sh">"</span><span class="s">ASCII</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">backslashreplace</span><span class="sh">"</span><span class="p">),</span> <span class="sh">"</span><span class="s">ASCII</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>로깅이나 디버깅을 위해 다음 코드는 <code class="language-plaintext highlighter-rouge">UnicodeEncodeError</code>를 발생시킬 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">log</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="sh">"</span><span class="s">logfile</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">w</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">log</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="nf">repr</span><span class="p">(</span><span class="n">data</span><span class="p">))</span> <span class="c1"># data에 지원되지 않는 문자가 포함된 경우 UnicodeEncodeError가 발생합니다.
+</span></code></pre></div></div>
+
+<p>예외 발생을 피하려면 에러 핸들러를 명시적으로 지정할 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">log</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="sh">"</span><span class="s">logfile</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">w</span><span class="sh">"</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="sh">"</span><span class="s">backslashreplace</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">log</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="nf">repr</span><span class="p">(</span><span class="n">data</span><span class="p">))</span> <span class="c1"># 지원되지 않는 문자는 이스케이프됩니다.
+</span></code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">en_US.utf8</code> 또는 <code class="language-plaintext highlighter-rouge">de_DE.utf8</code>과 같이 유니코드 기반 인코딩을 사용하는 콘솔의 경우, 백슬래시 교체(backslashreplace) 트릭이 작동하지 않고 모든 인쇄 가능한 문자가 이스케이프되지 않습니다. 이로 인해 서유럽, 그리스어, 키릴어와 같은 언어에서 비슷한 문자가 그려지는 문제가 발생할 수 있습니다. 이들 언어는 유사하지만 다른 알파벳(공통 조상에서 유래)을 사용하며, 비슷해 보이지만 문자 코드가 다른 글자를 포함합니다. 예를 들어, 라틴어 ‘a’, ‘e’, ‘o’를 키릴어 ‘а’, ‘е’, ‘о’와 구별하기 어렵습니다. (물론 시각적 표현은 사용되는 폰트에 따라 크게 다르지만, 일반적으로 이들 글자는 거의 구별할 수 없습니다.) 이 문제를 피하기 위해 사용자는 자신의 환경에 적합한 결과를 얻기 위해 터미널 인코딩을 조정할 수 있습니다.</p>
+
+<h2 id="거부된-제안-rejected-proposals">거부된 제안 (Rejected Proposals)</h2>
+
+<ul>
+  <li><strong>내장 <code class="language-plaintext highlighter-rouge">print()</code> 함수에 <code class="language-plaintext highlighter-rouge">encoding</code> 및 <code class="language-plaintext highlighter-rouge">errors</code> 인수를 추가하며, 기본값은 <code class="language-plaintext highlighter-rouge">sys.getfilesystemencoding()</code> 및 <code class="language-plaintext highlighter-rouge">'backslashreplace'</code>로 설정:</strong> 구현이 복잡하고, 일반적으로 좋은 아이디어로 간주되지 않습니다.</li>
+  <li><strong>헥스(hex) 문자 코드 대신 문자 이름을 사용하여 문자 이스케이프:</strong> 예를 들어, <code class="language-plaintext highlighter-rouge">repr('\u03b1')</code>를 <code class="language-plaintext highlighter-rouge">"\N{GREEK SMALL LETTER ALPHA}"</code>로 변환하는 것입니다. 문자 이름을 사용하는 것은 헥스 이스케이프보다 매우 장황할 수 있습니다. 예: <code class="language-plaintext highlighter-rouge">repr("\ufbf9")</code>는 <code class="language-plaintext highlighter-rouge">"\N{ARABIC LIGATURE UIGHUR KIRGHIZ YEH WITH HAMZA ABOVE WITH ALEF MAKSURA ISOLATED FORM}"</code>으로 변환됩니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">sys.stdout</code>의 기본 에러 핸들러를 <code class="language-plaintext highlighter-rouge">'backslashreplace'</code>로 설정:</strong> <code class="language-plaintext highlighter-rouge">stdout</code>에 쓰여진 내용은 <code class="language-plaintext highlighter-rouge">\</code> 이스케이프를 잘못 해석할 수 있는 다른 프로그램에 의해 소비될 수 있습니다. 대화형 세션의 경우 <code class="language-plaintext highlighter-rouge">'backslashreplace'</code> 에러 핸들러를 기본값으로 만들 수 있지만, 이는 “대화형 모드에서는 작동하지만 파일로 리디렉션할 때는 작동하지 않는다”와 같은 혼란을 야기할 수 있습니다.</li>
+</ul>
+
+<h2 id="구현-implementation">구현 (Implementation)</h2>
+
+<p>작성자는 http://bugs.python.org/issue2630에 패치(patch)를 작성했으며, 이는 2008년 11월 6일 리비전 64138로 Python 3.0 브랜치에 커밋되었습니다.</p>
+
+<h2 id="참조-references">참조 (References)</h2>
+
+<p>Multibyte string on string::string_print (http://bugs.python.org/issue479898)
+ [Python-3000] Displaying strings containing unicode escapes (https://mail.python.org/pipermail/python-3000/2008-April/013366.html)</p>
+
+<h2 id="저작권-copyright">저작권 (Copyright)</h2>
+
+<p>이 문서는 퍼블릭 도메인(public domain)에 공개되었습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/3137/" class="pagination--pager" title="[Final] PEP 3137 - Immutable Bytes and Mutable Buffer
+">Previous</a>
+    
+    
+      <a href="/python/pep/3139/" class="pagination--pager" title="[Rejected] PEP 3139 - Cleaning out sys and the “interpreter” module
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,748 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Active] PEP 514 - Python registration in the Windows registry | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 514: ‘Python registration in the Windows registry’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Active] PEP 514 - Python registration in the Windows registry">
+<meta property="og:url" content="http://localhost:4000/python/pep/514/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 514: ‘Python registration in the Windows registry’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T23:09:52+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T23:09:52+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/514/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Active] PEP 514 - Python registration in the Windows registry">
+    <meta itemprop="description" content="Python Enhancement Proposal 514: ‘Python registration in the Windows registry’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T23:09:52+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T23:09:52+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Active] PEP 514 - Python registration in the Windows registry
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T23:09:52+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-514-windows-레지스트리에-python-등록-python-registration-in-the-windows-registry">PEP 514: Windows 레지스트리에 Python 등록 (Python registration in the Windows registry)</a><ul><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#도입-배경-motivation">도입 배경 (Motivation)</a></li><li><a href="#정의-definitions">정의 (Definitions)</a></li><li><a href="#구조-structure">구조 (Structure)</a></li><li><a href="#하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</a></li><li><a href="#회사-태그-company-tag">회사 태그 (Company Tag)</a></li><li><a href="#설치-경로-installpath">설치 경로 (InstallPath)</a></li><li><a href="#도움말-help">도움말 (Help)</a></li><li><a href="#기타-키-other-keys">기타 키 (Other Keys)</a></li><li><a href="#샘플-코드-sample-code">샘플 코드 (Sample Code)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0514/">PEP 514 - Python registration in the Windows registry</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Active</td>
+        <td><strong>유형:</strong> Informational</td>
+        <td><strong>작성일:</strong> 02-Feb-2016</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h2 id="pep-514-windows-레지스트리에-python-등록-python-registration-in-the-windows-registry">PEP 514: Windows 레지스트리에 Python 등록 (Python registration in the Windows registry)</h2>
+
+<h3 id="개요-abstract">개요 (Abstract)</h3>
+<p>이 PEP는 타사 설치 프로그램이 자신들의 Python 설치를 등록하고, 도구 및 애플리케이션이 사용자의 시스템에 있는 모든 Python 환경을 감지하고 올바르게 표시할 수 있도록 Windows 레지스트리 키에 대한 스키마를 정의합니다. 이 PEP는 Python 자체의 구현 변경을 제안하지 않습니다.</p>
+
+<p>Python 환경은 외부 도구에 의해 자동으로 검색되기를 원하지 않는 한 등록될 필요가 없습니다. 이 제안은 Windows에만 관련되므로, 이러한 도구는 주로 GUI 애플리케이션이 될 것으로 예상됩니다. 그러나 콘솔 애플리케이션도 등록된 정보를 활용할 수 있습니다. 이 PEP는 제공될 수 있는 정보를 다루지만, 이 정보의 실제 표현 및 사용은 도구 설계자의 몫입니다.</p>
+
+<p>이 스키마는 적어도 Python 2.5부터 공식 설치 프로그램이 사용해 온 레지스트리 값과 일치하며, 충돌 해결 동작은 공식 Python 릴리스의 동작과 일치합니다. 완전한 정보를 등록하지 않는 CPython 버전을 도구들이 올바르게 감지할 수 있도록 일부 하위 호환성 규칙이 제공됩니다.</p>
+
+<h3 id="도입-배경-motivation">도입 배경 (Motivation)</h3>
+<p>Windows에 설치될 때, 공식 Python 설치 프로그램은 다른 애플리케이션의 검색 및 감지를 위해 레지스트리 키를 생성합니다. 이는 설치 프로그램이나 IDE와 같은 도구가 사용자의 Python 설치를 자동으로 감지하고 표시할 수 있도록 합니다. 예를 들어, PEP 397의 <code class="language-plaintext highlighter-rouge">py.exe</code> 런처와 PyCharm, Visual Studio와 같은 편집기는 이미 이 정보를 활용하고 있습니다.</p>
+
+<p>배포판에서 사용되는 것과 같은 타사 설치 프로그램은 일반적으로 동일한 목적으로 동일한 키를 생성합니다. Python 설치를 감지하기 위해 레지스트리를 사용하는 대부분의 도구는 공식 설치 프로그램이 사용하는 키만 검사합니다. 결과적으로, 검색되기를 원하는 타사 설치는 이러한 값을 덮어쓰게 되어 종종 사용자가 원래 Python 설치를 “잃게” 만듭니다.</p>
+
+<p>타사 설치가 고유하게 자신을 등록할 수 있도록 하는 레지스트리 키 레이아웃을 설명하고, 모든 사용 가능한 Python 설치를 검색하기 위한 도구 개발자 지침을 제공함으로써 이러한 충돌을 방지해야 합니다. 또한 사용자에게 더 많은 정보를 제공할 수 있도록 잘 알려진 메타데이터를 추가할 기회를 가집니다.</p>
+
+<h3 id="정의-definitions">정의 (Definitions)</h3>
+<ul>
+  <li><strong>레지스트리 키 (registry key)</strong>: 레지스트리 내에서 파일 시스템 경로와 유사합니다. 각 키는 “하위 키(subkeys)”와 “값(values)”을 포함할 수 있습니다.</li>
+  <li><strong>HKEY_CURRENT_USER</strong>: 현재 로그인한 사용자의 설정 루트입니다.</li>
+  <li><strong>HKEY_LOCAL_MACHINE</strong>: 모든 사용자의 설정 루트입니다.</li>
+  <li><strong>HKEY_LOCAL_MACHINE\Software\Wow6432Node</strong>: 64비트 Windows에서 32비트 프로세스가 <code class="language-plaintext highlighter-rouge">Software</code> 키 대신 투명하게 읽고 쓰는 특수 키입니다.</li>
+</ul>
+
+<h3 id="구조-structure">구조 (Structure)</h3>
+<p>시스템에는 단일 Python 환경 컬렉션이 있으며, 각 환경의 설치 옵션에 따라 세 가지 잠재적인 레지스트리 위치에 저장될 수 있습니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">HKEY_CURRENT_USER\Software\Python\&lt;Company&gt;\&lt;Tag&gt;</code></li>
+  <li><code class="language-plaintext highlighter-rouge">HKEY_LOCAL_MACHINE\Software\Python\&lt;Company&gt;\&lt;Tag&gt;</code></li>
+  <li><code class="language-plaintext highlighter-rouge">HKEY_LOCAL_MACHINE\Software\Wow6432Node\Python\&lt;Company&gt;\&lt;Tag&gt;</code></li>
+</ul>
+
+<p>공식 Python 릴리스는 <code class="language-plaintext highlighter-rouge">Company</code>로 <code class="language-plaintext highlighter-rouge">PythonCore</code>를 사용하고, <code class="language-plaintext highlighter-rouge">Tag</code>에는 <code class="language-plaintext highlighter-rouge">sys.winver</code> 값을 사용합니다. <code class="language-plaintext highlighter-rouge">Company</code> <code class="language-plaintext highlighter-rouge">PyLauncher</code>는 예약되어 있습니다. 다른 등록된 환경은 <code class="language-plaintext highlighter-rouge">Company</code>와 <code class="language-plaintext highlighter-rouge">Tag</code>에 어떤 값이라도 사용할 수 있습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Company-Tag</code> 쌍은 대소문자를 구분하지 않으며 각 환경을 고유하게 식별합니다. 도구의 목적에 따라 충돌을 해결하기 위한 두 가지 접근 방식이 제안됩니다.</p>
+
+<ul>
+  <li>모든 설치된 환경을 나열하는 도구는 <code class="language-plaintext highlighter-rouge">Company-Tag</code> 쌍이 일치하더라도 해당 환경을 포함할 수 있습니다. 이 경우, 사용자에게 등록이 사용자별(per-user)인지 시스템별(per-machine)인지, 그리고 어떤 등록이 더 높은 우선순위를 가지는지 쉽게 식별할 수 있도록 해야 합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">py.exe</code> 런처와 같이 <code class="language-plaintext highlighter-rouge">Company-Tag</code> 쌍을 기반으로 등록된 모든 환경 중에서 단일 환경을 선택하려는 도구는 <code class="language-plaintext highlighter-rouge">HKEY_LOCAL_MACHINE</code>의 일치하는 환경보다 <code class="language-plaintext highlighter-rouge">HKEY_CURRENT_USER</code>에 등록된 환경을 항상 선택해야 합니다.</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">HKEY_LOCAL_MACHINE\Software\Python</code>과 <code class="language-plaintext highlighter-rouge">HKEY_LOCAL_MACHINE\Software\Wow6432Node\Python</code> 간의 충돌은 인터프리터의 64비트 및 32비트 버전이 동일한 <code class="language-plaintext highlighter-rouge">Tag</code>를 가질 때만 발생해야 합니다. 이 경우 도구는 사용 목적에 더 적합한 것을 선택해야 합니다.</p>
+
+<h3 id="하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</h3>
+<p>Python 3.4 및 이전 버전은 <code class="language-plaintext highlighter-rouge">sys.winver</code>에서 32비트 및 64비트 빌드를 구분하지 않았습니다. 결과적으로, 이 스키마에서는 32비트 및 64비트 인터프리터의 유효한 동시 설치(side-by-side installations)를 가질 수 없습니다.</p>
+
+<p>하위 호환성을 보장하기 위해 애플리케이션은 다음 두 레지스트리 키 아래에 나열된 환경을 <code class="language-plaintext highlighter-rouge">Tag</code>가 일치하더라도 별개로 처리해야 합니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">HKEY_LOCAL_MACHINE\Software\Python\PythonCore\&lt;Tag&gt;</code></li>
+  <li><code class="language-plaintext highlighter-rouge">HKEY_LOCAL_MACHINE\Software\Wow6432Node\Python\PythonCore\&lt;Tag&gt;</code></li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">HKEY_CURRENT_USER</code> 아래에 나열된 환경은 위 두 키와 별개로 처리될 수 있으며, 잠재적으로 동일한 <code class="language-plaintext highlighter-rouge">Tag</code>를 사용하는 세 가지 환경이 발견될 수 있습니다.</p>
+
+<h3 id="회사-태그-company-tag">회사 태그 (Company Tag)</h3>
+<ul>
+  <li><strong>Company</strong>: 관련 환경을 그룹화하고 <code class="language-plaintext highlighter-rouge">Tag</code>가 적절하게 이름 공간을 가지도록 합니다. 키 이름은 공백 없는 영숫자여야 하며 고유해야 합니다. (예: 상표명, 호스트 이름, 또는 UUID)
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">PyLauncher</code>는 PEP 397 런처(<code class="language-plaintext highlighter-rouge">py.exe</code>)를 위해 예약되어 있습니다.</li>
+      <li><code class="language-plaintext highlighter-rouge">DisplayName</code> 문자열 값이 존재하면 사용자에게 환경 제조업체/개발자/배포자를 식별하는 데 사용되어야 합니다. 그렇지 않으면 키 이름이 사용됩니다. (PythonCore의 경우 기본값은 “Python Software Foundation”입니다.)</li>
+      <li><code class="language-plaintext highlighter-rouge">SupportUrl</code> 문자열 값이 존재하면 환경과 관련된 웹 사이트로 사용자를 안내하는 데 사용될 수 있습니다. (PythonCore의 경우 기본값은 “http://www.python.org/”입니다.)</li>
+    </ul>
+  </li>
+  <li><strong>Tag</strong>: 단일 회사에서 제공하는 환경 내에서 환경을 고유하게 식별합니다. 키 이름은 공백 없는 영숫자여야 하며 설치 전반에 걸쳐 안정적이어야 합니다. (예: Python 언어 버전, UUID 또는 부분/전체 해시)
+    <ul>
+      <li>짧고, 사람이 읽기 쉽고, 입력하기 쉬운 <code class="language-plaintext highlighter-rouge">Tag</code>를 권장하며, 가능하다면 모든 다른 <code class="language-plaintext highlighter-rouge">Company</code>에 걸쳐 고유할 가능성이 있는 값을 선택해야 합니다.</li>
+      <li><code class="language-plaintext highlighter-rouge">DisplayName</code> 문자열 값이 존재하면 사용자에게 환경을 식별하는 데 사용되어야 합니다. 그렇지 않으면 키 이름이 사용됩니다. (PythonCore의 경우 기본값은 “Python “ 뒤에 <code class="language-plaintext highlighter-rouge">Tag</code>입니다.)</li>
+      <li><code class="language-plaintext highlighter-rouge">SupportUrl</code> 문자열 값이 존재하면 환경과 관련된 웹 사이트로 사용자를 안내하는 데 사용될 수 있습니다. (PythonCore의 경우 기본값은 “http://www.python.org/”입니다.)</li>
+      <li><code class="language-plaintext highlighter-rouge">Version</code> 문자열 값이 존재하면 환경의 버전을 식별하는 데 사용되어야 합니다. 이는 환경이 구현하는 Python 버전과는 독립적입니다. (PythonCore의 경우 기본값은 <code class="language-plaintext highlighter-rouge">Tag</code>의 처음 세 문자입니다.)</li>
+      <li><code class="language-plaintext highlighter-rouge">SysVersion</code> 문자열 값이 존재하면 인터프리터의 <code class="language-plaintext highlighter-rouge">sys.version_info</code>가 반환하는 버전과 일치하는 <code class="language-plaintext highlighter-rouge">x.y</code> 또는 <code class="language-plaintext highlighter-rouge">x.y.z</code> 형식이어야 합니다. 생략되면 Python 버전은 알 수 없습니다. (PythonCore의 경우 기본값은 <code class="language-plaintext highlighter-rouge">Tag</code>의 처음 세 문자입니다.)</li>
+      <li><code class="language-plaintext highlighter-rouge">SysArchitecture</code> 문자열 값이 존재하면 <code class="language-plaintext highlighter-rouge">platform.architecture()</code>가 반환하는 튜플의 첫 번째 요소와 일치해야 합니다. 일반적으로 “32bit” 또는 “64bit”입니다. 생략되면 아키텍처는 알 수 없습니다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="설치-경로-installpath">설치 경로 (InstallPath)</h3>
+<p>환경 키 아래에 <code class="language-plaintext highlighter-rouge">InstallPath</code> 키가 생성되어야 합니다. 이 키는 항상 <code class="language-plaintext highlighter-rouge">InstallPath</code>로 명명되며, 기본값은 <code class="language-plaintext highlighter-rouge">sys.prefix</code>와 일치해야 합니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">ExecutablePath</code> 문자열 값이 존재하면 <code class="language-plaintext highlighter-rouge">python.exe</code> (또는 동등한) 실행 파일의 전체 경로여야 합니다. 생략되면 환경은 실행 불가능합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">ExecutableArguments</code> 문자열 값이 존재하면, 도구는 <code class="language-plaintext highlighter-rouge">ExecutablePath</code>를 실행할 때 이 값을 첫 번째 인수로 사용해야 합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">WindowedExecutablePath</code> 문자열 값이 존재하면 <code class="language-plaintext highlighter-rouge">pythonw.exe</code> (또는 동등한) 실행 파일의 경로여야 합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">WindowedExecutableArguments</code> 문자열 값이 존재하면, 도구는 <code class="language-plaintext highlighter-rouge">WindowedExecutablePath</code>를 실행할 때 이 값을 첫 번째 인수로 사용해야 합니다.</li>
+</ul>
+
+<h3 id="도움말-help">도움말 (Help)</h3>
+<p>환경 키 아래에 <code class="language-plaintext highlighter-rouge">Help</code> 키가 생성될 수 있습니다. 이 키는 존재할 경우 항상 <code class="language-plaintext highlighter-rouge">Help</code>로 명명되며 기본값은 없습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Help</code>의 각 하위 키는 환경과 관련된 문서 파일, 도구 또는 URL을 지정합니다. 하위 키는 어떤 이름이라도 가질 수 있으며, 기본값은 <code class="language-plaintext highlighter-rouge">os.startfile</code> 또는 동등한 함수에 전달하기에 적절한 문자열입니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">DisplayName</code> 문자열 값이 존재하면 사용자에게 도움말 파일을 식별하는 데 사용되어야 합니다. 그렇지 않으면 키 이름이 사용됩니다.</li>
+</ul>
+
+<h3 id="기타-키-other-keys">기타 키 (Other Keys)</h3>
+<p><code class="language-plaintext highlighter-rouge">Company-Tag</code> 쌍 아래의 다른 모든 하위 키는 개인적인 용도로 사용할 수 있습니다.</p>
+
+<p>공식 CPython 릴리스는 전통적으로 이 공간의 특정 키를 사용하여 Python 표준 라이브러리 및 기타 설치된 모듈의 위치를 결정했습니다. 이 동작은 주로 하위 호환성을 위해 유지됩니다. 그러나 이러한 값을 읽는 코드가 인터프리터에 내장되어 있으므로, 타사 배포판은 수정되지 않은 인터프리터를 사용하는 경우 <code class="language-plaintext highlighter-rouge">PythonCore</code>에 기록된 값의 영향을 받을 수 있습니다.</p>
+
+<h3 id="샘플-코드-sample-code">샘플 코드 (Sample Code)</h3>
+<p>PEP 0514는 레지스트리를 열거하고 사용 가능한 <code class="language-plaintext highlighter-rouge">Company-Tag</code> 쌍을 표시하는 Python 샘플 코드를 제공합니다. 이 코드는 가장 선호되는 환경을 찾고, <code class="language-plaintext highlighter-rouge">PythonCore</code>에 대한 하위 호환성 처리를 포함하며, <code class="language-plaintext highlighter-rouge">HKEY_CURRENT_USER</code>에 등록된 <code class="language-plaintext highlighter-rouge">PythonCore</code> 환경에 대한 정보와 기본값을 보여줍니다.</p>
+
+<hr />
+<p><strong>참고:</strong> PEP 514는 Windows 레지스트리에 Python 환경을 등록하는 표준화된 방법을 제공하여 다양한 Python 설치 및 도구가 서로 충돌 없이 공존하고 쉽게 검색될 수 있도록 하는 것을 목표로 합니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/513/" class="pagination--pager" title="[Superseded] PEP 513 - A Platform Tag for Portable Linux Built Distributions
+">Previous</a>
+    
+    
+      <a href="/python/pep/515/" class="pagination--pager" title="[Final] PEP 515 - Underscores in Numeric Literals
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

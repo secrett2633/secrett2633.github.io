@@ -1,0 +1,881 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 626 - Precise line numbers for debugging and other tools. | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 626: ‘Precise line numbers for debugging and other tools.’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 626 - Precise line numbers for debugging and other tools.">
+<meta property="og:url" content="http://localhost:4000/python/pep/626/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 626: ‘Precise line numbers for debugging and other tools.’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T00:29:42+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T00:29:42+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/626/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 626 - Precise line numbers for debugging and other tools.">
+    <meta itemprop="description" content="Python Enhancement Proposal 626: ‘Precise line numbers for debugging and other tools.’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T00:29:42+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T00:29:42+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 626 - Precise line numbers for debugging and other tools.
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T00:29:42+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-626--디버깅-및-기타-도구를-위한-정밀한-줄-번호-precise-line-numbers-for-debugging-and-other-tools">PEP 626 – 디버깅 및 기타 도구를 위한 정밀한 줄 번호 (Precise line numbers for debugging and other tools)</a><ul><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#동기-motivation">동기 (Motivation)</a></li><li><a href="#근거-rationale">근거 (Rationale)</a></li><li><a href="#명세-specification">명세 (Specification)</a><ul><li><a href="#트레이싱-tracing">트레이싱 (Tracing)</a></li><li><a href="#트레이싱-목적상-코드로-간주되는-것-what-is-considered-to-be-code-for-the-purposes-of-tracing">트레이싱 목적상 코드로 간주되는 것 (What is considered to be code for the purposes of tracing)</a></li><li><a href="#이벤트-시퀀스-예시-example-event-sequences">이벤트 시퀀스 예시 (Example event sequences)</a></li><li><a href="#f_lineno-속성-the-f_lineno-attribute">f_lineno 속성 (The f_lineno attribute)</a></li><li><a href="#코드-객체의-새로운-co_lines-메서드-the-new-co_lines-method-of-code-objects">코드 객체의 새로운 co_lines() 메서드 (The new co_lines() method of code objects)</a><ul><li><a href="#0-너비-범위-zero-width-ranges">0 너비 범위 (Zero width ranges)</a></li></ul></li><li><a href="#co_linetable-속성-the-co_linetable-attribute">co_linetable 속성 (The co_linetable attribute)</a></li><li><a href="#co_lnotab-속성-the-co_lnotab-attribute">co_lnotab 속성 (The co_lnotab attribute)</a></li></ul></li><li><a href="#하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</a><ul><li><a href="#트레이스-이벤트-시퀀스가-변경될-코드-예시-examples-of-code-for-which-the-sequence-of-trace-events-will-change">트레이스 이벤트 시퀀스가 변경될 코드 예시 (Examples of code for which the sequence of trace events will change)</a><ul><li><a href="#if-문-내의-pass-문-pass-statement-in-an-if-statement">if 문 내의 pass 문 (pass statement in an if statement)</a></li><li><a href="#여러-개의-pass-문-multiple-pass-statements">여러 개의 pass 문 (Multiple pass statements)</a></li></ul></li></ul></li><li><a href="#c-api">C API</a></li><li><a href="#프로세스-외부-디버거-및-프로파일러-out-of-process-debuggers-and-profilers">프로세스 외부 디버거 및 프로파일러 (Out of process debuggers and profilers)</a></li><li><a href="#성능-영향-performance-implications">성능 영향 (Performance Implications)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0626/">PEP 626 - Precise line numbers for debugging and other tools.</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 15-Jul-2020</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-626--디버깅-및-기타-도구를-위한-정밀한-줄-번호-precise-line-numbers-for-debugging-and-other-tools">PEP 626 – 디버깅 및 기타 도구를 위한 정밀한 줄 번호 (Precise line numbers for debugging and other tools)</h1>
+
+<p><strong>저자:</strong> Mark Shannon
+<strong>BDFL-Delegate:</strong> Pablo Galindo
+<strong>상태:</strong> Final
+<strong>타입:</strong> Standards Track
+<strong>생성일:</strong> 2020년 7월 15일
+<strong>Python 버전:</strong> 3.10</p>
+
+<h2 id="개요-abstract">개요 (Abstract)</h2>
+
+<p>이 PEP는 Python이 트레이싱(tracing)이 활성화되었을 때, 실행된 모든 코드 라인에 대해 “line” 트레이싱 이벤트를 생성하고, 실행된 코드 라인에 대해서만 이벤트를 생성하도록 보장해야 한다고 명시합니다.</p>
+
+<p>프레임 객체의 <code class="language-plaintext highlighter-rouge">f_lineno</code> 속성은 항상 예상된 줄 번호를 포함해야 합니다. 프레임 실행 중에는 현재 실행 중인 소스 코드의 줄 번호가 되어야 하며, 프레임이 완료된 후에는 마지막으로 실행된 소스 코드의 줄 번호가 되어야 합니다.</p>
+
+<p>정확한 줄 번호를 보장하기 위한 부수적인 효과로, 일부 바이트코드는 의미 있는 줄 번호가 없는 “인공적인(artificial)” 것으로 표시되어야 합니다. 도구를 돕기 위해, 바이트코드와 소스 간의 매핑을 설명하는 새로운 <code class="language-plaintext highlighter-rouge">co_lines</code> 속성이 추가될 것입니다.</p>
+
+<h2 id="동기-motivation">동기 (Motivation)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">sys.settrace</code> 및 관련 도구 사용자들은 모든 코드 라인에 대해 트레이싱 이벤트가 생성되며, 실제 코드에 대해서만 이벤트가 생성된다는 점을 신뢰할 수 있어야 합니다. 또한, <code class="language-plaintext highlighter-rouge">f_lineno</code>의 줄 번호가 정확하다고 가정할 수 있어야 합니다.</p>
+
+<p>현재 구현은 대부분 이러한 역할을 수행하지만, 몇몇 경우에 실패합니다. 이는 도구에서 해결 방법을 필요로 하며, 다른 Python 구현체(alternative Python implementations)에 불편함을 줍니다. 이러한 보장은 CPython 구현자들에게도 장기적으로 이점을 제공하는데, 현재 동작은 명확하지 않고 몇몇 특이한 코너 케이스가 있기 때문입니다.</p>
+
+<h2 id="근거-rationale">근거 (Rationale)</h2>
+
+<p>예상대로 줄 이벤트가 생성되도록 보장하기 위해, 현재 형태의 <code class="language-plaintext highlighter-rouge">co_lnotab</code> 속성은 더 이상 줄 번호 정보의 “진실의 원천(source of truth)”이 될 수 없습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">co_lnotab</code> 속성을 수정하려고 시도하기보다는, 바이트코드 오프셋과 소스 코드 줄에 대한 이터레이터를 반환하는 새로운 <code class="language-plaintext highlighter-rouge">co_lines()</code> 메서드가 추가될 것입니다.</p>
+
+<p>정확한 줄 번호 정보를 활성화하기 위해 바이트코드가 올바르게 주석(annotated) 처리되도록 보장하는 것은 일부 바이트코드가 인공적인 것으로 표시되어야 하며 줄 번호가 없어야 함을 의미합니다.</p>
+
+<p>기존 도구를 손상시키지 않도록 주의해야 합니다. 최소한의 손상을 위해 <code class="language-plaintext highlighter-rouge">co_lnotab</code> 속성은 유지되지만, 필요할 때 지연 생성(lazily generated)됩니다.</p>
+
+<h2 id="명세-specification">명세 (Specification)</h2>
+
+<p>줄 이벤트와 <code class="language-plaintext highlighter-rouge">f_lineno</code> 속성은 숙련된 Python 사용자가 모든 경우에 기대하는 대로 작동해야 합니다.</p>
+
+<h3 id="트레이싱-tracing">트레이싱 (Tracing)</h3>
+
+<p>트레이싱은 호출(calls), 반환(returns), 예외(exceptions), 실행된 소스 코드 줄, 그리고 특정 상황에서는 실행된 명령어(instructions)에 대한 이벤트를 생성합니다. 이 PEP는 줄 이벤트에 대해서만 다룹니다.</p>
+
+<p>트레이싱이 활성화되면 다음 경우에 줄 이벤트가 생성됩니다.</p>
+<ul>
+  <li>새로운 소스 코드 줄에 도달했을 때.</li>
+  <li>백워드 점프(backwards jump)가 발생했을 때 (예: List Comprehension에서와 같이 동일한 줄로 점프하더라도).</li>
+</ul>
+
+<p>또한, 실행되지 않은 소스 코드 줄에 대해서는 줄 이벤트가 절대 생성되지 않습니다.</p>
+
+<h3 id="트레이싱-목적상-코드로-간주되는-것-what-is-considered-to-be-code-for-the-purposes-of-tracing">트레이싱 목적상 코드로 간주되는 것 (What is considered to be code for the purposes of tracing)</h3>
+
+<p>모든 표현식(expressions)과 표현식의 부분은 실행 가능한 코드(executable code)로 간주됩니다.
+일반적으로 모든 구문(statements)도 실행 가능한 코드로 간주됩니다. 그러나 구문이 여러 줄에 걸쳐 있을 때, 구문의 어떤 부분이 실행 가능한 코드로 간주되는지 고려해야 합니다.</p>
+
+<p>구문은 키워드와 표현식으로 구성됩니다. 모든 키워드가 직접적인 런타임 효과를 가지지는 않으므로, 모든 키워드가 실행 가능한 코드로 간주되지는 않습니다. 예를 들어, <code class="language-plaintext highlighter-rouge">else</code>는 <code class="language-plaintext highlighter-rouge">if</code> 문의 필수적인 부분이지만, <code class="language-plaintext highlighter-rouge">else</code>와 관련된 런타임 효과는 없습니다.</p>
+
+<p>트레이싱 목적상 다음 키워드는 실행 가능한 코드로 간주되지 않습니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">del</code> – 삭제될 표현식은 실행 가능한 코드로 처리됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">else</code> – 런타임 효과 없음</li>
+  <li><code class="language-plaintext highlighter-rouge">finally</code> – 런타임 효과 없음</li>
+  <li><code class="language-plaintext highlighter-rouge">global</code> – 순수하게 선언적(declarative)</li>
+  <li><code class="language-plaintext highlighter-rouge">nonlocal</code> – 순수하게 선언적</li>
+</ul>
+
+<p>다른 모든 키워드는 실행 가능한 코드로 간주됩니다.</p>
+
+<h3 id="이벤트-시퀀스-예시-example-event-sequences">이벤트 시퀀스 예시 (Example event sequences)</h3>
+
+<p>다음 예시에서 이벤트는 “(이름)”, <code class="language-plaintext highlighter-rouge">f_lineno</code> 쌍으로 표시됩니다.</p>
+
+<p><strong>코드:</strong></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mf">1.</span> <span class="k">global</span> <span class="n">x</span>
+<span class="mf">2.</span> <span class="n">x</span> <span class="o">=</span> <span class="n">a</span>
+</code></pre></div></div>
+<p>생성되는 이벤트:
+<code class="language-plaintext highlighter-rouge">"line" 2</code></p>
+
+<p><strong>코드:</strong></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mf">1.</span> <span class="k">try</span><span class="p">:</span>
+<span class="mf">2.</span>     <span class="k">pass</span>
+<span class="mf">3.</span> <span class="k">finally</span><span class="p">:</span>
+<span class="mf">4.</span>     <span class="k">pass</span>
+</code></pre></div></div>
+<p>생성되는 이벤트:
+<code class="language-plaintext highlighter-rouge">"line" 1</code>
+<code class="language-plaintext highlighter-rouge">"line" 2</code>
+<code class="language-plaintext highlighter-rouge">"line" 4</code></p>
+
+<p><strong>코드:</strong></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mf">1.</span> <span class="nf">for </span><span class="p">(</span>
+<span class="mf">2.</span>     <span class="n">x</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+<span class="mf">3.</span>     <span class="k">pass</span>
+<span class="mf">4.</span> <span class="k">return</span>
+</code></pre></div></div>
+<p>생성되는 이벤트:
+<code class="language-plaintext highlighter-rouge">"line" 2</code> # evaluate
+<code class="language-plaintext highlighter-rouge">"line" 1</code> # for
+<code class="language-plaintext highlighter-rouge">"line" 2</code> # store to x
+<code class="language-plaintext highlighter-rouge">"line" 3</code> # pass
+<code class="language-plaintext highlighter-rouge">"line" 1</code> # for
+<code class="language-plaintext highlighter-rouge">"line" 4</code> # return
+<code class="language-plaintext highlighter-rouge">"return" 1</code></p>
+
+<h3 id="f_lineno-속성-the-f_lineno-attribute"><code class="language-plaintext highlighter-rouge">f_lineno</code> 속성 (The f_lineno attribute)</h3>
+
+<p>프레임 객체가 생성될 때, <code class="language-plaintext highlighter-rouge">f_lineno</code> 속성은 함수나 클래스가 정의된 줄, 즉 <code class="language-plaintext highlighter-rouge">def</code> 또는 <code class="language-plaintext highlighter-rouge">class</code> 키워드가 나타나는 줄로 설정됩니다. 모듈의 경우 0으로 설정됩니다. <code class="language-plaintext highlighter-rouge">f_lineno</code> 속성은 트레이싱이 꺼져 있고 이벤트가 생성되지 않더라도, 실행될 줄 번호와 일치하도록 업데이트됩니다.</p>
+
+<h3 id="코드-객체의-새로운-co_lines-메서드-the-new-co_lines-method-of-code-objects">코드 객체의 새로운 <code class="language-plaintext highlighter-rouge">co_lines()</code> 메서드 (The new co_lines() method of code objects)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">co_lines()</code> 메서드는 바이트코드 범위의 줄 번호를 나타내는 값들의 튜플을 반환하는 이터레이터를 제공합니다. 각 튜플은 세 가지 값으로 구성됩니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">start</code> – 바이트코드 범위의 시작 오프셋 (포함)</li>
+  <li><code class="language-plaintext highlighter-rouge">end</code> – 바이트코드 범위의 끝 오프셋 (제외)</li>
+  <li><code class="language-plaintext highlighter-rouge">line</code> – 줄 번호, 또는 주어진 범위의 바이트코드에 줄 번호가 없는 경우 <code class="language-plaintext highlighter-rouge">None</code></li>
+</ul>
+
+<p>생성된 시퀀스는 다음 속성을 가집니다.</p>
+<ul>
+  <li>시퀀스의 첫 번째 범위는 <code class="language-plaintext highlighter-rouge">start</code>가 0입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">(start, end)</code> 범위는 감소하지 않고 연속적입니다. 즉, 어떤 두 튜플 쌍에 대해 두 번째 튜플의 <code class="language-plaintext highlighter-rouge">start</code>는 첫 번째 튜플의 <code class="language-plaintext highlighter-rouge">end</code>와 같습니다.</li>
+  <li>어떤 범위도 역방향이 아닙니다. 즉, 모든 세 값 튜플에 대해 <code class="language-plaintext highlighter-rouge">end &gt;= start</code>입니다.</li>
+  <li>시퀀스의 마지막 범위는 <code class="language-plaintext highlighter-rouge">end</code>가 바이트코드의 크기와 같습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">line</code>은 양의 정수이거나 <code class="language-plaintext highlighter-rouge">None</code>입니다.</li>
+</ul>
+
+<h4 id="0-너비-범위-zero-width-ranges">0 너비 범위 (Zero width ranges)</h4>
+
+<p><code class="language-plaintext highlighter-rouge">start == end</code>인 0 너비 범위가 허용됩니다. 0 너비 범위는 소스 코드에 존재하지만 바이트코드 컴파일러에 의해 제거된 줄에 사용됩니다.</p>
+
+<h3 id="co_linetable-속성-the-co_linetable-attribute"><code class="language-plaintext highlighter-rouge">co_linetable</code> 속성 (The co_linetable attribute)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">co_linetable</code> 속성은 줄 번호 정보를 저장합니다. 이 형식은 불투명하고(opaque) 명시되지 않으며 예고 없이 변경될 수 있습니다. 이 속성은 새로운 코드 객체 생성을 지원하기 위해서만 공개됩니다.</p>
+
+<h3 id="co_lnotab-속성-the-co_lnotab-attribute"><code class="language-plaintext highlighter-rouge">co_lnotab</code> 속성 (The co_lnotab attribute)</h3>
+
+<p>역사적으로 <code class="language-plaintext highlighter-rouge">co_lnotab</code> 속성은 바이트코드 오프셋에서 줄 번호로의 매핑을 담고 있었지만, 줄 번호가 없는 바이트코드를 지원하지 않습니다. 하위 호환성을 위해 <code class="language-plaintext highlighter-rouge">co_lnotab</code> 바이트 객체는 필요할 때 지연 생성됩니다. 줄 번호가 없는 바이트코드 범위의 경우, 이전 바이트코드 범위의 줄 번호가 사용됩니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">co_lnotab</code> 테이블을 파싱하는 도구는 가능한 한 빨리 새로운 <code class="language-plaintext highlighter-rouge">co_lines()</code> 메서드를 사용하도록 전환해야 합니다.</p>
+
+<h2 id="하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">co_lnotab</code> 속성은 Python 3.10에서 Deprecated(더 이상 사용되지 않음)되고 Python 3.12에서 제거될 것입니다.</p>
+
+<p>코드 객체의 <code class="language-plaintext highlighter-rouge">co_lnotab</code> 속성을 파싱하는 모든 도구는 3.12가 출시되기 전에 <code class="language-plaintext highlighter-rouge">co_lines()</code>를 사용하도록 전환해야 합니다. <code class="language-plaintext highlighter-rouge">sys.settrace</code>를 사용하는 도구는 수신하는 “line” 이벤트가 더 정확해지는 경우를 제외하고는 영향을 받지 않습니다.</p>
+
+<h3 id="트레이스-이벤트-시퀀스가-변경될-코드-예시-examples-of-code-for-which-the-sequence-of-trace-events-will-change">트레이스 이벤트 시퀀스가 변경될 코드 예시 (Examples of code for which the sequence of trace events will change)</h3>
+
+<p>다음 예시에서 이벤트는 “(이름)”, <code class="language-plaintext highlighter-rouge">f_lineno</code> 쌍으로 표시됩니다.</p>
+
+<h4 id="if-문-내의-pass-문-pass-statement-in-an-if-statement"><code class="language-plaintext highlighter-rouge">if</code> 문 내의 <code class="language-plaintext highlighter-rouge">pass</code> 문 (pass statement in an if statement)</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mf">0.</span> <span class="k">def</span> <span class="nf">spam</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+<span class="mf">1.</span>     <span class="k">if</span> <span class="n">a</span><span class="p">:</span>
+<span class="mf">2.</span>         <span class="nf">eggs</span><span class="p">()</span>
+<span class="mf">3.</span>     <span class="k">else</span><span class="p">:</span>
+<span class="mf">4.</span>         <span class="k">pass</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">a</code>가 <code class="language-plaintext highlighter-rouge">True</code>인 경우 Python 3.9에서 생성되는 이벤트 시퀀스:
+<code class="language-plaintext highlighter-rouge">"line" 1</code>
+<code class="language-plaintext highlighter-rouge">"line" 2</code>
+<code class="language-plaintext highlighter-rouge">"line" 4</code>
+<code class="language-plaintext highlighter-rouge">"return" 4</code></p>
+
+<p>Python 3.10부터의 시퀀스는 다음과 같습니다:
+<code class="language-plaintext highlighter-rouge">"line" 1</code>
+<code class="language-plaintext highlighter-rouge">"line" 2</code>
+<code class="language-plaintext highlighter-rouge">"return" 2</code></p>
+
+<h4 id="여러-개의-pass-문-multiple-pass-statements">여러 개의 <code class="language-plaintext highlighter-rouge">pass</code> 문 (Multiple pass statements)</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mf">0.</span> <span class="k">def</span> <span class="nf">bar</span><span class="p">():</span>
+<span class="mf">1.</span>     <span class="k">pass</span>
+<span class="mf">2.</span>     <span class="k">pass</span>
+<span class="mf">3.</span>     <span class="k">pass</span>
+</code></pre></div></div>
+<p>Python 3.9에서 생성되는 이벤트 시퀀스:
+<code class="language-plaintext highlighter-rouge">"line" 3</code>
+<code class="language-plaintext highlighter-rouge">"return" 3</code></p>
+
+<p>Python 3.10부터의 시퀀스는 다음과 같습니다:
+<code class="language-plaintext highlighter-rouge">"line" 1</code>
+<code class="language-plaintext highlighter-rouge">"line" 2</code>
+<code class="language-plaintext highlighter-rouge">"line" 3</code>
+<code class="language-plaintext highlighter-rouge">"return" 3</code></p>
+
+<h2 id="c-api">C API</h2>
+
+<p>C API 함수를 통한 프레임 객체의 <code class="language-plaintext highlighter-rouge">f_lineno</code> 속성 접근은 변경되지 않습니다. <code class="language-plaintext highlighter-rouge">f_lineno</code>는 <code class="language-plaintext highlighter-rouge">PyFrame_GetLineNumber</code>로 읽을 수 있습니다. <code class="language-plaintext highlighter-rouge">f_lineno</code>는 <code class="language-plaintext highlighter-rouge">PyObject_SetAttr</code> 및 유사 함수를 통해서만 설정할 수 있습니다.</p>
+
+<p>기저 데이터 구조를 통해 <code class="language-plaintext highlighter-rouge">f_lineno</code>에 직접 접근하는 것은 금지됩니다.</p>
+
+<h2 id="프로세스-외부-디버거-및-프로파일러-out-of-process-debuggers-and-profilers">프로세스 외부 디버거 및 프로파일러 (Out of process debuggers and profilers)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">py-spy</code>와 같은 프로세스 외부 도구는 C-API를 사용할 수 없으므로, 줄 번호 테이블을 직접 파싱해야 합니다. 줄 번호 테이블 형식은 예고 없이 변경될 수 있지만, 버그 수정을 위해 절대적으로 필요한 경우가 아니면 릴리스 중에는 변경되지 않습니다.</p>
+
+<p>이러한 도구 구현에 필요한 작업을 줄이기 위해 다음 C 구조체와 유틸리티 함수가 제공됩니다. 이 함수들은 C-API의 일부가 아니므로, 사용해야 하는 모든 코드에 링크되어야 합니다.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">typedef</span> <span class="k">struct</span> <span class="n">addressrange</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">ar_start</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">ar_end</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">ar_line</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">_opaque</span> <span class="n">opaque</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">PyCodeAddressRange</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">PyLineTable_InitAddressRange</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">linetable</span><span class="p">,</span> <span class="n">Py_ssize_t</span> <span class="n">length</span><span class="p">,</span> <span class="kt">int</span> <span class="n">firstlineno</span><span class="p">,</span> <span class="n">PyCodeAddressRange</span> <span class="o">*</span><span class="n">range</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">PyLineTable_NextAddressRange</span><span class="p">(</span><span class="n">PyCodeAddressRange</span> <span class="o">*</span><span class="n">range</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">PyLineTable_PreviousAddressRange</span><span class="p">(</span><span class="n">PyCodeAddressRange</span> <span class="o">*</span><span class="n">range</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">PyLineTable_InitAddressRange</code>는 줄 번호 테이블과 첫 번째 줄 번호에서 <code class="language-plaintext highlighter-rouge">PyCodeAddressRange</code> 구조체를 초기화합니다.
+<code class="language-plaintext highlighter-rouge">PyLineTable_NextAddressRange</code>는 범위를 다음 엔트리로 진행시키고, 유효하면 0이 아닌 값을 반환합니다.
+<code class="language-plaintext highlighter-rouge">PyLineTable_PreviousAddressRange</code>는 범위를 이전 엔트리로 되돌리고, 유효하면 0이 아닌 값을 반환합니다.</p>
+
+<p><strong>참고:</strong> <code class="language-plaintext highlighter-rouge">linetable</code>의 데이터는 변경 불가능하지만, 그 수명은 코드 객체에 따라 달라집니다. 안정적인 작동을 위해 <code class="language-plaintext highlighter-rouge">PyLineTable_InitAddressRange</code>를 호출하기 전에 <code class="language-plaintext highlighter-rouge">linetable</code>을 로컬 버퍼로 복사해야 합니다.</p>
+
+<p>이 함수들은 C-API의 일부는 아니지만, CPython의 모든 미래 버전에서 제공될 것입니다. <code class="language-plaintext highlighter-rouge">PyLineTable_</code> 함수는 C-API를 호출하지 않으므로, 이들을 사용해야 하는 모든 도구에 안전하게 복사될 수 있습니다. <code class="language-plaintext highlighter-rouge">PyCodeAddressRange</code> 구조체는 변경되지 않지만, <code class="language-plaintext highlighter-rouge">_opaque</code> 구조체는 명세의 일부가 아니며 변경될 수 있습니다.</p>
+
+<p>예를 들어, 다음 코드는 모든 주소 범위를 출력합니다.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">print_address_ranges</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">linetable</span><span class="p">,</span> <span class="n">Py_ssize_t</span> <span class="n">length</span><span class="p">,</span> <span class="kt">int</span> <span class="n">firstlineno</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">PyCodeAddressRange</span> <span class="n">range</span><span class="p">;</span>
+    <span class="n">PyLineTable_InitAddressRange</span><span class="p">(</span><span class="n">linetable</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">firstlineno</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">range</span><span class="p">);</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">PyLineTable_NextAddressRange</span><span class="p">(</span><span class="o">&amp;</span><span class="n">range</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Bytecodes from %d (inclusive) to %d (exclusive) "</span><span class="p">,</span> <span class="n">range</span><span class="p">.</span><span class="n">start</span><span class="p">,</span> <span class="n">range</span><span class="p">.</span><span class="n">end</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">range</span><span class="p">.</span><span class="n">line</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> <span class="cm">/* line &lt; 0 means no line number */</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">"have no line number</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">"have line number %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">range</span><span class="p">.</span><span class="n">line</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="성능-영향-performance-implications">성능 영향 (Performance Implications)</h2>
+
+<p>일반적으로 성능 변화는 없을 것입니다. 트레이싱 시에는 새로운 테이블 형식이 줄 번호 계산 속도를 고려하여 설계될 수 있으므로 프로그램이 약간 더 빠르게 실행될 수 있습니다. <code class="language-plaintext highlighter-rouge">pass</code> 문이 길게 연속되는 코드는 약간 느려질 수 있습니다.</p>
+
+<hr />
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/608/" class="pagination--pager" title="[Rejected] PEP 608 - Coordinated Python release
+">Previous</a>
+    
+    
+      <a href="/python/pep/627/" class="pagination--pager" title="[Final] PEP 627 - Recording installed projects
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

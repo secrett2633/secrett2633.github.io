@@ -1,0 +1,743 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 3110 - Catching Exceptions in Python 3000 | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 3110: ‘Catching Exceptions in Python 3000’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 3110 - Catching Exceptions in Python 3000">
+<meta property="og:url" content="http://localhost:4000/python/pep/3110/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 3110: ‘Catching Exceptions in Python 3000’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T14:21:16+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T14:21:16+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/3110/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 3110 - Catching Exceptions in Python 3000">
+    <meta itemprop="description" content="Python Enhancement Proposal 3110: ‘Catching Exceptions in Python 3000’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T14:21:16+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T14:21:16+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 3110 - Catching Exceptions in Python 3000
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T14:21:16+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#개요">개요</a></li><li><a href="#도입-배경-rationale">도입 배경 (Rationale)</a></li><li><a href="#문법-변경-grammar-changes">문법 변경 (Grammar Changes)</a></li><li><a href="#의미론적-변경-semantic-changes">의미론적 변경 (Semantic Changes)</a></li><li><a href="#호환성-문제-compatibility-issues">호환성 문제 (Compatibility Issues)</a><ul><li><a href="#python-26---30-호환성">Python 2.6 - 3.0 호환성</a></li></ul></li><li><a href="#미해결-문제-open-issues">미해결 문제 (Open Issues)</a><ul><li><a href="#sysexc_info-교체-또는-삭제">sys.exc_info() 교체 또는 삭제</a></li></ul></li><li><a href="#구현-implementation">구현 (Implementation)</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-3110/">PEP 3110 - Catching Exceptions in Python 3000</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 16-Jan-2006</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>파이썬 3000의 예외 처리 (PEP 3110)</p>
+
+<h2 id="개요">개요</h2>
+<p>이 PEP (Python Enhancement Proposal)는 Python 3.0에서 예외(exception) 처리 구문의 모호성을 제거하고, 예외 클래스를 간소화하며, 예외의 가비지 컬렉션(garbage collection)을 단순화하고, 언어의 크기를 줄이는 것을 목표로 하는 변경 사항을 소개합니다.</p>
+
+<h2 id="도입-배경-rationale">도입 배경 (Rationale)</h2>
+<p>Python 2.x의 <code class="language-plaintext highlighter-rouge">except</code> 절은 문법적 모호성을 가지고 있었습니다. 파서는 <code class="language-plaintext highlighter-rouge">except &lt;expression&gt;, &lt;expression&gt;:</code> 구문을 <code class="language-plaintext highlighter-rouge">except &lt;type&gt;, &lt;type&gt;:</code> 또는 <code class="language-plaintext highlighter-rouge">except &lt;type&gt;, &lt;name&gt;:</code> 중 어느 것으로 해석해야 할지 구별하기 어려웠습니다. Python 2는 후자(예외 타입을 잡고 변수에 할당하는 방식)를 선택했으며, 이로 인해 전자의 경우 괄호로 묶어야 했습니다: <code class="language-plaintext highlighter-rouge">except (&lt;type&gt;, &lt;type&gt;):</code>.</p>
+
+<p>PEP 352에 명시된 바와 같이, 예외를 튜플처럼 다루는 기능이 제거될 예정이었습니다. 이는 <code class="language-plaintext highlighter-rouge">except os.error, (errno, errstr):</code>와 같은 코드가 더 이상 작동하지 않음을 의미합니다. 자동 언패킹(unpacking)이 불가능해짐에 따라, <code class="language-plaintext highlighter-rouge">except</code> 대상(target)으로 튜플을 사용하는 기능도 제거하는 것이 바람직했습니다.</p>
+
+<p>또한, PEP 344에 따라 Python 3의 예외 인스턴스는 <code class="language-plaintext highlighter-rouge">__traceback__</code> 속성을 가지게 됩니다. 이 속성은 “예외 -&gt; 트레이스백 -&gt; 스택 프레임 -&gt; 예외”의 참조 사이클(reference cycle)을 유발하여, 다음 가비지 컬렉션 실행 시점까지 모든 지역 변수가 범위 내에 유지되는 가비지 컬렉션 문제를 발생시켰습니다. PEP 3110은 <code class="language-plaintext highlighter-rouge">except</code> 스위트(suite)의 끝에서 대상 이름(target name)을 삭제하는 정리(cleanup) 의미론을 추가하여 이 문제를 해결하고자 했습니다.</p>
+
+<p>“무언가를 하는 한 가지 – 그리고 바람직하게는 단 하나의 – 명확한 방법이 있어야 한다”는 원칙에 따라 중복 기능을 통합하는 것이 바람직했습니다. 이를 위해 <code class="language-plaintext highlighter-rouge">sys</code> 모듈의 <code class="language-plaintext highlighter-rouge">exc_value</code>, <code class="language-plaintext highlighter-rouge">exc_type</code>, <code class="language-plaintext highlighter-rouge">exc_traceback</code> 속성은 동일한 정보를 제공하는 <code class="language-plaintext highlighter-rouge">sys.exc_info()</code>로 대체되어 제거될 예정이었습니다. 이 속성들은 이미 PEP 3100에서 제거 대상으로 지정되어 있었습니다.</p>
+
+<h2 id="문법-변경-grammar-changes">문법 변경 (Grammar Changes)</h2>
+<p>Python 3에서는 <code class="language-plaintext highlighter-rouge">except</code> 문의 문법이 다음과 같이 변경됩니다:</p>
+
+<p>이전 (Python 2.x):</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>except_clause: 'except' [test [',' test]]
+</code></pre></div></div>
+
+<p>이후 (Python 3.x):</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>except_clause: 'except' [test ['as' NAME]]
+</code></pre></div></div>
+<p>콤마(<code class="language-plaintext highlighter-rouge">,</code>) 토큰 대신 <code class="language-plaintext highlighter-rouge">as</code> 키워드를 사용함으로써, <code class="language-plaintext highlighter-rouge">except (AttributeError, os.error):</code>와 같은 구문은 예외 클래스의 튜플로 명확하게 이해될 수 있게 되었습니다. 이 새로운 문법은 Greg Ewing에 의해 처음 제안되었고, BDFL (Guido van Rossum)의 지지를 받았습니다.</p>
+
+<p>또한, <code class="language-plaintext highlighter-rouge">as</code> 뒤에 오는 토큰의 제약이 <code class="language-plaintext highlighter-rouge">test</code>에서 <code class="language-plaintext highlighter-rouge">NAME</code>으로 변경되어, 유효한 식별자(identifier)만 <code class="language-plaintext highlighter-rouge">except</code>의 대상(target)으로 사용할 수 있게 됩니다.</p>
+
+<p>위의 문법은 예외 클래스로 괄호로 묶인 튜플을 항상 요구합니다. 이는 Python 2.x와 3.x에서 다른 의미를 가질 수 있어 잡기 어려운 버그를 유발할 수 있었던 모호한 <code class="language-plaintext highlighter-rouge">except A, B:</code> 구문이 Python 3.x 코드에서는 허용되지 않도록 합니다.</p>
+
+<h2 id="의미론적-변경-semantic-changes">의미론적 변경 (Semantic Changes)</h2>
+<p>PEP 344와 관련된 가비지 컬렉션 문제를 해결하기 위해, Python 3의 <code class="language-plaintext highlighter-rouge">except</code> 문은 대상을 삭제하는 추가 바이트코드(bytecode)를 생성하여 참조 사이클을 제거합니다. Phillip J. Eby가 제안한 소스 대 소스 번역은 다음과 같습니다:</p>
+
+<p><code class="language-plaintext highlighter-rouge">try: try_body except E as N: except_body ...</code></p>
+
+<p>는 (Python 2.5 용어로) 다음과 같이 번역됩니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span><span class="p">:</span>
+    <span class="n">try_body</span>
+<span class="k">except</span> <span class="n">E</span><span class="p">,</span> <span class="n">N</span><span class="p">:</span>  <span class="c1"># Python 2.x equivalent for illustration
+</span>    <span class="k">try</span><span class="p">:</span>
+        <span class="n">except_body</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">del</span> <span class="n">N</span>
+<span class="bp">...</span>
+</code></pre></div></div>
+<p>이 구현은 이미 <code class="language-plaintext highlighter-rouge">py3k</code> (이전에는 <code class="language-plaintext highlighter-rouge">p3yk</code>) 브랜치에 반영되었습니다.</p>
+
+<h2 id="호환성-문제-compatibility-issues">호환성 문제 (Compatibility Issues)</h2>
+<p>거의 모든 <code class="language-plaintext highlighter-rouge">except</code> 절이 변경되어야 합니다.</p>
+<ul>
+  <li>식별자(identifier)를 대상으로 하는 <code class="language-plaintext highlighter-rouge">except</code> 절은 <code class="language-plaintext highlighter-rouge">except E, N:</code>에서 <code class="language-plaintext highlighter-rouge">except E as N:</code>으로 변환됩니다.</li>
+  <li>튜플이 아닌, 식별자가 아닌 대상을 가진 <code class="language-plaintext highlighter-rouge">except</code> 절 (예: <code class="language-plaintext highlighter-rouge">a.b.c[d]</code>)은 <code class="language-plaintext highlighter-rouge">except E, T:</code>에서 <code class="language-plaintext highlighter-rouge">except E as t: T = t</code>로 변환되어야 합니다.
+이 두 가지 경우는 Guido van Rossum의 2to3 유틸리티와 <code class="language-plaintext highlighter-rouge">except</code> fixer를 사용하여 처리할 수 있습니다.</li>
+</ul>
+
+<p>튜플 대상을 가진 <code class="language-plaintext highlighter-rouge">except</code> 절은 수동으로 개별 사례에 따라 변환해야 합니다. 이러한 변경은 일반적으로 예외 클래스 자체의 변경을 수반합니다. 이러한 변경은 일반적으로 자동화할 수 없지만, 2to3 유틸리티는 <code class="language-plaintext highlighter-rouge">except</code> 절의 대상이 튜플인 경우를 지적하여 변환을 단순화할 수 있습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">except</code> 스위트가 끝난 후에도 예외 인스턴스를 유지해야 하는 상황은 다음과 같이 쉽게 변환할 수 있습니다:</p>
+
+<p>이전:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span><span class="p">:</span>
+    <span class="c1"># ...
+</span><span class="k">except</span> <span class="n">E</span> <span class="k">as</span> <span class="n">N</span><span class="p">:</span>
+    <span class="c1"># ...
+</span>    <span class="c1"># ...
+</span></code></pre></div></div>
+
+<p>이후:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span><span class="p">:</span>
+    <span class="c1"># ...
+</span><span class="k">except</span> <span class="n">E</span> <span class="k">as</span> <span class="n">N</span><span class="p">:</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">N</span> <span class="c1"># N의 값을 n에 할당하여 블록 종료 후에도 유지
+</span>    <span class="c1"># ...
+</span>    <span class="c1"># ...
+</span></code></pre></div></div>
+<p>이러한 방식으로 블록 끝에서 <code class="language-plaintext highlighter-rouge">N</code>이 삭제되더라도 <code class="language-plaintext highlighter-rouge">n</code>은 계속 존재하며 정상적으로 사용될 수 있습니다.</p>
+
+<p>마지막으로, <code class="language-plaintext highlighter-rouge">sys</code> 모듈의 <code class="language-plaintext highlighter-rouge">exc_type</code>, <code class="language-plaintext highlighter-rouge">exc_value</code>, <code class="language-plaintext highlighter-rouge">exc_traceback</code> 속성 사용은 모두 제거되어야 합니다. 이들은 각각 <code class="language-plaintext highlighter-rouge">sys.exc_info()[0]</code>, <code class="language-plaintext highlighter-rouge">sys.exc_info()[1]</code>, <code class="language-plaintext highlighter-rouge">sys.exc_info()[2]</code>로 대체될 수 있으며, 2to3의 <code class="language-plaintext highlighter-rouge">sysexcattrs</code> fixer를 통해 이러한 변환이 수행될 수 있습니다.</p>
+
+<h3 id="python-26---30-호환성">Python 2.6 - 3.0 호환성</h3>
+<p>Python 2.6과 3.0 간의 전방 호환성을 용이하게 하기 위해, <code class="language-plaintext highlighter-rouge">except ... as ...:</code> 문법은 2.x 시리즈로 백포트(backported)될 예정입니다. 따라서 문법은 다음과 같이 변경됩니다:</p>
+
+<p>이전:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>except_clause: 'except' [test [',' test]]
+</code></pre></div></div>
+
+<p>이후:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>except_clause: 'except' [test [('as' | ',') test]]
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">except</code> 문의 스위트 종료 시 정리 의미론은 2.x 릴리스 시리즈에는 포함되지 않을 것입니다.</p>
+
+<h2 id="미해결-문제-open-issues">미해결 문제 (Open Issues)</h2>
+<h3 id="sysexc_info-교체-또는-삭제"><code class="language-plaintext highlighter-rouge">sys.exc_info()</code> 교체 또는 삭제</h3>
+<p><code class="language-plaintext highlighter-rouge">sys.exc_info()</code>를 삭제하거나 <code class="language-plaintext highlighter-rouge">sys.exception</code> 속성 또는 <code class="language-plaintext highlighter-rouge">sys.get_exception()</code> 함수로 대체하는 아이디어는 <code class="language-plaintext highlighter-rouge">python-3000</code> 메일링 리스트에서 여러 번 제기되었고, PEP 344의 “미해결 문제” 섹션에서도 언급되었습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">sys.exc_info()</code> 호출 및 일부 속성 접근을 교체하는 2to3 fixer는 간단하겠지만, <code class="language-plaintext highlighter-rouge">sys.exc_info()</code>의 값을 인수로 기대하는 함수를 정적 분석(static analysis)으로 찾아 수정하는 것은 훨씬 더 어려울 것입니다. 마찬가지로, 이는 <code class="language-plaintext highlighter-rouge">sys.exc_info()</code>를 기반으로 정의된 모든 API에 대한 문서를 다시 작성해야 하는 필요성을 해결하지 못합니다.</p>
+
+<h2 id="구현-implementation">구현 (Implementation)</h2>
+<p>이 PEP는 53342 및 53349 리비전에서 구현되었습니다. Python 2.6에서 새로운 <code class="language-plaintext highlighter-rouge">except</code> 문법에 대한 지원은 55446 리비전에서 구현되었습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/3109/" class="pagination--pager" title="[Final] PEP 3109 - Raising Exceptions in Python 3000
+">Previous</a>
+    
+    
+      <a href="/python/pep/3111/" class="pagination--pager" title="[Final] PEP 3111 - Simple input built-in in Python 3000
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

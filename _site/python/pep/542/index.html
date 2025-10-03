@@ -1,0 +1,800 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Rejected] PEP 542 - Dot Notation Assignment In Function Header | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 542: ‘Dot Notation Assignment In Function Header’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Rejected] PEP 542 - Dot Notation Assignment In Function Header">
+<meta property="og:url" content="http://localhost:4000/python/pep/542/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 542: ‘Dot Notation Assignment In Function Header’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T23:30:04+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T23:30:04+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/542/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Rejected] PEP 542 - Dot Notation Assignment In Function Header">
+    <meta itemprop="description" content="Python Enhancement Proposal 542: ‘Dot Notation Assignment In Function Header’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T23:30:04+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T23:30:04+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Rejected] PEP 542 - Dot Notation Assignment In Function Header
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T23:30:04+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-542--함수-헤더-내-점-표기법-할당-dot-notation-assignment-in-function-header">PEP 542 – 함수 헤더 내 점 표기법 할당 (Dot Notation Assignment In Function Header)</a><ul><li><a href="#목차">목차</a></li><li><a href="#요약-abstract">요약 (Abstract)</a></li><li><a href="#제안-배경-rationale">제안 배경 (Rationale)</a></li><li><a href="#구현-implementation">구현 (Implementation)</a></li><li><a href="#하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</a></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0542/">PEP 542 - Dot Notation Assignment In Function Header</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Rejected</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 10-Feb-2017</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-542--함수-헤더-내-점-표기법-할당-dot-notation-assignment-in-function-header">PEP 542 – 함수 헤더 내 점 표기법 할당 (Dot Notation Assignment In Function Header)</h1>
+
+<ul>
+  <li><strong>작성자:</strong> Markus Meskanen <markusmeskanen at="" gmail.com=""></markusmeskanen></li>
+  <li><strong>상태:</strong> Rejected (반려됨)</li>
+  <li><strong>유형:</strong> Standards Track (표준 트랙)</li>
+  <li><strong>생성일:</strong> 2017년 2월 10일</li>
+  <li><strong>해결:</strong> Python-Dev message</li>
+</ul>
+
+<hr />
+
+<h2 id="목차">목차</h2>
+<ul>
+  <li><a href="#요약-abstract">요약 (Abstract)</a></li>
+  <li><a href="#제안-배경-rationale">제안 배경 (Rationale)</a></li>
+  <li><a href="#구현-implementation">구현 (Implementation)</a></li>
+  <li><a href="#하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</a></li>
+  <li><a href="#저작권-copyright">저작권 (Copyright)</a></li>
+</ul>
+
+<hr />
+
+<h2 id="요약-abstract">요약 (Abstract)</h2>
+
+<p>함수 정의는 함수가 할당 가능한 일급 객체(first class objects)임에도 불구하고, 단순한 함수 이름만 사용하도록 허용합니다. 이 PEP는 점 표기법(dot notation)을 사용하여 객체와 함수 이름을 분리함으로써, 함수 정의 헤더 내에서 함수를 클래스 또는 인스턴스 속성(attribute)에 직접 할당하는 기능을 추가할 것을 제안합니다.</p>
+
+<p>비슷한 기능이지만, 이 PEP는 <code class="language-plaintext highlighter-rouge">dict</code> 키나 <code class="language-plaintext highlighter-rouge">list</code> 인덱스와 같이 할당을 지원하는 모든 것에 대한 일반적인 할당을 다루지는 않습니다.</p>
+
+<h2 id="제안-배경-rationale">제안 배경 (Rationale)</h2>
+
+<p>현재 함수를 클래스 또는 인스턴스 속성에 할당해야 하는 경우, 추가적인 할당문이 필요합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MyClass</span><span class="p">:</span>
+    <span class="bp">...</span>
+
+<span class="n">my_instance</span> <span class="o">=</span> <span class="nc">MyClass</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+    <span class="bp">...</span>
+
+<span class="c1"># 클래스 속성에 할당
+</span><span class="n">MyClass</span><span class="p">.</span><span class="n">my_function</span> <span class="o">=</span> <span class="n">my_function</span>
+
+<span class="c1"># 또는 인스턴스 속성에 할당
+</span><span class="n">my_instance</span><span class="p">.</span><span class="n">my_function</span> <span class="o">=</span> <span class="n">my_function</span>
+</code></pre></div></div>
+
+<p>이것이 일반적으로 불편하지는 않지만, 함수 헤더 내에서 점 표기법을 사용하여 직접 할당하는 방식은 이를 크게 단순화할 것입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MyClass</span><span class="p">:</span>
+    <span class="bp">...</span>
+
+<span class="n">my_instance</span> <span class="o">=</span> <span class="nc">MyClass</span><span class="p">()</span>
+
+<span class="c1"># 클래스 속성에 할당
+</span><span class="k">def</span> <span class="nf">MyClass</span><span class="p">.</span><span class="nf">my_function</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+    <span class="bp">...</span>
+
+<span class="c1"># 또는 인스턴스 속성에 할당
+</span><span class="k">def</span> <span class="nf">my_instance</span><span class="p">.</span><span class="nf">my_function</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+    <span class="bp">...</span>
+</code></pre></div></div>
+
+<p>표준 클래스 메서드(standard class method) 대신 이 기능을 사용해야 하는 여러 가지 이유가 있습니다. 예를 들어, 데코레이터(decorators)나 타입 힌트(typing)와 같이 클래스가 함수 헤더 내에서 참조되는 경우입니다. 또한 인스턴스가 콜백(callback) 속성을 필요로 할 때도 유용합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Menu</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">select_callback</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">items</span> <span class="o">=</span> <span class="n">items</span> <span class="k">if</span> <span class="n">items</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="k">else</span> <span class="p">[]</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">select_callback</span> <span class="o">=</span> <span class="n">select_callback</span>
+
+<span class="n">my_menu</span> <span class="o">=</span> <span class="nc">Menu</span><span class="p">([</span><span class="n">item1</span><span class="p">,</span> <span class="n">item2</span><span class="p">])</span>
+
+<span class="k">def</span> <span class="nf">my_menu</span><span class="p">.</span><span class="nf">select_callback</span><span class="p">(</span><span class="n">item_index</span><span class="p">,</span> <span class="n">menu</span><span class="p">):</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">menu</span><span class="p">.</span><span class="n">items</span><span class="p">[</span><span class="n">item_index</span><span class="p">])</span>
+</code></pre></div></div>
+
+<p>이는 다음과 같은 방식과 대조됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_menu</span> <span class="o">=</span> <span class="nc">Menu</span><span class="p">([</span><span class="n">item1</span><span class="p">,</span> <span class="n">item2</span><span class="p">])</span>
+
+<span class="k">def</span> <span class="nf">select_callback</span><span class="p">(</span><span class="n">item_index</span><span class="p">,</span> <span class="n">menu</span><span class="p">):</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">menu</span><span class="p">.</span><span class="n">items</span><span class="p">[</span><span class="n">item_index</span><span class="p">])</span>
+
+<span class="n">my_menu</span><span class="p">.</span><span class="n">select_callback</span> <span class="o">=</span> <span class="n">select_callback</span>
+</code></pre></div></div>
+
+<p>또는 “자연스럽지 않은” 순서로 정의하는 경우:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">select_callback</span><span class="p">(</span><span class="n">item_index</span><span class="p">,</span> <span class="n">menu</span><span class="p">):</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">menu</span><span class="p">.</span><span class="n">items</span><span class="p">[</span><span class="n">item_index</span><span class="p">])</span>
+
+<span class="n">my_menu</span> <span class="o">=</span> <span class="nc">Menu</span><span class="p">([</span><span class="n">item1</span><span class="p">,</span> <span class="n">item2</span><span class="p">],</span> <span class="n">select_callback</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>새로운 방식은 함수 정의 시 해당 함수가 무엇에 사용될지 이미 알고 있으므로, “자연스럽지 않은” 방식보다 더 잘 읽힙니다. 또한 한 줄의 코드를 절약하고 시각적인 복잡성을 줄여줍니다.</p>
+
+<p>이 기능은 또한 함수의 이름이 전역 네임스페이스(global namespace)에 남는 것을 방지할 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">eggs</span> <span class="o">=</span> <span class="sh">'</span><span class="s">something</span><span class="sh">'</span>
+
+<span class="k">def</span> <span class="nf">Spam</span><span class="p">.</span><span class="nf">eggs</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+    <span class="bp">...</span>
+
+<span class="k">def</span> <span class="nf">Cheese</span><span class="p">.</span><span class="nf">eggs</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+    <span class="bp">...</span>
+
+<span class="k">assert</span> <span class="n">eggs</span> <span class="o">==</span> <span class="sh">'</span><span class="s">something</span><span class="sh">'</span>
+</code></pre></div></div>
+
+<p>이상적으로는 이것이 단순히 문법적 설탕(syntactic sugar)으로 작동할 것입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">x</span><span class="p">.</span><span class="nf">y</span><span class="p">():</span>
+    <span class="bp">...</span>
+<span class="c1"># 아래와 동일
+</span><span class="k">def</span> <span class="nf">y</span><span class="p">():</span>
+    <span class="bp">...</span>
+<span class="n">x</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+</code></pre></div></div>
+
+<p>이는 데코레이터가 문법적 설탕으로 작동하는 방식과 유사합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@decorate</span>
+<span class="k">def</span> <span class="nf">f</span><span class="p">():</span>
+    <span class="bp">...</span>
+<span class="c1"># 아래와 동일
+</span><span class="k">def</span> <span class="nf">f</span><span class="p">():</span>
+    <span class="bp">...</span>
+<span class="n">f</span> <span class="o">=</span> <span class="nf">decorate</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="구현-implementation">구현 (Implementation)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">__name__</code>은 일반 함수의 원칙을 따를 것입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MyClass</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">my_function1</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">MyClass</span><span class="p">.</span><span class="nf">my_function2</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="c1"># 제안된 문법
+</span>        <span class="bp">...</span>
+
+<span class="k">assert</span> <span class="n">my_function1</span><span class="p">.</span><span class="n">__name__</span> <span class="o">==</span> <span class="sh">'</span><span class="s">my_function1</span><span class="sh">'</span>
+<span class="k">assert</span> <span class="n">my_function2</span><span class="p">.</span><span class="n">__name__</span> <span class="o">==</span> <span class="sh">'</span><span class="s">my_function2</span><span class="sh">'</span>
+</code></pre></div></div>
+
+<p>문법(grammar)은 속성 체인(chaining of attributes)을 지원하기 위해 <code class="language-plaintext highlighter-rouge">dotted_name</code>을 사용할 것입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">Person</span><span class="p">.</span><span class="n">name</span><span class="p">.</span><span class="nf">fset</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="c1"># 'Person.name'과 같은 중첩된 속성 접근
+</span>    <span class="n">self</span><span class="p">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">value</span>
+</code></pre></div></div>
+
+<h2 id="하위-호환성-backwards-compatibility">하위 호환성 (Backwards Compatibility)</h2>
+
+<p>이 PEP는 완벽하게 하위 호환됩니다.</p>
+
+<h2 id="저작권-copyright">저작권 (Copyright)</h2>
+
+<p>이 문서는 퍼블릭 도메인(public domain)에 공개되었습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/541/" class="pagination--pager" title="[Final] PEP 541 - Package Index Name Retention
+">Previous</a>
+    
+    
+      <a href="/python/pep/543/" class="pagination--pager" title="[Withdrawn] PEP 543 - A Unified TLS API for Python
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

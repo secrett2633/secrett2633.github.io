@@ -1,0 +1,1098 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Rejected] PEP 511 - API for code transformers | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 511: ‘API for code transformers’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Rejected] PEP 511 - API for code transformers">
+<meta property="og:url" content="http://localhost:4000/python/pep/511/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 511: ‘API for code transformers’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T22:56:47+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T22:56:47+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/511/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Rejected] PEP 511 - API for code transformers">
+    <meta itemprop="description" content="Python Enhancement Proposal 511: ‘API for code transformers’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T22:56:47+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T22:56:47+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Rejected] PEP 511 - API for code transformers
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T22:56:47+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-511--코드-트랜스포머를-위한-api-api-for-code-transformers">PEP 511 – 코드 트랜스포머를 위한 API (API for code transformers)</a><ul><li><a href="#거부-사유">거부 사유</a></li><li><a href="#개요-abstract">개요 (Abstract)</a></li><li><a href="#제안-배경-rationale">제안 배경 (Rationale)</a></li><li><a href="#사용법-usage">사용법 (Usage)</a><ul><li><a href="#1-ast-최적화-도구-ast-optimizer">1. AST 최적화 도구 (AST optimizer)</a></li><li><a href="#2-전처리기-preprocessor">2. 전처리기 (Preprocessor)</a></li><li><a href="#3-모든-최적화-비활성화-disable-all-optimization">3. 모든 최적화 비활성화 (Disable all optimization)</a></li><li><a href="#4-python으로-새로운-바이트코드-최적화-도구-작성-write-new-bytecode-optimizers-in-python">4. Python으로 새로운 바이트코드 최적화 도구 작성 (Write new bytecode optimizers in Python)</a></li></ul></li><li><a href="#사용-사례-use-cases">사용 사례 (Use Cases)</a><ul><li><a href="#인터랙티브-인터프리터-interactive-interpreter">인터랙티브 인터프리터 (Interactive interpreter)</a></li><li><a href="#변환된-패키지-빌드-build-a-transformed-package">변환된 패키지 빌드 (Build a transformed package)</a></li><li><a href="#변환된-pyc-파일을-포함하는-패키지-설치-install-a-package-containing-transformed-pyc-files">변환된 .pyc 파일을 포함하는 패키지 설치 (Install a package containing transformed .pyc files)</a></li><li><a href="#패키지-설치-시-pyc-파일-빌드-build-pyc-files-when-installing-a-package">패키지 설치 시 .pyc 파일 빌드 (Build .pyc files when installing a package)</a></li><li><a href="#변환된-코드-실행-execute-transformed-code">변환된 코드 실행 (Execute transformed code)</a></li></ul></li><li><a href="#코드-트랜스포머-api-code-transformer-api">코드 트랜스포머 API (Code transformer API)</a><ul><li><a href="#code_transformer-메서드">code_transformer() 메서드</a></li><li><a href="#ast_transformer-메서드">ast_transformer() 메서드</a></li></ul></li><li><a href="#변경-사항-changes">변경 사항 (Changes)</a><ul><li><a href="#코드-트랜스포머를-가져오고-설정하는-api-api-to-getset-code-transformers">코드 트랜스포머를 가져오고 설정하는 API (API to get/set code transformers)</a></li><li><a href="#최적화-도구-태그-optimizer-tag">최적화 도구 태그 (Optimizer tag)</a></li><li><a href="#피플-최적화-도구-peephole-optimizer">피플 최적화 도구 (Peephole optimizer)</a></li><li><a href="#ast-개선-사항-ast-enhancements">AST 개선 사항 (AST enhancements)</a></li></ul></li><li><a href="#예시-examples">예시 (Examples)</a><ul><li><a href="#pyc-파일-이름">.pyc 파일 이름</a></li><li><a href="#바이트코드-트랜스포머-bytecode-transformer">바이트코드 트랜스포머 (Bytecode transformer)</a></li><li><a href="#ast-트랜스포머-ast-transformer">AST 트랜스포머 (AST transformer)</a></li></ul></li><li><a href="#다른-python-구현-other-python-implementations">다른 Python 구현 (Other Python implementations)</a></li><li><a href="#논의-discussion">논의 (Discussion)</a></li><li><a href="#이전-작업-prior-art">이전 작업 (Prior Art)</a><ul><li><a href="#ast-최적화-도구-ast-optimizers">AST 최적화 도구 (AST optimizers)</a></li><li><a href="#python-전처리기-python-preprocessors">Python 전처리기 (Python Preprocessors)</a></li><li><a href="#바이트코드-트랜스포머-bytecode-transformers">바이트코드 트랜스포머 (Bytecode transformers)</a></li></ul></li><li><a href="#저작권-copyright">저작권 (Copyright)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0511/">PEP 511 - API for code transformers</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Rejected</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 04-Jan-2016</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h2 id="pep-511--코드-트랜스포머를-위한-api-api-for-code-transformers">PEP 511 – 코드 트랜스포머를 위한 API (API for code transformers)</h2>
+
+<p><strong>상태:</strong> 이 PEP는 저자에 의해 <code class="language-plaintext highlighter-rouge">거부(Rejected)</code>되었습니다.</p>
+
+<h3 id="거부-사유">거부 사유</h3>
+
+<p>이 PEP는 일반 Python 언어와 유사하지만 호환되지 않는 새로운 Python 유사 프로그래밍 언어를 승인하는 것으로 해석되었습니다. 따라서 Python과 호환되지 않는 문법을 장려하지 않기로 결정되었습니다.</p>
+
+<p>또한, 이 PEP는 새로운 Python 기능을 실험하기 위한 훌륭한 도구로 여겨졌지만, PEP 없이도 <code class="language-plaintext highlighter-rouge">importlib</code> 훅(hook)을 통해 이미 실험이 가능합니다. 어떤 기능이 유용하다고 판단되면, 서드 파티(third party) Python 모듈에 의존하는 대신 Python에 직접 포함되어야 한다고 보았습니다.</p>
+
+<p>마지막으로, 이 PEP는 2016년에 중단된 FAT Python 최적화 프로젝트에 의해 추진되었습니다. 이 프로젝트는 상당한 속도 향상을 보여주지 못했을 뿐만 아니라, 가장 진보되고 복잡한 최적화를 구현할 시간 부족으로 인해 폐기되었습니다.</p>
+
+<hr />
+
+<h3 id="개요-abstract">개요 (Abstract)</h3>
+
+<p>이 PEP는 바이트코드(bytecode) 및 AST(Abstract Syntax Tree) 트랜스포머(transformer)를 등록하기 위한 API를 제안합니다. 또한 <code class="language-plaintext highlighter-rouge">.pyc</code> 파일 이름을 변경하는 <code class="language-plaintext highlighter-rouge">-o OPTIM_TAG</code> 명령줄 옵션과, 피플(peephole) 최적화 도구를 비활성화하는 <code class="language-plaintext highlighter-rouge">-o noopt</code> 옵션을 추가합니다. <code class="language-plaintext highlighter-rouge">.pyc</code> 파일이 없거나 코드를 변환하는 데 필요한 코드 트랜스포머가 누락된 경우, 임포트(import) 시 <code class="language-plaintext highlighter-rouge">ImportError</code> 예외를 발생시킵니다. 미리 변환된 코드( <code class="language-plaintext highlighter-rouge">.pyc</code> 파일에서 로드된 코드)를 실행하는 데는 코드 트랜스포머가 필요하지 않습니다.</p>
+
+<h3 id="제안-배경-rationale">제안 배경 (Rationale)</h3>
+
+<p>Python은 코드 변환을 위한 표준적인 방법을 제공하지 않습니다. 코드를 변환하는 프로젝트들은 다양한 훅을 사용합니다. 예를 들어, MacroPy 프로젝트는 <code class="language-plaintext highlighter-rouge">sys.meta_path</code>에 자체 모듈 파인더(finder)를 추가하여 AST 트랜스포머를 훅으로 연결하는 임포트 훅을 사용합니다. 또 다른 옵션은 내장 <code class="language-plaintext highlighter-rouge">compile()</code> 함수를 몽키 패치(monkey-patch)하는 것입니다. 코드 트랜스포머를 훅으로 연결하는 방법은 이 외에도 더 많이 있습니다.</p>
+
+<p>Python 3.4에서는 <code class="language-plaintext highlighter-rouge">importlib.abc.SourceLoader</code>에 <code class="language-plaintext highlighter-rouge">compile_source()</code> 메서드가 추가되었습니다. 하지만 코드 변환은 단순히 모듈을 임포트하는 것보다 더 넓은 범위를 다루며, 아래에 설명된 사용 사례들을 참고할 수 있습니다.</p>
+
+<p>최적화 도구 또는 전처리기(preprocessor)를 작성하는 것은 이 PEP의 범위 밖입니다.</p>
+
+<h3 id="사용법-usage">사용법 (Usage)</h3>
+
+<h4 id="1-ast-최적화-도구-ast-optimizer">1. AST 최적화 도구 (AST optimizer)</h4>
+
+<p>AST(Abstract Syntax Tree)를 변환하는 것은 최적화 도구를 구현하는 편리한 방법입니다. AST는 더 많은 정보를 포함하고 더 높은 수준(high level)이므로 바이트코드(bytecode)를 다루는 것보다 AST를 다루는 것이 더 쉽습니다.</p>
+
+<p>최적화가 미리 수행될 수 있으므로, 복잡하지만 느린 최적화도 구현할 수 있습니다.</p>
+
+<p>AST 최적화 도구로 구현할 수 있는 최적화 예시:</p>
+
+<ul>
+  <li><strong>Copy propagation (복사 전파):</strong> <code class="language-plaintext highlighter-rouge">x=1; y=x</code>를 <code class="language-plaintext highlighter-rouge">x=1; y=1</code>로 대체.</li>
+  <li><strong>Constant folding (상수 폴딩):</strong> <code class="language-plaintext highlighter-rouge">1+1</code>을 <code class="language-plaintext highlighter-rouge">2</code>로 대체.</li>
+  <li><strong>Dead code elimination (불필요 코드 제거).</strong></li>
+</ul>
+
+<p>가드(guards, PEP 510 참고)를 사용하면 훨씬 더 다양한 최적화를 구현할 수 있습니다. 예시:</p>
+
+<ul>
+  <li>반복 가능(iterable) 객체 단순화: <code class="language-plaintext highlighter-rouge">range(3)</code>가 반복 가능 객체로 사용될 때 <code class="language-plaintext highlighter-rouge">(0, 1, 2)</code>로 대체.</li>
+  <li>루프 언롤링(Loop unrolling).</li>
+  <li>순수(pure) 내장 함수 호출: <code class="language-plaintext highlighter-rouge">len("abc")</code>를 <code class="language-plaintext highlighter-rouge">3</code>으로 대체.</li>
+  <li>사용된 내장 심볼(symbol)을 상수로 복사.</li>
+</ul>
+
+<p>Python 3.6용 정적 최적화 도구인 <code class="language-plaintext highlighter-rouge">fatoptimizer</code>에 구현된 최적화도 참고할 수 있습니다.</p>
+
+<p>다음과 같은 이슈들은 AST 최적화 도구로 구현될 수 있습니다:</p>
+
+<ul>
+  <li>이슈 #1346238: AST를 위한 상수 폴딩 최적화 패스.</li>
+  <li>이슈 #2181: 함수 끝에 있는 지역 변수(local variables) 최적화.</li>
+  <li>이슈 #2499: 상수에서 단항 <code class="language-plaintext highlighter-rouge">+</code> 및 <code class="language-plaintext highlighter-rouge">not</code> 폴딩.</li>
+  <li>이슈 #4264: 패치: <code class="language-plaintext highlighter-rouge">list.append</code> 호출 대신 <code class="language-plaintext highlighter-rouge">LIST_APPEND</code>를 사용하도록 코드 최적화.</li>
+  <li>이슈 #7682: 상수 표현식(constant expression)을 사용한 <code class="language-plaintext highlighter-rouge">if</code> 최적화.</li>
+  <li>이슈 #10399: AST 최적화: 함수 호출 인라인화(inlining).</li>
+  <li>이슈 #11549: 피플 최적화 도구에서 일부 기능을 이동하여 AST 최적화 도구 구축.</li>
+  <li>이슈 #17068: 상수 문자열을 위한 피플 최적화.</li>
+  <li>이슈 #17430: 누락된 피플 최적화.</li>
+</ul>
+
+<h4 id="2-전처리기-preprocessor">2. 전처리기 (Preprocessor)</h4>
+
+<p>전처리기는 AST 트랜스포머로 쉽게 구현할 수 있습니다. 전처리기는 다양하고 다른 용도로 사용될 수 있습니다.</p>
+
+<p>몇 가지 예시:</p>
+
+<ul>
+  <li>운영 환경(production)에서 코드를 더 빠르게 실행하기 위해 어설션(assertions) 및 로그(logs)와 같은 디버그 코드를 제거.</li>
+  <li>꼬리 재귀 최적화(Tail-call Optimization).</li>
+  <li>프로파일링 코드 추가.</li>
+  <li>지연 평가(Lazy evaluation): <code class="language-plaintext highlighter-rouge">lazy_python</code> (바이트코드 트랜스포머) 및 MacroPy의 <code class="language-plaintext highlighter-rouge">lazy</code> 매크로(AST 트랜스포머) 참고.</li>
+  <li>딕셔너리 리터럴(dictionary literals)을 <code class="language-plaintext highlighter-rouge">collection.OrderedDict</code> 인스턴스로 변경.</li>
+  <li>상수 선언: <code class="language-plaintext highlighter-rouge">codetransformer</code>의 <code class="language-plaintext highlighter-rouge">@asconstants</code> 참고.</li>
+  <li>SQL 쿼리와 같은 도메인 특정 언어(DSL, Domain Specific Language). Python 언어 자체는 수정할 필요가 없습니다. PEP 335 - 오버로딩 가능한 부울 연산자(Overloadable Boolean Operators)와 같이 SQL을 위한 DSL을 구현하려는 이전 시도는 거부되었습니다.</li>
+  <li>함수형 언어의 패턴 매칭(Pattern Matching).</li>
+  <li>문자열 보간법(String Interpolation), 단 PEP 498은 Python 3.6에 병합되었습니다.</li>
+</ul>
+
+<p>MacroPy는 긴 예시 및 사용 사례 목록을 가지고 있습니다.</p>
+
+<p>이 PEP는 새로운 코드 트랜스포머를 추가하지 않습니다. 코드 트랜스포머를 사용하려면 외부 모듈이 필요하며 수동으로 등록해야 합니다.</p>
+
+<p>PyXfuscator: Python 난독화 도구(obfuscator), 역난독화 도구(deobfuscator) 및 사용자 지원 디컴파일러(decompiler)도 참고할 수 있습니다.</p>
+
+<h4 id="3-모든-최적화-비활성화-disable-all-optimization">3. 모든 최적화 비활성화 (Disable all optimization)</h4>
+
+<p>Ned Batchelder는 코드 커버리지(code coverage) 구현을 더 어렵게 만들기 때문에 피플 최적화 도구를 비활성화하는 옵션을 추가해달라고 요청했습니다. <code class="language-plaintext highlighter-rouge">python-ideas</code> 메일링 리스트의 “Disable all peephole optimizations” 토론을 참고하십시오.</p>
+
+<p>이 PEP는 피플 최적화 도구를 비활성화하는 새로운 <code class="language-plaintext highlighter-rouge">-o noopt</code> 명령줄 옵션을 추가합니다. Python에서는 다음과 같이 간단하게 처리할 수 있습니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sys</span><span class="p">.</span><span class="nf">set_code_transformers</span><span class="p">([])</span>
+</code></pre></div></div>
+
+<p>이것은 이슈 #2506: “Add mechanism to disable optimizations”를 해결할 것입니다.</p>
+
+<h4 id="4-python으로-새로운-바이트코드-최적화-도구-작성-write-new-bytecode-optimizers-in-python">4. Python으로 새로운 바이트코드 최적화 도구 작성 (Write new bytecode optimizers in Python)</h4>
+
+<p>Python 3.6은 피플 최적화 도구를 사용하여 코드를 최적화합니다. 정의상 피플 최적화 도구는 코드에 대한 시야가 좁으므로 기본적인 최적화만 구현할 수 있습니다. 이 최적화 도구는 바이트코드를 재작성합니다. C로 작성되었기 때문에 개선하기 어렵습니다.</p>
+
+<p>이 PEP를 통해 순수 Python으로 새로운 바이트코드 최적화 도구를 구현하고 새로운 최적화를 실험하는 것이 가능해집니다.</p>
+
+<p>상수 폴딩(constant folding)과 같은 일부 최적화는 AST에서 구현하기 더 쉽지만, 바이트코드에 대한 최적화도 여전히 유용합니다. 예를 들어, AST가 바이트코드로 컴파일될 때 컴파일러가 순진하여 아무것도 최적화하려고 하지 않기 때문에 쓸모없는 점프(jumps)가 발생할 수 있습니다.</p>
+
+<h3 id="사용-사례-use-cases">사용 사례 (Use Cases)</h3>
+
+<p>이 섹션에서는 코드 트랜스포머가 언제 어떻게 사용될지 설명하는 사용 사례 예시를 제공합니다.</p>
+
+<h4 id="인터랙티브-인터프리터-interactive-interpreter">인터랙티브 인터프리터 (Interactive interpreter)</h4>
+
+<p>Python에서 인기 있고 일반적으로 Python을 시연하는 데 사용되는 인터랙티브 인터프리터와 함께 코드 트랜스포머를 사용할 수 있습니다.</p>
+
+<p>코드는 런타임에 변환되므로 값비싼 코드 트랜스포머를 사용하는 경우 인터프리터가 느려질 수 있습니다.</p>
+
+<h4 id="변환된-패키지-빌드-build-a-transformed-package">변환된 패키지 빌드 (Build a transformed package)</h4>
+
+<p>변환된 코드의 패키지를 빌드할 수 있습니다.</p>
+
+<p>트랜스포머는 구성(configuration)을 가질 수 있습니다. 이 구성은 패키지에 저장되지 않습니다.</p>
+
+<p>패키지의 모든 <code class="language-plaintext highlighter-rouge">.pyc</code> 파일은 동일한 코드 트랜스포머와 동일한 트랜스포머 구성으로 변환되어야 합니다.</p>
+
+<p>서로 다른 최적화 도구 태그(optimizer tags)를 사용하여 다른 <code class="language-plaintext highlighter-rouge">.pyc</code> 파일을 빌드하는 것이 가능합니다. 예를 들어, 기본 구성에는 <code class="language-plaintext highlighter-rouge">fat</code>, 함수 인라인화가 활성화된 다른 구성에는 <code class="language-plaintext highlighter-rouge">fat_inline</code>을 사용할 수 있습니다.</p>
+
+<p>패키지에는 서로 다른 최적화 도구 태그를 가진 <code class="language-plaintext highlighter-rouge">.pyc</code> 파일이 포함될 수 있습니다.</p>
+
+<h4 id="변환된-pyc-파일을-포함하는-패키지-설치-install-a-package-containing-transformed-pyc-files">변환된 .pyc 파일을 포함하는 패키지 설치 (Install a package containing transformed .pyc files)</h4>
+
+<p>변환된 <code class="language-plaintext highlighter-rouge">.pyc</code> 파일을 포함하는 패키지를 설치할 수 있습니다.</p>
+
+<p>패키지에 포함된 모든 최적화 도구 태그를 가진 <code class="language-plaintext highlighter-rouge">.pyc</code> 파일이 설치되며, 현재 최적화 도구 태그에 대한 것만 설치되는 것이 아닙니다.</p>
+
+<h4 id="패키지-설치-시-pyc-파일-빌드-build-pyc-files-when-installing-a-package">패키지 설치 시 .pyc 파일 빌드 (Build .pyc files when installing a package)</h4>
+
+<p>패키지에 현재 최적화 도구 태그의 <code class="language-plaintext highlighter-rouge">.pyc</code> 파일이 없거나 일부 <code class="language-plaintext highlighter-rouge">.pyc</code> 파일이 누락된 경우, 설치 중에 <code class="language-plaintext highlighter-rouge">.pyc</code> 파일이 생성됩니다.</p>
+
+<p>최적화 도구 태그의 코드 트랜스포머가 필요합니다. 그렇지 않으면 설치가 오류와 함께 실패합니다.</p>
+
+<h4 id="변환된-코드-실행-execute-transformed-code">변환된 코드 실행 (Execute transformed code)</h4>
+
+<p>변환된 코드를 실행할 수 있습니다.</p>
+
+<p>현재 최적화 도구 태그의 <code class="language-plaintext highlighter-rouge">.pyc</code> 파일이 없거나 코드를 변환하는 데 필요한 코드 트랜스포머가 누락된 경우, 임포트 시 <code class="language-plaintext highlighter-rouge">ImportError</code> 예외를 발생시킵니다.</p>
+
+<p>여기서 흥미로운 점은 필요한 모든 <code class="language-plaintext highlighter-rouge">.pyc</code> 파일이 이미 사용 가능하면 변환된 코드를 실행하는 데 코드 트랜스포머가 필요 없다는 것입니다.</p>
+
+<h3 id="코드-트랜스포머-api-code-transformer-api">코드 트랜스포머 API (Code transformer API)</h3>
+
+<p>코드 트랜스포머는 <code class="language-plaintext highlighter-rouge">ast_transformer()</code> 및/또는 <code class="language-plaintext highlighter-rouge">code_transformer()</code> 메서드(아래 설명된 API)와 <code class="language-plaintext highlighter-rouge">name</code> 속성을 가진 클래스입니다.</p>
+
+<p>효율성을 위해 아무것도 하지 않는다면 <code class="language-plaintext highlighter-rouge">code_transformer()</code> 또는 <code class="language-plaintext highlighter-rouge">ast_transformer()</code> 메서드를 정의하지 마십시오.</p>
+
+<p><code class="language-plaintext highlighter-rouge">name</code> 속성(<code class="language-plaintext highlighter-rouge">str</code>)은 최적화 도구를 식별하는 데 사용되는 짧은 문자열이어야 합니다. 이는 <code class="language-plaintext highlighter-rouge">.pyc</code> 파일 이름을 빌드하는 데 사용됩니다. <code class="language-plaintext highlighter-rouge">name</code>은 점(<code class="language-plaintext highlighter-rouge">.</code>), 대시(<code class="language-plaintext highlighter-rouge">-</code>) 또는 디렉토리 구분자(directory separators)를 포함해서는 안 됩니다. 점은 <code class="language-plaintext highlighter-rouge">.pyc</code> 파일 이름에서 필드를 구분하는 데 사용되고 대시는 코드 트랜스포머 이름을 결합하여 최적화 도구 태그를 빌드하는 데 사용됩니다.</p>
+
+<h4 id="code_transformer-메서드"><code class="language-plaintext highlighter-rouge">code_transformer()</code> 메서드</h4>
+
+<p>프로토타입:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">code_transformer</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+    <span class="bp">...</span>
+    <span class="n">new_code</span> <span class="o">=</span> <span class="bp">...</span>
+    <span class="bp">...</span>
+    <span class="k">return</span> <span class="n">new_code</span>
+</code></pre></div></div>
+
+<p>매개변수:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">code</code>: 코드 객체(code object).</li>
+  <li><code class="language-plaintext highlighter-rouge">context</code>: <code class="language-plaintext highlighter-rouge">optimize</code> 속성(<code class="language-plaintext highlighter-rouge">int</code>)을 가진 객체로, 최적화 수준(0, 1 또는 2)을 나타냅니다. <code class="language-plaintext highlighter-rouge">optimize</code> 속성의 값은 <code class="language-plaintext highlighter-rouge">compile()</code> 함수의 <code class="language-plaintext highlighter-rouge">optimize</code> 매개변수에서 오며, 기본적으로 <code class="language-plaintext highlighter-rouge">sys.flags.optimize</code>와 같습니다.</li>
+</ul>
+
+<p>Python의 각 구현은 <code class="language-plaintext highlighter-rouge">context</code>에 추가 속성을 추가할 수 있습니다. 예를 들어, CPython에서 <code class="language-plaintext highlighter-rouge">context</code>는 다음 속성도 가집니다:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">interactive</code> (<code class="language-plaintext highlighter-rouge">bool</code>): 인터랙티브 모드(interactive mode)인 경우 <code class="language-plaintext highlighter-rouge">True</code>.</li>
+</ul>
+
+<p>이 메서드는 코드 객체를 반환해야 합니다.</p>
+
+<p>코드 트랜스포머는 바이트코드로 컴파일된 후에 실행됩니다.</p>
+
+<h4 id="ast_transformer-메서드"><code class="language-plaintext highlighter-rouge">ast_transformer()</code> 메서드</h4>
+
+<p>프로토타입:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">ast_transformer</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+    <span class="bp">...</span>
+    <span class="k">return</span> <span class="n">tree</span>
+</code></pre></div></div>
+
+<p>매개변수:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">tree</code>: AST 트리.</li>
+  <li><code class="language-plaintext highlighter-rouge">context</code>: <code class="language-plaintext highlighter-rouge">filename</code> 속성(<code class="language-plaintext highlighter-rouge">str</code>)을 가진 객체.</li>
+</ul>
+
+<p>이 메서드는 AST 트리를 반환해야 합니다. AST 트리를 그 자리에서 수정하거나 새 AST 트리를 생성할 수 있습니다.</p>
+
+<p>AST 트랜스포머는 파서(parser)에 의해 AST가 생성된 후 바이트코드로 컴파일되기 전에 호출됩니다. 향후 <code class="language-plaintext highlighter-rouge">context</code>에 새 속성이 추가될 수 있습니다.</p>
+
+<h3 id="변경-사항-changes">변경 사항 (Changes)</h3>
+
+<p>요약하자면, 다음을 추가합니다:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">-o OPTIM_TAG</code> 명령줄 옵션.</li>
+  <li><code class="language-plaintext highlighter-rouge">sys.implementation.optim_tag</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">sys.get_code_transformers()</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">sys.set_code_transformers(transformers)</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">ast.PyCF_TRANSFORMED_AST</code>.</li>
+</ul>
+
+<h4 id="코드-트랜스포머를-가져오고-설정하는-api-api-to-getset-code-transformers">코드 트랜스포머를 가져오고 설정하는 API (API to get/set code transformers)</h4>
+
+<p>코드 트랜스포머를 등록하는 새로운 함수를 추가합니다:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">sys.set_code_transformers(transformers)</code>: 코드 트랜스포머 목록을 설정하고 <code class="language-plaintext highlighter-rouge">sys.implementation.optim_tag</code>를 업데이트합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">sys.get_code_transformers()</code>: 코드 트랜스포머 목록을 가져옵니다.</li>
+</ul>
+
+<p>코드 트랜스포머의 순서는 중요합니다. 트랜스포머 A를 실행한 다음 트랜스포머 B를 실행하는 것은 트랜스포머 B를 실행한 다음 트랜스포머 A를 실행하는 것과 다른 결과를 줄 수 있습니다.</p>
+
+<p>새로운 코드 트랜스포머를 앞에 추가하는 예시:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">transformers</span> <span class="o">=</span> <span class="n">sys</span><span class="p">.</span><span class="nf">get_code_transformers</span><span class="p">()</span>
+<span class="n">transformers</span><span class="p">.</span><span class="nf">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">new_cool_transformer</span><span class="p">)</span>
+<span class="n">sys</span><span class="p">.</span><span class="nf">set_code_transformers</span><span class="p">(</span><span class="n">transformers</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>모든 AST 트랜스포머는 순차적으로 실행된 다음(예: 두 번째 트랜스포머는 첫 번째 트랜스포머의 입력을 받습니다), 모든 바이트코드 트랜스포머가 순차적으로 실행됩니다.</p>
+
+<h4 id="최적화-도구-태그-optimizer-tag">최적화 도구 태그 (Optimizer tag)</h4>
+
+<p>변경 사항:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">sys.implementation.optim_tag</code> (<code class="language-plaintext highlighter-rouge">str</code>): 최적화 태그를 추가합니다. 기본 최적화 태그는 <code class="language-plaintext highlighter-rouge">'opt'</code>입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">sys.implementation.optim_tag</code>를 설정하는 새로운 <code class="language-plaintext highlighter-rouge">-o OPTIM_TAG</code> 명령줄 옵션을 추가합니다.</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">importlib</code>에 대한 변경 사항:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">importlib</code>는 항상 <code class="language-plaintext highlighter-rouge">'opt'</code>를 사용하는 대신 <code class="language-plaintext highlighter-rouge">sys.implementation.optim_tag</code>를 사용하여 모듈 임포트 시 <code class="language-plaintext highlighter-rouge">.pyc</code> 파일 이름을 빌드합니다.</li>
+  <li>코드 단순화를 위해 기본 최적화 태그 <code class="language-plaintext highlighter-rouge">'opt'</code>와 최적화 수준 0에 대한 특별한 경우를 제거합니다.</li>
+  <li>모듈 로드 시 <code class="language-plaintext highlighter-rouge">.pyc</code> 파일이 없지만 <code class="language-plaintext highlighter-rouge">.py</code> 파일이 사용 가능하면, 코드 최적화 도구가 현재 태그와 동일한 최적화 도구 태그를 가지고 있는 경우에만 <code class="language-plaintext highlighter-rouge">.py</code>가 사용되며, 그렇지 않으면 <code class="language-plaintext highlighter-rouge">ImportError</code> 예외가 발생합니다.</li>
+</ul>
+
+<p>모듈을 임포트하기 위해 <code class="language-plaintext highlighter-rouge">.py</code> 파일을 컴파일할 수 있는지 결정하는 <code class="language-plaintext highlighter-rouge">use_py()</code> 함수의 의사 코드(Pseudo-code):</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">transformers_tag</span><span class="p">():</span>
+    <span class="n">transformers</span> <span class="o">=</span> <span class="n">sys</span><span class="p">.</span><span class="nf">get_code_transformers</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">transformers</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sh">'</span><span class="s">noopt</span><span class="sh">'</span>
+    <span class="k">return</span> <span class="sh">'</span><span class="s">-</span><span class="sh">'</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">transformer</span><span class="p">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">transformer</span> <span class="ow">in</span> <span class="n">transformers</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">use_py</span><span class="p">():</span>
+    <span class="nf">return </span><span class="p">(</span><span class="nf">transformers_tag</span><span class="p">()</span> <span class="o">==</span> <span class="n">sys</span><span class="p">.</span><span class="n">implementation</span><span class="p">.</span><span class="n">optim_tag</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">sys.get_code_transformers()</code>의 순서는 중요합니다. 예를 들어, <code class="language-plaintext highlighter-rouge">fat</code> 트랜스포머 다음에 <code class="language-plaintext highlighter-rouge">pythran</code> 트랜스포머가 오면 최적화 도구 태그는 <code class="language-plaintext highlighter-rouge">fat-pythran</code>이 됩니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">importlib</code> 모듈의 동작은 기본 최적화 도구 태그(<code class="language-plaintext highlighter-rouge">'opt'</code>)에서는 변경되지 않습니다.</p>
+
+<h4 id="피플-최적화-도구-peephole-optimizer">피플 최적화 도구 (Peephole optimizer)</h4>
+
+<p>기본적으로 <code class="language-plaintext highlighter-rouge">sys.implementation.optim_tag</code>는 <code class="language-plaintext highlighter-rouge">opt</code>이고 <code class="language-plaintext highlighter-rouge">sys.get_code_transformers()</code>는 피플 최적화 도구(바이트코드 최적화)라는 하나의 코드 트랜스포머 목록을 반환합니다.</p>
+
+<p>피플 최적화 도구를 비활성화하려면 <code class="language-plaintext highlighter-rouge">-o noopt</code>를 사용합니다. 이 경우 최적화 도구 태그는 <code class="language-plaintext highlighter-rouge">noopt</code>이고 등록된 코드 트랜스포머는 없습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">-o opt</code> 옵션은 아무런 효과가 없습니다.</p>
+
+<h4 id="ast-개선-사항-ast-enhancements">AST 개선 사항 (AST enhancements)</h4>
+
+<p>AST 트랜스포머 구현을 단순화하기 위한 개선 사항:</p>
+
+<ul>
+  <li>변환된 AST를 얻기 위한 새로운 컴파일러 플래그 <code class="language-plaintext highlighter-rouge">PyCF_TRANSFORMED_AST</code>를 추가합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">PyCF_ONLY_AST</code>는 트랜스포머 이전의 AST를 반환합니다.</li>
+</ul>
+
+<h3 id="예시-examples">예시 (Examples)</h3>
+
+<h4 id="pyc-파일-이름">.pyc 파일 이름</h4>
+
+<p><code class="language-plaintext highlighter-rouge">os</code> 모듈의 <code class="language-plaintext highlighter-rouge">.pyc</code> 파일 이름 예시.</p>
+
+<p>기본 최적화 도구 태그 <code class="language-plaintext highlighter-rouge">'opt'</code> 사용:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">.pyc 파일 이름</th>
+      <th style="text-align: left">최적화 수준</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.cpython-36.opt-0.pyc</code></td>
+      <td style="text-align: left">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.cpython-36.opt-1.pyc</code></td>
+      <td style="text-align: left">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.cpython-36.opt-2.pyc</code></td>
+      <td style="text-align: left">2</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><code class="language-plaintext highlighter-rouge">'fat'</code> 최적화 도구 태그 사용:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">.pyc 파일 이름</th>
+      <th style="text-align: left">최적화 수준</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.cpython-36.fat-0.pyc</code></td>
+      <td style="text-align: left">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.cpython-36.fat-1.pyc</code></td>
+      <td style="text-align: left">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">os.cpython-36.fat-2.pyc</code></td>
+      <td style="text-align: left">2</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="바이트코드-트랜스포머-bytecode-transformer">바이트코드 트랜스포머 (Bytecode transformer)</h4>
+
+<p>모든 문자열을 “Ni! Ni! Ni!”로 바꾸는 바이트코드 트랜스포머 예시:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">sys</span>
+<span class="kn">import</span> <span class="n">types</span>
+
+<span class="k">class</span> <span class="nc">BytecodeTransformer</span><span class="p">:</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="sh">"</span><span class="s">knights_who_say_ni</span><span class="sh">"</span>
+    <span class="k">def</span> <span class="nf">code_transformer</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="n">consts</span> <span class="o">=</span> <span class="p">[</span><span class="sh">'</span><span class="s">Ni! Ni! Ni!</span><span class="sh">'</span> <span class="k">if</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">const</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">const</span> <span class="k">for</span> <span class="n">const</span> <span class="ow">in</span> <span class="n">code</span><span class="p">.</span><span class="n">co_consts</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">types</span><span class="p">.</span><span class="nc">CodeType</span><span class="p">(</span><span class="n">code</span><span class="p">.</span><span class="n">co_argcount</span><span class="p">,</span> <span class="n">code</span><span class="p">.</span><span class="n">co_kwonlyargcount</span><span class="p">,</span>
+                              <span class="n">code</span><span class="p">.</span><span class="n">co_nlocals</span><span class="p">,</span> <span class="n">code</span><span class="p">.</span><span class="n">co_stacksize</span><span class="p">,</span> <span class="n">code</span><span class="p">.</span><span class="n">co_flags</span><span class="p">,</span>
+                              <span class="n">code</span><span class="p">.</span><span class="n">co_code</span><span class="p">,</span> <span class="nf">tuple</span><span class="p">(</span><span class="n">consts</span><span class="p">),</span> <span class="n">code</span><span class="p">.</span><span class="n">co_names</span><span class="p">,</span>
+                              <span class="n">code</span><span class="p">.</span><span class="n">co_varnames</span><span class="p">,</span> <span class="n">code</span><span class="p">.</span><span class="n">co_filename</span><span class="p">,</span> <span class="n">code</span><span class="p">.</span><span class="n">co_name</span><span class="p">,</span>
+                              <span class="n">code</span><span class="p">.</span><span class="n">co_firstlineno</span><span class="p">,</span> <span class="n">code</span><span class="p">.</span><span class="n">co_lnotab</span><span class="p">,</span>
+                              <span class="n">code</span><span class="p">.</span><span class="n">co_freevars</span><span class="p">,</span> <span class="n">code</span><span class="p">.</span><span class="n">co_cellvars</span><span class="p">)</span>
+
+<span class="c1"># 기존 코드 트랜스포머를 새 바이트코드 트랜스포머로 교체
+</span><span class="n">sys</span><span class="p">.</span><span class="nf">set_code_transformers</span><span class="p">([</span><span class="nc">BytecodeTransformer</span><span class="p">()])</span>
+<span class="c1"># code_transformer()에 의해 변환될 코드 실행
+</span><span class="nf">exec</span><span class="p">(</span><span class="sh">"</span><span class="s">print(</span><span class="sh">'</span><span class="s">Hello World!</span><span class="sh">'</span><span class="s">)</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>출력:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ni! Ni! Ni!
+</code></pre></div></div>
+
+<h4 id="ast-트랜스포머-ast-transformer">AST 트랜스포머 (AST transformer)</h4>
+
+<p>바이트코드 트랜스포머 예시와 유사하게, AST 트랜스포머도 모든 문자열을 “Ni! Ni! Ni!”로 바꿉니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">ast</span>
+<span class="kn">import</span> <span class="n">sys</span>
+
+<span class="k">class</span> <span class="nc">KnightsWhoSayNi</span><span class="p">(</span><span class="n">ast</span><span class="p">.</span><span class="n">NodeTransformer</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">visit_Str</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="n">node</span><span class="p">.</span><span class="n">s</span> <span class="o">=</span> <span class="sh">'</span><span class="s">Ni! Ni! Ni!</span><span class="sh">'</span>
+        <span class="k">return</span> <span class="n">node</span>
+
+<span class="k">class</span> <span class="nc">ASTTransformer</span><span class="p">:</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="sh">"</span><span class="s">knights_who_say_ni</span><span class="sh">"</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">transformer</span> <span class="o">=</span> <span class="nc">KnightsWhoSayNi</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">ast_transformer</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">transformer</span><span class="p">.</span><span class="nf">visit</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">tree</span>
+
+<span class="c1"># 기존 코드 트랜스포머를 새 AST 트랜스포머로 교체
+</span><span class="n">sys</span><span class="p">.</span><span class="nf">set_code_transformers</span><span class="p">([</span><span class="nc">ASTTransformer</span><span class="p">()])</span>
+<span class="c1"># ast_transformer()에 의해 변환될 코드 실행
+</span><span class="nf">exec</span><span class="p">(</span><span class="sh">"</span><span class="s">print(</span><span class="sh">'</span><span class="s">Hello World!</span><span class="sh">'</span><span class="s">)</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>출력:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ni! Ni! Ni!
+</code></pre></div></div>
+
+<h3 id="다른-python-구현-other-python-implementations">다른 Python 구현 (Other Python implementations)</h3>
+
+<p>PEP 511은 모든 Python 구현에서 구현되어야 하지만, 바이트코드와 AST는 표준화되어 있지 않습니다.</p>
+
+<p>심지어 CPython의 마이너 버전(minor version) 사이에서도 AST API에 변경 사항이 있습니다. 차이점은 있지만 사소한 차이점뿐입니다. 예를 들어 Python 2.7과 Python 3.5에서 작동하는 AST 트랜스포머를 작성하는 것은 꽤 쉽습니다.</p>
+
+<h3 id="논의-discussion">논의 (Discussion)</h3>
+
+<ul>
+  <li>[Python-ideas] PEP 511: API for code transformers (2016년 1월)</li>
+  <li>[Python-Dev] AST optimizer implemented in Python (2012년 8월)</li>
+</ul>
+
+<h3 id="이전-작업-prior-art">이전 작업 (Prior Art)</h3>
+
+<h4 id="ast-최적화-도구-ast-optimizers">AST 최적화 도구 (AST optimizers)</h4>
+
+<p>이슈 #17515 “Add sys.setasthook() to allow to use a custom AST”는 코드 트랜스포머를 위한 API의 첫 번째 시도였지만, AST에만 특화되어 있었습니다.</p>
+
+<p>2015년에 Victor Stinner는 가드(guards)를 사용하여 함수를 특수화하는 AST 최적화 도구인 <code class="language-plaintext highlighter-rouge">fatoptimizer</code> 프로젝트를 작성했습니다.</p>
+
+<p>2014년에 Kevin Conway는 PyCC 최적화 도구를 만들었습니다.</p>
+
+<p>2012년에 Victor Stinner는 다양한 최적화를 구현하는 AST 최적화 도구인 <code class="language-plaintext highlighter-rouge">astoptimizer</code> 프로젝트를 작성했습니다. 가장 흥미로운 최적화는 변경 사항이 발생할 경우 최적화를 비활성화하는 가드가 사용되지 않으므로 Python 의미론(semantics)을 깨뜨립니다.</p>
+
+<p>2011년에 Eugene Toder는 새로운 AST 최적화 도구에서 일부 피플 최적화를 재작성할 것을 제안했습니다: 이슈 #11549, “Build-out an AST optimizer, moving some functionality out of the peephole optimizer”. 이 패치는 <code class="language-plaintext highlighter-rouge">ast.Lit</code>를 추가합니다(나중에 <code class="language-plaintext highlighter-rouge">ast.Literal</code>로 이름을 변경할 것을 제안).</p>
+
+<h4 id="python-전처리기-python-preprocessors">Python 전처리기 (Python Preprocessors)</h4>
+
+<ul>
+  <li><strong>MacroPy</strong>: MacroPy는 Python 프로그래밍 언어에서 구문 매크로(Syntactic Macros)를 구현한 것입니다. MacroPy는 사용자 정의 함수(매크로)가 임포트 시 Python 프로그램의 AST에 변환을 수행할 수 있는 메커니즘을 제공합니다.</li>
+  <li><strong>pypreprocessor</strong>: <code class="language-plaintext highlighter-rouge">#define</code> 및 <code class="language-plaintext highlighter-rouge">#ifdef</code>와 같은 C 스타일 전처리기 지시문(directives)을 Python에서 제공합니다.</li>
+</ul>
+
+<h4 id="바이트코드-트랜스포머-bytecode-transformers">바이트코드 트랜스포머 (Bytecode transformers)</h4>
+
+<ul>
+  <li><strong>codetransformer</strong>: <code class="language-plaintext highlighter-rouge">ast</code> 모듈의 <code class="language-plaintext highlighter-rouge">NodeTransformer</code>에서 영감을 받은 CPython용 바이트코드 트랜스포머입니다.</li>
+  <li><strong>byteplay</strong>: Byteplay는 Python 코드 객체를 다루기 쉬운 동등한 객체로 변환하고, 이 객체를 다시 실행 가능한 Python 코드 객체로 변환할 수 있습니다. Python 함수에 복잡한 변환을 적용하는 데 유용하며, Python 바이트코드의 복잡성을 배우는 데도 유용합니다. byteplay 문서를 참고하십시오.</li>
+</ul>
+
+<p>다음도 참고하십시오:</p>
+
+<ul>
+  <li>BytecodeAssembler</li>
+</ul>
+
+<h3 id="저작권-copyright">저작권 (Copyright)</h3>
+
+<p>이 문서는 퍼블릭 도메인(public domain)에 있습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/510/" class="pagination--pager" title="[Rejected] PEP 510 - Specialize functions with guards
+">Previous</a>
+    
+    
+      <a href="/python/pep/512/" class="pagination--pager" title="[Final] PEP 512 - Migrating from hg.python.org to GitHub
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

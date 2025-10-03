@@ -1,0 +1,1089 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 3156 - Asynchronous IO Support Rebooted: the “asyncio” Module | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 3156: ‘Asynchronous IO Support Rebooted: the “asyncio” Module’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 3156 - Asynchronous IO Support Rebooted: the “asyncio” Module">
+<meta property="og:url" content="http://localhost:4000/python/pep/3156/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 3156: ‘Asynchronous IO Support Rebooted: the “asyncio” Module’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T19:21:50+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T19:21:50+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/3156/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 3156 - Asynchronous IO Support Rebooted: the “asyncio” Module">
+    <meta itemprop="description" content="Python Enhancement Proposal 3156: ‘Asynchronous IO Support Rebooted: the “asyncio” Module’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T19:21:50+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T19:21:50+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 3156 - Asynchronous IO Support Rebooted: the “asyncio” Module
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T19:21:50+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-3156--비동기-io-지원-재정비-asyncio-모듈">PEP 3156 – 비동기 I/O 지원 재정비: “asyncio” 모듈</a><ul><li><a href="#요약-abstract">요약 (Abstract)</a></li><li><a href="#서론-introduction">서론 (Introduction)</a><ul><li><a href="#상태-status">상태 (Status)</a></li><li><a href="#의존성-dependencies">의존성 (Dependencies)</a></li><li><a href="#모듈-네임스페이스-module-namespace">모듈 네임스페이스 (Module Namespace)</a></li><li><a href="#상호-운용성-interoperability">상호 운용성 (Interoperability)</a></li><li><a href="#트랜스포트-및-프로토콜-transports-and-protocols">트랜스포트 및 프로토콜 (Transports and Protocols)</a></li></ul></li><li><a href="#이벤트-루프-인터페이스-명세-event-loop-interface-specification">이벤트 루프 인터페이스 명세 (Event Loop Interface Specification)</a><ul><li><a href="#이벤트-루프-정책-현재-이벤트-루프-가져오기-및-설정-event-loop-policy-getting-and-setting-the-current-event-loop">이벤트 루프 정책: 현재 이벤트 루프 가져오기 및 설정 (Event Loop Policy: Getting and Setting the Current Event Loop)</a></li><li><a href="#이벤트-루프를-명시적으로-전달-passing-an-event-loop-around-explicitly">이벤트 루프를 명시적으로 전달 (Passing an Event Loop Around Explicitly)</a></li><li><a href="#시간-지정-specifying-times">시간 지정 (Specifying Times)</a></li><li><a href="#임베디드-이벤트-루프-embedded-event-loops">임베디드 이벤트 루프 (Embedded Event Loops)</a></li><li><a href="#이벤트-루프-클래스-event-loop-classes">이벤트 루프 클래스 (Event Loop Classes)</a></li><li><a href="#이벤트-루프-메서드-개요-event-loop-methods-overview">이벤트 루프 메서드 개요 (Event Loop Methods Overview)</a></li><li><a href="#이벤트-루프-메서드-event-loop-methods">이벤트 루프 메서드 (Event Loop Methods)</a><ul><li><a href="#시작-중지-및-닫기-starting-stopping-and-closing">시작, 중지 및 닫기 (Starting, Stopping and Closing)</a></li><li><a href="#기본-콜백-basic-callbacks">기본 콜백 (Basic Callbacks)</a></li><li><a href="#스레드-상호-작용-thread-interaction">스레드 상호 작용 (Thread interaction)</a></li><li><a href="#인터넷-이름-조회-internet-name-lookups">인터넷 이름 조회 (Internet name lookups)</a></li><li><a href="#인터넷-연결-internet-connections">인터넷 연결 (Internet connections)</a></li><li><a href="#래핑된-소켓-메서드-wrapped-socket-methods">래핑된 소켓 메서드 (Wrapped Socket Methods)</a></li><li><a href="#io-콜백-io-callbacks">I/O 콜백 (I/O Callbacks)</a></li><li><a href="#파이프-및-서브프로세스-pipes-and-subprocesses">파이프 및 서브프로세스 (Pipes and Subprocesses)</a></li><li><a href="#시그널-콜백-signal-callbacks">시그널 콜백 (Signal callbacks)</a></li></ul></li><li><a href="#콜백의-상호-배제-mutual-exclusion-of-callbacks">콜백의 상호 배제 (Mutual Exclusion of Callbacks)</a></li><li><a href="#예외-exceptions">예외 (Exceptions)</a></li><li><a href="#디버그-모드-debug-mode">디버그 모드 (Debug Mode)</a></li><li><a href="#핸들-handles">핸들 (Handles)</a></li><li><a href="#서버-servers">서버 (Servers)</a></li><li><a href="#퓨처-futures">퓨처 (Futures)</a></li><li><a href="#트랜스포트-transports">트랜스포트 (Transports)</a><ul><li><a href="#모든-트랜스포트용-메서드-methods-for-all-transports">모든 트랜스포트용 메서드 (Methods For All Transports)</a></li><li><a href="#양방향-스트림-트랜스포트-bidirectional-stream-transports">양방향 스트림 트랜스포트 (Bidirectional Stream Transports)</a></li><li><a href="#단방향-스트림-트랜스포트-unidirectional-stream-transports">단방향 스트림 트랜스포트 (Unidirectional Stream Transports)</a></li><li><a href="#데이터그램-트랜스포트-datagram-transports">데이터그램 트랜스포트 (Datagram Transports)</a></li><li><a href="#서브프로세스-트랜스포트-subprocess-transports">서브프로세스 트랜스포트 (Subprocess Transports)</a></li></ul></li><li><a href="#프로토콜-protocols">프로토콜 (Protocols)</a><ul><li><a href="#스트림-프로토콜-stream-protocols">스트림 프로토콜 (Stream Protocols)</a></li><li><a href="#데이터그램-프로토콜-datagram-protocols">데이터그램 프로토콜 (Datagram Protocols)</a></li><li><a href="#서브프로세스-프로토콜-subprocess-protocol">서브프로세스 프로토콜 (Subprocess Protocol)</a></li></ul></li><li><a href="#콜백-스타일-callback-style">콜백 스타일 (Callback Style)</a></li><li><a href="#코루틴-및-스케줄러-coroutines-and-the-scheduler">코루틴 및 스케줄러 (Coroutines and the Scheduler)</a><ul><li><a href="#코루틴-coroutines">코루틴 (Coroutines)</a></li><li><a href="#여러-코루틴-기다리기-waiting-for-multiple-coroutines">여러 코루틴 기다리기 (Waiting for Multiple Coroutines)</a></li><li><a href="#슬리핑-sleeping">슬리핑 (Sleeping)</a></li><li><a href="#태스크-tasks">태스크 (Tasks)</a></li><li><a href="#스케줄러-the-scheduler">스케줄러 (The Scheduler)</a></li></ul></li><li><a href="#편의-유틸리티-convenience-utilities">편의 유틸리티 (Convenience Utilities)</a></li><li><a href="#동기화-synchronization">동기화 (Synchronization)</a><ul><li><a href="#잠금-locks">잠금 (Locks)</a></li><li><a href="#큐-queues">큐 (Queues)</a></li></ul></li><li><a href="#기타-miscellaneous">기타 (Miscellaneous)</a><ul><li><a href="#로깅-logging">로깅 (Logging)</a></li><li><a href="#unix에서-sigchld-처리-sigchld-handling-on-unix">UNIX에서 SIGCHLD 처리 (SIGCHLD handling on UNIX)</a></li></ul></li><li><a href="#위시-리스트-wish-list">위시 리스트 (Wish List)</a></li><li><a href="#공개-문제-open-issues">공개 문제 (Open Issues)</a></li><li><a href="#참고-자료-references">참고 자료 (References)</a></li><li><a href="#감사-acknowledgments">감사 (Acknowledgments)</a></li></ul></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-3156/">PEP 3156 - Asynchronous IO Support Rebooted: the “asyncio” Module</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 12-Dec-2012</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h2 id="pep-3156--비동기-io-지원-재정비-asyncio-모듈">PEP 3156 – 비동기 I/O 지원 재정비: “asyncio” 모듈</h2>
+
+<p><strong>작성자:</strong> Guido van Rossum
+<strong>상태:</strong> Final
+<strong>타입:</strong> Standards Track
+<strong>생성일:</strong> 2012년 12월 12일
+<strong>Python 버전:</strong> 3.3</p>
+
+<h3 id="요약-abstract">요약 (Abstract)</h3>
+<p>이 문서는 Python 3 (Python 3.3부터)를 위한 비동기 I/O 제안입니다. PEP 3153에서 부족했던 구체적인 제안을 담고 있습니다. 이 제안에는 플러그인 가능한 (pluggable) 이벤트 루프, Twisted와 유사한 트랜스포트(transport) 및 프로토콜(protocol) 추상화, 그리고 <code class="language-plaintext highlighter-rouge">yield from</code> (PEP 380) 기반의 상위 수준 스케줄러가 포함됩니다. 제안된 패키지 이름은 <code class="language-plaintext highlighter-rouge">asyncio</code>입니다.</p>
+
+<h3 id="서론-introduction">서론 (Introduction)</h3>
+
+<h4 id="상태-status">상태 (Status)</h4>
+<p>‘Tulip’이라는 코드명으로 참조 구현이 존재하며, 이 저장소를 기반으로 하는 패키지가 PyPI에 제공되어 Python 3.3 설치에서 <code class="language-plaintext highlighter-rouge">asyncio</code> 패키지를 사용할 수 있도록 합니다. 2013년 10월 20일부로 <code class="language-plaintext highlighter-rouge">asyncio</code> 패키지는 Python 3.4 저장소에 체크인되어 Python 3.4-alpha-4와 함께 “잠정적 (provisional)” API 상태로 릴리스되었습니다. 이는 API에 대한 초기 피드백을 늘리기 위한 조치이며, PEP의 강제적인 수용을 의미하지 않습니다. 이 패키지는 Python 3.4에서 잠정적 상태를 유지하고 Python 3.5에서 최종 상태로 진행될 예정입니다.</p>
+
+<h4 id="의존성-dependencies">의존성 (Dependencies)</h4>
+<p>제안된 많은 기능에는 Python 3.3이 필요합니다. 참조 구현 (Tulip)은 Python 3.3 이상의 새로운 언어나 표준 라이브러리 기능, 서드파티 모듈 또는 패키지, 그리고 C 코드(Windows의 선택적 IOCP 지원 제외)를 필요로 하지 않습니다.</p>
+
+<h4 id="모듈-네임스페이스-module-namespace">모듈 네임스페이스 (Module Namespace)</h4>
+<p>여기서의 명세는 새로운 최상위 패키지인 <code class="language-plaintext highlighter-rouge">asyncio</code>에 속합니다. 다양한 컴포넌트는 패키지의 별도 서브모듈에 위치합니다. 패키지는 각 서브모듈에서 공통 API를 임포트하여 패키지 속성으로 사용할 수 있도록 합니다 ( <code class="language-plaintext highlighter-rouge">email</code> 패키지와 유사). 덜 일반적인 API는 해당 서브모듈에서 명시적으로 임포트해야 하며, 이 경우 서브모듈 이름은 명세의 일부입니다.</p>
+
+<h4 id="상호-운용성-interoperability">상호 운용성 (Interoperability)</h4>
+<p>이벤트 루프는 대부분의 상호 운용성이 발생하는 지점입니다. Twisted, Tornado 또는 gevent와 같은 프레임워크가 경량 어댑터 또는 프록시를 사용하여 기본 이벤트 루프 구현을 자체 요구 사항에 맞게 조정하거나, 자체 이벤트 루프 구현을 기반으로 기본 이벤트 루프 구현을 대체하는 것이 쉬워야 합니다.</p>
+
+<p>이 상호 운용성을 효과적으로 만들기 위해, 서드파티 프레임워크에서 선호되는 적응 방향은 기본 이벤트 루프를 유지하고 이를 프레임워크의 API에 맞게 조정하는 것입니다. 이상적으로는 모든 서드파티 프레임워크가 자체 이벤트 루프 구현을 표준 구현으로 대체하는 것이 좋습니다.</p>
+
+<p>두 가지 적응 방향을 모두 지원하기 위해 두 개의 별도 API가 지정됩니다.</p>
+<ul>
+  <li>현재 이벤트 루프를 관리하기 위한 인터페이스.</li>
+  <li>적합한 (conforming) 이벤트 루프의 인터페이스.</li>
+</ul>
+
+<p>이벤트 루프 API는 <code class="language-plaintext highlighter-rouge">await</code>/<code class="language-plaintext highlighter-rouge">yield from</code>에 의존하지 않습니다. 대신 콜백, 추가 인터페이스 (트랜스포트 및 프로토콜) 및 <code class="language-plaintext highlighter-rouge">Future</code>를 조합하여 사용합니다. <code class="language-plaintext highlighter-rouge">Future</code>는 PEP 3148에 정의된 것과 유사하지만, 다른 구현을 가지며 스레드에 묶여 있지 않습니다.</p>
+
+<p>콜백 사용을 좋아하지 않는 사용자를 위해, PEP 380의 <code class="language-plaintext highlighter-rouge">yield from</code> 또는 PEP 492의 <code class="language-plaintext highlighter-rouge">await</code> 표현식을 사용하여 코루틴으로 비동기 I/O 코드를 작성하기 위한 스케줄러가 제공됩니다. 스케줄러는 플러그인 가능하지 않습니다. 플러그인 가능성은 이벤트 루프 수준에서 발생하며, 표준 스케줄러 구현은 모든 적합한 이벤트 루프 구현과 함께 작동해야 합니다.</p>
+
+<p>코루틴과 다른 비동기 프레임워크 간의 상호 운용성을 위해, 스케줄러는 <code class="language-plaintext highlighter-rouge">Future</code>처럼 작동하는 <code class="language-plaintext highlighter-rouge">Task</code> 클래스를 정의합니다.</p>
+
+<h4 id="트랜스포트-및-프로토콜-transports-and-protocols">트랜스포트 및 프로토콜 (Transports and Protocols)</h4>
+<p>Twisted에 익숙하지 않은 사람들을 위해 트랜스포트와 프로토콜 간의 관계를 간략하게 설명합니다. 가장 높은 수준에서 트랜스포트는 바이트가 어떻게 전송되는지에 관여하고, 프로토콜은 어떤 바이트를 전송할지 (그리고 어느 정도 언제 전송할지) 결정합니다.</p>
+
+<p>다른 방식으로 설명하면, 트랜스포트는 소켓(또는 유사한 I/O 엔드포인트)에 대한 추상화이며, 프로토콜은 트랜스포트 관점에서 애플리케이션에 대한 추상화입니다.</p>
+
+<p>트랜스포트와 프로토콜 객체 사이에는 거의 항상 1:1 관계가 있습니다. 프로토콜은 트랜스포트 메서드를 호출하여 데이터를 보내고, 트랜스포트는 프로토콜 메서드를 호출하여 수신된 데이터를 전달합니다. 트랜스포트나 프로토콜 메서드는 “블록”되지 않습니다.</p>
+
+<p>가장 일반적인 트랜스포트 유형은 양방향 스트림 트랜스포트 (bidirectional stream transport)입니다. 이는 각각 바이트 시퀀스를 전송하는 버퍼링된 스트림 쌍(각 방향으로 하나씩)을 나타냅니다. 가장 일반적인 예는 TCP 연결이나 SSL/TLS 연결입니다.</p>
+
+<p>프로토콜은 HTTP 또는 SMTP와 같은 “애플리케이션 수준” 프로토콜을 나타낼 수 있습니다. 또한 여러 프로토콜이 공유하는 추상화나 전체 애플리케이션을 구현할 수도 있습니다.</p>
+
+<h3 id="이벤트-루프-인터페이스-명세-event-loop-interface-specification">이벤트 루프 인터페이스 명세 (Event Loop Interface Specification)</h3>
+
+<h4 id="이벤트-루프-정책-현재-이벤트-루프-가져오기-및-설정-event-loop-policy-getting-and-setting-the-current-event-loop">이벤트 루프 정책: 현재 이벤트 루프 가져오기 및 설정 (Event Loop Policy: Getting and Setting the Current Event Loop)</h4>
+<p>이벤트 루프 관리는 전역 (프로세스별) 객체인 이벤트 루프 정책에 의해 제어됩니다. 기본 정책이 있으며, 정책을 변경하는 API도 있습니다. 정책은 컨텍스트 개념을 정의하며, 컨텍스트별로 별도의 이벤트 루프를 관리합니다. 기본 정책의 컨텍스트 개념은 현재 스레드로 정의됩니다.</p>
+
+<p>현재 컨텍스트에 대한 이벤트 루프를 얻으려면 <code class="language-plaintext highlighter-rouge">get_event_loop()</code>를 사용합니다. 현재 컨텍스트에 이벤트 루프가 설정되지 않았고 현재 정책이 이벤트를 생성하도록 지정하지 않은 경우 예외가 발생합니다.</p>
+
+<p>현재 컨텍스트에 대한 이벤트 루프를 설정하려면 <code class="language-plaintext highlighter-rouge">set_event_loop(event_loop)</code>를 사용합니다.</p>
+
+<p>새로운 이벤트 루프 객체를 생성하고 반환하는 <code class="language-plaintext highlighter-rouge">new_event_loop()</code> 함수도 있습니다. 이를 현재 이벤트 루프로 만들려면 <code class="language-plaintext highlighter-rouge">set_event_loop()</code>를 호출해야 합니다.</p>
+
+<p>이벤트 루프 정책을 변경하려면 <code class="language-plaintext highlighter-rouge">set_event_loop_policy(policy)</code>를 호출합니다.</p>
+
+<h4 id="이벤트-루프를-명시적으로-전달-passing-an-event-loop-around-explicitly">이벤트 루프를 명시적으로 전달 (Passing an Event Loop Around Explicitly)</h4>
+<p>전역 또는 스레드별 기본 이벤트 루프에 의존하지 않고 이벤트 루프를 사용하는 코드를 작성할 수 있습니다. 이를 위해 현재 이벤트 루프에 대한 액세스가 필요한 모든 API (이벤트 클래스의 메서드가 아닌)는 <code class="language-plaintext highlighter-rouge">loop</code>라는 선택적 키워드 인수를 가집니다.</p>
+
+<h4 id="시간-지정-specifying-times">시간 지정 (Specifying Times)</h4>
+<p>Python에서 모든 타임아웃, 간격 및 지연은 초 단위로 측정되며 정수 또는 부동소수점일 수 있습니다. 그러나 절대 시간은 POSIX 타임스탬프로 지정되지 않습니다. 기본 구현은 <code class="language-plaintext highlighter-rouge">time.monotonic()</code>을 사용합니다.</p>
+
+<h4 id="임베디드-이벤트-루프-embedded-event-loops">임베디드 이벤트 루프 (Embedded Event Loops)</h4>
+<p>일부 플랫폼에서는 시스템에서 이벤트 루프가 제공됩니다. 이러한 루프는 사용자 코드가 시작될 때 이미 실행 중일 수 있으며, 프로그램을 종료하지 않고는 중지하거나 닫을 수 없는 경우가 있습니다. 이 경우 이벤트 루프를 시작, 중지 및 닫는 메서드를 구현할 수 없으며 <code class="language-plaintext highlighter-rouge">is_running()</code>은 항상 <code class="language-plaintext highlighter-rouge">True</code>를 반환할 수 있습니다.</p>
+
+<h4 id="이벤트-루프-클래스-event-loop-classes">이벤트 루프 클래스 (Event Loop Classes)</h4>
+<p>실제 <code class="language-plaintext highlighter-rouge">EventLoop</code>라는 클래스는 없습니다. 모든 메서드를 구현 없이 정의하고 주로 문서를 위한 <code class="language-plaintext highlighter-rouge">AbstractEventLoop</code> 클래스가 있습니다. 다음 구체적인 클래스가 정의됩니다.</p>
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">SelectorEventLoop</code></strong>: <code class="language-plaintext highlighter-rouge">selectors</code> 모듈 (Python 3.4의 새로운 기능)을 기반으로 하는 전체 API의 구체적인 구현입니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">ProactorEventLoop</code></strong>: I/O 이벤트 처리 및 시그널 처리 메서드를 제외한 API의 구체적인 구현입니다. Windows (또는 “오버랩 I/O”에 대한 유사 API를 지원하는 다른 플랫폼)에서만 정의됩니다.</li>
+</ul>
+
+<h4 id="이벤트-루프-메서드-개요-event-loop-methods-overview">이벤트 루프 메서드 개요 (Event Loop Methods Overview)</h4>
+<p>적합한 이벤트 루프의 메서드는 여러 범주로 그룹화됩니다.</p>
+<ul>
+  <li><strong>시작, 중지 및 닫기</strong>: <code class="language-plaintext highlighter-rouge">run_forever()</code>, <code class="language-plaintext highlighter-rouge">run_until_complete()</code>, <code class="language-plaintext highlighter-rouge">stop()</code>, <code class="language-plaintext highlighter-rouge">is_running()</code>, <code class="language-plaintext highlighter-rouge">close()</code>, <code class="language-plaintext highlighter-rouge">is_closed()</code>.</li>
+  <li><strong>기본 및 타이밍 콜백</strong>: <code class="language-plaintext highlighter-rouge">call_soon()</code>, <code class="language-plaintext highlighter-rouge">call_later()</code>, <code class="language-plaintext highlighter-rouge">call_at()</code>, <code class="language-plaintext highlighter-rouge">time()</code>.</li>
+  <li><strong>스레드 상호 작용</strong>: <code class="language-plaintext highlighter-rouge">call_soon_threadsafe()</code>, <code class="language-plaintext highlighter-rouge">run_in_executor()</code>, <code class="language-plaintext highlighter-rouge">set_default_executor()</code>.</li>
+  <li><strong>인터넷 이름 조회</strong>: <code class="language-plaintext highlighter-rouge">getaddrinfo()</code>, <code class="language-plaintext highlighter-rouge">getnameinfo()</code>.</li>
+  <li><strong>인터넷 연결</strong>: <code class="language-plaintext highlighter-rouge">create_connection()</code>, <code class="language-plaintext highlighter-rouge">create_server()</code>, <code class="language-plaintext highlighter-rouge">create_datagram_endpoint()</code>.</li>
+  <li><strong>래핑된 소켓 메서드</strong>: <code class="language-plaintext highlighter-rouge">sock_recv()</code>, <code class="language-plaintext highlighter-rouge">sock_sendall()</code>, <code class="language-plaintext highlighter-rouge">sock_connect()</code>, <code class="language-plaintext highlighter-rouge">sock_accept()</code>.</li>
+  <li><strong>태스크 및 퓨처 지원</strong>: <code class="language-plaintext highlighter-rouge">create_future()</code>, <code class="language-plaintext highlighter-rouge">create_task()</code>, <code class="language-plaintext highlighter-rouge">set_task_factory()</code>, <code class="language-plaintext highlighter-rouge">get_task_factory()</code>.</li>
+  <li><strong>오류 처리</strong>: <code class="language-plaintext highlighter-rouge">get_exception_handler()</code>, <code class="language-plaintext highlighter-rouge">set_exception_handler()</code>, <code class="language-plaintext highlighter-rouge">default_exception_handler()</code>, <code class="language-plaintext highlighter-rouge">call_exception_handler()</code>.</li>
+  <li><strong>디버그 모드</strong>: <code class="language-plaintext highlighter-rouge">get_debug()</code>, <code class="language-plaintext highlighter-rouge">set_debug()</code>.</li>
+</ul>
+
+<p>두 번째 범주의 메서드는 적합한 이벤트 루프 구현에 의해 지원될 수 있습니다. 지원되지 않으면 <code class="language-plaintext highlighter-rouge">NotImplementedError</code>를 발생시킵니다.</p>
+<ul>
+  <li><strong>I/O 콜백</strong>: <code class="language-plaintext highlighter-rouge">add_reader()</code>, <code class="language-plaintext highlighter-rouge">remove_reader()</code>, <code class="language-plaintext highlighter-rouge">add_writer()</code>, <code class="language-plaintext highlighter-rouge">remove_writer()</code>.</li>
+  <li><strong>파이프 및 서브프로세스</strong>: <code class="language-plaintext highlighter-rouge">connect_read_pipe()</code>, <code class="language-plaintext highlighter-rouge">connect_write_pipe()</code>, <code class="language-plaintext highlighter-rouge">subprocess_shell()</code>, <code class="language-plaintext highlighter-rouge">subprocess_exec()</code>.</li>
+  <li><strong>시그널 콜백</strong>: <code class="language-plaintext highlighter-rouge">add_signal_handler()</code>, <code class="language-plaintext highlighter-rouge">remove_signal_handler()</code>.</li>
+</ul>
+
+<h4 id="이벤트-루프-메서드-event-loop-methods">이벤트 루프 메서드 (Event Loop Methods)</h4>
+
+<h5 id="시작-중지-및-닫기-starting-stopping-and-closing">시작, 중지 및 닫기 (Starting, Stopping and Closing)</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">run_forever()</code>: <code class="language-plaintext highlighter-rouge">stop()</code>이 호출될 때까지 이벤트 루프를 실행합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">run_until_complete(future)</code>: Future가 완료될 때까지 이벤트 루프를 실행합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">stop()</code>: 가능한 한 빨리 이벤트 루프를 중지합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">is_running()</code>: 이벤트 루프가 현재 실행 중이면 <code class="language-plaintext highlighter-rouge">True</code>를, 중지되었으면 <code class="language-plaintext highlighter-rouge">False</code>를 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">close()</code>: 이벤트 루프를 닫고, 보유하고 있는 모든 리소스 (예: <code class="language-plaintext highlighter-rouge">epoll()</code> 또는 <code class="language-plaintext highlighter-rouge">kqueue()</code>가 사용하는 파일 디스크립터)를 해제합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">is_closed()</code>: 이벤트 루프가 닫혔으면 <code class="language-plaintext highlighter-rouge">True</code>를, 그렇지 않으면 <code class="language-plaintext highlighter-rouge">False</code>를 반환합니다.</li>
+</ul>
+
+<h5 id="기본-콜백-basic-callbacks">기본 콜백 (Basic Callbacks)</h5>
+<p>동일한 이벤트 루프와 관련된 콜백은 엄격하게 직렬화됩니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">call_soon(callback, *args)</code>: 콜백을 가능한 한 빨리 호출하도록 스케줄링합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">call_later(delay, callback, *args)</code>: <code class="language-plaintext highlighter-rouge">delay</code> 초 후에 <code class="language-plaintext highlighter-rouge">callback(*args)</code>가 호출되도록 준비합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">call_at(when, callback, *args)</code>: <code class="language-plaintext highlighter-rouge">call_later()</code>와 유사하지만, 시간이 절대 시간으로 표현됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">time()</code>: 이벤트 루프의 클록에 따른 현재 시간을 반환합니다.</li>
+</ul>
+
+<h5 id="스레드-상호-작용-thread-interaction">스레드 상호 작용 (Thread interaction)</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">call_soon_threadsafe(callback, *args)</code>: <code class="language-plaintext highlighter-rouge">call_soon()</code>과 유사하지만, 다른 스레드에서 호출될 때 이벤트 루프가 I/O 대기 중이라면 이벤트 루프를 블록 해제합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">run_in_executor(executor, callback, *args)</code>: <code class="language-plaintext highlighter-rouge">executor</code>에서 <code class="language-plaintext highlighter-rouge">callback(*args)</code>를 호출하도록 준비합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">set_default_executor(executor)</code>: <code class="language-plaintext highlighter-rouge">run_in_executor()</code>에서 사용하는 기본 Executor를 설정합니다.</li>
+</ul>
+
+<h5 id="인터넷-이름-조회-internet-name-lookups">인터넷 이름 조회 (Internet name lookups)</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">getaddrinfo(host, port, family=0, type=0, proto=0, flags=0)</code>: <code class="language-plaintext highlighter-rouge">socket.getaddrinfo()</code> 함수와 유사하지만 <code class="language-plaintext highlighter-rouge">Future</code>를 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">getnameinfo(sockaddr, flags=0)</code>: <code class="language-plaintext highlighter-rouge">socket.getnameinfo()</code>와 유사하지만 <code class="language-plaintext highlighter-rouge">Future</code>를 반환합니다.</li>
+</ul>
+
+<h5 id="인터넷-연결-internet-connections">인터넷 연결 (Internet connections)</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">create_connection(protocol_factory, host, port, &lt;options&gt;)</code>: 지정된 인터넷 호스트 및 포트에 스트림 연결을 생성합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">create_server(protocol_factory, host, port, &lt;options&gt;)</code>: 연결을 수락하는 서비스 루프에 들어갑니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">create_datagram_endpoint(protocol_factory, local_addr=None, remote_addr=None, &lt;options&gt;)</code>: 데이터그램(일반적으로 UDP 패킷)을 보내고 받는 엔드포인트를 생성합니다.</li>
+</ul>
+
+<h5 id="래핑된-소켓-메서드-wrapped-socket-methods">래핑된 소켓 메서드 (Wrapped Socket Methods)</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">sock_recv(sock, n)</code>: 소켓 <code class="language-plaintext highlighter-rouge">sock</code>에서 최대 <code class="language-plaintext highlighter-rouge">n</code> 바이트를 수신합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">sock_sendall(sock, data)</code>: 소켓 <code class="language-plaintext highlighter-rouge">sock</code>으로 바이트 <code class="language-plaintext highlighter-rouge">data</code>를 보냅니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">sock_connect(sock, address)</code>: 지정된 <code class="language-plaintext highlighter-rouge">address</code>에 연결합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">sock_accept(sock)</code>: 소켓에서 연결을 수락합니다.</li>
+</ul>
+
+<h5 id="io-콜백-io-callbacks">I/O 콜백 (I/O Callbacks)</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">add_reader(fd, callback, *args)</code>: 파일 디스크립터 <code class="language-plaintext highlighter-rouge">fd</code>가 읽기 준비가 되었을 때 <code class="language-plaintext highlighter-rouge">callback(*args)</code>가 호출되도록 준비합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">add_writer(fd, callback, *args)</code>: <code class="language-plaintext highlighter-rouge">add_reader()</code>와 유사하지만, 읽기 대신 쓰기를 위해 콜백을 등록합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">remove_reader(fd)</code>: 파일 디스크립터 <code class="language-plaintext highlighter-rouge">fd</code>에 대한 현재 읽기 콜백을 취소합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">remove_writer(fd)</code>: <code class="language-plaintext highlighter-rouge">add_writer()</code>에 대한 <code class="language-plaintext highlighter-rouge">remove_reader()</code>와 유사합니다.</li>
+</ul>
+
+<h5 id="파이프-및-서브프로세스-pipes-and-subprocesses">파이프 및 서브프로세스 (Pipes and Subprocesses)</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">connect_read_pipe(protocol_factory, pipe)</code>: UNIX 파이프의 읽기 끝을 래핑하는 파일 유사 객체에서 단방향 스트림 연결을 생성합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">connect_write_pipe(protocol_factory, pipe)</code>: UNIX 파이프의 쓰기 끝을 래핑하는 파일 유사 객체에서 단방향 스트림 연결을 생성합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">subprocess_shell(protocol_factory, cmd, &lt;options&gt;)</code>: 플랫폼의 “쉘” 구문을 사용하여 <code class="language-plaintext highlighter-rouge">cmd</code>로부터 서브프로세스를 생성합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">subprocess_exec(protocol_factory, *args, &lt;options&gt;)</code>: 하나 이상의 문자열 인수로부터 서브프로세스를 생성합니다.</li>
+</ul>
+
+<h5 id="시그널-콜백-signal-callbacks">시그널 콜백 (Signal callbacks)</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">add_signal_handler(sig, callback, *args)</code>: 시그널 <code class="language-plaintext highlighter-rouge">sig</code>가 수신될 때마다 <code class="language-plaintext highlighter-rouge">callback(*args)</code>가 호출되도록 준비합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">remove_signal_handler(sig)</code>: 시그널 <code class="language-plaintext highlighter-rouge">sig</code>에 대한 핸들러가 설정되어 있다면 제거합니다.</li>
+</ul>
+
+<h4 id="콜백의-상호-배제-mutual-exclusion-of-callbacks">콜백의 상호 배제 (Mutual Exclusion of Callbacks)</h4>
+<p>이벤트 루프는 콜백의 상호 배제를 강제해야 합니다. 즉, 이전에 실행 중인 콜백이 아직 실행 중인 동안에는 새로운 콜백을 시작해서는 안 됩니다.</p>
+
+<h4 id="예외-exceptions">예외 (Exceptions)</h4>
+<p>Python에는 <code class="language-plaintext highlighter-rouge">Exception</code> 클래스에서 파생된 예외와 <code class="language-plaintext highlighter-rouge">BaseException</code>에서 파생된 예외 두 가지 범주가 있습니다. <code class="language-plaintext highlighter-rouge">Exception</code>에서 파생된 예외는 일반적으로 적절하게 잡아서 처리됩니다. 그러나 <code class="language-plaintext highlighter-rouge">BaseException</code>에서만 파생된 예외는 일반적으로 잡히지 않으며, 일반적으로 트레이스백과 함께 프로그램이 종료됩니다.</p>
+
+<p>이벤트 루프는 후자의 범주를 예외 핸들러로 전달합니다. 이는 <code class="language-plaintext highlighter-rouge">context</code> 딕셔너리를 매개변수로 받는 콜백입니다.
+<code class="language-plaintext highlighter-rouge">context</code>는 ‘message’, ‘exception’, ‘source_traceback’, ‘handle_traceback’과 같은 키를 가질 수 있습니다.</p>
+
+<p>이벤트 루프에는 예외 처리와 관련된 다음과 같은 메서드가 있습니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">get_exception_handler()</code>: 루프에 등록된 현재 예외 핸들러를 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">set_exception_handler(handler)</code>: 예외 핸들러를 설정합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">default_exception_handler(context)</code>: 이 루프 구현을 위한 기본 예외 핸들러입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">call_exception_handler(context)</code>: 등록된 예외 핸들러에 <code class="language-plaintext highlighter-rouge">context</code>를 전달합니다.</li>
+</ul>
+
+<h4 id="디버그-모드-debug-mode">디버그 모드 (Debug Mode)</h4>
+<p>기본적으로 루프는 릴리스 모드에서 작동합니다. 애플리케이션은 성능 저하를 감수하고 더 나은 오류 보고를 위해 디버그 모드를 활성화할 수 있습니다.</p>
+
+<p>디버그 모드에서는 많은 추가 검사가 활성화됩니다. 예를 들어, <code class="language-plaintext highlighter-rouge">future</code>/<code class="language-plaintext highlighter-rouge">task</code>의 처리되지 않은 예외에 대한 소스 트레이스백을 사용할 수 있습니다.
+<code class="language-plaintext highlighter-rouge">loop.slow_callback_duration</code> 속성은 느린 콜백이 보고되기 전에 두 <code class="language-plaintext highlighter-rouge">yield</code> 지점 사이에서 허용되는 최대 실행 시간을 제어합니다.</p>
+
+<p>디버그 모드와 관련된 두 가지 메서드가 있습니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">get_debug()</code>: 디버그 모드가 활성화되어 있으면 <code class="language-plaintext highlighter-rouge">True</code>를, 그렇지 않으면 <code class="language-plaintext highlighter-rouge">False</code>를 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">set_debug(enabled)</code>: 인수가 <code class="language-plaintext highlighter-rouge">True</code>이면 디버그 모드를 활성화합니다.</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">PYTHONASYNCIODEBUG</code> 환경 변수가 정의되어 있고 비어 있지 않으면 디버그 모드가 자동으로 활성화됩니다.</p>
+
+<h4 id="핸들-handles">핸들 (Handles)</h4>
+<p>일회성 콜백 ( <code class="language-plaintext highlighter-rouge">call_soon()</code>, <code class="language-plaintext highlighter-rouge">call_later()</code>, <code class="language-plaintext highlighter-rouge">call_at()</code>, <code class="language-plaintext highlighter-rouge">call_soon_threadsafe()</code> )을 등록하는 다양한 메서드는 모두 콜백을 취소하는 데 사용할 수 있는 등록을 나타내는 객체를 반환합니다. 이 객체를 <code class="language-plaintext highlighter-rouge">Handle</code>이라고 합니다. 핸들은 불투명하며 하나의 공개 메서드만 있습니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">cancel()</code>: 콜백을 취소합니다.</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">add_reader()</code>, <code class="language-plaintext highlighter-rouge">add_writer()</code>, <code class="language-plaintext highlighter-rouge">add_signal_handler()</code>는 <code class="language-plaintext highlighter-rouge">Handle</code>을 반환하지 않습니다.</p>
+
+<h4 id="서버-servers">서버 (Servers)</h4>
+<p><code class="language-plaintext highlighter-rouge">create_server()</code> 메서드는 <code class="language-plaintext highlighter-rouge">Server</code> 인스턴스를 반환하며, 이는 요청을 수락하는 데 사용되는 소켓(또는 기타 네트워크 객체)을 래핑합니다. 이 클래스에는 두 가지 공개 메서드가 있습니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">close()</code>: 서비스를 닫습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">wait_closed()</code>: 서비스가 닫히고 모든 수락된 요청이 처리될 때까지 블록하는 코루틴입니다.</li>
+</ul>
+
+<h4 id="퓨처-futures">퓨처 (Futures)</h4>
+<p><code class="language-plaintext highlighter-rouge">asyncio.Future</code> 클래스는 PEP 3148에 명세된 <code class="language-plaintext highlighter-rouge">concurrent.futures.Future</code> 클래스와 의도적으로 유사하지만 약간의 차이가 있습니다. <code class="language-plaintext highlighter-rouge">asyncio.Future</code>는 다음과 같은 공개 API를 지원합니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">cancel()</code>: Future를 취소하려고 시도합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">cancelled()</code>: Future가 성공적으로 취소되었으면 <code class="language-plaintext highlighter-rouge">True</code>를 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">done()</code>: Future가 완료되었으면 <code class="language-plaintext highlighter-rouge">True</code>를 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">result()</code>: <code class="language-plaintext highlighter-rouge">set_result()</code>로 설정된 결과를 반환하거나, <code class="language-plaintext highlighter-rouge">set_exception()</code>으로 설정된 예외를 발생시킵니다. 취소되면 <code class="language-plaintext highlighter-rouge">CancelledError</code>를 발생시킵니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">exception()</code>: <code class="language-plaintext highlighter-rouge">set_exception()</code>으로 예외가 설정되었으면 예외를 반환하고, <code class="language-plaintext highlighter-rouge">set_result()</code>로 결과가 설정되었으면 <code class="language-plaintext highlighter-rouge">None</code>을 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">add_done_callback(fn)</code>: Future가 완료될 때 실행될 콜백을 추가합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">remove_done_callback(fn)</code>: 콜백 목록에서 인수를 제거합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">set_result(result)</code>: Future를 완료 상태로 만들고 콜백을 스케줄링합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">set_exception(exception)</code>: Future를 완료 상태로 만들고 콜백을 스케줄링합니다.</li>
+</ul>
+
+<p>다음 예외가 정의됩니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">InvalidStateError</code>: Future가 메서드를 호출하기에 적합하지 않은 상태일 때 발생합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">InvalidTimeoutError</code>: 0이 아닌 <code class="language-plaintext highlighter-rouge">timeout</code> 인수가 주어졌을 때 <code class="language-plaintext highlighter-rouge">result()</code> 및 <code class="language-plaintext highlighter-rouge">exception()</code>에 의해 발생합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">CancelledError</code>: <code class="language-plaintext highlighter-rouge">concurrent.futures.CancelledError</code>의 별칭입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">TimeoutError</code>: <code class="language-plaintext highlighter-rouge">concurrent.futures.TimeoutError</code>의 별칭입니다.</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">asyncio.Future</code> 객체는 코루틴에서 사용될 때 <code class="language-plaintext highlighter-rouge">yield from</code> 표현식에 허용됩니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Future</code>와 관련된 몇 가지 공개 함수는 다음과 같습니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">asyncio.async(arg)</code>: 코루틴 객체 또는 <code class="language-plaintext highlighter-rouge">Future</code>를 인수로 받아 <code class="language-plaintext highlighter-rouge">Future</code>를 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">asyncio.wrap_future(future)</code>: PEP 3148 <code class="language-plaintext highlighter-rouge">Future</code>를 받아 이벤트 루프와 호환되는 <code class="language-plaintext highlighter-rouge">Future</code>를 반환합니다.</li>
+</ul>
+
+<h4 id="트랜스포트-transports">트랜스포트 (Transports)</h4>
+<p>트랜스포트와 프로토콜은 Twisted 및 PEP 3153의 강력한 영향을 받았습니다. 사용자는 거의 트랜스포트를 구현하거나 인스턴스화하지 않습니다. 대신 이벤트 루프는 트랜스포트를 설정하는 유틸리티 메서드를 제공합니다.</p>
+
+<h5 id="모든-트랜스포트용-메서드-methods-for-all-transports">모든 트랜스포트용 메서드 (Methods For All Transports)</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">get_extra_info(name, default=None)</code>: 트랜스포트에 대한 구현별 정보를 반환하는 포괄적인 메서드입니다.</li>
+</ul>
+
+<h5 id="양방향-스트림-트랜스포트-bidirectional-stream-transports">양방향 스트림 트랜스포트 (Bidirectional Stream Transports)</h5>
+<p>양방향 스트림 트랜스포트는 소켓 또는 유사한 것 (예: UNIX 파이프 쌍 또는 SSL/TLS 연결) 위에 있는 추상화입니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">write(data)</code>: 바이트를 씁니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">writelines(iterable)</code>: <code class="language-plaintext highlighter-rouge">iterable</code>의 각 데이터에 대해 <code class="language-plaintext highlighter-rouge">write()</code>를 호출하는 것과 같습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">write_eof()</code>: 연결의 쓰기 끝을 닫습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">can_write_eof()</code>: 프로토콜이 <code class="language-plaintext highlighter-rouge">write_eof()</code>를 지원하면 <code class="language-plaintext highlighter-rouge">True</code>를 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">get_write_buffer_size()</code>: 트랜스포트의 쓰기 버퍼 현재 크기를 바이트 단위로 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">set_write_buffer_limits(high=None, low=None)</code>: 흐름 제어를 위한 상위 및 하위 워터 마크를 설정합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">pause_reading()</code>: <code class="language-plaintext highlighter-rouge">resume_reading()</code> 호출 전까지 프로토콜로의 데이터 전달을 일시 중단합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">resume_reading()</code>: <code class="language-plaintext highlighter-rouge">data_received()</code>를 통해 프로토콜로의 데이터 전달을 다시 시작합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">close()</code>: 다른 쪽 엔티티와의 연결을 끊습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">abort()</code>: 즉시 연결을 끊습니다.</li>
+</ul>
+
+<h5 id="단방향-스트림-트랜스포트-unidirectional-stream-transports">단방향 스트림 트랜스포트 (Unidirectional Stream Transports)</h5>
+<p>쓰기 스트림 트랜스포트는 양방향 스트림 트랜스포트에 설명된 <code class="language-plaintext highlighter-rouge">write()</code>, <code class="language-plaintext highlighter-rouge">writelines()</code>, <code class="language-plaintext highlighter-rouge">write_eof()</code>, <code class="language-plaintext highlighter-rouge">can_write_eof()</code>, <code class="language-plaintext highlighter-rouge">close()</code>, <code class="language-plaintext highlighter-rouge">abort()</code> 메서드를 지원합니다.
+읽기 스트림 트랜스포트는 양방향 스트림 트랜스포트에 설명된 <code class="language-plaintext highlighter-rouge">pause_reading()</code>, <code class="language-plaintext highlighter-rouge">resume_reading()</code>, <code class="language-plaintext highlighter-rouge">close()</code> 메서드를 지원합니다.</p>
+
+<h5 id="데이터그램-트랜스포트-datagram-transports">데이터그램 트랜스포트 (Datagram Transports)</h5>
+<p>데이터그램 트랜스포트는 다음과 같은 메서드를 가집니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">sendto(data, addr=None)</code>: 데이터그램을 보냅니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">abort()</code>: 즉시 트랜스포트를 닫습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">close()</code>: 트랜스포트를 닫습니다.</li>
+</ul>
+
+<h5 id="서브프로세스-트랜스포트-subprocess-transports">서브프로세스 트랜스포트 (Subprocess Transports)</h5>
+<p>서브프로세스 트랜스포트는 다음과 같은 메서드를 가집니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">get_pid()</code>: 서브프로세스의 프로세스 ID를 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">get_returncode()</code>: 프로세스가 종료된 경우 프로세스 반환 코드를 반환하고, 그렇지 않으면 <code class="language-plaintext highlighter-rouge">None</code>을 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">get_pipe_transport(fd)</code>: 인수에 해당하는 파이프 트랜스포트를 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">send_signal(signal)</code>: 서브프로세스에 시그널을 보냅니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">terminate()</code>: 서브프로세스를 종료합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">kill()</code>: 서브프로세스를 강제 종료합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">close()</code>: <code class="language-plaintext highlighter-rouge">terminate()</code>의 별칭입니다.</li>
+</ul>
+
+<h4 id="프로토콜-protocols">프로토콜 (Protocols)</h4>
+<p>프로토콜은 항상 트랜스포트와 함께 사용됩니다.</p>
+
+<h5 id="스트림-프로토콜-stream-protocols">스트림 프로토콜 (Stream Protocols)</h5>
+<p>양방향 스트림 프로토콜은 트랜스포트에 의해 호출될 다음 메서드를 구현해야 합니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">connection_made(transport)</code>: 트랜스포트가 준비되었고 다른 쪽 엔티티에 연결되었음을 나타냅니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">data_received(data)</code>: 트랜스포트가 연결에서 일부 바이트를 읽었습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">eof_received()</code>: 다른 쪽 끝에서 <code class="language-plaintext highlighter-rouge">write_eof()</code> (또는 이에 상응하는 것)를 호출했을 때 호출됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">pause_writing()</code>: 프로토콜이 트랜스포트에 데이터 쓰기를 일시적으로 중지하도록 요청합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">resume_writing()</code>: 프로토콜이 트랜스포트에 데이터 쓰기를 다시 시작해도 안전하다고 알려줍니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">connection_lost(exc)</code>: 트랜스포트가 닫혔거나 중단되었거나, 다른 쪽 끝이 연결을 깔끔하게 닫았음을 감지했거나, 예기치 않은 오류가 발생했습니다.</li>
+</ul>
+
+<h5 id="데이터그램-프로토콜-datagram-protocols">데이터그램 프로토콜 (Datagram Protocols)</h5>
+<p>데이터그램 프로토콜은 스트림 프로토콜과 동일한 시그니처를 가진 <code class="language-plaintext highlighter-rouge">connection_made()</code> 및 <code class="language-plaintext highlighter-rouge">connection_lost()</code> 메서드를 가집니다. 또한 다음 메서드를 가집니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">datagram_received(data, addr)</code>: 데이터그램 <code class="language-plaintext highlighter-rouge">data</code>가 원격 주소 <code class="language-plaintext highlighter-rouge">addr</code>에서 수신되었음을 나타냅니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">error_received(exc)</code>: 전송 또는 수신 작업이 <code class="language-plaintext highlighter-rouge">OSError</code> 예외를 발생시켰음을 나타냅니다.</li>
+</ul>
+
+<h5 id="서브프로세스-프로토콜-subprocess-protocol">서브프로세스 프로토콜 (Subprocess Protocol)</h5>
+<p>서브프로세스 프로토콜은 스트림 프로토콜과 동일한 시그니처를 가진 <code class="language-plaintext highlighter-rouge">connection_made()</code>, <code class="language-plaintext highlighter-rouge">connection_lost()</code>, <code class="language-plaintext highlighter-rouge">pause_writing()</code>, <code class="language-plaintext highlighter-rouge">resume_writing()</code> 메서드를 가집니다. 또한 다음 메서드를 가집니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">pipe_data_received(fd, data)</code>: 서브프로세스가 <code class="language-plaintext highlighter-rouge">stdout</code> 또는 <code class="language-plaintext highlighter-rouge">stderr</code>에 데이터를 쓸 때 호출됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">pipe_connection_lost(fd, exc)</code>: 서브프로세스가 <code class="language-plaintext highlighter-rouge">stdin</code>, <code class="language-plaintext highlighter-rouge">stdout</code> 또는 <code class="language-plaintext highlighter-rouge">stderr</code>를 닫을 때 호출됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">process_exited()</code>: 서브프로세스가 종료되었을 때 호출됩니다.</li>
+</ul>
+
+<h4 id="콜백-스타일-callback-style">콜백 스타일 (Callback Style)</h4>
+<p>콜백을 받는 대부분의 인터페이스는 위치 인수도 받습니다. 예를 들어, <code class="language-plaintext highlighter-rouge">foo("abc", 42)</code>가 곧 호출되도록 준비하려면 <code class="language-plaintext highlighter-rouge">loop.call_soon(foo, "abc", 42)</code>를 호출합니다. 이 규칙은 일반적인 콜백 프로그래밍에서 필요한 작은 람다 함수의 수를 크게 줄여줍니다. 이 규칙은 특히 키워드 인수를 지원하지 않습니다.</p>
+
+<h4 id="코루틴-및-스케줄러-coroutines-and-the-scheduler">코루틴 및 스케줄러 (Coroutines and the Scheduler)</h4>
+<p>이 부분은 이벤트 루프 인터페이스와 상태가 다르기 때문에 별도의 최상위 섹션으로 분류됩니다. 코루틴 사용은 선택 사항이며, 콜백만 사용하여 코드를 작성하는 것도 완벽하게 괜찮습니다.</p>
+
+<h5 id="코루틴-coroutines">코루틴 (Coroutines)</h5>
+<p>코루틴은 특정 규칙을 따르는 제너레이터입니다. 문서화를 위해 모든 코루틴은 <code class="language-plaintext highlighter-rouge">@asyncio.coroutine</code>으로 데코레이션되어야 하지만, 이는 엄격하게 강제될 수 없습니다. 코루틴은 원래의 <code class="language-plaintext highlighter-rouge">yield</code> 구문 대신 PEP 380에 도입된 <code class="language-plaintext highlighter-rouge">yield from</code> 구문을 사용합니다.</p>
+
+<p>코루틴이 할 수 있는 일:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">result = yield from future</code>: future가 완료될 때까지 코루틴을 일시 중단하고, future의 결과를 반환하거나 예외를 발생시킵니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">result = yield from coroutine</code>: 다른 코루틴이 결과를 생성할 때까지 기다립니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">return expression</code>: <code class="language-plaintext highlighter-rouge">yield from</code>을 사용하여 이 코루틴을 기다리는 코루틴에 결과를 생성합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">raise exception</code>: <code class="language-plaintext highlighter-rouge">yield from</code>을 사용하여 이 코루틴을 기다리는 코루틴에서 예외를 발생시킵니다.</li>
+</ul>
+
+<p>코루틴을 호출해도 코드가 실행되지는 않습니다. 이는 단순히 제너레이터이며, 호출에 의해 반환된 코루틴 객체는 실제로 제너레이터 객체로, 반복되기 전까지는 아무것도 하지 않습니다.</p>
+
+<h5 id="여러-코루틴-기다리기-waiting-for-multiple-coroutines">여러 코루틴 기다리기 (Waiting for Multiple Coroutines)</h5>
+<p>여러 코루틴 또는 <code class="language-plaintext highlighter-rouge">Future</code>를 기다리기 위해 <code class="language-plaintext highlighter-rouge">concurrent.futures</code> 패키지의 <code class="language-plaintext highlighter-rouge">wait()</code> 및 <code class="language-plaintext highlighter-rouge">as_completed()</code> API와 유사한 두 가지 API가 제공됩니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">asyncio.wait(fs, timeout=None, return_when=ALL_COMPLETED)</code>: <code class="language-plaintext highlighter-rouge">fs</code>로 주어진 <code class="language-plaintext highlighter-rouge">Future</code> 또는 코루틴이 완료될 때까지 기다리는 코루틴입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">asyncio.as_completed(fs, timeout=None)</code>: <code class="language-plaintext highlighter-rouge">Future</code> 또는 코루틴의 값을 반환하는 이터레이터를 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">asyncio.wait_for(f, timeout)</code>: 타임아웃을 사용하여 단일 코루틴 또는 <code class="language-plaintext highlighter-rouge">Future</code>를 기다리는 편의 기능입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">asyncio.gather(f1, f2, ...)</code>: 모든 인수 (<code class="language-plaintext highlighter-rouge">Future</code> 또는 코루틴)가 완료될 때까지 기다리고 해당 결과 목록을 반환하는 <code class="language-plaintext highlighter-rouge">Future</code>를 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">asyncio.shield(f)</code>: 취소로부터 보호하면서 <code class="language-plaintext highlighter-rouge">Future</code>를 기다립니다.</li>
+</ul>
+
+<h5 id="슬리핑-sleeping">슬리핑 (Sleeping)</h5>
+<p>코루틴 <code class="language-plaintext highlighter-rouge">asyncio.sleep(delay)</code>는 지정된 시간 지연 후에 반환됩니다.</p>
+
+<h5 id="태스크-tasks">태스크 (Tasks)</h5>
+<p><code class="language-plaintext highlighter-rouge">Task</code>는 독립적으로 실행되는 코루틴을 관리하는 객체입니다. <code class="language-plaintext highlighter-rouge">Task</code> 인터페이스는 <code class="language-plaintext highlighter-rouge">Future</code> 인터페이스와 동일하며, 실제로 <code class="language-plaintext highlighter-rouge">Task</code>는 <code class="language-plaintext highlighter-rouge">Future</code>의 서브클래스입니다.
+완료되지 않은 태스크를 취소하면 코루틴에 <code class="language-plaintext highlighter-rouge">asyncio.CancelledError</code> 예외가 발생합니다.</p>
+
+<p>코루틴을 태스크로 변환하려면 코루틴 함수를 호출하고 결과 코루틴 객체를 <code class="language-plaintext highlighter-rouge">loop.create_task()</code> 메서드에 전달합니다. <code class="language-plaintext highlighter-rouge">asyncio.ensure_future()</code>를 사용할 수도 있습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Task</code> 클래스는 새로운 메서드를 추가하여 <code class="language-plaintext highlighter-rouge">Future</code>에서 파생됩니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">current_task(loop=None)</code>: 이벤트 루프에서 현재 실행 중인 태스크를 반환하는 클래스 메서드입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">all_tasks(loop=None)</code>: 루프에 대한 모든 활성 태스크 세트를 반환하는 클래스 메서드입니다.</li>
+</ul>
+
+<h5 id="스케줄러-the-scheduler">스케줄러 (The Scheduler)</h5>
+<p>스케줄러는 공개 인터페이스가 없습니다. <code class="language-plaintext highlighter-rouge">yield from future</code> 및 <code class="language-plaintext highlighter-rouge">yield from task</code>를 사용하여 상호 작용합니다.</p>
+
+<h4 id="편의-유틸리티-convenience-utilities">편의 유틸리티 (Convenience Utilities)</h4>
+<p>FTP 또는 HTTP와 같은 기본 스트림 기반 클라이언트 및 서버 작성을 단순화하기 위해 몇 가지 함수와 클래스가 제공됩니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">asyncio.open_connection(host, port)</code>: <code class="language-plaintext highlighter-rouge">EventLoop.create_connection()</code>의 래퍼로, <code class="language-plaintext highlighter-rouge">(reader, writer)</code> 쌍을 반환하는 코루틴입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">asyncio.start_server(client_connected_cb, host, port)</code>: <code class="language-plaintext highlighter-rouge">EventLoop.create_server()</code>의 래퍼로, 간단한 콜백 함수를 받습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">StreamReader</code>: 읽기 전용 바이너리 스트림과 유사한 인터페이스를 제공하는 클래스입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">StreamWriter</code>: 쓰기 전용 바이너리 스트림과 유사한 인터페이스를 제공하는 클래스입니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">StreamReaderProtocol</code>: 양방향 스트림 트랜스포트/프로토콜 인터페이스와 <code class="language-plaintext highlighter-rouge">StreamReader</code> 및 <code class="language-plaintext highlighter-rouge">StreamWriter</code> 클래스 사이의 어댑터로 사용되는 프로토콜 구현입니다.</li>
+</ul>
+
+<h4 id="동기화-synchronization">동기화 (Synchronization)</h4>
+<p><code class="language-plaintext highlighter-rouge">threading</code> 모듈의 잠금, 이벤트, 조건 및 세마포어는 <code class="language-plaintext highlighter-rouge">asyncio.locks</code> 서브모듈을 임포트하여 구현되고 액세스할 수 있습니다. <code class="language-plaintext highlighter-rouge">queue</code> 모듈의 큐는 <code class="language-plaintext highlighter-rouge">asyncio.queues</code> 서브모듈을 임포트하여 구현되고 액세스할 수 있습니다.</p>
+
+<h5 id="잠금-locks">잠금 (Locks)</h5>
+<p><code class="language-plaintext highlighter-rouge">asyncio.locks</code>에서 다음 클래스가 제공됩니다. <code class="language-plaintext highlighter-rouge">Event</code>를 제외한 모든 클래스에 대해 <code class="language-plaintext highlighter-rouge">with</code> 문을 <code class="language-plaintext highlighter-rouge">yield from</code>과 함께 사용하여 잠금을 획득하고 <code class="language-plaintext highlighter-rouge">with</code> 블록을 나가는 방식에 관계없이 잠금이 해제되도록 할 수 있습니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Lock</code>: 기본 뮤텍스.</li>
+  <li><code class="language-plaintext highlighter-rouge">Event</code>: 이벤트 변수.</li>
+  <li><code class="language-plaintext highlighter-rouge">Condition</code>: 조건 변수.</li>
+  <li><code class="language-plaintext highlighter-rouge">Semaphore</code>: 세마포어.</li>
+  <li><code class="language-plaintext highlighter-rouge">BoundedSemaphore</code>: 바운드 세마포어.</li>
+</ul>
+
+<h5 id="큐-queues">큐 (Queues)</h5>
+<p><code class="language-plaintext highlighter-rouge">asyncio.queues</code>에서 다음 클래스와 예외가 제공됩니다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Queue</code>: 표준 큐.</li>
+  <li><code class="language-plaintext highlighter-rouge">PriorityQueue</code>: 우선순위 순서로 항목을 검색하는 <code class="language-plaintext highlighter-rouge">Queue</code>의 서브클래스.</li>
+  <li><code class="language-plaintext highlighter-rouge">LifoQueue</code>: 가장 최근에 추가된 항목을 먼저 검색하는 <code class="language-plaintext highlighter-rouge">Queue</code>의 서브클래스.</li>
+  <li><code class="language-plaintext highlighter-rouge">JoinableQueue</code>: <code class="language-plaintext highlighter-rouge">task_done()</code> 및 <code class="language-plaintext highlighter-rouge">join()</code> 메서드를 가진 <code class="language-plaintext highlighter-rouge">Queue</code>의 서브클래스.</li>
+  <li><code class="language-plaintext highlighter-rouge">Empty</code>, <code class="language-plaintext highlighter-rouge">Full</code>: 큐가 비어 있거나 가득 찼을 때 <code class="language-plaintext highlighter-rouge">get_nowait()</code> 또는 <code class="language-plaintext highlighter-rouge">put_nowait()</code>가 호출될 때 발생하는 예외.</li>
+</ul>
+
+<h4 id="기타-miscellaneous">기타 (Miscellaneous)</h4>
+
+<h5 id="로깅-logging">로깅 (Logging)</h5>
+<p><code class="language-plaintext highlighter-rouge">asyncio</code> 패키지에서 수행되는 모든 로깅은 단일 <code class="language-plaintext highlighter-rouge">logging.Logger</code> 객체인 <code class="language-plaintext highlighter-rouge">asyncio.logger</code>를 사용합니다.</p>
+
+<h5 id="unix에서-sigchld-처리-sigchld-handling-on-unix">UNIX에서 <code class="language-plaintext highlighter-rouge">SIGCHLD</code> 처리 (SIGCHLD handling on UNIX)</h5>
+<p>서브프로세스 프로토콜에서 <code class="language-plaintext highlighter-rouge">process_exited()</code> 메서드를 효율적으로 구현하려면 <code class="language-plaintext highlighter-rouge">SIGCHLD</code> 시그널 핸들러가 필요합니다. <code class="language-plaintext highlighter-rouge">asyncio.get_child_watcher()</code> 및 <code class="language-plaintext highlighter-rouge">asyncio.set_child_watcher()</code> 두 가지 추가 함수와 이벤트 루프 정책에 해당하는 메서드가 있습니다.</p>
+
+<p>두 가지 자식 감시자 (child watcher) 구현 클래스는 <code class="language-plaintext highlighter-rouge">FastChildWatcher</code>와 <code class="language-plaintext highlighter-rouge">SafeChildWatcher</code>입니다. 기본적으로 <code class="language-plaintext highlighter-rouge">SafeChildWatcher</code> 클래스가 사용됩니다. <code class="language-plaintext highlighter-rouge">FastChildWatcher</code> 클래스는 효율적이지만, <code class="language-plaintext highlighter-rouge">asyncio</code> 이벤트 루프를 사용하지 않고 서브프로세스를 생성하는 다른 코드와 충돌할 수 있습니다.</p>
+
+<h4 id="위시-리스트-wish-list">위시 리스트 (Wish List)</h4>
+<p>(이 기능들이 바람직하다는 데는 동의하지만, Python 3.4 베타 1이 릴리스될 때 구현이 제공되지 않았습니다. Python 3.5에 추가될 예정입니다.)</p>
+<ul>
+  <li>TCP 소켓을 SSL/TLS로 업그레이드하는 “start TLS” 작업 지원.</li>
+</ul>
+
+<h4 id="공개-문제-open-issues">공개 문제 (Open Issues)</h4>
+<p>(이러한 문제는 PEP가 수용되면서 사실상 현상 유지로 해결되었습니다. 그러나 PEP의 잠정적 상태는 Python 3.5에서 이러한 결정을 재검토할 수 있도록 합니다.)</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">create_connection()</code> 및 <code class="language-plaintext highlighter-rouge">create_datagram_endpoint()</code>에는 <code class="language-plaintext highlighter-rouge">proto</code> 인수가 있지만 <code class="language-plaintext highlighter-rouge">create_server()</code>에는 없는 이유는 무엇입니까?</li>
+  <li><code class="language-plaintext highlighter-rouge">getaddrinfo()</code>에 대한 <code class="language-plaintext highlighter-rouge">family</code>, <code class="language-plaintext highlighter-rouge">flag</code>, <code class="language-plaintext highlighter-rouge">proto</code> 인수가 때때로 0이고 때로는 명명된 상수 (값도 0인)인 이유는 무엇입니까?</li>
+  <li>루프가 중지되는 중인지 여부를 알려주는 다른 조회 메서드가 필요합니까?</li>
+  <li><code class="language-plaintext highlighter-rouge">Handle</code>에 대한 더 완전한 공개 API가 필요합니까?</li>
+  <li>디버깅 API가 필요합니까?</li>
+  <li>인트로스펙션 API가 필요합니까?</li>
+  <li><code class="language-plaintext highlighter-rouge">sock_sendto()</code> 및 <code class="language-plaintext highlighter-rouge">sock_recvfrom()</code>와 같은 더 많은 소켓 I/O 메서드가 필요합니까?</li>
+  <li>다양한 타임아웃을 제어하는 API가 필요할 수 있습니다.</li>
+</ul>
+
+<h4 id="참고-자료-references">참고 자료 (References)</h4>
+<ul>
+  <li>PEP 492: <code class="language-plaintext highlighter-rouge">async</code>/<code class="language-plaintext highlighter-rouge">await</code>의 의미를 설명합니다.</li>
+  <li>PEP 380: <code class="language-plaintext highlighter-rouge">yield from</code>의 의미를 설명합니다.</li>
+  <li>PEP 3148: <code class="language-plaintext highlighter-rouge">concurrent.futures.Future</code>를 설명합니다.</li>
+  <li>PEP 3153: 거부되었지만, 트랜스포트와 프로토콜을 분리할 필요성을 잘 설명합니다.</li>
+  <li>PEP 418: 시간 유지 문제에 대해 논의합니다.</li>
+  <li>Tulip repo: http://code.google.com/p/tulip/</li>
+  <li>PyPI: Python Package Index at http://pypi.python.org/</li>
+</ul>
+
+<h4 id="감사-acknowledgments">감사 (Acknowledgments)</h4>
+<p>PEP 3153 외에도 PEP 380 및 Greg Ewing의 <code class="language-plaintext highlighter-rouge">yield from</code> 튜토리얼, Twisted, Tornado, ZeroMQ, pyftpdlib 및 wattle (Steve Dower의 반대 제안)의 영향을 받았습니다.</p>
+
+<hr />
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/3155/" class="pagination--pager" title="[Final] PEP 3155 - Qualified name for classes and functions
+">Previous</a>
+    
+    
+      <a href="/python/pep/3333/" class="pagination--pager" title="[Final] PEP 3333 - Python Web Server Gateway Interface v1.0.1
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

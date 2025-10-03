@@ -1,0 +1,763 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Draft] PEP 747 - Annotating Type Forms | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 747: ‘Annotating Type Forms’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Draft] PEP 747 - Annotating Type Forms">
+<meta property="og:url" content="http://localhost:4000/python/pep/747/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 747: ‘Annotating Type Forms’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T13:35:04+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T13:35:04+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/747/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Draft] PEP 747 - Annotating Type Forms">
+    <meta itemprop="description" content="Python Enhancement Proposal 747: ‘Annotating Type Forms’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T13:35:04+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T13:35:04+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Draft] PEP 747 - Annotating Type Forms
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T13:35:04+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#요약-abstract">요약 (Abstract)</a></li><li><a href="#도입-배경-motivation">도입 배경 (Motivation)</a><ul><li><a href="#왜-typec를-사용하지-않는가-why-not-typec">왜 type[C]를 사용하지 않는가? (Why not type[C]?)</a></li><li><a href="#typeform-활용-사례-typeform-use-cases">TypeForm 활용 사례 (TypeForm use cases)</a></li></ul></li><li><a href="#명세-specification">명세 (Specification)</a><ul><li><a href="#암시적-typeform-평가-implicit-typeform-evaluation">암시적 TypeForm 평가 (Implicit TypeForm Evaluation)</a></li><li><a href="#유효한-타입-표현식-valid-type-expressions">유효한 타입 표현식 (Valid Type Expressions)</a></li><li><a href="#명시적-typeform-평가-explicit-typeform-evaluation">명시적 TypeForm 평가 (Explicit TypeForm Evaluation)</a></li><li><a href="#할당-가능성-assignability">할당 가능성 (Assignability)</a></li></ul></li><li><a href="#하위-호환성-backward-compatibility">하위 호환성 (Backward Compatibility)</a></li><li><a href="#교육-방법-how-to-teach-this">교육 방법 (How to Teach This)</a></li><li><a href="#고급-예시-advanced-examples">고급 예시 (Advanced Examples)</a><ul><li><a href="#타입-폼-객체-인트로스펙션-introspecting-type-form-objects">타입 폼 객체 인트로스펙션 (Introspecting type form objects)</a></li><li><a href="#타입-변수와-결합-combining-with-a-type-variable">타입 변수와 결합 (Combining with a type variable)</a></li><li><a href="#type과-결합-combining-with-type">type과 결합 (Combining with type)</a></li><li><a href="#typeis-및-typeguard와-결합-combining-with-typeis-and-typeguard">TypeIs 및 TypeGuard와 결합 (Combining with TypeIs and TypeGuard)</a></li></ul></li><li><a href="#모든-typeform을-받아들일-때의-과제-challenges-when-accepting-all-typeforms">모든 TypeForm을 받아들일 때의 과제 (Challenges When Accepting All TypeForms)</a></li><li><a href="#참조-구현-reference-implementation">참조 구현 (Reference Implementation)</a></li><li><a href="#거부된-아이디어-rejected-ideas">거부된 아이디어 (Rejected Ideas)</a><ul><li><a href="#다른-이름-alternative-names">다른 이름 (Alternative names)</a></li><li><a href="#typec의-범위-확장-widen-typec-to-support-all-type-expressions">type[C]의 범위 확장 (Widen type[C] to support all type expressions)</a></li><li><a href="#임의의-어노테이션-표현식-허용-accept-arbitrary-annotation-expressions">임의의 어노테이션 표현식 허용 (Accept arbitrary annotation expressions)</a></li><li><a href="#타입-폼에-대한-패턴-매칭-pattern-matching-on-type-forms">타입 폼에 대한 패턴 매칭 (Pattern matching on type forms)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0747/">PEP 747 - Annotating Type Forms</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Draft</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 27-May-2024</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>PEP 747 – 타입 폼 어노테이션 (Annotating Type Forms)</p>
+
+<h2 id="요약-abstract">요약 (Abstract)</h2>
+<p>PEP 747은 Python 타입 시스템에서 타입을 명시하는 표준화된 방법인 “타입 표현식(type expression)”에 의해 생성되는 “타입 폼(type form) 객체”를 정확하게 어노테이션(annotation)할 수 있도록 <code class="language-plaintext highlighter-rouge">typing.TypeForm</code>이라는 새로운 특수 폼(special form)을 도입합니다. 현재는 <code class="language-plaintext highlighter-rouge">object</code>와 같이 너무 광범위한 타입을 사용해야 하여 타입 안전성(type safety)이 저하되고 일부 활용 사례가 불가능했습니다. 이 PEP는 Python 문법을 변경하지 않으며, <code class="language-plaintext highlighter-rouge">TypeForm</code>의 올바른 사용은 런타임이 아닌 타입 체커(type checker)에 의해 강제됩니다.</p>
+
+<h2 id="도입-배경-motivation">도입 배경 (Motivation)</h2>
+<p>타입 표현식은 런타임에 평가될 때, <code class="language-plaintext highlighter-rouge">types.UnionType</code>, <code class="language-plaintext highlighter-rouge">builtins.str</code>, <code class="language-plaintext highlighter-rouge">types.GenericAlias</code>, <code class="language-plaintext highlighter-rouge">typing.TypeAliasType</code> 등과 같은 다양한 타입 폼 객체를 생성합니다. 이러한 객체들을 다루는 함수를 어노테이션할 방법이 없어, 개발자들은 <code class="language-plaintext highlighter-rouge">object</code>와 같은 포괄적인 타입을 사용해야 했습니다. 이는 타입 체커가 함수의 의도를 정확히 이해하지 못하게 하여, 런타임 타입 검사, 인트로스펙션(introspection), 메타프로그래밍과 같은 다양한 활용 사례를 어렵게 만들었습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">TypeForm</code>은 이러한 한계를 해결하여, 함수가 타입 폼 객체를 받아들이고 이를 다룰 수 있음을 타입 체커에게 명확히 전달할 수 있게 합니다. 예를 들어, <code class="language-plaintext highlighter-rouge">trycast</code> 함수는 특정 값의 할당 가능성(assignability)을 검사하고, <code class="language-plaintext highlighter-rouge">TypeIs</code>와 함께 사용하여 커스텀 타입 좁히기(type narrowing) 동작을 정의할 수 있습니다.</p>
+
+<h3 id="왜-typec를-사용하지-않는가-why-not-typec">왜 <code class="language-plaintext highlighter-rouge">type[C]</code>를 사용하지 않는가? (Why not type[C]?)</h3>
+<p><code class="language-plaintext highlighter-rouge">type[C]</code>는 클래스 객체(예: <code class="language-plaintext highlighter-rouge">int</code>, <code class="language-plaintext highlighter-rouge">str</code>)만 허용하며, <code class="language-plaintext highlighter-rouge">Literal['hi']</code>나 <code class="language-plaintext highlighter-rouge">str | None</code>과 같은 다양한 타입 폼 객체들을 처리할 수 없습니다. <code class="language-plaintext highlighter-rouge">TypeForm</code>은 <code class="language-plaintext highlighter-rouge">type[C]</code>가 지원하지 않는 이러한 타입 표현식도 모두 포괄합니다.</p>
+
+<h3 id="typeform-활용-사례-typeform-use-cases"><code class="language-plaintext highlighter-rouge">TypeForm</code> 활용 사례 (TypeForm use cases)</h3>
+<p>다양한 Python 라이브러리에서 <code class="language-plaintext highlighter-rouge">TypeForm</code>의 이점을 얻을 수 있는 함수들이 확인되었습니다.</p>
+<ul>
+  <li><strong>할당 가능성 검사기 (Assignability checkers):</strong> 값이 특정 타입에 할당 가능한지 판단합니다.
+    <ul>
+      <li>예시: <code class="language-plaintext highlighter-rouge">beartype.is_bearable</code>, <code class="language-plaintext highlighter-rouge">trycast.isassignable</code>, <code class="language-plaintext highlighter-rouge">typeguard.check_type</code></li>
+    </ul>
+  </li>
+  <li><strong>변환기 (Converters):</strong> 값이 특정 타입에 할당 가능하거나 강제 변환(coercible) 가능할 경우, 해당 타입으로 값을 변환합니다.
+    <ul>
+      <li>예시: <code class="language-plaintext highlighter-rouge">cattrs.BaseConverter.structure</code>, <code class="language-plaintext highlighter-rouge">trycast.checkcast</code>, <code class="language-plaintext highlighter-rouge">typedload.load</code>, <code class="language-plaintext highlighter-rouge">pydantic.TypeAdapter(T).validate_python</code></li>
+    </ul>
+  </li>
+  <li><strong>타입이 지정된 필드 정의 (Typed field definitions):</strong>
+    <ul>
+      <li>예시: <code class="language-plaintext highlighter-rouge">attrs.make_class</code>, <code class="language-plaintext highlighter-rouge">dataclasses.make_dataclass</code></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="명세-specification">명세 (Specification)</h2>
+
+<p>타입 표현식이 런타임에 평가될 때의 결과값은 타입 폼 객체(type form object)입니다. 이 값은 타입 표현식에 제공된 정보를 인코딩하며, 해당 타입 표현식으로 설명되는 타입을 나타냅니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">TypeForm</code>은 타입 표현식에 사용될 때, 일련의 타입 폼 객체를 설명하는 특수 폼입니다. 단일 타입 인수를 받으며, 이 인수는 유효한 타입 표현식이어야 합니다. <code class="language-plaintext highlighter-rouge">TypeForm[T]</code>는 타입 <code class="language-plaintext highlighter-rouge">T</code> 또는 <code class="language-plaintext highlighter-rouge">T</code>에 할당 가능한 타입을 나타내는 모든 타입 폼 객체 집합을 설명합니다. 예를 들어, <code class="language-plaintext highlighter-rouge">TypeForm[str | None]</code>은 <code class="language-plaintext highlighter-rouge">str | None</code>에 할당 가능한 타입을 나타내는 모든 타입 폼 객체를 설명합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ok1</span><span class="p">:</span> <span class="n">TypeForm</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="bp">None</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span> <span class="o">|</span> <span class="bp">None</span> <span class="c1"># OK
+</span><span class="n">ok2</span><span class="p">:</span> <span class="n">TypeForm</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="bp">None</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span> <span class="c1"># OK
+</span><span class="n">ok3</span><span class="p">:</span> <span class="n">TypeForm</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="bp">None</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span> <span class="c1"># OK
+</span><span class="n">ok4</span><span class="p">:</span> <span class="n">TypeForm</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="bp">None</span><span class="p">]</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="bp">None</span><span class="p">]</span> <span class="c1"># OK
+</span><span class="n">ok5</span><span class="p">:</span> <span class="n">TypeForm</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="bp">None</span><span class="p">]</span> <span class="o">=</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="c1"># OK
+</span><span class="n">ok6</span><span class="p">:</span> <span class="n">TypeForm</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="bp">None</span><span class="p">]</span> <span class="o">=</span> <span class="sh">"</span><span class="s">str | None</span><span class="sh">"</span> <span class="c1"># OK
+</span><span class="n">ok7</span><span class="p">:</span> <span class="n">TypeForm</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="bp">None</span><span class="p">]</span> <span class="o">=</span> <span class="n">Any</span> <span class="c1"># OK
+</span><span class="n">err1</span><span class="p">:</span> <span class="n">TypeForm</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="bp">None</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">int</span> <span class="c1"># Error
+</span><span class="n">err2</span><span class="p">:</span> <span class="n">TypeForm</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="bp">None</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="bp">None</span><span class="p">]</span> <span class="c1"># Error
+</span></code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">TypeForm[object]</code>는 Python 타입 시스템의 모든 타입이 <code class="language-plaintext highlighter-rouge">object</code>에 할당 가능하므로, 모든 유효한 타입 표현식에서 평가된 모든 타입 폼 객체 집합을 설명합니다. <code class="language-plaintext highlighter-rouge">TypeForm[Any]</code>는 타입 인수가 정적으로 알려지지 않았지만 유효한 타입 폼 객체인 <code class="language-plaintext highlighter-rouge">TypeForm</code> 타입을 설명합니다. 타입 인수가 제공되지 않은 <code class="language-plaintext highlighter-rouge">TypeForm</code>은 <code class="language-plaintext highlighter-rouge">TypeForm[Any]</code>와 동일합니다.</p>
+
+<h3 id="암시적-typeform-평가-implicit-typeform-evaluation">암시적 <code class="language-plaintext highlighter-rouge">TypeForm</code> 평가 (Implicit TypeForm Evaluation)</h3>
+<p>정적 타입 체커는 유효한 타입 표현식을 만날 때, 해당 타입이 <code class="language-plaintext highlighter-rouge">T</code>에 할당 가능하면 이 표현식의 평가된 타입이 <code class="language-plaintext highlighter-rouge">TypeForm[T]</code>에 할당 가능하다고 간주해야 합니다.</p>
+
+<h3 id="유효한-타입-표현식-valid-type-expressions">유효한 타입 표현식 (Valid Type Expressions)</h3>
+<p>유효한 타입 표현식은 타입 표현식에 대한 모든 구문(syntactic), 의미(semantic), 및 문맥(contextual) 규칙을 따르는 표현식입니다. 유효하지 않은 타입 표현식은 <code class="language-plaintext highlighter-rouge">TypeForm</code> 타입으로 평가되어서는 안 됩니다.</p>
+
+<h3 id="명시적-typeform-평가-explicit-typeform-evaluation">명시적 <code class="language-plaintext highlighter-rouge">TypeForm</code> 평가 (Explicit TypeForm Evaluation)</h3>
+<p><code class="language-plaintext highlighter-rouge">TypeForm</code>은 단일 인수를 받아 호출될 수 있는 함수로도 작동합니다. 타입 체커는 이 인수가 유효한 타입 표현식인지 검증해야 합니다. 런타임에는 <code class="language-plaintext highlighter-rouge">TypeForm(...)</code> 호출 가능 객체는 단순히 전달된 값을 반환합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x1</span> <span class="o">=</span> <span class="nc">TypeForm</span><span class="p">(</span><span class="nb">str</span> <span class="o">|</span> <span class="bp">None</span><span class="p">)</span>
+<span class="nf">reveal_type</span><span class="p">(</span><span class="n">v1</span><span class="p">)</span> <span class="c1"># Revealed type is "TypeForm[str | None]"
+</span><span class="n">x2</span> <span class="o">=</span> <span class="nc">TypeForm</span><span class="p">(</span><span class="sh">"</span><span class="s">list[int]</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">revealed_type</span><span class="p">(</span><span class="n">v2</span><span class="p">)</span> <span class="c1"># Revealed type is "TypeForm[list[int]]"
+</span><span class="n">x3</span> <span class="o">=</span> <span class="nc">TypeForm</span><span class="p">(</span><span class="sh">'</span><span class="s">type(1)</span><span class="sh">'</span><span class="p">)</span> <span class="c1"># Error: invalid type expression
+</span></code></pre></div></div>
+
+<h3 id="할당-가능성-assignability">할당 가능성 (Assignability)</h3>
+<p><code class="language-plaintext highlighter-rouge">TypeForm</code>은 단일 타입 매개변수를 가지며 공변(covariant)입니다. 즉, <code class="language-plaintext highlighter-rouge">B</code>가 <code class="language-plaintext highlighter-rouge">A</code>에 할당 가능하면 <code class="language-plaintext highlighter-rouge">TypeForm[B]</code>는 <code class="language-plaintext highlighter-rouge">TypeForm[A]</code>에 할당 가능합니다.
+<code class="language-plaintext highlighter-rouge">type[T]</code>는 <code class="language-plaintext highlighter-rouge">TypeForm[T]</code>의 서브타입(subtype)입니다.
+<code class="language-plaintext highlighter-rouge">TypeForm</code>은 <code class="language-plaintext highlighter-rouge">object</code>의 서브타입이며, <code class="language-plaintext highlighter-rouge">object</code>의 모든 속성과 메서드를 가집니다.</p>
+
+<h2 id="하위-호환성-backward-compatibility">하위 호환성 (Backward Compatibility)</h2>
+<p>이 PEP는 타입 표현식을 “값 표현식(value expression)” 문맥에서 평가할 때의 정적 타입 체커 동작을 명확히 합니다. <code class="language-plaintext highlighter-rouge">TypeForm</code> 타입 어노테이션이 없는 경우, 기존 타입 평가 동작은 유지되므로 하위 호환성 문제는 예상되지 않습니다.</p>
+
+<h2 id="교육-방법-how-to-teach-this">교육 방법 (How to Teach This)</h2>
+<p><code class="language-plaintext highlighter-rouge">TypeForm[]</code>은 타입 폼 객체의 타입을 나타내는 방법이며, 이는 타입의 런타임 표현입니다. <code class="language-plaintext highlighter-rouge">TypeForm</code>은 <code class="language-plaintext highlighter-rouge">type</code>과 유사하지만, <code class="language-plaintext highlighter-rouge">type</code>은 <code class="language-plaintext highlighter-rouge">int</code>, <code class="language-plaintext highlighter-rouge">str</code>과 같은 클래스 객체에만 호환됩니다. 반면 <code class="language-plaintext highlighter-rouge">TypeForm</code>은 대괄호(<code class="language-plaintext highlighter-rouge">list[int]</code>), 유니온 연산자(<code class="language-plaintext highlighter-rouge">int | None</code>), 특수 폼(<code class="language-plaintext highlighter-rouge">Any</code>, <code class="language-plaintext highlighter-rouge">LiteralString</code> 등)을 포함하여 유효한 타입 표현식으로 표현될 수 있는 모든 타입 폼을 수용합니다.</p>
+
+<p>대부분의 프로그래머는 <code class="language-plaintext highlighter-rouge">TypeForm</code> 매개변수를 받거나 <code class="language-plaintext highlighter-rouge">TypeForm</code> 값을 반환하는 자신만의 함수를 정의하지 않을 것입니다. 대신, 타입 폼 객체를 디코딩하고 사용하는 방법을 아는 라이브러리 함수에 전달하는 것이 더 일반적입니다.</p>
+
+<p>예를 들어, <code class="language-plaintext highlighter-rouge">trycast</code> 라이브러리의 <code class="language-plaintext highlighter-rouge">isassignable</code> 함수는 Python의 내장 <code class="language-plaintext highlighter-rouge">isinstance</code> 함수처럼 특정 타입의 형태와 값이 일치하는지 확인하는 데 사용될 수 있습니다. <code class="language-plaintext highlighter-rouge">isassignable</code>은 어떤 타입 폼 객체도 입력으로 받습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">trycast</span> <span class="kn">import</span> <span class="n">isassignable</span>
+<span class="k">if</span> <span class="nf">isassignable</span><span class="p">(</span><span class="n">some_object</span><span class="p">,</span> <span class="n">MyTypedDict</span><span class="p">):</span> <span class="c1"># OK: MyTypedDict is a TypeForm[]
+</span>    <span class="bp">...</span>
+</code></pre></div></div>
+
+<h2 id="고급-예시-advanced-examples">고급 예시 (Advanced Examples)</h2>
+
+<h3 id="타입-폼-객체-인트로스펙션-introspecting-type-form-objects">타입 폼 객체 인트로스펙션 (Introspecting type form objects)</h3>
+<p><code class="language-plaintext highlighter-rouge">typing.get_origin</code> 및 <code class="language-plaintext highlighter-rouge">typing.get_args</code>와 같은 함수는 일부 타입 폼 객체의 구성 요소를 추출하는 데 사용될 수 있습니다. <code class="language-plaintext highlighter-rouge">isinstance</code> 및 <code class="language-plaintext highlighter-rouge">is</code>도 다른 종류의 타입 폼 객체를 구별하는 데 사용할 수 있습니다.</p>
+
+<h3 id="타입-변수와-결합-combining-with-a-type-variable">타입 변수와 결합 (Combining with a type variable)</h3>
+<p><code class="language-plaintext highlighter-rouge">TypeForm</code>은 동일한 함수 정의 내에서 다른 곳에 사용되는 타입 변수로 매개변수화될 수 있습니다.</p>
+
+<h3 id="type과-결합-combining-with-type"><code class="language-plaintext highlighter-rouge">type</code>과 결합 (Combining with type)</h3>
+<p><code class="language-plaintext highlighter-rouge">TypeForm</code>과 <code class="language-plaintext highlighter-rouge">type</code> 모두 동일한 함수 정의 내에서 동일한 타입 변수로 매개변수화될 수 있습니다.</p>
+
+<h3 id="typeis-및-typeguard와-결합-combining-with-typeis-and-typeguard"><code class="language-plaintext highlighter-rouge">TypeIs</code> 및 <code class="language-plaintext highlighter-rouge">TypeGuard</code>와 결합 (Combining with TypeIs and TypeGuard)</h3>
+<p>타입 변수는 <code class="language-plaintext highlighter-rouge">TypeIs</code> 또는 <code class="language-plaintext highlighter-rouge">TypeGuard</code> 반환 타입에도 사용될 수 있습니다.</p>
+
+<h2 id="모든-typeform을-받아들일-때의-과제-challenges-when-accepting-all-typeforms">모든 <code class="language-plaintext highlighter-rouge">TypeForm</code>을 받아들일 때의 과제 (Challenges When Accepting All TypeForms)</h2>
+<p>임의의 <code class="language-plaintext highlighter-rouge">TypeForm</code>을 입력으로 받는 함수는 다양한 타입 폼 객체를 지원해야 하므로 작성하기 쉽지 않습니다. 새로운 특수 폼은 각 Python 버전마다 도입되며, 각각에 대한 특별한 처리가 필요할 수 있습니다. <code class="language-plaintext highlighter-rouge">eval()</code>을 사용하여 따옴표로 묶인 전방 참조(forward references)를 해결하는 것은 안전하게 사용하기 어렵습니다. <code class="language-plaintext highlighter-rouge">IntTree = list[int | 'IntTree']</code>와 같은 재귀 타입은 해결하기 어렵습니다. 사용자 정의 제네릭 타입은 비표준 동작을 도입할 수 있습니다.</p>
+
+<h2 id="참조-구현-reference-implementation">참조 구현 (Reference Implementation)</h2>
+<p>Pyright (버전 1.1.379)는 <code class="language-plaintext highlighter-rouge">TypeForm</code>의 참조 구현을 제공합니다. Mypy 기여자들도 <code class="language-plaintext highlighter-rouge">TypeForm</code> 지원을 구현할 계획입니다. 런타임 구성 요소의 참조 구현은 <code class="language-plaintext highlighter-rouge">typing_extensions</code> 모듈에 제공됩니다.</p>
+
+<h2 id="거부된-아이디어-rejected-ideas">거부된 아이디어 (Rejected Ideas)</h2>
+
+<h3 id="다른-이름-alternative-names">다른 이름 (Alternative names)</h3>
+<p><code class="language-plaintext highlighter-rouge">TypeObject</code>, <code class="language-plaintext highlighter-rouge">TypeType</code>, <code class="language-plaintext highlighter-rouge">TypeExpression</code>, <code class="language-plaintext highlighter-rouge">TypeExpr</code> 등 다른 이름들이 고려되었으나, 혼란을 야기할 수 있다는 이유로 거부되었습니다.</p>
+
+<h3 id="typec의-범위-확장-widen-typec-to-support-all-type-expressions"><code class="language-plaintext highlighter-rouge">type[C]</code>의 범위 확장 (Widen type[C] to support all type expressions)</h3>
+<p><code class="language-plaintext highlighter-rouge">type</code>은 클래스 객체를 설명하도록 설계되었기 때문에, <code class="language-plaintext highlighter-rouge">type</code>의 의미를 임의의 타입 폼 객체를 나타내도록 확장하는 것은 하위 호환성 문제를 일으키고 클래스 객체로 제한된 값 집합을 설명하는 방법을 제거할 것입니다.</p>
+
+<h3 id="임의의-어노테이션-표현식-허용-accept-arbitrary-annotation-expressions">임의의 어노테이션 표현식 허용 (Accept arbitrary annotation expressions)</h3>
+<p><code class="language-plaintext highlighter-rouge">Final</code>과 같은 특정 특수 폼은 타입 한정자(type qualifier) 역할을 하며, 모든 어노테이션 문맥에서 사용될 수 있는 것은 아닙니다. <code class="language-plaintext highlighter-rouge">TypeForm</code>은 타입 표현식으로 제한되는데, 이는 할당 가능성 규칙이 타입에 대한 할당 가능성 규칙을 기반으로 하기 때문입니다. <code class="language-plaintext highlighter-rouge">Final[int]</code>가 <code class="language-plaintext highlighter-rouge">int</code>에 할당 가능한지 묻는 것은 무의미합니다.</p>
+
+<h3 id="타입-폼에-대한-패턴-매칭-pattern-matching-on-type-forms">타입 폼에 대한 패턴 매칭 (Pattern matching on type forms)</h3>
+<p>시그니처 내에서 타입 표현식의 내부를 패턴 매칭하려는 아이디어가 있었으나, 실제 사용 사례에서 모든 종류의 타입 표현식을 지원하는 것이 일반적이고, 제안된 구문이 충분히 정확하지 않다는 이유로 거부되었습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/746/" class="pagination--pager" title="[Draft] PEP 746 - Type checking Annotated metadata
+">Previous</a>
+    
+    
+      <a href="/python/pep/748/" class="pagination--pager" title="[Draft] PEP 748 - A Unified TLS API for Python
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

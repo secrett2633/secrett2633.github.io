@@ -1,0 +1,767 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Deferred] PEP 312 - Simple Implicit Lambda | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 312: ‘Simple Implicit Lambda’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Deferred] PEP 312 - Simple Implicit Lambda">
+<meta property="og:url" content="http://localhost:4000/python/pep/312/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 312: ‘Simple Implicit Lambda’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-26T18:12:24+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-26T18:12:24+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/312/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Deferred] PEP 312 - Simple Implicit Lambda">
+    <meta itemprop="description" content="Python Enhancement Proposal 312: ‘Simple Implicit Lambda’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-26T18:12:24+09:00">
+    <meta itemprop="dateModified" content="2025-09-26T18:12:24+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Deferred] PEP 312 - Simple Implicit Lambda
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-26T18:12:24+09:00">September 26, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-312--간단한-암묵적-람다-simple-implicit-lambda-번역-및-요약">PEP 312 – 간단한 암묵적 람다 (Simple Implicit Lambda) 번역 및 요약</a><ul><li><a href="#개요">개요</a></li><li><a href="#pep-312--simple-implicit-lambda">PEP 312 – Simple Implicit Lambda</a></li><li><a href="#abstract-개요">Abstract (개요)</a></li><li><a href="#deferral-보류-이유">Deferral (보류 이유)</a></li><li><a href="#motivation-동기">Motivation (동기)</a></li><li><a href="#rationale-제안-배경">Rationale (제안 배경)</a></li><li><a href="#syntax-구문">Syntax (구문)</a></li><li><a href="#examples-of-use-사용-예시">Examples of Use (사용 예시)</a><ul><li><a href="#inline-if">Inline if</a></li><li><a href="#locking-락킹">Locking (락킹)</a></li></ul></li><li><a href="#implementation-구현">Implementation (구현)</a></li><li><a href="#discussion-논의">Discussion (논의)</a></li><li><a href="#credits-기여자">Credits (기여자)</a></li><li><a href="#references-참고-자료">References (참고 자료)</a></li><li><a href="#copyright-저작권">Copyright (저작권)</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0312/">PEP 312 - Simple Implicit Lambda</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Deferred</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 11-Feb-2003</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h2 id="pep-312--간단한-암묵적-람다-simple-implicit-lambda-번역-및-요약">PEP 312 – 간단한 암묵적 람다 (Simple Implicit Lambda) 번역 및 요약</h2>
+
+<h3 id="개요">개요</h3>
+<p>이 문서는 Python Enhancement Proposal (PEP) 312의 내용을 한국어 사용자가 이해하기 쉽도록 번역하고 정리한 것입니다. PEP 312는 특정 상황에서 인자가 없는 <code class="language-plaintext highlighter-rouge">lambda</code> 키워드를 선택적으로 생략할 수 있도록 제안하며, 이를 통해 코드의 가독성을 높이고 <code class="language-plaintext highlighter-rouge">lambda</code> 사용에 대한 심리적 장벽을 낮추고자 했습니다.</p>
+
+<hr />
+
+<h3 id="pep-312--simple-implicit-lambda">PEP 312 – Simple Implicit Lambda</h3>
+
+<ul>
+  <li><strong>저자:</strong> Roman Suzi, Alex Martelli</li>
+  <li><strong>상태:</strong> Deferred (보류됨)</li>
+  <li><strong>유형:</strong> Standards Track</li>
+  <li><strong>생성일:</strong> 2003년 2월 11일</li>
+  <li><strong>Python 버전:</strong> 2.4 (대상)</li>
+  <li><strong>게시 이력:</strong> 2005년 6월 17일 <code class="language-plaintext highlighter-rouge">python-dev</code> 메일링 리스트에서 논의됨</li>
+</ul>
+
+<hr />
+
+<h3 id="abstract-개요">Abstract (개요)</h3>
+
+<p>이 PEP는 문법적으로 모호하지 않은 특정 경우에 인자가 없는 <code class="language-plaintext highlighter-rouge">lambda</code> 키워드를 선택적으로 생략할 것을 제안합니다.</p>
+
+<h3 id="deferral-보류-이유">Deferral (보류 이유)</h3>
+
+<p>BDFL(Benevolent Dictator For Life, 즉 Guido van Rossum)은 단항 콜론(unary colon) 구문을 싫어했습니다. 이 PEP는 “더 파이썬스러운” 구문(예: 대안적인 단항 연산자)을 찾기 위해 처음부터 다시 시작할 필요가 있다고 지적되었습니다. 2005년 6월 17일 <code class="language-plaintext highlighter-rouge">python-dev</code> 메일링 리스트에서 이에 대한 논의가 있었습니다.</p>
+
+<p>또한, 가능성이 없는 대안적인 제안들을 제거하는 것이 좋다는 의견이 있었습니다. 예제 섹션은 가독성 개선점을 잘 보여주지만, 더 많은 예제와 추상적인 더미 호출 대신 실제 사용 사례를 포함하면 더 설득력이 있을 것이라는 의견도 있었습니다.</p>
+
+<h3 id="motivation-동기">Motivation (동기)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">lambda</code>는 콜백 함수나 (가짜) 지연 평가(lazy evaluation) 방식 등 익명 함수를 정의하는 데 유용합니다. 그러나 종종 <code class="language-plaintext highlighter-rouge">lambda</code> 키워드 자체가 코드를 복잡하게 보이게 한다는 이유로, 적절한 상황에서도 <code class="language-plaintext highlighter-rouge">lambda</code>가 사용되지 않는 경우가 있습니다. 일부 특별한 경우에 <code class="language-plaintext highlighter-rouge">lambda</code> 키워드를 생략하는 것은 문법에 작고 하위 호환성을 유지하는 변경을 통해 가능하며, 이러한 “람다 공포증(lambdaphobia)”에 대한 저렴한 해결책을 제공할 수 있습니다.</p>
+
+<h3 id="rationale-제안-배경">Rationale (제안 배경)</h3>
+
+<p>때로는 <code class="language-plaintext highlighter-rouge">lambda</code>라는 용어 뒤에 숨겨진 이론 때문에 사람들이 <code class="language-plaintext highlighter-rouge">lambda</code>를 사용하기를 꺼려 합니다. 이 제안은 <code class="language-plaintext highlighter-rouge">lambda</code> 키워드를 생략함으로써 인자가 없는 <code class="language-plaintext highlighter-rouge">lambda</code>를 더 쉽게 도입할 수 있도록 합니다. 구현은 문법을 간단히 변경하여 <code class="language-plaintext highlighter-rouge">lambda</code> 키워드가 몇 가지 잘 알려진 경우에 암묵적으로 사용될 수 있도록 하는 방식으로 이루어질 수 있습니다. 특히, 괄호로 감싸는 것은 nullary <code class="language-plaintext highlighter-rouge">lambda</code>를 어디에서나 지정할 수 있도록 합니다.</p>
+
+<h3 id="syntax-구문">Syntax (구문)</h3>
+
+<p>인자가 없는 <code class="language-plaintext highlighter-rouge">lambda</code> 키워드는 다음 경우에 생략될 수 있습니다.</p>
+
+<ul>
+  <li>이름 있는 매개변수 할당 또는 기본값 할당에서 <code class="language-plaintext highlighter-rouge">=</code> 직후</li>
+  <li>모든 표현식에서 <code class="language-plaintext highlighter-rouge">(</code> 직후</li>
+  <li>함수 인자 목록에서 <code class="language-plaintext highlighter-rouge">,</code> 직후</li>
+  <li>딕셔너리 리터럴에서 <code class="language-plaintext highlighter-rouge">:</code> 직후</li>
+  <li>(미구현) 할당문에서</li>
+</ul>
+
+<p>새로운 구문은 콜론(<code class="language-plaintext highlighter-rouge">:</code>)과 뒤따르는 표현식으로 구성됩니다. 예를 들어, <code class="language-plaintext highlighter-rouge">:A</code>는 <code class="language-plaintext highlighter-rouge">lambda: A</code>와 동일합니다.</p>
+
+<h3 id="examples-of-use-사용-예시">Examples of Use (사용 예시)</h3>
+
+<h4 id="inline-if">Inline if</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">ifelse</span><span class="p">(</span><span class="n">cond</span><span class="p">,</span> <span class="n">true_part</span><span class="p">,</span> <span class="n">false_part</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">cond</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nf">true_part</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nf">false_part</span><span class="p">()</span>
+
+<span class="c1"># 기존 구문:
+# print(ifelse(a &lt; b, lambda: A, lambda: B))
+</span>
+<span class="c1"># 새로운 구문:
+</span><span class="nf">print</span><span class="p">(</span><span class="nf">ifelse</span><span class="p">(</span><span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">,</span> <span class="p">:</span><span class="n">A</span><span class="p">,</span> <span class="p">:</span><span class="n">B</span><span class="p">))</span> <span class="c1">#
+</span>
+<span class="c1"># A와 B 부분은 다음과 같이 광범위한 처리가 필요할 수 있습니다:
+</span><span class="nf">print</span><span class="p">(</span><span class="nf">ifelse</span><span class="p">(</span><span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">,</span> <span class="p">:</span><span class="nf">ext_proc1</span><span class="p">(</span><span class="n">A</span><span class="p">),</span> <span class="p">:</span><span class="nf">ext_proc2</span><span class="p">(</span><span class="n">B</span><span class="p">)))</span> <span class="c1">#
+</span></code></pre></div></div>
+<p>여기서 <code class="language-plaintext highlighter-rouge">:A</code>와 <code class="language-plaintext highlighter-rouge">:B</code>는 각각 <code class="language-plaintext highlighter-rouge">lambda: A</code>와 <code class="language-plaintext highlighter-rouge">lambda: B</code>를 의미하며, 조건에 따라 <code class="language-plaintext highlighter-rouge">A</code> 또는 <code class="language-plaintext highlighter-rouge">B</code>가 지연 평가됩니다.</p>
+
+<h4 id="locking-락킹">Locking (락킹)</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">with_lock</span><span class="p">(</span><span class="n">alock</span><span class="p">,</span> <span class="n">acallable</span><span class="p">):</span>
+    <span class="n">alock</span><span class="p">.</span><span class="nf">acquire</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nf">acallable</span><span class="p">()</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">alock</span><span class="p">.</span><span class="nf">release</span><span class="p">()</span>
+
+<span class="nf">with_lock</span><span class="p">(</span><span class="n">mylock</span><span class="p">,</span> <span class="p">:</span><span class="nf">x</span><span class="p">(</span><span class="nf">y</span><span class="p">(),</span> <span class="mi">23</span><span class="p">,</span> <span class="nf">z</span><span class="p">(),</span> <span class="sh">'</span><span class="s">foo</span><span class="sh">'</span><span class="p">))</span> <span class="c1">#
+</span></code></pre></div></div>
+<p>여기서 <code class="language-plaintext highlighter-rouge">:x(y(), 23, z(), 'foo')</code>는 <code class="language-plaintext highlighter-rouge">lambda: x(y(), 23, z(), 'foo')</code>와 동일하게 작동하여, <code class="language-plaintext highlighter-rouge">mylock</code>이 획득된 후에만 해당 함수 호출이 실행되도록 합니다.</p>
+
+<h3 id="implementation-구현">Implementation (구현)</h3>
+
+<p>구현을 위해서는 Python 소스의 <code class="language-plaintext highlighter-rouge">Grammar/Grammar</code> 파일을 수정하고, 문법적 및 실용적 변경을 위해 <code class="language-plaintext highlighter-rouge">Modules/parsermodule.c</code> 파일을 조정해야 합니다.</p>
+
+<p>암묵적 <code class="language-plaintext highlighter-rouge">lambda</code>를 허용하기 위한 <code class="language-plaintext highlighter-rouge">Grammar</code> 파일의 변경 사항은 다음과 같습니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">imptest</code>: <code class="language-plaintext highlighter-rouge">test</code> 또는 <code class="language-plaintext highlighter-rouge">implambdef</code></li>
+  <li><code class="language-plaintext highlighter-rouge">implambdef</code>: <code class="language-plaintext highlighter-rouge">:</code> <code class="language-plaintext highlighter-rouge">test</code></li>
+</ul>
+
+<p>세 개의 새로운 비-터미널(non-terminal)이 필요합니다: 암묵적 <code class="language-plaintext highlighter-rouge">lambda</code>가 발생할 수 있는 <code class="language-plaintext highlighter-rouge">imptest</code>, 암묵적 <code class="language-plaintext highlighter-rouge">lambda</code> 정의 자체를 위한 <code class="language-plaintext highlighter-rouge">implambdef</code>, 그리고 <code class="language-plaintext highlighter-rouge">imptest</code>들이 발생할 수 있는 <code class="language-plaintext highlighter-rouge">imptestlist</code>.</p>
+
+<p>이 구현은 불완전하며, <code class="language-plaintext highlighter-rouge">Parser</code> 모듈의 일부 파일 업데이트가 필요하고, <code class="language-plaintext highlighter-rouge">Syntax</code> 섹션에서 언급된 추가적인 위치들이 구현되지 않았습니다.</p>
+
+<h3 id="discussion-논의">Discussion (논의)</h3>
+
+<p>이 기능은 <code class="language-plaintext highlighter-rouge">lambda</code> 키워드의 부재를 제외하고는 시각적으로 크게 드러나지 않는 특징입니다. 이 기능은 nullary <code class="language-plaintext highlighter-rouge">lambda</code>를 문법적으로 더 매력적으로 만들고, 일부 간단한 경우에 표현식의 지연 평가를 제공하는 것을 목표로 합니다. 이 제안은 <code class="language-plaintext highlighter-rouge">lambda</code>에 인자가 필요한 고급 사례를 목표로 하지 않습니다.</p>
+
+<p><strong>대안 제안:</strong>
+인자가 사용되지 않는 암묵적 <code class="language-plaintext highlighter-rouge">lambda</code>에 대한 대안적인 제안도 있었습니다. 이 경우, 그러한 <code class="language-plaintext highlighter-rouge">lambda</code>에 의해 정의된 함수는 어떤 매개변수도 받아들일 수 있으며, <code class="language-plaintext highlighter-rouge">lambda *args: expr</code>와 동일하게 작동합니다. 이 형태는 더 강력할 수 있으며, 표준 라이브러리에서 실제로 그러한 <code class="language-plaintext highlighter-rouge">lambda</code>가 사용되는 경우가 있음을 보여주었습니다.</p>
+
+<p><strong>추가 확장 가능성:</strong>
+암묵적 <code class="language-plaintext highlighter-rouge">lambda</code>에 의해 정의된 함수에 매개변수 목록을 전달하는 방법을 제공하는 또 다른 확장도 가능합니다. 그러나 이러한 매개변수들은 접근을 위해 특별한 이름이 필요하며 언어에 포함될 가능성은 낮다고 보았습니다. 가능한 지역 이름으로는 <code class="language-plaintext highlighter-rouge">_</code>, <code class="language-plaintext highlighter-rouge">__args__</code>, <code class="language-plaintext highlighter-rouge">__</code> 등이 제안되었으나, 이러한 형태는 그다지 보기 좋지 않으며, PEP 작성자의 의견으로는 그러한 경우에 <code class="language-plaintext highlighter-rouge">lambda</code> 키워드 제거를 정당화하지 못한다고 보았습니다.</p>
+
+<h3 id="credits-기여자">Credits (기여자)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">lambda</code>를 생략하는 아이디어는 2003년 2월 8일 comp.lang.python에서 Paul Rubin이 “For review: PEP 308 - If-then-else expression” 스레드를 논의하던 중 처음 제기했습니다.</p>
+
+<h3 id="references-참고-자료">References (참고 자료)</h3>
+
+<ul>
+  <li>Guido van Rossum, Recommend accepting PEP 312 – Simple Implicit Lambda, <code class="language-plaintext highlighter-rouge">python-dev</code> 메일링 리스트.</li>
+  <li>Guido van Rossum, For review: PEP 308 - If-then-else expression, <code class="language-plaintext highlighter-rouge">python-dev</code> 메일링 리스트.</li>
+</ul>
+
+<h3 id="copyright-저작권">Copyright (저작권)</h3>
+
+<p>이 문서는 퍼블릭 도메인(public domain)에 있습니다.</p>
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-26">September 26, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/311/" class="pagination--pager" title="[Final] PEP 311 - Simplified Global Interpreter Lock Acquisition for Extensions
+">Previous</a>
+    
+    
+      <a href="/python/pep/313/" class="pagination--pager" title="[Rejected] PEP 313 - Adding Roman Numeral Literals to Python
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

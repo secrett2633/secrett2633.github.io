@@ -1,0 +1,807 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <style> 
+      ::-webkit-scrollbar{ 
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        width: 0px;
+        background-color: #626262;
+        /* border-radius: 5px; */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        width: 0px;
+        background-color: #E2E2E2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        width: 10px;
+        height: 20px;
+        /* background-color: rgba(190, 190, 190, 0.2); */
+        background-color: #A2A2A2;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-track:hover {
+        width: 10px;
+        /* background-color: rgba(150, 150, 150, 0.1); */
+        background-color: #626262;
+        border-radius: 5px;
+        /* background: transparent; */
+        /* border-radius: 10px; */
+      }
+
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+          width:0px;
+          height: 0px;
+          /* background-color: rgb(14, 221, 24); */
+          /* border-radius: 50%; */
+      }
+    </style>
+    
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Final] PEP 3141 - A Type Hierarchy for Numbers | secrett2633</title>
+<meta name="description" content="Python Enhancement Proposal 3141: ‘A Type Hierarchy for Numbers’에 대한 한국어 번역입니다.">
+
+
+  <meta name="author" content="secrett2633">
+  
+  <meta property="article:author" content="secrett2633">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="secrett2633's blog">
+<meta property="og:title" content="[Final] PEP 3141 - A Type Hierarchy for Numbers">
+<meta property="og:url" content="http://localhost:4000/python/pep/3141/">
+
+
+  <meta property="og:description" content="Python Enhancement Proposal 3141: ‘A Type Hierarchy for Numbers’에 대한 한국어 번역입니다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-27T14:36:02+09:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-27T14:36:02+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/pep/3141/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "secrett2633",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          secrett2633's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://github.com/secrett2633">GitHub</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <!-- 2022.02.17 author content hidden -->
+  <!-- <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">secrett2633</h3>
+    
+    
+  </div> -->
+
+  <div class="author__urls-wrapper">
+    <!-- <button class="btn btn--inverse">Follow</button> -->
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Backend</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/backend/django/">Django</a></li>
+          
+            <li><a href="/backend/logging/">Logging</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">Python</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/python/pep/">PEP</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">AI/ML</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/ai/llm/">LLM</a></li>
+          
+            <li><a href="/ai/review/">Review</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">DevOps</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/devops/nginx/">Nginx</a></li>
+          
+            <li><a href="/devops/docker/">Docker</a></li>
+          
+            <li><a href="/devops/safeline/">SafeLine</a></li>
+          
+            <li><a href="/devops/jenkins/">Jenkins</a></li>
+          
+            <li><a href="/devops/github-actions/">GitHub Actions</a></li>
+          
+            <li><a href="/devops/aws/">AWS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <!-- title -->
+              <span class="nav__sub-title">etc</span>
+              <hr>
+        
+
+        
+        <ul>
+          
+            <li><a href="/etc/me/">Me</a></li>
+          
+            <li><a href="/etc/chrome-extension/">Chrome Extension</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Final] PEP 3141 - A Type Hierarchy for Numbers">
+    <meta itemprop="description" content="Python Enhancement Proposal 3141: ‘A Type Hierarchy for Numbers’에 대한 한국어 번역입니다.">
+    <meta itemprop="datePublished" content="2025-09-27T14:36:02+09:00">
+    <meta itemprop="dateModified" content="2025-09-27T14:36:02+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Final] PEP 3141 - A Type Hierarchy for Numbers
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2025-09-27T14:36:02+09:00">September 27, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu"><li><a href="#pep-3141-숫자형을-위한-타입-계층-구조-a-type-hierarchy-for-numbers">PEP 3141: 숫자형을 위한 타입 계층 구조 (A Type Hierarchy for Numbers)</a><ul><li><a href="#요약-abstract">요약 (Abstract)</a></li><li><a href="#도입-배경-rationale">도입 배경 (Rationale)</a></li><li><a href="#사양-specification">사양 (Specification)</a><ul><li><a href="#숫자-클래스-numeric-classes">숫자 클래스 (Numeric Classes)</a></li><li><a href="#연산-및-__magic__-메서드-변경-changes-to-operations-and-__magic__-methods">연산 및 __magic__ 메서드 변경 (Changes to operations and __magic__ methods)</a></li><li><a href="#타입-구현자를-위한-참고-사항-notes-for-type-implementors">타입 구현자를 위한 참고 사항 (Notes for type implementors)</a></li><li><a href="#더-많은-숫자-abc-추가-adding-more-numeric-abcs">더 많은 숫자 ABC 추가 (Adding More Numeric ABCs)</a></li><li><a href="#산술-연산-구현-implementing-the-arithmetic-operations">산술 연산 구현 (Implementing the arithmetic operations)</a></li><li><a href="#거부된-대안-rejected-alternatives">거부된 대안 (Rejected Alternatives)</a></li><li><a href="#decimal-타입-the-decimal-type">Decimal 타입 (The Decimal Type)</a></li></ul></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-3141/">PEP 3141 - A Type Hierarchy for Numbers</a></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>상태:</strong> Final</td>
+        <td><strong>유형:</strong> Standards Track</td>
+        <td><strong>작성일:</strong> 23-Apr-2007</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<h1 id="pep-3141-숫자형을-위한-타입-계층-구조-a-type-hierarchy-for-numbers">PEP 3141: 숫자형을 위한 타입 계층 구조 (A Type Hierarchy for Numbers)</h1>
+
+<ul>
+  <li><strong>작성자:</strong> Jeffrey Yasskin</li>
+  <li><strong>상태:</strong> Final (최종)</li>
+  <li><strong>타입:</strong> Standards Track (표준 트랙)</li>
+  <li><strong>생성일:</strong> 2007년 4월 23일</li>
+  <li><strong>Python 버전:</strong> 3.0</li>
+</ul>
+
+<h2 id="요약-abstract">요약 (Abstract)</h2>
+
+<p>이 제안서는 숫자와 유사한 클래스들을 나타내기 위한 추상 기반 클래스(ABCs) (PEP 3119 참고)의 계층 구조를 정의합니다. 이 계층은 <code class="language-plaintext highlighter-rouge">Number :&gt; Complex :&gt; Real :&gt; Rational :&gt; Integral</code> 의 구조를 제안하며, 여기서 <code class="language-plaintext highlighter-rouge">A :&gt; B</code>는 “A가 B의 슈퍼타입(supertype)”임을 의미합니다. 이 계층 구조는 Scheme의 숫자 타워(numeric tower)에서 영감을 받았습니다.</p>
+
+<h2 id="도입-배경-rationale">도입 배경 (Rationale)</h2>
+
+<p>숫자를 인수로 받는 함수들은 해당 숫자의 속성을 파악할 수 있어야 하며, 타입 기반 오버로딩(overloading)이 언어에 추가될 경우 인수 타입에 따라 오버로드될 수 있어야 합니다. 예를 들어, 슬라이싱(slicing)은 인수가 <code class="language-plaintext highlighter-rouge">Integral</code>이어야 하며, <code class="language-plaintext highlighter-rouge">math</code> 모듈의 함수들은 인수가 <code class="language-plaintext highlighter-rouge">Real</code>이어야 합니다. 표준 라이브러리의 타입 검사는 내장 타입 대신 이러한 ABC들을 사용해야 합니다.</p>
+
+<h2 id="사양-specification">사양 (Specification)</h2>
+
+<p>이 PEP는 일련의 추상 기반 클래스를 지정하고, 일부 메서드 구현을 위한 일반적인 전략을 제안합니다.</p>
+
+<h3 id="숫자-클래스-numeric-classes">숫자 클래스 (Numeric Classes)</h3>
+
+<ul>
+  <li>
+    <p><strong><code class="language-plaintext highlighter-rouge">Number</code></strong>: 가장 기본적인 클래스로, 어떤 종류의 숫자를 기대하는지에 대해 유연성을 제공합니다. 이 클래스는 오버로딩에만 도움을 주며, 어떠한 연산도 제공하지 않습니다.</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Number</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
+    <span class="k">pass</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong><code class="language-plaintext highlighter-rouge">Complex</code></strong>: 내장 <code class="language-plaintext highlighter-rouge">complex</code> 타입에서 작동하는 연산을 정의합니다. 이는 <code class="language-plaintext highlighter-rouge">complex</code>로의 변환, <code class="language-plaintext highlighter-rouge">bool()</code>, <code class="language-plaintext highlighter-rouge">.real</code>, <code class="language-plaintext highlighter-rouge">.imag</code>, <code class="language-plaintext highlighter-rouge">+</code>, <code class="language-plaintext highlighter-rouge">-</code>, <code class="language-plaintext highlighter-rouge">*</code>, <code class="language-plaintext highlighter-rouge">/</code>, <code class="language-plaintext highlighter-rouge">**</code>, <code class="language-plaintext highlighter-rouge">abs()</code>, <code class="language-plaintext highlighter-rouge">.conjugate()</code>, <code class="language-plaintext highlighter-rouge">==</code>, <code class="language-plaintext highlighter-rouge">!=</code> 등을 포함합니다. 이질적인(heterogeneous) 인수가 주어지고 특별한 지식이 없는 경우, 내장 <code class="language-plaintext highlighter-rouge">complex</code> 타입으로 폴백(fallback)해야 합니다.</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Complex</span><span class="p">(</span><span class="n">Number</span><span class="p">):</span>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">__complex__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">__bool__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="nd">@abstractproperty</span>
+    <span class="k">def</span> <span class="nf">real</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="nd">@abstractproperty</span>
+    <span class="k">def</span> <span class="nf">imag</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="c1"># ... 그 외 연산 메서드들 ...
+</span></code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong><code class="language-plaintext highlighter-rouge">Real</code></strong>: <code class="language-plaintext highlighter-rouge">Complex</code>에 실수 연산을 추가합니다. 이는 <code class="language-plaintext highlighter-rouge">float</code>로의 변환, <code class="language-plaintext highlighter-rouge">trunc()</code>, <code class="language-plaintext highlighter-rouge">math.floor()</code>, <code class="language-plaintext highlighter-rouge">math.ceil()</code>, <code class="language-plaintext highlighter-rouge">round()</code>, <code class="language-plaintext highlighter-rouge">divmod()</code>, <code class="language-plaintext highlighter-rouge">//</code>, <code class="language-plaintext highlighter-rouge">%</code>, <code class="language-plaintext highlighter-rouge">&lt;</code>, <code class="language-plaintext highlighter-rouge">&lt;=</code>, <code class="language-plaintext highlighter-rouge">&gt;</code>, <code class="language-plaintext highlighter-rouge">&gt;=</code> 등을 포함합니다. <code class="language-plaintext highlighter-rouge">Real</code>은 일부 파생 연산에 대한 기본값도 제공합니다. <code class="language-plaintext highlighter-rouge">__complex__</code>, <code class="language-plaintext highlighter-rouge">real</code>, <code class="language-plaintext highlighter-rouge">imag</code>, <code class="language-plaintext highlighter-rouge">conjugate</code>와 같은 <code class="language-plaintext highlighter-rouge">Complex</code>의 추상 메서드에 대한 구체적인 구현을 제공합니다.</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Real</span><span class="p">(</span><span class="n">Complex</span><span class="p">):</span>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">__float__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">__trunc__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="c1"># ... 그 외 연산 메서드들 ...
+</span>
+    <span class="c1"># Complex의 추상 메서드에 대한 구체적인 구현
+</span>    <span class="k">def</span> <span class="nf">__complex__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="k">return</span> <span class="nf">complex</span><span class="p">(</span><span class="nf">float</span><span class="p">(</span><span class="n">self</span><span class="p">))</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">real</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="k">return</span> <span class="o">+</span><span class="n">self</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">imag</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">def</span> <span class="nf">conjugate</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="k">return</span> <span class="o">+</span><span class="n">self</span> <span class="c1"># Real의 켤레복소수는 자기 자신
+</span></code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong><code class="language-plaintext highlighter-rouge">Rational</code></strong>: <code class="language-plaintext highlighter-rouge">Real</code>을 상속하며, <code class="language-plaintext highlighter-rouge">.numerator</code> (분자)와 <code class="language-plaintext highlighter-rouge">.denominator</code> (분모) 속성을 가집니다. 분자/분모는 기약 분수 형태로 표현되어야 합니다. <code class="language-plaintext highlighter-rouge">Real</code>의 <code class="language-plaintext highlighter-rouge">__float__</code> 변환 메서드에 대한 구현을 제공합니다.</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Rational</span><span class="p">(</span><span class="n">Real</span><span class="p">):</span> <span class="c1"># Exact 클래스도 상속하지만, PEP 3141에는 포함되지 않음
+</span>    <span class="nd">@abstractproperty</span>
+    <span class="k">def</span> <span class="nf">numerator</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="nd">@abstractproperty</span>
+    <span class="k">def</span> <span class="nf">denominator</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+
+    <span class="c1"># Real의 float 변환에 대한 구체적인 구현
+</span>    <span class="k">def</span> <span class="nf">__float__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">numerator</span> <span class="o">/</span> <span class="n">self</span><span class="p">.</span><span class="n">denominator</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong><code class="language-plaintext highlighter-rouge">Integral</code></strong>: <code class="language-plaintext highlighter-rouge">Rational</code>을 상속하며, <code class="language-plaintext highlighter-rouge">int</code>로의 변환 및 비트 문자열(bit-string) 연산을 추가합니다. <code class="language-plaintext highlighter-rouge">__int__()</code>와 <code class="language-plaintext highlighter-rouge">__index__()</code> 메서드를 포함하며, 비트 시프트(<code class="language-plaintext highlighter-rouge">&lt;&lt;</code>, <code class="language-plaintext highlighter-rouge">&gt;&gt;</code>), 비트 AND(<code class="language-plaintext highlighter-rouge">&amp;</code>), OR(<code class="language-plaintext highlighter-rouge">|</code>), XOR(<code class="language-plaintext highlighter-rouge">^</code>), INVERT(<code class="language-plaintext highlighter-rouge">~</code>)와 같은 연산에 대한 구현을 제공합니다. <code class="language-plaintext highlighter-rouge">Rational</code> 및 <code class="language-plaintext highlighter-rouge">Real</code>의 추상 메서드에 대한 구체적인 구현도 제공합니다.</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Integral</span><span class="p">(</span><span class="n">Rational</span><span class="p">):</span>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">__int__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">__index__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="c1"># ... 비트 연산 메서드들 ...
+</span>
+    <span class="c1"># Rational 및 Real의 추상 메서드에 대한 구체적인 구현
+</span>    <span class="k">def</span> <span class="nf">__float__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="k">return</span> <span class="nf">float</span><span class="p">(</span><span class="nf">int</span><span class="p">(</span><span class="n">self</span><span class="p">))</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">numerator</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="k">return</span> <span class="o">+</span><span class="n">self</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">denominator</span><span class="p">(</span><span class="n">self</span><span class="p">):</span> <span class="k">return</span> <span class="mi">1</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="연산-및-__magic__-메서드-변경-changes-to-operations-and-__magic__-methods">연산 및 <code class="language-plaintext highlighter-rouge">__magic__</code> 메서드 변경 (Changes to operations and <code class="language-plaintext highlighter-rouge">__magic__</code> methods)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">float</code>에서 <code class="language-plaintext highlighter-rouge">int</code>로 (더 일반적으로는 <code class="language-plaintext highlighter-rouge">Real</code>에서 <code class="language-plaintext highlighter-rouge">Integral</code>로) 더 정밀하게 변환하기 위해 새로운 <code class="language-plaintext highlighter-rouge">__magic__</code> 메서드들이 제안되었습니다. 이러한 메서드들은 모두 <code class="language-plaintext highlighter-rouge">Real</code> 대신 <code class="language-plaintext highlighter-rouge">Integral</code>을 반환합니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">__trunc__(self)</code>: 새로운 내장 함수 <code class="language-plaintext highlighter-rouge">trunc(x)</code>에서 호출되며, 0과 <code class="language-plaintext highlighter-rouge">x</code> 사이에서 <code class="language-plaintext highlighter-rouge">x</code>에 가장 가까운 <code class="language-plaintext highlighter-rouge">Integral</code>을 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">__floor__(self)</code>: <code class="language-plaintext highlighter-rouge">math.floor(x)</code>에서 호출되며, <code class="language-plaintext highlighter-rouge">x</code>보다 작거나 같은 가장 큰 <code class="language-plaintext highlighter-rouge">Integral</code>을 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">__ceil__(self)</code>: <code class="language-plaintext highlighter-rouge">math.ceil(x)</code>에서 호출되며, <code class="language-plaintext highlighter-rouge">x</code>보다 크거나 같은 가장 작은 <code class="language-plaintext highlighter-rouge">Integral</code>을 반환합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">__round__(self)</code>: <code class="language-plaintext highlighter-rouge">round(x)</code>에서 호출되며, <code class="language-plaintext highlighter-rouge">x</code>에 가장 가까운 <code class="language-plaintext highlighter-rouge">Integral</code>을 반환하고, 반올림 방식은 타입에 따라 달라집니다. <code class="language-plaintext highlighter-rouge">float</code>는 Python 3.0에서 가장 가까운 짝수로 반올림하도록 변경됩니다. <code class="language-plaintext highlighter-rouge">round(x, ndigits)</code>에서 호출되는 <code class="language-plaintext highlighter-rouge">__round__(self, ndigits)</code>의 두 인자 버전도 있으며, 이는 <code class="language-plaintext highlighter-rouge">Real</code>을 반환해야 합니다.</li>
+</ul>
+
+<p>Python 2.6에서는 <code class="language-plaintext highlighter-rouge">math.floor</code>, <code class="language-plaintext highlighter-rouge">math.ceil</code>, <code class="language-plaintext highlighter-rouge">round</code>가 계속 <code class="language-plaintext highlighter-rouge">float</code>를 반환합니다. <code class="language-plaintext highlighter-rouge">float</code>에 의해 구현된 <code class="language-plaintext highlighter-rouge">int()</code> 변환은 <code class="language-plaintext highlighter-rouge">trunc()</code>와 동일합니다. 일반적으로 <code class="language-plaintext highlighter-rouge">int()</code> 변환은 먼저 <code class="language-plaintext highlighter-rouge">__int__()</code>를 시도하고, 찾을 수 없으면 <code class="language-plaintext highlighter-rouge">__trunc__()</code>를 시도해야 합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">complex</code>의 <code class="language-plaintext highlighter-rouge">__divmod__</code>, <code class="language-plaintext highlighter-rouge">__mod__</code>, <code class="language-plaintext highlighter-rouge">__floordiv__</code>, <code class="language-plaintext highlighter-rouge">__int__</code>, <code class="language-plaintext highlighter-rouge">__float__</code>도 제거됩니다.</p>
+
+<h3 id="타입-구현자를-위한-참고-사항-notes-for-type-implementors">타입 구현자를 위한 참고 사항 (Notes for type implementors)</h3>
+
+<p>구현자들은 같은 숫자는 같게 만들고 동일한 값으로 해싱(hashing)하도록 주의해야 합니다. 예를 들어, 복소수(complex) 타입은 <code class="language-plaintext highlighter-rouge">__hash__</code>를 <code class="language-plaintext highlighter-rouge">hash(complex(self))</code>와 같이 구현할 수 있지만, 내장 <code class="language-plaintext highlighter-rouge">complex</code>의 범위나 정밀도를 벗어나는 값에 주의해야 합니다.</p>
+
+<h3 id="더-많은-숫자-abc-추가-adding-more-numeric-abcs">더 많은 숫자 ABC 추가 (Adding More Numeric ABCs)</h3>
+
+<p>물론 숫자를 위한 더 많은 ABC들이 있을 수 있으며, 이 계층 구조는 그러한 추가 가능성을 막지 않습니다. 예를 들어, <code class="language-plaintext highlighter-rouge">Complex</code>와 <code class="language-plaintext highlighter-rouge">Real</code> 사이에 <code class="language-plaintext highlighter-rouge">MyFoo</code>를 추가할 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MyFoo</span><span class="p">(</span><span class="n">Complex</span><span class="p">):</span>
+    <span class="bp">...</span>
+<span class="n">MyFoo</span><span class="p">.</span><span class="nf">register</span><span class="p">(</span><span class="n">Real</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="산술-연산-구현-implementing-the-arithmetic-operations">산술 연산 구현 (Implementing the arithmetic operations)</h3>
+
+<p>혼합 타입 연산(mixed-mode operations)은 두 인수 타입을 모두 알고 있는 구현을 호출하거나, 둘 다 가장 가까운 내장 타입으로 변환하여 연산을 수행하도록 구현해야 합니다. <code class="language-plaintext highlighter-rouge">Integral</code>의 서브타입(subtype)의 경우, <code class="language-plaintext highlighter-rouge">__add__</code>와 <code class="language-plaintext highlighter-rouge">__radd__</code>는 다음과 같이 정의되어야 합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MyIntegral</span><span class="p">(</span><span class="n">Integral</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">MyIntegral</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nf">do_my_adding_stuff</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">OtherTypeIKnowAbout</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nf">do_my_other_adding_stuff</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">NotImplemented</span>
+
+    <span class="k">def</span> <span class="nf">__radd__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">MyIntegral</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nf">do_my_adding_stuff</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">self</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">OtherTypeIKnowAbout</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nf">do_my_other_adding_adding_stuff</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">self</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Integral</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nf">int</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="o">+</span> <span class="nf">int</span><span class="p">(</span><span class="n">self</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Real</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nf">float</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="o">+</span> <span class="nf">float</span><span class="p">(</span><span class="n">self</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Complex</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nf">complex</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="o">+</span> <span class="nf">complex</span><span class="p">(</span><span class="n">self</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">NotImplemented</span>
+</code></pre></div></div>
+
+<h3 id="거부된-대안-rejected-alternatives">거부된 대안 (Rejected Alternatives)</h3>
+
+<p>이 PEP의 초기 버전은 Haskell Numeric Prelude에서 영감을 받은 <code class="language-plaintext highlighter-rouge">MonoidUnderPlus</code>, <code class="language-plaintext highlighter-rouge">AdditiveGroup</code>, <code class="language-plaintext highlighter-rouge">Ring</code>, <code class="language-plaintext highlighter-rouge">Field</code>를 포함하는 대수적 계층(algebraic hierarchy)을 정의했습니다. 그러나 NumPy 커뮤니티는 이에 관심이 없었으며, <code class="language-plaintext highlighter-rouge">x + y</code>가 항상 의미가 있지 않을 수 있다는 문제가 발생했습니다.</p>
+
+<p>그 후 가우스 정수(Gaussian Integers)나 Z/nZ와 같은 것을 포함하기 위해 숫자에 더 많은 분기 구조를 부여했지만, 커뮤니티는 Python에게 너무 복잡하다고 판단했습니다. 따라서 제안은 Scheme의 숫자 타워와 훨씬 더 유사하게 축소되었습니다.</p>
+
+<h3 id="decimal-타입-the-decimal-type"><code class="language-plaintext highlighter-rouge">Decimal</code> 타입 (The Decimal Type)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Decimal</code> 타입은 현재 이 숫자 타워의 일부로 포함되지 않기로 결정되었습니다.</p>
+
+<hr />
+
+<blockquote>
+  <p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">Python</a><span class="sep">, </span>
+    
+      <a href="/tags/#translation" class="page__taxonomy-item" rel="tag">Translation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#pep" class="page__taxonomy-item" rel="tag">PEP</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-09-27">September 27, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/pep/3140/" class="pagination--pager" title="[Rejected] PEP 3140 - str(container) should call str(item), not repr(item)
+">Previous</a>
+    
+    
+      <a href="/python/pep/3142/" class="pagination--pager" title="[Rejected] PEP 3142 - Add a “while” clause to generator expressions
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>
