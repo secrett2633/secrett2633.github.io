@@ -178,7 +178,7 @@ def update_readme(summaries: List[Dict[str, str]]) -> None:
         ).strip()
 
         file_name = f"{year}-{month}-{day}-{sanitize_filename(summary['title'])}.md"
-        with open(os.path.join("_posts", file_name), "w", encoding="utf-8") as f:
+        with open(os.path.join("src", "data", file_name), "w", encoding="utf-8") as f:
             f.write(content)
 
 
