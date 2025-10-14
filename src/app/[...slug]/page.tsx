@@ -15,9 +15,6 @@ interface PostPageProps {
   params: {
     slug: string[]
   }
-  searchParams?: {
-    page?: string
-  }
 }
 
 export async function generateStaticParams() {
@@ -73,8 +70,10 @@ export async function generateStaticParams() {
 
 // In export mode, all params must be generated at build time
 export const dynamicParams = false
+export const dynamic = 'error'
+export const revalidate = false
 
-export default async function PostPage({ params, searchParams }: PostPageProps) {
+export default async function PostPage({ params }: PostPageProps) {
   const slug = params.slug.join('/')
   
   // 카테고리 경로 처리 (예: /backend/django -> Django 카테고리)
@@ -97,8 +96,7 @@ export default async function PostPage({ params, searchParams }: PostPageProps) 
   // 카테고리 경로인지 확인
   if (categoryMapping[slug]) {
     const categoryName = categoryMapping[slug]
-    const currentPage = parseInt(searchParams?.page || '1', 10)
-    const { posts, currentPage: validPage, totalPages } = getPaginatedPostsByCategory(categoryName, currentPage, 20)
+    const { posts, currentPage: validPage, totalPages } = getPaginatedPostsByCategory(categoryName, 1, 20)
     
     return (
       <>
@@ -160,20 +158,28 @@ export default async function PostPage({ params, searchParams }: PostPageProps) 
   let postId = ''
   
   try {
+    // URL 디코딩된 slug와 원본 slug 모두 확인
+    const decodedSlug = decodeURIComponent(slug)
+    
     for (const id of postIds) {
       const fullPath = path.join(process.cwd(), 'src', 'data', `${id}.md`)
       const fileContents = fs.readFileSync(fullPath, 'utf8')
       const matterResult = matter(fileContents)
       const permalink = matterResult.data.permalink || `/${id}/`
+      const normalizedPermalink = permalink.replace(/^\//, '').replace(/\/$/, '')
       
-      if (permalink.replace(/^\//, '').replace(/\/$/, '') === slug) {
+      // 원본 slug와 디코딩된 slug 모두 확인
+      if (normalizedPermalink === slug || normalizedPermalink === decodedSlug) {
         postId = id
         break
       }
     }
     
     if (!postId) {
-      console.log(`Post not found for slug: ${slug}`)
+      // 개발 환경에서만 로그 출력 (빌드 시 경고 메시지 방지)
+      if (process.env.NODE_ENV === 'development') {
+        console.log(`Post not found for slug: ${slug}`)
+      }
       // Return a custom message instead of 404
       return (
         <>

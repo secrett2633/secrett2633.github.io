@@ -7,14 +7,11 @@ import Pagination from '@/components/Pagination'
 
 // 정적 생성에서 동적 렌더링 허용하지 않음 (export 모드용)
 
-interface HomeProps {
-  searchParams?: {
-    page?: string
-  }
-}
+export const dynamic = 'error'
+export const revalidate = false
 
-export default function Home({ searchParams }: HomeProps) {
-  const currentPage = parseInt(searchParams?.page || '1', 10)
+export default function Home() {
+  const currentPage = 1
   const { posts, currentPage: validPage, totalPages, totalPosts } = getPaginatedPosts(currentPage, 20)
 
   return (
