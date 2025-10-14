@@ -197,7 +197,7 @@ def main() -> None:
                 model_name="gemini-2.5-flash",
             )
             summaries.append({**paper, "summary": summary})
-            time.sleep(60)  # Sleep for 1 minute to avoid rate limiting
+            time.sleep(1)  # Sleep for 1 minute to avoid rate limiting
         except Exception as e:
             print(traceback.format_exc())
             continue
