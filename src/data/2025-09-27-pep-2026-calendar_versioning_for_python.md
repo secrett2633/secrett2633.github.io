@@ -1,0 +1,227 @@
+---
+title: "[Rejected] PEP 2026 - Calendar versioning for Python"
+excerpt: "Python Enhancement Proposal 2026: 'Calendar versioning for Python'에 대한 한국어 번역입니다."
+categories:
+  - Python
+  - PEP
+tags:
+  - Python
+  - PEP
+  - Translation
+permalink: /python/pep/2026/
+toc: true
+toc_sticky: true
+date: 2025-09-27 14:11:21+0900
+last_modified_at: 2025-09-27 14:11:21+0900
+published: true
+---
+> **원문 링크:** [PEP 2026 - Calendar versioning for Python](https://peps.python.org/pep-2026/)
+>
+> **상태:** Rejected | **유형:** Process | **작성일:** 11-Jun-2024
+
+PEP 2026 – Python의 캘린더 버전 관리 (Calendar Versioning for Python)
+
+**상태:** Rejected (거부됨)
+**유형:** Process (프로세스)
+**생성일:** 2024년 6월 11일
+**Python 버전:** 3.26
+**논의:** Discourse thread
+**해결:** Discourse message
+
+---
+
+### 개요 (Abstract)
+
+이 PEP는 Python의 버전 관리 체계를 캘린더 연도를 포함하도록 업데이트할 것을 제안합니다. 캘린더 버전 관리(Calendar Versioning, CalVer)는 버전 수를 세고 출시 시기를 찾아보는 대신, 모든 것을 캘린더 시간으로 쉽게 변환할 수 있도록 합니다.
+
+주요 이점은 다음과 같습니다:
+*   지원 수명 주기(support lifecycle)가 명확해져서 버전이 언제 처음 출시되었는지 쉽게 알 수 있습니다.
+*   유지보수자와 사용자 모두 Deprecation (사용 중단 예정 기능) 관리가 더 쉬워집니다.
+*   버전이 언제 EOL (End of Life)에 도달할지 파악하기 더 쉽습니다.
+*   특히 새로운 학습자들이 자신의 설치가 얼마나 오래되었는지 이해하는 데 도움이 됩니다.
+*   라이브러리 및 애플리케이션에 대해 어떤 Python 버전을 지원해야 할지 판단하기 쉬워집니다.
+
+Python 3.15가 될 예정이었던 버전부터, 버전은 `3.YY.micro` 형식을 따르며, 여기서 `YY`는 초기 출시 연도의 마지막 두 자리를 나타냅니다.
+예를 들어, Python 3.26은 Python 3.15 대신 2026년에 출시될 것입니다. EOL은 초기 출시 후 5년이므로, Python 3.26은 2031년에 EOL에 도달합니다.
+
+### 동기 및 배경 (Motivation and rationale)
+
+2019년에 PEP 602를 통해 연간 릴리스 주기(annual release cycle)를 채택했으며, 이는 캘린더 버전 관리의 길을 열었습니다. 연간 릴리스 캘린더를 채택하면 캘린더 버전 관리로 자연스럽게 전환할 수 있습니다. 예를 들어, 2020년 10월에 출시된 Python 3.9를 "Python 3.20"이라고 부르는 식입니다.
+
+이 PEP는 Python 버전 관리 방식의 변경을 옹호하거나 반대하지 않습니다. 연간 릴리스 주기가 채택된다면, 버전 관리 문제는 별도의 PEP에서 다루어질 것입니다. 이 PEP가 바로 그 문서입니다.
+
+#### 현재 체계 (Current scheme)
+
+Python 버전은 "A.B.C" 또는 "A.B"로 번호가 매겨집니다.
+*   `A`는 주 버전(major version) 번호로, 언어의 정말 중요한 변경 사항에 대해서만 증가합니다.
+*   `B`는 부 버전(minor version) 번호로, 덜 중요한 변경 사항에 대해 증가합니다.
+*   `C`는 마이크로 버전(micro version) 번호로, 각 버그 수정 릴리스마다 증가합니다.
+
+#### Python은 SemVer보다 먼저 존재 (Python predates SemVer)
+
+Semantic Versioning (SemVer)은 릴리스의 의도를 전달하는 것을 목표로 하는 인기 있는 체계입니다. SemVer는 `MAJOR.MINOR.PATCH` 번호 체계를 사용하며, 호환되지 않는 API 변경 시 `MAJOR`를, 하위 호환 가능한 기능 추가 시 `MINOR`를, 하위 호환 가능한 버그 수정 시 `PATCH`를 증가시킵니다.
+
+사람들은 종종 Python이 SemVer를 따른다고 가정하고 기능 릴리스에서 Breaking Change (호환성을 깨뜨리는 변경)에 대해 불평합니다. 그러나 Python은 SemVer보다 최소 15년 앞서 존재합니다. SemVer 사양은 2009년에 도입되었고, Python의 맞춤형 체계는 1994년 1.0 릴리스를 위해 소스 제어에 추가되었습니다.
+
+만약 Python이 SemVer를 채택한다면, Deprecation이 제거될 때마다 매년 새로운 Major 버전이 증가해야 할 것입니다.
+
+#### 캘린더 버전 관리 (Calendar versioning)
+
+캘린더 버전 관리(CalVer)는 버전 번호에 날짜 요소를 포함하는 방식입니다. 예를 들어, Ubuntu와 Black은 연도와 월을 사용하고 (Ubuntu 24.04는 2024년 4월 출시), pip과 PyCharm은 연도만 사용합니다.
+
+다음은 CalVer를 사용하는 몇 가지 프로젝트 및 언어의 예입니다.
+
+| 프로젝트/언어 | 형식          | 예시             |
+| :------------ | :------------ | :--------------- |
+| Ubuntu        | `YY.0M.micro` | `24.04`          |
+| Black         | `YY.MM.micro` | `24.1.0`         |
+| pip           | `YY.minor.micro` | `24.0`           |
+| PyCharm       | `YYYY.minor.micro` | `2024.1`         |
+| Ada, Algol, C, C++, Fortran, ECMAScript (JavaScript) | `YY` 또는 `YYYY` | `2023` (ECMAScript) |
+
+#### 연간 릴리스 주기 (Annual release cadence)
+
+2019년 이후로 Python은 매년 릴리스를 하고 있습니다.
+
+*   3.15.0은 2026년에 릴리스될 예정입니다.
+*   3.16.0은 2027년에 릴리스될 예정입니다.
+*   (중략)
+
+이것은 일종의 캘린더 기반이지만, 11년만큼 오프셋되어 있습니다.
+
+#### Python을 위한 CalVer (CalVer for Python)
+
+가장 간단한 CalVer 옵션은 Major 버전 3을 유지하고, Minor 버전에 연도를 인코딩하는 것입니다.
+예를 들어, 3.26은 2026년에 릴리스됩니다. 이는 릴리스가 언제 처음 나왔는지 명확하게 해줍니다.
+
+*   3.26.0은 2026년에 릴리스될 것입니다.
+*   3.27.0은 2027년에 릴리스될 것입니다.
+*   (중략)
+
+**Deprecation 제거의 명확성 (Clarity of deprecation removal)**
+Deprecation 경고는 종종 제거될 버전을 언급합니다.
+예: `DeprecationWarning: 'ctypes.SetPointerType' is deprecated and slated for removal in Python 3.15`
+CalVer를 알게 되면, 경고에서 조치를 취해야 할 기간을 즉시 알 수 있습니다.
+예: `DeprecationWarning: 'ctypes.SetPointerType' is deprecated and slated for removal in Python 3.26`
+
+**지원 수명 주기의 명확성 (Clarity of support lifecycle)**
+현재는 릴리스의 EOL 시점을 파악하는 것이 다소 까다롭습니다. 먼저 초기 출시일을 찾아보고 5년을 더해야 합니다.
+예: "Python 3.11은 언제 EOL인가요?" -> "3.11은 2022년에 출시되었고, EOL은 5년 후인 2027년입니다."
+그러나 초기 출시 연도가 버전 자체에 있다면 훨씬 쉽습니다.
+예: "Python 3.26은 언제 EOL인가요?" -> "26 + 5 =31"
+
+**설치 연령의 명확성 (Clarity of installation age)**
+버전에 연도가 포함되면 설치된 Python이 얼마나 오래되었는지 쉽게 파악할 수 있습니다. CalVer를 알면, 2035년에 Python 3.26을 사용하고 있다면, 이 버전이 9년 전에 처음 출시되었고 아마 업그레이드할 시기라는 것을 명확히 알 수 있습니다. 이는 사람들이 보안 지원을 받는 지원되는 릴리스로 전환하도록 유도하고, 오래된 설치를 사용하는 새로운 사용자들을 가르치는 데 도움이 될 수 있습니다.
+
+**버전 지원의 명확성 (Clarity of version support)**
+CalVer는 어떤 Python 버전을 지원해야 할지 판단하기 쉽게 만듭니다.
+예를 들어, CalVer 없이 2031년에 최소 호환 Python 버전을 3.19로 설정하는 것은 버전 채택 및 지원에 대한 공격적인 가정을 설정하는 것입니다. 그러나 CalVer를 사용하면 2031년에 최소 버전을 3.30으로 설정하는 것이 더 명확합니다.
+
+또한, 모든 CPython 상위 버전을 지원하는 라이브러리 유지보수자는 5개 버전(프리릴리스 포함 시 6개)을 테스트해야 합니다. CalVer를 사용하면 유지보수자는 어떤 버전이 현재 사용 중이고 테스트가 필요한지 한눈에 알 수 있습니다.
+
+#### 목표가 아닌 사항 (Non-goals)
+
+*   현재 체계와 마찬가지로, 버그 수정 및 보안 릴리스에 대해서만 Micro 버전이 증가하며, Major 및 Minor 버전은 변경되지 않습니다.
+*   PEP 602 (Python의 연간 릴리스 주기)에 대한 변경은 없습니다. 즉, 기능 버전 개발 기간(17개월), 지원 기간(전체 지원 2년, 보안 수정 3년), 연간 10월 릴리스 주기는 변경되지 않습니다.
+
+### 명세 (Specification)
+
+Python 버전은 `3.YY.micro` 형식으로 번호가 매겨집니다.
+*   `3`은 Major 버전 번호로, 항상 3입니다.
+*   `YY`는 Minor 버전 번호로, 짧은 연도 번호입니다 (`{year} - 2000`).
+*   `micro`는 Micro 버전 번호로, 각 버그 수정 또는 보안 릴리스마다 증가합니다.
+
+Major 버전 3은 유지됩니다. Python 3는 브랜드이며, Python 4는 없을 것입니다.
+2100년에는 Minor 버전이 `2100-2000 = 100`이 되므로, 버전은 `3.100.0`이 됩니다.
+
+Python 3.14는 이 변경 전의 마지막 버전으로 2025년에 출시됩니다. Python 3.26은 이 변경 후의 첫 버전으로 2026년에 출시됩니다. Python 3.15부터 3.25까지의 버전은 존재하지 않을 것입니다.
+
+#### 보안 영향 (Security implications)
+
+알려진 보안 영향은 없습니다. 버그 수정 및 보안 단계의 기간이나 타이밍에는 변화가 없습니다.
+
+#### 교육 방법 (How to teach this)
+
+이 변경 사항은 블로그, 3.14 릴리스 노트, 문서, 그리고 커뮤니티와의 소통을 통해 발표될 것입니다. 이 변경은 3.14 다음 버전 (3.15 대신 3.26)을 대상으로 합니다. 3.15/3.26 릴리스를 위한 개발은 2025년 5월에 시작될 예정이며, 첫 알파는 2025년 10월, 초기 릴리스는 2026년 10월에 있을 것입니다.
+
+### 거부된 아이디어 (Rejected ideas)
+
+몇 가지 대안적인 CalVer 체계와 SemVer 채택이 논의되었으나, 호환성 문제 및 복잡성 등의 이유로 거부되었습니다.
+
+#### YY.0 (예: Python 26.0)
+
+Major 버전을 연도로 바꾸는 아이디어 (예: 2026년에 Python 26.0)는 다음과 같은 이유로 거부되었습니다.
+*   Python 버전 4에 대한 큰 수요가 없습니다. 2to3와 같은 전환을 반복하고 싶지 않습니다.
+*   GIL 제거(PEP 703)와 같은 큰 변화를 위해 Python 4를 남겨둘 수 있지만, Steering Council은 Free-threading의 점진적인 도입을 명확히 했습니다.
+*   Major 버전을 변경하면 `sysconfig.get_config_var("py_version_nodot")`과 같은 플랫폼 호환성 태그(Platform compatibility tags)가 복잡해집니다.
+*   Major 버전이 3이라는 가정이나 버전 부분이 항상 한 자리 숫자라는 가정 등, 버전 변경으로 인해 기존 코드가 깨질 수 있습니다.
+*   `python3` 명령어의 처리가 복잡해집니다.
+*   CPython 자체 내에서도 Major 버전이 3이라고 가정하는 부분이 있어 업데이트가 필요합니다.
+
+결론적으로, YY.0 버전 관리의 이점은 결합된 비용에 비해 크지 않으므로 거부되었습니다.
+
+#### YY.MM (예: Python 26.10)
+
+YY.0 버전 관리에 더해, 릴리스 월을 Minor 버전에 포함시키는 아이디어(예: Ubuntu 및 Black처럼)도 논의되었습니다. 이는 출시 연도 및 EOL 시점을 명확히 할 수 있지만, YY.0와 동일한 많은 이유로 거부되었습니다.
+
+#### 3.YYYY (예: Python 3.2026)
+
+Minor 버전을 4자리 연도 (예: Python 3.2026)로 사용하는 아이디어는 연도임을 더 명확하게 보여주고 Ubuntu 버전과의 혼동을 피할 수 있습니다. 그러나 CPython의 C API `PY_VERSION_HEX` 매크로 변경 필요성 및 2자리에서 4자리로 변경 시 더 많은 코드 파손 가능성 때문에 거부되었습니다.
+
+#### 에디션 (Editions)
+
+Rust 언어의 "Editions"와 같이 "Python 3.15 (2026 Edition)"과 같은 연도 레이블을 추가하는 것은 두 개의 숫자를 추적해야 하므로 거부되었습니다.
+
+#### SemVer 채택 및 4 건너뛰기 (Adopt SemVer and skip 4)
+
+문제적인 4.0을 건너뛰고 SemVer를 채택하여 Python 5.0 (2026년), 6.0 (2027년) 등으로 가는 아이디어도 논의되었습니다. 그러나 이 방식은 캘린더 버전 관리의 이점을 얻을 수 없고, 3.x에서 벗어나는 것이 코드에 파괴적인 변화를 가져올 것이므로 거부되었습니다.
+
+#### 3.14 주기 동안의 변경 (Change during 3.14 cycle)
+
+Python 3.14 릴리스는 예정대로 진행되어야 합니다.
+
+### 하위 호환성 (Backwards compatibility)
+
+이 버전 변경은 고려된 CalVer 옵션 중에서 가장 안전합니다. Major 버전 3을 유지하고 Minor 버전은 여전히 두 자리 숫자입니다. Minor 버전은 결국 세 자리로 변경될 수 있지만, 이는 예측 가능하고 먼 미래의 일이며 계획할 수 있습니다. `python3` 실행 파일은 유지됩니다.
+
+#### 버전 매핑 (Version mapping)
+
+3.15부터 3.25까지의 버전은 건너뛰어집니다. 이러한 버전에 대해 계획되었던 기능, Deprecation 및 제거 사항은 새로운 버전 번호로 다시 매핑됩니다.
+예를 들어, 3.16에서 제거될 예정이었던 Deprecation은 대신 3.27에서 제거될 것입니다.
+
+다음은 구 버전과 새 버전, 그리고 초기 출시 연도의 매핑입니다.
+
+| 구 버전 | 새 버전 | 초기 출시 연도 |
+| :------ | :------ | :------------- |
+| 3.14    | 3.14    | 2025           |
+| 3.15    | 3.26    | 2026           |
+| 3.16    | 3.27    | 2027           |
+| 3.17    | 3.28    | 2028           |
+| 3.18    | 3.29    | 2029           |
+| 3.19    | 3.30    | 2030           |
+| (중략)  |         |                |
+| 3.25    | 3.36    | 2036           |
+
+### 향후 호환성 (Forwards compatibility)
+
+이 PEP는 PEP 602에 정의된 연간 릴리스 주기에는 변경을 제안하지 않습니다. 그러나 미래에 주기를 변경하기로 결정하더라도 CalVer는 이를 방해하지 않습니다.
+
+#### 릴리스 주기 변경 (Future change in cadence)
+
+*   **더 적은 빈도 (Less frequent):** 매년 1회 미만으로 릴리스하더라도 제안된 CalVer 체계는 여전히 작동하며, 릴리스를 예상할 연도를 사람들이 알 수 있도록 돕습니다.
+*   **더 많은 빈도 (More frequent):** 매년 1회 이상 릴리스하는 경우, 다양한 CalVer 옵션 또는 CalVer를 포기하는 옵션들이 제시되었습니다. Major 버전 3을 유지하면서 Minor 버전을 3자리 또는 4자리로 변경하는 옵션은 기존 코드가 2자리 Minor 버전을 가정하는 경우에 문제가 될 수 있습니다.
+
+#### CalVer 포기 (No more CalVer)
+
+현재 CalVer를 채택하더라도 미래에 CalVer에서 벗어나 원래 체계, SemVer 또는 다른 체계로 돌아가는 것을 막지는 않습니다.
+
+---
+**PEP 2026 요약:**
+이 PEP는 Python의 버전 관리 체계를 `3.YY.micro` (YY는 출시 연도) 형식으로 변경하는 캘린더 버전 관리(CalVer)를 제안했습니다. 이 제안의 주요 목표는 Python 릴리스의 지원 수명 주기, Deprecation 제거, 설치 연령 및 버전 지원에 대한 명확성을 높이는 것이었습니다. 이를 통해 사용자와 유지보수자가 버전을 더 쉽게 이해하고 관리할 수 있도록 돕고자 했습니다.
+
+그러나 이 PEP는 최종적으로 **거부**되었습니다. 거부된 아이디어 섹션에서 `YY.0`, `YY.MM`, `3.YYYY`와 같은 다른 CalVer 체계와 SemVer 채택이 논의되었으나, 기존 에코시스템과의 하위 호환성 문제, `python3` 명령어 및 CPython 내부 코드에 대한 변경 필요성, 그리고 예상되는 복잡성 및 비용 등의 이유로 대부분 거부되었습니다.
+
+제안된 `3.YY.micro` 방식은 가장 안전한 CalVer 옵션으로 간주되었으며, 3.15부터 3.25까지의 버전 번호를 건너뛰고 3.26부터 캘린더 연도를 Minor 버전에 반영할 계획이었습니다. 하지만 결국 이 제안은 거부되었으며, Python은 현재의 버전 관리 체계를 유지하게 되었습니다.
+
+
+> ⚠️ **알림:** 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.

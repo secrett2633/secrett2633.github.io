@@ -1,0 +1,202 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[9325,["231","static/chunks/231-87925b9c7247c60f.js","877","static/chunks/app/%5B...slug%5D/page-b477922462c615bf.js"],"default"]
+7:I[231,["231","static/chunks/231-87925b9c7247c60f.js","877","static/chunks/app/%5B...slug%5D/page-b477922462c615bf.js"],""]
+4:["slug","backend/django/db-log","c"]
+0:["ucidvW-jotunXd_-W91EG",[[["",{"children":[["slug","backend/django/db-log","c"],{"children":["__PAGE__?{\"slug\":[\"backend\",\"django\",\"db-log\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","backend/django/db-log","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","link",null,{"rel":"icon","type":"image/png","sizes":"32x32","href":"/favicon-32x32.png"}],["$","link",null,{"rel":"icon","type":"image/png","sizes":"16x16","href":"/favicon-16x16.png"}],["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}]]}],["$","body",null,{"className":"__className_f367f3 layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/fd3b6909b9405577.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+a:I[8573,["231","static/chunks/231-87925b9c7247c60f.js","877","static/chunks/app/%5B...slug%5D/page-b477922462c615bf.js"],"default"]
+9:T1750,<p>Django에서 데이터베이스 쿼리를 모니터링하고 로그를 확인하는 방법에 대해 알아보겠습니다.</p>
+<h2>Django 설정에서 DB 로깅 활성화</h2>
+<h3>1. settings.py 설정</h3>
+<pre><code class="language-python"># settings.py
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'django_queries.log',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django.db.backends': {
+            'handlers': ['file', 'console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    },
+}
+</code></pre>
+<h3>2. 개발 환경에서만 활성화</h3>
+<pre><code class="language-python"># settings.py
+if DEBUG:
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'handlers': {
+            'console': {
+                'level': 'DEBUG',
+                'class': 'logging.StreamHandler',
+            },
+        },
+        'loggers': {
+            'django.db.backends': {
+                'handlers': ['console'],
+                'level': 'DEBUG',
+                'propagate': False,
+            },
+        },
+    }
+</code></pre>
+<h2>Django Debug Toolbar 사용</h2>
+<h3>1. 설치</h3>
+<pre><code class="language-bash">pip install django-debug-toolbar
+</code></pre>
+<h3>2. 설정</h3>
+<pre><code class="language-python"># settings.py
+INSTALLED_APPS = [
+    # ...
+    'debug_toolbar',
+    # ...
+]
+
+MIDDLEWARE = [
+    # ...
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # ...
+]
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
+
+# urls.py
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
+</code></pre>
+<h2>코드에서 쿼리 모니터링</h2>
+<h3>1. connection.queries 사용</h3>
+<pre><code class="language-python">from django.db import connection
+from django.test.utils import override_settings
+
+def monitor_queries():
+    # 쿼리 초기화
+    connection.queries.clear()
+    
+    # ORM 쿼리 실행
+    users = User.objects.all()
+    for user in users:
+        posts = user.post_set.all()
+    
+    # 실행된 쿼리 확인
+    print(f"총 쿼리 수: {len(connection.queries)}")
+    for query in connection.queries:
+        print(f"SQL: {query['sql']}")
+        print(f"시간: {query['time']}초")
+        print("-" * 50)
+</code></pre>
+<h3>2. contextlib 사용</h3>
+<pre><code class="language-python">from contextlib import contextmanager
+from django.db import connection
+
+@contextmanager
+def query_counter():
+    initial_queries = len(connection.queries)
+    yield
+    final_queries = len(connection.queries)
+    print(f"실행된 쿼리 수: {final_queries - initial_queries}")
+
+# 사용 예제
+with query_counter():
+    users = User.objects.all()
+    for user in users:
+        posts = user.post_set.all()
+</code></pre>
+<h2>커스텀 미들웨어로 쿼리 로깅</h2>
+<h3>1. 미들웨어 생성</h3>
+<pre><code class="language-python"># middleware.py
+import time
+from django.db import connection
+from django.utils.deprecation import MiddlewareMixin
+
+class QueryLoggingMiddleware(MiddlewareMixin):
+    def process_request(self, request):
+        request._start_time = time.time()
+        connection.queries.clear()
+    
+    def process_response(self, request, response):
+        if hasattr(request, '_start_time'):
+            duration = time.time() - request._start_time
+            query_count = len(connection.queries)
+            
+            if query_count > 10:  # 쿼리가 많을 때만 로깅
+                print(f"경로: {request.path}")
+                print(f"쿼리 수: {query_count}")
+                print(f"실행 시간: {duration:.2f}초")
+                
+                # 느린 쿼리 확인
+                slow_queries = [q for q in connection.queries if float(q['time']) > 0.1]
+                if slow_queries:
+                    print("느린 쿼리:")
+                    for query in slow_queries:
+                        print(f"  {query['sql'][:100]}... ({query['time']}초)")
+        
+        return response
+</code></pre>
+<h3>2. 미들웨어 등록</h3>
+<pre><code class="language-python"># settings.py
+MIDDLEWARE = [
+    # ...
+    'myapp.middleware.QueryLoggingMiddleware',
+    # ...
+]
+</code></pre>
+<h2>프로덕션 환경에서의 쿼리 모니터링</h2>
+<h3>1. Sentry 사용</h3>
+<pre><code class="language-python"># sentry 설정
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
+sentry_sdk.init(
+    dsn="YOUR_SENTRY_DSN",
+    integrations=[DjangoIntegration()],
+    traces_sample_rate=1.0,
+)
+</code></pre>
+<h3>2. APM 도구 사용</h3>
+<pre><code class="language-python"># New Relic, DataDog 등 APM 도구 설정
+# 각 도구의 문서를 참조하여 설정
+</code></pre>
+<h2>쿼리 최적화 팁</h2>
+<h3>1. select_related와 prefetch_related 사용</h3>
+<pre><code class="language-python"># N+1 문제 해결
+users = User.objects.select_related('profile').prefetch_related('posts').all()
+</code></pre>
+<h3>2. 쿼리셋 캐싱</h3>
+<pre><code class="language-python"># 쿼리셋을 변수에 저장하여 재사용
+users = User.objects.all()
+user_list = list(users)  # 쿼리 실행
+</code></pre>
+<h3>3. 불필요한 쿼리 제거</h3>
+<pre><code class="language-python"># 나쁜 예
+if User.objects.filter(email=email).exists():
+    user = User.objects.get(email=email)
+
+# 좋은 예
+try:
+    user = User.objects.get(email=email)
+except User.DoesNotExist:
+    user = None
+</code></pre>
+<p>적절한 쿼리 모니터링과 최적화로 Django 애플리케이션의 성능을 크게 향상시킬 수 있습니다!</p>
+2:[["$","$L6",null,{}],["$","div",null,{"className":"initial-content","children":["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":[["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Django] DB 로그 확인하기"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-02-05 00:00:00+0900","children":"2025년 2월 5일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 2월 5일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":[["$","div",null,{"className":"page__taxonomy mb-4","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"카테고리"}],[["$","span","Django",{"className":"page__taxonomy-item","children":"Django"}]]]}],["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Django",{"className":"page__taxonomy-item","children":["#","Django"]}],["$","span","Database",{"className":"page__taxonomy-item","children":["#","Database"]}],["$","span","Logging",{"className":"page__taxonomy-item","children":["#","Logging"]}]]]}]]}]]}]}],["$","aside",null,{"className":"lg:w-80","children":["$","$La",null,{}]}]]}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"secrett2633's blog"}],["$","meta","3",{"name":"description","content":"기술 블로그"}]]
+1:null

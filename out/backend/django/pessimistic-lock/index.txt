@@ -1,0 +1,93 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[9325,["231","static/chunks/231-87925b9c7247c60f.js","877","static/chunks/app/%5B...slug%5D/page-b477922462c615bf.js"],"default"]
+7:I[231,["231","static/chunks/231-87925b9c7247c60f.js","877","static/chunks/app/%5B...slug%5D/page-b477922462c615bf.js"],""]
+4:["slug","backend/django/pessimistic-lock","c"]
+0:["ucidvW-jotunXd_-W91EG",[[["",{"children":[["slug","backend/django/pessimistic-lock","c"],{"children":["__PAGE__?{\"slug\":[\"backend\",\"django\",\"pessimistic-lock\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","backend/django/pessimistic-lock","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","link",null,{"rel":"icon","type":"image/png","sizes":"32x32","href":"/favicon-32x32.png"}],["$","link",null,{"rel":"icon","type":"image/png","sizes":"16x16","href":"/favicon-16x16.png"}],["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}]]}],["$","body",null,{"className":"__className_f367f3 layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/fd3b6909b9405577.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+a:I[8573,["231","static/chunks/231-87925b9c7247c60f.js","877","static/chunks/app/%5B...slug%5D/page-b477922462c615bf.js"],"default"]
+9:Tb79,<p>Django에서 동시성 문제를 해결하기 위한 비관적 락(Pessimistic Lock)에 대해 알아보겠습니다.</p>
+<h2>비관적 락이란?</h2>
+<p>비관적 락은 데이터를 읽을 때부터 락을 걸어서 다른 트랜잭션이 해당 데이터를 수정하지 못하도록 하는 방식입니다.</p>
+<h2>Django에서 비관적 락 구현</h2>
+<h3>1. select_for_update() 사용</h3>
+<pre><code class="language-python">from django.db import transaction
+from django.shortcuts import get_object_or_404
+
+def update_article_with_pessimistic_lock(article_id, new_title, new_content):
+    with transaction.atomic():
+        # 비관적 락으로 데이터 조회
+        article = get_object_or_404(
+            Article.objects.select_for_update(),
+            id=article_id
+        )
+        
+        # 데이터 수정
+        article.title = new_title
+        article.content = new_content
+        article.save()
+        
+        return True
+</code></pre>
+<h3>2. 뷰에서 사용</h3>
+<pre><code class="language-python">from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def update_article(request, article_id):
+    try:
+        success = update_article_with_pessimistic_lock(
+            article_id,
+            request.POST['title'],
+            request.POST['content']
+        )
+        
+        if success:
+            return JsonResponse({'status': 'success'})
+        else:
+            return JsonResponse({'status': 'failed'})
+            
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)})
+</code></pre>
+<h3>3. 고급 사용법</h3>
+<pre><code class="language-python"># 특정 조건으로 락 걸기
+def update_article_conditionally(article_id, new_title):
+    with transaction.atomic():
+        article = Article.objects.select_for_update(
+            of=['self']  # 자기 자신만 락
+        ).filter(
+            id=article_id,
+            status='active'  # 활성 상태인 것만
+        ).first()
+        
+        if article:
+            article.title = new_title
+            article.save()
+            return True
+        return False
+</code></pre>
+<h2>장단점</h2>
+<h3>장점</h3>
+<ul>
+<li>데이터 일관성 보장</li>
+<li>구현이 상대적으로 간단</li>
+<li>충돌 시 재시도 로직 불필요</li>
+</ul>
+<h3>단점</h3>
+<ul>
+<li>읽기 성능 저하</li>
+<li>데드락 발생 가능성</li>
+<li>확장성 제한</li>
+</ul>
+<h2>언제 사용해야 할까?</h2>
+<ul>
+<li>데이터 충돌이 빈번한 경우</li>
+<li>데이터 일관성이 매우 중요한 경우</li>
+<li>트랜잭션 처리 시간이 짧은 경우</li>
+</ul>
+<p>비관적 락은 데이터 일관성이 중요한 시스템에서 효과적인 동시성 제어 방법입니다.</p>
+2:[["$","$L6",null,{}],["$","div",null,{"className":"initial-content","children":["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":[["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Django] 비관적 락"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-02-14 00:00:00+0900","children":"2025년 2월 14일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 2월 14일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":[["$","div",null,{"className":"page__taxonomy mb-4","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"카테고리"}],[["$","span","Django",{"className":"page__taxonomy-item","children":"Django"}]]]}],["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Django",{"className":"page__taxonomy-item","children":["#","Django"]}],["$","span","Lock",{"className":"page__taxonomy-item","children":["#","Lock"]}],["$","span","Database",{"className":"page__taxonomy-item","children":["#","Database"]}]]]}]]}]]}]}],["$","aside",null,{"className":"lg:w-80","children":["$","$La",null,{}]}]]}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"secrett2633's blog"}],["$","meta","3",{"name":"description","content":"기술 블로그"}]]
+1:null

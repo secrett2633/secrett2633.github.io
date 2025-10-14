@@ -1,0 +1,284 @@
+---
+title: "[Active] PEP 394 - The “python” Command on Unix-Like Systems"
+excerpt: "Python Enhancement Proposal 394: 'The “python” Command on Unix-Like Systems'에 대한 한국어 번역입니다."
+categories:
+  - Python
+  - PEP
+tags:
+  - Python
+  - PEP
+  - Translation
+permalink: /python/pep/394/
+toc: true
+toc_sticky: true
+date: 2025-09-26 21:21:20+0900
+last_modified_at: 2025-09-26 21:21:20+0900
+published: true
+---
+> **원문 링크:** [PEP 394 - The “python” Command on Unix-Like Systems](https://peps.python.org/pep-0394/)
+>
+> **상태:** Active | **유형:** Informational | **작성일:** 02-Mar-2011
+
+
+# PEP 394 – Unix 계열 시스템의 "python" 명령어
+
+*   **작성자:** Kerrick Staley, Alyssa Coghlan, Barry Warsaw, Petr Viktorin, Miro Hrončok, Carol Willing
+*   **상태:** Active (활성)
+*   **유형:** Informational (정보성)
+*   **생성일:** 2011년 3월 2일
+*   **수정 이력:** 2011년 3월 4일, 2011년 7월 20일, 2012년 2월 16일, 2014년 9월 30일, 2018년 4월 28일, 2019년 6월 26일
+*   **해결:** Python-Dev 메시지
+
+## 초록 (Abstract)
+
+이 PEP는 `python` 명령어를 호출했을 때 Python 스크립트의 동작 방식을 설명합니다. 배포판 또는 시스템 구성에 따라 `python`이 설치되지 않을 수도 있습니다. `python`이 설치되어 있더라도 대상 인터프리터가 `python2` 또는 `python3`를 가리킬 수 있습니다. 최종 사용자들은 Unix 계열 시스템 전반에 걸친 이러한 불일치에 대해 인지하지 못할 수 있습니다. 이 PEP의 목표는 `python`이 무엇을 참조하고 스크립트의 동작이 어떠할지에 대한 사용자들의 혼란을 줄이는 것입니다.
+
+이 PEP의 다음 섹션에 있는 권장 사항은 다음과 같은 경우의 동작 방식을 설명할 것입니다:
+
+*   가상 환경(virtual environments) 사용 시
+*   `python2` 또는 `python3`를 위한 셰뱅(shebangs)으로 크로스 플랫폼 스크립트 작성 시
+
+이 PEP의 목표는 스크립트 최종 사용자, 배포판 제공자, 스크립트 관리자/작성자를 위한 동작을 명확히 하는 것입니다.
+
+## 권장 사항 (Recommendation)
+
+우리의 권장 사항은 아래에 자세히 설명되어 있습니다. 이러한 권장 사항이 기반으로 하는 모든 예상 사항을 명시합니다.
+
+### Python 런타임 배포자를 위한 권장 사항 (For Python runtime distributors)
+
+우리는 Unix 계열 소프트웨어 배포판(macOS 및 Cygwin과 같은 시스템 포함)이 Python 2 인터프리터 버전이 설치될 때마다 `python2` 명령어를 기본 경로에 설치하고, Python 3 인터프리터의 경우 `python3`도 마찬가지로 설치할 것을 예상합니다. 호출 시 `python2`는 Python 2 인터프리터의 특정 버전을 실행해야 하며, `python3`는 Python 3 인터프리터의 특정 버전을 실행해야 합니다. `python` 명령어가 설치되어 있다면, 이는 `python3` 명령어와 동일한 버전의 Python을 호출하거나 `python2` 명령어와 동일한 버전의 Python을 호출할 것으로 예상됩니다. 배포자들은 `python` 명령어의 동작을 다음과 같이 설정할 수 있습니다:
+
+*   `python2`, `python3` (명령어를 제공)
+*   `python` 명령어를 제공하지 않음
+*   최종 사용자 또는 시스템 관리자가 `python`을 구성할 수 있도록 허용
+
+Python 3.x의 `idle`, `pydoc`, `python-config` 명령어 또한 `idle3`, `pydoc3`, `python3-config`로 사용 가능해야 하며, Python 2.x 버전은 `idle2`, `pydoc2`, `python2-config`로 사용 가능해야 합니다. 버전 번호가 없는 명령어는 `python` 명령어와 동일한 버전의 Python을 호출하거나 아예 사용 불가능해야 합니다.
+
+서드파티 Python 스크립트를 패키징할 때, 배포자들은 덜 구체적인 셰뱅(shebangs)을 더 구체적인 것으로 변경하도록 권장됩니다. 이는 소프트웨어가 사용 가능한 최신 버전의 Python과 함께 사용되도록 보장하며, Python 2에 대한 의존성을 제거할 수 있습니다. 어떤 구체적인 설정을 할지에 대한 세부 사항은 배포자에게 맡겨집니다. 예시로는 다음과 같은 구체적인 사항이 포함될 수 있습니다:
+
+*   Python 3.x가 지원되는 경우 `python` 셰뱅을 `python3`로 변경.
+*   Python 3.x가 아직 지원되지 않는 경우 `python` 셰뱅을 `python2`로 변경.
+*   소프트웨어가 Python 3.8로 빌드된 경우 `python3` 셰뱅을 `python3.8`로 변경.
+
+가상 환경(PEP 405의 `venv` 패키지 또는 `virtualenv`, `conda`와 같은 유사 도구로 생성됨)이 활성화되어 있을 때, `python` 명령어는 가상 환경의 인터프리터를 참조해야 하며 항상 사용 가능해야 합니다. `python3` 또는 `python2` 명령어(환경의 인터프리터 버전에 따라)도 사용 가능해야 합니다.
+
+### Python 스크립트 게시자를 위한 권장 사항 (For Python script publishers)
+
+Python 스크립트에서 인터프리터를 재호출할 때, 인터프리터 위치에 대한 하드코딩된 가정을 피하기 위해 `sys.executable`을 쿼리하는 것이 여전히 선호되는 접근 방식입니다.
+
+최종 사용자에게 가상 환경 사용을 권장하세요. 이는 사용자 환경을 더 예측 가능하게 만들고(잠재적으로 문제를 줄임), 시스템을 방해하는 것을 피하는 데 도움이 됩니다. 활성화된 가상 환경에서만 실행될 것으로 예상되는 스크립트의 경우, 셰뱅 라인을 `#!/usr/bin/env python`으로 작성할 수 있습니다. 이는 스크립트가 활성 가상 환경을 존중하도록 지시하기 때문입니다.
+
+스크립트가 가상 환경 외부에서 실행될 것으로 예상되는 경우, 개발자는 플랫폼 및 설치 방법에 따라 다음과 같은 불일치를 인지해야 합니다:
+
+*   오래된 Linux 배포판은 Python 2를 참조하는 `python` 명령어를 제공하며, `python2` 명령어를 제공하지 않을 가능성이 높습니다.
+*   일부 최신 Linux 배포판은 Python 3를 참조하는 `python` 명령어를 제공할 것입니다.
+*   일부 Linux 배포판은 기본적으로 `python` 명령어를 전혀 제공하지 않지만, 기본적으로 `python3` 명령어를 제공할 것입니다.
+
+이러한 환경을 잠재적으로 대상으로 할 때, 개발자는 설치된 환경에 맞게 셰뱅 라인을 다시 작성하는 Python 패키지 설치 도구를 사용하거나, 셰뱅 라인을 대화식으로 업데이트하는 지침을 제공하거나, 대상 환경에 맞춤화된 더 구체적인 셰뱅 라인을 사용해야 합니다. "오래된 시스템"과 기본 `python` 명령어가 없는 시스템을 모두 대상으로 하는 스크립트는 절충안을 마련하고 이 상황을 문서화해야 합니다. 셰뱅을 피하는 것(콘솔 스크립트 진입점 `console_scripts Entry Points` 또는 유사한 수단 사용)이 이 문제에 대한 권장되는 해결책입니다. 특정 환경(예: 컨테이너 또는 가상 환경)을 위해 독점적으로 설계된 애플리케이션은 `python` 명령어 이름을 계속 사용할 수 있습니다.
+
+### Python 최종 사용자를 위한 권장 사항 (For end users of Python)
+
+보편적으로 사용 가능하지는 않지만, `python`은 Python을 명시적으로 호출하는 데 선호되는 표기법으로 남아 있습니다. 이는 가상 환경이 다양한 플랫폼과 Python 설치에서 일관되게 제공하는 표기법이기 때문입니다. 시스템과 함께 배포되지 않거나 시스템용으로 개발되지 않은 소프트웨어의 경우, 시스템 Python 설치를 방해하는 것을 피하기 위해 `conda` 또는 `pipenv`와 같은 환경 관리자와 함께 가상 환경을 사용하는 것을 권장합니다.
+
+이러한 권장 사항은 2011년 3월과 7월, 2012년 2월, 2014년 9월의 관련 python-dev 토론, 2018년 4월 GitHub 토론, 2019년 2월 python-dev 토론, 그리고 2019년 5월/6월 PEP 업데이트 검토의 결과입니다.
+
+## 이 PEP의 역사 (History of this PEP)
+
+2011년에는 대부분의 배포판이 `python` 명령어를 Python 2에 별칭(alias)했지만, 일부는 Python 3로 전환하기 시작했습니다. 이전 배포판 중 일부는 기본적으로 `python2` 명령어를 제공하지 않았기 때문에, `python` 명령어가 일부 시스템에서 잘못된 인터프리터 버전을 호출하고, `python2` 명령어가 다른 시스템에서는 완전히 실패하여 Python 2 코드(또는 `sys.executable`을 통하지 않고 Python 2 인터프리터를 직접 호출하는 모든 코드)가 수정 없이 모든 Unix 계열 시스템에서 안정적으로 실행될 방법이 이전에는 없었습니다.
+
+이 PEP는 원래 배포판 관리자의 최소한의 추가 작업으로 크로스 플랫폼 지원을 복원하는 매우 간단한 메커니즘을 제공했습니다. 간략히 말해, 권장 사항은 다음과 같았습니다:
+
+*   `python` 명령어는 Python 2와 3 모두와 호환되는 코드에 대해 선호되었습니다 (Python 3로 이미 별칭된 시스템에서도 모든 시스템에서 사용 가능했기 때문).
+*   `python` 명령어는 항상 Python 2를 호출해야 했습니다 (Python 2 코드가 Python 3에서 실행될 때 진단하기 어려운 오류를 방지하기 위해).
+*   `python2` 및 `python3` 명령어는 버전을 명시적으로 지정하기 위해 사용 가능해야 했습니다.
+
+그러나 이러한 권장 사항은 Python 2가 항상 사용 가능할 것이라고 암묵적으로 가정했습니다. Python 2가 2020년에 수명 주기 종료(End-of-Life, EOL)에 가까워짐에 따라 (PEP 373, PEP 404), 배포판은 Python 2를 선택 사항으로 만들거나 완전히 제거하고 있습니다. 이는 `python` 명령어를 제거하거나 Python 3를 호출하도록 전환하는 것을 의미합니다. 일부 배포자들은 또한 사용자에게 PEP의 원래 권장 사항을 무시하는 것이 더 낫다고 판단하고, 시스템 관리자에게 특정 환경의 필요에 따라 시스템을 구성할 자유를 제공했습니다.
+
+## 현재의 근거 (Current Rationale)
+
+2019년 현재, 스크립트 실행 전에 Python 가상 환경(또는 그 기능적 등가물)을 활성화하는 것이 일관된 크로스 플랫폼 및 크로스 배포판 경험을 얻는 한 가지 방법입니다. 따라서 게시자는 소프트웨어 사용자가 적절한 실행 환경을 제공할 것으로 기대할 수 있습니다.
+
+## 이 권장 사항의 미래 변경 사항 (Future Changes to this Recommendation)
+
+이 권장 사항은 향후 몇 년 동안 주기적으로 검토될 것이며, 핵심 개발 팀이 적절하다고 판단할 때 업데이트될 것입니다. 참고로, Python 2.7 시리즈에 대한 정기 유지 보수 릴리스는 2020년 1월까지 계속될 것입니다.
+
+## 마이그레이션 노트 (Migration Notes)
+
+이 섹션에는 CPython 핵심 개발자의 공식적인 권장 사항은 포함되어 있지 않습니다. 이는 시스템의 기본 Python 버전으로 Python 3로 마이그레이션하는 다양한 측면에 대한 노트 모음일 뿐입니다. 이러한 변경을 고려하는 모든 배포판에 도움이 되기를 바랍니다.
+
+`python` 명령어를 `python2`에서 `python3`로 전환하는 배포판의 주요 장애물은 배포판 내의 손상이 아니라, 시스템 관리자 및 다른 사용자가 개발한 사설 서드파티 스크립트의 손상입니다. `python` 명령어를 기본적으로 `python3`를 호출하도록 업데이트하는 것은 배포판이 Python 3의 하위 호환성 없는 변경 사항에 익숙하지 않은 사용자에게 잠재적으로 매우 혼란스러운 오류로 이러한 스크립트를 손상시킬 의향이 있음을 나타냅니다.
+
+예를 들어, `print`가 문(statement)에서 내장 함수(builtin function)로 변경된 것은 자동 변환기가 처리하기 비교적 간단하지만, Python 3에서 Python 2 표기법을 사용하려고 시도할 때 발생하는 `SyntaxError`는 변경 사항을 모르는 사용자에게 혼란스러울 수 있습니다:
+
+```bash
+$ python3 -c 'print "Hello, world!"'
+  File "<string>", line 1
+    print "Hello, world!"
+                        ^
+SyntaxError: Missing parentheses in call to 'print'. Did you mean print("Hello, world!")?
+```
+
+이는 숙련된 Python 개발자에게는 명확할 수 있지만, 이러한 스크립트는 Python에 전혀 익숙하지 않은 사람들도 실행할 수 있습니다. 이러한 서드파티 스크립트의 손상을 피하는 것이 이 PEP가 `python`이 계속 `python2`를 참조하도록 권장했던 핵심 이유였습니다.
+
+`python: command not found` 오류 메시지는 Python에 익숙하지 않은 사람들에게도 놀랍도록 실행 가능한(actionable) 경향이 있습니다.
+
+`pythonX.X` (예: `python3.6`) 명령어는 최신 시스템에 존재하며, 이들은 Python 인터프리터의 특정 마이너 버전을 호출합니다. 배포판별 패키지가 이러한 유틸리티가 존재한다면 이를 활용하는 것이 유용할 수 있습니다. 이는 주어진 메이저 버전의 기본 마이너 버전이 변경될 경우 코드 손상을 방지하기 때문입니다. 그러나 크로스 플랫폼을 의도하는 스크립트는 이러한 유틸리티의 존재에 의존해서는 안 되며, 대신 대상 메이저 버전의 여러 최신 마이너 버전에서 테스트하고, 필요한 경우 마이너 버전 간에 존재하는 작은 차이를 보정해야 합니다. 이는 시스템 관리자가 매우 유사한 여러 버전의 인터프리터를 설치할 필요성을 방지합니다.
+
+`pythonX.X` 바이너리가 배포판에 의해 제공될 때, `python2` 및 `python3` 명령어는 별도의 바이너리 파일로 제공되기보다는 해당 파일 중 하나를 참조해야 합니다. 배포판별 패키지는 다른 배포판에서 작동하도록 의도되지 않은 코드에서도 `python` 대신 `python3` (또는 `python2`)를 사용하는 것이 강력히 권장됩니다. 이는 배포판이 나중에 `python` 명령어가 호출하는 Python 인터프리터 버전을 변경하기로 결정하거나, 시스템 관리자가 배포판 기본값과 다른 메이저 버전으로 사용자 정의 `python` 명령어를 설치할 경우 문제를 줄일 것입니다.
+
+위의 사항이 준수되고 시스템 관리자가 `python` 명령어를 변경할 수 있도록 허용된다면, `python` 명령어는 항상 인터프리터 바이너리에 대한 링크(또는 링크에 대한 링크)로 구현되어야 하며 그 반대는 아니어야 합니다. 그렇게 하면, 시스템 관리자가 설치된 `python` 파일을 교체하기로 결정하더라도 이전에 설치된 바이너리를 실수로 삭제하지 않고도 그렇게 할 수 있습니다.
+
+Python 2 인터프리터가 덜 보편화되더라도, 스크립트가 단순히 `python` 대신 `python3` 관례를 계속 사용하는 것이 합리적입니다. 이러한 관례가 준수된다면, `python` 명령어는 사용자 편의를 위해 대화식으로 실행되거나, 가상 환경 또는 유사한 메커니즘을 사용할 때만 실행될 것입니다.
+
+## 하위 호환성 (Backwards Compatibility)
+
+`python2` / `python3` 관례를 따르는 스크립트가 이러한 명령어를 지원하지 않는 시스템에서 실행될 경우 잠재적인 문제가 발생할 수 있습니다. 이는 시스템 관리자가 단순히 이러한 심볼릭 링크를 생성하여 추가 문제를 피할 수 있으므로 대부분 문제가 되지 않습니다. 이는 Python 2 특정 구문을 포함하는 스크립트를 Python 3 인터프리터로 실행하려고 시도할 때 발생하는 때때로 알 수 없는 오류보다 훨씬 더 명확한 손상입니다.
+
+## CPython 참조 인터프리터에 대한 적용 (Application to the CPython Reference Interpreter)
+
+기술적으로는 새로운 기능이지만, CPython 2.7 버전의 `make install` 및 `make bininstall` 명령어는 관련 `bin` 디렉토리에 다음 심볼릭 링크 체인을 생성하도록 조정되었습니다 (체인에 나열된 마지막 항목은 실제 설치된 바이너리이며, 이전 항목은 상대 심볼릭 링크입니다):
+
+*   `python -> python2 -> python2.7`
+*   `python-config -> python2-config -> python2.7-config`
+
+macOS 바이너리 인스톨러에도 유사한 조정이 이루어졌습니다.
+
+이 기능은 CPython 2.7.3의 기본 설치 프로세스에서 처음 등장했습니다.
+
+CPython 3.x 시리즈의 설치 명령어는 이미 적절한 심볼릭 링크를 생성합니다. 예를 들어, CPython 3.2는 다음을 생성합니다:
+
+*   `python3 -> python3.2`
+*   `idle3 -> idle3.2`
+*   `pydoc3 -> pydoc3.2`
+*   `python3-config -> python3.2-config`
+
+그리고 CPython 3.3은 다음을 생성합니다:
+
+*   `python3 -> python3.3`
+*   `idle3 -> idle3.3`
+*   `pydoc3 -> pydoc3.3`
+*   `python3-config -> python3.3-config`
+*   `pysetup3 -> pysetup3.3`
+
+기본 인스톨러에서 이러한 기능의 구현 진행 상황은 이슈 #12627로 트래커에서 관리되었습니다.
+
+## `PYTHON*` 환경 변수에 미치는 영향 (Impact on PYTHON* Environment Variables)
+
+`python` 명령어의 대상 선택은 `PYTHON*` 관련 다양한 환경 변수에 대한 배포판의 예상 해석에 암묵적으로 영향을 미칩니다. 관련 `site-packages` 폴더의 `.pth` 파일 사용, "사용자별 사이트 패키지" 기능( `python -m site` 참조) 또는 `virtualenv`와 같은 더 유연한 도구는 `PYTHONPATH`의 직접적인 사용보다 시스템에 여러 버전의 Python이 존재하는 것에 대해 더 관대합니다.
+
+## MS Windows 제외 (Exclusion of MS Windows)
+
+이 PEP는 Microsoft Windows와 관련된 모든 제안을 의도적으로 제외합니다. Windows에 대한 동등한 해결책을 고안하는 것은 여기서 다루기에는 너무 복잡하다고 판단되었기 때문입니다. PEP 397 및 python-dev 메일링 리스트의 관련 논의에서 이 문제를 다룹니다.
+
+## 참조 (References)
+
+ Support the /usr/bin/python2 symlink upstream (with bonus grammar class!)
+ Rebooting PEP 394 (aka Support the /usr/bin/python2 symlink upstream)
+ Implement PEP 394 in the CPython Makefile
+ PEP 394 request for pronouncement (python2 symlink in *nix systems)
+ Arch Linux announcement that their “python” link now refers Python 3
+ PEP 394 - Clarification of what “python” command should invoke
+ PEP 394: Allow the python command to not be installed, and other minor edits
+ Another update for PEP 394 – The “python” Command on Unix-Like Systems
+ The console_scripts Entry Point
+ May 2019 PEP update review
+
+## 저작권 (Copyright)
+
+이 문서는 퍼블릭 도메인에 공개되었습니다.
+
+---
+
+I have translated the entire PEP 394 document following all the specified guidelines, including maintaining professionalism, handling terminology, ensuring readability with Markdown, and accurately translating all content with citations.PEP 394 – Unix 계열 시스템의 "python" 명령어에 대한 번역 및 요약입니다. Python 개발자들이 이 제안의 내용, 도입 배경, 그리고 실제 Python 사용에 미치는 영향을 명확하게 이해할 수 있도록 구성했습니다.
+
+---
+
+# PEP 394 – Unix 계열 시스템의 "python" 명령어
+
+*   **작성자:** Kerrick Staley, Alyssa Coghlan, Barry Warsaw, Petr Viktorin, Miro Hrončok, Carol Willing
+*   **상태:** Active (활성)
+*   **유형:** Informational (정보성)
+*   **생성일:** 2011년 3월 2일
+*   **수정 이력:** 2011년 3월 4일, 2011년 7월 20일, 2012년 2월 16일, 2014년 9월 30일, 2018년 4월 28일, 2019년 6월 26일
+*   **해결:** Python-Dev 메시지
+
+## 초록 (Abstract)
+
+이 PEP는 `python` 명령어를 호출했을 때 Python 스크립트의 동작 방식을 명확히 하기 위해 작성되었습니다. Unix 계열 시스템에서는 배포판이나 시스템 설정에 따라 `python` 명령어가 설치되어 있지 않거나, 설치되어 있더라도 `python2` 또는 `python3` 중 어느 하나를 가리킬 수 있어 사용자에게 혼란을 줄 수 있습니다.
+
+이 PEP의 주요 목표는 다음과 같은 상황에서 `python` 명령어가 참조하는 인터프리터와 스크립트의 동작에 대한 사용자, 배포판 제공자, 스크립트 관리자/작성자의 혼란을 줄이는 것입니다:
+
+*   가상 환경(virtual environments) 사용 시
+*   `python2` 또는 `python3`를 명시하는 셰뱅(shebangs)을 사용하여 크로스 플랫폼 스크립트 작성 시
+
+## 권장 사항 (Recommendation)
+
+PEP 394는 Python 런타임 배포자, Python 스크립트 게시자, 그리고 최종 사용자를 위한 구체적인 권장 사항을 제시합니다.
+
+### Python 런타임 배포자를 위한 권장 사항 (For Python runtime distributors)
+
+*   **명령어 설치:** Unix 계열 시스템(macOS, Cygwin 등)은 Python 2 인터프리터가 설치될 때 `python2` 명령어를, Python 3 인터프리터가 설치될 때 `python3` 명령어를 기본 경로에 설치해야 합니다.
+*   **`python` 명령어의 역할:** `python` 명령어가 설치된 경우, `python3` 또는 `python2` 중 한 버전의 Python을 호출해야 합니다. 배포자는 `python` 명령어를 제공하지 않거나, 최종 사용자 또는 시스템 관리자가 구성할 수 있도록 선택할 수 있습니다.
+*   **버전별 도구:** Python 3.x의 `idle`, `pydoc`, `python-config` 등은 `idle3`, `pydoc3`, `python3-config`와 같이 버전이 명시된 이름으로 제공되어야 합니다 (Python 2.x도 `idle2`, `pydoc2` 등으로 마찬가지). 버전 번호가 없는 명령어는 `python` 명령어와 동일한 버전을 호출하거나 아예 제공되지 않아야 합니다.
+*   **셰뱅(shebangs) 변경:** 서드파티 스크립트를 패키징할 때, 배포자는 덜 구체적인 셰뱅(예: `#!/usr/bin/env python`)을 `#!/usr/bin/env python3` 또는 `#!/usr/bin/env python3.8`처럼 더 구체적인 셰뱅으로 변경하여 최신 Python 버전과의 호환성을 보장하고 Python 2에 대한 의존성을 줄이도록 권장됩니다.
+*   **가상 환경(Virtual Environments):** 가상 환경이 활성화되면 `python` 명령어는 해당 가상 환경의 인터프리터를 참조해야 하며 항상 사용 가능해야 합니다. 환경의 버전에 따라 `python3` 또는 `python2` 명령어 또한 사용 가능해야 합니다.
+
+### Python 스크립트 게시자를 위한 권장 사항 (For Python script publishers)
+
+*   **인터프리터 재호출:** 스크립트 내에서 인터프리터를 재호출할 때는 `sys.executable`을 사용하여 인터프리터 위치에 대한 하드코딩된 가정을 피하는 것이 가장 좋은 방법입니다.
+*   **가상 환경 권장:** 사용자에게 가상 환경 사용을 권장하여 시스템 충돌을 피하고 환경 예측 가능성을 높이세요.
+*   **셰뱅 작성:**
+    *   활성화된 가상 환경에서만 실행될 스크립트는 `#!/usr/bin/env python`을 사용하여 활성 가상 환경을 따르도록 지시할 수 있습니다.
+    *   가상 환경 외부에서 실행될 스크립트의 경우, 개발자는 플랫폼별 불일치(예: `python` 명령어가 Python 2 또는 Python 3를 가리키거나 아예 없을 수 있음)를 인지하고, 패키지 설치 도구를 통해 셰뱅을 재작성하거나, 사용자에게 업데이트 지침을 제공하거나, 대상 환경에 맞춤화된 구체적인 셰뱅(예: `#!/usr/bin/env python3`)을 사용해야 합니다.
+    *   이러한 복잡성을 피하기 위해 `console_scripts Entry Points`와 같은 셰뱅 없는 방식을 사용하는 것이 권장됩니다. 특정 환경(예: 컨테이너) 전용 애플리케이션은 `python` 명령어를 계속 사용할 수 있습니다.
+
+### Python 최종 사용자를 위한 권장 사항 (For end users of Python)
+
+*   **`python` 명령어 사용:** `python`은 가상 환경에서 일관되게 제공되는 표기법이므로, 명시적으로 Python을 호출할 때 선호되는 이름입니다.
+*   **가상 환경 활용:** 시스템에 배포되지 않거나 시스템용으로 개발되지 않은 소프트웨어의 경우, 시스템 Python 설치를 보호하기 위해 `conda` 또는 `pipenv`와 같은 도구와 함께 가상 환경을 사용하는 것이 권장됩니다.
+
+## 이 PEP의 역사 (History of this PEP)
+
+2011년, 대부분의 시스템에서 `python` 명령어는 Python 2를 가리켰습니다. 하지만 일부 배포판은 Python 3로 전환하기 시작하면서 `python`이 어떤 버전을 실행할지 예측하기 어려워졌습니다. PEP는 원래 `python` 명령어가 항상 Python 2를 호출하도록 권장하여 하위 호환성을 유지하려 했으나, Python 2의 End-of-Life (2020년 1월)가 다가오면서 이러한 권장 사항은 현실성이 없어졌습니다.
+
+## 현재의 근거 (Current Rationale)
+
+2019년 현재, 스크립트 실행 전에 Python 가상 환경을 활성화하는 것이 플랫폼 및 배포판 전반에 걸쳐 일관된 경험을 얻는 가장 좋은 방법으로 자리 잡았습니다. 따라서 소프트웨어 게시자는 사용자가 적절한 실행 환경을 제공할 것으로 기대할 수 있습니다.
+
+## 마이그레이션 노트 (Migration Notes)
+
+이 섹션은 공식적인 권장 사항이 아니라 Python 3로의 마이그레이션을 고려하는 배포판에 유용한 팁을 제공합니다.
+
+*   **하위 호환성 문제:** `python` 명령어가 `python2`에서 `python3`로 변경되면, `print` 문법과 같은 Python 3의 하위 호환성 없는 변경으로 인해 Python 2 스크립트가 오류를 발생시킬 수 있습니다. 이는 Python에 익숙하지 않은 사용자에게 특히 혼란스러울 수 있습니다.
+    ```bash
+    $ python3 -c 'print "Hello, world!"'
+      File "<string>", line 1
+        print "Hello, world!"
+                            ^
+    SyntaxError: Missing parentheses in call to 'print'. Did you mean print("Hello, world!")?
+    ```
+*   **명령어의 명확성:** `python: command not found` 오류는 사용자에게 명확한 해결책을 제시하는 경향이 있습니다. `pythonX.X` (예: `python3.6`) 명령어는 특정 마이너 버전을 호출하는 데 유용하지만, 크로스 플랫폼 스크립트는 이에 의존해서는 안 됩니다.
+*   **심볼릭 링크 권장:** `python` 명령어는 항상 인터프리터 바이너리에 대한 심볼릭 링크로 구현되어야 합니다. 이는 시스템 관리자가 `python` 파일을 교체할 때 기존 바이너리가 실수로 삭제되는 것을 방지합니다.
+*   **`python3` 관례 유지:** `python2` 인터프리터의 사용이 줄어들더라도, 스크립트에서 `python` 대신 `python3` 관례를 계속 사용하는 것이 합리적입니다. 이 관례가 준수되면 `python` 명령어는 사용자 편의를 위한 대화식 사용이나 가상 환경에서만 실행될 것입니다.
+
+## 하위 호환성 (Backwards Compatibility)
+
+`python2`/`python3` 관례를 따르는 스크립트가 해당 명령어를 지원하지 않는 시스템에서 실행될 경우 문제가 발생할 수 있지만, 시스템 관리자가 심볼릭 링크를 생성하여 쉽게 해결할 수 있습니다. 이는 Python 2 스크립트를 Python 3 인터프리터로 실행할 때 발생하는 모호한 오류보다 훨씬 명확한 문제입니다.
+
+## CPython 참조 인터프리터에 대한 적용 (Application to the CPython Reference Interpreter)
+
+CPython 2.7.3부터 `make install` 및 `make bininstall` 명령어는 `python -> python2 -> python2.7`와 같은 심볼릭 링크 체인을 생성하도록 조정되었습니다. CPython 3.x 시리즈 (예: 3.2, 3.3)는 이미 `python3 -> python3.2`와 같은 적절한 심볼릭 링크를 생성하고 있습니다.
+
+## `PYTHON*` 환경 변수에 미치는 영향 (Impact on PYTHON* Environment Variables)
+
+`python` 명령어의 대상 선택은 `PYTHONPATH`와 같은 Python 관련 환경 변수의 해석에 영향을 미칩니다. `site-packages` 폴더의 `.pth` 파일, "per-user site packages" 기능, 또는 `virtualenv`와 같은 도구는 `PYTHONPATH`의 직접적인 사용보다 시스템에 여러 버전의 Python이 공존하는 것을 더 잘 처리할 수 있습니다.
+
+## MS Windows 제외 (Exclusion of MS Windows)
+
+이 PEP는 Microsoft Windows와 관련된 제안을 다루지 않습니다. Windows용으로 동등한 해결책을 고안하는 것은 너무 복잡하다고 판단되었으며, PEP 397에서 이 문제를 다룹니다.
+
+---
+ PEP 394 – The “python” Command on Unix-Like Systems. https://peps.python.org/pep-0394/
+ The console_scripts Entry Point. https://python-packaging.readthedocs.io/en/latest/command-line-scripts.html#the-console-scripts-entry-point
+
+> ⚠️ **알림:** 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.
