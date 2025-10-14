@@ -1,6 +1,4 @@
-'use client'
-
-import { useState } from 'react'
+import { getPostsByCategory } from '@/lib/posts'
 
 const categories = [
   {
@@ -57,7 +55,7 @@ export default function Sidebar() {
                     href={child.url}
                     className="text-sm text-gray-600 hover:text-primary-600 block py-1"
                   >
-                    {child.title}
+                    {child.title} ({getPostsByCategory(child.title).length})
                   </a>
                 </li>
               ))}
