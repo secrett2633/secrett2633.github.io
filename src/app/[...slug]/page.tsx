@@ -41,26 +41,37 @@ export async function generateStaticParams() {
       }
     })
 
-    // Also include category landing paths required for export mode
-    const categorySlugs = [
-      'backend/django',
-      'backend/logging',
-      'python/pep',
-      'ai-ml/llm',
-      'ai-ml/review',
-      'devops/nginx',
-      'devops/docker',
-      'devops/safeline',
-      'devops/jenkins',
-      'devops/github-actions',
-      'devops/aws',
-      'etc/me',
-      'etc/chrome-extension',
-    ]
+    // Also include category landing paths and paginated paths required for export mode
+    const categoryPathToName: Record<string, string> = {
+      'backend/django': 'Django',
+      'backend/logging': 'Logging',
+      'python/pep': 'PEP',
+      'ai-ml/llm': 'LLM',
+      'ai-ml/review': 'Review',
+      'devops/nginx': 'Nginx',
+      'devops/docker': 'Docker',
+      'devops/safeline': 'SafeLine',
+      'devops/jenkins': 'Jenkins',
+      'devops/github-actions': 'GitHub Actions',
+      'devops/aws': 'AWS',
+      'etc/me': 'Me',
+      'etc/chrome-extension': 'Chrome Extension',
+    }
 
-    const categoryParams = categorySlugs.map((pathStr) => ({ slug: pathStr.split('/') }))
+    const categoryLanding = Object.keys(categoryPathToName).map((pathStr) => ({ slug: pathStr.split('/') }))
 
-    return [...postParams, ...categoryParams]
+    // For each category, compute total pages and add /page/N
+    const paginated = Object.entries(categoryPathToName).flatMap(([pathStr, categoryName]) => {
+      const { totalPages } = getPaginatedPostsByCategory(categoryName, 1, 20)
+      const base = pathStr.split('/')
+      const items = [] as { slug: string[] }[]
+      for (let p = 2; p <= totalPages; p++) {
+        items.push({ slug: [...base, 'page', String(p)] })
+      }
+      return items
+    })
+
+    return [...postParams, ...categoryLanding, ...paginated]
   } catch (error) {
     console.error('Error in generateStaticParams:', error)
     // Return empty array as fallback
@@ -93,7 +104,9 @@ export default async function PostPage({ params }: PostPageProps) {
     'etc/chrome-extension': 'Chrome Extension'
   }
   
-  // 카테고리 경로인지 확인
+  // 카테고리 경로 또는 카테고리 페이지 경로인지 확인
+  // 지원 형태: /category-path, /category-path/page/N
+  // 우선 정확 일치 확인
   if (categoryMapping[slug]) {
     const categoryName = categoryMapping[slug]
     const { posts, currentPage: validPage, totalPages } = getPaginatedPostsByCategory(categoryName, 1, 20)
@@ -151,6 +164,71 @@ export default async function PostPage({ params }: PostPageProps) {
         </div>
       </>
     )
+  }
+
+  // /{category-path}/page/{N} 패턴 처리
+  for (const [pathKey, categoryName] of Object.entries(categoryMapping)) {
+    if (slug.startsWith(pathKey + '/page/')) {
+      const parts = slug.split('/')
+      const pageStr = parts[parts.length - 1]
+      const pageNum = Number(pageStr)
+      const page = Number.isFinite(pageNum) && pageNum > 0 ? pageNum : 1
+      const { posts, currentPage: validPage, totalPages } = getPaginatedPostsByCategory(categoryName, page, 20)
+
+      return (
+        <>
+          <div className="space-y-6">
+            <div className="flex flex-col lg:flex-row gap-8">
+              <aside className="lg:w-64 xl:w-72 order-1 lg:order-none">
+                <Sidebar />
+              </aside>
+              <main className="flex-1">
+                <h1 className="page__title mb-6">{categoryName}</h1>
+
+                {posts.length === 0 ? (
+                  <div className="py-12">
+                    <p className="text-gray-500">이 카테고리에 아직 포스트가 없습니다.</p>
+                  </div>
+                ) : (
+                  <>
+                    <div className="entries-list">
+                      {posts.map((post) => (
+                        <article key={post.id} className="archive__item">
+                          <h2 className="archive__item-title">
+                            <Link href={post.permalink || `/${post.id}/`}>
+                              {post.title}
+                            </Link>
+                          </h2>
+
+                          {post.excerpt && (
+                            <div className="archive__item-excerpt">
+                              {post.excerpt}
+                            </div>
+                          )}
+
+                          <div className="archive__item-meta">
+                            <time dateTime={post.date}>
+                              {format(new Date(post.date), 'yyyy년 M월 d일', { locale: ko })}
+                            </time>
+                          </div>
+                        </article>
+                      ))}
+                    </div>
+
+                    {/* 페이지네이션 */}
+                    <Pagination 
+                      currentPage={validPage}
+                      totalPages={totalPages}
+                      basePath={`/${pathKey}`}
+                    />
+                  </>
+                )}
+              </main>
+            </div>
+          </div>
+        </>
+      )
+    }
   }
   
   // Find the post by matching permalink

@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
 
 interface PaginationProps {
   currentPage: number
@@ -10,19 +9,13 @@ interface PaginationProps {
 }
 
 export default function Pagination({ currentPage, totalPages, basePath = '' }: PaginationProps) {
-  const searchParams = useSearchParams()
-  
-  // URL 파라미터를 유지하면서 페이지 링크 생성
+  // 경로 기반 페이지네이션 링크 생성 (/page/N). 1 페이지는 기본 경로 사용
   const createPageUrl = (page: number) => {
-    const params = new URLSearchParams(searchParams.toString())
+    const normalizedBase = basePath.endsWith('/') ? basePath.slice(0, -1) : basePath
     if (page === 1) {
-      params.delete('page')
-    } else {
-      params.set('page', page.toString())
+      return `${normalizedBase || ''}/`
     }
-    
-    const queryString = params.toString()
-    return `${basePath}${queryString ? `?${queryString}` : ''}`
+    return `${normalizedBase || ''}/page/${page}/`
   }
 
   // 페이지 번호 배열 생성 (현재 페이지 주변의 페이지들)
