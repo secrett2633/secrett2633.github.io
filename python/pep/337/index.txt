@@ -1,0 +1,90 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[4281,["231","static/chunks/231-c4b666723e6aae68.js","185","static/chunks/app/layout-8808afda01b7a1b7.js"],"default"]
+7:I[231,["231","static/chunks/231-c4b666723e6aae68.js","877","static/chunks/app/%5B...slug%5D/page-01b66e77b48ed573.js"],""]
+4:["slug","python/pep/337","c"]
+0:["iV6XySbMHIJ3imQdvgy3I",[[["",{"children":[["slug","python/pep/337","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"337\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/337","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","link",null,{"rel":"icon","type":"image/png","sizes":"32x32","href":"/favicon-32x32.png"}],["$","link",null,{"rel":"icon","type":"image/png","sizes":"16x16","href":"/favicon-16x16.png"}],["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_9012cf layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/secrett2633.github.io/_next/static/css/b9d6ec750ad82add.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+9:T1d03,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0337/">PEP 337 - Logging Usage in the Standard Library</a></p>
+<p><strong>상태:</strong> Deferred | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 02-Oct-2004</p>
+</blockquote>
+<p>PEP 337 – 표준 라이브러리에서의 로깅 사용법</p>
+<p>이 문서는 Python 표준 라이브러리 내에서 로깅 시스템 (PEP 282)을 사용하는 표준을 정의합니다.</p>
+<hr>
+<h2>초록 (Abstract)</h2>
+<p>이 PEP는 표준 라이브러리에서 로깅 시스템 (PEP 282) 사용에 대한 표준을 정의합니다. 이 PEP를 구현하면 데몬(daemon) 애플리케이션 개발이 단순해집니다. 단점으로는 이 PEP가 수많은 표준 모듈에 약간의 수정 (하지만 이전 버전과 호환되는 방식으로)을 요구한다는 점입니다.</p>
+<p>이 PEP가 구현되면 다음과 같은 필터링 방식을 사용할 수 있습니다.</p>
+<pre><code class="language-python">logging.getLogger('py.BaseHTTPServer').setLevel(logging.FATAL)
+</code></pre>
+<h2>PEP 연기 (PEP Deferral)</h2>
+<p>이 PEP에서 다루는 개념들에 대한 추가적인 탐색은 현재 이 PEP의 목표를 홍보하고 피드백을 수집 및 통합하며 이를 효과적으로 수행할 충분한 시간을 가진 '챔피언(champion)'이 부족하여 연기되었습니다.</p>
+<h2>배경 (Rationale)</h2>
+<p><code>stdout</code> 또는 <code>stderr</code>로 출력을 하는 것이 비실용적인 몇 가지 상황이 있습니다.</p>
+<ul>
+<li>프레임워크가 표준 출력을 특정 파일로 리디렉션하는 것을 허용하지 않고, 다른 형태의 로깅 사용을 가정하는 데몬 애플리케이션. 예를 들어, *nix 시스템의 <code>syslog</code>나 WinNT+ 시스템의 <code>EventLog</code>가 있습니다.</li>
+<li>모든 새로운 로그 항목을 별도의 팝업 창(예: 사라지는 OSD)에 출력하기를 원하는 GUI 애플리케이션.</li>
+</ul>
+<p>또한, 때때로 애플리케이션은 소스나 심각도에 따라 출력 항목을 필터링하기를 원합니다. 이러한 요구사항은 간단한 리디렉션으로는 구현할 수 없습니다.</p>
+<p>마지막으로, 때때로 출력에 이벤트 타임스탬프를 표시해야 하는데, 이는 로깅 시스템을 사용하여 쉽게 달성할 수 있습니다.</p>
+<h2>제안 (Proposal)</h2>
+<p>데몬 및 GUI 애플리케이션에 사용될 수 있는 모든 모듈은 <code>print</code> 또는 <code>sys.stdout.write</code> 대신 로깅 시스템을 사용하도록 재작성되어야 합니다.</p>
+<p>수정된 모든 모듈의 시작 부분에는 다음과 같은 코드가 포함되어야 합니다.</p>
+<pre><code class="language-python">import logging
+_log = logging.getLogger('py.&#x3C;module-name>')
+</code></pre>
+<p>Python과 함께 배포되는 표준 라이브러리에 포함된 모든 모듈은 <code>py.</code> 접두사를 사용해야 하며, 오직 그러한 모듈만 이 접두사를 사용해야 합니다 (검증 불가능). <code>_log</code>의 사용은 의도적인데, 이는 자동으로 내보내지 않기 위함입니다. 로깅을 하나의 클래스 내에서만 사용하는 모듈의 경우, 클래스 정의 내에서 로거를 다음과 같이 생성할 수 있습니다.</p>
+<pre><code class="language-python">class XXX:
+    __log = logging.getLogger('py.&#x3C;module-name>')
+</code></pre>
+<p>그러면 이 클래스는 이 private 로거에 로그를 남기기 위한 접근 메서드를 생성할 수 있습니다.</p>
+<p>따라서 <code>print</code> 및 <code>sys.std{out|err}.write</code> 문은 <code>_log.{debug|info}</code>로 대체되어야 하며, <code>traceback.print_exception</code>은 <code>_log.exception</code> 또는 때때로 <code>_log.debug('...', exc_info=1)</code>로 대체되어야 합니다.</p>
+<h2>모듈 목록 (Module List)</h2>
+<p>재작업될 모듈의 (아마도 불완전한) 목록은 다음과 같습니다.</p>
+<ul>
+<li><code>asyncore</code> (<code>dispatcher.log</code>, <code>dispatcher.log_info</code>)</li>
+<li><code>BaseHTTPServer</code> (<code>BaseHTTPRequestHandler.log_request</code>, <code>BaseHTTPRequestHandler.log_error</code>, <code>BaseHTTPRequestHandler.log_message</code>)</li>
+<li><code>cgi</code> (아마도 - <code>cgi.log</code>가 누군가에게 사용되는지?)</li>
+<li><code>ftplib</code> (<code>if FTP.debugging</code>)</li>
+<li><code>gopherlib</code> (<code>get_directory</code>)</li>
+<li><code>httplib</code> (<code>HTTPResponse</code>, <code>HTTPConnection</code>)</li>
+<li><code>ihooks</code> (<code>_Verbose</code>)</li>
+<li><code>imaplib</code> (<code>IMAP4._mesg</code>)</li>
+<li><code>mhlib</code> (<code>MH.error</code>)</li>
+<li><code>nntplib</code> (<code>NNTP</code>)</li>
+<li><code>pipes</code> (<code>Template.makepipeline</code>)</li>
+<li><code>pkgutil</code> (<code>extend_path</code>)</li>
+<li><code>platform</code> (<code>_syscmd_ver</code>)</li>
+<li><code>poplib</code> (<code>if POP3._debugging</code>)</li>
+<li><code>profile</code> (<code>if Profile.verbose</code>)</li>
+<li><code>robotparser</code> (<code>_debug</code>)</li>
+<li><code>smtplib</code> (<code>if SGMLParser.verbose</code>)</li>
+<li><code>shlex</code> (<code>if shlex.debug</code>)</li>
+<li><code>smtpd</code> (<code>SMTPChannel</code>/<code>PureProxy</code> <code>where print >> DEBUGSTREAM</code>)</li>
+<li><code>smtplib</code> (<code>if SMTP.debuglevel</code>)</li>
+<li><code>SocketServer</code> (<code>BaseServer.handle_error</code>)</li>
+<li><code>telnetlib</code> (<code>if Telnet.debuglevel</code>)</li>
+<li><code>threading</code>? (<code>_Verbose._note</code>, <code>Thread.__bootstrap</code>)</li>
+<li><code>timeit</code> (<code>Timer.print_exc</code>)</li>
+<li><code>trace</code></li>
+<li><code>uu</code> (<code>decode</code>)</li>
+</ul>
+<p>또한, 주석 처리된 디버그 출력이 있는 모듈이나 디버그 출력이 추가되어야 하는 몇몇 모듈이 있습니다. 예를 들면 다음과 같습니다.</p>
+<ul>
+<li><code>urllib</code></li>
+</ul>
+<p>마지막으로, 일부 모듈은 더 많은 디버그 정보를 제공하도록 확장되어야 할 수도 있습니다.</p>
+<h2>의심스러운 모듈 (Doubtful Modules)</h2>
+<p>여기에 나열된 모듈들은 커뮤니티에서 모듈 목록에 추가하거나 제거해야 한다고 제안할 모듈들입니다.</p>
+<ul>
+<li><code>tabnanny</code> (<code>check</code>)</li>
+</ul>
+<h2>로깅 사용 지침 (Guidelines for Logging Usage)</h2>
+<p>또한, 라이브러리 모듈 작성자들에게 로거 이름을 지정하는 동일한 형식을 따르도록 몇 가지 권장 사항을 제공할 수 있습니다. 저는 비표준 라이브러리 모듈들이 전체 이름을 기반으로 로거 이름을 사용해야 한다고 제안합니다. 따라서 패키지 "dummy"의 서브패키지 "junk"에 있는 모듈 "spam"은 "dummy.junk.spam"으로 명명될 것이며, 물론 동일한 서브패키지의 <code>__init__</code> 모듈은 "dummy.junk"라는 로거 이름을 가질 것입니다.</p>
+<h2>저작권 (Copyright)</h2>
+<p>이 문서는 퍼블릭 도메인에 있습니다.</p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Deferred] PEP 337 - Logging Usage in the Standard Library"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-26 18:45:28+0900","children":"2025년 9월 26일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 26일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":[["$","div",null,{"className":"page__taxonomy mb-4","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"카테고리"}],[["$","span","Python",{"className":"page__taxonomy-item","children":"Python"}],["$","span","PEP",{"className":"page__taxonomy-item","children":"PEP"}]]]}],["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]]}]]}]}]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"secrett2633's blog"}],["$","meta","3",{"name":"description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://secrett2633.github.io/"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"secrett2633's blog"}],["$","meta","13",{"property":"og:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","14",{"property":"og:url","content":"https://secrett2633.github.io/"}],["$","meta","15",{"property":"og:site_name","content":"secrett2633's blog"}],["$","meta","16",{"property":"og:locale","content":"ko_KR"}],["$","meta","17",{"property":"og:type","content":"website"}],["$","meta","18",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","19",{"name":"twitter:title","content":"secrett2633's blog"}],["$","meta","20",{"name":"twitter:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","21",{"name":"next-size-adjust"}]]
+1:null

@@ -1,0 +1,348 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[4281,["231","static/chunks/231-c4b666723e6aae68.js","185","static/chunks/app/layout-8808afda01b7a1b7.js"],"default"]
+7:I[231,["231","static/chunks/231-c4b666723e6aae68.js","877","static/chunks/app/%5B...slug%5D/page-01b66e77b48ed573.js"],""]
+4:["slug","python/pep/525","c"]
+0:["iV6XySbMHIJ3imQdvgy3I",[[["",{"children":[["slug","python/pep/525","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"525\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/525","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","link",null,{"rel":"icon","type":"image/png","sizes":"32x32","href":"/favicon-32x32.png"}],["$","link",null,{"rel":"icon","type":"image/png","sizes":"16x16","href":"/favicon-16x16.png"}],["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_9012cf layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/secrett2633.github.io/_next/static/css/b9d6ec750ad82add.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+9:T631f,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0525/">PEP 525 - Asynchronous Generators</a></p>
+<p><strong>상태:</strong> Final | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 28-Jul-2016</p>
+</blockquote>
+<h2>PEP 525 – 비동기 제너레이터 (Asynchronous Generators)</h2>
+<h3>개요 (Abstract)</h3>
+<p>PEP 492는 Python 3.5에 네이티브 코루틴(native coroutines)과 <code>async</code>/<code>await</code> 문법에 대한 지원을 도입했습니다. 이 PEP 525는 비동기 제너레이터(asynchronous generators) 지원을 추가하여 Python의 비동기 기능을 확장할 것을 제안합니다.</p>
+<h3>배경 및 목표 (Rationale and Goals)</h3>
+<p>PEP 255에서 도입된 일반 제너레이터(regular generators)는 복잡한 데이터 생산자를 우아하게 작성하고 이를 이터레이터(iterator)처럼 동작하게 하는 방법을 제공했습니다.</p>
+<p>하지만 현재 비동기 이터레이션 프로토콜(<code>async for</code>)에는 이와 동등한 개념이 없습니다. 이로 인해 비동기 데이터 생산자를 작성하는 것이 불필요하게 복잡해지는데, <code>async for</code> 문에서 사용하려면 <code>__aiter__</code>와 <code>__anext__</code>를 구현하는 클래스를 정의해야 하기 때문입니다.</p>
+<p>본 제안에 PEP 255의 목표와 배경을 비동기 실행 사례에 적용하면 그대로 유효합니다.</p>
+<p>성능은 이 제안의 추가적인 강점입니다. 참조 구현(reference implementation) 테스트 결과, 비동기 제너레이터는 비동기 이터레이터(asynchronous iterator)로 구현된 동일한 기능보다 2배 더 빠릅니다.</p>
+<p>코드 품질 개선의 예시로, 다음은 주어진 딜레이(delay)로 숫자를 출력하는 클래스입니다.</p>
+<pre><code class="language-python">class Ticker:
+    """Yield numbers from 0 to `to` every `delay` seconds."""
+    def __init__(self, delay, to):
+        self.delay = delay
+        self.i = 0
+        self.to = to
+
+    def __aiter__(self):
+        return self
+
+    async def __anext__(self):
+        i = self.i
+        if i >= self.to:
+            raise StopAsyncIteration
+        self.i += 1
+        if i:
+            await asyncio.sleep(self.delay)
+        return i
+</code></pre>
+<p>동일한 기능을 훨씬 간단한 비동기 제너레이터로 구현할 수 있습니다.</p>
+<pre><code class="language-python">async def ticker(delay, to):
+    """Yield numbers from 0 to `to` every `delay` seconds."""
+    for i in range(to):
+        yield i
+        await asyncio.sleep(delay)
+</code></pre>
+<h3>사양 (Specification)</h3>
+<p>이 제안은 Python에 비동기 제너레이터 개념을 도입합니다.
+이 사양은 Python의 제너레이터와 코루틴(PEP 342, PEP 380, PEP 492) 구현에 대한 지식을 전제로 합니다.</p>
+<h4>비동기 제너레이터 (Asynchronous Generators)</h4>
+<p>Python 제너레이터는 하나 이상의 <code>yield</code> 표현식을 포함하는 모든 함수입니다.</p>
+<pre><code class="language-python">def func(): # 일반 함수
+    return
+
+def genfunc(): # 제너레이터 함수
+    yield
+</code></pre>
+<p>비동기 제너레이터를 정의하기 위해 동일한 접근 방식을 사용할 것을 제안합니다.</p>
+<pre><code class="language-python">async def coro(): # 코루틴 함수
+    await smth()
+
+async def asyncgen(): # 비동기 제너레이터 함수
+    await smth()
+    yield 42
+</code></pre>
+<p>비동기 제너레이터 함수를 호출한 결과는 PEP 492에 정의된 비동기 이터레이션 프로토콜(asynchronous iteration protocol)을 구현하는 비동기 제너레이터 객체입니다.</p>
+<p>비동기 제너레이터에 비어있지 않은 <code>return</code> 문이 있는 경우 <code>SyntaxError</code>가 발생합니다.</p>
+<h4>비동기 이터레이션 프로토콜 지원 (Support for Asynchronous Iteration Protocol)</h4>
+<p>이 프로토콜은 두 가지 특별한 메서드를 구현해야 합니다.</p>
+<ul>
+<li>비동기 이터레이터(asynchronous iterator)를 반환하는 <code>__aiter__</code> 메서드.</li>
+<li>값을 "yield"하기 위해 <code>StopIteration</code> 예외를 사용하고, 이터레이션의 끝을 알리기 위해 <code>StopAsyncIteration</code> 예외를 사용하는 <code>awaitable</code> 객체를 반환하는 <code>__anext__</code> 메서드.</li>
+</ul>
+<p>비동기 제너레이터는 이 두 메서드를 모두 정의합니다. 간단한 비동기 제너레이터를 수동으로 이터레이션해봅시다.</p>
+<pre><code class="language-python">async def genfunc():
+    yield 1
+    yield 2
+
+gen = genfunc()
+assert gen.__aiter__() is gen
+assert await gen.__anext__() == 1
+assert await gen.__anext__() == 2
+await gen.__anext__() # 이 줄은 StopAsyncIteration을 발생시킵니다.
+</code></pre>
+<h4>종료 (Finalization)</h4>
+<p>PEP 492는 코루틴을 실행하기 위해 이벤트 루프(event loop) 또는 스케줄러(scheduler)를 필요로 합니다. 비동기 제너레이터는 코루틴에서 사용하도록 설계되었으므로, 실행 및 종료(finalize)하기 위해서도 이벤트 루프가 필요합니다.</p>
+<p>비동기 제너레이터는 <code>try..finally</code> 블록과 <code>async with</code>를 가질 수 있습니다. 부분적으로만 이터레이션되고 가비지 컬렉션(garbage collected) 되더라도 제너레이터가 안전하게 종료될 수 있도록 보장하는 것이 중요합니다. 예를 들어:</p>
+<pre><code class="language-python">async def square_series(con, to):
+    async with con.transaction():
+        cursor = con.cursor(
+            'SELECT generate_series(0, $1) AS i', to)
+        async for row in cursor:
+            yield row['i'] ** 2
+
+async for i in square_series(con, 1000):
+    if i == 100:
+        break
+</code></pre>
+<p>위 코드는 <code>async with</code>를 사용하여 트랜잭션(transaction) 내에서 데이터베이스 커서(cursor)를 이터레이션하는 비동기 제너레이터를 정의합니다. 이 제너레이터는 <code>async for</code>를 통해 이터레이션되며, 특정 시점에서 이터레이션이 중단됩니다.</p>
+<p><code>square_series()</code> 제너레이터는 가비지 컬렉션될 것이며, 제너레이터를 비동기적으로 닫는 메커니즘이 없으면 Python 인터프리터는 아무것도 할 수 없습니다.</p>
+<p>이 문제를 해결하기 위해 다음을 제안합니다.</p>
+<ul>
+<li>
+<p>비동기 제너레이터에 특별한 <code>awaitable</code>을 반환하는 <code>aclose</code> 메서드를 구현합니다. 이 메서드를 <code>await</code>하면 정지된 제너레이터에 <code>GeneratorExit</code> 예외를 발생시키고, <code>GeneratorExit</code> 또는 <code>StopAsyncIteration</code>이 발생할 때까지 이터레이션합니다.
+이는 일반 Python 제너레이터에 <code>close()</code> 메서드가 하는 일과 매우 유사하지만, <code>aclose()</code>를 실행하려면 이벤트 루프가 필요하다는 점이 다릅니다.</p>
+</li>
+<li>
+<p>비동기 제너레이터가 <code>finally</code> 블록에서 <code>yield</code> 표현식을 실행할 때 <code>RuntimeError</code>를 발생시킵니다 (그러나 <code>await</code>를 사용하는 것은 괜찮습니다).</p>
+<pre><code class="language-python">async def gen():
+    try:
+        yield
+    finally:
+        await asyncio.sleep(1) # 'await' 사용 가능.
+        yield # 'yield' 사용 불가,
+              # 이 줄은 RuntimeError를 발생시킵니다.
+</code></pre>
+</li>
+<li>
+<p><code>sys</code> 모듈에 <code>set_asyncgen_hooks()</code> 및 <code>get_asyncgen_hooks()</code> 두 가지 새로운 메서드를 추가합니다.</p>
+<p><code>sys.set_asyncgen_hooks()</code>의 아이디어는 이벤트 루프가 비동기 제너레이터의 이터레이션 및 종료를 가로챌 수 있도록 하여, 최종 사용자가 종료 문제에 신경 쓸 필요 없이 모든 것이 작동하도록 하는 것입니다.</p>
+<p><code>sys.set_asyncgen_hooks()</code>는 두 가지 인수를 허용합니다.</p>
+<ul>
+<li><code>firstiter</code>: 비동기 제너레이터가 처음 이터레이션될 때 호출될 호출 가능 객체(callable).</li>
+<li><code>finalizer</code>: 비동기 제너레이터가 가비지 컬렉션되기 직전에 호출될 호출 가능 객체.</li>
+</ul>
+<p>비동기 제너레이터가 처음 이터레이션될 때, 현재 <code>finalizer</code>에 대한 참조를 저장합니다.
+비동기 제너레이터가 가비지 컬렉션되기 직전에 캐시된 <code>finalizer</code>를 호출합니다. <code>finalizer</code>는 이터레이션이 시작될 때 활성화된 루프와 함께 <code>aclose()</code> 호출을 스케줄링할 것이라고 가정합니다.</p>
+<p>예를 들어, <code>asyncio</code>가 비동기 제너레이터의 안전한 종료를 허용하도록 수정되는 방법은 다음과 같습니다.</p>
+<pre><code class="language-python"># asyncio/base_events.py
+class BaseEventLoop:
+    def run_forever(self):
+        ...
+        old_hooks = sys.get_asyncgen_hooks()
+        sys.set_asyncgen_hooks(finalizer=self._finalize_asyncgen)
+        try:
+            ...
+        finally:
+            sys.set_asyncgen_hooks(*old_hooks)
+        ...
+
+    def _finalize_asyncgen(self, gen):
+        self.create_task(gen.aclose())
+</code></pre>
+<p>두 번째 인수 <code>firstiter</code>는 이벤트 루프가 자체 제어하에 인스턴스화된 비동기 제너레이터의 약한 집합(weak set)을 유지 관리할 수 있도록 합니다. 이를 통해 모든 열려있는 제너레이터를 안전하게 종료하고 이벤트 루프를 닫는 "종료(shutdown)" 메커니즘을 구현할 수 있습니다.</p>
+<p><code>sys.set_asyncgen_hooks()</code>는 스레드별(thread-specific)이므로, 여러 이벤트 루프가 병렬 스레드에서 안전하게 사용할 수 있습니다.</p>
+<p><code>sys.get_asyncgen_hooks()</code>는 <code>firstiter</code> 및 <code>finalizer</code> 필드를 가진 namedtuple과 유사한 구조를 반환합니다.</p>
+</li>
+</ul>
+<h4><code>asyncio</code></h4>
+<p><code>asyncio</code> 이벤트 루프는 <code>sys.set_asyncgen_hooks()</code> API를 사용하여 스케줄링된 모든 비동기 제너레이터의 약한 집합을 유지하고, 제너레이터가 가비지 컬렉션될 시점에 <code>aclose()</code> 코루틴 메서드를 스케줄링합니다.</p>
+<p><code>asyncio</code> 프로그램이 스케줄링된 모든 비동기 제너레이터를 안정적으로 종료할 수 있도록 하기 위해, 새로운 이벤트 루프 코루틴 메서드 <code>loop.shutdown_asyncgens()</code>를 추가할 것을 제안합니다. 이 메서드는 현재 열려있는 모든 비동기 제너레이터를 <code>aclose()</code> 호출로 닫도록 스케줄링합니다.</p>
+<p><code>loop.shutdown_asyncgens()</code> 메서드를 호출한 후, 이벤트 루프는 새로운 비동기 제너레이터가 처음 이터레이션될 때마다 경고를 발생시킬 것입니다. 이는 모든 비동기 제너레이터를 종료하도록 요청한 후에는 프로그램이 새로운 비동기 제너레이터를 이터레이션하는 코드를 실행해서는 안 된다는 아이디어입니다.</p>
+<p><code>shutdown_asyncgens</code> 코루틴을 사용하는 예시입니다.</p>
+<pre><code class="language-python">try:
+    loop.run_forever()
+finally:
+    loop.run_until_complete(loop.shutdown_asyncgens())
+    loop.close()
+</code></pre>
+<h4>비동기 제너레이터 객체 (Asynchronous Generator Object)</h4>
+<p>이 객체는 표준 Python 제너레이터 객체를 모델로 합니다. 본질적으로 비동기 제너레이터의 동작은 동기 제너레이터의 동작을 복제하도록 설계되었으며, 유일한 차이점은 API가 비동기라는 점입니다.</p>
+<p>다음 메서드와 속성이 정의됩니다.</p>
+<ul>
+<li>
+<p><code>agen.__aiter__()</code>: <code>agen</code>을 반환합니다.</p>
+</li>
+<li>
+<p><code>agen.__anext__()</code>: <code>await</code>될 때 하나의 비동기 제너레이터 이터레이션을 수행하는 <code>awaitable</code>을 반환합니다.</p>
+</li>
+<li>
+<p><code>agen.asend(val)</code>: <code>val</code> 객체를 <code>agen</code> 제너레이터로 푸시하는 <code>awaitable</code>을 반환합니다. <code>agen</code>이 아직 이터레이션되지 않은 경우, <code>val</code>은 <code>None</code>이어야 합니다.</p>
+<p>예시:</p>
+<pre><code class="language-python">async def gen():
+    await asyncio.sleep(0.1)
+    v = yield 42
+    print(v)
+    await asyncio.sleep(0.2)
+
+g = gen()
+await g.asend(None) # 0.1초 동안 sleep 후 42를 반환합니다.
+await g.asend('hello') # 'hello'를 출력하고
+                       # StopAsyncIteration을 발생시킵니다.
+                       # (0.2초 동안 sleep 후)
+</code></pre>
+</li>
+<li>
+<p><code>agen.athrow(typ, [val, [tb]])</code>: 예외를 <code>agen</code> 제너레이터로 던지는 <code>awaitable</code>을 반환합니다.</p>
+<p>예시:</p>
+<pre><code class="language-python">async def gen():
+    try:
+        await asyncio.sleep(0.1)
+        yield 'hello'
+    except ZeroDivisionError:
+        await asyncio.sleep(0.2)
+        yield 'world'
+
+g = gen()
+v = await g.asend(None)
+print(v) # 0.1초 동안 sleep 후 'hello'를 출력합니다.
+v = await g.athrow(ZeroDivisionError)
+print(v) # 0.2초 동안 sleep 후 'world'를 출력합니다.
+</code></pre>
+</li>
+<li>
+<p><code>agen.aclose()</code>: <code>GeneratorExit</code> 예외를 제너레이터로 던지는 <code>awaitable</code>을 반환합니다. <code>awaitable</code>은 <code>agen</code>이 예외를 처리했다면 <code>yield</code>된 값을 반환할 수 있고, 그렇지 않으면 <code>agen</code>이 닫히고 예외는 호출자(caller)에게 다시 전파됩니다.</p>
+</li>
+<li>
+<p><code>agen.__name__</code> 및 <code>agen.__qualname__</code>: 읽고 쓸 수 있는 이름 및 정규화된 이름(qualified name) 속성입니다.</p>
+</li>
+<li>
+<p><code>agen.ag_await</code>: <code>agen</code>이 현재 <code>await</code>하고 있는 객체 또는 <code>None</code>입니다. 이는 제너레이터의 <code>gi_yieldfrom</code> 및 코루틴의 <code>cr_await</code>와 유사합니다.</p>
+</li>
+<li>
+<p><code>agen.ag_frame</code>, <code>agen.ag_running</code>, <code>agen.ag_code</code>: 표준 제너레이터의 유사한 속성과 동일한 방식으로 정의됩니다.</p>
+</li>
+</ul>
+<p><code>StopIteration</code>과 <code>StopAsyncIteration</code>은 비동기 제너레이터 밖으로 전파되지 않으며, <code>RuntimeError</code>로 대체됩니다.</p>
+<h4>구현 세부 정보 (Implementation Details)</h4>
+<p>비동기 제너레이터 객체(<code>PyAsyncGenObject</code>)는 <code>PyGenObject</code>와 구조 레이아웃을 공유합니다. 또한, 참조 구현은 세 가지 새로운 객체를 도입합니다.</p>
+<ul>
+<li><code>PyAsyncGenASend</code>: <code>__anext__</code> 및 <code>asend()</code> 메서드를 구현하는 <code>awaitable</code> 객체입니다.</li>
+<li><code>PyAsyncGenAThrow</code>: <code>athrow()</code> 및 <code>aclose()</code> 메서드를 구현하는 <code>awaitable</code> 객체입니다.</li>
+<li><code>_PyAsyncGenWrappedValue</code>: 비동기 제너레이터에서 직접 <code>yield</code>된 모든 객체는 암시적으로 이 구조로 묶입니다. 이를 통해 제너레이터 구현은 일반 이터레이션 프로토콜을 사용하여 <code>yield</code>된 객체와 비동기 이터레이션 프로토콜을 사용하여 <code>yield</code>된 객체를 분리할 수 있습니다.</li>
+</ul>
+<p><code>PyAsyncGenASend</code>와 <code>PyAsyncGenAThrow</code>는 <code>awaitable</code> 객체이며(<code>__await__</code> 메서드가 <code>self</code>를 반환함), 코루틴과 유사한 객체입니다(<code>__iter__</code>, <code>__next__</code>, <code>send()</code>, <code>throw()</code> 메서드를 구현함). 본질적으로 이들은 비동기 제너레이터가 어떻게 이터레이션되는지를 제어합니다.</p>
+<h5><code>PyAsyncGenASend</code> 및 <code>PyAsyncGenAThrow</code></h5>
+<p><code>PyAsyncGenASend</code>는 <code>__anext__</code> 및 <code>asend()</code> 메서드를 구동하고 비동기 이터레이션 프로토콜을 구현하는 코루틴과 유사한 객체입니다.
+<code>agen.asend(val)</code> 및 <code>agen.__anext__()</code>는 <code>PyAsyncGenASend</code> 인스턴스(부모 <code>agen</code> 객체에 대한 참조를 유지)를 반환합니다.</p>
+<p>데이터 흐름은 다음과 같이 정의됩니다.</p>
+<ul>
+<li><code>PyAsyncGenASend.send(val)</code>이 처음 호출되면, <code>val</code>은 부모 <code>agen</code> 객체로 푸시됩니다(<code>PyGenObject</code>의 기존 기능을 사용).</li>
+<li><code>PyAsyncGenASend</code> 객체에 대한 후속 이터레이션은 <code>None</code>을 <code>agen</code>으로 푸시합니다.</li>
+<li><code>_PyAsyncGenWrappedValue</code> 객체가 <code>yield</code>되면, 언박싱(unboxed)되고, 래핑되지 않은(unwrapped) 값을 인수로 하는 <code>StopIteration</code> 예외가 발생합니다.</li>
+<li><code>PyAsyncGenASend.throw(*exc)</code>가 처음 호출되면, <code>*exc</code>가 부모 <code>agen</code> 객체로 던져집니다.</li>
+<li><code>PyAsyncGenASend</code> 객체에 대한 후속 이터레이션은 <code>None</code>을 <code>agen</code>으로 푸시합니다.</li>
+<li><code>_PyAsyncGenWrappedValue</code> 객체가 <code>yield</code>되면, 언박싱되고, 래핑되지 않은 값을 인수로 하는 <code>StopIteration</code> 예외가 발생합니다.</li>
+<li>비동기 제너레이터의 <code>return</code> 문은 <code>StopAsyncIteration</code> 예외를 발생시키며, 이는 <code>PyAsyncGenASend.send()</code> 및 <code>PyAsyncGenASend.throw()</code> 메서드를 통해 전파됩니다.</li>
+</ul>
+<p><code>PyAsyncGenAThrow</code>는 <code>PyAsyncGenASend</code>와 매우 유사합니다. 유일한 차이점은 <code>PyAsyncGenAThrow.send()</code>가 처음 호출될 때 부모 <code>agen</code> 객체에 예외를 던진다는 것입니다(값을 푸시하는 대신).</p>
+<h4>새로운 표준 라이브러리 함수 및 타입 (New Standard Library Functions and Types)</h4>
+<ul>
+<li><code>types.AsyncGeneratorType</code> – 비동기 제너레이터 객체의 타입입니다.</li>
+<li><code>sys.set_asyncgen_hooks()</code> 및 <code>sys.get_asyncgen_hooks()</code> 메서드는 이벤트 루프에서 비동기 제너레이터의 종료자(finalizers) 및 이터레이션 가로채기(interceptors)를 설정하는 데 사용됩니다.</li>
+<li><code>inspect.isasyncgen()</code> 및 <code>inspect.isasyncgenfunction()</code> 인트로스펙션(introspection) 함수.</li>
+<li><code>asyncio</code> 이벤트 루프의 새로운 메서드: <code>loop.shutdown_asyncgens()</code>.</li>
+<li>새로운 <code>collections.abc.AsyncGenerator</code> 추상 기본 클래스(abstract base class).</li>
+</ul>
+<h4>하위 호환성 (Backwards Compatibility)</h4>
+<p>이 제안은 완벽하게 하위 호환됩니다.
+Python 3.5에서는 <code>yield</code> 표현식이 포함된 <code>async def</code> 함수를 정의하는 것이 <code>SyntaxError</code>이므로, 3.6에서 비동기 제너레이터를 도입하는 것은 안전합니다.</p>
+<h4>성능 (Performance)</h4>
+<h5>일반 제너레이터 (Regular Generators)</h5>
+<p>일반 제너레이터에는 성능 저하가 없습니다. 다음 마이크로 벤치마크는 CPython에서 비동기 제너레이터 유무에 관계없이 동일한 속도로 실행됩니다.</p>
+<pre><code class="language-python">def gen():
+    i = 0
+    while i &#x3C; 100000000:
+        yield i
+        i += 1
+list(gen())
+</code></pre>
+<h5>비동기 이터레이터 대비 개선점 (Improvements over asynchronous iterators)</h5>
+<p>다음 마이크로 벤치마크는 비동기 제너레이터가 순수 Python으로 구현된 비동기 이터레이터보다 약 2.3배 빠름을 보여줍니다.</p>
+<pre><code class="language-python">N = 10 ** 7
+
+async def agen():
+    for i in range(N):
+        yield i
+
+class AIter:
+    def __init__(self):
+        self.i = 0
+    def __aiter__(self):
+        return self
+    async def __anext__(self):
+        i = self.i
+        if i >= N:
+            raise StopAsyncIteration
+        self.i += 1
+        return i
+</code></pre>
+<h3>설계 고려 사항 (Design Considerations)</h3>
+<h4><code>aiter()</code> 및 <code>anext()</code> 내장 함수 (aiter() and anext() builtins)</h4>
+<p>원래 PEP 492는 <code>__aiter__</code>를 <code>awaitable</code> 객체를 반환해야 하는 메서드로 정의하여 비동기 이터레이터를 생성하도록 했습니다.
+그러나 CPython 3.5.2에서 <code>__aiter__</code>는 비동기 이터레이터를 직접 반환하도록 재정의되었습니다. 하위 호환성을 깨는 것을 피하기 위해, Python 3.6에서는 두 가지 방식 모두를 지원하며, <code>__aiter__</code>가 여전히 <code>awaitable</code>을 반환할 수 있지만 <code>DeprecationWarning</code>이 발행되도록 결정되었습니다.</p>
+<p>Python 3.6에서 <code>__aiter__</code>의 이러한 이중적인 특성 때문에 <code>aiter()</code> 내장 함수의 동기 구현을 추가할 수 없습니다. 따라서 Python 3.7까지 기다릴 것을 제안합니다.</p>
+<h4>비동기 리스트/딕셔너리/세트 컴프리헨션 (Asynchronous list/dict/set comprehensions)</h4>
+<p>비동기 컴프리헨션(comprehensions)의 문법은 비동기 제너레이터 메커니즘과 관련이 없으며, 별도의 PEP에서 고려되어야 합니다.</p>
+<h4>비동기 <code>yield from</code> (Asynchronous yield from)</h4>
+<p>비동기 제너레이터에 <code>yield from</code> 지원을 구현하는 것이 이론적으로 가능하지만, 제너레이터 구현을 심각하게 재설계해야 합니다.
+<code>yield from</code>은 비동기 제너레이터에 덜 중요합니다. 코루틴 위에 다른 코루틴 프로토콜을 구현하는 메커니즘을 제공할 필요가 없기 때문입니다. 비동기 제너레이터를 구성하기 위해 간단한 <code>async for</code> 루프를 사용할 수 있습니다.</p>
+<pre><code class="language-python">async def g1():
+    yield 1
+    yield 2
+
+async def g2():
+    async for v in g1():
+        yield v
+</code></pre>
+<h4><code>asend()</code> 및 <code>athrow()</code> 메서드가 필요한 이유 (Why the asend() and athrow() methods are necessary)</h4>
+<p>이 메서드들은 <code>contextlib.contextmanager</code>와 유사한 개념을 비동기 제너레이터를 사용하여 구현할 수 있게 합니다. 예를 들어, 제안된 설계로 다음 패턴을 구현할 수 있습니다.</p>
+<pre><code class="language-python">@async_context_manager
+async def ctx():
+    await open()
+    try:
+        yield
+    finally:
+        await close()
+
+async with ctx():
+    await ...
+</code></pre>
+<p>또 다른 이유는 <code>__anext__</code> 객체에서 반환된 객체를 사용하여 비동기 제너레이터로 데이터를 푸시하고 예외를 던지는 것이 가능하지만, 이를 올바르게 수행하기는 어렵다는 것입니다. 명시적인 <code>asend()</code> 및 <code>athrow()</code>를 추가하면 이를 안전하게 수행할 수 있는 길을 열어줄 것입니다.</p>
+<p>구현 측면에서 <code>asend()</code>는 <code>__anext__</code>의 약간 더 일반적인 버전이며, <code>athrow()</code>는 <code>aclose()</code>와 매우 유사합니다. 따라서 비동기 제너레이터에 이러한 메서드를 정의해도 추가적인 복잡성은 발생하지 않습니다.</p>
+<h3>예시 (Example)</h3>
+<p>현재 참조 구현을 사용한 작동 예시 (0부터 9까지의 숫자를 1초 간격으로 출력합니다):</p>
+<pre><code class="language-python">async def ticker(delay, to):
+    for i in range(to):
+        yield i
+        await asyncio.sleep(delay)
+
+async def run():
+    async for i in ticker(1, 10):
+        print(i)
+
+import asyncio
+loop = asyncio.get_event_loop()
+try:
+    loop.run_until_complete(run())
+finally:
+    loop.close()
+</code></pre>
+<h3>승인 (Acceptance)</h3>
+<p>PEP 525는 2016년 9월 6일 Guido에 의해 승인되었습니다.</p>
+<h3>구현 (Implementation)</h3>
+<p>구현은 이슈 28003에서 추적됩니다. 참조 구현 Git 저장소는에서 확인할 수 있습니다.</p>
+<h3>참고 자료 (References)</h3>
+<p>https://github.com/1st1/cpython/tree/async_gen
+https://mail.python.org/pipermail/python-dev/2016-September/146267.html
+http://bugs.python.org/issue28003</p>
+<h3>감사 (Acknowledgments)</h3>
+<p>이 PEP에 대한 피드백, 코드 검토 및 토론에 대해 Guido van Rossum, Victor Stinner, Elvis Pranskevichus, Nathaniel Smith, Łukasz Langa, Andrew Svetlov 및 기타 여러 사람들에게 감사드립니다.</p>
+<h3>저작권 (Copyright)</h3>
+<p>이 문서는 퍼블릭 도메인(public domain)으로 지정되었습니다.</p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Final] PEP 525 - Asynchronous Generators"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-26 23:17:46+0900","children":"2025년 9월 26일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 26일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":[["$","div",null,{"className":"page__taxonomy mb-4","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"카테고리"}],[["$","span","Python",{"className":"page__taxonomy-item","children":"Python"}],["$","span","PEP",{"className":"page__taxonomy-item","children":"PEP"}]]]}],["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]]}]]}]}]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"secrett2633's blog"}],["$","meta","3",{"name":"description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://secrett2633.github.io/"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"secrett2633's blog"}],["$","meta","13",{"property":"og:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","14",{"property":"og:url","content":"https://secrett2633.github.io/"}],["$","meta","15",{"property":"og:site_name","content":"secrett2633's blog"}],["$","meta","16",{"property":"og:locale","content":"ko_KR"}],["$","meta","17",{"property":"og:type","content":"website"}],["$","meta","18",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","19",{"name":"twitter:title","content":"secrett2633's blog"}],["$","meta","20",{"name":"twitter:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","21",{"name":"next-size-adjust"}]]
+1:null

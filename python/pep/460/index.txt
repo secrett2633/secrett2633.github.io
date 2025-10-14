@@ -1,0 +1,69 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[4281,["231","static/chunks/231-c4b666723e6aae68.js","185","static/chunks/app/layout-8808afda01b7a1b7.js"],"default"]
+7:I[231,["231","static/chunks/231-c4b666723e6aae68.js","877","static/chunks/app/%5B...slug%5D/page-01b66e77b48ed573.js"],""]
+4:["slug","python/pep/460","c"]
+0:["iV6XySbMHIJ3imQdvgy3I",[[["",{"children":[["slug","python/pep/460","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"460\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/460","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","link",null,{"rel":"icon","type":"image/png","sizes":"32x32","href":"/favicon-32x32.png"}],["$","link",null,{"rel":"icon","type":"image/png","sizes":"16x16","href":"/favicon-16x16.png"}],["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_9012cf layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/secrett2633.github.io/_next/static/css/b9d6ec750ad82add.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+9:T207e,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0460/">PEP 460 - Add binary interpolation and formatting</a></p>
+<p><strong>상태:</strong> Withdrawn | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 06-Jan-2014</p>
+</blockquote>
+<h1>PEP 460 – 바이너리 보간 및 포매팅 추가 (Add binary interpolation and formatting)</h1>
+<ul>
+<li><strong>작성자</strong>: Antoine Pitrou</li>
+<li><strong>상태</strong>: 철회됨 (Withdrawn)</li>
+<li><strong>유형</strong>: Standards Track</li>
+<li><strong>생성일</strong>: 2014년 1월 6일</li>
+<li><strong>Python 버전</strong>: 3.5</li>
+</ul>
+<h2>초록 (Abstract)</h2>
+<p>이 PEP는 <code>bytes</code> 및 <code>bytearray</code> 객체에 최소한의 포매팅 연산을 추가할 것을 제안합니다. 제안된 추가 기능은 다음과 같습니다:</p>
+<ul>
+<li><code>str</code> 객체의 <code>%</code> 포매팅과 유사한 문법으로, 단일 객체, 튜플 또는 <code>dict</code>를 인수로 받는 <code>bytes % ...</code> 및 <code>bytearray % ...</code> (퍼센트-포매팅).</li>
+<li><code>str.format()</code>과 유사한 문법으로, 위치(positional) 및 키워드(keyword) 인수를 받는 <code>bytes.format(...)</code> 및 <code>bytearray.format(...)</code> (중괄호-포매팅).</li>
+<li><code>str.format_map(...)</code>과 유사한 API를 가지며, <code>bytes.format()</code> 및 <code>bytearray.format()</code>과 동일한 포매팅 문법 및 의미론을 가진 <code>bytes.format_map(...)</code> 및 <code>bytearray.format_map(...)</code>.</li>
+</ul>
+<h2>배경 (Rationale)</h2>
+<p>Python 2에서는 <code>str % args</code> 및 <code>str.format(args)</code>를 통해 바이트 문자열(bytestrings)의 포매팅 및 보간이 가능했습니다. 이 기능은 프로토콜이 고정된 인코딩을 사용하는 것으로 알려져 있을 때 프로토콜 메시지를 조합하는 데 흔히 사용되었습니다.</p>
+<p>Python 3는 일반적으로 텍스트를 유니코드(즉, <code>str</code> 객체, <code>bytes</code>가 아님)로 저장하고 조작하도록 요구합니다. 하지만, 어떤 경우에는 <code>bytes</code> 객체를 직접 조작하는 것이 합리적입니다. 일반적인 사용 사례는 바이너리 네트워크 프로토콜로, 여러 <code>bytes</code> 객체(일부는 리터럴, 일부는 계산된 값)를 보간하고 조합하여 완전한 프로토콜 메시지를 생성해야 할 수 있습니다. 예를 들어, HTTP 또는 SIP와 같은 프로토콜은 ASCII 이름과 다양하거나 때로는 불분명한 인코딩을 사용하는 불투명한 "텍스트" 값을 가진 헤더를 가집니다. 또한, 이러한 헤더 뒤에는 바이너리 본문이 올 수 있으며, 이는 청크로 나뉘고 ASCII 헤더와 트레일러로 꾸며질 수 있습니다.</p>
+<p>바이너리 데이터를 축적하는 합리적으로 효율적인 방법(<code>bytearray</code> 객체 사용, <code>bytes.join</code> 메서드 또는 <code>io.BytesIO</code> 등)이 있지만, 이러한 방법 중 어느 것도 <code>%</code> 포매팅 또는 <code>{}</code> 포매팅 템플릿 및 포매팅 연산이 제공하는 것과 같은 가독성 있고 직관적인 코드를 생성하지 못합니다.</p>
+<h2>바이너리 포매팅 기능 (Binary formatting features)</h2>
+<h3>지원되는 기능 (Supported features)</h3>
+<p>이 제안에서 <code>bytes</code> 및 <code>bytearray</code>에 대한 퍼센트-포매팅은 다음 기능을 지원합니다:</p>
+<ul>
+<li>위치(position) 및 이름(name)으로 포매팅 인수를 조회합니다 (예: <code>%s</code> 및 <code>%(name)s</code>).
+<ul>
+<li><code>%s</code>는 주어진 값에 대해 <code>Py_buffer</code>를 얻으려고 시도하고, 실패하면 <code>__bytes__</code>를 호출합니다. 결과 바이너리 데이터는 문자열의 주어진 위치에 삽입됩니다. 이는 <code>bytes</code>, <code>bytearray</code>, <code>memoryview</code> 객체 (및 <code>pathlib</code>의 <code>path</code> 객체와 같은 몇 가지 다른 객체)에서 작동할 것으로 예상됩니다.</li>
+</ul>
+</li>
+<li><code>%c</code>는 0에서 255 사이의 정수를 허용하며, 주어진 값의 바이트 하나를 삽입합니다.</li>
+</ul>
+<p><code>bytes</code> 및 <code>bytearray</code>에 대한 중괄호-포매팅은 다음 기능을 지원합니다:</p>
+<ul>
+<li><code>str.format()</code>에서 지원하는 모든 종류의 인수 조회 (명시적 위치 조회, 자동 증가 위치 조회, 키워드 조회, 속성 조회 등).</li>
+<li>수정자(modifier)나 레이아웃(layout)이 지정되지 않은 경우 바이너리 데이터 삽입 (예: <code>{}</code>, <code>{0}</code>, <code>{name}</code>). 이는 퍼센트-포매팅의 <code>%s</code>와 동일한 의미론을 가집니다 (위 참조).</li>
+<li><code>c</code> 수정자는 0에서 255 사이의 정수를 허용하며, 주어진 값의 바이트 하나를 삽입합니다 (위의 <code>%c</code>와 동일).</li>
+</ul>
+<h3>지원되지 않는 기능 (Unsupported features)</h3>
+<p><code>str</code> 객체의 포매팅(<code>%</code> 연산자 또는 <code>str.format()</code> 메서드)에 있는 다른 모든 기능은 지원되지 않습니다. 이러한 기능은 연산자 또는 메서드의 수신자를 텍스트로 처리하는 것을 의미하며, 이는 텍스트/바이트 분리(text / bytes separation)에 반합니다 (예를 들어, <code>%d</code>를 포맷 코드로 허용하는 것은 <code>bytes</code> 객체가 실제로 ASCII 호환 텍스트 문자열임을 의미합니다).</p>
+<p>지원되지 않는 기능 중에는 대부분의 타입별 포맷 코드뿐만 아니라 패딩(padding) 또는 정렬(alignment)과 같은 다양한 레이아웃 지정자도 포함됩니다. 또한, <code>str</code> 객체는 <code>%s</code> 포맷 코드를 사용하더라도 포매팅 연산의 인수로 허용되지 않습니다.</p>
+<p><code>__format__</code>은 호출되지 않습니다.</p>
+<h2>비판 (Criticisms)</h2>
+<ul>
+<li><strong>개발 및 유지보수 비용:</strong> Python 3.3에서는 ASCII 또는 latin-1로 인코딩하는 것이 <code>memcpy</code>만큼 빠르지만 (별도의 객체를 생성하더라도), 개발자들은 Python 3.4 이전 버전을 지원하려면 어쨌든 바이너리 포매팅의 부재를 해결해야 할 것입니다.</li>
+<li><strong>성능:</strong> <code>bytes.join()</code>은 <code>bytes</code> 문자열을 결합하는 데 <code>format</code>보다 지속적으로 빠릅니다 (이것이 사실인지 의문이 제기됨).</li>
+<li><strong>대안:</strong> 포매팅 함수는 내장 타입에 추가하는 대신 서드 파티 모듈(third party module)로 구현될 수 있습니다.</li>
+</ul>
+<h2>다른 제안 (Other proposals)</h2>
+<h3>새로운 <code>type</code> 데이터 타입 (A new type datatype)</h3>
+<p>"네트워크 프로그래밍"에 특화된 새로운 데이터 타입을 생성하는 것이 제안되었습니다. 이 PEP의 작성자들은 이것이 역효과를 낳을 것이라고 믿습니다. Python 3는 이미 바이너리 데이터 조작을 위한 여러 주요 타입(<code>bytes</code>, <code>bytearray</code>, <code>memoryview</code>, <code>io.BytesIO</code>)을 가지고 있습니다.</p>
+<p>또 다른 타입을 추가하는 것은 사용자에게 더 많은 혼란을 주고, 라이브러리 간의 상호 운용성을 더욱 어렵게 만들 것입니다 (필요한 변환으로 인해 잠재적으로 최적이 아닐 수도 있음).</p>
+<p>더욱이, 하나의 타입이 아니라 두 개의 타입이 필요할 것입니다: 하나는 불변 타입(해싱을 허용하기 위해), 다른 하나는 가변 타입(네트워크 메시지 작업 시 효율적인 축적이 자주 필요하므로).</p>
+<h2>해결 (Resolution)</h2>
+<p>이 PEP는 <code>modulo</code> 연산자와 함께 <code>bytes</code> 객체를 위한 더욱 확장된 포매팅 언어를 도입하는 PEP 461의 승인으로 인해 폐기되었습니다.</p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Withdrawn] PEP 460 - Add binary interpolation and formatting"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-26 22:08:41+0900","children":"2025년 9월 26일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 26일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":[["$","div",null,{"className":"page__taxonomy mb-4","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"카테고리"}],[["$","span","Python",{"className":"page__taxonomy-item","children":"Python"}],["$","span","PEP",{"className":"page__taxonomy-item","children":"PEP"}]]]}],["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]]}]]}]}]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"secrett2633's blog"}],["$","meta","3",{"name":"description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://secrett2633.github.io/"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"secrett2633's blog"}],["$","meta","13",{"property":"og:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","14",{"property":"og:url","content":"https://secrett2633.github.io/"}],["$","meta","15",{"property":"og:site_name","content":"secrett2633's blog"}],["$","meta","16",{"property":"og:locale","content":"ko_KR"}],["$","meta","17",{"property":"og:type","content":"website"}],["$","meta","18",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","19",{"name":"twitter:title","content":"secrett2633's blog"}],["$","meta","20",{"name":"twitter:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","21",{"name":"next-size-adjust"}]]
+1:null

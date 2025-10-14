@@ -1,0 +1,215 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[4281,["231","static/chunks/231-c4b666723e6aae68.js","185","static/chunks/app/layout-8808afda01b7a1b7.js"],"default"]
+7:I[231,["231","static/chunks/231-c4b666723e6aae68.js","877","static/chunks/app/%5B...slug%5D/page-01b66e77b48ed573.js"],""]
+4:["slug","python/pep/522","c"]
+0:["iV6XySbMHIJ3imQdvgy3I",[[["",{"children":[["slug","python/pep/522","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"522\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/522","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","link",null,{"rel":"icon","type":"image/png","sizes":"32x32","href":"/favicon-32x32.png"}],["$","link",null,{"rel":"icon","type":"image/png","sizes":"16x16","href":"/favicon-16x16.png"}],["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_9012cf layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/secrett2633.github.io/_next/static/css/b9d6ec750ad82add.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+9:T6b60,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0522/">PEP 522 - Allow BlockingIOError in security sensitive APIs</a></p>
+<p><strong>상태:</strong> Rejected | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 16-Jun-2016</p>
+</blockquote>
+<h2>PEP 522: 보안에 민감한 API에서 <code>BlockingIOError</code> 허용 (거부됨)</h2>
+<h3>요약 (Abstract)</h3>
+<p>표준 라이브러리 내의 여러 API는 보안에 민감한 작업에 적합한 무작위 값을 반환하는 것으로 알려져 있지만, 현재 일부 운영체제(특히 Linux 커널)에서는 시스템 난수 생성기가 완전히 초기화되기 전에 <code>/dev/urandom</code>에서 값을 읽는 것을 허용하여 실제로는 이러한 작업에 적합하지 않은 값을 반환할 수 있는 모호한 오류 모드가 존재합니다. 대부분의 다른 운영체제는 이러한 읽기 시에 난수 생성기가 준비될 때까지 암묵적으로 블록(block)합니다.</p>
+<p>이 PEP는 하위 레벨의 <code>os.urandom</code> 및 <code>random.SystemRandom</code> API의 경우, Python 3.6부터는 탐지 및 디버그하기 어려웠던 침묵 오류(silent error)를 <code>BlockingIOError</code> 예외를 발생시켜 쉽게 탐지하고 디버그할 수 있는 오류로 변경할 것을 제안했습니다.</p>
+<p>새로운 고수준 <code>secrets</code> API의 경우, 이 모듈이 난수를 생성할 때 필요하다면 암묵적으로 블록하도록 제안했습니다. 또한 <code>secrets.wait_for_system_rng()</code> 함수를 노출하여 하위 레벨 API를 사용하는 코드가 시스템 난수 생성기가 사용 가능해질 때까지 명시적으로 기다릴 수 있도록 했습니다.</p>
+<p>이 변경 사항은 <code>getrandom()</code> 시스템 호출을 제공하는 모든 운영체제에 영향을 미치며, <code>Windows</code>, <code>Mac OS X</code>, <code>OpenBSD</code>와 같이 시스템 난수 생성기 초기화 전에 사용자 공간 코드 실행을 방지하거나 <code>getrandom()</code> 시스템 호출을 제공하지 않는 운영체제는 영향을 받지 않습니다.</p>
+<h3>다른 PEP와의 관계 (Relationship with other PEPs)</h3>
+<p>이 PEP는 <code>secrets</code> 모듈을 추가하는 승인된 PEP 506에 의존합니다.</p>
+<p>이 PEP는 <code>os.urandom</code> 자체가 시스템 RNG가 준비되지 않았을 때 암묵적으로 블록하도록 제안하는 Victor Stinner의 PEP 524와 경쟁 관계에 있었습니다.</p>
+<h3>PEP 거부 (PEP Rejection)</h3>
+<p>레퍼런스 구현에 대해 Guido는 PEP 524의 무조건적인 암묵적 블록킹 제안을 선호하여 이 PEP를 거부했습니다. 이로 인해 CPython의 Linux 동작이 다른 운영체제의 동작과 일치하게 됩니다.</p>
+<p>이는 Linux 배포판의 시스템 Python 설치에서 <code>os.urandom()</code>의 적절한 기본 동작에 대한 추가 논의는 CPython 메일링 리스트가 아닌 해당 배포판 메일링 리스트에서 진행되어야 함을 의미합니다.</p>
+<h3>이 PEP와 독립적인 변경 사항 (Changes independent of this PEP)</h3>
+<p>CPython 인터프리터 초기화 및 <code>random</code> 모듈 초기화는 이미 시스템 난수 생성기가 준비되지 않은 경우 대체 시딩(seeding) 옵션으로 우아하게 폴백(fallback)하도록 업데이트되었습니다.</p>
+<p>이 PEP는 <code>getrandom</code> 시스템 호출을 노출하기 위해 <code>os.getrandom()</code> API를 추가하는 PEP 524의 제안과 경쟁하지 않습니다. <code>os</code> 모듈은 플랫폼에 의존하는 운영체제 기능을 감싸는 얇은 래퍼(wrapper) 역할을 하므로, 이 API는 <code>os.urandom()</code>의 기본 동작이 어떻게 되든 추가될 수 있습니다.</p>
+<h3>제안 (Proposal)</h3>
+<h4><code>getrandom()</code> 시스템 호출이 있는 플랫폼에서 <code>os.urandom()</code> 변경</h4>
+<p>이 PEP는 Python 3.6+에서 <code>os.urandom()</code>가 <code>getrandom()</code> 시스템 호출을 비블록킹(non-blocking) 모드로 호출하고, 커널이 호출이 블록될 것이라고 보고하면 <code>BlockingIOError: system random number generator is not ready; see secrets.token_bytes()</code> 예외를 발생시키도록 업데이트될 것을 제안했습니다.</p>
+<p>이 동작은 <code>random.Random()</code> API와 일치하는 <code>os.urandom()</code>의 얇은 래퍼인 기존 <code>random.SystemRandom</code>으로 전파될 것입니다.</p>
+<p>그러나 PEP 506에 의해 도입된 새로운 <code>secrets</code> 모듈은 새로운 예외가 발생하면 이를 catch하고 시스템 난수 생성기를 암묵적으로 기다리도록 업데이트될 것입니다.</p>
+<p>모든 경우에, 이 보안에 민감한 API 중 하나에 대한 호출이 성공하면, 해당 프로세스의 모든 향후 API 호출은 블록킹 없이 성공할 것입니다.</p>
+<p>Linux 및 NetBSD에서는 <code>/dev/urandom</code>에서 읽은 잠재적으로 예측 가능한 결과를 반환하는 이전 동작을 대체할 것입니다. FreeBSD, Solaris, Illumos에서는 시스템 난수 생성기가 준비될 때까지 암묵적으로 블록하는 이전 동작을 대체할 것입니다.</p>
+<h4><code>secrets.wait_for_system_rng()</code> 추가</h4>
+<p>새로운 예외는 발생했을 때 해결 방법에 대한 명확한 권고 없이 추가되어서는 안 됩니다. 보안에 민감한 코드가 <code>secrets</code> 모듈 대신 하위 레벨 인터페이스를 사용해야 하고, 사용자 기반에서 이 문제가 실제 문제임을 나타내는 버그 보고서를 받는 경우, 이 PEP는 <code>__main__</code> 모듈에 다음 스니펫을 추가할 것을 권장했습니다.</p>
+<pre><code class="language-python">import secrets
+secrets.wait_for_system_rng()
+</code></pre>
+<p>Python 3.6 이전 버전과의 호환성이 필요한 경우:</p>
+<pre><code class="language-python">try:
+    import secrets
+except ImportError:
+    pass
+else:
+    secrets.wait_for_system_rng()
+</code></pre>
+<p><code>secrets</code> 모듈 자체 내에서는, 새로운 예외가 발생하면 <code>token_bytes()</code>에서 암묵적으로 블록하기 위해 사용될 것입니다.</p>
+<pre><code class="language-python">def token_bytes(nbytes=None):
+    if nbytes is None:
+        nbytes = DEFAULT_ENTROPY
+    try:
+        result = os.urandom(nbytes)
+    except BlockingIOError:
+        wait_for_system_rng()
+        result = os.urandom(nbytes)
+    return result
+</code></pre>
+<p>다른 모듈 부분들은 <code>os.urandom()</code>을 직접 호출하는 대신 <code>token_bytes()</code>를 기본 난수 생성 빌딩 블록으로 사용하도록 업데이트될 것입니다.</p>
+<p>시스템 난수 생성기 액세스가 거의 확실하게 필요한 사용 사례(예: 웹 프레임워크)를 다루는 애플리케이션 프레임워크는 <code>secrets.wait_for_system_rng()</code> 호출을 애플리케이션 시작 명령에 암묵적으로 통합하여, 기존 <code>os.urandom()</code> 호출이 해당 프레임워크를 사용할 때 새로운 예외를 발생시키지 않도록 할 수 있습니다.</p>
+<p>직접 수정할 수 없는 애플리케이션의 경우, 다음 명령을 사용하여 시스템 난수 생성기가 초기화될 때까지 기다린 후 애플리케이션을 시작할 수 있습니다.</p>
+<pre><code class="language-bash">python3 -c "import secrets; secrets.wait_for_system_rng()"
+</code></pre>
+<p>이 함수의 제안된 구현은 다음과 같습니다.</p>
+<pre><code class="language-python">if hasattr(os, "getrandom"):
+    # os.getrandom()은 기본적으로 시스템 RNG가 준비될 때까지 항상 블록합니다.
+    def wait_for_system_rng():
+        """시스템 난수 생성기가 준비될 때까지 블록합니다."""
+        os.getrandom(1)
+        return
+else:
+    # 우리가 아는 한, 다른 플랫폼은 BlockingIOError를 발생시키지 않지만,
+    # 구현은 비관적인 가정을 합니다.
+    def wait_for_system_rng():
+        """시스템 난수 생성기가 준비될 때까지 블록합니다."""
+        # 시스템 RNG가 이미 시드된 경우, 전혀 기다리지 않습니다.
+        try:
+            os.urandom(1)
+            return
+        except BlockingIOError:
+            pass
+        # 가능한 경우 아래의 바쁜 루프(busy loop)를 피합니다.
+        try:
+            block_on_system_rng = open("/dev/random", "rb")
+        except FileNotFoundError:
+            pass
+        else:
+            with block_on_system_rng:
+                block_on_system_rng.read(1)
+        # 시스템 RNG가 준비될 때까지 바쁜 루프
+        while True:
+            try:
+                os.urandom(1)
+                break
+            except BlockingIOError:
+                # 1밀리초마다 한 번만 확인합니다.
+                time.sleep(0.001)
+</code></pre>
+<h4>범위 제한 (Limitations on scope)</h4>
+<p><code>Windows</code> 또는 <code>Mac OS X</code> 시스템에 대한 변경 사항은 제안되지 않았습니다. 이 플랫폼들은 운영체제 난수 생성기가 초기화되기 전에 Python 코드를 실행할 메커니즘을 제공하지 않기 때문입니다.</p>
+<p>마찬가지로, <code>getrandom()</code> 시스템 호출을 제공하지 않는 다른 *nix 시스템에 대한 변경 사항도 제안되지 않았습니다. 이러한 시스템에서 <code>os.urandom()</code>은 시스템 난수 생성기가 초기화될 때까지 계속 블록할 것입니다.</p>
+<h3>근거 (Rationale)</h3>
+<h4><code>secrets</code> 모듈이 필요할 때 암묵적으로 블록하도록 보장</h4>
+<p>이것은 보안에 민감한 난수를 생성하는 가장 간단한 방법을 원하는 사람들에게 "가능할 때 <code>secrets</code> 모듈을 사용하십시오. 그렇지 않으면 애플리케이션이 예기치 않게 충돌할 수 있습니다."라는 밈(meme)을 장려하기 위한 것입니다.</p>
+<p>또한 BDFL(Benevolent Dictator For Life, 자비로운 종신 독재자)이 예상치 못한 예외를 던지는 API보다 예기치 않게 블록할 수 있는 API에 대해 더 높은 허용 오차를 가지고 있기 때문입니다.</p>
+<h4>Linux에서 <code>os.urandom()</code>이 <code>BlockingIOError</code>를 발생시키는 경우</h4>
+<p>수년 동안 보안 커뮤니티의 지침은 Python에서 보안에 민감한 작업을 구현할 때 <code>os.urandom()</code>(또는 <code>random.SystemRandom()</code> 래퍼)을 사용하는 것이었습니다.</p>
+<p>그러나 이 지침에는 오랜 경고가 있었습니다. Linux 및 잠재적으로 일부 다른 *BSD 시스템을 위한 보안에 민감한 소프트웨어를 작성하는 개발자는 운영체제의 난수 생성기가 보안에 민감한 작업에 사용할 준비가 될 때까지 기다려야 할 수도 있습니다.</p>
+<p>Linux에서는 Python 3.4 이하 및 Python 3.5.2 이후의 Python 3.5 유지 보수 버전에서, Linux 부팅 프로세스 초기에 또는 엔트로피 소스가 부족한 하드웨어에서 실행될 때 소프트웨어가 예상대로 작동하지 않을 수 있다는 명확한 지표가 개발자에게 없었습니다. 이는 <code>/dev/urandom</code> 장치의 동작으로 인해 <code>os.urandom()</code>이 어떤 경우든 결과를 반환하고, 보안 취약점이 존재함을 입증하려면 광범위한 통계 분석이 필요했기 때문입니다.</p>
+<p>대조적으로, 이러한 상황에서 <code>BlockingIOError</code>가 발생하면 Python 3.6+를 사용하는 개발자는 원하는 동작을 쉽게 선택할 수 있습니다.</p>
+<ul>
+<li>애플리케이션 시작 시 또는 그 이전에 시스템 RNG를 기다립니다 (보안에 민감한 경우).</li>
+<li><code>random</code> 모듈 사용으로 전환합니다 (보안에 민감하지 않은 경우).</li>
+</ul>
+<h4><code>secrets.wait_for_system_rng()</code> 공개 (Making secrets.wait_for_system_rng() public)</h4>
+<p>이 PEP의 초기 버전은 <code>os.urandom()</code>을 감싸서 보안에 민감한 사용 사례에 적합하게 만드는 여러 레시피를 제안했습니다.</p>
+<p>보안-sig 메일링 리스트에서의 논의는 예외가 애플리케이션을 실패하게 하거나, 시스템 RNG가 준비될 때까지 블록하거나, <code>os.urandom</code> 대신 <code>random</code> 모듈을 사용하는 것 중에서 선택하는 것이 애플리케이션 및 사용 사례별 결정이라는 핵심 가정을 이끌어냈습니다.</p>
+<p>이에 따라 PEP는 애플리케이션, 스크립트 및 프레임워크가 시스템 RNG가 사용 가능함을 확인한 후 계속 진행하기 위해 사용할 수 있는 API로 <code>secrets.wait_for_system_rng()</code>를 추가하도록 업데이트되었습니다. 라이브러리 개발자는 <code>os.urandom()</code>이 예기치 않게 블록할 것을 걱정하지 않고 계속 호출할 수 있습니다.</p>
+<h3>하위 호환성 영향 평가 (Backwards Compatibility Impact Assessment)</h3>
+<p>PEP 476과 유사하게, 이 제안은 이전에 침묵했던 보안 실패를 시끄러운 예외로 바꾸어 애플리케이션 개발자가 원하는 동작에 대해 명시적인 결정을 내리도록 요구합니다.</p>
+<p><code>getrandom()</code> 시스템 호출을 제공하지 않는 운영체제에 대한 변경 사항은 제안되지 않았으므로, <code>os.urandom()</code>은 운영체제 난수 생성기가 준비되기 전에 Python 코드를 실행하기 어려운 문제로 인해 실제로는 비블록킹이지만 명목상 블록킹 API로서 기존 동작을 유지합니다.</p>
+<p>Linux 및 유사한 <code>/dev/urandom</code> 동작을 가진 다른 플랫폼에서 <code>os.urandom()</code>은 보장된 비블록킹 API로서의 상태를 유지합니다. 그러나 운영체제 난수 생성기가 보안에 민감한 작업에 사용할 준비가 되지 않은 특정 경우에 그 상태를 달성하는 방법이 변경됩니다. 과거에는 잠재적으로 예측 가능한 무작위 데이터를 반환했지만, 이 PEP를 통해 <code>BlockingIOError</code>를 발생시키도록 변경될 것입니다.</p>
+<p>영향을 받는 애플리케이션 개발자는 Python 3.6과의 정방향 호환성을 얻기 위해 개발 중인 애플리케이션 종류에 따라 다음 변경 사항 중 하나를 적용해야 합니다.</p>
+<h4>영향을 받지 않는 애플리케이션 (Unaffected Applications)</h4>
+<p>다음 종류의 애플리케이션은 보안에 민감한 작업을 수행하는지 여부와 관계없이 변경 사항의 영향을 전혀 받지 않습니다.</p>
+<ul>
+<li>Linux를 지원하지 않는 애플리케이션</li>
+<li>데스크톱 또는 일반 서버에서만 실행되는 애플리케이션</li>
+<li>시스템 RNG가 준비된 후에만 실행되는 애플리케이션 (애플리케이션 프레임워크가 대신 <code>secrets.wait_for_system_rng()</code>를 호출하는 경우 포함)</li>
+</ul>
+<h4>영향을 받는 보안에 민감한 애플리케이션 (Affected security sensitive applications)</h4>
+<p>보안에 민감한 애플리케이션은 시스템 구성(애플리케이션이 시스템 난수 생성기가 보안에 민감한 작업에 준비된 후에만 시작되도록)을 변경하거나, 애플리케이션 시작 코드에서 <code>secrets.wait_for_system_rng()</code>를 호출하도록 변경하거나, 새로운 <code>secrets.token_bytes()</code> API를 사용하도록 전환해야 합니다.</p>
+<h4>영향을 받는 비보안에 민감한 애플리케이션 (Affected non-security sensitive applications)</h4>
+<p>보안에 민감하지 않은 애플리케이션은 <code>os.urandom</code> 대신 <code>random</code> 모듈을 사용하도록 업데이트해야 합니다.</p>
+<pre><code class="language-python">def pseudorandom_bytes(num_bytes):
+    return random.getrandbits(num_bytes*8).to_bytes(num_bytes, "little")
+</code></pre>
+<h3>추가 배경 (Additional Background)</h3>
+<h4>왜 지금 제안되었는가? (Why propose this now?)</h4>
+<p>주된 이유는 Python 3.5.0 릴리스가 파일 디스크립터 사용을 피하기 위해 <code>getrandom()</code> 시스템 호출을 사용하도록 전환했기 때문입니다. 이로 인해 다음 작업이 시스템 난수 생성기가 준비될 때까지 블록되는 부작용이 발생했습니다.</p>
+<ul>
+<li><code>os.urandom</code> (및 이에 의존하는 API)</li>
+<li><code>random</code> 모듈 임포트</li>
+<li>일부 내장 타입에서 사용되는 무작위화된 해시 알고리즘 초기화</li>
+</ul>
+<p>처음 두 가지 동작은 불필요하고 바람직하지 않으며, 마지막 동작은 Python 3.5.0 또는 3.5.1로 Linux init 프로세스 중에 Python 스크립트를 실행하려고 할 때 시스템 수준의 교착 상태(deadlock)를 유발하는 것으로 알려져 있습니다. 두 번째 동작은 강력한 엔트로피 소스가 구성되지 않은 가상 머신을 사용할 때 문제를 일으킬 수 있습니다.</p>
+<p>CPython에서 이러한 동작을 분리하는 것은 유지 보수 릴리스보다는 기능 릴리스에 더 적합한 여러 구현 변경을 수반할 것이므로, Python 3.5.2에서 적용된 비교적 간단한 해결책은 이 세 가지를 모두 이전 Python 버전의 동작과 유사하게 되돌리는 것이었습니다. 즉, 새로운 Linux 시스템 호출이 블록될 것임을 나타내면 Python 3.5.2는 <code>/dev/urandom</code>에서 직접 읽기로 암묵적으로 폴백합니다.</p>
+<p>그러나 이 버그 보고서는 <code>os.getrandom()</code>, <code>os.urandom_block()</code>, <code>os.pseudorandom()</code>, <code>os.cryptorandom()</code>와 같은 새로운 API를 추가하거나 <code>os.urandom()</code> 자체에 새로운 선택적 매개변수를 추가하는 등 다양한 제안으로 이어졌습니다. 이 제안들은 <code>secrets</code> 모듈이 이미 "이것을 사용하고 하위 수준 세부 사항에 대해 걱정하지 마십시오" 옵션으로 추가되고 있다는 점에서 과잉 반응으로 볼 수 있습니다.</p>
+<p>그럼에도 불구하고, 저가 ARM 장치가 점점 더 보편화되고 있으며, 많은 장치가 Linux를 실행하고 Python 애플리케이션이 이러한 장치에서 실행되고 있습니다. 이는 진단 및 해결을 위해 Linux 부팅 프로세스 및 증명 가능한 예측 불가능한 난수 생성에 대한 많은 지식을 요구하는 모호한 보안 문제를 비교적 평범하고 인터넷 검색에서 쉽게 찾을 수 있는 런타임 예외로 전환할 기회를 만듭니다.</p>
+<h4><code>os.urandom()</code>의 크로스 플랫폼 동작 (The cross-platform behaviour of os.urandom())</h4>
+<p>Linux 및 NetBSD를 제외한 운영체제에서 <code>os.urandom()</code>은 운영체제의 난수 생성기가 준비될 때까지 블록할 수 있습니다. 이는 프로세스 수명 동안 최대 한 번 발생하며, 이후의 호출은 비블록킹이 보장됩니다.</p>
+<p>Linux 및 NetBSD는 운영체제의 난수 생성기가 보안에 민감한 작업에 사용할 준비가 되지 않은 경우에도 <code>/dev/urandom</code> 장치에서 읽으면 사용 가능한 엔트로피를 기반으로 무작위 값을 반환한다는 점에서 예외적입니다.</p>
+<p>이 동작은 잠재적으로 문제가 될 수 있으므로, Linux 3.17은 새로운 <code>getrandom()</code> 시스템 호출을 추가하여 호출자가 난수 생성기가 준비될 때까지 블록하거나, 난수 생성기가 준비되지 않은 경우 오류 반환을 요청할 수 있도록 했습니다.</p>
+<p>Python 3.4 이하 버전은 Linux <code>/dev/urandom</code> 장치에 직접 액세스합니다. Python 3.5.0 및 3.5.1은 파일 디스크립터 사용을 피하기 위해 <code>getrandom()</code>을 블록킹 모드로 호출했습니다. 사용자 코드에서 <code>os.urandom()</code>이 블록킹하는 문제에 대한 보고는 없었지만, 인터프리터 시작 시 및 <code>random</code> 모듈 임포트 시 CPython이 암묵적으로 블록킹 동작을 호출하여 문제가 발생했습니다.</p>
+<p>SipHash 초기화를 <code>os.urandom()</code> 구현과 분리하려는 시도 대신, Python 3.5.2는 <code>getrandom()</code>을 비블록킹 모드로 호출하고, 시스템 호출이 블록될 것임을 나타내면 <code>/dev/urandom</code>에서 읽기로 폴백하도록 전환했습니다.</p>
+<p>결과적으로, Python 3.5 이하의 모든 Python 버전에서 <code>os.urandom()</code>은 <code>/dev/urandom</code> 장치의 동작을 Python 코드로 전파합니다.</p>
+<h4>Linux의 <code>/dev/urandom</code> 동작 문제 (Problems with the behaviour of /dev/urandom on Linux)</h4>
+<p>Python <code>os</code> 모듈은 Linux API와 함께 발전해 왔으므로, <code>os</code> 모듈 함수가 Linux에서 실행될 때 해당 Linux 운영체제 수준 카운터파트의 동작을 밀접하게 따르는 것은 일반적으로 바람직한 기능으로 간주됩니다.</p>
+<p>그러나 <code>/dev/urandom</code>은 현재 동작이 문제가 있는 것으로 인정되지만, 커널 수준에서 일방적으로 수정하면 일부 Linux 배포판이 부팅되지 않는 것으로 나타난 경우입니다.</p>
+<p>운영체제의 난수 생성기를 예측 불가능한 비밀번호를 생성하는 메서드라고 생각한다면, Linux의 <code>/dev/urandom</code>은 다음과 같이 구현된 것으로 생각할 수 있습니다.</p>
+<pre><code class="language-python"># /dev/urandom을 구현하는 커널 코드의 과도하게 단순화된 예술적 개념
+def generate_unpredictable_password():
+    if system_rng_is_ready:
+        return use_system_rng_to_generate_password()
+    else:
+        # 예측 불가능한 암호를 만들 수 없습니다. 대신 잠재적으로 예측 가능한 암호를
+        # 조용히 반환합니다.
+        return "p4ssw0rd"
+</code></pre>
+<p>이 시나리오는 일반적으로 좋지 않은 아이디어로 간주됩니다. 실제로 원하는 동작인 사용 사례는 전혀 없습니다. 이로 인해 실제 시스템에서 안전하지 않은 SSH 키가 사용되었고, 많은 *nix 계열 시스템(Mac OS X, OpenBSD, FreeBSD 포함)은 <code>/dev/urandom</code> 구현을 수정하여 예측 가능한 출력을 절대 반환하지 않도록 했습니다.</p>
+<p>대신, 새로운 <code>getrandom()</code> 시스템 호출이 도입되어 사용자 공간 애플리케이션이 안전하게 시스템 난수 생성기에 액세스할 수 있게 되었으며, 기존 Linux 배포판의 시스템 초기화 프로세스에 디버그하기 어려운 교착 상태 문제를 도입하지 않습니다.</p>
+<h4>Python에 <code>getrandom()</code> 가용성의 결과 (Consequences of getrandom() availability for Python)</h4>
+<p><code>getrandom()</code> 시스템 호출이 도입되기 전에는 증명 가능한 안전한 방식으로 Linux 시스템 난수 생성기에 액세스하는 것이 단순히 불가능했으므로, 우리는 <code>/dev/urandom</code>에서 읽는 것을 최선의 선택으로 받아들일 수밖에 없었습니다. 그러나 <code>getrandom()</code>이 예측 가능한 데이터를 반환하는 대신 오류를 발생시키거나 블록하도록 요구하고 다른 이점도 있으므로, 이제 Linux에서 커널 RNG에 액세스하는 권장 방법이며, <code>/dev/urandom</code>에서 직접 읽는 것은 "레거시" 상태로 강등되었습니다.</p>
+<p>이는 이전에 다른 사람의 문제(Linux 커널 개발팀의 문제)였던 것이 이제 Python의 문제가 되었음을 의미합니다. 시스템 RNG가 초기화되지 않았음을 감지할 수 있는 방법이 주어졌으므로, 시스템 RNG를 사용하려고 할 때마다 이 상황을 어떻게 처리할지 선택해야 합니다.</p>
+<p>이 PEP에서 제안한 것처럼 단순히 블록하거나 오류를 발생시킬 수 있습니다.</p>
+<ul>
+<li><strong>블록킹 방식 (PEP 524와 유사):</strong>
+<pre><code class="language-python">def generate_unpredictable_bytes_or_block(num_bytes):
+    while not system_rng_is_ready:
+        wait
+    return unpredictable_bytes(num_bytes)
+</code></pre>
+</li>
+<li><strong>오류 발생 방식 (이 PEP에서 제안):</strong>
+<pre><code class="language-python">def generate_unpredictable_bytes_or_raise(num_bytes):
+    if system_rng_is_ready:
+        return unpredictable_bytes(num_bytes)
+    else:
+        raise BlockingIOError
+</code></pre>
+</li>
+<li><strong><code>/dev/urandom</code> 폴백 방식 (Python 3.5.2rc1+):</strong>
+<pre><code class="language-python">def generate_unpredictable_bytes_or_maybe_not(num_bytes):
+    if system_rng_is_ready:
+        return unpredictable_bytes(num_bytes)
+    else:
+        return (b"p4ssw0rd" * (num_bytes // 8 + 1))[:num_bytes]
+</code></pre>
+</li>
+</ul>
+<p>CPython과 표준 라이브러리가 운영체제의 난수 생성기를 사용하려고 시도하는 다섯 가지 장소가 있으며, 이 결정이 이루어져야 하는 다섯 가지 장소가 있습니다.</p>
+<ol>
+<li><code>str.__hash__</code> 및 관련 기능의 DoS 공격 방지를 위해 사용되는 SipHash 초기화 (시작 시 무조건 호출됨)</li>
+<li><code>random</code> 모듈 초기화 (random이 임포트될 때 호출됨)</li>
+<li><code>os.urandom</code> 공개 API에 대한 사용자 호출 처리</li>
+<li>고수준 <code>random.SystemRandom</code> 공개 API</li>
+<li>PEP 506에 의해 추가된 새로운 <code>secrets</code> 모듈 공개 API</li>
+</ol>
+<p>이 전체 문제는 3.5.0이 기본 코드를 <code>generate_unpredictable_bytes_or_block</code> 동작으로 전환했을 때 처음 발견되었습니다. Linux 부팅 스크립트가 시스템 초기화의 일부로 Python 프로그램을 실행하려고 시도하고, Python 시작 시퀀스가 SipHash 초기화를 시도하는 동안 블록되어, 시스템이 새 엔트로피 수집을 포함한 모든 작업을 중단하는 교착 상태가 발생한 드문 경우가 있었습니다. 이는 문제가 되는 스크립트가 신뢰할 수 없는 입력을 처리하지 않았으므로, 처음부터 SipHash를 증명 가능한 예측 불가능한 무작위 데이터로 초기화할 필요가 없었다는 점에서 특히 불운했습니다. 이는 3.5.2rc1에서 모든 경우에 이전 <code>/dev/urandom</code> 동작을 에뮬레이트하도록 변경한 동기가 되었습니다.</p>
+<p>이 PEP와는 독립적으로, 처음 두 경우(<code>SipHash 초기화</code> 및 <code>random 모듈 초기화</code>)는 <code>os.urandom()</code>의 동작과 관계없이 절대 블록하지 않도록 이미 업데이트되었습니다.</p>
+<p>PEP 524가 후자의 세 가지 경우를 모두 암묵적으로 블록하도록 제안하는 반면, 이 PEP는 <code>secrets</code> 모듈에 대해서만 해당 접근 방식을 제안하고, <code>os.urandom()</code> 및 <code>random.SystemRandom()</code>은 기본 운영체제 호출이 블록될 것임을 감지할 때 예외를 발생시키도록 제안했습니다.</p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Rejected] PEP 522 - Allow BlockingIOError in security sensitive APIs"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-26 23:15:31+0900","children":"2025년 9월 26일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 26일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":[["$","div",null,{"className":"page__taxonomy mb-4","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"카테고리"}],[["$","span","Python",{"className":"page__taxonomy-item","children":"Python"}],["$","span","PEP",{"className":"page__taxonomy-item","children":"PEP"}]]]}],["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]]}]]}]}]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"secrett2633's blog"}],["$","meta","3",{"name":"description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://secrett2633.github.io/"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"secrett2633's blog"}],["$","meta","13",{"property":"og:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","14",{"property":"og:url","content":"https://secrett2633.github.io/"}],["$","meta","15",{"property":"og:site_name","content":"secrett2633's blog"}],["$","meta","16",{"property":"og:locale","content":"ko_KR"}],["$","meta","17",{"property":"og:type","content":"website"}],["$","meta","18",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","19",{"name":"twitter:title","content":"secrett2633's blog"}],["$","meta","20",{"name":"twitter:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","21",{"name":"next-size-adjust"}]]
+1:null

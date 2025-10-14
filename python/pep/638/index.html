@@ -1,0 +1,262 @@
+<!DOCTYPE html><html lang="ko" class="no-js"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="preload" href="/secrett2633.github.io/_next/static/media/e4af272ccee01ff0-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="stylesheet" href="/secrett2633.github.io/_next/static/css/b9d6ec750ad82add.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/secrett2633.github.io/_next/static/chunks/webpack-a04af954a21fa650.js"/><script src="/secrett2633.github.io/_next/static/chunks/fd9d1056-62aaf4b921c84028.js" async=""></script><script src="/secrett2633.github.io/_next/static/chunks/23-ca4408d024135d8d.js" async=""></script><script src="/secrett2633.github.io/_next/static/chunks/main-app-fa660020ba1e0b6e.js" async=""></script><script src="/secrett2633.github.io/_next/static/chunks/231-c4b666723e6aae68.js" async=""></script><script src="/secrett2633.github.io/_next/static/chunks/app/layout-8808afda01b7a1b7.js" async=""></script><script src="/secrett2633.github.io/_next/static/chunks/app/%5B...slug%5D/page-01b66e77b48ed573.js" async=""></script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"></script><title>secrett2633&#x27;s blog</title><meta name="description" content="기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"/><meta name="author" content="secrett2633"/><meta name="keywords" content="Django, Python, DevOps, AI, ML, 블로그, 기술"/><meta name="creator" content="secrett2633"/><meta name="publisher" content="secrett2633"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://secrett2633.github.io/"/><meta name="format-detection" content="telephone=no, address=no, email=no"/><meta property="og:title" content="secrett2633&#x27;s blog"/><meta property="og:description" content="기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"/><meta property="og:url" content="https://secrett2633.github.io/"/><meta property="og:site_name" content="secrett2633&#x27;s blog"/><meta property="og:locale" content="ko_KR"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="secrett2633&#x27;s blog"/><meta name="twitter:description" content="기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"/><meta name="next-size-adjust"/><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/><meta name="msapplication-TileColor" content="#ffc40d"/><meta name="theme-color" content="#ffffff"/><script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-NE2W3CFPNY');
+            </script><script src="/secrett2633.github.io/_next/static/chunks/polyfills-78c92fac7aa8fdd8.js" noModule=""></script></head><body class="__className_9012cf layout--default"><div class="min-h-screen bg-gray-50"><div class="masthead"><div class="masthead__inner-wrap"><div class="masthead__menu"><nav id="site-nav" class="greedy-nav"><a class="site-title" href="/secrett2633.github.io">secrett2633&#x27;s blog</a><div class="flex items-center space-x-4"><ul class="visible-links"><li class="masthead__menu-item"><a href="https://github.com/secrett2633" target="_blank" rel="noopener noreferrer">GitHub</a></li></ul><button class="search__toggle" type="button"><svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16"><path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path></svg></button><button class="greedy-nav__toggle" type="button"><div class="navicon"></div></button></div><ul class="hidden-links hidden md:hidden"><li><a href="https://github.com/secrett2633" target="_blank" rel="noopener noreferrer" class="block py-2">GitHub</a></li></ul></nav></div></div></div><main class="initial-content"><!--$--><div class="flex flex-col lg:flex-row gap-8"><main class="flex-1"><article class="page"><header class="mb-8"><h1 class="page__title">[Draft] PEP 638 - Syntactic Macros</h1><div class="page__meta"><time dateTime="2025-09-27 01:30:41+0900">2025년 9월 26일</time><span class="ml-4">수정: <!-- -->2025년 9월 26일</span></div></header><div class="page__content"><div><blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0638/">PEP 638 - Syntactic Macros</a></p>
+<p><strong>상태:</strong> Draft | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 24-Sep-2020</p>
+</blockquote>
+<h2>PEP 638 – 구문 매크로 (Syntactic Macros)</h2>
+<p><strong>작성자:</strong> Mark Shannon
+<strong>상태:</strong> 초안 (Draft)
+<strong>생성일:</strong> 2020년 9월 24일</p>
+<h3>요약 (Abstract)</h3>
+<p>이 PEP는 Python에 구문 매크로(syntactic macros) 지원을 추가하는 것을 제안합니다. 매크로는 일반 라이브러리 코드로는 깔끔하게 표현할 수 없는 기능을 가능하게 하기 위해 프로그램의 일부를 변환하는 컴파일 타임(compile-time) 함수입니다.</p>
+<p>"구문(syntactic)"이라는 용어는 이러한 종류의 매크로가 프로그램의 구문 트리(syntax tree)에서 작동함을 의미합니다. 이는 텍스트 기반 대체 매크로에서 발생할 수 있는 오번역 가능성을 줄이고, 위생적인(hygienic) 매크로 구현을 가능하게 합니다.</p>
+<p>구문 매크로는 라이브러리가 컴파일 중에 추상 구문 트리(Abstract Syntax Tree, AST)를 수정할 수 있도록 하여, 언어 전체의 복잡성을 증가시키지 않고도 특정 도메인(domain)에 맞게 언어를 확장할 수 있는 기능을 제공합니다.</p>
+<h3>동기 (Motivation)</h3>
+<p>새로운 언어 기능은 논란의 여지가 많고, 파괴적이며, 때로는 분열을 초래할 수 있습니다. Python은 이제 충분히 강력하고 복잡해져서, 많은 제안된 추가 기능들이 추가적인 복잡성으로 인해 언어에 순손실을 가져올 수 있습니다.</p>
+<p>언어 변경이 특정 패턴을 표현하기 쉽게 만들더라도 비용이 발생합니다. 각 새로운 기능은 언어를 더 커지게 만들고, 배우기 어렵게 하며, 이해하기 어렵게 만듭니다. Python은 한때 'Python이 당신의 뇌에 맞는다(Python Fits Your Brain)'고 묘사되었지만, 점점 더 많은 기능이 추가될수록 이는 덜 사실이 됩니다.</p>
+<p>새로운 기능을 추가하는 데 드는 높은 비용 때문에, 사용자 수가 얼마나 많거나 해당 기능이 얼마나 유익한지와 상관없이 일부 사용자에게만 이점을 주는 기능을 추가하는 것은 매우 어렵거나 불가능합니다.</p>
+<p>지난 몇 년 동안 데이터 과학(data science) 및 머신러닝(machine learning) 분야에서 Python 사용이 매우 빠르게 증가했습니다. 그러나 Python의 핵심 개발자 대부분은 데이터 과학이나 머신러닝에 대한 배경 지식이 없습니다. 이로 인해 핵심 개발자가 머신러닝을 위한 언어 확장이 가치가 있는지 판단하기가 극도로 어렵습니다.</p>
+<p>언어 확장을 라이브러리처럼 모듈화하고 배포 가능하게 함으로써, 도메인별 확장은 해당 도메인 외부의 사용자에게 부정적인 영향을 미치지 않고 구현될 수 있습니다. 웹 개발자는 데이터 과학자와는 매우 다른 확장 세트를 원할 가능성이 높습니다. 우리는 커뮤니티가 자체적인 확장을 개발하도록 해야 합니다.</p>
+<p>일종의 사용자 정의 언어 확장이 없다면, 언어를 간결하게 유지하려는 사람들과 자신의 도메인이나 프로그래밍 스타일에 맞는 새로운 기능을 원하는 사람들 사이에 끊임없는 갈등이 있을 것입니다.</p>
+<h4>특정 도메인 라이브러리의 표현력 향상 (Improving the expressiveness of libraries for specific domains)</h4>
+<p>많은 도메인에서 라이브러리로 표현하기 어렵거나 불가능한 반복적인 패턴이 나타납니다. 매크로는 이러한 패턴을 더 간결하고 오류 발생 가능성이 적은 방식으로 표현할 수 있습니다.</p>
+<h4>새로운 언어 기능 시험 (Trialing new language features)</h4>
+<p>매크로를 사용하여 잠재적인 언어 확장을 시연할 수 있습니다. 예를 들어, <code>with</code> 문과 <code>yield from</code> 표현식은 매크로를 통해 시험될 수 있었을 것입니다. 이렇게 함으로써 해당 기능들이 언어에 포함되기 전에 더 많은 테스트를 허용하여 첫 출시 시 더 높은 품질의 구현을 이끌었을 수도 있습니다.</p>
+<p>새로운 기능이 출시되기 전에 완전히 신뢰할 수 있는지 확인하는 것은 거의 불가능합니다. <code>with</code> 및 <code>yield from</code> 기능과 관련된 버그는 출시 후 여러 해 동안 수정되었습니다.</p>
+<h4>바이트코드 인터프리터의 장기적인 안정성 (Long term stability for the bytecode interpreter)</h4>
+<p>역사적으로 새로운 언어 기능은 AST를 새롭고 복잡한 바이트코드 명령어(bytecode instructions)로 순진하게 컴파일(naive compilation)하여 구현되었습니다. 이러한 바이트코드는 종종 자체적인 내부 흐름 제어(flow-control)를 가졌으며, 컴파일러에서 수행할 수 있었고, 수행했어야 할 연산을 수행했습니다.</p>
+<p>예를 들어, 최근까지 <code>try - finally</code> 및 <code>with</code> 문의 흐름 제어는 문맥에 따라 의미가 달라지는 복잡한 바이트코드로 관리되었습니다. 이제 이러한 문 내의 제어 흐름은 컴파일러에서 구현되어 인터프리터를 더 단순하고 빠르게 만듭니다.</p>
+<p>새로운 기능을 AST 변환으로 구현함으로써, 기존 컴파일러는 인터프리터를 수정할 필요 없이 기능에 대한 바이트코드를 생성할 수 있습니다.</p>
+<p>CPython VM의 성능과 이식성(portability)을 개선하려면 안정적인 인터프리터가 필요합니다.</p>
+<h3>근거 (Rationale)</h3>
+<p>Python은 표현력이 풍부하고 배우기 쉽습니다. 가장 배우기 쉬운 널리 사용되는 프로그래밍 언어로 널리 인정받고 있습니다. 그러나 가장 유연한 언어는 아닙니다. 그 타이틀은 Lisp에 속합니다.</p>
+<p>Lisp는 동일형(homoiconic)이므로, Lisp 프로그램이 Lisp 데이터 구조라는 의미이며, Lisp 프로그램은 Lisp 프로그램에 의해 조작될 수 있습니다. 따라서 언어의 많은 부분이 자체적으로 정의될 수 있습니다.</p>
+<p>우리는 Lisp를 특징짓는 많은 괄호 없이 Python에서 그러한 능력을 원합니다. 다행히도, 언어가 스스로를 조작할 수 있기 위해 동일형일 필요는 없으며, 구문 분석(parsing) 후 실행 가능한 형태로 변환하기 전에 프로그램을 조작할 수 있는 능력만 있으면 됩니다.</p>
+<p>Python은 이미 필요한 구성 요소를 가지고 있습니다. Python의 구문 트리는 <code>ast</code> 모듈을 통해 사용할 수 있습니다. 필요한 것은 컴파일러에게 매크로가 존재함을 알리는 마커와 컴파일러가 AST를 조작하기 위해 사용자 코드(user code)로 콜백(callback)할 수 있는 능력입니다.</p>
+<h3>명세 (Specification)</h3>
+<h4>구문 (Syntax)</h4>
+<h5>어휘 분석 (Lexical analysis)</h5>
+<p>식별자 문자(identifier characters) 시퀀스 뒤에 느낌표(<code>!</code>)가 오는 모든 시퀀스는 <code>MACRO_NAME</code>으로 토큰화됩니다.</p>
+<h5>Statement (문) 형식</h5>
+<pre><code>macro_stmt = MACRO_NAME testlist [ "import" NAME ] [ "as" NAME ] [ ":" NEWLINE suite ]
+</code></pre>
+<h5>Expression (표현식) 형식</h5>
+<pre><code>macro_expr = MACRO_NAME "(" testlist ")"
+</code></pre>
+<h5>모호성 해결 (Resolving ambiguity)</h5>
+<p>매크로의 문(statement) 형식이 우선순위를 가집니다. 따라서 코드 <code>macro_name!(x)</code>는 매크로 표현식을 포함하는 표현식 문이 아니라 매크로 문으로 구문 분석됩니다.</p>
+<h4>의미 (Semantics)</h4>
+<h5>컴파일 (Compilation)</h5>
+<p>바이트코드(bytecode)로 변환하는 동안 매크로를 만나면, 코드 생성기는 해당 매크로에 등록된 매크로 프로세서(macro processor)를 찾아 매크로에 뿌리를 둔 AST를 프로세서 함수에 전달합니다. 반환된 AST는 원래 트리를 대체하게 됩니다.</p>
+<p>여러 이름을 가진 매크로의 경우, 여러 트리가 매크로 프로세서에 전달되지만, 하나만 반환되어 대체되어 포함하는 문 블록을 단축합니다.</p>
+<p>이 과정은 매크로가 다른 매크로를 포함하는 AST 노드를 반환할 수 있도록 반복될 수 있습니다.</p>
+<p>컴파일러는 해당 매크로에 도달할 때까지 매크로 프로세서를 찾지 않으므로, 내부 매크로는 프로세서를 등록할 필요가 없습니다. 예를 들어, <code>switch</code> 매크로에서 <code>case</code> 및 <code>default</code> 매크로는 <code>switch</code> 프로세서에 의해 제거되므로 프로세서를 등록할 필요가 없습니다.</p>
+<p>매크로 정의를 임포트(import)할 수 있도록, <code>import!</code> 및 <code>from!</code> 매크로가 사전 정의됩니다. 이들은 다음 구문을 지원합니다.</p>
+<pre><code>"import!" dotted_name "as" name
+"from!" dotted_name "import" name [ "as" name ]
+</code></pre>
+<p><code>import!</code> 매크로는 <code>dotted_name</code>의 컴파일 타임 임포트를 수행하여 매크로 프로세서를 찾은 다음, 현재 컴파일 중인 스코프(scope)에 <code>name</code>으로 등록합니다.</p>
+<p><code>from!</code> 매크로는 <code>dotted_name.name</code>의 컴파일 타임 임포트를 수행하여 매크로 프로세서를 찾은 다음, 현재 컴파일 중인 스코프에 <code>name</code>으로 등록합니다("as" 뒤에 이름이 있는 경우 해당 이름을 사용).</p>
+<p><code>import!</code> 및 <code>from!</code>은 임포트가 존재하는 스코프에 대해서만 매크로를 정의하므로, 명확성을 높이기 위해 매크로의 모든 사용은 명시적인 <code>import!</code> 또는 <code>from!</code> 앞에 와야 합니다.</p>
+<p>예를 들어, "my.compiler"에서 "compile" 매크로를 임포트하려면:</p>
+<pre><code class="language-python">from! my.compiler import compile
+</code></pre>
+<h5>매크로 프로세서 정의 (Defining macro processors)</h5>
+<p>매크로 프로세서는 <code>(func, kind, version, additional_names)</code>로 구성된 네 가지 튜플로 정의됩니다.</p>
+<ul>
+<li><code>func</code>: <code>len(additional_names)+1</code>개의 인자(모두 추상 구문 트리)를 취하고 하나의 추상 구문 트리를 반환하는 호출 가능(callable) 객체여야 합니다.</li>
+<li><code>kind</code>: 다음 중 하나여야 합니다.
+<ul>
+<li><code>macros.STMT_MACRO</code>: 매크로의 본문(body)이 들여쓰기된 문 매크로입니다. 이는 추가 이름을 가질 수 있는 유일한 형식입니다.</li>
+<li><code>macros.SIBLING_MACRO</code>: 매크로의 본문이 같은 블록 내의 다음 문인 문 매크로입니다. 다음 문이 매크로의 본문으로 이동합니다.</li>
+<li><code>macros.EXPR_MACRO</code>: 표현식 매크로입니다.</li>
+</ul>
+</li>
+<li><code>version</code>: 매크로의 버전을 추적하는 데 사용되며, 생성된 바이트코드를 올바르게 캐시(cache)할 수 있도록 합니다. 정수여야 합니다.</li>
+<li><code>additional_names</code>: 매크로의 추가 부분 이름이며, 문자열 튜플이어야 합니다.</li>
+</ul>
+<p>예시:</p>
+<pre><code class="language-python"># (func, _ast.STMT_MACRO, VERSION, ())
+stmt_macro!: multi_statement_body
+
+# (func, _ast.SIBLING_MACRO, VERSION, ())
+sibling_macro! single_statement_body
+
+# (func, _ast.EXPR_MACRO, VERSION, ())
+x = expr_macro!(...)
+
+# (func, _ast.STMT_MACRO, VERSION, ("subsequent_macro_part",))
+multi_part_macro!: multi_statement_body
+subsequent_macro_part!: multi_statement_body
+</code></pre>
+<p>컴파일러는 사용된 구문이 선언된 <code>kind</code>와 일치하는지 확인합니다.</p>
+<p>편의를 위해 <code>macros</code> 모듈에는 함수를 매크로 프로세서로 표시하는 <code>macro_processor</code> 데코레이터(decorator)가 제공됩니다.</p>
+<pre><code class="language-python">def macro_processor(kind, version, *additional_names):
+    def deco(func):
+        return func, kind, version, additional_names
+    return deco
+</code></pre>
+<p>이는 매크로 프로세서를 선언하는 데 도움이 될 수 있습니다. 예를 들어:</p>
+<pre><code class="language-python">@macros.macro_processor(macros.STMT_MACRO, 1_08)
+def switch(astnode):
+    ...
+</code></pre>
+<h5>AST 확장 (AST extensions)</h5>
+<p>매크로를 표현하기 위해 <code>macro_stmt</code>와 <code>macro_expr</code>이라는 두 개의 새로운 AST 노드가 필요합니다.</p>
+<pre><code class="language-python">class macro_stmt(_ast.stmt):
+    _fields = "name", "args", "importname", "asname", "body"
+
+class macro_expr(_ast.expr):
+    _fields = "name", "args"
+</code></pre>
+<p>또한, 매크로 프로세서는 값을 생성하는 제어 흐름 또는 부수 효과(side-effecting) 코드를 표현할 수단이 필요합니다. 문(statement)과 표현식(expression)을 결합하는 <code>stmt_expr</code>이라는 새로운 AST 노드가 추가될 것입니다. 이 새로운 AST 노드는 <code>expr</code>의 하위 타입(subtype)이지만, 부수 효과를 허용하는 문을 포함합니다. 이는 문을 컴파일한 다음 값을 컴파일하여 바이트코드로 컴파일됩니다.</p>
+<pre><code class="language-python">class stmt_expr(_ast.expr):
+    _fields = "stmt", "value"
+</code></pre>
+<h5>위생 및 디버깅 (Hygiene and debugging)</h5>
+<p>매크로 프로세서는 종종 새로운 변수를 생성해야 합니다. 이러한 변수는 원래 코드와 다른 매크로를 오염시키지 않도록 이름을 지정해야 합니다. 명명 규칙이 강제되지는 않지만, 위생을 보장하고 디버깅을 돕기 위해 다음 명명 체계가 권장됩니다.</p>
+<ul>
+<li>생성된 모든 변수 이름은 <code>$</code>로 시작해야 합니다.</li>
+<li>순수하게 인위적인 변수 이름은 <code>$$mname</code>으로 시작해야 하며, 여기서 <code>mname</code>은 매크로의 이름입니다.</li>
+<li>실제 변수에서 파생된 변수는 <code>$vname</code>으로 시작해야 하며, 여기서 <code>vname</code>은 변수의 이름입니다.</li>
+<li>모든 변수 이름은 줄 번호와 열 오프셋(underscore로 구분)을 포함해야 합니다.</li>
+</ul>
+<p>예시:</p>
+<ul>
+<li>순수하게 생성된 이름: <code>$$macro_17_0</code></li>
+<li>표현식 매크로의 변수에서 파생된 이름: <code>$var_12_5</code></li>
+</ul>
+<h3>예시 (Examples)</h3>
+<h4>컴파일 타임 검사 데이터 구조 (Compile-time-checked data structures)</h4>
+<p>Python에서 데이터 테이블을 큰 딕셔너리로 인코딩하는 것은 일반적입니다. 그러나 이것들은 유지 관리하기 어렵고 오류가 발생하기 쉽습니다. 매크로는 이러한 데이터를 더 읽기 쉬운 형식으로 작성할 수 있도록 합니다. 그런 다음 컴파일 타임에 데이터를 확인하고 효율적인 형식으로 변환할 수 있습니다.</p>
+<p>예를 들어, 코드와 이름 사이의 매핑을 하는 두 개의 딕셔너리 리터럴이 있다고 가정해 봅시다. 딕셔너리에 중복 키가 있거나 한 테이블이 다른 테이블의 역이 아닐 수 있으므로 이것은 오류 발생 가능성이 있습니다. 매크로는 단일 테이블에서 두 매핑을 생성하고 동시에 중복이 없는지 확인할 수 있습니다.</p>
+<pre><code class="language-python">color_to_code = {
+    "red": 1,
+    "blue": 2,
+    "green": 3,
+}
+code_to_color = {
+    1: "red",
+    2: "blue",
+    3: "yellow", # error
+}
+</code></pre>
+<p>이것은 다음과 같이 될 수 있습니다.</p>
+<pre><code class="language-python">bijection! color_to_code, code_to_color:
+    "red" = 1
+    "blue" = 2
+    "green" = 3
+</code></pre>
+<h4>도메인별 확장 (Domain-specific extensions)</h4>
+<p>매크로가 진정한 가치를 발휘하는 곳은 일반적인 언어 기능이 아니라 특정 도메인이라고 생각합니다.</p>
+<p>예를 들어, 파서(parser)의 경우. 다음은 매크로를 사용하여 Python에 대한 파서 정의의 일부입니다.</p>
+<pre><code class="language-python">choice! single_input:
+    NEWLINE
+    simple_stmt
+sequence!: compound_stmt NEWLINE
+</code></pre>
+<h4>컴파일러 (Compilers)</h4>
+<p>Numba와 같은 런타임 컴파일러는 Python 소스를 재구성하거나 바이트코드를 분석하려고 시도해야 합니다. AST를 직접 얻는 것이 더 간단하고 신뢰할 수 있습니다.</p>
+<pre><code class="language-python">from! my.jit.library import jit
+jit! def func():
+    ...
+</code></pre>
+<h4>기호 표현식 일치 (Matching symbolic expressions)</h4>
+<p>Python AST 노드 또는 SymPy 표현식과 같이 구문을 나타내는 것을 일치시킬 때, 데이터 구조 자체 대신 실제 구문에 대해 일치시키는 것이 편리합니다. 예를 들어, 계산기는 구문을 일치시키기 위한 도메인별 매크로를 사용하여 구현될 수 있습니다.</p>
+<pre><code class="language-python">from! ast_matcher import match
+
+def calculate(node):
+    if isinstance(node, Num):
+        return node.n
+    match! node:
+        case! a + b:
+            return calculate(a) + calculate(b)
+        case! a - b:
+            return calculate(a) - calculate(b)
+        case! a * b:
+            return calculate(a) * calculate(b)
+        case! a / b:
+            return calculate(a) / calculate(b)
+</code></pre>
+<p>이는 다음과 같이 변환될 수 있습니다.</p>
+<pre><code class="language-python">def calculate(node):
+    if isinstance(node, Num):
+        return node.n
+    $$match_4_0 = node
+    if isinstance($$match_4_0, _ast.Add):
+        a, b = $$match_4_0.left, $$match_4_0.right
+        return calculate(a) + calculate(b)
+    elif isinstance($$match_4_0, _ast.Sub):
+        a, b = $$match_4_0.left, $$match_4_0.right
+        return calculate(a) - calculate(b)
+    elif isinstance($$match_4_0, _ast.Mul):
+        a, b = $$match_4_0.left, $$match_4_0.right
+        return calculate(a) * calculate(b)
+    elif isinstance($$match_4_0, _ast.Div):
+        a, b = $$match_4_0.left, $$match_4_0.right
+        return calculate(a) / calculate(b)
+</code></pre>
+<h4>제로 비용 마커 및 주석 (Zero-cost markers and annotations)</h4>
+<p>데코레이터(decorator) 또는 PEP 3107 함수 주석과 같은 주석(annotations)은 검사기를 위한 마커(marker) 역할을 하거나 문서화 용도로만 사용되더라도 런타임(runtime) 비용이 발생합니다.</p>
+<pre><code class="language-python">@do_nothing_marker
+def foo(...):
+    ...
+</code></pre>
+<p>위 코드는 다음과 같은 제로 비용 매크로로 대체될 수 있습니다.</p>
+<pre><code class="language-python">do_nothing_marker!: def foo(...):
+    ...
+</code></pre>
+<h4>언어 확장 프로토타이핑 (Prototyping language extensions)</h4>
+<p>매크로가 도메인별 확장에 가장 가치가 있겠지만, 매크로를 사용하여 가능한 언어 확장을 시연할 수 있습니다.</p>
+<h5>f-strings:</h5>
+<p><code>f-string</code> <code>f"..."</code>는 <code>f!("...")</code>와 같은 매크로로 구현될 수 있습니다. 읽기에는 그다지 좋지 않지만, 실험에는 여전히 유용할 것입니다.</p>
+<h5>Try finally 문:</h5>
+<pre><code class="language-python">try_!: body
+finally!: closing
+</code></pre>
+<p>위 코드는 대략 다음과 같이 번역될 것입니다.</p>
+<pre><code class="language-python">try:
+    body
+except:
+    closing
+else:
+    closing
+</code></pre>
+<p>참고: <code>return</code>, <code>break</code>, <code>continue</code>를 올바르게 처리하는 데 주의해야 합니다. 위 코드는 단지 설명적인 예시입니다.</p>
+<h5>With 문:</h5>
+<pre><code class="language-python">with! open(filename) as fd:
+    return fd.read()
+</code></pre>
+<p>위 코드는 <code>open</code>을 특별히 처리해야 합니다. 더 명시적인 대안은 다음과 같습니다.</p>
+<pre><code class="language-python">with! open!(filename) as fd:
+    return fd.read()
+</code></pre>
+<h4>매크로 정의 매크로 (Macro definition macros)</h4>
+<p>구문 매크로를 가진 언어는 일반적으로 매크로를 정의하기 위한 매크로를 제공합니다. 이 PEP는 좋은 디자인이 무엇인지 아직 명확하지 않고 커뮤니티가 자체 매크로를 정의할 수 있도록 허용하기를 원하므로 의도적으로 이를 수행하지 않습니다.</p>
+<p>한 가지 가능한 형태는 다음과 같습니다.</p>
+<pre><code class="language-python">macro_def! name:
+    input: ... # input pattern, defining meta-variables
+    output: ... # output pattern, using meta-variables
+</code></pre>
+<h3>하위 호환성 (Backwards Compatibility)</h3>
+<p>이 PEP는 완전히 하위 호환됩니다.</p>
+<h3>성능 영향 (Performance Implications)</h3>
+<p>매크로를 사용하지 않는 코드의 경우 성능에 영향이 없습니다.</p>
+<p>매크로를 사용하고 이미 바이트코드로 컴파일된 코드의 경우, 코드를 컴파일하는 데 사용된 매크로 버전이 임포트된 매크로 프로세서와 일치하는지 확인하는 데 약간의 오버헤드(overhead)가 있습니다.</p>
+<p>컴파일되지 않았거나 다른 버전의 매크로 프로세서로 컴파일된 코드의 경우, 일반적인 바이트코드 컴파일 오버헤드와 매크로 처리의 추가 오버헤드가 발생할 것입니다.</p>
+<p>소스 코드에서 바이트코드 컴파일 속도는 Python 성능에 대체로 관련이 없다는 점에 주목할 필요가 있습니다.</p>
+<h3>구현 (Implementation)</h3>
+<p>컴파일 타임에 Python 코드에 의한 AST 변환을 허용하기 위해, 컴파일러의 모든 AST 노드는 Python 객체여야 합니다.</p>
+<p>이를 효율적으로 수행하려면 <code>_ast</code> 모듈의 모든 노드를 변경 불가능(immutable)하게 만들어 성능 저하를 크게 줄여야 합니다. AST가 사이클릭 GC(Cyclic GC)를 지원할 필요가 없도록 트리 상태를 유지하려면 변경 불가능해야 합니다. 변경 불가능하게 만들면 <code>__dict__</code> 속성이 없어져서 컴팩트해집니다.</p>
+<p><code>ast</code> 모듈의 AST 노드는 변경 가능(mutable)한 상태로 유지됩니다.</p>
+<p>현재 모든 AST 노드는 아레나 할당자(arena allocator)를 사용하여 할당됩니다. 표준 할당자를 사용하도록 변경하면 컴파일 속도가 약간 느려질 수 있지만, 많은 코드를 삭제할 수 있으므로 유지 관리 측면에서 이점이 있습니다.</p>
+<h3>참고 구현 (Reference Implementation)</h3>
+<p>아직 없습니다.</p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+</div></div><footer class="page__meta mt-8"><div class="page__taxonomy mb-4"><h4 class="text-sm font-medium text-gray-900 mb-2">카테고리</h4><span class="page__taxonomy-item">Python</span><span class="page__taxonomy-item">PEP</span></div><div class="page__taxonomy"><h4 class="text-sm font-medium text-gray-900 mb-2">태그</h4><span class="page__taxonomy-item">#<!-- -->Python</span><span class="page__taxonomy-item">#<!-- -->PEP</span><span class="page__taxonomy-item">#<!-- -->Translation</span></div></footer></article></main></div><!--/$--></main><div id="footer" class="page__footer"><footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8"><div class="text-center text-gray-500 text-sm"><p>© 2025 secrett2633. All rights reserved.</p></div></footer></div></div><script src="/secrett2633.github.io/_next/static/chunks/webpack-a04af954a21fa650.js" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0]);self.__next_f.push([2,null])</script><script>self.__next_f.push([1,"1:HL[\"/secrett2633.github.io/_next/static/media/e4af272ccee01ff0-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n2:HL[\"/secrett2633.github.io/_next/static/css/b9d6ec750ad82add.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"3:I[5751,[],\"\"]\n6:I[9275,[],\"\"]\n8:I[1343,[],\"\"]\n9:I[4281,[\"231\",\"static/chunks/231-c4b666723e6aae68.js\",\"185\",\"static/chunks/app/layout-8808afda01b7a1b7.js\"],\"default\"]\na:I[231,[\"231\",\"static/chunks/231-c4b666723e6aae68.js\",\"877\",\"static/chunks/app/%5B...slug%5D/page-01b66e77b48ed573.js\"],\"\"]\nc:I[6130,[],\"\"]\n7:[\"slug\",\"python/pep/638\",\"c\"]\nd:[]\n"])</script><script>self.__next_f.push([1,"0:[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/secrett2633.github.io/_next/static/css/b9d6ec750ad82add.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\"}]],[\"$\",\"$L3\",null,{\"buildId\":\"iV6XySbMHIJ3imQdvgy3I\",\"assetPrefix\":\"/secrett2633.github.io\",\"initialCanonicalUrl\":\"/python/pep/638/\",\"initialTree\":[\"\",{\"children\":[[\"slug\",\"python/pep/638\",\"c\"],{\"children\":[\"__PAGE__?{\\\"slug\\\":[\\\"python\\\",\\\"pep\\\",\\\"638\\\"]}\",{}]}]},\"$undefined\",\"$undefined\",true],\"initialSeedData\":[\"\",{\"children\":[[\"slug\",\"python/pep/638\",\"c\"],{\"children\":[\"__PAGE__\",{},[[\"$L4\",\"$L5\"],null],null]},[\"$\",\"$L6\",null,{\"parallelRouterKey\":\"children\",\"segmentPath\":[\"children\",\"$7\",\"children\"],\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L8\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"notFoundStyles\":\"$undefined\",\"styles\":null}],null]},[[\"$\",\"html\",null,{\"lang\":\"ko\",\"className\":\"no-js\",\"children\":[[\"$\",\"head\",null,{\"children\":[[\"$\",\"link\",null,{\"rel\":\"icon\",\"type\":\"image/png\",\"sizes\":\"32x32\",\"href\":\"/favicon-32x32.png\"}],[\"$\",\"link\",null,{\"rel\":\"icon\",\"type\":\"image/png\",\"sizes\":\"16x16\",\"href\":\"/favicon-16x16.png\"}],[\"$\",\"meta\",null,{\"name\":\"msapplication-TileColor\",\"content\":\"#ffc40d\"}],[\"$\",\"meta\",null,{\"name\":\"theme-color\",\"content\":\"#ffffff\"}],[\"$\",\"script\",null,{\"async\":true,\"src\":\"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY\"}],[\"$\",\"script\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"\\n              window.dataLayer = window.dataLayer || [];\\n              function gtag(){dataLayer.push(arguments);}\\n              gtag('js', new Date());\\n              gtag('config', 'G-NE2W3CFPNY');\\n            \"}}]]}],[\"$\",\"body\",null,{\"className\":\"__className_9012cf layout--default\",\"children\":[\"$\",\"div\",null,{\"className\":\"min-h-screen bg-gray-50\",\"children\":[[\"$\",\"$L9\",null,{}],[\"$\",\"main\",null,{\"className\":\"initial-content\",\"children\":[\"$\",\"$L6\",null,{\"parallelRouterKey\":\"children\",\"segmentPath\":[\"children\"],\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L8\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[\"$\",\"div\",null,{\"className\":\"min-h-screen flex items-center justify-center bg-gray-50\",\"children\":[\"$\",\"div\",null,{\"className\":\"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center\",\"children\":[[\"$\",\"h1\",null,{\"className\":\"text-6xl font-bold text-primary-600 mb-4\",\"children\":\"404\"}],[\"$\",\"h2\",null,{\"className\":\"text-2xl font-semibold text-gray-900 mb-4\",\"children\":\"페이지를 찾을 수 없습니다\"}],[\"$\",\"p\",null,{\"className\":\"text-gray-600 mb-8\",\"children\":\"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다.\"}],[\"$\",\"$La\",null,{\"href\":\"/\",\"className\":\"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors\",\"children\":\"홈으로 돌아가기\"}]]}]}],\"notFoundStyles\":[],\"styles\":null}]}],[\"$\",\"div\",null,{\"id\":\"footer\",\"className\":\"page__footer\",\"children\":[\"$\",\"footer\",null,{\"className\":\"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8\",\"children\":[\"$\",\"div\",null,{\"className\":\"text-center text-gray-500 text-sm\",\"children\":[\"$\",\"p\",null,{\"children\":\"© 2025 secrett2633. All rights reserved.\"}]}]}]}]]}]}]]}],null],[[\"$\",\"div\",null,{\"className\":\"flex items-center justify-center min-h-screen\",\"children\":[\"$\",\"div\",null,{\"className\":\"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600\"}]}],[],[]]],\"couldBeIntercepted\":false,\"initialHead\":[null,\"$Lb\"],\"globalErrorComponent\":\"$c\",\"missingSlots\":\"$Wd\"}]]\n"])</script><script>self.__next_f.push([1,"e:T5acd,"])</script><script>self.__next_f.push([1,"\u003cblockquote\u003e\n\u003cp\u003e\u003cstrong\u003e원문 링크:\u003c/strong\u003e \u003ca href=\"https://peps.python.org/pep-0638/\"\u003ePEP 638 - Syntactic Macros\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003e상태:\u003c/strong\u003e Draft | \u003cstrong\u003e유형:\u003c/strong\u003e Standards Track | \u003cstrong\u003e작성일:\u003c/strong\u003e 24-Sep-2020\u003c/p\u003e\n\u003c/blockquote\u003e\n\u003ch2\u003ePEP 638 – 구문 매크로 (Syntactic Macros)\u003c/h2\u003e\n\u003cp\u003e\u003cstrong\u003e작성자:\u003c/strong\u003e Mark Shannon\n\u003cstrong\u003e상태:\u003c/strong\u003e 초안 (Draft)\n\u003cstrong\u003e생성일:\u003c/strong\u003e 2020년 9월 24일\u003c/p\u003e\n\u003ch3\u003e요약 (Abstract)\u003c/h3\u003e\n\u003cp\u003e이 PEP는 Python에 구문 매크로(syntactic macros) 지원을 추가하는 것을 제안합니다. 매크로는 일반 라이브러리 코드로는 깔끔하게 표현할 수 없는 기능을 가능하게 하기 위해 프로그램의 일부를 변환하는 컴파일 타임(compile-time) 함수입니다.\u003c/p\u003e\n\u003cp\u003e\"구문(syntactic)\"이라는 용어는 이러한 종류의 매크로가 프로그램의 구문 트리(syntax tree)에서 작동함을 의미합니다. 이는 텍스트 기반 대체 매크로에서 발생할 수 있는 오번역 가능성을 줄이고, 위생적인(hygienic) 매크로 구현을 가능하게 합니다.\u003c/p\u003e\n\u003cp\u003e구문 매크로는 라이브러리가 컴파일 중에 추상 구문 트리(Abstract Syntax Tree, AST)를 수정할 수 있도록 하여, 언어 전체의 복잡성을 증가시키지 않고도 특정 도메인(domain)에 맞게 언어를 확장할 수 있는 기능을 제공합니다.\u003c/p\u003e\n\u003ch3\u003e동기 (Motivation)\u003c/h3\u003e\n\u003cp\u003e새로운 언어 기능은 논란의 여지가 많고, 파괴적이며, 때로는 분열을 초래할 수 있습니다. Python은 이제 충분히 강력하고 복잡해져서, 많은 제안된 추가 기능들이 추가적인 복잡성으로 인해 언어에 순손실을 가져올 수 있습니다.\u003c/p\u003e\n\u003cp\u003e언어 변경이 특정 패턴을 표현하기 쉽게 만들더라도 비용이 발생합니다. 각 새로운 기능은 언어를 더 커지게 만들고, 배우기 어렵게 하며, 이해하기 어렵게 만듭니다. Python은 한때 'Python이 당신의 뇌에 맞는다(Python Fits Your Brain)'고 묘사되었지만, 점점 더 많은 기능이 추가될수록 이는 덜 사실이 됩니다.\u003c/p\u003e\n\u003cp\u003e새로운 기능을 추가하는 데 드는 높은 비용 때문에, 사용자 수가 얼마나 많거나 해당 기능이 얼마나 유익한지와 상관없이 일부 사용자에게만 이점을 주는 기능을 추가하는 것은 매우 어렵거나 불가능합니다.\u003c/p\u003e\n\u003cp\u003e지난 몇 년 동안 데이터 과학(data science) 및 머신러닝(machine learning) 분야에서 Python 사용이 매우 빠르게 증가했습니다. 그러나 Python의 핵심 개발자 대부분은 데이터 과학이나 머신러닝에 대한 배경 지식이 없습니다. 이로 인해 핵심 개발자가 머신러닝을 위한 언어 확장이 가치가 있는지 판단하기가 극도로 어렵습니다.\u003c/p\u003e\n\u003cp\u003e언어 확장을 라이브러리처럼 모듈화하고 배포 가능하게 함으로써, 도메인별 확장은 해당 도메인 외부의 사용자에게 부정적인 영향을 미치지 않고 구현될 수 있습니다. 웹 개발자는 데이터 과학자와는 매우 다른 확장 세트를 원할 가능성이 높습니다. 우리는 커뮤니티가 자체적인 확장을 개발하도록 해야 합니다.\u003c/p\u003e\n\u003cp\u003e일종의 사용자 정의 언어 확장이 없다면, 언어를 간결하게 유지하려는 사람들과 자신의 도메인이나 프로그래밍 스타일에 맞는 새로운 기능을 원하는 사람들 사이에 끊임없는 갈등이 있을 것입니다.\u003c/p\u003e\n\u003ch4\u003e특정 도메인 라이브러리의 표현력 향상 (Improving the expressiveness of libraries for specific domains)\u003c/h4\u003e\n\u003cp\u003e많은 도메인에서 라이브러리로 표현하기 어렵거나 불가능한 반복적인 패턴이 나타납니다. 매크로는 이러한 패턴을 더 간결하고 오류 발생 가능성이 적은 방식으로 표현할 수 있습니다.\u003c/p\u003e\n\u003ch4\u003e새로운 언어 기능 시험 (Trialing new language features)\u003c/h4\u003e\n\u003cp\u003e매크로를 사용하여 잠재적인 언어 확장을 시연할 수 있습니다. 예를 들어, \u003ccode\u003ewith\u003c/code\u003e 문과 \u003ccode\u003eyield from\u003c/code\u003e 표현식은 매크로를 통해 시험될 수 있었을 것입니다. 이렇게 함으로써 해당 기능들이 언어에 포함되기 전에 더 많은 테스트를 허용하여 첫 출시 시 더 높은 품질의 구현을 이끌었을 수도 있습니다.\u003c/p\u003e\n\u003cp\u003e새로운 기능이 출시되기 전에 완전히 신뢰할 수 있는지 확인하는 것은 거의 불가능합니다. \u003ccode\u003ewith\u003c/code\u003e 및 \u003ccode\u003eyield from\u003c/code\u003e 기능과 관련된 버그는 출시 후 여러 해 동안 수정되었습니다.\u003c/p\u003e\n\u003ch4\u003e바이트코드 인터프리터의 장기적인 안정성 (Long term stability for the bytecode interpreter)\u003c/h4\u003e\n\u003cp\u003e역사적으로 새로운 언어 기능은 AST를 새롭고 복잡한 바이트코드 명령어(bytecode instructions)로 순진하게 컴파일(naive compilation)하여 구현되었습니다. 이러한 바이트코드는 종종 자체적인 내부 흐름 제어(flow-control)를 가졌으며, 컴파일러에서 수행할 수 있었고, 수행했어야 할 연산을 수행했습니다.\u003c/p\u003e\n\u003cp\u003e예를 들어, 최근까지 \u003ccode\u003etry - finally\u003c/code\u003e 및 \u003ccode\u003ewith\u003c/code\u003e 문의 흐름 제어는 문맥에 따라 의미가 달라지는 복잡한 바이트코드로 관리되었습니다. 이제 이러한 문 내의 제어 흐름은 컴파일러에서 구현되어 인터프리터를 더 단순하고 빠르게 만듭니다.\u003c/p\u003e\n\u003cp\u003e새로운 기능을 AST 변환으로 구현함으로써, 기존 컴파일러는 인터프리터를 수정할 필요 없이 기능에 대한 바이트코드를 생성할 수 있습니다.\u003c/p\u003e\n\u003cp\u003eCPython VM의 성능과 이식성(portability)을 개선하려면 안정적인 인터프리터가 필요합니다.\u003c/p\u003e\n\u003ch3\u003e근거 (Rationale)\u003c/h3\u003e\n\u003cp\u003ePython은 표현력이 풍부하고 배우기 쉽습니다. 가장 배우기 쉬운 널리 사용되는 프로그래밍 언어로 널리 인정받고 있습니다. 그러나 가장 유연한 언어는 아닙니다. 그 타이틀은 Lisp에 속합니다.\u003c/p\u003e\n\u003cp\u003eLisp는 동일형(homoiconic)이므로, Lisp 프로그램이 Lisp 데이터 구조라는 의미이며, Lisp 프로그램은 Lisp 프로그램에 의해 조작될 수 있습니다. 따라서 언어의 많은 부분이 자체적으로 정의될 수 있습니다.\u003c/p\u003e\n\u003cp\u003e우리는 Lisp를 특징짓는 많은 괄호 없이 Python에서 그러한 능력을 원합니다. 다행히도, 언어가 스스로를 조작할 수 있기 위해 동일형일 필요는 없으며, 구문 분석(parsing) 후 실행 가능한 형태로 변환하기 전에 프로그램을 조작할 수 있는 능력만 있으면 됩니다.\u003c/p\u003e\n\u003cp\u003ePython은 이미 필요한 구성 요소를 가지고 있습니다. Python의 구문 트리는 \u003ccode\u003east\u003c/code\u003e 모듈을 통해 사용할 수 있습니다. 필요한 것은 컴파일러에게 매크로가 존재함을 알리는 마커와 컴파일러가 AST를 조작하기 위해 사용자 코드(user code)로 콜백(callback)할 수 있는 능력입니다.\u003c/p\u003e\n\u003ch3\u003e명세 (Specification)\u003c/h3\u003e\n\u003ch4\u003e구문 (Syntax)\u003c/h4\u003e\n\u003ch5\u003e어휘 분석 (Lexical analysis)\u003c/h5\u003e\n\u003cp\u003e식별자 문자(identifier characters) 시퀀스 뒤에 느낌표(\u003ccode\u003e!\u003c/code\u003e)가 오는 모든 시퀀스는 \u003ccode\u003eMACRO_NAME\u003c/code\u003e으로 토큰화됩니다.\u003c/p\u003e\n\u003ch5\u003eStatement (문) 형식\u003c/h5\u003e\n\u003cpre\u003e\u003ccode\u003emacro_stmt = MACRO_NAME testlist [ \"import\" NAME ] [ \"as\" NAME ] [ \":\" NEWLINE suite ]\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch5\u003eExpression (표현식) 형식\u003c/h5\u003e\n\u003cpre\u003e\u003ccode\u003emacro_expr = MACRO_NAME \"(\" testlist \")\"\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch5\u003e모호성 해결 (Resolving ambiguity)\u003c/h5\u003e\n\u003cp\u003e매크로의 문(statement) 형식이 우선순위를 가집니다. 따라서 코드 \u003ccode\u003emacro_name!(x)\u003c/code\u003e는 매크로 표현식을 포함하는 표현식 문이 아니라 매크로 문으로 구문 분석됩니다.\u003c/p\u003e\n\u003ch4\u003e의미 (Semantics)\u003c/h4\u003e\n\u003ch5\u003e컴파일 (Compilation)\u003c/h5\u003e\n\u003cp\u003e바이트코드(bytecode)로 변환하는 동안 매크로를 만나면, 코드 생성기는 해당 매크로에 등록된 매크로 프로세서(macro processor)를 찾아 매크로에 뿌리를 둔 AST를 프로세서 함수에 전달합니다. 반환된 AST는 원래 트리를 대체하게 됩니다.\u003c/p\u003e\n\u003cp\u003e여러 이름을 가진 매크로의 경우, 여러 트리가 매크로 프로세서에 전달되지만, 하나만 반환되어 대체되어 포함하는 문 블록을 단축합니다.\u003c/p\u003e\n\u003cp\u003e이 과정은 매크로가 다른 매크로를 포함하는 AST 노드를 반환할 수 있도록 반복될 수 있습니다.\u003c/p\u003e\n\u003cp\u003e컴파일러는 해당 매크로에 도달할 때까지 매크로 프로세서를 찾지 않으므로, 내부 매크로는 프로세서를 등록할 필요가 없습니다. 예를 들어, \u003ccode\u003eswitch\u003c/code\u003e 매크로에서 \u003ccode\u003ecase\u003c/code\u003e 및 \u003ccode\u003edefault\u003c/code\u003e 매크로는 \u003ccode\u003eswitch\u003c/code\u003e 프로세서에 의해 제거되므로 프로세서를 등록할 필요가 없습니다.\u003c/p\u003e\n\u003cp\u003e매크로 정의를 임포트(import)할 수 있도록, \u003ccode\u003eimport!\u003c/code\u003e 및 \u003ccode\u003efrom!\u003c/code\u003e 매크로가 사전 정의됩니다. 이들은 다음 구문을 지원합니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003e\"import!\" dotted_name \"as\" name\n\"from!\" dotted_name \"import\" name [ \"as\" name ]\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e\u003ccode\u003eimport!\u003c/code\u003e 매크로는 \u003ccode\u003edotted_name\u003c/code\u003e의 컴파일 타임 임포트를 수행하여 매크로 프로세서를 찾은 다음, 현재 컴파일 중인 스코프(scope)에 \u003ccode\u003ename\u003c/code\u003e으로 등록합니다.\u003c/p\u003e\n\u003cp\u003e\u003ccode\u003efrom!\u003c/code\u003e 매크로는 \u003ccode\u003edotted_name.name\u003c/code\u003e의 컴파일 타임 임포트를 수행하여 매크로 프로세서를 찾은 다음, 현재 컴파일 중인 스코프에 \u003ccode\u003ename\u003c/code\u003e으로 등록합니다(\"as\" 뒤에 이름이 있는 경우 해당 이름을 사용).\u003c/p\u003e\n\u003cp\u003e\u003ccode\u003eimport!\u003c/code\u003e 및 \u003ccode\u003efrom!\u003c/code\u003e은 임포트가 존재하는 스코프에 대해서만 매크로를 정의하므로, 명확성을 높이기 위해 매크로의 모든 사용은 명시적인 \u003ccode\u003eimport!\u003c/code\u003e 또는 \u003ccode\u003efrom!\u003c/code\u003e 앞에 와야 합니다.\u003c/p\u003e\n\u003cp\u003e예를 들어, \"my.compiler\"에서 \"compile\" 매크로를 임포트하려면:\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003efrom! my.compiler import compile\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch5\u003e매크로 프로세서 정의 (Defining macro processors)\u003c/h5\u003e\n\u003cp\u003e매크로 프로세서는 \u003ccode\u003e(func, kind, version, additional_names)\u003c/code\u003e로 구성된 네 가지 튜플로 정의됩니다.\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003e\u003ccode\u003efunc\u003c/code\u003e: \u003ccode\u003elen(additional_names)+1\u003c/code\u003e개의 인자(모두 추상 구문 트리)를 취하고 하나의 추상 구문 트리를 반환하는 호출 가능(callable) 객체여야 합니다.\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003ekind\u003c/code\u003e: 다음 중 하나여야 합니다.\n\u003cul\u003e\n\u003cli\u003e\u003ccode\u003emacros.STMT_MACRO\u003c/code\u003e: 매크로의 본문(body)이 들여쓰기된 문 매크로입니다. 이는 추가 이름을 가질 수 있는 유일한 형식입니다.\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003emacros.SIBLING_MACRO\u003c/code\u003e: 매크로의 본문이 같은 블록 내의 다음 문인 문 매크로입니다. 다음 문이 매크로의 본문으로 이동합니다.\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003emacros.EXPR_MACRO\u003c/code\u003e: 표현식 매크로입니다.\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003eversion\u003c/code\u003e: 매크로의 버전을 추적하는 데 사용되며, 생성된 바이트코드를 올바르게 캐시(cache)할 수 있도록 합니다. 정수여야 합니다.\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003eadditional_names\u003c/code\u003e: 매크로의 추가 부분 이름이며, 문자열 튜플이어야 합니다.\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003e예시:\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003e# (func, _ast.STMT_MACRO, VERSION, ())\nstmt_macro!: multi_statement_body\n\n# (func, _ast.SIBLING_MACRO, VERSION, ())\nsibling_macro! single_statement_body\n\n# (func, _ast.EXPR_MACRO, VERSION, ())\nx = expr_macro!(...)\n\n# (func, _ast.STMT_MACRO, VERSION, (\"subsequent_macro_part\",))\nmulti_part_macro!: multi_statement_body\nsubsequent_macro_part!: multi_statement_body\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e컴파일러는 사용된 구문이 선언된 \u003ccode\u003ekind\u003c/code\u003e와 일치하는지 확인합니다.\u003c/p\u003e\n\u003cp\u003e편의를 위해 \u003ccode\u003emacros\u003c/code\u003e 모듈에는 함수를 매크로 프로세서로 표시하는 \u003ccode\u003emacro_processor\u003c/code\u003e 데코레이터(decorator)가 제공됩니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003edef macro_processor(kind, version, *additional_names):\n    def deco(func):\n        return func, kind, version, additional_names\n    return deco\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e이는 매크로 프로세서를 선언하는 데 도움이 될 수 있습니다. 예를 들어:\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003e@macros.macro_processor(macros.STMT_MACRO, 1_08)\ndef switch(astnode):\n    ...\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch5\u003eAST 확장 (AST extensions)\u003c/h5\u003e\n\u003cp\u003e매크로를 표현하기 위해 \u003ccode\u003emacro_stmt\u003c/code\u003e와 \u003ccode\u003emacro_expr\u003c/code\u003e이라는 두 개의 새로운 AST 노드가 필요합니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eclass macro_stmt(_ast.stmt):\n    _fields = \"name\", \"args\", \"importname\", \"asname\", \"body\"\n\nclass macro_expr(_ast.expr):\n    _fields = \"name\", \"args\"\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e또한, 매크로 프로세서는 값을 생성하는 제어 흐름 또는 부수 효과(side-effecting) 코드를 표현할 수단이 필요합니다. 문(statement)과 표현식(expression)을 결합하는 \u003ccode\u003estmt_expr\u003c/code\u003e이라는 새로운 AST 노드가 추가될 것입니다. 이 새로운 AST 노드는 \u003ccode\u003eexpr\u003c/code\u003e의 하위 타입(subtype)이지만, 부수 효과를 허용하는 문을 포함합니다. 이는 문을 컴파일한 다음 값을 컴파일하여 바이트코드로 컴파일됩니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eclass stmt_expr(_ast.expr):\n    _fields = \"stmt\", \"value\"\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch5\u003e위생 및 디버깅 (Hygiene and debugging)\u003c/h5\u003e\n\u003cp\u003e매크로 프로세서는 종종 새로운 변수를 생성해야 합니다. 이러한 변수는 원래 코드와 다른 매크로를 오염시키지 않도록 이름을 지정해야 합니다. 명명 규칙이 강제되지는 않지만, 위생을 보장하고 디버깅을 돕기 위해 다음 명명 체계가 권장됩니다.\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003e생성된 모든 변수 이름은 \u003ccode\u003e$\u003c/code\u003e로 시작해야 합니다.\u003c/li\u003e\n\u003cli\u003e순수하게 인위적인 변수 이름은 \u003ccode\u003e$$mname\u003c/code\u003e으로 시작해야 하며, 여기서 \u003ccode\u003emname\u003c/code\u003e은 매크로의 이름입니다.\u003c/li\u003e\n\u003cli\u003e실제 변수에서 파생된 변수는 \u003ccode\u003e$vname\u003c/code\u003e으로 시작해야 하며, 여기서 \u003ccode\u003evname\u003c/code\u003e은 변수의 이름입니다.\u003c/li\u003e\n\u003cli\u003e모든 변수 이름은 줄 번호와 열 오프셋(underscore로 구분)을 포함해야 합니다.\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003e예시:\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003e순수하게 생성된 이름: \u003ccode\u003e$$macro_17_0\u003c/code\u003e\u003c/li\u003e\n\u003cli\u003e표현식 매크로의 변수에서 파생된 이름: \u003ccode\u003e$var_12_5\u003c/code\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch3\u003e예시 (Examples)\u003c/h3\u003e\n\u003ch4\u003e컴파일 타임 검사 데이터 구조 (Compile-time-checked data structures)\u003c/h4\u003e\n\u003cp\u003ePython에서 데이터 테이블을 큰 딕셔너리로 인코딩하는 것은 일반적입니다. 그러나 이것들은 유지 관리하기 어렵고 오류가 발생하기 쉽습니다. 매크로는 이러한 데이터를 더 읽기 쉬운 형식으로 작성할 수 있도록 합니다. 그런 다음 컴파일 타임에 데이터를 확인하고 효율적인 형식으로 변환할 수 있습니다.\u003c/p\u003e\n\u003cp\u003e예를 들어, 코드와 이름 사이의 매핑을 하는 두 개의 딕셔너리 리터럴이 있다고 가정해 봅시다. 딕셔너리에 중복 키가 있거나 한 테이블이 다른 테이블의 역이 아닐 수 있으므로 이것은 오류 발생 가능성이 있습니다. 매크로는 단일 테이블에서 두 매핑을 생성하고 동시에 중복이 없는지 확인할 수 있습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003ecolor_to_code = {\n    \"red\": 1,\n    \"blue\": 2,\n    \"green\": 3,\n}\ncode_to_color = {\n    1: \"red\",\n    2: \"blue\",\n    3: \"yellow\", # error\n}\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e이것은 다음과 같이 될 수 있습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003ebijection! color_to_code, code_to_color:\n    \"red\" = 1\n    \"blue\" = 2\n    \"green\" = 3\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch4\u003e도메인별 확장 (Domain-specific extensions)\u003c/h4\u003e\n\u003cp\u003e매크로가 진정한 가치를 발휘하는 곳은 일반적인 언어 기능이 아니라 특정 도메인이라고 생각합니다.\u003c/p\u003e\n\u003cp\u003e예를 들어, 파서(parser)의 경우. 다음은 매크로를 사용하여 Python에 대한 파서 정의의 일부입니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003echoice! single_input:\n    NEWLINE\n    simple_stmt\nsequence!: compound_stmt NEWLINE\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch4\u003e컴파일러 (Compilers)\u003c/h4\u003e\n\u003cp\u003eNumba와 같은 런타임 컴파일러는 Python 소스를 재구성하거나 바이트코드를 분석하려고 시도해야 합니다. AST를 직접 얻는 것이 더 간단하고 신뢰할 수 있습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003efrom! my.jit.library import jit\njit! def func():\n    ...\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch4\u003e기호 표현식 일치 (Matching symbolic expressions)\u003c/h4\u003e\n\u003cp\u003ePython AST 노드 또는 SymPy 표현식과 같이 구문을 나타내는 것을 일치시킬 때, 데이터 구조 자체 대신 실제 구문에 대해 일치시키는 것이 편리합니다. 예를 들어, 계산기는 구문을 일치시키기 위한 도메인별 매크로를 사용하여 구현될 수 있습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003efrom! ast_matcher import match\n\ndef calculate(node):\n    if isinstance(node, Num):\n        return node.n\n    match! node:\n        case! a + b:\n            return calculate(a) + calculate(b)\n        case! a - b:\n            return calculate(a) - calculate(b)\n        case! a * b:\n            return calculate(a) * calculate(b)\n        case! a / b:\n            return calculate(a) / calculate(b)\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e이는 다음과 같이 변환될 수 있습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003edef calculate(node):\n    if isinstance(node, Num):\n        return node.n\n    $$match_4_0 = node\n    if isinstance($$match_4_0, _ast.Add):\n        a, b = $$match_4_0.left, $$match_4_0.right\n        return calculate(a) + calculate(b)\n    elif isinstance($$match_4_0, _ast.Sub):\n        a, b = $$match_4_0.left, $$match_4_0.right\n        return calculate(a) - calculate(b)\n    elif isinstance($$match_4_0, _ast.Mul):\n        a, b = $$match_4_0.left, $$match_4_0.right\n        return calculate(a) * calculate(b)\n    elif isinstance($$match_4_0, _ast.Div):\n        a, b = $$match_4_0.left, $$match_4_0.right\n        return calculate(a) / calculate(b)\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch4\u003e제로 비용 마커 및 주석 (Zero-cost markers and annotations)\u003c/h4\u003e\n\u003cp\u003e데코레이터(decorator) 또는 PEP 3107 함수 주석과 같은 주석(annotations)은 검사기를 위한 마커(marker) 역할을 하거나 문서화 용도로만 사용되더라도 런타임(runtime) 비용이 발생합니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003e@do_nothing_marker\ndef foo(...):\n    ...\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e위 코드는 다음과 같은 제로 비용 매크로로 대체될 수 있습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003edo_nothing_marker!: def foo(...):\n    ...\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch4\u003e언어 확장 프로토타이핑 (Prototyping language extensions)\u003c/h4\u003e\n\u003cp\u003e매크로가 도메인별 확장에 가장 가치가 있겠지만, 매크로를 사용하여 가능한 언어 확장을 시연할 수 있습니다.\u003c/p\u003e\n\u003ch5\u003ef-strings:\u003c/h5\u003e\n\u003cp\u003e\u003ccode\u003ef-string\u003c/code\u003e \u003ccode\u003ef\"...\"\u003c/code\u003e는 \u003ccode\u003ef!(\"...\")\u003c/code\u003e와 같은 매크로로 구현될 수 있습니다. 읽기에는 그다지 좋지 않지만, 실험에는 여전히 유용할 것입니다.\u003c/p\u003e\n\u003ch5\u003eTry finally 문:\u003c/h5\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003etry_!: body\nfinally!: closing\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e위 코드는 대략 다음과 같이 번역될 것입니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003etry:\n    body\nexcept:\n    closing\nelse:\n    closing\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e참고: \u003ccode\u003ereturn\u003c/code\u003e, \u003ccode\u003ebreak\u003c/code\u003e, \u003ccode\u003econtinue\u003c/code\u003e를 올바르게 처리하는 데 주의해야 합니다. 위 코드는 단지 설명적인 예시입니다.\u003c/p\u003e\n\u003ch5\u003eWith 문:\u003c/h5\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003ewith! open(filename) as fd:\n    return fd.read()\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e위 코드는 \u003ccode\u003eopen\u003c/code\u003e을 특별히 처리해야 합니다. 더 명시적인 대안은 다음과 같습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003ewith! open!(filename) as fd:\n    return fd.read()\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch4\u003e매크로 정의 매크로 (Macro definition macros)\u003c/h4\u003e\n\u003cp\u003e구문 매크로를 가진 언어는 일반적으로 매크로를 정의하기 위한 매크로를 제공합니다. 이 PEP는 좋은 디자인이 무엇인지 아직 명확하지 않고 커뮤니티가 자체 매크로를 정의할 수 있도록 허용하기를 원하므로 의도적으로 이를 수행하지 않습니다.\u003c/p\u003e\n\u003cp\u003e한 가지 가능한 형태는 다음과 같습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003emacro_def! name:\n    input: ... # input pattern, defining meta-variables\n    output: ... # output pattern, using meta-variables\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch3\u003e하위 호환성 (Backwards Compatibility)\u003c/h3\u003e\n\u003cp\u003e이 PEP는 완전히 하위 호환됩니다.\u003c/p\u003e\n\u003ch3\u003e성능 영향 (Performance Implications)\u003c/h3\u003e\n\u003cp\u003e매크로를 사용하지 않는 코드의 경우 성능에 영향이 없습니다.\u003c/p\u003e\n\u003cp\u003e매크로를 사용하고 이미 바이트코드로 컴파일된 코드의 경우, 코드를 컴파일하는 데 사용된 매크로 버전이 임포트된 매크로 프로세서와 일치하는지 확인하는 데 약간의 오버헤드(overhead)가 있습니다.\u003c/p\u003e\n\u003cp\u003e컴파일되지 않았거나 다른 버전의 매크로 프로세서로 컴파일된 코드의 경우, 일반적인 바이트코드 컴파일 오버헤드와 매크로 처리의 추가 오버헤드가 발생할 것입니다.\u003c/p\u003e\n\u003cp\u003e소스 코드에서 바이트코드 컴파일 속도는 Python 성능에 대체로 관련이 없다는 점에 주목할 필요가 있습니다.\u003c/p\u003e\n\u003ch3\u003e구현 (Implementation)\u003c/h3\u003e\n\u003cp\u003e컴파일 타임에 Python 코드에 의한 AST 변환을 허용하기 위해, 컴파일러의 모든 AST 노드는 Python 객체여야 합니다.\u003c/p\u003e\n\u003cp\u003e이를 효율적으로 수행하려면 \u003ccode\u003e_ast\u003c/code\u003e 모듈의 모든 노드를 변경 불가능(immutable)하게 만들어 성능 저하를 크게 줄여야 합니다. AST가 사이클릭 GC(Cyclic GC)를 지원할 필요가 없도록 트리 상태를 유지하려면 변경 불가능해야 합니다. 변경 불가능하게 만들면 \u003ccode\u003e__dict__\u003c/code\u003e 속성이 없어져서 컴팩트해집니다.\u003c/p\u003e\n\u003cp\u003e\u003ccode\u003east\u003c/code\u003e 모듈의 AST 노드는 변경 가능(mutable)한 상태로 유지됩니다.\u003c/p\u003e\n\u003cp\u003e현재 모든 AST 노드는 아레나 할당자(arena allocator)를 사용하여 할당됩니다. 표준 할당자를 사용하도록 변경하면 컴파일 속도가 약간 느려질 수 있지만, 많은 코드를 삭제할 수 있으므로 유지 관리 측면에서 이점이 있습니다.\u003c/p\u003e\n\u003ch3\u003e참고 구현 (Reference Implementation)\u003c/h3\u003e\n\u003cp\u003e아직 없습니다.\u003c/p\u003e\n\u003cblockquote\u003e\n\u003cp\u003e⚠️ \u003cstrong\u003e알림:\u003c/strong\u003e 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.\u003c/p\u003e\n\u003c/blockquote\u003e\n"])</script><script>self.__next_f.push([1,"5:[\"$\",\"div\",null,{\"className\":\"flex flex-col lg:flex-row gap-8\",\"children\":[\"$\",\"main\",null,{\"className\":\"flex-1\",\"children\":[\"$\",\"article\",null,{\"className\":\"page\",\"children\":[[\"$\",\"header\",null,{\"className\":\"mb-8\",\"children\":[[\"$\",\"h1\",null,{\"className\":\"page__title\",\"children\":\"[Draft] PEP 638 - Syntactic Macros\"}],[\"$\",\"div\",null,{\"className\":\"page__meta\",\"children\":[[\"$\",\"time\",null,{\"dateTime\":\"2025-09-27 01:30:41+0900\",\"children\":\"2025년 9월 26일\"}],[\"$\",\"span\",null,{\"className\":\"ml-4\",\"children\":[\"수정: \",\"2025년 9월 26일\"]}]]}]]}],[\"$\",\"div\",null,{\"className\":\"page__content\",\"children\":[\"$\",\"div\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"$e\"}}]}],[\"$\",\"footer\",null,{\"className\":\"page__meta mt-8\",\"children\":[[\"$\",\"div\",null,{\"className\":\"page__taxonomy mb-4\",\"children\":[[\"$\",\"h4\",null,{\"className\":\"text-sm font-medium text-gray-900 mb-2\",\"children\":\"카테고리\"}],[[\"$\",\"span\",\"Python\",{\"className\":\"page__taxonomy-item\",\"children\":\"Python\"}],[\"$\",\"span\",\"PEP\",{\"className\":\"page__taxonomy-item\",\"children\":\"PEP\"}]]]}],[\"$\",\"div\",null,{\"className\":\"page__taxonomy\",\"children\":[[\"$\",\"h4\",null,{\"className\":\"text-sm font-medium text-gray-900 mb-2\",\"children\":\"태그\"}],[[\"$\",\"span\",\"Python\",{\"className\":\"page__taxonomy-item\",\"children\":[\"#\",\"Python\"]}],[\"$\",\"span\",\"PEP\",{\"className\":\"page__taxonomy-item\",\"children\":[\"#\",\"PEP\"]}],[\"$\",\"span\",\"Translation\",{\"className\":\"page__taxonomy-item\",\"children\":[\"#\",\"Translation\"]}]]]}]]}]]}]}]}]\nb:[[\"$\",\"meta\",\"0\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}],[\"$\",\"meta\",\"1\",{\"charSet\":\"utf-8\"}],[\"$\",\"title\",\"2\",{\"children\":\"secrett2633's blog\"}],[\"$\",\"meta\",\"3\",{\"name\":\"description\",\"content\":\"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트\"}],[\"$\",\"meta\",\"4\",{\"name\":\"author\",\"content\":\"secrett2633\"}],[\"$\",\"meta\",\"5\",{\"name\":\"keywords\",\"content\":\"Django, Python, DevOps, AI, ML, 블로그, 기술\"}],[\"$\",\"meta\",\"6\",{\"name\":\"creator\",\"content\":\"secrett2633\"}],[\"$\",\"meta\",\"7\",{\"name\":\"publisher\",\"content\":\"secrett2633\"}],[\""])</script><script>self.__next_f.push([1,"$\",\"meta\",\"8\",{\"name\":\"robots\",\"content\":\"index, follow\"}],[\"$\",\"meta\",\"9\",{\"name\":\"googlebot\",\"content\":\"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1\"}],[\"$\",\"link\",\"10\",{\"rel\":\"canonical\",\"href\":\"https://secrett2633.github.io/\"}],[\"$\",\"meta\",\"11\",{\"name\":\"format-detection\",\"content\":\"telephone=no, address=no, email=no\"}],[\"$\",\"meta\",\"12\",{\"property\":\"og:title\",\"content\":\"secrett2633's blog\"}],[\"$\",\"meta\",\"13\",{\"property\":\"og:description\",\"content\":\"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트\"}],[\"$\",\"meta\",\"14\",{\"property\":\"og:url\",\"content\":\"https://secrett2633.github.io/\"}],[\"$\",\"meta\",\"15\",{\"property\":\"og:site_name\",\"content\":\"secrett2633's blog\"}],[\"$\",\"meta\",\"16\",{\"property\":\"og:locale\",\"content\":\"ko_KR\"}],[\"$\",\"meta\",\"17\",{\"property\":\"og:type\",\"content\":\"website\"}],[\"$\",\"meta\",\"18\",{\"name\":\"twitter:card\",\"content\":\"summary_large_image\"}],[\"$\",\"meta\",\"19\",{\"name\":\"twitter:title\",\"content\":\"secrett2633's blog\"}],[\"$\",\"meta\",\"20\",{\"name\":\"twitter:description\",\"content\":\"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트\"}],[\"$\",\"meta\",\"21\",{\"name\":\"next-size-adjust\"}]]\n4:null\n"])</script></body></html>

@@ -1,0 +1,58 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[4281,["231","static/chunks/231-c4b666723e6aae68.js","185","static/chunks/app/layout-8808afda01b7a1b7.js"],"default"]
+7:I[231,["231","static/chunks/231-c4b666723e6aae68.js","877","static/chunks/app/%5B...slug%5D/page-01b66e77b48ed573.js"],""]
+4:["slug","python/pep/240","c"]
+0:["iV6XySbMHIJ3imQdvgy3I",[[["",{"children":[["slug","python/pep/240","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"240\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/240","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","link",null,{"rel":"icon","type":"image/png","sizes":"32x32","href":"/favicon-32x32.png"}],["$","link",null,{"rel":"icon","type":"image/png","sizes":"16x16","href":"/favicon-16x16.png"}],["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_9012cf layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/secrett2633.github.io/_next/static/css/b9d6ec750ad82add.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+9:T14e1,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0240/">PEP 240 - Adding a Rational Literal to Python</a></p>
+<p><strong>상태:</strong> Rejected | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 11-Mar-2001</p>
+</blockquote>
+<h2>PEP 240 – Python에 유리수 리터럴 추가</h2>
+<ul>
+<li><strong>작성자:</strong> Christopher A. Craig, Moshe Zadka</li>
+<li><strong>상태:</strong> Rejected (거부됨)</li>
+<li><strong>유형:</strong> Standards Track</li>
+<li><strong>생성일:</strong> 2001년 3월 11일</li>
+<li><strong>Python 버전:</strong> 2.2</li>
+<li><strong>변경 이력:</strong> 2001년 3월 16일</li>
+</ul>
+<hr>
+<h3>목차</h3>
+<ul>
+<li><a href="#%EC%9A%94%EC%95%BD-abstract">요약 (Abstract)</a></li>
+<li><a href="#bdfl%EC%9D%98-%EC%84%A0%EC%96%B8-bdfl-pronouncement">BDFL의 선언 (BDFL Pronouncement)</a></li>
+<li><a href="#%EB%B0%B0%EA%B2%BD-rationale">배경 (Rationale)</a></li>
+<li><a href="#%EC%A0%9C%EC%95%88-proposal">제안 (Proposal)</a></li>
+<li><a href="#%ED%95%98%EC%9C%84-%ED%98%B8%ED%99%98%EC%84%B1-backwards-compatibility">하위 호환성 (Backwards Compatibility)</a></li>
+<li><a href="#%EC%9D%BC%EB%B0%98%EC%A0%81%EC%9D%B8-%EB%B0%98%EB%8C%80-%EC%9D%98%EA%B2%AC-common-objections">일반적인 반대 의견 (Common Objections)</a></li>
+<li><a href="#%EC%B0%B8%EA%B3%A0-%EC%9E%90%EB%A3%8C-references">참고 자료 (References)</a></li>
+<li><a href="#%EC%A0%80%EC%9E%91%EA%B6%8C-copyright">저작권 (Copyright)</a></li>
+</ul>
+<hr>
+<h3>요약 (Abstract)</h3>
+<p>다른 PEP에서 Python에 내장 유리수 (rational) 타입을 추가할 것을 제안했습니다. 이 PEP는 <code>ddd.ddd</code> 형태의 부동 소수점 (float) 리터럴을 Python에서 유리수로 변경하고, 정수 나누기 (non-integer division)가 유리수를 반환하도록 수정할 것을 제안합니다.</p>
+<h3>BDFL의 선언 (BDFL Pronouncement)</h3>
+<p>이 PEP는 거부되었습니다. 배경 (Rationale) 섹션에서 설명된 필요성은 PEP 327 (decimal arithmetic)의 채택으로 어느 정도 해결되었습니다. Guido는 또한 "ABC 언어에서 유리수 연산이 기본 '정확한' 연산이었지만, 예상대로 작동하지 않았다"고 언급했습니다. 2005년 6월 17일 python-dev 토론을 참조하십시오.</p>
+<h3>배경 (Rationale)</h3>
+<p>유리수는 정확하고 예상 가능한 연산에 유용합니다. 이는 다양한 수학 수업에서 사람들이 배운 정확한 결과를 제공합니다. "명백한" 비정수 (non-integer) 타입을 더 예측 가능한 의미론을 가진 유리수로 만들면, 부동 소수점 숫자를 사용하는 것보다 새로운 프로그래머들이 덜 당황할 것입니다. c.l.py와 tutor@python.org에 올라온 많은 게시물에서 알 수 있듯이, 사람들은 부동 소수점 숫자의 이상한 의미론 때문에 종종 어려움을 겪습니다. 예를 들어, <code>round(0.98, 2)</code>는 여전히 <code>0.97999999999999998</code>을 반환합니다.</p>
+<h3>제안 (Proposal)</h3>
+<p>정규 표현식 <code>'\d*.\d*'</code>에 해당하는 리터럴은 유리수 (rational numbers)가 될 것입니다.</p>
+<h3>하위 호환성 (Backwards Compatibility)</h3>
+<p>유일한 하위 호환성 문제는 위에서 언급된 리터럴의 타입입니다. 다음 마이그레이션이 제안됩니다:</p>
+<p>승인 후 다음 Python 버전에서는 <code>from __future__ import rational_literals</code>를 통해 해당 리터럴들이 모두 유리수로 처리되도록 할 것입니다. Python 3.0에서는 <code>__future__</code> 문이 없을 경우, 이러한 리터럴에 대한 경고가 기본적으로 켜질 것입니다. 경고 메시지는 <code>__future__</code> 문에 대한 정보를 포함하고, 부동 소수점 리터럴을 얻으려면 <code>e0</code> 접미사를 붙여야 함을 알려줄 것입니다. Python 3.1에서는 이 경고가 기본적으로 꺼질 것입니다. 이 경고는 24개월 동안 유지되며, 그 시점에는 리터럴이 유리수가 되고 경고는 제거될 것입니다.</p>
+<h3>일반적인 반대 의견 (Common Objections)</h3>
+<ul>
+<li><strong>유리수는 느리고 메모리를 많이 소모합니다!</strong> (진정하세요, float을 없애는 것이 아니라 두 문자를 더 추가하는 것뿐입니다. <code>1e0</code>은 여전히 float일 것입니다.)</li>
+<li>유리수는 십진수를 기대하는 사용자에게 끔찍한 경험을 주지 않으려면 십진 부동 소수점 (decimal float)으로 스스로를 표현해야 합니다 (즉, <code>str(.5)</code>는 <code>'1/2'</code>가 아니라 <code>'.5'</code>를 반환해야 합니다). 이는 많은 유리수가 특정 시점에서 잘려야 함을 의미하며, 이는 새로운 정밀도 손실을 야기합니다.</li>
+</ul>
+<h3>참고 자료 (References)</h3>
+<p>Raymond Hettinger, Propose rejection of PEPs 239 and 240 – a builtin rational type and rational literals</p>
+<h3>저작권 (Copyright)</h3>
+<p>이 문서는 퍼블릭 도메인에 공개되었습니다.</p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Rejected] PEP 240 - Adding a Rational Literal to Python"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-26 17:10:32+0900","children":"2025년 9월 26일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 26일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":[["$","div",null,{"className":"page__taxonomy mb-4","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"카테고리"}],[["$","span","Python",{"className":"page__taxonomy-item","children":"Python"}],["$","span","PEP",{"className":"page__taxonomy-item","children":"PEP"}]]]}],["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]]}]]}]}]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"secrett2633's blog"}],["$","meta","3",{"name":"description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://secrett2633.github.io/"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"secrett2633's blog"}],["$","meta","13",{"property":"og:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","14",{"property":"og:url","content":"https://secrett2633.github.io/"}],["$","meta","15",{"property":"og:site_name","content":"secrett2633's blog"}],["$","meta","16",{"property":"og:locale","content":"ko_KR"}],["$","meta","17",{"property":"og:type","content":"website"}],["$","meta","18",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","19",{"name":"twitter:title","content":"secrett2633's blog"}],["$","meta","20",{"name":"twitter:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","21",{"name":"next-size-adjust"}]]
+1:null

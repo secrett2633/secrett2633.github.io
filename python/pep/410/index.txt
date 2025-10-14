@@ -1,0 +1,156 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[4281,["231","static/chunks/231-c4b666723e6aae68.js","185","static/chunks/app/layout-8808afda01b7a1b7.js"],"default"]
+7:I[231,["231","static/chunks/231-c4b666723e6aae68.js","877","static/chunks/app/%5B...slug%5D/page-01b66e77b48ed573.js"],""]
+4:["slug","python/pep/410","c"]
+0:["iV6XySbMHIJ3imQdvgy3I",[[["",{"children":[["slug","python/pep/410","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"410\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/410","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","link",null,{"rel":"icon","type":"image/png","sizes":"32x32","href":"/favicon-32x32.png"}],["$","link",null,{"rel":"icon","type":"image/png","sizes":"16x16","href":"/favicon-16x16.png"}],["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_9012cf layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/secrett2633.github.io/_next/static/css/b9d6ec750ad82add.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+9:T519c,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0410/">PEP 410 - Use decimal.Decimal type for timestamps</a></p>
+<p><strong>상태:</strong> Rejected | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 01-Feb-2012</p>
+</blockquote>
+<h1>PEP 410 – 타임스탬프에 <code>decimal.Decimal</code> 타입 사용</h1>
+<ul>
+<li><strong>작성자:</strong> Victor Stinner</li>
+<li><strong>상태:</strong> Rejected (거부됨)</li>
+<li><strong>유형:</strong> Standards Track</li>
+<li><strong>생성일:</strong> 2012년 2월 1일</li>
+<li><strong>Python 버전:</strong> 3.3</li>
+<li><strong>해결:</strong> Python-Dev 메일링 리스트 메시지</li>
+</ul>
+<h2>거부 고지 (Rejection Notice)</h2>
+<p>이 PEP는 거부되었습니다. 자세한 내용은 Python-Dev 메일링 리스트 아카이브를 참조하십시오.</p>
+<h2>요약 (Abstract)</h2>
+<p>이 PEP는 나노초(nanosecond) 해상도를 사용하는 새로운 함수를 정밀도 손실 없이 지원하기 위해, 고해상도 타임스탬프의 공식 타입으로 <code>Decimal</code>을 사용하도록 제안했습니다.</p>
+<h2>배경 (Rationale)</h2>
+<p>Python 2.3에서는 서브-초(sub-second) 해상도를 지원하기 위해 <code>float</code> 타임스탬프를 도입했습니다. Python 2.5부터 <code>os.stat()</code>은 기본적으로 <code>float</code> 타임스탬프를 사용했습니다. Python 3.3에서는 나노초 해상도를 지원하는 다음 함수들이 도입되었습니다:</p>
+<ul>
+<li><code>os</code> 모듈: <code>futimens()</code>, <code>utimensat()</code></li>
+<li><code>time</code> 모듈: <code>clock_gettime()</code>, <code>clock_getres()</code>, <code>monotonic()</code>, <code>wallclock()</code></li>
+</ul>
+<p>그러나 <code>os.stat()</code>은 나노초 타임스탬프를 읽지만, 여전히 결과를 <code>float</code>으로 반환합니다.</p>
+<p>Python의 <code>float</code> 타입은 IEEE 754 표준의 <code>binary64</code> 형식을 사용합니다. 1나노초(10⁻⁹) 해상도에서는 <code>float</code> 타임스탬프가 2²⁴초(약 194일, 에포크 타임스탬프 기준 1970년 7월 14일)보다 큰 값에서 정밀도를 잃습니다.</p>
+<p>나노초 해상도는 나노초 타임스탬프를 지원하는 파일 시스템(예: ext4, btrfs, NTFS 등)에서 정확한 수정 시간을 설정하는 데 필수적입니다. 또한 파일 수정 시간을 비교하여 한 파일이 다른 파일보다 최신인지 확인하는 데 도움이 됩니다. 활용 사례로는 <code>shutil.copystat()</code>을 사용하여 파일의 수정 시간을 복사하거나, <code>tarfile</code> 모듈로 TAR 아카이브를 생성하거나, <code>mailbox</code> 모듈로 메일함을 관리하는 등이 있습니다.</p>
+<p>더 나은 해상도가 필요할 때마다 API를 변경할 필요가 없도록, 고정된 해상도(예: 나노초)보다는 임의의 해상도가 선호됩니다. 예를 들어, NTP 프로토콜은 2³²초의 분수(약 2.3 × 10⁻¹⁰초)를 사용하며, NTP 프로토콜 버전 4는 2⁶⁴초의 분수(5.4 × 10⁻²⁰초)를 사용합니다.</p>
+<p><strong>참고:</strong></p>
+<ul>
+<li>1마이크로초(10⁻⁶) 해상도에서는 <code>float</code> 타임스탬프가 2³³초(약 272년, 에포크 타임스탬프 기준 2242년 3월 16일)보다 큰 값에서 정밀도를 잃습니다.</li>
+<li>100나노초(10⁻⁷, Windows에서 사용되는 해상도) 해상도에서는 <code>float</code> 타임스탬프가 2²⁹초(약 17년, 에포크 타임스탬프 기준 1987년 1월 5일)보다 큰 값에서 정밀도를 잃습니다.</li>
+</ul>
+<h2>제안 내용 (Specification)</h2>
+<p>타임스탬프의 새로운 타입으로 <code>decimal.Decimal</code>을 추가하는 것을 제안했습니다. <code>Decimal</code>은 모든 타임스탬프 해상도를 지원하고, 산술 연산이 가능하며, 비교할 수 있습니다. 정밀도 손실이 있을 수 있지만, <code>Decimal</code>을 <code>float</code>으로 변환하는 것도 가능합니다. 클럭 해상도 또한 <code>Decimal</code> 객체에 저장할 수 있습니다.</p>
+<p>다음 함수들에 선택적 타임스탬프 인수를 추가하는 것을 제안했습니다:</p>
+<ul>
+<li><code>os</code> 모듈: <code>fstat()</code>, <code>fstatat()</code>, <code>lstat()</code>, <code>stat()</code> (<code>stat</code> 구조체의 <code>st_atime</code>, <code>st_ctime</code>, <code>st_mtime</code> 필드), <code>sched_rr_get_interval()</code>, <code>times()</code>, <code>wait3()</code>, <code>wait4()</code></li>
+<li><code>resource</code> 모듈: <code>getrusage()</code>의 <code>ru_utime</code>, <code>ru_stime</code> 필드</li>
+<li><code>signal</code> 모듈: <code>getitimer()</code>, <code>setitimer()</code></li>
+<li><code>time</code> 모듈: <code>clock()</code>, <code>clock_gettime()</code>, <code>clock_getres()</code>, <code>monotonic()</code>, <code>time()</code>, <code>wallclock()</code></li>
+</ul>
+<p>타임스탬프 인수의 값은 <code>float</code> 또는 <code>Decimal</code>이 될 수 있으며, 하위 호환성을 위해 <code>float</code>이 계속 기본값이 됩니다. 다음 함수들은 <code>Decimal</code>을 입력으로 지원합니다:</p>
+<ul>
+<li><code>datetime</code> 모듈: <code>date.fromtimestamp()</code>, <code>datetime.fromtimestamp()</code>, <code>datetime.utcfromtimestamp()</code></li>
+<li><code>os</code> 모듈: <code>futimes()</code>, <code>futimesat()</code>, <code>lutimes()</code>, <code>utime()</code></li>
+<li><code>select</code> 모듈: <code>epoll.poll()</code>, <code>kqueue.control()</code>, <code>select()</code></li>
+<li><code>signal</code> 모듈: <code>setitimer()</code>, <code>sigtimedwait()</code></li>
+<li><code>time</code> 모듈: <code>ctime()</code>, <code>gmtime()</code>, <code>localtime()</code>, <code>sleep()</code></li>
+</ul>
+<p><code>os.stat_float_times()</code> 함수는 <code>int()</code>를 사용한 명시적 캐스팅으로 대체되도록 Deprecated (더 이상 사용되지 않음) 처리됩니다.</p>
+<p><strong>참고:</strong>
+<code>decimal</code> 모듈은 Python으로 구현되어 <code>float</code>보다 느리지만, CPython에 포함될 준비가 거의 완료된 새로운 C 구현이 있습니다.</p>
+<h2>하위 호환성 (Backwards Compatibility)</h2>
+<p>기본 타임스탬프 타입(<code>float</code>)은 변경되지 않으므로, 하위 호환성이나 성능에 영향을 미치지 않습니다. 새로운 타임스탬프 타입인 <code>decimal.Decimal</code>은 명시적으로 요청될 때만 반환됩니다.</p>
+<h2>반대 의견: 클럭 정확도 (Objection: clocks accuracy)</h2>
+<p>컴퓨터 클럭과 운영 체제는 부정확하며 실제로 나노초 정확도를 제공하지 못합니다. 나노초는 몇 개의 CPU 명령을 실행하는 데 걸리는 시간입니다. 실시간 운영 체제에서도 나노초 단위의 정확한 측정은 상위 애플리케이션에 의해 처리되기 시작할 때 이미 구식이 될 수 있습니다. CPU의 단일 캐시 미스만으로도 정밀도는 무의미해질 것입니다.</p>
+<p><strong>참고:</strong>
+Linux는 실제로 나노초 정밀도로 시간을 측정할 수 있지만, 클럭을 UTC에 나노초 정확도로 동기화할 수는 없습니다.</p>
+<h2>대안: 타임스탬프 타입 (Alternatives: Timestamp types)</h2>
+<p>임의 또는 나노초 해상도의 타임스탬프를 지원하기 위해 다음과 같은 타입들이 고려되었습니다:</p>
+<ul>
+<li><code>decimal.Decimal</code></li>
+<li>나노초 단위의 정수</li>
+<li>128비트 <code>float</code></li>
+<li><code>datetime.datetime</code></li>
+<li><code>datetime.timedelta</code></li>
+<li>정수 튜플</li>
+<li><code>timespec</code> 구조체</li>
+</ul>
+<p><strong>기준:</strong></p>
+<ul>
+<li>타임스탬프에 대한 산술 연산이 가능해야 합니다.</li>
+<li>타임스탬프는 비교할 수 있어야 합니다.</li>
+<li>임의의 해상도, 또는 최소한 정밀도 손실 없는 1나노초 해상도를 가져야 합니다.</li>
+<li>하위 호환성을 위해 새로운 타임스탬프를 <code>float</code>으로 강제 변환할 수 있어야 합니다.</li>
+</ul>
+<p>현재 모든 C 함수를 지원하기에는 1나노초 해상도로 충분합니다. 운영 체제가 사용하는 최고의 해상도는 1나노초입니다. 실제로 대부분의 클럭 정확도는 나노초보다는 마이크로초에 가깝습니다. 따라서 1나노초의 고정 해상도를 사용하는 것이 합리적으로 보입니다.</p>
+<h3>나노초 단위의 정수 (<code>int</code>)</h3>
+<p>나노초 해상도는 모든 현재 C 함수에 충분하므로, 타임스탬프를 <code>float</code>이 아닌 단순히 나노초 단위의 정수로 표현할 수 있습니다.</p>
+<p>그러나 나노초 단위의 정수 형식은 객체 타입만으로는 나노초와 초 단위를 구분할 수 없으므로, 이 형식을 위한 새로운 특수 함수를 추가해야 한다는 이유로 거부되었습니다.</p>
+<h3>128비트 <code>float</code></h3>
+<p>새로운 IEEE 754-2008 쿼드-정밀도 바이너리 <code>float</code> 타입을 추가하는 방안입니다. 이 128비트 <code>float</code>은 GCC (4.3), Clang, ICC 컴파일러에서 지원됩니다.</p>
+<p>그러나 Python은 이식성이 중요하므로 일부 플랫폼에서만 사용할 수 있는 타입에 의존할 수 없습니다. 예를 들어, Visual C++ 2008은 128비트 <code>float</code>을 지원하지 않으며, 이는 공식 Windows 실행 파일을 빌드하는 데 사용됩니다. 또한 GCC는 128비트 <code>float</code>에 MPFR 라이브러리를 사용하는데, 이 라이브러리는 GNU LGPL 라이선스로 배포되어 Python 라이선스와 호환되지 않는 라이선스 문제입니다.</p>
+<p><strong>참고:</strong>
+Intel CPU의 x87 부동 소수점 장치는 80비트 <code>float</code>을 지원하지만, 이제 x86_64에서 선호되는 SSE 명령어 세트에서는 지원되지 않습니다. 다른 CPU 벤더는 80비트 <code>float</code>을 지원하지 않습니다.</p>
+<h3><code>datetime.datetime</code></h3>
+<p><code>datetime.datetime</code> 타입은 타임스탬프를 포함하고 있다는 것이 명확하므로 자연스러운 선택입니다. 이는 절대 타임스탬프이며 잘 정의되어 있습니다. 년, 월, 일, 시, 분, 초에 직접 접근할 수 있으며, 타임스탬프를 문자열로 포맷하는 등의 시간 관련 메서드를 제공합니다.</p>
+<p>주요 문제는 <code>os.stat()</code>, <code>time.time()</code>, <code>time.clock_gettime(time.CLOCK_GETTIME)</code>를 제외한 모든 시간 함수가 시작 시점이 지정되지 않고 시간대 정보가 없어 <code>datetime.datetime</code>으로 변환될 수 없다는 것입니다. 또한, <code>datetime.datetime</code>은 시간대 문제도 있습니다. 예를 들어, 시간대 정보가 없는(<code>unaware</code>) <code>datetime</code> 객체와 시간대 정보가 있는(<code>aware</code>) <code>datetime</code> 객체는 비교할 수 없습니다. 일광 절약 시간(DST)이 일반 시간으로 전환될 때 중복되는 시간에서 순서 문제도 발생합니다.</p>
+<p><code>os.times()</code> 또는 <code>time.clock()</code>과 같이 시작 시점이 지정되지 않은 함수에 사용할 수 없기 때문에 <code>datetime.datetime</code>은 거부되었습니다.</p>
+<p><strong>참고:</strong>
+<code>datetime.datetime</code>은 현재 마이크로초 해상도만 지원하지만, 나노초를 지원하도록 확장될 수 있습니다.</p>
+<h3><code>datetime.timedelta</code></h3>
+<p><code>datetime.timedelta</code>는 상대 타임스탬프에 대한 자연스러운 선택입니다. 시작 시점을 알 때 <code>datetime.datetime</code>과 함께 사용하여 절대 타임스탬프를 얻을 수 있습니다.</p>
+<p>그러나 <code>datetime.timedelta</code>는 <code>float</code>으로 강제 변환될 수 없고 고정된 해상도를 가지기 때문에 거부되었습니다. 하나의 새로운 표준 타임스탬프 타입으로 충분하며, <code>Decimal</code>이 <code>datetime.timedelta</code>보다 선호됩니다. <code>datetime.timedelta</code>를 <code>float</code>으로 변환하려면 <code>datetime.timedelta.total_seconds()</code> 메서드를 명시적으로 호출해야 합니다.</p>
+<p><strong>참고:</strong>
+<code>datetime.timedelta</code>는 현재 마이크로초 해상도만 지원하지만, 나노초를 지원하도록 확장될 수 있습니다.</p>
+<h3>정수 튜플 (Tuple of integers)</h3>
+<p>C 함수를 Python에 노출하기 위해, C 언어가 정수 필드를 가진 구조체(예: <code>timeval</code>, <code>timespec</code> 구조체)를 사용하므로 정수 튜플이 타임스탬프를 저장하는 자연스러운 선택입니다. 정수만 사용하면 정밀도 손실을 피할 수 있습니다(Python은 임의 길이의 정수를 지원합니다). 정수 튜플을 생성하고 파싱하는 것은 간단하고 빠릅니다.</p>
+<p>그러나 정수 튜플은 산술 연산을 지원하지 않아 거부되었습니다.</p>
+<h3><code>timespec</code> 구조체 (timespec structure)</h3>
+<p><code>timespec</code>은 나노초 해상도로 타임스탬프를 저장하는 데 사용되는 C 구조체입니다. Python은 동일한 구조를 가진 타입(<code>(seconds, nanoseconds)</code>)을 사용할 수 있습니다. 편의상 <code>timespec</code>에 대한 산술 연산이 지원됩니다.</p>
+<p><code>timespec</code> 타입은 나노초 해상도만 지원하고 각 산술 연산을 구현해야 하는 반면, <code>Decimal</code> 타입은 이미 구현되어 있고 잘 테스트되었다는 이유로 거부되었습니다.</p>
+<h2>대안: API 디자인 (Alternatives: API design)</h2>
+<h3>반환 타입을 지정하는 문자열 인자 추가 (Add a string argument to specify the return type)</h3>
+<p>타임스탬프를 반환하는 함수에 문자열 인자를 추가하는 방안입니다(예: <code>time.time(format="datetime")</code>). 문자열은 타입보다 확장성이 뛰어나며, 정수 튜플처럼 타입이 없는 형식도 요청할 수 있습니다.</p>
+<p>그러나 이 API는 객체를 인스턴스화하기 위해 암시적으로 모듈을 임포트해야 했고(예: <code>datetime.datetime</code>을 생성하기 위해 <code>datetime</code> 임포트), 모듈 임포트는 예외를 발생시키거나 느릴 수 있으며, 이러한 동작은 예상치 못하고 놀랍다는 이유로 거부되었습니다.</p>
+<h3>타임스탬프 타입을 변경하는 전역 플래그 추가 (Add a global flag to change the timestamp type)</h3>
+<p><code>os.stat_float_times()</code>와 유사하게 <code>os.stat_decimal_times()</code>와 같은 전역 플래그를 추가하여 타임스탬프 타입을 전역적으로 설정하는 방안입니다.</p>
+<p>전역 플래그는 <code>Decimal</code> 대신 <code>float</code>을 기대하는 라이브러리 및 애플리케이션에 문제를 일으킬 수 있습니다. <code>Decimal</code>은 <code>float</code>과 완전히 호환되지 않습니다. 예를 들어, <code>float + Decimal</code>은 <code>TypeError</code>를 발생시킵니다. <code>os.stat_float_times()</code>의 경우는 <code>int</code>가 <code>float</code>으로 강제 변환될 수 있고 <code>int + float</code>이 <code>float</code>을 반환하므로 다릅니다.</p>
+<h3>타임스탬프를 생성하는 프로토콜 추가 (Add a protocol to create a timestamp)</h3>
+<p>타임스탬프가 생성되는 방식을 하드 코딩하는 대신, 분수에서 타임스탬프를 생성하는 새로운 프로토콜을 추가하는 방안입니다.</p>
+<p>예를 들어, <code>time.time(timestamp=type)</code>은 <code>type.__fromfraction__(numerator, denominator)</code> 클래스 메서드를 호출하여 지정된 타입의 타임스탬프 객체를 생성합니다. 타입이 프로토콜을 지원하지 않으면 <code>type(numerator) / type(denominator)</code>와 같은 폴백(fallback)이 사용됩니다.</p>
+<p>요구 사항에 비해 과도하다는 이유로 프로토콜 제안은 거부되었지만, 설득력 있는 사용 사례가 발견되면 나중에 도입할 수 있도록 특정 구문(<code>time.time(timestamp=type)</code>)은 허용되었습니다.</p>
+<h3><code>os.stat</code>에 새 필드 추가 (Add new fields to os.stat)</h3>
+<p>나노초 해상도로 파일의 생성, 수정, 접근 시간을 얻기 위해 <code>os.stat()</code> 구조체에 세 개의 필드를 추가하는 방안입니다.</p>
+<p>이 새로운 필드는 나노초 해상도의 타임스탬프(예: <code>Decimal</code>)이거나 각 타임스탬프의 나노초 부분(<code>int</code>)일 수 있습니다.</p>
+<p>그러나 <code>os.stat()</code> 구조체에 새 필드를 추가하는 것은 다른 모듈(예: <code>time</code> 모듈)의 나노초 문제를 해결하지 못한다는 점 때문에 거부되었습니다.</p>
+<h3>불리언 인자 추가 (Add a boolean argument)</h3>
+<p>하나의 새로운 타입(<code>Decimal</code>)만 필요하므로, 간단한 불리언 플래그를 추가하는 방안입니다. 예: <code>time.time(decimal=True)</code> 또는 <code>time.time(hires=True)</code>.</p>
+<p>이러한 플래그는 숨겨진 임포트를 필요로 하는데, 이는 좋지 않은 관행으로 간주됩니다.</p>
+<p>불리언 인자 API는 "파이썬적"이지 않다는 이유로 거부되었습니다. 불리언 매개변수(플래그)보다는 매개변수 값으로 반환 타입을 변경하는 것이 선호됩니다.</p>
+<h3>새 함수 추가 (Add new functions)</h3>
+<p>각 타입에 대해 새로운 함수를 추가하는 방안입니다. 예: <code>time.clock_decimal()</code>, <code>time.time_decimal()</code>, <code>os.stat_decimal()</code>, <code>os.stat_timespec()</code> 등.</p>
+<p>타임스탬프를 생성하는 각 함수마다 새로운 함수를 추가하는 것은 많은 코드를 중복시키고 유지 관리가 어렵다는 이유로 거부되었습니다.</p>
+<h3>새 <code>hires</code> 모듈 추가 (Add a new hires module)</h3>
+<p><code>time</code> 모듈과 동일한 API를 가지지만, <code>decimal.Decimal</code>과 같은 고해상도 타임스탬프를 반환하는 "hires"라는 새 모듈을 추가하는 방안입니다. 새 모듈을 추가하면 <code>time</code>이나 <code>os</code>와 같은 저수준 모듈을 <code>decimal</code> 모듈에 연결하는 것을 피할 수 있습니다.</p>
+<p>이 아이디어는 <code>time</code> 모듈의 대부분 코드를 중복해야 하고 유지 관리가 어렵다는 점, 그리고 타임스탬프가 <code>time</code> 모듈 외의 다른 모듈(예: <code>signal.sigtimedwait()</code>, <code>select.select()</code>, <code>resource.getrusage()</code>, <code>os.stat()</code> 등)에서도 사용된다는 이유로 거부되었습니다. 각 모듈의 코드를 중복하는 것은 허용될 수 없습니다.</p>
+<h2>링크 (Links)</h2>
+<p>관련 이슈 및 토론:</p>
+<ul>
+<li>Issue #7652: <code>decimal</code>의 C 버전을 py3k에 병합 (<code>cdecimal</code>)</li>
+<li>Issue #11457: <code>os.stat()</code>: 나노초 해상도의 <code>Decimal</code> 객체로 타임스탬프를 얻기 위한 새 필드 추가</li>
+<li>Issue #13882: PEP 410: 타임스탬프에 <code>decimal.Decimal</code> 타입 사용</li>
+<li>[Python-Dev] <code>decimal.Decimal</code> 객체로 타임스탬프 저장</li>
+</ul>
+<p>다른 언어의 고해상도 타임스탬프 지원:</p>
+<ul>
+<li><strong>Ruby (1.9.3):</strong> <code>Time</code> 클래스가 피코초(10⁻¹²)를 지원</li>
+<li><strong>.NET framework:</strong> <code>DateTime</code> 타입: 0001년 1월 1일 자정 12:00:00 이후 경과된 100나노초 간격의 수. <code>DateTime.Ticks</code>는 부호 있는 64비트 정수 사용.</li>
+<li><strong>Java (1.5):</strong> <code>System.nanoTime()</code>: 지정되지 않은 시작 시점을 가진 나노초 단위의 벽 시계(wallclock), 부호 있는 64비트 정수(<code>long</code>) 사용.</li>
+<li><strong>Perl:</strong> <code>Time::Hiref</code> 모듈: <code>float</code>을 사용하므로 Python의 <code>float</code> 타임스탬프와 동일하게 나노초 해상도에서 정밀도 손실 문제가 있음.</li>
+</ul>
+<hr>
+<p>이 PEP는 <code>decimal.Decimal</code>을 사용하여 고정밀 타임스탬프를 도입하려는 시도였으나, 여러 대안과 반대 의견, 그리고 복잡성으로 인해 최종적으로 거부되었습니다.</p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Rejected] PEP 410 - Use decimal.Decimal type for timestamps"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-26 21:31:14+0900","children":"2025년 9월 26일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 26일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":[["$","div",null,{"className":"page__taxonomy mb-4","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"카테고리"}],[["$","span","Python",{"className":"page__taxonomy-item","children":"Python"}],["$","span","PEP",{"className":"page__taxonomy-item","children":"PEP"}]]]}],["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]]}]]}]}]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"secrett2633's blog"}],["$","meta","3",{"name":"description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://secrett2633.github.io/"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"secrett2633's blog"}],["$","meta","13",{"property":"og:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","14",{"property":"og:url","content":"https://secrett2633.github.io/"}],["$","meta","15",{"property":"og:site_name","content":"secrett2633's blog"}],["$","meta","16",{"property":"og:locale","content":"ko_KR"}],["$","meta","17",{"property":"og:type","content":"website"}],["$","meta","18",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","19",{"name":"twitter:title","content":"secrett2633's blog"}],["$","meta","20",{"name":"twitter:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","21",{"name":"next-size-adjust"}]]
+1:null

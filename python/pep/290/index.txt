@@ -1,0 +1,313 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[4281,["231","static/chunks/231-c4b666723e6aae68.js","185","static/chunks/app/layout-8808afda01b7a1b7.js"],"default"]
+7:I[231,["231","static/chunks/231-c4b666723e6aae68.js","877","static/chunks/app/%5B...slug%5D/page-01b66e77b48ed573.js"],""]
+4:["slug","python/pep/290","c"]
+0:["iV6XySbMHIJ3imQdvgy3I",[[["",{"children":[["slug","python/pep/290","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"290\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/290","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","link",null,{"rel":"icon","type":"image/png","sizes":"32x32","href":"/favicon-32x32.png"}],["$","link",null,{"rel":"icon","type":"image/png","sizes":"16x16","href":"/favicon-16x16.png"}],["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_9012cf layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/secrett2633.github.io/_next/static/css/b9d6ec750ad82add.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+9:T6659,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0290/">PEP 290 - Code Migration and Modernization</a></p>
+<p><strong>상태:</strong> Active | <strong>유형:</strong> Informational | <strong>작성일:</strong> 06-Jun-2002</p>
+</blockquote>
+<h2>PEP 290 – 코드 마이그레이션 및 현대화</h2>
+<ul>
+<li><strong>작성자:</strong> Raymond Hettinger </li>
+<li><strong>상태:</strong> Active (활성)</li>
+<li><strong>유형:</strong> Informational (정보성)</li>
+<li><strong>생성일:</strong> 2002년 6월 6일</li>
+<li><strong>히스토리:</strong> (없음)</li>
+</ul>
+<hr>
+<h3>목차</h3>
+<ul>
+<li><a href="#%EC%9A%94%EC%95%BD-abstract">요약 (Abstract)</a></li>
+<li><a href="#%EB%B0%B0%EA%B2%BD-rationale">배경 (Rationale)</a></li>
+<li><a href="#%EC%83%88%EB%A1%9C%EC%9A%B4-%ED%95%AD%EB%AA%A9%EC%9D%84-%EC%9C%84%ED%95%9C-%EC%A7%80%EC%B9%A8-guidelines-for-new-entries">새로운 항목을 위한 지침 (Guidelines for New Entries)</a></li>
+<li><a href="#%EB%A7%88%EC%9D%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%85%98-%EC%9D%B4%EC%8A%88-migration-issues">마이그레이션 이슈 (Migration Issues)</a>
+<ul>
+<li><a href="#%EB%B9%84%EA%B5%90-%EC%97%B0%EC%82%B0%EC%9E%90%EB%8A%94-0-%EB%98%90%EB%8A%94-1%EC%9D%84-%EC%83%9D%EC%84%B1%ED%95%98%EB%8A%94-%EB%8B%A8%EC%B6%95%ED%82%A4%EA%B0%80-%EC%95%84%EB%8B%99%EB%8B%88%EB%8B%A4-comparison-operators-not-a-shortcut-for-producing-0-or-1">비교 연산자는 0 또는 1을 생성하는 단축키가 아닙니다 (Comparison Operators Not a Shortcut for Producing 0 or 1)</a></li>
+</ul>
+</li>
+<li><a href="#%ED%98%84%EB%8C%80%ED%99%94-%EC%A0%88%EC%B0%A8-modernization-procedures">현대화 절차 (Modernization Procedures)</a>
+<ul>
+<li><a href="#python-24-%EC%9D%B4%EC%83%81-python-24-or-later">Python 2.4 이상 (Python 2.4 or Later)</a>
+<ul>
+<li><a href="#%EB%A6%AC%EC%8A%A4%ED%8A%B8%EC%9D%98-%EC%8B%9C%EC%9E%91-%EB%B6%80%EB%B6%84%EC%97%90-%EC%82%BD%EC%9E%85-%EB%B0%8F-%EC%A0%9C%EA%B1%B0-inserting-and-popping-at-the-beginning-of-lists">리스트의 시작 부분에 삽입 및 제거 (Inserting and Popping at the Beginning of Lists)</a></li>
+<li><a href="#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%A7%80%EC%A0%95-%EC%A0%95%EB%A0%AC-%EB%8B%A8%EC%88%9C%ED%99%94-simplifying-custom-sorts">사용자 지정 정렬 단순화 (Simplifying Custom Sorts)</a></li>
+<li><a href="#%EB%9E%8C%EB%8B%A4lambda%EC%9D%98-%EC%9D%BC%EB%B0%98%EC%A0%81%EC%9D%B8-%EC%82%AC%EC%9A%A9-%EB%8C%80%EC%B2%B4-replacing-common-uses-of-lambda">람다(Lambda)의 일반적인 사용 대체 (Replacing Common Uses of Lambda)</a></li>
+<li><a href="#%EC%97%AD%EB%B0%A9%ED%96%A5-%EC%9D%B4%ED%84%B0%EB%A0%88%EC%9D%B4%EC%85%98-%EB%8B%A8%EC%88%9C%ED%99%94-simplified-reverse-iteration">역방향 이터레이션 단순화 (Simplified Reverse Iteration)</a></li>
+</ul>
+</li>
+<li><a href="#python-23-%EC%9D%B4%EC%83%81-python-23-or-later">Python 2.3 이상 (Python 2.3 or Later)</a>
+<ul>
+<li><a href="#%EB%AC%B8%EC%9E%90%EC%97%B4-%EB%A9%A4%EB%B2%84%EC%8B%AD-%ED%85%8C%EC%8A%A4%ED%8A%B8-testing-string-membership">문자열 멤버십 테스트 (Testing String Membership)</a></li>
+<li><a href="#apply%EB%A5%BC-%EC%A7%81%EC%A0%91-%ED%95%A8%EC%88%98-%ED%98%B8%EC%B6%9C%EB%A1%9C-%EB%8C%80%EC%B2%B4-replace-apply-with-a-direct-function-call"><code>apply()</code>를 직접 함수 호출로 대체 (Replace apply() with a Direct Function Call)</a></li>
+</ul>
+</li>
+<li><a href="#python-22-%EC%9D%B4%EC%83%81-python-22-or-later">Python 2.2 이상 (Python 2.2 or Later)</a>
+<ul>
+<li><a href="#%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC-%EB%A9%A4%EB%B2%84%EC%8B%AD-%ED%85%8C%EC%8A%A4%ED%8A%B8-testing-dictionary-membership">딕셔너리 멤버십 테스트 (Testing Dictionary Membership)</a></li>
+<li><a href="#%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC-%EC%88%9C%ED%9A%8C-looping-over-dictionaries">딕셔너리 순회 (Looping Over Dictionaries)</a></li>
+<li><a href="#stat-%EB%A9%94%EC%84%9C%EB%93%9C-stat-methods"><code>stat</code> 메서드 (stat Methods)</a></li>
+<li><a href="#types-%EB%AA%A8%EB%93%88-%EC%9D%98%EC%A1%B4%EC%84%B1-%EC%A4%84%EC%9D%B4%EA%B8%B0-reduce-dependency-on-types-module"><code>types</code> 모듈 의존성 줄이기 (Reduce Dependency on types Module)</a></li>
+<li><a href="#__builtins__-%EB%AA%A8%EB%93%88%EA%B3%BC-%EC%B6%A9%EB%8F%8C%ED%95%98%EB%8A%94-%EB%B3%80%EC%88%98-%EC%9D%B4%EB%A6%84-%ED%94%BC%ED%95%98%EA%B8%B0-avoid-variable-names-that-clash-with-the-__builtins__-module"><code>__builtins__</code> 모듈과 충돌하는 변수 이름 피하기 (Avoid Variable Names that Clash with the <strong>builtins</strong> Module)</a></li>
+</ul>
+</li>
+<li><a href="#python-21-%EC%9D%B4%EC%83%81-python-21-or-later">Python 2.1 이상 (Python 2.1 or Later)</a>
+<ul>
+<li><a href="#whrandom-%EB%AA%A8%EB%93%88-%EC%82%AC%EC%9A%A9-%EC%A4%91%EB%8B%A8-whrandom-module-deprecated"><code>whrandom</code> 모듈 사용 중단 (whrandom Module Deprecated)</a></li>
+</ul>
+</li>
+<li><a href="#python-20-%EC%9D%B4%EC%83%81-python-20-or-later">Python 2.0 이상 (Python 2.0 or Later)</a>
+<ul>
+<li><a href="#%EB%AC%B8%EC%9E%90%EC%97%B4-%EB%A9%94%EC%84%9C%EB%93%9C-string-methods">문자열 메서드 (String Methods)</a></li>
+<li><a href="#startswith-%EB%B0%8F-endswith-%EB%AC%B8%EC%9E%90%EC%97%B4-%EB%A9%94%EC%84%9C%EB%93%9C-startswith-and-endswith-string-methods"><code>startswith</code> 및 <code>endswith</code> 문자열 메서드 (startswith and endswith String Methods)</a></li>
+<li><a href="#atexit-%EB%AA%A8%EB%93%88-the-atexit-module"><code>atexit</code> 모듈 (The atexit Module)</a></li>
+</ul>
+</li>
+<li><a href="#python-15-%EC%9D%B4%EC%83%81-python-15-or-later">Python 1.5 이상 (Python 1.5 or Later)</a>
+<ul>
+<li><a href="#%ED%81%B4%EB%9E%98%EC%8A%A4-%EA%B8%B0%EB%B0%98-%EC%98%88%EC%99%B8-class-based-exceptions">클래스 기반 예외 (Class-Based Exceptions)</a></li>
+</ul>
+</li>
+<li><a href="#%EB%AA%A8%EB%93%A0-python-%EB%B2%84%EC%A0%84-all-python-versions">모든 Python 버전 (All Python Versions)</a>
+<ul>
+<li><a href="#none-%ED%85%8C%EC%8A%A4%ED%8A%B8-testing-for-none"><code>None</code> 테스트 (Testing for None)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%EC%A0%80%EC%9E%91%EA%B6%8C-copyright">저작권 (Copyright)</a></li>
+</ul>
+<hr>
+<h3>요약 (Abstract)</h3>
+<p>이 PEP는 새로운 버전의 Python이 설치될 때 Python 애플리케이션을 업데이트하기 위한 절차와 아이디어들을 모아 놓은 것입니다.</p>
+<p>마이그레이션 팁은 발생 가능한 비호환성 영역을 강조하고, 이러한 차이점을 찾고 해결하는 방법에 대한 제안을 제공합니다. 현대화 절차는 이전 코드를 새로운 언어 기능을 활용하도록 업데이트하는 방법을 보여줍니다.</p>
+<h3>배경 (Rationale)</h3>
+<p>이 절차들의 저장소는 알려진 마이그레이션 이슈와 해당 이슈를 해결하기 위한 절차들의 목록 또는 체크리스트 역할을 합니다.</p>
+<p>마이그레이션 이슈는 여러 가지 이유로 발생할 수 있습니다. 일부 구식 기능은 PEP 4의 지침에 따라 점진적으로 사용이 중단됩니다. 또한, 일부 코드는 버전 간에 변경될 수 있는 문서화되지 않은 동작에 의존합니다. 일부 코드는 나중에 버그로 밝혀진 동작에 의존할 수 있으며, 버그가 수정되면 해당 동작이 변경됩니다.</p>
+<p>현대화 옵션은 새로운 버전의 Python이 이전에 사용 가능했던 것보다 향상된 명확성이나 더 높은 성능을 제공하는 기능을 추가할 때 발생합니다.</p>
+<h3>새로운 항목을 위한 지침 (Guidelines for New Entries)</h3>
+<p>커밋 접근 권한이 있는 개발자는 이 PEP를 직접 업데이트할 수 있습니다. 다른 개발자는 아이디어를 개발자에게 보내 포함 여부를 결정할 수 있습니다.</p>
+<p>일관된 형식은 저장소를 사용하기 쉽게 만들지만, 명확성을 높이기 위해 섹션을 추가하거나 뺄 수 있습니다.</p>
+<p>유지보수자가 잠재적 업데이트를 위해 코드를 찾는 데 도움이 되는 도구로 <code>grep</code> 패턴을 제공할 수 있습니다. 그러나 완전히 자동화된 검색/교체 방식의 정규 표현식은 권장되지 않습니다. 대신 각 코드 조각은 개별적으로 평가되어야 합니다.</p>
+<p><code>contra-indications</code> 섹션은 새로운 항목에서 가장 중요한 부분입니다. 이 섹션은 업데이트를 적용해서는 <em>안 되는</em> 알려진 상황을 나열합니다.</p>
+<h3>마이그레이션 이슈 (Migration Issues)</h3>
+<h4>비교 연산자는 0 또는 1을 생성하는 단축키가 아닙니다 (Comparison Operators Not a Shortcut for Producing 0 or 1)</h4>
+<p>Python 2.3 이전에는 비교 연산이 <code>True</code> 또는 <code>False</code> 대신 0 또는 1을 반환했습니다. 일부 코드는 부울(boolean) 값이 적절하지 않은 곳에서 0 또는 1을 생성하는 단축키로 이를 사용했을 수 있습니다. 예를 들면 다음과 같습니다.</p>
+<pre><code class="language-python">def identity(m=1):
+    """Create and m-by-m identity matrix"""
+    return [[i==j for i in range(m)] for j in range(m)]
+</code></pre>
+<p>Python 2.2에서 <code>identity(2)</code>를 호출하면 다음과 같이 출력됩니다.</p>
+<pre><code>[[1, 0], [0, 1]]
+</code></pre>
+<p>Python 2.3에서는 동일한 호출이 다음과 같이 출력됩니다.</p>
+<pre><code>[[True, False], [False, True]]
+</code></pre>
+<p>부울은 정수의 하위 클래스이므로, 행렬은 정상적으로 계산되지만 예상대로 출력되지 않을 수 있습니다. <code>list comprehension</code>은 다음과 같이 변경되어야 합니다.</p>
+<pre><code class="language-python">return [[int(i==j) for i in range(m)] for j in range(m)]
+</code></pre>
+<p>숫자가 아닌 <code>True</code> 또는 <code>False</code>를 예상하는 다른 애플리케이션에서 사용될 데이터를 저장할 때도 유사한 문제가 발생할 수 있습니다.</p>
+<h3>현대화 절차 (Modernization Procedures)</h3>
+<p>절차들은 현대화를 활용하는 데 필요한 Python 버전에 따라 그룹화됩니다.</p>
+<h4>Python 2.4 이상 (Python 2.4 or Later)</h4>
+<h5>리스트의 시작 부분에 삽입 및 제거 (Inserting and Popping at the Beginning of Lists)</h5>
+<p>Python의 리스트는 오른쪽에 <code>append</code> 및 <code>pop</code> 연산을 수행할 때 가장 좋은 성능을 발휘하도록 구현되어 있습니다. <code>pop(0)</code> 또는 <code>insert(0, x)</code>를 사용하면 전체 리스트에 대해 O(n) 데이터 이동이 발생합니다. 이러한 요구 사항을 해결하기 위해 Python 2.4는 <code>collections.deque()</code>라는 새로운 컨테이너를 도입했습니다. 이 컨테이너는 왼쪽과 오른쪽 모두에서 효율적인 <code>append</code> 및 <code>pop</code> 연산을 제공합니다 (이 경우 <code>getitem</code>/<code>setitem</code> 접근이 훨씬 느려진다는 trade-off가 있습니다). 이 새로운 컨테이너는 데이터 큐(queue)를 구현하는 데 특히 유용합니다.</p>
+<p><strong>패턴 (Pattern):</strong></p>
+<pre><code class="language-python">c = list(data)    --> c = collections.deque(data)
+c.pop(0)          --> c.popleft()
+c.insert(0, x)    --> c.appendleft()
+</code></pre>
+<p><strong>위치 찾기 (Locating):</strong></p>
+<pre><code class="language-bash">grep pop(0
+</code></pre>
+<p>또는</p>
+<pre><code class="language-bash">grep insert(0
+</code></pre>
+<h5>사용자 지정 정렬 단순화 (Simplifying Custom Sorts)</h5>
+<p>Python 2.4에서는 리스트의 <code>sort</code> 메서드와 새로운 내장 함수 <code>sorted</code> 모두 정렬 키를 계산하기 위한 <code>key</code> 함수를 받습니다. 모든 비교에 적용되는 <code>cmp</code> 함수와 달리, <code>key</code> 함수는 각 레코드에 한 번만 적용됩니다. 이는 <code>cmp</code>보다 훨씬 빠르며, 일반적으로 코드가 적으면서도 더 읽기 쉽습니다. <code>key</code> 함수는 또한 정렬의 안정성(stability)을 유지합니다 (동일한 키를 가진 레코드는 원래 순서를 유지합니다).</p>
+<p><strong>비교 함수를 사용한 원본 코드:</strong></p>
+<pre><code class="language-python">names.sort(lambda x,y: cmp(x.lower(), y.lower()))
+</code></pre>
+<p><strong>명시적인 데코레이션(decoration)을 사용한 대체 원본 코드:</strong></p>
+<pre><code class="language-python">tempnames = [(n.lower(), n) for n in names]
+tempnames.sort()
+names = [original for decorated, original in tempnames]
+</code></pre>
+<p><strong>key 함수를 사용한 수정된 코드:</strong></p>
+<pre><code class="language-python">names.sort(key=str.lower) # 대소문자를 구분하지 않는 정렬
+</code></pre>
+<p><strong>위치 찾기 (Locating):</strong></p>
+<pre><code class="language-bash">grep sort *.py
+</code></pre>
+<h5>람다(Lambda)의 일반적인 사용 대체 (Replacing Common Uses of Lambda)</h5>
+<p>Python 2.4에서 <code>operator</code> 모듈은 <code>itemgetter()</code>와 <code>attrgetter()</code>라는 두 가지 새로운 함수를 추가하여 <code>lambda</code> 키워드의 일반적인 사용을 대체할 수 있게 되었습니다. 새로운 함수는 더 빠르게 실행되며, 일부 개발자들은 가독성을 향상시킨다고 생각합니다.</p>
+<p><strong>패턴 (Pattern):</strong></p>
+<pre><code class="language-python">lambda r: r[2]       --> itemgetter(2)
+lambda r: r.myattr   --> attrgetter('myattr')
+</code></pre>
+<p><strong>일반적인 사용 사례:</strong></p>
+<pre><code class="language-python">sort(studentrecords, key=attrgetter('gpa'))   # 정렬 필드 설정
+map(attrgetter('lastname'), studentrecords)   # 필드 추출
+</code></pre>
+<p><strong>위치 찾기 (Locating):</strong></p>
+<pre><code class="language-bash">grep lambda *.py
+</code></pre>
+<h5>역방향 이터레이션 단순화 (Simplified Reverse Iteration)</h5>
+<p>Python 2.4는 역방향 이터레이션을 위한 내장 함수 <code>reversed</code>를 도입했습니다. 기존의 역방향 이터레이션 방식은 장황함, 성능 문제(속도 및 메모리 소비), 그리고/또는 명확성 부족에 시달렸습니다. 선호되는 스타일은 시퀀스를 정방향으로 표현하고, 그 결과에 <code>reversed</code>를 적용한 다음, 결과로 생성된 빠르고 메모리 친화적인 이터레이터를 반복하는 것입니다.</p>
+<p><strong>반개 구간(half-open interval)으로 표현된 원본 코드:</strong></p>
+<pre><code class="language-python">for i in range(n-1, -1, -1):
+    print seqn[i]
+</code></pre>
+<p><strong>여러 단계로 역방향 처리된 대체 원본 코드:</strong></p>
+<pre><code class="language-python">rseqn = list(seqn)
+rseqn.reverse()
+for value in rseqn:
+    print value
+</code></pre>
+<p><strong>슬라이싱 확장을 사용하여 표현된 대체 원본 코드:</strong></p>
+<pre><code class="language-python">for value in seqn[::-1]:
+    print value
+</code></pre>
+<p><strong><code>reversed</code> 함수를 사용한 수정된 코드:</strong></p>
+<pre><code class="language-python">for value in reversed(seqn):
+    print value
+</code></pre>
+<h4>Python 2.3 이상 (Python 2.3 or Later)</h4>
+<h5>문자열 멤버십 테스트 (Testing String Membership)</h5>
+<p>Python 2.3에서 <code>string2 in string1</code> 구문에서 <code>string2</code>의 길이 제한이 해제되었습니다. 이제 모든 길이의 문자열이 될 수 있습니다. 부분 문자열의 원본 문자열 내 위치에 신경 쓰지 않을 때, <code>in</code> 연산자를 사용하면 의미가 명확해집니다.</p>
+<p><strong>패턴 (Pattern):</strong></p>
+<pre><code class="language-python">string1.find(string2) >= 0   --> string2 in string1
+string1.find(string2) != -1  --> string2 in string1
+</code></pre>
+<h5><code>apply()</code>를 직접 함수 호출로 대체 (Replace apply() with a Direct Function Call)</h5>
+<p>Python 2.3에서 <code>apply()</code>는 <code>Pending Deprecation</code>으로 표시되었습니다. 이는 Python 1.6에서 함수 호출에 <code>*</code>와 <code>**</code>가 도입되면서 <code>apply()</code>가 쓸모없게 되었기 때문입니다. 내장 함수 조회를 절약했기 때문에 직접 함수 호출은 항상 <code>apply()</code>보다 약간 빨랐습니다. 이제 <code>apply()</code>는 <code>warnings</code> 모듈을 사용하기 때문에 훨씬 더 느려졌습니다.</p>
+<p><strong>패턴 (Pattern):</strong></p>
+<pre><code class="language-python">apply(f, args, kwds)   --> f(*args, **kwds)
+</code></pre>
+<p><strong>참고:</strong> <code>apply()</code>의 <code>Pending Deprecation</code>은 Python 2.3.3에서 제거되었습니다. 이는 Python 1.5.2까지의 이전 버전의 Python으로 작업해야 하는 사람들에게 어려움을 초래했기 때문이며, 당시에는 <code>apply()</code>를 대체할 방법이 없었습니다. 그러나 이 함수는 여전히 사용이 중단되었습니다.</p>
+<h4>Python 2.2 이상 (Python 2.2 or Later)</h4>
+<h5>딕셔너리 멤버십 테스트 (Testing Dictionary Membership)</h5>
+<p>딕셔너리 멤버십을 테스트할 때는 <code>has_key()</code> 메서드 대신 <code>'in'</code> 키워드를 사용하십시오. 결과는 더 짧고 읽기 쉬워집니다. 이 스타일은 리스트의 멤버십 테스트와 일관성을 이룹니다. <code>has_key</code>는 속성 검색을 필요로 하고 상대적으로 비용이 많이 드는 함수 호출을 사용하므로 결과적으로 약간 더 빠릅니다.</p>
+<p><strong>패턴 (Pattern):</strong></p>
+<pre><code class="language-python">if d.has_key(k):   --> if k in d:
+</code></pre>
+<p><strong>금지 사항 (Contra-indications):</strong></p>
+<p>일부 딕셔너리 형태의 객체는 <code>__contains__()</code> 메서드를 정의하지 않을 수 있습니다.</p>
+<pre><code class="language-python">if dictlike.has_key(k)
+</code></pre>
+<p><strong>위치 찾기 (Locating):</strong></p>
+<pre><code class="language-bash">grep has_key
+</code></pre>
+<h5>딕셔너리 순회 (Looping Over Dictionaries)</h5>
+<p>딕셔너리를 순회할 때는 새로운 <code>iter</code> 메서드를 사용하십시오. <code>iter</code> 메서드는 모든 키, 값 또는 항목(키/값 쌍)의 완전한 사본을 포함하는 새로운 리스트 객체를 생성할 필요가 없기 때문에 더 빠릅니다. 필요한 키, 값 또는 항목만 선택하면 버려지는 객체 참조를 생성하는 시간을 절약할 수 있으며, 항목의 경우 두 번째 해시 조회 시간을 절약할 수 있습니다.</p>
+<p><strong>패턴 (Pattern):</strong></p>
+<pre><code class="language-python">for key in d.keys():           --> for key in d:
+for value in d.values():       --> for value in d.itervalues():
+for key, value in d.items():   --> for key, value in d.iteritems():
+</code></pre>
+<p><strong>금지 사항 (Contra-indications):</strong></p>
+<p>리스트가 필요한 경우 반환 유형을 변경하지 마십시오.</p>
+<pre><code class="language-python">def getids():
+    return d.keys()
+</code></pre>
+<p>일부 딕셔너리 형태의 객체는 <code>iter</code> 메서드를 정의하지 않을 수 있습니다.</p>
+<pre><code class="language-python">for k in dictlike.keys():
+</code></pre>
+<p>이터레이터는 슬라이싱, 정렬 또는 기타 연산을 지원하지 않습니다.</p>
+<pre><code class="language-python">k = d.keys(); j = k[:]
+</code></pre>
+<p>딕셔너리 이터레이터는 딕셔너리 수정을 금지합니다.</p>
+<pre><code class="language-python">for k in d.keys():
+    del[k]
+</code></pre>
+<h5><code>stat</code> 메서드 (stat Methods)</h5>
+<p><code>stat</code> 상수 또는 인덱스를 새로운 <code>os.stat</code> 속성 및 메서드로 대체하십시오. <code>os.stat</code> 속성 및 메서드는 순서에 의존하지 않으며 <code>stat</code> 모듈을 가져올 필요가 없습니다.</p>
+<p><strong>패턴 (Pattern):</strong></p>
+<pre><code class="language-python">os.stat("foo")[stat.ST_MTIME]   --> os.stat("foo").st_mtime
+os.stat("foo")[stat.ST_MTIME]   --> os.path.getmtime("foo")
+</code></pre>
+<p><strong>위치 찾기 (Locating):</strong></p>
+<pre><code class="language-bash">grep os.stat
+</code></pre>
+<p>또는</p>
+<pre><code class="language-bash">grep stat.S
+</code></pre>
+<h5><code>types</code> 모듈 의존성 줄이기 (Reduce Dependency on types Module)</h5>
+<p><code>types</code> 모듈은 미래에 사용이 중단될 가능성이 있습니다. 대신 내장 생성자 함수를 사용하십시오. 이들은 약간 더 빠를 수 있습니다.</p>
+<p><strong>패턴 (Pattern):</strong></p>
+<pre><code class="language-python">isinstance(v, types.IntType)       --> isinstance(v, int)
+isinstance(s, types.StringTypes)   --> isinstance(s, basestring)
+</code></pre>
+<p>이 기술을 완전히 사용하려면 Python 2.3 이상이 필요하지만 (<code>basestring</code>은 Python 2.3에서 도입됨), 대부분의 경우 Python 2.2로 충분합니다.</p>
+<p><strong>위치 찾기 (Locating):</strong></p>
+<pre><code class="language-bash">grep types *.py | grep import
+</code></pre>
+<h5><code>__builtins__</code> 모듈과 충돌하는 변수 이름 피하기 (Avoid Variable Names that Clash with the <strong>builtins</strong> Module)</h5>
+<p>Python 2.2에서는 <code>dict</code> 및 <code>file</code>에 대한 새로운 내장 유형이 추가되었습니다. 스크립트는 이러한 유형을 가리는 변수 이름을 할당하는 것을 피해야 합니다. 동일한 조언은 <code>list</code>와 같은 기존 내장 함수에도 적용됩니다.</p>
+<p><strong>패턴 (Pattern):</strong></p>
+<pre><code class="language-python">file = open('myfile.txt')   --> f = open('myfile.txt')
+dict = obj.__dict__         --> d = obj.__dict__
+</code></pre>
+<p><strong>위치 찾기 (Locating):</strong></p>
+<pre><code class="language-bash">grep 'file ' *.py
+</code></pre>
+<h4>Python 2.1 이상 (Python 2.1 or Later)</h4>
+<h5><code>whrandom</code> 모듈 사용 중단 (whrandom Module Deprecated)</h5>
+<p>모든 랜덤 관련 메서드는 <code>random</code> 모듈이라는 한곳에 모였습니다.</p>
+<p><strong>패턴 (Pattern):</strong></p>
+<pre><code class="language-python">import whrandom   --> import random
+</code></pre>
+<p><strong>위치 찾기 (Locating):</strong></p>
+<pre><code class="language-bash">grep whrandom
+</code></pre>
+<h4>Python 2.0 이상 (Python 2.0 or Later)</h4>
+<h5>문자열 메서드 (String Methods)</h5>
+<p><code>string</code> 모듈은 미래에 사용이 중단될 가능성이 있습니다. 대신 문자열 메서드를 사용하십시오. 이들은 더 빠르기도 합니다.</p>
+<p><strong>패턴 (Pattern):</strong></p>
+<pre><code class="language-python">import string ; string.method(s, ...)   --> s.method(...)
+c in string.whitespace                   --> c.isspace()
+</code></pre>
+<p><strong>위치 찾기 (Locating):</strong></p>
+<pre><code class="language-bash">grep string *.py | grep import
+</code></pre>
+<h5><code>startswith</code> 및 <code>endswith</code> 문자열 메서드 (startswith and endswith String Methods)</h5>
+<p>슬라이싱 대신 이 문자열 메서드를 사용하십시오. 슬라이스가 생성될 필요가 없으며 잘못 계산될 위험이 없습니다.</p>
+<p><strong>패턴 (Pattern):</strong></p>
+<pre><code class="language-python">"foobar"[:3] == "foo"   --> "foobar".startswith("foo")
+"foobar"[-3:] == "bar"  --> "foobar".endswith("bar")
+</code></pre>
+<h5><code>atexit</code> 모듈 (The atexit Module)</h5>
+<p><code>atexit</code> 모듈은 프로그램 종료 시 실행될 여러 함수를 지원합니다. 또한, 매개변수화된 함수도 지원합니다. 불행하게도, 이 구현은 단일 종료 함수만 지원하는 <code>sys.exitfunc</code> 속성과 충돌합니다. <code>sys.exitfunc</code>에 의존하는 코드는 (라이브러리 모듈을 포함하여) 더 새롭고 다재다능한 <code>atexit</code> 모듈을 사용하기로 선택한 다른 모듈과 충돌할 수 있습니다.</p>
+<p><strong>패턴 (Pattern):</strong></p>
+<pre><code class="language-python">sys.exitfunc = myfunc   --> atexit.register(myfunc)
+</code></pre>
+<h4>Python 1.5 이상 (Python 1.5 or Later)</h4>
+<h5>클래스 기반 예외 (Class-Based Exceptions)</h5>
+<p>문자열 예외는 사용이 중단되었으므로, <code>Exception</code> 기본 클래스에서 파생하십시오. 구식 문자열 예외와 달리, 클래스 예외는 모두 다른 예외 또는 <code>Exception</code> 기본 클래스에서 파생됩니다. 이는 의미 있는 예외 그룹화를 가능하게 합니다. 또한 "<code>except Exception</code>" 절이 모든 예외를 잡을 수 있도록 합니다.</p>
+<p><strong>패턴 (Pattern):</strong></p>
+<pre><code class="language-python">NewError = 'NewError'   --> class NewError(Exception): pass
+</code></pre>
+<p><strong>위치 찾기 (Locating):</strong></p>
+<p>PyChecker를 사용하십시오.</p>
+<h4>모든 Python 버전 (All Python Versions)</h4>
+<h5><code>None</code> 테스트 (Testing for None)</h5>
+<p><code>None</code> 객체는 하나뿐이므로, 동일성(identity)으로 동등성(equality)을 테스트할 수 있습니다. 동일성 테스트는 동등성 테스트보다 약간 더 빠릅니다. 또한, 일부 객체 유형은 비교 연산자를 오버로드할 수 있으므로, 동등성 테스트가 훨씬 느릴 수 있습니다.</p>
+<p><strong>패턴 (Pattern):</strong></p>
+<pre><code class="language-python">if v == None    --> if v is None:
+if v != None    --> if v is not None:
+</code></pre>
+<p><strong>위치 찾기 (Locating):</strong></p>
+<pre><code class="language-bash">grep '== None'
+</code></pre>
+<p>또는</p>
+<pre><code class="language-bash">grep '!= None'
+</code></pre>
+<h3>저작권 (Copyright)</h3>
+<p>이 문서는 퍼블릭 도메인에 공개되었습니다.</p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Active] PEP 290 - Code Migration and Modernization"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-26 18:00:45+0900","children":"2025년 9월 26일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 26일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":[["$","div",null,{"className":"page__taxonomy mb-4","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"카테고리"}],[["$","span","Python",{"className":"page__taxonomy-item","children":"Python"}],["$","span","PEP",{"className":"page__taxonomy-item","children":"PEP"}]]]}],["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]]}]]}]}]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"secrett2633's blog"}],["$","meta","3",{"name":"description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://secrett2633.github.io/"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"secrett2633's blog"}],["$","meta","13",{"property":"og:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","14",{"property":"og:url","content":"https://secrett2633.github.io/"}],["$","meta","15",{"property":"og:site_name","content":"secrett2633's blog"}],["$","meta","16",{"property":"og:locale","content":"ko_KR"}],["$","meta","17",{"property":"og:type","content":"website"}],["$","meta","18",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","19",{"name":"twitter:title","content":"secrett2633's blog"}],["$","meta","20",{"name":"twitter:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","21",{"name":"next-size-adjust"}]]
+1:null

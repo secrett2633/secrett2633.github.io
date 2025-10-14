@@ -1,0 +1,235 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[4281,["231","static/chunks/231-c4b666723e6aae68.js","185","static/chunks/app/layout-8808afda01b7a1b7.js"],"default"]
+7:I[231,["231","static/chunks/231-c4b666723e6aae68.js","877","static/chunks/app/%5B...slug%5D/page-01b66e77b48ed573.js"],""]
+4:["slug","python/pep/255","c"]
+0:["iV6XySbMHIJ3imQdvgy3I",[[["",{"children":[["slug","python/pep/255","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"255\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/255","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","link",null,{"rel":"icon","type":"image/png","sizes":"32x32","href":"/favicon-32x32.png"}],["$","link",null,{"rel":"icon","type":"image/png","sizes":"16x16","href":"/favicon-16x16.png"}],["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_9012cf layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/secrett2633.github.io/_next/static/css/b9d6ec750ad82add.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+9:T5c91,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0255/">PEP 255 - Simple Generators</a></p>
+<p><strong>상태:</strong> Final | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 18-May-2001</p>
+</blockquote>
+<p>PEP 255 – 간단한 제너레이터 (Simple Generators)</p>
+<h2>초록 (Abstract)</h2>
+<p>이 PEP는 Python에 제너레이터(generators)의 개념과 함께 사용되는 새로운 문(statement)인 <code>yield</code> 문을 도입합니다.</p>
+<h2>동기 (Motivation)</h2>
+<p>생산자 함수(producer function)가 생성하는 값들 사이에 상태를 유지해야 하는 복잡한 작업을 수행할 때, 대부분의 프로그래밍 언어는 각 값이 생성될 때마다 호출되는 콜백 함수(callback function)를 생산자의 인자 목록에 추가하는 것 외에는 만족스럽고 효율적인 해결책을 제공하지 않습니다.</p>
+<p>예를 들어, 표준 라이브러리의 <code>tokenize.py</code>는 이 방식을 사용합니다. 호출자는 <code>tokenize()</code>가 다음 토큰을 찾을 때마다 호출될 <code>token_eater</code> 함수를 <code>tokenize()</code>에 전달해야 합니다. 이 방식은 <code>tokenize</code> 코드를 자연스럽게 작성할 수 있게 하지만, <code>tokenize</code>를 호출하는 프로그램은 콜백 호출 사이에 어떤 토큰이 마지막으로 보였는지 기억해야 하므로 복잡해지는 경향이 있습니다. <code>tabnanny.py</code>의 <code>token_eater</code> 함수가 좋은 예인데, 이는 전역 변수에 상태 머신을 유지하여 콜백 간에 이전에 무엇을 보았고 다음에 무엇을 기대하는지 기억합니다. 이를 올바르게 작동하도록 만드는 것이 어려웠고, 사람들이 이해하기도 여전히 어렵습니다.</p>
+<p>다른 대안으로는 <code>tokenize</code>가 Python 프로그램 전체를 한 번에 큰 리스트로 생성하는 방법이 있습니다. 이렇게 하면 <code>tokenize</code> 클라이언트 코드를 로컬 변수와 로컬 제어 흐름(예: 루프 및 중첩된 <code>if</code> 문)을 사용하여 상태를 추적하며 자연스럽게 작성할 수 있습니다. 그러나 이 방법은 현실적이지 않습니다. 프로그램은 매우 클 수 있으므로 전체 파싱 결과를 메모리에 올리는 데 필요한 메모리 양에 미리 제한을 둘 수 없고, 일부 <code>tokenize</code> 클라이언트는 프로그램 초기에 특정 내용이 나타나는지 여부만 확인하기를 원할 수 있기 때문입니다. 이 경우 전체 프로그램을 먼저 파싱하는 것은 심각한 시간 낭비입니다.</p>
+<p>또 다른 대안은 <code>tokenize</code>를 이터레이터(iterator)로 만들어 <code>.next()</code> 메서드가 호출될 때마다 다음 토큰을 전달하는 것입니다. 이는 호출자에게는 결과의 큰 리스트와 동일한 방식으로 편리하지만, 메모리 및 "일찍 종료하고 싶다면?"과 같은 단점이 없습니다. 그러나 이 방식은 <code>tokenize</code>가 <code>.next()</code> 호출 사이에 상태를 기억하는 부담을 지게 하며, <code>tokenize.tokenize_loop()</code>를 살펴보면 이것이 얼마나 끔찍한 작업이 될지 쉽게 알 수 있습니다. 일반적인 트리 구조의 노드를 생성하기 위한 재귀 알고리즘을 이터레이터 프레임워크로 변환하려면 재귀를 수동으로 제거하고 순회 상태를 직접 관리해야 합니다.</p>
+<p>네 번째 옵션은 생산자와 소비자를 별도의 스레드(threads)에서 실행하는 것입니다. 이를 통해 둘 다 자연스러운 방식으로 상태를 유지할 수 있으므로 양측 모두에게 편리합니다. 하지만 스레드가 없는 플랫폼에서는 작동하지 않으며, 스레드가 있는 플랫폼에서도 매우 느립니다.</p>
+<p>마지막 옵션은 경량 코루틴(lightweight coroutines)을 지원하는 Stackless (PEP 219) 변형 Python 구현을 사용하는 것입니다. 이는 스레드 옵션과 유사한 프로그래밍적 이점을 제공하지만 훨씬 효율적입니다. 그러나 Stackless는 Python 코어에 대한 논쟁의 여지가 있는 재고(rethinking)이며, Jython이 동일한 의미론을 구현하는 것이 불가능할 수도 있습니다. 이 PEP는 해당 논쟁을 다룰 곳이 아니므로, 제너레이터가 현재 CPython 구현에 쉽게 통합될 수 있는 방식으로 Stackless 기능의 유용한 하위 집합을 제공하며, 다른 Python 구현에도 비교적 간단하게 적용될 수 있다고 말하는 것으로 충분합니다.</p>
+<p>이것이 현재 대안들을 모두 설명한 것입니다. 다른 일부 고급 언어들은 만족스러운 해결책을 제공하는데, 특히 CLU의 이터레이터에서 영감을 받은 Sather의 이터레이터와 모든 표현식이 제너레이터인 독특한 언어인 Icon의 제너레이터가 있습니다. 이들 사이에는 차이점이 있지만, 기본적인 아이디어는 동일합니다. 즉, 호출자에게 중간 결과("다음 값")를 반환할 수 있지만, 함수의 로컬 상태를 유지하여 함수가 중단된 지점에서 다시 재개될 수 있는 일종의 함수를 제공하는 것입니다.</p>
+<p>매우 간단한 예시:</p>
+<pre><code class="language-python">def fib():
+    a, b = 0, 1
+    while 1:
+        yield b
+        a, b = b, a+b
+</code></pre>
+<p><code>fib()</code>가 처음 호출되면 <code>a</code>는 0으로, <code>b</code>는 1로 설정된 다음 <code>b</code>를 호출자에게 yield 합니다. 호출자는 1을 받습니다. <code>fib</code>가 재개되면, <code>fib</code>의 관점에서는 <code>yield</code> 문이 <code>print</code> 문과 거의 동일합니다. <code>fib</code>는 <code>yield</code> 이후에 모든 로컬 상태를 그대로 유지한 채 계속됩니다. <code>a</code>와 <code>b</code>는 1과 1이 되고, <code>fib</code>는 <code>yield</code>로 돌아가 호출자에게 1을 yield 합니다. 이런 식으로 계속됩니다. <code>fib</code>의 관점에서는 콜백을 통해 순서대로 결과를 전달하는 것과 같습니다. 그러나 호출자의 관점에서는 <code>fib</code> 호출이 원하는 대로 재개할 수 있는 이터러블(iterable) 객체입니다. 스레드 방식과 마찬가지로, 이 방식은 양측이 가장 자연스러운 방식으로 코드를 작성할 수 있게 합니다. 그러나 스레드 방식과 달리, 이 방식은 효율적으로 모든 플랫폼에서 수행될 수 있습니다. 실제로 제너레이터를 재개하는 것은 함수 호출보다 비용이 많이 들지 않아야 합니다.</p>
+<p>동일한 접근 방식이 많은 생산자/소비자 함수에 적용됩니다. 예를 들어, <code>tokenize.py</code>는 콜백 함수를 인자로 호출하는 대신 다음 토큰을 yield 할 수 있으며, <code>tokenize</code> 클라이언트는 자연스러운 방식으로 토큰을 반복할 수 있습니다. Python 제너레이터는 일종의 Python 이터레이터이지만, 특히 강력한 종류입니다.</p>
+<h2>명세: Yield (Specification: Yield)</h2>
+<p>새로운 문이 도입됩니다.
+<code>yield_stmt: "yield" expression_list</code></p>
+<p><code>yield</code>는 새로운 키워드이므로, 초기 릴리스에서는 제너레이터를 사용하려는 모듈이 상단 근처에 <code>from __future__ import generators</code> 라인을 포함해야 합니다 (자세한 내용은 PEP 236 참조). <code>future</code> 문 없이 <code>yield</code> 식별자를 사용하는 모듈은 경고를 발생시킵니다. 다음 릴리스에서는 <code>yield</code>가 언어 키워드가 되고 <code>future</code> 문은 더 이상 필요하지 않습니다.</p>
+<p><code>yield</code> 문은 함수 내부에서만 사용될 수 있습니다. <code>yield</code> 문을 포함하는 함수를 제너레이터 함수(generator function)라고 합니다. 제너레이터 함수는 모든 면에서 일반 함수 객체이지만, 코드 객체의 <code>co_flags</code> 멤버에 새로운 <code>CO_GENERATOR</code> 플래그가 설정됩니다.</p>
+<p>제너레이터 함수가 호출될 때, 실제 인수는 일반적인 방식으로 함수-로컬(function-local) 형식 인자 이름에 바인딩되지만, 함수 본문의 코드는 실행되지 않습니다. 대신 제너레이터 이터레이터(generator-iterator) 객체가 반환됩니다. 이 객체는 이터레이터 프로토콜(iterator protocol)을 따르므로, 특히 <code>for</code> 루프에서 자연스럽게 사용될 수 있습니다. 의도가 문맥상 명확할 경우, "제너레이터(generator)"라는 이름은 제너레이터 함수 또는 제너레이터 이터레이터를 지칭하는 데 사용될 수 있습니다.</p>
+<p>제너레이터 이터레이터의 <code>.next()</code> 메서드가 호출될 때마다, 제너레이터 함수의 본문 코드는 <code>yield</code> 또는 <code>return</code> 문(아래 참조)이 나올 때까지 또는 본문의 끝에 도달할 때까지 실행됩니다.</p>
+<p><code>yield</code> 문이 나오면 함수의 상태는 "정지(frozen)"되고, <code>expression_list</code>의 값은 <code>.next()</code> 호출자에게 반환됩니다. "정지"라는 것은 현재 로컬 변수 바인딩, 명령어 포인터, 내부 평가 스택을 포함한 모든 로컬 상태가 유지된다는 것을 의미합니다. 충분한 정보가 저장되어 다음에 <code>.next()</code>가 호출될 때, 함수는 <code>yield</code> 문이 마치 또 다른 외부 호출이었던 것처럼 정확하게 진행할 수 있습니다.</p>
+<p><strong>제한:</strong> <code>try/finally</code> 구성의 <code>try</code> 절에서는 <code>yield</code> 문이 허용되지 않습니다. 이는 제너레이터가 다시 재개될 것이라는 보장이 없으므로, <code>finally</code> 블록이 실행될 것이라는 보장도 없기 때문입니다. 이는 <code>finally</code>의 목적에 대한 너무 큰 위반입니다.</p>
+<p><strong>제한:</strong> 제너레이터는 활성 상태로 실행 중일 때는 재개될 수 없습니다.</p>
+<pre><code class="language-python">>>> def g():
+... i = me.next()
+... yield i
+>>> me = g()
+>>> me.next()
+Traceback (most recent call last):
+...
+File "&#x3C;string>", line 2, in g
+ValueError: generator already executing
+</code></pre>
+<h2>명세: Return (Specification: Return)</h2>
+<p>제너레이터 함수는 다음과 같은 형태의 <code>return</code> 문을 포함할 수도 있습니다.
+<code>return</code></p>
+<p>제너레이터 본문 내의 <code>return</code> 문에서는 <code>expression_list</code>가 허용되지 않습니다 (물론, 제너레이터 내에 중첩된 비-제너레이터 함수의 본문에는 나타날 수 있습니다).</p>
+<p><code>return</code> 문이 나오면, 모든 함수 반환과 마찬가지로 제어가 진행되며, 적절한 <code>finally</code> 절(있는 경우)을 실행합니다. 그런 다음 <code>StopIteration</code> 예외가 발생하여 이터레이터가 소진되었음을 알립니다. 명시적인 <code>return</code> 없이 제어 흐름이 제너레이터 끝에 도달하는 경우에도 <code>StopIteration</code> 예외가 발생합니다.</p>
+<p><code>return</code>은 제너레이터 함수와 비-제너레이터 함수 모두에서 "나는 완료되었고, 반환할 흥미로운 것이 없다"는 의미를 가집니다.</p>
+<p><code>return</code>이 항상 <code>StopIteration</code>을 발생하는 것과 동등하지는 않습니다. 차이점은 둘러싼 <code>try/except</code> 구성이 처리되는 방식에 있습니다. 예를 들어:</p>
+<pre><code class="language-python">>>> def f1():
+...     try:
+...         return
+...     except:
+...         yield 1
+>>> print(list(f1()))
+[]
+</code></pre>
+<p>이는 어떤 함수에서와 마찬가지로 <code>return</code>이 단순히 종료하기 때문입니다. 하지만:</p>
+<pre><code class="language-python">>>> def f2():
+...     try:
+...         raise StopIteration
+...     except:
+...         yield 42
+>>> print(list(f2()))
+[42]
+</code></pre>
+<p>이는 <code>StopIteration</code>이 다른 예외와 마찬가지로 bare <code>except</code>에 의해 포착되기 때문입니다.</p>
+<h2>명세: 제너레이터와 예외 전파 (Specification: Generators and Exception Propagation)</h2>
+<p><code>StopIteration</code>을 포함하되 이에 국한되지 않는, 처리되지 않은 예외가 제너레이터 함수에 의해 발생하거나 제너레이터 함수를 통과하는 경우, 예외는 일반적인 방식으로 호출자에게 전달되며, 이후 제너레이터 함수를 재개하려는 시도는 <code>StopIteration</code>을 발생시킵니다. 다시 말해, 처리되지 않은 예외는 제너레이터의 유효 수명을 종료시킵니다.</p>
+<p>예시 (관용적이지 않지만 요점을 설명하기 위함):</p>
+<pre><code class="language-python">>>> def f():
+...     return 1/0
+>>> def g():
+...     yield f() # 0으로 나누기 예외가 전파됩니다.
+...     yield 42  # 여기에 도달하지 못합니다.
+>>> k = g()
+>>> k.next()
+Traceback (most recent call last):
+File "&#x3C;stdin>", line 1, in ?
+File "&#x3C;stdin>", line 2, in g
+File "&#x3C;stdin>", line 2, in f
+ZeroDivisionError: integer division or modulo by zero
+>>> k.next() # 그리고 제너레이터는 재개될 수 없습니다.
+Traceback (most recent call last):
+File "&#x3C;stdin>", line 1, in ?
+StopIteration
+>>>
+</code></pre>
+<h2>명세: Try/Except/Finally (Specification: Try/Except/Finally)</h2>
+<p>앞서 언급했듯이, <code>try/finally</code> 구성의 <code>try</code> 절에서는 <code>yield</code>가 허용되지 않습니다. 결과적으로 제너레이터는 중요한 리소스를 매우 신중하게 할당해야 합니다. 그 외에는 <code>finally</code> 절, <code>except</code> 절 또는 <code>try/except</code> 구성의 <code>try</code> 절에 <code>yield</code>가 나타나는 데 제한이 없습니다.</p>
+<pre><code class="language-python">>>> def f():
+...     try:
+...         yield 1
+...         try:
+...             yield 2
+...             1/0
+...             yield 3 # 여기에 도달하지 못합니다.
+...         except ZeroDivisionError:
+...             yield 4
+...             yield 5
+...             raise
+...         except:
+...             yield 6
+...             yield 7 # 위의 "raise"가 이것을 중단시킵니다.
+...         except:
+...             yield 8
+...             yield 9
+...         try:
+...             x = 12
+...         finally:
+...             yield 10
+...             yield 11
+>>> print(list(f()))
+[1, 2, 4, 5, 8, 9, 10, 11]
+>>>
+</code></pre>
+<h2>예시 (Example)</h2>
+<pre><code class="language-python"># 이진 트리 클래스.
+class Tree:
+    def __init__(self, label, left=None, right=None):
+        self.label = label
+        self.left = left
+        self.right = right
+
+    def __repr__(self, level=0, indent=" "):
+        s = level*indent + repr(self.label) # `self.label` 대신 repr(self.label)로 변경
+        if self.left:
+            s = s + "\n" + self.left.__repr__(level+1, indent)
+        if self.right:
+            s = s + "\n" + self.right.__repr__(level+1, indent)
+        return s
+
+    def __iter__(self):
+        return inorder(self)
+
+# 리스트에서 트리를 생성합니다.
+def tree(list_data): # list_data로 변수명 변경
+    n = len(list_data)
+    if n == 0:
+        return None # 빈 리스트일 때 None 반환하도록 수정
+    i = n // 2 # 정수 나눗셈으로 변경
+    return Tree(list_data[i], tree(list_data[:i]), tree(list_data[i+1:]))
+
+# 트리의 레이블을 중위 순서(in-order)로 생성하는 재귀 제너레이터.
+def inorder(t):
+    if t:
+        for x in inorder(t.left):
+            yield x
+        yield t.label
+        for x in inorder(t.right):
+            yield x
+
+# 시연: 트리를 생성합니다.
+t = tree("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+
+# 트리의 노드를 중위 순서로 출력합니다.
+for x in t:
+    print(x, end=' ') # print 문 수정
+print()
+
+# 비재귀 제너레이터.
+def inorder_non_recursive(node): # 함수명 변경
+    stack = []
+    while node:
+        while node.left:
+            stack.append(node)
+            node = node.left
+        yield node.label
+        while not node.right:
+            try:
+                node = stack.pop()
+            except IndexError:
+                return
+            yield node.label
+        node = node.right
+
+# 비재귀 제너레이터를 실행합니다.
+for x in inorder_non_recursive(t): # 함수명 변경
+    print(x, end=' ') # print 문 수정
+print()
+</code></pre>
+<p>두 출력 블록 모두 다음을 표시합니다.
+<code>A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</code></p>
+<h2>Q &#x26; A</h2>
+<h3>왜 <code>def</code>를 재사용하는 대신 새로운 키워드를 사용하지 않았는가?</h3>
+<p>BDFL Pronouncements 섹션을 참조하십시오.</p>
+<h3>왜 <code>yield</code>에 새로운 키워드를 사용하는가? 빌트인 함수 대신에는 안 되는가?</h3>
+<p>파이썬에서 제어 흐름은 키워드를 통해 훨씬 잘 표현되며, <code>yield</code>는 제어 구조입니다. 또한 Jython에서 효율적인 구현을 위해서는 컴파일러가 컴파일 시간에 잠재적 중단점(suspension points)을 결정할 수 있어야 한다고 여겨지며, 새로운 키워드는 이를 쉽게 만듭니다. CPython 참조 구현 또한 이를 활용하여 어떤 함수가 제너레이터 함수인지 감지합니다.</p>
+<h3>그러면 새로운 키워드 없이 다른 특별한 구문은 안 되는가?</h3>
+<p>예를 들어, <code>yield 3</code> 대신 다음과 같은 것들을 생각해 볼 수 있습니다.</p>
+<ul>
+<li><code>return 3 and continue</code></li>
+<li><code>return and continue 3</code></li>
+<li><code>return generating 3</code></li>
+<li><code>continue return 3</code></li>
+<li><code>return >> , 3 from generator</code></li>
+<li><code>return >> 3</code></li>
+<li><code>return &#x3C;&#x3C; 3</code></li>
+<li><code>>> 3</code></li>
+<li><code>&#x3C;&#x3C; 3 * 3</code></li>
+</ul>
+<p>수백 개의 메시지 중 세 가지만 이러한 대안을 제시했으며, 위 내용은 그중에서 발췌한 것입니다. 새로운 키워드가 필요 없는 것이 좋겠지만, <code>yield</code>를 매우 명확하게 만드는 것이 더 좋습니다. <code>yield</code>가 발생하는 것을 이전에는 의미 없던 키워드나 연산자의 시퀀스를 해석하여 추론하고 싶지 않습니다. 그래도 이것이 충분한 관심을 끈다면, 제안자들은 단일 합의 제안에 합의해야 하며, 귀도(Guido)가 그것에 대해 "선언(Pronounce)"할 것입니다.</p>
+<h3>왜 <code>return</code>을 아예 허용하는가? 왜 <code>raise StopIteration</code>으로 종료를 강제하지 않는가?</h3>
+<p><code>StopIteration</code>의 메커니즘은 Python 2.1의 <code>IndexError</code> 메커니즘과 같이 저수준 세부 사항입니다. 구현은 내부적으로 잘 정의된 작업을 수행해야 하며, Python은 고급 사용자를 위해 이러한 메커니즘을 노출합니다. 그러나 이것이 모든 사람에게 그 수준에서 작업하도록 강제해야 한다는 주장은 아닙니다. <code>return</code>은 어떤 종류의 함수에서든 "나는 완료되었다"를 의미하며, 이는 설명하고 사용하기 쉽습니다. 또한, <code>return</code>이 <code>try/except</code> 구성에서 <code>raise StopIteration</code>과 항상 동등하지는 않습니다 ( "명세: Return" 섹션 참조).</p>
+<h3>그러면 <code>return</code>에도 표현식을 허용하지 않는가?</h3>
+<p>어쩌면 언젠가는 허용할 수도 있습니다. Icon에서는 <code>return expr</code>이 "나는 완료되었다"와 "하지만 반환할 최종적으로 유용한 값도 있고, 그것이 이것이다"라는 두 가지를 의미합니다. 초기 단계에서는 <code>return expr</code>에 대한 설득력 있는 사용 사례가 없으므로, 값을 전달하는 데 <code>yield</code>만 사용하는 것이 더 깔끔합니다.</p>
+<h2>BDFL 선언 (BDFL Pronouncements)</h2>
+<p><strong>쟁점:</strong> <code>def</code> 대신 <code>gen</code> 또는 <code>generator</code>와 같은 다른 새로운 키워드를 도입하거나 구문을 변경하여 제너레이터 함수를 비-제너레이터 함수와 구분해야 하는가.</p>
+<p><strong>반대 (Con):</strong> 실제로 (생각하는 방식에 따라), 제너레이터는 함수이지만, 재개 가능하다는 특징을 가집니다. 그것들이 어떻게 설정되는지에 대한 메커니즘은 비교적 사소한 기술적 문제이며, 새로운 키워드를 도입하는 것은 제너레이터가 시작되는 메커니즘(제너레이터 수명의 중요하지만 작은 부분)을 불필요하게 과도하게 강조할 것입니다.</p>
+<p><strong>찬성 (Pro):</strong> 현실적으로 (생각하는 방식에 따라), 제너레이터 함수는 마법처럼 제너레이터 이터레이터를 생성하는 팩토리 함수(factory functions)입니다. 이런 점에서 그것들은 비-제너레이터 함수와 근본적으로 다르며, 함수라기보다는 생성자처럼 작동하므로 <code>def</code>를 재사용하는 것은 기껏해야 혼란스럽습니다. 본문 내부에 숨겨진 <code>yield</code> 문만으로는 의미론이 그렇게 다르다는 것을 충분히 경고하지 못합니다.</p>
+<p><strong>BDFL (Guido van Rossum):</strong> <code>def</code>는 그대로 유지됩니다. 양측의 주장이 완전히 설득력 있는 것은 아니어서, 언어 설계자로서의 제 직관에 따라 결정했습니다. 제 직관은 이 PEP에서 제안된 구문이 정확히 맞다는 것을 알려줍니다. 너무 뜨겁지도, 너무 차갑지도 않습니다. 그러나 그리스 신화의 델피 신탁처럼, 왜 그런지는 알려주지 않으므로, PEP 구문에 반대하는 주장에 대한 반박은 없습니다. 제가 내놓을 수 있는 최선은 "FUD"(Fear, Uncertainty, Doubt - 공포, 불확실성, 의심)입니다. 만약 이것이 언어의 첫날부터 존재했다면, 앤드루 쿠클링(Andrew Kuchling)의 "Python Warts" 페이지에 실렸을 것이라고는 거의 의심하지 않습니다.</p>
+<h2>참조 구현 (Reference Implementation)</h2>
+<p>현재 구현은 예비 상태이지만 (문서는 없지만 잘 테스트되고 견고함), Python의 CVS 개발 트리의 일부입니다. 이를 사용하려면 소스에서 Python을 빌드해야 합니다. 이는 Neil Schemenauer의 이전 패치에서 파생되었습니다.</p>
+<h2>각주 및 참고 자료 (Footnotes and References)</h2>
+<p>https://www.stackless.com/
+"Iteration Abstraction in Sather" Murer, Omohundro, Stoutamire and Szyperski http://www.icsi.berkeley.edu/~sather/Publications/toplas.html
+http://www.cs.arizona.edu/icon/
+http://python.ca/nas/python/generator.diff
+이 구현을 실험하려면 http://sf.net/cvs/?group_id=5470 지침에 따라 CVS에서 Python을 체크아웃하십시오. 표준 테스트 <code>Lib/test/test_generators.py</code>에는 이 PEP의 모든 예제를 포함한 많은 예제가 있습니다.</p>
+<h2>저작권 (Copyright)</h2>
+<p>이 문서는 퍼블릭 도메인에 공개되었습니다.</p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Final] PEP 255 - Simple Generators"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-26 17:35:06+0900","children":"2025년 9월 26일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 26일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":[["$","div",null,{"className":"page__taxonomy mb-4","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"카테고리"}],[["$","span","Python",{"className":"page__taxonomy-item","children":"Python"}],["$","span","PEP",{"className":"page__taxonomy-item","children":"PEP"}]]]}],["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]]}]]}]}]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"secrett2633's blog"}],["$","meta","3",{"name":"description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://secrett2633.github.io/"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"secrett2633's blog"}],["$","meta","13",{"property":"og:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","14",{"property":"og:url","content":"https://secrett2633.github.io/"}],["$","meta","15",{"property":"og:site_name","content":"secrett2633's blog"}],["$","meta","16",{"property":"og:locale","content":"ko_KR"}],["$","meta","17",{"property":"og:type","content":"website"}],["$","meta","18",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","19",{"name":"twitter:title","content":"secrett2633's blog"}],["$","meta","20",{"name":"twitter:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","21",{"name":"next-size-adjust"}]]
+1:null

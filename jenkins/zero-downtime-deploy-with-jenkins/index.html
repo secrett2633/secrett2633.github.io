@@ -1,1590 +1,328 @@
-<!doctype html>
-<!--
-  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
-  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
-  Free for personal and commercial use under the MIT license
-  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
--->
-<html lang="ko" class="no-js">
-  <head>
-    <style> 
-      ::-webkit-scrollbar{ 
-        width: 10px;
-        height: 10px;
-      }
-
-      ::-webkit-scrollbar-track {
-        width: 0px;
-        background-color: #626262;
-        /* border-radius: 5px; */
-      }
-
-      ::-webkit-scrollbar-thumb {
-        width: 0px;
-        background-color: #E2E2E2;
-        border-radius: 5px;
-      }
-
-      ::-webkit-scrollbar-thumb:hover {
-        width: 10px;
-        height: 20px;
-        /* background-color: rgba(190, 190, 190, 0.2); */
-        background-color: #A2A2A2;
-        border-radius: 5px;
-      }
-
-      ::-webkit-scrollbar-track:hover {
-        width: 10px;
-        /* background-color: rgba(150, 150, 150, 0.1); */
-        background-color: #626262;
-        border-radius: 5px;
-        /* background: transparent; */
-        /* border-radius: 10px; */
-      }
-
-      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
-          width:0px;
-          height: 0px;
-          /* background-color: rgb(14, 221, 24); */
-          /* border-radius: 50%; */
-      }
-    </style>
-    
-    <meta charset="utf-8">
-
-<!-- begin _includes/seo.html --><title>[Jenkins] 무중단 배포를 위한 파이프라인 구성 | secrett2633</title>
-<meta name="description" content="Jenkins를 이용한 무중단 배포 방법을 공유합니다.">
-
-
-  <meta name="author" content="secrett2633">
-  
-  <meta property="article:author" content="secrett2633">
-  
-
-
-<meta property="og:type" content="article">
-<meta property="og:locale" content="ko_KR">
-<meta property="og:site_name" content="secrett2633's blog">
-<meta property="og:title" content="[Jenkins] 무중단 배포를 위한 파이프라인 구성">
-<meta property="og:url" content="https://secrett2633.github.io/jenkins/zero-downtime-deploy-with-jenkins/">
-
-
-  <meta property="og:description" content="Jenkins를 이용한 무중단 배포 방법을 공유합니다.">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2025-01-18T19:03:11+09:00">
-
-
-
-  <meta property="article:modified_time" content="2025-01-18T19:03:11+09:00">
-
-
-
-  
-
-  
-
-
-<link rel="canonical" href="https://secrett2633.github.io/jenkins/zero-downtime-deploy-with-jenkins/">
-
-
-
-
-<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    
-      "@type": "Person",
-      "name": "secrett2633",
-      "url": "https://secrett2633.github.io/"
-    
-  }
-</script>
-
-
-
-
-
-
-<!-- end _includes/seo.html -->
-
-
-
-  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
-
-
-<!-- https://t.co/dKP3o1e -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<script>
-  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
-</script>
-
-<!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
-
-<!--[if IE]>
-  <style>
-    /* old IE unsupported flexbox fixes */
-    .greedy-nav .site-title {
-      padding-right: 3em;
-    }
-    .greedy-nav button {
-      position: absolute;
-      top: 0;
-      right: 0;
-      height: 100%;
-    }
-  </style>
-<![endif]-->
-
-
-    <!-- start custom head snippets -->
-
-<!-- insert favicons. use https://realfavicongenerator.net/ -->
-
-<!-- end custom head snippets -->
-
-
-    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
-    <meta name="msapplication-TileColor" content="#ffc40d">
-    <meta name="theme-color" content="#ffffff">
-  </head>
-
-  <body class="layout--single">
-    <nav class="skip-links">
-  <h2 class="screen-reader-text">Skip links</h2>
-  <ul>
-    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
-    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
-    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
-  </ul>
-</nav>
-
-    <!--[if lt IE 9]>
-<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
-<![endif]-->
-
-    
-
-<div class="masthead">
-  <div class="masthead__inner-wrap">
-    <div class="masthead__menu">
-      <nav id="site-nav" class="greedy-nav">
-        
-        <a class="site-title" href="/">
-          secrett2633's blog
-          
-        </a>
-        <ul class="visible-links"><li class="masthead__menu-item">
-              <a href="https://github.com/secrett2633">GitHub</a>
-            </li></ul>
-        
-        <button class="search__toggle" type="button">
-          <span class="visually-hidden">Toggle search</span>
-          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
-            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
-          </svg>
-        </button>
-        
-        <button class="greedy-nav__toggle hidden" type="button">
-          <span class="visually-hidden">Toggle menu</span>
-          <div class="navicon"></div>
-        </button>
-        <ul class="hidden-links hidden"></ul>
-      </nav>
-    </div>
-  </div>
-</div>
-
-
-    <div class="initial-content">
-      
-
-
-
-<div id="main" role="main">
-  
-  <div class="sidebar sticky">
-  
-
-
-<div itemscope itemtype="https://schema.org/Person">
-
-  
-
-  <!-- 2022.02.17 author content hidden -->
-  <!-- <div class="author__content">
-    
-      <h3 class="author__name" itemprop="name">secrett2633</h3>
-    
-    
-  </div> -->
-
-  <div class="author__urls-wrapper">
-    <!-- <button class="btn btn--inverse">Follow</button> -->
-    <ul class="author__urls social-icons">
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <!--
-  <li>
-    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
-      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
-    </a>
-  </li>
--->
-    </ul>
-  </div>
-</div>
-
-  
-    
-      
-      
-      
-      
-    
-    
-      
-
-<nav class="nav__list">
-  
-  <input id="ac-toc" name="accordion-toc" type="checkbox" />
-  <label for="ac-toc">Toggle Menu</label>
-  <ul class="nav__items">
-    <!-- <li>
-      <span class="nav__total">🌴 Total Posts: 647</span>
-    </li> -->
-    
-    
-      <li>
-        
-          <!-- title -->
-              <span class="nav__sub-title">Frontend</span>
-              <hr>
-        
-
-        
-        <ul>
-          
-            <!-- sub-title -->
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-        </ul>
-        
-      </li>
-    
-      <li>
-        
-          <!-- title -->
-              <span class="nav__sub-title">Backend</span>
-              <hr>
-        
-
-        
-        <ul>
-          
-            <!-- sub-title -->
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-                <li><a href="/backend/django/">Django (6)</a></li>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-            <!-- sub-title -->
-            
-              
-            
-              
-            
-              
-                <li><a href="/backend/logging/">Logging (1)</a></li>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-            <!-- sub-title -->
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-            <!-- sub-title -->
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-        </ul>
-        
-      </li>
-    
-      <li>
-        
-          <!-- title -->
-              <span class="nav__sub-title">AI/ML</span>
-              <hr>
-        
-
-        
-        <ul>
-          
-            <!-- sub-title -->
-            
-              
-            
-              
-            
-              
-            
-              
-                <li><a href="/ai/llm/">LLM (1)</a></li>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-            <!-- sub-title -->
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-                <li><a href="/ai/review/">Review (625)</a></li>
-              
-            
-          
-        </ul>
-        
-      </li>
-    
-      <li>
-        
-          <!-- title -->
-              <span class="nav__sub-title">DevOps</span>
-              <hr>
-        
-
-        
-        <ul>
-          
-            <!-- sub-title -->
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-                <li><a href="/devops/nginx/">Nginx (1)</a></li>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-            <!-- sub-title -->
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-                <li><a href="/devops/docker/">Docker (1)</a></li>
-              
-            
-              
-            
-              
-            
-              
-            
-          
-            <!-- sub-title -->
-            
-              
-            
-              
-                <li><a href="/devops/safeline/">SafeLine (1)</a></li>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-            <!-- sub-title -->
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-                <li><a href="/devops/jenkins/">Jenkins (3)</a></li>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-            <!-- sub-title -->
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-                <li><a href="/devops/github-actions/">GitHub Actions (1)</a></li>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-            <!-- sub-title -->
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-            <!-- sub-title -->
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-                <li><a href="/devops/aws/">AWS (1)</a></li>
-              
-            
-              
-            
-          
-        </ul>
-        
-      </li>
-    
-      <li>
-        
-          <!-- title -->
-              <span class="nav__sub-title">etc</span>
-              <hr>
-        
-
-        
-        <ul>
-          
-            <!-- sub-title -->
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-            <!-- sub-title -->
-            
-              
-                <li><a href="/etc/me/">Me (3)</a></li>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-            <!-- sub-title -->
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-                <li><a href="/etc/chrome-extension/">Chrome Extension (1)</a></li>
-              
-            
-              
-            
-              
-            
-          
-        </ul>
-        
-      </li>
-    
-  </ul>
-</nav>
-
-    
-  
-  </div>
-
-
-
-  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="[Jenkins] 무중단 배포를 위한 파이프라인 구성">
-    <meta itemprop="description" content="Jenkins를 이용한 무중단 배포 방법을 공유합니다.">
-    <meta itemprop="datePublished" content="2025-01-18T19:03:11+09:00">
-    <meta itemprop="dateModified" content="2025-01-18T19:03:11+09:00">
-
-    <div class="page__inner-wrap">
-      
-        <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">[Jenkins] 무중단 배포를 위한 파이프라인 구성
-</h1>
-          
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        <time datetime="2025-01-18T19:03:11+09:00">January 18, 2025</time>
-      </span>
-    
-
-    
-
-    
-  </p>
-
-
-        </header>
-      
-
-      <section class="page__content" itemprop="text">
-        
-          <aside class="sidebar__right sticky">
-            <nav class="toc">
-              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
-              <ul class="toc__menu"><li><a href="#무중단-배포-blue-green-배포-방법">무중단 배포 (Blue-Green 배포) 방법</a><ul><li><a href="#들어가며">들어가며</a></li><li><a href="#무중단-배포란">무중단 배포란?</a><ul><li><a href="#1-blue-green-배포">1. Blue-Green 배포</a></li><li><a href="#2-rolling-배포">2. Rolling 배포</a></li><li><a href="#3-canary-배포">3. Canary 배포</a></li></ul></li><li><a href="#배포-준비">배포 준비</a><ul><li><a href="#백엔드-서버-준비">백엔드 서버 준비</a><ul><li><a href="#docker-composeyml">docker-compose.yml</a></li><li><a href="#bluegreen-배포-환경-설정">Blue/Green 배포 환경 설정</a></li></ul></li><li><a href="#nginx-설정">Nginx 설정</a></li></ul></li><li><a href="#무중단-배포-jenkins-파이프라인">무중단 배포 Jenkins 파이프라인</a><ul><li><a href="#파이프라인-설명">파이프라인 설명</a></li></ul></li><li><a href="#마치며">마치며</a></li></ul></li></ul>
-
-            </nav>
-          </aside>
-        
-        <h1 id="무중단-배포-blue-green-배포-방법">무중단 배포 (Blue-Green 배포) 방법</h1>
-
-<h2 id="들어가며"><strong>들어가며</strong></h2>
-
+<!DOCTYPE html><html lang="ko" class="no-js"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="preload" href="/secrett2633.github.io/_next/static/media/e4af272ccee01ff0-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="stylesheet" href="/secrett2633.github.io/_next/static/css/b9d6ec750ad82add.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/secrett2633.github.io/_next/static/chunks/webpack-a04af954a21fa650.js"/><script src="/secrett2633.github.io/_next/static/chunks/fd9d1056-62aaf4b921c84028.js" async=""></script><script src="/secrett2633.github.io/_next/static/chunks/23-ca4408d024135d8d.js" async=""></script><script src="/secrett2633.github.io/_next/static/chunks/main-app-fa660020ba1e0b6e.js" async=""></script><script src="/secrett2633.github.io/_next/static/chunks/231-c4b666723e6aae68.js" async=""></script><script src="/secrett2633.github.io/_next/static/chunks/app/layout-8808afda01b7a1b7.js" async=""></script><script src="/secrett2633.github.io/_next/static/chunks/app/%5B...slug%5D/page-01b66e77b48ed573.js" async=""></script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"></script><title>secrett2633&#x27;s blog</title><meta name="description" content="기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"/><meta name="author" content="secrett2633"/><meta name="keywords" content="Django, Python, DevOps, AI, ML, 블로그, 기술"/><meta name="creator" content="secrett2633"/><meta name="publisher" content="secrett2633"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://secrett2633.github.io/"/><meta name="format-detection" content="telephone=no, address=no, email=no"/><meta property="og:title" content="secrett2633&#x27;s blog"/><meta property="og:description" content="기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"/><meta property="og:url" content="https://secrett2633.github.io/"/><meta property="og:site_name" content="secrett2633&#x27;s blog"/><meta property="og:locale" content="ko_KR"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="secrett2633&#x27;s blog"/><meta name="twitter:description" content="기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"/><meta name="next-size-adjust"/><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/><meta name="msapplication-TileColor" content="#ffc40d"/><meta name="theme-color" content="#ffffff"/><script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-NE2W3CFPNY');
+            </script><script src="/secrett2633.github.io/_next/static/chunks/polyfills-78c92fac7aa8fdd8.js" noModule=""></script></head><body class="__className_9012cf layout--default"><div class="min-h-screen bg-gray-50"><div class="masthead"><div class="masthead__inner-wrap"><div class="masthead__menu"><nav id="site-nav" class="greedy-nav"><a class="site-title" href="/secrett2633.github.io">secrett2633&#x27;s blog</a><div class="flex items-center space-x-4"><ul class="visible-links"><li class="masthead__menu-item"><a href="https://github.com/secrett2633" target="_blank" rel="noopener noreferrer">GitHub</a></li></ul><button class="search__toggle" type="button"><svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16"><path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path></svg></button><button class="greedy-nav__toggle" type="button"><div class="navicon"></div></button></div><ul class="hidden-links hidden md:hidden"><li><a href="https://github.com/secrett2633" target="_blank" rel="noopener noreferrer" class="block py-2">GitHub</a></li></ul></nav></div></div></div><main class="initial-content"><!--$--><div class="flex flex-col lg:flex-row gap-8"><main class="flex-1"><article class="page"><header class="mb-8"><h1 class="page__title">[Jenkins] 무중단 배포를 위한 파이프라인 구성</h1><div class="page__meta"><time dateTime="2025-01-18 19:03:11+0900">2025년 1월 18일</time><span class="ml-4">수정: <!-- -->2025년 1월 18일</span></div></header><div class="page__content"><div><h1>무중단 배포 (Blue-Green 배포) 방법</h1>
+<h2><strong>들어가며</strong></h2>
 <p>지난 포스트에서는 <strong>SSL 인증서 발급</strong>과 이를 <strong>Jenkins 파이프라인</strong>에 적용하는 방법을 다뤘습니다. 이번 포스트에서는 이 설정을 바탕으로 <strong>무중단 배포</strong>를 구현하는 방법을 공유합니다.</p>
-
-<h2 id="무중단-배포란"><strong>무중단 배포란?</strong></h2>
-
+<h2><strong>무중단 배포란?</strong></h2>
 <p>무중단 배포는 기존 서비스를 중단하지 않고 새로운 버전을 배포하는 방법입니다. 이렇게 배포를 진행하면 서비스의 가용성을 높일 수 있으며, 사용자에게 끊김 없이 업데이트된 버전을 제공할 수 있습니다.</p>
-
 <p>무중단 배포에는 여러 가지 방법이 있지만, 대표적으로 <strong>Blue-Green 배포</strong>, <strong>Rolling 배포</strong>, <strong>Canary 배포</strong> 방식이 있습니다.</p>
-
-<h3 id="1-blue-green-배포"><strong>1. Blue-Green 배포</strong></h3>
-
+<h3><strong>1. Blue-Green 배포</strong></h3>
 <p>Blue-Green 배포는 두 개의 환경(Blue와 Green)을 유지하여 서비스를 중단 없이 새로운 버전을 배포하는 방법입니다. 하나의 환경(예: Blue)을 운영 중에 두고, 새로운 버전은 다른 환경(예: Green)에서 준비됩니다. 이후 트래픽을 새로운 환경으로 전환하면서 배포를 진행합니다.</p>
-
-<h3 id="2-rolling-배포"><strong>2. Rolling 배포</strong></h3>
-
+<h3><strong>2. Rolling 배포</strong></h3>
 <p>Rolling 배포는 전체 서버를 동시에 업데이트하지 않고, 한 서버씩 점진적으로 새로운 버전을 배포하는 방법입니다. 서비스의 일부만 업데이트되기 때문에 전체 서비스의 다운타임을 최소화할 수 있습니다.</p>
-
-<h3 id="3-canary-배포"><strong>3. Canary 배포</strong></h3>
-
+<h3><strong>3. Canary 배포</strong></h3>
 <p>Canary 배포는 새로운 버전을 소수의 사용자에게만 먼저 배포하여 문제가 없는지 확인하는 방법입니다. 문제가 없으면 점차적으로 전체 서비스에 배포를 진행합니다.</p>
-
 <p>이번 포스트에서는 <strong>Blue-Green 배포</strong>를 중심으로 설명하겠습니다.</p>
-
-<h2 id="배포-준비"><strong>배포 준비</strong></h2>
-
-<h3 id="백엔드-서버-준비"><strong>백엔드 서버 준비</strong></h3>
-
+<h2><strong>배포 준비</strong></h2>
+<h3><strong>백엔드 서버 준비</strong></h3>
 <p>먼저, 백엔드 서버를 준비합니다. 여기서는 <strong>Django 프로젝트</strong>를 사용하고, Docker로 서버 환경을 구성할 것입니다. 각 환경(Blue, Green)을 Docker Compose로 설정합니다. 그리고 윈도우 환경에서 배포를 진행하였습니다.</p>
+<h4><strong>docker-compose.yml</strong></h4>
+<pre><code class="language-yaml"># docker-compose.yml
+version: "3.8"
 
-<h4 id="docker-composeyml"><strong>docker-compose.yml</strong></h4>
+services:
+  ts-proxy:
+    image: nginx:1.22.1
+    container_name: test-proxy
+    restart: always
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ./static:/usr/share/nginx/html/static
+    networks:
+      - test-network
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># docker-compose.yml</span>
-<span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">3.8"</span>
+  ts-postgres:
+    image: postgres:13.10-alpine
+    container_name: test-db-dev
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - DJANGO_DEBUG=False
+    networks:
+      - test-network
+    volumes:
+      - ts-db:/var/lib/postgresql/data
 
-<span class="na">services</span><span class="pi">:</span>
-  <span class="na">ts-proxy</span><span class="pi">:</span>
-    <span class="na">image</span><span class="pi">:</span> <span class="s">nginx:1.22.1</span>
-    <span class="na">container_name</span><span class="pi">:</span> <span class="s">test-proxy</span>
-    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
-    <span class="na">volumes</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">./nginx:/etc/nginx/conf.d</span>
-      <span class="pi">-</span> <span class="s">./static:/usr/share/nginx/html/static</span>
-    <span class="na">networks</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">test-network</span>
+  ts-redis:
+    image: redis:7.0-alpine
+    container_name: test-redis-dev
+    restart: always
+    networks:
+      - test-network
 
-  <span class="na">ts-postgres</span><span class="pi">:</span>
-    <span class="na">image</span><span class="pi">:</span> <span class="s">postgres:13.10-alpine</span>
-    <span class="na">container_name</span><span class="pi">:</span> <span class="s">test-db-dev</span>
-    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
-    <span class="na">environment</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">POSTGRES_PASSWORD=postgres</span>
-      <span class="pi">-</span> <span class="s">DJANGO_DEBUG=False</span>
-    <span class="na">networks</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">test-network</span>
-    <span class="na">volumes</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">ts-db:/var/lib/postgresql/data</span>
+volumes:
+  ts-db:
 
-  <span class="na">ts-redis</span><span class="pi">:</span>
-    <span class="na">image</span><span class="pi">:</span> <span class="s">redis:7.0-alpine</span>
-    <span class="na">container_name</span><span class="pi">:</span> <span class="s">test-redis-dev</span>
-    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
-    <span class="na">networks</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">test-network</span>
-
-<span class="na">volumes</span><span class="pi">:</span>
-  <span class="na">ts-db</span><span class="pi">:</span>
-
-<span class="na">networks</span><span class="pi">:</span>
-  <span class="na">test-network</span><span class="pi">:</span>
-    <span class="na">name</span><span class="pi">:</span> <span class="s">test-network</span>
-    <span class="na">driver</span><span class="pi">:</span> <span class="s">bridge</span>
-</code></pre></div></div>
-
-<p>위 파일은 Django 서버에서 사용하는 <strong>DB</strong>, <strong>Redis</strong>, <strong>Nginx</strong> 설정을 포함하고 있습니다. <code class="language-plaintext highlighter-rouge">docker-compose.yml</code> 파일은 공통으로 사용되며, <strong>Blue</strong>와 <strong>Green</strong> 배포 환경에서도 공유됩니다.</p>
-
-<h4 id="bluegreen-배포-환경-설정"><strong>Blue/Green 배포 환경 설정</strong></h4>
-
+networks:
+  test-network:
+    name: test-network
+    driver: bridge
+</code></pre>
+<p>위 파일은 Django 서버에서 사용하는 <strong>DB</strong>, <strong>Redis</strong>, <strong>Nginx</strong> 설정을 포함하고 있습니다. <code>docker-compose.yml</code> 파일은 공통으로 사용되며, <strong>Blue</strong>와 <strong>Green</strong> 배포 환경에서도 공유됩니다.</p>
+<h4><strong>Blue/Green 배포 환경 설정</strong></h4>
 <ul>
-  <li><strong>Blue 환경 (docker-compose-blue.yml)</strong></li>
+<li><strong>Blue 환경 (docker-compose-blue.yml)</strong></li>
 </ul>
+<pre><code class="language-yaml"># docker-compose-blue.yml
+version: "3.8"
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># docker-compose-blue.yml</span>
-<span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">3.8"</span>
+services:
+  ts-django-blue:
+    build:
+      context: .
+    container_name: test-dev-blue
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - 8000:8000
+    environment:
+      - PORTS=8000
+      - DJANGO_CONFIGURATION=production
+    command:
+      - /bin/sh
+      - -c
+      - |
+        dockerize -wait tcp://ts-postgres:5432 -timeout 20s
+        poetry run python manage.py makemigrations
+        poetry run python manage.py migrate
+        poetry run gunicorn -c gunicorn.conf.py -b 0.0.0.0:8000 app.core.asgi:application
+    networks:
+      - test-network
+    volumes:
+      - ./save:/workdir/save
 
-<span class="na">services</span><span class="pi">:</span>
-  <span class="na">ts-django-blue</span><span class="pi">:</span>
-    <span class="na">build</span><span class="pi">:</span>
-      <span class="na">context</span><span class="pi">:</span> <span class="s">.</span>
-    <span class="na">container_name</span><span class="pi">:</span> <span class="s">test-dev-blue</span>
-    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
-    <span class="na">env_file</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">.env</span>
-    <span class="na">ports</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">8000:8000</span>
-    <span class="na">environment</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">PORTS=8000</span>
-      <span class="pi">-</span> <span class="s">DJANGO_CONFIGURATION=production</span>
-    <span class="na">command</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">/bin/sh</span>
-      <span class="pi">-</span> <span class="s">-c</span>
-      <span class="pi">-</span> <span class="pi">|</span>
-        <span class="s">dockerize -wait tcp://ts-postgres:5432 -timeout 20s</span>
-        <span class="s">poetry run python manage.py makemigrations</span>
-        <span class="s">poetry run python manage.py migrate</span>
-        <span class="s">poetry run gunicorn -c gunicorn.conf.py -b 0.0.0.0:8000 app.core.asgi:application</span>
-    <span class="na">networks</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">test-network</span>
-    <span class="na">volumes</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">./save:/workdir/save</span>
-
-<span class="na">networks</span><span class="pi">:</span>
-  <span class="na">test-network</span><span class="pi">:</span>
-    <span class="na">external</span><span class="pi">:</span> <span class="kc">true</span>
-    <span class="na">name</span><span class="pi">:</span> <span class="s">test-network</span>
-    <span class="na">driver</span><span class="pi">:</span> <span class="s">bridge</span>
-</code></pre></div></div>
-
+networks:
+  test-network:
+    external: true
+    name: test-network
+    driver: bridge
+</code></pre>
 <ul>
-  <li><strong>Green 환경 (docker-compose-green.yml)</strong></li>
+<li><strong>Green 환경 (docker-compose-green.yml)</strong></li>
 </ul>
+<pre><code class="language-yaml"># docker-compose-green.yml
+version: "3.8"
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># docker-compose-green.yml</span>
-<span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">3.8"</span>
+services:
+  ts-django-green:
+    build:
+      context: .
+    container_name: test-dev-green
+    restart: always
+    ports:
+      - 8001:8001
+    env_file:
+      - .env
+    environment:
+      - PORTS=8001
+      - DJANGO_CONFIGURATION=production
+    command:
+      - /bin/sh
+      - -c
+      - |
+        dockerize -wait tcp://ts-postgres:5432 -timeout 20s
+        poetry run python manage.py makemigrations
+        poetry run python manage.py migrate
+        poetry run gunicorn -c gunicorn.conf.py -b 0.0.0.0:8001 app.core.asgi:application
+    networks:
+      - test-network
+    volumes:
+      - ./save:/workdir/save
 
-<span class="na">services</span><span class="pi">:</span>
-  <span class="na">ts-django-green</span><span class="pi">:</span>
-    <span class="na">build</span><span class="pi">:</span>
-      <span class="na">context</span><span class="pi">:</span> <span class="s">.</span>
-    <span class="na">container_name</span><span class="pi">:</span> <span class="s">test-dev-green</span>
-    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
-    <span class="na">ports</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">8001:8001</span>
-    <span class="na">env_file</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">.env</span>
-    <span class="na">environment</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">PORTS=8001</span>
-      <span class="pi">-</span> <span class="s">DJANGO_CONFIGURATION=production</span>
-    <span class="na">command</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">/bin/sh</span>
-      <span class="pi">-</span> <span class="s">-c</span>
-      <span class="pi">-</span> <span class="pi">|</span>
-        <span class="s">dockerize -wait tcp://ts-postgres:5432 -timeout 20s</span>
-        <span class="s">poetry run python manage.py makemigrations</span>
-        <span class="s">poetry run python manage.py migrate</span>
-        <span class="s">poetry run gunicorn -c gunicorn.conf.py -b 0.0.0.0:8001 app.core.asgi:application</span>
-    <span class="na">networks</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">test-network</span>
-    <span class="na">volumes</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">./save:/workdir/save</span>
-
-<span class="na">networks</span><span class="pi">:</span>
-  <span class="na">test-network</span><span class="pi">:</span>
-    <span class="na">external</span><span class="pi">:</span> <span class="kc">true</span>
-    <span class="na">name</span><span class="pi">:</span> <span class="s">test-network</span>
-    <span class="na">driver</span><span class="pi">:</span> <span class="s">bridge</span>
-</code></pre></div></div>
-
-<h3 id="nginx-설정"><strong>Nginx 설정</strong></h3>
-
+networks:
+  test-network:
+    external: true
+    name: test-network
+    driver: bridge
+</code></pre>
+<h3><strong>Nginx 설정</strong></h3>
 <ul>
-  <li><strong>default.conf (공통 설정)</strong></li>
+<li><strong>default.conf (공통 설정)</strong></li>
 </ul>
+<pre><code class="language-nginx">server {
+    listen 80;
+    server_name localhost;
 
-<div class="language-nginx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">server</span> <span class="p">{</span>
-    <span class="kn">listen</span> <span class="mi">80</span><span class="p">;</span>
-    <span class="kn">server_name</span> <span class="s">localhost</span><span class="p">;</span>
+    include service-url.inc;
 
-    <span class="kn">include</span> <span class="s">service-url.inc</span><span class="p">;</span>
+    location /static/ {
+        alias /usr/share/nginx/html/static/;
+    }
 
-    <span class="kn">location</span> <span class="n">/static/</span> <span class="p">{</span>
-        <span class="kn">alias</span> <span class="n">/usr/share/nginx/html/static/</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="kn">location</span> <span class="n">/</span> <span class="p">{</span>
-        <span class="kn">proxy_pass</span> <span class="s">http://app</span><span class="p">;</span>
-        <span class="kn">proxy_set_header</span> <span class="s">Host</span> <span class="nv">$host</span><span class="p">;</span>
-        <span class="kn">proxy_set_header</span> <span class="s">X-Real-IP</span> <span class="nv">$remote_addr</span><span class="p">;</span>
-        <span class="kn">proxy_set_header</span> <span class="s">X-Forwarded-For</span> <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
+    location / {
+        proxy_pass http://app;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
+</code></pre>
 <ul>
-  <li><strong>service-url.inc (공통 설정)</strong></li>
+<li><strong>service-url.inc (공통 설정)</strong></li>
 </ul>
-
-<div class="language-nginx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">upstream</span> <span class="s">app</span> <span class="p">{</span>
-    <span class="kn">server</span> <span class="nf">localhost</span><span class="p">:</span><span class="mi">8000</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
+<pre><code class="language-nginx">upstream app {
+    server localhost:8000;
+}
+</code></pre>
 <p>위 파일들은 공통적으로 사용되는 <strong>Nginx</strong> 설정 파일들로, 두 환경에서 동일하게 사용할 수 있습니다.</p>
-
-<h2 id="무중단-배포-jenkins-파이프라인"><strong>무중단 배포 Jenkins 파이프라인</strong></h2>
-
+<h2><strong>무중단 배포 Jenkins 파이프라인</strong></h2>
 <p>이제 <strong>Jenkins 파이프라인</strong>을 작성하여 배포 자동화 과정을 설정합니다.</p>
-
-<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pipeline</span> <span class="o">{</span>
-    <span class="n">agent</span> <span class="n">any</span>
+<pre><code class="language-groovy">pipeline {
+    agent any
     
-    <span class="n">environment</span> <span class="o">{</span>
-        <span class="n">DOCKER_COMPOSE_VERSION</span> <span class="o">=</span> <span class="s1">'3.8'</span>
-        <span class="n">WORKSPACE</span> <span class="o">=</span> <span class="s2">"${env.WORKSPACE}"</span>
-    <span class="o">}</span>
+    environment {
+        DOCKER_COMPOSE_VERSION = '3.8'
+        WORKSPACE = "${env.WORKSPACE}"
+    }
     
-    <span class="n">stages</span> <span class="o">{</span>
-        <span class="n">stage</span><span class="o">(</span><span class="s1">'Checkout'</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">steps</span> <span class="o">{</span>
-                <span class="n">checkout</span> <span class="n">scm</span>
-            <span class="o">}</span>
-        <span class="o">}</span>
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
         
-        <span class="n">stage</span><span class="o">(</span><span class="s1">'Determine Deploy Target'</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">steps</span> <span class="o">{</span>
-                <span class="n">script</span> <span class="o">{</span>
-                    <span class="kt">def</span> <span class="n">blueContainerOutput</span> <span class="o">=</span> <span class="n">powershell</span><span class="o">(</span>
-                        <span class="nl">script:</span> <span class="s1">'(docker ps -q -f name=test-dev-blue) -ne $null'</span><span class="o">,</span>
-                        <span class="nl">returnStdout:</span> <span class="kc">true</span>
-                    <span class="o">).</span><span class="na">trim</span><span class="o">()</span>
+        stage('Determine Deploy Target') {
+            steps {
+                script {
+                    def blueContainerOutput = powershell(
+                        script: '(docker ps -q -f name=test-dev-blue) -ne $null',
+                        returnStdout: true
+                    ).trim()
 
-                    <span class="n">echo</span> <span class="s2">"blueContainerOutput: ${blueContainerOutput}"</span>
+                    echo "blueContainerOutput: ${blueContainerOutput}"
                     
-                    <span class="kt">def</span> <span class="n">blueContainerExists</span> <span class="o">=</span> <span class="n">blueContainerOutput</span><span class="o">.</span><span class="na">toLowerCase</span><span class="o">()</span> <span class="o">==</span> <span class="s1">'true'</span>
+                    def blueContainerExists = blueContainerOutput.toLowerCase() == 'true'
 
-                    <span class="n">echo</span> <span class="s2">"blueContainerExists: ${blueContainerExists}"</span>
+                    echo "blueContainerExists: ${blueContainerExists}"
 
-                    <span class="n">env</span><span class="o">.</span><span class="na">CURRENT_COLOR</span> <span class="o">=</span> <span class="n">blueContainerExists</span> <span class="o">?</span> <span class="s1">'blue'</span> <span class="o">:</span> <span class="s1">'green'</span>
-                    <span class="n">env</span><span class="o">.</span><span class="na">DEPLOY_COLOR</span> <span class="o">=</span> <span class="n">blueContainerExists</span> <span class="o">?</span> <span class="s1">'green'</span> <span class="o">:</span> <span class="s1">'blue'</span>
-                    <span class="n">env</span><span class="o">.</span><span class="na">CURRENT_PORT</span> <span class="o">=</span> <span class="n">blueContainerExists</span> <span class="o">?</span> <span class="s1">'8000'</span> <span class="o">:</span> <span class="s1">'8001'</span>
-                    <span class="n">env</span><span class="o">.</span><span class="na">DEPLOY_PORT</span> <span class="o">=</span> <span class="n">blueContainerExists</span> <span class="o">?</span> <span class="s1">'8001'</span> <span class="o">:</span> <span class="s1">'8000'</span>
+                    env.CURRENT_COLOR = blueContainerExists ? 'blue' : 'green'
+                    env.DEPLOY_COLOR = blueContainerExists ? 'green' : 'blue'
+                    env.CURRENT_PORT = blueContainerExists ? '8000' : '8001'
+                    env.DEPLOY_PORT = blueContainerExists ? '8001' : '8000'
 
-                    <span class="n">echo</span> <span class="s2">"Current running on ${env.CURRENT_COLOR} with port ${env.CURRENT_PORT}"</span>
-                    <span class="n">echo</span> <span class="s2">"Deploying to ${env.DEPLOY_COLOR} with port ${env.DEPLOY_PORT}"</span>
-                <span class="o">}</span>
-            <span class="o">}</span>
-        <span class="o">}</span>
+                    echo "Current running on ${env.CURRENT_COLOR} with port ${env.CURRENT_PORT}"
+                    echo "Deploying to ${env.DEPLOY_COLOR} with port ${env.DEPLOY_PORT}"
+                }
+            }
+        }
         
-        <span class="n">stage</span><span class="o">(</span><span class="s1">'Deploy New Version'</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">steps</span> <span class="o">{</span>
-                <span class="n">script</span> <span class="o">{</span>
-                    <span class="c1">// 새로운 버전 배포</span>
-                    <span class="n">bat</span> <span class="s2">"docker-compose -f docker-compose.yml -f docker-compose.${env.DEPLOY_COLOR}.yml up -d --build"</span>
-                <span class="o">}</span>
-            <span class="o">}</span>
-        <span class="o">}</span>
+        stage('Deploy New Version') {
+            steps {
+                script {
+                    // 새로운 버전 배포
+                    bat "docker-compose -f docker-compose.yml -f docker-compose.${env.DEPLOY_COLOR}.yml up -d --build"
+                }
+            }
+        }
         
-        <span class="n">stage</span><span class="o">(</span><span class="s1">'Health Check'</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">steps</span> <span class="o">{</span>
-                <span class="n">script</span> <span class="o">{</span>
-                    <span class="kt">def</span> <span class="n">maxAttempts</span> <span class="o">=</span> <span class="mi">10</span>
-                    <span class="kt">def</span> <span class="n">attempts</span> <span class="o">=</span> <span class="mi">0</span>
-                    <span class="kt">def</span> <span class="n">healthy</span> <span class="o">=</span> <span class="kc">false</span>
+        stage('Health Check') {
+            steps {
+                script {
+                    def maxAttempts = 10
+                    def attempts = 0
+                    def healthy = false
                     
-                    <span class="k">while</span> <span class="o">(!</span><span class="n">healthy</span> <span class="o">&amp;&amp;</span> <span class="n">attempts</span> <span class="o">&lt;</span> <span class="n">maxAttempts</span><span class="o">)</span> <span class="o">{</span>
-                        <span class="n">attempts</span><span class="o">++</span>
-                        <span class="k">try</span> <span class="o">{</span>
-                            <span class="kt">def</span> <span class="n">response</span> <span class="o">=</span> <span class="n">bat</span><span class="o">(</span>
-                                <span class="nl">script:</span> <span class="s2">"curl -s http://localhost:${env.DEPLOY_PORT}/api/v1/test"</span><span class="o">,</span>
-                                <span class="nl">returnStdout:</span> <span class="kc">true</span>
-                            <span class="o">).</span><span class="na">trim</span><span class="o">()</span>
+                    while (!healthy &#x26;&#x26; attempts &#x3C; maxAttempts) {
+                        attempts++
+                        try {
+                            def response = bat(
+                                script: "curl -s http://localhost:${env.DEPLOY_PORT}/api/v1/test",
+                                returnStdout: true
+                            ).trim()
                             
-                            <span class="k">if</span> <span class="o">(</span><span class="n">response</span><span class="o">)</span> <span class="o">{</span>
-                                <span class="n">healthy</span> <span class="o">=</span> <span class="kc">true</span>
-                                <span class="n">echo</span> <span class="s2">"New version is healthy!"</span>
-                            <span class="o">}</span>
-                        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-                            <span class="n">echo</span> <span class="s2">"Attempt ${attempts}/${maxAttempts} failed"</span>
-                            <span class="k">if</span> <span class="o">(</span><span class="n">attempts</span> <span class="o">&lt;</span> <span class="n">maxAttempts</span><span class="o">)</span> <span class="o">{</span>
-                                <span class="n">sleep</span> <span class="mi">10</span>
-                            <span class="o">}</span>
-                        <span class="o">}</span>
-                    <span class="o">}</span>
+                            if (response) {
+                                healthy = true
+                                echo "New version is healthy!"
+                            }
+                        } catch (Exception e) {
+                            echo "Attempt ${attempts}/${maxAttempts} failed"
+                            if (attempts &#x3C; maxAttempts) {
+                                sleep 10
+                            }
+                        }
+                    }
                     
-                    <span class="k">if</span> <span class="o">(!</span><span class="n">healthy</span><span class="o">)</span> <span class="o">{</span>
-                        <span class="n">error</span> <span class="s2">"New version failed health check after ${maxAttempts} attempts"</span>
-                    <span class="o">}</span>
-                <span class="o">}</span>
-            <span class="o">}</span>
-        <span class="o">}</span>
+                    if (!healthy) {
+                        error "New version failed health check after ${maxAttempts} attempts"
+                    }
+                }
+            }
+        }
         
-        <span class="n">stage</span><span class="o">(</span><span class="s1">'Switch Traffic'</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">steps</span> <span class="o">{</span>
-                <span class="n">script</span> <span class="o">{</span>
-                    <span class="c1">// Nginx 설정 업데이트</span>
-                    <span class="n">bat</span> <span class="s2">"""
-                        echo upstream app { &gt; ${WORKSPACE}/nginx/service-url.inc
-                        echo     server localhost:${env.DEPLOY_PORT}; &gt;&gt; ${WORKSPACE}/nginx/service-url.inc
-                        echo } &gt;&gt; ${WORKSPACE}/nginx/service-url.inc
-                    """</span>
+        stage('Switch Traffic') {
+            steps {
+                script {
+                    // Nginx 설정 업데이트
+                    bat """
+                        echo upstream app { > ${WORKSPACE}/nginx/service-url.inc
+                        echo     server localhost:${env.DEPLOY_PORT}; >> ${WORKSPACE}/nginx/service-url.inc
+                        echo } >> ${WORKSPACE}/nginx/service-url.inc
+                    """
                     
-                    <span class="c1">// Nginx 재시작</span>
-                    <span class="n">bat</span> <span class="s1">'docker exec test-proxy nginx -s reload'</span>
+                    // Nginx 재시작
+                    bat 'docker exec test-proxy nginx -s reload'
 
-                    <span class="c1">// nginx-nginx-1 재시작</span>
-                    <span class="n">bat</span> <span class="s1">'''
-                        (echo set $service_url http://[서버의 아이피]:%DEPLOY_PORT%;) &gt; temp_service_url.inc
+                    // nginx-nginx-1 재시작
+                    bat '''
+                        (echo set $service_url http://[서버의 아이피]:%DEPLOY_PORT%;) > temp_service_url.inc
                         docker cp temp_service_url.inc nginx-nginx-1:/etc/nginx/conf.d/test-backend/service-url.inc
                         del temp_service_url.inc
-                    '''</span>
+                    '''
 
-                    <span class="n">bat</span> <span class="s1">'docker exec nginx-nginx-1 nginx -s reload'</span>
-                <span class="o">}</span>
-            <span class="o">}</span>
-        <span class="o">}</span>
+                    bat 'docker exec nginx-nginx-1 nginx -s reload'
+                }
+            }
+        }
         
-        <span class="n">stage</span><span class="o">(</span><span class="s1">'Cleanup Old Version'</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">steps</span> <span class="o">{</span>
-                <span class="n">script</span> <span class="o">{</span>
-                    <span class="k">if</span> <span class="o">(</span><span class="n">env</span><span class="o">.</span><span class="na">CURRENT_COLOR</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-                        <span class="c1">// 이전 버전 종료</span>
-                        <span class="n">bat</span> <span class="s2">"docker-compose -f docker-compose.${env.CURRENT_COLOR}.yml down"</span>
-                    <span class="o">}</span>
-                <span class="o">}</span>
-            <span class="o">}</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
+        stage('Cleanup Old Version') {
+            steps {
+                script {
+                    if (env.CURRENT_COLOR != null) {
+                        // 이전 버전 종료
+                        bat "docker-compose -f docker-compose.${env.CURRENT_COLOR}.yml down"
+                    }
+                }
+            }
+        }
+    }
     
-    <span class="n">post</span> <span class="o">{</span>
-        <span class="n">failure</span> <span class="o">{</span>
-            <span class="n">script</span> <span class="o">{</span>
-                <span class="c1">// 배포 실패 시 로그 확인 및 롤백</span>
-                <span class="n">bat</span> <span class="s2">"docker-compose -f docker-compose.yml -f docker-compose.${env.DEPLOY_COLOR}.yml logs"</span>
-                <span class="n">bat</span> <span class="s2">"docker-compose -f docker-compose.yml -f docker-compose.${env.DEPLOY_COLOR}.yml down"</span>
-                <span class="n">bat</span> <span class="s2">"""
-                    echo upstream app { &gt; ${WORKSPACE}/nginx/service-url.inc
-                    echo     server localhost:${env.CURRENT_PORT}; &gt;&gt; ${WORKSPACE}/nginx/service-url.inc
-                    echo } &gt;&gt; ${WORKSPACE}/nginx/service-url.inc
-                """</span>
-                <span class="n">bat</span> <span class="s2">"docker exec test-proxy nginx -s reload"</span>
-                <span class="n">bat</span> <span class="s1">'''
-                    (echo set $service_url http://[서버의 아이피]:%CURRENT_PORT%;) &gt; temp_service_url.inc
+    post {
+        failure {
+            script {
+                // 배포 실패 시 로그 확인 및 롤백
+                bat "docker-compose -f docker-compose.yml -f docker-compose.${env.DEPLOY_COLOR}.yml logs"
+                bat "docker-compose -f docker-compose.yml -f docker-compose.${env.DEPLOY_COLOR}.yml down"
+                bat """
+                    echo upstream app { > ${WORKSPACE}/nginx/service-url.inc
+                    echo     server localhost:${env.CURRENT_PORT}; >> ${WORKSPACE}/nginx/service-url.inc
+                    echo } >> ${WORKSPACE}/nginx/service-url.inc
+                """
+                bat "docker exec test-proxy nginx -s reload"
+                bat '''
+                    (echo set $service_url http://[서버의 아이피]:%CURRENT_PORT%;) > temp_service_url.inc
                     docker cp temp_service_url.inc nginx-nginx-1:/etc/nginx/conf.d/test-backend/service-url.inc
                     del temp_service_url.inc
-                '''</span>
-                <span class="n">bat</span> <span class="s2">"docker exec nginx-nginx-1 nginx -s reload"</span>
-            <span class="o">}</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<h3 id="파이프라인-설명"><strong>파이프라인 설명</strong></h3>
-
-<ol>
-  <li><strong>Checkout</strong>: 소스 코드를 불러옵니다.</li>
-  <li><strong>Determine Deploy Target</strong>: 현재 실행 중인 환경(Blue/Green)을 확인하고, 배포할 환경을 설정합니다.</li>
-  <li><strong>Deploy New Version</strong>: 새로운 버전을 배포합니다.</li>
-  <li><strong>Health Check</strong>: 새로 배포한 서버가 정상인지 확인합니다.</li>
-  <li><strong>Switch Traffic</strong>: 트래픽을 새로운 환경으로 전환합니다.</li>
-  <li><strong>Cleanup Old Version</strong>: 이전 버전의 환경을 종료하여 자원을 정리합니다.</li>
-</ol>
-
-<h2 id="마치며"><strong>마치며</strong></h2>
-
-<p>이번 포스트에서는 <strong>Blue-Green 배포</strong>를 통한 무중단 배포 방법을 설명했습니다. 이를 통해 <strong>서비스의 가용성</strong>을 높일 수 있으며, <strong>Jenkins 파이프라인</strong>을 활용한 배포 자동화도 가능해졌습니다.</p>
-
-        
-      </section>
-
-      <footer class="page__meta">
-        
-        
-  
-
-
-  
-
-  <p class="page__taxonomy">
-    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
-    <span itemprop="keywords">
-    
-      <a href="/tags/#jenkins" class="page__taxonomy-item" rel="tag">Jenkins</a>
-    
-    </span>
-  </p>
-
-
-
-
-  
-
-
-  
-
-  <p class="page__taxonomy">
-    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
-    <span itemprop="keywords">
-    
-      <a href="/categories/#jenkins" class="page__taxonomy-item" rel="tag">Jenkins</a>
-    
-    </span>
-  </p>
-
-
-        
-  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-01-18">January 18, 2025</time></p>
-
-
-      </footer>
-
-      
-
-      
-  <nav class="pagination">
-    
-      <a href="/nginx/get-ssl-auth-with-letsencrypt/" class="pagination--pager" title="[Nginx] Let’s Encrypt로 SSL 인증서 발급받기
-">Previous</a>
-    
-    
-      <a href="/backend/django/see-log-in-django/" class="pagination--pager" title="[Django] DB 로그 확인하기
-">Next</a>
-    
-  </nav>
-
-
-    </div>
-
-    
-  </article>
-
-  
-  
-    <div class="page__related">
-      <h4 class="page__related-title">You May Also Like</h4>
-      <div class="grid__wrapper">
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/ai/review/2025-9-24-Zero-Shot_Multi-Spectral_Learning_Reimagining_a_Generalist_Multimodal_Gemini_2.5_Model_for_Remote_Sensing_Applications/" rel="permalink">[논문리뷰] Zero-Shot Multi-Spectral Learning: Reimagining a Generalist Multimodal Gemini 2.5 Model for Remote Sensing Applications
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        <time datetime="2025-09-24T13:14:19+09:00">September 24, 2025</time>
-      </span>
-    
-
-    
-
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">Genady Beryozkin이 [arXiv]에 게시한 ‘Zero-Shot Multi-Spectral Learning: Reimagining a Generalist Multimodal Gemini 2.5 Model for Remote Sensing Applications’ 논문에 ...</p>
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/ai/review/2025-9-24-What_Characterizes_Effective_Reasoning_Revisiting_Length_Review_and_Structure_of_CoT/" rel="permalink">[논문리뷰] What Characterizes Effective Reasoning? Revisiting Length, Review, and Structure of CoT
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        <time datetime="2025-09-24T13:14:19+09:00">September 24, 2025</time>
-      </span>
-    
-
-    
-
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">Anthony Hartshorn이 [arXiv]에 게시한 ‘What Characterizes Effective Reasoning? Revisiting Length, Review, and Structure of CoT’ 논문에 대한 자세한 리뷰입니다.
-</p>
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/ai/review/2025-9-24-VolSplat_Rethinking_Feed-Forward_3D_Gaussian_Splatting_with_Voxel-Aligned_Prediction/" rel="permalink">[논문리뷰] VolSplat: Rethinking Feed-Forward 3D Gaussian Splatting with Voxel-Aligned Prediction
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        <time datetime="2025-09-24T13:14:19+09:00">September 24, 2025</time>
-      </span>
-    
-
-    
-
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">Haoxiao Wang이 [arXiv]에 게시한 ‘VolSplat: Rethinking Feed-Forward 3D Gaussian Splatting with Voxel-Aligned Prediction’ 논문에 대한 자세한 리뷰입니다.
-</p>
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/ai/review/2025-9-24-VIR-Bench_Evaluating_Geospatial_and_Temporal_Understanding_of_MLLMs_via_Travel_Video_Itinerary_Reconstruction/" rel="permalink">[논문리뷰] VIR-Bench: Evaluating Geospatial and Temporal Understanding of MLLMs via Travel Video Itinerary Reconstruction
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        <time datetime="2025-09-24T13:14:19+09:00">September 24, 2025</time>
-      </span>
-    
-
-    
-
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">So Fukuda이 [arXiv]에 게시한 ‘VIR-Bench: Evaluating Geospatial and Temporal Understanding of MLLMs via Travel Video Itinerary Reconstruction’ 논문에 대한 자세한 리뷰입니다.
-</p>
-  </article>
-</div>
-
-        
-      </div>
-    </div>
-  
-  
-</div>
-
-    </div>
-
-    
-      <div class="search-content">
-        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
-    <label class="sr-only" for="search">
-      Enter your search term...
-    </label>
-    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
-  </form>
-  <div id="results" class="results"></div></div>
-
-      </div>
-    
-
-    <div id="footer" class="page__footer">
-      <footer>
-        <!-- start custom footer snippets -->
-
-<!-- end custom footer snippets -->
-        <div class="page__footer-follow">
-  <ul class="social-icons">
-    
-
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-
-    
-      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
-    
-  </ul>
-</div>
-
-<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
-
-      </footer>
-    </div>
-
-    
-  <script src="/assets/js/main.min.js"></script>
-
-
-
-
-<script src="/assets/js/lunr/lunr.min.js"></script>
-<script src="/assets/js/lunr/lunr-store.js"></script>
-<script src="/assets/js/lunr/lunr-en.js"></script>
-
-
-
-
-    <script>
-  'use strict';
-
-  (function() {
-    var commentContainer = document.querySelector('#utterances-comments');
-
-    if (!commentContainer) {
-      return;
+                '''
+                bat "docker exec nginx-nginx-1 nginx -s reload"
+            }
+        }
     }
-
-    var script = document.createElement('script');
-    script.setAttribute('src', 'https://utteranc.es/client.js');
-    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
-    script.setAttribute('issue-term', 'pathname');
-    script.setAttribute('theme', 'github-light');
-    script.setAttribute('crossorigin', 'anonymous');
-
-    commentContainer.appendChild(script);
-  })();
-</script>
-
-  
-
-
-
-
-
-  </body>
-</html>
+}
+</code></pre>
+<h3><strong>파이프라인 설명</strong></h3>
+<ol>
+<li><strong>Checkout</strong>: 소스 코드를 불러옵니다.</li>
+<li><strong>Determine Deploy Target</strong>: 현재 실행 중인 환경(Blue/Green)을 확인하고, 배포할 환경을 설정합니다.</li>
+<li><strong>Deploy New Version</strong>: 새로운 버전을 배포합니다.</li>
+<li><strong>Health Check</strong>: 새로 배포한 서버가 정상인지 확인합니다.</li>
+<li><strong>Switch Traffic</strong>: 트래픽을 새로운 환경으로 전환합니다.</li>
+<li><strong>Cleanup Old Version</strong>: 이전 버전의 환경을 종료하여 자원을 정리합니다.</li>
+</ol>
+<h2><strong>마치며</strong></h2>
+<p>이번 포스트에서는 <strong>Blue-Green 배포</strong>를 통한 무중단 배포 방법을 설명했습니다. 이를 통해 <strong>서비스의 가용성</strong>을 높일 수 있으며, <strong>Jenkins 파이프라인</strong>을 활용한 배포 자동화도 가능해졌습니다.</p>
+</div></div><footer class="page__meta mt-8"><div class="page__taxonomy mb-4"><h4 class="text-sm font-medium text-gray-900 mb-2">카테고리</h4><span class="page__taxonomy-item">Jenkins</span></div><div class="page__taxonomy"><h4 class="text-sm font-medium text-gray-900 mb-2">태그</h4><span class="page__taxonomy-item">#<!-- -->Jenkins</span></div></footer></article></main></div><!--/$--></main><div id="footer" class="page__footer"><footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8"><div class="text-center text-gray-500 text-sm"><p>© 2025 secrett2633. All rights reserved.</p></div></footer></div></div><script src="/secrett2633.github.io/_next/static/chunks/webpack-a04af954a21fa650.js" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0]);self.__next_f.push([2,null])</script><script>self.__next_f.push([1,"1:HL[\"/secrett2633.github.io/_next/static/media/e4af272ccee01ff0-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n2:HL[\"/secrett2633.github.io/_next/static/css/b9d6ec750ad82add.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"3:I[5751,[],\"\"]\n6:I[9275,[],\"\"]\n8:I[1343,[],\"\"]\n9:I[4281,[\"231\",\"static/chunks/231-c4b666723e6aae68.js\",\"185\",\"static/chunks/app/layout-8808afda01b7a1b7.js\"],\"default\"]\na:I[231,[\"231\",\"static/chunks/231-c4b666723e6aae68.js\",\"877\",\"static/chunks/app/%5B...slug%5D/page-01b66e77b48ed573.js\"],\"\"]\nc:I[6130,[],\"\"]\n7:[\"slug\",\"jenkins/zero-downtime-deploy-with-jenkins\",\"c\"]\nd:[]\n"])</script><script>self.__next_f.push([1,"0:[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/secrett2633.github.io/_next/static/css/b9d6ec750ad82add.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\"}]],[\"$\",\"$L3\",null,{\"buildId\":\"iV6XySbMHIJ3imQdvgy3I\",\"assetPrefix\":\"/secrett2633.github.io\",\"initialCanonicalUrl\":\"/jenkins/zero-downtime-deploy-with-jenkins/\",\"initialTree\":[\"\",{\"children\":[[\"slug\",\"jenkins/zero-downtime-deploy-with-jenkins\",\"c\"],{\"children\":[\"__PAGE__?{\\\"slug\\\":[\\\"jenkins\\\",\\\"zero-downtime-deploy-with-jenkins\\\"]}\",{}]}]},\"$undefined\",\"$undefined\",true],\"initialSeedData\":[\"\",{\"children\":[[\"slug\",\"jenkins/zero-downtime-deploy-with-jenkins\",\"c\"],{\"children\":[\"__PAGE__\",{},[[\"$L4\",\"$L5\"],null],null]},[\"$\",\"$L6\",null,{\"parallelRouterKey\":\"children\",\"segmentPath\":[\"children\",\"$7\",\"children\"],\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L8\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"notFoundStyles\":\"$undefined\",\"styles\":null}],null]},[[\"$\",\"html\",null,{\"lang\":\"ko\",\"className\":\"no-js\",\"children\":[[\"$\",\"head\",null,{\"children\":[[\"$\",\"link\",null,{\"rel\":\"icon\",\"type\":\"image/png\",\"sizes\":\"32x32\",\"href\":\"/favicon-32x32.png\"}],[\"$\",\"link\",null,{\"rel\":\"icon\",\"type\":\"image/png\",\"sizes\":\"16x16\",\"href\":\"/favicon-16x16.png\"}],[\"$\",\"meta\",null,{\"name\":\"msapplication-TileColor\",\"content\":\"#ffc40d\"}],[\"$\",\"meta\",null,{\"name\":\"theme-color\",\"content\":\"#ffffff\"}],[\"$\",\"script\",null,{\"async\":true,\"src\":\"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY\"}],[\"$\",\"script\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"\\n              window.dataLayer = window.dataLayer || [];\\n              function gtag(){dataLayer.push(arguments);}\\n              gtag('js', new Date());\\n              gtag('config', 'G-NE2W3CFPNY');\\n            \"}}]]}],[\"$\",\"body\",null,{\"className\":\"__className_9012cf layout--default\",\"children\":[\"$\",\"div\",null,{\"className\":\"min-h-screen bg-gray-50\",\"children\":[[\"$\",\"$L9\",null,{}],[\"$\",\"main\",null,{\"className\":\"initial-content\",\"children\":[\"$\",\"$L6\",null,{\"parallelRouterKey\":\"children\",\"segmentPath\":[\"children\"],\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L8\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[\"$\",\"div\",null,{\"className\":\"min-h-screen flex items-center justify-center bg-gray-50\",\"children\":[\"$\",\"div\",null,{\"className\":\"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center\",\"children\":[[\"$\",\"h1\",null,{\"className\":\"text-6xl font-bold text-primary-600 mb-4\",\"children\":\"404\"}],[\"$\",\"h2\",null,{\"className\":\"text-2xl font-semibold text-gray-900 mb-4\",\"children\":\"페이지를 찾을 수 없습니다\"}],[\"$\",\"p\",null,{\"className\":\"text-gray-600 mb-8\",\"children\":\"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다.\"}],[\"$\",\"$La\",null,{\"href\":\"/\",\"className\":\"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors\",\"children\":\"홈으로 돌아가기\"}]]}]}],\"notFoundStyles\":[],\"styles\":null}]}],[\"$\",\"div\",null,{\"id\":\"footer\",\"className\":\"page__footer\",\"children\":[\"$\",\"footer\",null,{\"className\":\"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8\",\"children\":[\"$\",\"div\",null,{\"className\":\"text-center text-gray-500 text-sm\",\"children\":[\"$\",\"p\",null,{\"children\":\"© 2025 secrett2633. All rights reserved.\"}]}]}]}]]}]}]]}],null],[[\"$\",\"div\",null,{\"className\":\"flex items-center justify-center min-h-screen\",\"children\":[\"$\",\"div\",null,{\"className\":\"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600\"}]}],[],[]]],\"couldBeIntercepted\":false,\"initialHead\":[null,\"$Lb\"],\"globalErrorComponent\":\"$c\",\"missingSlots\":\"$Wd\"}]]\n"])</script><script>self.__next_f.push([1,"e:T328e,"])</script><script>self.__next_f.push([1,"\u003ch1\u003e무중단 배포 (Blue-Green 배포) 방법\u003c/h1\u003e\n\u003ch2\u003e\u003cstrong\u003e들어가며\u003c/strong\u003e\u003c/h2\u003e\n\u003cp\u003e지난 포스트에서는 \u003cstrong\u003eSSL 인증서 발급\u003c/strong\u003e과 이를 \u003cstrong\u003eJenkins 파이프라인\u003c/strong\u003e에 적용하는 방법을 다뤘습니다. 이번 포스트에서는 이 설정을 바탕으로 \u003cstrong\u003e무중단 배포\u003c/strong\u003e를 구현하는 방법을 공유합니다.\u003c/p\u003e\n\u003ch2\u003e\u003cstrong\u003e무중단 배포란?\u003c/strong\u003e\u003c/h2\u003e\n\u003cp\u003e무중단 배포는 기존 서비스를 중단하지 않고 새로운 버전을 배포하는 방법입니다. 이렇게 배포를 진행하면 서비스의 가용성을 높일 수 있으며, 사용자에게 끊김 없이 업데이트된 버전을 제공할 수 있습니다.\u003c/p\u003e\n\u003cp\u003e무중단 배포에는 여러 가지 방법이 있지만, 대표적으로 \u003cstrong\u003eBlue-Green 배포\u003c/strong\u003e, \u003cstrong\u003eRolling 배포\u003c/strong\u003e, \u003cstrong\u003eCanary 배포\u003c/strong\u003e 방식이 있습니다.\u003c/p\u003e\n\u003ch3\u003e\u003cstrong\u003e1. Blue-Green 배포\u003c/strong\u003e\u003c/h3\u003e\n\u003cp\u003eBlue-Green 배포는 두 개의 환경(Blue와 Green)을 유지하여 서비스를 중단 없이 새로운 버전을 배포하는 방법입니다. 하나의 환경(예: Blue)을 운영 중에 두고, 새로운 버전은 다른 환경(예: Green)에서 준비됩니다. 이후 트래픽을 새로운 환경으로 전환하면서 배포를 진행합니다.\u003c/p\u003e\n\u003ch3\u003e\u003cstrong\u003e2. Rolling 배포\u003c/strong\u003e\u003c/h3\u003e\n\u003cp\u003eRolling 배포는 전체 서버를 동시에 업데이트하지 않고, 한 서버씩 점진적으로 새로운 버전을 배포하는 방법입니다. 서비스의 일부만 업데이트되기 때문에 전체 서비스의 다운타임을 최소화할 수 있습니다.\u003c/p\u003e\n\u003ch3\u003e\u003cstrong\u003e3. Canary 배포\u003c/strong\u003e\u003c/h3\u003e\n\u003cp\u003eCanary 배포는 새로운 버전을 소수의 사용자에게만 먼저 배포하여 문제가 없는지 확인하는 방법입니다. 문제가 없으면 점차적으로 전체 서비스에 배포를 진행합니다.\u003c/p\u003e\n\u003cp\u003e이번 포스트에서는 \u003cstrong\u003eBlue-Green 배포\u003c/strong\u003e를 중심으로 설명하겠습니다.\u003c/p\u003e\n\u003ch2\u003e\u003cstrong\u003e배포 준비\u003c/strong\u003e\u003c/h2\u003e\n\u003ch3\u003e\u003cstrong\u003e백엔드 서버 준비\u003c/strong\u003e\u003c/h3\u003e\n\u003cp\u003e먼저, 백엔드 서버를 준비합니다. 여기서는 \u003cstrong\u003eDjango 프로젝트\u003c/strong\u003e를 사용하고, Docker로 서버 환경을 구성할 것입니다. 각 환경(Blue, Green)을 Docker Compose로 설정합니다. 그리고 윈도우 환경에서 배포를 진행하였습니다.\u003c/p\u003e\n\u003ch4\u003e\u003cstrong\u003edocker-compose.yml\u003c/strong\u003e\u003c/h4\u003e\n\u003cpre\u003e\u003ccode class=\"language-yaml\"\u003e# docker-compose.yml\nversion: \"3.8\"\n\nservices:\n  ts-proxy:\n    image: nginx:1.22.1\n    container_name: test-proxy\n    restart: always\n    volumes:\n      - ./nginx:/etc/nginx/conf.d\n      - ./static:/usr/share/nginx/html/static\n    networks:\n      - test-network\n\n  ts-postgres:\n    image: postgres:13.10-alpine\n    container_name: test-db-dev\n    restart: always\n    environment:\n      - POSTGRES_PASSWORD=postgres\n      - DJANGO_DEBUG=False\n    networks:\n      - test-network\n    volumes:\n      - ts-db:/var/lib/postgresql/data\n\n  ts-redis:\n    image: redis:7.0-alpine\n    container_name: test-redis-dev\n    restart: always\n    networks:\n      - test-network\n\nvolumes:\n  ts-db:\n\nnetworks:\n  test-network:\n    name: test-network\n    driver: bridge\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e위 파일은 Django 서버에서 사용하는 \u003cstrong\u003eDB\u003c/strong\u003e, \u003cstrong\u003eRedis\u003c/strong\u003e, \u003cstrong\u003eNginx\u003c/strong\u003e 설정을 포함하고 있습니다. \u003ccode\u003edocker-compose.yml\u003c/code\u003e 파일은 공통으로 사용되며, \u003cstrong\u003eBlue\u003c/strong\u003e와 \u003cstrong\u003eGreen\u003c/strong\u003e 배포 환경에서도 공유됩니다.\u003c/p\u003e\n\u003ch4\u003e\u003cstrong\u003eBlue/Green 배포 환경 설정\u003c/strong\u003e\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e\u003cstrong\u003eBlue 환경 (docker-compose-blue.yml)\u003c/strong\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003cpre\u003e\u003ccode class=\"language-yaml\"\u003e# docker-compose-blue.yml\nversion: \"3.8\"\n\nservices:\n  ts-django-blue:\n    build:\n      context: .\n    container_name: test-dev-blue\n    restart: always\n    env_file:\n      - .env\n    ports:\n      - 8000:8000\n    environment:\n      - PORTS=8000\n      - DJANGO_CONFIGURATION=production\n    command:\n      - /bin/sh\n      - -c\n      - |\n        dockerize -wait tcp://ts-postgres:5432 -timeout 20s\n        poetry run python manage.py makemigrations\n        poetry run python manage.py migrate\n        poetry run gunicorn -c gunicorn.conf.py -b 0.0.0.0:8000 app.core.asgi:application\n    networks:\n      - test-network\n    volumes:\n      - ./save:/workdir/save\n\nnetworks:\n  test-network:\n    external: true\n    name: test-network\n    driver: bridge\n\u003c/code\u003e\u003c/pre\u003e\n\u003cul\u003e\n\u003cli\u003e\u003cstrong\u003eGreen 환경 (docker-compose-green.yml)\u003c/strong\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003cpre\u003e\u003ccode class=\"language-yaml\"\u003e# docker-compose-green.yml\nversion: \"3.8\"\n\nservices:\n  ts-django-green:\n    build:\n      context: .\n    container_name: test-dev-green\n    restart: always\n    ports:\n      - 8001:8001\n    env_file:\n      - .env\n    environment:\n      - PORTS=8001\n      - DJANGO_CONFIGURATION=production\n    command:\n      - /bin/sh\n      - -c\n      - |\n        dockerize -wait tcp://ts-postgres:5432 -timeout 20s\n        poetry run python manage.py makemigrations\n        poetry run python manage.py migrate\n        poetry run gunicorn -c gunicorn.conf.py -b 0.0.0.0:8001 app.core.asgi:application\n    networks:\n      - test-network\n    volumes:\n      - ./save:/workdir/save\n\nnetworks:\n  test-network:\n    external: true\n    name: test-network\n    driver: bridge\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch3\u003e\u003cstrong\u003eNginx 설정\u003c/strong\u003e\u003c/h3\u003e\n\u003cul\u003e\n\u003cli\u003e\u003cstrong\u003edefault.conf (공통 설정)\u003c/strong\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003cpre\u003e\u003ccode class=\"language-nginx\"\u003eserver {\n    listen 80;\n    server_name localhost;\n\n    include service-url.inc;\n\n    location /static/ {\n        alias /usr/share/nginx/html/static/;\n    }\n\n    location / {\n        proxy_pass http://app;\n        proxy_set_header Host $host;\n        proxy_set_header X-Real-IP $remote_addr;\n        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n    }\n}\n\u003c/code\u003e\u003c/pre\u003e\n\u003cul\u003e\n\u003cli\u003e\u003cstrong\u003eservice-url.inc (공통 설정)\u003c/strong\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003cpre\u003e\u003ccode class=\"language-nginx\"\u003eupstream app {\n    server localhost:8000;\n}\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e위 파일들은 공통적으로 사용되는 \u003cstrong\u003eNginx\u003c/strong\u003e 설정 파일들로, 두 환경에서 동일하게 사용할 수 있습니다.\u003c/p\u003e\n\u003ch2\u003e\u003cstrong\u003e무중단 배포 Jenkins 파이프라인\u003c/strong\u003e\u003c/h2\u003e\n\u003cp\u003e이제 \u003cstrong\u003eJenkins 파이프라인\u003c/strong\u003e을 작성하여 배포 자동화 과정을 설정합니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-groovy\"\u003epipeline {\n    agent any\n    \n    environment {\n        DOCKER_COMPOSE_VERSION = '3.8'\n        WORKSPACE = \"${env.WORKSPACE}\"\n    }\n    \n    stages {\n        stage('Checkout') {\n            steps {\n                checkout scm\n            }\n        }\n        \n        stage('Determine Deploy Target') {\n            steps {\n                script {\n                    def blueContainerOutput = powershell(\n                        script: '(docker ps -q -f name=test-dev-blue) -ne $null',\n                        returnStdout: true\n                    ).trim()\n\n                    echo \"blueContainerOutput: ${blueContainerOutput}\"\n                    \n                    def blueContainerExists = blueContainerOutput.toLowerCase() == 'true'\n\n                    echo \"blueContainerExists: ${blueContainerExists}\"\n\n                    env.CURRENT_COLOR = blueContainerExists ? 'blue' : 'green'\n                    env.DEPLOY_COLOR = blueContainerExists ? 'green' : 'blue'\n                    env.CURRENT_PORT = blueContainerExists ? '8000' : '8001'\n                    env.DEPLOY_PORT = blueContainerExists ? '8001' : '8000'\n\n                    echo \"Current running on ${env.CURRENT_COLOR} with port ${env.CURRENT_PORT}\"\n                    echo \"Deploying to ${env.DEPLOY_COLOR} with port ${env.DEPLOY_PORT}\"\n                }\n            }\n        }\n        \n        stage('Deploy New Version') {\n            steps {\n                script {\n                    // 새로운 버전 배포\n                    bat \"docker-compose -f docker-compose.yml -f docker-compose.${env.DEPLOY_COLOR}.yml up -d --build\"\n                }\n            }\n        }\n        \n        stage('Health Check') {\n            steps {\n                script {\n                    def maxAttempts = 10\n                    def attempts = 0\n                    def healthy = false\n                    \n                    while (!healthy \u0026#x26;\u0026#x26; attempts \u0026#x3C; maxAttempts) {\n                        attempts++\n                        try {\n                            def response = bat(\n                                script: \"curl -s http://localhost:${env.DEPLOY_PORT}/api/v1/test\",\n                                returnStdout: true\n                            ).trim()\n                            \n                            if (response) {\n                                healthy = true\n                                echo \"New version is healthy!\"\n                            }\n                        } catch (Exception e) {\n                            echo \"Attempt ${attempts}/${maxAttempts} failed\"\n                            if (attempts \u0026#x3C; maxAttempts) {\n                                sleep 10\n                            }\n                        }\n                    }\n                    \n                    if (!healthy) {\n                        error \"New version failed health check after ${maxAttempts} attempts\"\n                    }\n                }\n            }\n        }\n        \n        stage('Switch Traffic') {\n            steps {\n                script {\n                    // Nginx 설정 업데이트\n                    bat \"\"\"\n                        echo upstream app { \u003e ${WORKSPACE}/nginx/service-url.inc\n                        echo     server localhost:${env.DEPLOY_PORT}; \u003e\u003e ${WORKSPACE}/nginx/service-url.inc\n                        echo } \u003e\u003e ${WORKSPACE}/nginx/service-url.inc\n                    \"\"\"\n                    \n                    // Nginx 재시작\n                    bat 'docker exec test-proxy nginx -s reload'\n\n                    // nginx-nginx-1 재시작\n                    bat '''\n                        (echo set $service_url http://[서버의 아이피]:%DEPLOY_PORT%;) \u003e temp_service_url.inc\n                        docker cp temp_service_url.inc nginx-nginx-1:/etc/nginx/conf.d/test-backend/service-url.inc\n                        del temp_service_url.inc\n                    '''\n\n                    bat 'docker exec nginx-nginx-1 nginx -s reload'\n                }\n            }\n        }\n        \n        stage('Cleanup Old Version') {\n            steps {\n                script {\n                    if (env.CURRENT_COLOR != null) {\n                        // 이전 버전 종료\n                        bat \"docker-compose -f docker-compose.${env.CURRENT_COLOR}.yml down\"\n                    }\n                }\n            }\n        }\n    }\n    \n    post {\n        failure {\n            script {\n                // 배포 실패 시 로그 확인 및 롤백\n                bat \"docker-compose -f docker-compose.yml -f docker-compose.${env.DEPLOY_COLOR}.yml logs\"\n                bat \"docker-compose -f docker-compose.yml -f docker-compose.${env.DEPLOY_COLOR}.yml down\"\n                bat \"\"\"\n                    echo upstream app { \u003e ${WORKSPACE}/nginx/service-url.inc\n                    echo     server localhost:${env.CURRENT_PORT}; \u003e\u003e ${WORKSPACE}/nginx/service-url.inc\n                    echo } \u003e\u003e ${WORKSPACE}/nginx/service-url.inc\n                \"\"\"\n                bat \"docker exec test-proxy nginx -s reload\"\n                bat '''\n                    (echo set $service_url http://[서버의 아이피]:%CURRENT_PORT%;) \u003e temp_service_url.inc\n                    docker cp temp_service_url.inc nginx-nginx-1:/etc/nginx/conf.d/test-backend/service-url.inc\n                    del temp_service_url.inc\n                '''\n                bat \"docker exec nginx-nginx-1 nginx -s reload\"\n            }\n        }\n    }\n}\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch3\u003e\u003cstrong\u003e파이프라인 설명\u003c/strong\u003e\u003c/h3\u003e\n\u003col\u003e\n\u003cli\u003e\u003cstrong\u003eCheckout\u003c/strong\u003e: 소스 코드를 불러옵니다.\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003eDetermine Deploy Target\u003c/strong\u003e: 현재 실행 중인 환경(Blue/Green)을 확인하고, 배포할 환경을 설정합니다.\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003eDeploy New Version\u003c/strong\u003e: 새로운 버전을 배포합니다.\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003eHealth Check\u003c/strong\u003e: 새로 배포한 서버가 정상인지 확인합니다.\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003eSwitch Traffic\u003c/strong\u003e: 트래픽을 새로운 환경으로 전환합니다.\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003eCleanup Old Version\u003c/strong\u003e: 이전 버전의 환경을 종료하여 자원을 정리합니다.\u003c/li\u003e\n\u003c/ol\u003e\n\u003ch2\u003e\u003cstrong\u003e마치며\u003c/strong\u003e\u003c/h2\u003e\n\u003cp\u003e이번 포스트에서는 \u003cstrong\u003eBlue-Green 배포\u003c/strong\u003e를 통한 무중단 배포 방법을 설명했습니다. 이를 통해 \u003cstrong\u003e서비스의 가용성\u003c/strong\u003e을 높일 수 있으며, \u003cstrong\u003eJenkins 파이프라인\u003c/strong\u003e을 활용한 배포 자동화도 가능해졌습니다.\u003c/p\u003e\n"])</script><script>self.__next_f.push([1,"5:[\"$\",\"div\",null,{\"className\":\"flex flex-col lg:flex-row gap-8\",\"children\":[\"$\",\"main\",null,{\"className\":\"flex-1\",\"children\":[\"$\",\"article\",null,{\"className\":\"page\",\"children\":[[\"$\",\"header\",null,{\"className\":\"mb-8\",\"children\":[[\"$\",\"h1\",null,{\"className\":\"page__title\",\"children\":\"[Jenkins] 무중단 배포를 위한 파이프라인 구성\"}],[\"$\",\"div\",null,{\"className\":\"page__meta\",\"children\":[[\"$\",\"time\",null,{\"dateTime\":\"2025-01-18 19:03:11+0900\",\"children\":\"2025년 1월 18일\"}],[\"$\",\"span\",null,{\"className\":\"ml-4\",\"children\":[\"수정: \",\"2025년 1월 18일\"]}]]}]]}],[\"$\",\"div\",null,{\"className\":\"page__content\",\"children\":[\"$\",\"div\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"$e\"}}]}],[\"$\",\"footer\",null,{\"className\":\"page__meta mt-8\",\"children\":[[\"$\",\"div\",null,{\"className\":\"page__taxonomy mb-4\",\"children\":[[\"$\",\"h4\",null,{\"className\":\"text-sm font-medium text-gray-900 mb-2\",\"children\":\"카테고리\"}],[[\"$\",\"span\",\"Jenkins\",{\"className\":\"page__taxonomy-item\",\"children\":\"Jenkins\"}]]]}],[\"$\",\"div\",null,{\"className\":\"page__taxonomy\",\"children\":[[\"$\",\"h4\",null,{\"className\":\"text-sm font-medium text-gray-900 mb-2\",\"children\":\"태그\"}],[[\"$\",\"span\",\"Jenkins\",{\"className\":\"page__taxonomy-item\",\"children\":[\"#\",[\"Jenkins\"]]}]]]}]]}]]}]}]}]\nb:[[\"$\",\"meta\",\"0\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}],[\"$\",\"meta\",\"1\",{\"charSet\":\"utf-8\"}],[\"$\",\"title\",\"2\",{\"children\":\"secrett2633's blog\"}],[\"$\",\"meta\",\"3\",{\"name\":\"description\",\"content\":\"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트\"}],[\"$\",\"meta\",\"4\",{\"name\":\"author\",\"content\":\"secrett2633\"}],[\"$\",\"meta\",\"5\",{\"name\":\"keywords\",\"content\":\"Django, Python, DevOps, AI, ML, 블로그, 기술\"}],[\"$\",\"meta\",\"6\",{\"name\":\"creator\",\"content\":\"secrett2633\"}],[\"$\",\"meta\",\"7\",{\"name\":\"publisher\",\"content\":\"secrett2633\"}],[\"$\",\"meta\",\"8\",{\"name\":\"robots\",\"content\":\"index, follow\"}],[\"$\",\"meta\",\"9\",{\"name\":\"googlebot\",\"content\":\"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1\"}],[\"$\",\"link\",\"10\",{\"rel\":\"ca"])</script><script>self.__next_f.push([1,"nonical\",\"href\":\"https://secrett2633.github.io/\"}],[\"$\",\"meta\",\"11\",{\"name\":\"format-detection\",\"content\":\"telephone=no, address=no, email=no\"}],[\"$\",\"meta\",\"12\",{\"property\":\"og:title\",\"content\":\"secrett2633's blog\"}],[\"$\",\"meta\",\"13\",{\"property\":\"og:description\",\"content\":\"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트\"}],[\"$\",\"meta\",\"14\",{\"property\":\"og:url\",\"content\":\"https://secrett2633.github.io/\"}],[\"$\",\"meta\",\"15\",{\"property\":\"og:site_name\",\"content\":\"secrett2633's blog\"}],[\"$\",\"meta\",\"16\",{\"property\":\"og:locale\",\"content\":\"ko_KR\"}],[\"$\",\"meta\",\"17\",{\"property\":\"og:type\",\"content\":\"website\"}],[\"$\",\"meta\",\"18\",{\"name\":\"twitter:card\",\"content\":\"summary_large_image\"}],[\"$\",\"meta\",\"19\",{\"name\":\"twitter:title\",\"content\":\"secrett2633's blog\"}],[\"$\",\"meta\",\"20\",{\"name\":\"twitter:description\",\"content\":\"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트\"}],[\"$\",\"meta\",\"21\",{\"name\":\"next-size-adjust\"}]]\n4:null\n"])</script></body></html>

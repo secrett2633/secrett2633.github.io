@@ -1,0 +1,120 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[4281,["231","static/chunks/231-c4b666723e6aae68.js","185","static/chunks/app/layout-8808afda01b7a1b7.js"],"default"]
+7:I[231,["231","static/chunks/231-c4b666723e6aae68.js","877","static/chunks/app/%5B...slug%5D/page-01b66e77b48ed573.js"],""]
+4:["slug","python/pep/553","c"]
+0:["iV6XySbMHIJ3imQdvgy3I",[[["",{"children":[["slug","python/pep/553","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"553\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/553","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","link",null,{"rel":"icon","type":"image/png","sizes":"32x32","href":"/favicon-32x32.png"}],["$","link",null,{"rel":"icon","type":"image/png","sizes":"16x16","href":"/favicon-16x16.png"}],["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_9012cf layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/secrett2633.github.io/_next/static/css/b9d6ec750ad82add.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+9:T304f,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0553/">PEP 553 - Built-in breakpoint()</a></p>
+<p><strong>상태:</strong> Final | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 05-Sep-2017</p>
+</blockquote>
+<p>PEP 553 – 내장 함수 <code>breakpoint()</code></p>
+<h2>개요</h2>
+<p>이 PEP는 호출 지점에서 Python 디버거를 실행하는 새로운 내장 함수 <code>breakpoint()</code>를 추가할 것을 제안합니다. 또한, 어떤 디버거를 사용할지 설정할 수 있도록 <code>sys</code> 모듈에 두 개의 새로운 이름이 추가됩니다.</p>
+<h2>도입 배경 (Rationale)</h2>
+<p>Python 표준 라이브러리에는 <code>pdb</code>라는 훌륭한 디버거가 오랫동안 존재했습니다. <code>pdb</code>를 사용하여 중단점(breakpoint)을 설정하는 일반적인 방법은 다음과 같습니다:</p>
+<pre><code class="language-python">foo()
+import pdb; pdb.set_trace()
+bar()
+</code></pre>
+<p>이 코드는 <code>foo()</code> 실행 후 <code>bar()</code> 실행 전에 디버거를 시작합니다. 그러나 이 방식에는 몇 가지 단점이 있습니다:</p>
+<ul>
+<li><strong>긴 입력</strong>: 27자나 되어 타이핑하기 번거롭습니다.</li>
+<li><strong>오타 발생</strong>: 세미콜론 누락, 점 대신 밑줄 입력 등 오타가 발생하기 쉽습니다.</li>
+<li><strong><code>pdb</code>에 종속적</strong>: 디버깅 방식이 <code>pdb</code>에 직접적으로 연결됩니다. IDE나 다른 개발 환경을 사용할 경우 다른 디버깅 옵션이 있을 수 있습니다.</li>
+<li><strong>린터(Linter) 불평</strong>: <code>flake8</code>과 같은 Python 린터는 이 줄이 두 개의 문(statement)을 포함하고 있어 경고를 발생시킵니다. 이 구문을 두 줄로 나누면 정리할 때 실수를 할 가능성이 높아집니다 (예: 디버깅이 더 이상 필요 없을 때 한 줄을 삭제하는 것을 잊을 수 있습니다).</li>
+</ul>
+<p>Python 개발자들은 선택할 수 있는 다른 디버거들도 많지만, 이들을 호출하는 방법을 기억하는 것은 어려울 수 있습니다. IDE가 중단점을 설정하는 사용자 인터페이스를 제공하더라도, 코드를 직접 편집하는 것이 더 편리할 수 있습니다. 디버거를 프로그래밍 방식으로 실행하는 API들은 일관성이 없어 정확히 무엇을 입력해야 할지 기억하기 어려울 수 있습니다.</p>
+<p>이 PEP에서 제안하는 방식으로 디버거 진입을 위한 보편적인 API를 제공함으로써 이러한 모든 문제들을 해결할 수 있습니다.</p>
+<h2>제안 (Proposal)</h2>
+<p>JavaScript 언어는 <code>debugger</code> 문을 제공하여 해당 문이 나타나는 지점에서 디버거를 실행합니다.</p>
+<p>이 PEP는 호출 지점에서 Python 디버거를 실행하는 <code>breakpoint()</code>라는 새로운 내장 함수를 제안합니다. 따라서 위의 예제는 다음과 같이 작성될 수 있습니다:</p>
+<pre><code class="language-python">foo()
+breakpoint()
+bar()
+</code></pre>
+<p>또한, 이 PEP는 <code>sys.breakpointhook()</code>과 <code>sys.__breakpointhook__</code>이라는 <code>sys</code> 모듈에 두 가지 새로운 이름 바인딩을 제안합니다. 기본적으로 <code>sys.breakpointhook()</code>은 <code>pdb.set_trace()</code>를 실제로 임포트하고 실행하는 역할을 하며, <code>breakpoint()</code>가 실행할 디버거를 변경하기 위해 다른 함수로 설정할 수 있습니다.</p>
+<p><code>sys.__breakpointhook__</code>은 <code>sys.breakpointhook()</code>과 동일한 함수로 초기화됩니다. 이를 통해 <code>sys.breakpointhook()</code>을 언제든지 기본값으로 쉽게 재설정할 수 있습니다 (예: <code>sys.breakpointhook = sys.__breakpointhook__</code>). 이는 기존 <code>sys.displayhook()</code> / <code>sys.__displayhook__</code> 및 <code>sys.excepthook()</code> / <code>sys.__excepthook__</code>이 작동하는 방식과 정확히 동일합니다.</p>
+<p>내장 함수 <code>breakpoint()</code>의 시그니처는 <code>breakpoint(*args, **kws)</code>입니다. 위치 및 키워드 인수는 <code>sys.breakpointhook()</code>으로 직접 전달되며, 시그니처가 일치하지 않으면 <code>TypeError</code>가 발생합니다. <code>sys.breakpointhook()</code>의 반환 값은 <code>breakpoint()</code>로 다시 전달되어 반환됩니다.</p>
+<p>이러한 설계는 기본 디버거가 추가적인 선택적 인수를 받을 수 있다는 관찰에 기반합니다. 예를 들어, IPython은 중단점에 진입할 때 출력될 문자열을 지정할 수 있으며, Python 3.7부터 <code>pdb</code> 모듈도 선택적 <code>header</code> 인수를 지원합니다.</p>
+<h2>환경 변수 (Environment variable)</h2>
+<p><code>sys.breakpointhook()</code>의 기본 구현은 <code>PYTHONBREAKPOINT</code>라는 새로운 환경 변수를 참조합니다. 이 환경 변수는 다양한 값을 가질 수 있습니다:</p>
+<ul>
+<li><code>PYTHONBREAKPOINT=0</code>: 디버깅을 비활성화합니다. 이 값으로 설정하면 <code>sys.breakpointhook()</code>은 즉시 <code>None</code>을 반환합니다.</li>
+<li><code>PYTHONBREAKPOINT=</code> (즉, 빈 문자열): 환경 변수를 전혀 설정하지 않은 것과 동일하며, 이 경우 <code>pdb.set_trace()</code>가 평소처럼 실행됩니다.</li>
+<li><code>PYTHONBREAKPOINT=some.importable.callable</code>: 이 경우, <code>sys.breakpointhook()</code>은 <code>some.importable</code> 모듈을 임포트하고 해당 모듈에서 호출 가능한(callable) 객체를 가져와 호출합니다. 값이 점(.)이 없는 문자열일 경우, 내장된 호출 가능한 객체의 이름을 지정합니다 (예: <code>PYTHONBREAKPOINT=int</code>).</li>
+</ul>
+<p>이 환경 변수를 통해 외부 프로세스가 중단점 처리를 제어할 수 있습니다. 몇 가지 사용 사례는 다음과 같습니다:</p>
+<ul>
+<li><strong>배포 환경에서 모든 의도치 않은 <code>breakpoint()</code> 호출을 완전히 비활성화</strong>: 실행 환경에서 <code>PYTHONBREAKPOINT=0</code>로 설정하여 달성할 수 있습니다. PEP 검토자들은 이 경우 <code>PYTHONBREAKPOINT=sys.exit</code>으로 설정하는 것을 제안하기도 했습니다.</li>
+<li><strong>특정 디버거를 사용하는 IDE 통합</strong>: IDE는 <code>PYTHONBREAKPOINT</code>를 자체 내부 디버깅 훅으로 설정하여 프로그램이 디버깅 환경에서 실행되도록 할 수 있습니다.</li>
+</ul>
+<p><code>PYTHONBREAKPOINT</code>는 <code>sys.breakpointhook()</code>이 호출될 때마다 다시 해석됩니다. 이를 통해 프로세스는 프로그램 실행 중에 값을 변경하고 <code>breakpoint()</code>가 이러한 변경에 반응하도록 할 수 있습니다. 디버거 진입은 정의상 실행을 중지시키므로 성능에 중요한 섹션으로 간주되지 않습니다. 따라서 프로그램은 다음과 같이 할 수 있습니다:</p>
+<pre><code class="language-python">os.environ['PYTHONBREAKPOINT'] = 'foo.bar.baz'
+breakpoint() # foo.bar를 임포트하고 foo.bar.baz()를 호출합니다.
+</code></pre>
+<p><code>sys.breakpointhook</code>을 오버라이딩하면 <code>PYTHONBREAKPOINT</code>의 기본 참조가 무효화됩니다. 오버라이딩하는 코드가 <code>PYTHONBREAKPOINT</code>를 참조할지 여부는 해당 코드에 달려 있습니다.</p>
+<p><code>PYTHONBREAKPOINT</code>에 지정된 호출 가능한 객체에 대한 접근이 어떤 식으로든 실패할 경우 (예: 임포트 실패 또는 해당 모듈에 호출 가능한 객체가 없을 경우), <code>RuntimeWarning</code>이 발생하고 중단점 함수는 호출되지 않습니다.</p>
+<p>다른 모든 <code>PYTHON*</code> 환경 변수와 마찬가지로, 인터프리터가 <code>-E</code> 옵션으로 시작될 때는 <code>PYTHONBREAKPOINT</code>가 무시됩니다. 이는 기본 동작이 발생한다는 것을 의미합니다 (즉, <code>pdb.set_trace()</code>가 실행됩니다). <code>-E</code>가 적용될 때 <code>PYTHONBREAKPOINT=0</code>으로 다르게 처리할지에 대한 논의가 있었으나, 의견이 불일치하여 특별한 경우로 간주할 만큼 특별하지 않다고 결정되었습니다.</p>
+<h2>구현 (Implementation)</h2>
+<p>제안된 구현에 대한 Pull Request가 존재합니다. 실제 구현은 C로 되어 있지만, 이 기능에 대한 Python 유사 코드(pseudo-code)는 대략 다음과 같습니다:</p>
+<pre><code class="language-python"># 내장 함수에.
+def breakpoint(*args, **kws):
+    import sys
+    missing = object()
+    hook = getattr(sys, 'breakpointhook', missing)
+    if hook is missing:
+        raise RuntimeError('lost sys.breakpointhook')
+    return hook(*args, **kws)
+
+# sys 모듈에.
+def breakpointhook(*args, **kws):
+    import importlib, os, warnings
+    hookname = os.getenv('PYTHONBREAKPOINT')
+    if hookname is None or len(hookname) == 0:
+        hookname = 'pdb.set_trace'
+    elif hookname == '0':
+        return None
+
+    modname, dot, funcname = hookname.rpartition('.')
+    if dot == '':
+        modname = 'builtins'
+
+    try:
+        module = importlib.import_module(modname)
+        hook = getattr(module, funcname)
+    except:
+        warnings.warn(
+            'Ignoring unimportable $PYTHONBREAKPOINT: {}'.format(
+                hookname), RuntimeWarning)
+        return None
+    return hook(*args, **kws)
+
+__breakpointhook__ = breakpointhook
+</code></pre>
+<h2>기각된 대안 (Rejected alternatives)</h2>
+<h3>새로운 키워드 (A new keyword)</h3>
+<p>처음에 저자는 <code>break here</code>와 같은 새로운 키워드나 기존 키워드의 확장을 고려했습니다. 이는 여러 가지 이유로 기각되었습니다.</p>
+<ul>
+<li><strong><code>__future__</code> 필요</strong>: 완전히 새로운 키워드는 거의 모든 새 키워드가 기존 코드와 충돌할 수 있으므로 활성화하려면 <code>__future__</code>를 필요로 합니다. 이는 디버거에 쉽게 진입할 수 있다는 장점을 상쇄합니다.</li>
+<li><strong>키워드 확장 제한</strong>: <code>break here</code>와 같은 확장된 키워드는 가독성은 좋고 <code>__future__</code>를 필요로 하지 않지만, 이 키워드 확장을 이 새로운 기능에 묶어두어 PEP 548에서 제안된 것과 같은 더 유용한 확장을 방해할 수 있습니다.</li>
+<li><strong>구문 및 바이트코드 복잡성</strong>: 새로운 키워드는 수정된 문법과 새로운 바이트코드를 필요로 할 가능성이 높습니다. 이는 각각 구현을 더 복잡하게 만듭니다.</li>
+<li><strong>내장 함수의 이점</strong>: 새로운 내장 함수는 기존 코드를 전혀 깨뜨리지 않으며 (기존 모듈 전역 변수가 내장 함수를 가릴 뿐이므로) 구현하기도 매우 쉽습니다.</li>
+</ul>
+<h3><code>sys.breakpoint()</code></h3>
+<p><code>sys.breakpoint()</code>는 왜 채택되지 않았을까요? 디버거를 호출하기 위해 <code>import</code>를 요구하는 것은 <code>sys</code>가 모든 모듈에 임포트되지 않기 때문에 명시적으로 기각되었습니다. 이는 단지 더 많은 타이핑을 요구하며 다음과 같은 문제를 야기합니다:</p>
+<pre><code class="language-python">import sys; sys.breakpoint()
+</code></pre>
+<p>이는 이 PEP가 해결하려는 여러 문제점들을 그대로 계승합니다.</p>
+<h2>버전 기록 (Version History)</h2>
+<ul>
+<li><strong>2019-10-13</strong>: 유사 코드의 <code>except</code> 절에 누락된 <code>return None</code> 추가.</li>
+<li><strong>2017-09-13</strong>: <code>PYTHONBREAKPOINT</code> 환경 변수가 일등 시민(first class feature) 기능이 됨.</li>
+<li><strong>2017-09-07</strong>: <code>debug()</code>가 <code>breakpoint()</code>로 이름 변경. 시그니처가 <code>breakpoint(*args, **kws)</code>로 변경되어 <code>sys.breakpointhook()</code>으로 직접 전달됨.</li>
+</ul>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Final] PEP 553 - Built-in breakpoint()"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-26 23:38:53+0900","children":"2025년 9월 26일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 26일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":[["$","div",null,{"className":"page__taxonomy mb-4","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"카테고리"}],[["$","span","Python",{"className":"page__taxonomy-item","children":"Python"}],["$","span","PEP",{"className":"page__taxonomy-item","children":"PEP"}]]]}],["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]]}]]}]}]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"secrett2633's blog"}],["$","meta","3",{"name":"description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://secrett2633.github.io/"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"secrett2633's blog"}],["$","meta","13",{"property":"og:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","14",{"property":"og:url","content":"https://secrett2633.github.io/"}],["$","meta","15",{"property":"og:site_name","content":"secrett2633's blog"}],["$","meta","16",{"property":"og:locale","content":"ko_KR"}],["$","meta","17",{"property":"og:type","content":"website"}],["$","meta","18",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","19",{"name":"twitter:title","content":"secrett2633's blog"}],["$","meta","20",{"name":"twitter:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","21",{"name":"next-size-adjust"}]]
+1:null

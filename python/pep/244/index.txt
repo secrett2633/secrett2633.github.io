@@ -1,0 +1,82 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[4281,["231","static/chunks/231-c4b666723e6aae68.js","185","static/chunks/app/layout-8808afda01b7a1b7.js"],"default"]
+7:I[231,["231","static/chunks/231-c4b666723e6aae68.js","877","static/chunks/app/%5B...slug%5D/page-01b66e77b48ed573.js"],""]
+4:["slug","python/pep/244","c"]
+0:["iV6XySbMHIJ3imQdvgy3I",[[["",{"children":[["slug","python/pep/244","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"244\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/244","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","link",null,{"rel":"icon","type":"image/png","sizes":"32x32","href":"/favicon-32x32.png"}],["$","link",null,{"rel":"icon","type":"image/png","sizes":"16x16","href":"/favicon-16x16.png"}],["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_9012cf layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/secrett2633.github.io/_next/static/css/b9d6ec750ad82add.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+9:T1fa8,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0244/">PEP 244 - Thedirectivestatement</a></p>
+<p><strong>상태:</strong> Rejected | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 20-Mar-2001</p>
+</blockquote>
+<h1>PEP 244 – <code>directive</code> 문 (The directive statement)</h1>
+<ul>
+<li><strong>작성자:</strong> Martin von Löwis</li>
+<li><strong>상태:</strong> 거부됨 (Rejected)</li>
+<li><strong>유형:</strong> Standards Track</li>
+<li><strong>생성일:</strong> 2001년 3월 20일</li>
+<li><strong>Python 버전:</strong> 2.1</li>
+</ul>
+<h2>1. 동기 (Motivation)</h2>
+<p>Python은 때때로 핵심 언어 구조의 공개된 의미(advertised semantics)에 호환되지 않는 변경을 가하거나, 우발적인(구현 의존적인) 동작을 변경합니다. 이러한 변경은 장기적으로 언어 개선을 목표로 하지만, 단기적으로는 논란의 여지가 있고 혼란을 야기할 수 있습니다.</p>
+<p>PEP 5 "언어 진화 지침 (Guidelines for Language Evolution)"은 이러한 어려움을 완화할 방법을 제안하며, 이 PEP (244)는 이를 지원하는 메커니즘을 도입하고자 했습니다. PEP 227 "정적으로 중첩된 스코프 (Statically Nested Scopes)"는 이 메커니즘의 첫 적용 사례로 예시로 사용되었습니다.</p>
+<p>새로운, 잠재적으로 호환되지 않는 언어 기능이 추가될 때, 일부 모듈과 라이브러리는 이를 사용할 수 있지만 다른 모듈은 사용하지 않을 수 있습니다. 이 제안은 모듈 작성자가 특정 언어 기능의 사용 여부를 나타낼 수 있는 구문을 도입하고자 했습니다.</p>
+<p>이 PEP 논의 과정에서 "설정 가능한(settable)" 언어 기능은 두 가지 종류가 있다는 의견이 제시되었습니다:</p>
+<ol>
+<li><strong>궁극적으로 유일한 옵션이 될 기능:</strong> PEP 236 "<code>__future__</code>로 돌아가기 (Back to the <strong>future</strong>)"가 제안한 기능들이 이 범주에 속합니다. 이 PEP는 이러한 기능을 선언하고, 새로운 기능으로 인해 의미가 변경된 구조의 "오래된" 의미를 단계적으로 폐지하는 것을 지원합니다. 그러나 어떤 기능이 궁극적으로 폐지되어야 하는지에 대한 정책은 정의하지 않습니다.</li>
+<li><strong>영원히 선택 사항으로 유지될 기능:</strong> 예를 들어 인터프리터의 일부 기본 설정을 변경하는 경우입니다. 특정 모듈에 대해 항상 라인 번호 명령을 내보내도록 요청하는 것과 같은 설정이 예시가 될 수 있습니다. 이 제안에서는 이러한 종류의 특정 플래그를 제안하지 않았습니다.</li>
+</ol>
+<p>이 PEP의 주요 목표는 기존 라이브러리를 즉시 깨뜨리지 않고 새로운 언어 구조를 지원하는 것이었으므로, 새로운 구문 도입으로 인해 기존 라이브러리가 손상되지 않도록 특별한 주의를 기울였습니다.</p>
+<h2>2. 구문 (Syntax)</h2>
+<p><code>directive_statement</code>는 다음과 같은 형태의 문장입니다:</p>
+<pre><code>directive_statement: 'directive' NAME [atom] [';'] NEWLINE
+</code></pre>
+<ul>
+<li><code>directive</code>: 새로운 키워드입니다.</li>
+<li><code>NAME</code>: 지시문(directive)의 종류를 나타냅니다.</li>
+<li><code>[atom]</code>: 선택 사항이며, 지시문의 종류에 따라 추가적인 구문적 또는 의미론적 제약이 있을 수 있습니다.</li>
+<li><code>;</code>: 선택 사항입니다.</li>
+</ul>
+<p>지시문의 이름에 따라 <code>atom</code>의 존재 여부와 추가적인 구문적/의미론적 제약이 정의됩니다. 또한, 지시문의 이름에 따라 모듈 내에서의 지시문 위치와 같은 추가적인 제약이 부과될 수 있습니다 (예: 모듈의 최상단에만 위치).</p>
+<p>PEP 5의 지침에 따라 <code>directive</code> 키워드는 처음에는 <code>directive</code> 문에서 사용될 때만 키워드로 간주됩니다.</p>
+<h2>3. 의미 (Semantics)</h2>
+<p><code>directive</code> 문은 Python 인터프리터에게 소스 파일을 다른 방식으로 처리하도록 지시합니다. 처리의 구체적인 세부 사항은 지시문의 이름에 따라 달라집니다. 선택적 <code>atom</code>은 일반적으로 소스 코드가 처리될 때 해석되며, 해석의 세부 사항도 지시문에 따라 달라집니다.</p>
+<h2>4. 특정 지시문: <code>transitional</code> (Specific Directives: transitional)</h2>
+<p>Python에 호환되지 않는 구문적 또는 의미론적 변경이 추가될 경우, PEP 5는 언어의 <code>transitional</code> (과도기적) 진화를 의무화하며, 이때 새로운 기능은 이전 기능과 함께 초기에 사용 가능합니다. 이러한 전환은 <code>transitional</code> 지시문을 통해 가능합니다.</p>
+<p><code>transitional</code> 지시문에서는 <code>NAME</code>이 <code>'transitional'</code>입니다. <code>atom</code>은 반드시 존재해야 하며 <code>NAME</code>이어야 합니다. 이 이름에 대한 가능한 값은 언어 변경이 정의될 때 함께 정의됩니다.</p>
+<p>예시는 다음과 같습니다:</p>
+<pre><code class="language-python">directive transitional nested_scopes
+</code></pre>
+<p><code>transitional</code> 지시문은 문서 문자열(documentation string)을 제외하고 모듈의 다른 어떤 문장보다 먼저 나타나야 합니다 (즉, 첫 번째 문장이 <code>STRING+</code>인 경우에만 모듈의 두 번째 문장으로 나타날 수 있습니다).</p>
+<h2>5. 하위 호환성 (Backwards Compatibility)</h2>
+<p><code>directive</code>를 새로운 키워드로 도입하는 것은 기존 코드와 호환성 문제를 일으킬 수 있습니다. PEP 5의 지침에 따라, 이 제안의 초기 구현에서는 <code>directive</code>가 유효한 <code>directive_statement</code>에서 사용된 경우에만 (즉, 모듈에서 첫 번째 비 문자열 토큰으로 나타났을 때) 새로운 키워드로 간주됩니다.</p>
+<h2>6. 미해결 문제: 첫 번째 식별자로서의 <code>directive</code> (Unresolved Problems: directive as the first identifier)</h2>
+<p>모듈에서 <code>directive = 1</code> 과 같이 <code>directive</code>를 사용하면, 이는 식별자가 아닌 키워드로 처리될 것입니다. 추가적인 룩어헤드(look-ahead) 토큰을 사용하여 <code>NAME</code>으로 분류할 수도 있겠지만, Python 토크나이저에서는 그러한 룩어헤드를 사용할 수 없습니다.</p>
+<h2>7. 질문 및 답변 (Questions and Answers)</h2>
+<ul>
+<li>
+<p><strong>Q:</strong> 이 PEP는 소스 코드 문자 집합 정의를 허용하기 위해 작성된 것 같아 보입니다. 사실인가요?</p>
+<ul>
+<li><strong>A:</strong> 아닙니다. <code>directive</code> 기능이 소스 코드 인코딩을 허용하도록 확장될 수 있지만, 특정 지시문은 제안되지 않았습니다.</li>
+</ul>
+</li>
+<li>
+<p><strong>Q:</strong> 그렇다면 이 PEP는 왜 작성되었습니까?</p>
+<ul>
+<li><strong>A:</strong> 이는 <code>import</code> 문에 새로운 의미를 부여할 것을 제안하는 PEP 236에 대한 반대 제안(counter-proposal) 역할을 합니다. 이 PEP는 문제를 더 일반적인 방식으로 해결할 수 있도록 합니다.</li>
+</ul>
+</li>
+<li>
+<p><strong>Q:</strong> 하지만 소스 인코딩과 언어 변경을 섞는 것은 "사과와 오렌지를 섞는 것"과 같지 않나요?</p>
+<ul>
+<li><strong>A:</strong> 그럴 수도 있습니다. 이러한 차이를 다루기 위해 미리 정의된 <code>transitional</code> 지시문이 정의되었습니다.</li>
+</ul>
+</li>
+</ul>
+<h2>8. 저작권 (Copyright)</h2>
+<p>이 문서는 퍼블릭 도메인에 공개되었습니다.</p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Rejected] PEP 244 - Thedirectivestatement"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-26 17:15:30+0900","children":"2025년 9월 26일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 26일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":[["$","div",null,{"className":"page__taxonomy mb-4","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"카테고리"}],[["$","span","Python",{"className":"page__taxonomy-item","children":"Python"}],["$","span","PEP",{"className":"page__taxonomy-item","children":"PEP"}]]]}],["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]]}]]}]}]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"secrett2633's blog"}],["$","meta","3",{"name":"description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://secrett2633.github.io/"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"secrett2633's blog"}],["$","meta","13",{"property":"og:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","14",{"property":"og:url","content":"https://secrett2633.github.io/"}],["$","meta","15",{"property":"og:site_name","content":"secrett2633's blog"}],["$","meta","16",{"property":"og:locale","content":"ko_KR"}],["$","meta","17",{"property":"og:type","content":"website"}],["$","meta","18",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","19",{"name":"twitter:title","content":"secrett2633's blog"}],["$","meta","20",{"name":"twitter:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","21",{"name":"next-size-adjust"}]]
+1:null

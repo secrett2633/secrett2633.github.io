@@ -1,0 +1,74 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[4281,["231","static/chunks/231-c4b666723e6aae68.js","185","static/chunks/app/layout-8808afda01b7a1b7.js"],"default"]
+7:I[231,["231","static/chunks/231-c4b666723e6aae68.js","877","static/chunks/app/%5B...slug%5D/page-01b66e77b48ed573.js"],""]
+4:["slug","python/pep/299","c"]
+0:["iV6XySbMHIJ3imQdvgy3I",[[["",{"children":[["slug","python/pep/299","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"299\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/299","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","link",null,{"rel":"icon","type":"image/png","sizes":"32x32","href":"/favicon-32x32.png"}],["$","link",null,{"rel":"icon","type":"image/png","sizes":"16x16","href":"/favicon-16x16.png"}],["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_9012cf layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/secrett2633.github.io/_next/static/css/b9d6ec750ad82add.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+9:T1603,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0299/">PEP 299 - Special <strong>main</strong>() function in modules</a></p>
+<p><strong>상태:</strong> Rejected | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 12-Aug-2002</p>
+</blockquote>
+<h1>PEP 299 – 모듈 내 특별한 <code>__main__()</code> 함수</h1>
+<ul>
+<li><strong>작성자 (Author):</strong> Jeff Epler </li>
+<li><strong>상태 (Status):</strong> 반려됨 (Rejected)</li>
+<li><strong>유형 (Type):</strong> 표준 트랙 (Standards Track)</li>
+<li><strong>작성일 (Created):</strong> 2002년 8월 12일</li>
+<li><strong>Python 버전 (Python-Version):</strong> 2.3</li>
+<li><strong>게시 이력 (Post-History):</strong> 2006년 3월 29일</li>
+</ul>
+<h2>요약 (Abstract)</h2>
+<p>많은 Python 모듈은 독립 실행형 스크립트(standalone scripts)로도 호출될 수 있도록 의도되었습니다. 이 PEP는 <code>__main__()</code>이라는 특별한 함수가 이 목적을 수행해야 한다고 제안합니다.</p>
+<h2>도입 배경 (Motivation)</h2>
+<p>모듈을 독립 실행형 스크립트로 호출하기 위한 하나의 간단하고 보편적인 관용구(idiom)가 있어야 합니다.</p>
+<p>현재의 "반쯤 표준적인(semi-standard)" 관용구는 다음과 같습니다:</p>
+<pre><code class="language-python">if __name__ == '__main__':
+    perform "standalone" functionality
+</code></pre>
+<p>이 방식은 C나 C++와 같은 언어의 프로그래머들에게는 불분명합니다. 또한, 모듈이 임포트(import)될 때 독립 실행형 함수를 호출하는 것을 허용하지 않습니다.</p>
+<p>때때로 다음과 같은 변형된 형태가 사용되기도 합니다:</p>
+<pre><code class="language-python">if __name__ == '__main__':
+    main_function()
+</code></pre>
+<p>하지만 이 함수에 대한 표준 이름이 존재하지 않으며, 인자(arguments)가 <code>sys.argv</code>에서 가져와지기 때문에 다른 모든 모듈이 보는 인자 리스트를 변경하지 않고는 특정 인자를 전달할 수 없습니다. (예를 들어, 두 개의 스레드가 서로 다른 인자 리스트로 다른 모듈의 독립 실행형 기능을 호출하려는 멀티스레드(threaded) Python 프로그램을 상상해 보세요.)</p>
+<h2>제안 (Proposal)</h2>
+<p>'메인 함수(main function)'의 표준 이름은 <code>__main__</code>이 되어야 합니다. 모듈이 다음과 같이 명령줄(command line)에서 호출될 때:</p>
+<pre><code class="language-bash">python mymodule.py
+</code></pre>
+<p>그러면 모듈은 해당 모듈의 끝에 다음 줄이 존재하는 것처럼 동작합니다 (단, <code>__sys</code> 속성은 스크립트의 다른 곳에서 사용되거나 존재한다고 가정할 수 없습니다):</p>
+<pre><code class="language-python">if globals().has_key("__main__"):
+    import sys as __sys
+    __sys.exit(__main__(__sys.argv))
+</code></pre>
+<p>다른 모듈은 다음과 같이 실행할 수 있습니다:</p>
+<pre><code class="language-python">import mymodule
+mymodule.__main__(['mymodule', ...])
+</code></pre>
+<p><code>__main__</code>의 사용을 제한할 수 있는 스레드 안전성(thread-safety) 문제나 다른 문제들(예: 상호 배타적인 GUI 모듈 사용, 하드웨어 장치와 같이 공유할 수 없는 자원, <code>sys.stdin</code> / <code>stdout</code> 재할당 등)을 문서화하는 것은 <code>mymodule</code>의 책임입니다.</p>
+<h2>구현 (Implementation)</h2>
+<p><code>modules/main.c</code> 파일의 385행 근처 블록( <code>PyRun_AnyFileExFlags</code> 호출 후)이 변경되어 위의 코드(또는 그에 상응하는 C 코드)가 실행되도록 할 것입니다.</p>
+<h2>해결되지 않은 문제들 (Open Issues)</h2>
+<ul>
+<li><code>__main__</code>의 반환 값은 종료 값(exit value)으로 처리되어야 하는가?
+<ul>
+<li><strong>예.</strong> 많은 <code>__main__</code> 함수는 자연스럽게 <code>None</code>을 반환하며, <code>sys.exit</code>는 이를 "성공" 반환 코드로 변환합니다. 숫자 결과를 반환하는 경우, 이는 <code>sys.exit()</code>의 인자나 C의 <code>main()</code> 함수의 반환 값과 동일하게 동작합니다.</li>
+</ul>
+</li>
+<li><code>__main__</code>으로 전달되는 인자 리스트에 <code>argv[0]</code>이 포함되어야 하는가, 아니면 "실제" 인자인 <code>argv[1:]</code>만 포함되어야 하는가?
+<ul>
+<li><code>sys.argv</code>와의 대칭성 및 새로운 표준 관용구로의 쉬운 전환을 위해 <code>argv[0]</code>이 포함됩니다.</li>
+</ul>
+</li>
+</ul>
+<h2>반려 (Rejection)</h2>
+<p><code>python-dev</code>에서의 짧은 논의에서 두 가지 주요 하위 호환성(backwards compatibility) 문제가 제기되었으며, 귀도(Guido van Rossum)는 어쨌든 이 아이디어를 좋아하지 않는다고 말했습니다. 그는 "문서, 사용자 습관 등의 변경 가치가 없으며, 특별히 고장난 것도 없다"고 언급했습니다.</p>
+<h2>참고 자료 (References)</h2>
+<p>Georg Brandl, “What about PEP 299”, <a href="https://mail.python.org/pipermail/python-dev/2006-March/062951.html">https://mail.python.org/pipermail/python-dev/2006-March/062951.html</a></p>
+<h2>저작권 (Copyright)</h2>
+<p>이 문서는 퍼블릭 도메인(public domain)에 공개되었습니다.</p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Rejected] PEP 299 - Special __main__() function in modules"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-26 18:07:00+0900","children":"2025년 9월 26일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 26일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":[["$","div",null,{"className":"page__taxonomy mb-4","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"카테고리"}],[["$","span","Python",{"className":"page__taxonomy-item","children":"Python"}],["$","span","PEP",{"className":"page__taxonomy-item","children":"PEP"}]]]}],["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]]}]]}]}]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"secrett2633's blog"}],["$","meta","3",{"name":"description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://secrett2633.github.io/"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"secrett2633's blog"}],["$","meta","13",{"property":"og:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","14",{"property":"og:url","content":"https://secrett2633.github.io/"}],["$","meta","15",{"property":"og:site_name","content":"secrett2633's blog"}],["$","meta","16",{"property":"og:locale","content":"ko_KR"}],["$","meta","17",{"property":"og:type","content":"website"}],["$","meta","18",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","19",{"name":"twitter:title","content":"secrett2633's blog"}],["$","meta","20",{"name":"twitter:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","21",{"name":"next-size-adjust"}]]
+1:null

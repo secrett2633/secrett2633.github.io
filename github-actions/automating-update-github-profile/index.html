@@ -1,1404 +1,154 @@
-<!doctype html>
-<!--
-  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
-  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
-  Free for personal and commercial use under the MIT license
-  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
--->
-<html lang="ko" class="no-js">
-  <head>
-    <style> 
-      ::-webkit-scrollbar{ 
-        width: 10px;
-        height: 10px;
-      }
-
-      ::-webkit-scrollbar-track {
-        width: 0px;
-        background-color: #626262;
-        /* border-radius: 5px; */
-      }
-
-      ::-webkit-scrollbar-thumb {
-        width: 0px;
-        background-color: #E2E2E2;
-        border-radius: 5px;
-      }
-
-      ::-webkit-scrollbar-thumb:hover {
-        width: 10px;
-        height: 20px;
-        /* background-color: rgba(190, 190, 190, 0.2); */
-        background-color: #A2A2A2;
-        border-radius: 5px;
-      }
-
-      ::-webkit-scrollbar-track:hover {
-        width: 10px;
-        /* background-color: rgba(150, 150, 150, 0.1); */
-        background-color: #626262;
-        border-radius: 5px;
-        /* background: transparent; */
-        /* border-radius: 10px; */
-      }
-
-      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
-          width:0px;
-          height: 0px;
-          /* background-color: rgb(14, 221, 24); */
-          /* border-radius: 50%; */
-      }
-    </style>
-    
-    <meta charset="utf-8">
-
-<!-- begin _includes/seo.html --><title>[GitHub Actions] 깃허브 프로필 자동 업데이트하기 | secrett2633</title>
-<meta name="description" content="GitHub Actions를 이용해 깃허브 프로필을 자동으로 업데이트하는 방법을 공유합니다.">
-
-
-  <meta name="author" content="secrett2633">
-  
-  <meta property="article:author" content="secrett2633">
-  
-
-
-<meta property="og:type" content="article">
-<meta property="og:locale" content="ko_KR">
-<meta property="og:site_name" content="secrett2633's blog">
-<meta property="og:title" content="[GitHub Actions] 깃허브 프로필 자동 업데이트하기">
-<meta property="og:url" content="https://secrett2633.github.io/github-actions/automating-update-github-profile/">
-
-
-  <meta property="og:description" content="GitHub Actions를 이용해 깃허브 프로필을 자동으로 업데이트하는 방법을 공유합니다.">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2025-01-14T23:10:11+09:00">
-
-
-
-  <meta property="article:modified_time" content="2025-01-14T23:10:14+09:00">
-
-
-
-  
-
-  
-
-
-<link rel="canonical" href="https://secrett2633.github.io/github-actions/automating-update-github-profile/">
-
-
-
-
-<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    
-      "@type": "Person",
-      "name": "secrett2633",
-      "url": "https://secrett2633.github.io/"
-    
-  }
-</script>
-
-
-
-
-
-
-<!-- end _includes/seo.html -->
-
-
-
-  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="secrett2633's blog Feed">
-
-
-<!-- https://t.co/dKP3o1e -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<script>
-  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
-</script>
-
-<!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
-
-<!--[if IE]>
-  <style>
-    /* old IE unsupported flexbox fixes */
-    .greedy-nav .site-title {
-      padding-right: 3em;
-    }
-    .greedy-nav button {
-      position: absolute;
-      top: 0;
-      right: 0;
-      height: 100%;
-    }
-  </style>
-<![endif]-->
-
-
-    <!-- start custom head snippets -->
-
-<!-- insert favicons. use https://realfavicongenerator.net/ -->
-
-<!-- end custom head snippets -->
-
-
-    <link rel="icon" type="image/png" sizes="32x32" href="https://secrett2633.github.io/assets/images/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://secrett2633.github.io/assets/images/favicon/favicon-16x16.png">
-    <meta name="msapplication-TileColor" content="#ffc40d">
-    <meta name="theme-color" content="#ffffff">
-  </head>
-
-  <body class="layout--single">
-    <nav class="skip-links">
-  <h2 class="screen-reader-text">Skip links</h2>
-  <ul>
-    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
-    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
-    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
-  </ul>
-</nav>
-
-    <!--[if lt IE 9]>
-<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
-<![endif]-->
-
-    
-
-<div class="masthead">
-  <div class="masthead__inner-wrap">
-    <div class="masthead__menu">
-      <nav id="site-nav" class="greedy-nav">
-        
-        <a class="site-title" href="/">
-          secrett2633's blog
-          
-        </a>
-        <ul class="visible-links"><li class="masthead__menu-item">
-              <a href="https://github.com/secrett2633">GitHub</a>
-            </li></ul>
-        
-        <button class="search__toggle" type="button">
-          <span class="visually-hidden">Toggle search</span>
-          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
-            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
-          </svg>
-        </button>
-        
-        <button class="greedy-nav__toggle hidden" type="button">
-          <span class="visually-hidden">Toggle menu</span>
-          <div class="navicon"></div>
-        </button>
-        <ul class="hidden-links hidden"></ul>
-      </nav>
-    </div>
-  </div>
-</div>
-
-
-    <div class="initial-content">
-      
-
-
-
-<div id="main" role="main">
-  
-  <div class="sidebar sticky">
-  
-
-
-<div itemscope itemtype="https://schema.org/Person">
-
-  
-
-  <!-- 2022.02.17 author content hidden -->
-  <!-- <div class="author__content">
-    
-      <h3 class="author__name" itemprop="name">secrett2633</h3>
-    
-    
-  </div> -->
-
-  <div class="author__urls-wrapper">
-    <!-- <button class="btn btn--inverse">Follow</button> -->
-    <ul class="author__urls social-icons">
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <!--
-  <li>
-    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
-      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
-    </a>
-  </li>
--->
-    </ul>
-  </div>
-</div>
-
-  
-    
-      
-      
-      
-      
-    
-    
-      
-
-<nav class="nav__list">
-  
-  <input id="ac-toc" name="accordion-toc" type="checkbox" />
-  <label for="ac-toc">Toggle Menu</label>
-  <ul class="nav__items">
-    <!-- <li>
-      <span class="nav__total">🌴 Total Posts: 647</span>
-    </li> -->
-    
-    
-      <li>
-        
-          <!-- title -->
-              <span class="nav__sub-title">Frontend</span>
-              <hr>
-        
-
-        
-        <ul>
-          
-            <!-- sub-title -->
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-        </ul>
-        
-      </li>
-    
-      <li>
-        
-          <!-- title -->
-              <span class="nav__sub-title">Backend</span>
-              <hr>
-        
-
-        
-        <ul>
-          
-            <!-- sub-title -->
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-                <li><a href="/backend/django/">Django (6)</a></li>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-            <!-- sub-title -->
-            
-              
-            
-              
-            
-              
-                <li><a href="/backend/logging/">Logging (1)</a></li>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-            <!-- sub-title -->
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-            <!-- sub-title -->
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-        </ul>
-        
-      </li>
-    
-      <li>
-        
-          <!-- title -->
-              <span class="nav__sub-title">AI/ML</span>
-              <hr>
-        
-
-        
-        <ul>
-          
-            <!-- sub-title -->
-            
-              
-            
-              
-            
-              
-            
-              
-                <li><a href="/ai/llm/">LLM (1)</a></li>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-            <!-- sub-title -->
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-                <li><a href="/ai/review/">Review (625)</a></li>
-              
-            
-          
-        </ul>
-        
-      </li>
-    
-      <li>
-        
-          <!-- title -->
-              <span class="nav__sub-title">DevOps</span>
-              <hr>
-        
-
-        
-        <ul>
-          
-            <!-- sub-title -->
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-                <li><a href="/devops/nginx/">Nginx (1)</a></li>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-            <!-- sub-title -->
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-                <li><a href="/devops/docker/">Docker (1)</a></li>
-              
-            
-              
-            
-              
-            
-              
-            
-          
-            <!-- sub-title -->
-            
-              
-            
-              
-                <li><a href="/devops/safeline/">SafeLine (1)</a></li>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-            <!-- sub-title -->
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-                <li><a href="/devops/jenkins/">Jenkins (3)</a></li>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-            <!-- sub-title -->
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-                <li><a href="/devops/github-actions/">GitHub Actions (1)</a></li>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-            <!-- sub-title -->
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-            <!-- sub-title -->
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-                <li><a href="/devops/aws/">AWS (1)</a></li>
-              
-            
-              
-            
-          
-        </ul>
-        
-      </li>
-    
-      <li>
-        
-          <!-- title -->
-              <span class="nav__sub-title">etc</span>
-              <hr>
-        
-
-        
-        <ul>
-          
-            <!-- sub-title -->
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-            <!-- sub-title -->
-            
-              
-                <li><a href="/etc/me/">Me (3)</a></li>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-            <!-- sub-title -->
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-                <li><a href="/etc/chrome-extension/">Chrome Extension (1)</a></li>
-              
-            
-              
-            
-              
-            
-          
-        </ul>
-        
-      </li>
-    
-  </ul>
-</nav>
-
-    
-  
-  </div>
-
-
-
-  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="[GitHub Actions] 깃허브 프로필 자동 업데이트하기">
-    <meta itemprop="description" content="GitHub Actions를 이용해 깃허브 프로필을 자동으로 업데이트하는 방법을 공유합니다.">
-    <meta itemprop="datePublished" content="2025-01-14T23:10:11+09:00">
-    <meta itemprop="dateModified" content="2025-01-14T23:10:14+09:00">
-
-    <div class="page__inner-wrap">
-      
-        <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">[GitHub Actions] 깃허브 프로필 자동 업데이트하기
-</h1>
-          
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        <time datetime="2025-01-14T23:10:11+09:00">January 14, 2025</time>
-      </span>
-    
-
-    
-
-    
-  </p>
-
-
-        </header>
-      
-
-      <section class="page__content" itemprop="text">
-        
-          <aside class="sidebar__right sticky">
-            <nav class="toc">
-              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
-              <ul class="toc__menu"><li><a href="#들어가며">들어가며</a></li><li><a href="#1-깃허브-프로필-업데이트-스크립트-작성">1. 깃허브 프로필 업데이트 스크립트 작성</a><ul><li><a href="#블로그-rss-피드-설정">블로그 RSS 피드 설정</a></li><li><a href="#python-스크립트-update_readmepy">Python 스크립트: update_readme.py</a></li><li><a href="#스크립트-실행-방법">스크립트 실행 방법</a></li></ul></li><li><a href="#2-github-actions-설정">2. GitHub Actions 설정</a><ul><li><a href="#github-actions-워크플로우-설정">GitHub Actions 워크플로우 설정</a></li><li><a href="#워크플로우-파일-저장">워크플로우 파일 저장</a></li></ul></li><li><a href="#3-테스트">3. 테스트</a><ul><li><a href="#권한-문제-해결">권한 문제 해결</a></li></ul></li></ul></li></ul>
-
-            </nav>
-          </aside>
-        
-        <h2 id="들어가며"><strong>들어가며</strong></h2>
-
+<!DOCTYPE html><html lang="ko" class="no-js"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="preload" href="/secrett2633.github.io/_next/static/media/e4af272ccee01ff0-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="stylesheet" href="/secrett2633.github.io/_next/static/css/b9d6ec750ad82add.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/secrett2633.github.io/_next/static/chunks/webpack-a04af954a21fa650.js"/><script src="/secrett2633.github.io/_next/static/chunks/fd9d1056-62aaf4b921c84028.js" async=""></script><script src="/secrett2633.github.io/_next/static/chunks/23-ca4408d024135d8d.js" async=""></script><script src="/secrett2633.github.io/_next/static/chunks/main-app-fa660020ba1e0b6e.js" async=""></script><script src="/secrett2633.github.io/_next/static/chunks/231-c4b666723e6aae68.js" async=""></script><script src="/secrett2633.github.io/_next/static/chunks/app/layout-8808afda01b7a1b7.js" async=""></script><script src="/secrett2633.github.io/_next/static/chunks/app/%5B...slug%5D/page-01b66e77b48ed573.js" async=""></script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"></script><title>secrett2633&#x27;s blog</title><meta name="description" content="기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"/><meta name="author" content="secrett2633"/><meta name="keywords" content="Django, Python, DevOps, AI, ML, 블로그, 기술"/><meta name="creator" content="secrett2633"/><meta name="publisher" content="secrett2633"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://secrett2633.github.io/"/><meta name="format-detection" content="telephone=no, address=no, email=no"/><meta property="og:title" content="secrett2633&#x27;s blog"/><meta property="og:description" content="기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"/><meta property="og:url" content="https://secrett2633.github.io/"/><meta property="og:site_name" content="secrett2633&#x27;s blog"/><meta property="og:locale" content="ko_KR"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="secrett2633&#x27;s blog"/><meta name="twitter:description" content="기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"/><meta name="next-size-adjust"/><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/><meta name="msapplication-TileColor" content="#ffc40d"/><meta name="theme-color" content="#ffffff"/><script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-NE2W3CFPNY');
+            </script><script src="/secrett2633.github.io/_next/static/chunks/polyfills-78c92fac7aa8fdd8.js" noModule=""></script></head><body class="__className_9012cf layout--default"><div class="min-h-screen bg-gray-50"><div class="masthead"><div class="masthead__inner-wrap"><div class="masthead__menu"><nav id="site-nav" class="greedy-nav"><a class="site-title" href="/secrett2633.github.io">secrett2633&#x27;s blog</a><div class="flex items-center space-x-4"><ul class="visible-links"><li class="masthead__menu-item"><a href="https://github.com/secrett2633" target="_blank" rel="noopener noreferrer">GitHub</a></li></ul><button class="search__toggle" type="button"><svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16"><path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path></svg></button><button class="greedy-nav__toggle" type="button"><div class="navicon"></div></button></div><ul class="hidden-links hidden md:hidden"><li><a href="https://github.com/secrett2633" target="_blank" rel="noopener noreferrer" class="block py-2">GitHub</a></li></ul></nav></div></div></div><main class="initial-content"><!--$--><div class="flex flex-col lg:flex-row gap-8"><main class="flex-1"><article class="page"><header class="mb-8"><h1 class="page__title">[GitHub Actions] 깃허브 프로필 자동 업데이트하기</h1><div class="page__meta"><time dateTime="2025-01-14 23:10:11+0900">2025년 1월 14일</time><span class="ml-4">수정: <!-- -->2025년 1월 14일</span></div></header><div class="page__content"><div><h2><strong>들어가며</strong></h2>
 <p>매일 자주 사용하는 GitHub, 그런데 제 프로필을 확인해보니 마지막으로 업데이트한 게 3년 전이었습니다. 이때부터 기술 스택도 최신화되지 않았고, 제 블로그 포스팅도 깃허브 프로필에 반영되지 않았습니다. 그래서 이번 기회에 프로필을 업데이트하고, 블로그 포스팅도 자동으로 업데이트되도록 만들기로 했습니다.</p>
-
 <p>하지만 매번 수동으로 블로그 포스팅을 추가하는 것은 번거롭기 때문에, 이를 자동화하는 방법을 고민해봤습니다. 그 결과, GitHub Actions를 이용하여 자동으로 블로그 포스팅을 프로필에 반영하는 방법을 구현해보았습니다.</p>
-
-<h2 id="1-깃허브-프로필-업데이트-스크립트-작성">1. 깃허브 프로필 업데이트 스크립트 작성</h2>
-
+<h2>1. 깃허브 프로필 업데이트 스크립트 작성</h2>
 <p>블로그 포스팅을 깃허브 프로필에 자동으로 반영하기 위해, RSS 피드를 활용한 스크립트를 작성했습니다. <strong>RSS</strong>(Really Simple Syndication)는 웹사이트의 콘텐츠를 구독하는 형식으로, 최신 블로그 포스트를 안정적으로 가져올 수 있는 방법입니다.</p>
-
-<h3 id="블로그-rss-피드-설정">블로그 RSS 피드 설정</h3>
-
+<h3>블로그 RSS 피드 설정</h3>
 <p>저는 제 블로그의 RSS 피드를 이용해 블로그 포스팅을 가져옵니다. 아래는 제 블로그 RSS 피드의 URL입니다.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://secrett2633.github.io/feed.xml
-</code></pre></div></div>
-
+<pre><code>https://secrett2633.github.io/feed.xml
+</code></pre>
 <p>이 RSS 피드를 이용해 최신 포스트 5개를 가져오는 Python 스크립트를 작성했습니다. 코드를 살펴보겠습니다.</p>
+<h3>Python 스크립트: <code>update_readme.py</code></h3>
+<pre><code class="language-python">import feedparser
+from datetime import datetime
+import os
+from pathlib import Path
+from email.utils import parsedate_to_datetime
 
-<h3 id="python-스크립트-update_readmepy">Python 스크립트: <code class="language-plaintext highlighter-rouge">update_readme.py</code></h3>
+# 상수 정의
+BLOG_URL = "https://secrett2633.github.io/feed.xml"
+MAX_POSTS = 5
+README_PATH = "README.md"
+BLOG_SECTION_TITLE = "### Latest Blog Posts"
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">feedparser</span>
-<span class="kn">from</span> <span class="n">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
-<span class="kn">import</span> <span class="n">os</span>
-<span class="kn">from</span> <span class="n">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="n">email.utils</span> <span class="kn">import</span> <span class="n">parsedate_to_datetime</span>
+def get_posts():
+    """RSS 피드에서 블로그 포스트를 가져옵니다."""
+    feed = feedparser.parse(BLOG_URL)
+    return feed.entries[:MAX_POSTS]
 
-<span class="c1"># 상수 정의
-</span><span class="n">BLOG_URL</span> <span class="o">=</span> <span class="sh">"</span><span class="s">https://secrett2633.github.io/feed.xml</span><span class="sh">"</span>
-<span class="n">MAX_POSTS</span> <span class="o">=</span> <span class="mi">5</span>
-<span class="n">README_PATH</span> <span class="o">=</span> <span class="sh">"</span><span class="s">README.md</span><span class="sh">"</span>
-<span class="n">BLOG_SECTION_TITLE</span> <span class="o">=</span> <span class="sh">"</span><span class="s">### Latest Blog Posts</span><span class="sh">"</span>
+def format_date(date_str):
+    """RSS 피드의 날짜를 원하는 형식으로 변환합니다."""
+    # email.utils의 parsedate_to_datetime을 사용하여 RFC 2822 형식의 날짜를 파싱
+    date = parsedate_to_datetime(date_str)
+    return date.strftime("%Y.%m.%d")
 
-<span class="k">def</span> <span class="nf">get_posts</span><span class="p">():</span>
-    <span class="sh">"""</span><span class="s">RSS 피드에서 블로그 포스트를 가져옵니다.</span><span class="sh">"""</span>
-    <span class="n">feed</span> <span class="o">=</span> <span class="n">feedparser</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">BLOG_URL</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">feed</span><span class="p">.</span><span class="n">entries</span><span class="p">[:</span><span class="n">MAX_POSTS</span><span class="p">]</span>
+def build_post_line(post):
+    """각 포스트를 마크다운 형식의 문자열로 변환합니다."""
+    title = post.title
+    date = format_date(post.published)
+    link = post.link
+    return f"- [{title} ({date})]({link})"
 
-<span class="k">def</span> <span class="nf">format_date</span><span class="p">(</span><span class="n">date_str</span><span class="p">):</span>
-    <span class="sh">"""</span><span class="s">RSS 피드의 날짜를 원하는 형식으로 변환합니다.</span><span class="sh">"""</span>
-    <span class="c1"># email.utils의 parsedate_to_datetime을 사용하여 RFC 2822 형식의 날짜를 파싱
-</span>    <span class="n">date</span> <span class="o">=</span> <span class="nf">parsedate_to_datetime</span><span class="p">(</span><span class="n">date_str</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">date</span><span class="p">.</span><span class="nf">strftime</span><span class="p">(</span><span class="sh">"</span><span class="s">%Y.%m.%d</span><span class="sh">"</span><span class="p">)</span>
+def update_readme():
+    """README.md 파일을 최신 블로그 포스트로 업데이트합니다."""
+    try:
+        # README 파일 읽기
+        if os.path.exists(README_PATH):
+            with open(README_PATH, "r", encoding="utf-8") as f:
+                content = f.read()
+        else:
+            content = ""
 
-<span class="k">def</span> <span class="nf">build_post_line</span><span class="p">(</span><span class="n">post</span><span class="p">):</span>
-    <span class="sh">"""</span><span class="s">각 포스트를 마크다운 형식의 문자열로 변환합니다.</span><span class="sh">"""</span>
-    <span class="n">title</span> <span class="o">=</span> <span class="n">post</span><span class="p">.</span><span class="n">title</span>
-    <span class="n">date</span> <span class="o">=</span> <span class="nf">format_date</span><span class="p">(</span><span class="n">post</span><span class="p">.</span><span class="n">published</span><span class="p">)</span>
-    <span class="n">link</span> <span class="o">=</span> <span class="n">post</span><span class="p">.</span><span class="n">link</span>
-    <span class="k">return</span> <span class="sa">f</span><span class="sh">"</span><span class="s">- [</span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s"> (</span><span class="si">{</span><span class="n">date</span><span class="si">}</span><span class="s">)](</span><span class="si">{</span><span class="n">link</span><span class="si">}</span><span class="s">)</span><span class="sh">"</span>
+        # 블로그 포스트 섹션 이전 내용 가져오기
+        before_posts = content.split(BLOG_SECTION_TITLE)[0].strip()
 
-<span class="k">def</span> <span class="nf">update_readme</span><span class="p">():</span>
-    <span class="sh">"""</span><span class="s">README.md 파일을 최신 블로그 포스트로 업데이트합니다.</span><span class="sh">"""</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="c1"># README 파일 읽기
-</span>        <span class="k">if</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="nf">exists</span><span class="p">(</span><span class="n">README_PATH</span><span class="p">):</span>
-            <span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="n">README_PATH</span><span class="p">,</span> <span class="sh">"</span><span class="s">r</span><span class="sh">"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="sh">"</span><span class="s">utf-8</span><span class="sh">"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-                <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="p">.</span><span class="nf">read</span><span class="p">()</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">content</span> <span class="o">=</span> <span class="sh">""</span>
+        # 최신 포스트 가져오기
+        posts = get_posts()
+        post_lines = [build_post_line(post) for post in posts]
+        posts_content = "\n".join(post_lines)
 
-        <span class="c1"># 블로그 포스트 섹션 이전 내용 가져오기
-</span>        <span class="n">before_posts</span> <span class="o">=</span> <span class="n">content</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="n">BLOG_SECTION_TITLE</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nf">strip</span><span class="p">()</span>
+        # 새로운 README 내용 생성
+        new_content = f"{before_posts}\n\n{BLOG_SECTION_TITLE}\n{posts_content}"
 
-        <span class="c1"># 최신 포스트 가져오기
-</span>        <span class="n">posts</span> <span class="o">=</span> <span class="nf">get_posts</span><span class="p">()</span>
-        <span class="n">post_lines</span> <span class="o">=</span> <span class="p">[</span><span class="nf">build_post_line</span><span class="p">(</span><span class="n">post</span><span class="p">)</span> <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">posts</span><span class="p">]</span>
-        <span class="n">posts_content</span> <span class="o">=</span> <span class="sh">"</span><span class="se">\n</span><span class="sh">"</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">post_lines</span><span class="p">)</span>
+        # 파일 저장
+        with open(README_PATH, "w", encoding="utf-8") as f:
+            f.write(new_content)
 
-        <span class="c1"># 새로운 README 내용 생성
-</span>        <span class="n">new_content</span> <span class="o">=</span> <span class="sa">f</span><span class="sh">"</span><span class="si">{</span><span class="n">before_posts</span><span class="si">}</span><span class="se">\n\n</span><span class="si">{</span><span class="n">BLOG_SECTION_TITLE</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="n">posts_content</span><span class="si">}</span><span class="sh">"</span>
+        print("README.md has been updated successfully!")
 
-        <span class="c1"># 파일 저장
-</span>        <span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="n">README_PATH</span><span class="p">,</span> <span class="sh">"</span><span class="s">w</span><span class="sh">"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="sh">"</span><span class="s">utf-8</span><span class="sh">"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">f</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="n">new_content</span><span class="p">)</span>
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+        raise e
 
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">README.md has been updated successfully!</span><span class="sh">"</span><span class="p">)</span>
-
-    <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">An error occurred: </span><span class="si">{</span><span class="nf">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
-        <span class="k">raise</span> <span class="n">e</span>
-
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="sh">"</span><span class="s">__main__</span><span class="sh">"</span><span class="p">:</span>
-    <span class="nf">update_readme</span><span class="p">()</span>
-</code></pre></div></div>
-
-<h3 id="스크립트-실행-방법">스크립트 실행 방법</h3>
-
+if __name__ == "__main__":
+    update_readme()
+</code></pre>
+<h3>스크립트 실행 방법</h3>
 <ol>
-  <li>Python을 설치하고, <code class="language-plaintext highlighter-rouge">feedparser</code> 라이브러리를 설치합니다.
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip install feedparser
-</code></pre></div>    </div>
-  </li>
-  <li>
-    <p>위의 코드를 <code class="language-plaintext highlighter-rouge">update_readme.py</code> 파일로 저장합니다.</p>
-  </li>
-  <li>터미널에서 아래 명령어로 스크립트를 실행합니다.
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python update_readme.py
-</code></pre></div>    </div>
-  </li>
+<li>
+<p>Python을 설치하고, <code>feedparser</code> 라이브러리를 설치합니다.</p>
+<pre><code>pip install feedparser
+</code></pre>
+</li>
+<li>
+<p>위의 코드를 <code>update_readme.py</code> 파일로 저장합니다.</p>
+</li>
+<li>
+<p>터미널에서 아래 명령어로 스크립트를 실행합니다.</p>
+<pre><code>python update_readme.py
+</code></pre>
+</li>
 </ol>
-
-<p>스크립트가 성공적으로 실행되면 <code class="language-plaintext highlighter-rouge">README.md</code> 파일이 최신 블로그 포스트로 업데이트됩니다.</p>
-
-<h2 id="2-github-actions-설정">2. GitHub Actions 설정</h2>
-
-<p>이제 이 작업을 자동화하기 위해 <strong>GitHub Actions</strong>를 설정합니다. GitHub Actions는 <code class="language-plaintext highlighter-rouge">.github/workflows</code> 폴더에 <code class="language-plaintext highlighter-rouge">.yml</code> 파일을 생성하여 다양한 작업을 자동화할 수 있습니다.</p>
-
-<h3 id="github-actions-워크플로우-설정">GitHub Actions 워크플로우 설정</h3>
-
+<p>스크립트가 성공적으로 실행되면 <code>README.md</code> 파일이 최신 블로그 포스트로 업데이트됩니다.</p>
+<h2>2. GitHub Actions 설정</h2>
+<p>이제 이 작업을 자동화하기 위해 <strong>GitHub Actions</strong>를 설정합니다. GitHub Actions는 <code>.github/workflows</code> 폴더에 <code>.yml</code> 파일을 생성하여 다양한 작업을 자동화할 수 있습니다.</p>
+<h3>GitHub Actions 워크플로우 설정</h3>
 <ol>
-  <li><code class="language-plaintext highlighter-rouge">update-readme</code>라는 이름의 GitHub Actions 워크플로우를 설정합니다.</li>
-  <li>6시간마다 자동으로 실행되도록 설정하며, 수동으로 실행할 수 있는 옵션도 추가합니다.</li>
+<li><code>update-readme</code>라는 이름의 GitHub Actions 워크플로우를 설정합니다.</li>
+<li>6시간마다 자동으로 실행되도록 설정하며, 수동으로 실행할 수 있는 옵션도 추가합니다.</li>
 </ol>
+<pre><code class="language-yml">name: Update Blog Posts
 
-<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">name</span><span class="pi">:</span> <span class="s">Update Blog Posts</span>
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # 6시간마다 실행
+  workflow_dispatch:  # 수동 실행 가능
 
-<span class="na">on</span><span class="pi">:</span>
-  <span class="na">schedule</span><span class="pi">:</span>
-    <span class="pi">-</span> <span class="na">cron</span><span class="pi">:</span> <span class="s1">'</span><span class="s">0</span><span class="nv"> </span><span class="s">*/6</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">*'</span>  <span class="c1"># 6시간마다 실행</span>
-  <span class="na">workflow_dispatch</span><span class="pi">:</span>  <span class="c1"># 수동 실행 가능</span>
-
-<span class="na">jobs</span><span class="pi">:</span>
-  <span class="na">update-readme</span><span class="pi">:</span>
-    <span class="na">runs-on</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
     
-    <span class="na">steps</span><span class="pi">:</span>
-    <span class="pi">-</span> <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v3</span>
+    steps:
+    - uses: actions/checkout@v3
       
-    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Set up Python</span>
-      <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/setup-python@v4</span>
-      <span class="na">with</span><span class="pi">:</span>
-        <span class="na">python-version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">3.x'</span>
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
         
-    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Install dependencies</span>
-      <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
-        <span class="s">python -m pip install --upgrade pip</span>
-        <span class="s">pip install feedparser</span>
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install feedparser
         
-    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Update README with latest blog posts</span>
-      <span class="na">run</span><span class="pi">:</span> <span class="s">python update_readme.py</span>
+    - name: Update README with latest blog posts
+      run: python update_readme.py
         
-    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Commit and push if changed</span>
-      <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
-        <span class="s">git config --local user.email "github-actions[bot]@users.noreply.github.com"</span>
-        <span class="s">git config --local user.name "github-actions[bot]"</span>
-        <span class="s">git diff --quiet &amp;&amp; git diff --staged --quiet || (git add README.md &amp;&amp; git commit -m "Update blog posts" &amp;&amp; git push)</span>
-</code></pre></div></div>
-
-<h3 id="워크플로우-파일-저장">워크플로우 파일 저장</h3>
-
-<p>위의 YAML 파일을 <code class="language-plaintext highlighter-rouge">.github/workflows/update-blog-posts.yml</code>로 저장하면 설정이 완료됩니다. 이 파일이 추가되면, GitHub Actions가 자동으로 6시간마다 실행되고, <code class="language-plaintext highlighter-rouge">README.md</code>가 최신 블로그 포스트로 업데이트됩니다.</p>
-
-<h2 id="3-테스트">3. 테스트</h2>
-
+    - name: Commit and push if changed
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git diff --quiet &#x26;&#x26; git diff --staged --quiet || (git add README.md &#x26;&#x26; git commit -m "Update blog posts" &#x26;&#x26; git push)
+</code></pre>
+<h3>워크플로우 파일 저장</h3>
+<p>위의 YAML 파일을 <code>.github/workflows/update-blog-posts.yml</code>로 저장하면 설정이 완료됩니다. 이 파일이 추가되면, GitHub Actions가 자동으로 6시간마다 실행되고, <code>README.md</code>가 최신 블로그 포스트로 업데이트됩니다.</p>
+<h2>3. 테스트</h2>
 <p>워크플로우가 자동으로 실행되기 전에 수동으로 테스트할 수 있습니다.</p>
-
 <ol>
-  <li>GitHub 저장소의 “Actions” 탭으로 이동합니다.</li>
-  <li>“Update Blog Posts” 워크플로우를 선택합니다.</li>
-  <li>“Run workflow” 버튼을 클릭하여 수동으로 워크플로우를 실행합니다.</li>
+<li>GitHub 저장소의 "Actions" 탭으로 이동합니다.</li>
+<li>"Update Blog Posts" 워크플로우를 선택합니다.</li>
+<li>"Run workflow" 버튼을 클릭하여 수동으로 워크플로우를 실행합니다.</li>
 </ol>
-
-<h4 id="권한-문제-해결">권한 문제 해결</h4>
-
+<h4>권한 문제 해결</h4>
 <p>만약 워크플로우 실행 중 권한 문제가 발생하면 아래 사항을 확인하세요:</p>
-
 <ol>
-  <li>GitHub 저장소의 <strong>Settings</strong> -&gt; <strong>Actions</strong> -&gt; <strong>General</strong>로 이동합니다.</li>
-  <li><strong>Actions permissions</strong>에서 “Allow all actions and reusable workflows”를 선택합니다.</li>
-  <li><strong>Workflow permissions</strong>에서 “Read and write permissions”를 선택합니다.</li>
+<li>GitHub 저장소의 <strong>Settings</strong> -> <strong>Actions</strong> -> <strong>General</strong>로 이동합니다.</li>
+<li><strong>Actions permissions</strong>에서 "Allow all actions and reusable workflows"를 선택합니다.</li>
+<li><strong>Workflow permissions</strong>에서 "Read and write permissions"를 선택합니다.</li>
 </ol>
-
-        
-      </section>
-
-      <footer class="page__meta">
-        
-        
-  
-
-
-  
-
-  <p class="page__taxonomy">
-    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
-    <span itemprop="keywords">
-    
-      <a href="/tags/#github-actions" class="page__taxonomy-item" rel="tag">GitHub Actions</a>
-    
-    </span>
-  </p>
-
-
-
-
-  
-
-
-  
-
-  <p class="page__taxonomy">
-    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
-    <span itemprop="keywords">
-    
-      <a href="/categories/#github-actions" class="page__taxonomy-item" rel="tag">GitHub Actions</a>
-    
-    </span>
-  </p>
-
-
-        
-  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-01-14">January 14, 2025</time></p>
-
-
-      </footer>
-
-      
-
-      
-  <nav class="pagination">
-    
-      <a href="/jenkins/create-pipeline-with-jenkins/" class="pagination--pager" title="[Jenkins] Jenkins 파이프라인 생성
-">Previous</a>
-    
-    
-      <a href="/nginx/get-ssl-auth-with-letsencrypt/" class="pagination--pager" title="[Nginx] Let’s Encrypt로 SSL 인증서 발급받기
-">Next</a>
-    
-  </nav>
-
-
-    </div>
-
-    
-  </article>
-
-  
-  
-    <div class="page__related">
-      <h4 class="page__related-title">You May Also Like</h4>
-      <div class="grid__wrapper">
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/ai/review/2025-9-24-Zero-Shot_Multi-Spectral_Learning_Reimagining_a_Generalist_Multimodal_Gemini_2.5_Model_for_Remote_Sensing_Applications/" rel="permalink">[논문리뷰] Zero-Shot Multi-Spectral Learning: Reimagining a Generalist Multimodal Gemini 2.5 Model for Remote Sensing Applications
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        <time datetime="2025-09-24T13:14:19+09:00">September 24, 2025</time>
-      </span>
-    
-
-    
-
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">Genady Beryozkin이 [arXiv]에 게시한 ‘Zero-Shot Multi-Spectral Learning: Reimagining a Generalist Multimodal Gemini 2.5 Model for Remote Sensing Applications’ 논문에 ...</p>
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/ai/review/2025-9-24-What_Characterizes_Effective_Reasoning_Revisiting_Length_Review_and_Structure_of_CoT/" rel="permalink">[논문리뷰] What Characterizes Effective Reasoning? Revisiting Length, Review, and Structure of CoT
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        <time datetime="2025-09-24T13:14:19+09:00">September 24, 2025</time>
-      </span>
-    
-
-    
-
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">Anthony Hartshorn이 [arXiv]에 게시한 ‘What Characterizes Effective Reasoning? Revisiting Length, Review, and Structure of CoT’ 논문에 대한 자세한 리뷰입니다.
-</p>
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/ai/review/2025-9-24-VolSplat_Rethinking_Feed-Forward_3D_Gaussian_Splatting_with_Voxel-Aligned_Prediction/" rel="permalink">[논문리뷰] VolSplat: Rethinking Feed-Forward 3D Gaussian Splatting with Voxel-Aligned Prediction
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        <time datetime="2025-09-24T13:14:19+09:00">September 24, 2025</time>
-      </span>
-    
-
-    
-
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">Haoxiao Wang이 [arXiv]에 게시한 ‘VolSplat: Rethinking Feed-Forward 3D Gaussian Splatting with Voxel-Aligned Prediction’ 논문에 대한 자세한 리뷰입니다.
-</p>
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/ai/review/2025-9-24-VIR-Bench_Evaluating_Geospatial_and_Temporal_Understanding_of_MLLMs_via_Travel_Video_Itinerary_Reconstruction/" rel="permalink">[논문리뷰] VIR-Bench: Evaluating Geospatial and Temporal Understanding of MLLMs via Travel Video Itinerary Reconstruction
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        <time datetime="2025-09-24T13:14:19+09:00">September 24, 2025</time>
-      </span>
-    
-
-    
-
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">So Fukuda이 [arXiv]에 게시한 ‘VIR-Bench: Evaluating Geospatial and Temporal Understanding of MLLMs via Travel Video Itinerary Reconstruction’ 논문에 대한 자세한 리뷰입니다.
-</p>
-  </article>
-</div>
-
-        
-      </div>
-    </div>
-  
-  
-</div>
-
-    </div>
-
-    
-      <div class="search-content">
-        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
-    <label class="sr-only" for="search">
-      Enter your search term...
-    </label>
-    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
-  </form>
-  <div id="results" class="results"></div></div>
-
-      </div>
-    
-
-    <div id="footer" class="page__footer">
-      <footer>
-        <!-- start custom footer snippets -->
-
-<!-- end custom footer snippets -->
-        <div class="page__footer-follow">
-  <ul class="social-icons">
-    
-
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-
-    
-      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
-    
-  </ul>
-</div>
-
-<div class="page__footer-copyright">&copy; 2025 secrett2633. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
-
-      </footer>
-    </div>
-
-    
-  <script src="/assets/js/main.min.js"></script>
-
-
-
-
-<script src="/assets/js/lunr/lunr.min.js"></script>
-<script src="/assets/js/lunr/lunr-store.js"></script>
-<script src="/assets/js/lunr/lunr-en.js"></script>
-
-
-
-
-    <script>
-  'use strict';
-
-  (function() {
-    var commentContainer = document.querySelector('#utterances-comments');
-
-    if (!commentContainer) {
-      return;
-    }
-
-    var script = document.createElement('script');
-    script.setAttribute('src', 'https://utteranc.es/client.js');
-    script.setAttribute('repo', 'secrett2633/secrett2633.github.io');
-    script.setAttribute('issue-term', 'pathname');
-    script.setAttribute('theme', 'github-light');
-    script.setAttribute('crossorigin', 'anonymous');
-
-    commentContainer.appendChild(script);
-  })();
-</script>
-
-  
-
-
-
-
-
-  </body>
-</html>
+</div></div><footer class="page__meta mt-8"><div class="page__taxonomy mb-4"><h4 class="text-sm font-medium text-gray-900 mb-2">카테고리</h4><span class="page__taxonomy-item">GitHub Actions</span></div><div class="page__taxonomy"><h4 class="text-sm font-medium text-gray-900 mb-2">태그</h4><span class="page__taxonomy-item">#<!-- -->GitHub Actions</span></div></footer></article></main></div><!--/$--></main><div id="footer" class="page__footer"><footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8"><div class="text-center text-gray-500 text-sm"><p>© 2025 secrett2633. All rights reserved.</p></div></footer></div></div><script src="/secrett2633.github.io/_next/static/chunks/webpack-a04af954a21fa650.js" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0]);self.__next_f.push([2,null])</script><script>self.__next_f.push([1,"1:HL[\"/secrett2633.github.io/_next/static/media/e4af272ccee01ff0-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n2:HL[\"/secrett2633.github.io/_next/static/css/b9d6ec750ad82add.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"3:I[5751,[],\"\"]\n6:I[9275,[],\"\"]\n8:I[1343,[],\"\"]\n9:I[4281,[\"231\",\"static/chunks/231-c4b666723e6aae68.js\",\"185\",\"static/chunks/app/layout-8808afda01b7a1b7.js\"],\"default\"]\na:I[231,[\"231\",\"static/chunks/231-c4b666723e6aae68.js\",\"877\",\"static/chunks/app/%5B...slug%5D/page-01b66e77b48ed573.js\"],\"\"]\nc:I[6130,[],\"\"]\n7:[\"slug\",\"github-actions/automating-update-github-profile\",\"c\"]\nd:[]\n"])</script><script>self.__next_f.push([1,"0:[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/secrett2633.github.io/_next/static/css/b9d6ec750ad82add.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\"}]],[\"$\",\"$L3\",null,{\"buildId\":\"iV6XySbMHIJ3imQdvgy3I\",\"assetPrefix\":\"/secrett2633.github.io\",\"initialCanonicalUrl\":\"/github-actions/automating-update-github-profile/\",\"initialTree\":[\"\",{\"children\":[[\"slug\",\"github-actions/automating-update-github-profile\",\"c\"],{\"children\":[\"__PAGE__?{\\\"slug\\\":[\\\"github-actions\\\",\\\"automating-update-github-profile\\\"]}\",{}]}]},\"$undefined\",\"$undefined\",true],\"initialSeedData\":[\"\",{\"children\":[[\"slug\",\"github-actions/automating-update-github-profile\",\"c\"],{\"children\":[\"__PAGE__\",{},[[\"$L4\",\"$L5\"],null],null]},[\"$\",\"$L6\",null,{\"parallelRouterKey\":\"children\",\"segmentPath\":[\"children\",\"$7\",\"children\"],\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L8\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"notFoundStyles\":\"$undefined\",\"styles\":null}],null]},[[\"$\",\"html\",null,{\"lang\":\"ko\",\"className\":\"no-js\",\"children\":[[\"$\",\"head\",null,{\"children\":[[\"$\",\"link\",null,{\"rel\":\"icon\",\"type\":\"image/png\",\"sizes\":\"32x32\",\"href\":\"/favicon-32x32.png\"}],[\"$\",\"link\",null,{\"rel\":\"icon\",\"type\":\"image/png\",\"sizes\":\"16x16\",\"href\":\"/favicon-16x16.png\"}],[\"$\",\"meta\",null,{\"name\":\"msapplication-TileColor\",\"content\":\"#ffc40d\"}],[\"$\",\"meta\",null,{\"name\":\"theme-color\",\"content\":\"#ffffff\"}],[\"$\",\"script\",null,{\"async\":true,\"src\":\"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY\"}],[\"$\",\"script\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"\\n              window.dataLayer = window.dataLayer || [];\\n              function gtag(){dataLayer.push(arguments);}\\n              gtag('js', new Date());\\n              gtag('config', 'G-NE2W3CFPNY');\\n            \"}}]]}],[\"$\",\"body\",null,{\"className\":\"__className_9012cf layout--default\",\"children\":[\"$\",\"div\",null,{\"className\":\"min-h-screen bg-gray-50\",\"children\":[[\"$\",\"$L9\",null,{}],[\"$\",\"main\",null,{\"className\":\"initial-content\",\"children\":[\"$\",\"$L6\",null,{\"parallelRouterKey\":\"children\",\"segmentPath\":[\"children\"],\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L8\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[\"$\",\"div\",null,{\"className\":\"min-h-screen flex items-center justify-center bg-gray-50\",\"children\":[\"$\",\"div\",null,{\"className\":\"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center\",\"children\":[[\"$\",\"h1\",null,{\"className\":\"text-6xl font-bold text-primary-600 mb-4\",\"children\":\"404\"}],[\"$\",\"h2\",null,{\"className\":\"text-2xl font-semibold text-gray-900 mb-4\",\"children\":\"페이지를 찾을 수 없습니다\"}],[\"$\",\"p\",null,{\"className\":\"text-gray-600 mb-8\",\"children\":\"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다.\"}],[\"$\",\"$La\",null,{\"href\":\"/\",\"className\":\"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors\",\"children\":\"홈으로 돌아가기\"}]]}]}],\"notFoundStyles\":[],\"styles\":null}]}],[\"$\",\"div\",null,{\"id\":\"footer\",\"className\":\"page__footer\",\"children\":[\"$\",\"footer\",null,{\"className\":\"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8\",\"children\":[\"$\",\"div\",null,{\"className\":\"text-center text-gray-500 text-sm\",\"children\":[\"$\",\"p\",null,{\"children\":\"© 2025 secrett2633. All rights reserved.\"}]}]}]}]]}]}]]}],null],[[\"$\",\"div\",null,{\"className\":\"flex items-center justify-center min-h-screen\",\"children\":[\"$\",\"div\",null,{\"className\":\"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600\"}]}],[],[]]],\"couldBeIntercepted\":false,\"initialHead\":[null,\"$Lb\"],\"globalErrorComponent\":\"$c\",\"missingSlots\":\"$Wd\"}]]\n"])</script><script>self.__next_f.push([1,"e:T1b5c,"])</script><script>self.__next_f.push([1,"\u003ch2\u003e\u003cstrong\u003e들어가며\u003c/strong\u003e\u003c/h2\u003e\n\u003cp\u003e매일 자주 사용하는 GitHub, 그런데 제 프로필을 확인해보니 마지막으로 업데이트한 게 3년 전이었습니다. 이때부터 기술 스택도 최신화되지 않았고, 제 블로그 포스팅도 깃허브 프로필에 반영되지 않았습니다. 그래서 이번 기회에 프로필을 업데이트하고, 블로그 포스팅도 자동으로 업데이트되도록 만들기로 했습니다.\u003c/p\u003e\n\u003cp\u003e하지만 매번 수동으로 블로그 포스팅을 추가하는 것은 번거롭기 때문에, 이를 자동화하는 방법을 고민해봤습니다. 그 결과, GitHub Actions를 이용하여 자동으로 블로그 포스팅을 프로필에 반영하는 방법을 구현해보았습니다.\u003c/p\u003e\n\u003ch2\u003e1. 깃허브 프로필 업데이트 스크립트 작성\u003c/h2\u003e\n\u003cp\u003e블로그 포스팅을 깃허브 프로필에 자동으로 반영하기 위해, RSS 피드를 활용한 스크립트를 작성했습니다. \u003cstrong\u003eRSS\u003c/strong\u003e(Really Simple Syndication)는 웹사이트의 콘텐츠를 구독하는 형식으로, 최신 블로그 포스트를 안정적으로 가져올 수 있는 방법입니다.\u003c/p\u003e\n\u003ch3\u003e블로그 RSS 피드 설정\u003c/h3\u003e\n\u003cp\u003e저는 제 블로그의 RSS 피드를 이용해 블로그 포스팅을 가져옵니다. 아래는 제 블로그 RSS 피드의 URL입니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003ehttps://secrett2633.github.io/feed.xml\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e이 RSS 피드를 이용해 최신 포스트 5개를 가져오는 Python 스크립트를 작성했습니다. 코드를 살펴보겠습니다.\u003c/p\u003e\n\u003ch3\u003ePython 스크립트: \u003ccode\u003eupdate_readme.py\u003c/code\u003e\u003c/h3\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eimport feedparser\nfrom datetime import datetime\nimport os\nfrom pathlib import Path\nfrom email.utils import parsedate_to_datetime\n\n# 상수 정의\nBLOG_URL = \"https://secrett2633.github.io/feed.xml\"\nMAX_POSTS = 5\nREADME_PATH = \"README.md\"\nBLOG_SECTION_TITLE = \"### Latest Blog Posts\"\n\ndef get_posts():\n    \"\"\"RSS 피드에서 블로그 포스트를 가져옵니다.\"\"\"\n    feed = feedparser.parse(BLOG_URL)\n    return feed.entries[:MAX_POSTS]\n\ndef format_date(date_str):\n    \"\"\"RSS 피드의 날짜를 원하는 형식으로 변환합니다.\"\"\"\n    # email.utils의 parsedate_to_datetime을 사용하여 RFC 2822 형식의 날짜를 파싱\n    date = parsedate_to_datetime(date_str)\n    return date.strftime(\"%Y.%m.%d\")\n\ndef build_post_line(post):\n    \"\"\"각 포스트를 마크다운 형식의 문자열로 변환합니다.\"\"\"\n    title = post.title\n    date = format_date(post.published)\n    link = post.link\n    return f\"- [{title} ({date})]({link})\"\n\ndef update_readme():\n    \"\"\"README.md 파일을 최신 블로그 포스트로 업데이트합니다.\"\"\"\n    try:\n        # README 파일 읽기\n        if os.path.exists(README_PATH):\n            with open(README_PATH, \"r\", encoding=\"utf-8\") as f:\n                content = f.read()\n        else:\n            content = \"\"\n\n        # 블로그 포스트 섹션 이전 내용 가져오기\n        before_posts = content.split(BLOG_SECTION_TITLE)[0].strip()\n\n        # 최신 포스트 가져오기\n        posts = get_posts()\n        post_lines = [build_post_line(post) for post in posts]\n        posts_content = \"\\n\".join(post_lines)\n\n        # 새로운 README 내용 생성\n        new_content = f\"{before_posts}\\n\\n{BLOG_SECTION_TITLE}\\n{posts_content}\"\n\n        # 파일 저장\n        with open(README_PATH, \"w\", encoding=\"utf-8\") as f:\n            f.write(new_content)\n\n        print(\"README.md has been updated successfully!\")\n\n    except Exception as e:\n        print(f\"An error occurred: {str(e)}\")\n        raise e\n\nif __name__ == \"__main__\":\n    update_readme()\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch3\u003e스크립트 실행 방법\u003c/h3\u003e\n\u003col\u003e\n\u003cli\u003e\n\u003cp\u003ePython을 설치하고, \u003ccode\u003efeedparser\u003c/code\u003e 라이브러리를 설치합니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003epip install feedparser\n\u003c/code\u003e\u003c/pre\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003cp\u003e위의 코드를 \u003ccode\u003eupdate_readme.py\u003c/code\u003e 파일로 저장합니다.\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003cp\u003e터미널에서 아래 명령어로 스크립트를 실행합니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003epython update_readme.py\n\u003c/code\u003e\u003c/pre\u003e\n\u003c/li\u003e\n\u003c/ol\u003e\n\u003cp\u003e스크립트가 성공적으로 실행되면 \u003ccode\u003eREADME.md\u003c/code\u003e 파일이 최신 블로그 포스트로 업데이트됩니다.\u003c/p\u003e\n\u003ch2\u003e2. GitHub Actions 설정\u003c/h2\u003e\n\u003cp\u003e이제 이 작업을 자동화하기 위해 \u003cstrong\u003eGitHub Actions\u003c/strong\u003e를 설정합니다. GitHub Actions는 \u003ccode\u003e.github/workflows\u003c/code\u003e 폴더에 \u003ccode\u003e.yml\u003c/code\u003e 파일을 생성하여 다양한 작업을 자동화할 수 있습니다.\u003c/p\u003e\n\u003ch3\u003eGitHub Actions 워크플로우 설정\u003c/h3\u003e\n\u003col\u003e\n\u003cli\u003e\u003ccode\u003eupdate-readme\u003c/code\u003e라는 이름의 GitHub Actions 워크플로우를 설정합니다.\u003c/li\u003e\n\u003cli\u003e6시간마다 자동으로 실행되도록 설정하며, 수동으로 실행할 수 있는 옵션도 추가합니다.\u003c/li\u003e\n\u003c/ol\u003e\n\u003cpre\u003e\u003ccode class=\"language-yml\"\u003ename: Update Blog Posts\n\non:\n  schedule:\n    - cron: '0 */6 * * *'  # 6시간마다 실행\n  workflow_dispatch:  # 수동 실행 가능\n\njobs:\n  update-readme:\n    runs-on: ubuntu-latest\n    \n    steps:\n    - uses: actions/checkout@v3\n      \n    - name: Set up Python\n      uses: actions/setup-python@v4\n      with:\n        python-version: '3.x'\n        \n    - name: Install dependencies\n      run: |\n        python -m pip install --upgrade pip\n        pip install feedparser\n        \n    - name: Update README with latest blog posts\n      run: python update_readme.py\n        \n    - name: Commit and push if changed\n      run: |\n        git config --local user.email \"github-actions[bot]@users.noreply.github.com\"\n        git config --local user.name \"github-actions[bot]\"\n        git diff --quiet \u0026#x26;\u0026#x26; git diff --staged --quiet || (git add README.md \u0026#x26;\u0026#x26; git commit -m \"Update blog posts\" \u0026#x26;\u0026#x26; git push)\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch3\u003e워크플로우 파일 저장\u003c/h3\u003e\n\u003cp\u003e위의 YAML 파일을 \u003ccode\u003e.github/workflows/update-blog-posts.yml\u003c/code\u003e로 저장하면 설정이 완료됩니다. 이 파일이 추가되면, GitHub Actions가 자동으로 6시간마다 실행되고, \u003ccode\u003eREADME.md\u003c/code\u003e가 최신 블로그 포스트로 업데이트됩니다.\u003c/p\u003e\n\u003ch2\u003e3. 테스트\u003c/h2\u003e\n\u003cp\u003e워크플로우가 자동으로 실행되기 전에 수동으로 테스트할 수 있습니다.\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003eGitHub 저장소의 \"Actions\" 탭으로 이동합니다.\u003c/li\u003e\n\u003cli\u003e\"Update Blog Posts\" 워크플로우를 선택합니다.\u003c/li\u003e\n\u003cli\u003e\"Run workflow\" 버튼을 클릭하여 수동으로 워크플로우를 실행합니다.\u003c/li\u003e\n\u003c/ol\u003e\n\u003ch4\u003e권한 문제 해결\u003c/h4\u003e\n\u003cp\u003e만약 워크플로우 실행 중 권한 문제가 발생하면 아래 사항을 확인하세요:\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003eGitHub 저장소의 \u003cstrong\u003eSettings\u003c/strong\u003e -\u003e \u003cstrong\u003eActions\u003c/strong\u003e -\u003e \u003cstrong\u003eGeneral\u003c/strong\u003e로 이동합니다.\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003eActions permissions\u003c/strong\u003e에서 \"Allow all actions and reusable workflows\"를 선택합니다.\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003eWorkflow permissions\u003c/strong\u003e에서 \"Read and write permissions\"를 선택합니다.\u003c/li\u003e\n\u003c/ol\u003e\n"])</script><script>self.__next_f.push([1,"5:[\"$\",\"div\",null,{\"className\":\"flex flex-col lg:flex-row gap-8\",\"children\":[\"$\",\"main\",null,{\"className\":\"flex-1\",\"children\":[\"$\",\"article\",null,{\"className\":\"page\",\"children\":[[\"$\",\"header\",null,{\"className\":\"mb-8\",\"children\":[[\"$\",\"h1\",null,{\"className\":\"page__title\",\"children\":\"[GitHub Actions] 깃허브 프로필 자동 업데이트하기\"}],[\"$\",\"div\",null,{\"className\":\"page__meta\",\"children\":[[\"$\",\"time\",null,{\"dateTime\":\"2025-01-14 23:10:11+0900\",\"children\":\"2025년 1월 14일\"}],[\"$\",\"span\",null,{\"className\":\"ml-4\",\"children\":[\"수정: \",\"2025년 1월 14일\"]}]]}]]}],[\"$\",\"div\",null,{\"className\":\"page__content\",\"children\":[\"$\",\"div\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"$e\"}}]}],[\"$\",\"footer\",null,{\"className\":\"page__meta mt-8\",\"children\":[[\"$\",\"div\",null,{\"className\":\"page__taxonomy mb-4\",\"children\":[[\"$\",\"h4\",null,{\"className\":\"text-sm font-medium text-gray-900 mb-2\",\"children\":\"카테고리\"}],[[\"$\",\"span\",\"GitHub Actions\",{\"className\":\"page__taxonomy-item\",\"children\":\"GitHub Actions\"}]]]}],[\"$\",\"div\",null,{\"className\":\"page__taxonomy\",\"children\":[[\"$\",\"h4\",null,{\"className\":\"text-sm font-medium text-gray-900 mb-2\",\"children\":\"태그\"}],[[\"$\",\"span\",\"GitHub Actions\",{\"className\":\"page__taxonomy-item\",\"children\":[\"#\",[\"GitHub Actions\"]]}]]]}]]}]]}]}]}]\nb:[[\"$\",\"meta\",\"0\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}],[\"$\",\"meta\",\"1\",{\"charSet\":\"utf-8\"}],[\"$\",\"title\",\"2\",{\"children\":\"secrett2633's blog\"}],[\"$\",\"meta\",\"3\",{\"name\":\"description\",\"content\":\"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트\"}],[\"$\",\"meta\",\"4\",{\"name\":\"author\",\"content\":\"secrett2633\"}],[\"$\",\"meta\",\"5\",{\"name\":\"keywords\",\"content\":\"Django, Python, DevOps, AI, ML, 블로그, 기술\"}],[\"$\",\"meta\",\"6\",{\"name\":\"creator\",\"content\":\"secrett2633\"}],[\"$\",\"meta\",\"7\",{\"name\":\"publisher\",\"content\":\"secrett2633\"}],[\"$\",\"meta\",\"8\",{\"name\":\"robots\",\"content\":\"index, follow\"}],[\"$\",\"meta\",\"9\",{\"name\":\"googlebot\",\"content\":\"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"])</script><script>self.__next_f.push([1,"\"}],[\"$\",\"link\",\"10\",{\"rel\":\"canonical\",\"href\":\"https://secrett2633.github.io/\"}],[\"$\",\"meta\",\"11\",{\"name\":\"format-detection\",\"content\":\"telephone=no, address=no, email=no\"}],[\"$\",\"meta\",\"12\",{\"property\":\"og:title\",\"content\":\"secrett2633's blog\"}],[\"$\",\"meta\",\"13\",{\"property\":\"og:description\",\"content\":\"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트\"}],[\"$\",\"meta\",\"14\",{\"property\":\"og:url\",\"content\":\"https://secrett2633.github.io/\"}],[\"$\",\"meta\",\"15\",{\"property\":\"og:site_name\",\"content\":\"secrett2633's blog\"}],[\"$\",\"meta\",\"16\",{\"property\":\"og:locale\",\"content\":\"ko_KR\"}],[\"$\",\"meta\",\"17\",{\"property\":\"og:type\",\"content\":\"website\"}],[\"$\",\"meta\",\"18\",{\"name\":\"twitter:card\",\"content\":\"summary_large_image\"}],[\"$\",\"meta\",\"19\",{\"name\":\"twitter:title\",\"content\":\"secrett2633's blog\"}],[\"$\",\"meta\",\"20\",{\"name\":\"twitter:description\",\"content\":\"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트\"}],[\"$\",\"meta\",\"21\",{\"name\":\"next-size-adjust\"}]]\n4:null\n"])</script></body></html>

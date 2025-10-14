@@ -1,0 +1,75 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[4281,["231","static/chunks/231-c4b666723e6aae68.js","185","static/chunks/app/layout-8808afda01b7a1b7.js"],"default"]
+7:I[231,["231","static/chunks/231-c4b666723e6aae68.js","877","static/chunks/app/%5B...slug%5D/page-01b66e77b48ed573.js"],""]
+4:["slug","python/pep/3111","c"]
+0:["iV6XySbMHIJ3imQdvgy3I",[[["",{"children":[["slug","python/pep/3111","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"3111\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/3111","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","link",null,{"rel":"icon","type":"image/png","sizes":"32x32","href":"/favicon-32x32.png"}],["$","link",null,{"rel":"icon","type":"image/png","sizes":"16x16","href":"/favicon-16x16.png"}],["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_9012cf layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/secrett2633.github.io/_next/static/css/b9d6ec750ad82add.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+9:T2163,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-3111/">PEP 3111 - Simple input built-in in Python 3000</a></p>
+<p><strong>상태:</strong> Final | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 13-Sep-2006</p>
+</blockquote>
+<h1>PEP 3111: Python 3000의 단순 <code>input</code> 내장 함수</h1>
+<ul>
+<li><strong>작성자:</strong> Andre Roberge</li>
+<li><strong>상태:</strong> Final</li>
+<li><strong>유형:</strong> Standards Track</li>
+<li><strong>생성일:</strong> 2006년 9월 13일</li>
+<li><strong>Python 버전:</strong> 3.0</li>
+<li><strong>최종 수락:</strong> 2006년 12월 (BDFL에 의해 수락됨)</li>
+</ul>
+<h2>개요 (Abstract)</h2>
+<p>입력(Input)과 출력(Output)은 컴퓨터 프로그램의 핵심 기능입니다. 현재 Python은 <code>print</code> 키워드를 통한 단순 출력과 <code>input()</code> 및 <code>raw_input()</code> 내장 함수를 통한 두 가지 방식의 대화형 입력(interactive input)을 제공합니다.</p>
+<p>Python 3.0은 이전 Python 버전과 호환되지 않는 다양한 변경 사항을 도입할 예정입니다 (PEP 3100). 제안된 변경 사항 중, <code>print</code>는 <code>print()</code>라는 내장 함수가 되며, <code>input()</code>과 <code>raw_input()</code>은 내장 네임스페이스(built-in namespace)에서 완전히 제거되어 가장 기본적인 입력 기능조차 모듈을 임포트(import)해야만 사용할 수 있게 됩니다.</p>
+<p>이 PEP는 Python 3.0이 <code>raw_input()</code>과 동등한 단순 대화형 사용자 입력 기능을 내장 네임스페이스에 유지할 것을 제안합니다. 이 제안은 2006년 12월 BDFL(Benevolent Dictator for Life, 즉 Guido van Rossum)에 의해 수락되었습니다.</p>
+<h2>동기 (Motivation)</h2>
+<p>쉬운 가독성과 다양한 프로그래밍 스타일(예: 절차적, 객체 지향 등) 지원을 통해 Python은 입문 프로그래밍 수업에서 사용하기에 가장 좋은 컴퓨터 언어 중 하나입니다. 단순한 프로그램도 종종 사용자에게 정보를 제공(출력)하고 사용자로부터 정보를 얻어야(대화형 입력) 합니다. 교육 환경에서 사용될 의도가 있는 모든 컴퓨터 언어는 출력과 대화형 입력 모두에 대해 직관적인(straightforward) 방법을 제공해야 합니다.</p>
+<p>Python 3.0에 대한 현재 제안에는 <code>print()</code>라는 내장 함수를 통한 단순 출력 경로가 포함되어 있지만, 입력의 경우 <code>sys.stdin.readline()</code>과 같이 외부 모듈을 임포트해야 하는 더 복잡한 방식이 필요했습니다. 현재 버전의 Python (3.0 이전)에는 <code>raw_input()</code>이 내장 함수로 포함되어 있습니다. 이러한 함수가 제공됨으로써, 단순 입/출력이 필요한 프로그램은 모듈 임포트, 스트림(streams) 등에 대한 논의 없이도 첫날부터 작성될 수 있습니다.</p>
+<h2>근거 (Rationale)</h2>
+<p><code>input()</code> 및 <code>raw_input()</code>과 같은 현재의 내장 함수들은 전통적인 교육 환경에서 매우 유용하게 사용되는 것으로 나타났습니다. (자세한 내용은와 그에 따른 논의를 참조하십시오). BDFL은 <code>input()</code>이 Python 3000에 유지되지 않을 것이라고 분명히 밝혔지만, <code>raw_input()</code>을 제거하기로 한 결정을 재고하는 것에 반대하지 않는다고도 말했습니다.</p>
+<p><code>raw_input()</code>은 사용자에게 질문하고 응답을 얻는 간단한 방법을 제공합니다. Python 3.0에 대한 원래 계획은 다음과 같은 단일 문장을:</p>
+<pre><code class="language-python">name = raw_input("What is your name?")
+</code></pre>
+<p>더 복잡한 다음 코드로 대체하도록 요구했을 것입니다:</p>
+<pre><code class="language-python">import sys
+print("What is your name?")
+name = sys.stdin.readline()
+</code></pre>
+<p>그러나 많은 Python 초보자와 교육자의 관점에서 <code>sys.stdin.readline()</code>의 사용은 다음과 같은 문제를 야기합니다:</p>
+<ol>
+<li><code>raw_input</code>이라는 이름에 비해 <code>sys.stdin.readline()</code>이라는 이름은 투박하고 세련되지 못합니다.</li>
+<li><code>sys</code>와 <code>stdin</code>이라는 이름은 대부분의 초보자에게 의미가 없습니다. 이들은 함수가 무엇을 하는지에 주로 관심이 있으며, 패키지 구조 내 어디에 위치하는지에는 관심이 없습니다. 의미 부족은 기억하기도 어렵게 만듭니다: <code>sys.stdin.readline()</code>인가, 아니면 <code>stdin.sys.readline()</code>인가? 프로그래밍 초보자에게는 둘 중 하나를 선호할 명확한 이유가 없습니다. 반면, <code>print</code>, <code>input</code>, <code>raw_input</code>, <code>open</code>과 같이 단순하고 직접적인 이름의 함수들은 기억하기 더 쉽습니다.</li>
+<li><code>.</code> 표기법의 사용은 많은 초보자에게 동기 부여가 되지 않고 혼란을 줍니다. 예를 들어, 일부 초보자는 <code>.</code>이 모든 식별자(identifier)에 사용될 수 있는 표준 문자라고 생각하게 될 수도 있습니다.</li>
+<li><code>print</code> 함수와의 비대칭성이 있습니다: 왜 <code>print</code>는 <code>sys.stdout.print()</code>라고 불리지 않는가?</li>
+</ol>
+<h2>명세 (Specification)</h2>
+<p>기존 <code>raw_input()</code> 함수는 <code>input()</code>으로 이름이 변경될 것입니다.</p>
+<p>Python 2에서 3으로의 변환 도구는 <code>input()</code> 호출을 <code>eval(input())</code>으로, <code>raw_input()</code> 호출을 <code>input()</code>으로 대체할 것입니다.</p>
+<h2>명명 논의 (Naming Discussion)</h2>
+<p><code>input()</code>이 언어에서 효과적으로 제거됨에 따라, <code>raw_input()</code>이라는 이름은 훨씬 덜 의미 있게 되고 대안을 고려해야 했습니다. 다양한 포럼에서 언급된 여러 가능성은 다음과 같습니다:</p>
+<ul>
+<li><code>ask()</code></li>
+<li><code>ask_user()</code></li>
+<li><code>get_string()</code></li>
+<li><code>input()</code> (처음에 BDFL에 의해 거부되었으나, 나중에 수락됨)</li>
+<li><code>prompt()</code></li>
+<li><code>read()</code></li>
+<li><code>user_input()</code></li>
+<li><code>get_response()</code></li>
+</ul>
+<p>처음에는 BDFL에 의해 거부되었지만, Python 3000에서 <code>raw_input</code>의 이름을 <code>input</code>으로 변경하는 것이 가장 직접적인 해결책이라는 제안이 있었습니다. 주요 반대는 Python 2.x에 이미 <code>input</code>이라는 함수가 존재하고, 비록 Python 3000에는 포함되지 않더라도, 동일한 이름이지만 다른 의미를 가진 내장 함수를 갖는 것이 2.x에서 3000으로 마이그레이션(migrating)하는 프로그래머들을 혼란스럽게 할 수 있다는 것이었습니다. 물론, 이는 초보자에게는 문제가 되지 않으며, <code>raw_input()</code>이 많은 사람들에게 인기가 있긴 하지만 보편적으로 사용되는 것은 아니므로, 숙련된 프로그래머에게 미치는 문제의 범위는 불분명합니다. 이 경우, 초보자에게 미치는 좋은 영향이 숙련된 프로그래머에게 미치는 해로운 영향보다 더 크다고 볼 수 있습니다. 비록 오래된 서적이나 튜토리얼을 읽는 사람들에게는 혼란을 야기할 수 있지만 말입니다.</p>
+<p>이름 변경을 수락하게 된 근거는에서 찾을 수 있습니다.</p>
+<h2>참조 (References)</h2>
+<ul>
+<li>Python 3000에서 raw_input()의 운명: <code>https://mail.python.org/pipermail/edu-sig/2006-September/006967.html</code></li>
+<li>Python 3000의 교육적 측면: <code>https://mail.python.org/pipermail/python-3000/2006-September/003589.html</code></li>
+<li>이름을 직접 변경하기로 한 근거: <code>https://mail.python.org/pipermail/python-3000/2006-December/005249.html</code></li>
+<li>PEP에 대한 BDFL 수락: <code>https://mail.python.org/pipermail/python-3000/2006-December/005257.html</code></li>
+</ul>
+<h2>저작권 (Copyright)</h2>
+<p>이 문서는 퍼블릭 도메인(public domain)에 있습니다.</p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Final] PEP 3111 - Simple input built-in in Python 3000"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-27 14:21:32+0900","children":"2025년 9월 27일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 27일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":[["$","div",null,{"className":"page__taxonomy mb-4","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"카테고리"}],[["$","span","Python",{"className":"page__taxonomy-item","children":"Python"}],["$","span","PEP",{"className":"page__taxonomy-item","children":"PEP"}]]]}],["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]]}]]}]}]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"secrett2633's blog"}],["$","meta","3",{"name":"description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://secrett2633.github.io/"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"secrett2633's blog"}],["$","meta","13",{"property":"og:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","14",{"property":"og:url","content":"https://secrett2633.github.io/"}],["$","meta","15",{"property":"og:site_name","content":"secrett2633's blog"}],["$","meta","16",{"property":"og:locale","content":"ko_KR"}],["$","meta","17",{"property":"og:type","content":"website"}],["$","meta","18",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","19",{"name":"twitter:title","content":"secrett2633's blog"}],["$","meta","20",{"name":"twitter:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","21",{"name":"next-size-adjust"}]]
+1:null

@@ -1,0 +1,67 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[4281,["231","static/chunks/231-c4b666723e6aae68.js","185","static/chunks/app/layout-8808afda01b7a1b7.js"],"default"]
+7:I[231,["231","static/chunks/231-c4b666723e6aae68.js","877","static/chunks/app/%5B...slug%5D/page-01b66e77b48ed573.js"],""]
+4:["slug","python/pep/233","c"]
+0:["iV6XySbMHIJ3imQdvgy3I",[[["",{"children":[["slug","python/pep/233","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"233\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/233","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","link",null,{"rel":"icon","type":"image/png","sizes":"32x32","href":"/favicon-32x32.png"}],["$","link",null,{"rel":"icon","type":"image/png","sizes":"16x16","href":"/favicon-16x16.png"}],["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_9012cf layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/secrett2633.github.io/_next/static/css/b9d6ec750ad82add.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+9:T1350,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0233/">PEP 233 - Python Online Help</a></p>
+<p><strong>상태:</strong> Deferred | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 11-Dec-2000</p>
+</blockquote>
+<h1>PEP 233 – Python 온라인 도움말</h1>
+<ul>
+<li><strong>작성자:</strong> Paul Prescod</li>
+<li><strong>상태:</strong> 연기됨 (Deferred)</li>
+<li><strong>유형:</strong> 표준 트랙 (Standards Track)</li>
+<li><strong>생성일:</strong> 2000년 12월 11일</li>
+<li><strong>Python 버전:</strong> 2.1</li>
+<li><strong>Post-History:</strong> [원문 참고]</li>
+</ul>
+<h2>초록 (Abstract)</h2>
+<p>이 PEP는 Python을 위한 명령줄 기반 온라인 도움말 기능을 설명합니다. 이 기능은 Python 문서 및 Docstrings(독스트링)와 같은 기존 문서 기능을 기반으로 구축되어야 합니다. 또한 새로운 유형 및 모듈에 대해 확장 가능해야 합니다.</p>
+<h2>대화형 사용 (Interactive use)</h2>
+<p>단순히 <code>help</code>를 입력하면 <code>help</code> 함수에 대한 설명이 나타납니다 (<code>repr()</code> 오버로딩을 통해).</p>
+<p><code>help</code>는 함수로도 사용할 수 있으며, 다음 형식의 입력을 받습니다:</p>
+<ul>
+<li><code>help("string")</code> – 내장된 토픽 또는 전역 도움말</li>
+<li><code>help(&#x3C;ob>)</code> – 객체(object) 또는 타입(type)의 Docstring</li>
+<li><code>help("doc:filename")</code> – Python 문서의 파일명</li>
+</ul>
+<p>전역(global) 도움말을 요청할 경우, <code>help("xml.dom")</code>와 같이 완전한 이름(fully-qualified name)을 사용할 수 있습니다.</p>
+<p>또한, 명령줄에서 다음처럼 이 기능을 사용할 수 있습니다:</p>
+<pre><code class="language-bash">python --help if
+</code></pre>
+<p>두 경우 모두, 출력은 <code>more</code> 명령어와 유사하게 페이지를 넘기는 방식으로 표시됩니다.</p>
+<h2>구현 (Implementation)</h2>
+<p><code>help</code> 함수는 필요할 때 로드되는 <code>onlinehelp</code> 모듈에 구현됩니다.</p>
+<p><code>onlinehelp</code> 모듈을 통해 명령줄이 아닌 다른 환경에서 도움말 정보를 가져올 수 있는 옵션이 있어야 합니다:</p>
+<pre><code class="language-python">onlinehelp.gethelp(object_or_string) -> string
+</code></pre>
+<p><code>onlinehelp.displayhelp(object_or_string)</code>에 할당하여 도움말 표시 함수를 오버라이드(override)하는 것도 가능해야 합니다.</p>
+<p>이 모듈은 Python 문서의 HTML 또는 LaTeX 버전에서 모듈 정보를 추출할 수 있어야 합니다. 링크는 "lynx-like" 방식으로 처리되어야 합니다.</p>
+<p>시간이 지남에 따라, Docstring이 structured text, HTML, LaTeX와 같은 "특수" 구문(syntax)으로 작성되었을 때 이를 인식하고 적절하게 디코딩(decode)할 수 있어야 합니다.</p>
+<p>프로토타입 구현은 Python 소스 배포판의 <code>nondist/sandbox/doctools/onlinehelp.py</code>에서 확인할 수 있습니다.</p>
+<h2>내장 토픽 (Built-in Topics)</h2>
+<p>다음은 <code>help()</code> 함수로 접근할 수 있는 내장 토픽의 예시입니다:</p>
+<ul>
+<li><code>help("intro")</code> – Python이란? 이것부터 읽으세요!</li>
+<li><code>help("keywords")</code> – 키워드(keywords)는 무엇인가요?</li>
+<li><code>help("syntax")</code> – 전체적인 구문(syntax)은 무엇인가요?</li>
+<li><code>help("operators")</code> – 사용 가능한 연산자(operators)는 무엇인가요?</li>
+<li><code>help("builtins")</code> – 내장(built-in) 함수, 타입 등은 무엇인가요?</li>
+<li><code>help("modules")</code> – 표준 라이브러리(standard library)에는 어떤 모듈이 있나요?</li>
+<li><code>help("copyright")</code> – Python의 저작권은 누구에게 있나요?</li>
+<li><code>help("moreinfo")</code> – 더 많은 정보는 어디서 찾을 수 있나요?</li>
+<li><code>help("changes")</code> – Python 2.0에서 무엇이 변경되었나요?</li>
+<li><code>help("extensions")</code> – 어떤 확장 기능(extensions)이 설치되어 있나요?</li>
+<li><code>help("faq")</code> – 자주 묻는 질문(FAQ)은 무엇인가요?</li>
+<li><code>help("ack")</code> – 최근 Python 작업에 누가 참여했나요?</li>
+</ul>
+<h2>보안 문제 (Security Issues)</h2>
+<p>이 모듈은 요청된 토픽과 동일한 이름의 모듈을 임포트(import)하려고 시도합니다. <code>PYTHONPATH</code>에 있는 모든 것이 신뢰할 수 있는 소스에서 온 것인지 확신할 수 없다면 이 모듈을 사용하지 마세요.</p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Deferred] PEP 233 - Python Online Help"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-26 17:00:50+0900","children":"2025년 9월 26일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 26일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":[["$","div",null,{"className":"page__taxonomy mb-4","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"카테고리"}],[["$","span","Python",{"className":"page__taxonomy-item","children":"Python"}],["$","span","PEP",{"className":"page__taxonomy-item","children":"PEP"}]]]}],["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]]}]]}]}]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"secrett2633's blog"}],["$","meta","3",{"name":"description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://secrett2633.github.io/"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"secrett2633's blog"}],["$","meta","13",{"property":"og:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","14",{"property":"og:url","content":"https://secrett2633.github.io/"}],["$","meta","15",{"property":"og:site_name","content":"secrett2633's blog"}],["$","meta","16",{"property":"og:locale","content":"ko_KR"}],["$","meta","17",{"property":"og:type","content":"website"}],["$","meta","18",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","19",{"name":"twitter:title","content":"secrett2633's blog"}],["$","meta","20",{"name":"twitter:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","21",{"name":"next-size-adjust"}]]
+1:null
