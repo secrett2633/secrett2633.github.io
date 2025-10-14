@@ -9,11 +9,13 @@ import matter from 'gray-matter'
 import Link from 'next/link'
 import Pagination from '@/components/Pagination'
 
+// 정적 생성에서 동적 렌더링 허용하지 않음 (export 모드용)
+
 interface PostPageProps {
   params: {
     slug: string[]
   }
-  searchParams: {
+  searchParams?: {
     page?: string
   }
 }
@@ -95,7 +97,7 @@ export default async function PostPage({ params, searchParams }: PostPageProps) 
   // 카테고리 경로인지 확인
   if (categoryMapping[slug]) {
     const categoryName = categoryMapping[slug]
-    const currentPage = parseInt(searchParams.page || '1', 10)
+    const currentPage = parseInt(searchParams?.page || '1', 10)
     const { posts, currentPage: validPage, totalPages } = getPaginatedPostsByCategory(categoryName, currentPage, 20)
     
     return (
