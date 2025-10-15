@@ -262,6 +262,9 @@ export default async function PostPage({ params }: PostPageProps) {
       return (
         <>
           <div className="flex flex-col lg:flex-row gap-8">
+            <aside className="lg:w-64 xl:w-72 order-1 lg:order-none">
+              <Sidebar />
+            </aside>
             <main className="flex-1">
               <article className="page">
                 <header className="mb-8">
@@ -279,7 +282,6 @@ export default async function PostPage({ params }: PostPageProps) {
                 </div>
               </article>
             </main>
-            
           </div>
         </>
       )
@@ -290,6 +292,9 @@ export default async function PostPage({ params }: PostPageProps) {
     return (
       <>
         <div className="flex flex-col lg:flex-row gap-8">
+          <aside className="lg:w-64 xl:w-72 order-1 lg:order-none">
+            <Sidebar />
+          </aside>
           <main className="flex-1">
             <article className="page">
               <header className="mb-8">
@@ -307,7 +312,6 @@ export default async function PostPage({ params }: PostPageProps) {
               </div>
             </article>
           </main>
-          
         </div>
       </>
     )
@@ -319,6 +323,9 @@ export default async function PostPage({ params }: PostPageProps) {
     return (
       <>
         <div className="flex flex-col lg:flex-row gap-8">
+          <aside className="lg:w-64 xl:w-72 order-1 lg:order-none">
+            <Sidebar />
+          </aside>
           <main className="flex-1">
             <article className="page">
               <header className="mb-8">
@@ -341,18 +348,7 @@ export default async function PostPage({ params }: PostPageProps) {
                 />
               </div>
 
-              <footer className="page__meta mt-8">
-                {postData.categories && postData.categories.length > 0 && (
-                  <div className="page__taxonomy mb-4">
-                    <h4 className="text-sm font-medium text-gray-900 mb-2">카테고리</h4>
-                    {postData.categories.map((category) => (
-                      <span key={category} className="page__taxonomy-item">
-                        {category}
-                      </span>
-                    ))}
-                  </div>
-                )}
-                
+              <footer className="page__meta mt-8">                
                 {postData.tags && postData.tags.length > 0 && (
                   <div className="page__taxonomy">
                     <h4 className="text-sm font-medium text-gray-900 mb-2">태그</h4>
@@ -366,7 +362,6 @@ export default async function PostPage({ params }: PostPageProps) {
               </footer>
             </article>
           </main>
-          
         </div>
       </>
     )
@@ -376,6 +371,9 @@ export default async function PostPage({ params }: PostPageProps) {
     return (
       <>
         <div className="flex flex-col lg:flex-row gap-8">
+          <aside className="lg:w-64 xl:w-72 order-1 lg:order-none">
+            <Sidebar />
+          </aside>
           <main className="flex-1">
             <article className="page">
               <header className="mb-8">
@@ -393,7 +391,6 @@ export default async function PostPage({ params }: PostPageProps) {
               </div>
             </article>
           </main>
-          
         </div>
       </>
     )
