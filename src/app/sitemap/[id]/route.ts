@@ -1,6 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getSortedPostsData } from '../../../lib/posts'
 
+export async function generateStaticParams() {
+  const posts = getSortedPostsData()
+  const postsPerSitemap = 500
+  const totalSitemaps = Math.ceil(posts.length / postsPerSitemap)
+  
+  return Array.from({ length: totalSitemaps }, (_, i) => ({
+    id: (i + 1).toString()
+  }))
+}
+
 export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
