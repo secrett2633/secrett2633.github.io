@@ -1,0 +1,331 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[9157,["231","static/chunks/231-c27e618569e042bc.js","157","static/chunks/157-aecaf5ac7a84facf.js","185","static/chunks/app/layout-c3e2e457f12fb6f6.js"],"default"]
+7:I[231,["231","static/chunks/231-c27e618569e042bc.js","931","static/chunks/app/page-e3ea38185bb36cd2.js"],""]
+4:["slug","jenkins/zero-downtime-deploy-with-jenkins","c"]
+0:["x02Anhkwgp1He7ftuyAhh",[[["",{"children":[["slug","jenkins/zero-downtime-deploy-with-jenkins","c"],{"children":["__PAGE__?{\"slug\":[\"jenkins\",\"zero-downtime-deploy-with-jenkins\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","jenkins/zero-downtime-deploy-with-jenkins","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_f367f3 layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/da5e1dc2b9a7c5bb.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+9:T3396,<h1>무중단 배포 (Blue-Green 배포) 방법</h1>
+<h2><strong>들어가며</strong></h2>
+<p>지난 포스트에서는 <strong>SSL 인증서 발급</strong>과 이를 <strong>Jenkins 파이프라인</strong>에 적용하는 방법을 다뤘습니다. 이번 포스트에서는 이 설정을 바탕으로 <strong>무중단 배포</strong>를 구현하는 방법을 공유합니다.</p>
+<h2><strong>무중단 배포란?</strong></h2>
+<p>무중단 배포는 기존 서비스를 중단하지 않고 새로운 버전을 배포하는 방법입니다. 이렇게 배포를 진행하면 서비스의 가용성을 높일 수 있으며, 사용자에게 끊김 없이 업데이트된 버전을 제공할 수 있습니다.</p>
+<p>무중단 배포에는 여러 가지 방법이 있지만, 대표적으로 <strong>Blue-Green 배포</strong>, <strong>Rolling 배포</strong>, <strong>Canary 배포</strong> 방식이 있습니다.</p>
+<h3><strong>1. Blue-Green 배포</strong></h3>
+<p>Blue-Green 배포는 두 개의 환경(Blue와 Green)을 유지하여 서비스를 중단 없이 새로운 버전을 배포하는 방법입니다. 하나의 환경(예: Blue)을 운영 중에 두고, 새로운 버전은 다른 환경(예: Green)에서 준비됩니다. 이후 트래픽을 새로운 환경으로 전환하면서 배포를 진행합니다.</p>
+<h3><strong>2. Rolling 배포</strong></h3>
+<p>Rolling 배포는 전체 서버를 동시에 업데이트하지 않고, 한 서버씩 점진적으로 새로운 버전을 배포하는 방법입니다. 서비스의 일부만 업데이트되기 때문에 전체 서비스의 다운타임을 최소화할 수 있습니다.</p>
+<h3><strong>3. Canary 배포</strong></h3>
+<p>Canary 배포는 새로운 버전을 소수의 사용자에게만 먼저 배포하여 문제가 없는지 확인하는 방법입니다. 문제가 없으면 점차적으로 전체 서비스에 배포를 진행합니다.</p>
+<p>이번 포스트에서는 <strong>Blue-Green 배포</strong>를 중심으로 설명하겠습니다.</p>
+<h2><strong>배포 준비</strong></h2>
+<h3><strong>백엔드 서버 준비</strong></h3>
+<p>먼저, 백엔드 서버를 준비합니다. 여기서는 <strong>Django 프로젝트</strong>를 사용하고, Docker로 서버 환경을 구성할 것입니다. 각 환경(Blue, Green)을 Docker Compose로 설정합니다. 그리고 윈도우 환경에서 배포를 진행하였습니다.</p>
+<h4><strong>docker-compose.yml</strong></h4>
+<pre><code class="language-yaml"># docker-compose.yml
+version: "3.8"
+
+services:
+  ts-proxy:
+    image: nginx:1.22.1
+    container_name: test-proxy
+    restart: always
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ./static:/usr/share/nginx/html/static
+    networks:
+      - test-network
+
+  ts-postgres:
+    image: postgres:13.10-alpine
+    container_name: test-db-dev
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - DJANGO_DEBUG=False
+    networks:
+      - test-network
+    volumes:
+      - ts-db:/var/lib/postgresql/data
+
+  ts-redis:
+    image: redis:7.0-alpine
+    container_name: test-redis-dev
+    restart: always
+    networks:
+      - test-network
+
+volumes:
+  ts-db:
+
+networks:
+  test-network:
+    name: test-network
+    driver: bridge
+</code></pre>
+<p>위 파일은 Django 서버에서 사용하는 <strong>DB</strong>, <strong>Redis</strong>, <strong>Nginx</strong> 설정을 포함하고 있습니다. <code>docker-compose.yml</code> 파일은 공통으로 사용되며, <strong>Blue</strong>와 <strong>Green</strong> 배포 환경에서도 공유됩니다.</p>
+<h4><strong>Blue/Green 배포 환경 설정</strong></h4>
+<ul>
+<li><strong>Blue 환경 (docker-compose-blue.yml)</strong></li>
+</ul>
+<pre><code class="language-yaml"># docker-compose-blue.yml
+version: "3.8"
+
+services:
+  ts-django-blue:
+    build:
+      context: .
+    container_name: test-dev-blue
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - 8000:8000
+    environment:
+      - PORTS=8000
+      - DJANGO_CONFIGURATION=production
+    command:
+      - /bin/sh
+      - -c
+      - |
+        dockerize -wait tcp://ts-postgres:5432 -timeout 20s
+        poetry run python manage.py makemigrations
+        poetry run python manage.py migrate
+        poetry run gunicorn -c gunicorn.conf.py -b 0.0.0.0:8000 app.core.asgi:application
+    networks:
+      - test-network
+    volumes:
+      - ./save:/workdir/save
+
+networks:
+  test-network:
+    external: true
+    name: test-network
+    driver: bridge
+</code></pre>
+<ul>
+<li><strong>Green 환경 (docker-compose-green.yml)</strong></li>
+</ul>
+<pre><code class="language-yaml"># docker-compose-green.yml
+version: "3.8"
+
+services:
+  ts-django-green:
+    build:
+      context: .
+    container_name: test-dev-green
+    restart: always
+    ports:
+      - 8001:8001
+    env_file:
+      - .env
+    environment:
+      - PORTS=8001
+      - DJANGO_CONFIGURATION=production
+    command:
+      - /bin/sh
+      - -c
+      - |
+        dockerize -wait tcp://ts-postgres:5432 -timeout 20s
+        poetry run python manage.py makemigrations
+        poetry run python manage.py migrate
+        poetry run gunicorn -c gunicorn.conf.py -b 0.0.0.0:8001 app.core.asgi:application
+    networks:
+      - test-network
+    volumes:
+      - ./save:/workdir/save
+
+networks:
+  test-network:
+    external: true
+    name: test-network
+    driver: bridge
+</code></pre>
+<h3><strong>Nginx 설정</strong></h3>
+<ul>
+<li><strong>default.conf (공통 설정)</strong></li>
+</ul>
+<pre><code class="language-nginx">server {
+    listen 80;
+    server_name localhost;
+
+    include service-url.inc;
+
+    location /static/ {
+        alias /usr/share/nginx/html/static/;
+    }
+
+    location / {
+        proxy_pass http://app;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
+</code></pre>
+<ul>
+<li><strong>service-url.inc (공통 설정)</strong></li>
+</ul>
+<pre><code class="language-nginx">upstream app {
+    server localhost:8000;
+}
+</code></pre>
+<p>위 파일들은 공통적으로 사용되는 <strong>Nginx</strong> 설정 파일들로, 두 환경에서 동일하게 사용할 수 있습니다.</p>
+<h2><strong>무중단 배포 Jenkins 파이프라인</strong></h2>
+<p>이제 <strong>Jenkins 파이프라인</strong>을 작성하여 배포 자동화 과정을 설정합니다.</p>
+<pre><code class="language-groovy">pipeline {
+    agent any
+    
+    environment {
+        DOCKER_COMPOSE_VERSION = '3.8'
+        WORKSPACE = "${env.WORKSPACE}"
+    }
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        
+        stage('Determine Deploy Target') {
+            steps {
+                script {
+                    def blueContainerOutput = powershell(
+                        script: '(docker ps -q -f name=test-dev-blue) -ne $null',
+                        returnStdout: true
+                    ).trim()
+
+                    echo "blueContainerOutput: ${blueContainerOutput}"
+                    
+                    def blueContainerExists = blueContainerOutput.toLowerCase() == 'true'
+
+                    echo "blueContainerExists: ${blueContainerExists}"
+
+                    env.CURRENT_COLOR = blueContainerExists ? 'blue' : 'green'
+                    env.DEPLOY_COLOR = blueContainerExists ? 'green' : 'blue'
+                    env.CURRENT_PORT = blueContainerExists ? '8000' : '8001'
+                    env.DEPLOY_PORT = blueContainerExists ? '8001' : '8000'
+
+                    echo "Current running on ${env.CURRENT_COLOR} with port ${env.CURRENT_PORT}"
+                    echo "Deploying to ${env.DEPLOY_COLOR} with port ${env.DEPLOY_PORT}"
+                }
+            }
+        }
+        
+        stage('Deploy New Version') {
+            steps {
+                script {
+                    // 새로운 버전 배포
+                    bat "docker-compose -f docker-compose.yml -f docker-compose.${env.DEPLOY_COLOR}.yml up -d --build"
+                }
+            }
+        }
+        
+        stage('Health Check') {
+            steps {
+                script {
+                    def maxAttempts = 10
+                    def attempts = 0
+                    def healthy = false
+                    
+                    while (!healthy &#x26;&#x26; attempts &#x3C; maxAttempts) {
+                        attempts++
+                        try {
+                            def response = bat(
+                                script: "curl -s http://localhost:${env.DEPLOY_PORT}/api/v1/test",
+                                returnStdout: true
+                            ).trim()
+                            
+                            if (response) {
+                                healthy = true
+                                echo "New version is healthy!"
+                            }
+                        } catch (Exception e) {
+                            echo "Attempt ${attempts}/${maxAttempts} failed"
+                            if (attempts &#x3C; maxAttempts) {
+                                sleep 10
+                            }
+                        }
+                    }
+                    
+                    if (!healthy) {
+                        error "New version failed health check after ${maxAttempts} attempts"
+                    }
+                }
+            }
+        }
+        
+        stage('Switch Traffic') {
+            steps {
+                script {
+                    // Nginx 설정 업데이트
+                    bat """
+                        echo upstream app { > ${WORKSPACE}/nginx/service-url.inc
+                        echo     server localhost:${env.DEPLOY_PORT}; >> ${WORKSPACE}/nginx/service-url.inc
+                        echo } >> ${WORKSPACE}/nginx/service-url.inc
+                    """
+                    
+                    // Nginx 재시작
+                    bat 'docker exec test-proxy nginx -s reload'
+
+                    // nginx-nginx-1 재시작
+                    bat '''
+                        (echo set $service_url http://[서버의 아이피]:%DEPLOY_PORT%;) > temp_service_url.inc
+                        docker cp temp_service_url.inc nginx-nginx-1:/etc/nginx/conf.d/test-backend/service-url.inc
+                        del temp_service_url.inc
+                    '''
+
+                    bat 'docker exec nginx-nginx-1 nginx -s reload'
+                }
+            }
+        }
+        
+        stage('Cleanup Old Version') {
+            steps {
+                script {
+                    if (env.CURRENT_COLOR != null) {
+                        // 이전 버전 종료
+                        bat "docker-compose -f docker-compose.${env.CURRENT_COLOR}.yml down"
+                    }
+                }
+            }
+        }
+    }
+    
+    post {
+        failure {
+            script {
+                // 배포 실패 시 로그 확인 및 롤백
+                bat "docker-compose -f docker-compose.yml -f docker-compose.${env.DEPLOY_COLOR}.yml logs"
+                bat "docker-compose -f docker-compose.yml -f docker-compose.${env.DEPLOY_COLOR}.yml down"
+                bat """
+                    echo upstream app { > ${WORKSPACE}/nginx/service-url.inc
+                    echo     server localhost:${env.CURRENT_PORT}; >> ${WORKSPACE}/nginx/service-url.inc
+                    echo } >> ${WORKSPACE}/nginx/service-url.inc
+                """
+                bat "docker exec test-proxy nginx -s reload"
+                bat '''
+                    (echo set $service_url http://[서버의 아이피]:%CURRENT_PORT%;) > temp_service_url.inc
+                    docker cp temp_service_url.inc nginx-nginx-1:/etc/nginx/conf.d/test-backend/service-url.inc
+                    del temp_service_url.inc
+                '''
+                bat "docker exec nginx-nginx-1 nginx -s reload"
+            }
+        }
+    }
+}
+</code></pre>
+<h3><strong>파이프라인 설명</strong></h3>
+<ol>
+<li><strong>Checkout</strong>: 소스 코드를 불러옵니다.</li>
+<li><strong>Determine Deploy Target</strong>: 현재 실행 중인 환경(Blue/Green)을 확인하고, 배포할 환경을 설정합니다.</li>
+<li><strong>Deploy New Version</strong>: 새로운 버전을 배포합니다.</li>
+<li><strong>Health Check</strong>: 새로 배포한 서버가 정상인지 확인합니다.</li>
+<li><strong>Switch Traffic</strong>: 트래픽을 새로운 환경으로 전환합니다.</li>
+<li><strong>Cleanup Old Version</strong>: 이전 버전의 환경을 종료하여 자원을 정리합니다.</li>
+</ol>
+<h2><strong>마치며</strong></h2>
+<p>이번 포스트에서는 <strong>Blue-Green 배포</strong>를 통한 무중단 배포 방법을 설명했습니다. 이를 통해 <strong>서비스의 가용성</strong>을 높일 수 있으며, <strong>Jenkins 파이프라인</strong>을 활용한 배포 자동화도 가능해졌습니다.</p>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":[["$","aside",null,{"className":"lg:w-64 xl:w-72 order-1 lg:order-none","children":["$","div",null,{"className":"sidebar sticky","children":["$","nav",null,{"className":"space-y-4","children":[["$","div","Backend",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Backend"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Django",{"children":["$","a",null,{"href":"/backend/django/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Django"," (",6,")"]}]}],["$","li","Logging",{"children":["$","a",null,{"href":"/backend/logging/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Logging"," (",1,")"]}]}]]}]]}],["$","div","Python",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Python"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","PEP",{"children":["$","a",null,{"href":"/python/pep/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["PEP"," (",650,")"]}]}]]}]]}],["$","div","AI/ML",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"AI/ML"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","LLM",{"children":["$","a",null,{"href":"/ai/llm/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["LLM"," (",1,")"]}]}],["$","li","Review",{"children":["$","a",null,{"href":"/ai/review/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Review"," (",1025,")"]}]}]]}]]}],["$","div","DevOps",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"DevOps"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Nginx",{"children":["$","a",null,{"href":"/devops/nginx/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Nginx"," (",1,")"]}]}],["$","li","Docker",{"children":["$","a",null,{"href":"/devops/docker/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Docker"," (",1,")"]}]}],["$","li","SafeLine",{"children":["$","a",null,{"href":"/devops/safeline/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["SafeLine"," (",1,")"]}]}],["$","li","Jenkins",{"children":["$","a",null,{"href":"/devops/jenkins/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Jenkins"," (",3,")"]}]}],["$","li","GitHub Actions",{"children":["$","a",null,{"href":"/devops/github-actions/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["GitHub Actions"," (",1,")"]}]}],["$","li","AWS",{"children":["$","a",null,{"href":"/devops/aws/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["AWS"," (",1,")"]}]}]]}]]}],["$","div","etc",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"etc"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Me",{"children":["$","a",null,{"href":"/etc/me/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Me"," (",3,")"]}]}],["$","li","Chrome Extension",{"children":["$","a",null,{"href":"/etc/chrome-extension/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Chrome Extension"," (",1,")"]}]}]]}]]}]]}]}]}],["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Jenkins] 무중단 배포를 위한 파이프라인 구성"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-01-18 19:03:11+0900","children":"2025년 1월 18일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 1월 18일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Jenkins",{"className":"page__taxonomy-item","children":["#",["Jenkins"]]}]]]}]}]]}]}]]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"secrett2633's blog"}],["$","meta","3",{"name":"description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://secrett2633.github.io/"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"secrett2633's blog"}],["$","meta","13",{"property":"og:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","14",{"property":"og:url","content":"https://secrett2633.github.io/"}],["$","meta","15",{"property":"og:site_name","content":"secrett2633's blog"}],["$","meta","16",{"property":"og:locale","content":"ko_KR"}],["$","meta","17",{"property":"og:type","content":"website"}],["$","meta","18",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","19",{"name":"twitter:title","content":"secrett2633's blog"}],["$","meta","20",{"name":"twitter:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","link","21",{"rel":"icon","href":"/icon.ico?6d9f34d4948640b8","type":"image/x-icon","sizes":"16x16"}]]
+1:null

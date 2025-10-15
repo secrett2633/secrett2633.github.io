@@ -1,0 +1,282 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[9157,["231","static/chunks/231-c27e618569e042bc.js","157","static/chunks/157-aecaf5ac7a84facf.js","185","static/chunks/app/layout-c3e2e457f12fb6f6.js"],"default"]
+7:I[231,["231","static/chunks/231-c27e618569e042bc.js","931","static/chunks/app/page-e3ea38185bb36cd2.js"],""]
+4:["slug","python/pep/742","c"]
+0:["x02Anhkwgp1He7ftuyAhh",[[["",{"children":[["slug","python/pep/742","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"742\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/742","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_f367f3 layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/da5e1dc2b9a7c5bb.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+9:T6403,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0742/">PEP 742 - Narrowing types with TypeIs</a></p>
+<p><strong>상태:</strong> Final | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 07-Feb-2024</p>
+</blockquote>
+<h1>PEP 742 – <code>TypeIs</code>를 사용한 타입 내로잉</h1>
+<p><strong>저자:</strong> Jelle Zijlstra
+<strong>상태:</strong> Final
+<strong>타입:</strong> Standards Track - Typing
+<strong>생성일:</strong> 2024년 2월 7일
+<strong>Python 버전:</strong> 3.13</p>
+<h2>개요 (Abstract)</h2>
+<p>이 PEP는 새로운 특수 형태인 <code>TypeIs</code>를 제안합니다. <code>TypeIs</code>는 빌트인 함수 <code>isinstance()</code>와 유사하게 값의 타입을 내로잉하는 데 사용될 수 있는 함수에 주석(annotate)을 달 수 있도록 합니다. 기존의 <code>typing.TypeGuard</code> 특수 형태와 달리, <code>TypeIs</code>는 조건문의 <code>if</code>와 <code>else</code> 두 브랜치(branches) 모두에서 타입을 내로잉할 수 있습니다.</p>
+<h2>동기 (Motivation)</h2>
+<p>타입이 지정된 Python 코드에서는 조건문을 기반으로 변수의 타입을 내로잉해야 하는 경우가 많습니다. 예를 들어, 함수가 두 가지 타입의 유니온(union)을 받을 때, <code>isinstance()</code> 검사를 사용하여 두 타입을 구별할 수 있습니다. 타입 체커(type checkers)는 일반적으로 다양한 빌트인 함수 및 연산자를 기반으로 타입 내로잉을 지원하지만, 때로는 사용자 정의 함수를 사용하여 타입 내로잉을 수행하는 것이 유용할 수 있습니다.</p>
+<p>이러한 사용 사례를 지원하기 위해 PEP 647은 <code>typing.TypeGuard</code> 특수 형태를 도입하여 사용자가 타입 가드(type guards)를 정의할 수 있도록 했습니다.</p>
+<pre><code class="language-python">from typing import assert_type, TypeGuard
+
+def is_str(x: object) -> TypeGuard[str]:
+    return isinstance(x, str)
+
+def f(x: object) -> None:
+    if is_str(x):
+        assert_type(x, str)
+    else:
+        assert_type(x, object)
+</code></pre>
+<p>그러나 <code>typing.TypeGuard</code>의 동작 방식에는 몇 가지 한계가 있어 많은 일반적인 사용 사례에 덜 유용합니다. 특히 다음과 같은 문제가 있습니다:</p>
+<ul>
+<li>타입 체커는 타입 가드가 <code>True</code>를 반환하는 경우, <code>TypeGuard</code>의 반환 타입을 정확히 내로잉된 타입으로 사용해야 합니다. 변수의 타입에 대한 기존 지식을 활용할 수 없습니다.</li>
+<li>타입 가드가 <code>False</code>를 반환하는 경우, 타입 체커는 추가적인 내로잉을 적용할 수 없습니다.</li>
+</ul>
+<p>예를 들어, 표준 라이브러리 함수 <code>inspect.isawaitable()</code>은 인자가 <code>awaitable</code> 객체인지 여부를 반환하며, <code>typeshed</code>는 현재 다음과 같이 주석되어 있습니다:</p>
+<pre><code class="language-python">def isawaitable(object: object) -> TypeGuard[Awaitable[Any]]: ...
+</code></pre>
+<p>이 함수의 동작에 대해 <code>mypy</code>에 보고된 이슈가 있었는데, 사용자는 다음 동작을 관찰했습니다:</p>
+<pre><code class="language-python">import inspect
+from collections.abc import Awaitable
+from typing import reveal_type, Any
+
+async def f(t: Awaitable[int] | int) -> None:
+    if inspect.isawaitable(t):
+        reveal_type(t) # Awaitable[Any]
+    else:
+        reveal_type(t) # Awaitable[int] | int
+</code></pre>
+<p>이 동작은 PEP 647과 일치하지만, 사용자의 기대와는 달랐습니다. 사용자는 <code>if</code> 브랜치에서는 <code>t</code>의 타입이 <code>Awaitable[int]</code>로, <code>else</code> 브랜치에서는 <code>int</code>로 내로잉되기를 기대했습니다. 이 PEP는 정확히 그러한 동작을 제공하는 새로운 구문을 제안합니다.</p>
+<p><code>TypeGuard</code>의 현재 동작으로 인해 발생한 다른 문제들의 예시는 다음과 같습니다:</p>
+<ul>
+<li>Python 타이핑 이슈 (<code>numpy.isscalar</code>)</li>
+<li>Python 타이핑 이슈 (<code>dataclasses.is_dataclass()</code>)</li>
+<li>Pyright 이슈 (<code>typing.TypeGuard</code>가 <code>isinstance()</code>처럼 작동하기를 기대)</li>
+<li>Pyright 이슈 (<code>else</code> 브랜치에서의 내로잉 기대)</li>
+<li>Mypy 이슈 (<code>else</code> 브랜치에서의 내로잉 기대)</li>
+<li>Mypy 이슈 (여러 <code>TypeGuard</code> 결합)</li>
+<li>Mypy 이슈 (<code>else</code> 브랜치에서의 내로잉 기대)</li>
+<li>Mypy 이슈 (사용자 정의 함수가 <code>inspect.isawaitable()</code>과 유사)</li>
+<li>Typeshed 이슈 (<code>asyncio.iscoroutinefunction</code>)</li>
+</ul>
+<h2>근거 (Rationale)</h2>
+<p><code>typing.TypeGuard</code>의 현재 동작과 관련된 문제들은 타입 시스템을 개선하여 다른 타입 내로잉 동작을 허용하도록 강제합니다. PEP 724는 기존 <code>typing.TypeGuard</code> 구문의 동작을 변경할 것을 제안했지만, 해당 변경으로 인한 하위 호환성(backwards compatibility) 문제가 너무 심각하다고 판단했습니다. 대신, 원하는 시맨틱(semantics)을 가진 새로운 특수 형태를 추가할 것을 제안합니다.</p>
+<p>이로 인해 유사한 목적과 시맨틱을 가진 두 가지 구문이 존재하게 되는 안타까운 상황이 발생함을 인지하고 있습니다. 그러나 이 PEP에서 제안하는 새로운 형태인 <code>TypeIs</code>의 동작이 사용자들에게 더 유용할 가능성이 높다고 생각하며, 따라서 <code>TypeGuard</code>보다 <code>TypeIs</code>를 더 일반적으로 적용 가능한 도구로 문서에서 강조해야 한다고 권장합니다. 하지만 <code>TypeGuard</code>의 시맨틱도 때때로 유용하므로, 이를 더 이상 사용하지 않도록 권고(deprecate)하거나 제거할 것을 제안하지는 않습니다. 장기적으로는 대부분의 사용자가 <code>TypeIs</code>를 사용하고, <code>TypeGuard</code>는 그 동작이 특별히 요구되는 드문 경우에만 사용되어야 합니다.</p>
+<h2>사양 (Specification)</h2>
+<p>새로운 특수 형태인 <code>TypeIs</code>가 <code>typing</code> 모듈에 추가됩니다. <code>TypeIs</code>의 사용법, 동작 및 런타임 구현은 <code>typing.TypeGuard</code>와 유사합니다.</p>
+<p><code>TypeIs</code>는 단일 인자를 받으며 함수의 반환 타입으로 사용될 수 있습니다. <code>TypeIs</code>를 반환하도록 주석된 함수를 타입 내로잉 함수(type narrowing function)라고 합니다. 타입 내로잉 함수는 <code>bool</code> 값을 반환해야 하며, 타입 체커는 모든 반환 경로가 <code>bool</code>을 반환하는지 확인해야 합니다.</p>
+<p>타입 내로잉 함수는 하나 이상의 위치 인자(positional argument)를 받아야 합니다. 타입 내로잉 동작은 함수에 전달된 첫 번째 위치 인자에 적용됩니다. 함수는 추가 인자를 받을 수 있지만, 이들은 타입 내로잉의 영향을 받지 않습니다. 타입 내로잉 함수가 인스턴스 메서드(instance method) 또는 클래스 메서드(class method)로 구현된 경우, 첫 번째 위치 인자는 두 번째 매개변수(<code>self</code> 또는 <code>cls</code> 다음)에 매핑됩니다.</p>
+<h3>타입 내로잉 동작 (Type narrowing behavior)</h3>
+<p><code>TypeIs</code>의 동작을 명시하기 위해 다음 용어를 사용합니다:</p>
+<ul>
+<li><code>I</code> = <code>TypeIs</code> 입력 타입 (TypeIs input type)</li>
+<li><code>R</code> = <code>TypeIs</code> 반환 타입 (TypeIs return type)</li>
+<li><code>A</code> = 타입 내로잉 함수에 전달된 인자의 타입 (내로잉 전) (Type of argument passed to type narrowing function (pre-narrowed))</li>
+<li><code>NP</code> = 내로잉된 타입 (긍정; <code>TypeIs</code>가 <code>True</code>를 반환할 때 사용) (Narrowed type (positive; used when TypeIs returned True))</li>
+<li><code>NN</code> = 내로잉된 타입 (부정; <code>TypeIs</code>가 <code>False</code>를 반환할 때 사용) (Narrowed type (negative; used when TypeIs returned False))</li>
+</ul>
+<pre><code class="language-python">def narrower(x: I) -> TypeIs[R]: ...
+
+def func1(val: A):
+    if narrower(val):
+        assert_type(val, NP)
+    else:
+        assert_type(val, NN)
+</code></pre>
+<p>반환 타입 <code>R</code>은 <code>I</code>와 일관되어야 합니다. 이 조건이 충족되지 않으면 타입 체커는 오류를 발생시켜야 합니다.</p>
+<p>공식적으로, <code>NP</code> 타입은 <code>A</code>와 <code>R</code>의 교집합(intersection)인 <code>A∧R</code>로 내로잉되어야 하고, <code>NN</code> 타입은 <code>A</code>와 <code>R</code>의 보수(complement)의 교집합인 <code>A∧¬R</code>로 내로잉되어야 합니다. 실제로는 엄격한 타입 가드에 대한 이론적인 타입은 Python 타입 시스템에서 정확하게 표현될 수 없습니다. 타입 체커는 이러한 타입에 대한 실용적인 근사치를 사용해야 합니다. 경험적으로, 타입 체커는 <code>isinstance()</code>를 처리하는 것과 동일한 타입 내로잉 로직을 사용하고 일관된 결과를 얻어야 합니다. 이 지침은 향후 타입 시스템이 확장될 경우 변경 및 개선을 허용합니다.</p>
+<h3>예시 (Examples)</h3>
+<p>타입 내로잉은 긍정적인 경우와 부정적인 경우 모두에 적용됩니다:</p>
+<pre><code class="language-python">from typing import TypeIs, assert_type
+
+def is_str(x: object) -> TypeIs[str]:
+    return isinstance(x, str)
+
+def f(x: str | int) -> None:
+    if is_str(x):
+        assert_type(x, str)
+    else:
+        assert_type(x, int)
+</code></pre>
+<p>최종 내로잉된 타입은 인자의 이전에 알려진 타입의 제약 조건 때문에 <code>R</code>보다 더 좁을 수 있습니다:</p>
+<pre><code class="language-python">from collections.abc import Awaitable
+from typing import Any, TypeIs, assert_type
+import inspect
+
+def isawaitable(x: object) -> TypeIs[Awaitable[Any]]:
+    return inspect.isawaitable(x)
+
+def f(x: Awaitable[int] | int) -> None:
+    if isawaitable(x):
+        # 타입 체커는 더 정확한 타입인 "Awaitable[int] | (int &#x26; Awaitable[Any])"를 추론할 수도 있습니다.
+        assert_type(x, Awaitable[int])
+    else:
+        assert_type(x, int)
+</code></pre>
+<p>입력 타입과 일관되지 않는 타입으로 내로잉하는 것은 오류입니다:</p>
+<pre><code class="language-python">from typing import TypeIs
+
+def is_str(x: int) -> TypeIs[str]:
+    # 타입 체커 오류 발생
+    ...
+</code></pre>
+<h3>서브타이핑 (Subtyping)</h3>
+<p><code>TypeIs</code>는 콜백 프로토콜(callback protocols) 및 <code>Callable</code> 특수 형태와 같이 호출 가능한(callable) 객체의 반환 타입으로도 유효합니다. 이러한 맥락에서 <code>TypeIs</code>는 <code>bool</code>의 서브타입(subtype)으로 취급됩니다. 예를 들어, <code>Callable[..., TypeIs[int]]</code>는 <code>Callable[..., bool]</code>에 할당 가능(assignable)합니다.</p>
+<p><code>TypeGuard</code>와 달리, <code>TypeIs</code>는 인자 타입에 대해 불변(invariant)입니다: <code>B</code>가 <code>A</code>의 서브타입이더라도 <code>TypeIs[B]</code>는 <code>TypeIs[A]</code>의 서브타입이 아닙니다. 그 이유를 설명하기 위해 다음 예시를 고려해보세요:</p>
+<pre><code class="language-python">from typing import Callable, TypeIs
+
+def takes_narrower(x: int | str, narrower: Callable[[object], TypeIs[int]]):
+    if narrower(x):
+        print(x + 1)  # x는 int
+    else:
+        print("Hello " + x) # x는 str
+
+def is_bool(x: object) -> TypeIs[bool]:
+    return isinstance(x, bool)
+
+takes_narrower(1, is_bool) # 오류: is_bool은 TypeIs[int]가 아님
+</code></pre>
+<p>(<code>bool</code>은 <code>int</code>의 서브타입임에 유의하십시오.) 이 코드는 런타임에 실패합니다. 왜냐하면 <code>narrower</code>가 <code>False</code>를 반환하고 (<code>1</code>은 <code>bool</code>이 아니므로) <code>takes_narrower()</code>에서 <code>else</code> 브랜치가 실행되기 때문입니다. 만약 <code>takes_narrower(1, is_bool)</code> 호출이 허용되었다면, 타입 체커는 이 오류를 감지하지 못했을 것입니다.</p>
+<h2>하위 호환성 (Backwards Compatibility)</h2>
+<p>이 PEP는 새로운 특수 형태만을 제안하므로, 하위 호환성에 대한 영향은 없습니다.</p>
+<h2>보안 고려사항 (Security Implications)</h2>
+<p>알려진 보안 고려사항은 없습니다.</p>
+<h2>교육 방법 (How to Teach This)</h2>
+<p>타입 힌팅에 대한 입문 자료는 타입 내로잉을 논의할 때 <code>isinstance()</code>와 같은 다른 내로잉 구문과 함께 <code>TypeIs</code>를 다루어야 합니다. 문서는 <code>typing.TypeGuard</code>보다 <code>TypeIs</code>를 강조해야 합니다. 후자가 더 이상 사용되지 않는 것은 아니며 그 동작이 때때로 유용하지만, <code>TypeIs</code>의 동작이 일반적으로 더 직관적이며 대부분의 사용자가 <code>TypeIs</code>를 먼저 선택할 것으로 예상합니다.</p>
+<h3><code>TypeIs</code> 사용 시점 (When to use TypeIs)</h3>
+<p>Python 코드는 종종 <code>isinstance()</code>와 같은 함수를 사용하여 값의 가능한 다양한 타입들을 구별합니다. 타입 체커는 <code>isinstance()</code> 및 다양한 다른 검사들을 이해하고 이를 사용하여 변수의 타입을 내로잉합니다. 그러나 때로는 더 복잡한 검사를 여러 곳에서 재사용하거나, 타입 체커가 이해하지 못하는 검사를 사용하는 경우가 있습니다. 이러한 경우, <code>TypeIs</code> 함수를 정의하여 검사를 수행하고 타입 체커가 이를 사용하여 변수의 타입을 내로잉할 수 있도록 할 수 있습니다.</p>
+<p><code>TypeIs</code> 함수는 단일 인자를 받아 <code>TypeIs[T]</code>를 반환하도록 주석됩니다. 여기서 <code>T</code>는 내로잉하려는 타입입니다. 함수는 인자가 <code>T</code> 타입과 호환되면 <code>True</code>를, 그렇지 않으면 <code>False</code>를 반환해야 합니다. 이 함수는 <code>isinstance()</code>를 사용하는 것과 마찬가지로 <code>if</code> 검사에서 사용될 수 있습니다. 예를 들면 다음과 같습니다:</p>
+<pre><code class="language-python">from typing import TypeIs, Literal
+
+type Direction = Literal["N", "E", "S", "W"]
+
+def is_direction(x: str) -> TypeIs[Direction]:
+    return x in {"N", "E", "S", "W"}
+
+def maybe_direction(x: str) -> None:
+    if is_direction(x):
+        print(f"{x} is a cardinal direction")
+    else:
+        print(f"{x} is not a cardinal direction")
+</code></pre>
+<h3>안전한 <code>TypeIs</code> 함수 작성 (Writing a safe TypeIs function)</h3>
+<p><code>TypeIs</code> 함수를 사용하면 타입 체커의 타입 내로잉 동작을 재정의할 수 있습니다. 이는 강력한 도구이지만, 잘못 작성된 <code>TypeIs</code> 함수는 불건전한(unsound) 타입 검사로 이어질 수 있고 타입 체커가 이러한 오류를 감지할 수 없기 때문에 위험할 수 있습니다.</p>
+<p><code>TypeIs[T]</code>를 반환하는 함수가 안전하려면, 인자가 타입 <code>T</code>와 호환되는 경우에만 <code>True</code>를 반환해야 하고, 그렇지 않으면 <code>False</code>를 반환해야 합니다. 이 조건이 충족되지 않으면 타입 체커는 잘못된 타입을 추론할 수 있습니다.</p>
+<p>다음은 올바른(<code>Correct</code>) 및 잘못된(<code>Incorrect</code>) <code>TypeIs</code> 함수의 예시입니다:</p>
+<pre><code class="language-python">from typing import TypeIs
+
+# 올바름 (Correct)
+def good_typeis(x: object) -> TypeIs[int]:
+    return isinstance(x, int)
+
+# 잘못됨: 모든 int에 대해 True를 반환하지 않음 (Incorrect: does not return True for all ints)
+def bad_typeis1(x: object) -> TypeIs[int]:
+    return isinstance(x, int) and x > 0
+
+# 잘못됨: 일부 비-int 값에 대해 True를 반환함 (Incorrect: returns True for some non-ints)
+def bad_typeis2(x: object) -> TypeIs[int]:
+    return isinstance(x, (int, float))
+</code></pre>
+<p>다음 함수는 잘못 작성된 <code>TypeIs</code> 함수를 사용할 때 발생할 수 있는 일부 오류를 보여줍니다. 이러한 오류는 타입 체커에 의해 감지되지 않습니다:</p>
+<pre><code class="language-python">def caller(x: int | str, y: int | float) -> None:
+    if bad_typeis1(x):  # int로 내로잉됨
+        print(x + 1)
+    else:  # str로 내로잉됨 (잘못됨)
+        print("Hello " + x) # x가 음의 int일 경우 런타임 오류 발생
+    if bad_typeis2(y):  # int로 내로잉됨
+        # 잘못된 TypeIs 때문에, y가 float일 경우 런타임에 이 브랜치가 실행됩니다.
+        print(y.bit_count()) # 런타임 오류: 이 메서드는 int에만 존재하고 float에는 없습니다.
+    else:  # float으로 내로잉됨 (런타임에 결코 실행되지 않음)
+        pass
+</code></pre>
+<p>다음은 더 복잡한 타입에 대한 올바른 <code>TypeIs</code> 함수의 예시입니다:</p>
+<pre><code class="language-python">from typing import TypedDict, TypeIs
+
+class Point(TypedDict):
+    x: int
+    y: int
+
+def is_point(x: object) -> TypeIs[Point]:
+    return (
+        isinstance(x, dict) and
+        all(isinstance(key, str) for key in x) and
+        "x" in x and "y" in x and
+        isinstance(x["x"], int) and
+        isinstance(x["y"], int)
+    )
+</code></pre>
+<h3><code>TypeIs</code>와 <code>TypeGuard</code> (TypeIs and TypeGuard)</h3>
+<p><code>TypeIs</code>와 <code>typing.TypeGuard</code>는 모두 사용자 정의 함수를 기반으로 변수의 타입을 내로잉하기 위한 도구입니다. 둘 다 인자를 받아 입력 인자가 내로잉된 타입과 호환되는지 여부에 따라 불리언(boolean)을 반환하는 함수에 주석을 달 수 있습니다. 이러한 함수는 <code>if</code> 검사에서 변수의 타입을 내로잉하는 데 사용될 수 있습니다.</p>
+<p><code>TypeIs</code>는 일반적으로 가장 직관적인 동작을 가지지만, 더 많은 제한을 도입합니다. <code>TypeGuard</code>는 다음 경우에 사용하기에 적절한 도구입니다:</p>
+<ul>
+<li><code>list[object]</code>에서 <code>list[int]</code>와 같이 입력 타입과 호환되지 않는 타입으로 내로잉하려는 경우. <code>TypeIs</code>는 호환되는 타입 간에만 내로잉을 허용합니다.</li>
+<li>함수가 내로잉된 타입과 호환되는 모든 입력 값에 대해 <code>True</code>를 반환하지 않는 경우. 예를 들어, 양의 정수에 대해서만 <code>True</code>를 반환하는 <code>TypeGuard[int]</code>를 가질 수 있습니다.</li>
+</ul>
+<p><code>TypeIs</code>와 <code>TypeGuard</code>는 다음과 같은 방식으로 다릅니다:</p>
+<ul>
+<li><code>TypeIs</code>는 내로잉된 타입이 입력 타입의 서브타입이어야 하는 반면, <code>TypeGuard</code>는 그렇지 않습니다.</li>
+<li><code>TypeGuard</code> 함수가 <code>True</code>를 반환할 때, 타입 체커는 변수의 타입을 <code>TypeGuard</code> 타입과 정확히 일치하도록 내로잉합니다. <code>TypeIs</code> 함수가 <code>True</code>를 반환할 때, 타입 체커는 변수의 이전에 알려진 타입과 <code>TypeIs</code> 타입을 결합하여 더 정밀한 타입을 추론할 수 있습니다 (기술적으로는 교집합(intersection type)으로 알려져 있습니다).</li>
+<li><code>TypeGuard</code> 함수가 <code>False</code>를 반환할 때, 타입 체커는 변수의 타입을 전혀 내로잉할 수 없습니다. <code>TypeIs</code> 함수가 <code>False</code>를 반환할 때, 타입 체커는 변수의 타입에서 <code>TypeIs</code> 타입을 제외하도록 내로잉할 수 있습니다.</li>
+</ul>
+<p>이러한 동작은 다음 예시에서 볼 수 있습니다:</p>
+<pre><code class="language-python">from typing import TypeGuard, TypeIs, reveal_type, final
+
+class Base: ...
+class Child(Base): ...
+@final
+class Unrelated: ...
+
+def is_base_typeguard(x: object) -> TypeGuard[Base]:
+    return isinstance(x, Base)
+
+def is_base_typeis(x: object) -> TypeIs[Base]:
+    return isinstance(x, Base)
+
+def use_typeguard(x: Child | Unrelated) -> None:
+    if is_base_typeguard(x):
+        reveal_type(x) # Base
+    else:
+        reveal_type(x) # Child | Unrelated
+
+def use_typeis(x: Child | Unrelated) -> None:
+    if is_base_typeis(x):
+        reveal_type(x) # Child
+    else:
+        reveal_type(x) # Unrelated
+</code></pre>
+<h2>참조 구현 (Reference Implementation)</h2>
+<p><code>TypeIs</code> 특수 형태는 <code>typing_extensions</code> 모듈에 구현되었으며 <code>typing_extensions 4.10.0</code>에서 릴리스될 예정입니다.</p>
+<p>여러 타입 체커에서 구현이 가능합니다:</p>
+<ul>
+<li>Mypy: 풀 리퀘스트 오픈</li>
+<li>Pyanalyze: 풀 리퀘스트</li>
+<li>Pyright: 버전 1.1.351에 추가됨</li>
+</ul>
+<h2>거부된 아이디어 (Rejected Ideas)</h2>
+<h3><code>TypeGuard</code>의 동작 변경 (Change the behavior of TypeGuard)</h3>
+<p>PEP 724는 이전에 <code>typing.TypeGuard</code>의 지정된 동작을 변경하여 가드의 반환 타입이 입력 타입과 일관성이 있다면 <code>TypeIs</code>에 대해 여기서 제안된 동작이 적용되도록 제안했습니다. 이 제안은 몇 가지 중요한 장점이 있었습니다. 런타임 변경이 필요 없으므로 타입 체커에서만 변경이 필요하여 사용자가 새롭고 일반적으로 더 직관적인 동작을 쉽게 활용할 수 있게 해줍니다.</p>
+<p>그러나 이 접근 방식에는 몇 가지 주요 문제가 있습니다. PEP 647에 지정된 기존 시맨틱을 기대하며 <code>TypeGuard</code> 함수를 작성한 사용자들은 타입 체커가 코드를 해석하는 방식에서 미묘하고 잠재적으로 호환성을 깨뜨리는(breaking changes) 변경을 겪을 수 있습니다. <code>TypeGuard</code>의 분할된 동작, 즉 반환 타입이 입력 타입과 일관성이 있는 경우와 없는 경우에 다르게 작동하는 방식은 사용자에게 혼란을 줄 수 있습니다. 타이핑 위원회(Typing Council)는 PEP 724에 찬성하는 합의에 도달하지 못했고, 그 결과 이 대안적인 PEP를 제안하게 되었습니다.</p>
+<h3>아무것도 하지 않음 (Do nothing)</h3>
+<p>이 PEP와 PEP 724에서 제안된 대안 모두 단점을 가지고 있습니다. 후자의 단점은 위에서 논의되었습니다. 이 PEP의 경우, 매우 유사한 시맨틱을 가진 두 가지 특수 형태를 도입하며, 현재 <code>TypeGuard</code>를 사용하고 있지만 다른 내로잉 시맨틱이 더 나은 사용자들에게 잠재적으로 긴 마이그레이션 경로를 만들 수 있습니다.</p>
+<p>따라서 한 가지 방법은 아무것도 하지 않고 타입 시스템의 현재 한계에 만족하는 것입니다. 그러나 "동기" 섹션에서 설명한 현재 <code>TypeGuard</code>의 한계는 타입 시스템을 변경하여 해결할 가치가 있을 만큼 중요하다고 생각합니다. 아무런 변경도 하지 않으면 사용자들은 <code>TypeGuard</code>에서 동일한 비직관적인 동작을 계속해서 경험하게 될 것이며, 타입 시스템은 <code>inspect.isawaitable</code>과 같은 일반적인 타입 내로잉 함수를 제대로 표현할 수 없을 것입니다.</p>
+<h3>대체 이름 (Alternative names)</h3>
+<p>이 PEP는 현재 <code>TypeIs</code>라는 이름을 제안하고 있으며, <code>TypeIs[T]</code> 특수 형태가 인자가 <code>T</code> 타입인지 여부를 반환한다는 점을 강조하고 TypeScript의 구문을 반영합니다. 이 PEP의 이전 버전에서도 다른 이름들이 고려되었습니다.</p>
+<p>고려되었던 옵션들은 다음과 같습니다:</p>
+<ul>
+<li><code>IsInstance</code> (Paul Moore의 게시물): 새로운 구문이 빌트인 <code>isinstance()</code>와 유사하게 작동한다는 점을 강조합니다.</li>
+<li><code>Narrowed</code> 또는 <code>NarrowedTo</code>: <code>TypeNarrower</code>보다 짧지만 "type narrowing"과의 연결을 유지합니다 (Eric Traut 제안).</li>
+<li><code>Predicate</code> 또는 <code>TypePredicate</code>: 이 기능에 대한 TypeScript의 이름인 "type predicates"를 반영합니다.</li>
+<li><code>StrictTypeGuard</code> (PEP 724의 초기 초안): 새로운 구문이 <code>typing.TypeGuard</code>보다 더 엄격한 버전의 타입 내로잉을 수행한다는 점을 강조합니다.</li>
+<li><code>TypeCheck</code> (Nicolas Tessore의 게시물): 검사의 이진적(binary) 성격을 강조합니다.</li>
+<li><code>TypeNarrower</code>: 함수가 인자 타입을 내로잉한다는 점을 강조합니다. 이 PEP의 이전 버전에서 사용되었습니다.</li>
+</ul>
+<hr>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":[["$","aside",null,{"className":"lg:w-64 xl:w-72 order-1 lg:order-none","children":["$","div",null,{"className":"sidebar sticky","children":["$","nav",null,{"className":"space-y-4","children":[["$","div","Backend",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Backend"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Django",{"children":["$","a",null,{"href":"/backend/django/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Django"," (",6,")"]}]}],["$","li","Logging",{"children":["$","a",null,{"href":"/backend/logging/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Logging"," (",1,")"]}]}]]}]]}],["$","div","Python",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Python"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","PEP",{"children":["$","a",null,{"href":"/python/pep/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["PEP"," (",650,")"]}]}]]}]]}],["$","div","AI/ML",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"AI/ML"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","LLM",{"children":["$","a",null,{"href":"/ai/llm/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["LLM"," (",1,")"]}]}],["$","li","Review",{"children":["$","a",null,{"href":"/ai/review/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Review"," (",1025,")"]}]}]]}]]}],["$","div","DevOps",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"DevOps"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Nginx",{"children":["$","a",null,{"href":"/devops/nginx/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Nginx"," (",1,")"]}]}],["$","li","Docker",{"children":["$","a",null,{"href":"/devops/docker/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Docker"," (",1,")"]}]}],["$","li","SafeLine",{"children":["$","a",null,{"href":"/devops/safeline/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["SafeLine"," (",1,")"]}]}],["$","li","Jenkins",{"children":["$","a",null,{"href":"/devops/jenkins/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Jenkins"," (",3,")"]}]}],["$","li","GitHub Actions",{"children":["$","a",null,{"href":"/devops/github-actions/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["GitHub Actions"," (",1,")"]}]}],["$","li","AWS",{"children":["$","a",null,{"href":"/devops/aws/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["AWS"," (",1,")"]}]}]]}]]}],["$","div","etc",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"etc"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Me",{"children":["$","a",null,{"href":"/etc/me/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Me"," (",3,")"]}]}],["$","li","Chrome Extension",{"children":["$","a",null,{"href":"/etc/chrome-extension/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Chrome Extension"," (",1,")"]}]}]]}]]}]]}]}]}],["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Final] PEP 742 - Narrowing types with TypeIs"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-27 13:33:17+0900","children":"2025년 9월 27일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 27일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]}]]}]}]]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"secrett2633's blog"}],["$","meta","3",{"name":"description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://secrett2633.github.io/"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"secrett2633's blog"}],["$","meta","13",{"property":"og:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","14",{"property":"og:url","content":"https://secrett2633.github.io/"}],["$","meta","15",{"property":"og:site_name","content":"secrett2633's blog"}],["$","meta","16",{"property":"og:locale","content":"ko_KR"}],["$","meta","17",{"property":"og:type","content":"website"}],["$","meta","18",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","19",{"name":"twitter:title","content":"secrett2633's blog"}],["$","meta","20",{"name":"twitter:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","link","21",{"rel":"icon","href":"/icon.ico?6d9f34d4948640b8","type":"image/x-icon","sizes":"16x16"}]]
+1:null

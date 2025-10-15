@@ -1,0 +1,90 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[9157,["231","static/chunks/231-c27e618569e042bc.js","157","static/chunks/157-aecaf5ac7a84facf.js","185","static/chunks/app/layout-c3e2e457f12fb6f6.js"],"default"]
+7:I[231,["231","static/chunks/231-c27e618569e042bc.js","931","static/chunks/app/page-e3ea38185bb36cd2.js"],""]
+4:["slug","python/pep/3106","c"]
+0:["x02Anhkwgp1He7ftuyAhh",[[["",{"children":[["slug","python/pep/3106","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"3106\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/3106","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_f367f3 layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/da5e1dc2b9a7c5bb.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+9:T24d7,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-3106/">PEP 3106 - Revamping dict.keys(), .values() and .items()</a></p>
+<p><strong>상태:</strong> Final | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 19-Dec-2006</p>
+</blockquote>
+<h2>PEP 3106 – <code>dict.keys()</code>, <code>.values()</code>, <code>.items()</code> 메서드 개편</h2>
+<h3>요약 (Abstract)</h3>
+<p>이 PEP(Python Enhancement Proposal)는 내장 <code>dict</code> 타입의 <code>.keys()</code>, <code>.values()</code>, <code>.items()</code> 메서드가 더 이상 키, 값 또는 아이템의 복사본인 리스트(list)를 반환하지 않고, 대신 기본 딕셔너리에서 내용을 파생하는 <strong>세트-유사(set-like) 또는 비정렬 컨테이너 객체</strong>를 반환하도록 제안합니다. 또한, <code>.iterkeys()</code>, <code>.itervalues()</code>, <code>.iteritems()</code> 메서드는 제거됩니다. 이 접근 방식은 Java Collections Framework에서 영감을 받았습니다.</p>
+<h3>서론 (Introduction)</h3>
+<p>Python 2.x에서 <code>dict</code>의 <code>.keys()</code>, <code>.values()</code>, <code>.items()</code> 메서드는 리스트를 반환하여 딕셔너리가 커질수록 메모리 효율성이 떨어지는 문제가 있었습니다. 이러한 문제를 해결하고 보다 가벼운 객체를 반환하기 위해 오랫동안 계획되어 왔으며, <code>iterkeys()</code>, <code>itervalues()</code>, <code>iteritems()</code>와 같은 이터레이터(iterator)를 반환하는 메서드를 없애는 것이 목표였습니다.</p>
+<p>기존 Python 2.x에서 다음과 같았던 코드는:</p>
+<pre><code class="language-python">for k, v in d.iteritems():
+    ...
+</code></pre>
+<p>Python 3.x에서는 다음과 같이 다시 작성되어야 합니다:</p>
+<pre><code class="language-python">for k, v in d.items():
+    ...
+</code></pre>
+<p>마찬가지로, 명시적으로 리스트가 필요한 경우에는 다음과 같이 변경해야 합니다:</p>
+<pre><code class="language-python">a = list(d.keys())
+</code></pre>
+<p>이 목표를 달성하는 방법은 두 가지가 있었습니다. 하나는 단순히 <code>keys()</code>, <code>values()</code>, <code>items()</code>가 Python 2.x의 <code>iterkeys()</code>, <code>itervalues()</code>, <code>iteritems()</code>와 동일하게 이터레이터를 반환하도록 하는 것이었습니다. 그러나 Java Collections Framework는 더 나은 해결책을 제시했는데, 그것은 메서드가 키, 값 또는 아이템의 복사본을 포함하지 않고, 오히려 기본 딕셔너리를 참조하고 필요에 따라 값을 가져오는 객체를 반환하는 방식입니다. <code>.keys()</code>와 <code>.items()</code> 메서드는 세트(set)와 같은 동작을, <code>.values()</code> 메서드는 멀티세트(multiset) (또는 백(bag))와 같은 동작을 가집니다.</p>
+<p>이 접근 방식의 장점은 다음과 같은 코드를 계속 작성할 수 있다는 것입니다:</p>
+<pre><code class="language-python">a = d.items()
+for k, v in a:
+    ...
+# 나중에 다시:
+for k, v in a:
+    ...
+</code></pre>
+<p>Python 3.0에서 <code>iter(d.keys())</code> 등은 Python 2.x의 <code>d.iterkeys()</code> 등과 동일하게 작동하며, 대부분의 <code>for</code> 루프 컨텍스트에서는 <code>iter()</code> 호출을 명시적으로 작성할 필요가 없습니다.</p>
+<p><code>.keys()</code>와 <code>.items()</code>가 반환하는 객체는 세트처럼 작동합니다. 따라서 두 딕셔너리가 동일한 키를 가지는지 다음과 같이 쉽게 확인할 수 있습니다:</p>
+<pre><code class="language-python">if a.keys() == b.keys():
+    ...
+</code></pre>
+<p>이러한 연산은 스레드에 안전하며, 잘못된 사용으로 인해 예외가 발생할 수는 있지만 내부 표현이 손상되지는 않습니다. Python 2.x와 마찬가지로, 이터레이터를 사용하여 딕셔너리를 순회하는 동안 딕셔너리를 변경하면 정의되지 않은 효과가 발생하며, 대부분의 경우 <code>RuntimeError</code> 예외가 발생합니다. <code>.keys()</code>와 <code>.items()</code>가 반환하는 객체는 내장 <code>set</code> 및 <code>frozenset</code> 타입의 인스턴스와 완벽하게 상호 운용됩니다. 예를 들어, <code>set(d.keys()) == d.keys()</code>는 <code>True</code>를 보장합니다 (다른 스레드에서 <code>d</code>가 동시에 수정되는 경우 제외).</p>
+<h3>명세 (Specification)</h3>
+<p>이 PEP는 <code>dict</code> 클래스의 <code>keys()</code>, <code>items()</code>, <code>values()</code> 메서드가 각각 <code>d_keys</code>, <code>d_items</code>, <code>d_values</code>라는 임시 클래스 인스턴스를 반환하는 것으로 시맨틱(semantics)을 정의합니다. <code>.iterkeys()</code>, <code>.itervalues()</code>, <code>.iteritems()</code> 메서드는 제거됩니다.</p>
+<p><strong><code>d_keys</code> 클래스 (d_keys Class):</strong></p>
+<ul>
+<li><code>__len__()</code>: 기본 딕셔너리의 길이를 반환합니다.</li>
+<li><code>__contains__(key)</code>: 키가 기본 딕셔너리에 있는지 확인합니다.</li>
+<li><code>__iter__()</code>: 기본 딕셔너리의 키에 대한 이터레이터를 반환합니다.</li>
+<li>세트와 호환되는 <code>&#x3C;</code>, <code>&#x3C;=</code>, <code>==</code>, <code>!=</code>, <code>>=</code>, <code>></code>, <code>&#x26;</code>, <code>|</code>, <code>^</code>, <code>-</code> 연산자 및 메서드(<code>.union()</code> 등)를 구현합니다.</li>
+</ul>
+<p><strong><code>d_items</code> 클래스 (d_items Class):</strong></p>
+<ul>
+<li><code>__len__()</code>: 기본 딕셔너리의 길이를 반환합니다.</li>
+<li><code>__contains__((key, value))</code>: 키와 값이 기본 딕셔너리에 모두 존재하는지 확인합니다.</li>
+<li><code>__iter__()</code>: 기본 딕셔너리의 (키, 값) 쌍에 대한 이터레이터를 반환합니다.</li>
+<li><code>d_keys</code>와 유사하게 세트 연산을 지원합니다. 값(value)이 해시 가능하지 않아도 효율적으로 구현될 수 있습니다.</li>
+</ul>
+<p><strong><code>d_values</code> 클래스 (d_values Class):</strong></p>
+<ul>
+<li><code>__len__()</code>: 기본 딕셔너리의 길이를 반환합니다.</li>
+<li><code>__contains__(value)</code>: 값이 기본 딕셔너리에 존재하는지 확인합니다. 이는 느릴 수 있지만, 명시적으로 지원됨을 나타냅니다.</li>
+<li><code>__iter__()</code>: 기본 딕셔너리의 값에 대한 이터레이터를 반환합니다.</li>
+<li><code>__eq__(other)</code>: 다른 <code>d_values</code> 인스턴스와의 동일성을 비교합니다.</li>
+</ul>
+<p><strong>주요 사항 (Notes):</strong></p>
+<ul>
+<li>뷰(view) 객체는 직접 변경할 수 없지만, <code>__hash__()</code>를 구현하지 않습니다. 기본 딕셔너리가 변경되면 뷰 객체의 값도 변경될 수 있습니다.</li>
+<li>기본 딕셔너리에 필요한 유일한 요구 사항은 <code>__getitem__()</code>, <code>__contains__()</code>, <code>__iter__()</code>, <code>__len__()</code>를 구현하는 것입니다.</li>
+<li><code>.copy()</code> 메서드는 구현되지 않습니다. 특정 타입의 복사본(예: <code>list</code> 또는 <code>set</code>)을 원하면 <code>list()</code> 또는 <code>set()</code> 생성자에 뷰 객체를 전달하면 됩니다.</li>
+<li><code>.keys()</code>, <code>.values()</code>, <code>.items()</code>가 반환하는 항목의 순서는 동일합니다 (Python 2.x와 동일하게). 이는 <code>list(d.items()) == list(zip(d.keys(), d.values()))</code> 불변식으로 표현됩니다.</li>
+</ul>
+<h3>미해결 문제 (Open Issues)</h3>
+<ul>
+<li>키와 아이템에 대해 복사 없이 세트 연산을 수행할 수 있다는 점 외에 추가적인 동기 부여가 필요한가?</li>
+<li>다양한 세트 연산의 구현에서 작은 예상치 못한 문제가 발생할 수 있다.</li>
+<li><code>d.keys()</code> 등의 여러 호출이 동일한 객체를 반환하는 것이 좋은가? 모든 <code>dict</code> 객체에 추가 슬롯(slot)을 할당할 가치가 있는가?</li>
+<li><code>d_keys</code>, <code>d_values</code>, <code>d_items</code>가 기본 딕셔너리를 검색할 수 있는 공개 인스턴스 변수 또는 메서드를 가져야 하는가?</li>
+<li><code>d_keys</code>, <code>d_values</code>, <code>d_items</code>보다 더 나은 이름이 있는가? 이 클래스들은 다른 매핑(mapping) 타입의 <code>.keys()</code>, <code>.values()</code>, <code>.items()</code> 메서드에 의해 재사용될 수 있도록 공개될 수 있는가?</li>
+<li><code>d_keys</code>, <code>d_values</code>, <code>d_items</code> 클래스들을 재사용 가능하고 서브클래싱(subclassing) 가능하게 해야 하는가?</li>
+</ul>
+<p>결정 사항(특히 이름 지정에 관한)은 실제 구현을 제출하는 사람에게 맡겨졌습니다.</p>
+<h3>참고 문헌 (References)</h3>
+<p>Java Collections Framework.
+<code>http://java.sun.com/docs/books/tutorial/collections/index.html</code></p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":[["$","aside",null,{"className":"lg:w-64 xl:w-72 order-1 lg:order-none","children":["$","div",null,{"className":"sidebar sticky","children":["$","nav",null,{"className":"space-y-4","children":[["$","div","Backend",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Backend"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Django",{"children":["$","a",null,{"href":"/backend/django/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Django"," (",6,")"]}]}],["$","li","Logging",{"children":["$","a",null,{"href":"/backend/logging/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Logging"," (",1,")"]}]}]]}]]}],["$","div","Python",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Python"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","PEP",{"children":["$","a",null,{"href":"/python/pep/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["PEP"," (",650,")"]}]}]]}]]}],["$","div","AI/ML",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"AI/ML"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","LLM",{"children":["$","a",null,{"href":"/ai/llm/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["LLM"," (",1,")"]}]}],["$","li","Review",{"children":["$","a",null,{"href":"/ai/review/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Review"," (",1025,")"]}]}]]}]]}],["$","div","DevOps",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"DevOps"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Nginx",{"children":["$","a",null,{"href":"/devops/nginx/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Nginx"," (",1,")"]}]}],["$","li","Docker",{"children":["$","a",null,{"href":"/devops/docker/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Docker"," (",1,")"]}]}],["$","li","SafeLine",{"children":["$","a",null,{"href":"/devops/safeline/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["SafeLine"," (",1,")"]}]}],["$","li","Jenkins",{"children":["$","a",null,{"href":"/devops/jenkins/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Jenkins"," (",3,")"]}]}],["$","li","GitHub Actions",{"children":["$","a",null,{"href":"/devops/github-actions/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["GitHub Actions"," (",1,")"]}]}],["$","li","AWS",{"children":["$","a",null,{"href":"/devops/aws/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["AWS"," (",1,")"]}]}]]}]]}],["$","div","etc",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"etc"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Me",{"children":["$","a",null,{"href":"/etc/me/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Me"," (",3,")"]}]}],["$","li","Chrome Extension",{"children":["$","a",null,{"href":"/etc/chrome-extension/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Chrome Extension"," (",1,")"]}]}]]}]]}]]}]}]}],["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Final] PEP 3106 - Revamping dict.keys(), .values() and .items()"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-27 14:18:13+0900","children":"2025년 9월 27일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 27일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]}]]}]}]]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"secrett2633's blog"}],["$","meta","3",{"name":"description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://secrett2633.github.io/"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"secrett2633's blog"}],["$","meta","13",{"property":"og:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","14",{"property":"og:url","content":"https://secrett2633.github.io/"}],["$","meta","15",{"property":"og:site_name","content":"secrett2633's blog"}],["$","meta","16",{"property":"og:locale","content":"ko_KR"}],["$","meta","17",{"property":"og:type","content":"website"}],["$","meta","18",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","19",{"name":"twitter:title","content":"secrett2633's blog"}],["$","meta","20",{"name":"twitter:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","link","21",{"rel":"icon","href":"/icon.ico?6d9f34d4948640b8","type":"image/x-icon","sizes":"16x16"}]]
+1:null

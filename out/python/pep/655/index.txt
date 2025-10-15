@@ -1,0 +1,147 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[9157,["231","static/chunks/231-c27e618569e042bc.js","157","static/chunks/157-aecaf5ac7a84facf.js","185","static/chunks/app/layout-c3e2e457f12fb6f6.js"],"default"]
+7:I[231,["231","static/chunks/231-c27e618569e042bc.js","931","static/chunks/app/page-e3ea38185bb36cd2.js"],""]
+4:["slug","python/pep/655","c"]
+0:["x02Anhkwgp1He7ftuyAhh",[[["",{"children":[["slug","python/pep/655","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"655\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/655","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_f367f3 layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/da5e1dc2b9a7c5bb.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+9:T351e,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0655/">PEP 655 - Marking individual TypedDict items as required or potentially-missing</a></p>
+<p><strong>상태:</strong> Final | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 30-Jan-2021</p>
+</blockquote>
+<h1>PEP 655 – TypedDict 개별 항목을 필수 또는 선택으로 표시하기</h1>
+<h2>개요</h2>
+<p>PEP 589는 모든 키가 필수인 <code>TypedDict</code>와 모든 키가 선택인 <code>TypedDict</code>를 선언하는 방법을 정의하지만, 일부 키는 필수이고 다른 키는 선택인 <code>TypedDict</code>를 선언하는 메커니즘은 제공하지 않습니다. 이 PEP는 두 가지 새로운 표기법인 <code>Required[]</code>와 <code>NotRequired[]</code>를 도입합니다.</p>
+<ul>
+<li><code>Required[]</code>: <code>TypedDict</code>의 개별 항목을 필수로 표시하는 데 사용됩니다.</li>
+<li><code>NotRequired[]</code>: <code>TypedDict</code>의 개별 항목을 선택(잠재적으로 누락될 수 있음)으로 표시하는 데 사용됩니다.</li>
+</ul>
+<p>이 PEP는 Python 문법을 변경하지 않습니다. <code>TypedDict</code>의 필수 및 선택 키의 올바른 사용은 정적 타입 체커에 의해서만 강제되며, Python 자체에서 런타임에 강제할 필요는 없습니다.</p>
+<h2>동기 (Motivation)</h2>
+<p>일부 키는 필수이고 다른 키는 선택인 <code>TypedDict</code>를 정의해야 하는 경우가 흔합니다. 현재 이러한 <code>TypedDict</code>를 정의하는 유일한 방법은 <code>total</code> 값이 다른 두 개의 <code>TypedDict</code>를 선언하고 상속하는 것입니다.</p>
+<pre><code class="language-python">class _MovieBase(TypedDict): # 암시적으로 total=True
+    title: str
+
+class Movie(_MovieBase, total=False):
+    year: int
+</code></pre>
+<p>이러한 목적을 위해 두 가지 다른 <code>TypedDict</code> 타입을 선언해야 하는 것은 번거롭습니다.</p>
+<p>이 PEP는 <code>typing.Required</code> 및 <code>typing.NotRequired</code>라는 두 가지 새로운 타입 한정자(type qualifier)를 도입하여 필수 및 선택 키가 혼합된 단일 <code>TypedDict</code>를 정의할 수 있도록 합니다.</p>
+<pre><code class="language-python">class Movie(TypedDict):
+    title: str
+    year: NotRequired[int]
+</code></pre>
+<p>또한, 이 PEP는 대안적인 함수형 문법(alternative functional syntax)으로 <code>TypedDict</code>를 정의할 때도 필수 및 선택 키를 혼합하여 사용할 수 있도록 합니다. 현재 이 함수형 문법은 상속을 지원하지 않아 혼합 키 사용이 불가능했습니다.</p>
+<pre><code class="language-python">Actor = TypedDict('Actor', {
+    'name': str,
+    'in': NotRequired[List[str]], # "in"은 키워드이므로 함수형 문법이 필요
+})
+</code></pre>
+<h2>이론적 근거 (Rationale)</h2>
+<p><code>Required[]</code>와 <code>NotRequired[]</code>를 도입하게 된 주요 이유는 다음과 같습니다.</p>
+<ul>
+<li><strong><code>Optional[]</code>과의 충돌 방지:</strong> 다른 언어(예: TypeScript의 <code>?</code> 연산자)에서는 선택적 키를 표시하는 표기법이 일반적이지만, Python에서 선택을 의미하는 가장 적절한 단어인 <code>Optional[]</code>은 이미 특정 타입 또는 <code>None</code>이 될 수 있는 값을 나타내는 데 사용되고 있습니다.
+<pre><code class="language-python">class Movie(TypedDict):
+    year: Optional[int] # year는 int 또는 None을 의미하며, 키가 없을 수도 있다는 의미가 아님
+</code></pre>
+<code>Optional[]</code>과 혼동을 피하기 위해 <code>Missing[]</code>와 같은 다른 "optional" 동의어를 사용하는 것은 바람직하지 않다고 판단했습니다.</li>
+<li><strong>긍정적 형태의 표기법 선호:</strong> 따라서 필수 키에 대한 긍정적 형태의 표기법인 <code>Required[]</code>에 초점을 맞추기로 결정했습니다.</li>
+<li><strong><code>NotRequired[]</code>의 필요성:</strong> 그러나 일반적으로 (total=True) <code>TypedDict</code>를 확장하여 소수의 선택적 키만 추가하려는 경우가 많으므로, 필수가 아닌 선택적 키를 표시하는 방법도 필요하여 <code>NotRequired[]</code> 형태도 허용되었습니다.</li>
+</ul>
+<h2>명세 (Specification)</h2>
+<h3><code>typing.Required</code> 및 <code>typing.NotRequired</code> 사용</h3>
+<p><code>typing.Required</code> 타입 한정자는 <code>TypedDict</code> 정의에서 변수가 필수 키임을 나타내는 데 사용됩니다.</p>
+<pre><code class="language-python">class Movie(TypedDict, total=False):
+    title: Required[str] # 이 키는 필수임
+    year: int            # total=False이므로 이 키는 선택임
+</code></pre>
+<p><code>typing.NotRequired</code> 타입 한정자는 <code>TypedDict</code> 정의에서 변수가 선택적(잠재적으로 누락될 수 있는) 키임을 나타내는 데 사용됩니다.</p>
+<pre><code class="language-python">class Movie(TypedDict): # 암시적으로 total=True
+    title: str           # 이 키는 필수임
+    year: NotRequired[int] # 이 키는 선택임
+</code></pre>
+<ul>
+<li><code>Required[]</code> 또는 <code>NotRequired[]</code>는 <code>TypedDict</code> 항목이 아닌 다른 위치에서 사용되면 오류입니다.</li>
+<li>명시성을 위해 <code>Required[]</code> 또는 <code>NotRequired[]</code>를 중복하여 사용해도 유효합니다.</li>
+<li><code>Required[]</code>와 <code>NotRequired[]</code>를 동시에 사용하는 것은 오류입니다.</li>
+</ul>
+<p>대안적인 함수형 <code>TypedDict</code> 문법도 <code>Required[]</code> 및 <code>NotRequired[]</code>를 지원합니다.</p>
+<pre><code class="language-python">Movie = TypedDict('Movie', {'name': str, 'year': NotRequired[int]})
+</code></pre>
+<h3><code>total=False</code>와의 상호작용</h3>
+<p><code>total=False</code>로 선언된 모든 PEP 589 스타일의 <code>TypedDict</code>는 암시적으로 <code>total=True</code>로 정의된 <code>TypedDict</code>와 동일하며, 모든 키가 <code>NotRequired[]</code>로 표시된 것과 같습니다.</p>
+<pre><code class="language-python">class _MovieBase(TypedDict): # 암시적으로 total=True
+    title: str
+
+class Movie(_MovieBase, total=False):
+    year: int
+</code></pre>
+<p>위 코드는 다음과 동일합니다.</p>
+<pre><code class="language-python">class _MovieBase(TypedDict):
+    title: str
+class Movie(_MovieBase):
+    year: NotRequired[int]
+</code></pre>
+<h3><code>Annotated[]</code>와의 상호작용</h3>
+<p><code>Required[]</code> 및 <code>NotRequired[]</code>는 <code>Annotated[]</code>와 어떤 중첩 순서로든 함께 사용할 수 있습니다.</p>
+<pre><code class="language-python">class Movie(TypedDict):
+    title: str
+    year: NotRequired[Annotated[int, ValueRange(-9999, 9999)]] # 유효함
+
+class Movie(TypedDict):
+    title: str
+    year: Annotated[NotRequired[int], ValueRange(-9999, 9999)] # 유효함
+</code></pre>
+<h3>런타임 동작 (Runtime behavior)</h3>
+<ul>
+<li><strong><code>get_type_hints()</code>와의 상호작용:</strong> <code>typing.get_type_hints()</code>는 기본적으로 <code>Required[]</code> 또는 <code>NotRequired[]</code> 타입 한정자를 제거합니다. 그러나 <code>typing.get_type_hints(..., include_extras=True)</code>는 이 한정자를 유지합니다.</li>
+<li><strong><code>get_origin()</code> 및 <code>get_args()</code>와의 상호작용:</strong> <code>typing.get_origin()</code> 및 <code>typing.get_args()</code>는 <code>Required[]</code> 및 <code>NotRequired[]</code>를 인식하도록 업데이트됩니다.</li>
+<li><strong><code>__required_keys__</code> 및 <code>__optional_keys__</code>와의 상호작용:</strong> <code>Required[]</code>로 표시된 항목은 해당 <code>TypedDict</code>의 <code>__required_keys__</code>에 항상 나타나고, <code>NotRequired[]</code>로 표시된 항목은 <code>__optional_keys__</code>에 항상 나타납니다.</li>
+</ul>
+<h2>하위 호환성 (Backwards Compatibility)</h2>
+<p>이 PEP는 하위 호환성을 깨는 변경 사항을 포함하지 않습니다.</p>
+<h2>학습 방법 (How to Teach This)</h2>
+<ul>
+<li><strong>대부분의 키가 필수이고 일부 키가 선택인 경우:</strong> 일반적인 <code>TypedDict</code>를 <code>total</code> 키워드 없이 정의하고, 선택적인 몇몇 키만 <code>NotRequired[]</code>로 표시합니다.</li>
+<li><strong>대부분의 키가 선택이고 일부 키가 필수인 경우:</strong> <code>total=False</code> <code>TypedDict</code>를 정의하고, 필수적인 몇몇 키만 <code>Required[]</code>로 표시합니다.</li>
+<li><strong>값으로 <code>None</code>을 허용하는 경우:</strong> <code>Required[]</code> 또는 <code>NotRequired[]</code>와 <code>Optional[]</code>을 같은 <code>TypedDict</code> 정의 내에서 함께 사용하는 것을 피하기 위해 <code>TYPE | None</code> 표기법을 권장합니다.
+<pre><code class="language-python"># 권장 (Python 3.7-3.9용)
+from __future__ import annotations
+class Dog(TypedDict):
+    name: str
+    owner: NotRequired[str | None]
+</code></pre>
+</li>
+</ul>
+<h2>Python &#x3C; 3.11에서의 사용</h2>
+<p>코드에서 Python 3.11 이전 버전을 지원하면서 <code>Required[]</code> 또는 <code>NotRequired[]</code>를 사용하려면 <code>typing_extensions.TypedDict</code>를 사용해야 합니다.</p>
+<pre><code class="language-python"># Python &#x3C;3.11 및 3.11+ 모두에서 사용 가능
+from __future__ import annotations # Python 3.7-3.9용
+from typing_extensions import NotRequired, TypedDict # Python &#x3C;3.11에서 (Not)Required 사용용
+class Dog(TypedDict):
+    name: str
+    owner: NotRequired[str | None]
+</code></pre>
+<h2>거부된 아이디어 (Rejected Ideas)</h2>
+<p>이 PEP에서 고려되었지만 거부된 아이디어들은 다음과 같습니다.</p>
+<ul>
+<li><strong><code>TypedDict</code> 키 주변에 특별한 문법 사용:</strong> <code>opt1?: str</code>와 같은 문법은 Python 문법 변경이 필요하며, <code>Optional[opt1]: str</code>와 같은 표기법은 <code>Optional[]</code>의 의미가 위치에 따라 달라져 혼란을 야기할 수 있어 거부되었습니다.</li>
+<li><strong>연산자를 사용하여 필수 또는 선택 키 표시:</strong> <code>+int</code>, <code>-str</code>, <code>~str</code>와 같이 단항 연산자를 사용하는 방법이 고려되었지만, 장기 형태(<code>Required[]</code>, <code>NotRequired[]</code>)를 먼저 도입하고 추후에 단기 형태를 재고하기로 결정되었습니다. 또한, <code>+</code>, <code>-</code>, <code>~</code>는 이미 Python 타입 시스템에서 공변(covariant), 반공변(contravariant), 불변(invariant)을 의미하는 데 사용되고 있어 혼란을 줄 수 있습니다.</li>
+<li><strong>값의 부재를 표시하는 특별한 상수 도입 (<code>Missing</code>):</strong> <code>str | Missing</code>와 같이 <code>Missing</code>이라는 새로운 타입 레벨 상수를 도입하는 아이디어는 다음과 같은 이유로 거부되었습니다.
+<ul>
+<li><strong>유니온(union)이 값에 적용되는 방식과의 불일치:</strong> <code>Union[..., Missing]</code>는 유니온이 일반적으로 나타내는 "값이 존재함"이라는 의미와 맞지 않습니다.</li>
+<li><strong>유니온이 세분화되는 방식과의 불일치:</strong> <code>isinstance</code> 체크를 통해 유니온 타입을 분해하는 일반적인 방식과 <code>hasattr</code> 또는 <code>locals()</code> 체크를 통해 <code>Missing</code>을 처리하는 방식이 일치하지 않아 일관성이 없습니다.</li>
+<li><strong>구현의 어려움:</strong> Pyright 타입 체커 팀은 <code>Union[..., Missing]</code> 스타일 표기법 구현이 어렵다고 언급했습니다.</li>
+<li><strong>두 번째 <code>null</code> 유사 값 도입:</strong> <code>Missing</code> 상수를 도입하는 것은 <code>None</code> 외에 두 번째 <code>null</code>과 같은 런타임 값을 만드는 것이며, 이는 JavaScript의 <code>null</code>과 <code>undefined</code>의 혼란과 유사하게 사용자에게 혼란을 줄 수 있습니다.</li>
+</ul>
+</li>
+<li><strong><code>Optional</code>을 <code>Nullable</code>로 대체하거나 의미 변경:</strong> <code>Optional[]</code>은 너무 널리 사용되어 사용 중단하기 어렵고, 특정 컨텍스트에서 <code>Optional</code>의 의미를 변경하는 것은 사용자에게 더 많은 혼란을 줄 수 있습니다.</li>
+<li><strong>"잠재적으로 누락될 수 있는 항목"에 대한 다양한 동의어:</strong> <code>Omittable</code>, <code>OptionalItem</code>, <code>MayExist</code>, <code>MissingOk</code> 등 다양한 동의어가 고려되었으나, <code>Optional[]</code>과의 혼동, 길거나 모호하다는 등의 이유로 거부되었습니다.</li>
+</ul>
+<hr>
+<p><strong>주요 참고사항:</strong> 이 PEP는 역사적인 문서입니다. 최신 사양 및 문서는 <code>Required</code> 및 <code>NotRequired</code>, <code>typing.Required</code> 및 <code>typing.NotRequired</code>를 참조하십시오.</p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":[["$","aside",null,{"className":"lg:w-64 xl:w-72 order-1 lg:order-none","children":["$","div",null,{"className":"sidebar sticky","children":["$","nav",null,{"className":"space-y-4","children":[["$","div","Backend",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Backend"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Django",{"children":["$","a",null,{"href":"/backend/django/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Django"," (",6,")"]}]}],["$","li","Logging",{"children":["$","a",null,{"href":"/backend/logging/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Logging"," (",1,")"]}]}]]}]]}],["$","div","Python",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Python"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","PEP",{"children":["$","a",null,{"href":"/python/pep/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["PEP"," (",650,")"]}]}]]}]]}],["$","div","AI/ML",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"AI/ML"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","LLM",{"children":["$","a",null,{"href":"/ai/llm/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["LLM"," (",1,")"]}]}],["$","li","Review",{"children":["$","a",null,{"href":"/ai/review/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Review"," (",1025,")"]}]}]]}]]}],["$","div","DevOps",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"DevOps"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Nginx",{"children":["$","a",null,{"href":"/devops/nginx/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Nginx"," (",1,")"]}]}],["$","li","Docker",{"children":["$","a",null,{"href":"/devops/docker/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Docker"," (",1,")"]}]}],["$","li","SafeLine",{"children":["$","a",null,{"href":"/devops/safeline/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["SafeLine"," (",1,")"]}]}],["$","li","Jenkins",{"children":["$","a",null,{"href":"/devops/jenkins/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Jenkins"," (",3,")"]}]}],["$","li","GitHub Actions",{"children":["$","a",null,{"href":"/devops/github-actions/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["GitHub Actions"," (",1,")"]}]}],["$","li","AWS",{"children":["$","a",null,{"href":"/devops/aws/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["AWS"," (",1,")"]}]}]]}]]}],["$","div","etc",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"etc"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Me",{"children":["$","a",null,{"href":"/etc/me/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Me"," (",3,")"]}]}],["$","li","Chrome Extension",{"children":["$","a",null,{"href":"/etc/chrome-extension/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Chrome Extension"," (",1,")"]}]}]]}]]}]]}]}]}],["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Final] PEP 655 - Marking individual TypedDict items as required or potentially-missing"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-27 09:53:14+0900","children":"2025년 9월 27일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 27일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]}]]}]}]]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"secrett2633's blog"}],["$","meta","3",{"name":"description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://secrett2633.github.io/"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"secrett2633's blog"}],["$","meta","13",{"property":"og:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","14",{"property":"og:url","content":"https://secrett2633.github.io/"}],["$","meta","15",{"property":"og:site_name","content":"secrett2633's blog"}],["$","meta","16",{"property":"og:locale","content":"ko_KR"}],["$","meta","17",{"property":"og:type","content":"website"}],["$","meta","18",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","19",{"name":"twitter:title","content":"secrett2633's blog"}],["$","meta","20",{"name":"twitter:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","link","21",{"rel":"icon","href":"/icon.ico?6d9f34d4948640b8","type":"image/x-icon","sizes":"16x16"}]]
+1:null

@@ -1,0 +1,142 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[9157,["231","static/chunks/231-c27e618569e042bc.js","157","static/chunks/157-aecaf5ac7a84facf.js","185","static/chunks/app/layout-c3e2e457f12fb6f6.js"],"default"]
+7:I[231,["231","static/chunks/231-c27e618569e042bc.js","931","static/chunks/app/page-e3ea38185bb36cd2.js"],""]
+4:["slug","python/pep/393","c"]
+0:["x02Anhkwgp1He7ftuyAhh",[[["",{"children":[["slug","python/pep/393","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"393\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/393","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_f367f3 layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/da5e1dc2b9a7c5bb.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+9:T4911,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0393/">PEP 393 - Flexible String Representation</a></p>
+<p><strong>상태:</strong> Final | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 24-Jan-2010</p>
+</blockquote>
+<p>PEP 393 – 유연한 문자열 표현 (Flexible String Representation)</p>
+<h2>개요 (Abstract)</h2>
+<p>이 PEP는 유니코드 문자열 타입이 여러 내부 표현 방식을 지원하도록 변경하는 것을 제안합니다. 이는 문자열 내 가장 큰 유니코드 코드 포인트(1, 2, 또는 4바이트)에 따라 내부 표현이 달라지도록 하여, 일반적인 경우 메모리 효율적인 표현을 가능하게 하면서도 모든 시스템에서 완전한 UCS-4에 접근할 수 있도록 합니다. 기존 API와의 호환성을 위해 여러 표현이 동시에 존재할 수 있으며, 시간이 지남에 따라 이러한 호환성은 점진적으로 제거될 것입니다. 이 변경으로 인해 "narrow" 및 "wide" 유니코드 빌드의 구분은 사라집니다.</p>
+<h2>도입 배경 (Rationale)</h2>
+<p>기존 <code>unicode</code> 타입 구현에는 두 가지 주요 불만이 있었습니다. 첫째, UTF-16만 지원하는 시스템에서는 BMP(Basic Multilingual Plane) 이외의 문자가 제대로 지원되지 않는다는 불만이 있었습니다. 둘째, 내부적으로 UCS-4를 사용하는 시스템(그리고 때로는 UCS-2를 사용하는 시스템)에서는 유니코드 문자열이 너무 많은 메모리를 차지한다는 불만이 있었습니다. 특히 Python 2.x에서는 동일한 코드가 종종 ASCII 문자열(즉, ASCII로 인코딩된 바이트 문자열)을 사용하여 메모리 사용량이 적었던 것에 비해 불만이 제기되었습니다.</p>
+<p>제안된 접근 방식에 따르면, ASCII만 포함하는 유니코드 문자열은 다시 문자당 1바이트만 사용하게 됩니다. 동시에 BMP 이외의 문자를 포함하는 문자열은 문자당 4바이트를 사용하여 효율적인 인덱싱을 가능하게 합니다.</p>
+<p>이 접근 방식의 한 가지 문제는 기존 애플리케이션(예: 확장 모듈)에 대한 지원입니다. 호환성을 위해 중복된 표현이 계산될 수 있습니다. 애플리케이션은 가능하면 특정 내부 표현에 대한 의존성을 점진적으로 줄여나갈 것을 권장합니다. 다른 라이브러리와의 상호작용 시 종종 어떤 형태의 내부 표현이 필요하므로, 이 PEP는 C 코드에 문자열을 노출하는 권장 방법으로 UTF-8을 선택합니다.</p>
+<p>많은 문자열(예: ASCII)의 경우, 여러 표현이 실제로 메모리를 공유할 수 있습니다(예: 모든 문자가 ASCII인 경우 가장 짧은 형식과 UTF-8 형식이 공유될 수 있음). 이러한 공유를 통해 호환성 표현의 오버헤드가 줄어듭니다. 표현들이 데이터를 공유하는 경우, 구조체 필드를 생략하여 문자열 객체의 기본 크기를 줄일 수도 있습니다.</p>
+<h2>사양 (Specification)</h2>
+<p>유니코드 구조체는 이제 <code>PyASCIIObject</code>, <code>PyCompactUnicodeObject</code>, <code>PyUnicodeObject</code>와 같은 계층 구조로 정의됩니다.</p>
+<ul>
+<li><code>PyASCIIObject</code>: 크기와 최대 문자를 생성 시점에 아는 객체 중 최대 문자가 128 미만인 경우 사용됩니다.</li>
+<li><code>PyCompactUnicodeObject</code>: 크기와 최대 문자를 생성 시점에 아는 객체 중 비-ASCII 문자열에 사용됩니다. 이 객체들은 "compact" 유니코드 객체라고 불리며, 문자 데이터가 기본 구조체 바로 뒤에 옵니다. compact 객체의 크기 변경은 지원되지 않습니다.</li>
+<li><code>PyUnicodeObject</code>: 생성 시점에 최대 문자가 주어지지 않는 객체("legacy" 객체)에 사용됩니다. 초기에는 <code>wstr</code> 포인터에만 데이터가 있으며, <code>PyUnicode_READY</code>가 호출될 때 <code>data</code> 포인터(union)가 할당됩니다. <code>PyUnicode_READY</code>가 호출되기 전까지는 크기 변경이 가능합니다.</li>
+</ul>
+<p>필드는 다음과 같은 의미를 가집니다:</p>
+<ul>
+<li><code>length</code>: 문자열의 코드 포인트 수</li>
+<li><code>interned</code>: 3.2 버전과 동일한 interned-상태</li>
+<li><code>kind</code>: 문자열의 형식 (00: 미초기화, 01: 1바이트 (Latin-1), 10: 2바이트 (UCS-2), 11: 4바이트 (UCS-4))</li>
+<li><code>compact</code>: 객체가 compact 표현 중 하나를 사용하는지 여부 (ready를 의미)</li>
+<li><code>ascii</code>: 객체가 <code>PyASCIIObject</code> 표현을 사용하는지 여부 (compact 및 ready를 의미)</li>
+<li><code>ready</code>: 정식(canonical) 표현에 <code>PyUnicode_DATA</code> 및 <code>PyUnicode_GET_LENGTH</code>를 통해 접근할 준비가 되었는지 여부</li>
+<li><code>wstr_length</code>, <code>wstr</code>: 플랫폼의 <code>wchar_t</code>로 표현된 null-종료 문자열. <code>wstr_length</code>는 surrogate pair가 있는 경우에만 <code>length</code>와 다릅니다.</li>
+<li><code>utf8_length</code>, <code>utf8</code>: UTF-8 표현 (null-종료).</li>
+<li><code>data</code>: 유니코드 문자열의 최단 형식 표현. 이 문자열도 해당 표현에서 null-종료됩니다.</li>
+</ul>
+<p>세 가지 표현 모두 선택 사항이지만, <code>data</code> 형식은 정식 표현으로 간주되며, 문자열이 생성되는 동안에만 없을 수 있습니다. <code>Py_UNICODE</code> 타입은 여전히 지원되지만, 더 이상 사용되지 않습니다.</p>
+<p><code>data</code>와 <code>utf8</code> 포인터는 문자열이 ASCII 문자만 사용하는 경우 동일한 메모리를 가리킵니다. <code>data</code>와 <code>wstr</code> 포인터는 문자열이 플랫폼의 <code>wchar_t</code> 타입에 정확히 맞는 경우(예: <code>sizeof(wchar_t)</code>가 2일 때 BMP-non-Latin-1 문자를 사용하거나, <code>sizeof(wchar_t)</code>가 4일 때 BMP 이외의 문자를 사용하는 경우) 동일한 메모리를 가리킵니다.</p>
+<h3>문자열 생성 (String Creation)</h3>
+<p>유니코드 객체를 생성하는 권장 방법은 <code>PyUnicode_New</code> 함수를 사용하는 것입니다:</p>
+<pre><code class="language-c">PyObject* PyUnicode_New(Py_ssize_t size, Py_UCS4 maxchar);
+</code></pre>
+<p>두 매개변수는 문자열의 최종 크기/범위를 나타내야 합니다. <code>PyUnicode_FromString</code> 및 <code>PyUnicode_FromStringAndSize</code>는 UTF-8 입력을 처리하기 위해 계속 지원됩니다. <code>PyUnicode_FromUnicode</code>는 지원되지만 더 이상 사용되지 않습니다.</p>
+<p><code>PyUnicode_READY()</code>는 <code>wstr</code> 표현만 포함하는 문자열을 정식 표현으로 변환합니다. <code>wstr</code>와 <code>data</code>가 메모리를 공유할 수 없는 경우, <code>wstr</code> 표현은 변환 후 버려집니다.</p>
+<h3>문자열 접근 (String Access)</h3>
+<p>정식 표현은 <code>PyUnicode_Kind</code> 및 <code>PyUnicode_Data</code> 두 매크로를 사용하여 접근할 수 있습니다.</p>
+<ul>
+<li><code>PyUnicode_Kind</code>: <code>PyUnicode_WCHAR_KIND (0)</code>, <code>PyUnicode_1BYTE_KIND (1)</code>, <code>PyUnicode_2BYTE_KIND (2)</code>, 또는 <code>PyUnicode_4BYTE_KIND (3)</code> 중 하나를 반환합니다.</li>
+<li><code>PyUnicode_DATA</code>: 데이터에 대한 <code>void</code> 포인터를 반환합니다.</li>
+</ul>
+<p>개별 문자에 접근하려면 <code>PyUnicode_{READ|WRITE}[_CHAR]</code>를 사용해야 합니다:</p>
+<pre><code class="language-c">PyUnicode_READ(kind, data, index)
+PyUnicode_WRITE(kind, data, index, value)
+PyUnicode_READ_CHAR(unicode, index)
+</code></pre>
+<p>이러한 매크로는 문자열이 정식 형식이라고 가정하므로, 호출자는 <code>PyUnicode_READY</code>를 호출하여 이를 보장해야 합니다.</p>
+<p>UTF-8 표현에 접근하기 위해 새로운 함수 <code>PyUnicode_AsUTF8</code>가 제공됩니다. 이 함수는 처음 호출될 때 UTF-8 표현을 계산합니다.</p>
+<h3>새로운 API (New API)</h3>
+<p>새롭게 추가된 API는 다음과 같습니다:</p>
+<ul>
+<li>
+<p><strong>내부 표현 접근 매크로 (읽기 전용):</strong>
+<code>PyUnicode_IS_COMPACT_ASCII(o)</code>, <code>PyUnicode_IS_COMPACT(o)</code>, <code>PyUnicode_IS_READY(o)</code>
+<code>PyUnicode_GET_LENGTH(o)</code>
+<code>PyUnicode_KIND(o)</code>, <code>PyUnicode_CHARACTER_SIZE(o)</code>, <code>PyUnicode_MAX_CHAR_VALUE(o)</code>
+<code>PyUnicode_DATA(o)</code>, <code>PyUnicode_1BYTE_DATA(o)</code>, <code>PyUnicode_2BYTE_DATA(o)</code>, <code>PyUnicode_4BYTE_DATA(o)</code></p>
+</li>
+<li>
+<p><strong>문자 접근 매크로:</strong>
+<code>PyUnicode_READ(kind, data, index)</code>, <code>PyUnicode_READ_CHAR(o, index)</code>
+<code>PyUnicode_WRITE(kind, data, index, value)</code></p>
+</li>
+<li>
+<p><strong>기타 매크로:</strong>
+<code>PyUnicode_READY(o)</code>
+<code>PyUnicode_CONVERT_BYTES(from_type, to_type, begin, end, to)</code></p>
+</li>
+<li>
+<p><strong>문자열 생성 함수:</strong>
+<code>PyUnicode_New(size, maxchar)</code>
+<code>PyUnicode_FromKindAndData(kind, data, size)</code>
+<code>PyUnicode_Substring(o, start, end)</code></p>
+</li>
+<li>
+<p><strong>문자 접근 유틸리티 함수:</strong>
+<code>PyUnicode_GetLength(o)</code>, <code>PyUnicode_ReadChar(o, index)</code>, <code>PyUnicode_WriteChar(o, index, character)</code>
+<code>PyUnicode_CopyCharacters(to, to_start, from, from_start, how_many)</code>
+<code>PyUnicode_FindChar(str, ch, start, end, direction)</code></p>
+</li>
+<li>
+<p><strong>표현 변환:</strong>
+<code>PyUnicode_AsUCS4(o, buffer, buflen)</code>
+<code>PyUnicode_AsUCS4Copy(o)</code>
+<code>PyUnicode_AsUnicodeAndSize(o, size_out)</code>
+<code>PyUnicode_AsUTF8(o)</code>
+<code>PyUnicode_AsUTF8AndSize(o, size_out)</code></p>
+</li>
+<li>
+<p><strong>UCS4 유틸리티 함수:</strong>
+<code>Py_UCS4_{strlen, strcpy, strcat, strncpy, strcmp, strncmp, strchr, strrchr}</code></p>
+</li>
+</ul>
+<h3>안정적인 ABI (Stable ABI)</h3>
+<p><code>PyUnicode_New</code>, <code>PyUnicode_Substring</code>, <code>PyUnicode_GetLength</code>, <code>PyUnicode_ReadChar</code>, <code>PyUnicode_WriteChar</code>, <code>PyUnicode_Find</code>, <code>PyUnicode_FindChar</code>와 같은 함수들은 유니코드 객체의 실제 표현과 독립적이므로 안정적인 ABI (PEP 384)에 추가됩니다.</p>
+<h3>GDB 디버깅 훅 (GDB Debugging Hooks)</h3>
+<p><code>Tools/gdb/libpython.py</code>는 CPython의 데이터 타입, 특히 <code>PyUnicodeObject</code> 인스턴스의 내부 지식을 포함하는 디버깅 훅을 제공하며, 이 변경 사항을 추적하도록 업데이트되었습니다.</p>
+<h3>사용 중단, 제거 및 비호환성 (Deprecations, Removals, and Incompatibilities)</h3>
+<p><code>Py_UNICODE</code> 표현 및 관련 API는 이 PEP로 인해 사용 중단되지만, API 제거는 예정되어 있지 않습니다. 이 API는 PEP가 승인된 후 최소 5년 동안은 계속 사용할 수 있어야 합니다.</p>
+<p>다음 매크로 및 함수들은 사용 중단됩니다:
+<code>PyUnicode_FromUnicode</code>, <code>PyUnicode_GET_SIZE</code>, <code>PyUnicode_GetSize</code>, <code>PyUnicode_GET_DATA_SIZE</code>, <code>PyUnicode_AS_UNICODE</code>, <code>PyUnicode_AsUnicode</code>, <code>PyUnicode_AsUnicodeAndSize</code>, <code>PyUnicode_COPY</code>, <code>PyUnicode_FILL</code>, <code>PyUnicode_MATCH</code>, <code>PyUnicode_Encode</code>, <code>PyUnicode_EncodeUTF7</code>, <code>PyUnicode_EncodeUTF8</code>, <code>PyUnicode_EncodeUTF16</code>, <code>PyUnicode_EncodeUTF32</code>, <code>PyUnicode_EncodeUnicodeEscape</code>, <code>PyUnicode_EncodeRawUnicodeEscape</code>, <code>PyUnicode_EncodeLatin1</code>, <code>PyUnicode_EncodeASCII</code>, <code>PyUnicode_EncodeCharmap</code>, <code>PyUnicode_TranslateCharmap</code>, <code>PyUnicode_EncodeMBCS</code>, <code>PyUnicode_EncodeDecimal</code>, <code>PyUnicode_TransformDecimalToASCII</code>, <code>Py_UNICODE_{strlen, strcat, strcpy, strcmp, strchr, strrchr}</code>, <code>PyUnicode_AsUnicodeCopy</code>, <code>PyUnicode_GetMax</code></p>
+<p><code>_PyUnicode_AsDefaultEncodedString</code>는 제거됩니다. 이 함수는 이전에 UTF-8 인코딩된 바이트 객체에 대한 빌린 참조(borrowed reference)를 반환했습니다. 유니코드 객체가 더 이상 이러한 참조를 캐시할 수 없으므로 메모리 누수 없이 이를 구현하는 것은 불가능합니다. 이 API는 내부용으로만 사용되었기 때문에 사용 중단 단계는 제공되지 않습니다.</p>
+<p>레거시 API를 사용하는 확장 모듈은 객체가 준비되어야 하는 일부 API를 호출함으로써 의도치 않게 <code>PyUnicode_READY</code>를 호출한 다음, (이제는 유효하지 않은) <code>Py_UNICODE</code> 포인터에 계속 접근할 수 있습니다. 이러한 코드는 이 PEP와 함께 작동하지 않게 됩니다. 모듈이 이 문제에 직면하면 API 호출 후 <code>Py_UNICODE</code> 포인터를 다시 가져와야 합니다.</p>
+<h2>논의 (Discussion)</h2>
+<p>제시된 접근 방식에 대해 몇 가지 우려가 제기되었습니다.</p>
+<ul>
+<li><strong>구현의 복잡성 증가:</strong> 이는 사실이지만, 얻는 이점을 고려할 때 가치가 있다고 판단됩니다.</li>
+<li><strong><code>Py_UNICODE</code> 표현의 즉각적인 사용 불가로 인한 애플리케이션 속도 저하:</strong> 이 또한 사실이지만, 이 문제에 관심 있는 애플리케이션은 <code>data</code> 표현을 사용하도록 재작성할 수 있습니다.</li>
+</ul>
+<h2>성능 (Performance)</h2>
+<p>이 패치의 성능은 메모리 소비와 런타임 효율성 모두에서 고려되어야 합니다.</p>
+<ul>
+<li><strong>메모리 소비:</strong> 많은 큰 문자열을 가진 애플리케이션은 메모리 사용량이 감소할 것으로 예상됩니다. 작은 문자열의 경우, 시스템의 포인터 크기 및 <code>Py_UNICODE</code>/<code>wchar_t</code> 타입의 크기에 따라 영향이 달라집니다.</li>
+<li><strong>런타임 효율성:</strong> 사용되는 API에 따라 런타임 영향이 크게 달라집니다. 관련 코드 조각을 새 API로 포팅한 후, <code>iobench</code>, <code>stringbench</code>, <code>json</code> 벤치마크는 일반적으로 1%에서 30%의 속도 저하를 보였습니다. 특정 벤치마크에서는 속도 향상이 발생할 수도 있고, 훨씬 더 큰 속도 저하가 발생할 수도 있습니다.</li>
+</ul>
+<p>Django 애플리케이션에 대한 실제 측정 결과, 메모리 사용량이 크게 감소한 것을 확인할 수 있었습니다. 예를 들어, 유니코드 객체에 대한 저장 공간은 wide 유니코드 빌드의 경우 6,378,540바이트에서 2,216,807바이트로, narrow 유니코드 빌드의 경우 3,694,694바이트에서 2,216,807바이트로 감소했습니다(모두 32비트 시스템 기준). 이 감소는 해당 애플리케이션에서 ASCII 문자열이 지배적이었기 때문입니다.</p>
+<p>Python 2와 비교했을 때, 유니코드와 바이트 문자열을 모두 고려해야 합니다. 테스트 애플리케이션에서 유니코드와 바이트 문자열을 합친 길이는 2.x에서 2,046,000 단위(바이트/문자)였고, 3.x에서는 2,200,000 단위였습니다. 32비트 시스템에서 2.x 빌드가 32비트 <code>wchar_t</code>/<code>Py_UNICODE</code>를 사용했을 때, 2.x 테스트는 3,620,000 바이트를 사용했고, 3.x 빌드는 3,340,000 바이트를 사용했습니다. 이 PEP를 사용한 3.x에서의 감소는 wide 유니코드 빌드와 비교할 때만 발생합니다.</p>
+<h2>포팅 가이드라인 (Porting Guidelines)</h2>
+<p>이 PEP의 영향을 받는 C 코드는 유니코드 문자열의 "내부"를 들여다봐야 하는 코드의 일부에 불과합니다. 기존 API가 계속 올바르게 작동하므로 해당 코드를 새 API로 포팅할 필요는 없습니다. 특히, Python 2와 Python 3를 모두 지원해야 하는 모듈은 이 새 API와 이전 유니코드 API를 동시에 지원할 경우 너무 복잡해질 수 있습니다.</p>
+<p>모듈을 새 API로 포팅하려면 다음 API 요소의 사용을 제거하려고 노력하십시오:
+<code>Py_UNICODE</code> 타입, <code>PyUnicode_AS_UNICODE</code> 및 <code>PyUnicode_AsUnicode</code>, <code>PyUnicode_GET_SIZE</code> 및 <code>PyUnicode_GetSize</code>, 그리고 <code>PyUnicode_FromUnicode</code>.</p>
+<p>기존 문자열을 반복하거나 특정 문자를 볼 때는 포인터 연산 대신 인덱싱 연산을 사용하십시오. 인덱싱은 <code>PyUnicode_READ(_CHAR)</code> 및 <code>PyUnicode_WRITE</code>에 잘 작동합니다. 컴파일러가 유효하지 않은 역참조(dereferencing) 연산을 감지하도록 <code>void*</code>를 문자 버퍼 타입으로 사용하십시오.</p>
+<p>새 문자열을 생성할 때 Python에서는 휴리스틱(heuristical) 버퍼 크기로 시작하여 휴리스틱이 실패하면 크기를 늘리거나 줄이는 것이 일반적이었습니다. 이 PEP에서는 문자열의 길이뿐만 아니라 최대 문자에 대한 휴리스틱도 필요하므로 이는 덜 실용적입니다.</p>
+<p>휴리스틱을 피하려면 입력에 대해 두 번의 통과(two passes)를 수행해야 합니다. 한 번은 출력 길이와 최대 문자를 결정하고, 그 다음 <code>PyUnicode_New</code>로 대상 문자열을 할당하고 입력을 두 번째로 반복하여 최종 출력을 생성합니다.
+만약 휴리스틱 경로를 택한다면, 크기 변경을 위한 문자열 할당은 피하십시오. 대신, 문자를 수집하기 위해 별도의 버퍼를 할당한 다음 <code>PyUnicode_FromKindAndData</code>를 사용하여 유니코드 객체를 구성하십시오. <code>Py_UCS4</code>를 버퍼 요소로 사용하여 최악의 문자 서수를 가정하는 옵션도 있습니다.</p>
+<p>일반적인 작업의 경우 문자열 표현에 대한 직접 접근이 필요하지 않을 수 있습니다. <code>PyUnicode_Find</code>, <code>PyUnicode_FindChar</code>, <code>PyUnicode_Ord</code>, <code>PyUnicode_CopyCharacters</code>는 데이터 포인터 대신 인덱스를 사용하여 문자열 객체를 분석하고 생성하는 데 도움이 됩니다.</p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":[["$","aside",null,{"className":"lg:w-64 xl:w-72 order-1 lg:order-none","children":["$","div",null,{"className":"sidebar sticky","children":["$","nav",null,{"className":"space-y-4","children":[["$","div","Backend",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Backend"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Django",{"children":["$","a",null,{"href":"/backend/django/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Django"," (",6,")"]}]}],["$","li","Logging",{"children":["$","a",null,{"href":"/backend/logging/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Logging"," (",1,")"]}]}]]}]]}],["$","div","Python",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Python"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","PEP",{"children":["$","a",null,{"href":"/python/pep/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["PEP"," (",650,")"]}]}]]}]]}],["$","div","AI/ML",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"AI/ML"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","LLM",{"children":["$","a",null,{"href":"/ai/llm/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["LLM"," (",1,")"]}]}],["$","li","Review",{"children":["$","a",null,{"href":"/ai/review/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Review"," (",1025,")"]}]}]]}]]}],["$","div","DevOps",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"DevOps"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Nginx",{"children":["$","a",null,{"href":"/devops/nginx/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Nginx"," (",1,")"]}]}],["$","li","Docker",{"children":["$","a",null,{"href":"/devops/docker/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Docker"," (",1,")"]}]}],["$","li","SafeLine",{"children":["$","a",null,{"href":"/devops/safeline/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["SafeLine"," (",1,")"]}]}],["$","li","Jenkins",{"children":["$","a",null,{"href":"/devops/jenkins/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Jenkins"," (",3,")"]}]}],["$","li","GitHub Actions",{"children":["$","a",null,{"href":"/devops/github-actions/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["GitHub Actions"," (",1,")"]}]}],["$","li","AWS",{"children":["$","a",null,{"href":"/devops/aws/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["AWS"," (",1,")"]}]}]]}]]}],["$","div","etc",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"etc"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Me",{"children":["$","a",null,{"href":"/etc/me/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Me"," (",3,")"]}]}],["$","li","Chrome Extension",{"children":["$","a",null,{"href":"/etc/chrome-extension/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Chrome Extension"," (",1,")"]}]}]]}]]}]]}]}]}],["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Final] PEP 393 - Flexible String Representation"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-26 21:20:21+0900","children":"2025년 9월 26일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 26일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]}]]}]}]]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"secrett2633's blog"}],["$","meta","3",{"name":"description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://secrett2633.github.io/"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"secrett2633's blog"}],["$","meta","13",{"property":"og:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","14",{"property":"og:url","content":"https://secrett2633.github.io/"}],["$","meta","15",{"property":"og:site_name","content":"secrett2633's blog"}],["$","meta","16",{"property":"og:locale","content":"ko_KR"}],["$","meta","17",{"property":"og:type","content":"website"}],["$","meta","18",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","19",{"name":"twitter:title","content":"secrett2633's blog"}],["$","meta","20",{"name":"twitter:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","link","21",{"rel":"icon","href":"/icon.ico?6d9f34d4948640b8","type":"image/x-icon","sizes":"16x16"}]]
+1:null

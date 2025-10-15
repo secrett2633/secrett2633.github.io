@@ -1,0 +1,140 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[9157,["231","static/chunks/231-c27e618569e042bc.js","157","static/chunks/157-aecaf5ac7a84facf.js","185","static/chunks/app/layout-c3e2e457f12fb6f6.js"],"default"]
+7:I[231,["231","static/chunks/231-c27e618569e042bc.js","931","static/chunks/app/page-e3ea38185bb36cd2.js"],""]
+4:["slug","python/pep/432","c"]
+0:["x02Anhkwgp1He7ftuyAhh",[[["",{"children":[["slug","python/pep/432","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"432\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/432","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_f367f3 layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/da5e1dc2b9a7c5bb.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+9:T44ee,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0432/">PEP 432 - Restructuring the CPython startup sequence</a></p>
+<p><strong>상태:</strong> Withdrawn | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 28-Dec-2012</p>
+</blockquote>
+<h1>PEP 432 – CPython 시작 시퀀스 재구성</h1>
+<h2>개요</h2>
+<p>이 문서는 CPython 인터프리터의 시작 시퀀스를 재구성하여, 참조 인터프리터 실행 파일의 초기화 동작을 수정하고, 더 큰 애플리케이션에 Python 실행 엔진으로 CPython을 임베딩할 때 시작 동작을 더 쉽게 제어할 수 있는 메커니즘을 제안합니다.</p>
+<p>원래 PEP 432는 CPython 시작 시퀀스를 유지보수하기 쉽게 만들고 CPython 런타임을 대규모 애플리케이션의 일부로 임베딩하기 쉽게 만들기 위한 배경 정보와 구체적인 제안을 제공했습니다.</p>
+<h3>PEP 철회 (Withdrawal)</h3>
+<p>PEP 432는 2012년 말부터 2020년 중반까지 유효했으나, 2020년 6월 PEP 저자들은 해당 PEP를 철회하기로 결정했습니다. 이는 PEP 432가 처음 작성된 이후 많은 변화가 있었고, CPython 시작 시퀀스 및 임베딩 API에 대한 추가 변경 사항은 PEP 587에서 충분히 다뤄지지 않은 아이디어들과 PEP 587 공개 API에 대한 피드백, 그리고 임베딩 및 서브인터프리터 친화적인 CPython 구현을 조정하는 과정에서 얻은 교훈을 고려하여 새로운 PEP(또는 여러 PEP)로 다시 작성하는 것이 가장 적절하다고 판단했기 때문입니다.</p>
+<p>특히 다음과 같은 변경 사항을 제안하는 PEP와 이를 가능하게 하는 추가 인프라 변경 사항은 여전히 탐구할 가치가 있을 것입니다.</p>
+<ul>
+<li>모든 사용자 수준 설정을 무시하고 기본적으로 격리 모드(isolated mode)로 실행되는 대체 Python 실행 파일을 제공하여, 기본 인터프리터보다 시스템 수준 Python 애플리케이션 실행에 더 적합하도록 만듭니다.</li>
+<li><code>zipapp</code> 모듈을 강화하여 순수 Python 스크립트(및 다단계 확장 모듈 초기화 도입 시 Python 확장 모듈까지)로부터 단일 파일 실행 파일을 생성하는 것을 지원합니다.</li>
+<li>복잡한 <code>sys.path</code> 초기화 로직을 C 코드에서 Python 코드로 마이그레이션하여 테스트 스위트 커버리지 및 코드의 일반적인 유지보수성을 향상시킵니다.</li>
+</ul>
+<h2>제안 내용 (Proposal)</h2>
+<p>이 PEP는 CPython 런타임의 초기화를 세 가지 명확하고 독립적으로 구성 가능한 단계로 나눌 것을 제안합니다.</p>
+<ol>
+<li><strong>Python 코어 런타임 사전 초기화 (Core runtime preinitialization)</strong>
+<ul>
+<li>메모리 관리 설정</li>
+<li>시스템 인터페이스에 사용되는 인코딩 결정 (이후 구성 단계에 전달될 설정 포함)</li>
+</ul>
+</li>
+<li><strong>Python 코어 런타임 초기화 (Core runtime initialization)</strong>
+<ul>
+<li>C API가 사용할 준비가 되었는지 확인</li>
+<li>내장(builtin) 및 동결된(frozen) 모듈에 접근 가능한지 확인</li>
+</ul>
+</li>
+<li><strong>메인 인터프리터 구성 (Main interpreter configuration)</strong>
+<ul>
+<li>외부 모듈에 접근 가능한지 확인 (이 단계의 이름은 변경될 가능성이 높습니다.)</li>
+</ul>
+</li>
+</ol>
+<p>또한, 메인 모듈 실행 및 서브인터프리터(subinterpreter) 초기화에 영향을 미치는 변경 사항도 제안됩니다.</p>
+<p>새로운 설계에서 인터프리터는 초기화 시퀀스 동안 다음과 같은 잘 정의된 단계를 거치게 됩니다.</p>
+<ul>
+<li><strong>Uninitialized (초기화되지 않음):</strong> 사전 초기화 단계조차 시작하지 않은 상태.</li>
+<li><strong>Pre-Initialization (사전 초기화):</strong> 인터프리터가 아직 없는 상태.</li>
+<li><strong>Runtime Initialized (런타임 초기화됨):</strong> 메인 인터프리터가 부분적으로 사용 가능하며, 서브인터프리터 생성이 아직 불가능한 상태.</li>
+<li><strong>Initialized (초기화됨):</strong> 메인 인터프리터가 완전히 사용 가능하며, 서브인터프리터 생성이 가능한 상태.</li>
+</ul>
+<p>PEP 587은 <code>Pre-Initialization</code> 단계를 나머지 두 단계와 분리하는 것을 다루는 더 상세한 제안이지만, 임베딩 애플리케이션이 "Runtime Initialized" 상태에서 임의의 코드를 실행하는 것을 허용하지 않습니다. (대신, 코어 런타임을 초기화하면 항상 메인 인터프리터도 완전히 초기화됩니다. 이는 Python 3.8의 기본 CPython CLI 동작 방식입니다.)</p>
+<h2>배경 (Background)</h2>
+<p>시간이 지남에 따라 CPython의 초기화 시퀀스는 점차 복잡해졌으며, 더 많은 옵션을 제공하고 더 복잡한 작업(예: Python 3에서 OS 인터페이스용 Unicode 설정 구성, 임포트 시스템의 순수 Python 구현 부트스트랩, 높은 권한으로 실행되는 시스템 애플리케이션에 더 적합한 격리 모드 구현)을 수행하게 되었습니다.</p>
+<p>이러한 복잡성의 대부분은 <code>Py_Main</code> 및 <code>Py_Initialize</code> API를 통해서만 공식적으로 접근할 수 있어, 임베딩 애플리케이션에 사용자 정의(customization) 기회가 거의 없었습니다. 이처럼 점진적으로 증가하는 복잡성은 유지보수자들에게도 어려움을 야기합니다. 구성 작업의 상당 부분이 <code>Py_Initialize</code> 호출 이전에 이루어져야 하므로, Python C API의 상당 부분을 안전하게 사용할 수 없게 됩니다.</p>
+<p>이러한 문제를 해결하기 위해, 이 PEP는 더 복잡한 시스템에 계속해서 기능을 추가하는 대신, 더 구조화된 시작 시퀀스를 도입하여 현재 상태를 단순화하고 향후 기능 요청을 더 쉽게 구현할 수 있도록 하는 것을 목표로 합니다.</p>
+<h2>주요 고려 사항 (Key Concerns)</h2>
+<p>시작 시퀀스에 대한 모든 변경은 몇 가지 주요 고려 사항을 염두에 두어야 합니다.</p>
+<h3>유지보수성 (Maintainability)</h3>
+<p>Python 3.6 기준 CPython 시작 시퀀스는 이해하기 어려웠고 수정하기는 더욱 어려웠습니다. 초기화 코드의 많은 부분이 실행되는 동안 인터프리터가 어떤 상태에 있는지 명확하지 않아, <code>-X</code> 또는 <code>-W</code> 옵션이 사용될 때 <code>Py_Initialize</code> 호출 이전에 <code>List</code>, <code>Dict</code>, <code>Unicode</code> 값 등이 생성되는 등의 동작이 발생했습니다.</p>
+<p>명시적인 다단계 시작 시퀀스로 전환함으로써 개발자는 다음 사항만 이해하면 됩니다.</p>
+<ul>
+<li>사전 구성 이전에 사용 가능한 API 및 기능 (기본적으로 사전 구성 API 자체를 제외하고는 없음).</li>
+<li>코어 런타임 구성 이전에 사용 가능한 API 및 기능 (사전 구성이 명시적으로 실행되지 않은 경우 Python 3.6의 동작과 일치하는 기본 설정으로 사전 구성을 암시적으로 실행함).</li>
+<li>메인 인터프리터가 완전히 구성된 후에만 사용 가능한 API 및 기능 (전체 C API 중 상대적으로 작은 하위 집합이기를 바람).</li>
+</ul>
+<p>새로운 설계는 C 구조체와 Python 데이터 타입의 조합을 기반으로 하여, 향후 새로운 구성 옵션을 추가하기 위해 시스템을 수정하기 더 쉽게 만들 것입니다.</p>
+<h3>테스트 용이성 (Testability)</h3>
+<p>CPython 시작 시퀀스의 복잡성으로 인한 문제 중 하나는 서로 다른 구성 설정 간의 가능한 상호 작용이 기하급수적으로 증가한다는 것입니다.</p>
+<p>이러한 우려는 새로운 초기화 시스템의 설계와 목표에 도달하기 위한 제안된 접근 방식 모두에 영향을 미칩니다.</p>
+<h3>성능 (Performance)</h3>
+<p>CPython은 런타임이 인터프리터 초기화 시간에 의해 지배되는 짧은 스크립트를 실행하는 데 많이 사용됩니다. 시작 시퀀스에 대한 모든 변경은 시작 오버헤드에 미치는 영향을 최소화해야 합니다.</p>
+<p>이 PEP는 주로 기존 초기화 시퀀스의 순서를 재정렬하는 것을 목표로 하며 개별 단계에 실질적인 변경을 가하지 않으므로, 시작 시간에 큰 영향을 미치지 않을 것으로 예상됩니다.</p>
+<h2>구현 전략 (Implementation Strategy)</h2>
+<p>초기에는 이 PEP의 이전 버전을 Python 3.4용으로 구현하려는 시도가 있었으나, 리팩토링 프로세스를 시작하기 위해 초기 구조적 변경을 적용한 후 병합 충돌(merge conflicts)이 발생하는 등 상당한 문제에 직면했습니다.</p>
+<p>이에 따라 구현 전략은 CPython 3.7의 비공개 API로 이 리팩토링을 먼저 구현한 다음, CPython 3.8에서 새로운 함수와 구조체를 공개 API 요소로 노출할 타당성을 검토하는 방향으로 수정되었습니다.</p>
+<p>빅터 스티너(Victor Stinner)는 PEP 540 UTF-8 모드 변경 사항(이전에 로케일 인코딩으로 디코딩되었던 모든 설정을 추적하고 UTF-8로 다시 디코딩할 수 있는 기능이 필요했음)을 성공적으로 구현하기 위해 설정을 새 구조로 마이그레이션했습니다. 에릭 스노우(Eric Snow) 또한 서브인터프리터 기능을 더욱 견고하게 만드는 과정에서 여러 내부 서브시스템을 마이그레이션했습니다.</p>
+<p>이러한 작업은 이 PEP에서 원래 제안된 상세 설계에 여러 가지 실제적인 문제가 있음을 보여주었으며, 빅터는 개선된 비공개 API(이 PEP의 초기 반복에서 영감을 받음)를 설계하고 구현했으며, PEP 587은 이를 Python 3.8의 공개 API로 승격할 것을 제안합니다.</p>
+<h2>설계 세부 사항 (Design Details)</h2>
+<p>이 제안의 주요 목표는 시작 프로세스의 훨씬 초기 단계에서 코어 언어 런타임을 초기화하고 메인 인터프리터를 위한 부분적으로 초기화된 인터프리터 상태를 만드는 것입니다. 이를 통해 CPython API의 대부분이 나머지 초기화 프로세스 동안 사용될 수 있으며, 현재 CPython C API가 제공하는 풍부한 데이터 구조를 사용할 수 없어 기본 C 기능에 의존해야 하는 여러 작업을 잠재적으로 단순화할 수 있습니다.</p>
+<p>PEP 587은 기존의 "Py_Initialize 호출 이전에 호출될 수 있는" 인터페이스에 필요한 구성 요소(예: 메모리 할당자 및 운영 체제 인터페이스 인코딩 세부 정보)를 별도의 사전 구성 단계로 분리하는 작업을 다룹니다.</p>
+<h3>인터프리터 초기화 단계 (Interpreter Initialization Phases)</h3>
+<p>다음과 같은 명확한 인터프리터 초기화 단계가 제안됩니다.</p>
+<ul>
+<li><strong>Uninitialized (초기화되지 않음):</strong>
+<ul>
+<li>실제 단계라기보다는 단계의 부재를 의미합니다.</li>
+<li><code>Py_IsInitializing()</code>, <code>Py_IsRuntimeInitialized()</code>, <code>Py_IsInitialized()</code>는 모두 <code>0</code>을 반환합니다.</li>
+<li>임베딩 애플리케이션이 사용할 메모리 할당자와 운영 체제 인터페이스에 접근하는 데 사용할 인코딩을 결정합니다 (또는 Python 런타임에 이러한 결정을 위임합니다).</li>
+<li><code>Py_PreInitialize</code> API 중 하나를 호출하여 초기화 프로세스를 시작합니다 (PEP 587 참조).</li>
+</ul>
+</li>
+<li><strong>Runtime Pre-Initialization (런타임 사전 초기화):</strong>
+<ul>
+<li>인터프리터가 아직 없습니다.</li>
+<li><code>Py_IsInitializing()</code>는 <code>1</code>을, <code>Py_IsRuntimeInitialized()</code> 및 <code>Py_IsInitialized()</code>는 <code>0</code>을 반환합니다.</li>
+<li>임베딩 애플리케이션이 코어 CPython 런타임을 초기화하고 메인 인터프리터를 생성하는 데 필요한 설정을 결정하고 <code>Py_InitializeRuntime</code>을 호출하여 다음 단계로 넘어갑니다.</li>
+<li><strong>참고:</strong> PEP 587에 따라 임베딩 애플리케이션은 대신 <code>Py_Main()</code>, <code>Py_UnixMain</code> 또는 <code>Py_Initialize</code> API 중 하나를 호출하여 <code>Initialized</code> 상태로 직접 이동합니다.</li>
+</ul>
+</li>
+<li><strong>Main Interpreter Initialization (메인 인터프리터 초기화):</strong>
+<ul>
+<li>내장(builtin) 데이터 타입 및 기타 코어 런타임 서비스가 사용 가능합니다.</li>
+<li>메인 인터프리터가 사용 가능하지만 부분적으로만 구성되었습니다.</li>
+<li><code>Py_IsInitializing()</code>는 <code>1</code>을, <code>Py_IsRuntimeInitialized()</code>는 <code>1</code>을, <code>Py_IsInitialized()</code>는 <code>0</code>을 반환합니다.</li>
+<li>임베딩 애플리케이션이 <code>Py_InitializeMainInterpreter</code>를 호출하여 초기화 프로세스를 완료하는 데 필요한 설정을 결정하고 적용합니다.</li>
+<li><strong>참고:</strong> PEP 587에 따라 이 상태는 어떠한 공개 API로도 도달할 수 없으며, <code>Py_Initialize</code> 함수 중 하나가 실행되는 동안 암시적인 내부 상태로만 존재합니다.</li>
+</ul>
+</li>
+<li><strong>Initialized (초기화됨):</strong>
+<ul>
+<li>메인 인터프리터가 사용 가능하며 완전히 작동하지만, <code>__main__</code> 관련 메타데이터가 불완전합니다.</li>
+<li><code>Py_IsInitializing()</code>는 <code>0</code>을, <code>Py_IsRuntimeInitialized()</code>는 <code>1</code>을, <code>Py_IsInitialized()</code>는 <code>1</code>을 반환합니다.</li>
+</ul>
+</li>
+</ul>
+<h3>런타임 사전 초기화 단계 (Runtime Pre-Initialization Phase)</h3>
+<p>이 단계는 CPython 런타임이 전혀 초기화되기 전에 반드시 필요한 설정을 임베딩 애플리케이션이 결정하는 단계입니다. 현재 이 범주에 속하는 주요 구성 설정은 무작위 해시(randomised hash) 알고리즘과 관련된 것입니다. 해시 알고리즘은 프로세스 수명 동안 일관성이 유지되어야 하므로, 코어 인터프리터가 생성되기 전에 적용되어야 합니다.</p>
+<p>제안된 API는 다음과 같습니다.</p>
+<ul>
+<li><code>PyInitError Py_InitializeRuntime(const PyRuntimeConfig *config);</code></li>
+<li><code>PyInitError Py_InitializeRuntimeFromArgs(const PyRuntimeConfig *config, int argc, char **argv);</code></li>
+<li><code>PyInitError Py_InitializeRuntimeFromWideArgs(const PyRuntimeConfig *config, int argc, wchar_t **argv);</code></li>
+</ul>
+<p>새로운 <code>PyRuntimeConfig</code> 구조체는 코어 런타임의 예비 구성 및 메인 인터프리터 생성을 위한 설정을 담습니다. 이 구조체에는 <code>use_environment</code>, <code>use_hash_seed</code>, <code>hash_seed</code>, <code>_install_importlib</code> 등의 필드가 포함됩니다.</p>
+<h2>하위 호환성 (Backwards Compatibility)</h2>
+<p>하위 호환성은 주로 <code>Py_BuildPythonConfig()</code>가 이전에 정의된 전역 변수 및 환경 변수에 저장된 모든 구성 설정을 조회하고, <code>Py_InitializeMainInterpreter()</code>가 영향을 받는 설정을 관련 위치에 다시 기록하도록 함으로써 유지됩니다.</p>
+<p>일부 환경 변수(예: <code>PYTHONCASEOK</code>)는 현재 지연 로드되지만, 인터프리터 초기화 중에 한 번 읽힐 수 있다는 점은 비호환성으로 인정됩니다.</p>
+<p><code>Py_Initialize()</code> 방식의 초기화는 계속 지원됩니다. 내부적으로는 새로운 API의 일부 요소를 사용하겠지만, 현재와 동일한 동작을 유지하여 <code>sys.argv</code>가 후속 <code>PySys_SetArgv</code> 호출 전까지 채워지지 않도록 합니다. <code>Py_Initialize()</code> 이전에 호출을 지원하는 모든 API는 계속해서 이를 지원하며, <code>Py_InitializeRuntime()</code> 이전 호출도 지원할 것입니다.</p>
+<h2>시스템 Python 실행 파일 (A System Python Executable)</h2>
+<p>시스템에 대한 관리자 권한으로 시스템 유틸리티를 실행할 때, CPython의 많은 기본 동작은 바람직하지 않습니다. 이는 신뢰할 수 없는 코드가 높은 권한으로 실행될 수 있기 때문입니다. 가장 문제가 되는 측면은 사용자 사이트 디렉토리(user site directories)가 활성화되고, 환경 변수가 신뢰되며, 실행된 파일이 포함된 디렉토리가 임포트 경로의 시작 부분에 배치된다는 점입니다.</p>
+<p>이 PEP는 이러한 문제를 해결하기 위해 별도의 <code>system-python</code> 실행 파일을 추가할 것을 제안합니다.
+현재는 다른 기본 동작을 가진 별도의 실행 파일을 제공하는 것이 유지보수하기 너무 어렵습니다. 이 PEP의 목표 중 하나는 유지보수하기 어려운 부트스트랩(bootstrapping) 코드의 많은 부분을 일반 CPython 코드로 대체할 수 있도록 하고, 별도의 애플리케이션이 <code>Py_Main</code>의 핵심 구성 요소를 더 쉽게 사용할 수 있도록 하는 것입니다.</p>
+<hr>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":[["$","aside",null,{"className":"lg:w-64 xl:w-72 order-1 lg:order-none","children":["$","div",null,{"className":"sidebar sticky","children":["$","nav",null,{"className":"space-y-4","children":[["$","div","Backend",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Backend"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Django",{"children":["$","a",null,{"href":"/backend/django/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Django"," (",6,")"]}]}],["$","li","Logging",{"children":["$","a",null,{"href":"/backend/logging/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Logging"," (",1,")"]}]}]]}]]}],["$","div","Python",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Python"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","PEP",{"children":["$","a",null,{"href":"/python/pep/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["PEP"," (",650,")"]}]}]]}]]}],["$","div","AI/ML",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"AI/ML"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","LLM",{"children":["$","a",null,{"href":"/ai/llm/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["LLM"," (",1,")"]}]}],["$","li","Review",{"children":["$","a",null,{"href":"/ai/review/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Review"," (",1025,")"]}]}]]}]]}],["$","div","DevOps",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"DevOps"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Nginx",{"children":["$","a",null,{"href":"/devops/nginx/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Nginx"," (",1,")"]}]}],["$","li","Docker",{"children":["$","a",null,{"href":"/devops/docker/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Docker"," (",1,")"]}]}],["$","li","SafeLine",{"children":["$","a",null,{"href":"/devops/safeline/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["SafeLine"," (",1,")"]}]}],["$","li","Jenkins",{"children":["$","a",null,{"href":"/devops/jenkins/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Jenkins"," (",3,")"]}]}],["$","li","GitHub Actions",{"children":["$","a",null,{"href":"/devops/github-actions/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["GitHub Actions"," (",1,")"]}]}],["$","li","AWS",{"children":["$","a",null,{"href":"/devops/aws/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["AWS"," (",1,")"]}]}]]}]]}],["$","div","etc",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"etc"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Me",{"children":["$","a",null,{"href":"/etc/me/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Me"," (",3,")"]}]}],["$","li","Chrome Extension",{"children":["$","a",null,{"href":"/etc/chrome-extension/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Chrome Extension"," (",1,")"]}]}]]}]]}]]}]}]}],["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Withdrawn] PEP 432 - Restructuring the CPython startup sequence"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-26 21:44:16+0900","children":"2025년 9월 26일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 26일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]}]]}]}]]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"secrett2633's blog"}],["$","meta","3",{"name":"description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://secrett2633.github.io/"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"secrett2633's blog"}],["$","meta","13",{"property":"og:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","14",{"property":"og:url","content":"https://secrett2633.github.io/"}],["$","meta","15",{"property":"og:site_name","content":"secrett2633's blog"}],["$","meta","16",{"property":"og:locale","content":"ko_KR"}],["$","meta","17",{"property":"og:type","content":"website"}],["$","meta","18",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","19",{"name":"twitter:title","content":"secrett2633's blog"}],["$","meta","20",{"name":"twitter:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","link","21",{"rel":"icon","href":"/icon.ico?6d9f34d4948640b8","type":"image/x-icon","sizes":"16x16"}]]
+1:null

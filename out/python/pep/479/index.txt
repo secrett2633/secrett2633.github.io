@@ -1,0 +1,117 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[9157,["231","static/chunks/231-c27e618569e042bc.js","157","static/chunks/157-aecaf5ac7a84facf.js","185","static/chunks/app/layout-c3e2e457f12fb6f6.js"],"default"]
+7:I[231,["231","static/chunks/231-c27e618569e042bc.js","931","static/chunks/app/page-e3ea38185bb36cd2.js"],""]
+4:["slug","python/pep/479","c"]
+0:["x02Anhkwgp1He7ftuyAhh",[[["",{"children":[["slug","python/pep/479","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"479\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/479","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_f367f3 layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/da5e1dc2b9a7c5bb.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+9:T3aa5,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0479/">PEP 479 - Change StopIteration handling inside generators</a></p>
+<p><strong>상태:</strong> Final | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 15-Nov-2014</p>
+</blockquote>
+<h2>PEP 479 – 제너레이터 내 <code>StopIteration</code> 처리 방식 변경 제안</h2>
+<p><strong>작성자:</strong> Chris Angelico, Guido van Rossum
+<strong>상태:</strong> Final (최종)
+<strong>유형:</strong> Standards Track
+<strong>생성일:</strong> 2014년 11월 15일
+<strong>Python 버전:</strong> 3.5</p>
+<h3>요약</h3>
+<p>이 PEP는 제너레이터에 대한 변경 사항을 제안합니다. 제너레이터 내부에서 <code>StopIteration</code> 예외가 발생할 경우, 이는 <code>RuntimeError</code>로 대체됩니다. (좀 더 정확히 말하면, 이 예외가 제너레이터의 스택 프레임 밖으로 전파되려고 할 때 발생합니다.) 이 변경 사항은 하위 호환성을 깨뜨리기 때문에, 처음에는 <code>__future__</code> 문을 사용하여 도입됩니다.</p>
+<h3>도입 배경 (Rationale)</h3>
+<p>현재 제너레이터와 <code>StopIteration</code>의 상호 작용은 다소 의외의 동작을 보이며, 은밀한 버그를 숨길 수 있습니다. 예상치 못한 예외는 미묘하게 변경된 동작을 초래해서는 안 되며, 시끄럽고 쉽게 디버깅할 수 있는 트레이스백(traceback)을 발생시켜야 합니다. 현재는 제너레이터 함수 내에서 실수로 <code>StopIteration</code>이 발생하면, 제너레이터를 구동하는 루프(loop) 구조에 의해 이터레이션(iteration)의 끝으로 해석됩니다.</p>
+<p>이 제안의 주요 목표는 보호되지 않은 <code>next()</code> 호출(아마도 여러 스택 깊이에서)이 <code>StopIteration</code>을 발생시켜 제너레이터에 의해 제어되는 이터레이션이 조용히 종료되는 상황에서 디버깅을 용이하게 하는 것입니다. (반면, 다른 예외가 발생하면 문제의 원인을 지적하는 트레이스백이 출력됩니다.)</p>
+<p>이 문제는 특히 PEP 380의 <code>yield from</code> 구문과 결합될 때 더욱 치명적입니다. <code>yield from</code>은 서브 제너레이터(subgenerator)가 제너레이터에서 분리될 수 있다는 추상화를 깨뜨립니다. 의도적인 사용은 드물지만, 실수로 이런 경우에 부딪히기 쉽습니다. 예를 들어, <code>contextlib.contextmanager</code>와 <code>yield from</code>을 사용하는 코드에서 내부적으로 <code>StopIteration</code>이 발생하면, 컨텍스트 관리자가 이 예외를 삼키고 마무리(finalization)가 조용히 건너뛰어지는 미묘한 버그가 발생할 수 있습니다. 유사하게 <code>asyncio</code> 코루틴(coroutine)이 <code>StopIteration</code>을 발생시키면 조용히 종료될 수 있습니다.</p>
+<p>추가적으로, 이 제안은 <code>List Comprehension</code>과 제너레이터 표현식(<code>generator expressions</code>) 간의 차이를 줄여서, 예기치 않은 결과를 방지합니다. 이 변경으로 인해, 함수 <code>F(x)</code>나 조건 <code>P(x)</code>가 <code>StopIteration</code>을 발생시키는 경우, <code>list(F(x) for x in xs if P(x))</code> 형태와 <code>[F(x) for x in xs if P(x)]</code> 형태 모두 예외를 발생시키게 됩니다 (첫 번째 경우는 <code>RuntimeError</code>, 두 번째 경우는 <code>StopIteration</code>).</p>
+<p>마지막으로, 이 제안은 제너레이터를 종료하는 방법에 대한 혼란을 해소합니다. 올바른 방법은 <code>return</code>이지 <code>raise StopIteration</code>이 아닙니다. 이러한 변경 사항은 제너레이터 함수를 일반 함수와 더욱 일치시키며, 코드 재사용 및 변환을 더 쉽게 만듭니다.</p>
+<h3>제안 내용 (Proposal)</h3>
+<p><code>StopIteration</code>이 제너레이터 프레임 밖으로 전파되려고 할 때, 이 예외는 <code>RuntimeError</code>로 대체됩니다. 이는 <code>next()</code> 호출(제너레이터를 호출한)이 해당 예외를 전달하며 실패하도록 만듭니다. 그 후에는 다른 일반적인 예외와 동일하게 처리됩니다.</p>
+<p>이 변경은 제너레이터에서 예외가 버블업(bubble out)되는 세 번째 경우에만 영향을 미치며, 발생한 예외가 <code>StopIteration</code> (또는 그 서브클래스)인 경우에만 적용됩니다. 제너레이터 프레임에서 <code>return</code>에 의해 발생하는 <code>StopIteration</code>은 영향을 받지 않습니다. (이는 <code>StopIteration</code>이 제너레이터가 "정상적으로" 종료되었음을 의미하기 때문입니다. 즉, 예외를 발생시키지 않았다는 뜻입니다.)</p>
+<p>이 변경 사항은 전환 기간 동안 모듈별로 다음을 사용하여 활성화되어야 합니다.</p>
+<pre><code class="language-python">from __future__ import generator_stop
+</code></pre>
+<p>이 지시문의 영향을 받아 생성된 모든 제너레이터 함수는 코드 객체에 <code>REPLACE_STOPITERATION</code> 플래그가 설정되며, 이 플래그가 설정된 제너레이터는 이 제안에 따라 작동합니다. 기능이 표준이 되면 플래그는 제거될 수 있습니다.</p>
+<h3>기존 코드에 미치는 영향 (Consequences for existing code)</h3>
+<p>이 변경은 <code>StopIteration</code>이 버블업되는 것에 의존하는 기존 코드에 영향을 미칠 것입니다. <code>groupby</code>의 순수 Python 구현과 같은 코드들은 <code>StopIteration</code>이 전파되어 처리될 것으로 예상하는 곳에서 이제 실패할 수 있습니다.</p>
+<h4>하위 및 상위 호환성 코드 작성 (Writing backwards and forwards compatible code)</h4>
+<p>제너레이터 표현식을 종료하기 위해 <code>StopIteration</code>을 발생시키는 해킹(hack)을 제외하면, 이전 Python 버전과 새 시맨틱(semantics) 모두에서 동일하게 작동하는 코드를 쉽게 작성할 수 있습니다.</p>
+<p>이는 제너레이터 본문 내에서 <code>StopIteration</code>이 예상되는 부분(<code>bare next()</code> 호출 또는 <code>StopIteration</code>을 발생시킬 것으로 예상되는 헬퍼 함수)을 <code>try/except</code> 구문으로 감싸 <code>StopIteration</code>이 발생할 때 <code>return</code>하도록 하는 방식으로 이루어집니다. <code>try/except</code> 구문은 제너레이터 함수 내에 직접 나타나야 합니다. <code>raise StopIteration</code>이 제너레이터 내에서 직접 발생한다면, 간단히 <code>return</code>으로 대체하세요.</p>
+<h4>변경 예시 (Examples of breakage)</h4>
+<p><code>StopIteration</code>을 명시적으로 발생시키는 제너레이터는 일반적으로 대신 <code>return</code>을 사용하도록 변경할 수 있습니다. 이는 모든 기존 Python 버전과 호환되며 <code>__future__</code>의 영향을 받지 않습니다.</p>
+<p><strong>변경 전:</strong></p>
+<pre><code class="language-python"># Lib/ipaddress.py 예시
+if other == self:
+    raise StopIteration
+</code></pre>
+<p><strong>변경 후:</strong></p>
+<pre><code class="language-python">if other == self:
+    return
+</code></pre>
+<p>더 복잡한 이터레이션 패턴은 명시적인 <code>try/except</code> 구문이 필요합니다. 예를 들어, 다음과 같은 가상의 파서(parser)는:</p>
+<p><strong>변경 전:</strong></p>
+<pre><code class="language-python">def parser(f):
+    while True:
+        data = next(f)
+        while True:
+            line = next(f)
+            if line == "- end -":
+                break
+            data += line
+        yield data
+</code></pre>
+<p><strong>변경 후:</strong></p>
+<pre><code class="language-python">def parser(f):
+    while True:
+        try:
+            data = next(f)
+            while True:
+                line = next(f)
+                if line == "- end -":
+                    break
+                data += line
+            yield data
+        except StopIteration:
+            return
+</code></pre>
+<p><code>StopIteration</code>을 발생시켜 제너레이터 표현식을 조기에 종료시키는 (<code>takewhile</code> 형태) 방식은 더 이상 지원되지 않습니다.</p>
+<p><strong>변경 전:</strong></p>
+<pre><code class="language-python">def stop(): raise StopIteration
+print(list(x for x in range(10) if x &#x3C; 5 or stop())) # prints [0, 1, 2, 3, 4]
+</code></pre>
+<p><strong>변경 후:</strong></p>
+<pre><code class="language-python">def gen():
+    for x in range(10):
+        if x >= 5:
+            return
+        yield x
+print(list(gen())) # prints [0, 1, 2, 3, 4]
+</code></pre>
+<h3>제너레이터, 이터레이터, <code>StopIteration</code> 설명 (Explanation of generators, iterators, and StopIteration)</h3>
+<p>이 제안은 제너레이터와 이터레이터 간의 관계를 변경하지 않습니다. 제너레이터 객체는 여전히 이터레이터이며, 모든 이터레이터가 제너레이터인 것은 아닙니다. 제너레이터는 <code>send</code> 및 <code>throw</code>와 같은 이터레이터에는 없는 추가 메서드를 가지고 있습니다. 이러한 모든 사항은 변경되지 않습니다. 제너레이터 사용자를 위한 변경 사항은 없으며, 제너레이터 함수 작성자(조건에서 <code>StopIteration</code>이 발생하여 조기 종료에 의존하는 제너레이터 표현식 작성자 포함)만 새로운 것을 배워야 할 수 있습니다.</p>
+<p>이터레이터는 <code>__next__</code> 메서드를 가진 객체입니다. 다른 많은 특수 메서드와 마찬가지로, 값을 반환하거나 특정 예외(<code>StopIteration</code>과 같은)를 발생시켜 더 이상 반환할 값이 없음을 알릴 수 있습니다.</p>
+<p>제너레이터 함수는 <code>yield</code> 표현식을 포함하는 함수입니다. 매번 (재)시작될 때마다 값을 <code>yield</code>하거나 <code>return</code>할 수 있습니다. 제너레이터의 헬퍼 함수도 작성할 수 있지만, 제너레이터 프로토콜을 따라야 합니다.</p>
+<p>두 경우 모두, 예상치 못한 예외는 버블업됩니다. 제너레이터와 이터레이터의 특성상, 제너레이터 내부의 예상치 못한 <code>StopIteration</code>은 <code>RuntimeError</code>로 변환되지만, 그 외의 모든 예외는 정상적으로 전파됩니다.</p>
+<h3>전환 계획 (Transition plan)</h3>
+<ul>
+<li><strong>Python 3.5:</strong> <code>__future__ import</code>를 통해 새로운 시맨틱을 활성화합니다. <code>__future__ import</code> 없이 제너레이터에서 <code>StopIteration</code>이 버블업될 경우 조용한(<code>silent</code>) DeprecationWarning을 발생시킵니다.</li>
+<li><strong>Python 3.6:</strong> 조용하지 않은(<code>non-silent</code>) DeprecationWarning을 발생시킵니다.</li>
+<li><strong>Python 3.7:</strong> 모든 곳에서 새로운 시맨틱을 활성화합니다.</li>
+</ul>
+<h3>대안 제안 (Alternate proposals)</h3>
+<p>이 PEP를 개발하는 동안 몇 가지 대안이 논의되었으나 최종적으로 거부되었습니다.</p>
+<ul>
+<li><strong><code>RuntimeError</code> 대신 다른 예외 발생:</strong> <code>UnexpectedStopIteration</code>과 같은 새로운 예외 유형을 발생시키는 아이디어가 있었으나, 이는 암묵적으로 해당 예외를 잡도록 권장할 수 있어 거부되었습니다.</li>
+<li><strong><code>return</code> 시 특정 예외 제공:</strong> <code>StopIteration</code>의 특정 인스턴스를 제공하여 제너레이터가 올바르게 완료되었음을 나타내고, 다른 <code>StopIteration</code> 인스턴스는 오류로 처리하는 방안이 있었으나, 더 나은 옵션이 선호되어 철회되었습니다.</li>
+<li><strong><code>return</code>으로 인한 <code>StopIteration</code>을 명확히 함:</strong> 제너레이터가 <code>return</code>할 때 <code>StopIteration</code> 대신 <code>StopIteration</code>의 특정 서브클래스(<code>GeneratorReturn</code>)를 발생시키는 방안이 있었으나, 이 대안은 제너레이터 표현식과 <code>List Comprehension</code> 간의 불일치를 해결하지 못했습니다.</li>
+<li><strong><code>next()</code> 내부에서 예외 변환:</strong> <code>next()</code>가 <code>StopIteration</code>을 잡고 대신 <code>ValueError</code>를 발생시키도록 하는 방안이 있었으나, 이는 현재 제안보다 훨씬 심각한 하위 호환성 문제를 야기하여 거부되었습니다.</li>
+<li><strong>현재 동작을 명시적으로 요청하는 데코레이터:</strong> 현재의 동작이 필요한 상황을 <code>@allow_implicit_stop</code>과 같은 데코레이터를 통해 지원하는 방안이 제시되었으나, 구현 복잡성, 지속적인 호환성 문제, 데코레이터 효과의 미묘함, 그리고 "급한 수정"을 조장할 수 있다는 이유로 거부되었습니다.</li>
+</ul>
+<h3>비판 (Criticism)</h3>
+<p>이 변경이 거의 문제가 되지 않는다는 비공식적인 통계가 제시되었습니다. 기존 동작에 의존하는 코드도 존재하며, 작은 이득을 위해 불필요한 코드 변경을 야기할 수 있다는 우려가 있었습니다.</p>
+<p>기존 모델은 예외가 특별한 의미를 가질 때 발생하는 다른 모든 경우에 내재된 완전히 수용 가능한 문제와 비교되었습니다. 예를 들어, <code>__getitem__</code> 메서드 내에서 예상치 못한 <code>KeyError</code>는 실패로 해석됩니다. 그러나 제너레이터의 경우 <code>yield</code>는 데이터를 나타내고 <code>return</code>은 비정상 상태를 나타내므로 <code>StopIteration</code>을 명시적으로 발생시키는 것은 완전히 불필요하며 잠재적으로 혼란을 야기할 수 있다는 차이점이 있습니다.</p>
+<h4>모든 <code>__next__()</code> 메서드를 수정하지 않는 이유 (Why not fix all <strong>next</strong>() methods?)</h4>
+<p>일반적인 <code>__next__()</code> 메서드를 구현할 때, 이터레이션의 끝을 나타내는 유일한 방법은 <code>StopIteration</code>을 발생시키는 것입니다. 따라서 여기에서 <code>StopIteration</code>을 잡고 <code>RuntimeError</code>로 변환하는 것은 목적에 부합하지 않습니다. 이는 제너레이터 함수의 특별한 상태를 상기시켜줍니다. 제너레이터 함수에서는 <code>return</code>만으로 이터레이션을 종료할 수 있으므로 <code>StopIteration</code>을 발생시키는 것이 불필요합니다.</p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":[["$","aside",null,{"className":"lg:w-64 xl:w-72 order-1 lg:order-none","children":["$","div",null,{"className":"sidebar sticky","children":["$","nav",null,{"className":"space-y-4","children":[["$","div","Backend",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Backend"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Django",{"children":["$","a",null,{"href":"/backend/django/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Django"," (",6,")"]}]}],["$","li","Logging",{"children":["$","a",null,{"href":"/backend/logging/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Logging"," (",1,")"]}]}]]}]]}],["$","div","Python",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Python"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","PEP",{"children":["$","a",null,{"href":"/python/pep/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["PEP"," (",650,")"]}]}]]}]]}],["$","div","AI/ML",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"AI/ML"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","LLM",{"children":["$","a",null,{"href":"/ai/llm/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["LLM"," (",1,")"]}]}],["$","li","Review",{"children":["$","a",null,{"href":"/ai/review/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Review"," (",1025,")"]}]}]]}]]}],["$","div","DevOps",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"DevOps"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Nginx",{"children":["$","a",null,{"href":"/devops/nginx/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Nginx"," (",1,")"]}]}],["$","li","Docker",{"children":["$","a",null,{"href":"/devops/docker/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Docker"," (",1,")"]}]}],["$","li","SafeLine",{"children":["$","a",null,{"href":"/devops/safeline/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["SafeLine"," (",1,")"]}]}],["$","li","Jenkins",{"children":["$","a",null,{"href":"/devops/jenkins/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Jenkins"," (",3,")"]}]}],["$","li","GitHub Actions",{"children":["$","a",null,{"href":"/devops/github-actions/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["GitHub Actions"," (",1,")"]}]}],["$","li","AWS",{"children":["$","a",null,{"href":"/devops/aws/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["AWS"," (",1,")"]}]}]]}]]}],["$","div","etc",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"etc"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Me",{"children":["$","a",null,{"href":"/etc/me/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Me"," (",3,")"]}]}],["$","li","Chrome Extension",{"children":["$","a",null,{"href":"/etc/chrome-extension/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Chrome Extension"," (",1,")"]}]}]]}]]}]]}]}]}],["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Final] PEP 479 - Change StopIteration handling inside generators"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-26 22:23:28+0900","children":"2025년 9월 26일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 26일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]}]]}]}]]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"secrett2633's blog"}],["$","meta","3",{"name":"description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://secrett2633.github.io/"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"secrett2633's blog"}],["$","meta","13",{"property":"og:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","14",{"property":"og:url","content":"https://secrett2633.github.io/"}],["$","meta","15",{"property":"og:site_name","content":"secrett2633's blog"}],["$","meta","16",{"property":"og:locale","content":"ko_KR"}],["$","meta","17",{"property":"og:type","content":"website"}],["$","meta","18",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","19",{"name":"twitter:title","content":"secrett2633's blog"}],["$","meta","20",{"name":"twitter:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","link","21",{"rel":"icon","href":"/icon.ico?6d9f34d4948640b8","type":"image/x-icon","sizes":"16x16"}]]
+1:null

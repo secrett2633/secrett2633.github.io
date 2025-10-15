@@ -1,0 +1,130 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[9157,["231","static/chunks/231-c27e618569e042bc.js","157","static/chunks/157-aecaf5ac7a84facf.js","185","static/chunks/app/layout-c3e2e457f12fb6f6.js"],"default"]
+7:I[231,["231","static/chunks/231-c27e618569e042bc.js","931","static/chunks/app/page-e3ea38185bb36cd2.js"],""]
+4:["slug","python/pep/396","c"]
+0:["x02Anhkwgp1He7ftuyAhh",[[["",{"children":[["slug","python/pep/396","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"396\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/396","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_f367f3 layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/da5e1dc2b9a7c5bb.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+9:T3e0d,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0396/">PEP 396 - Module Version Numbers</a></p>
+<p><strong>상태:</strong> Withdrawn | <strong>유형:</strong> Informational | <strong>작성일:</strong> 16-Mar-2011</p>
+</blockquote>
+<h1>PEP 396 – Module Version Numbers</h1>
+<ul>
+<li><strong>작성자</strong>: Barry Warsaw </li>
+<li><strong>상태</strong>: 철회됨 (Withdrawn)</li>
+<li><strong>유형</strong>: 정보성 (Informational)</li>
+<li><strong>주제</strong>: 패키징 (Packaging)</li>
+<li><strong>생성일</strong>: 2011년 3월 16일</li>
+<li><strong>이력</strong>: 2011년 4월 5일</li>
+</ul>
+<h2>중요 공지 (Important Notice)</h2>
+<p><strong>이 PEP는 철회되었습니다.</strong></p>
+<p>런타임에 패키지 버전 정보에 접근하고, 패키지 배포 메타데이터와 자동으로 일관성을 유지하는 런타임 <code>__version__</code> 속성을 정의하는 최신 권장 사항은 Python Packaging User Guide의 "Accessing version information at runtime" 및 "Single-sourcing the Project Version" 섹션을 참조하십시오.</p>
+<h2>개요 (Abstract)</h2>
+<p>Python 모듈에 버전 번호를 지정하는 것이 유용하고 일반적이며, Python 커뮤니티 내에서 이를 수행하는 다양한 방식이 자연스럽게 발전해 왔다는 점을 고려할 때, 모듈 작성자가 준수하고 참조할 표준 관례를 확립하는 것이 유용합니다. 이 정보성 PEP는 Python 모듈의 버전 번호를 정의하고자 하는 Python 모듈 작성자를 위한 모범 사례를 설명합니다.</p>
+<p>이 PEP의 준수는 선택 사항이지만, 다른 Python 도구(예: distutils2)는 여기에 정의된 관례를 사용하도록 조정될 수 있었습니다.</p>
+<h2>PEP 거부/철회 (PEP Rejection/Withdrawal)</h2>
+<p>이 PEP는 2021년 4월 14일 공식적으로 거부되었습니다. 이 PEP가 처음 작성된 이후 수년 동안 패키징 생태계는 상당히 변화했으며, <code>importlib.metadata.version()</code>과 같은 API는 훨씬 더 나은 경험을 제공합니다.</p>
+<p>이 거부는 2024년 10월 21일 철회 (withdrawal) 로 재분류되었습니다. 이는 이전 상태가 어떤 모듈도 <code>__version__</code> 속성을 정의해서는 안 된다는 것으로 오해될 수 있었기 때문입니다. 이는 분명 사실이 아닙니다.</p>
+<p>모듈은 원하는 경우 여전히 <code>__version__</code>을 정의할 수 있습니다. 그러나 그렇게 하지 않아도 설치된 배포 패키지에 대한 버전 정보 조회에는 지장이 없으므로, 모듈 <code>__version__</code> 속성 사용에 대한 커뮤니티 관례를 문서화하는 데 정보성 PEP는 적절한 도구가 아닙니다(이 내용은 Python Packaging User Guide에서 더 잘 다루어집니다).</p>
+<h2>사용자 스토리 (User Stories)</h2>
+<ul>
+<li><strong>앨리스 (Alice)</strong>: 앨리스는 다른 Python 개발자들과 공유하고 싶은 <code>alice</code>라는 새 모듈을 작성하고 있습니다. <code>alice</code>는 간단한 모듈이며 <code>alice.py</code> 파일 하나에 존재합니다. 앨리스는 사용자가 어떤 버전을 사용하고 있는지 알 수 있도록 버전 번호를 지정하고 싶습니다. 모듈이 파일 하나에만 있기 때문에, 그녀는 버전 번호를 해당 파일에 추가하고 싶어 합니다.</li>
+<li><strong>밥 (Bob)</strong>: 밥은 많은 사용자와 공유한 <code>bob</code>이라는 모듈을 작성했습니다. <code>bob.py</code>에는 사용자 편의를 위해 버전 번호가 포함되어 있습니다. 밥은 Cheeseshop (Python Package Index)에 대해 알게 되고, The Bob Bundle을 Cheeseshop에 업로드할 수 있도록 클래식 <code>distutils</code>를 사용하여 간단한 패키징을 추가합니다. <code>bob.py</code>가 이미 사용자가 프로그램적으로 접근할 수 있는 버전 번호를 지정하고 있기 때문에, 사용자가 이제 Cheeseshop에서 모듈을 얻더라도 동일한 API가 계속 작동하기를 원합니다.</li>
+<li><strong>캐롤 (Carol)</strong>: 캐롤은 여러 네임스페이스 패키지 (namespace packages)를 관리하며, 각 패키지는 독립적으로 개발되고 배포됩니다. 사용자가 그녀의 패키지에 대한 올바른 버전의 의존성 (dependencies)을 제대로 지정할 수 있도록, 그녀는 네임스페이스 패키지의 <code>setup.py</code> 파일에 버전 번호를 지정합니다. 캐롤은 패키지당 하나의 버전 번호만 업데이트하고 싶어 하므로, 모듈에 버전 번호를 지정하고 <code>sdist</code> 아카이브를 빌드할 때 <code>setup.py</code>가 모듈 버전 번호를 추출하도록 합니다.</li>
+<li><strong>데이비드 (David)</strong>: 데이비드는 표준 라이브러리 (standard library)에 패키지를 유지보수하며, 다른 버전의 Python용 독립 실행형 버전도 생성합니다. 표준 라이브러리 복사본은 모듈에 버전 번호를 정의하며, 이 동일한 버전 번호는 독립 실행형 배포판에도 사용됩니다.</li>
+</ul>
+<h2>배경 (Rationale)</h2>
+<p>표준 라이브러리와 서드파티 (third-party) 모두에서 Python 모듈은 오랫동안 버전 번호를 포함해 왔습니다. 버전 번호를 설명하는 사실상의 (de facto) 표준이 확립되어 있으며, 수년 동안 많은 임시적인 (ad-hoc) 방식이 자연스럽게 발전해 왔습니다. 종종 버전 번호는 모듈을 임포트하고 속성을 검사하여 프로그램적으로 검색할 수 있습니다. 클래식 Python <code>distutils</code>의 <code>setup()</code> 함수는 릴리스의 버전 번호를 지정할 수 있는 <code>version</code> 인수를 설명합니다. PEP 8은 키워드 확장을 사용하여 "Subversion, CVS, 또는 RCS" 버전 문자열을 기록하기 위한 <code>__version__</code>이라는 모듈 속성 사용을 설명합니다. PEP 작성자 자신의 이메일 기록에 따르면, 독립 모듈 개발자들이 <code>__version__</code> 모듈 속성을 사용한 가장 초기의 예는 1995년으로 거슬러 올라갑니다.</p>
+<p>버전 정보의 또 다른 예는 <code>sqlite3</code> 모듈이며, 이 모듈에는 <code>sqlite_version_info</code>, <code>version</code>, <code>version_info</code> 속성이 있습니다. 어떤 속성이 모듈의 버전 번호를 포함하고, 어떤 속성이 기본 SQLite3 라이브러리의 버전 번호를 포함하는지 즉시 명확하지 않을 수 있습니다.</p>
+<p>이 정보성 PEP는 확립된 관행을 성문화하고, 모듈 버전 번호를 설명하는 표준적인 방법과 이를 포함할 시기 및 포함하지 않을 시기에 대한 일부 사용 사례를 권장했습니다. 모듈 작성자의 채택은 전적으로 자발적이었습니다. 표준 라이브러리의 패키징 도구는 여기에 정의된 표준에 대한 선택적 지원을 제공할 것이며, Python 생태계의 다른 도구도 이를 준수할 수 있었습니다.</p>
+<h2>명세 (Specification)</h2>
+<ul>
+<li>일반적으로 표준 라이브러리의 모듈은 버전 번호를 갖지 않아야 합니다 (<code>SHOULD NOT</code>). 이들은 포함된 Python 릴리스의 버전 번호를 암시적으로 가집니다.</li>
+<li>경우에 따라, 다른 Python 버전을 위해 독립 실행형 형태로도 릴리스되는 표준 라이브러리 모듈은 표준 라이브러리에 포함될 때 모듈 버전 번호를 포함할 수 있으며 (<code>MAY</code>), 별도로 패키징될 때는 버전 번호를 포함해야 합니다 (<code>SHOULD</code>).</li>
+<li>모듈 (또는 패키지)이 버전 번호를 포함하는 경우, 해당 버전은 <code>__version__</code> 속성에서 사용할 수 있어야 합니다 (<code>SHOULD</code>).</li>
+<li>네임스페이스 패키지 내부에 있는 모듈의 경우, 모듈은 <code>__version__</code> 속성을 포함해야 합니다 (<code>SHOULD</code>). 네임스페이스 패키지 자체는 고유한 <code>__version__</code> 속성을 포함해서는 안 됩니다 (<code>SHOULD NOT</code>).</li>
+<li><code>__version__</code> 속성의 값은 문자열이어야 합니다 (<code>SHOULD</code>).</li>
+<li>모듈 버전 번호는 PEP 386에 지정된 정규화된 버전 형식 (normalized version format)을 준수해야 합니다 (<code>SHOULD</code>).</li>
+<li>모듈 버전 번호는 버전 관리 시스템에서 제공하는 리비전 번호 또는 다른 의미적으로 다른 버전 번호(예: 기본 라이브러리 버전 번호)를 포함해서는 안 됩니다 (<code>SHOULD NOT</code>).</li>
+<li>클래식 <code>distutils</code> <code>setup.py</code> 파일의 <code>version</code> 속성 또는 PEP 345 <code>Version</code> 메타데이터 필드는 <code>__version__</code> 필드에서 파생되거나 그 반대여야 합니다 (<code>SHOULD</code>).</li>
+</ul>
+<h2>예시 (Examples)</h2>
+<p>서드파티 패키지에서 버전 번호 검색:</p>
+<pre><code class="language-python">>>> import bzrlib
+>>> bzrlib.__version__
+'2.3.0'
+</code></pre>
+<p>독립 실행형 모듈로도 배포되는 표준 라이브러리 패키지에서 버전 번호 검색:</p>
+<pre><code class="language-python">>>> import email
+>>> email.__version__
+'5.1.0'
+</code></pre>
+<p>네임스페이스 패키지 (namespace packages)의 버전 번호:</p>
+<pre><code class="language-python">>>> import flufl.i18n
+>>> import flufl.enum
+>>> import flufl.lock
+>>> print(flufl.i18n.__version__)
+1.0.4
+>>> print(flufl.enum.__version__)
+3.1
+>>> print(flufl.lock.__version__)
+2.1
+>>> import flufl
+>>> flufl.__version__
+Traceback (most recent call last):
+  File "&#x3C;stdin>", line 1, in &#x3C;module>
+AttributeError: 'module' object has no attribute '__version__'
+</code></pre>
+<h2>파생 (Deriving)</h2>
+<p>모듈 버전 번호는 최소 두 곳, 때로는 그 이상에 나타날 수 있습니다. 예를 들어, 이 PEP에 따라 모듈의 <code>__version__</code> 속성에서 프로그램적으로 사용할 수 있습니다. 클래식 <code>distutils</code> <code>setup.py</code> 파일에서 <code>setup()</code> 함수는 <code>version</code> 인수를 취하고, <code>distutils2</code> <code>setup.cfg</code> 파일에는 <code>version</code> 키가 있습니다. 버전 번호는 PEP 345 메타데이터에도 포함되어야 하며, <code>sdist</code> 아카이브가 빌드될 때 포함되는 것이 바람직합니다. 모듈 작성자가 버전 번호를 한 번만 지정하고, 다른 모든 사용이 이 단일 정의에서 파생되도록 하는 것이 바람직합니다.</p>
+<p>이는 여러 가지 방법으로 수행될 수 있으며, 그 중 몇 가지가 아래에 설명되어 있습니다. 이는 설명을 위한 목적으로만 포함되었으며, 확정적이거나 완전하거나 포괄적인 것은 아닙니다. 다른 접근 방식도 가능하며, 아래에 포함된 일부는 특정 상황에서 사용을 방해하는 제한 사항이 있을 수 있습니다.</p>
+<p>앨르 (Elle)가 자신의 모듈 파일 <code>elle.py</code>에 다음 속성을 추가한다고 가정해 봅시다:</p>
+<pre><code class="language-python">__version__ = '3.1.1'
+</code></pre>
+<h3>클래식 <code>distutils</code> (Classic distutils)</h3>
+<p>클래식 <code>distutils</code>에서 <code>setup.py</code>의 <code>setup()</code> 함수에 버전 문자열을 추가하는 가장 간단한 방법은 다음과 같습니다:</p>
+<pre><code class="language-python">from elle import __version__
+setup(name='elle', version=__version__)
+</code></pre>
+<p>그러나 PEP 작성자의 경험에 따르면, 이는 모듈이 <code>2to3</code> 프로그램을 통해 자동 Python 3 변환을 사용하는 경우와 같이 일부 경우에 실패할 수 있습니다 (이는 <code>setup.py</code>가 <code>elle</code> 모듈이 변환되기 전에 Python 3에 의해 실행되기 때문입니다).</p>
+<p>이 경우, <code>__version__</code>을 임포트하는 대신 파일에서 파싱하는 약간의 코드를 작성하는 것이 그리 어렵지 않습니다. 너무 자세히 설명하지 않고도, <code>distutils2</code>와 같은 모듈이 파일에서 버전 문자열을 파싱하는 방법을 제공할 가능성이 높습니다. 예:</p>
+<pre><code class="language-python">from distutils2 import get_version
+setup(name='elle', version=get_version('elle.py'))
+</code></pre>
+<h3><code>Distutils2</code> (이 PEP 작성 당시 제안된 방식, 현재는 사용되지 않음)</h3>
+<p><code>distutils2</code> 스타일의 <code>setup.cfg</code>는 선언적 (declarative)이므로, 임포트를 통해서든 파싱을 통해서든 <code>__version__</code> 속성을 추출하기 위해 어떤 코드도 실행할 수 없습니다.</p>
+<p><code>distutils-sig</code>와 협의하여 두 가지 옵션이 제안되었습니다. 두 가지 모두 버전 번호를 파일에 포함하고, <code>setup.cfg</code>에서 해당 파일을 선언하는 것을 포함합니다. 파일의 전체 내용이 버전 번호를 포함하는 경우, <code>version-file</code> 키가 사용됩니다:</p>
+<pre><code>[metadata]
+version-file: version.txt
+</code></pre>
+<p>버전 번호가 더 큰 파일, 예를 들어 Python 코드 내에 포함되어 파일을 파싱하여 버전을 추출해야 하는 경우, <code>version-from-file</code> 키가 사용됩니다:</p>
+<pre><code>[metadata]
+version-from-file: elle.py
+</code></pre>
+<p>위에서 설명한 것과 유사한 파싱 방법이 콜론 뒤에 명명된 파일에 대해 수행됩니다. 이를 수행하는 정확한 방법은 적절한 <code>distutils2</code> 개발 포럼에서 논의될 예정이었습니다.</p>
+<p>대안은 <code>setup.cfg</code>에서만 버전 번호를 정의하고 <code>pkgutil</code> 모듈을 사용하여 프로그램적으로 사용할 수 있도록 하는 것입니다. 예를 들어, <code>elle.py</code>에서:</p>
+<pre><code class="language-python">from distutils2._backport import pkgutil
+__version__ = pkgutil.get_distribution('elle').metadata['version']
+</code></pre>
+<h2>PEP 376 메타데이터 (PEP 376 metadata)</h2>
+<p>PEP 376은 정적 메타데이터 (static metadata)에 대한 표준을 정의하지만, 이 메타데이터가 생성되는 프로세스는 설명하지 않습니다. 파생된 버전 정보가 설치 시점이 아니라 빌드 시점에 PEP 376 <code>.dist-info</code> 메타데이터에 배치되는 것이 매우 바람직합니다. 이러한 방식으로 코드가 설치되지 않은 경우에도 메타데이터를 인트로스펙션 (introspection)할 수 있습니다.</p>
+<h2>참조 (References)</h2>
+<ul>
+<li>Distutils2 documentation (http://distutils2.notmyidea.org/) (현재 사용되지 않는 링크)</li>
+<li>The Cheeseshop (Python Package Index) (http://pypi.python.org)</li>
+<li>http://docs.python.org/distutils/setupscript.html (현재 사용되지 않는 링크)</li>
+<li>sqlite3 module documentation (http://docs.python.org/library/sqlite3.html)</li>
+<li>pkgutil - Package utilities (http://distutils2.notmyidea.org/library/pkgutil.html) (현재 사용되지 않는 링크)</li>
+<li>https://mail.python.org/pipermail/distutils-sig/2011-June/017862.html</li>
+<li>importlib.metadata (https://docs.python.org/3/library/importlib.metadata.html#distribution-versions)</li>
+<li>Misinterpreting the significance of this PEP's rejection (https://discuss.python.org/t/please-make-package-version-go-away/58501)</li>
+</ul>
+<h2>저작권 (Copyright)</h2>
+<p>이 문서는 퍼블릭 도메인에 공개되었습니다.</p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":[["$","aside",null,{"className":"lg:w-64 xl:w-72 order-1 lg:order-none","children":["$","div",null,{"className":"sidebar sticky","children":["$","nav",null,{"className":"space-y-4","children":[["$","div","Backend",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Backend"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Django",{"children":["$","a",null,{"href":"/backend/django/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Django"," (",6,")"]}]}],["$","li","Logging",{"children":["$","a",null,{"href":"/backend/logging/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Logging"," (",1,")"]}]}]]}]]}],["$","div","Python",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Python"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","PEP",{"children":["$","a",null,{"href":"/python/pep/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["PEP"," (",650,")"]}]}]]}]]}],["$","div","AI/ML",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"AI/ML"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","LLM",{"children":["$","a",null,{"href":"/ai/llm/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["LLM"," (",1,")"]}]}],["$","li","Review",{"children":["$","a",null,{"href":"/ai/review/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Review"," (",1025,")"]}]}]]}]]}],["$","div","DevOps",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"DevOps"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Nginx",{"children":["$","a",null,{"href":"/devops/nginx/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Nginx"," (",1,")"]}]}],["$","li","Docker",{"children":["$","a",null,{"href":"/devops/docker/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Docker"," (",1,")"]}]}],["$","li","SafeLine",{"children":["$","a",null,{"href":"/devops/safeline/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["SafeLine"," (",1,")"]}]}],["$","li","Jenkins",{"children":["$","a",null,{"href":"/devops/jenkins/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Jenkins"," (",3,")"]}]}],["$","li","GitHub Actions",{"children":["$","a",null,{"href":"/devops/github-actions/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["GitHub Actions"," (",1,")"]}]}],["$","li","AWS",{"children":["$","a",null,{"href":"/devops/aws/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["AWS"," (",1,")"]}]}]]}]]}],["$","div","etc",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"etc"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Me",{"children":["$","a",null,{"href":"/etc/me/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Me"," (",3,")"]}]}],["$","li","Chrome Extension",{"children":["$","a",null,{"href":"/etc/chrome-extension/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Chrome Extension"," (",1,")"]}]}]]}]]}]]}]}]}],["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Withdrawn] PEP 396 - Module Version Numbers"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-26 21:22:37+0900","children":"2025년 9월 26일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 26일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]}]]}]}]]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"secrett2633's blog"}],["$","meta","3",{"name":"description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://secrett2633.github.io/"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"secrett2633's blog"}],["$","meta","13",{"property":"og:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","14",{"property":"og:url","content":"https://secrett2633.github.io/"}],["$","meta","15",{"property":"og:site_name","content":"secrett2633's blog"}],["$","meta","16",{"property":"og:locale","content":"ko_KR"}],["$","meta","17",{"property":"og:type","content":"website"}],["$","meta","18",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","19",{"name":"twitter:title","content":"secrett2633's blog"}],["$","meta","20",{"name":"twitter:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","link","21",{"rel":"icon","href":"/icon.ico?6d9f34d4948640b8","type":"image/x-icon","sizes":"16x16"}]]
+1:null
