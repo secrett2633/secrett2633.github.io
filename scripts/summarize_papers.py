@@ -6,7 +6,7 @@ import time
 from datetime import datetime
 from typing import List, Dict
 
-import google.generativeai as genai
+from google import genai
 from pydantic import BaseModel
 
 
@@ -41,9 +41,6 @@ published: true
 
 > ⚠️ **알림:** 이 리뷰는 AI로 작성되었습니다.
 """
-
-genai.configure(api_key=os.environ["GEMINI_API_KEY"])
-
 
 def parse_keywords_from_summary(summary: str) -> List[str]:
     keywords = []
@@ -134,13 +131,13 @@ PAPER_SUMMARY_PROMPT = """
 
 
 def summarize_paper(title: str, authors: str, pdf_path: str, model_name: str) -> str:
-    model = genai.GenerativeModel(model_name=model_name)
+    client = genai.Client()
 
-    pdf_file = genai.upload_file(path=pdf_path, display_name=f"paper_{title}")
+    pdf_file = client.files.upload(file=pdf_path)
 
     prompt = PAPER_SUMMARY_PROMPT.format(title=title, authors=authors)
 
-    response = model.generate_content([pdf_file, prompt])
+    response = client.models.generate_content(model=model_name, contents=[pdf_file, prompt])
 
     return response.text
 
