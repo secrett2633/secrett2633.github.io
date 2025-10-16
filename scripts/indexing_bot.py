@@ -24,8 +24,8 @@ logger = logging.getLogger(__name__)
 
 
 class GoogleIndexingManager:
-    def __init__(self, sitemap_url: str):
-        self.sitemap_url = sitemap_url
+    def __init__(self, sitemap_urls: List[str]):
+        self.sitemap_urls = sitemap_urls
         self.service = None
         self.credentials = None
 
@@ -63,46 +63,62 @@ class GoogleIndexingManager:
             return False
 
     def fetch_sitemap_urls(self) -> List[str]:
-        """Sitemap에서 URL들을 추출"""
-        try:
-            logger.info(f"Sitemap 가져오는 중: {self.sitemap_url}")
+        """여러 Sitemap에서 URL들을 추출하여 합치기"""
+        all_urls = []
 
-            response = requests.get(self.sitemap_url, timeout=30)
-            response.raise_for_status()
+        for i, sitemap_url in enumerate(self.sitemap_urls, 1):
+            try:
+                logger.info(
+                    f"Sitemap {i}/{len(self.sitemap_urls)} 가져오는 중: {sitemap_url}"
+                )
 
-            # XML 파싱
-            root = ET.fromstring(response.content)
+                response = requests.get(sitemap_url, timeout=30)
+                response.raise_for_status()
 
-            # 네임스페이스 처리
-            namespace = {"ns": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+                # XML 파싱
+                root = ET.fromstring(response.content)
 
-            urls = []
-            for url_element in root.findall(".//ns:url", namespace):
-                loc_element = url_element.find("ns:loc", namespace)
-                if loc_element is not None and loc_element.text:
-                    urls.append(loc_element.text.strip())
+                # 네임스페이스 처리
+                namespace = {"ns": "http://www.sitemaps.org/schemas/sitemap/0.9"}
 
-            logger.info(f"✓ Sitemap에서 {len(urls)}개의 URL을 찾았습니다.")
+                sitemap_urls = []
+                for url_element in root.findall(".//ns:url", namespace):
+                    loc_element = url_element.find("ns:loc", namespace)
+                    if loc_element is not None and loc_element.text:
+                        sitemap_urls.append(loc_element.text.strip())
 
-            # 샘플 URL 로그
-            if urls:
-                logger.info("샘플 URL들:")
-                for i, url in enumerate(urls[:3]):
-                    logger.info(f"  {i+1}: {url}")
-                if len(urls) > 3:
-                    logger.info(f"  ... 그리고 {len(urls)-3}개 더")
+                all_urls.extend(sitemap_urls)
+                logger.info(
+                    f"✓ Sitemap {i}에서 {len(sitemap_urls)}개의 URL을 찾았습니다."
+                )
 
-            return urls
+            except requests.RequestException as e:
+                logger.error(f"Sitemap {i} 가져오기 실패 ({sitemap_url}): {e}")
+                continue
+            except ET.ParseError as e:
+                logger.error(f"Sitemap {i} XML 파싱 실패 ({sitemap_url}): {e}")
+                continue
+            except Exception as e:
+                logger.error(
+                    f"Sitemap {i} 처리 중 예상치 못한 오류 ({sitemap_url}): {e}"
+                )
+                continue
 
-        except requests.RequestException as e:
-            logger.error(f"Sitemap 가져오기 실패: {e}")
-            return []
-        except ET.ParseError as e:
-            logger.error(f"XML 파싱 실패: {e}")
-            return []
-        except Exception as e:
-            logger.error(f"예상치 못한 오류: {e}")
-            return []
+        # 중복 제거
+        unique_urls = list(set(all_urls))
+        logger.info(
+            f"✓ 총 {len(all_urls)}개의 URL을 찾았고, 중복 제거 후 {len(unique_urls)}개의 고유 URL이 있습니다."
+        )
+
+        # 샘플 URL 로그
+        if unique_urls:
+            logger.info("샘플 URL들:")
+            for i, url in enumerate(unique_urls[:3]):
+                logger.info(f"  {i+1}: {url}")
+            if len(unique_urls) > 3:
+                logger.info(f"  ... 그리고 {len(unique_urls)-3}개 더")
+
+        return unique_urls
 
     def select_random_urls(self, urls: List[str], count: int = 200) -> List[str]:
         """랜덤하게 지정된 개수만큼 URL 선택"""
@@ -246,14 +262,21 @@ class GoogleIndexingManager:
 def main():
     """메인 함수"""
     # 설정값들
-    SITEMAP_URL = "https://secrett2633.github.io/sitemap.xml"
+    SITEMAP_URLS = [
+        "https://secrett2633.github.io/sitemaps/1.xml",
+        "https://secrett2633.github.io/sitemaps/2.xml",
+        "https://secrett2633.github.io/sitemaps/3.xml",
+        "https://secrett2633.github.io/sitemaps/4.xml",
+    ]
     MAX_URLS = int(os.environ.get("MAX_URLS", "200"))
     DELAY_SECONDS = float(os.environ.get("DELAY_SECONDS", "1.0"))
 
-    logger.info(f"설정 - MAX_URLS: {MAX_URLS}, DELAY_SECONDS: {DELAY_SECONDS}")
+    logger.info(
+        f"설정 - SITEMAP_URLS: {len(SITEMAP_URLS)}개, MAX_URLS: {MAX_URLS}, DELAY_SECONDS: {DELAY_SECONDS}"
+    )
 
     # Google Indexing Manager 실행
-    manager = GoogleIndexingManager(SITEMAP_URL)
+    manager = GoogleIndexingManager(SITEMAP_URLS)
     success = manager.run(MAX_URLS, DELAY_SECONDS)
 
     # 종료 코드 반환 (GitHub Actions에서 성공/실패 판단용)
