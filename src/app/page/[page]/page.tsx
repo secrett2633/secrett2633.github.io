@@ -52,7 +52,9 @@ export default function PagedHome({ params }: PageProps) {
 
                     {post.excerpt && (
                       <div className="archive__item-excerpt">
-                        {post.excerpt}
+                        <Link href={post.permalink || `/${post.id}/`}>
+                          {post.excerpt}
+                        </Link>
                       </div>
                     )}
 

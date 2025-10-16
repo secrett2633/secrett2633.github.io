@@ -138,7 +138,9 @@ export default async function PostPage({ params }: PostPageProps) {
                         
                         {post.excerpt && (
                           <div className="archive__item-excerpt">
-                            {post.excerpt}
+                            <Link href={post.permalink || `/${post.id}/`}>
+                              {post.excerpt}
+                            </Link>
                           </div>
                         )}
                         
@@ -202,7 +204,9 @@ export default async function PostPage({ params }: PostPageProps) {
 
                           {post.excerpt && (
                             <div className="archive__item-excerpt">
-                              {post.excerpt}
+                              <Link href={post.permalink || `/${post.id}/`}>
+                                {post.excerpt}
+                              </Link>
                             </div>
                           )}
 
