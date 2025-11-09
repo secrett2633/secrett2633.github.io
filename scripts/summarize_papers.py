@@ -131,7 +131,7 @@ PAPER_SUMMARY_PROMPT = """
 
 
 def summarize_paper(title: str, authors: str, pdf_path: str, model_name: str) -> str:
-    client = genai.Client()
+    client = genai.Client(api_key="AIzaSyAHIXVy_JjrpZtkKXt--rVXkKE9Lwp1u4c")
 
     pdf_file = client.files.upload(file=pdf_path)
 
@@ -153,7 +153,7 @@ def update_readme(summaries: List[Dict[str, str]]) -> None:
     date_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S%z")
     year = datetime.now().year
     month = datetime.now().month
-    day = datetime.now().day
+    day = 7
 
     for summary in summaries:
         platform = "[arXiv]" if "arxiv.org/abs/" in summary["link"] else "[HuggingFace]"
@@ -180,7 +180,7 @@ def update_readme(summaries: List[Dict[str, str]]) -> None:
 
 
 def main() -> None:
-    date = datetime.now().strftime("%Y-%m-%d")
+    date = "2025-11-07"
     with open(f"data/{date}_papers.json", "r", encoding="utf-8") as f:
         papers = json.load(f)
 
@@ -201,11 +201,6 @@ def main() -> None:
 
 
     update_readme(summaries)
-
-    for paper in papers:
-        if os.path.exists(paper["pdf_path"]):
-            os.remove(paper["pdf_path"])
-
 
 if __name__ == "__main__":
     main()
