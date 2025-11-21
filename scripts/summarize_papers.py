@@ -132,7 +132,7 @@ PAPER_SUMMARY_PROMPT = """
 
 
 def summarize_paper(title: str, authors: str, pdf_path: str, model_name: str) -> str:
-    client = genai.Client(api_key="AIzaSyBdOKB5VkYNSWtPc0B7g9HTCi_qqaCvG40")
+    client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
 
     pdf_file = client.files.upload(file=pdf_path)
 
