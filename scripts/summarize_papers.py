@@ -42,26 +42,27 @@ published: true
 > ⚠️ **알림:** 이 리뷰는 AI로 작성되었습니다.
 """
 
+
 def parse_keywords_from_summary(summary: str) -> List[str]:
     keywords = []
-    
-    keyword_pattern = r'\*\*키워드:\*\*\s*(.+?)(?=\n\n|\n##|$)'
+
+    keyword_pattern = r"\*\*키워드:\*\*\s*(.+?)(?=\n\n|\n##|$)"
     match = re.search(keyword_pattern, summary, re.DOTALL)
-    
+
     if match:
         keyword_text = match.group(1).strip()
-        keyword_matches = re.findall(r'`([^`]+)`', keyword_text)
+        keyword_matches = re.findall(r"`([^`]+)`", keyword_text)
         keywords = [kw.strip() for kw in keyword_matches if kw.strip()]
 
     if keywords:
-        return ['Review'] + keywords
+        return ["Review"] + keywords
     else:
-        return ['Review']
+        return ["Review"]
 
 
 def remove_keywords_from_summary(summary: str) -> str:
-    keyword_pattern = r'\*\*키워드:\*\*\s*(.+?)(?=\n\n|\n##|$)'
-    return re.sub(keyword_pattern, '', summary, flags=re.DOTALL).strip()
+    keyword_pattern = r"\*\*키워드:\*\*\s*(.+?)(?=\n\n|\n##|$)"
+    return re.sub(keyword_pattern, "", summary, flags=re.DOTALL).strip()
 
 
 PAPER_SUMMARY_PROMPT = """
@@ -131,60 +132,59 @@ PAPER_SUMMARY_PROMPT = """
 
 
 def summarize_paper(title: str, authors: str, pdf_path: str, model_name: str) -> str:
-    client = genai.Client(api_key="AIzaSyAHIXVy_JjrpZtkKXt--rVXkKE9Lwp1u4c")
+    client = genai.Client(api_key="AIzaSyBdOKB5VkYNSWtPc0B7g9HTCi_qqaCvG40")
 
     pdf_file = client.files.upload(file=pdf_path)
 
     prompt = PAPER_SUMMARY_PROMPT.format(title=title, authors=authors)
 
-    response = client.models.generate_content(model=model_name, contents=[pdf_file, prompt])
+    response = client.models.generate_content(
+        model=model_name, contents=[pdf_file, prompt]
+    )
 
     return response.text
 
 
 def sanitize_filename(text: str) -> str:
-    sanitized = re.sub(r'[^\w\s\-.]', '', text)
-    sanitized = re.sub(r'\s+', '_', sanitized)
-    sanitized = re.sub(r'_{2,}', '_', sanitized)
-    return sanitized.strip('_')
+    sanitized = re.sub(r"[^\w\s\-.]", "", text)
+    sanitized = re.sub(r"\s+", "_", sanitized)
+    sanitized = re.sub(r"_{2,}", "_", sanitized)
+    return sanitized.strip("_")
 
 
-def update_readme(summaries: List[Dict[str, str]]) -> None:
-    date_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S%z")
-    year = datetime.now().year
-    month = datetime.now().month
-    day = 7
+def update_readme(paper: Dict[str, str], year: str, month: str, day: str) -> None:
+    date_str = f"{year}-{month}-{day} 00:00:00+0900"
+    platform = "[arXiv]" if "arxiv.org/abs/" in paper["link"] else "[HuggingFace]"
+    uri = f"{year}-{month}-{day}-{sanitize_filename(paper['title'])}"
+    author = paper["authors"].split(",")
 
-    for summary in summaries:
-        platform = "[arXiv]" if "arxiv.org/abs/" in summary["link"] else "[HuggingFace]"
-        uri = f"{year}-{month}-{day}-{sanitize_filename(summary['title'])}"
-        author = summary["authors"].split(",")
+    tags = parse_keywords_from_summary(paper["summary"])
+    tags_yaml = "\n".join([f"  - {tag}" for tag in tags])
 
-        tags = parse_keywords_from_summary(summary["summary"])
-        tags_yaml = "\n".join([f"  - {tag}" for tag in tags])
-        
-        content = CONTENT.format(
-            title=summary["title"],
-            uri=uri,
-            date_str=date_str,
-            content=remove_keywords_from_summary(summary["summary"]),
-            authors=author[0],
-            platform=platform,
-            link=summary["link"],
-            tags=tags_yaml,
-        ).strip()
+    content = CONTENT.format(
+        title=paper["title"].replace("\n", " ").strip(),
+        uri=uri,
+        date_str=date_str,
+        content=remove_keywords_from_summary(paper["summary"]),
+        authors=author[0],
+        platform=platform,
+        link=paper["link"],
+        tags=tags_yaml,
+    ).strip()
 
-        file_name = f"{year}-{month}-{day}-{sanitize_filename(summary['title'])}.md"
-        with open(os.path.join("src", "data", file_name), "w", encoding="utf-8") as f:
-            f.write(content)
+    file_name = f"{year}-{month}-{day}-{sanitize_filename(paper['title'])}.md"
+    with open(os.path.join("src", "data", file_name), "w", encoding="utf-8") as f:
+        f.write(content)
 
 
 def main() -> None:
-    date = "2025-11-07"
+    year = datetime.now().year
+    month = datetime.now().month
+    day = datetime.now().day
+    date = f"{year}-{month}-{day}"
     with open(f"data/{date}_papers.json", "r", encoding="utf-8") as f:
         papers = json.load(f)
 
-    summaries = []
     for paper in papers:
         try:
             summary = summarize_paper(
@@ -193,14 +193,14 @@ def main() -> None:
                 pdf_path=paper["pdf_path"],
                 model_name="gemini-2.5-flash",
             )
-            summaries.append({**paper, "summary": summary})
+            paper["summary"] = summary
+            update_readme(paper, year, month, day)
+
             time.sleep(1)  # Sleep for 1 minute to avoid rate limiting
         except Exception as e:
             print(traceback.format_exc())
             continue
 
-
-    update_readme(summaries)
 
 if __name__ == "__main__":
     main()

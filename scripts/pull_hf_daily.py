@@ -16,7 +16,10 @@ from typing import List, Dict
 import requests
 from bs4 import BeautifulSoup
 
-HF_URL = "https://huggingface.co/papers/date/2025-10-31"
+
+# date = "2025-11-20"
+date = datetime.now().strftime("%Y-%m-%d")
+HF_URL = f"https://huggingface.co/papers/date/{date}"
 
 
 def download_pdf(arxiv_id: str, save_path: str) -> bool:
@@ -103,7 +106,6 @@ def pull_hf_daily() -> None:
         else:
             print(f"Failed to download PDF for {arxiv_id}")
 
-    date = "2025-10-31"
     data_dir = "data"
     print(f"Ensuring data directory exists: {data_dir}")
     os.makedirs(data_dir, exist_ok=True)  # Create 'data' directory if it doesn't exist
