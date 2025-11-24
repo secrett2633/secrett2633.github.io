@@ -44,21 +44,7 @@ export async function GET(
     const currentDate = new Date().toISOString()
 
     const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>${siteUrl}</loc>
-    <lastmod>${currentDate}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
-  
-  <url>
-    <loc>${siteUrl}/categories</loc>
-    <lastmod>${currentDate}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">  
   ${sitemapPosts.map(post => {
     const postUrl = `${siteUrl}${post.permalink || `/${post.id}/`}`
     const lastmod = post.lastModifiedAt ? new Date(post.lastModifiedAt).toISOString() : new Date(post.date).toISOString()
@@ -70,7 +56,6 @@ export async function GET(
     <priority>0.6</priority>
   </url>`
   }).join('\n')}
-  
 </urlset>`
 
     return new NextResponse(sitemapXml, {

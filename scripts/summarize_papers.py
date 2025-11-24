@@ -145,17 +145,32 @@ def summarize_paper(title: str, authors: str, pdf_path: str, model_name: str) ->
     return response.text
 
 
+def clean_hyphens(text: str) -> str:
+    """연속된 하이픈을 하나로 변경하고 하이픈 주변 공백 제거"""
+    # 하이픈 주변의 공백 제거 (공백-공백, 공백-, -공백 패턴)
+    text = re.sub(r"\s+-\s+", "-", text)  # 공백-공백 → -
+    text = re.sub(r"\s+-", "-", text)  # 공백- → -
+    text = re.sub(r"-\s+", "-", text)  # -공백 → -
+    # 연속된 하이픈을 하나로 변경
+    text = re.sub(r"-{2,}", "-", text)  # -- 이상 → -
+    text = text.replace("Φ", "")
+    text = text.replace(".", "-")
+    return text
+
+
 def sanitize_filename(text: str) -> str:
     sanitized = re.sub(r"[^\w\s\-.]", "", text)
-    sanitized = re.sub(r"\s+", "_", sanitized)
-    sanitized = re.sub(r"_{2,}", "_", sanitized)
-    return sanitized.strip("_")
+    sanitized = re.sub(r"\s+", "-", sanitized)  # 공백을 하이픈으로 변경
+    sanitized = re.sub(r"-{2,}", "-", sanitized)  # 연속된 하이픈을 하나로
+    sanitized = clean_hyphens(sanitized)  # 하이픈 주변 공백 제거 및 정리
+    return sanitized.strip("-")
 
 
 def update_readme(paper: Dict[str, str], year: str, month: str, day: str) -> None:
     date_str = f"{year}-{month}-{day} 00:00:00+0900"
     platform = "[arXiv]" if "arxiv.org/abs/" in paper["link"] else "[HuggingFace]"
-    uri = f"{year}-{month}-{day}-{sanitize_filename(paper['title'])}"
+    sanitized_title = sanitize_filename(paper["title"])
+    uri = clean_hyphens(f"{year}-{month}-{day}-{sanitized_title}")
     author = paper["authors"].split(",")
 
     tags = parse_keywords_from_summary(paper["summary"])
@@ -172,7 +187,8 @@ def update_readme(paper: Dict[str, str], year: str, month: str, day: str) -> Non
         tags=tags_yaml,
     ).strip()
 
-    file_name = f"{year}-{month}-{day}-{sanitize_filename(paper['title'])}.md"
+    sanitized_title = sanitize_filename(paper["title"])
+    file_name = clean_hyphens(f"{year}-{month}-{day}-{sanitized_title}.md")
     with open(os.path.join("src", "data", file_name), "w", encoding="utf-8") as f:
         f.write(content)
 
