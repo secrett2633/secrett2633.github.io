@@ -32,7 +32,7 @@ published: true
 저는 제 블로그의 RSS 피드를 이용해 블로그 포스팅을 가져옵니다. 아래는 제 블로그 RSS 피드의 URL입니다.
 
 ```
-https://secrett2633.github.io/feed.xml
+https://blog.secrett2633.site/feed.xml
 ```
 
 이 RSS 피드를 이용해 최신 포스트 5개를 가져오는 Python 스크립트를 작성했습니다. 코드를 살펴보겠습니다.
@@ -47,7 +47,7 @@ from pathlib import Path
 from email.utils import parsedate_to_datetime
 
 # 상수 정의
-BLOG_URL = "https://secrett2633.github.io/feed.xml"
+BLOG_URL = "https://blog.secrett2633.site/feed.xml"
 MAX_POSTS = 5
 README_PATH = "README.md"
 BLOG_SECTION_TITLE = "### Latest Blog Posts"

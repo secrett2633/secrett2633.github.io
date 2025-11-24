@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
     const postsPerSitemap = 500
     const totalSitemaps = Math.ceil(posts.length / postsPerSitemap)
     
-    const siteUrl = 'https://secrett2633.github.io'
+    const siteUrl = 'https://blog.secrett2633.site'
     const currentDate = new Date().toISOString()
     
     // 개별 사이트맵은 /sitemaps/{id}.xml 로 제공

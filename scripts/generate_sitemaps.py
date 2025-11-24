@@ -100,7 +100,7 @@ layout: null
 def main():
     # 설정
     posts_dir = "_posts"
-    site_url = "https://secrett2633.github.io"  # _config.yml에서 가져와야 함
+    site_url = "https://blog.secrett2633.site"  # _config.yml에서 가져와야 함
     posts_per_sitemap = 100
 
     # 기존 sitemap 파일들 삭제
