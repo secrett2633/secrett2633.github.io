@@ -19,6 +19,14 @@ def clean_hyphens(text):
     text = text.replace("Φ", "")
     # . 을 - 로 변경
     text = text.replace(".", "-")
+    # α 을 a 로 변경
+    text = text.replace("α", "a-")
+    # π 을 pi 로 변경
+    text = text.replace("π", "pi-")
+    # Δ 을 delta 로 변경
+    text = text.replace("Δ", "delta-")
+    # ' 을 - 로 변경
+    text = text.replace("'", "-")
     # 하이픈 주변의 공백 제거 (공백-공백, 공백-, -공백 패턴)
     text = re.sub(r"\s+-\s+", "-", text)  # 공백-공백 → -
     text = re.sub(r"\s+-", "-", text)  # 공백- → -
@@ -116,12 +124,17 @@ def main():
             or re.search(r"\s+-|-\s+", name)
             or "." in name_without_ext
             or "Φ" in name
+            or "'" in name
+            or "α" in name
+            or "π" in name
+            or "Δ" in name
         ):
             md_files.append(f)
     print(f"Found {len(md_files)} markdown files to process")
 
     fixed_count = 0
     for md_file in md_files:
+        print(f"Processing {md_file}")
         if fix_file_and_permalink(md_file):
             fixed_count += 1
 
