@@ -1,6 +1,6 @@
 import DefaultLayout from '@/components/DefaultLayout'
 import Sidebar from '@/components/Sidebar'
-import { getAllPostIds, getPostData, getPaginatedPostsByCategory } from '@/lib/posts'
+import { getAllPostIds, getPostData, getPaginatedPostsByCategory, getPostsByCategory } from '@/lib/posts'
 import { format } from 'date-fns'
 import { ko } from 'date-fns/locale'
 import fs from 'fs'
@@ -323,6 +323,19 @@ export default async function PostPage({ params }: PostPageProps) {
   
   try {
     const postData = await getPostData(postId)
+    const primaryCategory = postData.categories?.[0]
+    let prevPost = null
+    let nextPost = null
+
+    if (primaryCategory) {
+      const categoryPosts = getPostsByCategory(primaryCategory)
+      const currentIndex = categoryPosts.findIndex((post) => post.id === postId)
+
+      if (currentIndex !== -1) {
+        prevPost = categoryPosts[currentIndex + 1] || null
+        nextPost = categoryPosts[currentIndex - 1] || null
+      }
+    }
     
     return (
       <>
@@ -364,6 +377,45 @@ export default async function PostPage({ params }: PostPageProps) {
                   </div>
                 )}
               </footer>
+
+              {primaryCategory && (
+                <section className="mt-12 border-t border-gray-200 pt-8">
+                  <h3 className="text-base font-semibold text-gray-900 mb-4">
+                    {primaryCategory} 의 다른글
+                  </h3>
+                  <ul className="space-y-2 text-sm">
+                    <li className="text-gray-500">
+                      이전글{' '}
+                      {prevPost ? (
+                        <Link
+                          href={prevPost.permalink || `/${prevPost.id}/`}
+                          className="text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4"
+                        >
+                          {prevPost.title}
+                        </Link>
+                      ) : (
+                        <span className="text-gray-400">없음</span>
+                      )}
+                    </li>
+                    <li className="text-gray-900 font-semibold">
+                      현재글 : {postData.title}
+                    </li>
+                    <li className="text-gray-500">
+                      다음글{' '}
+                      {nextPost ? (
+                        <Link
+                          href={nextPost.permalink || `/${nextPost.id}/`}
+                          className="text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4"
+                        >
+                          {nextPost.title}
+                        </Link>
+                      ) : (
+                        <span className="text-gray-400">없음</span>
+                      )}
+                    </li>
+                  </ul>
+                </section>
+              )}
             </article>
           </main>
         </div>

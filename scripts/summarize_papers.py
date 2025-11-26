@@ -188,7 +188,7 @@ def update_readme(paper: Dict[str, str], year: str, month: str, day: str) -> Non
     ).strip()
 
     sanitized_title = sanitize_filename(paper["title"])
-    file_name = clean_hyphens(f"{year}-{month}-{day}-{sanitized_title}.md")
+    file_name = clean_hyphens(f"{year}-{month}-{day}-{sanitized_title}") + ".md"
     with open(os.path.join("src", "data", file_name), "w", encoding="utf-8") as f:
         f.write(content)
 
