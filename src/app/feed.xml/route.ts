@@ -1,6 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getSortedPostsData } from '@/lib/posts'
 
+const KST_OFFSET_MS = 9 * 60 * 60 * 1000
+
+const formatKoreanTime = (date: Date) => {
+  return new Date(date.getTime() + KST_OFFSET_MS).toUTCString()
+}
+
 export async function GET(request: NextRequest) {
   try {
     const posts = getSortedPostsData()
@@ -9,7 +15,7 @@ export async function GET(request: NextRequest) {
     const recentPosts = posts.slice(0, 30)
     
     const siteUrl = 'https://blog.secrett2633.site'
-    const currentDate = new Date().toUTCString()
+    const currentDate = formatKoreanTime(new Date())
     
     const rssXml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
@@ -34,7 +40,7 @@ export async function GET(request: NextRequest) {
     
     ${recentPosts.map(post => {
       const postUrl = `${siteUrl}${post.permalink || `/${post.id}/`}`
-      const pubDate = new Date(post.date).toUTCString()
+      const pubDate = formatKoreanTime(new Date(post.date))
       const description = post.excerpt || post.title
       
       // HTML 태그 제거 및 이스케이프
