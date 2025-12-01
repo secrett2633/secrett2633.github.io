@@ -22,7 +22,7 @@ published: true
 파이썬 PEP 416: frozendict 내장 타입 추가 제안 (거부됨)
 
 ## 개요
-이 문서는 PEP (Python Enhancement Proposal) 416의 내용을 한국어 사용자가 이해하기 쉽도록 번역하고 정리한 것입니다. PEP 416은 `frozendict`라는 새로운 내장 타입을 Python에 추가할 것을 제안했으나, 최종적으로 **거부**되었습니다.
+이 문서는 PEP (Python Enhancement Proposal) 416의 내용을 한국어 사용자가 이해하기 쉽도록 번역하고 정리한 것입니다. PEP 416은 `frozendict`라는 새로운 내장 타입을 Python에 추가할 것을 제안했으나, 최종적으로 **거부** 되었습니다.
 
 ## 목차
 - 거부 공지 (Rejection Notice)

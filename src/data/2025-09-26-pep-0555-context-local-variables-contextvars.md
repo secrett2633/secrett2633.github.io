@@ -23,12 +23,12 @@ published: true
 
 # PEP 555: Context-local variables (contextvars) (컨텍스트-로컬 변수)
 
-*   **작성자**: Koos Zevenhoven
-*   **상태**: 철회됨 (Withdrawn)
-*   **유형**: 표준 트랙 (Standards Track)
-*   **생성일**: 2017년 9월 6일
-*   **Python 버전**: 3.7
-*   **사후 변경 이력**: 2017년 9월 6일
+*   **작성자** : Koos Zevenhoven
+*   **상태** : 철회됨 (Withdrawn)
+*   **유형** : 표준 트랙 (Standards Track)
+*   **생성일** : 2017년 9월 6일
+*   **Python 버전** : 3.7
+*   **사후 변경 이력** : 2017년 9월 6일
 
 ## 개요 (Abstract)
 

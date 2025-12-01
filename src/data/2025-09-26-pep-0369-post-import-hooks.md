@@ -21,12 +21,12 @@ published: true
 
 ## PEP 369 – Post import hooks
 
-*   **작성자**: Christian Heimes <christian at python.org>
-*   **상태**: 철회됨 (Withdrawn)
-*   **유형**: Standards Track
-*   **생성일**: 2008년 1월 2일
-*   **Python 버전**: 2.6, 3.0
-*   **이력**: 2012년 12월 2일 (Post-History)
+*   **작성자** : Christian Heimes <christian at python.org>
+*   **상태** : 철회됨 (Withdrawn)
+*   **유형** : Standards Track
+*   **생성일** : 2008년 1월 2일
+*   **Python 버전** : 2.6, 3.0
+*   **이력** : 2012년 12월 2일 (Post-History)
 
 ### 철회 공지 (Withdrawal Notice)
 
@@ -68,12 +68,12 @@ PJE의 `peak.util.imports`는 `post load hook`을 구현합니다. 이 PEP의 �
 
 #### 상태 (States)
 
-*   **등록된 `hook`이 없음**: `sys.post_import_hooks`에 해당 모듈에 대한 엔트리가 없습니다.
-*   **`hook`이 등록되었고 모듈이 아직 로드되지 않음**: `import hook` 레지스트리에 `sys.post_import_hooks["name"] = [hook1]`과 같은 엔트리가 포함되어 있습니다.
-*   **모듈이 성공적으로 로드됨**: `import` 메커니즘은 `sys.post_import_hooks`가 새로 로드된 모듈에 대한 `post import hook`을 포함하는지 확인합니다. `hook`이 발견되면, 등록된 순서대로 모듈 인스턴스를 첫 번째 인자로 받아 호출됩니다. 메서드가 예외를 발생시키면 `hook` 처리가 중단됩니다. 마지막으로, 오류가 발생하더라도 모듈 이름에 대한 엔트리는 `None`으로 설정됩니다.
+*   **등록된 `hook`이 없음** : `sys.post_import_hooks`에 해당 모듈에 대한 엔트리가 없습니다.
+*   **`hook`이 등록되었고 모듈이 아직 로드되지 않음** : `import hook` 레지스트리에 `sys.post_import_hooks["name"] = [hook1]`과 같은 엔트리가 포함되어 있습니다.
+*   **모듈이 성공적으로 로드됨** : `import` 메커니즘은 `sys.post_import_hooks`가 새로 로드된 모듈에 대한 `post import hook`을 포함하는지 확인합니다. `hook`이 발견되면, 등록된 순서대로 모듈 인스턴스를 첫 번째 인자로 받아 호출됩니다. 메서드가 예외를 발생시키면 `hook` 처리가 중단됩니다. 마지막으로, 오류가 발생하더라도 모듈 이름에 대한 엔트리는 `None`으로 설정됩니다.
     추가적으로, `hook` 내부에서 알림 메서드가 호출될 때 무한 재귀를 방지하기 위해 모듈 객체의 새로운 `__notified__` 슬롯(slot)은 `True`로 설정됩니다. `PyModule`을 서브클래싱하지 않는 객체의 경우, 대신 새로운 속성이 추가됩니다.
-*   **모듈을 로드할 수 없음**: `import hook`은 호출되지도, 레지스트리에서 제거되지도 않습니다. 나중에 모듈을 로드할 수 있습니다.
-*   **`hook`이 등록되었지만 모듈이 이미 로드됨**: `hook`은 즉시 실행됩니다.
+*   **모듈을 로드할 수 없음** : `import hook`은 호출되지도, 레지스트리에서 제거되지도 않습니다. 나중에 모듈을 로드할 수 있습니다.
+*   **`hook`이 등록되었지만 모듈이 이미 로드됨** : `hook`은 즉시 실행됩니다.
 
 #### 불변성 (Invariants)
 

@@ -144,7 +144,7 @@ except FileNotFoundError:
 
 이제 '유용한 호환성'을 다음과 같이 정의할 수 있습니다.
 
-*   **유용한 호환성**은 예외 포착을 더 좁게 만들지 않지만, '부주의한' 예외 포착 코드의 경우 더 넓어질 수 있습니다. 다음 유형의 코드 조각이 주어졌을 때, 이 PEP 이전에 포착된 모든 예외는 이 PEP 이후에도 포착되지만, 그 반대는 사실이 아닐 수 있습니다 (왜냐하면 `OSError`, `IOError` 및 기타 예외의 통합은 `except` 절이 약간 더 넓은 범위를 포괄함을 의미하기 때문입니다).
+*   **유용한 호환성** 은 예외 포착을 더 좁게 만들지 않지만, '부주의한' 예외 포착 코드의 경우 더 넓어질 수 있습니다. 다음 유형의 코드 조각이 주어졌을 때, 이 PEP 이전에 포착된 모든 예외는 이 PEP 이후에도 포착되지만, 그 반대는 사실이 아닐 수 있습니다 (왜냐하면 `OSError`, `IOError` 및 기타 예외의 통합은 `except` 절이 약간 더 넓은 범위를 포괄함을 의미하기 때문입니다).
 
     ```python
     try:
@@ -153,7 +153,7 @@ except FileNotFoundError:
         pass
     ```
 
-*   **유용한 호환성**은 '신중한' 예외 포착 코드의 동작을 변경하지 않습니다. 다음 유형의 코드 조각이 주어졌을 때, 이 PEP가 구현되었는지 여부와 관계없이 동일한 오류가 무시되거나 다시 발생해야 합니다.
+*   **유용한 호환성** 은 '신중한' 예외 포착 코드의 동작을 변경하지 않습니다. 다음 유형의 코드 조각이 주어졌을 때, 이 PEP가 구현되었는지 여부와 관계없이 동일한 오류가 무시되거나 다시 발생해야 합니다.
 
     ```python
     try:
@@ -426,23 +426,23 @@ IOError: [Errno 2] No such file or directory: 'foox'
 
 ### 표준 라이브러리 (Standard library)
 
-*   **bz2**: 전반적으로 `IOError`를 발생시킵니다(`OSError`는 사용되지 않음).
-*   **curses**: 검사되지 않음.
-*   **dbm.gnu, dbm.ndbm**: `_dbm.error`와 `_gdbm.error`는 `IOError`를 상속합니다.
-*   **fcntl**: 전반적으로 `IOError`를 발생시킵니다(`OSError`는 사용되지 않음).
-*   **imp module**: 잘못된 파일 디스크립터에 대해 `IOError`를 발생시킵니다.
-*   **io module**: Unix에서 디렉토리를 열려고 할 때 `IOError`를 발생시킵니다. 지원되지 않는 작업에 대해 `IOError` 또는 `io.UnsupportedOperation` (전자를 상속)을 발생시킵니다. 하위 I/O 계층이 오작동할 때(`API`를 위반할 때) `IOError` 또는 `TypeError`를 발생시킵니다. 기본 OS 리소스가 유효하지 않게 되면 `IOError`를 발생시킵니다. 논블로킹 객체에 대한 호출이 블로킹될 때 `BlockingIOError` (IOError 상속)를 발생시킵니다.
-*   **mmap**: Unix에서는 전반적으로 자체 `mmap.error` (EnvironmentError 상속)를 발생시킵니다. 그러나 Windows에서는 대부분 `WindowsError`를 발생시킵니다(소스 코드에는 `mmap.error`의 몇 가지 발생도 있음).
-*   **multiprocessing**: 검사되지 않음.
-*   **os / posix**: `os` (또는 `posix`) 모듈은 전반적으로 `OSError`를 발생시킵니다. Windows에서는 `WindowsError`가 대신 발생할 수 있습니다.
-*   **ossaudiodev**: 전반적으로 `IOError`를 발생시킵니다(`OSError`는 사용되지 않음).
-*   **readline**: 다양한 파일 처리 함수에서 `IOError`를 발생시킵니다.
-*   **select**: `select()` 및 `poll` 객체는 아무것도 상속하지 않는 `select.error`를 발생시킵니다(그러나 `poll.modify()`는 `IOError`를 발생시킵니다). `epoll` 객체는 `IOError`를 발생시킵니다. `kqueue` 객체는 `OSError`와 `IOError`를 모두 발생시킵니다. 부수적으로, `EnvironmentError`를 상속하지 않는다는 것은 `select.error`가 유용한 `errno` 속성을 얻지 못한다는 것을 의미합니다. 사용자 코드는 대신 `args[0]`을 확인해야 합니다.
-*   **signal**: `signal.ItimerError`는 `IOError`를 상속합니다.
-*   **socket**: `socket.error`는 `IOError`를 상속합니다.
-*   **sys**: `GetVersionEx()` 호출이 실패하면 `sys.getwindowsversion()`은 잘못된 오류 번호와 함께 `WindowsError`를 발생시킵니다.
-*   **time**: `time.time()` 및 `time.sleep()`의 내부 오류에 대해 `IOError`를 발생시킵니다.
-*   **zipimport**: `zipimporter.get_data()`는 `IOError`를 발생시킬 수 있습니다.
+*   **bz2** : 전반적으로 `IOError`를 발생시킵니다(`OSError`는 사용되지 않음).
+*   **curses** : 검사되지 않음.
+*   **dbm.gnu, dbm.ndbm** : `_dbm.error`와 `_gdbm.error`는 `IOError`를 상속합니다.
+*   **fcntl** : 전반적으로 `IOError`를 발생시킵니다(`OSError`는 사용되지 않음).
+*   **imp module** : 잘못된 파일 디스크립터에 대해 `IOError`를 발생시킵니다.
+*   **io module** : Unix에서 디렉토리를 열려고 할 때 `IOError`를 발생시킵니다. 지원되지 않는 작업에 대해 `IOError` 또는 `io.UnsupportedOperation` (전자를 상속)을 발생시킵니다. 하위 I/O 계층이 오작동할 때(`API`를 위반할 때) `IOError` 또는 `TypeError`를 발생시킵니다. 기본 OS 리소스가 유효하지 않게 되면 `IOError`를 발생시킵니다. 논블로킹 객체에 대한 호출이 블로킹될 때 `BlockingIOError` (IOError 상속)를 발생시킵니다.
+*   **mmap** : Unix에서는 전반적으로 자체 `mmap.error` (EnvironmentError 상속)를 발생시킵니다. 그러나 Windows에서는 대부분 `WindowsError`를 발생시킵니다(소스 코드에는 `mmap.error`의 몇 가지 발생도 있음).
+*   **multiprocessing** : 검사되지 않음.
+*   **os / posix** : `os` (또는 `posix`) 모듈은 전반적으로 `OSError`를 발생시킵니다. Windows에서는 `WindowsError`가 대신 발생할 수 있습니다.
+*   **ossaudiodev** : 전반적으로 `IOError`를 발생시킵니다(`OSError`는 사용되지 않음).
+*   **readline** : 다양한 파일 처리 함수에서 `IOError`를 발생시킵니다.
+*   **select** : `select()` 및 `poll` 객체는 아무것도 상속하지 않는 `select.error`를 발생시킵니다(그러나 `poll.modify()`는 `IOError`를 발생시킵니다). `epoll` 객체는 `IOError`를 발생시킵니다. `kqueue` 객체는 `OSError`와 `IOError`를 모두 발생시킵니다. 부수적으로, `EnvironmentError`를 상속하지 않는다는 것은 `select.error`가 유용한 `errno` 속성을 얻지 못한다는 것을 의미합니다. 사용자 코드는 대신 `args[0]`을 확인해야 합니다.
+*   **signal** : `signal.ItimerError`는 `IOError`를 상속합니다.
+*   **socket** : `socket.error`는 `IOError`를 상속합니다.
+*   **sys** : `GetVersionEx()` 호출이 실패하면 `sys.getwindowsversion()`은 잘못된 오류 번호와 함께 `WindowsError`를 발생시킵니다.
+*   **time** : `time.time()` 및 `time.sleep()`의 내부 오류에 대해 `IOError`를 발생시킵니다.
+*   **zipimport** : `zipimporter.get_data()`는 `IOError`를 발생시킬 수 있습니다.
 
 ## 감사 (Acknowledgments)
 

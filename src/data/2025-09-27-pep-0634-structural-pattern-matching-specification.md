@@ -172,14 +172,14 @@ mapping_pattern: '{' [items_pattern] '}'
 key_value_pattern:
     | (literal_pattern | value_pattern) ':' pattern
     | double_star_pattern
-double_star_pattern: '**' capture_pattern
+double_star_pattern: ' **' capture_pattern
 ```
 
 매핑 패턴은 최대 하나의 `더블 스타 패턴 (double star pattern)`을 포함할 수 있으며, 이는 반드시 마지막에 와야 합니다. 매핑 패턴은 중복된 키 값을 포함할 수 없습니다.
 
 매핑 패턴이 성공하려면 subject는 매핑(mapping)이어야 합니다. `dict` 및 `mappingproxy`와 같은 표준 라이브러리 클래스는 `Py_TPFLAGS_MAPPING` 비트가 설정됩니다.
 
-매핑 패턴은 매핑 패턴에 주어진 모든 키가 subject 매핑에 존재하고, 각 키에 대한 패턴이 subject 매핑의 해당 항목과 매치될 때 성공합니다. 키는 항상 `==` 연산자로 비교됩니다. `'**' NAME` 형식이 있는 경우, 해당 이름은 subject 매핑에서 나머지 키-값 쌍을 포함하는 `dict`에 바인딩됩니다.
+매핑 패턴은 매핑 패턴에 주어진 모든 키가 subject 매핑에 존재하고, 각 키에 대한 패턴이 subject 매핑의 해당 항목과 매치될 때 성공합니다. 키는 항상 `==` 연산자로 비교됩니다. `'** ' NAME` 형식이 있는 경우, 해당 이름은 subject 매핑에서 나머지 키-값 쌍을 포함하는 `dict`에 바인딩됩니다.
 
 키-값 쌍은 subject의 `get()` 메서드의 두 인자 형식을 사용하여 매치됩니다. 결과적으로 매치되는 키-값 쌍은 매핑에 이미 존재해야 하며, `__missing__` 또는 `__getitem__`에 의해 즉시 생성되지 않아야 합니다.
 

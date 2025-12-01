@@ -21,12 +21,12 @@ published: true
 
 
 
-**상태**: Final (최종)
-**유형**: Standards Track (표준 트랙)
-**작성자**: Talin
-**생성일**: 2007년 3월 7일
-**Python 버전**: 3.0
-**수정 이력**: 2007년 3월 11일, 2007년 3월 14일
+**상태** : Final (최종)
+**유형** : Standards Track (표준 트랙)
+**작성자** : Talin
+**생성일** : 2007년 3월 7일
+**Python 버전** : 3.0
+**수정 이력** : 2007년 3월 11일, 2007년 3월 14일
 
 ---
 
@@ -92,7 +92,7 @@ def prepare_class(name, *bases, metaclass=None, **kwargs):
         metaclass = compute_default_metaclass(bases)
     prepare = getattr(metaclass, '__prepare__', None)
     if prepare is not None:
-        return prepare(name, bases, **kwargs)
+        return prepare(name, bases, ** kwargs)
     else:
         return dict()
 ```

@@ -21,13 +21,13 @@ published: true
 
 ## PEP 500 – `datetime` 메서드를 `tzinfo` 구현체로 위임하기 위한 프로토콜
 
-*   **작성자**: Alexander Belopolsky, Tim Peters
-*   **논의**: Datetime-SIG list
-*   **상태**: Rejected (거부됨)
-*   **유형**: Standards Track
-*   **요구 사항**: PEP 495
-*   **생성일**: 2015년 8월 8일
-*   **결의**: Datetime-SIG 메시지
+*   **작성자** : Alexander Belopolsky, Tim Peters
+*   **논의** : Datetime-SIG list
+*   **상태** : Rejected (거부됨)
+*   **유형** : Standards Track
+*   **요구 사항** : PEP 495
+*   **생성일** : 2015년 8월 8일
+*   **결의** : Datetime-SIG 메시지
 
 ---
 

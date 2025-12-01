@@ -33,7 +33,7 @@ PEP 750이 "태그된 문자열(tagged strings)" 제안으로 처음 발표되�
 
 2024년 10월 PEP 750 업데이트에서 템플릿 문자열이 더 광범위한 태그된 문자열 개념보다 Python에 더 적합하다는 데 동의했습니다. 이 PEP의 저자들이 PEP 750에 대해 가졌던 다른 모든 우려 사항들도 해당 업데이트에서 해결되거나, 향후 변경 제안에서 합리적으로 해결될 수 있는 상태로 남겨졌습니다. 업데이트된 PEP 750 제안의 명확한 개선 사항으로 인해, 이 PEP는 PEP 750을 지지하며 철회되었습니다.
 
-**중요**: 이 PEP의 나머지 부분은 2024년 8월 태그된 문자열 제안의 상태를 반영합니다. PEP 철회로 인해 중복되므로 2024년 10월 PEP 750 변경 사항을 반영하도록 업데이트되지 않았습니다.
+**중요** : 이 PEP의 나머지 부분은 2024년 8월 태그된 문자열 제안의 상태를 반영합니다. PEP 철회로 인해 중복되므로 2024년 10월 PEP 750 변경 사항을 반영하도록 업데이트되지 않았습니다.
 
 ## 다른 PEP들과의 관계 (Relationship with other PEPs)
 
@@ -410,22 +410,22 @@ subprocess.run(shlex.split(f'cat {shlex.quote(myfile)} --flag {shlex.quote(value
 
 ## 변경 및 보류된 고려 사항 (Deferrals and Considerations)
 
-*   **이진 보간 지원(Support for binary interpolation)**: f-string이 바이트 문자열을 처리하지 않으므로 t-string도 처리하지 않습니다.
-*   **`str` 전용 인터페이스와의 상호 운용성(Interoperability with str-only interfaces)**: `str`만 받아들이는 인터페이스와의 상호 운용성을 위해, 렌더링을 호출된 함수에 위임하는 대신 `format()`으로 보간 템플릿을 미리 렌더링할 수 있습니다.
-*   **원시 템플릿 문자열 보존(Preserving the raw template string)**: 초기 버전의 이 PEP는 템플릿 리터럴에 원시 템플릿 문자열을 제공하지 못했습니다. 이를 유지함으로써 더 매력적인 템플릿 표현을 제공할 수 있을 뿐만 아니라, 표현식 텍스트와 포맷 지정자에서 즉시 렌더링된 대체 필드의 세부 정보를 모두 포함하여 원래 문자열을 정확하게 재구성할 수 있습니다.
-*   **전역 이름 조회가 아닌 풍부한 객체 생성(Creating a rich object rather than a global name lookup)**: 초기 버전의 이 PEP는 보간 함수에서 나중에 사용하기 위한 새로운 종류의 객체를 생성하는 대신 `__interpolate__` 내장 함수를 사용했습니다. 유용한 기본 렌더러를 가진 풍부한 설명 객체를 생성함으로써 보간 의미론의 사용자 지정을 훨씬 쉽게 지원할 수 있게 되었습니다.
-*   **f-string을 대체하는 대신 그 위에 구축(Building atop f-strings rather than replacing them)**: 초기 버전의 이 PEP는 [PEP 498](https://peps.python.org/pep-0498/) (f-string)의 완전한 대체 역할을 하려고 했습니다. 해당 PEP와 최근의 [PEP 701](https://peps.python.org/pep-0701/)이 승인됨에 따라, 이 PEP는 기존 f-string의 즉시 렌더링 위에 더 유연한 지연 렌더링 기능을 구축할 수 있습니다.
-*   **반복 및 연결 의미론 정의(Defining repetition and concatenation semantics)**: 이 PEP는 `TemplateLiteral` 및 `TemplateLiteralText`에 대한 반복 및 연결 의미론을 명시적으로 정의합니다. 엄밀히 말하면 필요하지 않지만, 이러한 정의는 역사적으로 일반 문자열만 지원했던 코드에서 유형을 더 쉽게 작업할 수 있도록 할 것으로 예상됩니다.
-*   **지연 필드 평가를 위한 새로운 변환 지정자(New conversion specifier for lazy field evaluation)**: [PEP 750](https://peps.python.org/pep-0750/)의 처음 발표된 버전은 모든 보간 필드에 대해 지연 평가를 기본으로 했습니다. 이후 즉시 평가를 기본으로 하도록 업데이트되었지만 (f-string 및 이 PEP에서와 같이), 해당 주제에 대한 논의는 보간된 필드 값이 수정 없이 사용되는 대신 렌더링 시점에 호출되어야 함을 렌더링 함수에 알리는 방법을 제공하는 아이디어를 촉발했습니다.
+*   **이진 보간 지원(Support for binary interpolation)** : f-string이 바이트 문자열을 처리하지 않으므로 t-string도 처리하지 않습니다.
+*   **`str` 전용 인터페이스와의 상호 운용성(Interoperability with str-only interfaces)** : `str`만 받아들이는 인터페이스와의 상호 운용성을 위해, 렌더링을 호출된 함수에 위임하는 대신 `format()`으로 보간 템플릿을 미리 렌더링할 수 있습니다.
+*   **원시 템플릿 문자열 보존(Preserving the raw template string)** : 초기 버전의 이 PEP는 템플릿 리터럴에 원시 템플릿 문자열을 제공하지 못했습니다. 이를 유지함으로써 더 매력적인 템플릿 표현을 제공할 수 있을 뿐만 아니라, 표현식 텍스트와 포맷 지정자에서 즉시 렌더링된 대체 필드의 세부 정보를 모두 포함하여 원래 문자열을 정확하게 재구성할 수 있습니다.
+*   **전역 이름 조회가 아닌 풍부한 객체 생성(Creating a rich object rather than a global name lookup)** : 초기 버전의 이 PEP는 보간 함수에서 나중에 사용하기 위한 새로운 종류의 객체를 생성하는 대신 `__interpolate__` 내장 함수를 사용했습니다. 유용한 기본 렌더러를 가진 풍부한 설명 객체를 생성함으로써 보간 의미론의 사용자 지정을 훨씬 쉽게 지원할 수 있게 되었습니다.
+*   **f-string을 대체하는 대신 그 위에 구축(Building atop f-strings rather than replacing them)** : 초기 버전의 이 PEP는 [PEP 498](https://peps.python.org/pep-0498/) (f-string)의 완전한 대체 역할을 하려고 했습니다. 해당 PEP와 최근의 [PEP 701](https://peps.python.org/pep-0701/)이 승인됨에 따라, 이 PEP는 기존 f-string의 즉시 렌더링 위에 더 유연한 지연 렌더링 기능을 구축할 수 있습니다.
+*   **반복 및 연결 의미론 정의(Defining repetition and concatenation semantics)** : 이 PEP는 `TemplateLiteral` 및 `TemplateLiteralText`에 대한 반복 및 연결 의미론을 명시적으로 정의합니다. 엄밀히 말하면 필요하지 않지만, 이러한 정의는 역사적으로 일반 문자열만 지원했던 코드에서 유형을 더 쉽게 작업할 수 있도록 할 것으로 예상됩니다.
+*   **지연 필드 평가를 위한 새로운 변환 지정자(New conversion specifier for lazy field evaluation)** : [PEP 750](https://peps.python.org/pep-0750/)의 처음 발표된 버전은 모든 보간 필드에 대해 지연 평가를 기본으로 했습니다. 이후 즉시 평가를 기본으로 하도록 업데이트되었지만 (f-string 및 이 PEP에서와 같이), 해당 주제에 대한 논의는 보간된 필드 값이 수정 없이 사용되는 대신 렌더링 시점에 호출되어야 함을 렌더링 함수에 알리는 방법을 제공하는 아이디어를 촉발했습니다.
     *   PEP 750도 변환 지정자 처리를 평가 시점까지 지연시켰기 때문에, 인자 없이 `__call__`을 호출하는 것이 `__repr__` (`!a`, `!r`) 또는 `__str__` (`!s`)를 호출하는 기존 변환 지정자와 유사하게 볼 수 있다는 제안이 제시되었습니다.
     *   따라서 이 PEP는 변환 지정자 처리도 렌더링 함수의 책임으로 만들고, 지연 평가를 위한 새로운 변환 지정자로 `!()`를 도입하도록 업데이트되었습니다.
     *   `operator.convert_field()`를 추가하고 `format()` 내장 함수를 업데이트하는 것은 기본 변환 지정자를 받아들이려는 렌더링 함수 구현에 적절한 지원을 제공하는 문제였습니다.
-*   **사용자 지정 렌더러에서 임의의 변환 지정자 허용(Allowing arbitrary conversion specifiers in custom renderers)**: `!()`를 새로운 변환 지정자로 받아들이려면 파서가 변환 지정자에 대해 받아들이는 구문을 업데이트해야 합니다 (현재 식별자로 제한됨).
-*   **단일 새로운 문자열 접두사만 예약(Only reserving a single new string prefix)**: 이 PEP와 [PEP 750](https://peps.python.org/pep-0750/) 간의 주요 차이점은 후자가 임의의 문자열 접두사 사용을 가능하게 하는 것을 목표로 한다는 것입니다. 이 PEP의 저자들이 두 번째 표기법을 선호하는 주된 이유는 독자에게 무엇이 진행되고 있는지 더 명확하게 알려주기 때문입니다. 즉, 템플릿 리터럴 인스턴스가 생성되어 보간 템플릿 인스턴스로 유용한 작업을 수행하는 방법을 아는 호출 가능한 객체에 전달됩니다.
-*   **더 간결한 지연 평가 구문 고려 연기(Deferring consideration of more concise delayed evaluation syntax)**: 지연 평가에 대한 논의 중에 ` {-> expr} `가 이미 지원되는 람다 기반 구문 ` {(lambda: expr)} `에 대한 잠재적인 구문 설탕으로 제안되었습니다. (기존 구문에서는 `:` 문자가 포맷 지정자의 시작을 나타내는 것으로 잘못 해석되는 것을 방지하기 위해 괄호가 필요합니다.)
-*   **가능한 로깅 통합 고려 연기(Deferring consideration of possible logging integration)**: 로깅 모듈의 한 가지 과제는 이전에 `printf` 스타일 포맷팅 사용에서 벗어날 합리적인 마이그레이션 전략을 고안할 수 없었다는 것입니다.
-*   **i18n 사용 사례에서의 가능한 사용 고려 연기(Deferring consideration of possible use in i18n use cases)**: 이 PEP의 초기 동기 부여 사용 사례는 i18n(국제화) 번역을 위한 더 깔끔한 구문을 제공하는 것이었습니다. 이는 수정되지 않은 원본 템플릿에 대한 접근을 필요로 하기 때문입니다.
-*   **비 POSIX 셸에 대한 이스케이프 렌더링 지원 연기(Deferring escaped rendering support for non-POSIX shells)**: `shlex.quote()`는 정규식 문자 집합 `[\w@%+=:,./-]`를 안전하다고 분류하고, 다른 모든 문자는 안전하지 않다고 판단하여 포함하는 문자열에 대한 인용(quoting)을 요구합니다. 사용되는 인용 메커니즘은 POSIX 셸에서 문자열 인용이 작동하는 방식에 따라 다르므로, POSIX 셸 문자열 인용 규칙을 따르지 않는 셸을 실행할 때는 신뢰할 수 없습니다.
+*   **사용자 지정 렌더러에서 임의의 변환 지정자 허용(Allowing arbitrary conversion specifiers in custom renderers)** : `!()`를 새로운 변환 지정자로 받아들이려면 파서가 변환 지정자에 대해 받아들이는 구문을 업데이트해야 합니다 (현재 식별자로 제한됨).
+*   **단일 새로운 문자열 접두사만 예약(Only reserving a single new string prefix)** : 이 PEP와 [PEP 750](https://peps.python.org/pep-0750/) 간의 주요 차이점은 후자가 임의의 문자열 접두사 사용을 가능하게 하는 것을 목표로 한다는 것입니다. 이 PEP의 저자들이 두 번째 표기법을 선호하는 주된 이유는 독자에게 무엇이 진행되고 있는지 더 명확하게 알려주기 때문입니다. 즉, 템플릿 리터럴 인스턴스가 생성되어 보간 템플릿 인스턴스로 유용한 작업을 수행하는 방법을 아는 호출 가능한 객체에 전달됩니다.
+*   **더 간결한 지연 평가 구문 고려 연기(Deferring consideration of more concise delayed evaluation syntax)** : 지연 평가에 대한 논의 중에 ` {-> expr} `가 이미 지원되는 람다 기반 구문 ` {(lambda: expr)} `에 대한 잠재적인 구문 설탕으로 제안되었습니다. (기존 구문에서는 `:` 문자가 포맷 지정자의 시작을 나타내는 것으로 잘못 해석되는 것을 방지하기 위해 괄호가 필요합니다.)
+*   **가능한 로깅 통합 고려 연기(Deferring consideration of possible logging integration)** : 로깅 모듈의 한 가지 과제는 이전에 `printf` 스타일 포맷팅 사용에서 벗어날 합리적인 마이그레이션 전략을 고안할 수 없었다는 것입니다.
+*   **i18n 사용 사례에서의 가능한 사용 고려 연기(Deferring consideration of possible use in i18n use cases)** : 이 PEP의 초기 동기 부여 사용 사례는 i18n(국제화) 번역을 위한 더 깔끔한 구문을 제공하는 것이었습니다. 이는 수정되지 않은 원본 템플릿에 대한 접근을 필요로 하기 때문입니다.
+*   **비 POSIX 셸에 대한 이스케이프 렌더링 지원 연기(Deferring escaped rendering support for non-POSIX shells)** : `shlex.quote()`는 정규식 문자 집합 `[\w@%+=:,./-]`를 안전하다고 분류하고, 다른 모든 문자는 안전하지 않다고 판단하여 포함하는 문자열에 대한 인용(quoting)을 요구합니다. 사용되는 인용 메커니즘은 POSIX 셸에서 문자열 인용이 작동하는 방식에 따라 다르므로, POSIX 셸 문자열 인용 규칙을 따르지 않는 셸을 실행할 때는 신뢰할 수 없습니다.
 
 ---
 

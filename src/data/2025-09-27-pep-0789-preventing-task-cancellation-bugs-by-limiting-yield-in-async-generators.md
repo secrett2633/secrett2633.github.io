@@ -186,7 +186,7 @@ async def turn_on_lights_when_someone_gets_home():
 ## 하위 호환성 (Backwards Compatibility)
 `sys.prevent_yields` 컨텍스트 매니저의 추가, `@contextlib.(async)contextmanager`의 변경, 그리고 해당 인터프리터 지원은 모두 완벽하게 하위 호환됩니다.
 
-`asyncio.TaskGroup`, `asyncio.timeout`, `asyncio.timeout_at` 내에서 `yield`를 방지하는 것은 현재 사용 중인 일부 코드에 대한 **호환성 파괴 변경(breaking change)**이 될 수 있습니다. 이러한 코드는 안전하지 않더라도 실제 환경에서 작동하는 경우가 많을 수 있기 때문입니다.
+`asyncio.TaskGroup`, `asyncio.timeout`, `asyncio.timeout_at` 내에서 `yield`를 방지하는 것은 현재 사용 중인 일부 코드에 대한 **호환성 파괴 변경(breaking change)** 이 될 수 있습니다. 이러한 코드는 안전하지 않더라도 실제 환경에서 작동하는 경우가 많을 수 있기 때문입니다.
 
 표준 라이브러리 코드에 대한 적절한 비권장(deprecation) 경로에 대해 커뮤니티 피드백을 구할 것이며, 여기에는 비권장 기간의 길이도 포함됩니다. 초기 제안으로, 3.14 버전의 `asyncio` 디버그 모드에서만 표준 라이브러리 컨텍스트 내에서 일시 중단할 때 `DeprecationWarning`을 발생시키고, 3.15 버전에서는 기본적으로 경고를 발생시키고 디버그 모드에서 오류를 발생시키며, 마지막으로 3.16 버전에서는 하드 에러로 만들 수 있습니다.
 

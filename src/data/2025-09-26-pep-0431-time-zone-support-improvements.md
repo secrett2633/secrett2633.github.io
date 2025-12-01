@@ -30,7 +30,7 @@ published: true
 
 PEP 431은 오랜 논의 끝에 철회되었습니다. `datetime` 모듈의 구현에서 문제라고 생각했던 부분이 의도적인 설계 결정으로 밝혀졌기 때문입니다. 예를 들어, `datetime`은 시간대 산술(time zone arithmetic) 시 DST 전환을 완전히 무시하도록 설계되었으며, 모호한 `datetime`을 구분하지 않도록 의도되었습니다. 따라서 이 PEP에서 제안했던 `is_dst` 플래그는 유용한 기능을 할 수 없어 무의미해졌습니다.
 
-**업데이트:** 이 PEP는 이후 **PEP 615 "표준 라이브러리의 IANA 시간대 데이터베이스 지원(Support for the IANA Time Zone Database in the Standard Library)"**에 의해 대체되었으며, 이 PEP 615에 따라 Python 3.9에 `zoneinfo` 모듈이 추가되었습니다.
+**업데이트:** 이 PEP는 이후 **PEP 615 "표준 라이브러리의 IANA 시간대 데이터베이스 지원(Support for the IANA Time Zone Database in the Standard Library)"** 에 의해 대체되었으며, 이 PEP 615에 따라 Python 3.9에 `zoneinfo` 모듈이 추가되었습니다.
 
 ## 제안 (Proposal)
 
@@ -98,10 +98,10 @@ DST 전환 시 시간 모호성을 처리하기 위해 여러 메서드에 새�
 
 #### 새로운 예외 (New exceptions)
 
-*   **`UnknownTimeZoneError`**: `KeyError`의 서브클래스로, 찾을 수 없는 시간대 지정을 제공할 때 발생합니다.
-*   **`InvalidTimeError`**: `AmbiguousTimeError`와 `NonExistentTimeError`의 기본 클래스 역할을 하며, 이 두 예외를 개별적으로 포착할 수 있게 합니다. `ValueError`의 서브클래스입니다.
-*   **`AmbiguousTimeError`**: `is_dst`를 `None`으로 설정하고 모호한 `datetime` 지정을 제공할 때 발생합니다.
-*   **`NonExistentTimeError`**: `is_dst`를 `None`으로 설정하고 일광 절약 시간 때문에 존재하지 않는 시간을 `datetime` 지정으로 제공할 때 발생합니다.
+*   **`UnknownTimeZoneError`** : `KeyError`의 서브클래스로, 찾을 수 없는 시간대 지정을 제공할 때 발생합니다.
+*   **`InvalidTimeError`** : `AmbiguousTimeError`와 `NonExistentTimeError`의 기본 클래스 역할을 하며, 이 두 예외를 개별적으로 포착할 수 있게 합니다. `ValueError`의 서브클래스입니다.
+*   **`AmbiguousTimeError`** : `is_dst`를 `None`으로 설정하고 모호한 `datetime` 지정을 제공할 때 발생합니다.
+*   **`NonExistentTimeError`** : `is_dst`를 `None`으로 설정하고 일광 절약 시간 때문에 존재하지 않는 시간을 `datetime` 지정으로 제공할 때 발생합니다.
 
 #### 새로운 컬렉션 (New collections)
 

@@ -51,10 +51,10 @@ published: true
 
 다음은 표준 라이브러리 및 언어 정의가 의존할 `sys.implementation`의 속성으로, 구현자(implementers)는 이를 정의해야 합니다.
 
-*   **`name`**: 구현을 나타내는 소문자 식별자입니다. 예시로는 `'pypy'`, `'jython'`, `'ironpython'`, `'cpython'` 등이 있습니다.
-*   **`version`**: 구현된 언어의 버전이 아닌, 구현 자체의 버전입니다. 이 값은 "버전 형식 (Version Format)"에 설명된 형식을 따릅니다.
-*   **`hexversion`**: `sys.hexversion`과 동일한 16진수 형식의 구현 버전입니다.
-*   **`cache_tag`**: PEP 3147 캐시 태그에 사용되는 문자열입니다. 일반적으로 이름과 버전의 조합이 됩니다 (예: CPython 3.3의 경우 `'cpython-33'`). 그러나 구현은 명시적으로 다른 캐시 태그를 사용할 수 있습니다. `cache_tag`가 `None`으로 설정되면 모듈 캐싱을 비활성화해야 함을 나타냅니다.
+*   **`name`** : 구현을 나타내는 소문자 식별자입니다. 예시로는 `'pypy'`, `'jython'`, `'ironpython'`, `'cpython'` 등이 있습니다.
+*   **`version`** : 구현된 언어의 버전이 아닌, 구현 자체의 버전입니다. 이 값은 "버전 형식 (Version Format)"에 설명된 형식을 따릅니다.
+*   **`hexversion`** : `sys.hexversion`과 동일한 16진수 형식의 구현 버전입니다.
+*   **`cache_tag`** : PEP 3147 캐시 태그에 사용되는 문자열입니다. 일반적으로 이름과 버전의 조합이 됩니다 (예: CPython 3.3의 경우 `'cpython-33'`). 그러나 구현은 명시적으로 다른 캐시 태그를 사용할 수 있습니다. `cache_tag`가 `None`으로 설정되면 모듈 캐싱을 비활성화해야 함을 나타냅니다.
 
 #### 새로운 필수 속성 추가 (Adding New Required Attributes)
 
@@ -188,15 +188,15 @@ PEP 399는 표준 라이브러리에 대한 정책을 지시하며, 대체 구�
 
 다음은 예시일 뿐이며 제안의 일부가 아닙니다. 대부분은 이전 논의 중에 제안되었지만, 이 PEP의 목표에 맞지 않았습니다. (만약 이들이 흥미를 유발한다면 "새로운 필수 속성 추가 (Adding New Required Attributes)"를 참조하십시오.)
 
-*   **`common_name`**: 구현이 알려진 대소문자 구분 이름.
-*   **`vcs_url`**: 구현 프로젝트의 주요 VCS (버전 관리 시스템) 저장소 URL.
-*   **`vcs_revision_id`**: 구현의 VCS 리비전을 식별하는 값.
-*   **`build_toolchain`**: 인터프리터를 빌드하는 데 사용된 도구.
-*   **`build_date`**: 인터프리터가 빌드된 타임스탬프.
-*   **`homepage`**: 구현 웹사이트의 URL.
-*   **`site_prefix`**: 구현에 선호되는 사이트 접두사.
-*   **`runtime`**: 인터프리터가 실행되는 런타임 환경 (예: ".NET CLR" 또는 "Java Runtime Executable"과 같은 "Common Language Runtime").
-*   **`gc_type`**: 사용되는 가비지 컬렉션 유형 (예: "참조 카운팅" 또는 "마크 앤 스윕").
+*   **`common_name`** : 구현이 알려진 대소문자 구분 이름.
+*   **`vcs_url`** : 구현 프로젝트의 주요 VCS (버전 관리 시스템) 저장소 URL.
+*   **`vcs_revision_id`** : 구현의 VCS 리비전을 식별하는 값.
+*   **`build_toolchain`** : 인터프리터를 빌드하는 데 사용된 도구.
+*   **`build_date`** : 인터프리터가 빌드된 타임스탬프.
+*   **`homepage`** : 구현 웹사이트의 URL.
+*   **`site_prefix`** : 구현에 선호되는 사이트 접두사.
+*   **`runtime`** : 인터프리터가 실행되는 런타임 환경 (예: ".NET CLR" 또는 "Java Runtime Executable"과 같은 "Common Language Runtime").
+*   **`gc_type`** : 사용되는 가비지 컬렉션 유형 (예: "참조 카운팅" 또는 "마크 앤 스윕").
 
 ### 해결되지 않은 문제 (Open Issues)
 

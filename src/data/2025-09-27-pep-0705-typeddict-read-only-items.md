@@ -242,7 +242,7 @@ def update_a(a: A, b: B) -> None:
 
 ### 키워드 인수 타이핑 (Keyword argument typing)
 
-PEP 692는 `TypedDict`로 `**kwargs`를 애너테이션하기 위해 `Unpack`을 도입했습니다. 이러한 방식으로 사용되는 `TypedDict`의 하나 이상의 항목을 읽기 전용으로 표시해도 메서드의 타입 시그니처에는 영향을 미치지 않습니다. 그러나 함수 본문에서 해당 항목이 수정되는 것을 방지합니다.
+PEP 692는 `TypedDict`로 ` **kwargs`를 애너테이션하기 위해 `Unpack`을 도입했습니다. 이러한 방식으로 사용되는 `TypedDict`의 하나 이상의 항목을 읽기 전용으로 표시해도 메서드의 타입 시그니처에는 영향을 미치지 않습니다. 그러나 함수 본문에서 해당 항목이 수정되는 것을 방지합니다.
 
 ```python
 from typing import Protocol, Unpack
@@ -256,7 +256,7 @@ class ReadOnlyArgs(TypedDict):
     key2: ReadOnly[str]
 
 class Function(Protocol):
-    def __call__(self, **kwargs: Unpack[Args]) -> None: ...
+    def __call__(self, ** kwargs: Unpack[Args]) -> None: ...
 
 def impl(**kwargs: Unpack[ReadOnlyArgs]) -> None:
     kwargs["key1"] = 3 # 타입 검사 오류: key1은 읽기 전용임

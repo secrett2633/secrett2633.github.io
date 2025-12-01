@@ -23,7 +23,7 @@ published: true
 
 ### 초록 (Abstract)
 이 PEP(Python Enhancement Proposal)는 Python 언어에 새로운 `with` 문을 추가하여, `try/finally` 문의 표준적인 사용 패턴을 간결하게 만들 수 있도록 합니다.
-`with` 문 내에서, **컨텍스트 매니저(context manager)**는 `with` 문 본문으로 진입하고 종료할 때 호출되는 `__enter__()` 및 `__exit__()` 메서드를 제공합니다.
+`with` 문 내에서, **컨텍스트 매니저(context manager)** 는 `with` 문 본문으로 진입하고 종료할 때 호출되는 `__enter__()` 및 `__exit__()` 메서드를 제공합니다.
 
 ### 작성자 주 (Author's Note)
 이 PEP는 원래 Guido van Rossum에 의해 작성되었으며, 이후 python-dev에서 논의된 내용을 반영하여 Alyssa (Nick) Coghlan이 업데이트했습니다. Python 2.5 알파 릴리스 주기 동안 이 PEP의 용어와 관련 문서 및 구현에서 문제점이 발견되었고, 첫 번째 Python 2.5 베타 릴리스 시점에 PEP가 안정화되었습니다.
@@ -186,7 +186,7 @@ Python 2.5에서는 다음 유형들이 컨텍스트 매니저로 식별되었�
 `decimal` 모듈에도 `with` 문 본문 내에서 지역 십진수 산술 컨텍스트를 지원하고, `with` 문을 종료할 때 원래 컨텍스트를 자동으로 복원하는 컨텍스트 매니저가 추가될 것입니다.
 
 ### 표준 용어 (Standard Terminology)
-이 PEP는 `__enter__()` 및 `__exit__()` 메서드로 구성된 프로토콜을 "**컨텍스트 관리 프로토콜(context management protocol)**"이라고 부르고, 이 프로토콜을 구현하는 객체를 "**컨텍스트 매니저(context manager)**"라고 부를 것을 제안합니다.
+이 PEP는 `__enter__()` 및 `__exit__()` 메서드로 구성된 프로토콜을 " **컨텍스트 관리 프로토콜(context management protocol)** "이라고 부르고, 이 프로토콜을 구현하는 객체를 " **컨텍스트 매니저(context manager)** "라고 부를 것을 제안합니다.
 
 `with` 키워드 바로 뒤에 오는 표현식은 "컨텍스트 표현식(context expression)"이며, 이는 `with` 문 본문 기간 동안 컨텍스트 매니저가 설정하는 런타임 환경에 대한 주요 단서를 제공합니다.
 

@@ -97,23 +97,23 @@ def query_data(conn: Connection, user_id: str, limit: bool) -> None:
 
 **왜 보안 취약점 방지에 타입을 사용해야 하는가?**
 
-*   **문서 경고는 불충분**: 대부분의 사용자는 경고를 보지 않거나 무시합니다.
-*   **기존 동적/정적 분석은 너무 제한적**: 자연스러운 코딩 관용구를 막습니다.
-*   **타이핑 기반 접근 방식**: 엄격함과 유연성 사이의 균형을 맞춥니다.
+*   **문서 경고는 불충분** : 대부분의 사용자는 경고를 보지 않거나 무시합니다.
+*   **기존 동적/정적 분석은 너무 제한적** : 자연스러운 코딩 관용구를 막습니다.
+*   **타이핑 기반 접근 방식** : 엄격함과 유연성 사이의 균형을 맞춥니다.
 
-**런타임(Runtime) 접근 방식의 한계**: 런타임에는 쿼리 문자열이 일반 `str`이므로, 휴리스틱(heuristics)으로 일부 악용을 막을 수 있지만, 항상 우회할 방법이 있습니다.
+**런타임(Runtime) 접근 방식의 한계** : 런타임에는 쿼리 문자열이 일반 `str`이므로, 휴리스틱(heuristics)으로 일부 악용을 막을 수 있지만, 항상 우회할 방법이 있습니다.
 
-**정적(Static) 접근 방식의 한계**: AST를 확인하는 정적 분석은 문자열이 중간 변수에 할당되거나 안전한 함수에 의해 변환될 때를 구별할 수 없어 지나치게 제한적입니다.
+**정적(Static) 접근 방식의 한계** : AST를 확인하는 정적 분석은 문자열이 중간 변수에 할당되거나 안전한 함수에 의해 변환될 때를 구별할 수 없어 지나치게 제한적입니다.
 
-**타입 체커(Type Checker)의 장점**: 타입 체커는 런타임 또는 정적 분석에서 사용할 수 없는 정보(예: 표현식이 `Literal["foo"]`와 같은 리터럴 문자열 타입인지 여부)에 접근할 수 있으며, 변수 할당이나 함수 호출 전반에 걸쳐 타입을 전파합니다.
+**타입 체커(Type Checker)의 장점** : 타입 체커는 런타임 또는 정적 분석에서 사용할 수 없는 정보(예: 표현식이 `Literal["foo"]`와 같은 리터럴 문자열 타입인지 여부)에 접근할 수 있으며, 변수 할당이나 함수 호출 전반에 걸쳐 타입을 전파합니다.
 
-**`LiteralString`의 개념**: `LiteralString`은 모든 리터럴 문자열 타입의 "슈퍼타입"입니다. 이는 `Literal["foo"]`와 `str` 사이에 타입 계층 구조를 도입합니다.
+**`LiteralString`의 개념** : `LiteralString`은 모든 리터럴 문자열 타입의 "슈퍼타입"입니다. 이는 `Literal["foo"]`와 `str` 사이에 타입 계층 구조를 도입합니다.
 
 *   `Literal["foo"]` 또는 `Literal["bar"]`와 같은 특정 리터럴 문자열은 `LiteralString`과 호환되지만, 그 반대는 아닙니다.
 *   `LiteralString`의 슈퍼타입은 `str`입니다. 따라서 `LiteralString`은 `str`과 호환되지만, 그 반대는 아닙니다.
 *   리터럴 타입들의 `Union` 또한 `LiteralString`과 호환됩니다 (예: `Literal["foo", "bar"]`).
 
-**리터럴 문자열의 조합**: `x`와 `y`가 `LiteralString` 타입인 경우, `x + y`도 `LiteralString`과 호환되는 타입이 됩니다. 이는 `Literal["foo"]`와 `Literal["bar"]`를 더하면 `Literal["foobar"]`가 되므로 `LiteralString`과 호환된다는 식으로 추론할 수 있습니다. 이 원리는 리터럴 타입의 `Union`에도 적용됩니다.
+**리터럴 문자열의 조합** : `x`와 `y`가 `LiteralString` 타입인 경우, `x + y`도 `LiteralString`과 호환되는 타입이 됩니다. 이는 `Literal["foo"]`와 `Literal["bar"]`를 더하면 `Literal["foobar"]`가 되므로 `LiteralString`과 호환된다는 식으로 추론할 수 있습니다. 이 원리는 리터럴 타입의 `Union`에도 적용됩니다.
 
 이러한 방식으로, API가 리터럴로만 구성된 것으로 알려진 문자열만 허용하도록 지정할 수 있습니다.
 
@@ -140,11 +140,11 @@ def query_data(conn: Connection, user_id: str, limit: bool) -> None:
 **`LiteralString` 추론 규칙:**
 
 *   모든 리터럴 문자열 타입은 `LiteralString`과 호환됩니다 (예: `x: LiteralString = "foo"`는 유효합니다).
-*   **덧셈**: `x`와 `y`가 모두 `LiteralString`과 호환되면 `x + y`는 `LiteralString` 타입입니다.
-*   **조인**: `sep.join(xs)`는 `sep`이 `LiteralString`과 호환되고 `xs`가 `Iterable[LiteralString]`과 호환되면 `LiteralString` 타입입니다.
-*   **복합 할당 (in-place addition)**: `s`가 `LiteralString` 타입이고 `x`가 `LiteralString`과 호환되면, `s += x`는 `s`의 타입을 `LiteralString`으로 유지합니다.
-*   **문자열 포매팅**: f-string은 구성 요소 표현식들이 리터럴 문자열인 경우에만 `LiteralString` 타입입니다. `s.format(...)`도 `s`와 인자들이 `LiteralString`과 호환되는 경우에만 `LiteralString` 타입입니다.
-*   **리터럴 유지 메서드**: 부록 C에 `LiteralString` 타입을 유지하는 `str` 메서드 목록이 있습니다.
+*   **덧셈** : `x`와 `y`가 모두 `LiteralString`과 호환되면 `x + y`는 `LiteralString` 타입입니다.
+*   **조인** : `sep.join(xs)`는 `sep`이 `LiteralString`과 호환되고 `xs`가 `Iterable[LiteralString]`과 호환되면 `LiteralString` 타입입니다.
+*   **복합 할당 (in-place addition)** : `s`가 `LiteralString` 타입이고 `x`가 `LiteralString`과 호환되면, `s += x`는 `s`의 타입을 `LiteralString`으로 유지합니다.
+*   **문자열 포매팅** : f-string은 구성 요소 표현식들이 리터럴 문자열인 경우에만 `LiteralString` 타입입니다. `s.format(...)`도 `s`와 인자들이 `LiteralString`과 호환되는 경우에만 `LiteralString` 타입입니다.
+*   **리터럴 유지 메서드** : 부록 C에 `LiteralString` 타입을 유지하는 `str` 메서드 목록이 있습니다.
 
 그 외의 경우에는, 하나 이상의 구성 값이 `str`과 같은 비-리터럴 타입인 경우, 전체 타입은 `str`이 됩니다. (예: `s`가 `str` 타입이면 `"hello" + s`는 `str` 타입입니다.)
 
@@ -250,9 +250,9 @@ PEP 586과 마찬가지로, 이 PEP는 타입 체커가 리터럴 문자열로 �
 
 SQL 인젝션과 같은 문제를 잡는 도구는 AST 기반, 함수 레벨 분석, 오염 흐름 분석(taint flow analysis)의 세 가지 유형이 있습니다.
 
-*   **AST 기반 도구 (예: Bandit)**: 리터럴 문자열이 아닌 SQL 쿼리에 대해 경고하지만, 안전한 SQL 쿼리도 문자열 리터럴로 동적으로 구축되는 경우가 많습니다. 이러한 도구는 개발자의 SQL 쿼리 구축 능력을 크게 제한합니다. `LiteralString`은 더 적은 제약으로 유사한 안전 보장을 제공할 수 있습니다.
-*   **Semgrep 및 pyanalyze**: 함수 내에서 상수 전파를 포함한 정교한 함수 레벨 분석을 지원하여 일부 형태의 안전한 동적 SQL 쿼리를 허용합니다. 그러나 안전한 SQL 쿼리를 구성하고 반환하는 함수 호출은 처리하지 못합니다. `LiteralString`은 이러한 자연스러운 사용을 프로그래머에게 부담 없이 처리합니다.
-*   **오염 흐름 분석 (예: Pysa, CodeQL)**: 사용자 제어 입력에서 SQL 쿼리로 흐르는 데이터를 추적할 수 있는 강력한 도구입니다. 하지만 CI 설정, '오염' 싱크 및 소스 정의, 개발자 교육에 상당한 오버헤드가 있습니다. 또한 실행 시간이 타입 체커보다 길어 피드백이 즉각적이지 않습니다. 마지막으로, 취약점 방지의 부담을 라이브러리 사용자에게 전가하는 반면 `LiteralString`은 라이브러리 자체가 API 호출 방식을 정확하게 지정할 수 있도록 합니다.
+*   **AST 기반 도구 (예: Bandit)** : 리터럴 문자열이 아닌 SQL 쿼리에 대해 경고하지만, 안전한 SQL 쿼리도 문자열 리터럴로 동적으로 구축되는 경우가 많습니다. 이러한 도구는 개발자의 SQL 쿼리 구축 능력을 크게 제한합니다. `LiteralString`은 더 적은 제약으로 유사한 안전 보장을 제공할 수 있습니다.
+*   **Semgrep 및 pyanalyze** : 함수 내에서 상수 전파를 포함한 정교한 함수 레벨 분석을 지원하여 일부 형태의 안전한 동적 SQL 쿼리를 허용합니다. 그러나 안전한 SQL 쿼리를 구성하고 반환하는 함수 호출은 처리하지 못합니다. `LiteralString`은 이러한 자연스러운 사용을 프로그래머에게 부담 없이 처리합니다.
+*   **오염 흐름 분석 (예: Pysa, CodeQL)** : 사용자 제어 입력에서 SQL 쿼리로 흐르는 데이터를 추적할 수 있는 강력한 도구입니다. 하지만 CI 설정, '오염' 싱크 및 소스 정의, 개발자 교육에 상당한 오버헤드가 있습니다. 또한 실행 시간이 타입 체커보다 길어 피드백이 즉각적이지 않습니다. 마지막으로, 취약점 방지의 부담을 라이브러리 사용자에게 전가하는 반면 `LiteralString`은 라이브러리 자체가 API 호출 방식을 정확하게 지정할 수 있도록 합니다.
 
 전용 도구 대신 새 타입을 선호하는 한 가지 이유는 타입 체커가 전용 보안 도구보다 훨씬 널리 사용된다는 점입니다. 타입 체커에 보안 기능이 내장되면 더 많은 개발자가 혜택을 받을 수 있습니다.
 
@@ -299,23 +299,23 @@ Pyre v0.9.8에 구현되어 활발하게 사용 중입니다. 구현은 단순�
 
 `LiteralString`은 SQL 인젝션 외에도 다양한 종류의 인젝션 취약점을 방지하는 데 사용될 수 있습니다.
 
-*   **명령어 인젝션 (Command Injection)**: `subprocess.run`과 같은 API가 사용자 제어 데이터를 포함하는 셸 명령어를 실행할 때 발생할 수 있는 취약점을 방지합니다.
+*   **명령어 인젝션 (Command Injection)** : `subprocess.run`과 같은 API가 사용자 제어 데이터를 포함하는 셸 명령어를 실행할 때 발생할 수 있는 취약점을 방지합니다.
     ```python
     # 수정된 stub (예시)
     def run(command: LiteralString, *args: str, shell: bool=...): ...
     ```
-*   **크로스 사이트 스크립팅 (XSS)**: Django의 `mark_safe`나 Jinja2의 `do_mark_safe`와 같이 자동 이스케이핑을 우회하는 함수가 사용자 입력으로 XSS 취약점을 유발할 수 있는 것을 방지합니다.
+*   **크로스 사이트 스크립팅 (XSS)** : Django의 `mark_safe`나 Jinja2의 `do_mark_safe`와 같이 자동 이스케이핑을 우회하는 함수가 사용자 입력으로 XSS 취약점을 유발할 수 있는 것을 방지합니다.
     ```python
     # 수정된 stub (예시)
     def mark_safe(s: LiteralString) -> str: ...
     ```
-*   **서버 사이드 템플릿 인젝션 (SSTI)**: Jinja와 같은 템플릿 프레임워크에서 공격자가 템플릿 문자열을 제어하여 임의 코드를 실행할 수 있는 취약점을 방지합니다.
+*   **서버 사이드 템플릿 인젝션 (SSTI)** : Jinja와 같은 템플릿 프레임워크에서 공격자가 템플릿 문자열을 제어하여 임의 코드를 실행할 수 있는 취약점을 방지합니다.
     ```python
     # 수정된 stub (예시)
     class Template:
         def __init__(self, source: LiteralString): ...
     ```
-*   **로깅 포맷 문자열 인젝션 (Logging Format String Injection)**: 로깅 프레임워크가 입력 문자열에 포매팅 지시어를 허용할 때, 외부에서 제어되는 로깅 문자열로 인해 서비스 거부(DoS) 공격이 발생할 수 있는 것을 방지합니다.
+*   **로깅 포맷 문자열 인젝션 (Logging Format String Injection)** : 로깅 프레임워크가 입력 문자열에 포매팅 지시어를 허용할 때, 외부에서 제어되는 로깅 문자열로 인해 서비스 거부(DoS) 공격이 발생할 수 있는 것을 방지합니다.
     ```python
     # 수정된 stub (예시)
     def info(msg: LiteralString, *args: object) -> None: ...
@@ -360,7 +360,7 @@ def capitalize(self) -> str: ...
 
 Typeshed의 타입 스텁 작성자는 `LiteralString`을 사용할 때 주의해야 합니다.
 
-*   **순수 함수 (pure function)**의 스텁인 경우, 모든 해당 매개변수가 리터럴 타입(`LiteralString` 또는 `Literal["a", "b"]`)을 가질 때만 함수의 반환 타입 또는 오버로드에 `LiteralString`을 사용하는 것을 권장합니다.
+*   **순수 함수 (pure function)** 의 스텁인 경우, 모든 해당 매개변수가 리터럴 타입(`LiteralString` 또는 `Literal["a", "b"]`)을 가질 때만 함수의 반환 타입 또는 오버로드에 `LiteralString`을 사용하는 것을 권장합니다.
     ```python
     # OK
     @overload
@@ -372,9 +372,9 @@ Typeshed의 타입 스텁 작성자는 `LiteralString`을 사용할 때 주의�
     @overload
     def my_transform(x: LiteralString, y: str) -> LiteralString: ...
     ```
-*   **`staticmethod`**의 스텁인 경우 위와 동일한 지침을 권장합니다.
-*   **다른 종류의 메서드**의 스텁인 경우, 메서드 또는 오버로드의 반환 타입에 `LiteralString`을 사용하지 않는 것을 권장합니다. 모든 명시적 매개변수가 `LiteralString` 타입이더라도 객체 자체가 사용자 데이터로 생성될 수 있기 때문입니다.
-*   **클래스 속성 또는 전역 변수**의 스텁인 경우에도 `LiteralString` 사용을 권장하지 않습니다.
+*   **`staticmethod`** 의 스텁인 경우 위와 동일한 지침을 권장합니다.
+*   **다른 종류의 메서드** 의 스텁인 경우, 메서드 또는 오버로드의 반환 타입에 `LiteralString`을 사용하지 않는 것을 권장합니다. 모든 명시적 매개변수가 `LiteralString` 타입이더라도 객체 자체가 사용자 데이터로 생성될 수 있기 때문입니다.
+*   **클래스 속성 또는 전역 변수** 의 스텁인 경우에도 `LiteralString` 사용을 권장하지 않습니다.
 
 그러나 최종 결정은 라이브러리 작성자에게 달려 있습니다. 메서드나 함수가 반환하는 문자열 또는 속성에 저장된 문자열이 리터럴 타입임을 확신할 수 있는 경우(즉, 문자열 리터럴에 리터럴을 보존하는 `str` 연산만 적용하여 생성된 경우) `LiteralString`을 사용할 수 있습니다. 이 지침은 타입 체커가 타입을 확인할 수 있는 인라인 타입 어노테이션에는 적용되지 않습니다.
 

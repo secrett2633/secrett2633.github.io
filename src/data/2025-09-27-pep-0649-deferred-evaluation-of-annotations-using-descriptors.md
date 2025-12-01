@@ -37,9 +37,9 @@ Python은 이 문제를 해결하기 위해 PEP 563을 수용하여 Annotation�
 
 이 PEP는 또한 Python 표준 라이브러리의 두 함수 `inspect.get_annotations` 및 `typing.get_type_hints`에 대한 새로운 기능을 정의합니다. 이 기능은 새로운 키워드 전용(keyword-only) 매개변수 `format`을 통해 액세스됩니다. `format`은 사용자가 특정 형식으로 Annotation을 요청할 수 있도록 합니다. 형식 식별자(format identifiers)는 항상 미리 정의된 정수 값입니다. 이 PEP에 의해 정의된 형식은 다음과 같습니다:
 
-*   **`inspect.VALUE = 1`**: 기본값입니다. 함수는 Annotation에 대한 일반적인 Python 값을 반환합니다. 이 형식은 Python 3.11에서 이 함수들의 반환 값과 동일합니다.
-*   **`inspect.FORWARDREF = 2`**: 함수는 Annotation에 대한 일반적인 Python 값을 반환하려고 시도합니다. 그러나 정의되지 않은 이름이나 아직 값과 연결되지 않은 자유 변수(free variable)를 만나면, 표현식에서 해당 값을 대체하는 프록시 객체(`ForwardRef`)를 동적으로 생성한 다음 평가를 계속합니다. 결과 딕셔너리에는 프록시와 실제 값의 혼합이 포함될 수 있습니다. 함수가 호출될 때 모든 실제 값이 정의된 경우, `inspect.FORWARDREF`와 `inspect.VALUE`는 동일한 결과를 생성합니다.
-*   **`inspect.SOURCE = 3`**: 함수는 값이 Annotation 표현식의 원래 소스 코드를 포함하는 문자열로 대체된 Annotation 딕셔너리를 생성합니다. 이 문자열은 원본 소스 코드를 보존하기보다는 다른 형식에서 역설계될 수 있으므로 대략적일 수 있지만, 차이는 미미할 것입니다.
+*   **`inspect.VALUE = 1`** : 기본값입니다. 함수는 Annotation에 대한 일반적인 Python 값을 반환합니다. 이 형식은 Python 3.11에서 이 함수들의 반환 값과 동일합니다.
+*   **`inspect.FORWARDREF = 2`** : 함수는 Annotation에 대한 일반적인 Python 값을 반환하려고 시도합니다. 그러나 정의되지 않은 이름이나 아직 값과 연결되지 않은 자유 변수(free variable)를 만나면, 표현식에서 해당 값을 대체하는 프록시 객체(`ForwardRef`)를 동적으로 생성한 다음 평가를 계속합니다. 결과 딕셔너리에는 프록시와 실제 값의 혼합이 포함될 수 있습니다. 함수가 호출될 때 모든 실제 값이 정의된 경우, `inspect.FORWARDREF`와 `inspect.VALUE`는 동일한 결과를 생성합니다.
+*   **`inspect.SOURCE = 3`** : 함수는 값이 Annotation 표현식의 원래 소스 코드를 포함하는 문자열로 대체된 Annotation 딕셔너리를 생성합니다. 이 문자열은 원본 소스 코드를 보존하기보다는 다른 형식에서 역설계될 수 있으므로 대략적일 수 있지만, 차이는 미미할 것입니다.
 
 이 PEP가 채택되면 PEP 563을 대체하며, PEP 563의 동작은 더 이상 사용되지 않고 결국 제거될 것입니다.
 
@@ -113,13 +113,13 @@ Python 3.6은 PEP 526에서 제안된 접근 방식을 사용하여 지역 변�
 #### Annotation 사용 사례의 현재 상태 (The Current State Of Annotation Use Cases)
 Annotation에는 많은 특정 사용 사례가 있지만, 이 PEP에 대한 논의에서 Annotation 사용자는 다음 네 가지 범주 중 하나에 속하는 경향이 있었습니다.
 
-*   **정적 타이핑 사용자 (Static typing users)**: 정적 타이핑 사용자는 코드에 타입 정보를 추가하기 위해 Annotation을 사용합니다. 그러나 그들은 런타임에 Annotation을 거의 검사하지 않습니다. 대신, 그들은 정적 타입 분석 도구(mypy, pytype)를 사용하여 소스 트리를 검사하고 코드가 타입을 일관되게 사용하는지 여부를 결정합니다. 이것은 오늘날 Annotation에 대한 가장 인기 있는 사용 사례일 것입니다. 이 PEP에서 정적 타이핑 사용자는 아마도 `FORWARDREF` 또는 `SOURCE` 형식을 선호할 것입니다.
+*   **정적 타이핑 사용자 (Static typing users)** : 정적 타이핑 사용자는 코드에 타입 정보를 추가하기 위해 Annotation을 사용합니다. 그러나 그들은 런타임에 Annotation을 거의 검사하지 않습니다. 대신, 그들은 정적 타입 분석 도구(mypy, pytype)를 사용하여 소스 트리를 검사하고 코드가 타입을 일관되게 사용하는지 여부를 결정합니다. 이것은 오늘날 Annotation에 대한 가장 인기 있는 사용 사례일 것입니다. 이 PEP에서 정적 타이핑 사용자는 아마도 `FORWARDREF` 또는 `SOURCE` 형식을 선호할 것입니다.
 
-*   **런타임 Annotation 사용자 (Runtime annotation users)**: 런타임 Annotation 사용자는 함수 및 클래스에 대한 풍부한 메타데이터를 표현하는 수단으로 Annotation을 사용하며, 이를 런타임 동작의 입력으로 사용합니다. 특정 사용 사례에는 런타임 타입 검증(Pydantic) 및 다른 도메인에서 Python API를 노출하기 위한 glue logic(FastAPI, Typer)이 포함됩니다. Annotation은 타입 힌트일 수도 있고 아닐 수도 있습니다. 이 PEP에서 런타임 Annotation 사용자는 아마도 `VALUE` 형식을 선호할 것이며, 일부는 `FORWARDREF` 형식을 사용할 수도 있습니다.
+*   **런타임 Annotation 사용자 (Runtime annotation users)** : 런타임 Annotation 사용자는 함수 및 클래스에 대한 풍부한 메타데이터를 표현하는 수단으로 Annotation을 사용하며, 이를 런타임 동작의 입력으로 사용합니다. 특정 사용 사례에는 런타임 타입 검증(Pydantic) 및 다른 도메인에서 Python API를 노출하기 위한 glue logic(FastAPI, Typer)이 포함됩니다. Annotation은 타입 힌트일 수도 있고 아닐 수도 있습니다. 이 PEP에서 런타임 Annotation 사용자는 아마도 `VALUE` 형식을 선호할 것이며, 일부는 `FORWARDREF` 형식을 사용할 수도 있습니다.
 
-*   **래퍼 (Wrappers)**: 래퍼는 사용자 함수 또는 클래스를 래핑하고 기능을 추가하는 함수 또는 클래스입니다. 예로는 `dataclass()`, `functools.partial()`, `attrs`, `wrapt` 등이 있습니다. 이 PEP에서 래퍼는 내부 로직에 `FORWARDREF` 형식을 선호할 것입니다.
+*   **래퍼 (Wrappers)** : 래퍼는 사용자 함수 또는 클래스를 래핑하고 기능을 추가하는 함수 또는 클래스입니다. 예로는 `dataclass()`, `functools.partial()`, `attrs`, `wrapt` 등이 있습니다. 이 PEP에서 래퍼는 내부 로직에 `FORWARDREF` 형식을 선호할 것입니다.
 
-*   **문서화 (Documentation)**: PEP 563 stringized annotations는 문서를 기계적으로 구성하는 도구에 큰 도움이 되었습니다. stringized 타입 힌트는 훌륭한 문서를 만듭니다. 이 PEP에서 문서화 사용자는 `SOURCE` 형식을 사용할 것으로 예상됩니다.
+*   **문서화 (Documentation)** : PEP 563 stringized annotations는 문서를 기계적으로 구성하는 도구에 큰 도움이 되었습니다. stringized 타입 힌트는 훌륭한 문서를 만듭니다. 이 PEP에서 문서화 사용자는 `SOURCE` 형식을 사용할 것으로 예상됩니다.
 
 #### 이 PEP의 동기 (Motivation For This PEP)
 Python의 원래 Annotation 의미론은 전방 참조 문제로 인해 정적 타입 분석에 사용하기 어려웠습니다. PEP 563은 전방 참조 문제를 해결했으며, 많은 정적 타입 분석 사용자들이 이를 일찍 채택했습니다. 그러나 그 비전통적인 해결책은 위에서 언급된 두 가지 사용 사례(런타임 Annotation 사용자 및 래퍼)에 새로운 문제를 야기했습니다.
@@ -165,9 +165,9 @@ __annotate__(format: int) -> dict
 
 Annotation 값이 제공되어야 하는 형식을 지정하는 `format` 매개변수를 취합니다. 다음 중 하나여야 합니다.
 
-*   **`inspect.VALUE` (정수 상수 `1`과 동일)**: 값은 Annotation 표현식 평가의 결과입니다.
-*   **`inspect.FORWARDREF` (정수 상수 `2`와 동일)**: 값은 정의된 값에 대한 실제 Annotation 값( `inspect.VALUE` 형식에 따름)이고, 정의되지 않은 값에 대한 `ForwardRef` 프록시입니다. 실제 객체는 `ForwardRef` 프록시 객체에 노출되거나 참조를 포함할 수 있습니다.
-*   **`inspect.SOURCE` (정수 상수 `3`과 동일)**: 값은 소스 코드에 나타나는 Annotation의 텍스트 문자열입니다. 대략적일 수 있습니다. 공백은 정규화될 수 있고, 상수 값은 최적화될 수 있습니다. 이 문자열의 정확한 값은 향후 Python 버전에서 변경될 수 있습니다.
+*   **`inspect.VALUE` (정수 상수 `1`과 동일)** : 값은 Annotation 표현식 평가의 결과입니다.
+*   **`inspect.FORWARDREF` (정수 상수 `2`와 동일)** : 값은 정의된 값에 대한 실제 Annotation 값( `inspect.VALUE` 형식에 따름)이고, 정의되지 않은 값에 대한 `ForwardRef` 프록시입니다. 실제 객체는 `ForwardRef` 프록시 객체에 노출되거나 참조를 포함할 수 있습니다.
+*   **`inspect.SOURCE` (정수 상수 `3`과 동일)** : 값은 소스 코드에 나타나는 Annotation의 텍스트 문자열입니다. 대략적일 수 있습니다. 공백은 정규화될 수 있고, 상수 값은 최적화될 수 있습니다. 이 문자열의 정확한 값은 향후 Python 버전에서 변경될 수 있습니다.
 
 `__annotate__` 함수가 요청된 형식을 지원하지 않으면 `NotImplementedError()`를 발생시켜야 합니다. `__annotate__` 함수는 항상 `1` (`inspect.VALUE`) 형식을 지원해야 합니다. `format=1`로 호출될 때 `NotImplementedError()`를 발생시켜서는 안 됩니다.
 
@@ -420,10 +420,10 @@ Python 컴파일러는 PEP 563 의미론이 활성화된 모듈에 정의된 객
 지속적인 피드백과 격려를 주신 Carl Meyer, Barry Warsaw, Eric V. Smith, Mark Shannon, Jelle Zijlstra, 그리고 Guido van Rossum께 감사드립니다.
 
 이 제안의 최고의 측면 중 일부가 된 핵심 아이디어를 제공해주신 여러 개인에게 특히 감사드립니다.
-*   **Carl Meyer**: `FORWARDREF` 및 `SOURCE` 형식을 가능하게 한 "stringizer" 기술을 제안하여, 해결 불가능해 보이는 문제로 1년간 정체되어 있던 이 PEP가 진전할 수 있도록 했습니다. 또한 `inspect.SOURCE`가 stringized annotations를 반환하는 PEP 563 사용자를 위한 편의 기능과 더 많은 제안을 했습니다. Carl은 이 PEP를 논의하는 비공개 이메일 스레드의 주요 통신원이자 지칠 줄 모르는 정보원이었으며 이성적인 목소리였습니다. Carl의 기여가 없었다면 이 PEP는 거의 확실히 수락되지 않았을 것입니다.
-*   **Mark Shannon**: 전체 Annotation 딕셔너리를 단일 코드 객체 내부에 구축하고 필요할 때만 함수에 바인딩할 것을 제안했습니다.
-*   **Guido van Rossum**: `__annotate__` 함수가 "stock" 의미론의 Annotation의 이름 가시성 규칙을 복제해야 한다고 제안했습니다.
-*   **Jelle Zijlstra**: 피드백뿐만 아니라 코드도 기여했습니다!
+*   **Carl Meyer** : `FORWARDREF` 및 `SOURCE` 형식을 가능하게 한 "stringizer" 기술을 제안하여, 해결 불가능해 보이는 문제로 1년간 정체되어 있던 이 PEP가 진전할 수 있도록 했습니다. 또한 `inspect.SOURCE`가 stringized annotations를 반환하는 PEP 563 사용자를 위한 편의 기능과 더 많은 제안을 했습니다. Carl은 이 PEP를 논의하는 비공개 이메일 스레드의 주요 통신원이자 지칠 줄 모르는 정보원이었으며 이성적인 목소리였습니다. Carl의 기여가 없었다면 이 PEP는 거의 확실히 수락되지 않았을 것입니다.
+*   **Mark Shannon** : 전체 Annotation 딕셔너리를 단일 코드 객체 내부에 구축하고 필요할 때만 함수에 바인딩할 것을 제안했습니다.
+*   **Guido van Rossum** : `__annotate__` 함수가 "stock" 의미론의 Annotation의 이름 가시성 규칙을 복제해야 한다고 제안했습니다.
+*   **Jelle Zijlstra** : 피드백뿐만 아니라 코드도 기여했습니다!
 
 ### 참조 (References)
 *   `https://github.com/larryhastings/co_annotations/issues`

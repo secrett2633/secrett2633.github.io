@@ -23,7 +23,7 @@ published: true
 
 ### 개요 (Abstract)
 
-현재 Python의 리스트, 딕셔너리, 셋 컴프리헨션(comprehensions)은 내부적으로 중첩된 함수(nested functions)로 컴파일됩니다. 이는 컴프리헨션의 이터레이션 변수(iteration variable)를 격리하는 장점을 제공하지만, 런타임 성능에서는 비효율적입니다. 이 PEP는 리스트, 딕셔너리, 셋 컴프리헨션을 정의된 코드 위치에 **인라인(inline)**하여, 스택(stack)에 충돌하는 지역 변수(locals)를 푸시(push)/팝(pop)하는 방식으로 필요한 격리를 제공할 것을 제안합니다.
+현재 Python의 리스트, 딕셔너리, 셋 컴프리헨션(comprehensions)은 내부적으로 중첩된 함수(nested functions)로 컴파일됩니다. 이는 컴프리헨션의 이터레이션 변수(iteration variable)를 격리하는 장점을 제공하지만, 런타임 성능에서는 비효율적입니다. 이 PEP는 리스트, 딕셔너리, 셋 컴프리헨션을 정의된 코드 위치에 **인라인(inline)** 하여, 스택(stack)에 충돌하는 지역 변수(locals)를 푸시(push)/팝(pop)하는 방식으로 필요한 격리를 제공할 것을 제안합니다.
 
 이 변경으로 인해 컴프리헨션은 훨씬 빨라집니다. 단독 컴프리헨션 마이크로벤치마크(microbenchmark)에서는 최대 2배, 실제 코드에서 파생된 벤치마크에서는 11%의 속도 향상을 보였습니다.
 
@@ -41,19 +41,19 @@ published: true
 
 ### 명세 (Specification)
 
-이 PEP에 따라, 컴파일러는 더 이상 컴프리헨션에 대해 별도의 코드 객체를 생성하거나, 일회용 함수 객체를 생성 및 호출(**MAKE_FUNCTION**, **CALL**)하지 않습니다. 대신, 컴프리헨션 코드가 포함하는 함수 내부에 직접 인라인됩니다.
+이 PEP에 따라, 컴파일러는 더 이상 컴프리헨션에 대해 별도의 코드 객체를 생성하거나, 일회용 함수 객체를 생성 및 호출( **MAKE_FUNCTION** , **CALL** )하지 않습니다. 대신, 컴프리헨션 코드가 포함하는 함수 내부에 직접 인라인됩니다.
 
 예를 들어, `def f(lst): return [x for x in lst]` 와 같은 함수는:
-*   **이전:** 컴프리헨션 `<listcomp>`를 위한 별도의 코드 객체가 생성되고, **MAKE_FUNCTION** 및 **CALL**을 통해 호출되었습니다. 매 호출마다 새로운 일회용 함수 객체가 할당되고, Python 스택에 새로운 프레임(frame)이 생성 및 소멸되었습니다.
-*   **이후:** 컴프리헨션은 `f()` 함수의 바이트코드 내부에 직접 포함됩니다. 새로운 opcode인 **LOAD_FAST_AND_CLEAR**와 **STORE_FAST**의 조합을 통해 `x`와 같은 이터레이션 변수의 격리가 이루어집니다. **LOAD_FAST_AND_CLEAR**는 컴프리헨션 실행 전에 외부 `x` 값을 스택에 저장하고, **STORE_FAST**는 실행 후 해당 값을 복원합니다.
+*   **이전:** 컴프리헨션 `<listcomp>`를 위한 별도의 코드 객체가 생성되고, **MAKE_FUNCTION** 및 **CALL** 을 통해 호출되었습니다. 매 호출마다 새로운 일회용 함수 객체가 할당되고, Python 스택에 새로운 프레임(frame)이 생성 및 소멸되었습니다.
+*   **이후:** 컴프리헨션은 `f()` 함수의 바이트코드 내부에 직접 포함됩니다. 새로운 opcode인 **LOAD_FAST_AND_CLEAR** 와 **STORE_FAST** 의 조합을 통해 `x`와 같은 이터레이션 변수의 격리가 이루어집니다. **LOAD_FAST_AND_CLEAR** 는 컴프리헨션 실행 전에 외부 `x` 값을 스택에 저장하고, **STORE_FAST** 는 실행 후 해당 값을 복원합니다.
 
-외부 스코프(outer scope) 변수에 접근하는 경우, 인라이닝은 이 변수들을 셀(cell)에 배치할 필요를 없애고, 컴프리헨션 및 외부 함수 내의 모든 코드가 이를 일반적인 **fast locals**로 접근할 수 있게 하여 추가적인 성능 향상을 제공합니다.
+외부 스코프(outer scope) 변수에 접근하는 경우, 인라이닝은 이 변수들을 셀(cell)에 배치할 필요를 없애고, 컴프리헨션 및 외부 함수 내의 모든 코드가 이를 일반적인 **fast locals** 로 접근할 수 있게 하여 추가적인 성능 향상을 제공합니다.
 
 모듈 또는 클래스 스코프(module or class scope)에 나타나는 컴프리헨션도 인라인됩니다. 이 경우 컴프리헨션은 이터레이션 변수에 대해 **fast-locals** ( **LOAD_FAST** / **STORE_FAST** )를 사용하여 격리를 유지합니다.
 
 결과적으로 컴프리헨션은 로컬 변수가 완전히 격리되지만, 호출(call)의 성능 비용이나 스택 프레임 진입 없이 하위 스코프(sub-scope)를 도입합니다.
 
-**제너레이터 표현식(Generator expressions)**은 현재 이 PEP의 참조 구현(reference implementation)에서는 인라인되지 않습니다. 미래에는 반환된 제너레이터 객체가 누출되지 않는 일부 제너레이터 표현식이 인라인될 수 있습니다. **비동기 컴프리헨션(Asynchronous comprehensions)**은 동기 컴프리헨션과 동일하게 인라인됩니다.
+**제너레이터 표현식(Generator expressions)** 은 현재 이 PEP의 참조 구현(reference implementation)에서는 인라인되지 않습니다. 미래에는 반환된 제너레이터 객체가 누출되지 않는 일부 제너레이터 표현식이 인라인될 수 있습니다. **비동기 컴프리헨션(Asynchronous comprehensions)** 은 동기 컴프리헨션과 동일하게 인라인됩니다.
 
 ### 하위 호환성 (Backwards Compatibility)
 

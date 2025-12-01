@@ -21,11 +21,11 @@ published: true
 
 ## PEP 510 – 가드(Guards)를 통한 함수 특수화 (Specialize functions with guards)
 
-*   **작성자**: Victor Stinner
-*   **상태**: **거부됨 (Rejected)**
-*   **유형**: Standards Track
-*   **작성일**: 2016년 1월 4일
-*   **Python 버전**: 3.6
+*   **작성자** : Victor Stinner
+*   **상태** : **거부됨 (Rejected)**
+*   **유형** : Standards Track
+*   **작성일** : 2016년 1월 4일
+*   **Python 버전** : 3.6
 
 ---
 

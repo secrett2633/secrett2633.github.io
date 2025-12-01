@@ -23,7 +23,7 @@ published: true
 
 ### 초록 (Abstract)
 
-이 PEP(Python Enhancement Proposal)는 **컨텍스트 변수(context variables)**를 지원하기 위한 새로운 `contextvars` 모듈과 CPython C API 집합을 제안합니다. 이 개념은 스레드 로컬 저장소(thread-local storage, TLS)와 유사하지만, TLS와 달리 `asyncio.Task`와 같은 비동기 태스크별로 값들을 올바르게 추적할 수 있도록 합니다.
+이 PEP(Python Enhancement Proposal)는 **컨텍스트 변수(context variables)** 를 지원하기 위한 새로운 `contextvars` 모듈과 CPython C API 집합을 제안합니다. 이 개념은 스레드 로컬 저장소(thread-local storage, TLS)와 유사하지만, TLS와 달리 `asyncio.Task`와 같은 비동기 태스크별로 값들을 올바르게 추적할 수 있도록 합니다.
 
 이 제안은 PEP 550의 간소화된 버전입니다. 핵심 차이점은 PEP 567이 제너레이터(generators)가 아닌 비동기 태스크를 위한 경우에만 초점을 맞춘다는 것입니다. 내장 타입이나 인터프리터에 대한 수정은 제안되지 않았습니다. 이 제안은 Python의 컨텍스트 매니저(Context Managers)와 엄격하게 관련되어 있지는 않지만, 컨텍스트 매니저가 상태를 저장하는 데 사용할 수 있는 메커니즘을 제공합니다.
 
@@ -244,12 +244,12 @@ if (PyContext_Exit(old_ctx)) goto error;
 
 몇 가지 아이디어가 제안되었지만 여러 이유로 거부되거나 연기되었습니다.
 
-*   **`threading.local()` 인터페이스 복제**: PEP 550에서 자세히 다뤄졌습니다.
-*   **`Token`을 `ContextVar.unset()`으로 대체**: `Token` API는 `ContextVar.unset()` 메서드를 피하게 해주며, 이는 PEP 550의 체인형 컨텍스트(chained contexts) 설계와 호환되지 않습니다. 또한 `Token` API는 값의 부재를 특별하게 처리할 필요가 없어 더 나은 사용성을 제공합니다.
-*   **`ContextVar.reset()` 대신 `Token.reset()` 사용**: `Token` 클래스에 직접 `reset()` 메서드를 구현하는 아이디어였으나, 코드를 읽는 사람에게 어떤 변수가 재설정되는지 `ContextVar.reset()`이 더 명확하기 때문에 거부되었습니다.
-*   **`Context` 객체를 피클 가능(picklable)하게 만들기**: `ProcessPoolExecutor`와 같은 경우에 `Context` 객체의 투명한 교차 프로세스 사용을 가능하게 할 수 있었으나, `ContextVar` 객체가 `__module__` 및 `__qualname__` 속성을 가지지 않아 간단한 피클링이 불가능하고, 모든 컨텍스트 변수가 피클 가능한 객체를 참조하는 것은 아니라는 점 등의 문제로 Python 3.8로 연기되었습니다.
-*   **`Context`를 `MutableMapping`으로 만들기**: `Context` 클래스가 `abc.MutableMapping` 인터페이스를 구현하게 되면 `Context[var] = value` 및 `del Context[var]`와 같은 작업으로 변수를 설정 및 해제할 수 있습니다. 그러나 이는 컨텍스트 변수 변경 방식에 혼란을 초래할 수 있고, 컨텍스트가 개념적으로 복잡해질 수 있어 Python 3.8 이상으로 연기되었습니다.
-*   **`ContextVar`에 초기 값(initial values) 갖기**: `ContextVar` 생성자에 `initial_value` 키워드 전용 인수를 필수로 두자는 제안이었으나, 일부 타입의 경우 `None` 외에 합리적인 "초기 값"이 없다는 점과, `threading.local()`과 같은 기존 방식과의 일관성을 위해 거부되었습니다.
+*   **`threading.local()` 인터페이스 복제** : PEP 550에서 자세히 다뤄졌습니다.
+*   **`Token`을 `ContextVar.unset()`으로 대체** : `Token` API는 `ContextVar.unset()` 메서드를 피하게 해주며, 이는 PEP 550의 체인형 컨텍스트(chained contexts) 설계와 호환되지 않습니다. 또한 `Token` API는 값의 부재를 특별하게 처리할 필요가 없어 더 나은 사용성을 제공합니다.
+*   **`ContextVar.reset()` 대신 `Token.reset()` 사용** : `Token` 클래스에 직접 `reset()` 메서드를 구현하는 아이디어였으나, 코드를 읽는 사람에게 어떤 변수가 재설정되는지 `ContextVar.reset()`이 더 명확하기 때문에 거부되었습니다.
+*   **`Context` 객체를 피클 가능(picklable)하게 만들기** : `ProcessPoolExecutor`와 같은 경우에 `Context` 객체의 투명한 교차 프로세스 사용을 가능하게 할 수 있었으나, `ContextVar` 객체가 `__module__` 및 `__qualname__` 속성을 가지지 않아 간단한 피클링이 불가능하고, 모든 컨텍스트 변수가 피클 가능한 객체를 참조하는 것은 아니라는 점 등의 문제로 Python 3.8로 연기되었습니다.
+*   **`Context`를 `MutableMapping`으로 만들기** : `Context` 클래스가 `abc.MutableMapping` 인터페이스를 구현하게 되면 `Context[var] = value` 및 `del Context[var]`와 같은 작업으로 변수를 설정 및 해제할 수 있습니다. 그러나 이는 컨텍스트 변수 변경 방식에 혼란을 초래할 수 있고, 컨텍스트가 개념적으로 복잡해질 수 있어 Python 3.8 이상으로 연기되었습니다.
+*   **`ContextVar`에 초기 값(initial values) 갖기** : `ContextVar` 생성자에 `initial_value` 키워드 전용 인수를 필수로 두자는 제안이었으나, 일부 타입의 경우 `None` 외에 합리적인 "초기 값"이 없다는 점과, `threading.local()`과 같은 기존 방식과의 일관성을 위해 거부되었습니다.
 
 ### 하위 호환성 (Backwards Compatibility)
 

@@ -186,28 +186,28 @@ C API에서 "GIL"이라는 용어의 큰 문제는 의미상 오해의 소지가
 
 ##### 강력한 인터프리터 참조 (Strong Interpreter References)
 
-*   **`type PyInterpreterRef`**: 인터프리터에 대한 불투명한(opaque), 강력한 참조입니다. 인터프리터는 종료하기 전에 강력한 참조가 해제될 때까지 기다립니다. 이 타입은 포인터 크기임을 보장합니다.
-*   **`PyInterpreterRef PyInterpreterRef_FromCurrent(void)`**: 현재 인터프리터에 대한 강력한 참조를 획득합니다. 성공 시 현재 인터프리터에 대한 강력한 참조를 반환하며, 실패 시 예외를 설정하고 0을 반환합니다. 실패는 일반적으로 인터프리터가 강력한 참조를 기다리는 것을 이미 완료했음을 나타냅니다. 호출자는 연결된 스레드 상태를 보유해야 합니다.
+*   **`type PyInterpreterRef`** : 인터프리터에 대한 불투명한(opaque), 강력한 참조입니다. 인터프리터는 종료하기 전에 강력한 참조가 해제될 때까지 기다립니다. 이 타입은 포인터 크기임을 보장합니다.
+*   **`PyInterpreterRef PyInterpreterRef_FromCurrent(void)`** : 현재 인터프리터에 대한 강력한 참조를 획득합니다. 성공 시 현재 인터프리터에 대한 강력한 참조를 반환하며, 실패 시 예외를 설정하고 0을 반환합니다. 실패는 일반적으로 인터프리터가 강력한 참조를 기다리는 것을 이미 완료했음을 나타냅니다. 호출자는 연결된 스레드 상태를 보유해야 합니다.
 *   **`PyInterpreterRef PyUnstable_GetDefaultInterpreterRef(PyInterpreterRef *ref)`**: 메인 인터프리터에 대한 강력한 참조를 획득합니다. 이 함수는 특정 인터프리터를 저장할 수 없는 특별한 경우에만 존재합니다. 가능하면 `PyInterpreterRef_FromCurrent()`를 통해 안전하게 참조를 획득하는 것을 선호합니다. 성공 시 메인 인터프리터에 대한 강력한 참조를 반환하며, 실패 시 예외를 설정하지 않고 0을 반환합니다. 실패는 일반적으로 메인 인터프리터가 참조 카운트를 기다리는 것을 이미 완료했음을 나타냅니다. 호출자는 연결된 스레드 상태를 보유할 필요가 없습니다.
 *   **`PyInterpreterState *PyInterpreterRef_GetInterpreter(PyInterpreterRef ref)`**: `ref`가 나타내는 `PyInterpreterState` 포인터를 반환합니다. 이 함수는 실패할 수 없으며, 호출자는 연결된 스레드 상태를 보유할 필요가 없습니다.
-*   **`PyInterpreterRef PyInterpreterRef_Dup(PyInterpreterRef ref)`**: 인터프리터에 대한 강력한 참조를 복제합니다. 성공 시 `ref`가 나타내는 인터프리터에 대한 강력한 참조를 반환하며, 실패 시 예외를 설정하지 않고 0을 반환합니다. 호출자는 연결된 스레드 상태를 보유할 필요가 없습니다.
-*   **`void PyInterpreterRef_Close(PyInterpreterRef ref)`**: 인터프리터에 대한 강력한 참조를 해제하여, 남은 참조가 없으면 종료할 수 있도록 합니다. 이 함수는 실패할 수 없으며, 호출자는 연결된 스레드 상태를 보유할 필요가 없습니다.
+*   **`PyInterpreterRef PyInterpreterRef_Dup(PyInterpreterRef ref)`** : 인터프리터에 대한 강력한 참조를 복제합니다. 성공 시 `ref`가 나타내는 인터프리터에 대한 강력한 참조를 반환하며, 실패 시 예외를 설정하지 않고 0을 반환합니다. 호출자는 연결된 스레드 상태를 보유할 필요가 없습니다.
+*   **`void PyInterpreterRef_Close(PyInterpreterRef ref)`** : 인터프리터에 대한 강력한 참조를 해제하여, 남은 참조가 없으면 종료할 수 있도록 합니다. 이 함수는 실패할 수 없으며, 호출자는 연결된 스레드 상태를 보유할 필요가 없습니다.
 
 ##### 약한 인터프리터 참조 (Weak Interpreter References)
 
-*   **`type PyInterpreterWeakRef`**: 인터프리터에 대한 불투명한(opaque), 약한 참조입니다. 인터프리터는 종료하기 전에 이 참조가 해제될 때까지 기다리지 않습니다. 이 타입은 포인터 크기임을 보장합니다.
+*   **`type PyInterpreterWeakRef`** : 인터프리터에 대한 불투명한(opaque), 약한 참조입니다. 인터프리터는 종료하기 전에 이 참조가 해제될 때까지 기다리지 않습니다. 이 타입은 포인터 크기임을 보장합니다.
 *   **`int PyInterpreterWeakRef_FromCurrent(PyInterpreterWeakRef *wref)`**: 현재 인터프리터에 대한 약한 참조를 획득합니다. 이 함수는 일반적으로 `PyInterpreterWeakRef_Promote()`와 함께 사용됩니다. 성공 시 현재 인터프리터에 대한 약한 참조를 반환하며, 실패 시 예외를 설정하고 0을 반환합니다. 호출자는 연결된 스레드 상태를 보유해야 합니다.
-*   **`PyInterpreterWeakRef PyInterpreterWeakRef_Dup(PyInterpreterWeakRef wref)`**: 인터프리터에 대한 약한 참조를 복제합니다. 성공 시 `wref`가 나타내는 인터프리터에 대한 0이 아닌 약한 참조를 반환하며, 실패 시 예외를 설정하지 않고 0을 반환합니다. 이 함수는 실패할 수 없으며, 호출자는 연결된 스레드 상태를 보유할 필요가 없습니다.
-*   **`PyInterpreterRef PyInterpreterWeakRef_Promote(PyInterpreterWeakRef wref)`**: 약한 참조를 통해 인터프리터에 대한 강력한 참조를 획득합니다. 성공 시 `wref`가 나타내는 인터프리터에 대한 강력한 참조를 반환합니다. 이 함수를 호출한 후에도 약한 참조는 여전히 유효합니다. 인터프리터가 더 이상 존재하지 않거나 참조 카운트가 0에 도달하기를 기다리는 것을 이미 완료했다면, 이 함수는 예외를 설정하지 않고 0을 반환합니다. 이 함수는 재진입(re-entrant) 시그널 핸들러에서 안전하게 호출할 수 없습니다. 호출자는 연결된 스레드 상태를 보유할 필요가 없습니다.
-*   **`void PyInterpreterWeakRef_Close(PyInterpreterWeakRef wref)`**: 인터프리터에 대한 약한 참조를 해제합니다. 이 함수는 실패할 수 없으며, 호출자는 연결된 스레드 상태를 보유할 필요가 없습니다.
+*   **`PyInterpreterWeakRef PyInterpreterWeakRef_Dup(PyInterpreterWeakRef wref)`** : 인터프리터에 대한 약한 참조를 복제합니다. 성공 시 `wref`가 나타내는 인터프리터에 대한 0이 아닌 약한 참조를 반환하며, 실패 시 예외를 설정하지 않고 0을 반환합니다. 이 함수는 실패할 수 없으며, 호출자는 연결된 스레드 상태를 보유할 필요가 없습니다.
+*   **`PyInterpreterRef PyInterpreterWeakRef_Promote(PyInterpreterWeakRef wref)`** : 약한 참조를 통해 인터프리터에 대한 강력한 참조를 획득합니다. 성공 시 `wref`가 나타내는 인터프리터에 대한 강력한 참조를 반환합니다. 이 함수를 호출한 후에도 약한 참조는 여전히 유효합니다. 인터프리터가 더 이상 존재하지 않거나 참조 카운트가 0에 도달하기를 기다리는 것을 이미 완료했다면, 이 함수는 예외를 설정하지 않고 0을 반환합니다. 이 함수는 재진입(re-entrant) 시그널 핸들러에서 안전하게 호출할 수 없습니다. 호출자는 연결된 스레드 상태를 보유할 필요가 없습니다.
+*   **`void PyInterpreterWeakRef_Close(PyInterpreterWeakRef wref)`** : 인터프리터에 대한 약한 참조를 해제합니다. 이 함수는 실패할 수 없으며, 호출자는 연결된 스레드 상태를 보유할 필요가 없습니다.
 
 #### 스레드 상태 확보 및 해제 (Ensuring And Releasing Thread States)
 
 이 제안은 `PyGILState_Ensure()` 및 `PyGILState_Release()`를 대체하려는 두 가지 새로운 고수준 스레딩 API를 포함합니다.
 
-*   **`type PyThreadRef`**: 스레드 상태에 대한 불투명한(opaque) 참조입니다. 초기 구현에서는 스레드 참조를 보유하는 것이 스레드 또는 인터프리터의 종료를 막지 않습니다. 이는 미래에 변경될 수 있습니다. 이 타입은 포인터 크기임을 보장합니다.
+*   **`type PyThreadRef`** : 스레드 상태에 대한 불투명한(opaque) 참조입니다. 초기 구현에서는 스레드 참조를 보유하는 것이 스레드 또는 인터프리터의 종료를 막지 않습니다. 이는 미래에 변경될 수 있습니다. 이 타입은 포인터 크기임을 보장합니다.
 *   **`int PyThreadState_Ensure(PyInterpreterRef ref, PyThreadRef *thread)`**: 스레드가 `ref`가 나타내는 인터프리터에 대해 연결된 스레드 상태를 가지고 있어서 해당 인터프리터를 안전하게 호출할 수 있도록 보장합니다. 스레드가 이미 연결된 스레드 상태를 가지고 있더라도, 이에 상응하는 `PyThreadState_Release()` 호출이 있다면 이 함수를 호출해도 괜찮습니다. 이 함수에 대한 중첩 호출은 때때로 새로운 스레드 상태를 생성할 뿐입니다. 연결된 스레드 상태가 없다면, 이 함수는 이 스레드에 의해 사용된 가장 최근의 연결된 스레드 상태를 확인합니다. 아무것도 없거나 `ref`와 일치하지 않으면 새로운 스레드 상태가 생성됩니다. `ref`와 일치하면 다시 연결됩니다. 연결된 스레드 상태가 있다면 유사한 확인이 발생합니다. 인터프리터가 `ref`와 일치하면 연결되고, 그렇지 않으면 새로운 스레드 상태가 생성됩니다. 이전 스레드 상태는 `*thread`에 스레드 참조로 저장되며, `PyThreadState_Release()`에 의해 복원됩니다. 성공 시 0을 반환하고, 실패 시 예외를 설정하지 않고 -1을 반환합니다.
-*   **`void PyThreadState_Release(PyThreadRef ref)`**: `PyThreadState_Ensure()` 호출을 해제합니다. 해당 `PyThreadState_Ensure()` 호출 이전에 연결된 스레드 상태는 반환 시 복원됨이 보장됩니다. `PyThreadState_Ensure()` 및 `PyGILState_Ensure()`에서 사용된 캐시된 스레드 상태도 복원됩니다. 이 함수는 실패할 수 없습니다.
+*   **`void PyThreadState_Release(PyThreadRef ref)`** : `PyThreadState_Ensure()` 호출을 해제합니다. 해당 `PyThreadState_Ensure()` 호출 이전에 연결된 스레드 상태는 반환 시 복원됨이 보장됩니다. `PyThreadState_Ensure()` 및 `PyGILState_Ensure()`에서 사용된 캐시된 스레드 상태도 복원됩니다. 이 함수는 실패할 수 없습니다.
 
 #### GIL-state API 사용 중단 (Deprecation of GIL-state APIs)
 
@@ -534,7 +534,7 @@ static void call_python(void) {
 
 ### 요약 및 Python 사용에 미치는 영향
 
-PEP 788은 Python C API에서 인터프리터 종료(finalization) 및 스레드 상태(thread state) 관리에 대한 오랜 문제들을 해결하기 위해 **`PyInterpreterRef`**라는 새로운 개념을 도입합니다. 기존의 `PyGILState` API는 여러 가지 버그와 설계상의 문제점을 가지고 있었으며, 특히 서브 인터프리터(subinterpreters) 환경이나 비-Python 스레드(non-Python threads)에서 안전하게 Python 코드를 호출하기 어렵게 만들었습니다.
+PEP 788은 Python C API에서 인터프리터 종료(finalization) 및 스레드 상태(thread state) 관리에 대한 오랜 문제들을 해결하기 위해 **`PyInterpreterRef`** 라는 새로운 개념을 도입합니다. 기존의 `PyGILState` API는 여러 가지 버그와 설계상의 문제점을 가지고 있었으며, 특히 서브 인터프리터(subinterpreters) 환경이나 비-Python 스레드(non-Python threads)에서 안전하게 Python 코드를 호출하기 어렵게 만들었습니다.
 
 **주요 제안 내용 및 변경 사항:**
 
@@ -641,7 +641,7 @@ PEP 788은 Python C API에서 인터프리터 종료(finalization) 및 스레드
 
 ### 요약 및 Python 사용에 미치는 영향
 
-PEP 788은 Python C API에서 인터프리터 종료(finalization) 및 스레드 상태(thread state) 관리에 대한 오랜 문제들을 해결하기 위해 **`PyInterpreterRef`**라는 새로운 개념을 도입합니다. 기존의 `PyGILState` API는 여러 가지 버그와 설계상의 문제점을 가지고 있었으며, 특히 서브 인터프리터(subinterpreters) 환경이나 비-Python 스레드(non-Python threads)에서 안전하게 Python 코드를 호출하기 어렵게 만들었습니다.
+PEP 788은 Python C API에서 인터프리터 종료(finalization) 및 스레드 상태(thread state) 관리에 대한 오랜 문제들을 해결하기 위해 **`PyInterpreterRef`** 라는 새로운 개념을 도입합니다. 기존의 `PyGILState` API는 여러 가지 버그와 설계상의 문제점을 가지고 있었으며, 특히 서브 인터프리터(subinterpreters) 환경이나 비-Python 스레드(non-Python threads)에서 안전하게 Python 코드를 호출하기 어렵게 만들었습니다.
 
 **주요 제안 내용 및 변경 사항:**
 

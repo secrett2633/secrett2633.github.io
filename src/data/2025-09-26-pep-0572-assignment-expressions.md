@@ -115,7 +115,7 @@ while chunk := file.read(8192):
     process(chunk)
 
 # 계산 비용이 비싼 값을 재사용
-[y := f(x), y**2, y**3]
+[y := f(x), y **2, y** 3]
 
 # 컴프리헨션 필터 절과 출력 사이에서 하위 표현식 공유
 filtered_data = [y for x in data if (y := f(x)) is not None]
@@ -441,7 +441,7 @@ else:
 
 `tz`는 `s += tz`에서만 사용되므로, 할당을 `if` 내부로 이동하면 스코프를 보여주는 데 도움이 됩니다.
 
-**현재 (Current):**
+** 현재 (Current): **
 
 ```python
 s = _format_time(self._hour, self._minute, self._second, self._microsecond, timespec)
@@ -451,7 +451,7 @@ if tz:
 return s
 ```
 
-**개선 (Improved):**
+** 개선 (Improved): **
 
 ```python
 s = _format_time(self._hour, self._minute, self._second, self._microsecond, timespec)
@@ -464,7 +464,7 @@ return s
 
 `while` 조건에서 `fp.readline()`을 호출하고 `if` 줄에서 `.match()`를 호출하면 코드를 이해하기 어렵게 만들지 않으면서 더 간결하게 만듭니다.
 
-**현재 (Current):**
+** 현재 (Current): **
 
 ```python
 while True:
@@ -485,7 +485,7 @@ while True:
             vars[m.group(1)] = 0
 ```
 
-**개선 (Improved):**
+** 개선 (Improved):**
 
 ```python
 while line := fp.readline():

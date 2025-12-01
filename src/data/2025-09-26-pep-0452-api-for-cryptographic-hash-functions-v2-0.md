@@ -81,8 +81,8 @@ API for Cryptographic Hash Functions의 버전 2.0은 API의 일부 측면을 �
 
 버전 2.0은 다음의 새로운 속성을 도입했습니다.
 
-*   **`name`**: 이슈 18532에 의해 `name` 속성이 필수가 되었습니다.
-*   **`block_size`**: 새로운 버전은 반환 값 `NotImplemented`가 `HMAC` 지원을 방지하도록 지정합니다.
+*   **`name`** : 이슈 18532에 의해 `name` 속성이 필수가 되었습니다.
+*   **`block_size`** : 새로운 버전은 반환 값 `NotImplemented`가 `HMAC` 지원을 방지하도록 지정합니다.
 
 버전 2.0은 Python 3.0에서 이진 데이터와 텍스트 데이터의 분리를 고려했습니다. `new()` 및 `update()`의 `string` 인수와 `key` 인수는 `bytes-like objects`여야 합니다. Python 2.x에서는 해싱 객체가 ASCII 전용 유니코드를 지원할 수도 있습니다. 인수의 실제 이름은 공용 API의 일부이므로 변경되지 않았습니다.
 

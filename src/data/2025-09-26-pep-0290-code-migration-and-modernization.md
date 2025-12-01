@@ -254,15 +254,15 @@ string1.find(string2) != -1  --> string2 in string1
 
 ##### `apply()`를 직접 함수 호출로 대체 (Replace apply() with a Direct Function Call)
 
-Python 2.3에서 `apply()`는 `Pending Deprecation`으로 표시되었습니다. 이는 Python 1.6에서 함수 호출에 `*`와 `**`가 도입되면서 `apply()`가 쓸모없게 되었기 때문입니다. 내장 함수 조회를 절약했기 때문에 직접 함수 호출은 항상 `apply()`보다 약간 빨랐습니다. 이제 `apply()`는 `warnings` 모듈을 사용하기 때문에 훨씬 더 느려졌습니다.
+Python 2.3에서 `apply()`는 `Pending Deprecation`으로 표시되었습니다. 이는 Python 1.6에서 함수 호출에 `*`와 ` **`가 도입되면서 `apply()`가 쓸모없게 되었기 때문입니다. 내장 함수 조회를 절약했기 때문에 직접 함수 호출은 항상 `apply()`보다 약간 빨랐습니다. 이제 `apply()`는 `warnings` 모듈을 사용하기 때문에 훨씬 더 느려졌습니다.
 
-**패턴 (Pattern):**
+** 패턴 (Pattern):**
 
 ```python
 apply(f, args, kwds)   --> f(*args, **kwds)
 ```
 
-**참고:** `apply()`의 `Pending Deprecation`은 Python 2.3.3에서 제거되었습니다. 이는 Python 1.5.2까지의 이전 버전의 Python으로 작업해야 하는 사람들에게 어려움을 초래했기 때문이며, 당시에는 `apply()`를 대체할 방법이 없었습니다. 그러나 이 함수는 여전히 사용이 중단되었습니다.
+** 참고: ** `apply()`의 `Pending Deprecation`은 Python 2.3.3에서 제거되었습니다. 이는 Python 1.5.2까지의 이전 버전의 Python으로 작업해야 하는 사람들에게 어려움을 초래했기 때문이며, 당시에는 `apply()`를 대체할 방법이 없었습니다. 그러나 이 함수는 여전히 사용이 중단되었습니다.
 
 #### Python 2.2 이상 (Python 2.2 or Later)
 
@@ -270,13 +270,13 @@ apply(f, args, kwds)   --> f(*args, **kwds)
 
 딕셔너리 멤버십을 테스트할 때는 `has_key()` 메서드 대신 `'in'` 키워드를 사용하십시오. 결과는 더 짧고 읽기 쉬워집니다. 이 스타일은 리스트의 멤버십 테스트와 일관성을 이룹니다. `has_key`는 속성 검색을 필요로 하고 상대적으로 비용이 많이 드는 함수 호출을 사용하므로 결과적으로 약간 더 빠릅니다.
 
-**패턴 (Pattern):**
+** 패턴 (Pattern): **
 
 ```python
 if d.has_key(k):   --> if k in d:
 ```
 
-**금지 사항 (Contra-indications):**
+** 금지 사항 (Contra-indications): **
 
 일부 딕셔너리 형태의 객체는 `__contains__()` 메서드를 정의하지 않을 수 있습니다.
 
@@ -284,7 +284,7 @@ if d.has_key(k):   --> if k in d:
 if dictlike.has_key(k)
 ```
 
-**위치 찾기 (Locating):**
+** 위치 찾기 (Locating): **
 
 ```bash
 grep has_key
@@ -294,7 +294,7 @@ grep has_key
 
 딕셔너리를 순회할 때는 새로운 `iter` 메서드를 사용하십시오. `iter` 메서드는 모든 키, 값 또는 항목(키/값 쌍)의 완전한 사본을 포함하는 새로운 리스트 객체를 생성할 필요가 없기 때문에 더 빠릅니다. 필요한 키, 값 또는 항목만 선택하면 버려지는 객체 참조를 생성하는 시간을 절약할 수 있으며, 항목의 경우 두 번째 해시 조회 시간을 절약할 수 있습니다.
 
-**패턴 (Pattern):**
+** 패턴 (Pattern): **
 
 ```python
 for key in d.keys():           --> for key in d:
@@ -302,7 +302,7 @@ for value in d.values():       --> for value in d.itervalues():
 for key, value in d.items():   --> for key, value in d.iteritems():
 ```
 
-**금지 사항 (Contra-indications):**
+** 금지 사항 (Contra-indications): **
 
 리스트가 필요한 경우 반환 유형을 변경하지 마십시오.
 
@@ -334,14 +334,14 @@ for k in d.keys():
 
 `stat` 상수 또는 인덱스를 새로운 `os.stat` 속성 및 메서드로 대체하십시오. `os.stat` 속성 및 메서드는 순서에 의존하지 않으며 `stat` 모듈을 가져올 필요가 없습니다.
 
-**패턴 (Pattern):**
+** 패턴 (Pattern): **
 
 ```python
 os.stat("foo")[stat.ST_MTIME]   --> os.stat("foo").st_mtime
 os.stat("foo")[stat.ST_MTIME]   --> os.path.getmtime("foo")
 ```
 
-**위치 찾기 (Locating):**
+** 위치 찾기 (Locating): **
 
 ```bash
 grep os.stat
@@ -357,7 +357,7 @@ grep stat.S
 
 `types` 모듈은 미래에 사용이 중단될 가능성이 있습니다. 대신 내장 생성자 함수를 사용하십시오. 이들은 약간 더 빠를 수 있습니다.
 
-**패턴 (Pattern):**
+** 패턴 (Pattern): **
 
 ```python
 isinstance(v, types.IntType)       --> isinstance(v, int)
@@ -366,7 +366,7 @@ isinstance(s, types.StringTypes)   --> isinstance(s, basestring)
 
 이 기술을 완전히 사용하려면 Python 2.3 이상이 필요하지만 (`basestring`은 Python 2.3에서 도입됨), 대부분의 경우 Python 2.2로 충분합니다.
 
-**위치 찾기 (Locating):**
+** 위치 찾기 (Locating):**
 
 ```bash
 grep types *.py | grep import

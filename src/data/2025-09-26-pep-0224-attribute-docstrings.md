@@ -22,12 +22,12 @@ published: true
 ## PEP 224 – 속성 Docstring (Attribute Docstrings)
 
 ### 개요
-PEP 224는 Python 2.0 버전을 대상으로 "속성 docstring" 제안을 설명하는 문서입니다. 이 PEP는 Python 코드 내의 명명된 할당(named assignments), 특히 클래스 속성(class attributes)에 docstring을 추가하여 코드 문서화를 개선하려는 목적을 가졌습니다. 하지만 이 PEP는 최종적으로 **거부(Rejected)**되었습니다.
+PEP 224는 Python 2.0 버전을 대상으로 "속성 docstring" 제안을 설명하는 문서입니다. 이 PEP는 Python 코드 내의 명명된 할당(named assignments), 특히 클래스 속성(class attributes)에 docstring을 추가하여 코드 문서화를 개선하려는 목적을 가졌습니다. 하지만 이 PEP는 최종적으로 **거부(Rejected)** 되었습니다.
 
-**상태**: 거부됨 (Rejected)
-**작성자**: Marc-André Lemburg
-**생성일**: 2000년 8월 23일
-**Python 버전**: 2.1
+**상태** : 거부됨 (Rejected)
+**작성자** : Marc-André Lemburg
+**생성일** : 2000년 8월 23일
+**Python 버전** : 2.1
 
 ### 서론 (Introduction)
 이 PEP는 Python 2.0에 "속성 docstring" 기능을 도입하려는 제안을 담고 있습니다. 이는 해당 기능의 상태와 소유권을 추적하며, 기능에 대한 설명과 지원에 필요한 변경 사항을 개괄합니다.
@@ -79,14 +79,14 @@ class C:
 위 예시에서 `def x(self):` 정의가 사용된 할당 이름 변수를 재설정하지 않기 때문에, 컴파일러가 마지막 docstring에 도달했을 때 `b`에 대한 docstring으로 할당될 수 있었습니다. 이에 대한 가능한 해결책은 컴파일러의 모든 비표현식 노드에 대해 이름 변수를 재설정하는 것이었습니다.
 
 ### 발생 가능한 문제점 (Possible Problems)
-1.  **Docstring과 속성 값의 의도치 않은 연결**: `x = "text" \ "x's docstring"`과 같이 역슬래시(`\`)로 인해 속성 값과 docstring이 연결될 수 있었습니다. 그러나 현대적인 구문 강조(syntax highlighting) 에디터를 사용하거나 속성 정의와 docstring 사이에 빈 줄을 삽입하면 이 문제는 쉽게 피할 수 있어 사소한 것으로 간주되었습니다.
-2.  **주석으로 사용된 삼중 따옴표 문자열**: 만약 주석 문자열 시작 직전에 할당이 있다면, 컴파일러는 해당 주석을 docstring 속성으로 처리하고 위 로직을 적용할 수 있었습니다. 이는 문서화되지 않은 속성에 대한 docstring을 생성할 뿐, 기능적인 오류를 유발하지는 않았습니다.
+1.  **Docstring과 속성 값의 의도치 않은 연결** : `x = "text" \ "x's docstring"`과 같이 역슬래시(`\`)로 인해 속성 값과 docstring이 연결될 수 있었습니다. 그러나 현대적인 구문 강조(syntax highlighting) 에디터를 사용하거나 속성 정의와 docstring 사이에 빈 줄을 삽입하면 이 문제는 쉽게 피할 수 있어 사소한 것으로 간주되었습니다.
+2.  **주석으로 사용된 삼중 따옴표 문자열** : 만약 주석 문자열 시작 직전에 할당이 있다면, 컴파일러는 해당 주석을 docstring 속성으로 처리하고 위 로직을 적용할 수 있었습니다. 이는 문서화되지 않은 속성에 대한 docstring을 생성할 뿐, 기능적인 오류를 유발하지는 않았습니다.
 
 ### BDFL (Guido van Rossum)의 의견 (Comments from our BDFL)
 Guido van Rossum (당시 BDFL, Benevolent Dictator For Life)은 이 제안에 대해 "속성 docstring" 아이디어 자체는 "어느 정도 마음에 들지만" (즉, 크게 중요하지는 않음), 두 가지 주요 불만이 있었습니다:
 
-1.  **모호한 구문(Ambiguous syntax)**: "홀로 있는 문자열 리터럴(stand-alone string literal)이 다른 용도로 사용될 수 있으며, 갑자기 속성 docstring이 될 수 있다"는 점을 지적했습니다.
-2.  **접근 방식 불만(Access method)**: `__doc_<attrname>__`과 같은 접근 방식에 대해서도 불만을 표했습니다.
+1.  **모호한 구문(Ambiguous syntax)** : "홀로 있는 문자열 리터럴(stand-alone string literal)이 다른 용도로 사용될 수 있으며, 갑자기 속성 docstring이 될 수 있다"는 점을 지적했습니다.
+2.  **접근 방식 불만(Access method)** : `__doc_<attrname>__`과 같은 접근 방식에 대해서도 불만을 표했습니다.
 
 저자는 구문의 모호성은 컴파일러에 추가적인 검사를 도입하여 해결할 수 있다고 답했습니다. 또한 접근 방식에 대해서는 `__doc__`와 일치하기 위해 두 개의 밑줄로 시작하고, 인트로스펙션으로 추출 가능하며, 클래스 상속과 호환되는 다른 어떤 이름이든 가능하다고 설명했습니다.
 

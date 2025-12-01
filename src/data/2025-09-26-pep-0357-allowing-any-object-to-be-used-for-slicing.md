@@ -66,11 +66,11 @@ def __index__(self):
 
 새로운 추상 C-API 함수 3개가 추가됩니다:
 
-1.  **`int PyIndex_Check(obj)`**: 객체가 `nb_index` 슬롯을 지원하고 채워져 있는지 확인합니다. 객체가 `nb_index` 슬롯을 정의하면 `true`를 반환합니다.
+1.  **`int PyIndex_Check(obj)`** : 객체가 `nb_index` 슬롯을 지원하고 채워져 있는지 확인합니다. 객체가 `nb_index` 슬롯을 정의하면 `true`를 반환합니다.
 
-2.  **`PyObject *PyNumber_Index (PyObject *obj)`**: `nb_index` 호출을 감싸는 간단한 래퍼(wrapper)입니다. 호출이 불가능하거나 `int` 또는 `long`을 반환하지 않으면 `PyExc_TypeError`를 발생시킵니다.
+2.  **`PyObject *PyNumber_Index (PyObject *obj)` **: `nb_index` 호출을 감싸는 간단한 래퍼(wrapper)입니다. 호출이 불가능하거나 `int` 또는 `long`을 반환하지 않으면 `PyExc_TypeError`를 발생시킵니다.
 
-3.  **`Py_ssize_t PyNumber_AsSsize_t(PyObject *obj, PyObject *exc)`**: 객체에서 `Py_ssize_t` 값을 얻어야 하는 일반적인 상황을 처리하는 데 도움을 줍니다. `obj`의 `nb_index` 슬롯이 사용 가능하면 호출하고, 반환된 파이썬 정수를 `Py_ssize_t` 값으로 변환합니다. 반환된 정수가 `Py_ssize_t` 값에 맞지 않을 경우 `exc` 인수를 통해 동작을 제어할 수 있습니다.
+3.  ** `Py_ssize_t PyNumber_AsSsize_t(PyObject *obj, PyObject *exc)`**: 객체에서 `Py_ssize_t` 값을 얻어야 하는 일반적인 상황을 처리하는 데 도움을 줍니다. `obj`의 `nb_index` 슬롯이 사용 가능하면 호출하고, 반환된 파이썬 정수를 `Py_ssize_t` 값으로 변환합니다. 반환된 정수가 `Py_ssize_t` 값에 맞지 않을 경우 `exc` 인수를 통해 동작을 제어할 수 있습니다.
 
 `operator.index(obj)`라는 새 함수가 추가되어 `obj.__index__()`와 동등한 호출을 수행하며, `obj`가 특별 메서드를 구현하지 않으면 오류를 발생시킵니다.
 
@@ -102,7 +102,7 @@ def __index__(self):
 
 #### `nb_index`가 `PyObject *`를 반환하는 이유는? (Why return PyObject * from nb_index ?)
 
-처음에는 `Py_ssize_t`가 `nb_index` 슬롯의 반환 타입으로 선택되었습니다. 그러나 이는 보기 흉하고 불안정한 해킹 없이는 오버플로우(overflow) 및 언더플로우(underflow) 오류를 추적하고 구별할 수 없게 만들었습니다. `nb_index` 슬롯은 파이썬 코어에서 최소한 세 가지 다른 방식으로 사용되므로(정수를 얻기 위해, 슬라이스 끝점을 얻기 위해, 시퀀스 인덱스를 얻기 위해), 이 모든 경우를 처리하는 데 상당한 유연성이 필요합니다. 모든 사용 사례를 처리하는 데 필요한 유연성을 갖는 것이 중요합니다. 예를 들어, `nb_index`에 대해 `Py_ssize_t`를 반환하는 초기 구현은 32비트 머신에서 2GB 이상의 RAM을 사용할 때 `s = 'x' * (2**100)`이 작동하지만 `len(s)`가 2147483647로 잘리는 문제를 발견하게 했습니다. 몇 가지 수정 사항이 제안되었지만, 결국 `nb_index`가 오버플로우를 올바르게 처리하기 위해 `nb_int` 및 `nb_long` 슬롯과 유사하게 파이썬 객체를 반환해야 한다고 결정되었습니다.
+처음에는 `Py_ssize_t`가 `nb_index` 슬롯의 반환 타입으로 선택되었습니다. 그러나 이는 보기 흉하고 불안정한 해킹 없이는 오버플로우(overflow) 및 언더플로우(underflow) 오류를 추적하고 구별할 수 없게 만들었습니다. `nb_index` 슬롯은 파이썬 코어에서 최소한 세 가지 다른 방식으로 사용되므로(정수를 얻기 위해, 슬라이스 끝점을 얻기 위해, 시퀀스 인덱스를 얻기 위해), 이 모든 경우를 처리하는 데 상당한 유연성이 필요합니다. 모든 사용 사례를 처리하는 데 필요한 유연성을 갖는 것이 중요합니다. 예를 들어, `nb_index`에 대해 `Py_ssize_t`를 반환하는 초기 구현은 32비트 머신에서 2GB 이상의 RAM을 사용할 때 `s = 'x' * (2 **100)`이 작동하지만 `len(s)`가 2147483647로 잘리는 문제를 발견하게 했습니다. 몇 가지 수정 사항이 제안되었지만, 결국 `nb_index`가 오버플로우를 올바르게 처리하기 위해 `nb_int` 및 `nb_long` 슬롯과 유사하게 파이썬 객체를 반환해야 한다고 결정되었습니다.
 
 #### `__index__`가 `nb_index` 메서드를 가진 어떤 객체라도 반환할 수 없는 이유는? (Why can't __index__ return any object with the nb_index method?)
 
@@ -122,4 +122,4 @@ SourceForge에 패치 1436368로 제출되었습니다.
 이 문서는 공개 도메인에 있습니다.
 
 
-> ⚠️ **알림:** 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.
+> ⚠️ ** 알림:** 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.

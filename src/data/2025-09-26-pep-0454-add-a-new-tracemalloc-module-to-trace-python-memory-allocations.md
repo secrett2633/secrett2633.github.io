@@ -55,71 +55,71 @@ PEP 445의 사용자 정의 할당(allocation) API를 사용하면 Python 메모
 
 ### 함수 (Functions)
 
-*   **`clear_traces()`**: Python에 의해 할당된 메모리 블록의 trace를 지웁니다. `stop()`도 참조하십시오.
-*   **`get_object_traceback(obj)`**: Python 객체 `obj`가 할당된 traceback을 가져옵니다. `Traceback` 인스턴스를 반환하거나, `tracemalloc` 모듈이 메모리 할당을 추적하지 않거나 객체 할당을 추적하지 않은 경우 `None`을 반환합니다. `gc.get_referrers()` 및 `sys.getsizeof()` 함수도 참조하십시오.
-*   **`get_traceback_limit()`**: trace의 traceback에 저장된 최대 프레임 수를 가져옵니다. `tracemalloc` 모듈은 제한을 얻기 위해 메모리 할당을 추적해야 하며, 그렇지 않으면 예외가 발생합니다. 제한은 `start()` 함수에 의해 설정됩니다.
-*   **`get_traced_memory()`**: `tracemalloc` 모듈에 의해 추적된 메모리 블록의 현재 크기와 최대 크기를 `(size: int, max_size: int)` 튜플로 가져옵니다.
-*   **`get_tracemalloc_memory()`**: 메모리 블록의 trace를 저장하는 데 사용된 `tracemalloc` 모듈의 메모리 사용량을 바이트 단위로 가져옵니다. `int`를 반환합니다.
-*   **`is_tracing()`**: `tracemalloc` 모듈이 Python 메모리 할당을 추적 중이면 `True`를, 그렇지 않으면 `False`를 반환합니다. `start()` 및 `stop()` 함수도 참조하십시오.
-*   **`start(nframe: int = 1)`**: Python 메모리 할당 추적을 시작합니다. Python 메모리 할당자에 훅을 설치합니다. 수집된 trace의 traceback은 `nframe` 프레임으로 제한됩니다. 기본적으로 메모리 블록의 trace는 가장 최근 프레임만 저장합니다(제한은 `1`). `nframe`은 1보다 크거나 같아야 합니다. 1개 이상의 프레임을 저장하는 것은 'traceback'별로 그룹화된 통계를 계산하거나 누적 통계를 계산할 때만 유용합니다. `Snapshot.compare_to()` 및 `Snapshot.statistics()` 메서드를 참조하십시오. 더 많은 프레임을 저장하면 `tracemalloc` 모듈의 메모리 및 CPU 오버헤드가 증가합니다. `get_tracemalloc_memory()` 함수를 사용하여 `tracemalloc` 모듈이 사용하는 메모리 양을 측정하십시오. `PYTHONTRACEMALLOC` 환경 변수(`PYTHONTRACEMALLOC=NFRAME`) 및 `-X tracemalloc=NFRAME` 명령줄 옵션을 사용하여 시작 시 추적을 시작할 수 있습니다. `stop()`, `is_tracing()`, `get_traceback_limit()` 함수도 참조하십시오.
-*   **`stop()`**: Python 메모리 할당 추적을 중지합니다. Python 메모리 할당자에 대한 훅을 제거합니다. Python에 의해 할당된 메모리 블록의 trace도 지웁니다. trace를 지우기 전에 스냅샷을 찍으려면 `take_snapshot()` 함수를 호출하십시오. `start()` 및 `is_tracing()` 함수도 참조하십시오.
-*   **`take_snapshot()`**: Python에 의해 할당된 메모리 블록의 trace 스냅샷을 찍습니다. 새로운 `Snapshot` 인스턴스를 반환합니다. 스냅샷에는 `tracemalloc` 모듈이 메모리 할당 추적을 시작하기 전에 할당된 메모리 블록은 포함되지 않습니다. trace의 traceback은 `get_traceback_limit()` 프레임으로 제한됩니다. 더 많은 프레임을 저장하려면 `start()` 함수의 `nframe` 매개변수를 사용하십시오. 스냅샷을 찍으려면 `tracemalloc` 모듈이 메모리 할당을 추적해야 합니다(`start()` 함수 참조). `get_object_traceback()` 함수도 참조하십시오.
+*   **`clear_traces()`** : Python에 의해 할당된 메모리 블록의 trace를 지웁니다. `stop()`도 참조하십시오.
+*   **`get_object_traceback(obj)`** : Python 객체 `obj`가 할당된 traceback을 가져옵니다. `Traceback` 인스턴스를 반환하거나, `tracemalloc` 모듈이 메모리 할당을 추적하지 않거나 객체 할당을 추적하지 않은 경우 `None`을 반환합니다. `gc.get_referrers()` 및 `sys.getsizeof()` 함수도 참조하십시오.
+*   **`get_traceback_limit()`** : trace의 traceback에 저장된 최대 프레임 수를 가져옵니다. `tracemalloc` 모듈은 제한을 얻기 위해 메모리 할당을 추적해야 하며, 그렇지 않으면 예외가 발생합니다. 제한은 `start()` 함수에 의해 설정됩니다.
+*   **`get_traced_memory()`** : `tracemalloc` 모듈에 의해 추적된 메모리 블록의 현재 크기와 최대 크기를 `(size: int, max_size: int)` 튜플로 가져옵니다.
+*   **`get_tracemalloc_memory()`** : 메모리 블록의 trace를 저장하는 데 사용된 `tracemalloc` 모듈의 메모리 사용량을 바이트 단위로 가져옵니다. `int`를 반환합니다.
+*   **`is_tracing()`** : `tracemalloc` 모듈이 Python 메모리 할당을 추적 중이면 `True`를, 그렇지 않으면 `False`를 반환합니다. `start()` 및 `stop()` 함수도 참조하십시오.
+*   **`start(nframe: int = 1)`** : Python 메모리 할당 추적을 시작합니다. Python 메모리 할당자에 훅을 설치합니다. 수집된 trace의 traceback은 `nframe` 프레임으로 제한됩니다. 기본적으로 메모리 블록의 trace는 가장 최근 프레임만 저장합니다(제한은 `1`). `nframe`은 1보다 크거나 같아야 합니다. 1개 이상의 프레임을 저장하는 것은 'traceback'별로 그룹화된 통계를 계산하거나 누적 통계를 계산할 때만 유용합니다. `Snapshot.compare_to()` 및 `Snapshot.statistics()` 메서드를 참조하십시오. 더 많은 프레임을 저장하면 `tracemalloc` 모듈의 메모리 및 CPU 오버헤드가 증가합니다. `get_tracemalloc_memory()` 함수를 사용하여 `tracemalloc` 모듈이 사용하는 메모리 양을 측정하십시오. `PYTHONTRACEMALLOC` 환경 변수(`PYTHONTRACEMALLOC=NFRAME`) 및 `-X tracemalloc=NFRAME` 명령줄 옵션을 사용하여 시작 시 추적을 시작할 수 있습니다. `stop()`, `is_tracing()`, `get_traceback_limit()` 함수도 참조하십시오.
+*   **`stop()`** : Python 메모리 할당 추적을 중지합니다. Python 메모리 할당자에 대한 훅을 제거합니다. Python에 의해 할당된 메모리 블록의 trace도 지웁니다. trace를 지우기 전에 스냅샷을 찍으려면 `take_snapshot()` 함수를 호출하십시오. `start()` 및 `is_tracing()` 함수도 참조하십시오.
+*   **`take_snapshot()`** : Python에 의해 할당된 메모리 블록의 trace 스냅샷을 찍습니다. 새로운 `Snapshot` 인스턴스를 반환합니다. 스냅샷에는 `tracemalloc` 모듈이 메모리 할당 추적을 시작하기 전에 할당된 메모리 블록은 포함되지 않습니다. trace의 traceback은 `get_traceback_limit()` 프레임으로 제한됩니다. 더 많은 프레임을 저장하려면 `start()` 함수의 `nframe` 매개변수를 사용하십시오. 스냅샷을 찍으려면 `tracemalloc` 모듈이 메모리 할당을 추적해야 합니다(`start()` 함수 참조). `get_object_traceback()` 함수도 참조하십시오.
 
 ### 필터 (Filter)
 
-*   **`Filter(inclusive: bool, filename_pattern: str, lineno: int=None, all_frames: bool=False)` 클래스**: 메모리 블록의 trace에 대한 필터입니다. `filename_pattern`의 구문은 `fnmatch.fnmatch()` 함수를 참조하십시오. `.pyc` 및 `.pyo` 파일 확장자는 `.py`로 대체됩니다.
-    *   **`inclusive` 속성**: `True`이면(`include`) `filename_pattern`과 `lineno`에 일치하는 파일에서 할당된 메모리 블록의 trace만 포함합니다. `False`이면(`exclude`) `filename_pattern`과 `lineno`에 일치하는 파일에서 할당된 메모리 블록을 무시합니다.
-    *   **`lineno` 속성**: 필터의 줄 번호(`int`). `None`이면 필터는 모든 줄 번호에 일치합니다.
-    *   **`filename_pattern` 속성**: 필터의 파일 이름 패턴(`str`).
-    *   **`all_frames` 속성**: `True`이면 traceback의 모든 프레임을 확인합니다. `False`이면 가장 최근 프레임만 확인합니다. 이 속성은 traceback 제한이 2보다 작으면 무시됩니다. `get_traceback_limit()` 함수 및 `Snapshot.traceback_limit` 속성을 참조하십시오.
+*   **`Filter(inclusive: bool, filename_pattern: str, lineno: int=None, all_frames: bool=False)` 클래스** : 메모리 블록의 trace에 대한 필터입니다. `filename_pattern`의 구문은 `fnmatch.fnmatch()` 함수를 참조하십시오. `.pyc` 및 `.pyo` 파일 확장자는 `.py`로 대체됩니다.
+    *   **`inclusive` 속성** : `True`이면(`include`) `filename_pattern`과 `lineno`에 일치하는 파일에서 할당된 메모리 블록의 trace만 포함합니다. `False`이면(`exclude`) `filename_pattern`과 `lineno`에 일치하는 파일에서 할당된 메모리 블록을 무시합니다.
+    *   **`lineno` 속성** : 필터의 줄 번호(`int`). `None`이면 필터는 모든 줄 번호에 일치합니다.
+    *   **`filename_pattern` 속성** : 필터의 파일 이름 패턴(`str`).
+    *   **`all_frames` 속성** : `True`이면 traceback의 모든 프레임을 확인합니다. `False`이면 가장 최근 프레임만 확인합니다. 이 속성은 traceback 제한이 2보다 작으면 무시됩니다. `get_traceback_limit()` 함수 및 `Snapshot.traceback_limit` 속성을 참조하십시오.
 
 ### 프레임 (Frame)
 
-*   **`Frame` 클래스**: traceback의 프레임입니다. `Traceback` 클래스는 `Frame` 인스턴스의 시퀀스입니다.
-    *   **`filename` 속성**: 파일 이름(`str`).
-    *   **`lineno` 속성**: 줄 번호(`int`).
+*   **`Frame` 클래스** : traceback의 프레임입니다. `Traceback` 클래스는 `Frame` 인스턴스의 시퀀스입니다.
+    *   **`filename` 속성** : 파일 이름(`str`).
+    *   **`lineno` 속성** : 줄 번호(`int`).
 
 ### 스냅샷 (Snapshot)
 
-*   **`Snapshot` 클래스**: Python에 의해 할당된 메모리 블록의 trace 스냅샷입니다. `take_snapshot()` 함수가 스냅샷 인스턴스를 생성합니다.
-    *   **`compare_to(old_snapshot: Snapshot, group_by: str, cumulative: bool=False)` 메서드**: 이전 스냅샷과의 차이를 계산합니다. `group_by`로 그룹화된 정렬된 `StatisticDiff` 인스턴스 목록으로 통계를 가져옵니다. `group_by` 및 `cumulative` 매개변수는 `statistics()` 메서드를 참조하십시오. 결과는 `StatisticDiff.size_diff`의 절대값, `StatisticDiff.size`, `StatisticDiff.count_diff`의 절대값, `Statistic.count`, 그리고 `StatisticDiff.traceback` 순으로 가장 큰 것에서 가장 작은 것으로 정렬됩니다.
-    *   **`dump(filename)` 메서드**: 스냅샷을 파일에 씁니다. `load()`를 사용하여 스냅샷을 다시 로드합니다.
-    *   **`filter_traces(filters)` 메서드**: 필터링된 trace 시퀀스로 새로운 `Snapshot` 인스턴스를 생성합니다. `filters`는 `Filter` 인스턴스 목록입니다. `filters`가 빈 목록이면 trace 복사본을 포함하는 새로운 `Snapshot` 인스턴스를 반환합니다. 모든 inclusive 필터는 한 번에 적용됩니다. inclusive 필터에 일치하지 않는 trace는 무시됩니다. 하나 이상의 exclusive 필터에 일치하는 trace는 무시됩니다.
-    *   **`load(filename)` 클래스 메서드**: 파일에서 스냅샷을 로드합니다. `dump()`도 참조하십시오.
-    *   **`statistics(group_by: str, cumulative: bool=False)` 메서드**: `group_by`로 그룹화된 정렬된 `Statistic` 인스턴스 목록으로 통계를 가져옵니다.
+*   **`Snapshot` 클래스** : Python에 의해 할당된 메모리 블록의 trace 스냅샷입니다. `take_snapshot()` 함수가 스냅샷 인스턴스를 생성합니다.
+    *   **`compare_to(old_snapshot: Snapshot, group_by: str, cumulative: bool=False)` 메서드** : 이전 스냅샷과의 차이를 계산합니다. `group_by`로 그룹화된 정렬된 `StatisticDiff` 인스턴스 목록으로 통계를 가져옵니다. `group_by` 및 `cumulative` 매개변수는 `statistics()` 메서드를 참조하십시오. 결과는 `StatisticDiff.size_diff`의 절대값, `StatisticDiff.size`, `StatisticDiff.count_diff`의 절대값, `Statistic.count`, 그리고 `StatisticDiff.traceback` 순으로 가장 큰 것에서 가장 작은 것으로 정렬됩니다.
+    *   **`dump(filename)` 메서드** : 스냅샷을 파일에 씁니다. `load()`를 사용하여 스냅샷을 다시 로드합니다.
+    *   **`filter_traces(filters)` 메서드** : 필터링된 trace 시퀀스로 새로운 `Snapshot` 인스턴스를 생성합니다. `filters`는 `Filter` 인스턴스 목록입니다. `filters`가 빈 목록이면 trace 복사본을 포함하는 새로운 `Snapshot` 인스턴스를 반환합니다. 모든 inclusive 필터는 한 번에 적용됩니다. inclusive 필터에 일치하지 않는 trace는 무시됩니다. 하나 이상의 exclusive 필터에 일치하는 trace는 무시됩니다.
+    *   **`load(filename)` 클래스 메서드** : 파일에서 스냅샷을 로드합니다. `dump()`도 참조하십시오.
+    *   **`statistics(group_by: str, cumulative: bool=False)` 메서드** : `group_by`로 그룹화된 정렬된 `Statistic` 인스턴스 목록으로 통계를 가져옵니다.
         *   `group_by` 설명:
             *   `'filename'`: 파일 이름
             *   `'lineno'`: 파일 이름 및 줄 번호
             *   `'traceback'`: traceback
         *   `cumulative`가 `True`이면, 가장 최근 프레임뿐만 아니라 trace의 traceback의 모든 프레임에 대한 메모리 블록의 크기와 수를 누적합니다. `cumulative` 모드는 `group_by`가 `'filename'` 및 `'lineno'`이고 `traceback_limit`가 1보다 클 때만 사용할 수 있습니다. 결과는 `Statistic.size`, `Statistic.count`, 그리고 `Statistic.traceback` 순으로 가장 큰 것에서 가장 작은 것으로 정렬됩니다.
-    *   **`traceback_limit` 속성**: trace의 traceback에 저장된 최대 프레임 수: 스냅샷이 찍힐 때 `get_traceback_limit()`의 결과입니다.
-    *   **`traces` 속성**: Python에 의해 할당된 모든 메모리 블록의 trace: `Trace` 인스턴스의 시퀀스입니다. 시퀀스는 정의되지 않은 순서입니다. 정렬된 통계 목록을 얻으려면 `Snapshot.statistics()` 메서드를 사용하십시오.
+    *   **`traceback_limit` 속성** : trace의 traceback에 저장된 최대 프레임 수: 스냅샷이 찍힐 때 `get_traceback_limit()`의 결과입니다.
+    *   **`traces` 속성** : Python에 의해 할당된 모든 메모리 블록의 trace: `Trace` 인스턴스의 시퀀스입니다. 시퀀스는 정의되지 않은 순서입니다. 정렬된 통계 목록을 얻으려면 `Snapshot.statistics()` 메서드를 사용하십시오.
 
 ### 통계 (Statistic)
 
-*   **`Statistic` 클래스**: 메모리 할당에 대한 통계입니다. `Snapshot.statistics()`는 `Statistic` 인스턴스 목록을 반환합니다. `StatisticDiff` 클래스도 참조하십시오.
-    *   **`count` 속성**: 메모리 블록 수(`int`).
-    *   **`size` 속성**: 바이트 단위의 메모리 블록 총 크기(`int`).
-    *   **`traceback` 속성**: 메모리 블록이 할당된 traceback, `Traceback` 인스턴스.
+*   **`Statistic` 클래스** : 메모리 할당에 대한 통계입니다. `Snapshot.statistics()`는 `Statistic` 인스턴스 목록을 반환합니다. `StatisticDiff` 클래스도 참조하십시오.
+    *   **`count` 속성** : 메모리 블록 수(`int`).
+    *   **`size` 속성** : 바이트 단위의 메모리 블록 총 크기(`int`).
+    *   **`traceback` 속성** : 메모리 블록이 할당된 traceback, `Traceback` 인스턴스.
 
 ### 통계 차이 (StatisticDiff)
 
-*   **`StatisticDiff` 클래스**: 이전 스냅샷과 새 스냅샷 간의 메모리 할당에 대한 통계 차이입니다. `Snapshot.compare_to()`는 `StatisticDiff` 인스턴스 목록을 반환합니다. `Statistic` 클래스도 참조하십시오.
-    *   **`count` 속성**: 새 스냅샷의 메모리 블록 수(`int`): 새 스냅샷에서 메모리 블록이 해제된 경우 0입니다.
-    *   **`count_diff` 속성**: 이전 스냅샷과 새 스냅샷 간의 메모리 블록 수 차이(`int`): 새 스냅샷에서 메모리 블록이 할당된 경우 0입니다.
-    *   **`size` 속성**: 새 스냅샷의 바이트 단위 메모리 블록 총 크기(`int`): 새 스냅샷에서 메모리 블록이 해제된 경우 0입니다.
-    *   **`size_diff` 속성**: 이전 스냅샷과 새 스냅샷 간의 바이트 단위 메모리 블록 총 크기 차이(`int`): 새 스냅샷에서 메모리 블록이 할당된 경우 0입니다.
-    *   **`traceback` 속성**: 메모리 블록이 할당된 traceback, `Traceback` 인스턴스.
+*   **`StatisticDiff` 클래스** : 이전 스냅샷과 새 스냅샷 간의 메모리 할당에 대한 통계 차이입니다. `Snapshot.compare_to()`는 `StatisticDiff` 인스턴스 목록을 반환합니다. `Statistic` 클래스도 참조하십시오.
+    *   **`count` 속성** : 새 스냅샷의 메모리 블록 수(`int`): 새 스냅샷에서 메모리 블록이 해제된 경우 0입니다.
+    *   **`count_diff` 속성** : 이전 스냅샷과 새 스냅샷 간의 메모리 블록 수 차이(`int`): 새 스냅샷에서 메모리 블록이 할당된 경우 0입니다.
+    *   **`size` 속성** : 새 스냅샷의 바이트 단위 메모리 블록 총 크기(`int`): 새 스냅샷에서 메모리 블록이 해제된 경우 0입니다.
+    *   **`size_diff` 속성** : 이전 스냅샷과 새 스냅샷 간의 바이트 단위 메모리 블록 총 크기 차이(`int`): 새 스냅샷에서 메모리 블록이 할당된 경우 0입니다.
+    *   **`traceback` 속성** : 메모리 블록이 할당된 traceback, `Traceback` 인스턴스.
 
 ### 트레이스 (Trace)
 
-*   **`Trace` 클래스**: 메모리 블록의 trace입니다. `Snapshot.traces` 속성은 `Trace` 인스턴스의 시퀀스입니다.
-    *   **`size` 속성**: 바이트 단위 메모리 블록의 크기(`int`).
-    *   **`traceback` 속성**: 메모리 블록이 할당된 traceback, `Traceback` 인스턴스.
+*   **`Trace` 클래스** : 메모리 블록의 trace입니다. `Snapshot.traces` 속성은 `Trace` 인스턴스의 시퀀스입니다.
+    *   **`size` 속성** : 바이트 단위 메모리 블록의 크기(`int`).
+    *   **`traceback` 속성** : 메모리 블록이 할당된 traceback, `Traceback` 인스턴스.
 
 ### 트레이스백 (Traceback)
 
-*   **`Traceback` 클래스**: 가장 최근 프레임부터 가장 오래된 프레임 순으로 정렬된 `Frame` 인스턴스의 시퀀스입니다. traceback은 최소 1개의 프레임을 포함합니다. `tracemalloc` 모듈이 프레임을 가져오지 못한 경우, 줄 번호 0의 `<unknown>` 파일 이름이 사용됩니다. 스냅샷이 찍힐 때 trace의 traceback은 `get_traceback_limit()` 프레임으로 제한됩니다. `take_snapshot()` 함수를 참조하십시오. `Trace.traceback` 속성은 `Traceback` 인스턴스입니다.
+*   **`Traceback` 클래스** : 가장 최근 프레임부터 가장 오래된 프레임 순으로 정렬된 `Frame` 인스턴스의 시퀀스입니다. traceback은 최소 1개의 프레임을 포함합니다. `tracemalloc` 모듈이 프레임을 가져오지 못한 경우, 줄 번호 0의 `<unknown>` 파일 이름이 사용됩니다. 스냅샷이 찍힐 때 trace의 traceback은 `get_traceback_limit()` 프레임으로 제한됩니다. `take_snapshot()` 함수를 참조하십시오. `Trace.traceback` 속성은 `Traceback` 인스턴스입니다.
 
 ## 채택되지 않은 대안 (Rejected Alternatives)
 
@@ -135,20 +135,20 @@ Python은 수명이 매우 짧은 객체를 사용하므로 메모리 할당자�
 ## 이전 작업 (Prior Work)
 이 PEP는 다양한 이전 작업과 프로젝트를 기반으로 합니다.
 
-*   **Python Memory Validator (2005-2013)**: Software Verification에서 개발한 상용 Python 메모리 검증 도구. Python Reflection API를 사용합니다.
-*   **PySizer**: Nick Smallbone의 Google Summer of Code 2005 프로젝트.
-*   **Heapy (2006-2013)**: Sverker Nilsson이 작성한 Guppy-PE 프로젝트의 일부.
+*   **Python Memory Validator (2005-2013)** : Software Verification에서 개발한 상용 Python 메모리 검증 도구. Python Reflection API를 사용합니다.
+*   **PySizer** : Nick Smallbone의 Google Summer of Code 2005 프로젝트.
+*   **Heapy (2006-2013)** : Sverker Nilsson이 작성한 Guppy-PE 프로젝트의 일부.
 *   **Draft PEP: Support Tracking Low-Level Memory Usage in CPython (Brett Canon, 2006)**
-*   **Muppy**: Robert Schuppenies가 2008년에 개발한 프로젝트.
-*   **asizeof**: Jean Brouwers가 2008년에 만든 객체 크기를 추정하는 순수 Python 모듈.
-*   **Heapmonitor**: 개별 객체의 크기를 조정하고 특정 클래스의 모든 객체를 추적하는 기능을 제공합니다. Ludwig Haehne가 2008년에 개발했습니다.
-*   **Pympler (2008-2011)**: `asizeof`, `muppy`, `HeapMonitor`를 기반으로 한 프로젝트.
+*   **Muppy** : Robert Schuppenies가 2008년에 개발한 프로젝트.
+*   **asizeof** : Jean Brouwers가 2008년에 만든 객체 크기를 추정하는 순수 Python 모듈.
+*   **Heapmonitor** : 개별 객체의 크기를 조정하고 특정 클래스의 모든 객체를 추적하는 기능을 제공합니다. Ludwig Haehne가 2008년에 개발했습니다.
+*   **Pympler (2008-2011)** : `asizeof`, `muppy`, `HeapMonitor`를 기반으로 한 프로젝트.
 *   **objgraph (2008-2012)**
-*   **Dozer**: Marius Gedminas가 작성한 CherryPy 메모리 누수 디버거의 WSGI Middleware 버전 (2008-2013).
-*   **Meliae**: John A Meinel이 2009년부터 개발한 Python Memory Usage Analyzer.
-*   **gdb-heap**: Dave Malcolm이 2010-2011년에 작성한 Python으로 작성된 gdb 스크립트로 힙(heap) 메모리 사용량을 분석합니다.
-*   **memory_profiler**: Fabian Pedregosa가 작성 (2011-2013).
-*   **caulk**: Ben Timby가 2012년에 작성.
+*   **Dozer** : Marius Gedminas가 작성한 CherryPy 메모리 누수 디버거의 WSGI Middleware 버전 (2008-2013).
+*   **Meliae** : John A Meinel이 2009년부터 개발한 Python Memory Usage Analyzer.
+*   **gdb-heap** : Dave Malcolm이 2010-2011년에 작성한 Python으로 작성된 gdb 스크립트로 힙(heap) 메모리 사용량을 분석합니다.
+*   **memory_profiler** : Fabian Pedregosa가 작성 (2011-2013).
+*   **caulk** : Ben Timby가 2012년에 작성.
 
 Pympler 관련 작업도 참조하십시오.
 

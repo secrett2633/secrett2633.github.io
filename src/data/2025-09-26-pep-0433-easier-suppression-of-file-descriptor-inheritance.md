@@ -23,12 +23,12 @@ published: true
 
 # PEP 433 – 파일 디스크립터 상속을 더 쉽게 억제하기 (Easier suppression of file descriptor inheritance)
 
-*   **작성자**: Victor Stinner <vstinner at python.org>
-*   **상태**: Superseded (폐기됨 - PEP 446으로 대체됨)
-*   **유형**: Standards Track
-*   **생성일**: 2013년 1월 10일
-*   **Python 버전**: 3.4
-*   **대체**: PEP 446
+*   **작성자** : Victor Stinner <vstinner at python.org>
+*   **상태** : Superseded (폐기됨 - PEP 446으로 대체됨)
+*   **유형** : Standards Track
+*   **생성일** : 2013년 1월 10일
+*   **Python 버전** : 3.4
+*   **대체** : PEP 446
 
 ## 목차
 *   [요약 (Abstract)](#요약-abstract)

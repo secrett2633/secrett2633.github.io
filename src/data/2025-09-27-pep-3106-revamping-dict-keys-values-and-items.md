@@ -22,7 +22,7 @@ published: true
 ## PEP 3106 – `dict.keys()`, `.values()`, `.items()` 메서드 개편
 
 ### 요약 (Abstract)
-이 PEP(Python Enhancement Proposal)는 내장 `dict` 타입의 `.keys()`, `.values()`, `.items()` 메서드가 더 이상 키, 값 또는 아이템의 복사본인 리스트(list)를 반환하지 않고, 대신 기본 딕셔너리에서 내용을 파생하는 **세트-유사(set-like) 또는 비정렬 컨테이너 객체**를 반환하도록 제안합니다. 또한, `.iterkeys()`, `.itervalues()`, `.iteritems()` 메서드는 제거됩니다. 이 접근 방식은 Java Collections Framework에서 영감을 받았습니다.
+이 PEP(Python Enhancement Proposal)는 내장 `dict` 타입의 `.keys()`, `.values()`, `.items()` 메서드가 더 이상 키, 값 또는 아이템의 복사본인 리스트(list)를 반환하지 않고, 대신 기본 딕셔너리에서 내용을 파생하는 **세트-유사(set-like) 또는 비정렬 컨테이너 객체** 를 반환하도록 제안합니다. 또한, `.iterkeys()`, `.itervalues()`, `.iteritems()` 메서드는 제거됩니다. 이 접근 방식은 Java Collections Framework에서 영감을 받았습니다.
 
 ### 서론 (Introduction)
 Python 2.x에서 `dict`의 `.keys()`, `.values()`, `.items()` 메서드는 리스트를 반환하여 딕셔너리가 커질수록 메모리 효율성이 떨어지는 문제가 있었습니다. 이러한 문제를 해결하고 보다 가벼운 객체를 반환하기 위해 오랫동안 계획되어 왔으며, `iterkeys()`, `itervalues()`, `iteritems()`와 같은 이터레이터(iterator)를 반환하는 메서드를 없애는 것이 목표였습니다.

@@ -23,13 +23,13 @@ PEP 258 – Docutils 디자인 사양
 
 ## PEP 258 – Docutils 디자인 사양 번역 및 정리
 
-*   **작성자 (Author)**: David Goodger <goodger at python.org>
-*   **논의 대상 (Discussions-To)**: Doc-SIG list
-*   **상태 (Status)**: Rejected (거부됨)
-*   **유형 (Type)**: Standards Track
-*   **요구 사항 (Requires)**: 256, 257
-*   **생성일 (Created)**: 2001년 5월 31일
-*   **게시 이력 (Post-History)**: 2001년 6월 13일
+*   **작성자 (Author)** : David Goodger <goodger at python.org>
+*   **논의 대상 (Discussions-To)** : Doc-SIG list
+*   **상태 (Status)** : Rejected (거부됨)
+*   **유형 (Type)** : Standards Track
+*   **요구 사항 (Requires)** : 256, 257
+*   **생성일 (Created)** : 2001년 5월 31일
+*   **게시 이력 (Post-History)** : 2001년 6월 13일
 
 ### 거부 공지 (Rejection Notice)
 
@@ -95,14 +95,14 @@ Docutils는 모든 구성 요소를 쉽게 교체할 수 있도록 모듈식으�
     *   새로운 문서 트리 루트와 함께 입력 텍스트를 파서로 전달합니다.
 
     예시:
-    *   **Standalone (Raw/Plain)**: 단순히 텍스트 파일을 읽고 처리합니다. Reader는 사용할 파서를 지정받아야 합니다. "Standalone Reader"는 `docutils.readers.standalone` 모듈에 구현되어 있습니다.
-    *   **Python Source**: 아래 Python Source Reader를 참조하십시오. 이 Reader는 현재 Docutils 샌드박스에서 개발 중입니다.
-    *   **Email**: RFC 822 헤더, 인용된 발췌문, 서명, MIME 파트.
-    *   **PEP**: RFC 822 헤더, "PEP xxxx" 및 "RFC xxxx"를 URI로 변환. "PEP Reader"는 `docutils.readers.pep` 모듈에 구현되어 있습니다. PEP 287 및 PEP 12를 참조하십시오.
-    *   **Wiki**: 트랜스폼에 통합된 "위키 링크"의 전역 참조 조회.
-    *   **Web Page**: Standalone과 동일하지만, 메타 필드를 메타 태그로 인식합니다.
-    *   **FAQ**: 구조화된 "질문 & 답변" 구성.
-    *   **Compound document**: 챕터들을 책으로 병합합니다.
+    *   **Standalone (Raw/Plain)** : 단순히 텍스트 파일을 읽고 처리합니다. Reader는 사용할 파서를 지정받아야 합니다. "Standalone Reader"는 `docutils.readers.standalone` 모듈에 구현되어 있습니다.
+    *   **Python Source** : 아래 Python Source Reader를 참조하십시오. 이 Reader는 현재 Docutils 샌드박스에서 개발 중입니다.
+    *   **Email** : RFC 822 헤더, 인용된 발췌문, 서명, MIME 파트.
+    *   **PEP** : RFC 822 헤더, "PEP xxxx" 및 "RFC xxxx"를 URI로 변환. "PEP Reader"는 `docutils.readers.pep` 모듈에 구현되어 있습니다. PEP 287 및 PEP 12를 참조하십시오.
+    *   **Wiki** : 트랜스폼에 통합된 "위키 링크"의 전역 참조 조회.
+    *   **Web Page** : Standalone과 동일하지만, 메타 필드를 메타 태그로 인식합니다.
+    *   **FAQ** : 구조화된 "질문 & 답변" 구성.
+    *   **Compound document** : 챕터들을 책으로 병합합니다.
 
 *   **Parsers (파서)**
     파서는 입력을 분석하고 Docutils 문서 트리를 생성합니다. 데이터의 출처나 목적지에 대해서는 알거나 신경 쓰지 않습니다.
@@ -151,7 +151,7 @@ Docutils는 모든 구성 요소를 쉽게 교체할 수 있도록 모듈식으�
     *   변환된 출력을 대상 I/O에 씁니다.
 
     예시:
-    *   **XML**: 다양한 형태, 예를 들어:
+    *   **XML** : 다양한 형태, 예를 들어:
         *   Docutils XML (내부 문서 트리의 표현, `docutils.writers.docutils_xml`로 구현됨).
         *   DocBook (Docutils 샌드박스에서 구현 중).
     *   **HTML** (XHTML은 `docutils.writers.html4css1`로 구현됨).
@@ -267,11 +267,11 @@ DTD는 많은 입력 및 출력 형식에 적합한 풍부한 요소 집합을 �
 
 파서가 마크업에서 오류를 만나면 시스템 메시지(DTD 요소 "system_message")를 삽입합니다. 시스템 메시지에는 5가지 레벨이 있습니다.
 
-*   **Level-0, "DEBUG"**: 내부 보고 문제. 처리에 영향을 미치지 않습니다. Level-0 시스템 메시지는 다른 메시지와 별도로 처리됩니다.
-*   **Level-1, "INFO"**: 무시할 수 있는 사소한 문제. 처리에 거의 또는 전혀 영향을 미치지 않습니다. 일반적으로 Level-1 시스템 메시지는 보고되지 않습니다.
-*   **Level-2, "WARNING"**: 해결해야 할 문제. 무시하면 출력에 사소한 문제가 발생할 수 있습니다. 일반적으로 Level-2 시스템 메시지는 보고되지만 처리를 중단하지는 않습니다.
-*   **Level-3, "ERROR"**: 해결해야 할 주요 문제. 무시하면 출력에 예측할 수 없는 오류가 포함됩니다. 일반적으로 Level-3 시스템 메시지는 보고되지만 처리를 중단하지는 않습니다.
-*   **Level-4, "SEVERE"**: 해결해야 할 치명적인 오류. 일반적으로 Level-4 시스템 메시지는 처리를 중단하는 예외로 변환됩니다. 무시하면 출력에 심각한 오류가 포함됩니다.
+*   **Level-0, "DEBUG"** : 내부 보고 문제. 처리에 영향을 미치지 않습니다. Level-0 시스템 메시지는 다른 메시지와 별도로 처리됩니다.
+*   **Level-1, "INFO"** : 무시할 수 있는 사소한 문제. 처리에 거의 또는 전혀 영향을 미치지 않습니다. 일반적으로 Level-1 시스템 메시지는 보고되지 않습니다.
+*   **Level-2, "WARNING"** : 해결해야 할 문제. 무시하면 출력에 사소한 문제가 발생할 수 있습니다. 일반적으로 Level-2 시스템 메시지는 보고되지만 처리를 중단하지는 않습니다.
+*   **Level-3, "ERROR"** : 해결해야 할 주요 문제. 무시하면 출력에 예측할 수 없는 오류가 포함됩니다. 일반적으로 Level-3 시스템 메시지는 보고되지만 처리를 중단하지는 않습니다.
+*   **Level-4, "SEVERE"** : 해결해야 할 치명적인 오류. 일반적으로 Level-4 시스템 메시지는 처리를 중단하는 예외로 변환됩니다. 무시하면 출력에 심각한 오류가 포함됩니다.
 
 초기 메시지 레벨은 독립적으로 고안되었지만, VMS 오류 조건 심각도 레벨과 강한 상관관계를 가집니다. 레벨 1부터 4까지의 따옴표 안의 이름은 VMS에서 차용되었습니다. 오류 처리는 이후 log4j 프로젝트의 영향을 받았습니다.
 

@@ -22,11 +22,11 @@ published: true
 
 ### PEP 3105 – `print`를 함수로 만들기
 
-*   **작성자**: Georg Brandl
-*   **상태**: Final (최종)
-*   **유형**: Standards Track
-*   **생성일**: 2006년 11월 19일
-*   **Python 버전**: 3.0
+*   **작성자** : Georg Brandl
+*   **상태** : Final (최종)
+*   **유형** : Standards Track
+*   **생성일** : 2006년 11월 19일
+*   **Python 버전** : 3.0
 
 ### 요약 (Abstract)
 이 PEP는 `print` 문(statement)을 대체하는 새로운 내장 함수 `print()`를 제안하며, 새로운 함수의 특정 시그니처를 제시합니다.

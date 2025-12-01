@@ -119,20 +119,20 @@ something = worker # OK (규칙 3: 모든 타입은 Any와 일치)
 *   `isinstance` 또는 `issubclass`에 나타나면 `TypeError`가 발생합니다 (매개변수화되지 않은 제네릭 제외).
 
 ### 기본 구성 요소 (Fundamental building blocks)
-*   **`Any`**: 모든 타입은 `Any`와 일치하며, `Any` 또한 모든 타입과 일치합니다.
-*   **`Union[t1, t2, …]`**: `t1` 등의 최소한 하나 이상의 서브타입인 타입들이 이 `Union`의 서브타입이 됩니다.
+*   **`Any`** : 모든 타입은 `Any`와 일치하며, `Any` 또한 모든 타입과 일치합니다.
+*   **`Union[t1, t2, …]`** : `t1` 등의 최소한 하나 이상의 서브타입인 타입들이 이 `Union`의 서브타입이 됩니다.
     *   인수의 순서는 중요하지 않습니다.
     *   중첩된 `Union`은 평탄화됩니다.
     *   `ti`와 `tj`가 서브타입 관계에 있다면, 덜 구체적인(less specific) 타입이 남습니다.
     *   `Union[t1]`은 `t1`을 반환합니다.
     *   `Union[]`은 허용되지 않습니다.
     *   `Union[..., object, ...]`은 `object`를 반환합니다.
-*   **`Optional[t1]`**: `Union[t1, None]`의 별칭입니다.
-*   **`Tuple[t1, t2, …, tn]`**: 항목들이 `t1` 등의 인스턴스인 튜플입니다.
+*   **`Optional[t1]`** : `Union[t1, None]`의 별칭입니다.
+*   **`Tuple[t1, t2, …, tn]`** : 항목들이 `t1` 등의 인스턴스인 튜플입니다.
     *   길이가 같고 각 `ui`가 `ti`의 서브타입이면 `Tuple[u1, ..., um]`은 `Tuple[t1, ..., tn]`의 서브타입입니다.
     *   빈 튜플은 `Tuple[()]`로 표기합니다.
     *   가변 길이의 동종 튜플 타입은 `Tuple[t1, ...]`으로 작성할 수 있습니다.
-*   **`Callable[[t1, t2, …, tn], tr]`**: 위치 인자 타입이 `t1` 등이고 반환 타입이 `tr`인 함수입니다.
+*   **`Callable[[t1, t2, …, tn], tr]`** : 위치 인자 타입이 `t1` 등이고 반환 타입이 `tr`인 함수입니다.
     *   인자 목록은 비어 있을 수 있습니다 (`n==0`).
     *   선택적(optional) 인자나 키워드 인자를 나타낼 방법은 없지만, `Callable[..., tr]` (리터럴 생략 부호)를 사용하여 인자 목록이 완전히 검사되지 않음을 나타낼 수 있습니다.
 *   **`Intersection[t1, t2, …]` (제안 예정):** `t1` 등의 각 타입의 서브타입인 타입들이 이 `Intersection`의 서브타입이 됩니다.
@@ -208,9 +208,9 @@ def communicate(queue: CustomQueue[str]) -> Optional[str]: ...
 *   **불변 (Invariant):** 위 두 가지 모두 해당하지 않는 경우.
 
 **실제 예시:**
-*   **`Union`**은 모든 인자에서 공변적으로 동작합니다.
-*   **`FrozenSet[T]`**는 공변입니다. `int`는 `float`의 서브타입이고, `FrozenSet[int]`의 값 집합은 `FrozenSet[float]`의 값 집합의 명확한 부분집합이기 때문에 `FrozenSet[int]`는 `FrozenSet[float]`의 서브타입입니다.
-*   **`List[T]`**는 불변입니다. `List[int]`의 값 집합이 `List[float]`의 값 집합의 부분집합이더라도, `List[int]`에는 `int`만 추가할 수 있기 때문에 `List[int]`는 `List[float]`의 서브타입이 아닙니다. 이는 가변(mutable) 타입에서 전형적인 상황입니다.
+*   **`Union`** 은 모든 인자에서 공변적으로 동작합니다.
+*   **`FrozenSet[T]`** 는 공변입니다. `int`는 `float`의 서브타입이고, `FrozenSet[int]`의 값 집합은 `FrozenSet[float]`의 값 집합의 명확한 부분집합이기 때문에 `FrozenSet[int]`는 `FrozenSet[float]`의 서브타입입니다.
+*   **`List[T]`** 는 불변입니다. `List[int]`의 값 집합이 `List[float]`의 값 집합의 부분집합이더라도, `List[int]`에는 `int`만 추가할 수 있기 때문에 `List[int]`는 `List[float]`의 서브타입이 아닙니다. 이는 가변(mutable) 타입에서 전형적인 상황입니다.
 *   **`Callable`** 타입은 반환 타입에는 공변이지만, 인자에는 반변입니다.
     *   `Callable[[], int]`는 `Callable[[], float]`의 서브타입입니다.
     *   `Callable[[float], None]`는 `Callable[[int], None]`의 서브타입입니다.

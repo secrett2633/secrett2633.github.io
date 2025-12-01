@@ -68,13 +68,13 @@ Unladen Swallow는 단일 스레드, 순수 Python 코드의 성능 향상에 �
 ### 대안 (Alternatives)
 
 Unladen Swallow 팀은 Python 성능 향상을 위한 여러 대안 전략을 고려했지만, 불만족스럽다고 판단했습니다.
-*   **Cython, Shedskin**: 이들은 Python용 정적 컴파일러입니다. 런타임 데이터에 기반한 JIT 컴파일러가 고려하는 전체 코드 범위에 대해 최적화할 수 없다는 한계가 있었습니다.
-*   **IronPython**: Microsoft의 .Net 플랫폼용 Python이며, 사실상 Windows 전용이어서 일반적인 CPython 대체제로 부적합했습니다.
-*   **Jython**: Python 2.5의 완전한 구현이지만, Unladen Swallow보다 훨씬 느리고 CPython 확장 모듈을 지원하지 않아 대규모 애플리케이션 마이그레이션 비용이 너무 높았습니다.
-*   **Psyco**: CPython용 특수화 JIT 컴파일러였지만, 32비트 전용이고 x86만 지원하며 유지보수가 매우 어려웠습니다.
-*   **PyPy**: 숫자 코드에서는 좋은 성능을 보였지만, 일부 워크로드에서는 Unladen Swallow보다 느렸습니다. PyPy의 JIT 컴파일러는 32비트 x86 코드 생성만 지원하고, 중요한 모듈이 PyPy에 대해 빌드되지 않으며, CPython과 동일한 임베딩 API를 제공하지 않는 등의 문제가 있었습니다.
-*   **PyV8**: V8 위에서 실행되는 실험적인 Python-to-JavaScript 컴파일러로, 전체 Python 언어를 구현하지 않았고 CPython 확장 모듈을 지원하지 않았습니다.
-*   **WPython**: CPython 인터프리터 루프의 워드코드 기반 재구현으로, 인터프리터 성능에 미미한 개선을 제공했지만 JIT 컴파일러의 대안은 아니었습니다.
+*   **Cython, Shedskin** : 이들은 Python용 정적 컴파일러입니다. 런타임 데이터에 기반한 JIT 컴파일러가 고려하는 전체 코드 범위에 대해 최적화할 수 없다는 한계가 있었습니다.
+*   **IronPython** : Microsoft의 .Net 플랫폼용 Python이며, 사실상 Windows 전용이어서 일반적인 CPython 대체제로 부적합했습니다.
+*   **Jython** : Python 2.5의 완전한 구현이지만, Unladen Swallow보다 훨씬 느리고 CPython 확장 모듈을 지원하지 않아 대규모 애플리케이션 마이그레이션 비용이 너무 높았습니다.
+*   **Psyco** : CPython용 특수화 JIT 컴파일러였지만, 32비트 전용이고 x86만 지원하며 유지보수가 매우 어려웠습니다.
+*   **PyPy** : 숫자 코드에서는 좋은 성능을 보였지만, 일부 워크로드에서는 Unladen Swallow보다 느렸습니다. PyPy의 JIT 컴파일러는 32비트 x86 코드 생성만 지원하고, 중요한 모듈이 PyPy에 대해 빌드되지 않으며, CPython과 동일한 임베딩 API를 제공하지 않는 등의 문제가 있었습니다.
+*   **PyV8** : V8 위에서 실행되는 실험적인 Python-to-JavaScript 컴파일러로, 전체 Python 언어를 구현하지 않았고 CPython 확장 모듈을 지원하지 않았습니다.
+*   **WPython** : CPython 인터프리터 루프의 워드코드 기반 재구현으로, 인터프리터 성능에 미미한 개선을 제공했지만 JIT 컴파일러의 대안은 아니었습니다.
 
 ### 성능 (Performance)
 
@@ -167,12 +167,12 @@ Unladen Swallow는 CPython 2.6을 기반으로 했으므로, 컴파일러를 Pyt
 ### 향후 작업 (Future Work)
 
 JIT 컴파일러는 매우 유연한 도구이며, 그 잠재력을 완전히 발휘하지 못했다고 보았습니다. 아직 구현되지 않은 성능 최적화 목록은 다음과 같습니다:
-*   **Python/Python 인라이닝 (inlining)**: 현재 컴파일러는 순수 Python 함수 간에 인라이닝을 수행하지 않았습니다.
-*   **언박싱 (Unboxing)**: 숫자 성능에 매우 중요합니다.
-*   **재컴파일, 적응 (Recompilation, adaptation)**: Unladen Swallow는 현재 Python 함수를 한 번만 컴파일하며, 사용 패턴이 변경되면 재컴파일의 한계가 있었습니다.
-*   **정규 표현식 JIT 컴파일 (JIT-compile regular expressions)**: 최신 JavaScript 엔진은 JIT 컴파일 인프라를 재사용하여 정규 표현식 성능을 향상시켰습니다.
-*   **트레이스 컴파일 (Trace compilation)**: PyPy 및 Tracemonkey의 결과에 따라, CPython JIT는 어느 정도 트레이스 컴파일을 통합해야 한다고 믿었습니다.
-*   **프로파일 생성/재사용 (Profile generation/reuse)**: JIT가 수집한 런타임 데이터를 디스크에 저장하고 후속 JIT 컴파일 또는 Cython과 같은 외부 도구에서 재사용할 수 있었습니다.
+*   **Python/Python 인라이닝 (inlining)** : 현재 컴파일러는 순수 Python 함수 간에 인라이닝을 수행하지 않았습니다.
+*   **언박싱 (Unboxing)** : 숫자 성능에 매우 중요합니다.
+*   **재컴파일, 적응 (Recompilation, adaptation)** : Unladen Swallow는 현재 Python 함수를 한 번만 컴파일하며, 사용 패턴이 변경되면 재컴파일의 한계가 있었습니다.
+*   **정규 표현식 JIT 컴파일 (JIT-compile regular expressions)** : 최신 JavaScript 엔진은 JIT 컴파일 인프라를 재사용하여 정규 표현식 성능을 향상시켰습니다.
+*   **트레이스 컴파일 (Trace compilation)** : PyPy 및 Tracemonkey의 결과에 따라, CPython JIT는 어느 정도 트레이스 컴파일을 통합해야 한다고 믿었습니다.
+*   **프로파일 생성/재사용 (Profile generation/reuse)** : JIT가 수집한 런타임 데이터를 디스크에 저장하고 후속 JIT 컴파일 또는 Cython과 같은 외부 도구에서 재사용할 수 있었습니다.
 
 ---PEP 3146, "Unladen Swallow를 CPython으로 통합하기"는 Unladen Swallow 프로젝트를 CPython 소스 트리에 통합하자는 제안이었습니다. Unladen Swallow 프로젝트는 성능 향상에 초점을 맞춘 CPython의 오픈 소스 브랜치였습니다. 이 PEP는 결국 철회되었습니다.
 
@@ -226,13 +226,13 @@ Unladen Swallow는 단일 스레드, 순수 Python 코드의 성능 향상에 �
 ### 대안 (Alternatives)
 
 Unladen Swallow 팀은 Python 성능 향상을 위한 여러 대안 전략을 고려했지만, 불만족스럽다고 판단했습니다.
-*   **Cython, Shedskin**: 이들은 Python용 정적 컴파일러입니다. 런타임 데이터에 기반한 JIT 컴파일러가 고려하는 전체 코드 범위에 대해 최적화할 수 없다는 한계가 있었습니다.
-*   **IronPython**: Microsoft의 .Net 플랫폼용 Python이며, 사실상 Windows 전용이어서 일반적인 CPython 대체제로 부적합했습니다.
-*   **Jython**: Python 2.5의 완전한 구현이지만, Unladen Swallow보다 훨씬 느리고 CPython 확장 모듈을 지원하지 않아 대규모 애플리케이션 마이그레이션 비용이 너무 높았습니다.
-*   **Psyco**: CPython용 특수화 JIT 컴파일러였지만, 32비트 전용이고 x86만 지원하며 유지보수가 매우 어려웠습니다.
-*   **PyPy**: 숫자 코드에서는 좋은 성능을 보였지만, 일부 워크로드에서는 Unladen Swallow보다 느렸습니다. PyPy의 JIT 컴파일러는 32비트 x86 코드 생성만 지원하고, 중요한 모듈이 PyPy에 대해 빌드되지 않으며, CPython과 동일한 임베딩 API를 제공하지 않는 등의 문제가 있었습니다.
-*   **PyV8**: V8 위에서 실행되는 실험적인 Python-to-JavaScript 컴파일러로, 전체 Python 언어를 구현하지 않았고 CPython 확장 모듈을 지원하지 않았습니다.
-*   **WPython**: CPython 인터프리터 루프의 워드코드 기반 재구현으로, 인터프리터 성능에 미미한 개선을 제공했지만 JIT 컴파일러의 대안은 아니었습니다.
+*   **Cython, Shedskin** : 이들은 Python용 정적 컴파일러입니다. 런타임 데이터에 기반한 JIT 컴파일러가 고려하는 전체 코드 범위에 대해 최적화할 수 없다는 한계가 있었습니다.
+*   **IronPython** : Microsoft의 .Net 플랫폼용 Python이며, 사실상 Windows 전용이어서 일반적인 CPython 대체제로 부적합했습니다.
+*   **Jython** : Python 2.5의 완전한 구현이지만, Unladen Swallow보다 훨씬 느리고 CPython 확장 모듈을 지원하지 않아 대규모 애플리케이션 마이그레이션 비용이 너무 높았습니다.
+*   **Psyco** : CPython용 특수화 JIT 컴파일러였지만, 32비트 전용이고 x86만 지원하며 유지보수가 매우 어려웠습니다.
+*   **PyPy** : 숫자 코드에서는 좋은 성능을 보였지만, 일부 워크로드에서는 Unladen Swallow보다 느렸습니다. PyPy의 JIT 컴파일러는 32비트 x86 코드 생성만 지원하고, 중요한 모듈이 PyPy에 대해 빌드되지 않으며, CPython과 동일한 임베딩 API를 제공하지 않는 등의 문제가 있었습니다.
+*   **PyV8** : V8 위에서 실행되는 실험적인 Python-to-JavaScript 컴파일러로, 전체 Python 언어를 구현하지 않았고 CPython 확장 모듈을 지원하지 않았습니다.
+*   **WPython** : CPython 인터프리터 루프의 워드코드 기반 재구현으로, 인터프리터 성능에 미미한 개선을 제공했지만 JIT 컴파일러의 대안은 아니었습니다.
 
 ### 성능 (Performance)
 
@@ -325,11 +325,11 @@ Unladen Swallow는 CPython 2.6을 기반으로 했으므로, 컴파일러를 Pyt
 ### 향후 작업 (Future Work)
 
 JIT 컴파일러는 매우 유연한 도구이며, 그 잠재력을 완전히 발휘하지 못했다고 보았습니다. 아직 구현되지 않은 성능 최적화 목록은 다음과 같습니다:
-*   **Python/Python 인라이닝 (inlining)**: 현재 컴파일러는 순수 Python 함수 간에 인라이닝을 수행하지 않았습니다.
-*   **언박싱 (Unboxing)**: 숫자 성능에 매우 중요합니다.
-*   **재컴파일, 적응 (Recompilation, adaptation)**: Unladen Swallow는 현재 Python 함수를 한 번만 컴파일하며, 사용 패턴이 변경되면 재컴파일의 한계가 있었습니다.
-*   **정규 표현식 JIT 컴파일 (JIT-compile regular expressions)**: 최신 JavaScript 엔진은 JIT 컴파일 인프라를 재사용하여 정규 표현식 성능을 향상시켰습니다.
-*   **트레이스 컴파일 (Trace compilation)**: PyPy 및 Tracemonkey의 결과에 따라, CPython JIT는 어느 정도 트레이스 컴파일을 통합해야 한다고 믿었습니다.
-*   **프로파일 생성/재사용 (Profile generation/reuse)**: JIT가 수집한 런타임 데이터를 디스크에 저장하고 후속 JIT 컴파일 또는 Cython과 같은 외부 도구에서 재사용할 수 있었습니다.
+*   **Python/Python 인라이닝 (inlining)** : 현재 컴파일러는 순수 Python 함수 간에 인라이닝을 수행하지 않았습니다.
+*   **언박싱 (Unboxing)** : 숫자 성능에 매우 중요합니다.
+*   **재컴파일, 적응 (Recompilation, adaptation)** : Unladen Swallow는 현재 Python 함수를 한 번만 컴파일하며, 사용 패턴이 변경되면 재컴파일의 한계가 있었습니다.
+*   **정규 표현식 JIT 컴파일 (JIT-compile regular expressions)** : 최신 JavaScript 엔진은 JIT 컴파일 인프라를 재사용하여 정규 표현식 성능을 향상시켰습니다.
+*   **트레이스 컴파일 (Trace compilation)** : PyPy 및 Tracemonkey의 결과에 따라, CPython JIT는 어느 정도 트레이스 컴파일을 통합해야 한다고 믿었습니다.
+*   **프로파일 생성/재사용 (Profile generation/reuse)** : JIT가 수집한 런타임 데이터를 디스크에 저장하고 후속 JIT 컴파일 또는 Cython과 같은 외부 도구에서 재사용할 수 있었습니다.
 
 > ⚠️ **알림:** 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.

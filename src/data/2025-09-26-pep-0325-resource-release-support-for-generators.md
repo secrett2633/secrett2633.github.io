@@ -21,11 +21,11 @@ published: true
 
 PEP 325 – 제너레이터를 위한 리소스 해제 지원
 
-*   **작성자**: Samuele Pedroni
-*   **상태**: 반려됨 (Rejected)
-*   **유형**: 표준 트랙 (Standards Track)
-*   **생성일**: 2003년 8월 25일
-*   **Python 버전**: 2.4
+*   **작성자** : Samuele Pedroni
+*   **상태** : 반려됨 (Rejected)
+*   **유형** : 표준 트랙 (Standards Track)
+*   **생성일** : 2003년 8월 25일
+*   **Python 버전** : 2.4
 
 ---
 

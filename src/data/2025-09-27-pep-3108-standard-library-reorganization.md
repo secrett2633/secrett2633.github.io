@@ -21,12 +21,12 @@ published: true
 
 ## PEP 3108 – 표준 라이브러리 재편성
 
-*   **작성자**: Brett Cannon <brett at python.org>
-*   **상태**: Final (최종)
-*   **유형**: Standards Track (표준 트랙)
-*   **생성일**: 2007년 1월 1일
-*   **Python 버전**: 3.0
-*   **최종 기록**: 2008년 4월 28일
+*   **작성자** : Brett Cannon <brett at python.org>
+*   **상태** : Final (최종)
+*   **유형** : Standards Track (표준 트랙)
+*   **생성일** : 2007년 1월 1일
+*   **Python 버전** : 3.0
+*   **최종 기록** : 2008년 4월 28일
 
 ---
 

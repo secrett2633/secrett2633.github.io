@@ -105,12 +105,12 @@ TOML 쓰기 API를 포함하지 않는 몇 가지 이유가 있습니다.
 ## 부록 A: 제안된 API와 `toml`의 차이점 (Appendix A: Differences between proposed API and toml)
 이 부록은 이 PEP에서 제안된 API와 서드파티 패키지 `toml`의 API 간의 차이점을 다룹니다.
 
-- **쓰기 API 미포함**: 이 PEP는 현재 쓰기 API(`toml.dump[s]`)를 포함하지 않습니다.
-- **`toml.load`의 첫 번째 인자 다름**: `toml.load`는 `SupportsRead[str]`, `str`, `bytes`, `list[PathLike | str | bytes]`를 첫 번째 인자로 받지만, 제안된 API는 `SupportsRead[bytes]`를 받습니다. 이는 표준 라이브러리의 다른 유사 함수와의 일관성을 유지하고 UTF-8 인코딩을 보장하며, 잘못된 TOML 파싱을 피하기 위함입니다.
-- **오류**: `toml`은 `TomlDecodeError`를 발생시키는 반면, 제안된 API는 PEP 8을 준수하는 `TOMLDecodeError`를 발생시킵니다.
-- **`_dict` 인자**: `toml.load[s]`는 `_dict` 인자를 허용하지만, `tomllib`에서는 제거되었습니다. Python 3.7부터 `OrderedDict` 사용이 불필요해졌기 때문입니다.
-- **문서화되지 않은 `decoder` 인자**: `toml.load[s]`는 문서화되지 않은 `decoder` 인자를 지원하지만, `tomllib`에는 포함되지 않습니다.
-- **`encoder` 인자**: `toml.dump[s]`는 `encoder` 인자를 지원하지만, `tomllib`은 쓰기 API를 포함하지 않습니다.
-- **타임존**: `toml`은 `toml.tz.TomlTz` 타임존 객체를 사용하지만, 제안된 구현은 표준 라이브러리의 `datetime.timezone` 객체를 사용합니다.
+- **쓰기 API 미포함** : 이 PEP는 현재 쓰기 API(`toml.dump[s]`)를 포함하지 않습니다.
+- **`toml.load`의 첫 번째 인자 다름** : `toml.load`는 `SupportsRead[str]`, `str`, `bytes`, `list[PathLike | str | bytes]`를 첫 번째 인자로 받지만, 제안된 API는 `SupportsRead[bytes]`를 받습니다. 이는 표준 라이브러리의 다른 유사 함수와의 일관성을 유지하고 UTF-8 인코딩을 보장하며, 잘못된 TOML 파싱을 피하기 위함입니다.
+- **오류** : `toml`은 `TomlDecodeError`를 발생시키는 반면, 제안된 API는 PEP 8을 준수하는 `TOMLDecodeError`를 발생시킵니다.
+- **`_dict` 인자** : `toml.load[s]`는 `_dict` 인자를 허용하지만, `tomllib`에서는 제거되었습니다. Python 3.7부터 `OrderedDict` 사용이 불필요해졌기 때문입니다.
+- **문서화되지 않은 `decoder` 인자** : `toml.load[s]`는 문서화되지 않은 `decoder` 인자를 지원하지만, `tomllib`에는 포함되지 않습니다.
+- **`encoder` 인자** : `toml.dump[s]`는 `encoder` 인자를 지원하지만, `tomllib`은 쓰기 API를 포함하지 않습니다.
+- **타임존** : `toml`은 `toml.tz.TomlTz` 타임존 객체를 사용하지만, 제안된 구현은 표준 라이브러리의 `datetime.timezone` 객체를 사용합니다.
 
 > ⚠️ **알림:** 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.

@@ -28,8 +28,8 @@ PEP 785는 `ExceptionGroup`을 더 쉽게 다룰 수 있는 새로운 메서드�
 ### 초록 (Abstract)
 PEP 654에서 도입된 `ExceptionGroup`이 Python 커뮤니티 전반에 걸쳐 널리 사용됨에 따라, 일반적이지만 다루기 어려운 패턴들이 나타나고 있습니다. 이에 따라 예외 객체에 두 가지 새로운 메서드를 추가할 것을 제안합니다.
 
-1.  **`BaseExceptionGroup.leaf_exceptions()`**: 중간 그룹으로부터 합성된 트레이스백(traceback)을 포함하여 '리프(leaf)' 예외들을 리스트로 반환합니다.
-2.  **`BaseException.preserve_context()`**: `self`의 `self.__context__` 속성을 저장하고 복원하는 컨텍스트 관리자(context manager)입니다. 이를 통해 다른 핸들러 내에서 예외를 다시 발생(re-raising)시킬 때 기존 컨텍스트가 덮어씌워지는 것을 방지합니다.
+1.  **`BaseExceptionGroup.leaf_exceptions()`** : 중간 그룹으로부터 합성된 트레이스백(traceback)을 포함하여 '리프(leaf)' 예외들을 리스트로 반환합니다.
+2.  **`BaseException.preserve_context()`** : `self`의 `self.__context__` 속성을 저장하고 복원하는 컨텍스트 관리자(context manager)입니다. 이를 통해 다른 핸들러 내에서 예외를 다시 발생(re-raising)시킬 때 기존 컨텍스트가 덮어씌워지는 것을 방지합니다.
 
 이 메서드들은 중간 복잡도의 여러 경우에서 에러 처리 로직을 더 간결하게 표현할 수 있도록 할 것으로 예상됩니다. 이 메서드들이 없으면 예외 그룹 핸들러는 중간 트레이스백을 계속해서 버리고 `__context__` 예외를 잘못 처리하여, 비동기(async) 코드 디버깅에 어려움을 초래할 것입니다.
 

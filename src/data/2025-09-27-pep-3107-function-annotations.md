@@ -37,10 +37,10 @@ Python 2.x 버전에서는 함수의 매개변수와 반환 값에 Annotation을
 
 Python 3.0의 함수 Annotation에 대한 세부 사항을 논의하기 전에, Annotation이 무엇이고 무엇이 아닌지에 대해 폭넓게 이야기해 봅시다.
 
-1.  **완전한 선택 사항 (Completely Optional)**: 매개변수와 반환 값 모두에 대한 함수 Annotation은 전적으로 선택 사항입니다.
-2.  **임의의 Python 표현식 (Arbitrary Python Expressions)**: 함수 Annotation은 컴파일 시점에 함수의 다양한 부분에 임의의 Python 표현식을 연결하는 방법일 뿐입니다.
-3.  **Python 자체의 의미 없음 (No Intrinsic Meaning to Python)**: Python 자체는 Annotation에 특별한 의미나 중요성을 부여하지 않습니다. Python은 단순히 아래 "함수 Annotation 접근하기 (Accessing Function Annotations)" 섹션에서 설명하는 대로 이러한 표현식을 사용할 수 있도록 제공할 뿐입니다.
-4.  **타사 라이브러리에 의해 해석 (Interpreted by Third-Party Libraries)**: Annotation이 의미를 가지는 유일한 방법은 타사 라이브러리에 의해 해석될 때입니다. 이 Annotation을 사용하는 라이브러리는 함수의 Annotation으로 원하는 모든 작업을 수행할 수 있습니다.
+1.  **완전한 선택 사항 (Completely Optional)** : 매개변수와 반환 값 모두에 대한 함수 Annotation은 전적으로 선택 사항입니다.
+2.  **임의의 Python 표현식 (Arbitrary Python Expressions)** : 함수 Annotation은 컴파일 시점에 함수의 다양한 부분에 임의의 Python 표현식을 연결하는 방법일 뿐입니다.
+3.  **Python 자체의 의미 없음 (No Intrinsic Meaning to Python)** : Python 자체는 Annotation에 특별한 의미나 중요성을 부여하지 않습니다. Python은 단순히 아래 "함수 Annotation 접근하기 (Accessing Function Annotations)" 섹션에서 설명하는 대로 이러한 표현식을 사용할 수 있도록 제공할 뿐입니다.
+4.  **타사 라이브러리에 의해 해석 (Interpreted by Third-Party Libraries)** : Annotation이 의미를 가지는 유일한 방법은 타사 라이브러리에 의해 해석될 때입니다. 이 Annotation을 사용하는 라이브러리는 함수의 Annotation으로 원하는 모든 작업을 수행할 수 있습니다.
 
     *   **예시 1: 도움말 메시지 제공**
         예를 들어, 한 라이브러리는 문자열 기반 Annotation을 사용하여 다음과 같이 개선된 도움말 메시지를 제공할 수 있습니다.
@@ -56,7 +56,7 @@ Python 3.0의 함수 Annotation에 대한 세부 사항을 논의하기 전에, 
         ```
         그러나 첫 번째 예시의 문자열이나 두 번째 예시의 타입 정보는 그 자체로는 아무런 *의미가 없습니다*. 의미는 오직 타사의 Annotation 처리 라이브러리에서만 나옵니다.
 
-5.  **표준 의미론 없음 (No Standard Semantics)**: 2번 항목에 따라, 이 PEP는 내장 타입에 대해서도 어떤 종류의 표준 의미론도 도입하려고 시도하지 않습니다. 이 작업은 타사 라이브러리에 맡겨질 것입니다.
+5.  **표준 의미론 없음 (No Standard Semantics)** : 2번 항목에 따라, 이 PEP는 내장 타입에 대해서도 어떤 종류의 표준 의미론도 도입하려고 시도하지 않습니다. 이 작업은 타사 라이브러리에 맡겨질 것입니다.
 
 ## 문법 (Syntax)
 
@@ -103,7 +103,7 @@ decorator: '@' dotted_name [ '(' [arglist] ')' ] NEWLINE
 decorators: decorator+
 funcdef: [decorators] 'def' NAME parameters ['->' test] ':' suite
 parameters: '(' [typedargslist] ')'
-typedargslist: ((tfpdef ['=' test] ',')* ('*' [tname] (',' tname ['=' test])* [',' '**' tname] | '**' tname) | tfpdef ['=' test] (',' tfpdef ['=' test])* [','])
+typedargslist: ((tfpdef ['=' test] ',')* ('*' [tname] (',' tname ['=' test])* [',' ' **' tname] | '** ' tname) | tfpdef ['=' test] (',' tfpdef ['=' test])* [','])
 tname: NAME [':' test]
 tfpdef: tname | '(' tfplist ')'
 tfplist: tfpdef (',' tfpdef)* [',']

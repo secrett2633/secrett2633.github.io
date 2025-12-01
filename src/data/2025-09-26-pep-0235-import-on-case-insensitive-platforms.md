@@ -50,7 +50,7 @@ Python 2.1에서 MacOS X HFS+ 및 Cygwin에 대한 지원이 새로 추가되면
 **대소문자 보존 및 구분 안 함** 플랫폼(예: Windows, MacOS X HFS+, Cygwin)에 대해 제안되는 새로운 `import` 동작은 다음과 같습니다.
 
 1.  **`PYTHONCASEOK` 환경 변수가 존재할 경우:** 이전과 동일하게 동작합니다. 모든 종류의 첫 번째 대소문자 무시 일치(case-insensitive match)를 조용히 수용합니다. 일치하는 것을 찾지 못하면 `ImportError`를 발생시킵니다.
-2.  **`PYTHONCASEOK` 환경 변수가 없을 경우:** `sys.path`에서 첫 번째 **대소문자 구분 일치(case-sensitive match)**를 검색합니다. 일치하는 것을 찾지 못하면 `ImportError`를 발생시킵니다.
+2.  **`PYTHONCASEOK` 환경 변수가 없을 경우:** `sys.path`에서 첫 번째 **대소문자 구분 일치(case-sensitive match)** 를 검색합니다. 일치하는 것을 찾지 못하면 `ImportError`를 발생시킵니다.
 
 ### 변경의 영향 및 이점
 *   규칙 #2는 Unix에서 사용되는 규칙과 동일하므로, 크로스-플랫폼 이식성을 크게 향상시킬 것입니다.

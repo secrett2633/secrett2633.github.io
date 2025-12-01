@@ -68,18 +68,18 @@ published: true
 
 `METADATA` 파일에 포함되는 새로운 `PyBI` 고유 필드는 다음과 같습니다.
 
-*   **`Pybi-Environment-Marker-Variables`**: 이 `PyBI`의 설치 전반에 걸쳐 정적인 PEP 508 환경 마커 변수의 값을 JSON 딕셔너리로 나타냅니다.
+*   **`Pybi-Environment-Marker-Variables`** : 이 `PyBI`의 설치 전반에 걸쳐 정적인 PEP 508 환경 마커 변수의 값을 JSON 딕셔너리로 나타냅니다.
     *   예시: `{"implementation_name": "cpython", "python_version": "3.10", ...}`
     *   `platform_version` 및 `platform_release`는 일반적으로 포함되지 않습니다.
     *   `platform_machine`은 macOS `universal2` `pybi`를 제외하고는 일반적으로 포함됩니다.
     *   이는 설치자가 Python을 호출하지 않고도 대상 플랫폼의 `PyBI` 파일을 통해 패키지 핀(pin)을 계산할 수 있도록 합니다.
 
-*   **`Pybi-Paths`**: `wheel`을 설치하는 데 필요한 설치 경로(`sysconfig.get_paths()`와 동일한 키)를 ZIP 파일 루트에서 시작하는 상대 경로로 JSON 딕셔너리에 저장합니다.
+*   **`Pybi-Paths`** : `wheel`을 설치하는 데 필요한 설치 경로(`sysconfig.get_paths()`와 동일한 키)를 ZIP 파일 루트에서 시작하는 상대 경로로 JSON 딕셔너리에 저장합니다.
     *   이 경로들은 반드시 Unix 형식으로, 슬래시(`/`)를 구분자로 사용해야 합니다.
     *   `{paths["scripts"]}/python`을 실행하여 Python 인터프리터를 호출할 수 있어야 합니다.
     *   이 필드와 `Pybi-Wheel-Tag`는 설치자가 Python을 직접 호출하지 않고도 `wheel`을 선택하고 `PyBI` 환경에 설치할 수 있도록 합니다.
 
-*   **`Pybi-Wheel-Tag`**: 이 인터프리터가 지원하는 `wheel` 태그 목록을 선호도 순서(가장 선호되는 것부터)로 나열합니다. 최종 설치 시스템에 의존하는 플랫폼 태그는 특수 플랫폼 태그 `PLATFORM`으로 대체됩니다.
+*   **`Pybi-Wheel-Tag`** : 이 인터프리터가 지원하는 `wheel` 태그 목록을 선호도 순서(가장 선호되는 것부터)로 나열합니다. 최종 설치 시스템에 의존하는 플랫폼 태그는 특수 플랫폼 태그 `PLATFORM`으로 대체됩니다.
     *   설치자는 `PyBI`의 `Pybi-Wheel-Tag` 템플릿과 로컬 플랫폼 태그를 조합하여 적절한 `wheel` 태그 세트를 결정할 수 있습니다.
     *   이 값들은 `PyBI` 메타데이터에 포함되어 있어, 복잡한 툴링에 유용하게 사용될 수 있습니다.
 

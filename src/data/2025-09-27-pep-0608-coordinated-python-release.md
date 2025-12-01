@@ -19,7 +19,7 @@ published: true
 >
 > **상태:** Rejected | **유형:** Standards Track | **작성일:** 25-Oct-2019
 
-PEP 608 – Coordinated Python release는 Python 릴리스를 특정 필수 프로젝트들의 호환 가능한 버전이 준비될 때까지 보류하는 것을 제안하는 문서입니다. 이 제안은 **거부(Rejected)**되었습니다.
+PEP 608 – Coordinated Python release는 Python 릴리스를 특정 필수 프로젝트들의 호환 가능한 버전이 준비될 때까지 보류하는 것을 제안하는 문서입니다. 이 제안은 **거부(Rejected)** 되었습니다.
 
 ## 목표
 Python 개발자들이 이 PEP의 제안 내용, 도입 배경, 그리고 실제 Python 사용에 미치는 영향을 명확하게 이해할 수 있도록 돕는 것입니다.

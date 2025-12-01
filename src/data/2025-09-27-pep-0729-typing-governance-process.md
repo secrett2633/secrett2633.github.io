@@ -43,7 +43,7 @@ Python 타입 시스템은 PEP 484를 통해 약 10년 전에 만들어졌으며
     이 PEP는 Rebecca Chen (pytype), Eric Traut (Pyright)를 포함한 주요 타입 체커의 관리자들과 mypy 및 Pyre의 관리자들로부터 비공식적인 지지를 받았습니다.
 
 ### 명세 (Specification)
-**타이핑 위원회 (Typing Council)**라는 새로운 그룹을 설립하여 Python 타입 시스템을 개발하고 유지 관리하며 위에서 언급된 문제들을 해결할 것을 제안합니다.
+**타이핑 위원회 (Typing Council)** 라는 새로운 그룹을 설립하여 Python 타입 시스템을 개발하고 유지 관리하며 위에서 언급된 문제들을 해결할 것을 제안합니다.
 
 #### 권한 (Mandate)
 타이핑 위원회는 Python 타입 시스템이 다음을 보장하도록 권한을 가집니다.

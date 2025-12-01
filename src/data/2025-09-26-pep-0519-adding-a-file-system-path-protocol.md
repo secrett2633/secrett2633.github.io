@@ -57,10 +57,10 @@ class PathLike(abc.ABC):
 ### 표준 라이브러리 변경 (Standard library changes)
 Python 표준 라이브러리에서 파일 시스템 경로를 허용하는 대부분의 API는 경로 객체를 수용하도록 업데이트될 예정입니다.
 
-*   **`builtins`**:
+*   **`builtins`** :
     *   `open()` 함수는 경로 객체를 허용하도록 업데이트됩니다.
 
-*   **`os`**:
+*   **`os`** :
     *   `os.fspath()` 함수가 추가됩니다. 이 함수는 `PathLike` 객체, `str`, `bytes`를 인자로 받아 `str` 또는 `bytes` 표현을 반환합니다. `str` 또는 `bytes`가 인자로 들어오면 그대로 반환하고, `__fspath__()`가 `str` 또는 `bytes`가 아닌 다른 것을 반환하면 `TypeError`를 발생시킵니다.
     ```python
     import typing as t
@@ -72,10 +72,10 @@ Python 표준 라이브러리에서 파일 시스템 경로를 허용하는 대�
     *   `os.DirEntry` 객체는 `__fspath__()` 메서드를 가지게 되며, 이는 현재 `path` 속성과 동일한 값을 반환합니다.
     *   `PathLike` 추상 기본 클래스는 `os.PathLike`라는 이름으로 `os` 모듈에 추가됩니다.
 
-*   **`os.path`**:
+*   **`os.path`** :
     *   `os.path`의 다양한 경로 조작 함수들은 경로 객체를 허용하도록 업데이트됩니다. 다형적인 함수(bytes와 strings를 모두 허용하는)의 경우, 단순히 `os.fspath()`를 사용하도록 업데이트됩니다.
 
-*   **`pathlib`**:
+*   **`pathlib`** :
     *   `pathlib.PurePath` 및 `pathlib.Path`의 생성자는 `PathLike` 객체를 허용하도록 업데이트됩니다. `bytes` 경로 표현은 계속해서 허용하지 않으므로, `__fspath__()`가 `bytes`를 반환하면 예외가 발생합니다.
     *   `path` 속성은 이 PEP에 의해 중복되므로 제거됩니다. (이 속성은 어떤 출시된 Python 버전에도 포함되지 않았으므로 하위 호환성 문제는 없습니다.)
 

@@ -84,9 +84,9 @@ def bar(movie: MovieBase) -> None:
 추가 항목을 허용하기 위한 몇 가지 해결책이 이미 구현되었지만, 어느 것도 이상적이지 않습니다. `mypy`의 경우 `--disable-error-code=typeddict-unknown-key`는 `TypedDict`의 알 수 없는 키에 대한 타입 검사 오류를 억제합니다. 이는 유연성을 위해 타입 안전성을 희생하는 것이며, `TypedDict` 타입이 특정 타입에 할당 가능한 값 타입을 갖는 추가 키를 예상한다는 것을 지정하는 방법을 제공하지 않습니다.
 
 ### `Unpack`을 위한 추가 키 지원
-PEP 692는 `Unpack`과 함께 `TypedDict`를 사용하여 `**kwargs`로 표현되는 개별 키워드 인수의 타입을 정확하게 주석 처리하는 방법을 추가했습니다. 그러나 `TypedDict`가 임의의 추가 항목을 허용하도록 정의될 수 없기 때문에, `TypedDict`가 정의될 때 알려지지 않은 추가 키워드 인수를 허용하는 것은 불가능합니다.
+PEP 692는 `Unpack`과 함께 `TypedDict`를 사용하여 ` **kwargs`로 표현되는 개별 키워드 인수의 타입을 정확하게 주석 처리하는 방법을 추가했습니다. 그러나 `TypedDict`가 임의의 추가 항목을 허용하도록 정의될 수 없기 때문에, `TypedDict`가 정의될 때 알려지지 않은 추가 키워드 인수를 허용하는 것은 불가능합니다.
 
-기존 코드베이스에서 `**kwargs`에 대한 PEP 692 이전의 타입 주석 사용을 고려할 때, `TypedDict`에서 추가 항목을 허용하고 타입 지정하는 것은 이전 타입 지정 동작이 `Unpack`과 함께 지원될 수 있도록 하는 데 가치가 있습니다.
+기존 코드베이스에서 `** kwargs`에 대한 PEP 692 이전의 타입 주석 사용을 고려할 때, `TypedDict`에서 추가 항목을 허용하고 타입 지정하는 것은 이전 타입 지정 동작이 `Unpack`과 함께 지원될 수 있도록 하는 데 가치가 있습니다.
 
 ### 이전 논의
 이 PEP에서 도입된 새로운 기능은 타입 시스템의 여러 오랜 기능 요청을 해결할 것입니다. 이전 논의는 다음과 같습니다.
@@ -243,10 +243,10 @@ class MovieNoExtra(TypedDict):
 class MovieExtra(TypedDict, extra_items=int):
     name: str
 
-def f(**kwargs: Unpack[MovieNoExtra]) -> None:
+def f( **kwargs: Unpack[MovieNoExtra]) -> None:
     ...
 
-def g(**kwargs: Unpack[MovieExtra]) -> None:
+def g(** kwargs: Unpack[MovieExtra]) -> None:
     ...
 
 # 다음과 동일해야 합니다:

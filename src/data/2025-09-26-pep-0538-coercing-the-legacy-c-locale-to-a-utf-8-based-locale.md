@@ -40,8 +40,8 @@ Python 개발자들이 이 PEP의 제안 내용, 도입 배경, 그리고 실제
 
 ### PEP 540과의 관계 (Relationship with other PEPs)
 *   이 PEP는 PEP 540과 함께 Python 3의 기본 C locale 동작을 개선하려는 공통적인 목표를 가집니다.
-*   **PEP 540**은 CPython의 기본 텍스트 인코딩을 C locale 시스템과 완전히 분리하여 CPython이 locale 독립적인 런타임처럼 동작하게 하려 합니다. 이는 locale 설정이 적절하지 않거나 "locale 인코딩" 개념이 없는 플랫폼에 유용합니다.
-*   **PEP 538 (이 PEP)**은 레거시 C locale을 UTF-8을 기본 텍스트 인코딩으로 사용하는 `C.UTF-8`과 같은 locale로 강제 변환하는 것을 제안합니다. 이는 CPython뿐만 아니라 현재 프로세스에 로드된 다른 locale 인식 확장 모듈 및 하위 프로세스에도 적용되어 다른 구성 요소와의 호환성을 유지합니다.
+*   **PEP 540** 은 CPython의 기본 텍스트 인코딩을 C locale 시스템과 완전히 분리하여 CPython이 locale 독립적인 런타임처럼 동작하게 하려 합니다. 이는 locale 설정이 적절하지 않거나 "locale 인코딩" 개념이 없는 플랫폼에 유용합니다.
+*   **PEP 538 (이 PEP)** 은 레거시 C locale을 UTF-8을 기본 텍스트 인코딩으로 사용하는 `C.UTF-8`과 같은 locale로 강제 변환하는 것을 제안합니다. 이는 CPython뿐만 아니라 현재 프로세스에 로드된 다른 locale 인식 확장 모듈 및 하위 프로세스에도 적용되어 다른 구성 요소와의 호환성을 유지합니다.
 *   두 PEP는 상호 보완적이며, PEP 540은 적합한 locale을 사용할 수 없는 경우에 더 나은 선택지를 제공하고, PEP 538은 다른 locale 인식 구성 요소와의 호환성을 개선합니다.
 
 ### 동기 (Motivation)

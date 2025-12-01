@@ -35,9 +35,9 @@ published: true
 
 이 PEP는 문자열(strings) 및 바이트(bytes)의 해시 코드에 세 가지 주요 변경 사항을 제안합니다:
 
-1.  **SipHash 도입**: 암호화 속성에도 불구하고 빠르고 작은 SipHash가 기본 해시 알고리즘으로 도입됩니다. 잘 알려진 보안 및 암호화 전문가들이 설계했기 때문에 가까운 미래에도 안전하다고 가정할 수 있습니다. 64비트 데이터 타입이 없는 플랫폼을 위해 기존 FNV 코드는 유지됩니다. 이 알고리즘은 사이클당 더 큰 청크(chunks)를 처리하도록 최적화되었습니다.
-2.  **해시 함수 통합**: 문자열(strings) 및 바이트(bytes)의 해시 계산은 `Objects/object.c` 및 `Objects/unicodeobject.c`에 있는 여러 전문화된 구현 대신 단일 API 함수로 이동합니다. 이 함수는 `void` 포인터와 길이를 받아 해시를 반환합니다.
-3.  **컴파일 시 알고리즘 선택**: 알고리즘은 컴파일 시 선택할 수 있습니다. FNV는 모든 플랫폼에서 존재함을 보장합니다. SipHash는 대부분의 최신 시스템에서 사용할 수 있습니다.
+1.  **SipHash 도입** : 암호화 속성에도 불구하고 빠르고 작은 SipHash가 기본 해시 알고리즘으로 도입됩니다. 잘 알려진 보안 및 암호화 전문가들이 설계했기 때문에 가까운 미래에도 안전하다고 가정할 수 있습니다. 64비트 데이터 타입이 없는 플랫폼을 위해 기존 FNV 코드는 유지됩니다. 이 알고리즘은 사이클당 더 큰 청크(chunks)를 처리하도록 최적화되었습니다.
+2.  **해시 함수 통합** : 문자열(strings) 및 바이트(bytes)의 해시 계산은 `Objects/object.c` 및 `Objects/unicodeobject.c`에 있는 여러 전문화된 구현 대신 단일 API 함수로 이동합니다. 이 함수는 `void` 포인터와 길이를 받아 해시를 반환합니다.
+3.  **컴파일 시 알고리즘 선택** : 알고리즘은 컴파일 시 선택할 수 있습니다. FNV는 모든 플랫폼에서 존재함을 보장합니다. SipHash는 대부분의 최신 시스템에서 사용할 수 있습니다.
 
 ### 해시 함수 요구사항 (Requirements for a hash function)
 
@@ -62,11 +62,11 @@ FNV는 암호화 속성이 없는 간단한 곱셈 및 XOR 알고리즘입니다
 
 이 PEP의 작성자는 현대적이고 빠르며 최첨단으로 간주되는 여러 해싱 알고리즘을 연구했습니다.
 
-*   **SipHash**: 128비트 시드(seed)와 64비트 출력을 가진 암호화 의사 난수 함수(cryptographic pseudo random function)입니다. 짧은 메시지에 대한 속도에 최적화되어 있으며, 네트워크 트래픽 인증 및 해시 플러딩 DoS 공격(hash-flooding DoS attacks) 방어와 같은 응용 분야를 목표로 합니다. Ruby, Perl, OpenDNS, Rust, Redis, FreeBSD 등에서 사용됩니다. SipHash는 속도와 보안의 최상의 조합을 제공합니다.
-*   **MurmurHash**: Austin Appleby가 개발한 비암호화 키 기반 해시 함수(non-cryptographic keyed hash function)입니다. Murmur3은 최신이며 빠른 MurmurHash의 변형입니다. 그러나 Aumasson, Bernstein 및 Boßlet은 Murmur3이 해시 충돌 공격에 탄력적이지 않다는 것을 보여주었습니다.
-*   **CityHash**: Geoff Pike와 Jyrki Alakuijala가 Google을 위해 개발한 비암호화 해시 함수입니다. MurmurHash와 마찬가지로 CityHash에서도 비슷한 취약점이 발견되었습니다.
-*   **DJBX33A**: Daniel J. Bernstein의 매우 간단한 곱셈 및 덧셈 알고리즘입니다. 빠르고 설정 비용이 낮지만 해시 충돌 공격에 안전하지 않습니다. 작은 문자열 해싱 최적화에 적합할 수 있습니다.
-*   **기타(Other)**: HMAC, MD5, SHA-1 또는 SHA-2와 같은 암호화 알고리즘은 너무 느리고 설정 및 마무리 비용이 높으므로 이 목적에 적합하지 않다고 간주되었습니다.
+*   **SipHash** : 128비트 시드(seed)와 64비트 출력을 가진 암호화 의사 난수 함수(cryptographic pseudo random function)입니다. 짧은 메시지에 대한 속도에 최적화되어 있으며, 네트워크 트래픽 인증 및 해시 플러딩 DoS 공격(hash-flooding DoS attacks) 방어와 같은 응용 분야를 목표로 합니다. Ruby, Perl, OpenDNS, Rust, Redis, FreeBSD 등에서 사용됩니다. SipHash는 속도와 보안의 최상의 조합을 제공합니다.
+*   **MurmurHash** : Austin Appleby가 개발한 비암호화 키 기반 해시 함수(non-cryptographic keyed hash function)입니다. Murmur3은 최신이며 빠른 MurmurHash의 변형입니다. 그러나 Aumasson, Bernstein 및 Boßlet은 Murmur3이 해시 충돌 공격에 탄력적이지 않다는 것을 보여주었습니다.
+*   **CityHash** : Geoff Pike와 Jyrki Alakuijala가 Google을 위해 개발한 비암호화 해시 함수입니다. MurmurHash와 마찬가지로 CityHash에서도 비슷한 취약점이 발견되었습니다.
+*   **DJBX33A** : Daniel J. Bernstein의 매우 간단한 곱셈 및 덧셈 알고리즘입니다. 빠르고 설정 비용이 낮지만 해시 충돌 공격에 안전하지 않습니다. 작은 문자열 해싱 최적화에 적합할 수 있습니다.
+*   **기타(Other)** : HMAC, MD5, SHA-1 또는 SHA-2와 같은 암호화 알고리즘은 너무 느리고 설정 및 마무리 비용이 높으므로 이 목적에 적합하지 않다고 간주되었습니다.
 
 결론적으로, SipHash는 속도와 보안의 최상의 조합을 제공합니다. 다른 주요 프로젝트의 개발자들도 동일한 결론에 도달했습니다.
 
@@ -80,14 +80,14 @@ SipHash24와 같은 해시 함수는 초기화 및 마무리 코드가 비용이
 
 모든 C API 확장 수정은 안정적인 API(stable API)의 일부가 아닙니다.
 
-*   **hash secret**: `_Py_HashSecret_t` 타입이 SipHash에 필요한 두 개의 64비트 unsigned integer 키를 지원하도록 변경됩니다. 이는 모든 아키텍처에서 24바이트의 보장된 크기를 가진 유니온(union)으로 정의됩니다.
-*   **hash function definition**: 해시 함수 포인터, 이름, 해시 값의 내부 크기, 시드 입력의 크기를 포함하는 `PyHash_FuncDef` 구조체가 추가됩니다.
-*   **autoconf**: `configure` 스크립트에 새로운 테스트가 추가되어 정렬된 메모리 접근(aligned memory access)이 필요한 플랫폼을 감지합니다. 또한, `---with-hash-algorithm` 옵션을 통해 사용자가 컴파일 시 해시 알고리즘을 선택할 수 있도록 합니다.
-*   **hash function selection**: `Py_HASH_ALGORITHM` 매크로의 값에 따라 내부적으로 사용될 해시 알고리즘이 정의됩니다. `Py_HASH_SIPHASH24`, `Py_HASH_FNV` 또는 `Py_HASH_EXTERNAL` 중 하나로 설정될 수 있습니다. `Py_HASH_EXTERNAL`은 제3자가 컴파일 시 자신만의 구현을 제공할 수 있도록 합니다.
+*   **hash secret** : `_Py_HashSecret_t` 타입이 SipHash에 필요한 두 개의 64비트 unsigned integer 키를 지원하도록 변경됩니다. 이는 모든 아키텍처에서 24바이트의 보장된 크기를 가진 유니온(union)으로 정의됩니다.
+*   **hash function definition** : 해시 함수 포인터, 이름, 해시 값의 내부 크기, 시드 입력의 크기를 포함하는 `PyHash_FuncDef` 구조체가 추가됩니다.
+*   **autoconf** : `configure` 스크립트에 새로운 테스트가 추가되어 정렬된 메모리 접근(aligned memory access)이 필요한 플랫폼을 감지합니다. 또한, `---with-hash-algorithm` 옵션을 통해 사용자가 컴파일 시 해시 알고리즘을 선택할 수 있도록 합니다.
+*   **hash function selection** : `Py_HASH_ALGORITHM` 매크로의 값에 따라 내부적으로 사용될 해시 알고리즘이 정의됩니다. `Py_HASH_SIPHASH24`, `Py_HASH_FNV` 또는 `Py_HASH_EXTERNAL` 중 하나로 설정될 수 있습니다. `Py_HASH_EXTERNAL`은 제3자가 컴파일 시 자신만의 구현을 제공할 수 있도록 합니다.
 
 ### Python API 추가 (Python API addition)
 
-*   **sys module**: `sys.hash_info` 구조 시퀀스에 활성 해시 알고리즘 및 그 속성을 반영하는 더 많은 필드가 추가됩니다. (예: `algorithm`, `hash_bits`, `seed_bits`, `cutoff`).
+*   **sys module** : `sys.hash_info` 구조 시퀀스에 활성 해시 알고리즘 및 그 속성을 반영하는 더 많은 필드가 추가됩니다. (예: `algorithm`, `hash_bits`, `seed_bits`, `cutoff`).
 
 ### C 코드의 필수 수정사항 (Necessary modifications to C code)
 
@@ -109,13 +109,13 @@ SipHash24와 같은 해시 함수는 초기화 및 마무리 코드가 비용이
 
 과거에 해시 충돌에 대한 세 가지 대체 방안이 논의되었지만, 이 PEP의 주제는 아닙니다.
 
-1.  **해시 충돌 카운트**: `dict`가 해시 충돌을 세어 너무 많은 충돌이 발생하면 예외를 발생시키는 방안입니다.
-2.  **새로운 데이터 구조 도입**: 최악의 경우 `O(log n)` 동작을 가진 레드-블랙-트리(red-black-tree) 또는 접두사 트리(prefix trees, trie)와 같은 새로운 데이터 구조를 도입하여 해시 충돌 공격의 근본 원인을 제거하는 방안입니다.
+1.  **해시 충돌 카운트** : `dict`가 해시 충돌을 세어 너무 많은 충돌이 발생하면 예외를 발생시키는 방안입니다.
+2.  **새로운 데이터 구조 도입** : 최악의 경우 `O(log n)` 동작을 가진 레드-블랙-트리(red-black-tree) 또는 접두사 트리(prefix trees, trie)와 같은 새로운 데이터 구조를 도입하여 해시 충돌 공격의 근본 원인을 제거하는 방안입니다.
 
 ### 논의 (Discussion)
 
-*   **Pluggable (플러그인 방식)**: 이 PEP의 첫 번째 초안은 런타임에 해시 알고리즘을 플러그인 방식으로 만들었습니다. 하지만 여러 핵심 커미터(core committers)에 의해 불필요한 복잡성으로 간주되어 이후 버전에서는 컴파일 타임(compile time) 설정으로 변경되었습니다.
-*   **Non-aligned memory access (정렬되지 않은 메모리 접근)**: SipHash24 구현은 정렬되지 않은 메모리 문제를 무시하므로 정수 타입의 정렬을 요구하는 아키텍처에서는 작동하지 않는다는 비판을 받았습니다. 이 PEP는 이러한 특수 사례를 의도적으로 무시하며, 이러한 플랫폼에서는 SipHash24를 지원하지 않습니다. X86, X86_64, ARMv6+와 같은 모든 주요 플랫폼은 최소한의 또는 전혀 속도 영향 없이 정렬되지 않은 메모리를 처리할 수 있습니다.
-*   **ASCII str / bytes hash collision**: PEP 393 구현 이후, 바이트(bytes)와 ASCII 텍스트는 동일한 메모리 레이아웃을 가집니다. 따라서 새로운 해싱 API는 `hash("ascii string") == hash(b"ascii string")`이라는 불변성을 유지합니다. 동일한 해시 값은 해시 충돌을 초래하며, 이는 혼합된 키(mixed keys)를 가진 `dict` 및 `set`에 대해 약간의 속도 저하를 유발합니다. 이 PEP는 해시 값을 변경하지 않습니다.
+*   **Pluggable (플러그인 방식)** : 이 PEP의 첫 번째 초안은 런타임에 해시 알고리즘을 플러그인 방식으로 만들었습니다. 하지만 여러 핵심 커미터(core committers)에 의해 불필요한 복잡성으로 간주되어 이후 버전에서는 컴파일 타임(compile time) 설정으로 변경되었습니다.
+*   **Non-aligned memory access (정렬되지 않은 메모리 접근)** : SipHash24 구현은 정렬되지 않은 메모리 문제를 무시하므로 정수 타입의 정렬을 요구하는 아키텍처에서는 작동하지 않는다는 비판을 받았습니다. 이 PEP는 이러한 특수 사례를 의도적으로 무시하며, 이러한 플랫폼에서는 SipHash24를 지원하지 않습니다. X86, X86_64, ARMv6+와 같은 모든 주요 플랫폼은 최소한의 또는 전혀 속도 영향 없이 정렬되지 않은 메모리를 처리할 수 있습니다.
+*   **ASCII str / bytes hash collision** : PEP 393 구현 이후, 바이트(bytes)와 ASCII 텍스트는 동일한 메모리 레이아웃을 가집니다. 따라서 새로운 해싱 API는 `hash("ascii string") == hash(b"ascii string")`이라는 불변성을 유지합니다. 동일한 해시 값은 해시 충돌을 초래하며, 이는 혼합된 키(mixed keys)를 가진 `dict` 및 `set`에 대해 약간의 속도 저하를 유발합니다. 이 PEP는 해시 값을 변경하지 않습니다.
 
 > ⚠️ **알림:** 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.

@@ -26,7 +26,7 @@ published: true
 ## 개요 (Abstract)
 이 PEP는 `functools` 표준 라이브러리 모듈에 "단일 디스패치 제네릭 함수(single-dispatch generic functions)"라고 알려진 간단한 형태의 제네릭 프로그래밍을 제공하는 새로운 메커니즘을 제안합니다.
 
-**제네릭 함수(Generic function)**는 서로 다른 타입(type)에 대해 동일한 연산을 구현하는 여러 함수로 구성됩니다. 호출 시 어떤 구현을 사용할지는 디스패치(dispatch) 알고리즘에 의해 결정됩니다. 특히, 단일 인자(single argument)의 타입에 따라 구현이 선택될 때 이를 **단일 디스패치(single dispatch)**라고 합니다.
+**제네릭 함수(Generic function)** 는 서로 다른 타입(type)에 대해 동일한 연산을 구현하는 여러 함수로 구성됩니다. 호출 시 어떤 구현을 사용할지는 디스패치(dispatch) 알고리즘에 의해 결정됩니다. 특히, 단일 인자(single argument)의 타입에 따라 구현이 선택될 때 이를 **단일 디스패치(single dispatch)** 라고 합니다.
 
 ## 배경 및 목표 (Rationale and Goals)
 Python은 `len()`, `iter()`, `pprint.pprint()`, `copy.copy()` 등 다양한 내장 및 표준 라이브러리 제네릭 함수를 제공해왔습니다. 그러나 현재는 다음과 같은 문제점이 있습니다:

@@ -92,25 +92,25 @@ Python에서 모든 타임아웃, 간격 및 지연은 초 단위로 측정되�
 
 #### 이벤트 루프 클래스 (Event Loop Classes)
 실제 `EventLoop`라는 클래스는 없습니다. 모든 메서드를 구현 없이 정의하고 주로 문서를 위한 `AbstractEventLoop` 클래스가 있습니다. 다음 구체적인 클래스가 정의됩니다.
-*   **`SelectorEventLoop`**: `selectors` 모듈 (Python 3.4의 새로운 기능)을 기반으로 하는 전체 API의 구체적인 구현입니다.
-*   **`ProactorEventLoop`**: I/O 이벤트 처리 및 시그널 처리 메서드를 제외한 API의 구체적인 구현입니다. Windows (또는 "오버랩 I/O"에 대한 유사 API를 지원하는 다른 플랫폼)에서만 정의됩니다.
+*   **`SelectorEventLoop`** : `selectors` 모듈 (Python 3.4의 새로운 기능)을 기반으로 하는 전체 API의 구체적인 구현입니다.
+*   **`ProactorEventLoop`** : I/O 이벤트 처리 및 시그널 처리 메서드를 제외한 API의 구체적인 구현입니다. Windows (또는 "오버랩 I/O"에 대한 유사 API를 지원하는 다른 플랫폼)에서만 정의됩니다.
 
 #### 이벤트 루프 메서드 개요 (Event Loop Methods Overview)
 적합한 이벤트 루프의 메서드는 여러 범주로 그룹화됩니다.
-*   **시작, 중지 및 닫기**: `run_forever()`, `run_until_complete()`, `stop()`, `is_running()`, `close()`, `is_closed()`.
-*   **기본 및 타이밍 콜백**: `call_soon()`, `call_later()`, `call_at()`, `time()`.
-*   **스레드 상호 작용**: `call_soon_threadsafe()`, `run_in_executor()`, `set_default_executor()`.
-*   **인터넷 이름 조회**: `getaddrinfo()`, `getnameinfo()`.
-*   **인터넷 연결**: `create_connection()`, `create_server()`, `create_datagram_endpoint()`.
-*   **래핑된 소켓 메서드**: `sock_recv()`, `sock_sendall()`, `sock_connect()`, `sock_accept()`.
-*   **태스크 및 퓨처 지원**: `create_future()`, `create_task()`, `set_task_factory()`, `get_task_factory()`.
-*   **오류 처리**: `get_exception_handler()`, `set_exception_handler()`, `default_exception_handler()`, `call_exception_handler()`.
-*   **디버그 모드**: `get_debug()`, `set_debug()`.
+*   **시작, 중지 및 닫기** : `run_forever()`, `run_until_complete()`, `stop()`, `is_running()`, `close()`, `is_closed()`.
+*   **기본 및 타이밍 콜백** : `call_soon()`, `call_later()`, `call_at()`, `time()`.
+*   **스레드 상호 작용** : `call_soon_threadsafe()`, `run_in_executor()`, `set_default_executor()`.
+*   **인터넷 이름 조회** : `getaddrinfo()`, `getnameinfo()`.
+*   **인터넷 연결** : `create_connection()`, `create_server()`, `create_datagram_endpoint()`.
+*   **래핑된 소켓 메서드** : `sock_recv()`, `sock_sendall()`, `sock_connect()`, `sock_accept()`.
+*   **태스크 및 퓨처 지원** : `create_future()`, `create_task()`, `set_task_factory()`, `get_task_factory()`.
+*   **오류 처리** : `get_exception_handler()`, `set_exception_handler()`, `default_exception_handler()`, `call_exception_handler()`.
+*   **디버그 모드** : `get_debug()`, `set_debug()`.
 
 두 번째 범주의 메서드는 적합한 이벤트 루프 구현에 의해 지원될 수 있습니다. 지원되지 않으면 `NotImplementedError`를 발생시킵니다.
-*   **I/O 콜백**: `add_reader()`, `remove_reader()`, `add_writer()`, `remove_writer()`.
-*   **파이프 및 서브프로세스**: `connect_read_pipe()`, `connect_write_pipe()`, `subprocess_shell()`, `subprocess_exec()`.
-*   **시그널 콜백**: `add_signal_handler()`, `remove_signal_handler()`.
+*   **I/O 콜백** : `add_reader()`, `remove_reader()`, `add_writer()`, `remove_writer()`.
+*   **파이프 및 서브프로세스** : `connect_read_pipe()`, `connect_write_pipe()`, `subprocess_shell()`, `subprocess_exec()`.
+*   **시그널 콜백** : `add_signal_handler()`, `remove_signal_handler()`.
 
 #### 이벤트 루프 메서드 (Event Loop Methods)
 

@@ -171,7 +171,7 @@ switch x:
     case "first":
         print x
     case "second":
-        x = x**2
+        x = x **2
         print x
     else:
         print "whoops!"
@@ -181,7 +181,7 @@ case x:
     of "first":
         print x
     of "second":
-        print x**2
+        print x** 2
     else:
         print "whoops!"
 

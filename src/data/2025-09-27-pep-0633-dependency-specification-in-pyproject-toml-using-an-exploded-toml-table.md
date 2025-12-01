@@ -60,9 +60,9 @@ PEP 621에 명세된 `project` 테이블에 다음 테이블이 추가됩니다.
 
 *   **형식:** `table`
 *   이 테이블 내부의 키는 필요한 배포판의 이름입니다. 값은 다음 유형 중 하나를 가질 수 있습니다.
-    *   **`string`**: 요구사항이 오직 버전 요구사항에 의해 정의되며, 요구사항 테이블의 버전 명세와 동일합니다. 단, 버전 제한을 두지 않음을 나타내는 빈 문자열 `""`을 허용합니다.
-    *   **`table`**: 요구사항 테이블입니다.
-    *   **`array`**: 요구사항 테이블의 배열입니다. 비워 있는 `[]` 배열을 값으로 지정하는 것은 에러입니다.
+    *   **`string`** : 요구사항이 오직 버전 요구사항에 의해 정의되며, 요구사항 테이블의 버전 명세와 동일합니다. 단, 버전 제한을 두지 않음을 나타내는 빈 문자열 `""`을 허용합니다.
+    *   **`table`** : 요구사항 테이블입니다.
+    *   **`array`** : 요구사항 테이블의 배열입니다. 비워 있는 `[]` 배열을 값으로 지정하는 것은 에러입니다.
 
 ### 요구사항 테이블 (Requirement table)
 
@@ -85,8 +85,8 @@ PEP 621에 명세된 `project` 테이블에 다음 테이블이 추가됩니다.
 
 *   **형식:** `table`
 *   이 테이블 내부의 키는 extra에 필요한 배포판의 이름입니다. 값은 다음 유형 중 하나를 가질 수 있습니다.
-    *   **`table`**: 요구사항 테이블입니다.
-    *   **`array`**: 요구사항 테이블의 배열입니다.
+    *   **`table`** : 요구사항 테이블입니다.
+    *   **`array`** : 요구사항 테이블의 배열입니다.
 
 이러한 요구사항 테이블은 위에 명시된 것과 동일한 명세를 가지며, 다음 필수 키가 추가됩니다.
 
@@ -255,26 +255,26 @@ Source: https://github.com/python/peps/blob/main/peps/pep-0633.rst
 Last modified: 2025-02-01 08:55:40 GMTI have browsed the content of PEP 0633. Now I need to translate and summarize it into Korean, following all the specified guidelines.
 
 Here's my plan:
-1.  **Rejection Notice**: Translate this first as it's crucial for understanding the PEP's status.
-2.  **Abstract**: Translate the core idea.
-3.  **Motivation**: Translate the reasons for proposing this PEP.
-4.  **Rationale**: Translate the background and influences.
-5.  **Specification**:
+1.  **Rejection Notice** : Translate this first as it's crucial for understanding the PEP's status.
+2.  **Abstract** : Translate the core idea.
+3.  **Motivation** : Translate the reasons for proposing this PEP.
+4.  **Rationale** : Translate the background and influences.
+5.  **Specification** :
     *   Translate the `dependencies` section, including its format and value types.
     *   Translate the `Requirement table` details (keys, types, constraints).
     *   Translate the `optional-dependencies` section, including its format and value types, and the `for-extra` key.
-6.  **Reference implementation**: Briefly explain its purpose and include the Python code snippet.
-7.  **JSON Schema**: Briefly explain its purpose. (No need to include the full schema text).
-8.  **Examples**: Translate and show a few key examples from "Compatibility Examples" to illustrate how the TOML format compares to PEP 508 strings for various dependency types (Version, URL, VCS, Environment Markers, Package Extras).
-9.  **Rejected Ideas**: Summarize the key rejected ideas and their reasons.
-10. **Copyright**: Translate the copyright notice.
+6.  **Reference implementation** : Briefly explain its purpose and include the Python code snippet.
+7.  **JSON Schema** : Briefly explain its purpose. (No need to include the full schema text).
+8.  **Examples** : Translate and show a few key examples from "Compatibility Examples" to illustrate how the TOML format compares to PEP 508 strings for various dependency types (Version, URL, VCS, Environment Markers, Package Extras).
+9.  **Rejected Ideas** : Summarize the key rejected ideas and their reasons.
+10. **Copyright** : Translate the copyright notice.
 
 Throughout the translation, I will pay close attention to:
-*   **Professionalism and Terminology**: Using Python-specific terms correctly (e.g., PEP, TOML, `pyproject.toml`, `dependencies`, `optional-dependencies`, `extras`, `environment markers`, `VCS`).
-*   **Korean/English Blending**: Using Korean where natural, keeping English for keywords/uncommon translations, or using both (e.g., `Generator (제너레이터)`). Keywords in code (`async`, `await`, `class`, `def`) and variable names are **not** to be translated.
-*   **Readability**: Using Markdown headers, lists, and code blocks effectively.
-*   **Accuracy and Completeness**: Ensuring no critical information is lost.
-*   **Citations**: Adding `` to every sentence that refers to the browsed content.
+*   **Professionalism and Terminology** : Using Python-specific terms correctly (e.g., PEP, TOML, `pyproject.toml`, `dependencies`, `optional-dependencies`, `extras`, `environment markers`, `VCS`).
+*   **Korean/English Blending** : Using Korean where natural, keeping English for keywords/uncommon translations, or using both (e.g., `Generator (제너레이터)`). Keywords in code (`async`, `await`, `class`, `def`) and variable names are **not** to be translated.
+*   **Readability** : Using Markdown headers, lists, and code blocks effectively.
+*   **Accuracy and Completeness** : Ensuring no critical information is lost.
+*   **Citations** : Adding `` to every sentence that refers to the browsed content.
 
 Let's start the translation.
 
@@ -301,26 +301,26 @@ Source: https://github.com/python/peps/blob/main/peps/pep-0633.rst
 Last modified: 2025-02-01 08:55:40 GMTI have browsed the content of PEP 0633. Now I need to translate and summarize it into Korean, following all the specified guidelines.
 
 Here's my plan:
-1.  **Rejection Notice**: Translate this first as it's crucial for understanding the PEP's status.
-2.  **Abstract**: Translate the core idea.
-3.  **Motivation**: Translate the reasons for proposing this PEP.
-4.  **Rationale**: Translate the background and influences.
-5.  **Specification**:
+1.  **Rejection Notice** : Translate this first as it's crucial for understanding the PEP's status.
+2.  **Abstract** : Translate the core idea.
+3.  **Motivation** : Translate the reasons for proposing this PEP.
+4.  **Rationale** : Translate the background and influences.
+5.  **Specification** :
     *   Translate the `dependencies` section, including its format and value types.
     *   Translate the `Requirement table` details (keys, types, constraints).
     *   Translate the `optional-dependencies` section, including its format and value types, and the `for-extra` key.
-6.  **Reference implementation**: Briefly explain its purpose and include the Python code snippet.
-7.  **JSON Schema**: Briefly explain its purpose. (No need to include the full schema text).
-8.  **Examples**: Translate and show a few key examples from "Compatibility Examples" to illustrate how the TOML format compares to PEP 508 strings for various dependency types (Version, URL, VCS, Environment Markers, Package Extras).
-9.  **Rejected Ideas**: Summarize the key rejected ideas and their reasons.
-10. **Copyright**: Translate the copyright notice.
+6.  **Reference implementation** : Briefly explain its purpose and include the Python code snippet.
+7.  **JSON Schema** : Briefly explain its purpose. (No need to include the full schema text).
+8.  **Examples** : Translate and show a few key examples from "Compatibility Examples" to illustrate how the TOML format compares to PEP 508 strings for various dependency types (Version, URL, VCS, Environment Markers, Package Extras).
+9.  **Rejected Ideas** : Summarize the key rejected ideas and their reasons.
+10. **Copyright** : Translate the copyright notice.
 
 Throughout the translation, I will pay close attention to:
-*   **Professionalism and Terminology**: Using Python-specific terms correctly (e.g., PEP, TOML, `pyproject.toml`, `dependencies`, `optional-dependencies`, `extras`, `environment markers`, `VCS`).
-*   **Korean/English Blending**: Using Korean where natural, keeping English for keywords/uncommon translations, or using both (e.g., `Generator (제너레이터)`). Keywords in code (`async`, `await`, `class`, `def`) and variable names are **not** to be translated.
-*   **Readability**: Using Markdown headers, lists, and code blocks effectively.
-*   **Accuracy and Completeness**: Ensuring no critical information is lost.
-*   **Citations**: Adding `` to every sentence that refers to the browsed content.
+*   **Professionalism and Terminology** : Using Python-specific terms correctly (e.g., PEP, TOML, `pyproject.toml`, `dependencies`, `optional-dependencies`, `extras`, `environment markers`, `VCS`).
+*   **Korean/English Blending** : Using Korean where natural, keeping English for keywords/uncommon translations, or using both (e.g., `Generator (제너레이터)`). Keywords in code (`async`, `await`, `class`, `def`) and variable names are **not** to be translated.
+*   **Readability** : Using Markdown headers, lists, and code blocks effectively.
+*   **Accuracy and Completeness** : Ensuring no critical information is lost.
+*   **Citations** : Adding `` to every sentence that refers to the browsed content.
 
 Let's start the translation.
 

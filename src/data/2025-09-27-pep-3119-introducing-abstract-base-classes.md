@@ -52,7 +52,7 @@ published: true
 
 일반적으로 합의된 해결책은 테스트를 표준화하고, 이를 공식적인 배열로 그룹화하는 것입니다. 이는 상속 메커니즘이나 다른 수단을 통해 각 클래스에 표준 테스트 가능 속성 집합을 연결함으로써 가장 쉽게 수행됩니다. 각 테스트는 일반적인 클래스 동작에 대한 약속과 어떤 다른 클래스 메서드를 사용할 수 있는지에 대한 약속을 포함합니다.
 
-이 PEP는 이러한 테스트를 구성하기 위한 특정 전략인 **추상 기본 클래스(Abstract Base Classes, ABC)**를 제안합니다. ABC는 외부 검사자에게 객체의 특정 기능을 알리기 위해 객체의 상속 트리(inheritance tree)에 추가되는 Python 클래스입니다. 테스트는 `isinstance()`를 사용하여 수행되며, 특정 ABC의 존재는 테스트가 통과했음을 의미합니다.
+이 PEP는 이러한 테스트를 구성하기 위한 특정 전략인 **추상 기본 클래스(Abstract Base Classes, ABC)** 를 제안합니다. ABC는 외부 검사자에게 객체의 특정 기능을 알리기 위해 객체의 상속 트리(inheritance tree)에 추가되는 Python 클래스입니다. 테스트는 `isinstance()`를 사용하여 수행되며, 특정 ABC의 존재는 테스트가 통과했음을 의미합니다.
 
 또한, ABC는 타입의 특징적인 동작을 설정하는 최소한의 메서드 집합을 정의합니다. ABC 타입에 따라 객체를 구별하는 코드는 해당 메서드가 항상 존재한다고 신뢰할 수 있습니다. 이러한 각 메서드는 ABC 문서에 설명된 일반화된 추상 의미 정의를 동반합니다. 이러한 표준 의미 정의는 강제되지 않지만 강력히 권장됩니다.
 
@@ -185,19 +185,19 @@ ABC는 기술적으로 유효하지만 거의 쓸모없는 추상 메서드 구�
 
 이 추상 클래스들은 `__iter__` 또는 `__len__`과 같은 단일 메서드를 나타냅니다.
 
-*   **`Hashable`**: `__hash__`를 정의하는 클래스를 위한 기본 클래스입니다. `__hash__` 메서드는 정수를 반환해야 합니다. 추상 `__hash__` 메서드는 항상 `0`을 반환합니다.
+*   **`Hashable`** : `__hash__`를 정의하는 클래스를 위한 기본 클래스입니다. `__hash__` 메서드는 정수를 반환해야 합니다. 추상 `__hash__` 메서드는 항상 `0`을 반환합니다.
     *   **불변식(Invariant):** 클래스 `C1`과 `C2`가 모두 `Hashable`에서 파생되면, `C1`의 모든 인스턴스 `o1`과 `C2`의 모든 인스턴스 `o2`에 대해 `o1 == o2` 조건은 `hash(o1) == hash(o2)`를 의미해야 합니다.
     *   또 다른 제약은 해시 가능한 객체는 일단 생성되면 그 값(`==`로 비교)이나 해시 값을 변경해서는 안 된다는 것입니다.
 
-*   **`Iterable`**: `__iter__`를 정의하는 클래스를 위한 기본 클래스입니다. `__iter__` 메서드는 항상 `Iterator`의 인스턴스를 반환해야 합니다.
+*   **`Iterable`** : `__iter__`를 정의하는 클래스를 위한 기본 클래스입니다. `__iter__` 메서드는 항상 `Iterator`의 인스턴스를 반환해야 합니다.
 
-*   **`Iterator`**: `__next__`를 정의하는 클래스를 위한 기본 클래스입니다. `Iterable`에서 파생됩니다.
+*   **`Iterator`** : `__next__`를 정의하는 클래스를 위한 기본 클래스입니다. `Iterable`에서 파생됩니다.
     *   **참고:** `Iterable`과 `Iterator`의 차이점에 유의하세요. `Iterable`은 반복 가능한 객체(즉, `__iter__` 메서드를 지원)이고, `Iterator`는 내장 함수 `iter()`가 반환하는 객체(즉, `__next__` 메서드를 지원)입니다.
 
-*   **`Sized`**: `__len__`을 정의하는 클래스를 위한 기본 클래스입니다. `__len__` 메서드는 `0` 이상의 정수를 반환해야 합니다.
+*   **`Sized`** : `__len__`을 정의하는 클래스를 위한 기본 클래스입니다. `__len__` 메서드는 `0` 이상의 정수를 반환해야 합니다.
     *   **불변식:** 클래스 `C`가 `Sized`와 `Iterable` 모두에서 파생되는 경우, `C`의 모든 인스턴스 `c`에 대해 `sum(1 for x in c) == len(c)`가 성립해야 합니다.
 
-*   **`Container`**: `__contains__`를 정의하는 클래스를 위한 기본 클래스입니다. `__contains__` 메서드는 불리언(bool) 값을 반환해야 합니다.
+*   **`Container`** : `__contains__`를 정의하는 클래스를 위한 기본 클래스입니다. `__contains__` 메서드는 불리언(bool) 값을 반환해야 합니다.
     *   **불변식:** 클래스 `C`가 `Container`와 `Iterable` 모두에서 파생되는 경우, `C`의 모든 인스턴스 `c`에 대해 `(x in c for x in c)`는 `True` 값만 생성하는 제너레이터(generator)여야 합니다.
 
 #### 집합 (Sets)
@@ -206,11 +206,11 @@ ABC는 기술적으로 유효하지만 거의 쓸모없는 추상 메서드 구�
 
 내장 타입 `set`은 `MutableSet`에서 파생됩니다. 내장 타입 `frozenset`은 `Set`과 `Hashable`에서 파생됩니다.
 
-*   **`Set`**: `Sized`, `Iterable`, `Container`의 서브클래스입니다. 집합은 각 요소가 한 번만 나타나고, 부등식 연산(subset/superset 테스트)을 구현하는 구체적인 연산자를 정의하는 추가적인 불변식을 가집니다.
+*   **`Set`** : `Sized`, `Iterable`, `Container`의 서브클래스입니다. 집합은 각 요소가 한 번만 나타나고, 부등식 연산(subset/superset 테스트)을 구현하는 구체적인 연산자를 정의하는 추가적인 불변식을 가집니다.
     *   이 클래스는 또한 합집합(`__or__`), 교집합(`__and__`), 대칭 차집합(`__xor__`), 비대칭 차집합(`__sub__`)을 계산하는 구체적인 연산자를 정의합니다.
     *   마지막으로, 이 클래스는 요소로부터 해시 값을 계산하는 구체적인 메서드 `_hash`를 정의합니다.
 
-*   **`MutableSet`**: 요소를 추가하고 제거하는 추가 연산을 구현하는 `Set`의 서브클래스입니다.
+*   **`MutableSet`** : 요소를 추가하고 제거하는 추가 연산을 구현하는 `Set`의 서브클래스입니다.
     *   `.add(x)`: 집합에 `x`를 추가하는 추상 메서드.
     *   `.discard(x)`: 집합에 `x`가 있으면 제거하는 추상 메서드.
     *   `.pop()`: 임의의 항목을 제거하고 반환하는 구체적인 메서드.
@@ -224,7 +224,7 @@ ABC는 기술적으로 유효하지만 거의 쓸모없는 추상 메서드 구�
 
 내장 타입 `dict`는 `MutableMapping`에서 파생됩니다.
 
-*   **`Mapping`**: `Container`, `Iterable`, `Sized`의 서브클래스입니다. 매핑의 키는 자연스럽게 집합을 형성합니다.
+*   **`Mapping`** : `Container`, `Iterable`, `Sized`의 서브클래스입니다. 매핑의 키는 자연스럽게 집합을 형성합니다.
     *   `.__getitem__(key)`: `key`에 해당하는 값을 반환하거나 `KeyError`를 발생시키는 추상 메서드.
     *   `.get(key, default=None)`: `self[key]`가 `KeyError`를 발생시키지 않으면 그 값을 반환하고, 발생하면 `default` 값을 반환하는 구체적인 메서드.
     *   `.__contains__(key)`: `self[key]`가 `KeyError`를 발생시키지 않으면 `True`를, 발생하면 `False`를 반환하는 구체적인 메서드.
@@ -234,7 +234,7 @@ ABC는 기술적으로 유효하지만 거의 쓸모없는 추상 메서드 구�
     *   `.items()`: 항목(key, value 쌍)을 `Set`으로 반환하는 구체적인 메서드.
     *   `.values()`: 값을 크기가 있는(sized) 이터러블 컨테이너로 반환하는 구체적인 메서드.
 
-*   **`MutableMapping`**: `Mapping`의 서브클래스로, 일부 표준 변경 메서드를 구현합니다. 추상 메서드에는 `__setitem__`, `__delitem__`이 포함됩니다. 구체적인 메서드에는 `pop`, `popitem`, `clear`, `update`가 포함됩니다.
+*   **`MutableMapping`** : `Mapping`의 서브클래스로, 일부 표준 변경 메서드를 구현합니다. 추상 메서드에는 `__setitem__`, `__delitem__`이 포함됩니다. 구체적인 메서드에는 `pop`, `popitem`, `clear`, `update`가 포함됩니다.
 
 #### 시퀀스 (Sequences)
 
@@ -242,9 +242,9 @@ ABC는 기술적으로 유효하지만 거의 쓸모없는 추상 메서드 구�
 
 내장 `list` 및 `bytes` 타입은 `MutableSequence`에서 파생됩니다. 내장 `tuple` 및 `str` 타입은 `Sequence` 및 `Hashable`에서 파생됩니다.
 
-*   **`Sequence`**: `Iterable`, `Sized`, `Container`의 서브클래스입니다. 새로운 추상 메서드 `__getitem__`을 정의하는데, 이는 정수로 호출될 때 시퀀스의 요소를 반환하거나 `IndexError`를 발생시키고, 슬라이스(slice) 객체로 호출될 때 다른 `Sequence`를 반환합니다.
+*   **`Sequence`** : `Iterable`, `Sized`, `Container`의 서브클래스입니다. 새로운 추상 메서드 `__getitem__`을 정의하는데, 이는 정수로 호출될 때 시퀀스의 요소를 반환하거나 `IndexError`를 발생시키고, 슬라이스(slice) 객체로 호출될 때 다른 `Sequence`를 반환합니다.
 
-*   **`MutableSequence`**: `Sequence`의 서브클래스로, 일부 표준 변경 메서드를 추가합니다. 추상 변경 메서드: `__setitem__` (정수 인덱스 및 슬라이스), `__delitem__` (동일), `insert`. 구체적인 변경 메서드: `append`, `reverse`, `extend`, `pop`, `remove`. 구체적인 변경 연산자: `+=`, `*=` (이들은 객체를 제자리에서 변경합니다).
+*   **`MutableSequence`** : `Sequence`의 서브클래스로, 일부 표준 변경 메서드를 추가합니다. 추상 변경 메서드: `__setitem__` (정수 인덱스 및 슬라이스), `__delitem__` (동일), `insert`. 구체적인 변경 메서드: `append`, `reverse`, `extend`, `pop`, `remove`. 구체적인 변경 연산자: `+=`, `*=` (이들은 객체를 제자리에서 변경합니다).
     *   **참고:** `sort()`는 정의하지 않습니다. 이는 순수한 `list` 인스턴스에만 존재하도록 요구됩니다.
 
 #### 문자열 (Strings)
@@ -316,7 +316,7 @@ Last modified: 2025-02-01 08:55:40 GMT## PEP 3119 – 추상 기본 클래스 (A
 
 이러한 문제의 해결책으로 테스트를 표준화하고 공식적인 방식으로 그룹화하는 것이 제안됩니다. 이는 각 클래스에 표준 테스트 가능 속성 집합을 연결하는 방식으로 이루어지며, 각 테스트는 클래스의 일반적인 동작과 사용 가능한 메서드에 대한 약속을 포함합니다.
 
-이 PEP는 이러한 테스트를 구성하기 위한 특정 전략으로 **추상 기본 클래스(Abstract Base Classes, ABC)**를 제안합니다. ABC는 외부 검사자에게 객체의 특정 기능을 알리기 위해 객체의 상속 트리에 추가되는 Python 클래스입니다. `isinstance()`를 사용하여 테스트하며, 특정 ABC의 존재는 테스트 통과를 의미합니다.
+이 PEP는 이러한 테스트를 구성하기 위한 특정 전략으로 **추상 기본 클래스(Abstract Base Classes, ABC)** 를 제안합니다. ABC는 외부 검사자에게 객체의 특정 기능을 알리기 위해 객체의 상속 트리에 추가되는 Python 클래스입니다. `isinstance()`를 사용하여 테스트하며, 특정 ABC의 존재는 테스트 통과를 의미합니다.
 
 ABC는 타입의 특징적인 동작을 설정하는 최소한의 메서드 집합을 정의합니다. ABC 타입에 따라 객체를 구별하는 코드는 해당 메서드가 항상 존재한다고 신뢰할 수 있습니다. 이러한 메서드는 ABC 문서에 설명된 일반화된 추상 의미 정의를 동반하며, 이는 강제되지는 않지만 강력히 권장됩니다.
 
@@ -413,23 +413,23 @@ ABC는 기술적으로 유효하지만 거의 쓸모없는 추상 메서드 구�
 **참고:** 정렬 연산(`__lt__`, `__le__`, `__ge__`, `__gt__`)을 위한 ABC는 없습니다.
 
 **단일 메서드 ABC (One Trick Ponies)**
-*   **`Hashable`**: `__hash__`를 정의하는 클래스를 위한 기본 클래스입니다.
-*   **`Iterable`**: `__iter__`를 정의하는 클래스를 위한 기본 클래스입니다.
-*   **`Iterator`**: `__next__`를 정의하는 클래스를 위한 기본 클래스이며 `Iterable`에서 파생됩니다. (`Iterable`과 `Iterator`의 차이점에 유의해야 합니다.)
-*   **`Sized`**: `__len__`을 정의하는 클래스를 위한 기본 클래스입니다.
-*   **`Container`**: `__contains__`를 정의하는 클래스를 위한 기본 클래스입니다.
+*   **`Hashable`** : `__hash__`를 정의하는 클래스를 위한 기본 클래스입니다.
+*   **`Iterable`** : `__iter__`를 정의하는 클래스를 위한 기본 클래스입니다.
+*   **`Iterator`** : `__next__`를 정의하는 클래스를 위한 기본 클래스이며 `Iterable`에서 파생됩니다. (`Iterable`과 `Iterator`의 차이점에 유의해야 합니다.)
+*   **`Sized`** : `__len__`을 정의하는 클래스를 위한 기본 클래스입니다.
+*   **`Container`** : `__contains__`를 정의하는 클래스를 위한 기본 클래스입니다.
 
 **집합 (Sets)**
-*   **`Set`**: `Sized`, `Iterable`, `Container`의 서브클래스입니다. 집합은 각 요소가 한 번만 나타나고, 부등식 연산(subset/superset 테스트)을 구현하는 연산자를 정의합니다.
-*   **`MutableSet`**: 요소를 추가하고 제거하는 연산을 구현하는 `Set`의 서브클래스입니다. `.add(x)`, `.discard(x)`, `.pop()`, `.toggle(x)`, `.clear()` 메서드를 포함합니다.
+*   **`Set`** : `Sized`, `Iterable`, `Container`의 서브클래스입니다. 집합은 각 요소가 한 번만 나타나고, 부등식 연산(subset/superset 테스트)을 구현하는 연산자를 정의합니다.
+*   **`MutableSet`** : 요소를 추가하고 제거하는 연산을 구현하는 `Set`의 서브클래스입니다. `.add(x)`, `.discard(x)`, `.pop()`, `.toggle(x)`, `.clear()` 메서드를 포함합니다.
 
 **매핑 (Mappings)**
-*   **`Mapping`**: `Container`, `Iterable`, `Sized`의 서브클래스입니다. `.__getitem__(key)`, `.get(key, default=None)`, `.__contains__(key)`, `.__len__()`, `.__iter__()`, `.keys()`, `.items()`, `.values()` 등의 메서드를 포함합니다.
-*   **`MutableMapping`**: `Mapping`의 서브클래스로, `__setitem__`, `__delitem__`과 같은 추상 메서드와 `pop`, `popitem`, `clear`, `update`와 같은 구체적인 변경 메서드를 구현합니다.
+*   **`Mapping`** : `Container`, `Iterable`, `Sized`의 서브클래스입니다. `.__getitem__(key)`, `.get(key, default=None)`, `.__contains__(key)`, `.__len__()`, `.__iter__()`, `.keys()`, `.items()`, `.values()` 등의 메서드를 포함합니다.
+*   **`MutableMapping`** : `Mapping`의 서브클래스로, `__setitem__`, `__delitem__`과 같은 추상 메서드와 `pop`, `popitem`, `clear`, `update`와 같은 구체적인 변경 메서드를 구현합니다.
 
 **시퀀스 (Sequences)**
-*   **`Sequence`**: `Iterable`, `Sized`, `Container`의 서브클래스입니다. `__getitem__` 추상 메서드를 정의하며, 이는 정수로 호출될 때 요소를 반환하고, 슬라이스 객체로 호출될 때 다른 `Sequence`를 반환합니다.
-*   **`MutableSequence`**: `Sequence`의 서브클래스로, `__setitem__`, `__delitem__`, `insert`와 같은 추상 변경 메서드와 `append`, `reverse`, `extend`, `pop`, `remove`와 같은 구체적인 변경 메서드를 추가합니다.
+*   **`Sequence`** : `Iterable`, `Sized`, `Container`의 서브클래스입니다. `__getitem__` 추상 메서드를 정의하며, 이는 정수로 호출될 때 요소를 반환하고, 슬라이스 객체로 호출될 때 다른 `Sequence`를 반환합니다.
+*   **`MutableSequence`** : `Sequence`의 서브클래스로, `__setitem__`, `__delitem__`, `insert`와 같은 추상 변경 메서드와 `append`, `reverse`, `extend`, `pop`, `remove`와 같은 구체적인 변경 메서드를 추가합니다.
 
 **문자열 (Strings)**
 Python 3000은 `bytes`(`MutableSequence`에서 파생)와 `str`(`Sequence` 및 `Hashable`에서 파생) 두 가지 내장 문자열 타입을 가질 것으로 예상됩니다.

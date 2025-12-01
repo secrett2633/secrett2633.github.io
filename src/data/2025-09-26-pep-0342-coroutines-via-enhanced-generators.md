@@ -40,12 +40,12 @@ published: true
 
 주요 변경 사항 및 추가 사항은 다음과 같습니다.
 
-*   **`yield`의 재정의**: `yield`를 문장(statement)이 아닌 표현식(expression)으로 재정의합니다. 현재의 `yield` 문장은 값이 버려지는 `yield` 표현식이 됩니다. `next()` 호출로 제너레이터가 재개될 때 `yield` 표현식의 값은 항상 `None`입니다.
-*   **새로운 `send()` 메서드**: 제너레이터-이터레이터에 새로운 `send(value)` 메서드를 추가합니다. 이 메서드는 제너레이터를 재개하고, 현재 `yield` 표현식의 결과가 되는 값을 전달합니다. `send()`는 제너레이터가 다음에 yield하는 값을 반환하거나, 다른 값을 yield하지 않고 제너레이터가 종료되면 `StopIteration`을 발생시킵니다.
-*   **새로운 `throw()` 메서드**: 제너레이터-이터레이터에 새로운 `throw(type, value=None, traceback=None)` 메서드를 추가합니다. 이 메서드는 제너레이터가 일시 중지된 지점에서 예외를 발생시키고, 제너레이터가 다음에 yield하는 값을 반환하거나, 제너레이터가 종료되면 `StopIteration`을 발생시킵니다.
-*   **새로운 `close()` 메서드**: 제너레이터-이터레이터에 `close()` 메서드를 추가합니다. 이 메서드는 제너레이터가 일시 중지된 지점에서 `GeneratorExit` 예외를 발생시킵니다.
-*   **새로운 `__del__()` 메서드**: 제너레이터-이터레이터가 가비지 컬렉션(garbage-collected)될 때 `close()`가 호출되도록 지원을 추가합니다.
-*   **`try/finally` 내 `yield` 허용**: 가비지 컬렉션이나 명시적인 `close()` 호출 시 `finally` 절이 실행될 수 있도록 `try/finally` 블록 내에서 `yield`를 사용할 수 있도록 합니다.
+*   **`yield`의 재정의** : `yield`를 문장(statement)이 아닌 표현식(expression)으로 재정의합니다. 현재의 `yield` 문장은 값이 버려지는 `yield` 표현식이 됩니다. `next()` 호출로 제너레이터가 재개될 때 `yield` 표현식의 값은 항상 `None`입니다.
+*   **새로운 `send()` 메서드** : 제너레이터-이터레이터에 새로운 `send(value)` 메서드를 추가합니다. 이 메서드는 제너레이터를 재개하고, 현재 `yield` 표현식의 결과가 되는 값을 전달합니다. `send()`는 제너레이터가 다음에 yield하는 값을 반환하거나, 다른 값을 yield하지 않고 제너레이터가 종료되면 `StopIteration`을 발생시킵니다.
+*   **새로운 `throw()` 메서드** : 제너레이터-이터레이터에 새로운 `throw(type, value=None, traceback=None)` 메서드를 추가합니다. 이 메서드는 제너레이터가 일시 중지된 지점에서 예외를 발생시키고, 제너레이터가 다음에 yield하는 값을 반환하거나, 제너레이터가 종료되면 `StopIteration`을 발생시킵니다.
+*   **새로운 `close()` 메서드** : 제너레이터-이터레이터에 `close()` 메서드를 추가합니다. 이 메서드는 제너레이터가 일시 중지된 지점에서 `GeneratorExit` 예외를 발생시킵니다.
+*   **새로운 `__del__()` 메서드** : 제너레이터-이터레이터가 가비지 컬렉션(garbage-collected)될 때 `close()`가 호출되도록 지원을 추가합니다.
+*   **`try/finally` 내 `yield` 허용** : 가비지 컬렉션이나 명시적인 `close()` 호출 시 `finally` 절이 실행될 수 있도록 `try/finally` 블록 내에서 `yield`를 사용할 수 있도록 합니다.
 
 ### 사양: 제너레이터로 값 보내기 (Specification: Sending Values into Generators)
 
@@ -163,12 +163,12 @@ PEP 342는 제너레이터가 일시 중지된 지점에서 값이나 예외를 
 PEP 342는 제너레이터-이터레이터(generator-iterator) 타입에 몇 가지 메서드를 추가하고 문법을 조정하여, 제너레이터 함수를 코루틴 및 협동 멀티태스킹 구현에 사용할 수 있도록 합니다.
 
 주요 변경 사항은 다음과 같습니다:
-*   **`yield`의 표현식화**: `yield`가 문장(statement)이 아닌 표현식(expression)으로 재정의됩니다.
-*   **`send(value)` 메서드 추가**: 제너레이터를 재개하고 `yield` 표현식으로 값을 전달합니다.
-*   **`throw(type, value=None, traceback=None)` 메서드 추가**: 제너레이터가 일시 중지된 지점에서 예외를 발생시킵니다.
-*   **`close()` 메서드 추가**: 제너레이터가 일시 중지된 지점에서 `GeneratorExit` 예외를 발생시켜 제너레이터를 정리합니다.
-*   **`__del__()` 메서드 추가**: 제너레이터 객체가 가비지 컬렉션(garbage-collected)될 때 `close()`가 호출되도록 보장합니다.
-*   **`try/finally` 내 `yield` 허용**: `finally` 절이 실행될 수 있도록 `try/finally` 블록 내에서 `yield` 사용이 가능해집니다.
+*   **`yield`의 표현식화** : `yield`가 문장(statement)이 아닌 표현식(expression)으로 재정의됩니다.
+*   **`send(value)` 메서드 추가** : 제너레이터를 재개하고 `yield` 표현식으로 값을 전달합니다.
+*   **`throw(type, value=None, traceback=None)` 메서드 추가** : 제너레이터가 일시 중지된 지점에서 예외를 발생시킵니다.
+*   **`close()` 메서드 추가** : 제너레이터가 일시 중지된 지점에서 `GeneratorExit` 예외를 발생시켜 제너레이터를 정리합니다.
+*   **`__del__()` 메서드 추가** : 제너레이터 객체가 가비지 컬렉션(garbage-collected)될 때 `close()`가 호출되도록 보장합니다.
+*   **`try/finally` 내 `yield` 허용** : `finally` 절이 실행될 수 있도록 `try/finally` 블록 내에서 `yield` 사용이 가능해집니다.
 
 ### 사양: 제너레이터로 값 보내기 (Specification: Sending Values into Generators)
 

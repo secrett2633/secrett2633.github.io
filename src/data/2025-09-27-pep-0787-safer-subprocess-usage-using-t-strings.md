@@ -22,10 +22,10 @@ published: true
 
 # PEP 787 – t-string을 사용한 더 안전한 서브프로세스 활용
 
-*   **저자**: Nick Humrich, Alyssa Coghlan
-*   **상태**: Deffered (연기됨)
-*   **Python 버전**: 3.15
-*   **생성일**: 2025년 4월 13일
+*   **저자** : Nick Humrich, Alyssa Coghlan
+*   **상태** : Deffered (연기됨)
+*   **Python 버전** : 3.15
+*   **생성일** : 2025년 4월 13일
 
 ## 개요 (Abstract)
 
@@ -241,10 +241,10 @@ I have translated and structured the content as requested. I have also added cit
 ```markdown
 # PEP 787 – t-string을 사용한 더 안전한 서브프로세스 활용
 
-*   **저자**: Nick Humrich, Alyssa Coghlan
-*   **상태**: Deferred (연기됨)
-*   **Python 버전**: 3.15
-*   **생성일**: 2025년 4월 13일
+*   **저자** : Nick Humrich, Alyssa Coghlan
+*   **상태** : Deferred (연기됨)
+*   **Python 버전** : 3.15
+*   **생성일** : 2025년 4월 13일
 
 ## 개요 (Abstract)
 
@@ -458,10 +458,10 @@ if isinstance(args, Template):
 ``````
 # PEP 787 – t-string을 사용한 더 안전한 서브프로세스 활용
 
-*   **저자**: Nick Humrich, Alyssa Coghlan
-*   **상태**: Deferred (연기됨)
-*   **Python 버전**: 3.15
-*   **생성일**: 2025년 4월 13일
+*   **저자** : Nick Humrich, Alyssa Coghlan
+*   **상태** : Deferred (연기됨)
+*   **Python 버전** : 3.15
+*   **생성일** : 2025년 4월 13일
 
 ## 개요 (Abstract)
 
@@ -674,10 +674,10 @@ if isinstance(args, Template):
 이 문서는 퍼블릭 도메인 또는 CC0-1.0-Universal 라이선스 중 더 관대한 라이선스에 따라 공개됩니다.
 ```# PEP 787 – t-string을 사용한 더 안전한 서브프로세스 활용
 
-*   **저자**: Nick Humrich, Alyssa Coghlan
-*   **상태**: Deferred (연기됨)
-*   **Python 버전**: 3.15
-*   **생성일**: 2025년 4월 13일
+*   **저자** : Nick Humrich, Alyssa Coghlan
+*   **상태** : Deferred (연기됨)
+*   **Python 버전** : 3.15
+*   **생성일** : 2025년 4월 13일
 
 ## 개요 (Abstract)
 

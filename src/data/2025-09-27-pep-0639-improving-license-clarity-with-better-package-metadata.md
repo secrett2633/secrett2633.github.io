@@ -58,10 +58,10 @@ Python 생태계 및 다양한 다른 패키징 시스템, Linux 배포판, 언�
 
 ## 용어 (Terminology)
 
-*   **license classifier**: Core Metadata 사양에 설명된 `License ::`로 시작하는 PyPI Trove 분류자.
-*   **license expression (SPDX expression)**: 하나 이상의 SPDX 라이선스 식별자를 포함하는 유효한 SPDX 라이선스 표현식 문법을 가진 문자열로, 프로젝트의 라이선스(들)와 그 상호 관계를 설명합니다. 예: `GPL-3.0-or-later`, `MIT AND (Apache-2.0 OR BSD-2-clause)`.
-*   **license identifier (SPDX identifier)**: 유효한 SPDX 약식 라이선스 식별자. 예: `MIT`, `GPL-3.0-only`, `LicenseRef-My-Custom-License`.
-*   **root license directory**: 프로젝트 소스 트리, 배포 아카이브 또는 설치된 프로젝트에서 라이선스 파일이 저장되는 디렉터리.
+*   **license classifier** : Core Metadata 사양에 설명된 `License ::`로 시작하는 PyPI Trove 분류자.
+*   **license expression (SPDX expression)** : 하나 이상의 SPDX 라이선스 식별자를 포함하는 유효한 SPDX 라이선스 표현식 문법을 가진 문자열로, 프로젝트의 라이선스(들)와 그 상호 관계를 설명합니다. 예: `GPL-3.0-or-later`, `MIT AND (Apache-2.0 OR BSD-2-clause)`.
+*   **license identifier (SPDX identifier)** : 유효한 SPDX 약식 라이선스 식별자. 예: `MIT`, `GPL-3.0-only`, `LicenseRef-My-Custom-License`.
+*   **root license directory** : 프로젝트 소스 트리, 배포 아카이브 또는 설치된 프로젝트에서 라이선스 파일이 저장되는 디렉터리.
 
 ## 사양 (Specification)
 이 PEP를 구현하는 데 필요한 변경 사항은 다음과 같습니다:

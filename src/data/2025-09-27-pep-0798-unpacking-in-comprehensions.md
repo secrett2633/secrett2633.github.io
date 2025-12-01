@@ -41,7 +41,7 @@ PEP 448에 도입된 확장 언패킹 표기법(`*` 및 `**`)은 몇 개의 iter
 ```python
 [*it1, *it2, *it3] # 세 개의 iterable을 연결한 list
 {*it1, *it2, *it3} # 세 개의 iterable을 합집합(union)한 set
-{**dict1, **dict2, **dict3} # 세 개의 딕셔너리를 조합한 dict
+{ **dict1, ** dict2, **dict3} # 세 개의 딕셔너리를 조합한 dict
 ```
 
 하지만 임의의 수의 iterable을 유사하게 결합하려는 경우에는 동일한 방식으로 언패킹을 사용할 수 없습니다.
@@ -152,7 +152,7 @@ dictcomp[expr_ty]:
 
 ### 의미론: List/Set/Dict Comprehension (Semantics: List/Set/Dict Comprehensions)
 
-`list comprehension` 내에서 별표가 붙은 표현식 `[*expr for x in it]`의 의미는 각 표현식을 `iterable`로 취급하고, `[*expr1, *expr2, ...]`와 같이 명시적으로 나열된 것처럼 이들을 연결하는 것입니다. 유사하게, `{*expr for x in it}`는 `{*expr1, *expr2, ...}`와 같이 명시적으로 나열된 것처럼 `set union`을 형성합니다. 그리고 `{**expr for x in it}`는 `{**expr1, **expr2, ...}`와 같이 명시적으로 나열된 것처럼 딕셔너리를 결합합니다. 이러한 연산은 이 방식으로 컬렉션을 결합하는 모든 동등한 의미론(예: 딕셔너리를 결합할 때 중복된 키의 경우 나중 값이 이전 값을 덮어쓰는 것 포함)을 유지해야 합니다.
+`list comprehension` 내에서 별표가 붙은 표현식 `[*expr for x in it]`의 의미는 각 표현식을 `iterable`로 취급하고, `[*expr1, *expr2, ...]`와 같이 명시적으로 나열된 것처럼 이들을 연결하는 것입니다. 유사하게, `{*expr for x in it}`는 `{*expr1, *expr2, ...}`와 같이 명시적으로 나열된 것처럼 `set union`을 형성합니다. 그리고 `{ **expr for x in it}`는 `{** expr1, **expr2, ...}`와 같이 명시적으로 나열된 것처럼 딕셔너리를 결합합니다. 이러한 연산은 이 방식으로 컬렉션을 결합하는 모든 동등한 의미론(예: 딕셔너리를 결합할 때 중복된 키의 경우 나중 값이 이전 값을 덮어쓰는 것 포함)을 유지해야 합니다.
 
 다시 말해, 다음 Comprehension에 의해 생성된 객체들은:
 
@@ -239,21 +239,21 @@ NameError: name 'y' is not defined
 
 ### 오류 보고 (Error Reporting)
 
-현재 제안된 구문은 `SyntaxError`를 발생시킵니다. 이러한 형식이 구문적으로 유효한 것으로 인식되도록 허용하려면 `invalid_comprehension` 및 `invalid_dict_comprehension`에 대한 문법 규칙을 각각 `*` 및 `**` 사용을 허용하도록 조정해야 합니다.
+현재 제안된 구문은 `SyntaxError`를 발생시킵니다. 이러한 형식이 구문적으로 유효한 것으로 인식되도록 허용하려면 `invalid_comprehension` 및 `invalid_dict_comprehension`에 대한 문법 규칙을 각각 `*` 및 ` **` 사용을 허용하도록 조정해야 합니다.
 
 최소한 다음 경우에 추가적인 특정 오류 메시지가 제공되어야 합니다:
 
-`list comprehension` 또는 `generator expression`에서 `**`를 사용하려고 시도하면 딕셔너리 언패킹이 해당 구조에서 사용될 수 없음을 보고해야 합니다. 예를 들면:
+`list comprehension` 또는 `generator expression`에서 `** `를 사용하려고 시도하면 딕셔너리 언패킹이 해당 구조에서 사용될 수 없음을 보고해야 합니다. 예를 들면:
 
 ```python
->>> [**x for x in y]
+>>> [ **x for x in y]
   File "<stdin>", line 1
-    [**x for x in y]
+    [** x for x in y]
     ^^^
 SyntaxError: cannot use dict unpacking in list comprehension
->>> (**x for x in y)
+>>> ( **x for x in y)
   File "<stdin>", line 1
-    (**x for x in y)
+    (** x for x in y)
     ^^^
 SyntaxError: cannot use dict unpacking in generator expression
 ```
@@ -271,14 +271,14 @@ SyntaxError: cannot use a starred expression in a dictionary key
     {k: *v for k,v in items}
     ^^
 SyntaxError: cannot use a starred expression in a dictionary value
->>> {**k: v for k,v in items}
+>>> { **k: v for k,v in items}
   File "<stdin>", line 1
-    {**k: v for k,v in items}
+    {** k: v for k,v in items}
     ^^^
 SyntaxError: cannot use dict unpacking in a dictionary key
 >>> {k: **v for k,v in items}
   File "<stdin>", line 1
-    {k: **v for k,v in items}
+    {k: ** v for k,v in items}
     ^^^
 SyntaxError: cannot use dict unpacking in a dictionary value
 ```
@@ -291,9 +291,9 @@ SyntaxError: cannot use dict unpacking in a dictionary value
     [*x if x else y]
     ^^^^^^^^^^^^^^
 SyntaxError: invalid starred expression. Did you forget to wrap the conditional expression in parentheses?
->>> {**x if x else y}
+>>> { **x if x else y}
   File "<stdin>", line 1
-    {**x if x else y}
+    {** x if x else y}
     ^^^^^^^^^^^^^^^
 SyntaxError: invalid double starred expression. Did you forget to wrap the conditional expression in parentheses?
 >>> [x if x else *y]
@@ -303,7 +303,7 @@ SyntaxError: invalid double starred expression. Did you forget to wrap the condi
 SyntaxError: cannot unpack only part of a conditional expression
 >>> {x if x else **y}
   File "<stdin>", line 1
-    {x if x else **y}
+    {x if x else ** y}
     ^^
 SyntaxError: cannot use dict unpacking on only part of a conditional expression
 ```
@@ -499,7 +499,7 @@ out = {}
 for x in it:
     out[k_expr] = v_expr
 
-# out = {**expr for x in it} 와 동일 (expr이 **로 언패킹될 수 있는 매핑으로 평가되는 경우)
+# out = { **expr for x in it} 와 동일 (expr이 ** 로 언패킹될 수 있는 매핑으로 평가되는 경우)
 out = {}
 for x in it:
     out.update(expr)

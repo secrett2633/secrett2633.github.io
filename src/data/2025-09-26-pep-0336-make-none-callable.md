@@ -21,10 +21,10 @@ published: true
 
 ## PEP 336 – None을 호출 가능하게 만들기 (Make None Callable)
 
-*   **저자**: Andrew McClelland <eternalsquire at comcast.net>
-*   **상태**: Rejected (거부됨)
-*   **유형**: Standards Track
-*   **생성일**: 2004년 10월 28일
+*   **저자** : Andrew McClelland <eternalsquire at comcast.net>
+*   **상태** : Rejected (거부됨)
+*   **유형** : Standards Track
+*   **생성일** : 2004년 10월 28일
 
 ### 요약 (Abstract)
 

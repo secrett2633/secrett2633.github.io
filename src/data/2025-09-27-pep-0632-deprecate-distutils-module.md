@@ -40,9 +40,9 @@ published: true
 
 ### 명세 (Specification)
 
-*   **Python 3.10 및 3.11**: `distutils`는 공식적으로 사용 중단(deprecated)으로 표시됩니다. 알려진 모든 문제는 이 시점에서 종료됩니다. `import distutils`를 시도하면 DeprecationWarning이 발생합니다. 릴리스 차단으로 간주될 수 있는 새로운 문제는 여전히 수정될 수 있지만, 새로운 도구나 플랫폼에 대한 지원은 추가되지 않을 것입니다.
+*   **Python 3.10 및 3.11** : `distutils`는 공식적으로 사용 중단(deprecated)으로 표시됩니다. 알려진 모든 문제는 이 시점에서 종료됩니다. `import distutils`를 시도하면 DeprecationWarning이 발생합니다. 릴리스 차단으로 간주될 수 있는 새로운 문제는 여전히 수정될 수 있지만, 새로운 도구나 플랫폼에 대한 지원은 추가되지 않을 것입니다.
 *   Python 3.10 및 3.11 동안, 표준 라이브러리 내에서 `distutils`를 사용하는 부분은 대체 API를 사용하도록 변경될 수 있습니다.
-*   **Python 3.12**: `distutils`는 `make install` 또는 모든 1차 배포판(first-party distribution)에 의해 더 이상 설치되지 않습니다. 서드파티 재배포자(third-party redistributors)는 더 이상 `distutils`를 번들 또는 저장소에 포함해서는 안 됩니다.
+*   **Python 3.12** : `distutils`는 `make install` 또는 모든 1차 배포판(first-party distribution)에 의해 더 이상 설치되지 않습니다. 서드파티 재배포자(third-party redistributors)는 더 이상 `distutils`를 번들 또는 저장소에 포함해서는 안 됩니다.
 *   이 PEP는 현재 `distutils`를 사용하는 CPython 빌드 프로세스의 마이그레이션에 대해서는 명시하지 않습니다. 기여에 따라 이 마이그레이션은 언제든지 발생할 수 있습니다.
 *   Python 3.12가 시작되고 CPython 빌드 프로세스가 더 이상 표준 라이브러리에 `distutils`가 포함되는 것에 의존하지 않게 되면, 전체 `Lib/distutils` 디렉토리와 `Lib/test/test_distutils.py` 파일은 저장소에서 제거될 것입니다.
 *   `distutils`에 대한 다른 참조들도 정리될 것입니다. Python 3.9의 초기 릴리스 시점 기준으로, 다음 모듈들은 코드 또는 주석에서 참조를 가지고 있습니다: `Lib/ctypes/util.py`, `Lib/site.py`, `Lib/sysconfig.py`, `Lib/_aix_support.py`, `Lib/_bootsubprocess.py`, `Lib/_osx_support.py`, `Modules/_decimal/tests/formathelper.py`.
@@ -51,7 +51,7 @@ published: true
 
 ### 하위 호환성 (Backwards Compatibility)
 
-*   **Python 3.12부터 `distutils`를 import 하는 코드는 더 이상 작동하지 않을 것입니다**.
+*   **Python 3.12부터 `distutils`를 import 하는 코드는 더 이상 작동하지 않을 것입니다** .
 *   권장되는 마이그레이션 경로는 `setuptools`에서 해당하는 (동일하지는 않지만) import를 사용하거나 (참고), 대체 빌드 백엔드(PEP 517 참조)로 마이그레이션하는 것입니다.
 *   `setuptools`에는 이미 `distutils`를 사용하는 `setup.py` 파일을 동등한 것으로 투명하게 전환하는 코드가 존재하므로, 대부분의 작동하는 빌드 스크립트는 이미 `setuptools`와 함께 작동하는 것으로 알려져 있습니다. 이러한 스크립트는 `import` 문을 업데이트해야 할 수 있습니다. 특정 마이그레이션 지침은 `setuptools` 문서를 참조하십시오.
 *   일부 프로젝트는 `numpy.distutils`와 같이 `distutils`에 대한 대체 패치 세트를 사용합니다. 이를 수행하는 것으로 알려진 프로젝트에는 이미 통보되었습니다.
@@ -131,14 +131,14 @@ Terminology is handled as requested.## PEP 632 – `distutils` 모듈 Deprecate 
 
 ### 명세 (Specification)
 
-*   **Python 3.10 및 3.11**: `distutils`는 공식적으로 사용 중단(deprecated)으로 표시됩니다. `import distutils` 시 DeprecationWarning이 발생합니다.
-*   **Python 3.12**: `distutils`는 `make install` 또는 모든 1차 배포판(first-party distribution)에 의해 더 이상 설치되지 않습니다. 서드파티 재배포자(third-party redistributors)도 `distutils`를 포함해서는 안 됩니다.
+*   **Python 3.10 및 3.11** : `distutils`는 공식적으로 사용 중단(deprecated)으로 표시됩니다. `import distutils` 시 DeprecationWarning이 발생합니다.
+*   **Python 3.12** : `distutils`는 `make install` 또는 모든 1차 배포판(first-party distribution)에 의해 더 이상 설치되지 않습니다. 서드파티 재배포자(third-party redistributors)도 `distutils`를 포함해서는 안 됩니다.
 *   CPython 빌드 프로세스에서 `distutils` 의존성이 제거된 후, `Lib/distutils` 디렉토리와 관련 테스트 파일이 저장소에서 완전히 제거될 것입니다.
 *   `distutils` 코드는 이미 `setuptools`에 포함되어 있으므로, 해당 기능이 필요한 사용자는 `setuptools` 또는 대체 빌드 백엔드를 사용해야 합니다.
 
 ### 하위 호환성 (Backwards Compatibility)
 
-*   **Python 3.12부터 `distutils`를 import 하는 코드는 더 이상 작동하지 않을 것입니다**.
+*   **Python 3.12부터 `distutils`를 import 하는 코드는 더 이상 작동하지 않을 것입니다** .
 *   권장되는 마이그레이션 경로는 `setuptools`에서 해당하는 import를 사용하거나 (참고), 대체 빌드 백엔드(PEP 517 참조)로 마이그레이션하는 것입니다.
 *   대부분의 빌드 스크립트는 `setuptools`와 이미 호환되지만, `import` 문 업데이트가 필요할 수 있습니다.
 
@@ -146,20 +146,20 @@ Terminology is handled as requested.## PEP 632 – `distutils` 모듈 Deprecate 
 
 이 섹션은 `distutils`의 주요 기능에 대한 대체 방법을 제안합니다.
 
-*   **`setuptools`가 가장 좋은 대안인 경우**: `distutils.ccompiler`, `distutils.cmd.Command`, `distutils.command`, `distutils.config`, `distutils.core.Distribution`, `distutils.errors` 등.
-*   **`packaging` 패키지를 사용해야 하는 경우**: `distutils.version`.
-*   **표준 라이브러리 모듈을 사용해야 하는 경우**:
+*   **`setuptools`가 가장 좋은 대안인 경우** : `distutils.ccompiler`, `distutils.cmd.Command`, `distutils.command`, `distutils.config`, `distutils.core.Distribution`, `distutils.errors` 등.
+*   **`packaging` 패키지를 사용해야 하는 경우** : `distutils.version`.
+*   **표준 라이브러리 모듈을 사용해야 하는 경우** :
     *   `distutils.fancy_getopt` — `argparse`
     *   `distutils.spawn.find_executable` — `shutil.which`
     *   `distutils.spawn.spawn` — `subprocess.run`
     *   `distutils.sysconfig` — `sysconfig`
     *   `distutils.util.get_platform` — `platform`.
-*   **직접 재구현해야 하는 경우**: `distutils.dir_util.create_tree`, `distutils.util.change_root`, `distutils.util.strtobool`. 레거시 문서는 `https://docs.python.org/3.9/distutils/apiref.html`에서 찾을 수 있습니다.
+*   **직접 재구현해야 하는 경우** : `distutils.dir_util.create_tree`, `distutils.util.change_root`, `distutils.util.strtobool`. 레거시 문서는 `https://docs.python.org/3.9/distutils/apiref.html`에서 찾을 수 있습니다.
 
 ### 거부된 아이디어 (Rejected Ideas)
 
-*   **Deprecate만 하고 삭제하지 않기**: 유지보수가 없으면 플랫폼 차이로 인해 `distutils`가 예상치 못하게 작동을 멈출 수 있으므로, 제거 일정을 명확히 하고 완전히 삭제하는 것이 개발자에게 예측 가능성을 제공합니다. 또한, 표준 라이브러리에 남아있는 한 `setuptools`와 같은 서드파티 대체품과 충돌할 수 있습니다.
-*   **`setuptools`와 유사한 기능만 Deprecate하기**: 남은 기능을 유지보수할 자원봉사자가 없고, 어떤 기능을 유지해야 할지 명확하지 않으며, 대부분의 헬퍼 함수에는 이미 개선된 대안이 존재하기 때문에 이 아이디어는 거부되었습니다.
+*   **Deprecate만 하고 삭제하지 않기** : 유지보수가 없으면 플랫폼 차이로 인해 `distutils`가 예상치 못하게 작동을 멈출 수 있으므로, 제거 일정을 명확히 하고 완전히 삭제하는 것이 개발자에게 예측 가능성을 제공합니다. 또한, 표준 라이브러리에 남아있는 한 `setuptools`와 같은 서드파티 대체품과 충돌할 수 있습니다.
+*   **`setuptools`와 유사한 기능만 Deprecate하기** : 남은 기능을 유지보수할 자원봉사자가 없고, 어떤 기능을 유지해야 할지 명확하지 않으며, 대부분의 헬퍼 함수에는 이미 개선된 대안이 존재하기 때문에 이 아이디어는 거부되었습니다.
 
 ### 참조 (References)
 

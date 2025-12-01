@@ -69,14 +69,14 @@ dotproduct = sum(x*y for x,y in itertools.izip(x_vector, y_vector))
 
 `Generator Expression`의 의미론은 익명(anonymous) `Generator Function`을 생성하고 호출하는 것과 동일합니다. 예를 들어:
 ```python
-g = (x**2 for x in range(10))
+g = (x **2 for x in range(10))
 print g.next()
 ```
 위 코드는 다음 코드를 생성하고 호출하는 것과 같습니다:
 ```python
 def __gen(exp):
     for x in exp:
-        yield x**2
+        yield x** 2
 g = __gen(iter(range(10)))
 print g.next()
 ```
@@ -100,15 +100,15 @@ del __gen
 
 다음과 같이 작성할 수 있습니다:
 ```python
-sum(x**2 for x in range(10))
+sum(x **2 for x in range(10))
 ```
 하지만 다음의 경우에는 추가 괄호를 사용해야 합니다:
 ```python
-reduce(operator.add, (x**2 for x in range(10)))
+reduce(operator.add, (x** 2 for x in range(10)))
 ```
 그리고:
 ```python
-g = (x**2 for x in range(10))
+g = (x **2 for x in range(10))
 ```
 즉, 함수 호출에 단일 위치 인자(single positional argument)가 있는 경우, 추가 괄호 없이 `Generator Expression`이 될 수 있지만, 다른 모든 경우에는 괄호로 묶어야 합니다.
 
@@ -155,4 +155,4 @@ print x # "c"가 아닌 "hello"를 출력합니다.
 ### 감사 (Acknowledgements)
 Raymond Hettinger는 2002년 1월에 "Generator Comprehensions" 아이디어를 처음 제안했습니다. Peter Norvig는 "Accumulation Displays" 제안에서 이 논의를 다시 시작했습니다. Alex Martelli는 `Generator Expression`의 성능 이점을 입증하는 중요한 측정값을 제공했습니다. 그는 또한 `Generator Expression`이 매우 바람직한 기능이라는 강력한 주장을 제시했습니다. Phillip Eby는 "iterator expressions"를 이름으로 제안했습니다. 이후 Tim Peters가 "generator expressions"라는 이름을 제안했습니다. Armin Rigo, Tim Peters, Guido van Rossum, Samuele Pedroni, Hye-Shik Chang 및 Raymond Hettinger는 조기 바인딩 대 지연 바인딩을 둘러싼 문제들을 정리했습니다. Jiwon Seo는 최종 버전을 포함하여 제안의 다양한 버전을 단독으로 구현했습니다. 진행되는 동안 Hye-Shik Chang와 Raymond Hettinger의 정기적인 코드 검토가 있었습니다. Guido van Rossum은 Armin Rigo의 의견과 뉴스그룹 토론 후 주요 설계 결정을 내렸습니다. Raymond Hettinger는 테스트 스위트, 문서, 튜토리얼 및 예제를 제공했습니다.
 
-> ⚠️ **알림:** 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.
+> ⚠️ ** 알림:** 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.

@@ -44,7 +44,7 @@ PEP 255에서 제안된 제너레이터(Generators)는 이터레이터를 더 �
 
 ## BDFL의 의견 (BDFL Pronouncements)
 
-새로운 내장 함수는 **승인(ACCEPTED)**되었습니다.
+새로운 내장 함수는 **승인(ACCEPTED)** 되었습니다.
 
 ## 새로운 내장 함수에 대한 명세 (Specification for a new built-in)
 

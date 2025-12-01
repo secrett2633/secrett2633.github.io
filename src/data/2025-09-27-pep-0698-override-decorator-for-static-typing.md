@@ -293,7 +293,7 @@ Pyre에서 개념 증명(proof of concept)이 구현되었습니다.
 *   Pyre는 이 PEP에 명시된 대로 이 데코레이터를 타입 검사할 수 있습니다.
 
 ---
-**중요**: 이 PEP는 역사적인 문서입니다. 최신 사양 및 문서는 `@override` 및 `@typing.override`를 참조하십시오. 표준 타이핑 사양은 [typing specs site](https://typing.readthedocs.io/en/latest/)에서 유지 관리되며, 런타임 타이핑 동작은 [CPython documentation](https://docs.python.org/3/library/typing.html)에 설명되어 있습니다.
+**중요** : 이 PEP는 역사적인 문서입니다. 최신 사양 및 문서는 `@override` 및 `@typing.override`를 참조하십시오. 표준 타이핑 사양은 [typing specs site](https://typing.readthedocs.io/en/latest/)에서 유지 관리되며, 런타임 타이핑 동작은 [CPython documentation](https://docs.python.org/3/library/typing.html)에 설명되어 있습니다.
 
 
 > ⚠️ **알림:** 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.

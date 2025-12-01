@@ -23,7 +23,7 @@ published: true
 
 ### 거부 공지
 
-이 PEP는 Python Steering Council(SC)에 의해 **거부되었습니다**. SC는 제안된 변경사항의 "마법(magic)"과 잠재적인 호환성 파괴(breakage) 위험이 얻을 수 있는 이점보다 크다고 판단했습니다. 하지만 컨텍스트 매니저(Context Manager) v2 API 또는 새로운 `__leave__` 메서드의 도입 가능성에 대해서는 지지하는 입장을 보였습니다.
+이 PEP는 Python Steering Council(SC)에 의해 **거부되었습니다** . SC는 제안된 변경사항의 "마법(magic)"과 잠재적인 호환성 파괴(breakage) 위험이 얻을 수 있는 이점보다 크다고 판단했습니다. 하지만 컨텍스트 매니저(Context Manager) v2 API 또는 새로운 `__leave__` 메서드의 도입 가능성에 대해서는 지지하는 입장을 보였습니다.
 
 ### 개요
 

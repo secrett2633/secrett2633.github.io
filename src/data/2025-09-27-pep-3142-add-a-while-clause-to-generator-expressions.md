@@ -21,12 +21,12 @@ published: true
 
 ## PEP 3142 – 제너레이터 표현식에 "while" 절 추가 제안
 
-*   **작성자**: Gerald Britton
-*   **상태**: **거부됨 (Rejected)**
-*   **유형**: 표준 트랙 (Standards Track)
-*   **생성일**: 2009년 1월 12일
-*   **Python 버전**: 3.0
-*   **해결**: Python-Dev 메시지
+*   **작성자** : Gerald Britton
+*   **상태** : **거부됨 (Rejected)**
+*   **유형** : 표준 트랙 (Standards Track)
+*   **생성일** : 2009년 1월 12일
+*   **Python 버전** : 3.0
+*   **해결** : Python-Dev 메시지
 
 ### 요약 (Abstract)
 
@@ -44,7 +44,7 @@ g = (n for n in range(100) if n*n < 50)
 
 이 코드는 0부터 7까지의 숫자를 생성하지만, n=8부터 99까지의 숫자들에 대해서도 `n*n < 50` 조건을 계속 검사하게 됩니다. 이 범위의 숫자들은 모두 `n*n >= 50`이므로 해당 검사는 무의미하게 됩니다.
 
-`while` 절을 허용하면 이러한 중복 테스트를 **단락 평가(short-circuiting)**하여 불필요한 검사를 방지할 수 있습니다.
+`while` 절을 허용하면 이러한 중복 테스트를 **단락 평가(short-circuiting)** 하여 불필요한 검사를 방지할 수 있습니다.
 
 ```python
 g = (n for n in range(100) while n*n < 50)

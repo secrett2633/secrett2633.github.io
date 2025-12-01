@@ -72,10 +72,10 @@ published: true
 제안된 확장은 다음 객체들로 구성됩니다.
 
 *   **`importlib.engine.ImportEngine`**
-    *   **`from_engine(self, other)`**: 다른 `ImportEngine` 인스턴스로부터 새로운 임포트 객체를 생성합니다. 새 객체는 `other`의 상태 복사본으로 초기화됩니다. `importlib.engine.sysengine`에서 호출될 때, `from_engine()`은 전역 임포트 상태의 복사본으로 `ImportEngine` 객체를 생성하는 데 사용될 수 있습니다.
-    *   **`__import__(self, name, globals={}, locals={}, fromlist=[], level=0)`**: 내장 `__import__()` 함수의 재구현입니다. 모듈 임포트는 전역 임포트 상태 대신 `ImportEngine` 인스턴스에 저장된 상태를 사용하여 진행됩니다. `__import__` 기능의 전체 문서는를 참조하십시오. `ImportEngine` 및 그 서브클래스의 `__import__()`는 `__builtin__.__import__`를 `ImportEngine().__import__`로 교체하여 임포트 문의 동작을 사용자 정의하는 데 사용될 수 있습니다.
-    *   **`import_module(name, package=None)`**: `ImportEngine` 인스턴스에 저장된 임포트 상태를 사용하는 `importlib.import_module()`의 재구현입니다. 전체 참조는을 참조하십시오.
-    *   **`modules`, `path`, `path_hooks`, `meta_path`, `path_importer_cache`**: 프로세스 전역 `sys`의 해당 속성들의 인스턴스별 버전입니다.
+    *   **`from_engine(self, other)`** : 다른 `ImportEngine` 인스턴스로부터 새로운 임포트 객체를 생성합니다. 새 객체는 `other`의 상태 복사본으로 초기화됩니다. `importlib.engine.sysengine`에서 호출될 때, `from_engine()`은 전역 임포트 상태의 복사본으로 `ImportEngine` 객체를 생성하는 데 사용될 수 있습니다.
+    *   **`__import__(self, name, globals={}, locals={}, fromlist=[], level=0)`** : 내장 `__import__()` 함수의 재구현입니다. 모듈 임포트는 전역 임포트 상태 대신 `ImportEngine` 인스턴스에 저장된 상태를 사용하여 진행됩니다. `__import__` 기능의 전체 문서는를 참조하십시오. `ImportEngine` 및 그 서브클래스의 `__import__()`는 `__builtin__.__import__`를 `ImportEngine().__import__`로 교체하여 임포트 문의 동작을 사용자 정의하는 데 사용될 수 있습니다.
+    *   **`import_module(name, package=None)`** : `ImportEngine` 인스턴스에 저장된 임포트 상태를 사용하는 `importlib.import_module()`의 재구현입니다. 전체 참조는을 참조하십시오.
+    *   **`modules`, `path`, `path_hooks`, `meta_path`, `path_importer_cache`** : 프로세스 전역 `sys`의 해당 속성들의 인스턴스별 버전입니다.
 
 *   **`importlib.engine.GlobalImportEngine(ImportEngine)`**
     *   전역 상태에 엔진과 유사한 접근을 제공하는 편의 클래스입니다. `ImportEngine`과 마찬가지로 `__import__()`, `import_module()`, `from_engine()` 메서드를 제공하지만, `sys`의 전역 상태에 쓰기 통과합니다.
@@ -84,7 +84,7 @@ published: true
 
 #### 전역 변수 (Global variables)
 
-*   **`importlib.engine.sysengine`**: `GlobalImportEngine`의 미리 생성된 인스턴스입니다. 선택적 엔진 매개변수를 받아들이도록 업데이트된 임포터(importer) 및 로더(loader)와 `ImportEngine.from_engine(sysengine)`를 사용하여 프로세스 전역 임포트 상태의 복사본으로 시작하는 데 사용될 예정입니다.
+*   **`importlib.engine.sysengine`** : `GlobalImportEngine`의 미리 생성된 인스턴스입니다. 선택적 엔진 매개변수를 받아들이도록 업데이트된 임포터(importer) 및 로더(loader)와 `ImportEngine.from_engine(sysengine)`를 사용하여 프로세스 전역 임포트 상태의 복사본으로 시작하는 데 사용될 예정입니다.
 
 #### `finder`/`loader` 인터페이스의 변경 없음 (No changes to finder/loader interfaces)
 
@@ -103,9 +103,9 @@ PEP 302 API를 추가 상태를 받아들이도록 업데이트하려는 시도 
 
 ### 미해결 문제 (Open Issues)
 
-*   **전역 임포트 상태로 폴백(fall back)하기 위한 API 설계**: 현재 제안은 `from_engine()` API에 의존하여 전역 임포트 상태로 폴백합니다. 대신 동적으로 전역 임포트 상태로 폴백하는 변형을 제공하는 것이 바람직할 수 있습니다. 그러나 "가능한 한 고립된" 디자인으로 시작하는 큰 장점 중 하나는 엔진 인스턴스 상태와 프로세스 전역 상태 간의 경계를 다양한 방식으로 흐리게 하는 서브클래스를 실험할 수 있다는 것입니다.
-*   **내장(Builtin) 및 확장(Extension) 모듈은 프로세스 전역이어야 함**: 플랫폼 제한으로 인해 각 내장 및 확장 모듈의 복사본은 각 프로세스에 하나만 존재할 수 있습니다. 따라서 각 `ImportEngine` 인스턴스가 이러한 모듈을 독립적으로 로드하는 것은 불가능합니다. 가장 간단한 해결책은 `ImportEngine`이 이러한 모듈 로드를 거부하고 `ImportError`를 발생하는 것입니다. `GlobalImportEngine`은 이러한 모듈을 정상적으로 로드할 수 있습니다. `ImportEngine`은 미리 채워진 모듈 캐시에서 이러한 모듈을 계속 반환할 것입니다. 직접 로드하는 경우에만 문제가 발생합니다.
-*   **대체의 범위 (Scope of substitution)**: 이전 미해결 문제와 관련하여 컨텍스트 관리 API를 사용할 때 어떤 상태를 대체할 것인가 하는 질문이 있습니다. `sys.modules`를 교체하는 것은 캐시된 참조 때문에 신뢰할 수 없을 수 있으며, 일부 모듈의 독립적인 복사본을 가지는 것이 플랫폼 제한으로 인해 단순히 불가능하다는 근본적인 사실이 존재합니다. 이 PEP의 일부로서 다음을 명시적으로 문서화해야 할 필요가 있습니다.
+*   **전역 임포트 상태로 폴백(fall back)하기 위한 API 설계** : 현재 제안은 `from_engine()` API에 의존하여 전역 임포트 상태로 폴백합니다. 대신 동적으로 전역 임포트 상태로 폴백하는 변형을 제공하는 것이 바람직할 수 있습니다. 그러나 "가능한 한 고립된" 디자인으로 시작하는 큰 장점 중 하나는 엔진 인스턴스 상태와 프로세스 전역 상태 간의 경계를 다양한 방식으로 흐리게 하는 서브클래스를 실험할 수 있다는 것입니다.
+*   **내장(Builtin) 및 확장(Extension) 모듈은 프로세스 전역이어야 함** : 플랫폼 제한으로 인해 각 내장 및 확장 모듈의 복사본은 각 프로세스에 하나만 존재할 수 있습니다. 따라서 각 `ImportEngine` 인스턴스가 이러한 모듈을 독립적으로 로드하는 것은 불가능합니다. 가장 간단한 해결책은 `ImportEngine`이 이러한 모듈 로드를 거부하고 `ImportError`를 발생하는 것입니다. `GlobalImportEngine`은 이러한 모듈을 정상적으로 로드할 수 있습니다. `ImportEngine`은 미리 채워진 모듈 캐시에서 이러한 모듈을 계속 반환할 것입니다. 직접 로드하는 경우에만 문제가 발생합니다.
+*   **대체의 범위 (Scope of substitution)** : 이전 미해결 문제와 관련하여 컨텍스트 관리 API를 사용할 때 어떤 상태를 대체할 것인가 하는 질문이 있습니다. `sys.modules`를 교체하는 것은 캐시된 참조 때문에 신뢰할 수 없을 수 있으며, 일부 모듈의 독립적인 복사본을 가지는 것이 플랫폼 제한으로 인해 단순히 불가능하다는 근본적인 사실이 존재합니다. 이 PEP의 일부로서 다음을 명시적으로 문서화해야 할 필요가 있습니다.
     *   전역 임포트 상태의 어떤 부분을 대체할 수 있는지 (그리고 해당 상태에 대한 참조를 캐시하면서 대체 사례를 처리하지 않는 코드를 버그로 선언).
     *   어떤 부분을 제자리에서 수정해야 하는지 (따라서 `ImportEngine` 컨텍스트 관리 API에 의해 대체되지 않거나 `ImportEngine` 인스턴스에 범위가 지정되지 않음).
 
@@ -117,6 +117,6 @@ Greg Slodkowicz는 2011년 Google Summer of Code의 일환으로 Brett Cannon의
 
 ---
 
-**저작권 (Copyright)**: 이 문서는 퍼블릭 도메인(public domain)으로 지정되었습니다.
+**저작권 (Copyright)** : 이 문서는 퍼블릭 도메인(public domain)으로 지정되었습니다.
 
 > ⚠️ **알림:** 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.

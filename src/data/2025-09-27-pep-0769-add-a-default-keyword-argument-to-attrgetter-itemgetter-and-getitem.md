@@ -75,9 +75,9 @@ published: true
 
 제안된 동작은 다음과 같습니다:
 
-*   **`attrgetter`**: `f = attrgetter("name", default=XYZ)`를 사용한 다음 `f(obj)`를 호출하면, 속성이 존재할 경우 `obj.name`을 반환하고, 그렇지 않으면 `XYZ`를 반환합니다.
-*   **`itemgetter`**: `f = itemgetter(2, default=XYZ)`를 사용한 다음 `f(obj)`를 호출하면, `obj[2]`가 유효할 경우 이를 반환하고, 그렇지 않으면 `XYZ`를 반환합니다.
-*   **`getitem`**: `getitem(obj, k, XYZ)` 또는 `getitem(obj, k, default=XYZ)`를 사용하면, `obj[k]`가 유효할 경우 이를 반환하고, 그렇지 않으면 `XYZ`를 반환합니다.
+*   **`attrgetter`** : `f = attrgetter("name", default=XYZ)`를 사용한 다음 `f(obj)`를 호출하면, 속성이 존재할 경우 `obj.name`을 반환하고, 그렇지 않으면 `XYZ`를 반환합니다.
+*   **`itemgetter`** : `f = itemgetter(2, default=XYZ)`를 사용한 다음 `f(obj)`를 호출하면, `obj[2]`가 유효할 경우 이를 반환하고, 그렇지 않으면 `XYZ`를 반환합니다.
+*   **`getitem`** : `getitem(obj, k, XYZ)` 또는 `getitem(obj, k, default=XYZ)`를 사용하면, `obj[k]`가 유효할 경우 이를 반환하고, 그렇지 않으면 `XYZ`를 반환합니다.
 
 처음 두 가지 경우에 이 개선 사항은 단일 및 다중 속성/항목 검색에 모두 적용되며, 누락된 속성이나 항목에 대해 `default` 값이 반환됩니다.
 

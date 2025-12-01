@@ -22,12 +22,12 @@ published: true
 
 # PEP 293 – 코덱 에러 핸들링 콜백
 
-*   **작성자**: Walter Dörwald
-*   **상태**: Final (최종)
-*   **타입**: Standards Track (표준 트랙)
-*   **생성일**: 2002년 6월 18일
-*   **Python 버전**: 2.3
-*   **사전 이력**: 2002년 6월 19일
+*   **작성자** : Walter Dörwald
+*   **상태** : Final (최종)
+*   **타입** : Standards Track (표준 트랙)
+*   **생성일** : 2002년 6월 18일
+*   **Python 버전** : 2.3
+*   **사전 이력** : 2002년 6월 19일
 
 ## 요약 (Abstract)
 
@@ -53,7 +53,7 @@ published: true
 
 ### 예외 객체 구조
 
-**인코딩(Encoding)의 경우**, 예외 객체는 `UnicodeEncodeError` 클래스 형태를 가집니다.
+**인코딩(Encoding)의 경우** , 예외 객체는 `UnicodeEncodeError` 클래스 형태를 가집니다.
 
 ```python
 class UnicodeEncodeError(UnicodeError):
@@ -82,7 +82,7 @@ class UnicodeEncodeError(UnicodeError):
 *   `replacement`: 인코딩할 수 없는 `object[start:end]` 부분 대신 인코더가 인코딩하여 내보낼 `unicode` 객체입니다.
 *   `newpos`: `object` 내의 새로운 위치를 지정하며, 인코더는 `replacement`를 인코딩한 후 이 위치부터 인코딩을 계속합니다.
 
-**디코딩(Decoding)의 경우**는 인코딩과 유사하게 작동하며, 다음 차이점이 있습니다.
+**디코딩(Decoding)의 경우** 는 인코딩과 유사하게 작동하며, 다음 차이점이 있습니다.
 
 *   예외 클래스 이름은 `UnicodeDecodeError`이며, `object` 속성은 디코더가 현재 디코딩 중인 원본 8비트 문자열입니다.
 *   콜백에서 반환된 `replacement`는 디코더가 추가 처리 없이 `object[start:end]` 부분 대신 그대로 내보낼 `unicode` 객체입니다.

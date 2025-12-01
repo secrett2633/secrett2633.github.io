@@ -143,16 +143,16 @@ TypeError: int() argument must be a string, a bytes-like object or a number, not
 
 ## 부록 (Appendix)
 
-*   **PEPs**:
+*   **PEPs** :
     *   PEP 3134 – Exception Chaining and Embedded Tracebacks (Python 3.0): 예외에 대한 새로운 `__context__` 및 `__cause__` 속성.
     *   PEP 415 – Implement context suppression with exception attributes (Python 3.3): `raise exc from None`.
     *   PEP 409 – Suppressing exception context (PEP 415로 대체됨).
-*   **Python C API**: `Include/pyerror.h` 헤더 파일은 예외 관련 함수들을 선언합니다.
+*   **Python C API** : `Include/pyerror.h` 헤더 파일은 예외 관련 함수들을 선언합니다.
     *   예외 발생 함수: `PyErr_SetNone()`, `PyErr_SetObject()`, `PyErr_SetString()`, `PyErr_Format()`.
     *   특정 예외 발생 헬퍼: `PyErr_BadArgument()`, `PyErr_BadInternalCall()`, `PyErr_NoMemory()`, `PyErr_SetFromErrno()`, `PyErr_SetFromWindowsErr()`, `PyErr_SetImportError()`, `_PyErr_SetKeyError()`, `_PyErr_TrySetFromCause()`.
     *   현재 예외 관리 함수: `PyErr_Clear()`, `PyErr_Fetch()`, `PyErr_Restore()`, `PyErr_GetExcInfo()`, `PyErr_SetExcInfo()`.
     *   예외 처리 기타 함수: `PyErr_ExceptionMatches()`, `PyErr_GivenExceptionMatches()`, `PyErr_NormalizeException()`, `_PyErr_ChainExceptions()`.
-*   **Python Issues**: 예외 연결 및 예외 손실 방지와 관련된 여러 이슈가 언급되어 있습니다.
+*   **Python Issues** : 예외 연결 및 예외 손실 방지와 관련된 여러 이슈가 언급되어 있습니다.
 
 ## 거부 (Rejection)
 이 PEP는 2017년 9월 12일 Victor Stinner에 의해 거부되었습니다. `python-dev` 논의에서 C 예외를 기본적으로 연결하지 않고, 대신 의미 있는 곳에서만 명시적으로 연결하기로 결정되었습니다.

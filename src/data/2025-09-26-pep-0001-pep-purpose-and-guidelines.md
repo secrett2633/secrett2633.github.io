@@ -22,7 +22,7 @@ published: true
 
 ## PEP란 무엇인가요?
 
-PEP는 **Python Enhancement Proposal**의 약자입니다. PEP는 Python 커뮤니티에 정보를 제공하거나, Python 또는 그 프로세스 및 환경을 위한 새로운 기능을 설명하는 디자인 문서입니다. PEP는 기능에 대한 간결한 기술 사양과 해당 기능의 도입 배경을 제공해야 합니다.
+PEP는 **Python Enhancement Proposal** 의 약자입니다. PEP는 Python 커뮤니티에 정보를 제공하거나, Python 또는 그 프로세스 및 환경을 위한 새로운 기능을 설명하는 디자인 문서입니다. PEP는 기능에 대한 간결한 기술 사양과 해당 기능의 도입 배경을 제공해야 합니다.
 
 PEP는 주요 신기능 제안, 특정 문제에 대한 커뮤니티 의견 수렴, 그리고 Python의 디자인 결정을 문서화하는 주요 메커니즘으로 사용됩니다. PEP 작성자는 커뮤니티 내에서 합의를 도출하고 반대 의견을 문서화할 책임이 있습니다. PEP는 버전 관리되는 텍스트 파일로 유지되므로, 그 개정 이력은 기능 제안의 역사적 기록이 됩니다.
 
@@ -34,9 +34,9 @@ PEP의 주요 대상 독자는 CPython 레퍼런스 인터프리터의 핵심 �
 
 PEP는 세 가지 유형으로 나뉩니다.
 
-1.  **Standards Track PEP**: Python을 위한 새로운 기능 또는 구현을 설명합니다. 표준 라이브러리 외에서 지원될 상호 운용성 표준을 설명할 수도 있습니다.
-2.  **Informational PEP**: Python 디자인 문제에 대해 설명하거나, Python 커뮤니티에 일반적인 가이드라인이나 정보를 제공하지만, 새로운 기능을 제안하지는 않습니다. Informational PEP는 반드시 Python 커뮤니티의 합의나 권고를 나타내는 것은 아니므로, 사용자 및 구현자는 Informational PEP를 무시하거나 그 조언을 따르지 않을 자유가 있습니다.
-3.  **Process PEP**: Python을 둘러싼 프로세스에 대해 설명하거나, 프로세스에 대한 변경 (또는 이벤트)을 제안합니다. Process PEP는 Standards Track PEP와 유사하지만, Python 언어 자체 외의 영역에 적용됩니다. 이는 구현을 제안할 수 있지만, Python의 코드베이스에 대한 것이 아닙니다. 종종 커뮤니티 합의를 필요로 하며, Informational PEP와 달리 단순한 권고 이상이므로 사용자들은 일반적으로 이를 무시할 자유가 없습니다. 예시로는 절차, 가이드라인, 의사결정 프로세스의 변경, Python 개발에 사용되는 도구 또는 환경 변경 등이 있습니다. 모든 메타-PEP (meta-PEP)도 Process PEP로 간주됩니다.
+1.  **Standards Track PEP** : Python을 위한 새로운 기능 또는 구현을 설명합니다. 표준 라이브러리 외에서 지원될 상호 운용성 표준을 설명할 수도 있습니다.
+2.  **Informational PEP** : Python 디자인 문제에 대해 설명하거나, Python 커뮤니티에 일반적인 가이드라인이나 정보를 제공하지만, 새로운 기능을 제안하지는 않습니다. Informational PEP는 반드시 Python 커뮤니티의 합의나 권고를 나타내는 것은 아니므로, 사용자 및 구현자는 Informational PEP를 무시하거나 그 조언을 따르지 않을 자유가 있습니다.
+3.  **Process PEP** : Python을 둘러싼 프로세스에 대해 설명하거나, 프로세스에 대한 변경 (또는 이벤트)을 제안합니다. Process PEP는 Standards Track PEP와 유사하지만, Python 언어 자체 외의 영역에 적용됩니다. 이는 구현을 제안할 수 있지만, Python의 코드베이스에 대한 것이 아닙니다. 종종 커뮤니티 합의를 필요로 하며, Informational PEP와 달리 단순한 권고 이상이므로 사용자들은 일반적으로 이를 무시할 자유가 없습니다. 예시로는 절차, 가이드라인, 의사결정 프로세스의 변경, Python 개발에 사용되는 도구 또는 환경 변경 등이 있습니다. 모든 메타-PEP (meta-PEP)도 Process PEP로 간주됩니다.
 
 ## PEP 워크플로우
 
@@ -121,20 +121,20 @@ Active (Informational 및 Process) PEP는 개발 관행 및 기타 세부 사항
 
 각 PEP는 다음 부분/섹션을 포함해야 합니다.
 
-*   **Preamble (전문)**: PEP 번호, 짧은 설명 제목, 저자 이름 등 PEP에 대한 메타데이터를 포함하는 RFC 2822 스타일의 헤더입니다.
-*   **Abstract (요약)**: 다루어지는 기술적 문제에 대한 짧은(~200단어) 설명입니다.
-*   **Motivation (동기)**: Python 언어, 라이브러리 또는 생태계를 변경하려는 PEP에 매우 중요합니다. 기존 언어 사양이 PEP가 해결하는 문제를 다루기에 부적절한 이유를 명확하게 설명해야 합니다.
-*   **Rationale (근거)**: 특정 디자인 결정이 내려진 이유를 설명하여 사양을 상세화합니다. 고려되었던 대체 디자인과 관련 작업(예: 다른 언어에서 해당 기능이 어떻게 지원되는지)을 설명해야 합니다.
-*   **Specification (사양)**: 새로운 언어 기능의 구문과 의미를 설명해야 합니다. 최소한 현재 주요 Python 플랫폼(CPython, Jython, IronPython, PyPy)에 대한 경쟁적이고 상호 운용 가능한 구현을 허용할 만큼 충분히 상세해야 합니다.
-*   **Backwards Compatibility (이전 버전 호환성)**: 이전 버전과의 비호환성을 도입하는 모든 PEP는 이러한 비호환성과 그 심각도를 설명하는 섹션을 포함해야 합니다. 저자는 이러한 비호환성을 어떻게 처리할지 설명해야 합니다.
-*   **Security Implications (보안 영향)**: PEP와 관련하여 보안 문제가 있다면, PEP 검토자들이 이를 인지할 수 있도록 명시적으로 작성해야 합니다.
-*   **How to Teach This (교육 방법)**: 새로운 기능을 추가하거나 언어 동작을 변경하는 PEP의 경우, 신규 및 숙련된 사용자에게 PEP를 작업에 적용하는 방법을 가르치는 방법에 대한 섹션을 포함하는 것이 도움이 됩니다.
-*   **Reference Implementation (참조 구현)**: 어떤 PEP도 "Final" 상태를 부여받기 전에 참조 구현이 완료되어야 하지만, PEP가 수락되기 전에 완료될 필요는 없습니다.
-*   **Rejected Ideas (거부된 아이디어)**: PEP 논의 과정에서 제안되었지만 수락되지 않은 다양한 아이디어는 거부 이유와 함께 기록되어야 합니다.
-*   **Open Issues (미해결 문제)**: PEP가 초안 단계에 있는 동안, 추가 논의가 필요한 아이디어는 기록되어야 합니다.
-*   **Acknowledgements (감사)**: PEP 개발, 논의 또는 초안 작성에 도움을 준 사람들에게 감사하고 인정하는 데 유용합니다.
-*   **Footnotes (각주)**: PEP에 인용된 각주의 모음입니다.
-*   **Copyright/license (저작권/라이선스)**: 각 새 PEP는 퍼블릭 도메인 및 CC0-1.0-Universal 이중 라이선스 하에 놓여야 합니다.
+*   **Preamble (전문)** : PEP 번호, 짧은 설명 제목, 저자 이름 등 PEP에 대한 메타데이터를 포함하는 RFC 2822 스타일의 헤더입니다.
+*   **Abstract (요약)** : 다루어지는 기술적 문제에 대한 짧은(~200단어) 설명입니다.
+*   **Motivation (동기)** : Python 언어, 라이브러리 또는 생태계를 변경하려는 PEP에 매우 중요합니다. 기존 언어 사양이 PEP가 해결하는 문제를 다루기에 부적절한 이유를 명확하게 설명해야 합니다.
+*   **Rationale (근거)** : 특정 디자인 결정이 내려진 이유를 설명하여 사양을 상세화합니다. 고려되었던 대체 디자인과 관련 작업(예: 다른 언어에서 해당 기능이 어떻게 지원되는지)을 설명해야 합니다.
+*   **Specification (사양)** : 새로운 언어 기능의 구문과 의미를 설명해야 합니다. 최소한 현재 주요 Python 플랫폼(CPython, Jython, IronPython, PyPy)에 대한 경쟁적이고 상호 운용 가능한 구현을 허용할 만큼 충분히 상세해야 합니다.
+*   **Backwards Compatibility (이전 버전 호환성)** : 이전 버전과의 비호환성을 도입하는 모든 PEP는 이러한 비호환성과 그 심각도를 설명하는 섹션을 포함해야 합니다. 저자는 이러한 비호환성을 어떻게 처리할지 설명해야 합니다.
+*   **Security Implications (보안 영향)** : PEP와 관련하여 보안 문제가 있다면, PEP 검토자들이 이를 인지할 수 있도록 명시적으로 작성해야 합니다.
+*   **How to Teach This (교육 방법)** : 새로운 기능을 추가하거나 언어 동작을 변경하는 PEP의 경우, 신규 및 숙련된 사용자에게 PEP를 작업에 적용하는 방법을 가르치는 방법에 대한 섹션을 포함하는 것이 도움이 됩니다.
+*   **Reference Implementation (참조 구현)** : 어떤 PEP도 "Final" 상태를 부여받기 전에 참조 구현이 완료되어야 하지만, PEP가 수락되기 전에 완료될 필요는 없습니다.
+*   **Rejected Ideas (거부된 아이디어)** : PEP 논의 과정에서 제안되었지만 수락되지 않은 다양한 아이디어는 거부 이유와 함께 기록되어야 합니다.
+*   **Open Issues (미해결 문제)** : PEP가 초안 단계에 있는 동안, 추가 논의가 필요한 아이디어는 기록되어야 합니다.
+*   **Acknowledgements (감사)** : PEP 개발, 논의 또는 초안 작성에 도움을 준 사람들에게 감사하고 인정하는 데 유용합니다.
+*   **Footnotes (각주)** : PEP에 인용된 각주의 모음입니다.
+*   **Copyright/license (저작권/라이선스)** : 각 새 PEP는 퍼블릭 도메인 및 CC0-1.0-Universal 이중 라이선스 하에 놓여야 합니다.
 
 ## PEP 형식 및 템플릿
 
@@ -163,17 +163,17 @@ Post-History: <dates, in dd-mmm-yyyy format, inline-linked to PEP discussion thr
 * Resolution: <date in dd-mmm-yyyy format, linked to the acceptance/rejection post>
 ```
 
-*   **Author**: PEP의 모든 저자/소유자의 이름과 선택적으로 이메일 주소를 나열합니다.
-*   **Sponsor**: PEP를 후원하는 개발자(코어 개발자 또는 Steering Council이 특별히 승인한 개발자)를 기록합니다.
-*   **PEP-Delegate**: Steering Council이 PEP의 승인 또는 거부에 대한 최종 결정을 내리도록 임명한 개인을 기록합니다.
-*   **Discussions-To**: PEP에 대한 현재 표준 논의 스레드의 URL을 제공합니다.
-*   **Type**: PEP의 유형을 지정합니다 (Standards Track, Informational, Process).
-*   **Topic (선택 사항)**: PEP가 속하는 특별 주제를 나열합니다.
-*   **Created**: PEP 번호가 할당된 날짜를 기록합니다.
-*   **Python-Version (Standards Track PEP에 해당)**: 기능이 출시될 Python 버전을 나타냅니다.
-*   **Requires (선택 사항)**: 이 PEP가 의존하는 PEP 번호를 나타냅니다.
-*   **Superseded-By (선택 사항)**: PEP가 나중에 다른 문서에 의해 구식화되었음을 나타냅니다.
-*   **Resolution (Standards Track PEP에 필수)**: PEP에 대한 결정(승인 또는 거부)이 내려진 이메일 메시지 또는 기타 웹 리소스로 연결되는 URL을 포함합니다.
+*   **Author** : PEP의 모든 저자/소유자의 이름과 선택적으로 이메일 주소를 나열합니다.
+*   **Sponsor** : PEP를 후원하는 개발자(코어 개발자 또는 Steering Council이 특별히 승인한 개발자)를 기록합니다.
+*   **PEP-Delegate** : Steering Council이 PEP의 승인 또는 거부에 대한 최종 결정을 내리도록 임명한 개인을 기록합니다.
+*   **Discussions-To** : PEP에 대한 현재 표준 논의 스레드의 URL을 제공합니다.
+*   **Type** : PEP의 유형을 지정합니다 (Standards Track, Informational, Process).
+*   **Topic (선택 사항)** : PEP가 속하는 특별 주제를 나열합니다.
+*   **Created** : PEP 번호가 할당된 날짜를 기록합니다.
+*   **Python-Version (Standards Track PEP에 해당)** : 기능이 출시될 Python 버전을 나타냅니다.
+*   **Requires (선택 사항)** : 이 PEP가 의존하는 PEP 번호를 나타냅니다.
+*   **Superseded-By (선택 사항)** : PEP가 나중에 다른 문서에 의해 구식화되었음을 나타냅니다.
+*   **Resolution (Standards Track PEP에 필수)** : PEP에 대한 결정(승인 또는 거부)이 내려진 이메일 메시지 또는 기타 웹 리소스로 연결되는 URL을 포함합니다.
 
 ## 보조 파일 (Auxiliary Files)
 

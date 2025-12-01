@@ -21,10 +21,10 @@ published: true
 
 ## PEP 10 – 투표 지침 (Voting Guidelines)
 
-- **작성자**: Barry Warsaw <barry at python.org>
-- **상태**: Active (활성)
-- **유형**: Process (절차)
-- **생성일**: 2002년 3월 7일
+- **작성자** : Barry Warsaw <barry at python.org>
+- **상태** : Active (활성)
+- **유형** : Process (절차)
+- **생성일** : 2002년 3월 7일
 
 ### 개요 (Abstract)
 

@@ -108,7 +108,7 @@ def reversed(x):
 ## 실제 사용 사례 (Real World Use Cases)
 표준 라이브러리에서 역방향 이터레이션이 필요한 몇 가지 실제 사례는 다음과 같습니다:
 
-*   **`atexit.exit_handlers()`**:
+*   **`atexit.exit_handlers()`** :
     ```python
     while _exithandlers:
         func, targs, kargs = _exithandlers.pop()
@@ -116,31 +116,31 @@ def reversed(x):
     ```
     이 경우 `pop()`이 필요하므로, 새로운 `reversed()` 함수는 도움이 되지 않습니다.
 
-*   **`heapq.heapify()`**:
+*   **`heapq.heapify()`** :
     ```python
     for i in xrange(n//2 - 1, -1, -1)
     ```
     `heapify()`는 `n//2 - 1`부터 `0`까지 역방향으로 반복합니다. 이는 상위 레벨의 정렬이 하위 레벨의 정렬 쌍으로부터 더 쉽게 형성되기 때문입니다. 순방향 알고리즘도 가능하지만, 나머지 힙(heap) 코드의 복잡성을 증가시킵니다. `for i in reversed(xrange(n//2))`로 대체하면 반복 범위가 더 명확해집니다.
 
-*   **`mhlib.test()`**:
+*   **`mhlib.test()`** :
     ```python
     testfolders.reverse(); for t in testfolders: do('mh.deletefolder(%s)' % `t`)
     ```
     반복 중에 기본 리스트의 꼬리 부분이 변경되므로 역방향 이터레이션이 필요합니다.
 
-*   **`platform._dist_try_harder()`**:
+*   **`platform._dist_try_harder()`** :
     ```python
     for n in range(len(verfiles)-1,-1,-1)
     ```
     루프가 `verfiles`에서 특정 요소를 삭제하지만, 나머지 리스트는 추가 반복을 위해 그대로 남겨두어야 하기 때문에 역방향 반복을 사용합니다.
 
-*   **`random.shuffle()`**:
+*   **`random.shuffle()`** :
     ```python
     for i in xrange(len(x)-1, 0, -1)
     ```
     이 알고리즘은 점점 줄어드는 풀(pool)에서 무작위로 요소를 선택하는 방식으로 가장 쉽게 이해됩니다. 순방향으로도 실행할 수 있지만, 덜 직관적이며 문헌에서도 그렇게 제시되는 경우가 드뭅니다. `for i in reversed(xrange(1, len(x)))`로 대체하면 시각적으로 훨씬 쉽게 검증할 수 있습니다.
 
-*   **`rfc822.Message.__delitem__()`**:
+*   **`rfc822.Message.__delitem__()`** :
     ```python
     list.reverse()
     for i in list:

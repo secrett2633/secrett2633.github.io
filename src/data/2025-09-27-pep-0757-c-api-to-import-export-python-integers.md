@@ -42,12 +42,12 @@ GMP(GNU Multiple Precision Arithmetic Library)와 유사한 import-export 함수
 
 `sys.int_info`는 Python에 유사한 정보를 노출합니다.
 
-*   **`uint8_t bits_per_digit`**: digit당 비트 수. 예를 들어, 15비트 digit은 비트 0-14에 유의미한 정보가 포함됨을 의미합니다.
-*   **`uint8_t digit_size`**: digit의 바이트 크기. 예를 들어, 15비트 digit은 최소 2바이트를 필요로 합니다.
-*   **`int8_t digits_order`**: digit 순서:
+*   **`uint8_t bits_per_digit`** : digit당 비트 수. 예를 들어, 15비트 digit은 비트 0-14에 유의미한 정보가 포함됨을 의미합니다.
+*   **`uint8_t digit_size`** : digit의 바이트 크기. 예를 들어, 15비트 digit은 최소 2바이트를 필요로 합니다.
+*   **`int8_t digits_order`** : digit 순서:
     *   `1`: 최상위 digit 우선 (most significant digit first)
     *   `-1`: 최하위 digit 우선 (least significant digit first)
-*   **`int8_t digit_endianness`**: digit의 엔디안(endianness):
+*   **`int8_t digit_endianness`** : digit의 엔디안(endianness):
     *   `1`: 최상위 바이트 우선 (big endian)
     *   `-1`: 최하위 바이트 우선 (little endian)
 
@@ -63,9 +63,9 @@ Python `int` 객체의 export 구조입니다. 두 가지 경우가 있습니다
 *   `digits`가 `NULL`인 경우, `value` 멤버만 사용합니다.
 *   `digits`가 `NULL`이 아닌 경우, `negative`, `ndigits`, `digits` 멤버를 사용합니다.
 
-*   **`int64_t value`**: export된 `int` 객체의 네이티브 정수 값. `digits`가 `NULL`인 경우에만 유효합니다.
-*   **`uint8_t negative`**: 숫자가 음수이면 `1`, 아니면 `0`. `digits`가 `NULL`이 아닌 경우에만 유효합니다.
-*   **`Py_ssize_t ndigits`**: `digits` 배열의 digit 수. `digits`가 `NULL`이 아닌 경우에만 유효합니다.
+*   **`int64_t value`** : export된 `int` 객체의 네이티브 정수 값. `digits`가 `NULL`인 경우에만 유효합니다.
+*   **`uint8_t negative`** : 숫자가 음수이면 `1`, 아니면 `0`. `digits`가 `NULL`이 아닌 경우에만 유효합니다.
+*   **`Py_ssize_t ndigits`** : `digits` 배열의 digit 수. `digits`가 `NULL`이 아닌 경우에만 유효합니다.
 *   **`const void *digits`**: 읽기 전용 부호 없는 digit 배열. `NULL`일 수 있습니다.
 
 `PyLongExport.digits`가 `NULL`이 아닌 경우, `PyLongExport` 구조체의 private 필드에 Python `int` 객체에 대한 강력한 참조(strong reference)를 저장하여 `PyLong_FreeExport()`가 호출될 때까지 구조체가 유효하게 유지되도록 합니다.
@@ -213,12 +213,12 @@ GMP(GNU Multiple Precision Arithmetic Library)와 유사한 import-export 함수
 
 `sys.int_info`는 Python에 유사한 정보를 노출합니다.
 
-*   **`uint8_t bits_per_digit`**: digit당 비트 수. 예를 들어, 15비트 digit은 비트 0-14에 유의미한 정보가 포함됨을 의미합니다.
-*   **`uint8_t digit_size`**: digit의 바이트 크기. 예를 들어, 15비트 digit은 최소 2바이트를 필요로 합니다.
-*   **`int8_t digits_order`**: digit 순서:
+*   **`uint8_t bits_per_digit`** : digit당 비트 수. 예를 들어, 15비트 digit은 비트 0-14에 유의미한 정보가 포함됨을 의미합니다.
+*   **`uint8_t digit_size`** : digit의 바이트 크기. 예를 들어, 15비트 digit은 최소 2바이트를 필요로 합니다.
+*   **`int8_t digits_order`** : digit 순서:
     *   `1`: 최상위 digit 우선 (most significant digit first)
     *   `-1`: 최하위 digit 우선 (least significant digit first)
-*   **`int8_t digit_endianness`**: digit의 엔디안(endianness):
+*   **`int8_t digit_endianness`** : digit의 엔디안(endianness):
     *   `1`: 최상위 바이트 우선 (big endian)
     *   `-1`: 최하위 바이트 우선 (little endian)
 
@@ -234,9 +234,9 @@ Python `int` 객체의 export 구조입니다. 두 가지 경우가 있습니다
 *   `digits`가 `NULL`인 경우, `value` 멤버만 사용합니다.
 *   `digits`가 `NULL`이 아닌 경우, `negative`, `ndigits`, `digits` 멤버를 사용합니다.
 
-*   **`int64_t value`**: export된 `int` 객체의 네이티브 정수 값. `digits`가 `NULL`인 경우에만 유효합니다.
-*   **`uint8_t negative`**: 숫자가 음수이면 `1`, 아니면 `0`. `digits`가 `NULL`이 아닌 경우에만 유효합니다.
-*   **`Py_ssize_t ndigits`**: `digits` 배열의 digit 수. `digits`가 `NULL`이 아닌 경우에만 유효합니다.
+*   **`int64_t value`** : export된 `int` 객체의 네이티브 정수 값. `digits`가 `NULL`인 경우에만 유효합니다.
+*   **`uint8_t negative`** : 숫자가 음수이면 `1`, 아니면 `0`. `digits`가 `NULL`이 아닌 경우에만 유효합니다.
+*   **`Py_ssize_t ndigits`** : `digits` 배열의 digit 수. `digits`가 `NULL`이 아닌 경우에만 유효합니다.
 *   **`const void *digits`**: 읽기 전용 부호 없는 digit 배열. `NULL`일 수 있습니다.
 
 `PyLongExport.digits`가 `NULL`이 아닌 경우, `PyLongExport` 구조체의 private 필드에 Python `int` 객체에 대한 강력한 참조(strong reference)를 저장하여 `PyLong_FreeExport()`가 호출될 때까지 구조체가 유효하게 유지되도록 합니다.

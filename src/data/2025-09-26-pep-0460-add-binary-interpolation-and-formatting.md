@@ -22,11 +22,11 @@ published: true
 
 # PEP 460 – 바이너리 보간 및 포매팅 추가 (Add binary interpolation and formatting)
 
-*   **작성자**: Antoine Pitrou
-*   **상태**: 철회됨 (Withdrawn)
-*   **유형**: Standards Track
-*   **생성일**: 2014년 1월 6일
-*   **Python 버전**: 3.5
+*   **작성자** : Antoine Pitrou
+*   **상태** : 철회됨 (Withdrawn)
+*   **유형** : Standards Track
+*   **생성일** : 2014년 1월 6일
+*   **Python 버전** : 3.5
 
 ## 초록 (Abstract)
 

@@ -150,7 +150,7 @@ from __future__ import type_declarations
 
 ## 최종 결정 (Rejection)
 
-신중한 고려, 많은 자기 성찰, 고뇌 끝에 이 PEP는 최종적으로 **거부(Rejected)**되었습니다.
+신중한 고려, 많은 자기 성찰, 고뇌 끝에 이 PEP는 최종적으로 **거부(Rejected)** 되었습니다.
 
 ## 참고 자료 (References)
 
@@ -304,7 +304,7 @@ from __future__ import type_declarations
 
 ## 최종 결정 (Rejection)
 
-신중한 고려, 많은 자기 성찰, 고뇌 끝에 이 PEP는 최종적으로 **거부(Rejected)**되었습니다.
+신중한 고려, 많은 자기 성찰, 고뇌 끝에 이 PEP는 최종적으로 **거부(Rejected)** 되었습니다.
 
 ## 참고 자료 (References)
 

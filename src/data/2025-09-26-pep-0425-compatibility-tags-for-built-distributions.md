@@ -24,7 +24,7 @@ PEP 425 – 빌드된 배포판을 위한 호환성 태그 (Compatibility Tags f
 ## 개요
 이 문서는 Python 패키징에서 빌드된 (또는 바이너리) 배포판이 어떤 Python 버전과 호환되는지 나타내기 위한 태그 시스템을 정의합니다. 이 시스템은 Python 구현체 및 언어 버전, ABI (Application Binary Interface), 그리고 플랫폼 정보를 세 가지 태그 세트로 나타냅니다. 이 태그들은 파일명에 포함되므로 간결하게 설계되었습니다.
 
-**중요**: 이 PEP는 역사적인 문서입니다. 최신 규격인 "Platform compatibility tags"는 PyPA specs 페이지에서 관리됩니다.
+**중요** : 이 PEP는 역사적인 문서입니다. 최신 규격인 "Platform compatibility tags"는 PyPA specs 페이지에서 관리됩니다.
 
 ## PEP 수락
 이 PEP는 2013년 2월 17일 Alyssa Coghlan에 의해 수락되었습니다.
@@ -39,9 +39,9 @@ PEP 425 – 빌드된 배포판을 위한 호환성 태그 (Compatibility Tags f
 ## 태그 형식 (Overview)
 태그 형식은 `{python tag}-{abi tag}-{platform tag}` 입니다.
 
-*   **Python Tag**: 'py27', 'cp33'
-*   **ABI Tag**: 'cp32dmu', 'none'
-*   **Platform Tag**: 'linux_x86_64', 'any'
+*   **Python Tag** : 'py27', 'cp33'
+*   **ABI Tag** : 'cp32dmu', 'none'
+*   **Platform Tag** : 'linux_x86_64', 'any'
 
 예를 들어, `py27-none-any` 태그는 Python 2.7 (어떤 Python 2.7 구현체든)과 호환되며, ABI 요구사항이 없고, 어떤 플랫폼에서든 작동함을 나타냅니다.
 
@@ -64,7 +64,7 @@ Python Tag는 배포판이 요구하는 구현체와 버전을 나타냅니다. 
 
 많은 순수 Python 배포판의 경우, 버전은 `py2` 또는 `py3`와 같이 주(major) 버전만으로 구성될 수 있습니다.
 
-**중요**: `py2`, `py3`와 같은 주 버전만 있는 태그는 `py20`, `py30`의 축약어가 아닙니다. 대신, 이 태그들은 패키지 제작자가 의도적으로 여러 버전에 걸쳐 호환되는 배포판을 릴리스했음을 의미합니다.
+**중요** : `py2`, `py3`와 같은 주 버전만 있는 태그는 `py20`, `py30`의 축약어가 아닙니다. 대신, 이 태그들은 패키지 제작자가 의도적으로 여러 버전에 걸쳐 호환되는 배포판을 릴리스했음을 의미합니다.
 
 단일 소스로 Python 2/3 호환 배포판을 만드는 경우 `py2.py3`와 같은 복합 태그를 사용할 수 있습니다. (아래 "압축된 태그 세트" 참조)
 

@@ -44,18 +44,18 @@ or_test: and_test ('or' and_test)*
 ```
 
 **하위 호환성:**
-새로운 구문은 거의 사소한 문법적 하위 호환성 문제를 일으킬 수 있었습니다. 이전 Python 버전에서는 `[f for f in lambda x: x, lambda x: x**2 if f(1) == 1]` 와 같은 리스트 컴프리헨션(List Comprehension)이 유효했습니다. 하지만 Python 3.0에서는 람다(lambda) 시리즈를 괄호로 묶어야 합니다 (예: `[f for f in (lambda x: x, lambda x: x**2) if f(1) == 1]`). 이는 `lambda`가 `if-else` 표현식보다 결합력이 약하기 때문입니다.
+새로운 구문은 거의 사소한 문법적 하위 호환성 문제를 일으킬 수 있었습니다. 이전 Python 버전에서는 `[f for f in lambda x: x, lambda x: x **2 if f(1) == 1]` 와 같은 리스트 컴프리헨션(List Comprehension)이 유효했습니다. 하지만 Python 3.0에서는 람다(lambda) 시리즈를 괄호로 묶어야 합니다 (예: `[f for f in (lambda x: x, lambda x: x** 2) if f(1) == 1]`). 이는 `lambda`가 `if-else` 표현식보다 결합력이 약하기 때문입니다.
 
 Python 2.5에서는 약간 다른 문법이 사용되어 하위 호환성을 더 유지했지만, 이 위치에서 사용되는 람다의 본문에 괄호 없는 조건 표현식을 포함하는 것을 금지함으로써 람다의 문법을 제약했습니다. 예를 들어, `[f for f in 1, lambda x: x if x >= 0 else -1]`는 유효하지 않습니다. 대신 `[f for f in 1, (lambda x: x if x >= 0 else -1)]` 또는 `[f for f in 1, lambda x: (x if x >= 0 else -1)]`와 같이 괄호를 사용해야 합니다.
 
 ### 대안 및 논의
 과거에 다양한 조건부 표현식 구문이 제안되었고 논의되었습니다:
-*   **`(if <condition>: <expression1> else: <expression2>)`**: 괄호가 필수이며, `elif` 확장이 가능합니다. 문장 구문과의 혼동 가능성, 콜론(colon)의 의미 과부하 등의 단점이 지적되었습니다.
-*   **`<condition> and <expression1> else <expression2>`**: `and/or` 연산자를 기반으로 한 최소 침습적(minimally invasive) 변경으로 제안되었으나, `else`가 `and`의 기존 의미를 변경한다는 지적이 있었습니다.
-*   **`<condition> then <expression1> else <expression2>`**: 간단한 시각적 분석, 괄호 불필요, 기존 키워드 의미 변경 없음 등의 장점이 있었으나, 새 키워드 도입 비용이 단점으로 지적되었습니다.
-*   **`C-언어 스타일: <condition> ? <expression1> : <expression2>`**: Eric Raymond가 구현하기도 했으나, Python에서 콜론의 다양한 용도와 C-언어에 익숙하지 않은 사용자에게는 이해하기 어렵다는 이유로 BDFL이 거부했습니다.
-*   **원래 PEP 제안: `<expression1> if <condition> else <expression2>`**: 이 제안은 순서가 뒤바뀐 배열이 많은 토론 참여자들에게 불편하다는 의견이 많았습니다. 특히 `<expression1>`이 길 경우, 조건부를 놓치기 쉽다는 지적이 있었습니다.
-*   **내장 함수 (예: `cond(<condition>, <expression1>, <expression2>)`)**: 이 방식은 `expression1`과 `expression2`가 함수 호출 전에 모두 평가되어야 하므로 단락 평가(short-circuit evaluation)가 불가능하다는 단점이 있습니다. 키워드로 만들 경우에도 혼란을 줄 수 있습니다.
+*   **`(if <condition>: <expression1> else: <expression2>)`** : 괄호가 필수이며, `elif` 확장이 가능합니다. 문장 구문과의 혼동 가능성, 콜론(colon)의 의미 과부하 등의 단점이 지적되었습니다.
+*   **`<condition> and <expression1> else <expression2>`** : `and/or` 연산자를 기반으로 한 최소 침습적(minimally invasive) 변경으로 제안되었으나, `else`가 `and`의 기존 의미를 변경한다는 지적이 있었습니다.
+*   **`<condition> then <expression1> else <expression2>`** : 간단한 시각적 분석, 괄호 불필요, 기존 키워드 의미 변경 없음 등의 장점이 있었으나, 새 키워드 도입 비용이 단점으로 지적되었습니다.
+*   **`C-언어 스타일: <condition> ? <expression1> : <expression2>`** : Eric Raymond가 구현하기도 했으나, Python에서 콜론의 다양한 용도와 C-언어에 익숙하지 않은 사용자에게는 이해하기 어렵다는 이유로 BDFL이 거부했습니다.
+*   **원래 PEP 제안: `<expression1> if <condition> else <expression2>`** : 이 제안은 순서가 뒤바뀐 배열이 많은 토론 참여자들에게 불편하다는 의견이 많았습니다. 특히 `<expression1>`이 길 경우, 조건부를 놓치기 쉽다는 지적이 있었습니다.
+*   **내장 함수 (예: `cond(<condition>, <expression1>, <expression2>)`)** : 이 방식은 `expression1`과 `expression2`가 함수 호출 전에 모두 평가되어야 하므로 단락 평가(short-circuit evaluation)가 불가능하다는 단점이 있습니다. 키워드로 만들 경우에도 혼란을 줄 수 있습니다.
 
 ### 단락 평가 (Short-Circuit Behavior)
 조건부 표현식에서 단락 평가는 매우 중요하게 고려되었습니다.

@@ -21,11 +21,11 @@ published: true
 
 # PEP 684 – 인터프리터별 GIL (A Per-Interpreter GIL)
 
-*   **작성자**: Eric Snow
-*   **상태**: Final (최종)
-*   **유형**: Standards Track (표준 트랙)
-*   **Python 버전**: 3.12
-*   **생성일**: 2022년 3월 8일
+*   **작성자** : Eric Snow
+*   **상태** : Final (최종)
+*   **유형** : Standards Track (표준 트랙)
+*   **Python 버전** : 3.12
+*   **생성일** : 2022년 3월 8일
 
 ## 개요 (Abstract)
 
@@ -85,13 +85,13 @@ PEP 554는 사용자가 Python 코드에서 다중 인터프리터에 접근할 
 
 2014년 초기 조사에서 멀티 코어 Python을 위한 다양한 가능한 해결책들이 탐색되었지만, 각각 간단한 해결책 없이 단점을 가지고 있었습니다.
 
-*   **확장 모듈에서 GIL 해제**: Python 코드에는 도움이 되지 않습니다.
-*   **다른 Python 구현 (예: Jython, IronPython)**: CPython이 커뮤니티를 지배합니다.
-*   **GIL 제거 (예: gilectomy, "no-gil")**: 당시에는 너무 많은 기술적 위험이 있었습니다.
-*   **Trent Nelson의 "PyParallel" 프로젝트**: 불완전했으며, 당시 Windows 전용이었습니다.
-*   **multiprocessing**: 효과적으로 만들기에는 너무 많은 작업이 필요하고, 특정 상황(대규모, Windows)에서 높은 패널티가 따릅니다.
-*   **다른 병렬 처리 도구 (예: dask, ray, MPI)**: 런타임/stdlib에는 적합하지 않습니다.
-*   **멀티 코어를 포기 (예: async, 아무것도 하지 않음)**: 이는 결국 좋지 않은 결과를 낳을 뿐입니다.
+*   **확장 모듈에서 GIL 해제** : Python 코드에는 도움이 되지 않습니다.
+*   **다른 Python 구현 (예: Jython, IronPython)** : CPython이 커뮤니티를 지배합니다.
+*   **GIL 제거 (예: gilectomy, "no-gil")** : 당시에는 너무 많은 기술적 위험이 있었습니다.
+*   **Trent Nelson의 "PyParallel" 프로젝트** : 불완전했으며, 당시 Windows 전용이었습니다.
+*   **multiprocessing** : 효과적으로 만들기에는 너무 많은 작업이 필요하고, 특정 상황(대규모, Windows)에서 높은 패널티가 따릅니다.
+*   **다른 병렬 처리 도구 (예: dask, ray, MPI)** : 런타임/stdlib에는 적합하지 않습니다.
+*   **멀티 코어를 포기 (예: async, 아무것도 하지 않음)** : 이는 결국 좋지 않은 결과를 낳을 뿐입니다.
 
 2014년에도 격리된 인터프리터를 사용하는 해결책은 기술적 위험이 높지 않고 대부분의 작업이 어쨌든 수행할 가치가 있다는 것이 상당히 분명했습니다. (단점은 해야 할 작업의 양이었습니다.)
 

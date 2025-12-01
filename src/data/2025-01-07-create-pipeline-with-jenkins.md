@@ -25,14 +25,14 @@ published: true
 ## **파이프라인 생성**
 
 1. Jenkins 대시보드에서 **새로운 Item 생성** 버튼을 클릭합니다.
-2. 새로운 파이프라인을 생성하기 위해 **Pipeline**을 선택하고, 적당한 이름을 입력합니다.
+2. 새로운 파이프라인을 생성하기 위해 **Pipeline** 을 선택하고, 적당한 이름을 입력합니다.
 
    ![파이프라인 생성](/assets/images/posts_img/devops/jenkins/create_pipeline.png)
 
 3. **Pipeline script from SCM** 버튼을 클릭하여, 소스 코드 관리(SCM)에서 Git을 선택합니다.
-4. **Repository URL**에 Git 저장소 주소를 입력하고, **Branch Specifier**에는 배포할 브랜치 이름을 입력합니다.
+4. **Repository URL** 에 Git 저장소 주소를 입력하고, **Branch Specifier** 에는 배포할 브랜치 이름을 입력합니다.
 
-5. **Script Path**에는 파이프라인을 정의할 파일 경로를 입력합니다. 기본적으로 `Jenkinsfile`이라는 파일을 사용합니다. 이 파일은 파이프라인의 정의 파일입니다.
+5. **Script Path** 에는 파이프라인을 정의할 파일 경로를 입력합니다. 기본적으로 `Jenkinsfile`이라는 파일을 사용합니다. 이 파일은 파이프라인의 정의 파일입니다.
 
 6. **저장** 버튼을 클릭하여 파이프라인을 생성합니다.
 
@@ -86,13 +86,13 @@ pipeline {
 ```
 
 ### **코드 설명**
-- **`agent any`**: 모든 노드에서 실행 가능하다는 선언입니다.
-- **`environment`**: 환경 변수를 정의하는 부분입니다. 여기서는 `DOCKER_COMPOSE_VERSION`을 설정합니다.
-- **`stages`**: 파이프라인의 각 단계를 정의합니다.
-    - **Checkout**: 소스 코드 저장소에서 최신 코드를 가져옵니다.
-    - **Build and Deploy**: `docker-compose` 명령어로 서비스를 빌드하고 배포합니다.
-    - **Health Check**: 배포 후 서비스가 정상적으로 시작되었는지 확인합니다.
-- **`post`**: 파이프라인 실행 후 실패 시 추가 작업을 정의합니다. 예를 들어, 실패한 경우 로그를 출력하도록 설정했습니다.
+- **`agent any`** : 모든 노드에서 실행 가능하다는 선언입니다.
+- **`environment`** : 환경 변수를 정의하는 부분입니다. 여기서는 `DOCKER_COMPOSE_VERSION`을 설정합니다.
+- **`stages`** : 파이프라인의 각 단계를 정의합니다.
+    - **Checkout** : 소스 코드 저장소에서 최신 코드를 가져옵니다.
+    - **Build and Deploy** : `docker-compose` 명령어로 서비스를 빌드하고 배포합니다.
+    - **Health Check** : 배포 후 서비스가 정상적으로 시작되었는지 확인합니다.
+- **`post`** : 파이프라인 실행 후 실패 시 추가 작업을 정의합니다. 예를 들어, 실패한 경우 로그를 출력하도록 설정했습니다.
 
 ### **서비스 배포 과정**
 
@@ -120,7 +120,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 ```
 
-위 설정에서 중요한 부분은 **`/var/run/docker.sock`**을 Jenkins 컨테이너에 마운트하여, Jenkins가 Docker를 사용할 수 있게 하는 것입니다.
+위 설정에서 중요한 부분은 **`/var/run/docker.sock`** 을 Jenkins 컨테이너에 마운트하여, Jenkins가 Docker를 사용할 수 있게 하는 것입니다.
 
 ## **Dockerfile 설정**
 
@@ -152,7 +152,7 @@ docker compose up -d
 
 ## **파이프라인 실행**
 
-모든 설정이 완료되었으면, Jenkins 대시보드에서 생성한 파이프라인을 실행할 준비가 되었습니다. **빌드 버튼**을 클릭하여 파이프라인을 실행합니다.
+모든 설정이 완료되었으면, Jenkins 대시보드에서 생성한 파이프라인을 실행할 준비가 되었습니다. **빌드 버튼** 을 클릭하여 파이프라인을 실행합니다.
 
 파이프라인이 정상적으로 실행되면, Jenkins 로그에 배포가 성공했다고 나타납니다.
 

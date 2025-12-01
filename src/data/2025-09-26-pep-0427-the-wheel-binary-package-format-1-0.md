@@ -37,12 +37,12 @@ Wheel은 빌드 시스템과 설치 프로그램 사이에 더 간단한 인터�
 ### Wheel 설치
 'distribution-1.0-py32-none-any.whl'과 같은 wheel 파일의 설치는 개념적으로 두 단계로 구성됩니다.
 
-1.  **압축 해제 (Unpack)**:
+1.  **압축 해제 (Unpack)** :
     *   `distribution-1.0.dist-info/WHEEL` 파일을 파싱합니다.
     *   설치 프로그램이 `Wheel-Version`과 호환되는지 확인합니다. 마이너 버전이 높으면 경고하고, 메이저 버전이 높으면 중단합니다.
     *   `Root-Is-Purelib == 'true'`이면 아카이브를 `purelib` (site-packages)에 압축 해제합니다. 그렇지 않으면 `platlib` (site-packages)에 압축 해제합니다.
 
-2.  **분산 (Spread)**:
+2.  **분산 (Spread)** :
     *   압축 해제된 아카이브에는 `distribution-1.0.dist-info/` 및 (데이터가 있는 경우) `distribution-1.0.data/`가 포함됩니다.
     *   `distribution-1.0.data/`의 각 서브트리를 해당 대상 경로로 이동합니다. `distribution-1.0.data/`의 각 하위 디렉토리는 `distribution-1.0.data/(purelib|platlib|headers|scripts|data)`와 같은 대상 디렉토리 딕셔너리의 키입니다. 초기 지원 경로는 `distutils.command.install`에서 가져옵니다.
     *   해당하는 경우, `#!python`으로 시작하는 스크립트를 올바른 인터프리터를 가리키도록 업데이트합니다.
@@ -51,23 +51,23 @@ Wheel은 빌드 시스템과 설치 프로그램 사이에 더 간단한 인터�
     *   설치된 `.py` 파일을 `.pyc`로 컴파일합니다. (제거 프로그램은 `RECORD`에 언급되지 않아도 `.pyc`를 제거할 수 있을 만큼 충분히 지능적이어야 합니다.)
 
 ### 권장 설치 프로그램 기능 (Recommended installer features)
-*   **`#!python` 재작성**: Wheel에서 스크립트는 `{distribution}-{version}.data/scripts/`에 패키징됩니다. `scripts/` 내 파일의 첫 줄이 정확히 `b'#!python'`으로 시작하면, 올바른 인터프리터를 가리키도록 재작성됩니다. Unix 설치 프로그램은 아카이브가 Windows에서 생성된 경우 이 파일들에 `+x` 비트를 추가해야 할 수도 있습니다. `b'#!pythonw'` 규칙도 허용됩니다. `b'#!pythonw'`는 콘솔 스크립트 대신 GUI 스크립트를 나타냅니다.
-*   **스크립트 래퍼 생성**: Wheel에서 Unix 시스템에 패키징된 스크립트에는 `.exe` 래퍼가 동반되지 않습니다. Windows 설치 프로그램은 설치 중에 이를 추가할 수 있습니다.
+*   **`#!python` 재작성** : Wheel에서 스크립트는 `{distribution}-{version}.data/scripts/`에 패키징됩니다. `scripts/` 내 파일의 첫 줄이 정확히 `b'#!python'`으로 시작하면, 올바른 인터프리터를 가리키도록 재작성됩니다. Unix 설치 프로그램은 아카이브가 Windows에서 생성된 경우 이 파일들에 `+x` 비트를 추가해야 할 수도 있습니다. `b'#!pythonw'` 규칙도 허용됩니다. `b'#!pythonw'`는 콘솔 스크립트 대신 GUI 스크립트를 나타냅니다.
+*   **스크립트 래퍼 생성** : Wheel에서 Unix 시스템에 패키징된 스크립트에는 `.exe` 래퍼가 동반되지 않습니다. Windows 설치 프로그램은 설치 중에 이를 추가할 수 있습니다.
 
 ### 권장 아카이버 기능 (Recommended archiver features)
-*   **.dist-info를 아카이브의 끝에 배치**: 아카이버는 `.dist-info` 파일을 아카이브의 물리적 끝에 배치하는 것이 권장됩니다. 이는 전체 아카이브를 다시 작성하지 않고도 메타데이터를 수정할 수 있는 몇 가지 흥미로운 ZIP 트릭을 가능하게 합니다.
+*   **.dist-info를 아카이브의 끝에 배치** : 아카이버는 `.dist-info` 파일을 아카이브의 물리적 끝에 배치하는 것이 권장됩니다. 이는 전체 아카이브를 다시 작성하지 않고도 메타데이터를 수정할 수 있는 몇 가지 흥미로운 ZIP 트릭을 가능하게 합니다.
 
 ### 파일 형식 (File Format)
 
 #### 파일명 규칙 (File name convention)
 Wheel 파일명은 `{distribution}-{version}(-{build tag})?-{python tag}-{abi tag}-{platform tag}.whl` 형식입니다.
 
-*   **distribution**: 배포본 이름 (예: 'django', 'pyramid').
-*   **version**: 배포본 버전 (예: 1.0).
-*   **build tag**: 선택적 빌드 번호. 숫자로 시작해야 합니다. 다른 모든 면에서 (이름, 버전 및 기타 태그) 두 wheel 파일 이름이 동일할 경우 동점 방지 역할을 합니다. 지정되지 않은 경우 빈 튜플로 정렬되고, 그렇지 않으면 첫 번째 항목은 `int`형 초기 숫자, 두 번째 항목은 `str`형 나머지 태그인 두 항목 튜플로 정렬됩니다.
-*   **python tag (language implementation and version tag)**: 언어 구현 및 버전 태그 (예: 'py27', 'py2', 'py3').
-*   **abi tag**: ABI 태그 (예: 'cp33m', 'abi3', 'none').
-*   **platform tag**: 플랫폼 태그 (예: 'linux_x86_64', 'any').
+*   **distribution** : 배포본 이름 (예: 'django', 'pyramid').
+*   **version** : 배포본 버전 (예: 1.0).
+*   **build tag** : 선택적 빌드 번호. 숫자로 시작해야 합니다. 다른 모든 면에서 (이름, 버전 및 기타 태그) 두 wheel 파일 이름이 동일할 경우 동점 방지 역할을 합니다. 지정되지 않은 경우 빈 튜플로 정렬되고, 그렇지 않으면 첫 번째 항목은 `int`형 초기 숫자, 두 번째 항목은 `str`형 나머지 태그인 두 항목 튜플로 정렬됩니다.
+*   **python tag (language implementation and version tag)** : 언어 구현 및 버전 태그 (예: 'py27', 'py2', 'py3').
+*   **abi tag** : ABI 태그 (예: 'cp33m', 'abi3', 'none').
+*   **platform tag** : 플랫폼 태그 (예: 'linux_x86_64', 'any').
 
 예를 들어, `distribution-1.0-1-py27-none-any.whl`은 'distribution'이라는 패키지의 첫 번째 빌드이며, Python 2.7 (모든 Python 2.7 구현), ABI 없음 (순수 Python), 모든 CPU 아키텍처와 호환됩니다.
 
@@ -152,13 +152,13 @@ Wheel 설치 프로그램은 디지털 서명을 이해할 필요는 없지만, 
 ### .egg와의 비교 (Comparison to .egg)
 Wheel은 설치 형식이며, egg는 가져오기(importable) 형식입니다.
 
-*   **설치 vs. 가져오기**: Wheel 아카이브는 `.pyc`를 포함할 필요가 없으며 특정 Python 버전이나 구현에 덜 종속됩니다. Wheel은 이전 버전의 Python으로 빌드된 (순수 Python) 패키지를 설치할 수 있으므로 항상 패키저가 따라잡기를 기다릴 필요가 없습니다.
-*   **메타데이터 디렉토리**: Wheel은 `.dist-info` 디렉토리를 사용하고, egg는 `.egg-info`를 사용합니다.
-*   **새로운 패키징 생태계 호환성**: Wheel은 Python 패키징의 새로운 세계와 그것이 가져오는 새로운 개념들과 호환됩니다.
-*   **풍부한 파일명 규칙**: Wheel은 오늘날의 다중 구현 환경을 위한 더 풍부한 파일명 규칙을 가지고 있습니다. 단일 wheel 아카이브는 여러 Python 언어 버전 및 구현, ABI 및 시스템 아키텍처와의 호환성을 나타낼 수 있습니다. 역사적으로 ABI는 CPython 릴리스에 특화되어 있었지만, wheel은 안정적인 ABI를 위해 준비되어 있습니다.
-*   **무손실(Lossless)**: Wheel은 무손실입니다. 첫 번째 wheel 구현인 `bdist_wheel`은 항상 `egg-info`를 생성한 다음 이를 `.whl`로 변환합니다. 기존 egg 및 `bdist_wininst` 배포판을 변환하는 것도 가능합니다.
-*   **버전 관리**: Wheel은 버전이 관리됩니다. 모든 wheel 파일에는 wheel 명세의 버전과 이를 패키징한 구현이 포함됩니다. 다음 마이그레이션은 단순히 Wheel 2.0으로 진행될 수 있기를 바랍니다.
-*   **참조**: Wheel은 다른 Python에 대한 참조입니다.
+*   **설치 vs. 가져오기** : Wheel 아카이브는 `.pyc`를 포함할 필요가 없으며 특정 Python 버전이나 구현에 덜 종속됩니다. Wheel은 이전 버전의 Python으로 빌드된 (순수 Python) 패키지를 설치할 수 있으므로 항상 패키저가 따라잡기를 기다릴 필요가 없습니다.
+*   **메타데이터 디렉토리** : Wheel은 `.dist-info` 디렉토리를 사용하고, egg는 `.egg-info`를 사용합니다.
+*   **새로운 패키징 생태계 호환성** : Wheel은 Python 패키징의 새로운 세계와 그것이 가져오는 새로운 개념들과 호환됩니다.
+*   **풍부한 파일명 규칙** : Wheel은 오늘날의 다중 구현 환경을 위한 더 풍부한 파일명 규칙을 가지고 있습니다. 단일 wheel 아카이브는 여러 Python 언어 버전 및 구현, ABI 및 시스템 아키텍처와의 호환성을 나타낼 수 있습니다. 역사적으로 ABI는 CPython 릴리스에 특화되어 있었지만, wheel은 안정적인 ABI를 위해 준비되어 있습니다.
+*   **무손실(Lossless)** : Wheel은 무손실입니다. 첫 번째 wheel 구현인 `bdist_wheel`은 항상 `egg-info`를 생성한 다음 이를 `.whl`로 변환합니다. 기존 egg 및 `bdist_wininst` 배포판을 변환하는 것도 가능합니다.
+*   **버전 관리** : Wheel은 버전이 관리됩니다. 모든 wheel 파일에는 wheel 명세의 버전과 이를 패키징한 구현이 포함됩니다. 다음 마이그레이션은 단순히 Wheel 2.0으로 진행될 수 있기를 바랍니다.
+*   **참조** : Wheel은 다른 Python에 대한 참조입니다.
 
 ### FAQ
 

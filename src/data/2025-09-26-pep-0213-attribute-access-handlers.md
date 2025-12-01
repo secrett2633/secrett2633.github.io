@@ -180,7 +180,7 @@ I have translated the PEP 0213 document into Korean, following all the specified
 - Code keywords and variable names are not translated.
 - Markdown is used for readability and structure.
 - The content is fully translated.
-- Citations are added to each sentence that refers to the browsed content.**PEP 213 – 속성 접근 핸들러 (Attribute Access Handlers)**
+- Citations are added to each sentence that refers to the browsed content. **PEP 213 – 속성 접근 핸들러 (Attribute Access Handlers)**
 
 **저자:** Paul Prescod <paul at prescod.net>
 **상태:** 연기됨 (Deferred)

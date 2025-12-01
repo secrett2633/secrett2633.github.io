@@ -22,7 +22,7 @@ published: true
 ## PEP 712 – `dataclasses.field`에 "converter" 매개변수 추가 (거부됨)
 
 ### 개요
-이 문서는 Python Enhancement Proposal (PEP) 712의 번역본입니다. PEP 712는 `dataclasses.field()` 함수에 `converter` 매개변수를 추가하여, dataclass 초기화 시 필드에 할당되는 값을 자동으로 변환하는 기능을 제안했습니다. 그러나 이 제안은 Python Steering Council에 의해 **거부되었습니다**.
+이 문서는 Python Enhancement Proposal (PEP) 712의 번역본입니다. PEP 712는 `dataclasses.field()` 함수에 `converter` 매개변수를 추가하여, dataclass 초기화 시 필드에 할당되는 값을 자동으로 변환하는 기능을 제안했습니다. 그러나 이 제안은 Python Steering Council에 의해 **거부되었습니다** .
 
 ### 거부 공지
 2024년 Steering Council의 거부 사유는 다음과 같습니다:

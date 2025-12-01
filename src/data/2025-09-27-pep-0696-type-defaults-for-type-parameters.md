@@ -275,7 +275,7 @@ type Foo[T, U = str] = Bar[T, U]
 
 ## 채택되지 않은 대안 (Rejected Alternatives)
 
-### `type.__new__`의 `**kwargs`에 타입 파라미터 기본값을 전달 (Allowing the Type Parameters Defaults to Be Passed to type.__new__'s **kwargs)
+### `type.__new__`의 ` **kwargs`에 타입 파라미터 기본값을 전달 (Allowing the Type Parameters Defaults to Be Passed to type.__new__'s ** kwargs)
 이 방식은 가독성이 좋고 `TypeVar` 단항(unary) 문법과 유사하지만, `T`가 이미 메타클래스/슈퍼클래스에 전달되거나 런타임에 `Generic`을 상속하지 않는 클래스를 지원할 수 있으므로 하위 호환성이 없습니다.
 
 ```python

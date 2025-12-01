@@ -73,7 +73,7 @@ dataset = {data for line in aiter() async for data in line if check(data)}
 비동기 컴프리헨션뿐만 아니라 동기 컴프리헨션 내에서도 `await` 표현식의 사용이 허용됩니다.
 이 기능은 `async def` 함수 본문 내에서만 유효합니다.
 
-**예시:**
+** 예시: **
 
 ```python
 result = [await fun() for fun in funcs]
@@ -109,4 +109,4 @@ PEP 530은 2016년 9월 6일 Guido van Rossum에 의해 수락되었습니다.
 
 구현은 이슈 28008에서 추적되고 있습니다. 참조 구현 GitHub 저장소는 [https://github.com/1st1/cpython/tree/asyncomp](https://github.com/1st1/cpython/tree/asyncomp)에서 확인할 수 있습니다.
 
-> ⚠️ **알림:** 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.
+> ⚠️ ** 알림:** 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.

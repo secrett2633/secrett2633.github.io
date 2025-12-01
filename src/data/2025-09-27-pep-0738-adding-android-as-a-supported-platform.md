@@ -86,9 +86,9 @@ Python은 `dlopen`을 사용하여 앱에 로드될 수 있는 동적 `libpython
 
 일부 표준 라이브러리 모듈은 기본 C API가 없으므로 Android에서 지원되지 않습니다. 여기에는 `curses`, `readline`, `dbm.gnu`, `dbm.ndbm`, `grp`, `multiprocessing`, `tkinter`, `turtle` 등이 포함됩니다.
 
-- **`sys`**: `sys.platform`은 "android"를 반환합니다. C-레벨의 stdio 스트림은 아무것도 연결되지 않으므로, `sys.stdout` 및 `sys.stderr`는 시스템 Logcat으로 리디렉션되고, `sys.stdin`은 항상 EOF를 반환합니다.
-- **`platform`**: `platform.system()`은 "Android"를, `platform.release()`는 Android 버전 번호(예: "14")를 반환합니다. 또한, `platform.android_ver()` 메서드가 추가되어 장치의 Android 버전, API 레벨, 제조업체, 모델, 장치 이름 및 에뮬레이터 여부 등을 포함하는 `namedtuple`을 반환합니다.
-- **`os`**: `os.uname()`은 POSIX `uname()` 호출의 원시 결과를 반환합니다. `sysname`은 "Linux", `release`는 Linux 커널 버전을 반환합니다.
+- **`sys`** : `sys.platform`은 "android"를 반환합니다. C-레벨의 stdio 스트림은 아무것도 연결되지 않으므로, `sys.stdout` 및 `sys.stderr`는 시스템 Logcat으로 리디렉션되고, `sys.stdin`은 항상 EOF를 반환합니다.
+- **`platform`** : `platform.system()`은 "Android"를, `platform.release()`는 Android 버전 번호(예: "14")를 반환합니다. 또한, `platform.android_ver()` 메서드가 추가되어 장치의 Android 버전, API 레벨, 제조업체, 모델, 장치 이름 및 에뮬레이터 여부 등을 포함하는 `namedtuple`을 반환합니다.
+- **`os`** : `os.uname()`은 POSIX `uname()` 호출의 원시 결과를 반환합니다. `sysname`은 "Linux", `release`는 Linux 커널 버전을 반환합니다.
 
 #### CI 리소스 (CI resources)
 

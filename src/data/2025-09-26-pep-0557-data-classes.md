@@ -237,7 +237,7 @@ a = ArgHolder(1, 2, three=3)
 ### 복잡한 예시
 기존의 길고 반복적인 `__init__` 및 `__repr__` 메서드를 가진 클래스를 `Data Class`로 전환하면 코드가 더 간결하고 선언적으로 바뀌며, 타입 힌트(typing)를 지원하고 다른 생성된 함수들을 포함할 수 있습니다.
 
-**원본 클래스:**
+** 원본 클래스: **
 ```python
 class Application:
     def __init__(self, name, requirements, constraints=None, path='', executable_links=None, executables_dir=()):
@@ -253,7 +253,7 @@ class Application:
         return f'Application({self.name!r},{self.requirements!r},{self.constraints!r},{self.path!r},{self.executable_links!r},{self.executables_dir!r},{self.additional_items!r})'
 ```
 
-**`Data Class` 버전:**
+** `Data Class` 버전: **
 ```python
 @dataclass
 class Application:
@@ -268,4 +268,4 @@ class Application:
 
 `Data Class` 버전은 더 선언적이며 코드가 적고, 타입 힌트를 지원하며, 다른 생성된 함수들을 포함합니다.
 
-> ⚠️ **알림:** 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.
+> ⚠️ ** 알림:** 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.

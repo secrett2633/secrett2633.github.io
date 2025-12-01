@@ -21,7 +21,7 @@ published: true
 
 
 The provided document is PEP 422 – "Simpler customisation of class creation".
-**참고:** 이 PEP는 PEP 487이 더 간단하고 사용하기 쉬운 `__init_subclass__` 훅을 통해 동일한 목표를 달성하므로 현재 **철회(Withdrawn)**된 상태입니다.
+**참고:** 이 PEP는 PEP 487이 더 간단하고 사용하기 쉬운 `__init_subclass__` 훅을 통해 동일한 목표를 달성하므로 현재 **철회(Withdrawn)** 된 상태입니다.
 
 ---
 

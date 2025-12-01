@@ -41,7 +41,7 @@ published: true
 
 ## 하위 호환성 규칙 (Backwards Compatibility Rules)
 
-이 정책은 모든 **공개(public) API**에 적용됩니다. 여기에는 다음이 포함됩니다:
+이 정책은 모든 **공개(public) API** 에 적용됩니다. 여기에는 다음이 포함됩니다:
 
 *   참조 매뉴얼에 정의된 구문(Syntax) 및 구조의 동작.
 *   C-API.
@@ -59,7 +59,7 @@ published: true
 *   임포트된 모듈 (명시적으로 공개 API의 일부로 문서화되지 않은 경우; 예: `spam` 모듈에서 `bacon` 모듈을 임포트했다고 해서 `spam.bacon`이 문서화되지 않는 한 자동으로 공개 API의 일부가 되는 것은 아닙니다).
 *   내부 클래스의 상속 패턴.
 *   테스트 스위트 (Lib/test 디렉토리 또는 패키지의 test 서브디렉토리에 있는 모든 것).
-*   PEP 411에 따라 **임시(Provisional)**로 명시적으로 문서화된 모듈 또는 API에는 하위 호환성 규칙이 적용되지 않습니다.
+*   PEP 411에 따라 **임시(Provisional)** 로 명시적으로 문서화된 모듈 또는 API에는 하위 호환성 규칙이 적용되지 않습니다.
 
 ### 하위 호환성을 위한 기본 정책 (Basic policy for backwards compatibility)
 

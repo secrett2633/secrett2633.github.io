@@ -22,12 +22,12 @@ published: true
 
 ## PEP 686 – UTF-8 모드 기본값으로 설정
 
--   **작성자**: Inada Naoki
--   **상태**: Accepted (승인됨)
--   **유형**: Standards Track (표준 트랙)
--   **생성일**: 2022년 3월 18일
--   **Python 버전**: 3.15
--   **해결**: Discourse 메시지
+-   **작성자** : Inada Naoki
+-   **상태** : Accepted (승인됨)
+-   **유형** : Standards Track (표준 트랙)
+-   **생성일** : 2022년 3월 18일
+-   **Python 버전** : 3.15
+-   **해결** : Discourse 메시지
 
 ### 개요 (Abstract)
 
@@ -79,12 +79,12 @@ PEP 597은 `TextIOWrapper`에 `encoding="locale"` 옵션을 추가했습니다. 
 
 이러한 하위 호환성 문제를 해결하기 위한 지침은 다음과 같습니다:
 
-1.  **UTF-8 모드 비활성화**: `PYTHONUTF8=0` 또는 `-X utf8=0`을 사용하여 UTF-8 모드를 비활성화합니다.
-2.  **`EncodingWarning` 사용**: `EncodingWarning` (PEP 597)을 사용하여 UTF-8 모드가 영향을 미치는 모든 위치를 찾습니다.
-3.  **인코딩 옵션 명시**:
+1.  **UTF-8 모드 비활성화** : `PYTHONUTF8=0` 또는 `-X utf8=0`을 사용하여 UTF-8 모드를 비활성화합니다.
+2.  **`EncodingWarning` 사용** : `EncodingWarning` (PEP 597)을 사용하여 UTF-8 모드가 영향을 미치는 모든 위치를 찾습니다.
+3.  **인코딩 옵션 명시** :
     *   `encoding` 옵션이 생략된 경우, `encoding="utf-8"` 또는 `encoding="locale"` 사용을 고려합니다.
     *   `locale.getpreferredencoding()`이 사용된 경우, `"utf-8"` 또는 `locale.getencoding()` 사용을 고려합니다.
-4.  **UTF-8 모드로 애플리케이션 테스트**: 변경 사항을 적용한 후 UTF-8 모드를 활성화하여 애플리케이션을 테스트합니다.
+4.  **UTF-8 모드로 애플리케이션 테스트** : 변경 사항을 적용한 후 UTF-8 모드를 활성화하여 애플리케이션을 테스트합니다.
 
 #### 선행 사례 (Preceding examples)
 

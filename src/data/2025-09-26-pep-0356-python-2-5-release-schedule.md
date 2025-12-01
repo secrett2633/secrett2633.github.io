@@ -47,17 +47,17 @@ Python 2.5의 릴리스 스케줄은 다음과 같이 진행되었습니다 (모
 Python 2.5 릴리스에는 다음과 같은 중요한 PEP 및 기능들이 포함되었습니다:
 
 #### PEP 관련 기능들
-*   **PEP 308: Conditional Expressions (조건부 표현식)**: `A if condition else B`와 같은 삼항 연산자 도입.
-*   **PEP 309: Partial Function Application (부분 함수 적용)**: `functools.partial`을 통한 함수 인자 부분 적용.
-*   **PEP 314: Metadata for Python Software Packages v1.1**: Python 소프트웨어 패키지 메타데이터 표준 업데이트.
-*   **PEP 328: Absolute/Relative Imports (절대/상대 임포트)**: 모듈 임포트 방식 개선.
-*   **PEP 338: Executing Modules as Scripts (모듈을 스크립트로 실행)**: `-m` 옵션을 통한 모듈 실행 기능.
-*   **PEP 341: Unified try-except/try-finally to try-except-finally**: `try-except-finally` 문의 통합.
-*   **PEP 342: Coroutines via Enhanced Generators (강화된 제너레이터를 통한 코루틴)**: `yield from` (Python 3.3에 도입)의 전신 격인 `generator.send()` 등 제너레이터 메서드 도입으로 코루틴 구현의 기반을 마련.
-*   **PEP 343: The “with” Statement (`with` 문)**: `with` 문 도입으로 컨텍스트 관리 프로토콜(`__enter__`, `__exit__`)을 사용하는 리소스 관리를 간편하게 함 (예: 파일, 락).
-*   **PEP 352: Required Superclass for Exceptions (예외를 위한 필수 슈퍼클래스)**: 모든 사용자 정의 예외가 `BaseException` (또는 그 서브클래스)를 상속하도록 강제.
-*   **PEP 353: Using ssize_t as the index type (인덱스 타입으로 ssize_t 사용)**: C API에서 인덱스 타입으로 `ssize_t`를 사용하여 더 큰 시퀀스 지원.
-*   **PEP 357: Allowing Any Object to be Used for Slicing (어떤 객체든 슬라이싱에 사용 가능)**: 슬라이싱 작업에 더 다양한 객체를 사용할 수 있도록 허용.
+*   **PEP 308: Conditional Expressions (조건부 표현식)** : `A if condition else B`와 같은 삼항 연산자 도입.
+*   **PEP 309: Partial Function Application (부분 함수 적용)** : `functools.partial`을 통한 함수 인자 부분 적용.
+*   **PEP 314: Metadata for Python Software Packages v1.1** : Python 소프트웨어 패키지 메타데이터 표준 업데이트.
+*   **PEP 328: Absolute/Relative Imports (절대/상대 임포트)** : 모듈 임포트 방식 개선.
+*   **PEP 338: Executing Modules as Scripts (모듈을 스크립트로 실행)** : `-m` 옵션을 통한 모듈 실행 기능.
+*   **PEP 341: Unified try-except/try-finally to try-except-finally** : `try-except-finally` 문의 통합.
+*   **PEP 342: Coroutines via Enhanced Generators (강화된 제너레이터를 통한 코루틴)** : `yield from` (Python 3.3에 도입)의 전신 격인 `generator.send()` 등 제너레이터 메서드 도입으로 코루틴 구현의 기반을 마련.
+*   **PEP 343: The “with” Statement (`with` 문)** : `with` 문 도입으로 컨텍스트 관리 프로토콜(`__enter__`, `__exit__`)을 사용하는 리소스 관리를 간편하게 함 (예: 파일, 락).
+*   **PEP 352: Required Superclass for Exceptions (예외를 위한 필수 슈퍼클래스)** : 모든 사용자 정의 예외가 `BaseException` (또는 그 서브클래스)를 상속하도록 강제.
+*   **PEP 353: Using ssize_t as the index type (인덱스 타입으로 ssize_t 사용)** : C API에서 인덱스 타입으로 `ssize_t`를 사용하여 더 큰 시퀀스 지원.
+*   **PEP 357: Allowing Any Object to be Used for Slicing (어떤 객체든 슬라이싱에 사용 가능)** : 슬라이싱 작업에 더 다양한 객체를 사용할 수 있도록 허용.
 
 #### 기타 주목할 만한 기능들
 *   기본 인코딩이 ASCII로 변경되었습니다.

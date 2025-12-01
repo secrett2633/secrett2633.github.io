@@ -404,38 +404,38 @@ hash(n) == hash(Decimal(n)) # n이 int, long, 또는 Decimal인 경우에만
 
 다음은 사양에 정의된 변환 및 산술 연산과 실제 구현으로 해당 기능을 달성하는 방법입니다.
 
-*   **`to-scientific-string`**: 내장 함수 `str()`을 사용합니다.
+*   **`to-scientific-string`** : 내장 함수 `str()`을 사용합니다.
     ```python
     >>> d = Decimal('123456789012.345')
     >>> str(d)
     '1.23456789E+11'
     ```
-*   **`to-engineering-string`**: `to_eng_string()` 메서드를 사용합니다.
+*   **`to-engineering-string`** : `to_eng_string()` 메서드를 사용합니다.
     ```python
     >>> d = Decimal('123456789012.345')
     >>> d.to_eng_string()
     '123.456789E+9'
     ```
-*   **`to-number`**: `Context` 메서드 `create_decimal()`을 사용합니다. 표준 생성자나 `from_float()` 생성자는 컨텍스트를 사용하지 않기 때문에 (이 변환을 위한 사양에 명시된 대로) 사용할 수 없습니다.
-*   **`abs`**: 내장 함수 `abs()`를 사용합니다.
+*   **`to-number`** : `Context` 메서드 `create_decimal()`을 사용합니다. 표준 생성자나 `from_float()` 생성자는 컨텍스트를 사용하지 않기 때문에 (이 변환을 위한 사양에 명시된 대로) 사용할 수 없습니다.
+*   **`abs`** : 내장 함수 `abs()`를 사용합니다.
     ```python
     >>> d = Decimal('-15.67')
     >>> abs(d)
     Decimal('15.67')
     ```
-*   **`add`**: 연산자 `+`를 사용합니다.
+*   **`add`** : 연산자 `+`를 사용합니다.
     ```python
     >>> d = Decimal('15.6')
     >>> d + 8
     Decimal('23.6')
     ```
-*   **`subtract`**: 연산자 `-`를 사용합니다.
+*   **`subtract`** : 연산자 `-`를 사용합니다.
     ```python
     >>> d = Decimal('15.6')
     >>> d - 8
     Decimal('7.6')
     ```
-*   **`compare`**: `compare()` 메서드를 사용합니다. 이 메서드는 특수 값을 다룰 때만 사용해야 합니다 (내장 함수 `cmp()`가 아닌).
+*   **`compare`** : `compare()` 메서드를 사용합니다. 이 메서드는 특수 값을 다룰 때만 사용해야 합니다 (내장 함수 `cmp()`가 아닌).
     ```python
     >>> d = Decimal('-15.67')
     >>> nan = Decimal('NaN')
@@ -448,19 +448,19 @@ hash(n) == hash(Decimal(n)) # n이 int, long, 또는 Decimal인 경우에만
     >>> cmp(d, nan)
     1
     ```
-*   **`divide`**: 연산자 `/`를 사용합니다.
+*   **`divide`** : 연산자 `/`를 사용합니다.
     ```python
     >>> d = Decimal('-15.67')
     >>> d / 2
     Decimal('-7.835')
     ```
-*   **`divide-integer`**: 연산자 `//`를 사용합니다.
+*   **`divide-integer`** : 연산자 `//`를 사용합니다.
     ```python
     >>> d = Decimal('-15.67')
     >>> d // 2
     Decimal('-7')
     ```
-*   **`max`**: `max()` 메서드를 사용합니다. 특수 값을 다룰 때만 이 메서드를 사용해야 합니다 (내장 함수 `max()`가 아닌).
+*   **`max`** : `max()` 메서드를 사용합니다. 특수 값을 다룰 때만 이 메서드를 사용해야 합니다 (내장 함수 `max()`가 아닌).
     ```python
     >>> d = Decimal('15')
     >>> nan = Decimal('NaN')
@@ -469,7 +469,7 @@ hash(n) == hash(Decimal(n)) # n이 int, long, 또는 Decimal인 경우에만
     >>> d.max(nan)
     Decimal('NaN')
     ```
-*   **`min`**: `min()` 메서드를 사용합니다. 특수 값을 다룰 때만 이 메서드를 사용해야 합니다 (내장 함수 `min()`이 아닌).
+*   **`min`** : `min()` 메서드를 사용합니다. 특수 값을 다룰 때만 이 메서드를 사용해야 합니다 (내장 함수 `min()`이 아닌).
     ```python
     >>> d = Decimal('15')
     >>> nan = Decimal('NaN')
@@ -478,25 +478,25 @@ hash(n) == hash(Decimal(n)) # n이 int, long, 또는 Decimal인 경우에만
     >>> d.min(nan)
     Decimal('NaN')
     ```
-*   **`minus`**: 단항 연산자 `-`를 사용합니다.
+*   **`minus`** : 단항 연산자 `-`를 사용합니다.
     ```python
     >>> d = Decimal('-15.67')
     >>> -d
     Decimal('15.67')
     ```
-*   **`plus`**: 단항 연산자 `+`를 사용합니다.
+*   **`plus`** : 단항 연산자 `+`를 사용합니다.
     ```python
     >>> d = Decimal('-15.67')
     >>> +d
     Decimal('-15.67')
     ```
-*   **`multiply`**: 연산자 `*`를 사용합니다.
+*   **`multiply`** : 연산자 `*`를 사용합니다.
     ```python
     >>> d = Decimal('5.7')
     >>> d * 3
     Decimal('17.1')
     ```
-*   **`normalize`**: `normalize()` 메서드를 사용합니다.
+*   **`normalize`** : `normalize()` 메서드를 사용합니다.
     ```python
     >>> d = Decimal('123.45000')
     >>> d.normalize()
@@ -505,7 +505,7 @@ hash(n) == hash(Decimal(n)) # n이 int, long, 또는 Decimal인 경우에만
     >>> d.normalize()
     Decimal('1.2E+2')
     ```
-*   **`quantize`**: `quantize()` 메서드를 사용합니다.
+*   **`quantize`** : `quantize()` 메서드를 사용합니다.
     ```python
     >>> d = Decimal('2.17')
     >>> d.quantize(Decimal('0.001'))
@@ -513,7 +513,7 @@ hash(n) == hash(Decimal(n)) # n이 int, long, 또는 Decimal인 경우에만
     >>> d.quantize(Decimal('0.1'))
     Decimal('2.2')
     ```
-*   **`remainder`**: 연산자 `%`를 사용합니다.
+*   **`remainder`** : 연산자 `%`를 사용합니다.
     ```python
     >>> d = Decimal('10')
     >>> d % 3
@@ -521,7 +521,7 @@ hash(n) == hash(Decimal(n)) # n이 int, long, 또는 Decimal인 경우에만
     >>> d % 6
     Decimal('4')
     ```
-*   **`remainder-near`**: `remainder_near()` 메서드를 사용합니다.
+*   **`remainder-near`** : `remainder_near()` 메서드를 사용합니다.
     ```python
     >>> d = Decimal('10')
     >>> d.remainder_near(3)
@@ -529,13 +529,13 @@ hash(n) == hash(Decimal(n)) # n이 int, long, 또는 Decimal인 경우에만
     >>> d.remainder_near(6)
     Decimal('-2')
     ```
-*   **`round-to-integral-value`**: `to_integral()` 메서드를 사용합니다.
+*   **`round-to-integral-value`** : `to_integral()` 메서드를 사용합니다.
     ```python
     >>> d = Decimal('-123.456')
     >>> d.to_integral()
     Decimal('-123')
     ```
-*   **`same-quantum`**: `same_quantum()` 메서드를 사용합니다.
+*   **`same-quantum`** : `same_quantum()` 메서드를 사용합니다.
     ```python
     >>> d = Decimal('123.456')
     >>> d.same_quantum(Decimal('0.001'))
@@ -543,13 +543,13 @@ hash(n) == hash(Decimal(n)) # n이 int, long, 또는 Decimal인 경우에만
     >>> d.same_quantum(Decimal('0.01'))
     False
     ```
-*   **`square-root`**: `sqrt()` 메서드를 사용합니다.
+*   **`square-root`** : `sqrt()` 메서드를 사용합니다.
     ```python
     >>> d = Decimal('123.456')
     >>> d.sqrt()
     Decimal('11.1110756')
     ```
-*   **`power`**: 연산자 `**`를 사용합니다.
+*   **`power`** : 연산자 ` **`를 사용합니다.
     ```python
     >>> d = Decimal('12.56')
     >>> d ** 2
@@ -558,19 +558,19 @@ hash(n) == hash(Decimal(n)) # n이 int, long, 또는 Decimal인 경우에만
 
 다음은 다른 메서드와 그 존재 이유입니다:
 
-*   **`adjusted()`**: 조정된 지수를 반환합니다. 이 개념은 사양에 정의되어 있습니다: 조정된 지수는 소수점 앞에 한 자리 숫자가 있는 과학적 표기법으로 표현될 때 숫자의 지수 값입니다.
+*   **`adjusted()`** : 조정된 지수를 반환합니다. 이 개념은 사양에 정의되어 있습니다: 조정된 지수는 소수점 앞에 한 자리 숫자가 있는 과학적 표기법으로 표현될 때 숫자의 지수 값입니다.
     ```python
     >>> d = Decimal('12.56')
     >>> d.adjusted()
     1
     ```
-*   **`from_float()`**: `float` 데이터 타입에서 인스턴스를 생성하는 클래스 메서드입니다.
+*   **`from_float()`** : `float` 데이터 타입에서 인스턴스를 생성하는 클래스 메서드입니다.
     ```python
     >>> d = Decimal.from_float(12.35)
     >>> d
     Decimal('12.3500000')
     ```
-*   **`as_tuple()`**: `Decimal`의 내부 구조, 즉 세 개의 튜플을 보여줍니다. 이 메서드는 사양에서 요구하지 않지만, Tim Peters가 제안했고 커뮤니티는 이를 갖는 데 동의했습니다 (개발 및 디버깅에 유용합니다).
+*   **`as_tuple()`** : `Decimal`의 내부 구조, 즉 세 개의 튜플을 보여줍니다. 이 메서드는 사양에서 요구하지 않지만, Tim Peters가 제안했고 커뮤니티는 이를 갖는 데 동의했습니다 (개발 및 디버깅에 유용합니다).
     ```python
     >>> d = Decimal('123.4')
     >>> d.as_tuple()
@@ -639,48 +639,48 @@ hash(n) == hash(Decimal(n)) # n이 int, long, 또는 Decimal인 경우에만
 
 따라서 다음은 사양 연산 및 변환과 컨텍스트를 통해 이를 달성하는 방법입니다 (여기서 `d`는 `Decimal` 인스턴스이고 `n`은 암시적 생성에서 사용될 수 있는 숫자입니다).
 
-*   **`to-scientific-string`**: `to_sci_string(d)`
-*   **`to-engineering-string`**: `to_eng_string(d)`
-*   **`to-number`**: `create_decimal(number)` (number에 대한 자세한 내용은 명시적 생성 참조)
-*   **`abs`**: `abs(d)`
-*   **`add`**: `add(d, n)`
-*   **`subtract`**: `subtract(d, n)`
-*   **`compare`**: `compare(d, n)`
-*   **`divide`**: `divide(d, n)`
-*   **`divide-integer`**: `divide_int(d, n)`
-*   **`max`**: `max(d, n)`
-*   **`min`**: `min(d, n)`
-*   **`minus`**: `minus(d)`
-*   **`plus`**: `plus(d)`
-*   **`multiply`**: `multiply(d, n)`
-*   **`normalize`**: `normalize(d)`
-*   **`quantize`**: `quantize(d, d)`
-*   **`remainder`**: `remainder(d)`
-*   **`remainder-near`**: `remainder_near(d)`
-*   **`round-to-integral-value`**: `to_integral(d)`
-*   **`same-quantum`**: `same_quantum(d, d)`
-*   **`square-root`**: `sqrt(d)`
-*   **`power`**: `power(d, n)`
+*   **`to-scientific-string`** : `to_sci_string(d)`
+*   **`to-engineering-string`** : `to_eng_string(d)`
+*   **`to-number`** : `create_decimal(number)` (number에 대한 자세한 내용은 명시적 생성 참조)
+*   **`abs`** : `abs(d)`
+*   **`add`** : `add(d, n)`
+*   **`subtract`** : `subtract(d, n)`
+*   **`compare`** : `compare(d, n)`
+*   **`divide`** : `divide(d, n)`
+*   **`divide-integer`** : `divide_int(d, n)`
+*   **`max`** : `max(d, n)`
+*   **`min`** : `min(d, n)`
+*   **`minus`** : `minus(d)`
+*   **`plus`** : `plus(d)`
+*   **`multiply`** : `multiply(d, n)`
+*   **`normalize`** : `normalize(d)`
+*   **`quantize`** : `quantize(d, d)`
+*   **`remainder`** : `remainder(d)`
+*   **`remainder-near`** : `remainder_near(d)`
+*   **`round-to-integral-value`** : `to_integral(d)`
+*   **`same-quantum`** : `same_quantum(d, d)`
+*   **`square-root`** : `sqrt(d)`
+*   **`power`** : `power(d, n)`
 
 `divmod(d, n)` 메서드는 `Context`를 통해 decimal 기능을 지원합니다.
 
 다음은 `Context`에서 유용한 정보를 반환하는 메서드입니다:
 
-*   **`Etiny()`**: 정밀도를 고려한 최소 지수.
+*   **`Etiny()`** : 정밀도를 고려한 최소 지수.
     ```python
     >>> c.Emin
     -999999999
     >>> c.Etiny()
     -1000000007
     ```
-*   **`Etop()`**: 정밀도를 고려한 최대 지수.
+*   **`Etop()`** : 정밀도를 고려한 최대 지수.
     ```python
     >>> c.Emax
     999999999
     >>> c.Etop()
     999999991
     ```
-*   **`copy()`**: 컨텍스트의 복사본을 반환합니다.
+*   **`copy()`** : 컨텍스트의 복사본을 반환합니다.
 
 ## 참조 구현 (Reference Implementation)
 

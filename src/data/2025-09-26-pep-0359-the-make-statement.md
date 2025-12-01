@@ -375,7 +375,7 @@ class Element(object):
         def __setitem__(self, name, value):
             self._super.__setitem__(name, value)
             self.elements.append(value)
-        def set_attrib(self, **kwargs):
+        def set_attrib(self, ** kwargs):
             self.attrib = kwargs
         def set_text(self, text):
             self.text = text

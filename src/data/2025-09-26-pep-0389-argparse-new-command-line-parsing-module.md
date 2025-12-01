@@ -75,10 +75,10 @@ published: true
 ## `optparse`의 Deprecation (사용 중단)
 `optparse`의 모든 기능이 `argparse`에서 사용 가능하므로 `optparse` 모듈은 Deprecated (사용 중단)될 것입니다. 그러나 `optparse`의 광범위한 사용으로 인해 Deprecation 전략은 기본적으로 표시되지 않는 문서 변경 및 경고만 포함합니다.
 
-*   **Python 2.7+ 및 3.2+**: `optparse` 문서에 다음 내용이 추가될 것입니다.
+*   **Python 2.7+ 및 3.2+** : `optparse` 문서에 다음 내용이 추가될 것입니다.
     > `optparse` 모듈은 Deprecated되었으며 더 이상 개발되지 않을 것입니다. 개발은 `argparse` 모듈로 계속될 것입니다.
-*   **Python 2.7+**: 커맨드 라인에서 Python 3 호환성 플래그인 `-3`가 제공되면 `optparse`를 import할 때 `DeprecationWarning`이 발생합니다. 그렇지 않으면 경고가 발생하지 않습니다.
-*   **Python 3.2+**: `optparse`를 import할 때 `PendingDeprecationWarning`이 발생하며, 이는 기본적으로 표시되지 않습니다.
+*   **Python 2.7+** : 커맨드 라인에서 Python 3 호환성 플래그인 `-3`가 제공되면 `optparse`를 import할 때 `DeprecationWarning`이 발생합니다. 그렇지 않으면 경고가 발생하지 않습니다.
+*   **Python 3.2+** : `optparse`를 import할 때 `PendingDeprecationWarning`이 발생하며, 이는 기본적으로 표시되지 않습니다.
 
 `optparse`의 제거 날짜는 제안되지 않았다는 점에 유의하십시오.
 
@@ -223,10 +223,10 @@ Looks good.The translation is complete and formatted according to the instructio
 ## `optparse`의 Deprecation (사용 중단)
 `optparse`의 모든 기능이 `argparse`에서 사용 가능하므로 `optparse` 모듈은 Deprecated (사용 중단)될 것입니다. 그러나 `optparse`의 광범위한 사용으로 인해 Deprecation 전략은 기본적으로 표시되지 않는 문서 변경 및 경고만 포함합니다.
 
-*   **Python 2.7+ 및 3.2+**: `optparse` 문서에 다음 내용이 추가될 것입니다.
+*   **Python 2.7+ 및 3.2+** : `optparse` 문서에 다음 내용이 추가될 것입니다.
     > `optparse` 모듈은 Deprecated (사용 중단)되었으며 더 이상 개발되지 않을 것입니다. 개발은 `argparse` 모듈로 계속될 것입니다.
-*   **Python 2.7+**: 커맨드 라인에서 Python 3 호환성 플래그인 `-3`가 제공되면 `optparse`를 import할 때 `DeprecationWarning`이 발생합니다. 그렇지 않으면 경고가 발생하지 않습니다.
-*   **Python 3.2+**: `optparse`를 import할 때 `PendingDeprecationWarning`이 발생하며, 이는 기본적으로 표시되지 않습니다.
+*   **Python 2.7+** : 커맨드 라인에서 Python 3 호환성 플래그인 `-3`가 제공되면 `optparse`를 import할 때 `DeprecationWarning`이 발생합니다. 그렇지 않으면 경고가 발생하지 않습니다.
+*   **Python 3.2+** : `optparse`를 import할 때 `PendingDeprecationWarning`이 발생하며, 이는 기본적으로 표시되지 않습니다.
 
 `optparse`의 제거 날짜는 제안되지 않았다는 점에 유의하십시오.
 

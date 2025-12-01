@@ -236,9 +236,9 @@ PyPI는 프로젝트에 따라 `claimed`, `recently-claimed`, 또는 `unclaimed`
 | delegated roles 중 하나와 협력해야 함 | YES (가장 이른 root, targets, 또는 bin 메타데이터 만료 시간에 의해 제한됨) | YES (가장 이른 root, targets, 또는 bin 메타데이터 만료 시간에 의해 제한됨) | YES (가장 이른 root, targets, 또는 bin 메타데이터 만료 시간에 의해 제한됨) |
 | **targets** OR **claimed** OR recently-claimed OR unclaimed OR project | NO                                | timestamp 및 snapshot과 협력해야 함 | 적용 불가 (timestamp 및 snapshot 필요) |
 | timestamp 및 snapshot과 협력해야 함 | 적용 불가 (timestamp 및 snapshot 필요) | YES (가장 이른 root, targets, 또는 bin 메타데이터 만료 시간에 의해 제한됨) | 적용 불가 (timestamp 및 snapshot 필요) |
-| (**timestamp** AND **snapshot**) AND project | YES                               | YES (가장 이른 root, targets, 또는 bin 메타데이터 만료 시간에 의해 제한됨) | YES (가장 이른 root, targets, 또는 bin 메타데이터 만료 시간에 의해 제한됨) |
-| (**timestamp** AND **snapshot**) AND (recently-claimed OR unclaimed) | YES (claimed에 의해 위임되지 않은 프로젝트만) | YES (가장 이른 root, targets, claimed, recently-claimed, project, 또는 unclaimed 메타데이터 만료 시간에 의해 제한됨) | YES (가장 이른 root, targets, claimed, recently-claimed, project, 또는 unclaimed 메타데이터 만료 시간에 의해 제한됨) |
-| (**timestamp** AND **snapshot**) AND (**targets** OR **claimed**) | YES                               | YES (가장 이른 root, targets, claimed, recently-claimed, project, 또는 unclaimed 메타데이터 만료 시간에 의해 제한됨) | YES (가장 이른 root, targets, claimed, recently-claimed, project, 또는 unclaimed 메타데이터 만료 시간에 의해 제한됨) |
+| ( **timestamp** AND **snapshot** ) AND project | YES                               | YES (가장 이른 root, targets, 또는 bin 메타데이터 만료 시간에 의해 제한됨) | YES (가장 이른 root, targets, 또는 bin 메타데이터 만료 시간에 의해 제한됨) |
+| ( **timestamp** AND **snapshot** ) AND (recently-claimed OR unclaimed) | YES (claimed에 의해 위임되지 않은 프로젝트만) | YES (가장 이른 root, targets, claimed, recently-claimed, project, 또는 unclaimed 메타데이터 만료 시간에 의해 제한됨) | YES (가장 이른 root, targets, claimed, recently-claimed, project, 또는 unclaimed 메타데이터 만료 시간에 의해 제한됨) |
+| ( **timestamp** AND **snapshot** ) AND ( **targets** OR **claimed** ) | YES                               | YES (가장 이른 root, targets, claimed, recently-claimed, project, 또는 unclaimed 메타데이터 만료 시간에 의해 제한됨) | YES (가장 이른 root, targets, claimed, recently-claimed, project, 또는 unclaimed 메타데이터 만료 시간에 의해 제한됨) |
 | **root**                    | YES                               | YES                                 | YES                                     |
 
 표 1: 특정 역할 키 조합을 침해하여 가능한 공격. 2013년 9월, 당시 최신 버전의 `pip`이 이러한 공격에 취약하며 TUF가 사용자를 이러한 공격으로부터 어떻게 보호할 수 있는지 보여주었습니다. 오프라인 키로 서명된 역할은 **굵게** 표시됩니다.
@@ -549,9 +549,9 @@ PyPI는 프로젝트에 따라 `claimed`, `recently-claimed`, 또는 `unclaimed`
 | delegated roles 중 하나와 협력해야 함 | YES (가장 이른 root, targets, 또는 bin 메타데이터 만료 시간에 의해 제한됨) | YES (가장 이른 root, targets, 또는 bin 메타데이터 만료 시간에 의해 제한됨) | YES (가장 이른 root, targets, 또는 bin 메타데이터 만료 시간에 의해 제한됨) |
 | **targets** OR **claimed** OR recently-claimed OR unclaimed OR project | NO                                | timestamp 및 snapshot과 협력해야 함 | 적용 불가 (timestamp 및 snapshot 필요) |
 | timestamp 및 snapshot과 협력해야 함 | 적용 불가 (timestamp 및 snapshot 필요) | YES (가장 이른 root, targets, 또는 bin 메타데이터 만료 시간에 의해 제한됨) | 적용 불가 (timestamp 및 snapshot 필요) |
-| (**timestamp** AND **snapshot**) AND project | YES                               | YES (가장 이른 root, targets, 또는 bin 메타데이터 만료 시간에 의해 제한됨) | YES (가장 이른 root, targets, 또는 bin 메타데이터 만료 시간에 의해 제한됨) |
-| (**timestamp** AND **snapshot**) AND (recently-claimed OR unclaimed) | YES (claimed에 의해 위임되지 않은 프로젝트만) | YES (가장 이른 root, targets, claimed, recently-claimed, project, 또는 unclaimed 메타데이터 만료 시간에 의해 제한됨) | YES (가장 이른 root, targets, claimed, recently-claimed, project, 또는 unclaimed 메타데이터 만료 시간에 의해 제한됨) |
-| (**timestamp** AND **snapshot**) AND (**targets** OR **claimed**) | YES                               | YES (가장 이른 root, targets, claimed, recently-claimed, project, 또는 unclaimed 메타데이터 만료 시간에 의해 제한됨) | YES (가장 이른 root, targets, claimed, recently-claimed, project, 또는 unclaimed 메타데이터 만료 시간에 의해 제한됨) |
+| ( **timestamp** AND **snapshot** ) AND project | YES                               | YES (가장 이른 root, targets, 또는 bin 메타데이터 만료 시간에 의해 제한됨) | YES (가장 이른 root, targets, 또는 bin 메타데이터 만료 시간에 의해 제한됨) |
+| ( **timestamp** AND **snapshot** ) AND (recently-claimed OR unclaimed) | YES (claimed에 의해 위임되지 않은 프로젝트만) | YES (가장 이른 root, targets, claimed, recently-claimed, project, 또는 unclaimed 메타데이터 만료 시간에 의해 제한됨) | YES (가장 이른 root, targets, claimed, recently-claimed, project, 또는 unclaimed 메타데이터 만료 시간에 의해 제한됨) |
+| ( **timestamp** AND **snapshot** ) AND ( **targets** OR **claimed** ) | YES                               | YES (가장 이른 root, targets, claimed, recently-claimed, project, 또는 unclaimed 메타데이터 만료 시간에 의해 제한됨) | YES (가장 이른 root, targets, claimed, recently-claimed, project, 또는 unclaimed 메타데이터 만료 시간에 의해 제한됨) |
 | **root**                    | YES                               | YES                                 | YES                                     |
 
 표 1: 특정 역할 키 조합을 침해하여 가능한 공격. 2013년 9월, 당시 최신 버전의 `pip`이 이러한 공격에 취약하며 TUF가 사용자를 이러한 공격으로부터 어떻게 보호할 수 있는지 보여주었습니다. 오프라인 키로 서명된 역할은 **굵게** 표시됩니다.

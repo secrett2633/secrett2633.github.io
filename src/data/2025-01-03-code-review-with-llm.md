@@ -49,12 +49,12 @@ published: true
 ### 3. 환경 변수 설정
 GitHub에서 추가적인 환경변수 및 설정을 해주어야 합니다.
 
-- **Claude API 키 설정**:
+- **Claude API 키 설정** :
   1. GitHub 리포지토리의 `Settings > Secrets and variables > Actions`로 이동합니다.
   2. 'New repository secret'을 클릭하고, 이름을 `CLAUDE_API_KEY`로 설정합니다.
   3. 값에는 실제 Claude API 키를 입력합니다.
 
-- **GitHub Actions 권한 설정**:
+- **GitHub Actions 권한 설정** :
   1. 리포지토리의 `Settings > Actions > General`로 이동합니다.
   2. 'Workflow permissions'에서 'Read and write permissions'를 선택합니다.
 

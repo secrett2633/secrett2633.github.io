@@ -22,12 +22,12 @@ published: true
 
 # PEP 201 – Lockstep Iteration
 
-*   **작성자**: Barry Warsaw <barry at python.org>
-*   **상태**: Final
-*   **유형**: Standards Track
-*   **생성일**: 2000년 7월 13일
-*   **Python 버전**: 2.0
-*   **게시 이력**: 2000년 7월 27일
+*   **작성자** : Barry Warsaw <barry at python.org>
+*   **상태** : Final
+*   **유형** : Standards Track
+*   **생성일** : 2000년 7월 13일
+*   **Python 버전** : 2.0
+*   **게시 이력** : 2000년 7월 27일
 
 ## 서론 (Introduction)
 
@@ -156,14 +156,14 @@ def zip(*args):
 
 ## BDFL의 선언 (BDFL Pronouncements)
 
-**참고**: BDFL은 Python의 자비로운 종신 독재자(Benevolent Dictator For Life)인 Guido van Rossum을 지칭합니다.
+**참고** : BDFL은 Python의 자비로운 종신 독재자(Benevolent Dictator For Life)인 Guido van Rossum을 지칭합니다.
 
-*   **함수 이름**: 이 PEP의 이전 버전에는 `zip()`에 대한 20개 이상의 대체 이름이 나열된 미해결 문제가 포함되어 있었습니다. 압도적으로 더 나은 선택지가 없는 상황에서, BDFL은 Haskell에서 유래했기 때문에 `zip()`을 강력히 선호했습니다. `zip()`은 내장 함수여야 합니다.
-*   **선택적 패딩(Optional padding)**: 이 PEP의 이전 버전은 인자 시퀀스의 길이가 같지 않을 때 사용될 선택적 `pad` 키워드 인자를 제안했습니다. 이는 `map(None, ...)`의 의미와 유사하지만, 사용자가 `pad` 객체를 지정할 수 있도록 하는 것이었습니다. 이는 KISS (Keep It Simple, Stupid) 원칙에 따라 가장 짧은 시퀀스에 항상 잘라내는 것을 선호하여 BDFL에 의해 거부되었습니다.
-*   **지연 평가(Lazy evaluation)**: 이 PEP의 이전 버전은 `zip()`이 `__getitem__()` 프로토콜을 사용하여 지연 평가를 수행하는 내장 객체를 반환할 것을 제안했습니다. 이는 실제 Python 리스트를 반환하는 것을 선호하여 BDFL에 의해 강력히 거부되었습니다. 미래에 지연 평가가 필요하다면, BDFL은 `xzip()` 함수를 추가할 것을 제안합니다.
-*   **인자 없는 `zip()`**: BDFL은 `TypeError` 예외를 발생시키는 것을 강력히 선호했습니다.
-*   **인자 하나를 가진 `zip()`**: BDFL은 이것이 1-튜플(1-tuple)의 리스트를 반환하는 것을 강력히 선호했습니다.
-*   **내부 및 외부 컨테이너 제어(Inner and outer container control)**: 이 PEP의 이전 버전에는 일부 사람들이 원했던 기능, 즉 내부 및 외부 컨테이너 유형을 제어하는 기능에 대한 논의가 포함되어 있었습니다. 간소화된 API와 구현을 고려할 때, 이 기능은 거부되었습니다.
+*   **함수 이름** : 이 PEP의 이전 버전에는 `zip()`에 대한 20개 이상의 대체 이름이 나열된 미해결 문제가 포함되어 있었습니다. 압도적으로 더 나은 선택지가 없는 상황에서, BDFL은 Haskell에서 유래했기 때문에 `zip()`을 강력히 선호했습니다. `zip()`은 내장 함수여야 합니다.
+*   **선택적 패딩(Optional padding)** : 이 PEP의 이전 버전은 인자 시퀀스의 길이가 같지 않을 때 사용될 선택적 `pad` 키워드 인자를 제안했습니다. 이는 `map(None, ...)`의 의미와 유사하지만, 사용자가 `pad` 객체를 지정할 수 있도록 하는 것이었습니다. 이는 KISS (Keep It Simple, Stupid) 원칙에 따라 가장 짧은 시퀀스에 항상 잘라내는 것을 선호하여 BDFL에 의해 거부되었습니다.
+*   **지연 평가(Lazy evaluation)** : 이 PEP의 이전 버전은 `zip()`이 `__getitem__()` 프로토콜을 사용하여 지연 평가를 수행하는 내장 객체를 반환할 것을 제안했습니다. 이는 실제 Python 리스트를 반환하는 것을 선호하여 BDFL에 의해 강력히 거부되었습니다. 미래에 지연 평가가 필요하다면, BDFL은 `xzip()` 함수를 추가할 것을 제안합니다.
+*   **인자 없는 `zip()`** : BDFL은 `TypeError` 예외를 발생시키는 것을 강력히 선호했습니다.
+*   **인자 하나를 가진 `zip()`** : BDFL은 이것이 1-튜플(1-tuple)의 리스트를 반환하는 것을 강력히 선호했습니다.
+*   **내부 및 외부 컨테이너 제어(Inner and outer container control)** : 이 PEP의 이전 버전에는 일부 사람들이 원했던 기능, 즉 내부 및 외부 컨테이너 유형을 제어하는 기능에 대한 논의가 포함되어 있었습니다. 간소화된 API와 구현을 고려할 때, 이 기능은 거부되었습니다.
 
 ## `zip()`의 후속 변경 (Subsequent Change to zip())
 

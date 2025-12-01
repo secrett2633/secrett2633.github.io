@@ -70,7 +70,7 @@ docker exec -it jenkins bash -c "cat /var/jenkins_home/secrets/initialAdminPassw
 ```
 
 초기 비밀번호를 입력하면, 설치 화면이 나타납니다.  
-이때, **[Install Suggested plugins]**를 선택하고 필요한 플러그인을 설치하세요.
+이때, **[Install Suggested plugins]** 를 선택하고 필요한 플러그인을 설치하세요.
 
 ### **4. 계정 생성 및 URL 설정**
 

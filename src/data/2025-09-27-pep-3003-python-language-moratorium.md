@@ -43,20 +43,20 @@ Python 2.7이 Python 2.x 코드 라인의 사실상 "수명 종료(end of life)"
 
 ### 변경할 수 없는 항목 (Cannot Change)
 *   **새로운 내장 함수 (New built-ins)**
-*   **언어 문법 (Language syntax)**: 모호성 수정(ambiguity fixes)을 제외하고는 문법 파일(grammar file)이 사실상 변경 불가능(immutable)해집니다.
-*   **일반 언어 의미론 (General language semantics)**: 특정 예외(아래 참조)를 제외하고 언어는 현재 상태로 작동합니다.
-*   **새로운 `__future__` import**: 컴파일러 지시문(compiler directive)을 사용하더라도 언어 문법 및/또는 의미론을 효과적으로 변경하기 때문에 명시적으로 금지됩니다.
+*   **언어 문법 (Language syntax)** : 모호성 수정(ambiguity fixes)을 제외하고는 문법 파일(grammar file)이 사실상 변경 불가능(immutable)해집니다.
+*   **일반 언어 의미론 (General language semantics)** : 특정 예외(아래 참조)를 제외하고 언어는 현재 상태로 작동합니다.
+*   **새로운 `__future__` import** : 컴파일러 지시문(compiler directive)을 사용하더라도 언어 문법 및/또는 의미론을 효과적으로 변경하기 때문에 명시적으로 금지됩니다.
 
 ### 사례별 예외 (Case-by-Case Exemptions)
-*   **내장 객체에 새 메서드 추가 (New methods on built-ins)**: 내장 객체에 메서드를 추가하는 경우는 고려될 수 있습니다.
-*   **잘못된 언어 의미론 (Incorrect language semantics)**: 원래 설계 의도에 따라 언어 의미론이 모호하거나 부적절하게 구현된 경우 의미론이 변경될 수 있습니다.
-*   **구현하기 어려운 언어 의미론 (Language semantics that are difficult to implement)**: 다른 VM(Virtual Machine)들이 Python 3.x 의미론을 구현하기 시작하지 않았기 때문에 특정 의미론이 복제하기 너무 어려울 가능성이 있습니다. 그러한 경우, 다른 VM들의 Python 3.x 채택을 용이하게 하기 위해 변경될 수 있습니다.
+*   **내장 객체에 새 메서드 추가 (New methods on built-ins)** : 내장 객체에 메서드를 추가하는 경우는 고려될 수 있습니다.
+*   **잘못된 언어 의미론 (Incorrect language semantics)** : 원래 설계 의도에 따라 언어 의미론이 모호하거나 부적절하게 구현된 경우 의미론이 변경될 수 있습니다.
+*   **구현하기 어려운 언어 의미론 (Language semantics that are difficult to implement)** : 다른 VM(Virtual Machine)들이 Python 3.x 의미론을 구현하기 시작하지 않았기 때문에 특정 의미론이 복제하기 너무 어려울 가능성이 있습니다. 그러한 경우, 다른 VM들의 Python 3.x 채택을 용이하게 하기 위해 변경될 수 있습니다.
 
 ### 변경 허용 항목 (Allowed to Change)
-*   **C API**: CPython의 기반 C 코드를 변경하는 것은 이 유예의 다른 제한 사항을 위반하지 않는 한 전적으로 허용됩니다. 예를 들어, 현재 원자적(atomic)인 특정 작업이 원자성을 유지한다고 가정하면 GIL(Global Interpreter Lock)을 제거하는 것은 허용됩니다.
-*   **표준 라이브러리 (The standard library)**: 표준 라이브러리는 언어 정의와 직접적으로 연결되어 있지 않으므로 이 유예의 적용을 받지 않습니다.
-*   **2.x로의 3.x 기능 백포트 (Backports of 3.x features to 2.x)**: 이 유예는 3.x에서 새로워질 기능에만 영향을 미칩니다.
-*   **import 의미론 (Import semantics)**: 예를 들어, PEP 382와 같은 경우입니다. 어차피 import 의미론은 Python 구현체마다 다릅니다.
+*   **C API** : CPython의 기반 C 코드를 변경하는 것은 이 유예의 다른 제한 사항을 위반하지 않는 한 전적으로 허용됩니다. 예를 들어, 현재 원자적(atomic)인 특정 작업이 원자성을 유지한다고 가정하면 GIL(Global Interpreter Lock)을 제거하는 것은 허용됩니다.
+*   **표준 라이브러리 (The standard library)** : 표준 라이브러리는 언어 정의와 직접적으로 연결되어 있지 않으므로 이 유예의 적용을 받지 않습니다.
+*   **2.x로의 3.x 기능 백포트 (Backports of 3.x features to 2.x)** : 이 유예는 3.x에서 새로워질 기능에만 영향을 미칩니다.
+*   **import 의미론 (Import semantics)** : 예를 들어, PEP 382와 같은 경우입니다. 어차피 import 의미론은 Python 구현체마다 다릅니다.
 
 ### 소급 적용 (Retroactive)
 이 유예가 Python 3.1 릴리스 이후의 모든 변경 사항을 포함한다는 점에 유의하는 것이 중요합니다. 이 규칙은 유예가 논의되는 동안 기능이 서둘러 또는 몰래 CPython 소스 트리에 포함되는 것을 방지하기 위함입니다. `py3k` 개발 브랜치의 NEWS 파일을 검토한 결과, 이 목표를 달성하기 위해 롤백해야 할 커밋은 없는 것으로 나타났습니다.

@@ -22,11 +22,11 @@ published: true
 
 # PEP 346 – 사용자 정의 ("with") 문 (User Defined ("with") Statements)
 
-*   **작성자**: Alyssa Coghlan <ncoghlan at gmail.com>
-*   **상태**: 철회됨 (Withdrawn)
-*   **유형**: 표준 트랙 (Standards Track)
-*   **생성일**: 2005년 5월 6일
-*   **Python 버전**: 2.5
+*   **작성자** : Alyssa Coghlan <ncoghlan at gmail.com>
+*   **상태** : 철회됨 (Withdrawn)
+*   **유형** : 표준 트랙 (Standards Track)
+*   **생성일** : 2005년 5월 6일
+*   **Python 버전** : 2.5
 
 ## 개요 (Abstract)
 

@@ -46,19 +46,19 @@ published: true
 ### 명세 (Specification)
 `ipaddress` 모듈은 총 6개의 새로운 공개 클래스를 정의하며, 이들은 IPv4 객체 조작을 위한 3개와 IPv6 객체 조작을 위한 3개로 구성됩니다. 클래스는 다음과 같습니다.
 
-*   **`IPv4Address` / `IPv6Address`**: 개별 주소를 정의합니다. 예를 들어, `www.google.com`에 대한 A 레코드 쿼리가 반환하는 IPv4 주소(74.125.224.84) 또는 `ipv6.google.com`에 대한 AAAA 레코드 쿼리가 반환하는 IPv6 주소(2001:4860:4001:801::1011) 등이 있습니다.
-*   **`IPv4Network` / `IPv6Network`**: 네트워크 또는 주소 그룹을 정의합니다. 예를 들어, 멀티캐스트 사용을 위해 예약된 IPv4 네트워크(224.0.0.0/4) 또는 멀티캐스트를 위해 예약된 IPv6 네트워크(ff00::/8) 등이 있습니다.
-*   **`IPv4Interface` / `IPv6Interface`**: 이 하이브리드 클래스들은 주어진 네트워크 상의 개별 주소를 나타냅니다. 예를 들어, 192.0.2.0/24 네트워크 상의 IPv4 주소 192.0.2.1은 192.0.2.1/24로 참조될 수 있습니다. 마찬가지로, 2001:DB8::/96 네트워크 상의 IPv6 주소 2001:DB8::1은 2001:DB8::1/96으로 참조될 수 있습니다. 컴퓨터 네트워크 인터페이스에 할당된 주소를 이렇게 참조하는 것이 매우 일반적이므로 `Interface`라는 이름이 붙었습니다.
+*   **`IPv4Address` / `IPv6Address`** : 개별 주소를 정의합니다. 예를 들어, `www.google.com`에 대한 A 레코드 쿼리가 반환하는 IPv4 주소(74.125.224.84) 또는 `ipv6.google.com`에 대한 AAAA 레코드 쿼리가 반환하는 IPv6 주소(2001:4860:4001:801::1011) 등이 있습니다.
+*   **`IPv4Network` / `IPv6Network`** : 네트워크 또는 주소 그룹을 정의합니다. 예를 들어, 멀티캐스트 사용을 위해 예약된 IPv4 네트워크(224.0.0.0/4) 또는 멀티캐스트를 위해 예약된 IPv6 네트워크(ff00::/8) 등이 있습니다.
+*   **`IPv4Interface` / `IPv6Interface`** : 이 하이브리드 클래스들은 주어진 네트워크 상의 개별 주소를 나타냅니다. 예를 들어, 192.0.2.0/24 네트워크 상의 IPv4 주소 192.0.2.1은 192.0.2.1/24로 참조될 수 있습니다. 마찬가지로, 2001:DB8::/96 네트워크 상의 IPv6 주소 2001:DB8::1은 2001:DB8::1/96으로 참조될 수 있습니다. 컴퓨터 네트워크 인터페이스에 할당된 주소를 이렇게 참조하는 것이 매우 일반적이므로 `Interface`라는 이름이 붙었습니다.
 
 모든 IPv4 클래스는 특정 특성과 메서드를 공유하며, 이는 주소를 나타내는 데 필요한 비트 수, 특정 특수 IPv4 네트워크 범위에 속하는지 여부 등입니다. 마찬가지로 모든 IPv6 클래스도 특성과 메서드를 공유합니다.
 
 `ipaddress`는 코드 중복을 최대한 피하기 위해 상속(inheritance)을 광범위하게 사용합니다. 부모 클래스는 비공개이지만 다음과 같이 요약됩니다.
 
-*   **`_IPAddrBase`**: 모든 `ipaddress` 객체에 공통된 메서드를 제공합니다.
-*   **`_BaseAddress`**: `IPv4Address`와 `IPv6Address`에 공통된 메서드를 제공합니다.
-*   **`_BaseInterface`**: `IPv4Interface`와 `IPv6Interface`, 그리고 `IPv4Network`와 `IPv6Network`에 공통된 메서드를 제공합니다 (`ipaddress`는 `Network` 클래스를 `Interface`의 특수한 경우로 처리합니다).
-*   **`_BaseV4`**: 모든 IPv4 클래스에 공통된 메서드와 변수(예: `_max_prefixlen`)를 제공합니다.
-*   **`_BaseV6`**: 모든 IPv6 클래스에 공통된 메서드와 변수를 제공합니다.
+*   **`_IPAddrBase`** : 모든 `ipaddress` 객체에 공통된 메서드를 제공합니다.
+*   **`_BaseAddress`** : `IPv4Address`와 `IPv6Address`에 공통된 메서드를 제공합니다.
+*   **`_BaseInterface`** : `IPv4Interface`와 `IPv6Interface`, 그리고 `IPv4Network`와 `IPv6Network`에 공통된 메서드를 제공합니다 (`ipaddress`는 `Network` 클래스를 `Interface`의 특수한 경우로 처리합니다).
+*   **`_BaseV4`** : 모든 IPv4 클래스에 공통된 메서드와 변수(예: `_max_prefixlen`)를 제공합니다.
+*   **`_BaseV6`** : 모든 IPv6 클래스에 공통된 메서드와 변수를 제공합니다.
 
 서로 다른 IP 버전의 객체 간 비교는 `TypeError`를 발생시킵니다. 또한, 서로 다른 `_Base` 부모 클래스를 가진 객체 간의 비교도 `TypeError`를 발생시킵니다. `_Base` 부모 클래스 제한의 효과는 `IPv4Interface`가 `IPv4Network`와 비교될 수 있고, `IPv6Interface`가 `IPv6Network`와 비교될 수 있다는 것입니다.
 

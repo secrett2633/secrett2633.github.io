@@ -57,9 +57,9 @@ Python이 이해하는 환경 변수 목록에 새로운 환경 변수 `PYTHONBY
 이 PEP는 바이트코드 파일의 처리에 대해 모듈별 또는 디렉토리별 제어를 제공하는 것이 아님을 명시적으로 밝힙니다.
 
 #### 용어 (Glossary)
-*   **"bytecode base"**: `sys.bytecodebase`의 현재 설정을 의미합니다.
-*   **"augmented directory"**: 바이트코드 베이스(bytecode base)와 소스 파일의 디렉토리 이름으로 구성된 디렉토리를 의미합니다.
-*   **`PYTHONBYTECODEBASE`**: "bytecode base"와 구별할 필요가 있을 때 환경 변수를 의미합니다.
+*   **"bytecode base"** : `sys.bytecodebase`의 현재 설정을 의미합니다.
+*   **"augmented directory"** : 바이트코드 베이스(bytecode base)와 소스 파일의 디렉토리 이름으로 구성된 디렉토리를 의미합니다.
+*   **`PYTHONBYTECODEBASE`** : "bytecode base"와 구별할 필요가 있을 때 환경 변수를 의미합니다.
 
 #### 바이트코드 파일 찾기 (Locating bytecode files)
 인터프리터가 모듈을 검색할 때, 평소와 같이 `sys.path`를 사용합니다. 그러나 가능한 바이트코드 파일을 고려할 때, 바이트코드 파일에 대한 추가적인 조사가 이루어질 수 있습니다.

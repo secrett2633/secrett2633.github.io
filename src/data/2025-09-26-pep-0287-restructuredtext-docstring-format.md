@@ -86,11 +86,11 @@ Doc-SIG의 존재 내내 단일 표준 docstring 형식에 대한 합의는 결�
 
 수년 동안 Doc-SIG에서 docstring을 위한 많은 대체 마크업이 제안되었습니다. 대표적인 예시가 아래에 나열되어 있습니다. 각 마크업은 위에 언급된 목표의 관점에서 간략하게 분석됩니다. 이것이 모든 기존 마크업 시스템의 배타적인 목록이 아니라는 점에 유의하십시오. (Texinfo, Doxygen, TIM, YODL, AFT 등) 언급되지 않은 많은 다른 마크업이 있습니다.
 
-*   **XML, SGML, DocBook, HTML, XHTML**: XML 및 SGML은 모든 종류의 문서에 적합한 명시적이고 잘 정돈된 메타 언어입니다. XML은 SGML의 변형입니다. 이들은 훈련받지 않은 눈에는 장황하고, 입력하기 어려우며, 소스로서 편안하게 읽기에는 너무 복잡하기 때문에 주로 배후에서 사용됩니다. DocBook, HTML, XHTML은 모두 SGML 및/또는 XML의 응용 프로그램이며, 동일한 기본 문법과 동일한 단점을 공유합니다.
-*   **TeX**: TeX는 XML/SGML과 유사하게 명시적이지만, 작성하기 쉽지 않고, 익숙하지 않은 사람들에게는 읽기 어렵습니다.
-*   **Perl POD**: 대부분의 Perl 모듈은 POD(Plain Old Documentation)라는 형식으로 문서화됩니다. 이는 Perl 파서와 강력하게 통합된, 입력하기 쉽고 매우 낮은 수준의 형식입니다. POD 문서를 info, HTML, man 페이지 등 다른 형식으로 변환하는 많은 도구들이 존재합니다. 그러나 POD 문법은 가독성 면에서 Perl 자체를 따릅니다.
-*   **JavaDoc**: Java 클래스 및 함수 앞의 특별한 주석이 코드 문서를 작성하는 데 사용됩니다. 이를 추출하여 HTML 문서로 변환하는 프로그램은 javadoc이라고 불리며, 표준 Java 배포판의 일부입니다. 그러나 JavaDoc은 대부분의 마크업에 HTML 태그를 사용하여 HTML과 매우 밀접한 관계를 가지고 있습니다. 따라서 HTML의 가독성 문제를 공유합니다.
-*   **Setext, StructuredText**: 초기에 Setext(Structure Enhanced Text)의 변형들, Zope Corp의 StructuredText를 포함하여, Python docstring 형식 지정을 위해 제안되었습니다. 이후 이러한 변형들을 통칭하여 "STexts"라고 부를 것입니다. STexts는 특별한 지식 없이도 읽기 쉽고, 비교적 작성하기 쉽다는 장점이 있습니다.
+*   **XML, SGML, DocBook, HTML, XHTML** : XML 및 SGML은 모든 종류의 문서에 적합한 명시적이고 잘 정돈된 메타 언어입니다. XML은 SGML의 변형입니다. 이들은 훈련받지 않은 눈에는 장황하고, 입력하기 어려우며, 소스로서 편안하게 읽기에는 너무 복잡하기 때문에 주로 배후에서 사용됩니다. DocBook, HTML, XHTML은 모두 SGML 및/또는 XML의 응용 프로그램이며, 동일한 기본 문법과 동일한 단점을 공유합니다.
+*   **TeX** : TeX는 XML/SGML과 유사하게 명시적이지만, 작성하기 쉽지 않고, 익숙하지 않은 사람들에게는 읽기 어렵습니다.
+*   **Perl POD** : 대부분의 Perl 모듈은 POD(Plain Old Documentation)라는 형식으로 문서화됩니다. 이는 Perl 파서와 강력하게 통합된, 입력하기 쉽고 매우 낮은 수준의 형식입니다. POD 문서를 info, HTML, man 페이지 등 다른 형식으로 변환하는 많은 도구들이 존재합니다. 그러나 POD 문법은 가독성 면에서 Perl 자체를 따릅니다.
+*   **JavaDoc** : Java 클래스 및 함수 앞의 특별한 주석이 코드 문서를 작성하는 데 사용됩니다. 이를 추출하여 HTML 문서로 변환하는 프로그램은 javadoc이라고 불리며, 표준 Java 배포판의 일부입니다. 그러나 JavaDoc은 대부분의 마크업에 HTML 태그를 사용하여 HTML과 매우 밀접한 관계를 가지고 있습니다. 따라서 HTML의 가독성 문제를 공유합니다.
+*   **Setext, StructuredText** : 초기에 Setext(Structure Enhanced Text)의 변형들, Zope Corp의 StructuredText를 포함하여, Python docstring 형식 지정을 위해 제안되었습니다. 이후 이러한 변형들을 통칭하여 "STexts"라고 부를 것입니다. STexts는 특별한 지식 없이도 읽기 쉽고, 비교적 작성하기 쉽다는 장점이 있습니다.
 
 일부 사용자(대부분의 기존 Python 자동 문서화 도구 포함)에 의해 사용되었음에도 불구하고, 지금까지 STexts는 다음과 같은 이유로 표준이 되지 못했습니다:
 
@@ -123,8 +123,8 @@ Doc-SIG의 존재 내내 단일 표준 docstring 형식에 대한 합의는 결�
 
 ### Python 소스 코드 및 Python 대화형 세션 포함 마크업: 인라인 리터럴, 리터럴 블록, doctest 블록 (Markup to include Python source code and Python interactive sessions: inline literals, literal blocks, and doctest blocks)
 
-*   **인라인 리터럴(Inline literals)**: 프로그램 I/O 또는 코드 스니펫을 나타내기 위해 이중 백쿼트(`` ``)를 사용합니다. 인라인 리터럴 내에서는 마크업 해석(백슬래시 이스케이프[ `\` ] 해석 포함)이 수행되지 않습니다.
-*   **리터럴 블록(Literal blocks)**: 코드 발췌문 또는 ASCII 그래픽과 같은 블록 수준의 리터럴 텍스트는 들여쓰기되며, 이전 단락 끝에 이중 콜론(`::`)으로 표시됩니다.
+*   **인라인 리터럴(Inline literals)** : 프로그램 I/O 또는 코드 스니펫을 나타내기 위해 이중 백쿼트(`` ``)를 사용합니다. 인라인 리터럴 내에서는 마크업 해석(백슬래시 이스케이프[ `\` ] 해석 포함)이 수행되지 않습니다.
+*   **리터럴 블록(Literal blocks)** : 코드 발췌문 또는 ASCII 그래픽과 같은 블록 수준의 리터럴 텍스트는 들여쓰기되며, 이전 단락 끝에 이중 콜론(`::`)으로 표시됩니다.
 
     ```python
     if literal_block:
@@ -134,7 +134,7 @@ Doc-SIG의 존재 내내 단일 표준 docstring 형식에 대한 합의는 결�
     ```
    
 
-*   **doctest 블록(Doctest blocks)**: `>>> `로 시작하고 빈 줄로 끝납니다. 들여쓰기나 리터럴 블록의 이중 콜론은 필요하지 않습니다. 예를 들면 다음과 같습니다:
+*   **doctest 블록(Doctest blocks)** : `>>> `로 시작하고 빈 줄로 끝납니다. 들여쓰기나 리터럴 블록의 이중 콜론은 필요하지 않습니다. 예를 들면 다음과 같습니다:
 
     ```
     Here's a doctest block:
@@ -203,14 +203,14 @@ Python 소스 컨텍스트 리더는 명시적 역할이 필요하지 않도록 
 
 ### 마크업 확장성: 지시문 및 대체 (Markup extensibility: directives and substitutions)
 
-**지시문(Directives)**은 `reStructuredText`의 확장 메커니즘으로 사용되며, 새로운 문법을 추가하지 않고 새로운 블록 수준 구성을 지원하는 방법입니다. 이미지, 경고(note, caution 등), 목차 생성(다른 것들 중)을 위한 지시문이 구현되었습니다. 예를 들어, 이미지를 배치하는 방법은 다음과 같습니다:
+**지시문(Directives)** 은 `reStructuredText`의 확장 메커니즘으로 사용되며, 새로운 문법을 추가하지 않고 새로운 블록 수준 구성을 지원하는 방법입니다. 이미지, 경고(note, caution 등), 목차 생성(다른 것들 중)을 위한 지시문이 구현되었습니다. 예를 들어, 이미지를 배치하는 방법은 다음과 같습니다:
 
 ```
 .. image:: mylogo.png
 ```
 
 
-**대체 정의(Substitution definitions)**는 인라인 텍스트로 블록 수준 지시문의 힘과 유연성을 공유할 수 있도록 합니다. 예를 들면 다음과 같습니다:
+**대체 정의(Substitution definitions)** 는 인라인 텍스트로 블록 수준 지시문의 힘과 유연성을 공유할 수 있도록 합니다. 예를 들면 다음과 같습니다:
 
 ```
 The |biohazard| symbol must be used on containers used to dispose of medical waste.

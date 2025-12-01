@@ -404,13 +404,13 @@ PEP 511은 모든 Python 구현에서 구현되어야 하지만, 바이트코드
 
 #### Python 전처리기 (Python Preprocessors)
 
-*   **MacroPy**: MacroPy는 Python 프로그래밍 언어에서 구문 매크로(Syntactic Macros)를 구현한 것입니다. MacroPy는 사용자 정의 함수(매크로)가 임포트 시 Python 프로그램의 AST에 변환을 수행할 수 있는 메커니즘을 제공합니다.
-*   **pypreprocessor**: `#define` 및 `#ifdef`와 같은 C 스타일 전처리기 지시문(directives)을 Python에서 제공합니다.
+*   **MacroPy** : MacroPy는 Python 프로그래밍 언어에서 구문 매크로(Syntactic Macros)를 구현한 것입니다. MacroPy는 사용자 정의 함수(매크로)가 임포트 시 Python 프로그램의 AST에 변환을 수행할 수 있는 메커니즘을 제공합니다.
+*   **pypreprocessor** : `#define` 및 `#ifdef`와 같은 C 스타일 전처리기 지시문(directives)을 Python에서 제공합니다.
 
 #### 바이트코드 트랜스포머 (Bytecode transformers)
 
-*   **codetransformer**: `ast` 모듈의 `NodeTransformer`에서 영감을 받은 CPython용 바이트코드 트랜스포머입니다.
-*   **byteplay**: Byteplay는 Python 코드 객체를 다루기 쉬운 동등한 객체로 변환하고, 이 객체를 다시 실행 가능한 Python 코드 객체로 변환할 수 있습니다. Python 함수에 복잡한 변환을 적용하는 데 유용하며, Python 바이트코드의 복잡성을 배우는 데도 유용합니다. byteplay 문서를 참고하십시오.
+*   **codetransformer** : `ast` 모듈의 `NodeTransformer`에서 영감을 받은 CPython용 바이트코드 트랜스포머입니다.
+*   **byteplay** : Byteplay는 Python 코드 객체를 다루기 쉬운 동등한 객체로 변환하고, 이 객체를 다시 실행 가능한 Python 코드 객체로 변환할 수 있습니다. Python 함수에 복잡한 변환을 적용하는 데 유용하며, Python 바이트코드의 복잡성을 배우는 데도 유용합니다. byteplay 문서를 참고하십시오.
 
 다음도 참고하십시오:
 

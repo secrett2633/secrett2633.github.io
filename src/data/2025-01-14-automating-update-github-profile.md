@@ -25,7 +25,7 @@ published: true
 
 ## 1. 깃허브 프로필 업데이트 스크립트 작성
 
-블로그 포스팅을 깃허브 프로필에 자동으로 반영하기 위해, RSS 피드를 활용한 스크립트를 작성했습니다. **RSS**(Really Simple Syndication)는 웹사이트의 콘텐츠를 구독하는 형식으로, 최신 블로그 포스트를 안정적으로 가져올 수 있는 방법입니다.
+블로그 포스팅을 깃허브 프로필에 자동으로 반영하기 위해, RSS 피드를 활용한 스크립트를 작성했습니다. **RSS** (Really Simple Syndication)는 웹사이트의 콘텐츠를 구독하는 형식으로, 최신 블로그 포스트를 안정적으로 가져올 수 있는 방법입니다.
 
 ### 블로그 RSS 피드 설정
 
@@ -123,7 +123,7 @@ if __name__ == "__main__":
 
 ## 2. GitHub Actions 설정
 
-이제 이 작업을 자동화하기 위해 **GitHub Actions**를 설정합니다. GitHub Actions는 `.github/workflows` 폴더에 `.yml` 파일을 생성하여 다양한 작업을 자동화할 수 있습니다.
+이제 이 작업을 자동화하기 위해 **GitHub Actions** 를 설정합니다. GitHub Actions는 `.github/workflows` 폴더에 `.yml` 파일을 생성하여 다양한 작업을 자동화할 수 있습니다.
 
 ### GitHub Actions 워크플로우 설정
 
@@ -181,6 +181,6 @@ jobs:
 
 만약 워크플로우 실행 중 권한 문제가 발생하면 아래 사항을 확인하세요:
 
-1. GitHub 저장소의 **Settings** -> **Actions** -> **General**로 이동합니다.
-2. **Actions permissions**에서 "Allow all actions and reusable workflows"를 선택합니다.
-3. **Workflow permissions**에서 "Read and write permissions"를 선택합니다.
+1. GitHub 저장소의 **Settings** -> **Actions** -> **General** 로 이동합니다.
+2. **Actions permissions** 에서 "Allow all actions and reusable workflows"를 선택합니다.
+3. **Workflow permissions** 에서 "Read and write permissions"를 선택합니다.

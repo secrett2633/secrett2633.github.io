@@ -29,9 +29,9 @@ published: true
 부동 소수점 값은 정밀도가 제한되어 있어 일부 값을 정확하게 표현할 수 없으며, 반복적인 계산으로 인해 오류가 누적될 수 있습니다. 이로 인해 부동 소수점 값의 정확한 동등 비교는 특정 상황에서만 사용해야 한다는 것이 일반적인 조언입니다. 프로그래머가 계산된 값이 예상 값에 "가까운"지 여부를 확인하려는 경우가 자주 발생하며, 특히 테스트에서 이러한 필요성이 높습니다. 이러한 근사치 비교는 일반적이지만 구현 방법이 항상 명확하지 않으므로, 이를 위한 표준 라이브러리 함수는 유용한 추가 기능이 될 것입니다.
 
 ### 기존 구현 (Existing Implementations)
-*   **`unittest.TestCase.assertAlmostEqual`**: `unittest` 모듈에 포함되어 있지만, `unittest.TestCase` 클래스 내에 있어 일반적인 테스트 용도로 사용하기 어렵고, 절대 오차(absolute difference)만을 비교합니다. 부동 소수점 수의 경우 종종 상대 오차(relative error) 비교가 더 적합합니다.
-*   **`numpy.isclose()` 및 `allclose()`**: `numpy` 패키지에서 제공되지만, `numpy`를 설치해야만 사용할 수 있습니다.
-*   **기타**: `statistics` 패키지의 내부 구현, Stack Overflow 등의 커뮤니티 토론 및 Boost C++ 라이브러리와 APL 언어 등 다른 시스템에서도 유사한 테스트 기능이 제공됩니다. 이러한 기존 구현들은 근사치 비교가 흔히 필요하며 직접 작성하기 쉽지 않다는 것을 보여주므로, 표준 라이브러리에 추가될 만한 후보임을 시사합니다.
+*   **`unittest.TestCase.assertAlmostEqual`** : `unittest` 모듈에 포함되어 있지만, `unittest.TestCase` 클래스 내에 있어 일반적인 테스트 용도로 사용하기 어렵고, 절대 오차(absolute difference)만을 비교합니다. 부동 소수점 수의 경우 종종 상대 오차(relative error) 비교가 더 적합합니다.
+*   **`numpy.isclose()` 및 `allclose()`** : `numpy` 패키지에서 제공되지만, `numpy`를 설치해야만 사용할 수 있습니다.
+*   **기타** : `statistics` 패키지의 내부 구현, Stack Overflow 등의 커뮤니티 토론 및 Boost C++ 라이브러리와 APL 언어 등 다른 시스템에서도 유사한 테스트 기능이 제공됩니다. 이러한 기존 구현들은 근사치 비교가 흔히 필요하며 직접 작성하기 쉽지 않다는 것을 보여주므로, 표준 라이브러리에 추가될 만한 후보임을 시사합니다.
 
 ## 제안된 구현 (Proposed Implementation)
 새로운 `isclose()` 함수는 `math` 모듈에 추가되며, 다음과 같은 시그니처를 가집니다.
@@ -64,8 +64,8 @@ Python으로 작성된 샘플 구현은 GitHub에서 확인할 수 있습니다.
 
 ## 상대 차이 (Relative Difference)
 두 숫자가 얼마나 가까운지를 판단하는 방법은 크게 두 가지입니다.
-*   **절대 차이 (Absolute difference)**: 단순히 `abs(a-b)`입니다.
-*   **상대 차이 (Relative difference)**: `abs(a-b) / scale_factor`입니다.
+*   **절대 차이 (Absolute difference)** : 단순히 `abs(a-b)`입니다.
+*   **상대 차이 (Relative difference)** : `abs(a-b) / scale_factor`입니다.
 
 `isclose()` 함수는 상대 차이에 중점을 둡니다. `scale_factor`는 일반적으로 다음 중 하나를 사용합니다.
 *   입력 값 중 하나의 절대값
@@ -84,7 +84,7 @@ Python으로 작성된 샘플 구현은 GitHub에서 확인할 수 있습니다.
 `abs_tol`의 기본값은 `0.0`으로 설정됩니다. 0과의 비교는 일반적인 사용 사례이지만, 특정 사용 사례에 적합한 절대 허용 오차 값은 크게 다르기 때문입니다. "모호함에 직면했을 때는 추측하려는 유혹을 거부하라"는 Zen of Python의 원칙에 따라, 사용자에게 적절한 값을 명시적으로 선택하도록 유도하는 것이 더 안전하다고 판단했습니다.
 
 ## 예상되는 용도 (Expected Uses)
-주요 사용 사례는 다양한 형태의 **테스트**입니다. 계산 결과가 예상 값에 근접하는지 확인하는 데 사용됩니다. 이는 정식 단위 테스트 스위트의 일부일 수도 있고, 명령줄, IPython 노트북, doctests 또는 간단한 `assert` 문 내에서 사용될 수도 있습니다. 또한, 암시적 함수(implicit function)의 반복적인 해를 찾는 종료 조건으로도 적합합니다.
+주요 사용 사례는 다양한 형태의 **테스트** 입니다. 계산 결과가 예상 값에 근접하는지 확인하는 데 사용됩니다. 이는 정식 단위 테스트 스위트의 일부일 수도 있고, 명령줄, IPython 노트북, doctests 또는 간단한 `assert` 문 내에서 사용될 수도 있습니다. 또한, 암시적 함수(implicit function)의 반복적인 해를 찾는 종료 조건으로도 적합합니다.
 
 ```python
 guess = something

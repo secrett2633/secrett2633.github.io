@@ -60,35 +60,35 @@ published: true
 `lock file`은 `lock file`의 범위에 따라 적절한 디렉토리에 위치해야 합니다. 예를 들어, 단일 `pyproject.toml`에 대한 `locking`은 `pylock.toml`을 동일한 디렉토리에 배치합니다.
 
 ### 파일 형식 (File Format)
-파일 형식은 **TOML**입니다.
+파일 형식은 **TOML** 입니다.
 
 도구는 `diff` 출력의 노이즈를 최소화하기 위해 일관된 방식으로 `lock file`을 작성해야 합니다. 테이블의 키는 일관된 순서로 기록되어야 하며, 배열도 일관된 순서로 정렬되어야 합니다.
 
 주요 최상위 키들은 다음과 같습니다:
 
-*   **`lock-version`**: (필수) 파일 형식 버전. 현재 `1.0`.
-*   **`environments`**: (선택) `lock file`이 호환되는 `Environment Markers` 목록.
-*   **`requires-python`**: (선택) `lock file`이 지원하는 최소 Python 버전.
-*   **`extras`**: (선택) 이 `lock file`이 지원하는 `extras` 목록.
-*   **`dependency-groups`**: (선택) 이 `lock file`이 공개적으로 지원하는 `Dependency Groups` 목록.
-*   **`default-groups`**: (선택) 기본적으로 설치되어야 할 합성 `dependency group`의 이름.
-*   **`created-by`**: (필수) `lock file`을 생성한 도구의 이름.
-*   **`[[packages]]`**: (필수) 설치될 수 있는 모든 패키지를 포함하는 테이블 배열.
-    *   **`packages.name`**: (필수) 정규화된 패키지 이름.
-    *   **`packages.version`**: (선택) 패키지 버전. `sdist` 또는 `wheel`이 지정될 때 기록되어야 합니다.
-    *   **`packages.marker`**: (선택) 패키지가 설치되어야 할 시점을 지정하는 `environment marker`.
-    *   **`packages.requires-python`**: (선택) 패키지의 Python 버전 호환성을 위한 `Version specifier`.
-    *   **`[[packages.dependencies]]`**: (선택) 이 패키지의 직접적인 종속성인 다른 `[[packages]]` 항목을 기록. 감사 목적으로만 사용되며, 설치 시에는 사용되지 않습니다.
-    *   **`[packages.vcs]`**: (선택, 다른 소스 필드와 상호 배타적) 버전 관리 시스템 (VCS) 소스 트리의 세부 정보.
-    *   **`[packages.directory]`**: (선택, 다른 소스 필드와 상호 배타적) 로컬 디렉토리 소스 트리의 세부 정보.
-    *   **`[packages.archive]`**: (선택, 다른 소스 필드와 상호 배타적) 아카이브 파일 (`wheel`, `sdist` 포함)에 대한 직접 참조.
-        *   **`packages.archive.hashes`**: (필수) 파일의 알려진 해시 값. 최소 하나의 해시 알고리즘 (`sha256` 권장)을 포함해야 합니다.
-    *   **`packages.index`**: (선택) `sdist` 및/또는 `wheel`이 발견된 패키지 인덱스의 기본 URL.
-    *   **`[packages.sdist]`**: (선택, 다른 소스 필드와 상호 배타적) 소스 배포판(Source distribution) 파일 세부 정보.
-    *   **`[[packages.wheels]]`**: (선택) 바이너리 배포판(Binary distribution) `wheel` 파일 세부 정보.
-    *   **`[[packages.attestation-identities]]`**: (선택) 이 패키지에 기록된 모든 파일에 대한 증명(attestation) 기록.
-    *   **`[packages.tool]`**: (선택) 패키지 버전 수준의 도구 특정 데이터. 설치에 영향을 주지 않아야 합니다.
-*   **`[tool]`**: (선택) `lock file` 수준의 도구 특정 데이터. 설치에 영향을 주지 않아야 합니다.
+*   **`lock-version`** : (필수) 파일 형식 버전. 현재 `1.0`.
+*   **`environments`** : (선택) `lock file`이 호환되는 `Environment Markers` 목록.
+*   **`requires-python`** : (선택) `lock file`이 지원하는 최소 Python 버전.
+*   **`extras`** : (선택) 이 `lock file`이 지원하는 `extras` 목록.
+*   **`dependency-groups`** : (선택) 이 `lock file`이 공개적으로 지원하는 `Dependency Groups` 목록.
+*   **`default-groups`** : (선택) 기본적으로 설치되어야 할 합성 `dependency group`의 이름.
+*   **`created-by`** : (필수) `lock file`을 생성한 도구의 이름.
+*   **`[[packages]]`** : (필수) 설치될 수 있는 모든 패키지를 포함하는 테이블 배열.
+    *   **`packages.name`** : (필수) 정규화된 패키지 이름.
+    *   **`packages.version`** : (선택) 패키지 버전. `sdist` 또는 `wheel`이 지정될 때 기록되어야 합니다.
+    *   **`packages.marker`** : (선택) 패키지가 설치되어야 할 시점을 지정하는 `environment marker`.
+    *   **`packages.requires-python`** : (선택) 패키지의 Python 버전 호환성을 위한 `Version specifier`.
+    *   **`[[packages.dependencies]]`** : (선택) 이 패키지의 직접적인 종속성인 다른 `[[packages]]` 항목을 기록. 감사 목적으로만 사용되며, 설치 시에는 사용되지 않습니다.
+    *   **`[packages.vcs]`** : (선택, 다른 소스 필드와 상호 배타적) 버전 관리 시스템 (VCS) 소스 트리의 세부 정보.
+    *   **`[packages.directory]`** : (선택, 다른 소스 필드와 상호 배타적) 로컬 디렉토리 소스 트리의 세부 정보.
+    *   **`[packages.archive]`** : (선택, 다른 소스 필드와 상호 배타적) 아카이브 파일 (`wheel`, `sdist` 포함)에 대한 직접 참조.
+        *   **`packages.archive.hashes`** : (필수) 파일의 알려진 해시 값. 최소 하나의 해시 알고리즘 (`sha256` 권장)을 포함해야 합니다.
+    *   **`packages.index`** : (선택) `sdist` 및/또는 `wheel`이 발견된 패키지 인덱스의 기본 URL.
+    *   **`[packages.sdist]`** : (선택, 다른 소스 필드와 상호 배타적) 소스 배포판(Source distribution) 파일 세부 정보.
+    *   **`[[packages.wheels]]`** : (선택) 바이너리 배포판(Binary distribution) `wheel` 파일 세부 정보.
+    *   **`[[packages.attestation-identities]]`** : (선택) 이 패키지에 기록된 모든 파일에 대한 증명(attestation) 기록.
+    *   **`[packages.tool]`** : (선택) 패키지 버전 수준의 도구 특정 데이터. 설치에 영향을 주지 않아야 합니다.
+*   **`[tool]`** : (선택) `lock file` 수준의 도구 특정 데이터. 설치에 영향을 주지 않아야 합니다.
 
 ### 마커 표현식 구문 추가 (Additions to marker expression syntax)
 이 PEP는 `Environment Markers` 명세에 `extras` 및 `dependency_groups` 마커를 추가하여 `packages.marker` 내에서 `extras` 및 `dependency group` 관계를 표현할 수 있도록 제안합니다. 이러한 추가 기능은 이 PEP에 정의된 `lock file` 컨텍스트 내에서만 적용됩니다.
@@ -133,31 +133,31 @@ PEP 0751 문서에는 `pylock.toml` 파일의 예시가 포함되어 있습니�
 ### 보안 시사점 (Security Implications)
 `security-first` 원칙을 기반으로 `lock file` 형식을 표준화함으로써 전체 패키지 설치를 더 안전하게 만드는 데 기여할 것으로 기대됩니다. 그러나 이 PEP가 모든 잠재적인 보안 문제를 해결하지는 않습니다.
 
-*   **`lock file` 변조**: `lock file`이 소스 제어에 적절히 관리되고 감사되지 않으면 악의적인 행위자가 파일을 변조할 수 있습니다. 이는 `lock file` 서명 (파일 내 `[tool]` 항목 또는 외부 채널을 통해)으로 완화될 수 있습니다.
-*   **오인 설치 방지**: 이 PEP는 사용자가 잘못된 패키지를 설치하는 것을 막지는 않습니다 (예: `typosquatting`을 통한 이름 혼동 공격).
+*   **`lock file` 변조** : `lock file`이 소스 제어에 적절히 관리되고 감사되지 않으면 악의적인 행위자가 파일을 변조할 수 있습니다. 이는 `lock file` 서명 (파일 내 `[tool]` 항목 또는 외부 채널을 통해)으로 완화될 수 있습니다.
+*   **오인 설치 방지** : 이 PEP는 사용자가 잘못된 패키지를 설치하는 것을 막지는 않습니다 (예: `typosquatting`을 통한 이름 혼동 공격).
 
 ### 교육 방법 (How to Teach This)
 사용자들은 다음 사항을 인지해야 합니다:
 
-*   **재현성**: `lock file`은 특정 시점에 설치된 정확한 종속성 집합을 기록하여 미래에 동일한 환경을 재현할 수 있게 합니다. 이는 코드의 우발적인 손상을 방지합니다.
-*   **협업**: `lock file`을 통해 팀원 모두가 동일한 패키지 집합을 설치하여 일관된 개발 환경을 보장할 수 있습니다.
-*   **보안**: `lock file`은 항상 동일한 파일을 설치하도록 보장하여 악성 파일 설치 위험을 줄이고, 의도적인 종속성 업그레이드를 통해 변경 사항을 명확히 합니다.
-*   **환경 호환성**: `lock file`은 특정 환경에만 지원될 수 있습니다. `single-use` 또는 `multi-use`일 수 있으며, `extras` 및 `dependency groups`를 통해 다양한 사용 사례를 지원할 수 있습니다.
-*   **도구 독립성**: 이 PEP를 따르는 `lock file`은 명세를 구현하는 모든 `installer`에 의해 설치될 수 있습니다. 그러나 다른 `locker`를 사용한다고 해서 항상 동일한 결과가 보장되지는 않습니다.
+*   **재현성** : `lock file`은 특정 시점에 설치된 정확한 종속성 집합을 기록하여 미래에 동일한 환경을 재현할 수 있게 합니다. 이는 코드의 우발적인 손상을 방지합니다.
+*   **협업** : `lock file`을 통해 팀원 모두가 동일한 패키지 집합을 설치하여 일관된 개발 환경을 보장할 수 있습니다.
+*   **보안** : `lock file`은 항상 동일한 파일을 설치하도록 보장하여 악성 파일 설치 위험을 줄이고, 의도적인 종속성 업그레이드를 통해 변경 사항을 명확히 합니다.
+*   **환경 호환성** : `lock file`은 특정 환경에만 지원될 수 있습니다. `single-use` 또는 `multi-use`일 수 있으며, `extras` 및 `dependency groups`를 통해 다양한 사용 사례를 지원할 수 있습니다.
+*   **도구 독립성** : 이 PEP를 따르는 `lock file`은 명세를 구현하는 모든 `installer`에 의해 설치될 수 있습니다. 그러나 다른 `locker`를 사용한다고 해서 항상 동일한 결과가 보장되지는 않습니다.
 
 ## 거부된 아이디어 (Rejected Ideas)
 이 PEP를 개발하는 과정에서 여러 아이디어가 논의되었으나 최종적으로 거부되었습니다. 주요 거부 아이디어는 다음과 같습니다:
 
-*   **설치 목적으로 종속성 그래프 기록**: 종속성 그래프를 기록하는 것은 더 많은 정보를 제공하지만, 감사 용이성에 영향을 미치는 불필요한 복잡성을 추가한다고 판단되었습니다.
-*   **설치자가 종속성 해결 수행**: 설치자가 종속성 해결을 수행하도록 하는 것은 `lock file` 감사를 복잡하게 만들고, `lockers`에 복잡성을 집중시키는 것이 더 나을 것으로 판단되었습니다.
-*   **최소 해시 알고리즘 지원 요구**: 특정 해시 알고리즘을 요구하는 것은 다른 Python 패키징 명세와 일치하지 않으며, 시간이 지남에 따라 알고리즘이 구식이 될 수 있다는 이유로 거부되었습니다.
-*   **파일 이름 지정 방식**: `*.pylock.toml` 사용, `.pylock` 확장자 사용, 또는 명명 규칙 없음 등의 아이디어가 있었으나, `pylock.toml`이 편집기 구문 강조 및 발견 용이성 측면에서 가장 적합하다고 판단되었습니다.
-*   **파일 형식으로 JSON 또는 YAML 사용**: TOML이 사람이 읽기 쉽고 `pyproject.toml`과의 일관성을 유지하기 위해 선택되었습니다.
-*   **단일 해시 알고리즘**: 파일 전체에 단일 해시 알고리즘을 강제하는 것은 대용량 파일의 재해시 비용과 유연성 부족으로 인해 거부되었습니다.
-*   **`lock file` 내용 자체 해싱 또는 생성 날짜 기록**: `merge conflict` 문제를 야기할 수 있어 거부되었습니다.
-*   **패키지 인덱스 기록**: 불필요한 `bookkeeping`으로 간주되어 거부되었습니다.
-*   **`sdist` 빌드 요구사항 `locking`**: 복잡성과 `edge case` 문제로 인해 이 PEP에서 다루지 않고 미래의 PEP로 미뤄졌습니다.
-*   **전용 `direct` 키**: `VCS`, `directory`, `archive`와 같은 직접 URL 참조의 세 가지 경우가 명시적으로 정의되어 있으므로 불필요하다고 판단되었습니다.
+*   **설치 목적으로 종속성 그래프 기록** : 종속성 그래프를 기록하는 것은 더 많은 정보를 제공하지만, 감사 용이성에 영향을 미치는 불필요한 복잡성을 추가한다고 판단되었습니다.
+*   **설치자가 종속성 해결 수행** : 설치자가 종속성 해결을 수행하도록 하는 것은 `lock file` 감사를 복잡하게 만들고, `lockers`에 복잡성을 집중시키는 것이 더 나을 것으로 판단되었습니다.
+*   **최소 해시 알고리즘 지원 요구** : 특정 해시 알고리즘을 요구하는 것은 다른 Python 패키징 명세와 일치하지 않으며, 시간이 지남에 따라 알고리즘이 구식이 될 수 있다는 이유로 거부되었습니다.
+*   **파일 이름 지정 방식** : `*.pylock.toml` 사용, `.pylock` 확장자 사용, 또는 명명 규칙 없음 등의 아이디어가 있었으나, `pylock.toml`이 편집기 구문 강조 및 발견 용이성 측면에서 가장 적합하다고 판단되었습니다.
+*   **파일 형식으로 JSON 또는 YAML 사용** : TOML이 사람이 읽기 쉽고 `pyproject.toml`과의 일관성을 유지하기 위해 선택되었습니다.
+*   **단일 해시 알고리즘** : 파일 전체에 단일 해시 알고리즘을 강제하는 것은 대용량 파일의 재해시 비용과 유연성 부족으로 인해 거부되었습니다.
+*   **`lock file` 내용 자체 해싱 또는 생성 날짜 기록** : `merge conflict` 문제를 야기할 수 있어 거부되었습니다.
+*   **패키지 인덱스 기록** : 불필요한 `bookkeeping`으로 간주되어 거부되었습니다.
+*   **`sdist` 빌드 요구사항 `locking`** : 복잡성과 `edge case` 문제로 인해 이 PEP에서 다루지 않고 미래의 PEP로 미뤄졌습니다.
+*   **전용 `direct` 키** : `VCS`, `directory`, `archive`와 같은 직접 URL 참조의 세 가지 경우가 명시적으로 정의되어 있으므로 불필요하다고 판단되었습니다.
 
 ## 결론
 PEP 751은 Python 생태계의 오랜 문제였던 재현 가능한 종속성 설치를 위한 표준화된 `lock file` 형식인 `pylock.toml`을 제안합니다. 이 형식은 사람이 읽을 수 있고 기계적으로 생성되며, 설치 시점에 종속성 해결 없이 빠른 설치를 목표로 합니다. 보안, 감사 용이성, `multi-use` 시나리오 지원에 중점을 두며, 기존 `requirements.txt` 파일의 한계를 극복하는 것을 목표로 합니다. 이 PEP는 Python 패키징 도구들이 일관되고 상호 운용 가능한 방식으로 종속성을 관리할 수 있는 기반을 마련하여, 개발자와 사용자 모두에게 이점을 제공할 것입니다.

@@ -114,9 +114,9 @@ typedef struct {
 
 이 섹션에서는 `PyType_Spec.basicsize`의 값에 따른 타입 생성의 결정 트리를 설명합니다.
 
-*   **`spec->basicsize > 0`**: 기존과 동일하며, 기본 클래스 레이아웃을 알고 있을 때 사용합니다.
-*   **`spec->basicsize == 0`**: `basicsize`를 상속합니다. `base->tp_itemsize`에 따라 `itemsize`를 상속하거나 설정합니다.
-*   **`spec->basicsize < 0`**: `basicsize`를 확장합니다.
+*   **`spec->basicsize > 0`** : 기존과 동일하며, 기본 클래스 레이아웃을 알고 있을 때 사용합니다.
+*   **`spec->basicsize == 0`** : `basicsize`를 상속합니다. `base->tp_itemsize`에 따라 `itemsize`를 상속하거나 설정합니다.
+*   **`spec->basicsize < 0`** : `basicsize`를 확장합니다.
     *   `base->tp_itemsize == 0` (고정 크기 클래스 확장): `spec->itemsize == 0`이면 `itemsize`는 0으로 설정됩니다. `spec->itemsize > 0`이면 실패합니다.
     *   `base->tp_itemsize > 0` (가변 크기 클래스 확장):
         *   `spec->itemsize == 0` (itemsize 상속): `Py_TPFLAGS_ITEMS_AT_END` 플래그가 사용된 경우 `itemsize`가 상속됩니다. 사용되지 않은 경우 (잠재적 충돌로 인해) 실패합니다.

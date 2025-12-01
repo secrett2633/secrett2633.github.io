@@ -21,11 +21,11 @@ published: true
 
 PEP 295 – 여러 줄 문자열 상수의 해석
 
-**상태**: Rejected (거부됨)
-**유형**: Standards Track
-**생성일**: 2002년 7월 22일
-**Python 버전**: 3.0
-**작성자**: Stepan Koltsov
+**상태** : Rejected (거부됨)
+**유형** : Standards Track
+**생성일** : 2002년 7월 22일
+**Python 버전** : 3.0
+**작성자** : Stepan Koltsov
 
 ---
 

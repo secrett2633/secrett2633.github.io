@@ -21,10 +21,10 @@ published: true
 
 ## PEP 256 – Docstring 처리 시스템 프레임워크 (Docstring Processing System Framework)
 
-*   **작성자**: David Goodger
-*   **상태**: Rejected (거부됨)
-*   **유형**: Standards Track
-*   **생성일**: 2001년 6월 1일
+*   **작성자** : David Goodger
+*   **상태** : Rejected (거부됨)
+*   **유형** : Standards Track
+*   **생성일** : 2001년 6월 1일
 
 ### 거부 공지 (Rejection Notice)
 이 제안은 추진력을 잃어 결국 거부되었습니다.
@@ -39,12 +39,12 @@ DPS 프레임워크의 개념은 구현 세부 사항과 독립적으로 제시�
 ### Docstring PEP 로드맵 (Road Map to the Docstring PEPs)
 docstring 처리에는 여러 측면이 있습니다. "Docstring PEPs"는 각 문제를 독립적으로 또는 가능한 한 가깝게 다루기 위해 이슈를 분할했습니다. 개별 측면 및 관련 PEP는 다음과 같습니다.
 
-*   **Docstring 문법**: PEP 287, "reStructuredText Docstring Format"은 Python docstring, PEP 및 기타 용도에 대한 문법을 제안합니다.
-*   **Docstring 의미론 (Semantics)**: 최소 두 가지 측면으로 구성됩니다.
-    *   **규칙 (Conventions)**: docstring의 고수준 구조. PEP 257, "Docstring Conventions"에서 다룹니다.
-    *   **방법론 (Methodology)**: docstring의 정보 콘텐츠에 대한 규칙. 이 부분은 다루지 않았습니다.
-*   **처리 메커니즘 (Processing mechanisms)**: 이 PEP (PEP 256)는 추상적인 docstring 처리 시스템(DPS)의 고수준 문제와 명세를 설명합니다. PEP 258, "Docutils Design Specification"은 개발 중인 하나의 DPS 설계 및 구현에 대한 개요입니다.
-*   **출력 스타일 (Output styles)**: 개발자들은 소스 코드에서 생성된 문서가 보기 좋기를 원하며, 이에 대한 다양한 아이디어가 있습니다. PEP 258은 "Stylist Transforms"를 언급합니다. docstring 처리의 이 측면은 아직 완전히 탐색되지 않았습니다.
+*   **Docstring 문법** : PEP 287, "reStructuredText Docstring Format"은 Python docstring, PEP 및 기타 용도에 대한 문법을 제안합니다.
+*   **Docstring 의미론 (Semantics)** : 최소 두 가지 측면으로 구성됩니다.
+    *   **규칙 (Conventions)** : docstring의 고수준 구조. PEP 257, "Docstring Conventions"에서 다룹니다.
+    *   **방법론 (Methodology)** : docstring의 정보 콘텐츠에 대한 규칙. 이 부분은 다루지 않았습니다.
+*   **처리 메커니즘 (Processing mechanisms)** : 이 PEP (PEP 256)는 추상적인 docstring 처리 시스템(DPS)의 고수준 문제와 명세를 설명합니다. PEP 258, "Docutils Design Specification"은 개발 중인 하나의 DPS 설계 및 구현에 대한 개요입니다.
+*   **출력 스타일 (Output styles)** : 개발자들은 소스 코드에서 생성된 문서가 보기 좋기를 원하며, 이에 대한 다양한 아이디어가 있습니다. PEP 258은 "Stylist Transforms"를 언급합니다. docstring 처리의 이 측면은 아직 완전히 탐색되지 않았습니다.
 
 이슈를 분리함으로써 합의를 더 쉽게 형성하고 (더 작은 논쟁), 차이점을 더 쉽게 수용할 수 있습니다.
 
@@ -80,27 +80,27 @@ PyDoc은 2.1 릴리스부터 Python 표준 라이브러리의 일부가 되었�
 ### 명세 (Specification)
 docstring 처리 시스템 프레임워크는 다음과 같이 나뉩니다.
 
-*   **Docstring 규칙 (Docstring conventions)**: 다음과 같은 문제를 문서화합니다.
+*   **Docstring 규칙 (Docstring conventions)** : 다음과 같은 문제를 문서화합니다.
     *   무엇을 어디에 문서화해야 하는가.
     *   첫 번째 줄은 한 줄 요약이다.
     *   PEP 257은 이러한 문제 중 일부를 문서화합니다.
-*   **Docstring 처리 시스템 설계 명세 (Docstring processing system design specification)**: 다음과 같은 문제를 문서화합니다.
-    *   **고수준 명세**: DPS가 하는 일.
+*   **Docstring 처리 시스템 설계 명세 (Docstring processing system design specification)** : 다음과 같은 문제를 문서화합니다.
+    *   **고수준 명세** : DPS가 하는 일.
     *   실행 가능한 스크립트용 명령줄 인터페이스.
     *   시스템 Python API.
     *   Docstring 추출 규칙.
     *   입력 컨텍스트를 캡슐화하는 리더(Readers).
     *   파서(Parsers).
-    *   **문서 트리 (Document tree)**: 중간 내부 데이터 구조. 파서와 리더의 출력, 그리고 작성기(Writer)의 입력은 모두 동일한 데이터 구조를 공유합니다.
+    *   **문서 트리 (Document tree)** : 중간 내부 데이터 구조. 파서와 리더의 출력, 그리고 작성기(Writer)의 입력은 모두 동일한 데이터 구조를 공유합니다.
     *   문서 트리를 수정하는 변환(Transforms).
     *   출력 형식용 작성기(Writers).
     *   출력 관리(단일 파일, 여러 파일 또는 메모리 내 객체)를 처리하는 배포자(Distributors).
     *   이러한 문제는 모든 docstring 처리 시스템 구현에 적용 가능합니다. PEP 258은 이러한 문제를 문서화합니다.
-*   **Docstring 처리 시스템 구현 (Docstring processing system implementation)**:
-    *   **입력 마크업 명세**: docstring 문법. PEP 287은 표준 문법을 제안합니다.
+*   **Docstring 처리 시스템 구현 (Docstring processing system implementation)** :
+    *   **입력 마크업 명세** : docstring 문법. PEP 287은 표준 문법을 제안합니다.
     *   입력 파서 구현.
     *   입력 컨텍스트 리더 ("모드": Python 소스 코드, PEP, 독립 실행형 텍스트 파일, 이메일 등) 및 구현.
-    *   **스타일리스트 (Stylists)**: 특정 입력 컨텍스트 리더는 다양한 출력 문서 스타일을 허용하는 관련 스타일리스트를 가질 수 있습니다.
+    *   **스타일리스트 (Stylists)** : 특정 입력 컨텍스트 리더는 다양한 출력 문서 스타일을 허용하는 관련 스타일리스트를 가질 수 있습니다.
     *   출력 형식(HTML, XML, TeX, DocBook, info 등) 및 작성기 구현.
 
 구성 요소 1, 2/3/5, 4는 개별 동반 PEP의 주제입니다. 프레임워크 또는 문법/파서의 다른 구현이 있는 경우 추가 PEP가 필요할 수 있습니다. 구성 요소 6 및 7의 여러 구현이 필요할 것입니다. 이 구성 요소에 대해서는 PEP 메커니즘이 과도할 수 있습니다.

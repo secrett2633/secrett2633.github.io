@@ -81,7 +81,7 @@ sys.modules[__name__].__class__ = FancyModule
 
 두 가지 접근 방식 모두 추가적인 보일러플레이트 코드(boilerplate)를 유발할 뿐만 아니라, 런타임에 모듈이 호출 가능하다는 것을 인식하지 못하는 타입 검사기(type checker)에서 오류가 발생하는 단점이 있습니다.
 
-**타입 검사기 오류 예시:**
+** 타입 검사기 오류 예시: **
 ```
 $ mypy user.py
 user.py:3: error: Module not callable [operator]
@@ -95,14 +95,14 @@ Found 1 error in 1 file (checked 1 source file)
 
 다음 예시들은 모두 유효하고 호출 가능한 모듈로 간주되었을 것입니다.
 
-**예시 1 (함수 사용):**
+** 예시 1 (함수 사용):**
 ```python
 # hello.py
 def __call__(*args, **kwargs):
     pass
 ```
 
-**예시 2 (클래스 인스턴스 사용):**
+** 예시 2 (클래스 인스턴스 사용):**
 ```python
 # hello.py
 class Hello:
@@ -111,7 +111,7 @@ class Hello:
 __call__ = Hello() # 또는 __call__ = Hello
 ```
 
-**예시 3 (__getattr__ 사용):**
+** 예시 3 (__getattr__ 사용): **
 ```python
 # hello.py
 def hello():
@@ -140,4 +140,4 @@ def __getattr__(name):
 ### 거부된 아이디어 (Rejected Ideas)
 `__getattr__` 및 `__dir__`의 도입과 `__call__` 사용을 가능하게 하려는 제안을 고려했을 때, `__or__`, `__iter__`와 같은 모든 특수 메서드 이름(Special method names)을 모듈에 허용할 가치가 있는지에 대한 논의가 있었습니다. 이는 완전히 바람직하지 않은 것은 아니었지만, 하위 호환성 문제의 가능성을 높이고, 이러한 다른 특수 메서드들은 `__call__`에 비해 라이브러리 작성자에게 유용성이 적을 것으로 판단되어 채택되지 않았습니다.
 
-> ⚠️ **알림:** 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.
+> ⚠️ ** 알림:** 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.

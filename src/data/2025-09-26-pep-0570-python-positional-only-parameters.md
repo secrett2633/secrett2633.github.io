@@ -286,7 +286,7 @@ def foo(name, **kwds):
 이것이 `True`를 반환하게 만드는 호출은 불가능합니다. 예를 들어:
 
 ```python
->>> foo(1, **{'name': 2})
+>>> foo(1, ** {'name': 2})
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 TypeError: foo() got multiple values for argument 'name'
@@ -300,7 +300,7 @@ def foo(name, /, **kwds):
 ```
 이제 위 호출은 `True`를 반환합니다.
 
-즉, 위치 전용 매개변수의 이름은 모호함 없이 `**kwds`에서 사용될 수 있습니다. (다른 예로, `dict()`와 `dict.update()`의 시그니처에 이점이 있습니다.)
+즉, 위치 전용 매개변수의 이름은 모호함 없이 `** kwds`에서 사용될 수 있습니다. (다른 예로, `dict()`와 `dict.update()`의 시그니처에 이점이 있습니다.)
 
 ### 구분자로서의 “/”의 유래 (Origin of “/” as a Separator)
 
@@ -1962,14 +1962,14 @@ The user wants me to translate PEP 0570, "Python Positional-Only Parameters" int
 I will go through each section of the PEP and translate it, paying close attention to the specified guidelines.
 
 **Plan:**
-1.  **Abstract**: Translate the abstract section.
-2.  **Motivation**: Translate the motivation section, including historical context, problems, and benefits.
-3.  **Rationale**: Translate the rationale section, covering performance, maintainability, logical ordering, compatibility, consistency in subclasses, and optimizations.
-4.  **Specification**: Translate the syntax and semantics, grammar, and corner cases.
-5.  **How To Teach This**: Translate the teaching approach and examples.
-6.  **Recap**: Translate the recap for usage guidance.
-7.  **Reference Implementation**: Translate this brief section.
-8.  **Rejected Ideas**: Translate the section on rejected alternative approaches.
+1.  **Abstract** : Translate the abstract section.
+2.  **Motivation** : Translate the motivation section, including historical context, problems, and benefits.
+3.  **Rationale** : Translate the rationale section, covering performance, maintainability, logical ordering, compatibility, consistency in subclasses, and optimizations.
+4.  **Specification** : Translate the syntax and semantics, grammar, and corner cases.
+5.  **How To Teach This** : Translate the teaching approach and examples.
+6.  **Recap** : Translate the recap for usage guidance.
+7.  **Reference Implementation** : Translate this brief section.
+8.  **Rejected Ideas** : Translate the section on rejected alternative approaches.
 9.  Ensure all sentences referring to the browsed content end with a citation ``.
 
 I will now start the translation process.# PEP 570 – Python 위치 전용 매개변수 (Positional-Only Parameters)
@@ -2234,7 +2234,7 @@ def foo(name, **kwds):
 이것이 `True`를 반환하게 만드는 호출은 불가능합니다. 예를 들어:
 
 ```python
->>> foo(1, **{'name': 2})
+>>> foo(1, ** {'name': 2})
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 TypeError: foo() got multiple values for argument 'name'
@@ -2248,7 +2248,7 @@ def foo(name, /, **kwds):
 ```
 이제 위 호출은 `True`를 반환합니다.
 
-즉, 위치 전용 매개변수의 이름은 모호함 없이 `**kwds`에서 사용될 수 있습니다. (다른 예로, `dict()`와 `dict.update()`의 시그니처에 이점이 있습니다.)
+즉, 위치 전용 매개변수의 이름은 모호함 없이 `** kwds`에서 사용될 수 있습니다. (다른 예로, `dict()`와 `dict.update()`의 시그니처에 이점이 있습니다.)
 
 ### 구분자로서의 “/”의 유래 (Origin of “/” as a Separator)
 

@@ -41,14 +41,14 @@ published: true
 
 ### 숫자 클래스 (Numeric Classes)
 
-*   **`Number`**: 가장 기본적인 클래스로, 어떤 종류의 숫자를 기대하는지에 대해 유연성을 제공합니다. 이 클래스는 오버로딩에만 도움을 주며, 어떠한 연산도 제공하지 않습니다.
+*   **`Number`** : 가장 기본적인 클래스로, 어떤 종류의 숫자를 기대하는지에 대해 유연성을 제공합니다. 이 클래스는 오버로딩에만 도움을 주며, 어떠한 연산도 제공하지 않습니다.
 
     ```python
     class Number(metaclass=ABCMeta):
         pass
     ```
 
-*   **`Complex`**: 내장 `complex` 타입에서 작동하는 연산을 정의합니다. 이는 `complex`로의 변환, `bool()`, `.real`, `.imag`, `+`, `-`, `*`, `/`, `**`, `abs()`, `.conjugate()`, `==`, `!=` 등을 포함합니다. 이질적인(heterogeneous) 인수가 주어지고 특별한 지식이 없는 경우, 내장 `complex` 타입으로 폴백(fallback)해야 합니다.
+*   **`Complex`** : 내장 `complex` 타입에서 작동하는 연산을 정의합니다. 이는 `complex`로의 변환, `bool()`, `.real`, `.imag`, `+`, `-`, `*`, `/`, `**`, `abs()`, `.conjugate()`, `==`, `!=` 등을 포함합니다. 이질적인(heterogeneous) 인수가 주어지고 특별한 지식이 없는 경우, 내장 `complex` 타입으로 폴백(fallback)해야 합니다.
 
     ```python
     class Complex(Number):
@@ -62,7 +62,7 @@ published: true
         # ... 그 외 연산 메서드들 ...
     ```
 
-*   **`Real`**: `Complex`에 실수 연산을 추가합니다. 이는 `float`로의 변환, `trunc()`, `math.floor()`, `math.ceil()`, `round()`, `divmod()`, `//`, `%`, `<`, `<=`, `>`, `>=` 등을 포함합니다. `Real`은 일부 파생 연산에 대한 기본값도 제공합니다. `__complex__`, `real`, `imag`, `conjugate`와 같은 `Complex`의 추상 메서드에 대한 구체적인 구현을 제공합니다.
+*   **`Real`** : `Complex`에 실수 연산을 추가합니다. 이는 `float`로의 변환, `trunc()`, `math.floor()`, `math.ceil()`, `round()`, `divmod()`, `//`, `%`, `<`, `<=`, `>`, `>=` 등을 포함합니다. `Real`은 일부 파생 연산에 대한 기본값도 제공합니다. `__complex__`, `real`, `imag`, `conjugate`와 같은 `Complex`의 추상 메서드에 대한 구체적인 구현을 제공합니다.
 
     ```python
     class Real(Complex):
@@ -81,7 +81,7 @@ published: true
         def conjugate(self): return +self # Real의 켤레복소수는 자기 자신
     ```
 
-*   **`Rational`**: `Real`을 상속하며, `.numerator` (분자)와 `.denominator` (분모) 속성을 가집니다. 분자/분모는 기약 분수 형태로 표현되어야 합니다. `Real`의 `__float__` 변환 메서드에 대한 구현을 제공합니다.
+*   **`Rational`** : `Real`을 상속하며, `.numerator` (분자)와 `.denominator` (분모) 속성을 가집니다. 분자/분모는 기약 분수 형태로 표현되어야 합니다. `Real`의 `__float__` 변환 메서드에 대한 구현을 제공합니다.
 
     ```python
     class Rational(Real): # Exact 클래스도 상속하지만, PEP 3141에는 포함되지 않음
@@ -95,7 +95,7 @@ published: true
             return self.numerator / self.denominator
     ```
 
-*   **`Integral`**: `Rational`을 상속하며, `int`로의 변환 및 비트 문자열(bit-string) 연산을 추가합니다. `__int__()`와 `__index__()` 메서드를 포함하며, 비트 시프트(`<<`, `>>`), 비트 AND(`&`), OR(`|`), XOR(`^`), INVERT(`~`)와 같은 연산에 대한 구현을 제공합니다. `Rational` 및 `Real`의 추상 메서드에 대한 구체적인 구현도 제공합니다.
+*   **`Integral`** : `Rational`을 상속하며, `int`로의 변환 및 비트 문자열(bit-string) 연산을 추가합니다. `__int__()`와 `__index__()` 메서드를 포함하며, 비트 시프트(`<<`, `>>`), 비트 AND(`&`), OR(`|`), XOR(`^`), INVERT(`~`)와 같은 연산에 대한 구현을 제공합니다. `Rational` 및 `Real`의 추상 메서드에 대한 구체적인 구현도 제공합니다.
 
     ```python
     class Integral(Rational):

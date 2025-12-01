@@ -46,8 +46,8 @@ C 버퍼 프로토콜은 스트라이드(stride), 연속성(contiguity), 쓰기 
 #### Python 레벨 버퍼 프로토콜 (Python-level buffer protocol)
 PEP 688은 `__buffer__`와 `__release_buffer__`라는 두 가지 Python 레벨 특수 메서드를 추가할 것을 제안합니다. 이 메서드를 구현하는 Python 클래스는 C 코드에서 버퍼로 사용될 수 있으며, 반대로 C로 구현된 버퍼 프로토콜을 지원하는 클래스는 Python 코드에서 접근 가능한 합성 메서드(synthesized methods)를 얻게 됩니다.
 
--   **`__buffer__(self, flags: int, /) -> memoryview`**: 이 메서드는 `memoryview()` 생성자와 같이 Python 객체에서 버퍼를 생성하기 위해 호출됩니다. C의 `bf_getbuffer` 슬롯에 해당하며, `memoryview` 객체를 반환해야 합니다.
--   **`__release_buffer__(self, buffer: memoryview, /) -> None`**: 이 메서드는 `__buffer__`에 의해 반환된 버퍼가 더 이상 필요 없을 때 호출되어야 합니다. C의 `bf_releasebuffer` 슬롯에 해당하며, 버퍼 프로토콜의 선택적 부분입니다. `__buffer__`를 직접 호출하는 Python 코드는 버퍼 사용이 끝나면 동일한 객체에 대해 `__release_buffer__`를 호출해야 합니다.
+-   **`__buffer__(self, flags: int, /) -> memoryview`** : 이 메서드는 `memoryview()` 생성자와 같이 Python 객체에서 버퍼를 생성하기 위해 호출됩니다. C의 `bf_getbuffer` 슬롯에 해당하며, `memoryview` 객체를 반환해야 합니다.
+-   **`__release_buffer__(self, buffer: memoryview, /) -> None`** : 이 메서드는 `__buffer__`에 의해 반환된 버퍼가 더 이상 필요 없을 때 호출되어야 합니다. C의 `bf_releasebuffer` 슬롯에 해당하며, 버퍼 프로토콜의 선택적 부분입니다. `__buffer__`를 직접 호출하는 Python 코드는 버퍼 사용이 끝나면 동일한 객체에 대해 `__release_buffer__`를 호출해야 합니다.
 
 #### `inspect.BufferFlags`
 `__buffer__` 구현을 돕기 위해 `enum.IntFlag`의 서브클래스인 `inspect.BufferFlags`가 추가됩니다. 이 열거형(enum)은 C 버퍼 프로토콜에 정의된 모든 플래그를 포함합니다.

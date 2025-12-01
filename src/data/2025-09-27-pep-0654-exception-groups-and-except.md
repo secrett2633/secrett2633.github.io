@@ -26,7 +26,7 @@ published: true
 이 문서는 프로그램이 여러 개의 관련 없는 예외를 동시에 발생시키고 처리할 수 있도록 하는 언어 확장을 제안합니다.
 
 주요 내용은 다음과 같습니다:
-*   **ExceptionGroup**: 함께 전파되는 관련 없는 예외 그룹을 나타내는 새로운 표준 예외 유형입니다.
+*   **ExceptionGroup** : 함께 전파되는 관련 없는 예외 그룹을 나타내는 새로운 표준 예외 유형입니다.
 *   **`except*`**: ExceptionGroup을 처리하기 위한 새로운 구문입니다.
 
 ### 동기 (Motivation)
@@ -34,11 +34,11 @@ published: true
 현재 인터프리터는 한 번에 최대 하나의 예외만 전파할 수 있습니다. PEP 3134에서 도입된 예외 체인 기능은 원인(cause)이나 컨텍스트(context)로서 서로 관련된 예외들을 연결하지만, 스택이 풀릴 때 여러 관련 없는 예외를 함께 전파해야 하는 상황이 있습니다.
 
 몇 가지 실제 사용 사례는 다음과 같습니다:
-*   **동시성 오류 (Concurrent errors)**: 비동기 동시성 라이브러리는 여러 태스크를 호출하고 결과를 집계하여 반환하는 API를 제공합니다. 여러 태스크에서 예외가 발생할 경우, 현재는 이를 처리할 적절한 방법이 없습니다. 예를 들어, `asyncio.gather()`는 첫 번째 예외를 발생시키거나 예외를 결과 목록으로 반환하는 두 가지 옵션을 제공합니다. `Trio` 라이브러리는 오류 컬렉션을 보고하기 위해 `MultiError` 예외 유형을 사용합니다. 이 PEP의 작업은 `MultiError`를 처리하는 어려움에서 시작되었습니다.
-*   **작업 재시도 시 다중 실패 (Multiple failures when retrying an operation)**: `socket.create_connection` 함수는 여러 주소에 연결을 시도할 수 있으며, 모든 시도가 실패하면 사용자에게 보고해야 합니다. 이러한 오류를 집계하는 방법, 특히 오류 유형이 다를 때가 문제입니다.
-*   **다중 사용자 콜백 실패 (Multiple user callbacks fail)**: `atexit.register()`로 등록된 함수 중 하나라도 예외를 발생시키면 마지막 하나만 다시 발생하지만, 모든 예외를 함께 다시 발생시키는 것이 더 좋습니다. `pytest` 라이브러리도 여러 `finalizer`가 예외를 발생시킬 때 첫 번째만 보고하는 문제를 `ExceptionGroup`으로 개선할 수 있습니다.
-*   **복잡한 계산의 다중 오류 (Multiple errors in a complex calculation)**: `Hypothesis` 라이브러리는 자동 버그 축소(bug reduction)를 수행하며, 이 과정에서 다른 오류를 생성하는 변형을 발견하고 (선택적으로) 모두 보고합니다. `ExceptionGroup` 메커니즘은 컨텍스트/원인 정보 손실로 인한 디버깅의 어려움을 해결할 수 있습니다.
-*   **래퍼 코드의 오류 (Errors in wrapper code)**: `tempfile.TemporaryDirectory` 컨텍스트 매니저는 `__exit__`에서 발생하는 정리(cleanup) 중 예외가 사용자 코드에서 발생한 예외를 가리는 문제가 있었습니다. 이 문제는 정리 코드가 오류를 무시하도록 하여 다중 예외 문제를 회피했지만, 이 PEP에서 제안하는 기능들을 사용하면 `__exit__`이 자체 오류와 사용자 오류를 포함하는 `ExceptionGroup`을 발생시켜 사용자가 자신의 예외를 유형별로 잡을 수 있게 됩니다.
+*   **동시성 오류 (Concurrent errors)** : 비동기 동시성 라이브러리는 여러 태스크를 호출하고 결과를 집계하여 반환하는 API를 제공합니다. 여러 태스크에서 예외가 발생할 경우, 현재는 이를 처리할 적절한 방법이 없습니다. 예를 들어, `asyncio.gather()`는 첫 번째 예외를 발생시키거나 예외를 결과 목록으로 반환하는 두 가지 옵션을 제공합니다. `Trio` 라이브러리는 오류 컬렉션을 보고하기 위해 `MultiError` 예외 유형을 사용합니다. 이 PEP의 작업은 `MultiError`를 처리하는 어려움에서 시작되었습니다.
+*   **작업 재시도 시 다중 실패 (Multiple failures when retrying an operation)** : `socket.create_connection` 함수는 여러 주소에 연결을 시도할 수 있으며, 모든 시도가 실패하면 사용자에게 보고해야 합니다. 이러한 오류를 집계하는 방법, 특히 오류 유형이 다를 때가 문제입니다.
+*   **다중 사용자 콜백 실패 (Multiple user callbacks fail)** : `atexit.register()`로 등록된 함수 중 하나라도 예외를 발생시키면 마지막 하나만 다시 발생하지만, 모든 예외를 함께 다시 발생시키는 것이 더 좋습니다. `pytest` 라이브러리도 여러 `finalizer`가 예외를 발생시킬 때 첫 번째만 보고하는 문제를 `ExceptionGroup`으로 개선할 수 있습니다.
+*   **복잡한 계산의 다중 오류 (Multiple errors in a complex calculation)** : `Hypothesis` 라이브러리는 자동 버그 축소(bug reduction)를 수행하며, 이 과정에서 다른 오류를 생성하는 변형을 발견하고 (선택적으로) 모두 보고합니다. `ExceptionGroup` 메커니즘은 컨텍스트/원인 정보 손실로 인한 디버깅의 어려움을 해결할 수 있습니다.
+*   **래퍼 코드의 오류 (Errors in wrapper code)** : `tempfile.TemporaryDirectory` 컨텍스트 매니저는 `__exit__`에서 발생하는 정리(cleanup) 중 예외가 사용자 코드에서 발생한 예외를 가리는 문제가 있었습니다. 이 문제는 정리 코드가 오류를 무시하도록 하여 다중 예외 문제를 회피했지만, 이 PEP에서 제안하는 기능들을 사용하면 `__exit__`이 자체 오류와 사용자 오류를 포함하는 `ExceptionGroup`을 발생시켜 사용자가 자신의 예외를 유형별로 잡을 수 있게 됩니다.
 
 ### 근거 (Rationale)
 

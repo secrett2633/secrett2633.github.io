@@ -82,9 +82,9 @@ PEP 550의 목표는 `threading.local()`을 대체할 보다 신뢰할 수 있�
 *   **세부 사양 (Detailed Specification):** 새로운 개념, API 및 표준 라이브러리의 관련 변경 사항에 대한 완전한 설명.
 *   **구현 세부 사항 (Implementation Details):** 이 PEP를 구현하는 데 사용된 데이터 구조 및 알고리즘과 CPython에 필요한 변경 사항에 대한 설명 및 분석.
 
-이 섹션에서는 **실행 컨텍스트(Execution Context, EC)**를 동시 실행 환경에서 내용에 일관되게 접근할 수 있도록 하는 비-지역 상태의 불투명한 컨테이너(opaque container)로 정의합니다.
+이 섹션에서는 **실행 컨텍스트(Execution Context, EC)** 를 동시 실행 환경에서 내용에 일관되게 접근할 수 있도록 하는 비-지역 상태의 불투명한 컨테이너(opaque container)로 정의합니다.
 
-**컨텍스트 변수(context variable)**는 실행 컨텍스트 내의 값을 나타내는 객체입니다. `contextvars.ContextVar(name)` 호출은 새로운 컨텍스트 변수 객체를 생성합니다. 컨텍스트 변수 객체는 세 가지 메서드를 가집니다.
+**컨텍스트 변수(context variable)** 는 실행 컨텍스트 내의 값을 나타내는 객체입니다. `contextvars.ContextVar(name)` 호출은 새로운 컨텍스트 변수 객체를 생성합니다. 컨텍스트 변수 객체는 세 가지 메서드를 가집니다.
 *   `get()`: 현재 실행 컨텍스트에서 변수의 값을 반환합니다.
 *   `set(value)`: 현재 실행 컨텍스트에서 변수의 값을 설정합니다.
 *   `delete()`: 변수 상태를 복원하는 데 사용될 수 있으며, 목적과 의미론은 `Setting and restoring context variables` 섹션에서 설명됩니다.
@@ -328,7 +328,7 @@ CPython에서 코루틴은 제너레이터와 구현을 공유합니다. 차이�
 
 이 PEP는 다음과 같은 새로운 Python API를 도입했습니다.
 
-**Python API:**
+** Python API:**
 *   새로운 `contextvars.ContextVar(name: str='...')` 클래스:
     *   읽기 전용 `.name` 속성.
     *   `.get()` 메서드: 현재 실행 컨텍스트에서 변수 값을 반환.
@@ -340,7 +340,7 @@ CPython에서 코루틴은 제너레이터와 구현을 공유합니다. 차이�
 *   `contextvars.run_with_execution_context(ec: ExecutionContext, func, *args, **kwargs)` 함수: 제공된 실행 컨텍스트로 `func`를 실행.
 *   `contextvars.run_with_logical_context(lc: LogicalContext, func, *args, **kwargs)` 함수: 현재 실행 컨텍스트 위에 제공된 논리 컨텍스트로 `func`를 실행.
 
-**C API:** (생략, Python 개발자를 위한 한국어 번역 지침에 따라 상세 내용은 제외하고 요약)
+** C API:** (생략, Python 개발자를 위한 한국어 번역 지침에 따라 상세 내용은 제외하고 요약)
 `PyContext_NewVar`, `PyContext_GetValue`, `PyContext_SetValue`, `PyContext_DelValue`, `PyLogicalContext_New`, `PyExecutionContext_New`, `PyExecutionContext_Get`, `PyContext_SetCurrent` 등 해당 기능에 대응하는 C API가 도입되었습니다.
 
 ---

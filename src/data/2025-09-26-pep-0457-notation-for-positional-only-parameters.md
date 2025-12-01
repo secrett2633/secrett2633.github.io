@@ -23,15 +23,15 @@ published: true
 
 # PEP 457 – 위치 전용 매개변수 표기법
 
-*   **작성자**: Larry Hastings <larry at hastings.org>
-*   **논의**: Python-Dev list
-*   **상태**: Final (최종)
-*   **유형**: Informational (정보성)
-*   **생성일**: 2013년 10월 8일
+*   **작성자** : Larry Hastings <larry at hastings.org>
+*   **논의** : Python-Dev list
+*   **상태** : Final (최종)
+*   **유형** : Informational (정보성)
+*   **생성일** : 2013년 10월 8일
 
 ## 개요 (Overview)
 
-이 PEP는 Python에서 **위치 전용(positional-only) 매개변수**를 위한 표기법을 제안합니다. 위치 전용 매개변수는 외부에서 사용할 수 있는 이름이 없는 매개변수를 의미합니다. 위치 전용 매개변수를 받는 함수가 호출될 때, 위치 인자(positional arguments)는 오직 인자의 위치에 기반하여 이 매개변수들에 매핑됩니다.
+이 PEP는 Python에서 **위치 전용(positional-only) 매개변수** 를 위한 표기법을 제안합니다. 위치 전용 매개변수는 외부에서 사용할 수 있는 이름이 없는 매개변수를 의미합니다. 위치 전용 매개변수를 받는 함수가 호출될 때, 위치 인자(positional arguments)는 오직 인자의 위치에 기반하여 이 매개변수들에 매핑됩니다.
 
 이 PEP는 위치 전용 매개변수를 사용하는 API(예: Argument Clinic 또는 `inspect.Signature` 객체의 문자열 표현)를 설명할 때 사용되는 표기법을 기술하는 정보성(Informational) PEP입니다. 별도의 PEP인 [PEP 570](https://peps.python.org/pep-0570/)은 이 표기법을 완전한 Python 문법으로 승격시키는 것을 제안합니다.
 
@@ -93,13 +93,13 @@ def name(positional_or_keyword_parameters, *, keyword_only_parameters):
 def name(positional_only_parameters, /, positional_or_keyword_parameters, *, keyword_only_parameters):
 ```
 
-`/` 문자 이전에 있는 모든 매개변수는 **위치 전용(positional-only)**입니다. 함수 시그니처에 `/`가 지정되지 않으면, 해당 함수는 위치 전용 매개변수를 받지 않습니다.
+`/` 문자 이전에 있는 모든 매개변수는 **위치 전용(positional-only)** 입니다. 함수 시그니처에 `/`가 지정되지 않으면, 해당 함수는 위치 전용 매개변수를 받지 않습니다.
 
 위치 전용 매개변수는 기본값(default value)을 가질 수 있으며, 그럴 경우 선택적(optional)입니다. 기본값이 없는 위치 전용 매개변수는 "필수" 위치 전용 매개변수입니다.
 
 위치 전용 매개변수의 추가적인 의미는 다음과 같습니다.
 
-*   위치 전용 매개변수는 기술적으로 이름을 가지고 있지만, 이 이름들은 **내부 전용(internal-only)**입니다. 위치 전용 매개변수는 외부에서 이름으로 접근할 수 없습니다. (`*args` 및 `**kwargs`와 유사합니다.)
+*   위치 전용 매개변수는 기술적으로 이름을 가지고 있지만, 이 이름들은 **내부 전용(internal-only)** 입니다. 위치 전용 매개변수는 외부에서 이름으로 접근할 수 없습니다. (`*args` 및 `**kwargs`와 유사합니다.)
 *   `/` 뒤에 인자가 있다면, 키워드 전용 매개변수로의 전환을 나타내는 `*` 뒤에 쉼표가 있는 것처럼, `/` 뒤에도 쉼표를 지정해야 합니다.
 *   이 구문은 `*args`나 `**kwargs`에는 영향을 미치지 않습니다.
 
