@@ -233,8 +233,8 @@ def update_readme(paper: Dict[str, str], year: str, month: str, day: str) -> Non
 
 def main() -> None:
     year = datetime.now().year
-    month = datetime.now().month
-    day = datetime.now().day
+    month = f"{datetime.now().month:02d}"
+    day = f"{datetime.now().day:02d}"
     date = f"{year}-{month}-{day}"
     with open(f"data/{date}_papers.json", "r", encoding="utf-8") as f:
         papers = json.load(f)
