@@ -215,7 +215,7 @@ def update_readme(paper: Dict[str, str], year: str, month: str, day: str) -> Non
     tags_yaml = "\n".join([f"  - {tag}" for tag in tags])
 
     content = CONTENT.format(
-        title=paper["title"].replace("\n", " ").strip(),
+        title=paper["title"].replace("\n", " ").replace('"', "'").strip(),
         uri=uri,
         date_str=date_str,
         content=fix_bold_spacing(remove_keywords_from_summary(paper["summary"])),
