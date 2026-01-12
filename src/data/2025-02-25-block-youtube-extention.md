@@ -57,7 +57,7 @@ chrome.webNavigation.onCompleted.addListener(
       if (details.url.includes("www.youtube.com") && details.frameId === 0) {
         // 현재 탭에서 원하는 URL로 이동
         chrome.tabs.update(details.tabId, {
-          url: "https://blog.secrett2633.site/me/brain-hack-productivity/"
+          url: "https://blog.secrett2633.cloud/me/brain-hack-productivity/"
         });
       }
     },

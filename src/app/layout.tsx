@@ -18,14 +18,14 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://blog.secrett2633.site'),
+  metadataBase: new URL('https://blog.secrett2633.cloud'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
     title: "secrett2633's blog",
     description: '기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트',
-    url: 'https://blog.secrett2633.site',
+    url: 'https://blog.secrett2633.cloud',
     siteName: "secrett2633's blog",
     locale: 'ko_KR',
     type: 'website',

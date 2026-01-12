@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
     // 최신 20개 포스트만 RSS에 포함
     const recentPosts = posts.slice(0, 30)
     
-    const siteUrl = 'https://blog.secrett2633.site'
+    const siteUrl = 'https://blog.secrett2633.cloud'
     const currentDate = formatKoreanTime(new Date())
     
     const rssXml = `<?xml version="1.0" encoding="UTF-8"?>

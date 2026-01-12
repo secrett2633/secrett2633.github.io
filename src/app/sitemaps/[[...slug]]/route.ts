@@ -40,7 +40,7 @@ export async function GET(
     const endIndex = startIndex + postsPerSitemap
     const sitemapPosts = posts.slice(startIndex, endIndex)
 
-    const siteUrl = 'https://blog.secrett2633.site'
+    const siteUrl = 'https://blog.secrett2633.cloud'
     const currentDate = new Date().toISOString()
 
     const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
