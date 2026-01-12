@@ -1,5 +1,6 @@
 import DefaultLayout from '@/components/DefaultLayout'
 import Sidebar from '@/components/Sidebar'
+import Comments from '@/components/Comments'
 import { getAllPostIds, getPostData, getPaginatedPostsByCategory, getPostsByCategory } from '@/lib/posts'
 import { format } from 'date-fns'
 import { ko } from 'date-fns/locale'
@@ -33,6 +34,8 @@ export async function generateStaticParams() {
           : `/${id}/`
         const normalized = effectivePath.replace(/^\/+/, '').replace(/\/+$/, '')
         const slug = normalized.split('/')
+        
+        // 댓글 정보는 getPostData/getSortedPostsData에서 자동으로 포함됨
         return { slug }
       } catch (_err) {
         // Fallback to id-based slug on any error
@@ -377,6 +380,9 @@ export default async function PostPage({ params }: PostPageProps) {
                   </div>
                 )}
               </footer>
+
+              {/* 댓글 섹션 */}
+              <Comments postPermalink={postData.permalink || `/${postId}/`} postId={postId} />
 
               {primaryCategory && (
                 <section className="mt-12 border-t border-gray-200 pt-8">

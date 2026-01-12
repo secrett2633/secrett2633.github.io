@@ -23,6 +23,20 @@ toc_sticky: true
 date: 2026-01-09 00:00:00+0900+0900
 last_modified_at: 2026-01-09 00:00:00+0900+0900
 published: true
+comments:
+  - id: comment-1
+    author: 로봇학습연구자
+    content: 멀티-뷰 비디오 생성이 로봇 조작에 이렇게 큰 영향을 미칠 수 있다니 흥미롭네요. 특히 시각적 ID 프롬프트를 사용한 부분이 인상적입니다.
+    date: 2026-01-10T10:30:00+09:00
+  - id: comment-2
+    author: AI엔지니어
+    content: 실세계 로봇 실험에서 9/10 성공률은 정말 인상적입니다. Diffusion Policy와의 결합이 효과적이었던 것 같습니다.
+    date: 2026-01-10T14:20:00+09:00
+  - id: comment-3
+    author: 로봇학습연구자
+    content: 데이터 수집의 어려움을 해결하는 접근 방식이 실용적입니다. 실제로 적용해볼 만한 가치가 있어 보입니다.
+    date: 2026-01-10T16:45:00+09:00
+    parentId: comment-1
 ---
 > **링크:** [논문 PDF로 바로 열기](https://arxiv.org/abs/2601.05241)
 
