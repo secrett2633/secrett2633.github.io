@@ -9,6 +9,8 @@ import path from 'path'
 import matter from 'gray-matter'
 import Link from 'next/link'
 import Pagination from '@/components/Pagination'
+import CommentCount from '@/components/CommentCount'
+import CommentCountProvider from '@/components/CommentCountProvider'
 
 // 정적 생성에서 동적 렌더링 허용하지 않음 (export 모드용)
 
@@ -115,7 +117,7 @@ export default async function PostPage({ params }: PostPageProps) {
     const { posts, currentPage: validPage, totalPages } = getPaginatedPostsByCategory(categoryName, 1, 20)
     
     return (
-      <>
+      <CommentCountProvider>
         <div className="space-y-6">
           <div className="flex flex-col lg:flex-row gap-8">
             <aside className="lg:w-64 xl:w-72 order-1 lg:order-none">
@@ -151,6 +153,7 @@ export default async function PostPage({ params }: PostPageProps) {
                           <time dateTime={post.date}>
                             {format(new Date(post.date), 'yyyy년 M월 d일', { locale: ko })}
                           </time>
+                          <CommentCount postPermalink={post.permalink || `/${post.id}/`} />
                         </div>
                       </article>
                     ))}
@@ -167,7 +170,7 @@ export default async function PostPage({ params }: PostPageProps) {
             </main>
           </div>
         </div>
-      </>
+      </CommentCountProvider>
     )
   }
 
@@ -181,7 +184,7 @@ export default async function PostPage({ params }: PostPageProps) {
       const { posts, currentPage: validPage, totalPages } = getPaginatedPostsByCategory(categoryName, page, 20)
 
       return (
-        <>
+        <CommentCountProvider>
           <div className="space-y-6">
             <div className="flex flex-col lg:flex-row gap-8">
               <aside className="lg:w-64 xl:w-72 order-1 lg:order-none">
@@ -217,6 +220,7 @@ export default async function PostPage({ params }: PostPageProps) {
                             <time dateTime={post.date}>
                               {format(new Date(post.date), 'yyyy년 M월 d일', { locale: ko })}
                             </time>
+                            <CommentCount postPermalink={post.permalink || `/${post.id}/`} />
                           </div>
                         </article>
                       ))}
@@ -233,7 +237,7 @@ export default async function PostPage({ params }: PostPageProps) {
               </main>
             </div>
           </div>
-        </>
+        </CommentCountProvider>
       )
     }
   }
