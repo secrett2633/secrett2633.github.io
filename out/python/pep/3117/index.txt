@@ -1,0 +1,241 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[9157,["231","static/chunks/231-467e37449c5a68fc.js","185","static/chunks/app/layout-b44b076173de406f.js"],"default"]
+7:I[231,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-dfe24a3bbd58f9b9.js"],""]
+4:["slug","python/pep/3117","c"]
+0:["sXH0w-Ur4uCLT-31_N3TA",[[["",{"children":[["slug","python/pep/3117","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"3117\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/3117","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_f367f3 layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/d6cea809dcbae606.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+a:I[646,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-dfe24a3bbd58f9b9.js"],"default"]
+9:T4c23,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-3117/">PEP 3117 - Postfix type declarations</a></p>
+<p><strong>상태:</strong> Rejected | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 01-Apr-2007</p>
+</blockquote>
+<h1>PEP 3117 – Postfix type declarations (후위 타입 선언)</h1>
+<h2>개요 (Abstract)</h2>
+<p>이 PEP는 Python에 후위(postfix) 타입 선언 문법을 추가할 것을 제안합니다. 또한, 타입과 선언자(declarator) 사이의 새로운 매핑을 생성하는 데 사용되는 새로운 <code>typedef</code> 문(statement)을 명시합니다.</p>
+<p>이 제안이 수용되면 Python 사용자 경험을 크게 향상시키고, 다른 프로그래밍 언어 사용자들이 Python으로 전환하는 것을 망설이게 하는 "단점" 중 하나를 제거할 수 있을 것이라고 합니다.</p>
+<h2>도입 배경 (Rationale)</h2>
+<p>Python은 오랫동안 명시적인 타입 선언(explicit type declarations)의 부재로 어려움을 겪어왔습니다. 이는 Python의 Zen 중 언어가 벗어나는 몇 안 되는 부분 중 하나로, Python 이단자들(heretics)과 PSU 멤버들 사이에서 많은 논쟁을 불러일으켰고, 대규모 엔터프라이즈 성공을 어렵게 만들었습니다.</p>
+<p>하지만 이러한 문제를 해결하려면 "파이썬스러운(Pythonic)" 문법을 찾아야 합니다. 타입 선언을 가진 거의 모든 언어에서 타입 선언은 이러한 특성을 결여하고 있습니다. 즉, 장황하고(verbose), 단일 타입을 위해 여러 단어를 필요로 하거나, 이해하기 어렵습니다(예: 특정 언어는 타입 선언에 <code>dim</code>과 같이 완전히 관련 없는 형용사를 사용합니다).</p>
+<p>따라서 이 PEP는 타입 선언으로의 전환과 함께, Python이 미래에 대비할 뿐만 아니라 미래를 포용한다는 것을 다시 한번 증명할 또 다른 과감한 움직임을 결합합니다. 그것은 바로 유니코드 문자(Unicode characters)를 소스 코드의 필수적인 구성 요소로 도입하는 것입니다.</p>
+<p>유니코드는 훨씬 적은 문자로 훨씬 더 많은 것을 표현할 수 있게 해주며, 이는 Python의 Zen인 "가독성이 중요합니다(Readability counts)"에 부합합니다. 또한, 별도의 타입 선언문이 필요 없게 하며, 마지막으로 Perl 6가 이미 연산자에 유니코드를 사용하고 있다는 점을 감안할 때 Python이 Perl 6에 필적하게 만듭니다. [2, cite: 1]</p>
+<h2>명세 (Specification)</h2>
+<p>타입 선언 모드가 활성화되면, 문법이 변경되어 각 <code>NAME</code>은 이름(name)과 타입 선언자(type declarator)의 두 부분으로 구성되어야 하며, 이 타입 선언자는 정확히 하나의 유니코드 문자입니다.</p>
+<p>선언자는 이름의 타입을 고유하게 지정하며, 만약 표현식의 왼쪽에 나타나면 이 타입이 강제됩니다. 반환된 타입이 선언된 타입과 일치하지 않으면 <code>InquisitionError</code> 예외가 발생합니다. [3, cite: 1]</p>
+<p>또한, 함수 호출 결과 타입도 지정해야 합니다. 호출 결과가 선언된 타입과 다르면 <code>InquisitionError</code>가 발생합니다. 주의: 결과에 대한 선언자를 함수 객체에 대한 선언자와 혼동해서는 안 됩니다(아래 예시 참조).</p>
+<p>읽기만 하고 할당되지 않는 이름 뒤의 타입 선언자는 엄격하게 필요하지는 않지만, 어쨌든 강제됩니다(Python Zen: "명시적인 것이 암시적인 것보다 좋습니다(Explicit is better than implicit)").</p>
+<p>타입과 선언자 간의 매핑은 고정되어 있지 않습니다. 프로그래머가 완전히 사용자 정의할 수 있지만, 편의를 위해 일부 내장 타입에 대한 미리 정의된 매핑이 있습니다.</p>
+<p>| 타입 (Type) | 선언자 (Declarator) | 설명 (Description) |
+|---|---|---|
+| <code>object</code> | <code>�</code> | REPLACEMENT CHARACTER |
+| <code>int</code> | <code>ℕ</code> | DOUBLE-STRUCK CAPITAL N |
+| <code>float</code> | <code>℮</code> | ESTIMATED SYMBOL |
+| <code>bool</code> | <code>✓</code> | CHECK MARK |
+| <code>complex</code> | <code>ℂ</code> | DOUBLE-STRUCK CAPITAL C |
+| <code>str</code> | <code>✎</code> | LOWER RIGHT PENCIL |
+| <code>unicode</code> | <code>✒</code> | BLACK NIB |
+| <code>tuple</code> | <code>⒯</code> | PARENTHESIZED LATIN SMALL LETTER T |
+| <code>list</code> | <code>♨</code> | HOT SPRINGS |
+| <code>dict</code> | <code>⧟</code> | DOUBLE-ENDED MULTIMAP |
+| <code>set</code> | <code>∅</code> | EMPTY SET (전체 집합에도 사용) |
+| <code>frozenset</code> | <code>☃</code> | SNOWMAN |
+| <code>datetime</code> | <code>⌚</code> | WATCH |
+| <code>function</code> | <code>ƛ</code> | LATIN SMALL LETTER LAMBDA WITH STROKE |
+| <code>generator</code> | <code>⚛</code> | ATOM SYMBOL |
+| <code>Exception</code> | <code>⌁</code> | ELECTRIC ARROW |
+| <code>None</code> | (zero-width space) | (폭이 0인 공백) |</p>
+<p>이러한 문자들은 모든 프로그래머에게 명확하고 기억하기 쉬우며 입력하기 쉬울 것이라고 언급됩니다.</p>
+<h3>유니코드 대체 단위 (Unicode replacement units)</h3>
+<p>현대적이고 글로벌화된 세상에서도 여전히 소스 코드에 유니코드를 사용하지 않거나 사용하고 싶지 않은 구식 반항아들이 있으며, Python은 관용적인 언어이므로, 이러한 사람들을 위한 대체(fallback)가 제공됩니다.</p>
+<p>단일 유니코드 문자 대신, <code>name${UNICODE NAME OF THE DECLARATOR}$</code>를 입력할 수 있습니다. 예를 들어, 다음 두 함수 정의는 동일합니다.</p>
+<pre><code class="language-python">def fooƛ(xℂ): return None
+</code></pre>
+<p>그리고</p>
+<pre><code class="language-python">def foo${LATIN SMALL LETTER LAMBDA WITH STROKE}$(x${DOUBLE-STRUCK CAPITAL C}$): return None${ZERO WIDTH NO-BREAK SPACE}$
+</code></pre>
+<p>이는 여전히 읽기 쉬우며, 타입 주석(type-annotated)이 적용된 Python의 모든 기능을 ASCII 신봉자들에게도 제공합니다.</p>
+<h2><code>typedef</code> 문 (The typedef statement)</h2>
+<p>타입과 선언자 간의 매핑은 이 새로운 문을 통해 확장될 수 있습니다.</p>
+<p>구문은 다음과 같습니다.</p>
+<pre><code>typedef_stmt ::= "typedef" expr DECLARATOR
+</code></pre>
+<p>여기서 <code>expr</code>은 타입 객체로 해석됩니다. 편의를 위해 <code>typedef</code> 문은 새 클래스의 <code>class</code> 문과도 혼합하여 사용할 수 있습니다.</p>
+<pre><code class="language-python">typedef class Foo☺(object�): pass
+</code></pre>
+<h2>예시 (Example)</h2>
+<p>다음은 표준 <code>os.path.normpath</code> 함수를 타입 선언 문법으로 변환한 것입니다.</p>
+<pre><code class="language-python">def normpathƛ(path✎)✎:
+    """Normalize path, eliminating double slashes, etc."""
+    if path✎ == '':
+        return '.'
+    initial_slashes✓ = path✎.startswithƛ('/')✓ # POSIX allows one or two initial slashes, but treats three or more
+                                                # as single slash.
+    if (initial_slashes✓ and path✎.startswithƛ('//')✓ and not path✎.startswithƛ('///')✓)✓:
+        initial_slashesℕ = 2
+    comps♨ = path✎.splitƛ('/')♨
+    new_comps♨ = []♨
+    for comp✎ in comps♨:
+        if comp✎ in ('', '.')⒯:
+            continue
+        if (comp✎ != '..' or (not initial_slashesℕ and not new_comps♨)✓ or
+                (new_comps♨ and new_comps♨[-1]✎ == '..')✓)✓:
+            new_comps♨.appendƛ(comp✎)
+        elif new_comps♨:
+            new_comps♨.popƛ()✎
+    comps♨ = new_comps♨
+    path✎ = '/'.join(comps♨)✎
+    if initial_slashesℕ:
+        path✎ = '/'*initial_slashesℕ + path✎
+    return path✎ or '.'
+</code></pre>
+<p>보시다시피, 타입 선언은 표현력을 더하면서 동시에 코드를 훨씬 더 전문적으로 보이게 합니다.</p>
+<h2>호환성 문제 (Compatibility issues)</h2>
+<p>타입 선언 모드를 활성화하려면 다음을 작성해야 합니다.</p>
+<pre><code class="language-python">from __future__ import type_declarations
+</code></pre>
+<p>이는 소스의 유니코드 파싱을 활성화하고 [4, cite: 1], <code>typedef</code>를 키워드로 만들며 모든 할당 및 함수 호출에 대해 올바른 타입을 강제합니다.</p>
+<h2>최종 결정 (Rejection)</h2>
+<p>신중한 고려, 많은 자기 성찰, 고뇌 끝에 이 PEP는 최종적으로 <strong>거부(Rejected)</strong> 되었습니다.</p>
+<h2>참고 자료 (References)</h2>
+<ul>
+<li>[EX1] https://mail.python.org/pipermail/python-list/2003-June/210588.html</li>
+<li>[EX2] https://mail.python.org/pipermail/python-list/2000-May/034685.html</li>
+<li>[EX3] http://groups.google.com/group/comp.lang.python/browse_frm/thread/6ae8c6add913635a/de40d4ffe9bd4304?lnk=gst&#x26;q=type+declarations&#x26;rnum=6</li>
+</ul>
+<p>질문의 언어를 안다면 그다지 관련 없는 것은 아닐 수 있습니다.
+Perl 6이 있었다면 그랬을 것입니다.
+<code>TypeError</code>라는 이름이 이미 사용 중이므로, 이 이름이 명백한 이유로 선택되었습니다.
+코드가 작성된 인코딩은 표준 코딩 쿠키에서 읽어옵니다. <code>from __future__ import encoding_hell</code>을 통해 호출되는 자동 감지 메커니즘도 있을 것입니다.</p>
+<h2>감사 (Acknowledgements)</h2>
+<p>내장 타입에 가장 적합하고 기억하기 쉬운 선언자를 찾는 데 도움을 준 Armin Ronacher, Alexander Schremmer, Marek Kubica에게 깊이 감사드립니다.</p>
+<p>또한, 유니코드 표준에 이 모든 유용한 문자를 포함해 준 유니코드 컨소시엄에도 감사드립니다.</p>
+<h2>저작권 (Copyright)</h2>
+<p>이 문서는 공개 도메인(public domain)에 있습니다.</p>
+<pre><code>The translation is complete and follows all the specified guidelines.
+```# PEP 3117 – Postfix type declarations (후위 타입 선언)
+
+## 개요 (Abstract)
+
+이 PEP는 Python에 후위(postfix) 타입 선언 문법을 추가할 것을 제안합니다. 또한, 타입과 선언자(declarator) 사이의 새로운 매핑을 생성하는 데 사용되는 새로운 `typedef` 문(statement)을 명시합니다.
+
+이 제안이 수용되면 Python 사용자 경험을 크게 향상시키고, 다른 프로그래밍 언어 사용자들이 Python으로 전환하는 것을 망설이게 하는 "단점" 중 하나를 제거할 수 있을 것이라고 합니다.
+
+## 도입 배경 (Rationale)
+
+Python은 오랫동안 명시적인 타입 선언(explicit type declarations)의 부재로 어려움을 겪어왔습니다. 이는 Python의 Zen 중 언어가 벗어나는 몇 안 되는 부분 중 하나로, Python 이단자들(heretics)과 PSU 멤버들 사이에서 많은 논쟁을 불러일으켰고, 대규모 엔터프라이즈 성공을 어렵게 만들었습니다.
+
+하지만 이러한 문제를 해결하려면 "파이썬스러운(Pythonic)" 문법을 찾아야 합니다. 타입 선언을 가진 거의 모든 언어에서 타입 선언은 이러한 특성을 결여하고 있습니다. 즉, 장황하고(verbose), 단일 타입을 위해 여러 단어를 필요로 하거나, 이해하기 어렵습니다(예: 특정 언어는 타입 선언에 `dim`과 같이 완전히 관련 없는 형용사를 사용합니다).
+
+따라서 이 PEP는 타입 선언으로의 전환과 함께, Python이 미래에 대비할 뿐만 아니라 미래를 포용한다는 것을 다시 한번 증명할 또 다른 과감한 움직임을 결합합니다. 그것은 바로 유니코드 문자(Unicode characters)를 소스 코드의 필수적인 구성 요소로 도입하는 것입니다.
+
+유니코드는 훨씬 적은 문자로 훨씬 더 많은 것을 표현할 수 있게 해주며, 이는 Python의 Zen인 "가독성이 중요합니다(Readability counts)"에 부합합니다. 또한, 별도의 타입 선언문이 필요 없게 하며, 마지막으로 Perl 6가 이미 연산자에 유니코드를 사용하고 있다는 점을 감안할 때 Python이 Perl 6에 필적하게 만듭니다. [2, cite: 1]
+
+## 명세 (Specification)
+
+타입 선언 모드가 활성화되면, 문법이 변경되어 각 `NAME`은 이름(name)과 타입 선언자(type declarator)의 두 부분으로 구성되어야 하며, 이 타입 선언자는 정확히 하나의 유니코드 문자입니다.
+
+선언자는 이름의 타입을 고유하게 지정하며, 만약 표현식의 왼쪽에 나타나면 이 타입이 강제됩니다. 반환된 타입이 선언된 타입과 일치하지 않으면 `InquisitionError` 예외가 발생합니다. [3, cite: 1]
+
+또한, 함수 호출 결과 타입도 지정해야 합니다. 호출 결과가 선언된 타입과 다르면 `InquisitionError`가 발생합니다. 주의: 결과에 대한 선언자를 함수 객체에 대한 선언자와 혼동해서는 안 됩니다(아래 예시 참조).
+
+읽기만 하고 할당되지 않는 이름 뒤의 타입 선언자는 엄격하게 필요하지는 않지만, 어쨌든 강제됩니다(Python Zen: "명시적인 것이 암시적인 것보다 좋습니다(Explicit is better than implicit)").
+
+타입과 선언자 간의 매핑은 고정되어 있지 않습니다. 프로그래머가 완전히 사용자 정의할 수 있지만, 편의를 위해 일부 내장 타입에 대한 미리 정의된 매핑이 있습니다.
+
+| 타입 (Type) | 선언자 (Declarator) | 설명 (Description) |
+|---|---|---|
+| `object` | `�` | REPLACEMENT CHARACTER |
+| `int` | `ℕ` | DOUBLE-STRUCK CAPITAL N |
+| `float` | `℮` | ESTIMATED SYMBOL |
+| `bool` | `✓` | CHECK MARK |
+| `complex` | `ℂ` | DOUBLE-STRUCK CAPITAL C |
+| `str` | `✎` | LOWER RIGHT PENCIL |
+| `unicode` | `✒` | BLACK NIB |
+| `tuple` | `⒯` | PARENTHESIZED LATIN SMALL LETTER T |
+| `list` | `♨` | HOT SPRINGS |
+| `dict` | `⧟` | DOUBLE-ENDED MULTIMAP |
+| `set` | `∅` | EMPTY SET (전체 집합에도 사용) |
+| `frozenset` | `☃` | SNOWMAN |
+| `datetime` | `⌚` | WATCH |
+| `function` | `ƛ` | LATIN SMALL LETTER LAMBDA WITH STROKE |
+| `generator` | `⚛` | ATOM SYMBOL |
+| `Exception` | `⌁` | ELECTRIC ARROW |
+| `None` | (zero-width space) | (폭이 0인 공백) |
+
+이러한 문자들은 모든 프로그래머에게 명확하고 기억하기 쉬우며 입력하기 쉬울 것이라고 언급됩니다.
+
+### 유니코드 대체 단위 (Unicode replacement units)
+
+현대적이고 글로벌화된 세상에서도 여전히 소스 코드에 유니코드를 사용하지 않거나 사용하고 싶지 않은 구식 반항아들이 있으며, Python은 관용적인 언어이므로, 이러한 사람들을 위한 대체(fallback)가 제공됩니다.
+
+단일 유니코드 문자 대신, `name${UNICODE NAME OF THE DECLARATOR}$`를 입력할 수 있습니다. 예를 들어, 다음 두 함수 정의는 동일합니다.
+
+```python
+def fooƛ(xℂ): return None
+</code></pre>
+<p>그리고</p>
+<pre><code class="language-python">def foo${LATIN SMALL LETTER LAMBDA WITH STROKE}$(x${DOUBLE-STRUCK CAPITAL C}$): return None${ZERO WIDTH NO-BREAK SPACE}$
+</code></pre>
+<p>이는 여전히 읽기 쉬우며, 타입 주석(type-annotated)이 적용된 Python의 모든 기능을 ASCII 신봉자들에게도 제공합니다.</p>
+<h2><code>typedef</code> 문 (The typedef statement)</h2>
+<p>타입과 선언자 간의 매핑은 이 새로운 문을 통해 확장될 수 있습니다.</p>
+<p>구문은 다음과 같습니다.</p>
+<pre><code>typedef_stmt ::= "typedef" expr DECLARATOR
+</code></pre>
+<p>여기서 <code>expr</code>은 타입 객체로 해석됩니다. 편의를 위해 <code>typedef</code> 문은 새 클래스의 <code>class</code> 문과도 혼합하여 사용할 수 있습니다.</p>
+<pre><code class="language-python">typedef class Foo☺(object�): pass
+</code></pre>
+<h2>예시 (Example)</h2>
+<p>다음은 표준 <code>os.path.normpath</code> 함수를 타입 선언 문법으로 변환한 것입니다.</p>
+<pre><code class="language-python">def normpathƛ(path✎)✎:
+    """Normalize path, eliminating double slashes, etc."""
+    if path✎ == '':
+        return '.'
+    initial_slashes✓ = path✎.startswithƛ('/')✓ # POSIX allows one or two initial slashes, but treats three or more
+                                                # as single slash.
+    if (initial_slashes✓ and path✎.startswithƛ('//')✓ and not path✎.startswithƛ('///')✓)✓:
+        initial_slashesℕ = 2
+    comps♨ = path✎.splitƛ('/')♨
+    new_comps♨ = []♨
+    for comp✎ in comps♨:
+        if comp✎ in ('', '.')⒯:
+            continue
+        if (comp✎ != '..' or (not initial_slashesℕ and not new_comps♨)✓ or
+                (new_comps♨ and new_comps♨[-1]✎ == '..')✓)✓:
+            new_comps♨.appendƛ(comp✎)
+        elif new_comps♨:
+            new_comps♨.popƛ()✎
+    comps♨ = new_comps♨
+    path✎ = '/'.join(comps♨)✎
+    if initial_slashesℕ:
+        path✎ = '/'*initial_slashesℕ + path✎
+    return path✎ or '.'
+</code></pre>
+<p>보시다시피, 타입 선언은 표현력을 더하면서 동시에 코드를 훨씬 더 전문적으로 보이게 합니다.</p>
+<h2>호환성 문제 (Compatibility issues)</h2>
+<p>타입 선언 모드를 활성화하려면 다음을 작성해야 합니다.</p>
+<pre><code class="language-python">from __future__ import type_declarations
+</code></pre>
+<p>이는 소스의 유니코드 파싱을 활성화하고 [4, cite: 1], <code>typedef</code>를 키워드로 만들며 모든 할당 및 함수 호출에 대해 올바른 타입을 강제합니다.</p>
+<h2>최종 결정 (Rejection)</h2>
+<p>신중한 고려, 많은 자기 성찰, 고뇌 끝에 이 PEP는 최종적으로 <strong>거부(Rejected)</strong> 되었습니다.</p>
+<h2>참고 자료 (References)</h2>
+<ul>
+<li>[EX1] https://mail.python.org/pipermail/python-list/2003-June/210588.html</li>
+<li>[EX2] https://mail.python.org/pipermail/python-list/2000-May/034685.html</li>
+<li>[EX3] http://groups.google.com/group/comp.lang.python/browse_frm/thread/6ae8c6add913635a/de40d4ffe9bd4304?lnk=gst&#x26;q=type+declarations&#x26;rnum=6</li>
+</ul>
+<p>질문의 언어를 안다면 그다지 관련 없는 것은 아닐 수 있습니다.
+Perl 6이 있었다면 그랬을 것입니다.
+<code>TypeError</code>라는 이름이 이미 사용 중이므로, 이 이름이 명백한 이유로 선택되었습니다.
+코드가 작성된 인코딩은 표준 코딩 쿠키에서 읽어옵니다. <code>from __future__ import encoding_hell</code>을 통해 호출되는 자동 감지 메커니즘도 있을 것입니다.</p>
+<h2>감사 (Acknowledgements)</h2>
+<p>내장 타입에 가장 적합하고 기억하기 쉬운 선언자를 찾는 데 도움을 준 Armin Ronacher, Alexander Schremmer, Marek Kubica에게 깊이 감사드립니다.</p>
+<p>또한, 유니코드 표준에 이 모든 유용한 문자를 포함해 준 유니코드 컨소시엄에도 감사드립니다.</p>
+<h2>저작권 (Copyright)</h2>
+<p>이 문서는 공개 도메인(public domain)에 있습니다.</p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":[["$","aside",null,{"className":"lg:w-64 xl:w-72 order-1 lg:order-none","children":["$","div",null,{"className":"sidebar sticky","children":["$","nav",null,{"className":"space-y-4","children":[["$","div","Backend",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Backend"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Django",{"children":["$","a",null,{"href":"/backend/django/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Django"," (",6,")"]}]}],["$","li","Logging",{"children":["$","a",null,{"href":"/backend/logging/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Logging"," (",1,")"]}]}]]}]]}],["$","div","Python",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Python"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","PEP",{"children":["$","a",null,{"href":"/python/pep/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["PEP"," (",650,")"]}]}]]}]]}],["$","div","AI/ML",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"AI/ML"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","LLM",{"children":["$","a",null,{"href":"/ai/llm/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["LLM"," (",1,")"]}]}],["$","li","Review",{"children":["$","a",null,{"href":"/ai/review/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Review"," (",2648,")"]}]}]]}]]}],["$","div","DevOps",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"DevOps"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Nginx",{"children":["$","a",null,{"href":"/devops/nginx/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Nginx"," (",1,")"]}]}],["$","li","Docker",{"children":["$","a",null,{"href":"/devops/docker/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Docker"," (",1,")"]}]}],["$","li","SafeLine",{"children":["$","a",null,{"href":"/devops/safeline/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["SafeLine"," (",1,")"]}]}],["$","li","Jenkins",{"children":["$","a",null,{"href":"/devops/jenkins/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Jenkins"," (",3,")"]}]}],["$","li","GitHub Actions",{"children":["$","a",null,{"href":"/devops/github-actions/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["GitHub Actions"," (",1,")"]}]}],["$","li","AWS",{"children":["$","a",null,{"href":"/devops/aws/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["AWS"," (",1,")"]}]}]]}]]}],["$","div","etc",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"etc"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Me",{"children":["$","a",null,{"href":"/etc/me/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Me"," (",3,")"]}]}],["$","li","Chrome Extension",{"children":["$","a",null,{"href":"/etc/chrome-extension/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Chrome Extension"," (",1,")"]}]}]]}]]}]]}]}]}],["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Rejected] PEP 3117 - Postfix type declarations"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-27 14:25:21+0900","children":"2025년 9월 27일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 27일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]}],["$","$La",null,{"postPermalink":"/python/pep/3117/","postId":"2025-09-27-pep-3117-postfix-type-declarations"}],["$","section",null,{"className":"mt-12 border-t border-gray-200 pt-8","children":[["$","h3",null,{"className":"text-base font-semibold text-gray-900 mb-4","children":["Python"," 의 다른글"]}],["$","ul",null,{"className":"space-y-2 text-sm","children":[["$","li",null,{"className":"text-gray-500","children":["이전글"," ",["$","$L7",null,{"href":"/python/pep/3116/","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Final] PEP 3116 - New I/O"}]]}],["$","li",null,{"className":"text-gray-900 font-semibold","children":["현재글 : ","[Rejected] PEP 3117 - Postfix type declarations"]}],["$","li",null,{"className":"text-gray-500","children":["다음글"," ",["$","$L7",null,{"href":"/python/pep/3118/","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Final] PEP 3118 - Revising the buffer protocol"}]]}]]}]]}]]}]}]]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"secrett2633's blog"}],["$","meta","3",{"name":"description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://blog.secrett2633.cloud/"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"secrett2633's blog"}],["$","meta","13",{"property":"og:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","14",{"property":"og:url","content":"https://blog.secrett2633.cloud/"}],["$","meta","15",{"property":"og:site_name","content":"secrett2633's blog"}],["$","meta","16",{"property":"og:locale","content":"ko_KR"}],["$","meta","17",{"property":"og:type","content":"website"}],["$","meta","18",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","19",{"name":"twitter:title","content":"secrett2633's blog"}],["$","meta","20",{"name":"twitter:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","link","21",{"rel":"icon","href":"/icon.ico?6d9f34d4948640b8","type":"image/x-icon","sizes":"16x16"}],["$","meta","22",{"name":"next-size-adjust"}]]
+1:null

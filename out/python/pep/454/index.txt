@@ -1,0 +1,156 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[9157,["231","static/chunks/231-467e37449c5a68fc.js","185","static/chunks/app/layout-b44b076173de406f.js"],"default"]
+7:I[231,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-dfe24a3bbd58f9b9.js"],""]
+4:["slug","python/pep/454","c"]
+0:["sXH0w-Ur4uCLT-31_N3TA",[[["",{"children":[["slug","python/pep/454","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"454\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/454","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_f367f3 layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/d6cea809dcbae606.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+a:I[646,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-dfe24a3bbd58f9b9.js"],"default"]
+9:T571e,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0454/">PEP 454 - Add a new tracemalloc module to trace Python memory allocations</a></p>
+<p><strong>상태:</strong> Final | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 03-Sep-2013</p>
+</blockquote>
+<h1>PEP 454 – Python 메모리 할당 추적을 위한 새로운 <code>tracemalloc</code> 모듈 추가</h1>
+<h2>초록 (Abstract)</h2>
+<p>이 PEP는 Python에 의해 할당된 메모리 블록을 추적하기 위한 새로운 <code>tracemalloc</code> 모듈을 추가할 것을 제안합니다.</p>
+<h2>도입 배경 (Rationale)</h2>
+<p>Valgrind와 같은 일반적인 C 도구들은 메모리 블록이 할당된 C traceback을 얻을 수 있습니다. 그러나 이러한 도구를 사용하여 Python 메모리 할당을 분석하는 것은 대부분의 메모리 블록이 <code>PyMem_Malloc()</code>과 같은 동일한 C 함수 내에서 할당되기 때문에 도움이 되지 않습니다. 또한, Python은 효율성을 위해 자유 블록을 유지하는 "pymalloc"이라는 작은 객체용 할당자를 가지고 있는데, 이 또한 이러한 도구들로 잘 처리되지 않습니다.</p>
+<p>Heapy, Pympler, Meliae와 같은 Python 언어 전용 디버그 도구들은 가비지 컬렉터 모듈(예: <code>gc.get_objects()</code>, <code>gc.get_referrers()</code>, <code>gc.get_referents()</code> 함수)을 사용하여 모든 활성(alive) 객체를 나열하고, 그 크기를 계산(예: <code>sys.getsizeof()</code> 사용)하며, 유형별로 객체를 그룹화합니다. 이러한 도구들은 애플리케이션의 메모리 사용량에 대한 더 나은 추정치를 제공합니다. 이들은 대부분의 메모리 누수가 동일한 유형의 인스턴스이고 이 유형이 소수의 함수에서만 인스턴스화될 때 유용합니다. 하지만 <code>str</code> 또는 <code>tuple</code>과 같이 객체 유형이 매우 흔하고 이러한 객체들이 어디에서 인스턴스화되는지 식별하기 어려울 때 문제가 발생합니다.</p>
+<p>참조 순환(reference cycles)을 찾는 것 또한 어려운 문제입니다. 모든 참조의 다이어그램을 그리는 여러 도구가 있지만, 수천 개의 객체가 있는 대규모 애플리케이션에서는 다이어그램이 너무 커서 수동으로 분석할 수 없습니다.</p>
+<h2>제안 (Proposal)</h2>
+<p>PEP 445의 사용자 정의 할당(allocation) API를 사용하면 Python 메모리 할당자에 훅(hook)을 설정하기 쉬워집니다. 훅은 Python 내부를 검사하여 Python traceback을 검색할 수 있습니다. 현재 traceback을 얻는 아이디어는 <code>faulthandler</code> 모듈에서 비롯되었습니다. <code>faulthandler</code>는 크래시 시 모든 Python 스레드의 traceback을 덤프하는데, 여기서 아이디어는 Python에 의해 메모리 블록이 할당될 때 현재 Python 스레드의 traceback을 얻는 것입니다.</p>
+<p>이 PEP는 Python에 의해 할당된 메모리 블록을 추적하는 디버그 도구인 새로운 <code>tracemalloc</code> 모듈을 추가할 것을 제안합니다. 이 모듈은 다음 정보를 제공합니다.</p>
+<ul>
+<li>객체가 할당된 traceback</li>
+<li>파일 이름 및 줄 번호별로 할당된 메모리 블록에 대한 통계: 총 크기, 할당된 메모리 블록의 수 및 평균 크기</li>
+<li>메모리 누수를 감지하기 위해 두 스냅샷(snapshot) 간에 계산된 차이</li>
+</ul>
+<p><code>tracemalloc</code> 모듈의 API는 <code>faulthandler</code> 모듈의 API와 유사합니다: <code>enable()</code> / <code>start()</code>, <code>disable()</code> / <code>stop()</code>, <code>is_enabled()</code> / <code>is_tracing()</code> 함수, 환경 변수 (<code>PYTHONFAULTHANDLER</code> 및 <code>PYTHONTRACEMALLOC</code>), 그리고 <code>-X</code> 명령줄 옵션 (<code>-X faulthandler</code> 및 <code>-X tracemalloc</code>). <code>faulthandler</code> 모듈의 문서를 참조하십시오.</p>
+<p>메모리 할당 추적 아이디어는 새로운 것이 아닙니다. 이는 2005년 PySizer 프로젝트에서 처음 구현되었습니다. PySizer는 다르게 구현되었습니다: traceback이 frame 객체에 저장되었고 일부 Python 유형은 객체 유형의 이름과 trace를 연결했습니다. PySizer는 사용되지 않을 때도 CPython 성능 및 메모리 점유율(footprint)에 오버헤드를 추가했습니다. <code>tracemalloc</code>은 traceback을 하위 계층인 메모리 블록에 연결하며, 모듈이 메모리 할당을 추적하지 않을 때는 오버헤드가 없습니다.</p>
+<p><code>tracemalloc</code> 모듈은 CPython용으로 작성되었습니다. 다른 Python 구현은 이를 제공하지 못할 수도 있습니다.</p>
+<h2>API</h2>
+<p>대부분의 Python에 의해 할당된 메모리 블록을 추적하려면, <code>PYTHONTRACEMALLOC</code> 환경 변수를 <code>1</code>로 설정하거나, <code>-X tracemalloc</code> 명령줄 옵션을 사용하여 가능한 한 일찍 모듈을 시작해야 합니다. <code>tracemalloc.start()</code> 함수는 런타임에 Python 메모리 할당 추적을 시작할 수 있습니다.</p>
+<p>기본적으로 할당된 메모리 블록의 trace는 가장 최근 프레임(1 프레임)만 저장합니다. 시작 시 25 프레임을 저장하려면: <code>PYTHONTRACEMALLOC</code> 환경 변수를 <code>25</code>로 설정하거나, <code>-X tracemalloc=25</code> 명령줄 옵션을 사용하십시오. <code>set_traceback_limit()</code> 함수는 런타임에 제한을 설정하는 데 사용할 수 있습니다.</p>
+<h3>함수 (Functions)</h3>
+<ul>
+<li><strong><code>clear_traces()</code></strong> : Python에 의해 할당된 메모리 블록의 trace를 지웁니다. <code>stop()</code>도 참조하십시오.</li>
+<li><strong><code>get_object_traceback(obj)</code></strong> : Python 객체 <code>obj</code>가 할당된 traceback을 가져옵니다. <code>Traceback</code> 인스턴스를 반환하거나, <code>tracemalloc</code> 모듈이 메모리 할당을 추적하지 않거나 객체 할당을 추적하지 않은 경우 <code>None</code>을 반환합니다. <code>gc.get_referrers()</code> 및 <code>sys.getsizeof()</code> 함수도 참조하십시오.</li>
+<li><strong><code>get_traceback_limit()</code></strong> : trace의 traceback에 저장된 최대 프레임 수를 가져옵니다. <code>tracemalloc</code> 모듈은 제한을 얻기 위해 메모리 할당을 추적해야 하며, 그렇지 않으면 예외가 발생합니다. 제한은 <code>start()</code> 함수에 의해 설정됩니다.</li>
+<li><strong><code>get_traced_memory()</code></strong> : <code>tracemalloc</code> 모듈에 의해 추적된 메모리 블록의 현재 크기와 최대 크기를 <code>(size: int, max_size: int)</code> 튜플로 가져옵니다.</li>
+<li><strong><code>get_tracemalloc_memory()</code></strong> : 메모리 블록의 trace를 저장하는 데 사용된 <code>tracemalloc</code> 모듈의 메모리 사용량을 바이트 단위로 가져옵니다. <code>int</code>를 반환합니다.</li>
+<li><strong><code>is_tracing()</code></strong> : <code>tracemalloc</code> 모듈이 Python 메모리 할당을 추적 중이면 <code>True</code>를, 그렇지 않으면 <code>False</code>를 반환합니다. <code>start()</code> 및 <code>stop()</code> 함수도 참조하십시오.</li>
+<li><strong><code>start(nframe: int = 1)</code></strong> : Python 메모리 할당 추적을 시작합니다. Python 메모리 할당자에 훅을 설치합니다. 수집된 trace의 traceback은 <code>nframe</code> 프레임으로 제한됩니다. 기본적으로 메모리 블록의 trace는 가장 최근 프레임만 저장합니다(제한은 <code>1</code>). <code>nframe</code>은 1보다 크거나 같아야 합니다. 1개 이상의 프레임을 저장하는 것은 'traceback'별로 그룹화된 통계를 계산하거나 누적 통계를 계산할 때만 유용합니다. <code>Snapshot.compare_to()</code> 및 <code>Snapshot.statistics()</code> 메서드를 참조하십시오. 더 많은 프레임을 저장하면 <code>tracemalloc</code> 모듈의 메모리 및 CPU 오버헤드가 증가합니다. <code>get_tracemalloc_memory()</code> 함수를 사용하여 <code>tracemalloc</code> 모듈이 사용하는 메모리 양을 측정하십시오. <code>PYTHONTRACEMALLOC</code> 환경 변수(<code>PYTHONTRACEMALLOC=NFRAME</code>) 및 <code>-X tracemalloc=NFRAME</code> 명령줄 옵션을 사용하여 시작 시 추적을 시작할 수 있습니다. <code>stop()</code>, <code>is_tracing()</code>, <code>get_traceback_limit()</code> 함수도 참조하십시오.</li>
+<li><strong><code>stop()</code></strong> : Python 메모리 할당 추적을 중지합니다. Python 메모리 할당자에 대한 훅을 제거합니다. Python에 의해 할당된 메모리 블록의 trace도 지웁니다. trace를 지우기 전에 스냅샷을 찍으려면 <code>take_snapshot()</code> 함수를 호출하십시오. <code>start()</code> 및 <code>is_tracing()</code> 함수도 참조하십시오.</li>
+<li><strong><code>take_snapshot()</code></strong> : Python에 의해 할당된 메모리 블록의 trace 스냅샷을 찍습니다. 새로운 <code>Snapshot</code> 인스턴스를 반환합니다. 스냅샷에는 <code>tracemalloc</code> 모듈이 메모리 할당 추적을 시작하기 전에 할당된 메모리 블록은 포함되지 않습니다. trace의 traceback은 <code>get_traceback_limit()</code> 프레임으로 제한됩니다. 더 많은 프레임을 저장하려면 <code>start()</code> 함수의 <code>nframe</code> 매개변수를 사용하십시오. 스냅샷을 찍으려면 <code>tracemalloc</code> 모듈이 메모리 할당을 추적해야 합니다(<code>start()</code> 함수 참조). <code>get_object_traceback()</code> 함수도 참조하십시오.</li>
+</ul>
+<h3>필터 (Filter)</h3>
+<ul>
+<li><strong><code>Filter(inclusive: bool, filename_pattern: str, lineno: int=None, all_frames: bool=False)</code> 클래스</strong> : 메모리 블록의 trace에 대한 필터입니다. <code>filename_pattern</code>의 구문은 <code>fnmatch.fnmatch()</code> 함수를 참조하십시오. <code>.pyc</code> 및 <code>.pyo</code> 파일 확장자는 <code>.py</code>로 대체됩니다.
+<ul>
+<li><strong><code>inclusive</code> 속성</strong> : <code>True</code>이면(<code>include</code>) <code>filename_pattern</code>과 <code>lineno</code>에 일치하는 파일에서 할당된 메모리 블록의 trace만 포함합니다. <code>False</code>이면(<code>exclude</code>) <code>filename_pattern</code>과 <code>lineno</code>에 일치하는 파일에서 할당된 메모리 블록을 무시합니다.</li>
+<li><strong><code>lineno</code> 속성</strong> : 필터의 줄 번호(<code>int</code>). <code>None</code>이면 필터는 모든 줄 번호에 일치합니다.</li>
+<li><strong><code>filename_pattern</code> 속성</strong> : 필터의 파일 이름 패턴(<code>str</code>).</li>
+<li><strong><code>all_frames</code> 속성</strong> : <code>True</code>이면 traceback의 모든 프레임을 확인합니다. <code>False</code>이면 가장 최근 프레임만 확인합니다. 이 속성은 traceback 제한이 2보다 작으면 무시됩니다. <code>get_traceback_limit()</code> 함수 및 <code>Snapshot.traceback_limit</code> 속성을 참조하십시오.</li>
+</ul>
+</li>
+</ul>
+<h3>프레임 (Frame)</h3>
+<ul>
+<li><strong><code>Frame</code> 클래스</strong> : traceback의 프레임입니다. <code>Traceback</code> 클래스는 <code>Frame</code> 인스턴스의 시퀀스입니다.
+<ul>
+<li><strong><code>filename</code> 속성</strong> : 파일 이름(<code>str</code>).</li>
+<li><strong><code>lineno</code> 속성</strong> : 줄 번호(<code>int</code>).</li>
+</ul>
+</li>
+</ul>
+<h3>스냅샷 (Snapshot)</h3>
+<ul>
+<li><strong><code>Snapshot</code> 클래스</strong> : Python에 의해 할당된 메모리 블록의 trace 스냅샷입니다. <code>take_snapshot()</code> 함수가 스냅샷 인스턴스를 생성합니다.
+<ul>
+<li><strong><code>compare_to(old_snapshot: Snapshot, group_by: str, cumulative: bool=False)</code> 메서드</strong> : 이전 스냅샷과의 차이를 계산합니다. <code>group_by</code>로 그룹화된 정렬된 <code>StatisticDiff</code> 인스턴스 목록으로 통계를 가져옵니다. <code>group_by</code> 및 <code>cumulative</code> 매개변수는 <code>statistics()</code> 메서드를 참조하십시오. 결과는 <code>StatisticDiff.size_diff</code>의 절대값, <code>StatisticDiff.size</code>, <code>StatisticDiff.count_diff</code>의 절대값, <code>Statistic.count</code>, 그리고 <code>StatisticDiff.traceback</code> 순으로 가장 큰 것에서 가장 작은 것으로 정렬됩니다.</li>
+<li><strong><code>dump(filename)</code> 메서드</strong> : 스냅샷을 파일에 씁니다. <code>load()</code>를 사용하여 스냅샷을 다시 로드합니다.</li>
+<li><strong><code>filter_traces(filters)</code> 메서드</strong> : 필터링된 trace 시퀀스로 새로운 <code>Snapshot</code> 인스턴스를 생성합니다. <code>filters</code>는 <code>Filter</code> 인스턴스 목록입니다. <code>filters</code>가 빈 목록이면 trace 복사본을 포함하는 새로운 <code>Snapshot</code> 인스턴스를 반환합니다. 모든 inclusive 필터는 한 번에 적용됩니다. inclusive 필터에 일치하지 않는 trace는 무시됩니다. 하나 이상의 exclusive 필터에 일치하는 trace는 무시됩니다.</li>
+<li><strong><code>load(filename)</code> 클래스 메서드</strong> : 파일에서 스냅샷을 로드합니다. <code>dump()</code>도 참조하십시오.</li>
+<li><strong><code>statistics(group_by: str, cumulative: bool=False)</code> 메서드</strong> : <code>group_by</code>로 그룹화된 정렬된 <code>Statistic</code> 인스턴스 목록으로 통계를 가져옵니다.
+<ul>
+<li><code>group_by</code> 설명:
+<ul>
+<li><code>'filename'</code>: 파일 이름</li>
+<li><code>'lineno'</code>: 파일 이름 및 줄 번호</li>
+<li><code>'traceback'</code>: traceback</li>
+</ul>
+</li>
+<li><code>cumulative</code>가 <code>True</code>이면, 가장 최근 프레임뿐만 아니라 trace의 traceback의 모든 프레임에 대한 메모리 블록의 크기와 수를 누적합니다. <code>cumulative</code> 모드는 <code>group_by</code>가 <code>'filename'</code> 및 <code>'lineno'</code>이고 <code>traceback_limit</code>가 1보다 클 때만 사용할 수 있습니다. 결과는 <code>Statistic.size</code>, <code>Statistic.count</code>, 그리고 <code>Statistic.traceback</code> 순으로 가장 큰 것에서 가장 작은 것으로 정렬됩니다.</li>
+</ul>
+</li>
+<li><strong><code>traceback_limit</code> 속성</strong> : trace의 traceback에 저장된 최대 프레임 수: 스냅샷이 찍힐 때 <code>get_traceback_limit()</code>의 결과입니다.</li>
+<li><strong><code>traces</code> 속성</strong> : Python에 의해 할당된 모든 메모리 블록의 trace: <code>Trace</code> 인스턴스의 시퀀스입니다. 시퀀스는 정의되지 않은 순서입니다. 정렬된 통계 목록을 얻으려면 <code>Snapshot.statistics()</code> 메서드를 사용하십시오.</li>
+</ul>
+</li>
+</ul>
+<h3>통계 (Statistic)</h3>
+<ul>
+<li><strong><code>Statistic</code> 클래스</strong> : 메모리 할당에 대한 통계입니다. <code>Snapshot.statistics()</code>는 <code>Statistic</code> 인스턴스 목록을 반환합니다. <code>StatisticDiff</code> 클래스도 참조하십시오.
+<ul>
+<li><strong><code>count</code> 속성</strong> : 메모리 블록 수(<code>int</code>).</li>
+<li><strong><code>size</code> 속성</strong> : 바이트 단위의 메모리 블록 총 크기(<code>int</code>).</li>
+<li><strong><code>traceback</code> 속성</strong> : 메모리 블록이 할당된 traceback, <code>Traceback</code> 인스턴스.</li>
+</ul>
+</li>
+</ul>
+<h3>통계 차이 (StatisticDiff)</h3>
+<ul>
+<li><strong><code>StatisticDiff</code> 클래스</strong> : 이전 스냅샷과 새 스냅샷 간의 메모리 할당에 대한 통계 차이입니다. <code>Snapshot.compare_to()</code>는 <code>StatisticDiff</code> 인스턴스 목록을 반환합니다. <code>Statistic</code> 클래스도 참조하십시오.
+<ul>
+<li><strong><code>count</code> 속성</strong> : 새 스냅샷의 메모리 블록 수(<code>int</code>): 새 스냅샷에서 메모리 블록이 해제된 경우 0입니다.</li>
+<li><strong><code>count_diff</code> 속성</strong> : 이전 스냅샷과 새 스냅샷 간의 메모리 블록 수 차이(<code>int</code>): 새 스냅샷에서 메모리 블록이 할당된 경우 0입니다.</li>
+<li><strong><code>size</code> 속성</strong> : 새 스냅샷의 바이트 단위 메모리 블록 총 크기(<code>int</code>): 새 스냅샷에서 메모리 블록이 해제된 경우 0입니다.</li>
+<li><strong><code>size_diff</code> 속성</strong> : 이전 스냅샷과 새 스냅샷 간의 바이트 단위 메모리 블록 총 크기 차이(<code>int</code>): 새 스냅샷에서 메모리 블록이 할당된 경우 0입니다.</li>
+<li><strong><code>traceback</code> 속성</strong> : 메모리 블록이 할당된 traceback, <code>Traceback</code> 인스턴스.</li>
+</ul>
+</li>
+</ul>
+<h3>트레이스 (Trace)</h3>
+<ul>
+<li><strong><code>Trace</code> 클래스</strong> : 메모리 블록의 trace입니다. <code>Snapshot.traces</code> 속성은 <code>Trace</code> 인스턴스의 시퀀스입니다.
+<ul>
+<li><strong><code>size</code> 속성</strong> : 바이트 단위 메모리 블록의 크기(<code>int</code>).</li>
+<li><strong><code>traceback</code> 속성</strong> : 메모리 블록이 할당된 traceback, <code>Traceback</code> 인스턴스.</li>
+</ul>
+</li>
+</ul>
+<h3>트레이스백 (Traceback)</h3>
+<ul>
+<li><strong><code>Traceback</code> 클래스</strong> : 가장 최근 프레임부터 가장 오래된 프레임 순으로 정렬된 <code>Frame</code> 인스턴스의 시퀀스입니다. traceback은 최소 1개의 프레임을 포함합니다. <code>tracemalloc</code> 모듈이 프레임을 가져오지 못한 경우, 줄 번호 0의 <code>&#x3C;unknown></code> 파일 이름이 사용됩니다. 스냅샷이 찍힐 때 trace의 traceback은 <code>get_traceback_limit()</code> 프레임으로 제한됩니다. <code>take_snapshot()</code> 함수를 참조하십시오. <code>Trace.traceback</code> 속성은 <code>Traceback</code> 인스턴스입니다.</li>
+</ul>
+<h2>채택되지 않은 대안 (Rejected Alternatives)</h2>
+<h3>메모리 할당자에 대한 호출 로깅 (Log calls to the memory allocator)</h3>
+<p>다른 접근 방식은 <code>malloc()</code>, <code>realloc()</code>, <code>free()</code> 함수에 대한 호출을 로깅하는 것입니다. 호출은 파일에 기록되거나 네트워크를 통해 다른 컴퓨터로 전송될 수 있습니다. 로그 항목의 예: 함수의 이름, 메모리 블록의 크기, 메모리 블록의 주소, 할당이 발생한 Python traceback, 타임스탬프.</p>
+<p>로그는 직접 사용할 수 없으며, 메모리의 현재 상태를 얻으려면 이전 로그를 파싱해야 합니다. 예를 들어, <code>get_object_traceback(obj)</code>가 trace로 하는 것처럼 Python 객체의 traceback을 직접 얻는 것은 불가능합니다.</p>
+<p>Python은 수명이 매우 짧은 객체를 사용하므로 메모리 할당자를 광범위하게 사용합니다. 수명이 짧은 작은 객체(512바이트 미만)에 최적화된 할당자를 가지고 있습니다. 예를 들어, Python 테스트 스위트는 평균적으로 초당 270,000번 <code>malloc()</code>, <code>realloc()</code>, <code>free()</code>를 호출합니다. 로그 항목의 크기가 32바이트라면, 로깅은 초당 8.2MB 또는 시간당 29.0GB를 생성합니다.</p>
+<p>이 대안은 효율성이 떨어지고 기능이 적기 때문에 거부되었습니다. 다른 프로세스나 다른 컴퓨터에서 로그를 파싱하는 것은 동일한 프로세스에서 할당된 메모리 블록에 대한 trace를 유지하는 것보다 느립니다.</p>
+<h2>이전 작업 (Prior Work)</h2>
+<p>이 PEP는 다양한 이전 작업과 프로젝트를 기반으로 합니다.</p>
+<ul>
+<li><strong>Python Memory Validator (2005-2013)</strong> : Software Verification에서 개발한 상용 Python 메모리 검증 도구. Python Reflection API를 사용합니다.</li>
+<li><strong>PySizer</strong> : Nick Smallbone의 Google Summer of Code 2005 프로젝트.</li>
+<li><strong>Heapy (2006-2013)</strong> : Sverker Nilsson이 작성한 Guppy-PE 프로젝트의 일부.</li>
+<li><strong>Draft PEP: Support Tracking Low-Level Memory Usage in CPython (Brett Canon, 2006)</strong></li>
+<li><strong>Muppy</strong> : Robert Schuppenies가 2008년에 개발한 프로젝트.</li>
+<li><strong>asizeof</strong> : Jean Brouwers가 2008년에 만든 객체 크기를 추정하는 순수 Python 모듈.</li>
+<li><strong>Heapmonitor</strong> : 개별 객체의 크기를 조정하고 특정 클래스의 모든 객체를 추적하는 기능을 제공합니다. Ludwig Haehne가 2008년에 개발했습니다.</li>
+<li><strong>Pympler (2008-2011)</strong> : <code>asizeof</code>, <code>muppy</code>, <code>HeapMonitor</code>를 기반으로 한 프로젝트.</li>
+<li><strong>objgraph (2008-2012)</strong></li>
+<li><strong>Dozer</strong> : Marius Gedminas가 작성한 CherryPy 메모리 누수 디버거의 WSGI Middleware 버전 (2008-2013).</li>
+<li><strong>Meliae</strong> : John A Meinel이 2009년부터 개발한 Python Memory Usage Analyzer.</li>
+<li><strong>gdb-heap</strong> : Dave Malcolm이 2010-2011년에 작성한 Python으로 작성된 gdb 스크립트로 힙(heap) 메모리 사용량을 분석합니다.</li>
+<li><strong>memory_profiler</strong> : Fabian Pedregosa가 작성 (2011-2013).</li>
+<li><strong>caulk</strong> : Ben Timby가 2012년에 작성.</li>
+</ul>
+<p>Pympler 관련 작업도 참조하십시오.</p>
+<hr>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":[["$","aside",null,{"className":"lg:w-64 xl:w-72 order-1 lg:order-none","children":["$","div",null,{"className":"sidebar sticky","children":["$","nav",null,{"className":"space-y-4","children":[["$","div","Backend",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Backend"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Django",{"children":["$","a",null,{"href":"/backend/django/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Django"," (",6,")"]}]}],["$","li","Logging",{"children":["$","a",null,{"href":"/backend/logging/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Logging"," (",1,")"]}]}]]}]]}],["$","div","Python",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Python"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","PEP",{"children":["$","a",null,{"href":"/python/pep/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["PEP"," (",650,")"]}]}]]}]]}],["$","div","AI/ML",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"AI/ML"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","LLM",{"children":["$","a",null,{"href":"/ai/llm/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["LLM"," (",1,")"]}]}],["$","li","Review",{"children":["$","a",null,{"href":"/ai/review/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Review"," (",2648,")"]}]}]]}]]}],["$","div","DevOps",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"DevOps"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Nginx",{"children":["$","a",null,{"href":"/devops/nginx/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Nginx"," (",1,")"]}]}],["$","li","Docker",{"children":["$","a",null,{"href":"/devops/docker/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Docker"," (",1,")"]}]}],["$","li","SafeLine",{"children":["$","a",null,{"href":"/devops/safeline/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["SafeLine"," (",1,")"]}]}],["$","li","Jenkins",{"children":["$","a",null,{"href":"/devops/jenkins/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Jenkins"," (",3,")"]}]}],["$","li","GitHub Actions",{"children":["$","a",null,{"href":"/devops/github-actions/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["GitHub Actions"," (",1,")"]}]}],["$","li","AWS",{"children":["$","a",null,{"href":"/devops/aws/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["AWS"," (",1,")"]}]}]]}]]}],["$","div","etc",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"etc"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Me",{"children":["$","a",null,{"href":"/etc/me/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Me"," (",3,")"]}]}],["$","li","Chrome Extension",{"children":["$","a",null,{"href":"/etc/chrome-extension/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Chrome Extension"," (",1,")"]}]}]]}]]}]]}]}]}],["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Final] PEP 454 - Add a new tracemalloc module to trace Python memory allocations"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-26 22:04:39+0900","children":"2025년 9월 26일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 26일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]}],["$","$La",null,{"postPermalink":"/python/pep/454/","postId":"2025-09-26-pep-0454-add-a-new-tracemalloc-module-to-trace-python-memory-allocations"}],["$","section",null,{"className":"mt-12 border-t border-gray-200 pt-8","children":[["$","h3",null,{"className":"text-base font-semibold text-gray-900 mb-4","children":["Python"," 의 다른글"]}],["$","ul",null,{"className":"space-y-2 text-sm","children":[["$","li",null,{"className":"text-gray-500","children":["이전글"," ",["$","$L7",null,{"href":"/python/pep/453/","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Final] PEP 453 - Explicit bootstrapping of pip in Python installations"}]]}],["$","li",null,{"className":"text-gray-900 font-semibold","children":["현재글 : ","[Final] PEP 454 - Add a new tracemalloc module to trace Python memory allocations"]}],["$","li",null,{"className":"text-gray-500","children":["다음글"," ",["$","$L7",null,{"href":"/python/pep/455/","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Rejected] PEP 455 - Adding a key-transforming dictionary to collections"}]]}]]}]]}]]}]}]]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"secrett2633's blog"}],["$","meta","3",{"name":"description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://blog.secrett2633.cloud/"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"secrett2633's blog"}],["$","meta","13",{"property":"og:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","14",{"property":"og:url","content":"https://blog.secrett2633.cloud/"}],["$","meta","15",{"property":"og:site_name","content":"secrett2633's blog"}],["$","meta","16",{"property":"og:locale","content":"ko_KR"}],["$","meta","17",{"property":"og:type","content":"website"}],["$","meta","18",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","19",{"name":"twitter:title","content":"secrett2633's blog"}],["$","meta","20",{"name":"twitter:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","link","21",{"rel":"icon","href":"/icon.ico?6d9f34d4948640b8","type":"image/x-icon","sizes":"16x16"}],["$","meta","22",{"name":"next-size-adjust"}]]
+1:null

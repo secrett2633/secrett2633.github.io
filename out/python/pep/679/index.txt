@@ -1,0 +1,123 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[9157,["231","static/chunks/231-467e37449c5a68fc.js","185","static/chunks/app/layout-b44b076173de406f.js"],"default"]
+7:I[231,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-dfe24a3bbd58f9b9.js"],""]
+4:["slug","python/pep/679","c"]
+0:["sXH0w-Ur4uCLT-31_N3TA",[[["",{"children":[["slug","python/pep/679","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"679\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/679","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_f367f3 layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/d6cea809dcbae606.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+a:I[646,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-dfe24a3bbd58f9b9.js"],"default"]
+9:T2f12,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0679/">PEP 679 - New assert statement syntax with parentheses</a></p>
+<p><strong>상태:</strong> Draft | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 07-Jan-2022</p>
+</blockquote>
+<h2>PEP 679 – 괄호가 있는 새로운 <code>assert</code> 문법</h2>
+<h3>개요 (Abstract)</h3>
+<p>이 PEP는 두 인수를 받는 <code>assert</code> 문에서 괄호 사용을 허용하는 것을 제안합니다. 즉, <code>assert (expr, msg)</code> 형태의 코드를 인터프리터가 <code>assert expr, msg</code>로 재해석하게 됩니다. 이는 흔히 발생하는 실수인 <code>(expr, msg)</code>가 항상 참(truthy)으로 평가되는 두 요소 튜플(two-element tuple)로 취급되어 <code>assert</code> 문이 항상 성공하던 문제를 해결합니다.</p>
+<h3>동기 (Motivation)</h3>
+<p><code>assert</code> 문에 오류 메시지를 포함하여 사용할 때, 많은 사용자가 이를 괄호로 묶는 실수를 자주 합니다. 이는 초보자들이 <code>assert</code>를 함수처럼 생각하기 때문이며, <code>unittest</code>의 <code>assertTrue()</code>와 같은 메서드들도 단언(assertion)과 메시지에 괄호를 요구하기 때문입니다.</p>
+<p>이러한 실수는 <code>assert</code> 문이 항상 성공하기 때문에 감지되지 않는다는 심각한 문제가 있었습니다. 이는 <code>(expr, msg)</code>가 항상 참인 값을 가지는 두 요소 튜플로 해석되기 때문입니다. 또한, 테스트나 설명이 길어져 여러 줄에 걸쳐 작성될 때, 괄호는 자연스러운 줄 바꿈 방법이기 때문에 이러한 실수가 자주 발생했습니다.</p>
+<p>이러한 문제가 매우 흔하여 Python 3.10부터 컴파일러에서 <code>SyntaxWarning</code>을 발행하고 있으며, 여러 코드 린터(linters)에서도 이를 경고하고 있습니다.</p>
+<p>또한, <code>import</code> 문 (예: <code>from x import (a,b,c)</code>)이나 <code>del</code> 문 (예: <code>del (a,b,c)</code>)과 같이 언어의 다른 일부 구문들도 괄호 형태를 허용합니다. 괄호를 허용하는 것은 이러한 함정을 제거할 뿐만 아니라, 사용자와 자동 포맷터(auto-formatters)가 긴 <code>assert</code> 문을 여러 줄에 걸쳐 더 자연스러운 방식으로 포맷할 수 있도록 할 것입니다.</p>
+<p>현재는 역슬래시(PEP 8 권장)나 괄호와 쉼표를 사용하여 긴 <code>assert</code> 문을 여러 줄로 포맷할 수 있지만:</p>
+<pre><code class="language-python">assert (
+    very_very_long_test
+), (
+    "very very long "
+    "error message"
+)
+</code></pre>
+<p>이 PEP에서 제안하는 괄호 형태가 다른 문법 구조의 포맷팅과 더 일관되고 명확하며 직관적이라고 제안자들은 믿습니다.</p>
+<pre><code class="language-python">assert (
+    very_very_long_test,
+    "very very long "
+    "message"
+)
+</code></pre>
+<h3>이론적 근거 (Rationale)</h3>
+<p>하위 호환성 문제 때문에, 이전에 두 요소 튜플로 파싱되던 방식이 새로운 방식으로 변경된다는 것을 사용자에게 알리기 위해 Python 3.17까지 "new assertion syntax, will assert first element of tuple"과 같은 메시지를 포함한 <code>SyntaxWarning</code>이 발생합니다.</p>
+<p>예를 들어, 새로운 문법을 사용하면 다음과 같습니다:</p>
+<pre><code class="language-python">>>> assert ('Petr' == 'Pablo', "That doesn't look right!")
+&#x3C;python-input-0>:0: SyntaxWarning: new assertion syntax, will assert first element of tuple
+Traceback (most recent call last):
+  File "&#x3C;python-input-0>", line 1, in &#x3C;module>
+    assert ('Petr' == 'Pablo', "That doesn't look right!")
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: That doesn't look right!
+</code></pre>
+<p>일반적으로 <code>SyntaxWarning</code>을 개선하는 것은 이 PEP의 범위 밖입니다.</p>
+<h3>명세 (Specification)</h3>
+<p><code>assert</code> 문의 형식 문법은 다음과 같이 변경됩니다.</p>
+<pre><code>| 'assert' '(' expression ',' expression [','] ')' &#x26;(NEWLINE | ';')
+| 'assert' a=expression [',' expression ]
+</code></pre>
+<p>첫 번째 줄은 괄호를 허용하는 새로운 <code>assert</code> 문 형태로, Python 3.17까지 <code>SyntaxWarning</code>을 발생시킵니다. 이 Lookahead는 파서가 튜플을 전체 문장으로 성급하게 캡처하는 것을 방지하기 위해 필요합니다. 이를 통해 <code>assert (a, b) &#x3C;= c, "something"</code>과 같은 문장도 올바르게 파싱됩니다.</p>
+<h3>구현 관련 참고 사항 (Implementation Notes)</h3>
+<p>이 변경 사항은 파서(parser) 또는 컴파일러(compiler)에서 구현될 수 있습니다. 사용자에게 새로운 문법을 알리는 <code>SyntaxWarning</code>을 발생시켜야 한다는 명세는 구현을 복잡하게 만드는데, 경고는 컴파일 중에 발생해야 하기 때문입니다.</p>
+<p>제안자들은 <code>assert (x,y)</code>가 <code>assert x,y</code>와 동일한 AST(Abstract Syntax Tree)를 가지도록 파서에서 구현하는 것이 이상적이라고 생각합니다. 이는 임시적인 절충안이 필요한 2단계 구현 계획을 의미합니다.</p>
+<p><strong>파서에서의 구현 (Implementing in the parser):</strong>
+경고 명세가 있는 순수한 파서 구현은 불가능합니다. (경고 명세가 없다면 순수한 파서 구현은 작은 문법 변경입니다.) 경고를 발생시키려면 컴파일러가 새로운 문법을 인지해야 합니다. 이는 파싱 중에 정보가 손실되지 않도록 선택적 플래그가 필요하다는 의미입니다. 따라서 괄호가 있는 <code>assert</code>의 AST는 <code>paren_syntax=1</code> 플래그와 함께 다음과 같이 보일 것입니다.</p>
+<pre><code class="language-python">Module(
+    body=[
+        Assert(
+            test=Constant(value=True),
+            msg=Constant(value='Error message'),
+            paren_syntax=1
+        )
+    ]
+)
+</code></pre>
+<p><strong>컴파일러에서의 구현 (Implementing in the compiler):</strong>
+새로운 문법은 길이가 2인 튜플을 특별하게 처리하여 컴파일러에서 구현될 수 있습니다. 그러나 이는 <code>SyntaxWarning</code>이 발행되는 전환 기간 동안 AST를 전혀 수정하지 않는 부작용을 가집니다.</p>
+<p><code>SyntaxWarning</code>이 제거되면, 구현은 파서 레벨로 이동할 수 있으며, 이때 괄호 형태는 <code>assert expression, message</code>와 동일한 AST 구조로 직접 파싱됩니다. 이 접근 방식은 AST를 다루는 많은 도구들이 적응할 시간을 더 많이 가질 수 있으므로 하위 호환성이 더 높습니다.</p>
+<h3>하위 호환성 (Backwards Compatibility)</h3>
+<p>이 변경은 기술적으로 하위 호환성이 없습니다. 파서 또는 컴파일러에서 초기 구현되든, 현재는 2-튜플을 주어로 하여 항상 참으로 해석되던 <code>assert (x,y)</code>는 <code>assert x,y</code>로 해석됩니다.</p>
+<p>그러나 이러한 종류의 <code>assert</code> 문은 항상 성공했기 때문에, 사용자 코드에서 실제로 아무런 역할도 하지 않았습니다. 이 문서의 제안자들은 이러한 하위 호환성 위반이 유익하다고 생각합니다. 이전에는 감지되지 않았던 사용자 코드의 이러한 경우를 부각시킬 것이기 때문입니다. 이 문제는 Python 3.10부터 <code>SyntaxWarning</code>을 발생시켜 왔으므로, 5년 이상의 deprecation 기간이 있었습니다. <code>SyntaxWarning</code>이 계속 발생함으로써 예기치 않은 문제를 완화할 수 있습니다.</p>
+<p>이 변경은 <code>assert (x,y)</code>의 AST에도 변화를 가져올 것입니다. 현재는 다음과 같습니다.</p>
+<pre><code class="language-python">Module(
+    body=[
+        Assert(
+            test=Tuple(
+                elts=[
+                    Name(id='x', ctx=Load()),
+                    Name(id='y', ctx=Load())
+                ],
+                ctx=Load()
+            )
+        )
+    ],
+    type_ignores=[]
+)
+</code></pre>
+<p>Python 3.18의 최종 구현에서는 다음과 같은 AST가 됩니다.</p>
+<pre><code class="language-python">Module(
+    body=[
+        Assert(
+            test=Name(id='x', ctx=Load()),
+            msg=Name(id='y', ctx=Load())
+        )
+    ],
+    type_ignores=[]
+)
+</code></pre>
+<p>이 문제점은 첫 번째 형태의 AST가 기술적으로 "부정확하다"는 것입니다. 왜냐하면 테스트와 메시지를 포함하는 <code>assert</code> 문을 위한 특수화된 AST 형태(두 번째 형태)가 이미 있기 때문입니다. 컴파일러에서 먼저 구현하면 이 변경이 지연되어, 도구들이 조정할 시간을 더 많이 가질 수 있으므로 하위 호환성 문제를 완화할 수 있습니다.</p>
+<h3>교육 방법 (How to Teach This)</h3>
+<p>새로운 <code>assert</code> 문 형태는 언어 표준의 일부로 문서화될 것입니다.</p>
+<p>사용자에게 오류 메시지가 있는 <code>assert</code> 문 형태를 가르칠 때, 이제 괄호를 추가하는 것도 예상대로 작동하며, 이를 통해 문장을 여러 줄에 걸쳐 나눌 수 있다는 점을 언급할 수 있습니다.</p>
+<h3>참고 구현 (Reference Implementation)</h3>
+<p>파서에서의 참고 구현은 <a href="https://github.com/python/cpython/tree/pep-679-parser-impl">이 브랜치</a>에서 찾을 수 있으며, 컴파일러에서의 참고 구현은 <a href="https://github.com/python/cpython/tree/pep-679-compiler-impl">이 브랜치</a>에서 찾을 수 있습니다.</p>
+<h3>기각된 아이디어 (Rejected Ideas)</h3>
+<p><strong>키워드를 사용한 문법 추가 (Adding a syntax with a keyword):</strong>
+Python 문법의 다른 모든 곳에서 쉼표는 튜플이나 리스트의 항목, 함수의 매개변수/인수 또는 <code>import</code> 대상과 같이 동종 요소의 가변 길이 "리스트"를 구분합니다. Python 3.0에서 <code>except...as</code>가 도입된 이후, <code>assert</code> 문은 이러한 관례의 유일한 예외로 남아 있습니다.</p>
+<p>사용자 혼란은 쉼표로 구분된 항목이 동등할 것이라는 기대에서 부분적으로 비롯될 수 있습니다. <code>assert</code> 문의 표현식과 메시지를 괄호로 묶으면 시각적으로 더 결속됩니다. <code>assert</code>가 함수 호출과 더 유사하게 보이는 것은 잘못된 사고방식을 조장할 수 있습니다.</p>
+<p>가능한 해결책으로, 쉼표를 키워드로 대체하고 괄호를 허용하는 형태 (예: <code>assert condition else "message"</code>, <code>assert (condition else "message")</code>)가 제안되었습니다. 그러면 쉼표는 괄호 안에 나타나는 경우부터 시작하여 (이미 <code>SyntaxWarning</code>을 발생시키므로) 천천히 그리고 조심스럽게 사용이 중단될 수 있었습니다.</p>
+<p>이 PEP의 제안자들은 완전히 새로운 문법을 추가하는 것이 이 PEP가 해결하고자 하는 일반적인 초보자 실수를 해결하지 못할 것이며, <code>assert</code> 문을 여러 줄에 걸쳐 포맷하는 것을 개선하지 못할 것이라고 믿습니다. 제안된 문법이 이를 개선한다고 믿습니다.</p>
+<h3>보안 관련 영향 (Security Implications)</h3>
+<p>이 변경으로 인한 보안 관련 영향은 없습니다.</p>
+<h3>감사 (Acknowledgements)</h3>
+<p>이 변경은 원래 python/cpython#90325에서 논의되고 제안되었습니다.</p>
+<p>이 PEP를 작성하는 과정에서 도움을 준 Petr Viktorin에게 많은 감사를 표합니다.</p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":[["$","aside",null,{"className":"lg:w-64 xl:w-72 order-1 lg:order-none","children":["$","div",null,{"className":"sidebar sticky","children":["$","nav",null,{"className":"space-y-4","children":[["$","div","Backend",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Backend"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Django",{"children":["$","a",null,{"href":"/backend/django/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Django"," (",6,")"]}]}],["$","li","Logging",{"children":["$","a",null,{"href":"/backend/logging/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Logging"," (",1,")"]}]}]]}]]}],["$","div","Python",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Python"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","PEP",{"children":["$","a",null,{"href":"/python/pep/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["PEP"," (",650,")"]}]}]]}]]}],["$","div","AI/ML",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"AI/ML"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","LLM",{"children":["$","a",null,{"href":"/ai/llm/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["LLM"," (",1,")"]}]}],["$","li","Review",{"children":["$","a",null,{"href":"/ai/review/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Review"," (",2648,")"]}]}]]}]]}],["$","div","DevOps",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"DevOps"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Nginx",{"children":["$","a",null,{"href":"/devops/nginx/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Nginx"," (",1,")"]}]}],["$","li","Docker",{"children":["$","a",null,{"href":"/devops/docker/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Docker"," (",1,")"]}]}],["$","li","SafeLine",{"children":["$","a",null,{"href":"/devops/safeline/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["SafeLine"," (",1,")"]}]}],["$","li","Jenkins",{"children":["$","a",null,{"href":"/devops/jenkins/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Jenkins"," (",3,")"]}]}],["$","li","GitHub Actions",{"children":["$","a",null,{"href":"/devops/github-actions/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["GitHub Actions"," (",1,")"]}]}],["$","li","AWS",{"children":["$","a",null,{"href":"/devops/aws/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["AWS"," (",1,")"]}]}]]}]]}],["$","div","etc",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"etc"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Me",{"children":["$","a",null,{"href":"/etc/me/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Me"," (",3,")"]}]}],["$","li","Chrome Extension",{"children":["$","a",null,{"href":"/etc/chrome-extension/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Chrome Extension"," (",1,")"]}]}]]}]]}]]}]}]}],["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Draft] PEP 679 - New assert statement syntax with parentheses"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-27 10:09:51+0900","children":"2025년 9월 27일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 27일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]}],["$","$La",null,{"postPermalink":"/python/pep/679/","postId":"2025-09-27-pep-0679-new-assert-statement-syntax-with-parentheses"}],["$","section",null,{"className":"mt-12 border-t border-gray-200 pt-8","children":[["$","h3",null,{"className":"text-base font-semibold text-gray-900 mb-4","children":["Python"," 의 다른글"]}],["$","ul",null,{"className":"space-y-2 text-sm","children":[["$","li",null,{"className":"text-gray-500","children":["이전글"," ",["$","$L7",null,{"href":"/python/pep/678/","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Final] PEP 678 - Enriching Exceptions with Notes"}]]}],["$","li",null,{"className":"text-gray-900 font-semibold","children":["현재글 : ","[Draft] PEP 679 - New assert statement syntax with parentheses"]}],["$","li",null,{"className":"text-gray-500","children":["다음글"," ",["$","$L7",null,{"href":"/python/pep/680/","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Final] PEP 680 - tomllib: Support for Parsing TOML in the Standard Library"}]]}]]}]]}]]}]}]]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"secrett2633's blog"}],["$","meta","3",{"name":"description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://blog.secrett2633.cloud/"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"secrett2633's blog"}],["$","meta","13",{"property":"og:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","14",{"property":"og:url","content":"https://blog.secrett2633.cloud/"}],["$","meta","15",{"property":"og:site_name","content":"secrett2633's blog"}],["$","meta","16",{"property":"og:locale","content":"ko_KR"}],["$","meta","17",{"property":"og:type","content":"website"}],["$","meta","18",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","19",{"name":"twitter:title","content":"secrett2633's blog"}],["$","meta","20",{"name":"twitter:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","link","21",{"rel":"icon","href":"/icon.ico?6d9f34d4948640b8","type":"image/x-icon","sizes":"16x16"}],["$","meta","22",{"name":"next-size-adjust"}]]
+1:null

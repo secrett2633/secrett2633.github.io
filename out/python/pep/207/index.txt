@@ -1,0 +1,109 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[9157,["231","static/chunks/231-467e37449c5a68fc.js","185","static/chunks/app/layout-b44b076173de406f.js"],"default"]
+7:I[231,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-dfe24a3bbd58f9b9.js"],""]
+4:["slug","python/pep/207","c"]
+0:["sXH0w-Ur4uCLT-31_N3TA",[[["",{"children":[["slug","python/pep/207","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"207\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/207","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_f367f3 layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/d6cea809dcbae606.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+a:I[646,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-dfe24a3bbd58f9b9.js"],"default"]
+9:T2f6a,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0207/">PEP 207 - Rich Comparisons</a></p>
+<p><strong>상태:</strong> Final | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 25-Jul-2000</p>
+</blockquote>
+<p>PEP 207 – 풍부한 비교 (Rich Comparisons)</p>
+<h2>개요 (Abstract)</h2>
+<p>이 PEP는 비교 연산자에 대한 몇 가지 새로운 기능을 제안합니다.</p>
+<ul>
+<li>클래스와 C 확장 모두에서 <code>&#x3C;</code>, <code>></code>, <code>&#x3C;=</code>, <code>>=</code>, <code>==</code>, <code>!=</code> 연산자를 개별적으로 오버로딩할 수 있도록 허용합니다.</li>
+<li>오버로딩된 연산자가 부울(Boolean) 결과 외에 다른 값을 반환할 수 있도록 허용합니다.</li>
+</ul>
+<h2>동기 (Motivation)</h2>
+<p>주요 동기는 NumPy에서 비롯됩니다. NumPy 사용자들은 <code>A &#x3C; B</code>가 요소별(elementwise) 비교 결과를 담은 배열을 반환해야 한다고 동의하지만, 현재는 <code>A &#x3C; B</code>가 부울 값만 반환하거나 예외를 발생시키기 때문에 <code>less(A, B)</code>와 같이 명시적으로 작성해야 합니다.</p>
+<p>또한, 타입이 자연스러운 순서를 갖지 않지만 동등성(equality) 비교는 필요한 경우가 있습니다. 현재 이러한 타입은 동등성 테스트를 위해 임의의 순서를 정의하는 비교 연산자를 구현해야 합니다.</p>
+<p>일부 객체 타입의 경우, 동등성 테스트를 순서 테스트보다 훨씬 효율적으로 구현할 수 있습니다. 예를 들어, 길이가 다른 리스트와 딕셔너리는 같지 않지만, 순서를 비교하려면 일부(잠재적으로 모든) 항목을 검사해야 합니다.</p>
+<h2>이전 작업 (Previous Work)</h2>
+<p>풍부한 비교는 이전에 David Ascher에 의해 제안된 바 있으며, 특히 Numerical Python 경험에서 비롯되었습니다. 이 PEP의 대부분 내용은 David의 제안에서 파생되었습니다.</p>
+<h2>우려 사항 (Concerns)</h2>
+<ul>
+<li><strong>하위 호환성:</strong> Python 레벨(<code>__cmp__</code>를 사용하는 클래스는 변경할 필요 없음)과 C 레벨(tp_compare를 정의하는 확장은 변경할 필요 없음, <code>PyObject_Compare()</code>를 사용하는 코드는 새로운 풍부한 비교 체계를 사용하더라도 작동해야 함) 모두에서 중요합니다.</li>
+<li><code>A &#x3C; B</code>가 요소별 비교 행렬을 반환할 때, 이 표현식을 부울 컨텍스트에서 사용하는 쉬운 실수가 있습니다. 특별한 조치 없이는 항상 참(True)으로 간주될 것입니다. 이 경우 대신 예외를 발생시켜야 합니다.</li>
+<li>클래스가 <code>x == y</code>만 오버라이드하고 다른 것은 오버라이드하지 않는 경우, <code>x != y</code>는 <code>not(x == y)</code>로 계산되어야 할까요, 아니면 실패해야 할까요? <code>&#x3C;</code>와 <code>>=</code> 또는 <code>></code>와 <code>&#x3C;=</code> 사이의 유사한 관계는 어떨까요?</li>
+<li>비슷하게, <code>x &#x3C; y</code>를 <code>y > x</code>로부터 계산하거나, <code>x &#x3C;= y</code>를 <code>not(x > y)</code>로부터, <code>x == y</code>를 <code>y == x</code>로부터, <code>x != y</code>를 <code>y != x</code>로부터 허용해야 할까요?</li>
+<li>비교 연산자가 요소별 비교를 반환할 때, <code>A &#x3C; B &#x3C; C</code>, <code>A &#x3C; B and C &#x3C; D</code>, <code>A &#x3C; B or C &#x3C; D</code>와 같은 단축(shortcut) 연산자는 어떻게 처리해야 할까요?</li>
+<li><code>min()</code>, <code>max()</code>, <code>'in'</code> 및 <code>'not in'</code> 연산자, <code>list.sort()</code>, 딕셔너리 키 비교 및 내장(built-in) 연산자에 의한 다른 비교 사용은 어떻게 해야 할까요?</li>
+</ul>
+<h2>제안된 해결책 (Proposed Resolutions)</h2>
+<ul>
+<li><strong>완벽한 하위 호환성:</strong> 객체가 <code>tp_compare()</code>는 정의했지만 <code>tp_richcompare()</code>는 정의하지 않았을 때, 풍부한 비교가 요청되면 <code>tp_compare()</code>의 결과가 명확한 방식으로 사용됩니다. 예를 들어, <code>&#x3C;</code>가 요청되면, <code>tp_compare()</code>가 음수를 반환하면 결과는 1이고, 0 또는 양수를 반환하면 0이 됩니다.</li>
+<li><strong>완벽한 상위 호환성:</strong> <code>tp_richcompare()</code>를 구현하는 객체에 대해 전통적인 비교가 요청되면, 최대 세 가지 비교가 시도됩니다. 먼저 <code>==</code>가 시도되고 참을 반환하면 0이 반환됩니다. 다음으로 <code>&#x3C;</code>가 시도되고 참을 반환하면 -1이 반환됩니다. 마지막으로 <code>></code>가 시도되고 참을 반환하면 +1이 반환됩니다. 시도된 연산자 중 어느 것이라도 부울이 아닌 값을 반환하면, 부울로의 변환으로 인해 발생하는 예외가 전달됩니다.</li>
+<li>부울 대신 부울 컬렉션을 반환하는 모든 타입은 <code>__nonzero__()</code> (Python 3에서는 <code>__bool__</code>로 변경됨)를 정의하여 예외를 발생시켜야 합니다. 이러한 타입은 비-부울(non-Boolean)로 간주됩니다.</li>
+<li><code>==</code>와 <code>!=</code> 연산자는 서로의 보완 관계로 가정되지 않습니다 (예: IEEE 754 부동 소수점 숫자는 이를 만족하지 않습니다). 타입이 원할 경우 이를 구현하는 것은 타입의 책임입니다. <code>&#x3C;</code>와 <code>>=</code> 또는 <code>></code>와 <code>&#x3C;=</code>도 마찬가지입니다.</li>
+<li>Python은 반사성(reflexivity) 규칙을 가정합니다. 따라서 인터프리터는 <code>y > x</code>를 <code>x &#x3C; y</code>로, <code>y >= x</code>를 <code>x &#x3C;= y</code>로, <code>x == y</code>와 <code>x != y</code>의 인수를 바꿀 수 있습니다.</li>
+<li>현재 제안에서 <code>A &#x3C; B</code>가 요소별 비교 배열을 반환할 때, 이 결과는 비-부울로 간주되며, 단축 연산자에 의해 부울로 해석될 경우 예외를 발생시킵니다. <code>A &#x3C; B &#x3C; C</code> 대신 <code>(A &#x3C; B) &#x26; (B &#x3C; C)</code>로 작성할 수 있습니다.</li>
+<li><code>min()</code> 및 <code>list.sort()</code> 연산은 오직 <code>&#x3C;</code> 연산자만 사용합니다. <code>max()</code>는 오직 <code>></code> 연산자만 사용합니다. <code>'in'</code>, <code>'not in'</code> 연산자 및 딕셔너리(dictionary) 조회(lookup)는 오직 <code>==</code> 연산자만 사용합니다.</li>
+</ul>
+<h2>구현 제안 (Implementation Proposal)</h2>
+<p>이 제안은 David Ascher의 제안을 밀접하게 따릅니다.</p>
+<h3>C API</h3>
+<p>새로운 함수가 추가됩니다.</p>
+<ul>
+<li><code>PyObject *PyObject_RichCompare(PyObject *, PyObject *, int)</code>: 요청된 풍부한 비교를 수행하고 Python 객체를 반환하거나 예외를 발생시킵니다. 세 번째 인수는 <code>Py_LT</code>, <code>Py_LE</code>, <code>Py_EQ</code>, <code>Py_NE</code>, <code>Py_GT</code> 또는 <code>Py_GE</code> 중 하나여야 합니다.</li>
+<li><code>int PyObject_RichCompareBool(PyObject *, PyObject *, int)</code>: 요청된 풍부한 비교를 수행하고 부울 값을 반환합니다. 예외의 경우 -1, 거짓(false)의 경우 0, 참(true)의 경우 1을 반환합니다. <code>PyObject_RichCompare()</code>가 비-부울 객체를 반환할 때, <code>PyObject_RichCompareBool()</code>은 예외를 발생시킵니다.</li>
+</ul>
+<p>새로운 <code>typedef</code>가 추가됩니다.</p>
+<ul>
+<li><code>typedef PyObject *(*richcmpfunc) (PyObject *, PyObject *, int);</code></li>
+</ul>
+<p>타입 객체(type object)의 슬롯에 새로운 <code>richcmpfunc</code> 슬롯 <code>tp_richcompare</code>가 추가됩니다. 이 함수는 <code>PyObject_RichCompare()</code>와 동일한 시그니처를 가져야 합니다.
+<code>PyObject_Compare()</code>는 정의된 경우 풍부한 비교를 시도하도록 변경됩니다.</p>
+<h3>인터프리터 변경 사항 (Changes to the interpreter)</h3>
+<p><code>PyObject_Compare()</code>가 특정 비교의 결과를 얻기 위해 호출될 때마다 (예: <code>list.sort()</code> 및 <code>ceval.c</code>의 비교 연산자), 코드는 대신 <code>PyObject_RichCompare()</code> 또는 <code>PyObject_RichCompareBool()</code>을 호출하도록 변경됩니다. C 코드가 비교의 결과를 알아야 하는 경우, 결과에 대해 <code>PyObject_IsTrue()</code>가 호출됩니다 (이는 예외를 발생시킬 수 있습니다).
+현재 비교를 정의하는 대부분의 내장 타입은 대신 풍부한 비교를 정의하도록 수정될 것입니다.</p>
+<h3>클래스 (Classes)</h3>
+<p>클래스는 해당하는 연산자 (<code>&#x3C;</code>, <code>&#x3C;=</code>, <code>==</code>, <code>!=</code>, <code>></code>, <code>>=</code>)를 오버라이드하기 위해 새로운 특수 메서드 <code>__lt__</code>, <code>__le__</code>, <code>__eq__</code>, <code>__ne__</code>, <code>__gt__</code>, <code>__ge__</code>를 정의할 수 있습니다.
+클래스가 <code>__cmp__</code>도 정의하는 경우, 이는 <code>__lt__</code> 등이 시도되어 <code>NotImplemented</code>를 반환할 때만 사용됩니다.</p>
+<h2>연쇄 비교 (Chained Comparisons)</h2>
+<h3>문제 (Problem)</h3>
+<p><code>x &#x3C; y &#x3C; z</code>와 같이 비교 결과가 -1, 0, 1이 아닌 객체가 연쇄 비교(chained comparisons)에 사용될 수 있도록 허용하는 것이 좋습니다.
+현재 Python은 이를 다음과 같이 해석합니다.</p>
+<pre><code class="language-python">temp1 = x &#x3C; y
+if temp1:
+    return y &#x3C; z
+else:
+    return temp1
+</code></pre>
+<p>이는 비교 결과의 참(truth) 값을 테스트해야 하며, 오른쪽 비교 테스트가 "단축(shortcutting)"될 가능성이 있습니다. 배열의 경우, <code>x &#x3C; y &#x3C; z</code>는 <code>x</code>와 <code>z</code> 사이의 <code>y</code> 요소에 해당하는 위치에 1이 있는 배열이 되기를 기대하는데, 이는 <code>x &#x3C; y</code>의 결과와 관계없이 오른쪽 항이 평가되어야 함을 의미하며, 현재 파서(parser)에서 사용되는 메커니즘과 호환되지 않습니다.</p>
+<h3>해결책 (Solution)</h3>
+<p>Guido는 연쇄 비교에 의해 생성되는 코드를 변경하여 배열이 지능적으로 연쇄 비교될 수 있도록 하는 한 가지 방법을 언급했습니다.
+<code>x &#x3C; y &#x3C; z</code>에 대해 생성되는 코드는 다음과 같을 것입니다.</p>
+<pre><code class="language-python">temp1 = x &#x3C; y
+if temp1:
+    temp2 = y &#x3C; z
+    return boolean_combine(temp1, temp2)
+else:
+    return temp1
+</code></pre>
+<p>여기서 <code>boolean_combine</code>은 다음과 유사한 새로운 함수입니다.</p>
+<pre><code class="language-python">def boolean_combine(a, b):
+    if hasattr(a, '__boolean_and__') or \
+       hasattr(b, '__boolean_and__'):
+        try:
+            return a.__boolean_and__(b)
+        except:
+            return b.__boolean_and__(a)
+    else:
+        # standard behavior
+        if a:
+            return b
+        else:
+            return 0
+</code></pre>
+<p><code>__boolean_and__</code> 특수 메서드는 C-레벨 타입에 대해 <code>richcmp</code> 함수의 세 번째 인수의 다른 값으로 구현됩니다.
+따라서 풍부한 비교에 의해 반환된 객체는 항상 참으로 테스트되어야 하지만, 자신과 인수의 부울 조합을 생성하는 다른 특수 메서드를 정의해야 합니다.
+이 해결책은 연쇄 비교가 배열에 대해 작동하도록 허용하는 장점이 있습니다.
+정수 비교를 처리하는 인라이닝(inlining)은 여전히 적용되어 가장 일반적인 경우 성능 비용이 발생하지 않습니다.</p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":[["$","aside",null,{"className":"lg:w-64 xl:w-72 order-1 lg:order-none","children":["$","div",null,{"className":"sidebar sticky","children":["$","nav",null,{"className":"space-y-4","children":[["$","div","Backend",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Backend"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Django",{"children":["$","a",null,{"href":"/backend/django/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Django"," (",6,")"]}]}],["$","li","Logging",{"children":["$","a",null,{"href":"/backend/logging/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Logging"," (",1,")"]}]}]]}]]}],["$","div","Python",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Python"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","PEP",{"children":["$","a",null,{"href":"/python/pep/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["PEP"," (",650,")"]}]}]]}]]}],["$","div","AI/ML",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"AI/ML"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","LLM",{"children":["$","a",null,{"href":"/ai/llm/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["LLM"," (",1,")"]}]}],["$","li","Review",{"children":["$","a",null,{"href":"/ai/review/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Review"," (",2648,")"]}]}]]}]]}],["$","div","DevOps",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"DevOps"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Nginx",{"children":["$","a",null,{"href":"/devops/nginx/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Nginx"," (",1,")"]}]}],["$","li","Docker",{"children":["$","a",null,{"href":"/devops/docker/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Docker"," (",1,")"]}]}],["$","li","SafeLine",{"children":["$","a",null,{"href":"/devops/safeline/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["SafeLine"," (",1,")"]}]}],["$","li","Jenkins",{"children":["$","a",null,{"href":"/devops/jenkins/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Jenkins"," (",3,")"]}]}],["$","li","GitHub Actions",{"children":["$","a",null,{"href":"/devops/github-actions/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["GitHub Actions"," (",1,")"]}]}],["$","li","AWS",{"children":["$","a",null,{"href":"/devops/aws/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["AWS"," (",1,")"]}]}]]}]]}],["$","div","etc",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"etc"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Me",{"children":["$","a",null,{"href":"/etc/me/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Me"," (",3,")"]}]}],["$","li","Chrome Extension",{"children":["$","a",null,{"href":"/etc/chrome-extension/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Chrome Extension"," (",1,")"]}]}]]}]]}]]}]}]}],["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Final] PEP 207 - Rich Comparisons"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-26 16:18:40+0900","children":"2025년 9월 26일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 26일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]}],["$","$La",null,{"postPermalink":"/python/pep/207/","postId":"2025-09-26-pep-0207-rich-comparisons"}],["$","section",null,{"className":"mt-12 border-t border-gray-200 pt-8","children":[["$","h3",null,{"className":"text-base font-semibold text-gray-900 mb-4","children":["Python"," 의 다른글"]}],["$","ul",null,{"className":"space-y-2 text-sm","children":[["$","li",null,{"className":"text-gray-500","children":["이전글"," ",["$","$L7",null,{"href":"/python/pep/206/","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Withdrawn] PEP 206 - Python Advanced Library"}]]}],["$","li",null,{"className":"text-gray-900 font-semibold","children":["현재글 : ","[Final] PEP 207 - Rich Comparisons"]}],["$","li",null,{"className":"text-gray-500","children":["다음글"," ",["$","$L7",null,{"href":"/python/pep/208/","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Final] PEP 208 - Reworking the Coercion Model"}]]}]]}]]}]]}]}]]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"secrett2633's blog"}],["$","meta","3",{"name":"description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://blog.secrett2633.cloud/"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"secrett2633's blog"}],["$","meta","13",{"property":"og:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","14",{"property":"og:url","content":"https://blog.secrett2633.cloud/"}],["$","meta","15",{"property":"og:site_name","content":"secrett2633's blog"}],["$","meta","16",{"property":"og:locale","content":"ko_KR"}],["$","meta","17",{"property":"og:type","content":"website"}],["$","meta","18",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","19",{"name":"twitter:title","content":"secrett2633's blog"}],["$","meta","20",{"name":"twitter:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","link","21",{"rel":"icon","href":"/icon.ico?6d9f34d4948640b8","type":"image/x-icon","sizes":"16x16"}],["$","meta","22",{"name":"next-size-adjust"}]]
+1:null

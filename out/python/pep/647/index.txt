@@ -1,0 +1,114 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[9157,["231","static/chunks/231-467e37449c5a68fc.js","185","static/chunks/app/layout-b44b076173de406f.js"],"default"]
+7:I[231,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-dfe24a3bbd58f9b9.js"],""]
+4:["slug","python/pep/647","c"]
+0:["sXH0w-Ur4uCLT-31_N3TA",[[["",{"children":[["slug","python/pep/647","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"647\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/647","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_f367f3 layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/d6cea809dcbae606.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+a:I[646,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-dfe24a3bbd58f9b9.js"],"default"]
+9:T2f00,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0647/">PEP 647 - User-Defined Type Guards</a></p>
+<p><strong>상태:</strong> Final | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 07-Oct-2020</p>
+</blockquote>
+<p>PEP 647은 Python의 타입 힌팅 시스템을 강화하여, 런타임 검사에 기반한 조건부 타입 좁히기(conditional type narrowing) 기능을 사용자 정의 함수로 확장할 수 있도록 <code>TypeGuard</code>라는 새로운 개념을 도입합니다. 이 제안의 목표는 정적 타입 검사기가 런타임 시 특정 조건이 충족될 때 변수의 타입을 더 구체적으로 추론할 수 있도록 돕는 것입니다.</p>
+<h2>초록 (Abstract)</h2>
+<p>이 PEP는 프로그램이 런타임 검사를 기반으로 타입 검사기가 사용하는 조건부 타입 좁히기(conditional type narrowing)에 영향을 미칠 수 있는 방법을 명시합니다.</p>
+<h2>동기 (Motivation)</h2>
+<p>정적 타입 검사기는 프로그램 코드 흐름 내에서 표현식의 보다 정확한 타입을 결정하기 위해 "타입 좁히기(type narrowing)"라는 기술을 일반적으로 사용합니다. <code>if</code>나 <code>while</code> 문과 같은 조건부 코드 흐름 문을 기반으로 코드 블록 내에서 타입 좁히기가 적용될 때, 조건부 표현식을 "타입 가드(type guard)"라고 부르기도 합니다. Python 타입 검사기는 일반적으로 다양한 형태의 타입 가드 표현식을 지원합니다.</p>
+<p>예를 들어, <code>is None</code> 검사를 통해 <code>Optional[str]</code> 타입의 <code>val</code>이 <code>str</code>로 좁혀지거나 <code>None</code>으로 좁혀질 수 있습니다. 또한 <code>isinstance</code>를 사용하여 <code>Union[str, float]</code> 타입의 <code>val</code>이 <code>str</code> 또는 <code>float</code>으로 좁혀질 수 있습니다.</p>
+<p>하지만 정적 정보만으로는 타입 좁히기를 적용할 수 없는 경우가 있습니다. 예를 들어, 리스트의 모든 요소가 문자열인지 확인하는 <code>is_str_list</code> 함수를 정의하고, 이 함수가 <code>True</code>를 반환할 때 리스트를 <code>List[str]</code>로 취급하려 할 경우, 타입 검사기는 정적으로 이를 검증할 정보가 부족하여 오류를 보고합니다.</p>
+<pre><code class="language-python">def is_str_list(val: List[object]) -> bool:
+    """리스트의 모든 객체가 문자열인지 판단합니다."""
+    return all(isinstance(x, str) for x in val)
+
+def func1(val: List[object]):
+    if is_str_list(val):
+        print(" ".join(val)) # Error: invalid type
+</code></pre>
+<p>이 PEP는 <code>is_str_list</code>와 같은 함수를 "사용자 정의 타입 가드(user-defined type guard)"로 정의하는 방법을 도입합니다. 이를 통해 코드에서 타입 검사기가 지원하는 타입 가드를 확장할 수 있습니다.</p>
+<p>새로운 메커니즘을 사용하면 <code>is_str_list</code> 함수의 반환 타입을 <code>bool</code>에서 <code>TypeGuard[List[str]]</code>로 변경하여, 함수가 <code>True</code>를 반환할 경우 입력 인수가 지정된 타입(<code>List[str]</code>)임을 나타낼 수 있습니다.</p>
+<pre><code class="language-python">from typing import TypeGuard
+
+def is_str_list(val: List[object]) -> TypeGuard[List[str]]:
+    """리스트의 모든 객체가 문자열인지 판단합니다."""
+    return all(isinstance(x, str) for x in val)
+</code></pre>
+<p>사용자 정의 타입 가드는 <code>TypedDict</code>의 타입 요구 사항을 준수하는지 여부를 결정하는 데도 사용될 수 있습니다.</p>
+<pre><code class="language-python">from typing import TypedDict, TypeGuard
+
+class Person(TypedDict):
+    name: str
+    age: int
+
+def is_person(val: dict) -> "TypeGuard[Person]":
+    try:
+        return isinstance(val["name"], str) and isinstance(val["age"], int)
+    except KeyError:
+        return False
+
+def print_age(val: dict):
+    if is_person(val):
+        print(f"Age: {val['age']}")
+    else:
+        print("Not a person!")
+</code></pre>
+<h2>명세 (Specification)</h2>
+<h3><code>TypeGuard</code> 타입</h3>
+<p>이 PEP는 <code>typing</code> 모듈에서 <code>TypeGuard</code> 심볼을 도입합니다. <code>TypeGuard</code>는 단일 타입 인수를 받는 특별한 형태로, 사용자 정의 타입 가드 함수의 반환 타입을 주석 처리하는 데 사용됩니다. 타입 가드 함수 내의 <code>return</code> 문은 <code>bool</code> 값을 반환해야 하며, 타입 검사기는 모든 반환 경로가 <code>bool</code>을 반환하는지 확인해야 합니다.</p>
+<p>다른 모든 면에서 <code>TypeGuard</code>는 <code>bool</code>과는 별개의 타입이며, <code>bool</code>의 하위 타입이 아닙니다. 따라서 <code>Callable[..., TypeGuard[int]]</code>는 <code>Callable[..., bool]</code>에 할당될 수 없습니다.</p>
+<p><code>TypeGuard</code>가 하나 이상의 매개변수를 받는 함수나 메서드의 반환 타입을 주석 처리하는 데 사용될 때, 해당 함수 또는 메서드는 타입 검사기에 의해 사용자 정의 타입 가드로 처리됩니다. <code>TypeGuard</code>에 제공된 타입 인수는 함수에 의해 유효성이 검사된 타입을 나타냅니다.</p>
+<p>사용자 정의 타입 가드는 제네릭 함수가 될 수 있습니다. 예를 들어:</p>
+<pre><code class="language-python">from typing import TypeVar, Tuple, TypeGuard
+
+_T = TypeVar("_T")
+
+def is_two_element_tuple(val: Tuple[_T, ...]) -> TypeGuard[Tuple[_T, _T]]:
+    return len(val) == 2
+
+def func(names: Tuple[str, ...]):
+    if is_two_element_tuple(names):
+        reveal_type(names) # Tuple[str, str]
+    else:
+        reveal_type(names) # Tuple[str, ...]
+</code></pre>
+<p>타입 검사기는 사용자 정의 타입 가드에 첫 번째 위치 인수로 전달된 표현식에 타입 좁히기가 적용되어야 한다고 가정합니다. 타입 가드 함수가 두 개 이상의 인수를 받는 경우, 추가 인수에 대해서는 타입 좁히기가 적용되지 않습니다.</p>
+<p>타입 가드 함수가 인스턴스 메서드나 클래스 메서드로 구현된 경우, 첫 번째 위치 인수는 두 번째 매개변수(<code>self</code> 또는 <code>cls</code> 다음)에 매핑됩니다.</p>
+<p>일반적으로 사용자 정의 타입 가드 함수의 반환 타입은 첫 번째 인수의 타입보다 엄격하게 "좁은(narrower)" 타입을 참조합니다. 그러나 반드시 엄격하게 좁은 타입이어야 하는 것은 아닙니다. 이는 <code>List[str]</code>가 <code>List[object]</code>의 하위 타입이 아닌 경우와 같은 상황을 허용합니다.</p>
+<p>조건문이 사용자 정의 타입 가드 함수 호출을 포함하고 해당 함수가 <code>True</code>를 반환할 때, 타입 가드 함수에 첫 번째 위치 인수로 전달된 표현식은 조건부 코드 블록 내에서 추가로 좁혀지지 않는 한 <code>TypeGuard</code> 반환 타입에 지정된 타입을 갖는다고 정적 타입 검사기가 가정해야 합니다.</p>
+<p>일부 내장 타입 가드는 긍정(positive) 및 부정(negative) 테스트( <code>if</code> 및 <code>else</code> 절 모두)에 대해 좁히기를 제공합니다. 그러나 사용자 정의 타입 가드는 긍정적인 경우( <code>if</code> 절)에만 좁히기를 적용하며, 부정적인 경우에는 타입이 좁혀지지 않습니다.</p>
+<pre><code class="language-python">from typing import Union, Tuple
+
+OneOrTwoStrs = Union[Tuple[str], Tuple[str, str]]
+
+def func(val: OneOrTwoStrs):
+    if is_two_element_tuple(val):
+        reveal_type(val) # Tuple[str, str]
+    else:
+        reveal_type(val) # OneOrTwoStrs
+</code></pre>
+<h3>하위 호환성 (Backwards Compatibility)</h3>
+<p>이 새로운 기능을 사용하지 않는 기존 코드는 영향을 받지 않습니다. 특히, <code>stdlib typing</code> 라이브러리와 호환되지 않는 방식으로 어노테이션을 사용하는 코드는 <code>TypeGuard</code>를 임포트하지 않으면 됩니다.</p>
+<h3>참조 구현 (Reference Implementation)</h3>
+<p>Pyright 타입 검사기는 이 PEP에 설명된 동작을 지원합니다.</p>
+<h3>기각된 아이디어 (Rejected Ideas)</h3>
+<h4>데코레이터 구문 (Decorator Syntax)</h4>
+<p>타입 가드를 정의하기 위해 데코레이터 구문 사용이 고려되었습니다.</p>
+<pre><code class="language-python">@type_guard(List[str])
+def is_str_list(val: List[object]) -> bool:
+    ...
+</code></pre>
+<p>하지만 데코레이터 접근 방식은 타입의 런타임 평가를 필요로 하여 전방 참조(forward references)를 불가능하게 만들므로 열등하다고 판단되었습니다. 제안된 접근 방식이 더 이해하기 쉽고 구현하기 간단하다고 여겨졌습니다.</p>
+<h4>엄격한 좁히기 강제 (Enforcing Strict Narrowing)</h4>
+<p><code>TypeGuard</code> 타입 인수에 지정된 타입이 첫 번째 매개변수에 지정된 타입보다 엄격하게 좁은 형태여야 한다는 엄격한 타입 좁히기 강제가 고려되었지만, 이는 이 기능의 유용한 사용 사례를 제거합니다. 예를 들어, <code>List[str]</code>가 공변성(invariance) 규칙 때문에 <code>List[object]</code>의 하위 타입이 아니기 때문에 위의 <code>is_str_list</code> 예제는 유효하지 않게 됩니다.</p>
+<p>엄격한 좁히기를 강제하지 않으면 타입 안전성을 해칠 가능성이 있다는 지적이 있었지만, <code>cast</code>나 <code>Any</code>를 사용하는 등 개발자가 타입 안전성을 우회할 수 있는 다른 방법들이 많으므로, 사용자 정의 타입 가드를 구현하는 개발자는 타입 안전성에 관심이 있을 것이라고 가정하고 엄격한 검사를 생략하기로 결정했습니다.</p>
+<h4>조건부 <code>TypeGuard</code> 타입 적용 (Conditionally Applying TypeGuard Type)</h4>
+<p>타입 가드 함수의 첫 번째 인수로 전달된 표현식의 타입이 <code>TypeGuard</code> 반환 타입에 지정된 타입의 적절한 하위 타입인 경우, 해당 표현식은 기존 타입을 유지해야 한다는 제안이 있었습니다. 이는 복잡성과 불일치를 추가하고, 유니온(unions) 또는 여러 제약이 있는 타입 변수(type variables)와 같은 복합 타입의 경우 적절한 동작에 대한 추가적인 질문을 야기하여 기각되었습니다.</p>
+<h4>임의의 매개변수 좁히기 (Narrowing of Arbitrary Parameters)</h4>
+<p>TypeScript는 사용자 정의 타입 가드에서 임의의 입력 매개변수를 좁히기 테스트에 사용할 수 있도록 허용합니다. 그러나 실제로 테스트되는 매개변수가 첫 번째 매개변수가 아닌 예시는 거의 없었으므로, Python 구현에서는 불필요한 복잡성을 추가하지 않기로 결정했습니다.</p>
+<h4>암시적 <code>self</code> 및 <code>cls</code> 매개변수 좁히기 (Narrowing of Implicit “self” and “cls” Parameters)</h4>
+<p>타입 가드 함수가 인스턴스 또는 클래스 메서드로 구현된 경우, 암시적인 <code>self</code> 또는 <code>cls</code> 인수가 함수에 전달됩니다. <code>self</code> 또는 <code>cls</code>에 좁히기 로직을 적용해야 하는 경우가 있을 수 있다는 우려가 있었지만, 이는 특이한 사용 사례이며 구현을 상당히 복잡하게 만들 것이므로 특별한 조항은 두지 않기로 결정했습니다. <code>self</code> 또는 <code>cls</code>의 좁히기가 필요한 경우, 해당 값을 타입 가드 함수의 명시적 인수로 전달할 수 있습니다.</p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":[["$","aside",null,{"className":"lg:w-64 xl:w-72 order-1 lg:order-none","children":["$","div",null,{"className":"sidebar sticky","children":["$","nav",null,{"className":"space-y-4","children":[["$","div","Backend",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Backend"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Django",{"children":["$","a",null,{"href":"/backend/django/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Django"," (",6,")"]}]}],["$","li","Logging",{"children":["$","a",null,{"href":"/backend/logging/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Logging"," (",1,")"]}]}]]}]]}],["$","div","Python",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Python"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","PEP",{"children":["$","a",null,{"href":"/python/pep/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["PEP"," (",650,")"]}]}]]}]]}],["$","div","AI/ML",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"AI/ML"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","LLM",{"children":["$","a",null,{"href":"/ai/llm/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["LLM"," (",1,")"]}]}],["$","li","Review",{"children":["$","a",null,{"href":"/ai/review/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Review"," (",2648,")"]}]}]]}]]}],["$","div","DevOps",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"DevOps"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Nginx",{"children":["$","a",null,{"href":"/devops/nginx/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Nginx"," (",1,")"]}]}],["$","li","Docker",{"children":["$","a",null,{"href":"/devops/docker/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Docker"," (",1,")"]}]}],["$","li","SafeLine",{"children":["$","a",null,{"href":"/devops/safeline/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["SafeLine"," (",1,")"]}]}],["$","li","Jenkins",{"children":["$","a",null,{"href":"/devops/jenkins/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Jenkins"," (",3,")"]}]}],["$","li","GitHub Actions",{"children":["$","a",null,{"href":"/devops/github-actions/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["GitHub Actions"," (",1,")"]}]}],["$","li","AWS",{"children":["$","a",null,{"href":"/devops/aws/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["AWS"," (",1,")"]}]}]]}]]}],["$","div","etc",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"etc"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Me",{"children":["$","a",null,{"href":"/etc/me/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Me"," (",3,")"]}]}],["$","li","Chrome Extension",{"children":["$","a",null,{"href":"/etc/chrome-extension/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Chrome Extension"," (",1,")"]}]}]]}]]}]]}]}]}],["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Final] PEP 647 - User-Defined Type Guards"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-27 01:37:28+0900","children":"2025년 9월 27일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 27일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]}],["$","$La",null,{"postPermalink":"/python/pep/647/","postId":"2025-09-27-pep-0647-user-defined-type-guards"}],["$","section",null,{"className":"mt-12 border-t border-gray-200 pt-8","children":[["$","h3",null,{"className":"text-base font-semibold text-gray-900 mb-4","children":["Python"," 의 다른글"]}],["$","ul",null,{"className":"space-y-2 text-sm","children":[["$","li",null,{"className":"text-gray-500","children":["이전글"," ",["$","$L7",null,{"href":"/python/pep/646/","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Final] PEP 646 - Variadic Generics"}]]}],["$","li",null,{"className":"text-gray-900 font-semibold","children":["현재글 : ","[Final] PEP 647 - User-Defined Type Guards"]}],["$","li",null,{"className":"text-gray-500","children":["다음글"," ",["$","$L7",null,{"href":"/python/pep/648/","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Rejected] PEP 648 - Extensible customizations of the interpreter at startup"}]]}]]}]]}]]}]}]]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"secrett2633's blog"}],["$","meta","3",{"name":"description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://blog.secrett2633.cloud/"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"secrett2633's blog"}],["$","meta","13",{"property":"og:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","14",{"property":"og:url","content":"https://blog.secrett2633.cloud/"}],["$","meta","15",{"property":"og:site_name","content":"secrett2633's blog"}],["$","meta","16",{"property":"og:locale","content":"ko_KR"}],["$","meta","17",{"property":"og:type","content":"website"}],["$","meta","18",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","19",{"name":"twitter:title","content":"secrett2633's blog"}],["$","meta","20",{"name":"twitter:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","link","21",{"rel":"icon","href":"/icon.ico?6d9f34d4948640b8","type":"image/x-icon","sizes":"16x16"}],["$","meta","22",{"name":"next-size-adjust"}]]
+1:null

@@ -1,0 +1,131 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[9157,["231","static/chunks/231-467e37449c5a68fc.js","185","static/chunks/app/layout-b44b076173de406f.js"],"default"]
+7:I[231,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-dfe24a3bbd58f9b9.js"],""]
+4:["slug","python/pep/329","c"]
+0:["sXH0w-Ur4uCLT-31_N3TA",[[["",{"children":[["slug","python/pep/329","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"329\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/329","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_f367f3 layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/d6cea809dcbae606.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+a:I[646,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-dfe24a3bbd58f9b9.js"],"default"]
+9:T2cb5,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0329/">PEP 329 - Treating Builtins as Constants in the Standard Library</a></p>
+<p><strong>상태:</strong> Rejected | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 18-Apr-2004</p>
+</blockquote>
+<h1>PEP 329 – 표준 라이브러리에서 Builtin을 상수로 취급하기</h1>
+<ul>
+<li><strong>작성자:</strong> Raymond Hettinger </li>
+<li><strong>상태:</strong> Rejected (거부됨)</li>
+<li><strong>유형:</strong> Standards Track</li>
+<li><strong>생성일:</strong> 2004년 4월 18일</li>
+<li><strong>Python 버전:</strong> 2.4</li>
+<li><strong>이력:</strong> 2004년 4월 18일</li>
+</ul>
+<h2>개요 (Abstract)</h2>
+<p>이 제안은 빌트인(builtin) 참조를 상수처럼 취급하는 함수를 추가하고, 이 함수를 표준 라이브러리 전체에 적용하는 것을 목표로 합니다.</p>
+<h2>상태 (Status)</h2>
+<p>이 PEP는 작성자에 의해 스스로 거부되었습니다. ASPN 레시피는 좋은 반응을 얻었지만, 이 제안을 코어 배포판에 포함시키는 것에 대한 의지는 적었습니다.</p>
+<p>특히, Jython 구현은 바이트코드(byte code)를 사용하지 않으므로, 현재의 <code>_len=len</code>과 같은 최적화가 제거되면 성능 저하를 겪을 수 있습니다.</p>
+<p>또한, 바이트코드를 변경하는 것은 성능을 개선하고 더 깔끔한 코딩을 가능하게 하는 방법 중 가장 깔끔하지 못한 방법 중 하나로 여겨졌습니다. 더 견고한 해결책은 컴파일러 pragma 지시어 또는 최적화될 수 있는 것을 나타내는 메타변수(예: <code>const</code>/<code>volatile</code> 선언과 유사)를 포함할 가능성이 높았습니다.</p>
+<h2>동기 (Motivation)</h2>
+<p>표준 라이브러리에는 <code>_len=len</code>과 같은 코드가 포함되어 있는데, 이는 느린 전역(global) 조회 대신 빠른 지역(local) 참조를 생성하기 위한 것입니다. 이러한 구조는 성능을 위해 필요하지만, 코드를 지저분하게 만들고 종종 불완전합니다 (많은 최적화 기회를 놓칩니다).</p>
+<p>만약 이 제안이 채택되었다면, 이러한 구조들을 코드베이스에서 제거하면서도 성능 측면에서 더 나은 결과를 얻을 수 있었을 것입니다.</p>
+<p>현재 라이브러리에는 <code>while 1</code> 구문이 100개 이상 있습니다. 이들은 더 가독성 높은 <code>while True</code>로 대체되지 않았는데, 이는 성능상의 이유 때문입니다 (컴파일러가 <code>True</code>가 항상 상수임을 알지 못하므로 테스트를 제거할 수 없습니다). <code>True</code>를 상수로 변환하면 성능을 유지하면서 코드를 명확하게 할 수 있습니다.</p>
+<p>다른 많은 기본적인 Python 연산들도 전역 조회(global lookup) 때문에 훨씬 느리게 실행됩니다. <code>try</code>/<code>except</code> 문에서, 잡힌 예외(exception)들은 일치 여부를 테스트하기 전에 동적으로 조회됩니다. 마찬가지로, <code>while x is not None</code>과 같은 간단한 동일성 테스트도 매번 <code>None</code> 변수를 다시 조회해야 합니다. 빌트인 조회는 특히 더 문제가 되는데, 바깥쪽 전역 스코프(global scope)를 먼저 확인해야 하기 때문입니다. 이러한 조회 체인은 다른 곳에 더 잘 활용될 캐시 공간을 차지합니다.</p>
+<p>요약하자면, 이 제안이 채택되었다면 코드는 더 깔끔해지고 전반적인 성능이 향상되었을 것입니다.</p>
+<h2>제안 (Proposal)</h2>
+<p><code>codetweaks.py</code>라는 모듈을 추가하고, 이 모듈에는 <code>bind_constants()</code>와 <code>bind_all()</code>이라는 두 개의 함수를 포함합니다. 첫 번째 함수는 상수 바인딩(constant binding)을 수행하고, 두 번째 함수는 이를 대상 모듈 내의 모든 함수와 클래스에 재귀적으로 적용합니다.</p>
+<p>대부분의 표준 라이브러리 모듈의 경우, 스크립트 끝 부분에 다음과 같은 두 줄의 코드를 추가합니다.</p>
+<pre><code class="language-python">import codetweaks, sys
+codetweaks.bind_all(sys.modules[__name__])
+</code></pre>
+<p>빌트인 바인딩 외에도 <code>sre_compile</code>과 같은 일부 모듈에서는 모듈 변수와 빌트인 모두를 상수로 바인딩하는 것이 합리적입니다.</p>
+<h2>질의응답 (Questions and Answers)</h2>
+<ul>
+<li>
+<p><strong>이것이 모든 사람의 주의를 최적화 문제로 돌리게 만들까요?</strong>
+자동으로 수행되기 때문에, 최적화에 대해 생각할 필요성을 줄여줍니다.</p>
+</li>
+<li>
+<p><strong>간단히 말해, 어떻게 작동하나요?</strong>
+모든 함수에는 바이트코드(Python 가상 머신의 언어)와 상수 테이블이 포함된 속성이 있습니다. <code>bind</code> 함수는 바이트코드에서 <code>LOAD_GLOBAL</code> 명령을 스캔하고, 해당 값이 이미 알려져 있는지 확인합니다. 만약 그렇다면, 해당 값을 상수 테이블에 추가하고 opcode를 <code>LOAD_CONSTANT</code>로 대체합니다.</p>
+</li>
+<li>
+<p><strong>언제 작동하나요?</strong>
+모듈이 처음 임포트(import)될 때, Python은 바이트코드를 컴파일하고 바인딩 최적화를 실행합니다. 이후의 임포트는 이전 작업을 재사용합니다. 각 세션마다 이 프로세스가 반복됩니다 (결과는 <code>.pyc</code> 파일에 저장되지 않습니다).</p>
+</li>
+<li>
+<p><strong>이것이 작동하는지 어떻게 아나요?</strong>
+제가 구현하고, 라이브러리의 모든 모듈에 적용했으며, 테스트 스위트는 예외 없이 실행되었습니다.</p>
+</li>
+<li>
+<p><strong>모듈이 빌트인을 섀도잉(shadowing)하는 변수를 정의한다면요?</strong>
+이런 일이 발생합니다. 예를 들어, 모듈 수준에서 <code>True = (1==1)</code>과 같이 <code>True</code>를 재정의할 수 있습니다. 아래의 샘플 구현은 섀도잉을 감지하고 전역 조회는 변경하지 않고 둡니다.</p>
+</li>
+<li>
+<p><strong>대부분의 전역 조회가 절대 변경되지 않는 값에 대한 것임을 처음으로 인지한 사람인가요?</strong>
+아닙니다. 이는 오랫동안 알려진 사실입니다. Skip Montanaro는 PEP 266에서 명쾌한 설명을 제공합니다.</p>
+</li>
+<li>
+<p><strong><code>builtins</code> 모듈을 교체하고 사용자 정의 구현을 제공하려면 어떻게 해야 하나요?</strong>
+모듈을 임포트하기 전에 이를 수행하거나, 모듈을 다시 로드(reload)하거나, <code>codetweaks.py</code>를 비활성화(disable)할 수 있습니다 (비활성화 플래그가 있을 것입니다).</p>
+</li>
+<li>
+<p><strong>이 모듈은 Python의 바이트코드 변경에 얼마나 취약한가요?</strong>
+재넘버링(renumbering)으로부터 보호하기 위해 <code>opcode.py</code>를 임포트합니다. 또한, <code>LOAD_CONST</code>와 <code>LOAD_GLOBAL</code>은 근본적이고 오랫동안 존재해왔습니다. 그럼에도 불구하고, 코딩 스키마가 변경될 수 있으며, 이 구현은 현재 코딩 스키마에 의존하는 <code>dis</code>와 같은 모듈과 함께 변경되어야 할 것입니다.</p>
+</li>
+<li>
+<p><strong>시작 시간(startup time)에 미치는 영향은 무엇인가요?</strong>
+차이를 측정할 수 없었습니다. <code>warnings.py</code>를 제외하고는 어떤 시작 모듈도 바인딩되지 않습니다. 또한, 바인딩 함수는 <code>LOAD_GLOBAL</code> opcode를 찾아 코드 문자열을 한 번만 통과하므로 매우 빠릅니다.</p>
+</li>
+</ul>
+<h2>샘플 구현 (Sample Implementation)</h2>
+<p>다음은 <code>codetweaks.py</code>의 샘플 구현입니다. 이 코드는 주어진 함수(<code>f</code>)의 바이트코드를 스캔하여 <code>LOAD_GLOBAL</code> 연산을 찾고, 만약 해당 전역 변수가 현재 환경(빌트인 또는 모듈 전역)에서 상수처럼 정의되어 있다면, 이를 <code>LOAD_CONSTANT</code>로 대체하여 최적화합니다.</p>
+<p><code>bind_constants</code> 함수는 단일 함수를 최적화하며, <code>builtin_only</code> 플래그를 통해 빌트인만 최적화할지, 아니면 모듈 전역까지 포함할지 제어할 수 있습니다. <code>stoplist</code>를 통해 특정 변수를 최적화에서 제외할 수도 있습니다.</p>
+<p><code>bind_all</code> 함수는 모듈 또는 클래스 내의 모든 함수에 <code>bind_constants</code>를 재귀적으로 적용합니다. 모듈의 마지막 줄(모든 정의가 완료된 후, 테스트 코드 이전에)에 사용하여 모듈 전체를 최적화하도록 제안됩니다.</p>
+<pre><code class="language-python"># (원문 코드 생략. 여기서는 설명만 제공합니다.)
+from types import ClassType, FunctionType
+from opcode import opmap, HAVE_ARGUMENT, EXTENDED_ARG
+LOAD_GLOBAL, LOAD_CONST = opmap['LOAD_GLOBAL'], opmap['LOAD_CONST']
+ABORT_CODES = (EXTENDED_ARG, opmap['STORE_GLOBAL'])
+
+def bind_constants(f, builtin_only=False, stoplist=[], verbose=False):
+    """
+    최적화된 전역 참조를 가진 새 함수를 반환합니다.
+    전역 참조를 현재 정의된 값으로 대체합니다.
+    정의되지 않은 경우, 동적(런타임) 전역 조회는 그대로 둡니다.
+    builtin_only가 True인 경우, 빌트인만 최적화됩니다.
+    stoplist에 있는 변수 이름도 그대로 둡니다.
+    verbose가 True인 경우, 각 대체가 발생할 때마다 출력합니다.
+    """
+    # ... (생략) ...
+    # 바이트코드를 분석하고 LOAD_GLOBAL을 LOAD_CONST로 대체하는 로직 포함
+    # ... (생략) ...
+
+def bind_all(mc, builtin_only=False, stoplist=[], verbose=False):
+    """
+    모듈 또는 클래스 내의 함수에 bind_constants()를 재귀적으로 적용합니다.
+    모듈의 마지막 줄(모든 것이 정의된 후, 테스트 코드 이전에)에 사용합니다.
+    수정 가능한 전역 변수가 필요한 모듈에서는 builtin_only를 True로 설정합니다.
+    """
+    # ... (생략) ...
+    # 모듈/클래스 내의 함수 및 클래스를 순회하며 bind_constants 적용
+    # ... (생략) ...
+
+# CPython이 아닌 환경(바이트코드가 없는 환경)을 자동으로 감지합니다.
+# 이 경우, bind 함수는 단순히 원본 함수를 변경 없이 반환합니다.
+# 이는 라이브러리 모듈에 두 줄을 추가하는 것이 다른 구현에 영향을 미치지 않도록 보장합니다.
+# 최종 코드에는 바인딩을 쉽게 비활성화할 수 있는 플래그가 추가되어야 합니다.
+</code></pre>
+<h2>참고 자료 (References)</h2>
+<ul>
+<li>비공개 구현을 위한 ASPN 레시피
+<code>https://code.activestate.com/recipes/277940/</code></li>
+<li>CPython과 Jython의 차이점
+<code>https://web.archive.org/web/20031018014238/http://www.jython.org/cgi-bin/faqw.py?req=show&#x26;file=faq01.003.htp</code></li>
+</ul>
+<h2>저작권 (Copyright)</h2>
+<p>이 문서는 퍼블릭 도메인(public domain)에 공개되었습니다.</p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":[["$","aside",null,{"className":"lg:w-64 xl:w-72 order-1 lg:order-none","children":["$","div",null,{"className":"sidebar sticky","children":["$","nav",null,{"className":"space-y-4","children":[["$","div","Backend",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Backend"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Django",{"children":["$","a",null,{"href":"/backend/django/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Django"," (",6,")"]}]}],["$","li","Logging",{"children":["$","a",null,{"href":"/backend/logging/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Logging"," (",1,")"]}]}]]}]]}],["$","div","Python",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Python"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","PEP",{"children":["$","a",null,{"href":"/python/pep/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["PEP"," (",650,")"]}]}]]}]]}],["$","div","AI/ML",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"AI/ML"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","LLM",{"children":["$","a",null,{"href":"/ai/llm/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["LLM"," (",1,")"]}]}],["$","li","Review",{"children":["$","a",null,{"href":"/ai/review/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Review"," (",2648,")"]}]}]]}]]}],["$","div","DevOps",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"DevOps"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Nginx",{"children":["$","a",null,{"href":"/devops/nginx/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Nginx"," (",1,")"]}]}],["$","li","Docker",{"children":["$","a",null,{"href":"/devops/docker/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Docker"," (",1,")"]}]}],["$","li","SafeLine",{"children":["$","a",null,{"href":"/devops/safeline/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["SafeLine"," (",1,")"]}]}],["$","li","Jenkins",{"children":["$","a",null,{"href":"/devops/jenkins/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Jenkins"," (",3,")"]}]}],["$","li","GitHub Actions",{"children":["$","a",null,{"href":"/devops/github-actions/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["GitHub Actions"," (",1,")"]}]}],["$","li","AWS",{"children":["$","a",null,{"href":"/devops/aws/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["AWS"," (",1,")"]}]}]]}]]}],["$","div","etc",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"etc"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Me",{"children":["$","a",null,{"href":"/etc/me/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Me"," (",3,")"]}]}],["$","li","Chrome Extension",{"children":["$","a",null,{"href":"/etc/chrome-extension/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Chrome Extension"," (",1,")"]}]}]]}]]}]]}]}]}],["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Rejected] PEP 329 - Treating Builtins as Constants in the Standard Library"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-26 20:37:36+0900","children":"2025년 9월 26일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 26일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]}],["$","$La",null,{"postPermalink":"/python/pep/329/","postId":"2025-09-26-pep-0329-treating-builtins-as-constants-in-the-standard-library"}],["$","section",null,{"className":"mt-12 border-t border-gray-200 pt-8","children":[["$","h3",null,{"className":"text-base font-semibold text-gray-900 mb-4","children":["Python"," 의 다른글"]}],["$","ul",null,{"className":"space-y-2 text-sm","children":[["$","li",null,{"className":"text-gray-500","children":["이전글"," ",["$","$L7",null,{"href":"/python/pep/326/","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Rejected] PEP 326 - A Case for Top and Bottom Values"}]]}],["$","li",null,{"className":"text-gray-900 font-semibold","children":["현재글 : ","[Rejected] PEP 329 - Treating Builtins as Constants in the Standard Library"]}],["$","li",null,{"className":"text-gray-500","children":["다음글"," ",["$","$L7",null,{"href":"/python/pep/366/","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Final] PEP 366 - Main module explicit relative imports"}]]}]]}]]}]]}]}]]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"secrett2633's blog"}],["$","meta","3",{"name":"description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://blog.secrett2633.cloud/"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"secrett2633's blog"}],["$","meta","13",{"property":"og:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","14",{"property":"og:url","content":"https://blog.secrett2633.cloud/"}],["$","meta","15",{"property":"og:site_name","content":"secrett2633's blog"}],["$","meta","16",{"property":"og:locale","content":"ko_KR"}],["$","meta","17",{"property":"og:type","content":"website"}],["$","meta","18",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","19",{"name":"twitter:title","content":"secrett2633's blog"}],["$","meta","20",{"name":"twitter:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","link","21",{"rel":"icon","href":"/icon.ico?6d9f34d4948640b8","type":"image/x-icon","sizes":"16x16"}],["$","meta","22",{"name":"next-size-adjust"}]]
+1:null

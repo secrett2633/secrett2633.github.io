@@ -1,0 +1,112 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[9157,["231","static/chunks/231-467e37449c5a68fc.js","185","static/chunks/app/layout-b44b076173de406f.js"],"default"]
+7:I[231,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-dfe24a3bbd58f9b9.js"],""]
+4:["slug","python/pep/640","c"]
+0:["sXH0w-Ur4uCLT-31_N3TA",[[["",{"children":[["slug","python/pep/640","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"640\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/640","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_f367f3 layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/d6cea809dcbae606.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+a:I[646,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-dfe24a3bbd58f9b9.js"],"default"]
+9:T2cae,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0640/">PEP 640 - Unused variable syntax</a></p>
+<p><strong>상태:</strong> Rejected | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 04-Oct-2020</p>
+</blockquote>
+<p>PEP 640: 사용되지 않는 변수 구문 제안 번역 및 해설</p>
+<h2>거부(Rejection) 사유</h2>
+<p><strong>PEP 640은 스티어링 위원회에 의해 거부되었습니다.</strong>
+관련 내용은 다음 링크에서 확인할 수 있습니다: <a href="https://mail.python.org/archives/list/python-dev@python.org/message/SQC2FTLFV5A7DV7RCEAR2I2IKJKGK7W3/">https://mail.python.org/archives/list/python-dev@python.org/message/SQC2FTLFV5A7DV7RCEAR2I2IKJKGK7W3/</a></p>
+<hr>
+<h2>초록 (Abstract)</h2>
+<p>이 PEP는 사용되지 않는 변수를 위한 새로운 구문을 제안합니다. 이 구문은 할당될 수 있지만 다른 목적으로는 사용될 수 없는 가상의 이름을 제공합니다. 실제 할당은 일어나지 않으며, 값은 대신 버려집니다.</p>
+<h2>동기 (Motivation)</h2>
+<p>Python에서는 결과가 실제로 필요하지 않음에도 불구하고 할당을 해야 하는 경우가 종종 발생합니다. 일반적으로 이러한 목적으로 <code>_</code> 또는 <code>unused</code>와 같은 이름(혹은 <code>unused</code> 접두사가 붙은 이름)을 사용합니다. 이는 주로 언패킹(unpacking) 할당에서 가장 흔하게 나타납니다:</p>
+<pre><code class="language-python">x, unused, z = range(3)
+x, *unused, z = range(10)
+</code></pre>
+<p>또한, <code>for</code> 루프와 컴프리헨션(comprehension)에서도 사용됩니다:</p>
+<pre><code class="language-python">for unused in range(10):
+    ...
+[ SpamObject() for unused in range(10) ]
+</code></pre>
+<p>이러한 경우 <code>_</code>의 사용이 가장 일반적이지만, 국제화(internationalization)에서 <code>gettext.gettext()</code>와 같은 호출이 <code>_</code>에 바인딩되어 번역을 위한 문자열을 표시하는 데 사용될 때 충돌할 수 있습니다.</p>
+<p>Python에 패턴 매칭(Pattern Matching)을 추가하기 위한 제안(원래 PEP 622, 현재 PEP 634, PEP 635, PEP 636으로 분할됨)에서는 <code>_</code>가 추가적인 특별한 의미를 가집니다. 이것은 와일드카드 패턴(wildcard pattern)으로, 변수가 할당될 수 있는 위치에서 어떤 값이든 매칭되지만 아무것도 할당되지 않음을 나타내는 데 사용됩니다. 여기서 <code>_</code>의 선택은 다른 언어에서 <code>_</code>를 사용하는 것과 일치하지만, Python의 다른 곳에서 <code>_</code>의 의미론적 차이는 중요합니다.</p>
+<p>이 PEP는 할당에서 유효한 이름 대신 특별한 토큰 <code>?</code>를 사용하는 것을 제안합니다. 이것은 <code>_</code>의 대부분의 이점을 가지면서도, 다른 일반 변수의 사용에 영향을 미치지 않습니다. 동일한 와일드카드 패턴을 허용하면 패턴 매칭과 언패킹 할당이 서로 더 일관성을 갖게 됩니다.</p>
+<h2>근거 (Rationale)</h2>
+<p>특정 변수를 사용되지 않음으로 표시하는 것은 코드의 목적을 명확히 하는 데 도움이 되는 유용한 도구입니다. 이는 코드 독자뿐만 아니라 자동화된 린터(linter)에게도 특정 변수가 의도적으로 사용되지 않는다는 것을 명확하게 보여줍니다.</p>
+<p>그러나 이러한 관행에도 불구하고 <code>_</code>는 특별한 변수가 아닙니다. 값은 여전히 할당되고, 참조하는 객체는 스코프(scope) 끝까지 살아있으며, 여전히 사용될 수 있습니다. 또한, <code>_</code>를 사용되지 않는 변수로 사용하는 것이 완전히 보편적이지는 않습니다. 이는 관습적인 국제화와 충돌하며, 일반 변수라는 것이 명확하지 않고, <code>unused</code>라는 이름의 변수만큼 명확하게 사용되지 않는다는 것을 보여주지 못합니다.</p>
+<p>패턴 매칭 제안에서 와일드카드 패턴을 위한 <code>_</code>의 사용은 별도의 스코프에 있다는 장점 덕분에 사용되지 않는 변수를 위한 <code>_</code>의 문제를 비껴갑니다. 국제화와의 유일한 충돌은 잠재적인 혼란일 뿐, 전역 변수 <code>_</code>의 사용과 실제로 상호작용하지는 않습니다. 그러나 이 와일드카드 패턴 목적을 위한 <code>_</code>의 특별한 취급은 여전히 문제가 됩니다. 패턴 매칭 내부와 외부에서 <code>_</code>의 다른 의미론과 의미는 Python의 일관성을 깨뜨립니다.</p>
+<p>패턴 매칭 내부와 외부 모두에서 사용되지 않는 변수를 위한 특별한 구문으로 <code>?</code>를 도입하면 일관성을 유지할 수 있습니다. 이는 국제화 또는 <code>_</code>를 변수로 사용하는 다른 모든 경우와의 충돌을 피합니다. 또한 언패킹 할당을 패턴 매칭과 더 밀접하게 일치시켜, 패턴 매칭을 언패킹 할당의 확장으로 설명하기 더 쉽게 만듭니다.</p>
+<p>코드 가독성 측면에서, 특별한 토큰을 사용하면 그 의미를 파악하기 더 쉬워집니다 ("Python에서 물음표는 무엇을 하는가" 대 "내 <code>_</code> 변수에는 왜 할당되지 않는가"). 그리고 실제 의도가 값을 사용하지 않는 것임을 더 명확하게 보여줍니다. 왜냐하면 <code>?</code>는 사용하는 것이 완전히 불가능하기 때문입니다.</p>
+<h2>명세 (Specification)</h2>
+<p>새로운 토큰 <code>?</code> 또는 <code>token.QMARK</code>가 도입됩니다.</p>
+<p>문법은 할당 컨텍스트(현재 문법에서 <code>star_atom</code> 및 <code>t_atom</code>)에서 <code>?</code>를 허용하도록 수정되며, 식별자가 <code>NULL</code>로 설정된 <code>Name</code> AST 노드를 생성합니다.</p>
+<p>AST는 <code>Name</code> 표현식의 식별자가 선택 사항이 되도록 수정됩니다(현재는 필수). 식별자가 비어 있는 것은 <code>STORE</code> 컨텍스트에서만 허용됩니다.</p>
+<p>CPython에서 바이트코드 컴파일러는 식별자가 없는 <code>Name</code> 노드에 대해 <code>STORE_NAME</code> 대신 <code>POP_TOP</code>을 방출하도록 수정됩니다. <code>Name</code> 노드의 다른 사용은 식별자가 비어 있는 것을 적절하게 처리하도록 업데이트됩니다.</p>
+<p>수정된 문법 노드의 사용은 적어도 다음 형태의 할당을 포함합니다:</p>
+<pre><code class="language-python">? = ...
+x, ?, z = ...
+x, *?, z = ...
+for ? in range(3): ... # 컴프리헨션 형태 포함
+for x, ?, z in matrix: ... # 컴프리헨션 형태 포함
+with open(f) as ?: ...
+with func() as (x, ?, z): ...
+</code></pre>
+<p>언패킹 컨텍스트가 아닌 단일 <code>?</code>의 사용은 일반 할당 및 <code>with</code> 문에서 허용됩니다. 이는 그 자체로는 큰 의미가 없으며, 이러한 특정 경우를 금지하는 것도 가능합니다. 그러나 <code>for ? in range(3)</code>는 분명히 사용처가 있으므로, 다른 이유가 없더라도 일관성을 위해 단일 <code>?</code>를 다른 경우에도 허용하는 것이 더 합리적입니다.</p>
+<p>증가 할당(<code>? *= 2</code>)에서 <code>?</code>를 사용하는 것은 허용되지 않습니다. <code>?</code>는 할당에만 사용될 수 있기 때문입니다. <code>?</code>의 여러 발생은 유효하며, 이름을 할당할 때와 마찬가지로 할당이 서로 간섭하지 않습니다.</p>
+<h2>하위 호환성 (Backwards Compatibility)</h2>
+<p>새로운 토큰을 도입하는 것은 하위 호환성 문제가 없음을 의미합니다. 유효한 구문의 의미가 변경되지 않습니다.</p>
+<p><code>?</code>는 식별자로 간주되지 않으므로 <code>str.isidentifier()</code>의 동작이 변경되지 않습니다.</p>
+<p>AST는 호환되지 않는 방식으로 변경됩니다. <code>Name</code> 토큰의 식별자가 이제 비어 있을 수 있기 때문입니다. AST를 사용하는 코드는 이에 따라 조정되어야 합니다.</p>
+<h2>교육 방법 (How to Teach This)</h2>
+<p><code>?</code>는 언패킹 할당과 함께 소개될 수 있으며, '사용되지 않음'을 위한 특별한 구문이며 다른 곳에서도 사용될 수 있음을 설명할 수 있습니다. 또는 <code>for</code> 루프에서의 할당 설명의 일부로 소개될 수 있으며, 루프 변수가 사용되지 않는 예시를 보여줄 수 있습니다.</p>
+<p>PEP 636은 <code>_</code>를 가르치는 방법을 다루고 있으며, 단순히 <code>_</code>를 <code>?</code>로 대체하고, <code>?</code>가 다른 컨텍스트에서도 비슷하게 사용될 수 있음을 언급할 수 있습니다.</p>
+<h2>참조 구현 (Reference Implementation)</h2>
+<p>프로토타입 구현은 다음에서 확인할 수 있습니다: <a href="https://github.com/Yhg1s/cpython/tree/nonassign">https://github.com/Yhg1s/cpython/tree/nonassign</a></p>
+<h2>거부된 아이디어 (Rejected Ideas)</h2>
+<p>(내용 없음)</p>
+<h2>미해결 문제 (Open Issues)</h2>
+<p><code>?</code>가 다음 컨텍스트에서 허용되어야 할까요?</p>
+<ul>
+<li><strong>Side-effect만 있는 <code>import</code>:</strong>
+<pre><code class="language-python">import os as ?
+from os import path as ?
+</code></pre>
+</li>
+<li><strong>Side-effect만 있는 함수 정의 (예: 데코레이터):</strong>
+<pre><code class="language-python">@register_my_func
+def ?(...): ...
+</code></pre>
+</li>
+<li><strong>Side-effect만 있는 클래스 정의 (예: 데코레이터, <code>__init_subclass__</code>):</strong>
+<pre><code class="language-python">class ?(...): ...
+</code></pre>
+</li>
+<li><strong>사용되지 않는 Positional-only 인수를 위한 매개변수:</strong>
+<pre><code class="language-python">def f(a, ?, ?): ...
+lambda a, ?, ?: ...
+</code></pre>
+</li>
+<li><strong>타입 어노테이션(Type Annotations)이 있는 사용되지 않는 변수:</strong>
+<pre><code class="language-python">?: int = f()
+</code></pre>
+</li>
+<li><strong>예외 처리:</strong>
+<pre><code class="language-python">try:
+    ...
+except Exception as ?:
+    ...
+</code></pre>
+</li>
+<li><strong><code>with</code> 블록:</strong>
+<pre><code class="language-python">with open(f) as ?: ...
+</code></pre>
+</li>
+</ul>
+<p>이들 중 일부는 일관성 측면에서 의미가 있어 보일 수 있지만, 실용적인 사용은 제한적이고 의심스럽습니다. <code>?</code>에 대한 타입 어노테이션이나 <code>except</code>, <code>with</code>와 함께 사용하는 것은 전혀 의미가 없어 보입니다. 참조 구현에서는 <code>except</code>가 지원되지 않지만(<code>except</code>의 기존 구문은 이름만 허용), <code>with</code>는 지원됩니다(기존 구문이 언패킹 할당을 지원하기 때문).</p>
+<p>패턴 매칭이 거부되더라도 이 PEP는 받아들여져야 할까요?</p>
+<h2>저작권 (Copyright)</h2>
+<p>이 문서는 퍼블릭 도메인 또는 CC0-1.0-Universal 라이선스 중 더 관대한 조건으로 배포됩니다.</p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":[["$","aside",null,{"className":"lg:w-64 xl:w-72 order-1 lg:order-none","children":["$","div",null,{"className":"sidebar sticky","children":["$","nav",null,{"className":"space-y-4","children":[["$","div","Backend",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Backend"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Django",{"children":["$","a",null,{"href":"/backend/django/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Django"," (",6,")"]}]}],["$","li","Logging",{"children":["$","a",null,{"href":"/backend/logging/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Logging"," (",1,")"]}]}]]}]]}],["$","div","Python",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Python"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","PEP",{"children":["$","a",null,{"href":"/python/pep/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["PEP"," (",650,")"]}]}]]}]]}],["$","div","AI/ML",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"AI/ML"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","LLM",{"children":["$","a",null,{"href":"/ai/llm/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["LLM"," (",1,")"]}]}],["$","li","Review",{"children":["$","a",null,{"href":"/ai/review/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Review"," (",2648,")"]}]}]]}]]}],["$","div","DevOps",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"DevOps"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Nginx",{"children":["$","a",null,{"href":"/devops/nginx/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Nginx"," (",1,")"]}]}],["$","li","Docker",{"children":["$","a",null,{"href":"/devops/docker/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Docker"," (",1,")"]}]}],["$","li","SafeLine",{"children":["$","a",null,{"href":"/devops/safeline/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["SafeLine"," (",1,")"]}]}],["$","li","Jenkins",{"children":["$","a",null,{"href":"/devops/jenkins/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Jenkins"," (",3,")"]}]}],["$","li","GitHub Actions",{"children":["$","a",null,{"href":"/devops/github-actions/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["GitHub Actions"," (",1,")"]}]}],["$","li","AWS",{"children":["$","a",null,{"href":"/devops/aws/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["AWS"," (",1,")"]}]}]]}]]}],["$","div","etc",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"etc"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Me",{"children":["$","a",null,{"href":"/etc/me/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Me"," (",3,")"]}]}],["$","li","Chrome Extension",{"children":["$","a",null,{"href":"/etc/chrome-extension/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Chrome Extension"," (",1,")"]}]}]]}]]}]]}]}]}],["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Rejected] PEP 640 - Unused variable syntax"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-27 01:31:38+0900","children":"2025년 9월 27일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 27일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]}],["$","$La",null,{"postPermalink":"/python/pep/640/","postId":"2025-09-27-pep-0640-unused-variable-syntax"}],["$","section",null,{"className":"mt-12 border-t border-gray-200 pt-8","children":[["$","h3",null,{"className":"text-base font-semibold text-gray-900 mb-4","children":["Python"," 의 다른글"]}],["$","ul",null,{"className":"space-y-2 text-sm","children":[["$","li",null,{"className":"text-gray-500","children":["이전글"," ",["$","$L7",null,{"href":"/python/pep/639/","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Final] PEP 639 - Improving License Clarity with Better Package Metadata"}]]}],["$","li",null,{"className":"text-gray-900 font-semibold","children":["현재글 : ","[Rejected] PEP 640 - Unused variable syntax"]}],["$","li",null,{"className":"text-gray-500","children":["다음글"," ",["$","$L7",null,{"href":"/python/pep/641/","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Rejected] PEP 641 - Using an underscore in the version portion of Python 3.10 compatibility tags"}]]}]]}]]}]]}]}]]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"secrett2633's blog"}],["$","meta","3",{"name":"description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://blog.secrett2633.cloud/"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"secrett2633's blog"}],["$","meta","13",{"property":"og:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","14",{"property":"og:url","content":"https://blog.secrett2633.cloud/"}],["$","meta","15",{"property":"og:site_name","content":"secrett2633's blog"}],["$","meta","16",{"property":"og:locale","content":"ko_KR"}],["$","meta","17",{"property":"og:type","content":"website"}],["$","meta","18",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","19",{"name":"twitter:title","content":"secrett2633's blog"}],["$","meta","20",{"name":"twitter:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","link","21",{"rel":"icon","href":"/icon.ico?6d9f34d4948640b8","type":"image/x-icon","sizes":"16x16"}],["$","meta","22",{"name":"next-size-adjust"}]]
+1:null

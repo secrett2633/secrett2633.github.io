@@ -1,0 +1,82 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[9157,["231","static/chunks/231-467e37449c5a68fc.js","185","static/chunks/app/layout-b44b076173de406f.js"],"default"]
+7:I[231,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-dfe24a3bbd58f9b9.js"],""]
+4:["slug","devops/aws/aws-lambda-eventbridge","c"]
+0:["sXH0w-Ur4uCLT-31_N3TA",[[["",{"children":[["slug","devops/aws/aws-lambda-eventbridge","c"],{"children":["__PAGE__?{\"slug\":[\"devops\",\"aws\",\"aws-lambda-eventbridge\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","devops/aws/aws-lambda-eventbridge","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_f367f3 layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/d6cea809dcbae606.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+a:I[646,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-dfe24a3bbd58f9b9.js"],"default"]
+9:T12d4,<h1>들어가며</h1>
+<p>지난 글에서는 뇌과학적으로 게으름과 무기력을 극복하는 방법에 대해 다루었습니다. 그 방법 중 하나로 내가 하고 있는 행동이나 생각을 말로 설명하는 것이 있었는데, 이를 확장하여 15분 단위로 행동을 기록하면 시간을 효율적으로 사용할 뿐만 아니라 과거의 내가 어떤 행동을 했는지 기억할 수 있다는 장점이 있습니다. 그래서 이를 실천하기 위해 AWS Lambda와 Notion API, Slack Webhook을 활용하여 자동 기록 시스템을 구축하였습니다.</p>
+<h2>시스템 개요</h2>
+<p>이 시스템은 다음과 같은 방식으로 동작합니다:</p>
+<ol>
+<li>AWS Lambda 함수를 작성하여 15분 단위로 실행되도록 설정합니다.</li>
+<li>Amazon EventBridge를 이용해 정해진 시간마다 Lambda 함수를 실행합니다.</li>
+<li>실행된 Lambda 함수는 Notion API를 통해 데이터베이스에 새로운 행을 추가합니다.</li>
+<li>동시에 Slack Webhook을 이용하여 15분이 지났음을 알리는 메시지를 Slack에 전송합니다.</li>
+</ol>
+<h2>Notion API 설정</h2>
+<h3>1. Notion API Key 발급</h3>
+<p>Notion API를 사용하려면 API Key와 Database ID가 필요합니다.</p>
+<ul>
+<li>Notion 웹사이트에서 <a href="https://developers.notion.com/">Developers 페이지</a>에 접속합니다.</li>
+<li><code>View My Integration</code> -> <code>New Integration</code> 버튼을 클릭하여 정보를 입력하고 API Key를 발급받습니다.</li>
+</ul>
+<h3>2. Notion Database ID 확인</h3>
+<ul>
+<li>생성한 Notion 데이터베이스에서 <code>...</code> 버튼을 클릭 후 <code>Copy link to view</code>를 선택합니다.</li>
+<li>복사한 링크는 다음과 같은 형태입니다.
+<pre><code>https://www.notion.so/secrett2633/{database_id}?v={필요없는 값}
+</code></pre>
+</li>
+<li><code>{database_id}</code> 부분만 추출하여 사용합니다.</li>
+</ul>
+<h3>3. Integration 등록</h3>
+<ul>
+<li>Notion 데이터베이스에서 <code>...</code> 버튼 -> <code>Connection</code> -> 위에서 생성한 Integration을 선택하여 등록합니다.</li>
+<li>이 과정을 거치지 않으면 API 요청 시 에러가 발생할 수 있습니다.</li>
+</ul>
+<h2>Slack Webhook 설정</h2>
+<h3>1. Slack App 생성</h3>
+<ul>
+<li><a href="https://api.slack.com/apps">Slack API 페이지</a>에서 <code>Slack App</code>을 생성합니다.</li>
+<li><code>Incoming Webhooks</code> 메뉴로 이동하여 Webhook 기능을 활성화합니다.</li>
+<li><code>Add New Webhook to Workspace</code> 버튼을 눌러 Webhook URL을 발급받습니다.</li>
+<li>발급받은 URL을 사용하여 특정 Slack 채널에 메시지를 전송할 수 있습니다.</li>
+</ul>
+<h2>AWS Lambda 배포 및 설정</h2>
+<h3>1. Lambda 함수 작성</h3>
+<ul>
+<li>Lambda 함수에서 Notion API를 호출하여 데이터베이스에 새로운 행을 추가합니다.</li>
+<li>Slack Webhook을 호출하여 알림 메시지를 전송합니다.</li>
+<li>Python을 사용하여 함수를 작성하며, <code>requests</code>, <code>pytz</code> 라이브러리를 사용합니다.</li>
+</ul>
+<h3>2. 필요 라이브러리 설치 및 Layer 생성</h3>
+<p>AWS Lambda는 기본적으로 <code>requests</code>, <code>pytz</code> 등의 라이브러리를 포함하지 않으므로 Layer를 생성하여 추가해야 합니다.</p>
+<pre><code class="language-bash">mkdir python
+pip install requests pytz -t python/
+zip -r layer.zip python/
+</code></pre>
+<p>이제 생성한 <code>layer.zip</code>을 AWS Lambda에 업로드하여 Layer를 추가할 수 있습니다.</p>
+<ol>
+<li>AWS Lambda에서 <code>계층 생성</code> 버튼 클릭</li>
+<li>이름, 설명, 런타임을 선택하고 <code>layer.zip</code> 파일을 업로드</li>
+<li>생성된 Layer를 Lambda 함수에 추가</li>
+</ol>
+<h3>3. EventBridge를 통한 자동 실행 설정</h3>
+<p>Lambda 함수를 15분마다 자동 실행되도록 EventBridge를 설정합니다.</p>
+<ol>
+<li><strong>Amazon EventBridge</strong> -> <code>스케줄러 일정</code> -> <code>일정 생성</code></li>
+<li>이름과 설명 입력 후 <code>반복 일정</code>을 선택</li>
+<li><code>cron 표현식</code> 입력 (예: 매일 9시~23시 사이 15분 간격 실행)
+<pre><code>0/15 9-23 * * ? *
+</code></pre>
+</li>
+<li>다음 버튼을 눌러 <code>AWS Lambda 함수</code>를 선택하고 생성한 함수를 연결</li>
+<li>설정을 완료하여 일정이 자동 실행되도록 구성</li>
+</ol>
+<h2>마무리</h2>
+<p>이제 설정이 완료되었으므로, 15분마다 Notion 데이터베이스에 자동으로 시간이 기록되고 Slack 알림을 받을 수 있습니다. 이를 통해 자신의 시간 사용을 효율적으로 관리하고 기록할 수 있습니다.</p>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":[["$","aside",null,{"className":"lg:w-64 xl:w-72 order-1 lg:order-none","children":["$","div",null,{"className":"sidebar sticky","children":["$","nav",null,{"className":"space-y-4","children":[["$","div","Backend",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Backend"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Django",{"children":["$","a",null,{"href":"/backend/django/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Django"," (",6,")"]}]}],["$","li","Logging",{"children":["$","a",null,{"href":"/backend/logging/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Logging"," (",1,")"]}]}]]}]]}],["$","div","Python",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Python"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","PEP",{"children":["$","a",null,{"href":"/python/pep/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["PEP"," (",650,")"]}]}]]}]]}],["$","div","AI/ML",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"AI/ML"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","LLM",{"children":["$","a",null,{"href":"/ai/llm/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["LLM"," (",1,")"]}]}],["$","li","Review",{"children":["$","a",null,{"href":"/ai/review/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Review"," (",2648,")"]}]}]]}]]}],["$","div","DevOps",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"DevOps"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Nginx",{"children":["$","a",null,{"href":"/devops/nginx/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Nginx"," (",1,")"]}]}],["$","li","Docker",{"children":["$","a",null,{"href":"/devops/docker/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Docker"," (",1,")"]}]}],["$","li","SafeLine",{"children":["$","a",null,{"href":"/devops/safeline/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["SafeLine"," (",1,")"]}]}],["$","li","Jenkins",{"children":["$","a",null,{"href":"/devops/jenkins/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Jenkins"," (",3,")"]}]}],["$","li","GitHub Actions",{"children":["$","a",null,{"href":"/devops/github-actions/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["GitHub Actions"," (",1,")"]}]}],["$","li","AWS",{"children":["$","a",null,{"href":"/devops/aws/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["AWS"," (",1,")"]}]}]]}]]}],["$","div","etc",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"etc"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Me",{"children":["$","a",null,{"href":"/etc/me/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Me"," (",3,")"]}]}],["$","li","Chrome Extension",{"children":["$","a",null,{"href":"/etc/chrome-extension/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Chrome Extension"," (",1,")"]}]}]]}]]}]]}]}]}],["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[AWS] AWS Lambda와 Notion API를 활용한 15분 단위 자동 기록 시스템"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-02-25 18:57:00+0900","children":"2025년 2월 25일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 2월 25일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","AWS,Lambda,EventBridge",{"className":"page__taxonomy-item","children":["#",["AWS","Lambda","EventBridge"]]}]]]}]}],["$","$La",null,{"postPermalink":"/devops/aws/aws-lambda-eventbridge/","postId":"2025-02-25-aws-lambda-eventbridge"}],["$","section",null,{"className":"mt-12 border-t border-gray-200 pt-8","children":[["$","h3",null,{"className":"text-base font-semibold text-gray-900 mb-4","children":["AWS"," 의 다른글"]}],["$","ul",null,{"className":"space-y-2 text-sm","children":[["$","li",null,{"className":"text-gray-500","children":["이전글"," ",["$","span",null,{"className":"text-gray-400","children":"없음"}]]}],["$","li",null,{"className":"text-gray-900 font-semibold","children":["현재글 : ","[AWS] AWS Lambda와 Notion API를 활용한 15분 단위 자동 기록 시스템"]}],["$","li",null,{"className":"text-gray-500","children":["다음글"," ",["$","span",null,{"className":"text-gray-400","children":"없음"}]]}]]}]]}]]}]}]]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"secrett2633's blog"}],["$","meta","3",{"name":"description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://blog.secrett2633.cloud/"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"secrett2633's blog"}],["$","meta","13",{"property":"og:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","14",{"property":"og:url","content":"https://blog.secrett2633.cloud/"}],["$","meta","15",{"property":"og:site_name","content":"secrett2633's blog"}],["$","meta","16",{"property":"og:locale","content":"ko_KR"}],["$","meta","17",{"property":"og:type","content":"website"}],["$","meta","18",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","19",{"name":"twitter:title","content":"secrett2633's blog"}],["$","meta","20",{"name":"twitter:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","link","21",{"rel":"icon","href":"/icon.ico?6d9f34d4948640b8","type":"image/x-icon","sizes":"16x16"}],["$","meta","22",{"name":"next-size-adjust"}]]
+1:null

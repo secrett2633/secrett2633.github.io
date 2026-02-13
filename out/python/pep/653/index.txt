@@ -1,0 +1,538 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[9157,["231","static/chunks/231-467e37449c5a68fc.js","185","static/chunks/app/layout-b44b076173de406f.js"],"default"]
+7:I[231,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-dfe24a3bbd58f9b9.js"],""]
+4:["slug","python/pep/653","c"]
+0:["sXH0w-Ur4uCLT-31_N3TA",[[["",{"children":[["slug","python/pep/653","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"653\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/653","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_f367f3 layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/d6cea809dcbae606.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+a:I[646,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-dfe24a3bbd58f9b9.js"],"default"]
+9:T8642,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0653/">PEP 653 - Precise Semantics for Pattern Matching</a></p>
+<p><strong>상태:</strong> Draft | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 09-Feb-2021</p>
+</blockquote>
+<h1>PEP 653 – 패턴 매칭을 위한 정밀한 의미론</h1>
+<p><strong>저자</strong> : Mark Shannon
+<strong>상태</strong> : Draft (초안)
+<strong>유형</strong> : Standards Track (표준 트랙)
+<strong>생성일</strong> : 2021년 2월 9일
+<strong>개정 이력</strong> : 2021년 2월 18일</p>
+<hr>
+<h2>요약 (Abstract)</h2>
+<p>이 PEP는 PEP 634의 일반적인 개념을 존중하면서도, 더 정밀하고, 이해하기 쉬우며, 더 빠른 패턴 매칭 의미론을 제안합니다.</p>
+<p>객체 모델은 PEP 634의 <code>__match_args__</code> 속성 외에 <code>__match_container__</code> 및 <code>__match_class__</code>라는 두 개의 특수 (던더) 속성으로 확장되어 패턴 매칭을 지원합니다. 이 두 가지 새로운 속성은 정수여야 하며, <code>__match_args__</code>는 고유한 문자열의 튜플이어야 합니다.</p>
+<p>이 PEP를 통해:</p>
+<ul>
+<li>패턴 매칭의 의미론이 더욱 명확해져, 패턴을 추론하기 쉬워집니다.</li>
+<li>패턴 매칭을 더 효율적으로 구현할 수 있습니다.</li>
+<li>클래스가 어떤 패턴과 매칭될지 더 세밀하게 제어할 수 있게 되어 복잡한 클래스에서도 패턴 매칭이 더욱 유용해집니다.</li>
+</ul>
+<h2>동기 (Motivation)</h2>
+<p>PEP 634에 설명된 파이썬의 패턴 매칭은 Python 3.10에 추가될 예정입니다. 아쉽게도 PEP 634는 의미론에 대해 충분히 정밀하지 않으며, 클래스가 패턴과 어떻게 매칭될지에 대한 충분한 제어를 허용하지 않습니다.</p>
+<h3>정밀한 의미론 (Precise semantics)</h3>
+<p>PEP 634는 '정의되지 않은 동작(undefined behavior)'에 대한 섹션을 명시적으로 포함하고 있습니다. C와 같은 언어에서는 많은 양의 정의되지 않은 동작이 허용될 수 있지만, 파이썬에서는 이를 최소화해야 합니다. 파이썬의 패턴 매칭은 표현력이나 성능 손실 없이 더 정밀하게 정의될 수 있습니다.</p>
+<h3>클래스 매칭에 대한 향상된 제어 (Improved control over class matching)</h3>
+<p>PEP 634는 클래스가 시퀀스(sequence) 또는 매핑(mapping)인지 여부를 <code>collections.abc</code>에 위임합니다. 모든 시퀀스로 간주될 수 있는 클래스가 <code>collections.abc.Sequence</code>의 서브클래스로 등록되는 것은 아닙니다. 이 PEP는 <code>collections.abc.Sequence</code>의 모든 메커니즘을 사용하지 않고도 시퀀스 패턴과 매칭될 수 있도록 합니다.</p>
+<p>PEP 634는 일부 내장 클래스에 "self" 매치라는 특별한 형태의 매칭 권한을 부여합니다. 예를 들어, <code>list(x)</code> 패턴은 리스트와 매칭되고 리스트를 <code>x</code>에 할당합니다. 클래스가 어떤 종류의 패턴과 매칭될지 선택할 수 있도록 함으로써 다른 클래스도 이 형태를 사용할 수 있습니다.</p>
+<p>예를 들어, <code>sympy</code>를 사용하여 다음과 같이 작성하고 싶을 수 있습니다:</p>
+<pre><code class="language-python"># a*a == a**2
+case Mul(args=[Symbol(a), Symbol(b)]) if a == b:
+    return Pow(a, 2)
+</code></pre>
+<p>이는 <code>sympy</code> 클래스 <code>Symbol</code>이 "self" 매칭을 해야 함을 의미합니다. <code>sympy</code>가 PEP 634로 이 패턴을 지원하는 것은 가능하지만 다소 까다롭습니다. 이 PEP를 사용하면 매우 쉽게 구현할 수 있습니다.</p>
+<h3>견고성 (Robustness)</h3>
+<p>이 PEP를 사용하면 패턴 매칭 중 속성 접근이 잘 정의되고 확정적(deterministic)이 됩니다. 이는 객체 관계형 매퍼(object-relational mappers)와 같이 숨겨진 부작용이 있는 객체를 매칭할 때 패턴 매칭의 오류 발생 가능성을 줄여줍니다. 객체는 자체적인 분해(deconstruction)에 대해 더 많은 제어권을 가지게 되며, 이는 속성 접근에 부작용이 있을 경우 의도하지 않은 결과를 방지하는 데 도움이 될 수 있습니다.</p>
+<p>PEP 634는 값이 어떤 패턴과 매칭될 수 있는지 결정할 때 <code>collections.abc</code> 모듈에 의존하며, 필요한 경우 암묵적으로 이를 임포트합니다. 이 PEP는 그러한 임포트로 인한 예상치 못한 임포트 오류 및 오해의 소지가 있는 감사(audit) 이벤트를 제거할 것입니다.</p>
+<h3>효율적인 구현 (Efficient implementation)</h3>
+<p>이 PEP에서 제안하는 의미론은 부분적으로 정밀한 의미론을 가지고 있고 부분적으로 객체 모델을 사용하기 때문에 효율적인 구현을 가능하게 할 것입니다.</p>
+<p>정밀한 의미론을 통해 어떤 코드 변환이 올바른지 추론할 수 있으므로 최적화를 효과적으로 적용할 수 있습니다.</p>
+<p>객체 모델은 파이썬의 핵심 부분이므로, 구현체들은 이미 특수 속성(<code>special attribute</code>) 조회를 효율적으로 처리합니다. 특수 속성을 조회하는 것은 추상 베이스 클래스에 대한 서브클래스 테스트를 수행하는 것보다 훨씬 빠릅니다.</p>
+<h2>근거 (Rationale)</h2>
+<p>객체 모델과 특수 메서드(special methods)는 파이썬 언어의 핵심입니다. 결과적으로 구현체들은 이를 잘 지원합니다. 패턴 매칭에 특수 속성을 사용하면 패턴 매칭을 나머지 구현과 잘 통합되는 방식으로 구현할 수 있으므로 유지 관리가 더 쉽고 성능이 더 좋을 가능성이 있습니다.</p>
+<p><code>match</code> 문은 일련의 패턴 매칭을 수행합니다. 일반적으로 패턴을 매칭하는 데는 세 가지 부분이 있습니다:</p>
+<ol>
+<li>이 값이 이 종류의 패턴과 매칭될 수 있는가?</li>
+<li>분해될 때, 이 값이 이 특정 패턴과 매칭되는가?</li>
+<li>가드(guard)가 참인가?</li>
+</ol>
+<p>값이 특정 종류의 패턴과 매칭될 수 있는지 확인하기 위해 <code>__match_container__</code> 및 <code>__match_class__</code> 속성을 추가합니다. 이를 통해 값의 종류를 효율적으로 결정할 수 있습니다.</p>
+<h2>명세 (Specification)</h2>
+<h3>객체 모델에 대한 추가 사항 (Additions to the object model)</h3>
+<p><code>__match_container__</code> 및 <code>__match_class__</code> 속성이 <code>object</code>에 추가될 것입니다. <code>__match_container__</code>는 매핑(mapping) 또는 시퀀스(sequence) 패턴과 매칭되기를 원하는 클래스에 의해 오버라이드(override)되어야 합니다. <code>__match_class__</code>는 클래스 패턴을 매칭할 때 기본 동작을 변경하고자 하는 클래스에 의해 오버라이드되어야 합니다.</p>
+<p><code>__match_container__</code>는 정수여야 하며 다음 중 정확히 하나여야 합니다:</p>
+<ul>
+<li><code>0</code></li>
+<li><code>MATCH_SEQUENCE = 1</code></li>
+<li><code>MATCH_MAPPING = 2</code></li>
+</ul>
+<p><code>MATCH_SEQUENCE</code>는 클래스의 인스턴스가 시퀀스 패턴과 매칭될 수 있음을 나타내는 데 사용됩니다.
+<code>MATCH_MAPPING</code>은 클래스의 인스턴스가 매핑 패턴과 매칭될 수 있음을 나타내는 데 사용됩니다.</p>
+<p><code>__match_class__</code>는 정수여야 하며 다음 중 정확히 하나여야 합니다:</p>
+<ul>
+<li><code>0</code></li>
+<li><code>MATCH_SELF = 8</code></li>
+</ul>
+<p><code>MATCH_SELF</code>는 단일 위치 인자(positional argument) 클래스 패턴의 경우, 피사체(subject)가 분해되지 않고 사용될 것임을 나타내는 데 사용됩니다.</p>
+<p><strong>참고</strong> : 이 문서의 나머지 부분에서는 위의 값들을 이름으로만 참조할 것입니다. 파이썬과 C 모두를 위한 심볼릭 상수(symbolic constants)가 제공될 것이며, 이 값들은 절대 변경되지 않을 것입니다.</p>
+<p><code>object</code>는 특수 속성에 대해 다음 값을 가집니다:</p>
+<pre><code class="language-python">__match_container__ = 0
+__match_class__ = 0
+__match_args__ = ()
+</code></pre>
+<p>이러한 특수 속성은 일반적인 방식으로 상속됩니다.</p>
+<p><code>__match_args__</code>가 오버라이드되면, 고유한 문자열의 튜플을 포함해야 합니다. 비어 있을 수도 있습니다.</p>
+<p><strong>참고</strong> : <code>__match_args__</code>는 PEP 634에 명시된 대로 <code>dataclasses</code> 및 <code>named tuples</code>에 대해 자동으로 생성됩니다.</p>
+<p>패턴 매칭 구현은 이러한 속성 중 어느 것도 명세대로 동작하는지 확인할 필요가 없습니다. <code>__match_container__</code>, <code>__match_class__</code> 또는 <code>__match_args__</code>의 값이 명세대로가 아닐 경우, 구현은 어떤 예외도 발생시키거나 잘못된 패턴과 매칭될 수 있습니다. 물론, 구현체들은 이러한 속성을 확인하고 효율적으로 수행할 수 있다면 의미 있는 오류 메시지를 제공할 수 있습니다.</p>
+<h3>매칭 프로세스의 의미론 (Semantics of the matching process)</h3>
+<p>다음에서, <code>$var</code> 형태의 모든 변수는 임시 변수이며 파이썬 프로그램에는 보이지 않습니다. 이들은 인트로스펙션(introspection)을 통해 보일 수 있지만, 이는 구현 세부 사항이므로 의존해서는 안 됩니다. 의사(pseudo) 문장 <code>FAIL</code>은 이 패턴에 대한 매칭이 실패했으며 다음 패턴으로 넘어가야 함을 나타내는 데 사용됩니다. 제어가 <code>FAIL</code>에 도달하지 않고 번역의 끝에 도달하면, 매칭된 것이며, 이후의 패턴은 무시됩니다.</p>
+<p><code>$ALL_CAPS</code> 형태의 변수는 구문 요소를 담고 있는 메타 변수(meta-variable)이며, 일반 변수가 아닙니다. 따라서 <code>$VARS = $items</code>는 <code>$items</code>를 <code>$VARS</code>에 할당하는 것이 아니라, <code>$items</code>를 <code>$VARS</code>가 담고 있는 변수들로 언패킹(unpacking)하는 것입니다. 예를 들어, 추상 구문 <code>case [$VARS]:</code>와 구체적인 구문 <code>case [a, b]:</code>에서 <code>$VARS</code>는 변수 <code>(a, b)</code>를 담고 있는 것이지, 그 변수들의 값을 담고 있는 것이 아닙니다.</p>
+<p>의사 함수 <code>QUOTE</code>는 변수를 받아 그 변수의 이름을 반환합니다. 예를 들어, 메타 변수 <code>$VAR</code>이 변수 <code>foo</code>를 담고 있다면 <code>QUOTE($VAR) == "foo"</code>입니다.</p>
+<p>아래 나열된 모든 추가 코드는 원본 소스에 없는 것이며, PEP 626에 따라 라인 이벤트(line events)를 발생시키지 않습니다.</p>
+<h4>서문 (Preamble)</h4>
+<p>어떤 패턴도 매칭되기 전에, 매칭될 표현식이 평가됩니다:</p>
+<pre><code class="language-python">match expr:
+</code></pre>
+<p>다음으로 번역됩니다:</p>
+<pre><code class="language-python">$value = expr
+</code></pre>
+<h4>캡처 패턴 (Capture patterns)</h4>
+<p>캡처 패턴은 항상 매칭됩니다. 따라서 피할 수 없는(irrefutable) 매치:</p>
+<pre><code class="language-python">case capture_var:
+</code></pre>
+<p>다음으로 번역됩니다:</p>
+<pre><code class="language-python">capture_var = $value
+</code></pre>
+<h4>와일드카드 패턴 (Wildcard patterns)</h4>
+<p>와일드카드 패턴은 항상 매칭됩니다:</p>
+<pre><code class="language-python">case _:
+</code></pre>
+<p>다음으로 번역됩니다:</p>
+<pre><code class="language-python"># 코드 없음 -- 자동으로 매칭됨
+</code></pre>
+<h4>리터럴 패턴 (Literal Patterns)</h4>
+<p>리터럴 패턴:</p>
+<pre><code class="language-python">case LITERAL:
+</code></pre>
+<p>다음으로 번역됩니다:</p>
+<pre><code class="language-python">if $value != LITERAL: FAIL
+</code></pre>
+<p>단, 리터럴이 <code>None</code>, <code>True</code>, <code>False</code> 중 하나일 때는 다음으로 번역됩니다:</p>
+<pre><code class="language-python">if $value is not LITERAL: FAIL
+</code></pre>
+<h4>값 패턴 (Value Patterns)</h4>
+<p>값 패턴:</p>
+<pre><code class="language-python">case value.pattern:
+</code></pre>
+<p>다음으로 번역됩니다:</p>
+<pre><code class="language-python">if $value != value.pattern: FAIL
+</code></pre>
+<h4>시퀀스 패턴 (Sequence Patterns)</h4>
+<p>스타 패턴(<code>*</code>)을 포함하지 않는 패턴:</p>
+<pre><code class="language-python">case [$VARS]:
+</code></pre>
+<p>다음으로 번역됩니다:</p>
+<pre><code class="language-python">$kind = type($value).__match_container__
+if $kind != MATCH_SEQUENCE: FAIL
+if len($value) != len($VARS): FAIL
+$VARS = $value
+</code></pre>
+<p>예시:</p>
+<pre><code class="language-python">case [a, b] if a is b:
+</code></pre>
+<p>다음으로 번역됩니다:</p>
+<pre><code class="language-python">$kind = type($value).__match_container__
+if $kind != MATCH_SEQUENCE: FAIL
+if len($value) != 2: FAIL
+a, b = $value
+if not a is b: FAIL
+</code></pre>
+<p>스타 패턴을 포함하는 패턴:</p>
+<pre><code class="language-python">case [$VARS]
+</code></pre>
+<p>다음으로 번역됩니다:</p>
+<pre><code class="language-python">$kind = type($value).__match_container__
+if $kind != MATCH_SEQUENCE: FAIL
+if len($value) &#x3C; len($VARS): FAIL
+$VARS = $value # $VARS에는 스타 표현식이 포함됩니다.
+</code></pre>
+<p>예시:</p>
+<pre><code class="language-python">case [a, *b, c]:
+</code></pre>
+<p>다음으로 번역됩니다:</p>
+<pre><code class="language-python">$kind = type($value).__match_container__
+if $kind != MATCH_SEQUENCE: FAIL
+if len($value) &#x3C; 2: FAIL
+a, *b, c = $value
+</code></pre>
+<h4>매핑 패턴 (Mapping Patterns)</h4>
+<p>더블 스타 패턴(<code> **</code>)을 포함하지 않는 패턴:</p>
+<pre><code class="language-python">case {$KEYWORD_PATTERNS}:
+</code></pre>
+<p>다음으로 번역됩니다:</p>
+<pre><code class="language-python">$sentinel = object()
+$kind = type($value).__match_container__
+if $kind != MATCH_MAPPING: FAIL
+# $KEYWORD_PATTERNS는 이름들을 변수들에 매핑하는 메타 변수입니다.
+for $KEYWORD in $KEYWORD_PATTERNS:
+    $tmp = $value.get(QUOTE($KEYWORD), $sentinel)
+    if $tmp is $sentinel: FAIL
+    $KEYWORD_PATTERNS[$KEYWORD] = $tmp
+</code></pre>
+<p>예시:</p>
+<pre><code class="language-python">case {"x": x, "y": y} if x > 2:
+</code></pre>
+<p>다음으로 번역됩니다:</p>
+<pre><code class="language-python">$kind = type($value).__match_container__
+if $kind != MATCH_MAPPING: FAIL
+$tmp = $value.get("x", $sentinel)
+if $tmp is $sentinel: FAIL
+x = $tmp
+$tmp = $value.get("y", $sentinel)
+if $tmp is $sentinel: FAIL
+y = $tmp
+if not x > 2: FAIL
+</code></pre>
+<p>더블 스타 패턴을 포함하는 패턴:</p>
+<pre><code class="language-python">case {$KEYWORD_PATTERNS, ** $DOUBLE_STARRED_PATTERN}:
+</code></pre>
+<p>다음으로 번역됩니다:</p>
+<pre><code class="language-python">$kind = type($value).__match_container__
+if $kind != MATCH_MAPPING: FAIL
+# $KEYWORD_PATTERNS는 이름들을 변수들에 매핑하는 메타 변수입니다.
+$tmp = dict($value)
+if not $tmp.keys() >= $KEYWORD_PATTERNS.keys(): FAIL:
+for $KEYWORD in $KEYWORD_PATTERNS:
+    $KEYWORD_PATTERNS[$KEYWORD] = $tmp.pop(QUOTE($KEYWORD))
+$DOUBLE_STARRED_PATTERN = $tmp
+</code></pre>
+<p>예시:</p>
+<pre><code class="language-python">case {"x": x, "y": y, **z}:
+</code></pre>
+<p>다음으로 번역됩니다:</p>
+<pre><code class="language-python">$kind = type($value).__match_container__
+if $kind != MATCH_MAPPING: FAIL
+$tmp = dict($value)
+if not $tmp.keys() >= {"x", "y"}: FAIL
+x = $tmp.pop("x")
+y = $tmp.pop("y")
+z = $tmp
+</code></pre>
+<h4>클래스 패턴 (Class Patterns)</h4>
+<p>인자 없는 클래스 패턴:</p>
+<pre><code class="language-python">case ClsName():
+</code></pre>
+<p>다음으로 번역됩니다:</p>
+<pre><code class="language-python">if not isinstance($value, ClsName): FAIL
+</code></pre>
+<p>단일 위치 패턴(single positional pattern)을 가진 클래스 패턴:</p>
+<pre><code class="language-python">case ClsName($VAR):
+</code></pre>
+<p>다음으로 번역됩니다:</p>
+<pre><code class="language-python">$kind = type($value).__match_class__
+if $kind == MATCH_SELF:
+    if not isinstance($value, ClsName): FAIL
+    $VAR = $value
+else:
+    # 다른 위치 전용 클래스 패턴과 동일
+</code></pre>
+<p>위치 전용 클래스 패턴 (Positional-only class pattern):</p>
+<pre><code class="language-python">case ClsName($VARS):
+</code></pre>
+<p>다음으로 번역됩니다:</p>
+<pre><code class="language-python">if not isinstance($value, ClsName): FAIL
+$attrs = ClsName.__match_args__
+if len($attrs) &#x3C; len($VARS): raise TypeError(...)
+try:
+    for i, $VAR in enumerate($VARS):
+        $VAR = getattr($value, $attrs[i])
+except AttributeError:
+    FAIL
+</code></pre>
+<p>예시:</p>
+<pre><code class="language-python">match ClsName(x, y):
+</code></pre>
+<p>다음으로 번역됩니다:</p>
+<pre><code class="language-python">if not isinstance($value, ClsName): FAIL
+$attrs = ClsName.__match_args__
+if len($attrs) &#x3C; 2: FAIL
+try:
+    x = getattr($value, $attrs[0])
+    y = getattr($value, $attrs[1])
+except AttributeError:
+    FAIL
+</code></pre>
+<p>모든 키워드 패턴(keyword patterns)을 가진 클래스 패턴:</p>
+<pre><code class="language-python">case ClsName($KEYWORD_PATTERNS):
+</code></pre>
+<p>다음으로 번역됩니다:</p>
+<pre><code class="language-python">if not isinstance($value, ClsName): FAIL
+try:
+    for $KEYWORD in $KEYWORD_PATTERNS:
+        $tmp = getattr($value, QUOTE($KEYWORD))
+        $KEYWORD_PATTERNS[$KEYWORD] = $tmp
+except AttributeError:
+    FAIL
+</code></pre>
+<p>예시:</p>
+<pre><code class="language-python">match ClsName(a=x, b=y):
+</code></pre>
+<p>다음으로 번역됩니다:</p>
+<pre><code class="language-python">if not isinstance($value, ClsName): FAIL
+try:
+    x = $value.a
+    y = $value.b
+except AttributeError:
+    FAIL
+</code></pre>
+<p>위치 및 키워드 패턴을 가진 클래스 패턴:</p>
+<pre><code class="language-python">case ClsName($VARS, $KEYWORD_PATTERNS):
+</code></pre>
+<p>다음으로 번역됩니다:</p>
+<pre><code class="language-python">if not isinstance($value, ClsName): FAIL
+$attrs = ClsName.__match_args__
+if len($attrs) &#x3C; len($VARS): raise TypeError(...)
+$pos_attrs = $attrs[:len($VARS)]
+try:
+    for i, $VAR in enumerate($VARS):
+        $VAR = getattr($value, $attrs[i])
+    for $KEYWORD in $KEYWORD_PATTERNS:
+        $name = QUOTE($KEYWORD)
+        if $name in $pos_attrs: raise TypeError(...)
+        $KEYWORD_PATTERNS[$KEYWORD] = getattr($value, $name)
+except AttributeError:
+    FAIL
+</code></pre>
+<p>예시:</p>
+<pre><code class="language-python">match ClsName(x, a=y):
+</code></pre>
+<p>다음으로 번역됩니다:</p>
+<pre><code class="language-python">if not isinstance($value, ClsName): FAIL
+$attrs = ClsName.__match_args__
+if len($attrs) &#x3C; 1: raise TypeError(...)
+$positional_names = $attrs[:1]
+try:
+    x = getattr($value, $attrs[0])
+    if "a" in $positional_names: raise TypeError(...)
+    y = $value.a
+except AttributeError:
+    FAIL
+</code></pre>
+<h4>중첩 패턴 (Nested patterns)</h4>
+<p>위의 명세는 패턴이 중첩되지 않는다고 가정합니다. 중첩 패턴의 경우, 임시 캡처 패턴을 도입하여 위의 번역이 재귀적으로 적용됩니다.</p>
+<p>예를 들어, 다음 패턴:</p>
+<pre><code class="language-python">case [int(), str()]:
+</code></pre>
+<p>다음으로 번역됩니다:</p>
+<pre><code class="language-python">$kind = type($value).__match_container__
+if $kind != MATCH_SEQUENCE: FAIL
+if len($value) != 2: FAIL
+$value_0, $value_1 = $value
+#이제 임시 값에 대해 매칭
+if not isinstance($value_0, int): FAIL
+if not isinstance($value_1, str): FAIL
+</code></pre>
+<h4>가드 (Guards)</h4>
+<p>가드는 나머지 번역 다음에 테스트로 번역됩니다:</p>
+<pre><code class="language-python">case pattern if guard:
+</code></pre>
+<p>다음으로 번역됩니다:</p>
+<pre><code class="language-python">[pattern에 대한 번역]
+if not guard: FAIL
+</code></pre>
+<h4>비준수 특수 속성 (Non-conforming special attributes)</h4>
+<p>모든 클래스는 <code>__match_container__</code>, <code>__match_class__</code>, <code>__match_args__</code>의 값이 명세를 따르도록 해야 합니다. 따라서 구현체는 다음이 참이라고 가정할 수 있습니다 (확인 없이):</p>
+<ul>
+<li><code>__match_container__ == 0</code> 또는 <code>__match_container__ == MATCH_SEQUENCE</code> 또는 <code>__match_container__ == MATCH_MAPPING</code></li>
+<li><code>__match_class__ == 0</code> 또는 <code>__match_class__ == MATCH_SELF</code></li>
+</ul>
+<p>그리고 <code>__match_args__</code>는 고유한 문자열의 튜플입니다.</p>
+<h3>표준 라이브러리 클래스를 위한 특수 속성 값 (Values of the special attributes for classes in the standard library)</h3>
+<p>코어 내장 컨테이너 클래스의 경우 <code>__match_container__</code>는 다음과 같습니다:</p>
+<ul>
+<li><code>list</code>: <code>MATCH_SEQUENCE</code></li>
+<li><code>tuple</code>: <code>MATCH_SEQUENCE</code></li>
+<li><code>dict</code>: <code>MATCH_MAPPING</code></li>
+<li><code>bytearray</code>: <code>0</code></li>
+<li><code>bytes</code>: <code>0</code></li>
+<li><code>str</code>: <code>0</code></li>
+</ul>
+<p>Named tuple은 <code>__match_container__</code>가 <code>MATCH_SEQUENCE</code>로 설정됩니다.</p>
+<p><code>issubclass(cls, collections.abc.Mapping)</code>이 참인 다른 모든 표준 라이브러리 클래스는 <code>__match_container__</code>가 <code>MATCH_MAPPING</code>으로 설정됩니다. <code>issubclass(cls, collections.abc.Sequence)</code>이 참인 다른 모든 표준 라이브러리 클래스는 <code>__match_container__</code>가 <code>MATCH_SEQUENCE</code>로 설정됩니다.</p>
+<p>다음 내장 클래스에 대해 <code>__match_class__</code>는 <code>MATCH_SELF</code>로 설정됩니다:</p>
+<ul>
+<li><code>bool</code></li>
+<li><code>bytearray</code></li>
+<li><code>bytes</code></li>
+<li><code>float</code></li>
+<li><code>frozenset</code></li>
+<li><code>int</code></li>
+<li><code>set</code></li>
+<li><code>str</code></li>
+<li><code>list</code></li>
+<li><code>tuple</code></li>
+<li><code>dict</code></li>
+</ul>
+<h3>합법적인 최적화 (Legal optimizations)</h3>
+<p>위의 의미론은 구현에 많은 불필요한 노력과 복사를 수반합니다. 그러나 순진한 구현에 의미론 보존 변환(semantic preserving transformations)을 적용하여 위의 의미론을 효율적으로 구현하는 것이 가능합니다.</p>
+<p>매칭을 수행할 때, 구현체는 다음 함수와 메서드를 순수(pure)하다고 처리할 수 있습니다:</p>
+<p><code>MATCH_SEQUENCE</code>를 지원하는 모든 클래스의 경우:</p>
+<ul>
+<li><code>cls.__len__()</code></li>
+<li><code>cls.__getitem__()</code></li>
+</ul>
+<p><code>MATCH_MAPPING</code>을 지원하는 모든 클래스의 경우:</p>
+<ul>
+<li><code>cls.get()</code> (두 인자 형태만 해당)</li>
+</ul>
+<p>구현체는 다음 가정을 할 수 있습니다:</p>
+<ul>
+<li><code>isinstance(obj, cls)</code>는 <code>issubclass(type(obj), cls)</code>로 자유롭게 대체될 수 있으며 그 반대도 마찬가지입니다.</li>
+<li><code>isinstance(obj, cls)</code>는 모든 <code>(obj, cls)</code> 쌍에 대해 항상 동일한 결과를 반환하므로 반복 호출은 생략될 수 있습니다.</li>
+<li><code>__match_container__</code>, <code>__match_class__</code> 또는 <code>__match_args__</code>를 읽는 것은 순수(pure) 작업이며 캐시될 수 있습니다.</li>
+<li>시퀀스, 즉 <code>__match_container__ == MATCH_SEQUENCE</code>가 0이 아닌 모든 클래스는 이터레이션(iteration), 서브스크립팅(subscripting) 또는 <code>len()</code> 호출에 의해 수정되지 않습니다. 결과적으로, 불변 시퀀스(immutable sequence)에 적용될 때 동등한 경우 이러한 작업들은 서로 자유롭게 대체될 수 있습니다.</li>
+<li>매핑, 즉 <code>__match_container__ == MATCH_MAPPING</code>이 0이 아닌 모든 클래스는 <code>get()</code> 메서드의 두 번째 인자를 캡처하지 않을 것입니다. 따라서 <code>$sentinel</code> 값은 자유롭게 재사용될 수 있습니다.</li>
+</ul>
+<p>사실, 구현체들은 이러한 가정을 하도록 권장됩니다. 이는 상당한 성능 향상을 가져올 가능성이 높기 때문입니다.</p>
+<h3>보안 영향 (Security Implications)</h3>
+<p>없음.</p>
+<h3>구현 (Implementation)</h3>
+<p>명세에서 따르는 순진한 구현(naive implementation)은 그리 효율적이지 않을 것입니다. 다행히도, 성능을 향상시키는 데 사용될 수 있는 합리적으로 간단한 변환들이 있습니다. 성능은 3.10 릴리스 시점에는 PEP 634의 구현(작성 시점 기준)과 비슷해야 합니다. 추가 성능 개선은 3.11 릴리스를 기다려야 할 수도 있습니다.</p>
+<h4>가능한 최적화 (Possible optimizations)</h4>
+<p>다음은 명세의 일부가 아니라, 개발자가 효율적인 구현을 만드는 데 도움이 되는 가이드라인입니다.</p>
+<h5>평가를 레인(lane)으로 분할 (Splitting evaluation into lanes)</h5>
+<p>각 패턴을 매칭하는 첫 번째 단계는 종류(kind)를 확인하는 것이므로, 종류에 대한 모든 확인을 매치 시작 부분의 단일 다방향 분기(multi-way branch)로 결합할 수 있습니다. 그런 다음 케이스 목록은 여러 "레인"으로 복제될 수 있으며, 각 레인은 하나의 종류에 해당합니다. 그런 다음 각 레인에서 매칭할 수 없는 케이스를 제거하는 것은 사소합니다. 종류에 따라 각 레인에 대해 다른 최적화 전략이 가능합니다. 매치 절의 본문은 복제될 필요가 없고, 패턴만 복제하면 됩니다.</p>
+<h5>시퀀스 패턴 (Sequence patterns)</h5>
+<p>이것이 아마도 최적화하기 가장 복잡하고 성능 면에서 가장 이득이 많을 것입니다. 각 패턴은 특정 길이 범위, 종종 단일 길이만 매칭할 수 있으므로, 테스트 순서는 시퀀스에 대한 명시적인 반복으로 다시 작성될 수 있으며, 해당 시퀀스 길이에 적용되는 패턴만 매칭하려고 시도합니다.</p>
+<p>예를 들어:</p>
+<pre><code class="language-python">case []: A
+case [x]: B
+case [x, y]: C
+case other: D
+</code></pre>
+<p>대략 다음과 같이 컴파일될 수 있습니다:</p>
+<pre><code class="language-python"># 레인 선택
+$i = iter($value)
+for $0 in $i: break
+else: A; goto done
+for $1 in $i: break
+else: x = $0; B; goto done
+for $2 in $i: del $0, $1, $2; break
+else: x = $0; y = $1; C; goto done
+other = $value; D
+done:
+</code></pre>
+<h5>매핑 패턴 (Mapping patterns)</h5>
+<p>여기서 가장 좋은 전략은 매핑의 크기와 존재하는 키를 기반으로 결정 트리(decision tree)를 형성하는 것입니다. 키의 존재 여부를 반복적으로 테스트하는 것은 의미가 없습니다. 예를 들어:</p>
+<pre><code class="language-python">match obj:
+    case {a:x, b:y}: W
+    case {a:x, c:y}: X
+    case {a:x, b:_, c:y}: Y
+    case other: Z
+</code></pre>
+<p>케이스 X를 확인할 때 키 "a"가 없으면 Y에 대해 다시 확인할 필요가 없습니다.</p>
+<p>매핑 레인은 대략 다음과 같이 구현될 수 있습니다:</p>
+<pre><code class="language-python"># 레인 선택
+if len($value) == 2:
+    if "a" in $value:
+        if "b" in $value:
+            x = $value["a"]
+            y = $value["b"]
+            goto W
+        if "c" in $value:
+            x = $value["a"]
+            y = $value["c"]
+            goto X
+elif len($value) == 3:
+    if "a" in $value and "b" in $value:
+        x = $value["a"]
+        y = $value["c"]
+        goto Y
+other = $value
+goto Z
+</code></pre>
+<h3>이 PEP와 PEP 634의 차이점 요약 (Summary of differences between this PEP and PEP 634)</h3>
+<p>의미론의 변경 사항은 다음과 같이 요약할 수 있습니다:</p>
+<ul>
+<li><code>__match_args__</code>가 단순히 시퀀스가 아닌 문자열의 튜플이어야 합니다. 이는 <code>__match_args__</code>가 불변(immutable)이라고 가정할 수 있으므로 패턴 매칭을 좀 더 견고하고 최적화 가능하게 만듭니다.</li>
+<li>매칭될 수 있는 컨테이너 패턴의 종류를 선택하는 데 <code>issubclass(cls, collections.abc.Mapping)</code> 및 <code>issubclass(cls, collections.abc.Sequence)</code> 대신 <code>cls.__match_container__</code>를 사용합니다.</li>
+<li>필요한 경우 <code>__match_class__ = 0</code>으로 설정하여 클래스가 분해(deconstruction)에서 완전히 제외될 수 있도록 합니다.</li>
+<li>패턴 매칭 시 동작은 더 정밀하게 정의되지만, 그 외에는 변경되지 않습니다.</li>
+</ul>
+<p>구문에는 변경 사항이 없습니다. PEP 636 튜토리얼에 제공된 모든 예제는 현재와 동일하게 작동해야 합니다.</p>
+<h3>기각된 아이디어 (Rejected Ideas)</h3>
+<h4>인스턴스 딕셔너리의 속성 사용 (Using attributes from the instance's dictionary)</h4>
+<p>이 PEP의 초기 버전은 <code>__match_class__</code>가 기본값일 때 클래스 패턴을 매칭할 때 인스턴스 딕셔너리의 속성만 사용했습니다. 의도는 바운드 메서드(bound-methods) 및 기타 합성 속성(synthetic attributes)을 캡처하는 것을 피하는 것이었습니다. 그러나 이는 프로퍼티(properties)도 무시된다는 것을 의미했습니다.</p>
+<p>다음 클래스의 경우:</p>
+<pre><code class="language-python">class C:
+    def __init__(self):
+        self.a = "a"
+    @property
+    def p(self): ...
+    def m(self): ...
+</code></pre>
+<p>이상적으로는 "a"와 "p" 속성은 매칭하지만 "m"은 매칭하지 않기를 원합니다. 그러나 이를 수행할 일반적인 방법이 없으므로, 이 PEP는 이제 PEP 634의 의미론을 따릅니다.</p>
+<h4>패턴이 아닌 피사체에서 <code>__match_args__</code> 조회 (Lookup of <strong>match_args</strong> on the subject not the pattern)</h4>
+<p>이 PEP의 초기 버전은 패턴에 지정된 클래스가 아니라 피사체(subject)의 클래스에서 <code>__match_args__</code>를 조회했습니다. 이는 몇 가지 이유로 기각되었습니다:</p>
+<ul>
+<li>패턴에 지정된 클래스를 사용하는 것이 최적화에 더 적합하고 더 나은 성능을 제공할 수 있습니다.</li>
+<li>패턴에 지정된 클래스를 사용하는 것이 일부 경우에 더 나은 오류 보고를 제공할 잠재력이 있습니다.</li>
+<li>두 접근 방식 모두 완벽하지 않으며, 둘 다 이상한 코너 케이스가 있습니다. 현상 유지는 혼란을 최소화합니다.</li>
+</ul>
+<h4><code>__match_class__</code>와 <code>__match_container__</code>를 단일 값으로 결합 (Combining <strong>match_class</strong> and <strong>match_container</strong> into a single value)</h4>
+<p>이 PEP의 초기 버전은 <code>__match_class__</code>와 <code>__match_container__</code>를 <code>__match_kind__</code>라는 단일 값으로 결합했습니다. 단일 값을 사용하는 것이 성능 면에서 작은 이점이 있지만, 클래스 매칭 동작을 오버라이드할 때 컨테이너 매칭에 의도하지 않은 변경을 초래할 가능성이 높으며 그 반대도 마찬가지입니다.</p>
+<h3>연기된 아이디어 (Deferred Ideas)</h3>
+<p>이 PEP의 원본 버전에는 <code>MATCH_POSITIONAL</code> 매치 종류와 클래스가 매칭에 대한 완전한 제어를 허용하는 특수 메서드 <code>__deconstruct__</code>가 포함되어 있었습니다. 이는 <code>sympy</code>와 같은 라이브러리에 중요합니다.</p>
+<p>예를 들어, <code>sympy</code>를 사용하여 다음과 같이 작성하고 싶을 수 있습니다:</p>
+<pre><code class="language-python"># sin(x) **2 + cos(x)** 2 == 1
+case Add(Pow(sin(a), 2), Pow(cos(b), 2)) if a == b:
+    return 1
+</code></pre>
+<p><code>sympy</code>가 현재 패턴 매칭으로 위치 패턴을 지원하는 것은 가능하지만, 까다롭습니다. 이러한 추가 기능이 있으면 쉽게 구현할 수 있습니다.</p>
+<p>이 아이디어는 3.11을 위한 향후 PEP에 포함될 예정입니다. 그러나 3.10 개발 주기에서는 그러한 변경을 하기에는 너무 늦습니다.</p>
+<h4>모든 클래스 매치를 거부하는 별도의 값 (Having a separate value to reject all class matches)</h4>
+<p>이 PEP의 초기 버전에는 <code>__match_class__</code>에 대한 별개의 값이 있었는데, 이를 통해 클래스는 분해(deconstruction)를 요구했을 모든 클래스 패턴을 매칭하지 않을 수 있었습니다. 그러나 <code>MATCH_POSITIONAL</code>이 도입되면 이는 중복될 것이며, 극히 드문 경우를 위해 명세를 복잡하게 만듭니다.</p>
+<h3>코드 예시 (Code examples)</h3>
+<pre><code class="language-python"># 예시 1
+class Symbol:
+    __match_class__ = MATCH_SELF
+
+# 예시 2 (위에서 번역됨)
+case [a, b] if a is b:
+    # ...
+
+# 예시 3 (위에서 번역됨)
+case [a, *b, c]:
+    # ...
+
+# 예시 4 (위에서 번역됨)
+case {"x": x, "y": y} if x > 2:
+    # ...
+
+# 예시 5 (위에서 번역됨)
+case {"x": x, "y": y, **z}:
+    # ...
+
+# 예시 6 (위에서 번역됨)
+match ClsName(x, y):
+    # ...
+
+# 예시 7 (위에서 번역됨)
+match ClsName(a=x, b=y):
+    # ...
+
+# 예시 8 (위에서 번역됨)
+match ClsName(x, a=y):
+    # ...
+
+# 예시 9 (Deferred Ideas 섹션에서 언급)
+class Basic:
+    __match_class__ = MATCH_POSITIONAL
+    def __deconstruct__(self):
+        return self._args
+</code></pre>
+<h3>저작권 (Copyright)</h3>
+<p>이 문서는 퍼블릭 도메인에 공개되거나 CC0-1.0-Universal 라이선스 중 더 관대한 조건에 따릅니다.</p>
+<blockquote>
+<p>⚠️ ** 알림:** 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":[["$","aside",null,{"className":"lg:w-64 xl:w-72 order-1 lg:order-none","children":["$","div",null,{"className":"sidebar sticky","children":["$","nav",null,{"className":"space-y-4","children":[["$","div","Backend",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Backend"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Django",{"children":["$","a",null,{"href":"/backend/django/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Django"," (",6,")"]}]}],["$","li","Logging",{"children":["$","a",null,{"href":"/backend/logging/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Logging"," (",1,")"]}]}]]}]]}],["$","div","Python",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Python"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","PEP",{"children":["$","a",null,{"href":"/python/pep/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["PEP"," (",650,")"]}]}]]}]]}],["$","div","AI/ML",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"AI/ML"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","LLM",{"children":["$","a",null,{"href":"/ai/llm/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["LLM"," (",1,")"]}]}],["$","li","Review",{"children":["$","a",null,{"href":"/ai/review/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Review"," (",2648,")"]}]}]]}]]}],["$","div","DevOps",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"DevOps"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Nginx",{"children":["$","a",null,{"href":"/devops/nginx/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Nginx"," (",1,")"]}]}],["$","li","Docker",{"children":["$","a",null,{"href":"/devops/docker/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Docker"," (",1,")"]}]}],["$","li","SafeLine",{"children":["$","a",null,{"href":"/devops/safeline/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["SafeLine"," (",1,")"]}]}],["$","li","Jenkins",{"children":["$","a",null,{"href":"/devops/jenkins/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Jenkins"," (",3,")"]}]}],["$","li","GitHub Actions",{"children":["$","a",null,{"href":"/devops/github-actions/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["GitHub Actions"," (",1,")"]}]}],["$","li","AWS",{"children":["$","a",null,{"href":"/devops/aws/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["AWS"," (",1,")"]}]}]]}]]}],["$","div","etc",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"etc"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Me",{"children":["$","a",null,{"href":"/etc/me/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Me"," (",3,")"]}]}],["$","li","Chrome Extension",{"children":["$","a",null,{"href":"/etc/chrome-extension/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Chrome Extension"," (",1,")"]}]}]]}]]}]]}]}]}],["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Draft] PEP 653 - Precise Semantics for Pattern Matching"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-27 09:52:27+0900","children":"2025년 9월 27일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 27일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]}],["$","$La",null,{"postPermalink":"/python/pep/653/","postId":"2025-09-27-pep-0653-precise-semantics-for-pattern-matching"}],["$","section",null,{"className":"mt-12 border-t border-gray-200 pt-8","children":[["$","h3",null,{"className":"text-base font-semibold text-gray-900 mb-4","children":["Python"," 의 다른글"]}],["$","ul",null,{"className":"space-y-2 text-sm","children":[["$","li",null,{"className":"text-gray-500","children":["이전글"," ",["$","$L7",null,{"href":"/python/pep/652/","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Final] PEP 652 - Maintaining the Stable ABI"}]]}],["$","li",null,{"className":"text-gray-900 font-semibold","children":["현재글 : ","[Draft] PEP 653 - Precise Semantics for Pattern Matching"]}],["$","li",null,{"className":"text-gray-500","children":["다음글"," ",["$","$L7",null,{"href":"/python/pep/654/","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Final] PEP 654 - Exception Groups and except*"}]]}]]}]]}]]}]}]]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"secrett2633's blog"}],["$","meta","3",{"name":"description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://blog.secrett2633.cloud/"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"secrett2633's blog"}],["$","meta","13",{"property":"og:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","14",{"property":"og:url","content":"https://blog.secrett2633.cloud/"}],["$","meta","15",{"property":"og:site_name","content":"secrett2633's blog"}],["$","meta","16",{"property":"og:locale","content":"ko_KR"}],["$","meta","17",{"property":"og:type","content":"website"}],["$","meta","18",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","19",{"name":"twitter:title","content":"secrett2633's blog"}],["$","meta","20",{"name":"twitter:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","link","21",{"rel":"icon","href":"/icon.ico?6d9f34d4948640b8","type":"image/x-icon","sizes":"16x16"}],["$","meta","22",{"name":"next-size-adjust"}]]
+1:null

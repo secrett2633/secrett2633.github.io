@@ -1,0 +1,153 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[9157,["231","static/chunks/231-467e37449c5a68fc.js","185","static/chunks/app/layout-b44b076173de406f.js"],"default"]
+7:I[231,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-dfe24a3bbd58f9b9.js"],""]
+4:["slug","python/pep/3128","c"]
+0:["sXH0w-Ur4uCLT-31_N3TA",[[["",{"children":[["slug","python/pep/3128","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"3128\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/3128","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_f367f3 layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/d6cea809dcbae606.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+a:I[646,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-dfe24a3bbd58f9b9.js"],"default"]
+9:T5201,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-3128/">PEP 3128 - BList: A Faster List-like Type</a></p>
+<p><strong>상태:</strong> Rejected | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 30-Apr-2007</p>
+</blockquote>
+<h1>PEP 3128 – BList: 더 빠른 List-like 타입</h1>
+<ul>
+<li><strong>작성자:</strong> Daniel Stutzbach</li>
+<li><strong>논의처:</strong> Python-3000 메일링 리스트</li>
+<li><strong>상태:</strong> Rejected (거부됨)</li>
+<li><strong>유형:</strong> Standards Track</li>
+<li><strong>생성일:</strong> 2007년 4월 30일</li>
+<li><strong>Python 버전:</strong> 2.6, 3.0</li>
+<li><strong>이력:</strong> 2007년 4월 30일</li>
+</ul>
+<h2>거부 공지 (Rejection Notice)</h2>
+<p>이 PEP는 Raymond Hettinger의 조언에 따라 거부되었습니다.</p>
+<p>Raymond Hettinger는 BList의 소스 코드를 검토한 후, 기존 <code>list()</code>를 대체할 가능성이 거의 없다고 판단했습니다. 그 이유는 <code>list</code>가 단순한 C API, 작은 리스트에 대한 낮은 공간 오버헤드, 일반적인 사용 사례에서의 우수한 성능, 그리고 쉽게 이해할 수 있는 성능 특성에서 오는 이점이 매우 크기 때문입니다. BList 구현은 이러한 장점들이 부족하며, 일반적인 경우의 성능을 약간 희생하고 흔치 않은 경우의 성능을 크게 개선하는 트레이드오프를 가지고 있습니다. 따라서 Py3.0 PEP로서 거부될 수 있다고 보았습니다.</p>
+<p>다만, BList가 서드파티 모듈로서 성공한다면 <code>collections</code> 모듈에 포함될 가능성은 여전히 남아있다고 언급했습니다. 이를 위한 핵심 기준은 BList가 특정 실제 사용 사례에서 기존 <code>list</code>보다 우월한 선택이 되는지 여부입니다. Hettinger 본인의 코드 검토에서는 BList가 일반 <code>list</code>보다 선호될 만한 사례를 찾지 못했지만, 이는 BList가 없었기 때문에 발생한 편향일 수 있다고 인정했습니다. 몇 달 후 <code>comp.lang.python</code>에 BList 성공 사례를 문의할 계획이었으며, 만약 그러한 사례가 있다면 <code>collections</code> 모듈 포함에 문제가 없다고 밝혔습니다. BList는 학습 곡선이 거의 0에 가깝기 때문에, 유일한 단점은 특정 작업에 가장 적합한 데이터 구조를 결정하는 데 있어 혼란을 야기할 수 있다는 점이라고 언급했습니다.</p>
+<h2>개요 (Abstract)</h2>
+<p><code>list</code> 연산의 일반적인 경우는 작은 리스트에서 발생합니다. 현재 배열 기반의 <code>list</code> 구현은 참조 지역성(locality of reference)이 강하고 메모리 할당 작업이 빈번하지 않기 때문에 작은 리스트에서 탁월한 성능을 보입니다. 그러나 배열은 요소를 삽입하고 삭제하는 데 O(n) 시간이 소요될 수 있으며, 리스트가 커질수록 문제가 될 수 있습니다.</p>
+<p>이 PEP는 배열과 트리적인 측면을 모두 가지는 새로운 데이터 타입인 BList를 소개합니다. BList는 기존 배열 기반 구현과 동일하게 작은 리스트에서 우수한 성능을 제공하지만, 대부분의 연산에서 더 나은 점근적 성능(asymptotic performance)을 제공합니다. 이 PEP는 BList 타입을 Python에 포함하기 위한 두 가지 상호 배타적인 제안을 제시했습니다:</p>
+<ol>
+<li><code>collections</code> 모듈에 추가</li>
+<li>기존 <code>list</code> 타입을 대체</li>
+</ol>
+<h2>동기 (Motivation)</h2>
+<p>BList는 작은 입력에서는 잘 작동하지만, 배열 기반 리스트의 기저 O(n) 동작으로 인해 큰 입력에서는 O(n**2) 시간이 소요되는 직관적인 알고리즘을 다시 작성해야 하는 좌절감에서 비롯되었습니다. Python 2.4에 도입된 <code>deque</code> 타입은 빠른 FIFO 큐(queue)가 필요한 가장 일반적인 문제를 해결했습니다. 그러나 <code>deque</code> 타입은 긴 리스트 중간에서 요소를 반복적으로 삽입하거나 삭제해야 할 때는 도움이 되지 않습니다.</p>
+<p>다양한 데이터 구조가 삽입 및 삭제에 대해 좋은 점근적 성능을 제공하지만, 다른 연산에서는 O(n) 성능을 가지거나 (예: 연결 리스트, Linked Lists), 작은 리스트에서는 성능이 떨어집니다 (예: 이진 트리, Binary Trees 및 스킵 리스트, Skip Lists).</p>
+<p>이 PEP에서 제안하는 BList 타입은 B+Tree의 원리를 기반으로 하며, 배열과 트리적인 측면을 모두 가집니다. BList는 작은 리스트에서 배열과 같은 성능을 제공하는 동시에, 모든 삽입 및 삭제 연산에 대해 O(log n)의 점근적 성능을 제공합니다. 또한 BList는 내부적으로 Copy-on-Write를 구현하여 <code>getslice</code>와 같은 연산도 O(log n) 시간이 소요됩니다. 다음 표는 현재 배열 기반 <code>list</code> 구현과 BList의 점근적 성능을 비교합니다:</p>
+<p>| 연산          | 배열 기반 <code>list</code> | BList             |
+| :------------ | :--------------- | :---------------- |
+| <code>Copy</code>        | O(n)             | O(1)              |
+| <code>Append</code>      | O(1)             | O(log n)          |
+| <code>Insert</code>      | O(n)             | O(log n)          |
+| <code>Get Item</code>    | O(1)             | O(log n)          |
+| <code>Set Item</code>    | O(1)             | O(log n)          |
+| <code>Del Item</code>    | O(n)             | O(log n)          |
+| <code>Iteration</code>   | O(n)             | O(n)              |
+| <code>Get Slice</code>   | O(k)             | O(log n)          |
+| <code>Del Slice</code>   | O(n)             | O(log n)          |
+| <code>Set Slice</code>   | O(n+k)           | O(log k + log n)  |
+| <code>Extend</code>      | O(k)             | O(log k + log n)  |
+| <code>Sort</code>        | O(n log n)       | O(n log n)        |
+| <code>Multiply</code>    | O(nk)            | O(log k + log n)  |</p>
+<p>Python의 배열 기반 <code>list</code>와 BList에 대한 광범위한 실증적 비교는에서 확인할 수 있습니다.</p>
+<h2>사용 사례 트레이드오프 (Use Case Trade-offs)</h2>
+<p>BList는 모든 연산에서 우수하지는 않지만, 많은 연산에서 우월한 성능을 제공합니다. 특정 사용 사례에 맞는 올바른 데이터 타입을 선택하는 것은 어떤 연산이 주로 사용되는지에 따라 달라집니다. 내장(built-in) 데이터 타입으로 선택하는 것은 다양한 사용 사례의 중요성과 성능 차이의 크기를 균형 있게 고려해야 합니다.</p>
+<p>작은 리스트의 일반적인 사용 사례의 경우, 배열 기반 <code>list</code>와 BList는 유사한 성능 특성을 가집니다.</p>
+<p>대규모 리스트의 덜 일반적인 사용 사례에서는 기존 배열 기반 <code>list</code>가 BList 참조 구현보다 뛰어난 두 가지 일반적인 사용 사례가 있습니다:</p>
+<ul>
+<li><strong>대규모 LIFO 스택:</strong> <code>.append()</code> 및 <code>.pop(-1)</code> 연산이 많은 경우. 각 연산은 배열 기반 <code>list</code>의 경우 O(1)이지만, BList의 경우 O(log n)입니다.</li>
+<li><strong>크기가 변경되지 않는 대규모 리스트:</strong> <code>getitem</code> 및 <code>setitem</code> 호출이 배열 기반 <code>list</code>의 경우 O(1)이지만, BList의 경우 O(log n)입니다.</li>
+</ul>
+<p>10,000개 요소의 리스트에 대한 성능 테스트에서, BList는 이 두 가지 사용 사례에 대해 각각 50% 및 5%의 실행 시간 증가를 보였습니다.</p>
+<p>LIFO 사용 사례의 성능은 루트 노드 내에 가장 오른쪽 리프에 대한 포인터를 캐싱하여 O(n) 시간으로 개선될 수 있습니다. 크기가 변경되지 않는 리스트의 경우, 순차 접근의 일반적인 경우도 루트 노드의 캐싱을 통해 O(n) 시간으로 개선될 수 있습니다. 그러나 이러한 접근 방식의 성능은 아직 실증적으로 테스트되지 않았습니다.</p>
+<p>많은 연산이 배열 기반 <code>list</code>에서 BList로 전환할 때 엄청난 속도 향상(O(n)에서 O(log n))을 보입니다. 10,000개 요소 리스트에 대한 성능 테스트에서, BList의 <code>getslice</code>, <code>setslice</code> 및 FIFO 스타일 삽입/삭제와 같은 연산은 배열 기반 <code>list</code>에 필요한 시간의 1%에 불과했습니다.</p>
+<p>많은 연산에서 큰 성능 향상이 있다는 점을 고려할 때, 일부 연산에서 발생하는 작은 성능 비용은 많은(전부는 아니지만) 애플리케이션에 가치가 있을 것입니다.</p>
+<h2>구현 (Implementation)</h2>
+<p>BList는 B+Tree 데이터 구조를 기반으로 합니다. BList는 넓고 무성한(bushy) 트리로, 각 노드는 최대 128개의 자식(children) 포인터 배열을 포함합니다. 노드가 리프(leaf)인 경우, 자식은 사용자가 리스트에 넣은 사용자 가시 객체입니다. 노드가 리프가 아닌 경우, 자식은 사용자에게는 보이지 않는 다른 BList 노드입니다. 리스트에 소수의 요소만 포함된 경우, 이들은 모두 루트이자 리프인 단일 노드의 자식이 됩니다. 노드는 포인터 배열에 불과하므로, 작은 리스트는 배열 기반 데이터 타입과 사실상 동일하게 작동하며 동일한 우수한 성능 특성을 공유합니다.</p>
+<p>BList는 삽입 및 삭제 연산의 순서와 관계없이 좋은 (O(log n)) 점근적 성능을 보장하기 위해 몇 가지 불변성(invariants)을 유지합니다. 주요 불변성은 다음과 같습니다:</p>
+<ul>
+<li>각 노드는 최대 128개의 자식을 가집니다.</li>
+<li>각 비-루트(non-root) 노드는 최소 64개의 자식을 가집니다.</li>
+<li>루트 노드는 리스트에 2개 미만의 요소가 포함된 경우가 아니면 최소 2개의 자식을 가집니다.</li>
+<li>트리는 균일한 깊이(uniform depth)를 가집니다.</li>
+</ul>
+<p>삽입으로 인해 노드의 자식이 128개를 초과하게 되면, 해당 노드는 형제 노드(sibling)를 생성하고 자식의 절반을 형제 노드에게 전달합니다. 이 형제 노드는 해당 노드의 부모에 삽입됩니다. 노드가 루트 노드인 경우 (따라서 부모가 없음), 새 부모가 생성되고 트리의 깊이가 하나 증가합니다.</p>
+<p>삭제로 인해 노드의 자식이 64개 미만이 되면, 해당 노드는 가능하면 형제 노드 중 하나에서 요소를 가져옵니다. 두 형제 노드 모두 64개의 자식만 가지고 있다면, 두 노드가 병합되고 비어 있는 노드는 부모에서 제거됩니다. 루트 노드의 자식이 하나로 줄어들면, 그 단일 자식이 새 루트가 됩니다 (즉, 트리의 깊이가 하나 감소합니다).</p>
+<p>트리 같은 점근적 성능과 작은 리스트에서 배열 같은 성능 외에도, BList는 투명한 Copy-on-Write를 지원합니다. 비-루트 노드가 복사되어야 하는 경우 (<code>getslice</code>, <code>copy</code>, <code>setslice</code> 등의 일부로), 해당 노드는 복사되는 대신 여러 부모 간에 공유됩니다. 나중에 수정되어야 하는 경우, 그 시점에 복사됩니다. 이는 완전히 내부적으로 처리되며, 사용자 관점에서 BList는 일반 Python <code>list</code>처럼 작동합니다.</p>
+<h2>메모리 사용량 (Memory Usage)</h2>
+<p>최악의 경우, BList의 리프 노드는 꽉 찬 128개가 아닌 64개의 자식만 가지므로, 메모리 사용량은 최상의 배열 구현의 약 두 배 정도입니다. 비-리프 노드는 무시할 만한 양의 추가 메모리를 사용하는데, 이는 비-리프 노드보다 리프 노드가 최소 63배 더 많기 때문입니다.</p>
+<p>기존 배열 기반 <code>list</code> 구현은 항목이 추가되거나 제거됨에 따라 크기를 늘리거나 줄여야 합니다. 효율성을 위해, 리스트가 기하급수적으로 커지거나 작아질 때만 크기를 조절합니다. 최악의 경우, 이 역시 최상의 경우보다 두 배 많은 메모리를 사용합니다.</p>
+<p>요약하자면, BList의 메모리 점유율은 기존 배열 기반 구현과 크게 다르지 않습니다.</p>
+<h2>하위 호환성 (Backwards Compatibility)</h2>
+<p>BList가 <code>collections</code> 모듈에 추가된다면 하위 호환성은 문제가 되지 않습니다. 이 섹션은 기존 배열 기반 <code>list</code>를 BList로 대체하는 옵션에 중점을 둡니다. Python 인터프리터 사용자에게 BList는 현재 <code>list</code> 구현과 동일한 인터페이스를 가집니다. 거의 모든 연산에서 실행 속도를 제외하고는 동작이 동일합니다.</p>
+<p>C API의 경우, BList는 기존 <code>list</code> 구현과 다른 인터페이스를 가집니다. BList는 더 복잡한 구조로 인해 외부에서 직접적인 조작에 적합하지 않습니다. 다행히 기존 <code>list</code> 구현은 <code>list</code> 객체에서 데이터를 접근하기 위한 함수와 매크로 API를 정의합니다. Google Code Search 결과에 따르면, 대부분의 서드파티 모듈은 <code>list</code>의 구조에 직접 의존하기보다는 잘 정의된 API를 사용합니다. 다음 표는 검색어와 결과를 요약합니다:</p>
+<p>| 검색어                  | 결과 수  |
+| :---------------------- | :------- |
+| <code>PyList_GetItem</code>        | 2,000    |
+| <code>PySequence_GetItem</code>    | 800      |
+| <code>PySequence_Fast_GET_ITEM</code> | 100      |
+| <code>PyList_GET_ITEM</code>       | 400      |
+| <code>[^a-zA-Z_]ob_item</code>     | 100      |</p>
+<p>이는 두 가지 방법 중 하나로 달성될 수 있습니다:</p>
+<ol>
+<li><strong><code>listobject.h</code>의 다양한 접근자 함수 및 매크로를 BList에 접근하도록 재정의:</strong> 인터페이스는 변경되지 않습니다. 함수는 쉽게 재정의될 수 있습니다. 매크로는 좀 더 주의가 필요하며, 큰 리스트의 경우 함수 호출에 의존해야 할 수 있습니다. 매크로는 인수를 두 번 이상 평가해야 할 수 있는데, 인수에 부작용이 있는 경우 문제가 될 수 있습니다. "PyList_GET_ITEM([^)]+("에 대한 Google Code Search 결과, 이러한 경우가 소수에 불과하여 영향이 적을 것으로 보입니다.</li>
+<li><strong>기존 <code>list</code> 타입을 Deprecate(사용 중단 권고)하지만 계속 포함:</strong> API를 사용하지 않고 <code>list</code>의 문서화되지 않은 구조를 직접 사용하는 소수의 확장 모듈은 동작하지 않을 것입니다. 핵심 코드 자체는 접근자 매크로를 상당히 일관되게 사용하므로 포팅(이식)하기 쉬울 것입니다. BList C 인터페이스는 기존 <code>PyList</code> 인터페이스와 일치하도록 변경될 수 있으며, 이를 통해 99%의 모듈 작성자가 간단한 검색-교체만으로 충분하도록 만들 수 있습니다. 기존 모듈은 변경 없이 계속 컴파일되고 작동하겠지만, BList로 마이그레이션(이전)하기 위해 의도적이고 작은 노력을 기울여야 할 것입니다. 이 접근 방식의 단점은 BList와 배열 기반 <code>list</code>를 사용하는 모듈이 혼합되면 변환이 자주 필요할 경우 속도 저하로 이어질 수 있다는 것입니다.</li>
+</ol>
+<h2>참조 구현 (Reference Implementation)</h2>
+<p>CPython용 BList 참조 구현은에서 사용할 수 있습니다.</p>
+<p>소스 패키지에는 CPython 버전의 프로토타입으로 개발된 순수 Python 구현도 포함되어 있습니다. 당연히 순수 Python 버전은 상당히 느리며, 리스트가 상당히 커질 때까지 점근적 개선 효과가 나타나지 않습니다.</p>
+<p><code>Py_DEBUG</code>로 컴파일하면 C 구현은 대부분의 함수에 들어가고 나갈 때 BList 불변성을 검사합니다.</p>
+<p>광범위한 테스트 케이스도 소스 패키지에 포함되어 있습니다. 테스트 케이스에는 기존 Python 시퀀스 및 리스트 테스트 케이스가 하위 집합으로 포함됩니다. 인터프리터가 <code>Py_DEBUG</code>로 빌드될 때, 테스트 케이스는 참조 누출(reference leaks)도 확인합니다.</p>
+<h2>다른 Python 변형으로의 포팅 (Porting to Other Python Variants)</h2>
+<p>BList가 <code>collections</code> 모듈에 추가된다면, 다른 Python 변형(variants)은 세 가지 방법 중 하나로 이를 지원할 수 있습니다:</p>
+<ol>
+<li><strong><code>blist</code>를 <code>list</code>의 별칭(alias)으로 만듭니다.</strong> 점근적 성능은 좋지 않겠지만, 작동은 할 것입니다.</li>
+<li><strong>순수 Python 참조 구현을 사용합니다.</strong> 작은 리스트의 성능은 좋지 않겠지만, 작동은 할 것입니다.</li>
+<li><strong>참조 구현을 포팅합니다.</strong></li>
+</ol>
+<h2>논의 (Discussion)</h2>
+<p>이 제안은 Python-3000 메일링 리스트에서 간략하게 논의되었습니다. 많은 사람들이 이 제안을 지지했지만, 일부 반대 의견도 있었습니다. 다음은 스레드의 게시자들이 관찰한 장단점을 요약한 것입니다:</p>
+<p><strong>일반적인 의견:</strong></p>
+<ul>
+<li><strong>찬성:</strong> 대부분의 경우 배열 기반 리스트보다 성능이 뛰어날 것입니다.</li>
+<li><strong>찬성:</strong> "이것의 변형을 ... 여러 번 구현해 보았습니다."</li>
+<li><strong>반대:</strong> 실제 애플리케이션에서의 유용성과 성능은 입증되지 않았습니다.</li>
+</ul>
+<p><strong>BList를 <code>collections</code> 모듈에 추가하는 것에 대한 의견:</strong></p>
+<ul>
+<li><strong>찬성:</strong> <code>list</code>-API를 일치시켜 학습 곡선을 거의 0으로 줄입니다.</li>
+<li><strong>찬성:</strong> 중급 사용자에게 유용하며, 초보자에게 방해가 되지 않습니다.</li>
+<li><strong>반대:</strong> 데이터 타입의 확산은 개발자의 선택을 어렵게 만듭니다.</li>
+</ul>
+<p><strong>배열 기반 <code>list</code>를 BList로 대체하는 것에 대한 의견:</strong></p>
+<ul>
+<li><strong>반대:</strong> 확장 모듈에 미치는 영향 (하위 호환성 섹션에서 다룸).</li>
+<li><strong>반대:</strong> BList가 느린 사용 사례는 중요합니다 (사용 사례 트레이드오프 섹션에서 어떻게 해결될 수 있는지 참조).</li>
+<li><strong>반대:</strong> 배열 기반 <code>list</code> 코드는 간단하고 유지보수가 쉽습니다.</li>
+</ul>
+<p>실제 애플리케이션에서의 유용성과 성능을 평가하기 위해 Raymond Hettinger는 BList를 확장 모듈로 출시할 것을 제안했습니다 (현재에서 사용 가능). 유용성이 입증된다면, 그는 2.6 버전에 <code>collections</code> 모듈의 일부로 포함될 강력한 후보가 될 것이라고 생각했습니다. 널리 인기를 얻는다면, 배열 기반 <code>list</code>를 대체하는 것을 고려할 수 있지만, 그렇지 않다면 고려하지 않을 것이라고 밝혔습니다.</p>
+<p>Guido van Rossum은 데이터 타입의 확산에 반대했지만, 하위 호환성 문제가 해결되고 BList의 성능이 균일하게 더 좋다면 배열 기반 <code>list</code>를 대체하는 것을 선호한다고 언급했습니다.</p>
+<h2>진행 중인 작업 (On-going Tasks)</h2>
+<ul>
+<li>작은 리스트의 메모리 점유율 감소.</li>
+<li>BList용 TimSort 구현하여 최상의 경우 정렬이 O(log n) 대신 O(n)이 되도록 함.</li>
+<li><code>__reversed__</code> 구현.</li>
+<li>LIFO 연산을 O(n) 시간으로 만들기 위해 루트에 가장 오른쪽 리프로의 포인터 캐싱.</li>
+</ul>
+<h2>참고 자료 (References)</h2>
+<ul>
+<li>(1, 2) C 및 Python용 참조 구현: <code>http://www.python.org/pypi/blist/</code></li>
+<li>Python의 배열 기반 <code>list</code>와 <code>blist</code> 간의 실증적 성능 비교: <code>http://stutzbachenterprises.com/blist/</code></li>
+<li><code>python-3000</code> 메일링 리스트의 논의 시작 게시물: <code>https://mail.python.org/pipermail/python-3000/2007-April/006757.html</code></li>
+<li>Raymond Hettinger의 <code>python-3000</code> 피드백: <code>https://mail.python.org/pipermail/python-3000/2007-May/007491.html</code></li>
+</ul>
+<h2>저작권 (Copyright)</h2>
+<p>이 문서는 퍼블릭 도메인에 공개되었습니다.</p>
+<hr>
+<p>마지막 수정일: 2025-02-01 08:59:27 GMT</p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":[["$","aside",null,{"className":"lg:w-64 xl:w-72 order-1 lg:order-none","children":["$","div",null,{"className":"sidebar sticky","children":["$","nav",null,{"className":"space-y-4","children":[["$","div","Backend",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Backend"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Django",{"children":["$","a",null,{"href":"/backend/django/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Django"," (",6,")"]}]}],["$","li","Logging",{"children":["$","a",null,{"href":"/backend/logging/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Logging"," (",1,")"]}]}]]}]]}],["$","div","Python",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Python"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","PEP",{"children":["$","a",null,{"href":"/python/pep/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["PEP"," (",650,")"]}]}]]}]]}],["$","div","AI/ML",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"AI/ML"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","LLM",{"children":["$","a",null,{"href":"/ai/llm/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["LLM"," (",1,")"]}]}],["$","li","Review",{"children":["$","a",null,{"href":"/ai/review/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Review"," (",2648,")"]}]}]]}]]}],["$","div","DevOps",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"DevOps"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Nginx",{"children":["$","a",null,{"href":"/devops/nginx/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Nginx"," (",1,")"]}]}],["$","li","Docker",{"children":["$","a",null,{"href":"/devops/docker/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Docker"," (",1,")"]}]}],["$","li","SafeLine",{"children":["$","a",null,{"href":"/devops/safeline/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["SafeLine"," (",1,")"]}]}],["$","li","Jenkins",{"children":["$","a",null,{"href":"/devops/jenkins/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Jenkins"," (",3,")"]}]}],["$","li","GitHub Actions",{"children":["$","a",null,{"href":"/devops/github-actions/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["GitHub Actions"," (",1,")"]}]}],["$","li","AWS",{"children":["$","a",null,{"href":"/devops/aws/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["AWS"," (",1,")"]}]}]]}]]}],["$","div","etc",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"etc"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Me",{"children":["$","a",null,{"href":"/etc/me/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Me"," (",3,")"]}]}],["$","li","Chrome Extension",{"children":["$","a",null,{"href":"/etc/chrome-extension/","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Chrome Extension"," (",1,")"]}]}]]}]]}]]}]}]}],["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Rejected] PEP 3128 - BList: A Faster List-like Type"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-27 14:31:22+0900","children":"2025년 9월 27일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 27일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]}],["$","$La",null,{"postPermalink":"/python/pep/3128/","postId":"2025-09-27-pep-3128-blist-a-faster-list-like-type"}],["$","section",null,{"className":"mt-12 border-t border-gray-200 pt-8","children":[["$","h3",null,{"className":"text-base font-semibold text-gray-900 mb-4","children":["Python"," 의 다른글"]}],["$","ul",null,{"className":"space-y-2 text-sm","children":[["$","li",null,{"className":"text-gray-500","children":["이전글"," ",["$","$L7",null,{"href":"/python/pep/3127/","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Final] PEP 3127 - Integer Literal Support and Syntax"}]]}],["$","li",null,{"className":"text-gray-900 font-semibold","children":["현재글 : ","[Rejected] PEP 3128 - BList: A Faster List-like Type"]}],["$","li",null,{"className":"text-gray-500","children":["다음글"," ",["$","$L7",null,{"href":"/python/pep/3129/","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Final] PEP 3129 - Class Decorators"}]]}]]}]]}]]}]}]]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"secrett2633's blog"}],["$","meta","3",{"name":"description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://blog.secrett2633.cloud/"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"secrett2633's blog"}],["$","meta","13",{"property":"og:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","meta","14",{"property":"og:url","content":"https://blog.secrett2633.cloud/"}],["$","meta","15",{"property":"og:site_name","content":"secrett2633's blog"}],["$","meta","16",{"property":"og:locale","content":"ko_KR"}],["$","meta","17",{"property":"og:type","content":"website"}],["$","meta","18",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","19",{"name":"twitter:title","content":"secrett2633's blog"}],["$","meta","20",{"name":"twitter:description","content":"기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트"}],["$","link","21",{"rel":"icon","href":"/icon.ico?6d9f34d4948640b8","type":"image/x-icon","sizes":"16x16"}],["$","meta","22",{"name":"next-size-adjust"}]]
+1:null
