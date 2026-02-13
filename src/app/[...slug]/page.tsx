@@ -22,29 +22,26 @@ interface PostPageProps {
 
 export async function generateStaticParams() {
   try {
-    const postIds = getAllPostIds()
+    // 캐시된 permalink 맵 사용 (빌드 속도 최적화)
+    const cacheFile = path.join(process.cwd(), '.next-cache', 'permalink-cache.json')
+    let permalinkMap: Record<string, { slug: string[], permalink: string }> = {}
     
-    const postParams = postIds.map((id) => {
-      // Read each post frontmatter to honor custom permalink when present
-      try {
-        const fullPath = path.join(process.cwd(), 'src', 'data', `${id}.md`)
-        const fileContents = fs.readFileSync(fullPath, 'utf8')
-        const matterResult = matter(fileContents)
-        const rawPermalink = matterResult.data.permalink as string | undefined
-        const effectivePath = rawPermalink && typeof rawPermalink === 'string' && rawPermalink.trim().length > 0
-          ? rawPermalink
-          : `/${id}/`
-        const normalized = effectivePath.replace(/^\/+/, '').replace(/\/+$/, '')
-        const slug = normalized.split('/')
-        
-        // 댓글 정보는 getPostData/getSortedPostsData에서 자동으로 포함됨
-        return { slug }
-      } catch (_err) {
-        // Fallback to id-based slug on any error
-        const slug = id.split('/')
-        return { slug }
-      }
-    })
+    if (fs.existsSync(cacheFile)) {
+      const cacheContent = fs.readFileSync(cacheFile, 'utf8')
+      permalinkMap = JSON.parse(cacheContent)
+    } else {
+      // 캐시가 없으면 경고 출력하고 기본 방식 사용
+      console.warn('⚠️  Permalink cache not found. Run "npm run prebuild" first for faster builds.')
+      const postIds = getAllPostIds()
+      postIds.forEach((id) => {
+        permalinkMap[id] = {
+          slug: id.split('/'),
+          permalink: `/${id}/`
+        }
+      })
+    }
+    
+    const postParams = Object.values(permalinkMap).map(({ slug }) => ({ slug }))
 
     // Also include category landing paths and paginated paths required for export mode
     const categoryPathToName: Record<string, string> = {
@@ -242,25 +239,43 @@ export default async function PostPage({ params }: PostPageProps) {
     }
   }
   
-  // Find the post by matching permalink
-  const postIds = getAllPostIds()
+  // Find the post by matching permalink (캐시 사용으로 최적화)
   let postId = ''
   
   try {
     // URL 디코딩된 slug와 원본 slug 모두 확인
     const decodedSlug = decodeURIComponent(slug)
     
-    for (const id of postIds) {
-      const fullPath = path.join(process.cwd(), 'src', 'data', `${id}.md`)
-      const fileContents = fs.readFileSync(fullPath, 'utf8')
-      const matterResult = matter(fileContents)
-      const permalink = matterResult.data.permalink || `/${id}/`
-      const normalizedPermalink = permalink.replace(/^\//, '').replace(/\/$/, '')
+    // 캐시 파일에서 permalink 맵 로드
+    const cacheFile = path.join(process.cwd(), '.next-cache', 'permalink-cache.json')
+    
+    if (fs.existsSync(cacheFile)) {
+      const cacheContent = fs.readFileSync(cacheFile, 'utf8')
+      const permalinkMap: Record<string, { slug: string[], permalink: string }> = JSON.parse(cacheContent)
       
-      // 원본 slug와 디코딩된 slug 모두 확인
-      if (normalizedPermalink === slug || normalizedPermalink === decodedSlug) {
-        postId = id
-        break
+      // 캐시에서 매칭되는 postId 찾기
+      for (const [id, data] of Object.entries(permalinkMap)) {
+        const normalizedPermalink = data.permalink.replace(/^\//, '').replace(/\/$/, '')
+        
+        if (normalizedPermalink === slug || normalizedPermalink === decodedSlug) {
+          postId = id
+          break
+        }
+      }
+    } else {
+      // 캐시가 없으면 기존 방식 사용 (fallback)
+      const postIds = getAllPostIds()
+      for (const id of postIds) {
+        const fullPath = path.join(process.cwd(), 'src', 'data', `${id}.md`)
+        const fileContents = fs.readFileSync(fullPath, 'utf8')
+        const matterResult = matter(fileContents)
+        const permalink = matterResult.data.permalink || `/${id}/`
+        const normalizedPermalink = permalink.replace(/^\//, '').replace(/\/$/, '')
+        
+        if (normalizedPermalink === slug || normalizedPermalink === decodedSlug) {
+          postId = id
+          break
+        }
       }
     }
     

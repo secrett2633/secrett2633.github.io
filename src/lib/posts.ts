@@ -6,6 +6,10 @@ import html from 'remark-html'
 
 const postsDirectory = path.join(process.cwd(), 'src', 'data')
 
+// 빌드 시 성능 최적화를 위한 메모이제이션 캐시
+let sortedPostsCache: PostData[] | null = null
+let postsCacheTimestamp = 0
+
 // 댓글 인터페이스
 export interface Comment {
   id: string
@@ -105,6 +109,17 @@ export function getAllPostIds(): string[] {
 }
 
 export function getSortedPostsData(): PostData[] {
+  // 프로덕션 빌드 시 캐시 사용 (빌드 속도 최적화)
+  const now = Date.now()
+  if (sortedPostsCache && process.env.NODE_ENV === 'production') {
+    return sortedPostsCache
+  }
+  
+  // 개발 모드에서는 5초 캐시 (파일 변경 감지)
+  if (sortedPostsCache && process.env.NODE_ENV === 'development' && now - postsCacheTimestamp < 5000) {
+    return sortedPostsCache
+  }
+  
   try {
     const fileNames = fs.readdirSync(postsDirectory)
     const allPostsData = fileNames.map((fileName) => {
@@ -134,7 +149,7 @@ export function getSortedPostsData(): PostData[] {
       } as PostData
     })
 
-    return allPostsData
+    const sortedPosts = allPostsData
       .filter((post) => post.published !== false)
       .sort((a, b) => {
         if (a.date < b.date) {
@@ -143,6 +158,12 @@ export function getSortedPostsData(): PostData[] {
           return -1
         }
       })
+    
+    // 캐시 저장
+    sortedPostsCache = sortedPosts
+    postsCacheTimestamp = now
+    
+    return sortedPosts
   } catch (error) {
     console.error('Error reading posts:', error)
     return []
