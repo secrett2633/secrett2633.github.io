@@ -1,0 +1,96 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[9157,["231","static/chunks/231-467e37449c5a68fc.js","185","static/chunks/app/layout-53ec9cbf619543e1.js"],"default"]
+7:I[231,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-80e07cee06d17a0b.js"],""]
+4:["slug","python/pep/363","c"]
+0:["_3-KrKKQh7tcSoXiYwQMB",[[["",{"children":[["slug","python/pep/363","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"363\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/363","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_f367f3 layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/d6cea809dcbae606.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+a:I[646,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-80e07cee06d17a0b.js"],"default"]
+9:T225d,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0363/">PEP 363 - Syntax For Dynamic Attribute Access</a></p>
+<p><strong>상태:</strong> Rejected | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 29-Jan-2007</p>
+</blockquote>
+<h2>PEP 363 – 동적 속성 접근을 위한 새로운 문법 제안 (Syntax For Dynamic Attribute Access)</h2>
+<p><strong>상태: 거부됨 (Rejected)</strong></p>
+<p>이 문서는 Python Enhancement Proposal (PEP) 363에 대한 한국어 번역 및 정리입니다. PEP 363은 Python에서 객체의 속성에 동적으로 접근하는 새로운 문법을 제안했지만, 최종적으로 <strong>거부되었습니다</strong> . 이 문서는 제안의 내용, 도입 배경, 그리고 거부된 이유를 설명합니다.</p>
+<h3>요약 (Abstract)</h3>
+<p>현재 Python에서는 <code>getattr</code> 및 <code>setattr</code> 내장 함수를 사용하여 동적으로 객체 속성에 접근할 수 있습니다. PEP 363은 이러한 동적 속성 접근을 더 쉽게 하기 위한 새로운 문법을 제안했습니다.</p>
+<p>예를 들어, 제안된 문법을 사용하면 다음처럼 코드를 작성할 수 있습니다:</p>
+<pre><code class="language-python">x.('foo_%d' % n) += 1
+z = y.('foo_%d' % n).('bar_%s' % s)
+</code></pre>
+<p>이는 기존의 <code>getattr</code>/<code>setattr</code>을 사용하는 다음 코드보다 간결합니다:</p>
+<pre><code class="language-python">attr_name = 'foo_%d' % n
+setattr(x, attr_name, getattr(x, attr_name) + 1)
+z = getattr(getattr(y, 'foo_%d' % n), 'bar_%s' % s)
+</code></pre>
+<h3>도입 배경 (Rationale)</h3>
+<p>이 제안의 주요 동기는 딕셔너리 접근(<code>x[12]</code>)이나 인덱싱(<code>x[12] += 1</code>)이 제공하는 것과 유사한 친숙한 문법을 동적 속성 접근에도 제공하여 사용 편의성을 높이는 것이었습니다.</p>
+<p>현재 Python에서 속성 접근은 두 가지 방식으로 이루어집니다:</p>
+<ol>
+<li><strong>속성 이름이 코드 작성 시점에 알려진 경우</strong> : <code>.NAME</code> 트레일러(trailer)를 사용합니다.
+<pre><code class="language-python">x.foo = 42
+y.bar += 100
+</code></pre>
+</li>
+<li><strong>속성 이름이 런타임에 동적으로 계산되는 경우</strong> : <code>getattr</code>, <code>setattr</code>, <code>delattr</code> 내장 함수를 사용해야 합니다.
+<pre><code class="language-python">x = getattr(y, 'foo_%d' % n)
+setattr(z, 'bar_%s' % s, 99)
+</code></pre>
+<code>getattr</code>은 또한 속성이 없을 경우 반환할 기본값(default value)을 지정할 수 있습니다:
+<pre><code class="language-python">x = getattr(y, 'foo_%d' % n, 0)
+</code></pre>
+</li>
+</ol>
+<p>PEP 363은 <code>x.(expr)</code> 형태의 새로운 문법을 통해 동적 속성 접근의 편의성을 개선하고자 했습니다. 이 새로운 문법은 <code>del</code> 문과 함께 사용할 수도 있었습니다: <code>del x.(attr_name)</code></p>
+<h3>기존 코드에 미치는 영향 (Impact On Existing Code)</h3>
+<p>제안된 새로운 문법은 현재 유효하지 않으므로, 이 제안으로 인해 기존의 올바른 프로그램의 의미가 변경되는 경우는 없었을 것입니다.</p>
+<p>Python 2.5 배포판의 <code>*.py</code> 파일에서 약 600여 건의 <code>getattr</code>, <code>setattr</code>, <code>delattr</code> 사용이 있었으며, 이 중 상당수는 새로운 문법으로 대체될 수 있었을 것으로 추정되었습니다. 특히 <code>getattr</code>과 <code>setattr</code>이 함께 사용되는 복잡한 경우(<code>setattr(self, attr, change_root(self.root, getattr(self, attr)))</code>)에는 새로운 문법(<code>self.(attr) = change_root(self.root, self.(attr))</code>)이 가독성을 크게 향상시킬 수 있었습니다.</p>
+<h3>성능 영향 (Performance Impact)</h3>
+<p>초기 Pystone 벤치마크 측정 결과는 결론적이지 않았지만, 패치된 버전에서 Pystone 점수가 약 1% 정도 하락할 수 있음을 시사했습니다. 이는 <code>ceval.c</code>의 메인 루프가 길어져 캐시 동작에 악영향을 미치기 때문이라는 추측이 있었으나 확인되지는 않았습니다. 반면에, 동적 속성 접근 자체에 대해서는 약 40-45%의 속도 향상이 측정되었습니다.</p>
+<h3>오류 처리 (Error Cases)</h3>
+<p>속성 이름으로는 오직 문자열만 허용되었습니다. 예를 들어, <code>x.(99) = 8</code>과 같이 정수를 사용하면 <code>TypeError: attribute name must be string, not 'int'</code> 오류가 발생합니다. 이는 기존 <code>PyObject_GetAttr</code> 함수에 의해 처리됩니다.</p>
+<h3>초안 구현 (Draft Implementation)</h3>
+<p>초안 구현은 <code>Grammar/Grammar</code> 파일의 <code>trailer</code> 절에 새로운 대안을 추가하고, <code>Python.asdl</code>에 새로운 AST (Abstract Syntax Tree) 타입인 <code>DynamicAttribute</code>를 도입하며, <code>symtable.c</code>, <code>ast.c</code>, <code>compile.c</code>에 관련 변경 사항을 적용했습니다. 또한, 세 개의 새로운 opcode (load/store/del)와 함께 <code>opcode.h</code>, <code>ceval.c</code>에도 변경이 있었습니다. 이 패치는 핵심 코드에 약 180줄, 테스트 코드에 약 100줄을 추가하는 정도였습니다.</p>
+<h3>메일링 리스트 토론 (Mailing Lists Discussion)</h3>
+<p>이 PEP는 python-ideas (2007년 2월 9일)와 python-dev (2007년 2월 12일) 메일링 리스트에서 논의되었습니다.</p>
+<ul>
+<li>
+<p><strong>초기 반응</strong> : 초기에는 아이디어에 대한 합리적인 (만장일치는 아니지만) 지지가 있었으나, 정확한 문법 선택에 대해서는 의견이 엇갈렸습니다. 일부는 <code>.</code>이 너무 쉽게 간과되어 메소드/함수 호출과 혼동될 수 있다고 지적했습니다.</p>
+</li>
+<li>
+<p><strong>대체 문법 제안</strong> : <code>obj.[foo]</code>, <code>obj.{foo}</code>, <code>obj{foo}</code> 등 여러 대체 문법이 제안되었고, 그중 <code>obj.[foo]</code>가 선호되었습니다.</p>
+</li>
+<li>
+<p><strong>두 인자 형태 반대</strong> : 기본값을 위한 두 인자 형태의 동적 속성 접근(<code>x = y.('foo_%d' % n, None)</code>)은 보편적으로 비판을 받아 PEP에서 제외되었습니다.</p>
+</li>
+<li>
+<p><strong>근본적인 의문</strong> : 토론은 이 기능이 새로운 문법 도입을 정당화할 만큼 충분한 이점을 제공하는지에 대한 근본적인 질문으로 이어졌습니다. 개발자들이 새로운 문법에 익숙해져야 하는 문제와 함께, 새 문법을 사용하는 코드가 이전 버전의 Python에서 실행되지 않는 하위 호환성 문제도 제기되었습니다.</p>
+</li>
+<li>
+<p><strong>대체 솔루션 제안</strong> : 새로운 문법 대신, Martin von Löwis가 제안한 <strong>"래퍼 클래스 (wrapper class)"</strong> 아이디어가 논의되었습니다. 이 래퍼 클래스는 객체에 대한 딕셔너리 스타일의 속성 접근을 제공했습니다:</p>
+<pre><code class="language-python">class attrs:
+    def __init__(self, obj):
+        self.obj = obj
+    def __getitem__(self, name):
+        return getattr(self.obj, name)
+    def __setitem__(self, name, value):
+        return setattr(self.obj, name, value)
+    def __delitem__(self, name):
+        return delattr(self, name)
+    def __contains__(self, name):
+        return hasattr(self, name)
+</code></pre>
+<p>이 래퍼 클래스 접근 방식은 원래 문제에 대한 더 깔끔하고 우아한 해결책으로 간주되었습니다.</p>
+</li>
+<li>
+<p><strong>최종 결정</strong> : 최종적으로, 이 PEP는 새로운 문법 도입에 대한 입증 책임 (burden of proof)을 충족하지 못한다고 결정되어 <strong>거부되었습니다</strong> . 래퍼 클래스 아이디어는 향후 PEP의 가능성으로 남겨졌습니다.</p>
+</li>
+</ul>
+<h3>결론</h3>
+<p>PEP 363은 동적 속성 접근의 편의성을 높이기 위한 새로운 문법 <code>x.(expr)</code>를 제안했지만, 복잡성, 하위 호환성 문제, 그리고 새로운 문법 도입의 정당성에 대한 충분한 설득력 부족으로 인해 거부되었습니다. 대신, <code>getattr</code>/<code>setattr</code>/<code>delattr</code>을 딕셔너리처럼 사용할 수 있게 하는 래퍼 클래스(wrapper class)와 같은 대안적인 접근 방식이 더 우아한 해결책으로 논의되었습니다.</p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":[["$","aside",null,{"className":"lg:w-64 xl:w-72 order-1 lg:order-none","children":["$","div",null,{"className":"sidebar sticky","children":["$","nav",null,{"className":"space-y-4","children":[["$","div","Backend",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Backend"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Django",{"children":["$","a",null,{"href":"/backend/django","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Django"," (",6,")"]}]}],["$","li","Logging",{"children":["$","a",null,{"href":"/backend/logging","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Logging"," (",1,")"]}]}]]}]]}],["$","div","Python",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Python"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","PEP",{"children":["$","a",null,{"href":"/python/pep","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["PEP"," (",650,")"]}]}]]}]]}],["$","div","AI/ML",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"AI/ML"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","LLM",{"children":["$","a",null,{"href":"/ai/llm","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["LLM"," (",1,")"]}]}],["$","li","Review",{"children":["$","a",null,{"href":"/ai/review","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Review"," (",2728,")"]}]}]]}]]}],["$","div","DevOps",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"DevOps"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Nginx",{"children":["$","a",null,{"href":"/devops/nginx","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Nginx"," (",1,")"]}]}],["$","li","Docker",{"children":["$","a",null,{"href":"/devops/docker","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Docker"," (",1,")"]}]}],["$","li","SafeLine",{"children":["$","a",null,{"href":"/devops/safeline","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["SafeLine"," (",1,")"]}]}],["$","li","Jenkins",{"children":["$","a",null,{"href":"/devops/jenkins","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Jenkins"," (",3,")"]}]}],["$","li","GitHub Actions",{"children":["$","a",null,{"href":"/devops/github-actions","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["GitHub Actions"," (",1,")"]}]}],["$","li","AWS",{"children":["$","a",null,{"href":"/devops/aws","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["AWS"," (",1,")"]}]}]]}]]}],["$","div","etc",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"etc"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Me",{"children":["$","a",null,{"href":"/etc/me","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Me"," (",3,")"]}]}],["$","li","Chrome Extension",{"children":["$","a",null,{"href":"/etc/chrome-extension","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Chrome Extension"," (",1,")"]}]}]]}]]}]]}]}]}],["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Rejected] PEP 363 - Syntax For Dynamic Attribute Access"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-26 19:08:27+0900","children":"2025년 9월 26일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 26일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]}],["$","$La",null,{"postPermalink":"/python/pep/363","postId":"2025-09-26-pep-0363-syntax-for-dynamic-attribute-access"}],["$","section",null,{"className":"mt-12 border-t border-gray-200 pt-8","children":[["$","h3",null,{"className":"text-base font-semibold text-gray-900 mb-4","children":["Python"," 의 다른글"]}],["$","ul",null,{"className":"space-y-2 text-sm","children":[["$","li",null,{"className":"text-gray-500","children":["이전글"," ",["$","$L7",null,{"href":"/python/pep/362","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Final] PEP 362 - Function Signature Object"}]]}],["$","li",null,{"className":"text-gray-900 font-semibold","children":["현재글 : ","[Rejected] PEP 363 - Syntax For Dynamic Attribute Access"]}],["$","li",null,{"className":"text-gray-500","children":["다음글"," ",["$","$L7",null,{"href":"/python/pep/364","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Withdrawn] PEP 364 - Transitioning to the Py3K Standard Library"}]]}]]}]]}]]}]}]]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"[Rejected] PEP 363 - Syntax For Dynamic Attribute Access - secrett2633's blog"}],["$","meta","3",{"name":"description","content":"Python Enhancement Proposal 363: 'Syntax For Dynamic Attribute Access'에 대한 한국어 번역입니다."}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://blog.secrett2633.cloud/python/pep/363"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"[Rejected] PEP 363 - Syntax For Dynamic Attribute Access"}],["$","meta","13",{"property":"og:description","content":"Python Enhancement Proposal 363: 'Syntax For Dynamic Attribute Access'에 대한 한국어 번역입니다."}],["$","meta","14",{"property":"og:url","content":"https://blog.secrett2633.cloud/python/pep/363"}],["$","meta","15",{"property":"og:type","content":"article"}],["$","meta","16",{"name":"twitter:card","content":"summary"}],["$","meta","17",{"name":"twitter:title","content":"[Rejected] PEP 363 - Syntax For Dynamic Attribute Access"}],["$","meta","18",{"name":"twitter:description","content":"Python Enhancement Proposal 363: 'Syntax For Dynamic Attribute Access'에 대한 한국어 번역입니다."}],["$","link","19",{"rel":"icon","href":"/icon.ico?6d9f34d4948640b8","type":"image/x-icon","sizes":"16x16"}]]
+1:null

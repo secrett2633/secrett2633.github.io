@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { getPaginatedPosts } from '@/lib/posts'
 import Link from 'next/link'
 import { format } from 'date-fns'
@@ -21,6 +22,21 @@ export async function generateStaticParams() {
     pages.push({ page: String(p) })
   }
   return pages
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  return {
+    title: `${params.page}페이지 - secrett2633's blog`,
+    description: `최신 포스트 목록 - ${params.page}페이지`,
+    alternates: {
+      canonical: `/page/${params.page}`,
+    },
+    openGraph: {
+      title: `${params.page}페이지 - secrett2633's blog`,
+      description: `최신 포스트 목록 - ${params.page}페이지`,
+      url: `/page/${params.page}`,
+    },
+  }
 }
 
 export default function PagedHome({ params }: PageProps) {
@@ -48,14 +64,14 @@ export default function PagedHome({ params }: PageProps) {
                   {posts.map((post) => (
                     <article key={post.id} className="archive__item">
                       <h2 className="archive__item-title">
-                        <Link href={post.permalink || `/${post.id}/`}>
+                        <Link href={post.permalink || `/${post.id}`}>
                           {post.title}
                         </Link>
                       </h2>
 
                       {post.excerpt && (
                         <div className="archive__item-excerpt">
-                          <Link href={post.permalink || `/${post.id}/`}>
+                          <Link href={post.permalink || `/${post.id}`}>
                             {post.excerpt}
                           </Link>
                         </div>
@@ -65,7 +81,7 @@ export default function PagedHome({ params }: PageProps) {
                         <time dateTime={post.date}>
                           {format(new Date(post.date), 'yyyy년 M월 d일', { locale: ko })}
                         </time>
-                        <CommentCount postPermalink={post.permalink || `/${post.id}/`} />
+                        <CommentCount postPermalink={post.permalink || `/${post.id}`} />
                       </div>
                     </article>
                   ))}

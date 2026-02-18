@@ -1,0 +1,145 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[9157,["231","static/chunks/231-467e37449c5a68fc.js","185","static/chunks/app/layout-53ec9cbf619543e1.js"],"default"]
+7:I[231,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-80e07cee06d17a0b.js"],""]
+4:["slug","python/pep/322","c"]
+0:["_3-KrKKQh7tcSoXiYwQMB",[[["",{"children":[["slug","python/pep/322","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"322\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/322","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_f367f3 layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/d6cea809dcbae606.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+a:I[646,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-80e07cee06d17a0b.js"],"default"]
+9:T235f,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0322/">PEP 322 - Reverse Iteration</a></p>
+<p><strong>상태:</strong> Final | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 24-Sep-2003</p>
+</blockquote>
+<h1>PEP 322 – 역방향 이터레이션 (Reverse Iteration)</h1>
+<h2>개요</h2>
+<p>이 제안은 시퀀스(sequence) 객체에 대한 역방향 이터레이션(reverse iteration)을 지원하는 내장 함수(builtin function)를 추가하는 것입니다.</p>
+<h2>동기 (Motivation)</h2>
+<p>현재 인덱싱 가능한(indexable) 객체에 대해 역방향으로 이터레이션하는 방식은 오류가 발생하기 쉽고(error prone), 자연스럽지 않으며, 가독성이 떨어집니다.</p>
+<p><strong>기존 방식의 예시:</strong></p>
+<ol>
+<li>
+<p><code>xrange</code>를 사용한 인덱스 기반 역방향 반복:</p>
+<pre><code class="language-python">for i in xrange(n-1, -1, -1):
+    print seqn[i]
+</code></pre>
+<p>이 방식은 인덱스 계산이 번거롭고 직관적이지 않습니다.</p>
+</li>
+<li>
+<p>리스트를 뒤집은 후 반복:</p>
+<pre><code class="language-python">rseqn = list(seqn)
+rseqn.reverse()
+for value in rseqn:
+    print value
+</code></pre>
+<p>이 방식은 리스트 복사 및 뒤집는 과정에서 컴퓨터 자원(CPU 사이클, 메모리)과 코드 라인을 낭비합니다.</p>
+</li>
+<li>
+<p>확장 슬라이싱(Extended slicing) 사용:</p>
+<pre><code class="language-python">for value in seqn[::-1]:
+    print value
+</code></pre>
+<p>이 방식은 코드 오버헤드는 줄이지만, 메모리 효율성, 미려함, 명확성 측면에서는 개선된 것이 없습니다. <code>[::-1]</code> 슬라이싱은 전체 시퀀스의 복사본을 생성하므로, 특히 큰 시퀀스에서는 비효율적입니다.</p>
+</li>
+</ol>
+<p>역방향 이터레이션은 순방향 이터레이션만큼 흔하지는 않지만, 실제 프로그래밍에서 정기적으로 필요로 하는 상황이 발생합니다.</p>
+<h2>제안 (Proposal)</h2>
+<p><code>__getitem__()</code> 및 <code>__len__()</code>을 지원하는 시퀀스 객체에 대해 역방향 이터레이터(reverse iterator)를 생성하는 내장 함수 <code>reversed()</code>를 추가할 것을 제안합니다.</p>
+<p><strong><code>reversed()</code> 함수 사용 예시:</strong></p>
+<p>위의 기존 예시들은 다음과 같이 간결해집니다:</p>
+<ol>
+<li>
+<p><code>xrange</code>와 함께 사용하는 경우:</p>
+<pre><code class="language-python">for i in reversed(xrange(n)):
+    print seqn[i]
+</code></pre>
+</li>
+<li>
+<p>시퀀스 객체에 직접 사용하는 경우:</p>
+<pre><code class="language-python">for elem in reversed(seqn):
+    print elem
+</code></pre>
+</li>
+</ol>
+<p>핵심 아이디어는 역방향 이터레이션을 지정하는 가장 명확하고 오류가 적은 방법은 순방향으로 지정한 다음 <code>reversed</code>라고 명시하는 것입니다.</p>
+<p><strong>구현 예시 (개념적):</strong>
+이 함수의 구현은 다음과 같이 간단할 수 있습니다:</p>
+<pre><code class="language-python">def reversed(x):
+    if hasattr(x, 'keys'):
+        raise ValueError("mappings do not support reverse iteration")
+    i = len(x)
+    while i > 0:
+        i -= 1
+        yield x[i]
+</code></pre>
+<p>(실제 C 구현은 <code>https://bugs.python.org/issue834422</code>에 있습니다.)</p>
+<p>이 제안은 언어 문법 변경이 필요 없으며, 완전한 하위 호환성을 가집니다.</p>
+<h2>BDFL 승인 (BDFL Pronouncement)</h2>
+<p>이 PEP는 Python 2.4 버전에 조건부로 수락되었습니다. 조건은 만약 이 함수가 쓸모없다고 판단되면, Python 2.4b1 이전에 제거될 수 있다는 것을 의미합니다.</p>
+<h2>대체 메서드 이름 (Alternative Method Names)</h2>
+<p>다음과 같은 대체 이름들이 논의되었습니다:</p>
+<ul>
+<li><code>reviter</code>: <code>iter()</code>의 사용과 일치.</li>
+<li><code>ireverse</code>: <code>itertools</code>의 명명 규칙을 따름.</li>
+<li><code>inreverse</code>: 제안자 본인 외에는 선호하지 않는 이름.</li>
+</ul>
+<p><code>reverse</code>라는 이름은 <code>list.reverse()</code> 메서드(원본 리스트를 변경함)와 중복되기 때문에 후보에서 제외되었습니다.</p>
+<h2>논의 (Discussion)</h2>
+<p>이 PEP를 채택하지 않아야 한다는 의견은 내장 함수의 수를 적게 유지하려는 바람 때문이었습니다. 그러나 이는 <code>reversed()</code>를 다른 네임스페이스에 숨겨두는 것보다 내장 함수로 제공하여 얻는 단순성과 편의성과 저울질되어야 합니다.</p>
+<h2>실제 사용 사례 (Real World Use Cases)</h2>
+<p>표준 라이브러리에서 역방향 이터레이션이 필요한 몇 가지 실제 사례는 다음과 같습니다:</p>
+<ul>
+<li>
+<p><strong><code>atexit.exit_handlers()</code></strong> :</p>
+<pre><code class="language-python">while _exithandlers:
+    func, targs, kargs = _exithandlers.pop()
+    ...
+</code></pre>
+<p>이 경우 <code>pop()</code>이 필요하므로, 새로운 <code>reversed()</code> 함수는 도움이 되지 않습니다.</p>
+</li>
+<li>
+<p><strong><code>heapq.heapify()</code></strong> :</p>
+<pre><code class="language-python">for i in xrange(n//2 - 1, -1, -1)
+</code></pre>
+<p><code>heapify()</code>는 <code>n//2 - 1</code>부터 <code>0</code>까지 역방향으로 반복합니다. 이는 상위 레벨의 정렬이 하위 레벨의 정렬 쌍으로부터 더 쉽게 형성되기 때문입니다. 순방향 알고리즘도 가능하지만, 나머지 힙(heap) 코드의 복잡성을 증가시킵니다. <code>for i in reversed(xrange(n//2))</code>로 대체하면 반복 범위가 더 명확해집니다.</p>
+</li>
+<li>
+<p><strong><code>mhlib.test()</code></strong> :</p>
+<pre><code class="language-python">testfolders.reverse(); for t in testfolders: do('mh.deletefolder(%s)' % `t`)
+</code></pre>
+<p>반복 중에 기본 리스트의 꼬리 부분이 변경되므로 역방향 이터레이션이 필요합니다.</p>
+</li>
+<li>
+<p><strong><code>platform._dist_try_harder()</code></strong> :</p>
+<pre><code class="language-python">for n in range(len(verfiles)-1,-1,-1)
+</code></pre>
+<p>루프가 <code>verfiles</code>에서 특정 요소를 삭제하지만, 나머지 리스트는 추가 반복을 위해 그대로 남겨두어야 하기 때문에 역방향 반복을 사용합니다.</p>
+</li>
+<li>
+<p><strong><code>random.shuffle()</code></strong> :</p>
+<pre><code class="language-python">for i in xrange(len(x)-1, 0, -1)
+</code></pre>
+<p>이 알고리즘은 점점 줄어드는 풀(pool)에서 무작위로 요소를 선택하는 방식으로 가장 쉽게 이해됩니다. 순방향으로도 실행할 수 있지만, 덜 직관적이며 문헌에서도 그렇게 제시되는 경우가 드뭅니다. <code>for i in reversed(xrange(1, len(x)))</code>로 대체하면 시각적으로 훨씬 쉽게 검증할 수 있습니다.</p>
+</li>
+<li>
+<p><strong><code>rfc822.Message.__delitem__()</code></strong> :</p>
+<pre><code class="language-python">list.reverse()
+for i in list:
+    del self.headers[i]
+</code></pre>
+<p>반복 중에 기본 리스트의 꼬리 부분이 변경되므로 역방향 이터레이션이 필요합니다.</p>
+</li>
+</ul>
+<h2>기각된 대안 (Rejected Alternatives)</h2>
+<p>몇 가지 다른 제안이 제출되었는데, 이는 모든 이터러블(iterable)에 <code>reversed()</code>를 적용하여 이터러블을 끝까지 실행하고 결과를 저장한 다음, 그 결과에 대해 역방향 이터레이터를 반환하는 방식이었습니다.</p>
+<ul>
+<li><strong>문제점:</strong> 이러한 방식은 '완전한 일반성'이라는 일부 개념을 충족하지만, 입력 이터러블을 끝까지 실행하는 것은 이터레이터를 사용하는 본래 목적(메모리 효율성, 지연 평가)에 위배됩니다. 또한, 기본 이터레이터가 무한할 경우 심각한 문제가 발생할 수 있습니다.</li>
+</ul>
+<p>이 함수를 다른 모듈에 넣거나 특정 타입 객체에 첨부하는 것은 고려되지 않았습니다. <code>zip()</code> 및 <code>enumerate()</code>와 같이, <code>reversed()</code> 함수도 일상적인 프로그래밍에서 직접 접근할 수 있어야 합니다. 이들은 각각 기본적인 루핑 문제(병렬 이터레이션, 루프 카운팅, 역방향 이터레이션)를 해결합니다. 특정 애플리케이션 도메인에 독립적인 핵심 루핑 구성 요소로서, 점(dotted) 접근 방식이 필요하면 단순성, 일상적 유용성 및 접근성을 저해할 것입니다.</p>
+<h2>저작권 (Copyright)</h2>
+<p>이 문서는 퍼블릭 도메인(public domain)으로 지정되었습니다.</p>
+<hr>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":[["$","aside",null,{"className":"lg:w-64 xl:w-72 order-1 lg:order-none","children":["$","div",null,{"className":"sidebar sticky","children":["$","nav",null,{"className":"space-y-4","children":[["$","div","Backend",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Backend"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Django",{"children":["$","a",null,{"href":"/backend/django","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Django"," (",6,")"]}]}],["$","li","Logging",{"children":["$","a",null,{"href":"/backend/logging","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Logging"," (",1,")"]}]}]]}]]}],["$","div","Python",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Python"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","PEP",{"children":["$","a",null,{"href":"/python/pep","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["PEP"," (",650,")"]}]}]]}]]}],["$","div","AI/ML",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"AI/ML"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","LLM",{"children":["$","a",null,{"href":"/ai/llm","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["LLM"," (",1,")"]}]}],["$","li","Review",{"children":["$","a",null,{"href":"/ai/review","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Review"," (",2728,")"]}]}]]}]]}],["$","div","DevOps",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"DevOps"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Nginx",{"children":["$","a",null,{"href":"/devops/nginx","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Nginx"," (",1,")"]}]}],["$","li","Docker",{"children":["$","a",null,{"href":"/devops/docker","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Docker"," (",1,")"]}]}],["$","li","SafeLine",{"children":["$","a",null,{"href":"/devops/safeline","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["SafeLine"," (",1,")"]}]}],["$","li","Jenkins",{"children":["$","a",null,{"href":"/devops/jenkins","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Jenkins"," (",3,")"]}]}],["$","li","GitHub Actions",{"children":["$","a",null,{"href":"/devops/github-actions","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["GitHub Actions"," (",1,")"]}]}],["$","li","AWS",{"children":["$","a",null,{"href":"/devops/aws","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["AWS"," (",1,")"]}]}]]}]]}],["$","div","etc",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"etc"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Me",{"children":["$","a",null,{"href":"/etc/me","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Me"," (",3,")"]}]}],["$","li","Chrome Extension",{"children":["$","a",null,{"href":"/etc/chrome-extension","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Chrome Extension"," (",1,")"]}]}]]}]]}]]}]}]}],["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Final] PEP 322 - Reverse Iteration"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-26 18:30:23+0900","children":"2025년 9월 26일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 26일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]}],["$","$La",null,{"postPermalink":"/python/pep/322","postId":"2025-09-26-pep-0322-reverse-iteration"}],["$","section",null,{"className":"mt-12 border-t border-gray-200 pt-8","children":[["$","h3",null,{"className":"text-base font-semibold text-gray-900 mb-4","children":["Python"," 의 다른글"]}],["$","ul",null,{"className":"space-y-2 text-sm","children":[["$","li",null,{"className":"text-gray-500","children":["이전글"," ",["$","$L7",null,{"href":"/python/pep/321","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Withdrawn] PEP 321 - Date/Time Parsing and Formatting"}]]}],["$","li",null,{"className":"text-gray-900 font-semibold","children":["현재글 : ","[Final] PEP 322 - Reverse Iteration"]}],["$","li",null,{"className":"text-gray-500","children":["다음글"," ",["$","$L7",null,{"href":"/python/pep/323","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Deferred] PEP 323 - Copyable Iterators"}]]}]]}]]}]]}]}]]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"[Final] PEP 322 - Reverse Iteration - secrett2633's blog"}],["$","meta","3",{"name":"description","content":"Python Enhancement Proposal 322: 'Reverse Iteration'에 대한 한국어 번역입니다."}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://blog.secrett2633.cloud/python/pep/322"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"[Final] PEP 322 - Reverse Iteration"}],["$","meta","13",{"property":"og:description","content":"Python Enhancement Proposal 322: 'Reverse Iteration'에 대한 한국어 번역입니다."}],["$","meta","14",{"property":"og:url","content":"https://blog.secrett2633.cloud/python/pep/322"}],["$","meta","15",{"property":"og:type","content":"article"}],["$","meta","16",{"name":"twitter:card","content":"summary"}],["$","meta","17",{"name":"twitter:title","content":"[Final] PEP 322 - Reverse Iteration"}],["$","meta","18",{"name":"twitter:description","content":"Python Enhancement Proposal 322: 'Reverse Iteration'에 대한 한국어 번역입니다."}],["$","link","19",{"rel":"icon","href":"/icon.ico?6d9f34d4948640b8","type":"image/x-icon","sizes":"16x16"}]]
+1:null

@@ -116,7 +116,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                   {searchResults.map((post) => (
                     <Link
                       key={post.id}
-                      href={post.permalink || `/${post.id}/`}
+                      href={post.permalink || `/${post.id}`}
                       onClick={onClose}
                       className="search-result-item"
                     >

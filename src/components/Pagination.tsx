@@ -13,9 +13,9 @@ export default function Pagination({ currentPage, totalPages, basePath = '' }: P
   const createPageUrl = (page: number) => {
     const normalizedBase = basePath.endsWith('/') ? basePath.slice(0, -1) : basePath
     if (page === 1) {
-      return `${normalizedBase || ''}/`
+      return normalizedBase || '/'
     }
-    return `${normalizedBase || ''}/page/${page}/`
+    return `${normalizedBase || ''}/page/${page}`
   }
 
   // 페이지 번호 배열 생성 (현재 페이지 주변의 페이지들)

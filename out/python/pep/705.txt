@@ -1,0 +1,245 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[9157,["231","static/chunks/231-467e37449c5a68fc.js","185","static/chunks/app/layout-53ec9cbf619543e1.js"],"default"]
+7:I[231,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-80e07cee06d17a0b.js"],""]
+4:["slug","python/pep/705","c"]
+0:["_3-KrKKQh7tcSoXiYwQMB",[[["",{"children":[["slug","python/pep/705","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"705\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/705","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_f367f3 layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/d6cea809dcbae606.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+a:I[646,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-80e07cee06d17a0b.js"],"default"]
+9:T49c4,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0705/">PEP 705 - TypedDict: Read-only items</a></p>
+<p><strong>상태:</strong> Final | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 07-Nov-2022</p>
+</blockquote>
+<h1>PEP 705 – TypedDict: 읽기 전용 항목 (Read-only items)</h1>
+<h2>초록 (Abstract)</h2>
+<p>PEP 589는 고정된 키 집합을 가진 딕셔너리를 위한 구조적 타입인 <code>TypedDict</code>를 정의합니다. 그러나 <code>TypedDict</code>는 가변(mutable) 타입이기 때문에, 읽기 전용 매개변수를 받는 메서드를 정확하게 타입 애너테이션하기 어려워 유효한 입력까지 막는 문제가 있었습니다. 이 PEP는 이러한 용도를 지원하기 위해 새로운 타입 한정자(type qualifier)인 <code>typing.ReadOnly</code>를 제안합니다. 이 제안은 Python 문법을 변경하지 않습니다. <code>TypedDict</code>의 읽기 전용 키 사용에 대한 올바른 사용법은 정적 타입 체커(static type checker)에 의해서만 강제되며, Python 자체에서는 런타임에 강제되지 않습니다.</p>
+<h2>동기 (Motivation)</h2>
+<p>문자열 키를 가진 (중첩될 수 있는) 딕셔너리를 사용하여 구조화된 데이터를 표현하는 것은 Python 프로그램에서 흔한 패턴입니다. PEP 589는 이러한 값들을 미리 정확한 타입을 알고 있을 때 타입 검사할 수 있도록 하지만, 더 구체적인 변형(예: 값이 서브타입이거나 가능한 타입의 유니온을 제한하는 경우)을 받아들이는 읽기 전용 코드를 작성하기는 어렵습니다. 이는 특히 광범위한 입력 구조를 지원하고 일반적으로 입력을 수정할 필요가 없는 서비스 API를 작성할 때 흔히 발생하는 문제입니다.</p>
+<h3>순수 함수 (Pure functions)</h3>
+<p><code>Movie</code> 타입을 사용하는 <code>movie_string</code> 함수를 예로 들어보겠습니다. <code>Movie</code> 타입은 <code>TypedDict</code>로 정의됩니다.</p>
+<pre><code class="language-python">from typing import NotRequired, TypedDict
+
+class Movie(TypedDict):
+    name: str
+    year: NotRequired[int | None]
+
+class MovieRecord(TypedDict):
+    name: str
+    year: int
+
+def movie_string(movie: Movie) -> str:
+    if movie.get("year") is None:
+        return movie["name"]
+    else:
+        return f'{movie["name"]} ({movie["year"]})'
+</code></pre>
+<p><code>MovieRecord</code> 인스턴스를 <code>movie_string</code>에 전달하려고 하면 타입 체커(예: mypy)는 오류를 발생시킵니다. <code>Movie</code> 클래스에는 <code>MovieRecord</code>의 타입 제약 조건을 위반할 수 있는 변경(mutator) 메서드가 존재하기 때문입니다. 이러한 문제는 <code>Movie</code>에 변경 메서드가 없을 경우 사라집니다. 이를 위해 PEP 544 Protocol을 사용하여 불변 인터페이스를 정의할 수 있지만, 이는 반복적이고 오류 발생 가능성이 높으며 <code>__contains__()</code>, <code>keys()</code>와 같은 중요한 메서드 정의가 누락됩니다.</p>
+<h3>중첩된 딕셔너리 업데이트 (Updating nested dicts)</h3>
+<p><code>TypedDict</code>의 구조적 타이핑은 수정하는 항목의 타입만 제약하는 업데이트 함수를 작성할 수 있도록 고안되었습니다. 그러나 딕셔너리를 중첩하기 시작하면 문제가 발생합니다.</p>
+<pre><code class="language-python">class HasTimestamp(TypedDict):
+    timestamp: float
+
+class Logs(TypedDict):
+    timestamp: float
+    loglines: list[str]
+
+class HasTimestampedMetadata(TypedDict):
+    metadata: HasTimestamp
+
+class UserAudit(TypedDict):
+    name: str
+    metadata: Logs
+
+def update_metadata_timestamp(d: HasTimestampedMetadata) -> None:
+    d["metadata"]["timestamp"] = now()
+
+def rename_user(d: UserAudit, name: str) -> None:
+    d["name"] = name
+
+update_metadata_timestamp(d) # Type check error: "metadata" is not of type HasTimestamp
+</code></pre>
+<p>위 예제에서 <code>update_metadata_timestamp(d)</code> 호출 시 타입 검사 오류가 발생합니다. 이는 <code>HasTimestampedMetadata</code> 인스턴스가 가지고 있는 <code>metadata</code> 항목을 다른 <code>HasTimestamp</code> 인스턴스로 덮어쓸 수 있는데, 이 다른 인스턴스는 더 이상 <code>Logs</code> 인스턴스가 아닐 수 있기 때문에 발생합니다. Python 3.11부터 제네릭(generics)을 사용하면 이 문제를 해결할 수 있지만, 중첩된 딕셔너리마다 타입 매개변수가 필요하여 매우 복잡해집니다.</p>
+<h2>근거 (Rationale)</h2>
+<p>이러한 문제들은 <code>TypedDict</code>의 하나 이상의 항목을 업데이트하는 기능을 제거함으로써 해결될 수 있습니다. 이는 항목이 불변(immutable)하다는 의미는 아닙니다. 기본 딕셔너리에 대한 참조는 여전히 존재할 수 있으며, 다른 호환 가능한 타입에서 해당 항목에 대한 변경 작업을 수행할 수 있습니다. 이러한 항목들은 "읽기 전용"이며, 이를 위해 새로운 <code>typing.ReadOnly</code> 타입 한정자를 도입합니다.</p>
+<p>첫 번째 동기 예시의 <code>movie_string</code> 함수는 이제 다음과 같이 타입 애너테이션될 수 있습니다.</p>
+<pre><code class="language-python">from typing import NotRequired, ReadOnly, TypedDict
+
+class Movie(TypedDict):
+    name: ReadOnly[str]
+    year: ReadOnly[NotRequired[int | None]]
+
+def movie_string(movie: Movie) -> str:
+    if movie.get("year") is None:
+        return movie["name"]
+    else:
+        return f'{movie["name"]} ({movie["year"]})'
+</code></pre>
+<p>읽기 전용 항목과 비(非)읽기 전용 항목의 혼합이 허용되어 두 번째 동기 예시도 올바르게 애너테이션될 수 있습니다.</p>
+<pre><code class="language-python">class HasTimestamp(TypedDict):
+    timestamp: float
+
+class HasTimestampedMetadata(TypedDict):
+    metadata: ReadOnly[HasTimestamp]
+
+def update_metadata_timestamp(d: HasTimestampedMetadata) -> None:
+    d["metadata"]["timestamp"] = now()
+
+class Logs(HasTimestamp):
+    loglines: list[str]
+
+class UserAudit(TypedDict):
+    name: str
+    metadata: Logs
+
+def rename_user(d: UserAudit, name: str) -> None:
+    d["name"] = name
+
+update_metadata_timestamp(d) # 이제 OK
+</code></pre>
+<p>이러한 이점 외에도, 함수의 인수를 읽기 전용으로 표시함으로써 (읽기 전용 항목을 가진 <code>TypedDict</code>를 사용하여) 타입 체커뿐만 아니라 사용자에게도 함수가 입력을 수정하지 않을 것이라는 점을 명확히 전달하여, 함수 인터페이스의 바람직한 속성을 제공합니다. 이 PEP는 <code>ReadOnly</code>가 <code>TypedDict</code> 내에서만 유효하도록 제안합니다. 프로토콜(protocols)과 같은 추가 컨텍스트에서 지원하는 것은 향후 확장될 수 있습니다.</p>
+<h2>명세 (Specification)</h2>
+<p>새로운 <code>typing.ReadOnly</code> 타입 한정자가 추가됩니다.</p>
+<h3><code>typing.ReadOnly</code> 타입 한정자</h3>
+<p><code>typing.ReadOnly</code> 타입 한정자는 <code>TypedDict</code> 정의에서 선언된 항목이 변경(추가, 수정 또는 제거)될 수 없음을 나타내는 데 사용됩니다.</p>
+<pre><code class="language-python">from typing import ReadOnly, TypedDict
+
+class Band(TypedDict):
+    name: str
+    members: ReadOnly[list[str]]
+
+blur: Band = {"name": "blur", "members": []}
+blur["name"] = "Blur" # OK: "name"은 읽기 전용이 아님
+blur["members"] = ["Damon Albarn"] # 타입 검사 오류: "members"는 읽기 전용임
+blur["members"].append("Damon Albarn") # OK: 리스트 자체는 가변임
+</code></pre>
+<h3>대안적인 함수형 문법 (Alternative functional syntax)</h3>
+<p><code>TypedDict</code>의 대안적인 함수형 문법도 새로운 타입 한정자를 지원합니다.</p>
+<pre><code class="language-python">Band = TypedDict("Band", {"name": str, "members": ReadOnly[list[str]]})
+</code></pre>
+<h3>다른 특별한 타입과의 상호작용 (Interaction with other special types)</h3>
+<p><code>ReadOnly[]</code>는 <code>Required[]</code>, <code>NotRequired[]</code>, <code>Annotated[]</code>와 어떤 중첩 순서로든 함께 사용할 수 있습니다. 이는 PEP 655에서 도입된 동작과 일치합니다.</p>
+<pre><code class="language-python">from typing import Annotated, NotRequired, ReadOnly, Required, TypedDict
+# ... (ValueRange는 예시용 가상의 타입)
+
+class Movie(TypedDict):
+    title: ReadOnly[Required[str]] # OK
+    year: ReadOnly[NotRequired[Annotated[int, ValueRange(-9999, 9999)]]] # OK
+
+class Movie2(TypedDict):
+    title: Required[ReadOnly[str]] # OK
+    year: Annotated[NotRequired[ReadOnly[int]], ValueRange(-9999, 9999)] # OK
+</code></pre>
+<h3>상속 (Inheritance)</h3>
+<p>서브클래스는 읽기 전용 항목을 비(非)읽기 전용으로 재선언하여 변경 가능하게 만들 수 있습니다.</p>
+<pre><code class="language-python">class NamedDict(TypedDict):
+    name: ReadOnly[str]
+
+class Album(NamedDict):
+    name: str # 'name'을 비-읽기 전용으로 재선언
+    year: int
+
+album: Album = { "name": "Flood", "year": 1990 }
+album["year"] = 1973
+album["name"] = "Dark Side Of The Moon" # OK: 'name'은 Album에서 읽기 전용이 아님
+</code></pre>
+<p>읽기 전용 항목이 재선언되지 않으면 계속 읽기 전용으로 유지됩니다.</p>
+<pre><code class="language-python">class Album(NamedDict):
+    year: int # 'name'은 재선언되지 않으므로 ReadOnly 유지
+
+album: Album = { "name": "Flood", "year": 1990 }
+album["name"] = "Dark Side Of The Moon" # 타입 검사 오류: 'name'은 Album에서 읽기 전용임
+</code></pre>
+<p>서브클래스는 읽기 전용 항목의 값 타입을 좁힐 수 있습니다. 또한, 슈퍼클래스에서는 읽기 전용이지만 필수가 아닌 항목을 서브클래스에서 필수로 만들 수 있습니다.</p>
+<h3>타입 일관성 (Type consistency)</h3>
+<p>이 섹션은 PEP 589에 도입된 타입 일관성 규칙을 이 PEP의 새로운 기능을 포함하도록 업데이트합니다. 특히, 이 새로운 기능을 사용하지 않는 어떤 타입 쌍이라도 기존에 일관적이었다면(그리고 그 경우에만) 이 새로운 규칙 하에서도 일관적일 것입니다.</p>
+<p><code>TypedDict</code> 타입 <code>A</code>가 <code>TypedDict</code> <code>B</code>와 구조적으로 호환되면 일관적입니다. 이는 다음 모든 조건이 충족될 때만 참입니다.</p>
+<ul>
+<li><code>B</code>의 각 항목에 대해 <code>A</code>는 해당 키를 가져야 합니다. 단, <code>B</code>의 항목이 읽기 전용이고, 필수 사항이 아니며, 최상위 값 타입(<code>ReadOnly[NotRequired[object]]</code>)인 경우는 예외입니다.</li>
+<li><code>B</code>의 각 항목에 대해 <code>A</code>가 해당 키를 가지고 있다면, <code>A</code>의 해당 값 타입은 <code>B</code>의 값 타입과 일관적이어야 합니다.</li>
+<li><code>B</code>의 각 비(非)읽기 전용 항목에 대해, 해당 값 타입은 <code>A</code>의 해당 값 타입과 일관적이어야 합니다.</li>
+<li><code>B</code>의 각 필수 키에 대해, <code>A</code>의 해당 키는 필수여야 합니다.</li>
+<li><code>B</code>의 각 비(非)필수 키에 대해, <code>B</code>에서 항목이 읽기 전용이 아니라면, <code>A</code>의 해당 키는 필수가 아니어야 합니다.</li>
+</ul>
+<p>읽기 전용 항목은 공변적(covariantly)으로 동작하며, 변경될 수 없습니다. 이는 <code>Sequence</code>와 같은 컨테이너 타입과 유사하며, 불변적(invariantly)으로 동작하는 비(非)읽기 전용 항목과는 다릅니다.</p>
+<h3><code>update</code> 메서드</h3>
+<p>기존 타입 검사 규칙 외에, 읽기 전용 항목을 포함하는 <code>TypedDict</code>가 해당 키를 선언하는 다른 <code>TypedDict</code>로 업데이트될 경우 타입 체커는 오류를 발생시켜야 합니다. 단, 선언된 값이 하위 타입(bottom type)인 <code>Never</code>인 경우는 예외입니다.</p>
+<pre><code class="language-python">import typing
+
+class A(TypedDict):
+    x: ReadOnly[int]
+    y: int
+
+a1: A = { "x": 1, "y": 2 }
+a2: A = { "x": 3, "y": 4 }
+a1.update(a2) # 타입 검사 오류: "x"는 A에서 읽기 전용임
+
+class B(TypedDict):
+    x: typing.NotRequired[typing.Never]
+    y: ReadOnly[int]
+
+def update_a(a: A, b: B) -> None:
+    a.update(b) # 타입 검사 허용: "x"는 b에 설정될 수 없음
+</code></pre>
+<p><code>Never</code> 타입은 어떤 값과도 일치하지 않으므로, 이 타입으로 애너테이션된 항목은 항상 부재(absent)해야 합니다.</p>
+<h3>키워드 인수 타이핑 (Keyword argument typing)</h3>
+<p>PEP 692는 <code>TypedDict</code>로 <code> **kwargs</code>를 애너테이션하기 위해 <code>Unpack</code>을 도입했습니다. 이러한 방식으로 사용되는 <code>TypedDict</code>의 하나 이상의 항목을 읽기 전용으로 표시해도 메서드의 타입 시그니처에는 영향을 미치지 않습니다. 그러나 함수 본문에서 해당 항목이 수정되는 것을 방지합니다.</p>
+<pre><code class="language-python">from typing import Protocol, Unpack
+
+class Args(TypedDict):
+    key1: int
+    key2: str
+
+class ReadOnlyArgs(TypedDict):
+    key1: ReadOnly[int]
+    key2: ReadOnly[str]
+
+class Function(Protocol):
+    def __call__(self, ** kwargs: Unpack[Args]) -> None: ...
+
+def impl(**kwargs: Unpack[ReadOnlyArgs]) -> None:
+    kwargs["key1"] = 3 # 타입 검사 오류: key1은 읽기 전용임
+
+fn: Function = impl # 타입 검사 허용: 함수 시그니처는 동일함
+</code></pre>
+<h3>런타임 동작 (Runtime behavior)</h3>
+<p><code>TypedDict</code> 타입은 두 개의 새로운 속성인 <code>__readonly_keys__</code>와 <code>__mutable_keys__</code>를 얻게 되며, 각각 모든 읽기 전용 키와 비(非)읽기 전용 키를 포함하는 <code>frozenset</code>이 됩니다.</p>
+<pre><code class="language-python">from typing import ReadOnly, TypedDict
+
+class Example(TypedDict):
+    a: int
+    b: ReadOnly[int]
+    c: int
+    d: ReadOnly[int]
+
+assert Example.__readonly_keys__ == frozenset({'b', 'd'})
+assert Example.__mutable_keys__ == frozenset({'a', 'c'})
+</code></pre>
+<p><code>typing.get_type_hints</code>는 <code>include_extras</code>가 <code>True</code>인 경우를 제외하고 모든 <code>ReadOnly</code> 타입 한정자를 제거합니다. <code>typing.get_origin</code> 및 <code>typing.get_args</code>는 <code>ReadOnly</code>를 인식하도록 업데이트됩니다.</p>
+<h2>하위 호환성 (Backwards compatibility)</h2>
+<p>이 PEP는 <code>TypedDict</code>에 새로운 기능을 추가하므로, <code>TypedDict</code> 타입을 검사하는 코드는 이를 지원하도록 변경해야 합니다. 이는 주로 타입 체커에 영향을 미칠 것으로 예상됩니다.</p>
+<h2>보안 영향 (Security implications)</h2>
+<p>이 PEP로 인해 알려진 보안상의 결과는 없습니다.</p>
+<h2>가르치는 방법 (How to teach this)</h2>
+<p><code>typing</code> 모듈 문서에 다음과 같은 변경 사항을 추가할 것을 제안합니다.</p>
+<ul>
+<li>이 PEP를 다른 나열된 PEP에 추가합니다.</li>
+<li><code>typing.ReadOnly</code>를 추가하고 <code>TypedDict</code> 및 이 PEP에 링크합니다.</li>
+<li><code>TypedDict</code> 항목에 다음 텍스트를 추가합니다: "ReadOnly 타입 한정자는 <code>TypedDict</code> 정의에서 선언된 항목이 읽을 수 있지만 변경(추가, 수정 또는 제거)될 수 없음을 나타냅니다. 이는 값의 정확한 타입을 아직 알 수 없을 때 유용하며, 따라서 값을 수정하면 구조적 서브타입을 손상시킬 수 있습니다." (예제 삽입)</li>
+</ul>
+<h2>참고 구현 (Reference implementation)</h2>
+<p>pyright 1.1.333 버전에서 이 제안이 완전히 구현되었습니다.</p>
+<h2>기각된 대안 (Rejected alternatives)</h2>
+<ul>
+<li><strong><code>TypedMapping</code> 프로토콜 타입:</strong> 초기 버전에서는 <code>ReadOnly</code> <code>TypedDict</code>와 유사하지만 런타임 타입이 <code>dict</code>일 필요가 없는 <code>TypedMapping</code> 프로토콜 타입을 제안했으나, 복잡성 대비 강력한 사용 사례가 부족하여 보류되었습니다.</li>
+<li><strong>고차(Higher-order) <code>ReadOnly</code> 타입:</strong> 매개변수에서 변경자 메서드를 제거하는 일반화된 고차 타입(<code>ReadOnly[MovieRecord]</code> 등)이 고려되었지만, <code>TypedDict</code> 서브클래스 이외의 더 넓은 타입 집합에 대한 적용 문제와 중첩 타입에 대한 질문을 야기하여 범위가 좁게 유지되었습니다.</li>
+<li><strong><code>Readonly</code>라는 타입 이름 사용:</strong> 하이픈이 들어간 "Read-only"의 CamelCase 변환 규칙에 따라 <code>ReadOnly</code>가 선택되었습니다.</li>
+<li><strong><code>Final</code> 애너테이션 재사용:</strong> <code>Final</code>은 재할당 및 서브클래스에서의 재정의를 방지하지만, <code>ReadOnly</code>의 의도와 일치하지 않아 혼란을 피하기 위해 새로운 한정자를 도입했습니다.</li>
+<li><strong><code>readonly</code> 플래그:</strong> <code>TypedDict</code> 전체를 읽기 전용으로 만드는 <code>readonly=True</code> 플래그가 고려되었으나, 상속 시 혼란을 야기하고 추가적인 타입 표현이 불가능하여 제거되었습니다.</li>
+<li><strong><code>copy</code> 및 다른 메서드를 통한 읽기 전용 한정자 제거 지원:</strong> 타입 체커가 <code>copy.copy()</code>나 딕셔너리 병합(<code>|</code>)을 통해 읽기 전용 한정자를 제거할 수 있도록 지원하는 방안이 논의되었으나, <code>typeshed</code>에 이를 표현할 방법이 없고 복잡성 때문에 보류되었습니다.</li>
+<li><strong><code>TypedDict</code>에서 미지정 키 방지:</strong> <code>TypedDict</code>에서 선언되지 않은 키의 포함을 명시적으로 방지하는 방안(예: <code>@final</code> 데코레이터 또는 <code>other_keys=Never</code> 플래그)이 고려되었으나, 타입 체커의 동작 변화와 PEP 728에서 더 광범위하게 다루어질 예정이므로 이 PEP에서는 다루지 않기로 했습니다.</li>
+</ul>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":[["$","aside",null,{"className":"lg:w-64 xl:w-72 order-1 lg:order-none","children":["$","div",null,{"className":"sidebar sticky","children":["$","nav",null,{"className":"space-y-4","children":[["$","div","Backend",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Backend"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Django",{"children":["$","a",null,{"href":"/backend/django","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Django"," (",6,")"]}]}],["$","li","Logging",{"children":["$","a",null,{"href":"/backend/logging","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Logging"," (",1,")"]}]}]]}]]}],["$","div","Python",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Python"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","PEP",{"children":["$","a",null,{"href":"/python/pep","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["PEP"," (",650,")"]}]}]]}]]}],["$","div","AI/ML",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"AI/ML"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","LLM",{"children":["$","a",null,{"href":"/ai/llm","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["LLM"," (",1,")"]}]}],["$","li","Review",{"children":["$","a",null,{"href":"/ai/review","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Review"," (",2728,")"]}]}]]}]]}],["$","div","DevOps",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"DevOps"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Nginx",{"children":["$","a",null,{"href":"/devops/nginx","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Nginx"," (",1,")"]}]}],["$","li","Docker",{"children":["$","a",null,{"href":"/devops/docker","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Docker"," (",1,")"]}]}],["$","li","SafeLine",{"children":["$","a",null,{"href":"/devops/safeline","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["SafeLine"," (",1,")"]}]}],["$","li","Jenkins",{"children":["$","a",null,{"href":"/devops/jenkins","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Jenkins"," (",3,")"]}]}],["$","li","GitHub Actions",{"children":["$","a",null,{"href":"/devops/github-actions","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["GitHub Actions"," (",1,")"]}]}],["$","li","AWS",{"children":["$","a",null,{"href":"/devops/aws","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["AWS"," (",1,")"]}]}]]}]]}],["$","div","etc",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"etc"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Me",{"children":["$","a",null,{"href":"/etc/me","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Me"," (",3,")"]}]}],["$","li","Chrome Extension",{"children":["$","a",null,{"href":"/etc/chrome-extension","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Chrome Extension"," (",1,")"]}]}]]}]]}]]}]}]}],["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Final] PEP 705 - TypedDict: Read-only items"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-27 13:08:52+0900","children":"2025년 9월 27일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 27일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]}],["$","$La",null,{"postPermalink":"/python/pep/705","postId":"2025-09-27-pep-0705-typeddict-read-only-items"}],["$","section",null,{"className":"mt-12 border-t border-gray-200 pt-8","children":[["$","h3",null,{"className":"text-base font-semibold text-gray-900 mb-4","children":["Python"," 의 다른글"]}],["$","ul",null,{"className":"space-y-2 text-sm","children":[["$","li",null,{"className":"text-gray-500","children":["이전글"," ",["$","$L7",null,{"href":"/python/pep/704","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Withdrawn] PEP 704 - Require virtual environments by default for package installers"}]]}],["$","li",null,{"className":"text-gray-900 font-semibold","children":["현재글 : ","[Final] PEP 705 - TypedDict: Read-only items"]}],["$","li",null,{"className":"text-gray-500","children":["다음글"," ",["$","$L7",null,{"href":"/python/pep/706","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Final] PEP 706 - Filter for tarfile.extractall"}]]}]]}]]}]]}]}]]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"[Final] PEP 705 - TypedDict: Read-only items - secrett2633's blog"}],["$","meta","3",{"name":"description","content":"Python Enhancement Proposal 705: 'TypedDict: Read-only items'에 대한 한국어 번역입니다."}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://blog.secrett2633.cloud/python/pep/705"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"[Final] PEP 705 - TypedDict: Read-only items"}],["$","meta","13",{"property":"og:description","content":"Python Enhancement Proposal 705: 'TypedDict: Read-only items'에 대한 한국어 번역입니다."}],["$","meta","14",{"property":"og:url","content":"https://blog.secrett2633.cloud/python/pep/705"}],["$","meta","15",{"property":"og:type","content":"article"}],["$","meta","16",{"name":"twitter:card","content":"summary"}],["$","meta","17",{"name":"twitter:title","content":"[Final] PEP 705 - TypedDict: Read-only items"}],["$","meta","18",{"name":"twitter:description","content":"Python Enhancement Proposal 705: 'TypedDict: Read-only items'에 대한 한국어 번역입니다."}],["$","link","19",{"rel":"icon","href":"/icon.ico?6d9f34d4948640b8","type":"image/x-icon","sizes":"16x16"}]]
+1:null

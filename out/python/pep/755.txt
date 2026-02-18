@@ -1,0 +1,104 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[9157,["231","static/chunks/231-467e37449c5a68fc.js","185","static/chunks/app/layout-53ec9cbf619543e1.js"],"default"]
+7:I[231,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-80e07cee06d17a0b.js"],""]
+4:["slug","python/pep/755","c"]
+0:["_3-KrKKQh7tcSoXiYwQMB",[[["",{"children":[["slug","python/pep/755","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"755\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/755","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_f367f3 layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/d6cea809dcbae606.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+a:I[646,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-80e07cee06d17a0b.js"],"default"]
+9:T2c0a,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0755/">PEP 755 - Implicit namespace policy for PyPI</a></p>
+<p><strong>상태:</strong> Draft | <strong>유형:</strong> Process | <strong>작성일:</strong> 05-Sep-2024</p>
+</blockquote>
+<p>PEP 755: PyPI에 대한 암묵적 네임스페이스 정책</p>
+<h2>개요 (Abstract)</h2>
+<p>이 PEP(Python Enhancement Proposal)는 PyPI에 대한 PEP 752의 구현을 체계화합니다.</p>
+<h2>동기 (Motivation)</h2>
+<p>많은 프로젝트와 커뮤니티는 네임스페이스를 예약하는 기능으로부터 이점을 얻을 것입니다. PyPI가 Python 커뮤니티를 위해 존재하므로, 모든 사람의 요구사항이 충족되도록 피드백을 수집하는 것이 중요합니다. 운영 및 정책적 미묘함은 각 패키지 저장소가 결정해야 하므로, 이 전용 PEP가 필요합니다.</p>
+<h2>근거 (Rationale)</h2>
+<p>PyPI는 인력 부족에 시달려 왔으며, 2024년 7월에 첫 전담 전문가를 채용했습니다. 리소스 부족으로 인해 패키지 이름 클레임, 조직 요청, 저장 용량 증가, 심지어 계정 복구에 대한 사용자 지원이 부족했습니다. 유료 조직에 네임스페이스 예약 시 더 많은 유연성을 제공하는 기본 정책은 다음과 같은 이점을 제공합니다.</p>
+<ul>
+<li>PyPI는 지원 전문가, 인프라 유지보수, 버그 수정 및 새로운 기능을 위한 지속적인 자금원을 확보하게 됩니다.</li>
+<li>각 신청은 독립적인 검토가 필요하겠지만, 유료 조직을 승인하는 과정에서 이미 일정 수준의 신뢰를 부여하므로 필요한 사람의 피드백이 줄어들 것입니다.</li>
+</ul>
+<h2>용어 (Terminology)</h2>
+<ul>
+<li><strong>Paid/Corporate Organization (유료/기업 조직):</strong> PyPI에서 특별 기능을 위해 비용을 지불하는 조직을 의미합니다. 이 PEP에서는 간결성과 비원어민의 이해를 돕기 위해 대부분의 경우 'paid'로 지칭합니다.</li>
+<li><strong>Root Grant (루트 그랜트):</strong> PEP 752 용어에서 정의된 그랜트입니다.</li>
+<li><strong>Child Grant (자식 그랜트):</strong> 루트 그랜트에서 생성되며, PEP 752 용어에서 정의된 자식 네임스페이스와 연결된 그랜트입니다.</li>
+</ul>
+<h2>구현 (Implementation)</h2>
+<h3>그랜트 신청 (Grant Applications)</h3>
+<h4>제출 (Submission)</h4>
+<ul>
+<li>조직(비사용자) 계정만 그랜트 신청 양식에 접근할 수 있습니다.</li>
+<li>유료 조직의 신청은 검토 대기열에서 우선순위를 갖습니다. 이는 유료 조직에 실질적인 혜택을 제공하고, 더 많은 검토자를 포함한 PyPI의 운영 비용을 위한 자금을 확보하기 위함입니다.</li>
+</ul>
+<h4>승인 기준 (Approval Criteria)</h4>
+<ul>
+<li>네임스페이스는 <code>tool</code>이나 <code>apps</code>와 같이 일반적이지 않아야 합니다.</li>
+<li>네임스페이스는 세 글자보다 길어야 합니다.</li>
+<li>네임스페이스는 예약 소유자를 적절하고 명확하게 식별해야 합니다.</li>
+<li>조직은 네임스페이스를 적극적으로 사용하고 있어야 합니다.</li>
+<li>네임스페이스를 예약하지 않을 경우 커뮤니티에 모호함, 혼란 또는 기타 해를 끼칠 수 있다는 증거가 있어야 합니다.</li>
+</ul>
+<p>유료 조직이 아닌 조직은 다음 중 하나를 대표합니다.</p>
+<ul>
+<li>많은 패키지를 가진 크고 인기 있는 오픈소스 프로젝트</li>
+<li>패키지를 적극적으로 게시하는 대학</li>
+<li>패키지를 적극적으로 게시하는 정부 기관</li>
+<li>Our World in Data와 같이 패키지를 적극적으로 게시하는 NPO/NGO</li>
+</ul>
+<p>일반적으로 검토자들은 아직 사용하고 있지 않은 그랜트를 신청하는 유료 조직에 대해 더 관대해야 합니다. 예를 들어, 스타트업이나 신제품 라인을 가진 기존 회사에 네임스페이스를 부여하는 것은 합리적이지만, 많은 사용자가 없는 커뮤니티 프로젝트에 네임스페이스를 부여하는 것은 덜 합리적입니다.</p>
+<h4>거부 (Rejections)</h4>
+<p>거부된 신청은 승인 기준에 따라 결정에 대한 명확한 근거를 받게 됩니다. 네임스페이스가 너무 일반적이라는 이유로 거부된 신청은 향후 검토자들이 참조할 수 있도록 내부적으로 유지되며, 이전에 같은 이유로 거부된 네임스페이스를 예약하려는 새로운 신청에는 경고가 표시됩니다.</p>
+<h4>수락 (Acceptance)</h4>
+<p>조직 외부의 프로젝트에서 사용되는 네임스페이스에 대한 신청이 수락되면, 해당 프로젝트의 소유자에게 새로운 그랜트에 대해 알리는 이메일이 발송됩니다. 이 이메일에는 네임스페이스 페이지로 연결되는 링크가 포함됩니다.</p>
+<h3>그랜트 유형 (Grant Types)</h3>
+<p>두 가지 유형의 그랜트가 있습니다.</p>
+<h4>Root Grant (루트 그랜트)</h4>
+<p>조직은 승인된 모든 신청에 대해 루트 그랜트를 얻습니다. 이 그랜트는 원하는 수의 자식 그랜트를 생성할 수 있습니다.</p>
+<h4>Child Grant (자식 그랜트)</h4>
+<p>자식 그랜트는 루트 그랜트의 소유자가 승인 없이 언제든지 생성할 수 있습니다. 이러한 그랜트와 연결된 네임스페이스는 루트 그랜트의 네임스페이스의 자식 네임스페이스여야 합니다. 자식 그랜트는 자체 자식 그랜트를 가질 수 없습니다.</p>
+<h3>그랜트 소유권 (Grant Ownership)</h3>
+<p>그랜트 소유자는 다른 조직이 그랜트를 사용하도록 허용할 수 있습니다. 그랜트는 해당 조직이 소유한 것처럼 작동합니다. 즉, 소유자조차도 네임스페이스에 패키지를 업로드할 수 없습니다. 소유자는 언제든지 이 권한을 철회할 수 있습니다.</p>
+<p>소유자는 PyPI 관리자의 승인 없이 언제든지 다른 조직으로 소유권을 이전할 수 있습니다. 만약 조직이 유료 조직이라면, 이전 대상도 유료 조직이어야 합니다. 허용된 조직에 대한 설정도 함께 이전됩니다.</p>
+<h3>사용자 인터페이스 (User Interface)</h3>
+<h4>네임스페이스 페이지 (Namespace Page)</h4>
+<p>모든 활성 그랜트의 네임스페이스는 공개 상태, 현재 소유자, 소유권이 부여된 시간, 네임스페이스와 일치하는 총 프로젝트 수와 같은 정보가 포함된 자체 페이지를 갖게 됩니다.</p>
+<h4>프로젝트 페이지 (Project Page)</h4>
+<p>활성 네임스페이스 그랜트와 일치하는 모든 프로젝트 페이지(예시)는 접두사가 무엇인지 나타내고 (NuGet은 현재 이 기능을 제공하지 않음) "pill" 또는 "label" 형태로 눈에 띄게 표시됩니다. 이 값은 네임스페이스 상세 API의 <code>prefix</code> 키와 일치합니다. 네임스페이스를 클릭하면 해당 페이지로 이동합니다.</p>
+<h4>시각적 지표 (Visual Indicators)</h4>
+<p>활성 네임스페이스 그랜트와 일치하는 프로젝트의 경우, 사용자는 다음 시나리오 중 어느 것이 적용되는지 빠르게 확인할 수 있습니다.</p>
+<ul>
+<li>그랜트 소유자에게 연결된 프로젝트는 시각적 지표가 없으며, 사용자는 항상 표시되는 접두사에만 의존해야 합니다.</li>
+<li>그랜트 소유자에게 연결되지 않았고, 일치하는 그랜트가 <code>open</code> 상태인 프로젝트는 불신이나 위험을 전달하지 않는 고유한 지표를 갖게 됩니다. Font Awesome의 사용자 아이콘이나 Google Fonts의 그룹 아이콘이 좋은 선택이 될 수 있습니다.</li>
+<li>그랜트 소유자에게 연결되지 않았고, 일치하는 그랜트가 <code>restricted</code> 상태인 프로젝트는 고유한 시각적 지표를 갖게 됩니다. 이 상황은 그랜트가 생성되기 전에 프로젝트가 존재했을 때 발생합니다. 이 지표는 비진정성 또는 신뢰 부족을 전달할 것입니다. 경고 표시(⚠)가 좋은 선택이 될 수 있습니다.</li>
+</ul>
+<h3>공개 네임스페이스 (Open Namespaces)</h3>
+<p>자식 그랜트가 생성되면, 해당 공개 상태는 루트 그랜트로부터 상속됩니다. 자식 그랜트의 소유자는 언제든지 이를 공개(open) 상태로 만들 수 있습니다. 그랜트가 공개 상태인 경우, 해당 네임스페이스와 일치하는 모든 프로젝트의 소유자가 그랜트 소유자와 동일하지 않는 한 제한(restricted) 상태로 만들 수 없습니다.</p>
+<h3>그랜트 제거 (Grant Removal)</h3>
+<p>그랜트가 다른 조직과 공유되는 경우, 소유자 조직은 조직 삭제의 전제 조건으로 이전을 시작해야 합니다.</p>
+<p>그랜트가 공유되지 않는 경우, 소유자는 다음 상황 중 하나에서 네임스페이스를 "unclaim"할 수 있습니다.</p>
+<ul>
+<li>조직이 소유자로서 수동으로 자신을 제거합니다.</li>
+<li>조직이 삭제됩니다.</li>
+</ul>
+<p>예약된 네임스페이스가 unclaimed 상태가 되면, UI는 일치하는 프로젝트가 페이지에 어떤 지표도 갖지 않게 되며, 네임스페이스도 전용 페이지를 갖지 않게 됩니다.</p>
+<h3>교육 방법 (How to Teach This)</h3>
+<p>조직을 위해 네임스페이스를 예약하는 방법, 이점 및 가격을 문서화할 것입니다. 또한, PEP 541도 같은 페이지에 문서화하여 조직이 자신의 그랜트와 일치하는 기존 패키지의 부적절한 사용을 보고하는 주요 메커니즘을 인지하도록 할 것입니다.</p>
+<h2>거부된 아이디어 (Rejected Ideas)</h2>
+<h3>모든 활성 그랜트 보기 페이지 (Page for Viewing All Active Grants)</h3>
+<p>모든 활성 네임스페이스 그랜트를 볼 수 있는 페이지는 없습니다. 이는 예정된 제품과 같은 개인 정보를 유출할 가능성이 있기 때문입니다.</p>
+<h3>소유 프로젝트에 대한 시각적 지표 (Visual Indicator for Owned Projects)</h3>
+<p>그랜트 소유자에게 연결된 프로젝트에 대한 지표는 주로 혼란을 줄이기 위해 없습니다. 특히 이것이 가장 일반적인 시나리오이기 때문입니다.</p>
+<p>만약 지표가 있었다면, NuGet이 선택한 것처럼 체크 표시 등이 아닐 것입니다. 이는 패키지 사용에 내재된 보안 보장이 있다는 오해를 불러일으킬 수 있기 때문입니다. 또한, 일부 소셜 미디어 플랫폼은 확인된 사용자에게 체크 표시를 사용하여 혼란을 야기할 수 있습니다.</p>
+<h2>참고 (References)</h2>
+<p>The Python Package Index (PyPI) (https://pypi.org)</p>
+<h2>저작권 (Copyright)</h2>
+<p>이 문서는 퍼블릭 도메인 또는 CC0-1.0-Universal 라이선스 중 더 관대한 라이선스에 따라 공개됩니다.</p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":[["$","aside",null,{"className":"lg:w-64 xl:w-72 order-1 lg:order-none","children":["$","div",null,{"className":"sidebar sticky","children":["$","nav",null,{"className":"space-y-4","children":[["$","div","Backend",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Backend"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Django",{"children":["$","a",null,{"href":"/backend/django","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Django"," (",6,")"]}]}],["$","li","Logging",{"children":["$","a",null,{"href":"/backend/logging","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Logging"," (",1,")"]}]}]]}]]}],["$","div","Python",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Python"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","PEP",{"children":["$","a",null,{"href":"/python/pep","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["PEP"," (",650,")"]}]}]]}]]}],["$","div","AI/ML",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"AI/ML"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","LLM",{"children":["$","a",null,{"href":"/ai/llm","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["LLM"," (",1,")"]}]}],["$","li","Review",{"children":["$","a",null,{"href":"/ai/review","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Review"," (",2728,")"]}]}]]}]]}],["$","div","DevOps",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"DevOps"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Nginx",{"children":["$","a",null,{"href":"/devops/nginx","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Nginx"," (",1,")"]}]}],["$","li","Docker",{"children":["$","a",null,{"href":"/devops/docker","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Docker"," (",1,")"]}]}],["$","li","SafeLine",{"children":["$","a",null,{"href":"/devops/safeline","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["SafeLine"," (",1,")"]}]}],["$","li","Jenkins",{"children":["$","a",null,{"href":"/devops/jenkins","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Jenkins"," (",3,")"]}]}],["$","li","GitHub Actions",{"children":["$","a",null,{"href":"/devops/github-actions","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["GitHub Actions"," (",1,")"]}]}],["$","li","AWS",{"children":["$","a",null,{"href":"/devops/aws","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["AWS"," (",1,")"]}]}]]}]]}],["$","div","etc",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"etc"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Me",{"children":["$","a",null,{"href":"/etc/me","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Me"," (",3,")"]}]}],["$","li","Chrome Extension",{"children":["$","a",null,{"href":"/etc/chrome-extension","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Chrome Extension"," (",1,")"]}]}]]}]]}]]}]}]}],["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Draft] PEP 755 - Implicit namespace policy for PyPI"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-27 13:41:27+0900","children":"2025년 9월 27일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 27일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]}],["$","$La",null,{"postPermalink":"/python/pep/755","postId":"2025-09-27-pep-0755-implicit-namespace-policy-for-pypi"}],["$","section",null,{"className":"mt-12 border-t border-gray-200 pt-8","children":[["$","h3",null,{"className":"text-base font-semibold text-gray-900 mb-4","children":["Python"," 의 다른글"]}],["$","ul",null,{"className":"space-y-2 text-sm","children":[["$","li",null,{"className":"text-gray-500","children":["이전글"," ",["$","$L7",null,{"href":"/python/pep/754","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Rejected] PEP 754 - IEEE 754 Floating Point Special Values"}]]}],["$","li",null,{"className":"text-gray-900 font-semibold","children":["현재글 : ","[Draft] PEP 755 - Implicit namespace policy for PyPI"]}],["$","li",null,{"className":"text-gray-500","children":["다음글"," ",["$","$L7",null,{"href":"/python/pep/756","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Withdrawn] PEP 756 - Add PyUnicode_Export() and PyUnicode_Import() C functions"}]]}]]}]]}]]}]}]]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"[Draft] PEP 755 - Implicit namespace policy for PyPI - secrett2633's blog"}],["$","meta","3",{"name":"description","content":"Python Enhancement Proposal 755: 'Implicit namespace policy for PyPI'에 대한 한국어 번역입니다."}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://blog.secrett2633.cloud/python/pep/755"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"[Draft] PEP 755 - Implicit namespace policy for PyPI"}],["$","meta","13",{"property":"og:description","content":"Python Enhancement Proposal 755: 'Implicit namespace policy for PyPI'에 대한 한국어 번역입니다."}],["$","meta","14",{"property":"og:url","content":"https://blog.secrett2633.cloud/python/pep/755"}],["$","meta","15",{"property":"og:type","content":"article"}],["$","meta","16",{"name":"twitter:card","content":"summary"}],["$","meta","17",{"name":"twitter:title","content":"[Draft] PEP 755 - Implicit namespace policy for PyPI"}],["$","meta","18",{"name":"twitter:description","content":"Python Enhancement Proposal 755: 'Implicit namespace policy for PyPI'에 대한 한국어 번역입니다."}],["$","link","19",{"rel":"icon","href":"/icon.ico?6d9f34d4948640b8","type":"image/x-icon","sizes":"16x16"}]]
+1:null

@@ -39,7 +39,7 @@ export async function GET(request: NextRequest) {
     <category>AI/ML</category>
     
     ${recentPosts.map(post => {
-      const postUrl = `${siteUrl}${post.permalink || `/${post.id}/`}`
+      const postUrl = `${siteUrl}${post.permalink || `/${post.id}`}`
       const pubDate = formatKoreanTime(new Date(post.date))
       const description = post.excerpt || post.title
       

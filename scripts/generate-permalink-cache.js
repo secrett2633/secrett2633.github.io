@@ -30,9 +30,9 @@ try {
       const matterResult = matter(fileContents)
       const rawPermalink = matterResult.data.permalink
       
-      const effectivePath = rawPermalink && typeof rawPermalink === 'string' && rawPermalink.trim().length > 0
+      const effectivePath = (rawPermalink && typeof rawPermalink === 'string' && rawPermalink.trim().length > 0
         ? rawPermalink
-        : `/${id}/`
+        : `/${id}`).replace(/\/$/, '')
       
       const normalized = effectivePath.replace(/^\/+/, '').replace(/\/+$/, '')
       
@@ -50,7 +50,7 @@ try {
       // 에러 발생 시 기본값 사용
       permalinkMap[id] = {
         slug: id.split('/'),
-        permalink: `/${id}/`
+        permalink: `/${id}`
       }
     }
   })

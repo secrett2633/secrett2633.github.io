@@ -1,0 +1,91 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[9157,["231","static/chunks/231-467e37449c5a68fc.js","185","static/chunks/app/layout-53ec9cbf619543e1.js"],"default"]
+7:I[231,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-80e07cee06d17a0b.js"],""]
+4:["slug","python/pep/441","c"]
+0:["_3-KrKKQh7tcSoXiYwQMB",[[["",{"children":[["slug","python/pep/441","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"441\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/441","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_f367f3 layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/d6cea809dcbae606.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+a:I[646,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-80e07cee06d17a0b.js"],"default"]
+9:T24d6,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0441/">PEP 441 - Improving Python ZIP Application Support</a></p>
+<p><strong>상태:</strong> Final | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 30-Mar-2013</p>
+</blockquote>
+<h2>PEP 441 – Python ZIP 애플리케이션 지원 개선</h2>
+<p>이 문서는 Python 3.5 버전에서 도입된 <a href="https://peps.python.org/pep-0441/">PEP 441</a>의 주요 내용을 한국어 사용자들이 이해하기 쉽게 번역하고 설명합니다. 이 PEP는 Python ZIP 애플리케이션의 지원을 개선하고, 이를 더 널리 알리며, 관련된 도구를 제공하는 것을 목표로 합니다.</p>
+<h3>개요</h3>
+<p>Python은 2.6 버전부터 디렉터리나 ZIP 형식 아카이브를 스크립트처럼 실행할 수 있는 기능을 제공해왔습니다. 이 기능은 여러 모듈로 구성된 복잡한 소프트웨어를 단일 파일 스크립트 형태로 배포할 수 있는 좋은 방법이지만, 그동안 잘 알려지지 않았고 Windows 설치 프로그램에서 파일 확장자가 등록되지 않아 널리 사용되지 못했습니다.</p>
+<p>PEP 441은 이러한 문제를 해결하기 위해 이 기능을 다시 홍보하고, <code>.pyz</code> 및 <code>.pyzw</code> 확장자를 "Python ZIP Application" 및 "Windowed Python ZIP Application"으로 정의하며, 이 형식을 관리할 수 있는 간단한 도구를 제공할 것을 제안합니다.</p>
+<h3>새로운 Python ZIP 애플리케이션 확장자</h3>
+<p>"Python ZIP Application"이라는 용어는 Python 코드를 포함하고 Python에 의해 직접 실행될 수 있는 ZIP 형식 아카이브를 공식적으로 지칭합니다 (특히, 아카이브의 루트 디렉터리에 <code>__main__.py</code> 파일이 있어야 합니다). 이러한 파일에는 <code>.pyz</code> 확장자가 공식적으로 연결됩니다.</p>
+<p>Python 3.5 설치 프로그램은 <code>.pyz</code> 및 <code>.pyzw</code> "Python ZIP Application"을 플랫폼 런처와 연결하여 실행할 수 있도록 합니다. <code>.pyz</code> 아카이브는 콘솔 애플리케이션이며, <code>.pyzw</code> 아카이브는 윈도우 애플리케이션으로, 애플리케이션 실행 시 콘솔 창이 나타날지 여부를 나타냅니다.</p>
+<p>Python ZIP 애플리케이션은 올바른 Python 인터프리터를 가리키는 <code>#!</code> (shebang) 라인과 선택적 설명을 접두사로 가질 수 있습니다.</p>
+<pre><code class="language-python">#!/usr/bin/env python3
+# Python application packed with zipapp module
+</code></pre>
+<p>Unix에서는 이를 통해 운영 체제가 표준 "shebang" 지원을 통해 올바른 인터프리터로 파일을 실행할 수 있으며, Windows에서는 Python 런처가 shebang 지원을 구현합니다. 그러나 <code>.pyz</code> 애플리케이션은 항상 파일 이름을 Python 인터프리터에 직접 전달하여 실행할 수도 있습니다.</p>
+<p>ZIP 아카이브는 파일 끝에서부터의 상대 오프셋을 포함하는 푸터(footer)로 정의됩니다. 이들은 다른 파일 끝에 연결되어도 유효하며, 이는 자체 추출 ZIP 아카이브나 <code>bdist_wininst</code> 설치 프로그램 형식에서 작동하는 방식입니다.</p>
+<h3>최소한의 도구: <code>zipapp</code> 모듈</h3>
+<p>이 PEP는 이러한 아카이브 작업을 위한 <code>zipapp</code> 모듈을 포함할 것을 제안합니다. 이 모듈은 Python ZIP 애플리케이션 아카이브 작업을 위한 함수와, <code>python -m zipapp</code>를 통한 명령줄 인터페이스를 제공하여 아카이브 생성 및 조작을 가능하게 합니다.</p>
+<h4>모듈 인터페이스</h4>
+<p><code>zipapp</code> 모듈은 다음 함수들을 제공합니다:</p>
+<ul>
+<li>
+<p><code>create_archive(source, target=None, interpreter=None, main=None)</code></p>
+<ul>
+<li><code>source</code>로부터 애플리케이션 아카이브를 생성합니다. <code>source</code>는 디렉터리 이름, 기존 아카이브 파일 이름 또는 바이트 모드로 열린 파일 객체가 될 수 있습니다.</li>
+<li><code>target</code>은 결과 아카이브가 작성될 위치를 지정합니다.</li>
+<li><code>interpreter</code>는 아카이브가 실행될 Python 인터프리터의 이름을 지정하며, shebang 라인으로 작성됩니다.</li>
+<li><code>main</code>은 아카이브의 주 프로그램으로 사용될 호출 가능 객체의 이름을 지정합니다 (예: "pkg.module:callable").</li>
+</ul>
+</li>
+<li>
+<p><code>get_interpreter(archive)</code></p>
+<ul>
+<li>아카이브의 shebang 라인에 지정된 인터프리터를 반환합니다. shebang이 없으면 <code>None</code>을 반환합니다.</li>
+</ul>
+</li>
+</ul>
+<h4>명령줄 사용법</h4>
+<p><code>zipapp</code> 모듈은 <code>python -m zipapp</code> 명령으로 실행할 수 있습니다.</p>
+<p><strong>디렉터리로부터 아카이브 생성:</strong></p>
+<pre><code class="language-bash">python -m zipapp directory [options]
+</code></pre>
+<p>옵션:</p>
+<ul>
+<li><code>-o archive</code>, <code>--output archive</code>: 대상 아카이브 파일 이름을 지정합니다 (예: <code>myapp.pyz</code>).</li>
+<li><code>-p interpreter</code>, <code>--python interpreter</code>: shebang 라인에 기록될 인터프리터를 지정합니다 (예: <code>/usr/bin/env python3</code>).</li>
+<li><code>-m pkg.mod:fn</code>, <code>--main pkg.mod:fn</code>: <code>__main__.py</code> 파일이 없는 경우, <code>pkg.mod</code>에서 <code>fn</code>을 호출하는 <code>__main__.py</code> 파일을 아카이브에 작성합니다.</li>
+</ul>
+<p><strong>기존 아카이브 작업:</strong></p>
+<pre><code class="language-bash">python -m zipapp app.pyz --show
+</code></pre>
+<ul>
+<li><code>--show</code>: 아카이브의 shebang 라인을 표시합니다 (진단 용도).</li>
+</ul>
+<pre><code class="language-bash">python -m zipapp app.pyz -o newapp.pyz [-p interpreter]
+</code></pre>
+<ul>
+<li>기존 <code>app.pyz</code>를 <code>newapp.pyz</code>로 복사하고, <code>-p</code> 옵션에 따라 shebang 라인을 수정합니다. 기존 아카이브를 제자리에서 수정하는 것은 지원되지 않습니다.</li>
+</ul>
+<p>아카이브는 표준 ZIP 파일이므로, 어떤 표준 ZIP 유틸리티나 Python의 <code>zipfile</code> 모듈로도 압축을 해제할 수 있습니다.</p>
+<h3>FAQ (자주 묻는 질문)</h3>
+<ul>
+<li><strong>표준 ZIP 유틸리티가 <code>#!</code>를 처리할 수 있습니까?</strong> 네, ZIP 파일 사양은 ZIP 파일 앞에 임의의 데이터를 추가할 수 있도록 허용합니다.</li>
+<li><strong><code>zipapp</code>은 <code>zipfile</code> 모듈의 얇은 래퍼입니까?</strong> 네, <code>zipapp</code> 모듈은 편의를 위한 것이며, 다른 도구로 Python ZIP 애플리케이션 아카이브를 빌드할 수도 있습니다.</li>
+<li><strong>왜 <code>.zip</code> 또는 <code>.py</code> 확장자를 사용하지 않습니까?</strong> 사용자는 <code>.zip</code> 파일을 아카이브 도구로 열고 <code>.py</code> 파일이 읽을 수 있는 텍스트를 포함할 것으로 예상하므로, 이 사용 사례에는 혼란을 줄 수 있습니다.</li>
+<li><strong>기존 패키지 형식과의 경쟁은 어떻습니까?</strong> <code>sdist</code>, <code>bdist</code>, <code>wheel</code> 형식은 기존 Python 설치에 모듈을 설치하기 위한 것이지만, 실행 가능한 ZIP 형식은 설치 없이 독립 실행형으로 사용하기 위해 특별히 설계되었습니다. 사실상 멀티 파일 버전의 독립 실행형 Python 스크립트입니다.</li>
+</ul>
+<h3>기각된 제안</h3>
+<ul>
+<li><strong>Shebang 라인을 위한 편의 값:</strong> <code>"-p 3"</code>과 같은 약어를 사용하여 일반적인 인터프리터 값을 지정하는 방안이 논의되었으나, 약어 해석의 모호함과 잠재적인 문제로 인해 기각되었습니다.</li>
+<li><strong>.pyz를 미디어 타입으로 등록:</strong> <code>.pyz</code> 확장자를 Unix 미디어 타입 데이터베이스에 등록하는 것이 제안되었으나, <code>.py</code> 확장자도 등록되어 있지 않아 이 PEP에서는 제외되었습니다.</li>
+<li><strong>기본 인터프리터:</strong> 초기 초안에서는 <code>/usr/bin/env python</code>을 기본 인터프리터로 제안했지만, Python 2와 Python 3 사이의 혼란 때문에 "모호할 때는 추측을 거부한다"는 원칙에 따라 명시적으로 요청하지 않는 한 shebang 라인을 포함하지 않기로 결정했습니다.</li>
+<li><strong>Shebang 라인 관리를 위한 명령줄 도구:</strong> 기존 아카이브의 shebang 라인을 수정하거나 표시하는 명령줄 도구의 필요성이 논의되었지만, 인터페이스의 복잡성과 사용 빈도가 낮을 것으로 예상되어 <code>zipapp</code> 모듈에 직접 포함되지는 않았습니다.</li>
+</ul>
+<h3>참조 구현</h3>
+<p>참조 구현은 <a href="http://bugs.python.org/issue23491">http://bugs.python.org/issue23491</a>에서 확인할 수 있습니다.</p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":[["$","aside",null,{"className":"lg:w-64 xl:w-72 order-1 lg:order-none","children":["$","div",null,{"className":"sidebar sticky","children":["$","nav",null,{"className":"space-y-4","children":[["$","div","Backend",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Backend"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Django",{"children":["$","a",null,{"href":"/backend/django","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Django"," (",6,")"]}]}],["$","li","Logging",{"children":["$","a",null,{"href":"/backend/logging","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Logging"," (",1,")"]}]}]]}]]}],["$","div","Python",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Python"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","PEP",{"children":["$","a",null,{"href":"/python/pep","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["PEP"," (",650,")"]}]}]]}]]}],["$","div","AI/ML",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"AI/ML"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","LLM",{"children":["$","a",null,{"href":"/ai/llm","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["LLM"," (",1,")"]}]}],["$","li","Review",{"children":["$","a",null,{"href":"/ai/review","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Review"," (",2728,")"]}]}]]}]]}],["$","div","DevOps",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"DevOps"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Nginx",{"children":["$","a",null,{"href":"/devops/nginx","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Nginx"," (",1,")"]}]}],["$","li","Docker",{"children":["$","a",null,{"href":"/devops/docker","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Docker"," (",1,")"]}]}],["$","li","SafeLine",{"children":["$","a",null,{"href":"/devops/safeline","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["SafeLine"," (",1,")"]}]}],["$","li","Jenkins",{"children":["$","a",null,{"href":"/devops/jenkins","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Jenkins"," (",3,")"]}]}],["$","li","GitHub Actions",{"children":["$","a",null,{"href":"/devops/github-actions","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["GitHub Actions"," (",1,")"]}]}],["$","li","AWS",{"children":["$","a",null,{"href":"/devops/aws","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["AWS"," (",1,")"]}]}]]}]]}],["$","div","etc",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"etc"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Me",{"children":["$","a",null,{"href":"/etc/me","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Me"," (",3,")"]}]}],["$","li","Chrome Extension",{"children":["$","a",null,{"href":"/etc/chrome-extension","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Chrome Extension"," (",1,")"]}]}]]}]]}]]}]}]}],["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Final] PEP 441 - Improving Python ZIP Application Support"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-26 21:54:04+0900","children":"2025년 9월 26일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 26일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]}],["$","$La",null,{"postPermalink":"/python/pep/441","postId":"2025-09-26-pep-0441-improving-python-zip-application-support"}],["$","section",null,{"className":"mt-12 border-t border-gray-200 pt-8","children":[["$","h3",null,{"className":"text-base font-semibold text-gray-900 mb-4","children":["Python"," 의 다른글"]}],["$","ul",null,{"className":"space-y-2 text-sm","children":[["$","li",null,{"className":"text-gray-500","children":["이전글"," ",["$","$L7",null,{"href":"/python/pep/440","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Final] PEP 440 - Version Identification and Dependency Specification"}]]}],["$","li",null,{"className":"text-gray-900 font-semibold","children":["현재글 : ","[Final] PEP 441 - Improving Python ZIP Application Support"]}],["$","li",null,{"className":"text-gray-500","children":["다음글"," ",["$","$L7",null,{"href":"/python/pep/442","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Final] PEP 442 - Safe object finalization"}]]}]]}]]}]]}]}]]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"[Final] PEP 441 - Improving Python ZIP Application Support - secrett2633's blog"}],["$","meta","3",{"name":"description","content":"Python Enhancement Proposal 441: 'Improving Python ZIP Application Support'에 대한 한국어 번역입니다."}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://blog.secrett2633.cloud/python/pep/441"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"[Final] PEP 441 - Improving Python ZIP Application Support"}],["$","meta","13",{"property":"og:description","content":"Python Enhancement Proposal 441: 'Improving Python ZIP Application Support'에 대한 한국어 번역입니다."}],["$","meta","14",{"property":"og:url","content":"https://blog.secrett2633.cloud/python/pep/441"}],["$","meta","15",{"property":"og:type","content":"article"}],["$","meta","16",{"name":"twitter:card","content":"summary"}],["$","meta","17",{"name":"twitter:title","content":"[Final] PEP 441 - Improving Python ZIP Application Support"}],["$","meta","18",{"name":"twitter:description","content":"Python Enhancement Proposal 441: 'Improving Python ZIP Application Support'에 대한 한국어 번역입니다."}],["$","link","19",{"rel":"icon","href":"/icon.ico?6d9f34d4948640b8","type":"image/x-icon","sizes":"16x16"}]]
+1:null

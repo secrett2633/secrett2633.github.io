@@ -1,0 +1,175 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[9157,["231","static/chunks/231-467e37449c5a68fc.js","185","static/chunks/app/layout-53ec9cbf619543e1.js"],"default"]
+7:I[231,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-80e07cee06d17a0b.js"],""]
+4:["slug","python/pep/3134","c"]
+0:["_3-KrKKQh7tcSoXiYwQMB",[[["",{"children":[["slug","python/pep/3134","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"3134\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/3134","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_f367f3 layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/d6cea809dcbae606.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+a:I[646,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-80e07cee06d17a0b.js"],"default"]
+9:T51a6,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-3134/">PEP 3134 - Exception Chaining and Embedded Tracebacks</a></p>
+<p><strong>상태:</strong> Final | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 12-May-2005</p>
+</blockquote>
+<h1>PEP 3134 – 예외 체인(Exception Chaining) 및 임베디드 트레이스백(Embedded Tracebacks)</h1>
+<p><em>이 문서는 Python 3.0에 도입된 예외 처리 메커니즘 개선 제안인 PEP 3134를 한국어 사용자가 이해하기 쉽도록 번역 및 정리한 것입니다.</em></p>
+<h2>개요 (Abstract)</h2>
+<p>이 PEP(Python Enhancement Proposal)는 예외 인스턴스에 세 가지 표준 속성을 제안합니다.</p>
+<ul>
+<li><code>__context__</code>: 암시적으로 연결된(implicitly chained) 예외를 위한 속성.</li>
+<li><code>__cause__</code>: 명시적으로 연결된(explicitly chained) 예외를 위한 속성.</li>
+<li><code>__traceback__</code>: 트레이스백(traceback) 정보를 위한 속성.</li>
+</ul>
+<p>새로운 <code>raise ... from</code> 구문은 <code>__cause__</code> 속성을 설정합니다.</p>
+<h2>동기 (Motivation)</h2>
+<p>하나의 예외(예외 A)를 처리하는 도중에 다른 예외(예외 B)가 발생할 수 있습니다. 기존 Python(버전 2.4)에서는 이런 경우 예외 B가 전파되고 예외 A는 사라졌습니다. 문제 디버깅을 위해서는 두 예외 모두에 대한 정보를 아는 것이 유용하며, <code>__context__</code> 속성은 이 정보를 자동으로 유지합니다.</p>
+<p>때로는 예외 핸들러(handler)가 추가 정보를 제공하거나 예외 유형을 변환하기 위해 의도적으로 예외를 다시 발생시키는 것이 유용할 수 있습니다. <code>__cause__</code> 속성은 예외의 직접적인 원인을 명시적으로 기록하는 방법을 제공합니다.</p>
+<p>기존 Python 구현에서 예외는 타입(type), 값(value), 트레이스백(traceback)의 세 부분으로 구성됩니다. <code>sys</code> 모듈은 현재 예외를 <code>exc_type</code>, <code>exc_value</code>, <code>exc_traceback</code> 세 개의 병렬 변수로 노출하며, <code>sys.exc_info()</code> 함수는 이 세 부분으로 구성된 튜플을 반환합니다. 또한 <code>raise</code> 문은 이 세 부분을 받는 세 개의 인자 형식을 가집니다. 예외를 조작하려면 이 세 가지를 병렬로 전달해야 하는 경우가 많아 번거롭고 오류가 발생하기 쉬웠습니다. 게다가 <code>except</code> 문은 값에만 접근할 수 있었고 트레이스백에는 접근할 수 없었습니다. 예외 값에 <code>__traceback__</code> 속성을 추가함으로써 모든 예외 정보를 한 곳에서 접근할 수 있게 됩니다.</p>
+<h2>배경 (History)</h2>
+<ul>
+<li>2003년 1월, Raymond Hettinger는 <code>Python-Dev</code>에서 마스킹된 예외(masked exceptions) 문제를 제기하고 C 모듈이 현재 활성 예외에 더 많은 정보를 추가할 수 있도록 <code>PyErr_FormatAppend()</code> 함수를 제안했습니다.</li>
+<li>2003년 6월, Brett Cannon이 다시 예외 체인 문제를 언급하면서 긴 토론이 시작되었습니다.</li>
+<li>Greg Ewing은 원래 예외에 의해 트리거된 언와인딩(unwinding) 중 <code>finally</code> 블록에서 예외가 발생하는 경우와 원래 예외를 처리하는 <code>except</code> 블록에서 예외가 발생하는 경우를 구별했습니다.</li>
+<li>Greg Ewing과 Guido van Rossum 등은 이전에 <code>Exception</code> 인스턴스에 트레이스백 속성을 추가하는 것을 언급했습니다. 이는 PEP 3000에 언급되어 있습니다.</li>
+<li>이 PEP는 동일한 아이디어에 대한 또 다른 <code>Python-Dev</code> 재게시를 계기로 시작되었습니다.</li>
+</ul>
+<h2>제안 배경 및 논리 (Rationale)</h2>
+<p><code>Python-Dev</code> 토론을 통해 예외 체인에 대한 두 가지 다른 목적의 관심사가 드러났습니다.</p>
+<ol>
+<li>예기치 않게 발생하는 보조 예외를 처리하기 위해서는 예외가 암시적으로 유지되어야 합니다.</li>
+<li>예외의 의도적인 변환(translation)을 지원하기 위해서는 예외를 명시적으로 연결할 수 있는 방법이 있어야 합니다.</li>
+</ol>
+<p>이 PEP는 이 두 가지 모두를 다룹니다.</p>
+<p>체인 예외를 위한 여러 속성 이름이 <code>Python-Dev</code>에서 제안되었지만, 이 PEP는 명시적으로 연결된 예외에 대해 그 의미가 명확한 <code>__cause__</code>를 제안합니다. 암시적으로 연결된 예외에 대해서는 <code>__context__</code>라는 이름을 제안하는데, 이는 시간적 선행(temporal precedence)보다 더 구체적이지만 인과 관계(causation)보다는 덜 구체적인, 즉 "다른 예외를 처리하는 <code>컨텍스트</code>에서 예외가 발생한다"는 의미를 의도하기 때문입니다.</p>
+<p>이 세 속성(<code>__context__</code>, <code>__cause__</code>, <code>__traceback__</code>)에 선행 및 후행 이중 밑줄이 있는 이름을 제안하는 이유는 이들이 Python VM(Virtual Machine)에 의해 설정되기 때문입니다. 일반적인 할당으로는 매우 특별한 경우에만 설정되어야 합니다.</p>
+<p>이 PEP는 <code>except</code> 블록과 <code>finally</code> 블록에서 발생하는 예외를 동일하게 처리합니다. 트레이스백을 읽으면 예외가 어디에서 발생했는지 명확해지므로, 두 경우를 구별하기 위한 추가 메커니즘은 불필요한 복잡성만 추가할 것입니다.</p>
+<p>이 PEP는 현재 동작과의 호환성을 위해 가장 바깥쪽 예외 객체( <code>except</code> 절에 의해 매칭되는 객체)가 가장 최근에 발생한 예외가 되도록 제안합니다.</p>
+<p>또한 트레이스백이 가장 바깥쪽 예외를 마지막에 표시하도록 제안하는데, 이는 트레이스백의 시간 순서(가장 오래된 프레임부터 가장 최근 프레임까지)와 일치하고 실제 발생한 예외를 마지막 줄에서 더 쉽게 찾을 수 있기 때문입니다.</p>
+<p>간결성을 위해, 예외를 설정하는 C API 호출은 예외의 <code>__context__</code>를 자동으로 설정하지 않습니다.</p>
+<p>다른 언어의 경우, Java와 Ruby는 <code>catch</code>/<code>rescue</code> 또는 <code>finally</code>/<code>ensure</code> 절에서 다른 예외가 발생하면 원래 예외를 버립니다. Perl 5는 내장된 구조화된 예외 처리가 없습니다. Perl 6의 RFC 88은 <code>@@</code>라는 배열에 체인된 예외를 암시적으로 유지하는 예외 메커니즘을 제안합니다. C#의 예외는 다른 예외를 가리킬 수 있는 읽기 전용 <code>InnerException</code> 속성을 포함합니다. <code>__cause__</code> 속성은 <code>InnerException</code>과 동일한 목적을 수행하지만, 이 PEP는 모든 예외의 생성자를 확장하는 대신 새로운 형태의 <code>raise</code>를 제안합니다.</p>
+<p>이 세 속성(<code>__context__</code>, <code>__cause__</code>, <code>__traceback__</code>)이 하나의 제안으로 함께 제시되는 이유는 <code>__traceback__</code> 속성이 체인 예외에 대한 트레이스백에 편리하게 접근할 수 있도록 해주기 때문입니다.</p>
+<h2>암시적 예외 체인 (Implicit Exception Chaining)</h2>
+<p><code>__context__</code> 속성을 보여주는 예시입니다.</p>
+<pre><code class="language-python">def compute(a, b):
+    try:
+        a / b
+    except Exception as exc: # Python 2.x에서는 'except Exception, exc:'
+        log(exc)
+
+def log(exc):
+    file = open('logfile.txt') # 의도적으로 'w' 모드를 잊음
+    print(exc, file=file) # Python 2.x에서는 'print >>file, exc'
+    file.close()
+</code></pre>
+<p><code>compute(0, 0)</code>을 호출하면 <code>ZeroDivisionError</code>가 발생합니다. <code>compute()</code> 함수는 이 예외를 catch하고 <code>log(exc)</code>를 호출하지만, <code>log()</code> 함수는 쓰기 모드로 열리지 않은 파일에 쓰려고 할 때 또 다른 예외를 발생시킵니다.</p>
+<p>기존 Python에서는 <code>compute()</code>의 호출자에게 <code>IOError</code>가 발생하고 <code>ZeroDivisionError</code>는 손실됩니다. 이 제안된 변경사항을 적용하면, <code>IOError</code> 인스턴스에 <code>ZeroDivisionError</code>를 유지하는 추가 <code>__context__</code> 속성이 포함됩니다.</p>
+<p>제안된 의미론은 다음과 같습니다.</p>
+<ul>
+<li>각 스레드(thread)는 처음에 <code>None</code>으로 설정된 예외 컨텍스트를 가집니다.</li>
+<li>예외가 발생할 때마다, 예외 인스턴스가 <code>__context__</code> 속성을 이미 가지고 있지 않으면 인터프리터(interpreter)는 이를 스레드의 예외 컨텍스트와 동일하게 설정합니다.</li>
+<li>예외가 발생한 직후, 스레드의 예외 컨텍스트는 해당 예외로 설정됩니다.</li>
+<li>인터프리터가 <code>except</code> 블록을 끝까지 실행하거나 <code>return</code>, <code>yield</code>, <code>continue</code>, <code>break</code> 문을 실행하여 종료할 때마다 스레드의 예외 컨텍스트는 <code>None</code>으로 설정됩니다.</li>
+</ul>
+<h2>명시적 예외 체인 (Explicit Exception Chaining)</h2>
+<p>예외 객체의 <code>__cause__</code> 속성은 항상 <code>None</code>으로 초기화됩니다. 이는 새로운 형태의 <code>raise</code> 문에 의해 설정됩니다.</p>
+<pre><code class="language-python">raise EXCEPTION from CAUSE
+</code></pre>
+<p>이는 다음과 동일합니다.</p>
+<pre><code class="language-python">exc = EXCEPTION
+exc.__cause__ = CAUSE
+raise exc
+</code></pre>
+<p>다음 예시에서 데이터베이스는 파일 저장소를 포함한 여러 종류의 저장소 구현을 제공합니다. 데이터베이스 설계자는 클라이언트가 저장소 특정 세부 정보를 알 필요 없이 오류가 <code>DatabaseError</code> 객체로 전파되기를 원하지만, 근본적인 오류 정보는 잃고 싶지 않습니다.</p>
+<pre><code class="language-python">class DatabaseError(Exception):
+    pass
+
+class FileDatabase(object): # PEP 원문에는 Database 클래스 상속이지만, 예시 코드이므로 간략화
+    def __init__(self, filename):
+        try:
+            self.file = open(filename)
+        except IOError as exc: # Python 2.x에서는 'except IOError, exc:'
+            raise DatabaseError('failed to open') from exc
+</code></pre>
+<p><code>open()</code> 호출이 예외를 발생시키면, 문제는 <code>DatabaseError</code>로 보고되며, <code>__cause__</code> 속성은 <code>IOError</code>가 원래 원인임을 나타냅니다.</p>
+<h2>트레이스백 속성 (Traceback Attribute)</h2>
+<p><code>__traceback__</code> 속성을 보여주는 예시입니다.</p>
+<pre><code class="language-python">from traceback import format_tb
+
+def do_logged(file, work):
+    try:
+        work()
+    except Exception as exc: # Python 2.x에서는 'except Exception, exc:'
+        write_exception(file, exc)
+        raise exc # 예외를 다시 발생시킴
+
+def write_exception(file, exc):
+    # ...
+    type_name = exc.__class__.__name__
+    message = str(exc)
+    lines = format_tb(exc.__traceback__)
+    file.write(f"Type: {type_name}\nMessage: {message}\nTraceback:\n{''.join(lines)}\n")
+    # ...
+</code></pre>
+<p>기존 Python에서는 <code>do_logged()</code> 함수가 <code>sys.exc_traceback</code> 또는 <code>sys.exc_info()</code>에서 트레이스백을 추출하여 값과 트레이스백을 모두 <code>write_exception()</code>에 전달해야 했습니다. 제안된 변경사항을 적용하면 <code>write_exception()</code>은 단 하나의 인자만 받고 <code>__traceback__</code> 속성을 사용하여 예외 정보를 얻습니다.</p>
+<p>제안된 의미론은 다음과 같습니다.</p>
+<ul>
+<li>예외가 catch될 때마다, 예외 인스턴스가 <code>__traceback__</code> 속성을 이미 가지고 있지 않으면 인터프리터는 이를 새로 catch된 트레이스백으로 설정합니다.</li>
+</ul>
+<h2>향상된 보고 (Enhanced Reporting)</h2>
+<p>기본 예외 핸들러(default exception handler)는 체인 예외를 보고하도록 수정될 것입니다. 예외 체인은 <code>__cause__</code>와 <code>__context__</code> 속성을 따라 탐색되며, <code>__cause__</code>가 우선순위를 가집니다. 트레이스백의 시간 순서를 유지하기 위해 가장 최근에 발생한 예외가 마지막에 표시됩니다. 즉, 가장 안쪽 예외에 대한 설명으로 시작하여 가장 바깥쪽 예외까지 체인을 거슬러 올라갑니다. 트레이스백은 평소처럼 포맷되며, <code>__cause__</code> 또는 <code>__context__</code>에 의해 연결되었는지에 따라 트레이스백 사이에 다음 줄 중 하나가 표시됩니다.</p>
+<ul>
+<li><code>The above exception was the direct cause of the following exception:</code> (<code>__cause__</code>로 연결된 경우)</li>
+<li><code>During handling of the above exception, another exception occurred:</code> (<code>__context__</code>로 연결된 경우)</li>
+</ul>
+<p><code>traceback</code> 모듈에서 <code>format_exception</code>, <code>print_exception</code>, <code>print_exc</code>, <code>print_last</code> 함수는 선택적 <code>chain</code> 인자(기본값 <code>True</code>)를 받도록 업데이트될 것입니다. 이 인자가 <code>True</code>인 경우, 이 함수들은 방금 설명한 대로 전체 예외 체인을 포맷하거나 표시합니다. <code>False</code>인 경우, 가장 바깥쪽 예외만 포맷하거나 표시합니다. <code>cgitb</code> 모듈도 전체 예외 체인을 표시하도록 업데이트되어야 합니다.</p>
+<h2>C API 호환성 (C API Compatibility)</h2>
+<p>예외를 설정하는 <code>PyErr_Set*</code> 호출은 예외의 <code>__context__</code> 속성을 설정하지 않습니다. <code>PyErr_NormalizeException</code>은 항상 트레이스백 속성을 <code>tb</code> 인자로, <code>__context__</code> 및 <code>__cause__</code> 속성을 <code>None</code>으로 설정할 것입니다.</p>
+<p>새로운 API 함수인 <code>PyErr_SetContext(context)</code>는 C 프로그래머가 체인 예외 정보를 제공하는 데 도움을 줄 것입니다. 이 함수는 먼저 현재 예외를 인스턴스로 정규화한 다음 <code>__context__</code> 속성을 설정합니다. 유사한 API 함수인 <code>PyErr_SetCause(cause)</code>는 <code>__cause__</code> 속성을 설정할 것입니다.</p>
+<h2>호환성 (Compatibility)</h2>
+<p>체인 예외는 가장 최근 예외의 타입을 노출하므로, 현재와 동일한 <code>except</code> 절에 계속 매칭될 것입니다.</p>
+<p>제안된 변경사항은 예외 인스턴스에 <code>__context__</code>, <code>__cause__</code>, <code>__traceback__</code>이라는 이름의 속성을 설정하거나 사용하는 코드가 아니라면 어떤 코드도 손상시키지 않을 것입니다. 2005년 5월 12일 기준으로 Python 표준 라이브러리에는 이러한 속성에 대한 언급이 없습니다.</p>
+<h2>알려진 미해결 문제 (Open Issues)</h2>
+<h3>추가 정보 (Extra Information)</h3>
+<p>Walter Dörwald는 예외 타입을 변경하지 않고도 상위 전파(upward propagation) 중에 예외에 추가 정보를 첨부하고 싶다는 바람을 표명했습니다. 이는 유용한 기능일 수 있지만, 이 PEP에서는 다루지 않습니다. 별도의 PEP에서 예외에 대한 다른 정보 속성에 대한 규칙을 설정함으로써 다루어질 수 있습니다.</p>
+<h3>컨텍스트 억제 (Suppressing Context)</h3>
+<p>이 PEP에 작성된 바와 같이, <code>except</code> 또는 <code>finally</code> 절에서 <code>exc.__context__</code>를 <code>None</code>으로 설정해도 <code>exc</code>가 다시 발생할 때 다시 설정되기 때문에 <code>__context__</code>를 억제하는 것은 불가능합니다.</p>
+<h3>예외 유형 제한 (Limiting Exception Types)</h3>
+<p>캡슐화(encapsulation)를 개선하기 위해 라이브러리 구현자는 모든 구현 수준 예외를 애플리케이션 수준 예외로 래핑(wrap)하기를 원할 수 있습니다.</p>
+<h3><code>yield</code> 문 (yield)</h3>
+<p><code>yield</code> 문이 실행될 때 예외 컨텍스트가 손실됩니다. <code>yield</code> 이후 프레임을 재개해도 컨텍스트가 복원되지 않습니다. 이 문제는 이 PEP의 범위를 벗어나며, 새로운 문제는 아닙니다.</p>
+<h3>가비지 컬렉션 (Garbage Collection)</h3>
+<p>이 제안에 대한 가장 강력한 반대는 예외와 스택 프레임(stack frames) 사이에 순환(cycle)을 생성한다는 것입니다. 순환 가비지(cyclic garbage)의 수집(따라서 자원 해제)이 크게 지연될 수 있습니다.</p>
+<pre><code class="language-python">try:
+    1 / 0
+except Exception as err: # Python 2.x에서는 'except Exception, err:'
+    pass
+</code></pre>
+<p>위 코드는 <code>err</code> -> <code>traceback</code> -> 스택 프레임 -> <code>err</code>로 이어지는 순환을 도입하여, 다음 GC(Garbage Collection)가 발생할 때까지 동일한 스코프(scope) 내의 모든 지역 변수(locals)를 유지합니다.</p>
+<p>현재는 이러한 지역 변수가 스코프를 벗어납니다. 특히 열린 파일과 같은 "지역" 자원이 빠르게 닫힐 것이라고 가정하는 많은 코드가 있습니다. 만약 닫힘이 다음 GC를 기다려야 한다면 (오늘날에는 잘 작동하는) 프로그램이 파일 핸들 부족을 겪을 수 있습니다.</p>
+<p><code>__traceback__</code> 속성을 약한 참조(weak reference)로 만들면 순환 가비지 문제를 피할 수 있습니다. 그러나 이는 나중에 예외를 저장하는 것(예: <code>unittest</code>에서 하는 방식)을 더 어렵게 만들고, <code>sys</code> 모듈의 정리를 그렇게 많이 허용하지 않을 것입니다. Adam Olsen이 제안한 가능한 대안 솔루션은 스택 프레임에서 <code>err</code> 변수로의 참조를 변수가 스코프를 벗어날 때 약한 참조로 바꾸는 것입니다.</p>
+<h2>향후 호환 가능한 변경 사항 (Possible Future Compatible Changes)</h2>
+<p>이러한 변경 사항은 인터프리터 수준에서 예외가 세 개의 튜플이 아닌 단일 객체로 나타나는 것과 일치합니다.</p>
+<ul>
+<li>PEP 340 또는 PEP 343이 수락되면 <code>__exit__</code>의 세 인자(<code>type</code>, <code>value</code>, <code>traceback</code>)를 단일 예외 인자로 대체합니다.</li>
+<li><code>sys.exc_type</code>, <code>sys.exc_value</code>, <code>sys.exc_traceback</code>, <code>sys.exc_info()</code>를 단일 멤버인 <code>sys.exception</code>을 위해 폐지합니다.</li>
+<li><code>sys.last_type</code>, <code>sys.last_value</code>, <code>sys.last_traceback</code>을 단일 멤버인 <code>sys.last_exception</code>을 위해 폐지합니다.</li>
+<li><code>raise</code> 문의 세 인자 형식을 한 인자 형식으로 폐지합니다.</li>
+<li><code>cgitb.html()</code>을 업데이트하여 (type, value, traceback) 튜플의 대안으로 첫 번째 인자로 단일 값을 받도록 합니다.</li>
+</ul>
+<h2>향후 비호환 변경 사항 (Possible Future Incompatible Changes)</h2>
+<p>이러한 변경 사항은 Python 3000(Python 3.x)에서 고려해볼 가치가 있을 수 있습니다.</p>
+<ul>
+<li><code>sys.exc_type</code>, <code>sys.exc_value</code>, <code>sys.exc_traceback</code>, <code>sys.exc_info()</code> 제거.</li>
+<li><code>sys.last_type</code>, <code>sys.last_value</code>, <code>sys.last_traceback</code> 제거.</li>
+<li>세 인자를 받는 <code>sys.excepthook</code>을 한 인자 API로 대체하고 <code>cgitb</code> 모듈을 일치시키도록 변경.</li>
+<li><code>raise</code> 문의 세 인자 형식 제거.</li>
+<li><code>traceback.print_exception</code>을 업데이트하여 <code>type</code>, <code>value</code>, <code>traceback</code> 인자 대신 예외 인자를 받도록 합니다.</li>
+</ul>
+<h2>구현 (Implementation)</h2>
+<p><code>__traceback__</code> 및 <code>__cause__</code> 속성과 새로운 <code>raise</code> 구문은 리비전 57783에서 구현되었습니다.</p>
+<h2>감사의 글 (Acknowledgements)</h2>
+<p>Brett Cannon, Greg Ewing, Guido van Rossum, Jeremy Hylton, Phillip J. Eby, Raymond Hettinger, Walter Dörwald, 그리고 다른 분들께 감사드립니다.</p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":[["$","aside",null,{"className":"lg:w-64 xl:w-72 order-1 lg:order-none","children":["$","div",null,{"className":"sidebar sticky","children":["$","nav",null,{"className":"space-y-4","children":[["$","div","Backend",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Backend"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Django",{"children":["$","a",null,{"href":"/backend/django","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Django"," (",6,")"]}]}],["$","li","Logging",{"children":["$","a",null,{"href":"/backend/logging","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Logging"," (",1,")"]}]}]]}]]}],["$","div","Python",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Python"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","PEP",{"children":["$","a",null,{"href":"/python/pep","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["PEP"," (",650,")"]}]}]]}]]}],["$","div","AI/ML",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"AI/ML"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","LLM",{"children":["$","a",null,{"href":"/ai/llm","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["LLM"," (",1,")"]}]}],["$","li","Review",{"children":["$","a",null,{"href":"/ai/review","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Review"," (",2728,")"]}]}]]}]]}],["$","div","DevOps",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"DevOps"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Nginx",{"children":["$","a",null,{"href":"/devops/nginx","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Nginx"," (",1,")"]}]}],["$","li","Docker",{"children":["$","a",null,{"href":"/devops/docker","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Docker"," (",1,")"]}]}],["$","li","SafeLine",{"children":["$","a",null,{"href":"/devops/safeline","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["SafeLine"," (",1,")"]}]}],["$","li","Jenkins",{"children":["$","a",null,{"href":"/devops/jenkins","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Jenkins"," (",3,")"]}]}],["$","li","GitHub Actions",{"children":["$","a",null,{"href":"/devops/github-actions","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["GitHub Actions"," (",1,")"]}]}],["$","li","AWS",{"children":["$","a",null,{"href":"/devops/aws","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["AWS"," (",1,")"]}]}]]}]]}],["$","div","etc",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"etc"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Me",{"children":["$","a",null,{"href":"/etc/me","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Me"," (",3,")"]}]}],["$","li","Chrome Extension",{"children":["$","a",null,{"href":"/etc/chrome-extension","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Chrome Extension"," (",1,")"]}]}]]}]]}]]}]}]}],["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Final] PEP 3134 - Exception Chaining and Embedded Tracebacks"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-27 14:33:48+0900","children":"2025년 9월 27일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 27일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]}],["$","$La",null,{"postPermalink":"/python/pep/3134","postId":"2025-09-27-pep-3134-exception-chaining-and-embedded-tracebacks"}],["$","section",null,{"className":"mt-12 border-t border-gray-200 pt-8","children":[["$","h3",null,{"className":"text-base font-semibold text-gray-900 mb-4","children":["Python"," 의 다른글"]}],["$","ul",null,{"className":"space-y-2 text-sm","children":[["$","li",null,{"className":"text-gray-500","children":["이전글"," ",["$","$L7",null,{"href":"/python/pep/3133","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Rejected] PEP 3133 - Introducing Roles"}]]}],["$","li",null,{"className":"text-gray-900 font-semibold","children":["현재글 : ","[Final] PEP 3134 - Exception Chaining and Embedded Tracebacks"]}],["$","li",null,{"className":"text-gray-500","children":["다음글"," ",["$","$L7",null,{"href":"/python/pep/3135","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Final] PEP 3135 - New Super"}]]}]]}]]}]]}]}]]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"[Final] PEP 3134 - Exception Chaining and Embedded Tracebacks - secrett2633's blog"}],["$","meta","3",{"name":"description","content":"Python Enhancement Proposal 3134: 'Exception Chaining and Embedded Tracebacks'에 대한 한국어 번역입니다."}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://blog.secrett2633.cloud/python/pep/3134"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"[Final] PEP 3134 - Exception Chaining and Embedded Tracebacks"}],["$","meta","13",{"property":"og:description","content":"Python Enhancement Proposal 3134: 'Exception Chaining and Embedded Tracebacks'에 대한 한국어 번역입니다."}],["$","meta","14",{"property":"og:url","content":"https://blog.secrett2633.cloud/python/pep/3134"}],["$","meta","15",{"property":"og:type","content":"article"}],["$","meta","16",{"name":"twitter:card","content":"summary"}],["$","meta","17",{"name":"twitter:title","content":"[Final] PEP 3134 - Exception Chaining and Embedded Tracebacks"}],["$","meta","18",{"name":"twitter:description","content":"Python Enhancement Proposal 3134: 'Exception Chaining and Embedded Tracebacks'에 대한 한국어 번역입니다."}],["$","link","19",{"rel":"icon","href":"/icon.ico?6d9f34d4948640b8","type":"image/x-icon","sizes":"16x16"}]]
+1:null

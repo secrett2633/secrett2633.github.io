@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { getPaginatedPosts } from '@/lib/posts'
 import Link from 'next/link'
 import { format } from 'date-fns'
@@ -11,6 +12,12 @@ import CommentCountProvider from '@/components/CommentCountProvider'
 
 export const dynamic = 'error'
 export const revalidate = false
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: '/',
+  },
+}
 
 export default function Home() {
   const currentPage = 1
@@ -36,14 +43,14 @@ export default function Home() {
                   {posts.map((post) => (
                     <article key={post.id} className="archive__item">
                       <h2 className="archive__item-title">
-                        <Link href={post.permalink || `/${post.id}/`}>
+                        <Link href={post.permalink || `/${post.id}`}>
                           {post.title}
                         </Link>
                       </h2>
                       
                       {post.excerpt && (
                         <div className="archive__item-excerpt">
-                          <Link href={post.permalink || `/${post.id}/`}>
+                          <Link href={post.permalink || `/${post.id}`}>
                             {post.excerpt}
                           </Link>
                         </div>
@@ -53,7 +60,7 @@ export default function Home() {
                         <time dateTime={post.date}>
                           {format(new Date(post.date), 'yyyy년 M월 d일', { locale: ko })}
                         </time>
-                        <CommentCount postPermalink={post.permalink || `/${post.id}/`} />
+                        <CommentCount postPermalink={post.permalink || `/${post.id}`} />
                       </div>
                     </article>
                   ))}

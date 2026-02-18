@@ -1,0 +1,255 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[9157,["231","static/chunks/231-467e37449c5a68fc.js","185","static/chunks/app/layout-53ec9cbf619543e1.js"],"default"]
+7:I[231,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-80e07cee06d17a0b.js"],""]
+4:["slug","python/pep/669","c"]
+0:["_3-KrKKQh7tcSoXiYwQMB",[[["",{"children":[["slug","python/pep/669","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"669\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/669","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_f367f3 layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/d6cea809dcbae606.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+a:I[646,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-80e07cee06d17a0b.js"],"default"]
+9:T6cac,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0669/">PEP 669 - Low Impact Monitoring for CPython</a></p>
+<p><strong>상태:</strong> Final | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 18-Aug-2021</p>
+</blockquote>
+<p>PEP 669 – CPython을 위한 저영향 모니터링 (Low Impact Monitoring for CPython)</p>
+<h2>개요 (Abstract)</h2>
+<p>CPython에서 프로파일러(profiler)나 디버거(debugger)를 사용하는 것은 프로그램 성능에 심각한 영향을 미칠 수 있으며, 성능 저하가 한 자릿수(order of magnitude)에 달하는 경우가 흔합니다. 이 PEP(Python Enhancement Proposal)는 CPython에서 실행되는 Python 프로그램을 모니터링하기 위한 API를 제안하며, 이를 통해 낮은 비용으로 모니터링이 가능하도록 합니다.</p>
+<p>이 PEP는 구현을 직접 명시하지는 않지만, PEP 659의 퀵닝(quickening) 단계를 사용하여 구현될 것으로 예상됩니다. 관련 함수와 상수를 포함하는 <code>sys.monitoring</code> 네임스페이스가 추가될 것입니다.</p>
+<h2>동기 (Motivation)</h2>
+<p>개발자는 디버거, 프로파일러 및 유사한 도구를 사용하는 데 불합리한 비용을 지불해서는 안 됩니다. C++ 및 Java 개발자는 디버거 아래에서 프로그램을 거의 완전한 속도로 실행할 수 있을 것으로 기대합니다. Python 개발자들도 마찬가지여야 합니다.</p>
+<h2>합리적 근거 (Rationale)</h2>
+<p>PEP 659에서 제공하는 퀵닝 메커니즘은 실행 중인 Python 바이트코드(bytecode)를 동적으로 수정하는 방법을 제공합니다. 이러한 수정은 수정되는 코드 부분을 제외하고는 비용이 거의 없으며, 수정되는 부분에 대해서도 상대적으로 낮은 비용을 발생시킵니다. 이 메커니즘을 활용하여 Python 3.10 또는 그 이전 버전에서는 불가능했던 효율적인 모니터링 메커니즘을 제공할 수 있습니다.</p>
+<p>퀵닝을 사용함으로써, Python 3.12에서 디버거 아래에서 실행되는 코드가 Python 3.11에서 디버거 없이 실행되는 코드보다 더 나은 성능을 보일 것으로 예상됩니다. 프로파일링은 여전히 실행 속도를 늦추겠지만, Python 3.11보다 훨씬 적은 영향을 미칠 것입니다.</p>
+<h2>명세 (Specification)</h2>
+<p>Python 프로그램 모니터링은 이벤트에 대한 콜백(callback) 함수를 등록하고, 일련의 이벤트를 활성화함으로써 수행됩니다. 콜백 등록과 이벤트 활성화는 서로 독립적입니다.</p>
+<p>콜백 등록과 이벤트 활성화는 모두 도구별(per-tool basis)로 이루어집니다. 여러 도구가 서로 다른 이벤트 세트에 응답할 수 있습니다. <code>sys.settrace()</code>와 달리, 이벤트 및 콜백은 스레드(thread)당이 아닌 인터프리터(interpreter)당(per interpreter) 적용됩니다.</p>
+<h3>이벤트 (Events)</h3>
+<p>코드 객체가 실행될 때 도구에 유용할 수 있는 다양한 이벤트가 발생합니다. 이벤트를 활성화하고 콜백 함수를 등록함으로써 도구는 이러한 이벤트에 적합한 방식으로 응답할 수 있습니다. 이벤트는 전역적으로(globally) 또는 개별 코드 객체(individual code objects)에 대해 설정할 수 있습니다.</p>
+<p>Python 3.12의 CPython은 다음 이벤트를 지원합니다:</p>
+<ul>
+<li><code>PY_START</code>: Python 함수의 시작 (호출 직후 발생, 호출된 함수의 프레임이 스택에 있음)</li>
+<li><code>PY_RESUME</code>: <code>throw()</code> 호출을 제외한 Python 함수 재개 (제너레이터(generator) 및 코루틴(coroutine) 함수용)</li>
+<li><code>PY_THROW</code>: <code>throw()</code> 호출에 의해 Python 함수가 재개됨</li>
+<li><code>PY_RETURN</code>: Python 함수에서 반환 (반환 직전 발생, 호출된 함수의 프레임이 스택에 있음)</li>
+<li><code>PY_YIELD</code>: Python 함수에서 yield (yield 직전 발생, 호출된 함수의 프레임이 스택에 있음)</li>
+<li><code>PY_UNWIND</code>: 예외 언와인딩(exception unwinding) 중 Python 함수에서 종료</li>
+<li><code>CALL</code>: Python 코드 내의 호출 (호출 전에 이벤트 발생)</li>
+<li><code>C_RETURN</code>: Python 함수를 제외한 모든 호출 가능(callable) 객체에서 반환 (반환 후 이벤트 발생)</li>
+<li><code>C_RAISE</code>: Python 함수를 제외한 모든 호출 가능 객체에서 예외 발생 (종료 후 이벤트 발생)</li>
+<li><code>RAISE</code>: <code>STOP_ITERATION</code> 이벤트를 일으키는 예외를 제외하고 예외가 발생함</li>
+<li><code>EXCEPTION_HANDLED</code>: 예외가 처리됨</li>
+<li><code>LINE</code>: 이전 명령(instruction)과 다른 라인 번호를 가진 명령이 실행될 예정</li>
+<li><code>INSTRUCTION</code>: VM 명령이 실행될 예정</li>
+<li><code>JUMP</code>: 제어 흐름 그래프에서 무조건적인 점프(unconditional jump)가 발생함</li>
+<li><code>BRANCH</code>: 조건부 분기(conditional branch)가 수행됨 (또는 수행되지 않음)</li>
+<li><code>STOP_ITERATION</code>: 인공적인 <code>StopIteration</code>이 발생함 (STOP_ITERATION 이벤트 참조)</li>
+</ul>
+<p>향후 더 많은 이벤트가 추가될 수 있습니다. 모든 이벤트는 <code>sys.monitoring</code> 네임스페이스의 <code>events</code> 속성이 될 것입니다. 모든 이벤트는 2의 거듭제곱 정수로 표현되므로 <code>|</code> 연산자로 조합할 수 있습니다.</p>
+<p>이벤트는 세 가지 그룹으로 나뉩니다:</p>
+<h4>로컬 이벤트 (Local events)</h4>
+<p>로컬 이벤트는 프로그램의 일반적인 실행과 연관되며 명확히 정의된 위치에서 발생합니다. 모든 로컬 이벤트는 비활성화될 수 있습니다. 로컬 이벤트는 다음과 같습니다:</p>
+<ul>
+<li><code>PY_START</code></li>
+<li><code>PY_RESUME</code></li>
+<li><code>PY_RETURN</code></li>
+<li><code>PY_YIELD</code></li>
+<li><code>CALL</code></li>
+<li><code>LINE</code></li>
+<li><code>INSTRUCTION</code></li>
+<li><code>JUMP</code></li>
+<li><code>BRANCH</code></li>
+<li><code>STOP_ITERATION</code></li>
+</ul>
+<h4>보조 이벤트 (Ancillary events)</h4>
+<p>보조 이벤트는 다른 이벤트처럼 모니터링할 수 있지만, 다른 이벤트에 의해 제어됩니다:</p>
+<ul>
+<li><code>C_RAISE</code></li>
+<li><code>C_RETURN</code></li>
+</ul>
+<p><code>C_RETURN</code> 및 <code>C_RAISE</code> 이벤트는 <code>CALL</code> 이벤트에 의해 제어됩니다. 해당 <code>CALL</code> 이벤트가 모니터링되고 있는 경우에만 <code>C_RETURN</code> 및 <code>C_RAISE</code> 이벤트가 발생합니다.</p>
+<h4>기타 이벤트 (Other events)</h4>
+<p>기타 이벤트는 프로그램의 특정 위치에 반드시 묶여 있지는 않으며 개별적으로 비활성화할 수 없습니다. 모니터링할 수 있는 기타 이벤트는 다음과 같습니다:</p>
+<ul>
+<li><code>PY_THROW</code></li>
+<li><code>PY_UNWIND</code></li>
+<li><code>RAISE</code></li>
+<li><code>EXCEPTION_HANDLED</code></li>
+</ul>
+<h4><code>STOP_ITERATION</code> 이벤트 (The STOP_ITERATION event)</h4>
+<p>PEP 380은 제너레이터나 코루틴에서 값을 반환할 때 <code>StopIteration</code> 예외가 발생한다고 명시합니다. 그러나 이는 값을 반환하는 매우 비효율적인 방법이므로, 일부 Python 구현(특히 CPython 3.12 이상)은 다른 코드에 노출되지 않는 한 예외를 발생시키지 않습니다. 도구가 제너레이터와 코루틴의 속도를 늦추지 않고 실제 예외를 모니터링할 수 있도록 <code>STOP_ITERATION</code> 이벤트가 제공됩니다. <code>STOP_ITERATION</code>은 <code>RAISE</code>와 달리 로컬에서 비활성화할 수 있습니다.</p>
+<h3>도구 식별자 (Tool identifiers)</h3>
+<p>VM은 최대 6개의 도구를 동시에 지원할 수 있습니다. 이벤트를 등록하거나 활성화하기 전에 도구는 식별자를 선택해야 합니다. 식별자는 0에서 5까지의 정수입니다.</p>
+<ul>
+<li><code>sys.monitoring.use_tool_id(id, name:str) -> None</code></li>
+<li><code>sys.monitoring.free_tool_id(id) -> None</code></li>
+<li><code>sys.monitoring.get_tool(id) -> str | None</code></li>
+</ul>
+<p><code>sys.monitoring.use_tool_id</code>는 <code>id</code>가 사용 중인 경우 <code>ValueError</code>를 발생시킵니다. <code>sys.monitoring.get_tool</code>은 <code>id</code>가 사용 중인 경우 도구의 이름을 반환하고, 그렇지 않으면 <code>None</code>을 반환합니다.</p>
+<p>모든 ID는 이벤트와 관련하여 VM에 의해 동일하게 처리되지만, 도구 간의 협업을 쉽게 하기 위해 다음 ID가 미리 정의되어 있습니다:</p>
+<ul>
+<li><code>sys.monitoring.DEBUGGER_ID = 0</code></li>
+<li><code>sys.monitoring.COVERAGE_ID = 1</code></li>
+<li><code>sys.monitoring.PROFILER_ID = 2</code></li>
+<li><code>sys.monitoring.OPTIMIZER_ID = 5</code></li>
+</ul>
+<p>ID를 설정할 의무는 없으며, 도구가 이미 사용 중인 ID를 사용하는 것을 막는 것도 아닙니다. 그러나 도구는 고유한 ID를 사용하고 다른 도구를 존중하도록 권장됩니다. 예를 들어, 디버거가 연결되었고 <code>DEBUGGER_ID</code>가 사용 중인 경우, 계속 진행하기보다는 오류를 보고해야 합니다. <code>OPTIMIZER_ID</code>는 Cinder 또는 PyTorch와 같이 Python 코드를 최적화하려는 도구를 위해 제공되지만, 더 넓은 컨텍스트에 따라 무엇을 최적화할지 결정해야 합니다.</p>
+<h3>전역적으로 이벤트 설정 (Setting events globally)</h3>
+<p>모니터링되는 이벤트 세트를 수정하여 이벤트를 전역적으로 제어할 수 있습니다:</p>
+<ul>
+<li><code>sys.monitoring.get_events(tool_id:int)->int</code>: 활성 이벤트의 int 표현을 반환합니다.</li>
+<li><code>sys.monitoring.set_events(tool_id:int, event_set: int)</code>: <code>event_set</code>에 설정된 모든 이벤트를 활성화합니다. <code>tool_id</code>가 사용 중이 아니면 <code>ValueError</code>를 발생시킵니다.</li>
+</ul>
+<p>기본적으로 활성 이벤트는 없습니다.</p>
+<h3>코드 객체별 이벤트 (Per code object events)</h3>
+<p>이벤트는 코드 객체별로도 제어할 수 있습니다:</p>
+<ul>
+<li><code>sys.monitoring.get_local_events(tool_id:int, code: CodeType)->int</code>: <code>code</code>에 대한 모든 로컬 이벤트를 반환합니다.</li>
+<li><code>sys.monitoring.set_local_events(tool_id:int, code: CodeType, event_set: int)</code>: <code>event_set</code>에 설정된 <code>code</code>에 대한 모든 로컬 이벤트를 활성화합니다. <code>tool_id</code>가 사용 중이 아니면 <code>ValueError</code>를 발생시킵니다.</li>
+</ul>
+<p>로컬 이벤트는 전역 이벤트에 추가되지만, 전역 이벤트를 마스크(mask)하지는 않습니다. 즉, 로컬 이벤트와 상관없이 모든 전역 이벤트는 코드 객체에 대해 트리거됩니다.</p>
+<h3>콜백 함수 등록 (Register callback functions)</h3>
+<p>이벤트에 대한 호출 가능(callable) 객체를 등록하려면 다음을 호출합니다:</p>
+<ul>
+<li><code>sys.monitoring.register_callback(tool_id:int, event: int, func: Callable | None) -> Callable | None</code></li>
+</ul>
+<p>주어진 <code>tool_id</code>와 <code>event</code>에 대해 다른 콜백이 등록되어 있었다면, 해당 콜백은 등록 해제되고 반환됩니다. 그렇지 않으면 <code>register_callback</code>은 <code>None</code>을 반환합니다. <code>sys.monitoring.register_callback(tool_id, event, None)</code>을 호출하여 함수를 등록 해제할 수 있습니다. 콜백 함수는 언제든지 등록 및 등록 해제할 수 있습니다. 콜백 함수를 등록하거나 등록 해제하면 <code>sys.audit</code> 이벤트가 생성됩니다.</p>
+<h3>콜백 함수 인자 (Callback function arguments)</h3>
+<p>활성 이벤트가 발생하면 등록된 콜백 함수가 호출됩니다. 서로 다른 이벤트는 콜백 함수에 다음과 같이 다른 인자를 제공합니다:</p>
+<ul>
+<li><code>PY_START</code> 및 <code>PY_RESUME</code>:
+<code>func(code: CodeType, instruction_offset: int) -> DISABLE | Any</code></li>
+<li><code>PY_RETURN</code> 및 <code>PY_YIELD</code>:
+<code>func(code: CodeType, instruction_offset: int, retval: object) -> DISABLE | Any</code></li>
+<li><code>CALL</code>, <code>C_RAISE</code> 및 <code>C_RETURN</code>:
+<code>func(code: CodeType, instruction_offset: int, callable: object, arg0: object | MISSING) -> DISABLE | Any</code>
+인자가 없으면 <code>arg0</code>은 <code>MISSING</code>으로 설정됩니다.</li>
+<li><code>RAISE</code> 및 <code>EXCEPTION_HANDLED</code>:
+<code>func(code: CodeType, instruction_offset: int, exception: BaseException) -> DISABLE | Any</code></li>
+<li><code>LINE</code>:
+<code>func(code: CodeType, line_number: int) -> DISABLE | Any</code></li>
+<li><code>BRANCH</code>:
+<code>func(code: CodeType, instruction_offset: int, destination_offset: int) -> DISABLE | Any</code>
+<code>destination_offset</code>은 코드가 다음에 실행될 위치입니다. 수행되지 않은 분기(untaken branch)의 경우, 이는 분기 다음 명령의 오프셋(offset)이 됩니다.</li>
+<li><code>INSTRUCTION</code>:
+<code>func(code: CodeType, instruction_offset: int) -> DISABLE | Any</code></li>
+</ul>
+<p>콜백 함수가 <code>DISABLE</code>을 반환하면, <code>sys.monitoring.restart_events()</code>가 호출될 때까지 해당 <code>(code, instruction_offset)</code>에 대해 해당 함수는 더 이상 호출되지 않습니다. 이 기능은 이벤트를 한 번만 보는 데 관심 있는 커버리지(coverage) 및 기타 도구를 위해 제공됩니다. <code>sys.monitoring.restart_events()</code>는 특정 도구에 한정되지 않으므로, 도구는 <code>DISABLE</code>하기로 선택한 이벤트라도 다시 받을 준비가 되어 있어야 합니다.</p>
+<h3>콜백 함수 내의 이벤트 (Events in callback functions)</h3>
+<p>콜백 함수와 그 호출된 함수(callees) 내에서는 해당 콜백을 등록한 도구에 대해 이벤트가 일시 중단됩니다. 이는 다른 도구가 다른 도구의 콜백 함수 내에서 이벤트를 볼 수 있음을 의미합니다. 이는 프로파일링 도구를 디버깅하는 데 유용할 수 있지만, 디버거 도구가 프로필에 나타나므로 오해의 소지가 있는 프로필을 생성할 수 있습니다.</p>
+<h3>이벤트 순서 (Order of events)</h3>
+<p>명령이 여러 이벤트를 트리거하는 경우 다음 순서로 발생합니다:</p>
+<ol>
+<li><code>LINE</code></li>
+<li><code>INSTRUCTION</code></li>
+<li>다른 모든 이벤트 (각 명령당 이 이벤트 중 하나만 발생할 수 있음)</li>
+</ol>
+<p>각 이벤트는 ID의 오름차순으로 도구에 전달됩니다.</p>
+<h3>"호출" 이벤트 그룹 (The “call” event group)</h3>
+<p>대부분의 이벤트는 독립적입니다. 하나의 이벤트를 설정하거나 비활성화하는 것이 다른 이벤트에 영향을 미치지 않습니다. 그러나 <code>CALL</code>, <code>C_RAISE</code>, <code>C_RETURN</code> 이벤트는 그룹을 형성합니다. 이 이벤트 중 하나라도 설정되거나 비활성화되면, 그룹 내의 모든 이벤트가 그렇게 됩니다. <code>CALL</code> 이벤트를 비활성화해도 일치하는 <code>C_RAISE</code> 또는 <code>C_RETURN</code>은 비활성화되지 않지만, 이후의 모든 이벤트는 비활성화됩니다.</p>
+<h3><code>sys.monitoring</code> 네임스페이스의 속성 (Attributes of the sys.monitoring namespace)</h3>
+<ul>
+<li><code>def use_tool_id(id)->None</code></li>
+<li><code>def free_tool_id(id)->None</code></li>
+<li><code>def get_events(tool_id: int)->int</code></li>
+<li><code>def set_events(tool_id: int, event_set: int)->None</code></li>
+<li><code>def get_local_events(tool_id: int, code: CodeType)->int</code></li>
+<li><code>def set_local_events(tool_id: int, code: CodeType, event_set: int)->None</code></li>
+<li><code>def register_callback(tool_id: int, event: int, func: Callable)->Optional[Callable]</code></li>
+<li><code>def restart_events()->None</code></li>
+<li><code>DISABLE: object</code></li>
+<li><code>MISSING: object</code></li>
+</ul>
+<h3>"디버그 전용" 기능 접근 (Access to “debug only” features)</h3>
+<p>표준 라이브러리의 일부 기능은 일반 코드에서는 접근할 수 없지만, 디버거에서는 접근할 수 있습니다. 예를 들어, 로컬 변수 설정 또는 라인 번호 등이 있습니다. 이러한 기능은 콜백 함수에서 사용할 수 있게 될 것입니다.</p>
+<h2>하위 호환성 (Backwards Compatibility)</h2>
+<p>이 PEP는 대부분 하위 호환성을 유지합니다. PEP 523 플러그인의 동작이 VM의 제어 밖에 있기 때문에 PEP 523과 일부 호환성 문제가 있습니다. PEP 523 플러그인은 이 PEP의 의미론(semantics)을 존중해야 합니다. VM의 상태를 변경하지 않고 <code>_PyEval_EvalFrameDefault()</code>로 실행을 위임하는 간단한 플러그인은 계속 작동해야 합니다.</p>
+<p><code>sys.settrace()</code> 및 <code>sys.setprofile()</code>는 각각 도구 6 및 7처럼 작동하므로 이 PEP와 함께 사용할 수 있습니다. 이는 <code>sys.settrace()</code> 및 <code>sys.setprofile()</code>가 모든 PEP 523 플러그인과 올바르게 작동하지 않을 수 있음을 의미합니다. 그러나 위에서 설명한 간단한 PEP 523 플러그인은 괜찮을 것입니다.</p>
+<h2>성능 (Performance)</h2>
+<p>활성 이벤트가 없는 경우, 이 PEP는 성능에 약간 긍정적인 영향을 미쳐야 합니다. 실험에 따르면 <code>sys.settrace()</code>를 직접 지원하지 않음으로써 1~2%의 속도 향상이 나타났습니다. <code>sys.settrace()</code>의 성능은 거의 동일할 것입니다. <code>sys.setprofile()</code>의 성능은 더 좋아야 합니다. 그러나 <code>sys.settrace()</code> 및 <code>sys.setprofile()</code>에 의존하는 도구는 이 PEP가 제공하는 API를 사용하여 훨씬 빠르게 만들 수 있습니다.</p>
+<p>디버거와 같이 소수의 이벤트만 활성화되어 있는 경우, 콜백 오버헤드(overhead)는 <code>sys.settrace()</code>보다 몇 자릿수(orders of magnitudes) 적고 PEP 523을 사용하는 것보다 훨씬 저렴할 것입니다. 커버리지 도구는 모든 콜백에서 <code>DISABLE</code>을 반환함으로써 매우 낮은 비용으로 구현될 수 있습니다.</p>
+<p><code>LINE</code>과 같이 많이 계측(instrumented)된 코드의 경우, 성능은 <code>sys.settrace</code>보다 좋지만, 콜백에 소요되는 시간이 성능을 지배할 것이므로 그렇게까지 큰 차이는 없을 것입니다.</p>
+<p>CPython의 미래 버전(그리고 이 API를 지원하기로 선택한 경우 PyPy)과 같은 최적화 가상 머신의 경우, 장기 실행 프로그램 중간에 활성 이벤트 세트를 변경하는 것은 매우 비용이 많이 들 수 있으며, 비최적화(de-optimizations)를 유발하여 수백 밀리초가 소요될 수 있습니다. 이러한 비최적화가 발생한 후에는 VM이 계측된 코드를 다시 최적화할 수 있으므로 성능이 회복되어야 합니다.</p>
+<p>일반적으로 다음 작업은 빠르다고 간주됩니다:</p>
+<ul>
+<li><code>def get_events(tool_id: int)->int</code></li>
+<li><code>def get_local_events(tool_id: int, code: CodeType)->int</code></li>
+<li><code>def register_callback(tool_id: int, event: int, func: Callable)->Optional[Callable]</code></li>
+<li><code>def get_tool(tool_id) -> str | None</code></li>
+</ul>
+<p>다음 작업은 더 느리지만, 특별히 그렇지는 않습니다:</p>
+<ul>
+<li><code>def set_local_events(tool_id: int, code: CodeType, event_set: int)->None</code></li>
+</ul>
+<p>그리고 다음 작업은 느리다고 간주해야 합니다:</p>
+<ul>
+<li><code>def use_tool_id(id, name:str)->None</code></li>
+<li><code>def free_tool_id(id)->None</code></li>
+<li><code>def set_events(tool_id: int, event_set: int)->None</code></li>
+<li><code>def restart_events()->None</code></li>
+</ul>
+<p>느린 작업의 속도는 언제 발생하는지에 따라 다릅니다. 프로그램 초기에, 모듈이 로드되기 전에 수행되면 비교적 비용이 적게 듭니다.</p>
+<h2>메모리 사용량 (Memory Consumption)</h2>
+<p>사용되지 않을 때, 이 PEP는 메모리 사용량에 무시할 수 있는 변화를 가져올 것입니다. 메모리 사용 방식은 구현 세부 사항(implementation detail)이지만, 3.12에서는 코드 객체당 추가 메모리 사용량이 대략 다음과 같을 것으로 예상됩니다:</p>
+<p>| 이벤트           | 도구       | 기타      |
+| :--------------- | :--------- | :-------- |
+| <code>LINE</code>, <code>INSTRUCTION</code> | 하나       | ≈40%      |
+|                  | 두 개 이상 | ≈80%      |
+|                  |            | ≈120% ≈200% |</p>
+<h2>보안 영향 (Security Implications)</h2>
+<p>실행 중인 코드를 수정하는 것은 일부 보안 영향을 미치지만, 새 코드를 생성하고 호출하는 기능보다 더 크지는 않습니다. 위에 나열된 모든 새 함수는 감사 훅(audit hooks)을 트리거할 것입니다.</p>
+<h2>구현 (Implementation)</h2>
+<p>이 섹션은 CPython 3.12에 대한 제안된 구현을 간략하게 설명합니다. 이후 CPython 버전 및 다른 Python 구현의 실제 구현은 상당히 다를 수 있습니다. 이 PEP의 제안된 구현은 PEP 659에 설명된 CPython 3.11의 퀵닝 단계 위에 구축될 것입니다. 계측(Instrumentation)은 퀵닝과 거의 동일한 방식으로 작동하며, 필요에 따라 바이트코드가 계측된 바이트코드로 대체됩니다.</p>
+<p>예를 들어, <code>CALL</code> 이벤트가 켜지면 모든 호출 명령은 <code>INSTRUMENTED_CALL</code> 명령으로 대체됩니다. 이는 특수화(specialization)와 충돌하여 등록된 호출 가능 객체 호출 오버헤드 외에 일부 성능 저하를 초래할 것입니다.</p>
+<p>활성 이벤트 세트가 변경되면 VM은 모든 스레드의 호출 스택(call stack)에 있는 모든 코드 객체를 즉시 업데이트합니다. 또한 모든 코드 객체가 호출될 때 올바르게 계측되도록 트랩(trap)을 설정합니다. 결과적으로 활성 이벤트 세트를 변경하는 것은 비용이 많이 드는 작업일 수 있으므로 가능한 한 드물게 수행해야 합니다.</p>
+<p><code>RAISE</code>와 같은 다른 이벤트는 코드 계측에 의존하지 않고 기본 이벤트가 발생할 때 런타임 검사(runtime checks)에 의존하므로 저렴하게 켜고 끌 수 있습니다. 계측이 필요한 정확한 이벤트 세트는 구현 세부 사항이지만, 현재 설계에서는 다음 이벤트에 계측이 필요합니다:</p>
+<ul>
+<li><code>PY_START</code></li>
+<li><code>PY_RESUME</code></li>
+<li><code>PY_RETURN</code></li>
+<li><code>PY_YIELD</code></li>
+<li><code>CALL</code></li>
+<li><code>LINE</code></li>
+<li><code>INSTRUCTION</code></li>
+<li><code>JUMP</code></li>
+<li><code>BRANCH</code></li>
+</ul>
+<p>각 계측된 바이트코드는 계측이 적용되는 도구를 기록하기 위해 추가 8비트 정보가 필요합니다. <code>LINE</code> 및 <code>INSTRUCTION</code> 이벤트는 추가 정보가 필요합니다. 이는 원래 명령을 저장하거나, 다른 계측과 겹치는 경우 계측된 명령까지 저장해야 하기 때문입니다.</p>
+<h2>도구 구현 (Implementing tools)</h2>
+<p>이 PEP의 철학은 타사 모니터링 도구가 고성능을 달성할 수 있도록 하는 것이지, 그들이 쉽게 그렇게 할 수 있도록 하는 것이 아닙니다. 이벤트를 사용자에게 의미 있는 데이터로 변환하는 것은 도구의 책임입니다. 모든 이벤트는 비용이 들며, 도구는 가장 적게 트리거되면서도 필요한 정보를 제공하는 이벤트 세트를 사용하려고 노력해야 합니다.</p>
+<h3>디버거 (Debuggers)</h3>
+<h4>중단점 삽입 (Inserting breakpoints)</h4>
+<p>중단점(breakpoints)은 <code>LINE</code> 또는 <code>INSTRUCTION</code>과 같은 코드 객체별 이벤트를 설정하고, 중단점과 일치하지 않는 모든 이벤트에 대해 <code>DISABLE</code>을 반환하여 삽입할 수 있습니다.</p>
+<h4>스텝핑 (Stepping)</h4>
+<p>디버거는 일반적으로 단일 명령 또는 라인별로 실행을 스텝(step)하는 기능을 제공합니다. 중단점과 마찬가지로 스텝핑은 코드 객체별 이벤트를 설정하여 구현할 수 있습니다. 정상적인 실행이 재개될 때, 로컬 이벤트를 해제할 수 있습니다.</p>
+<h4>연결 (Attaching)</h4>
+<p>디버거는 <code>PY_START</code> 및 <code>PY_RESUME</code> 이벤트를 사용하여 코드 객체가 처음 발견될 때 정보를 받아 필요한 중단점을 삽입할 수 있습니다.</p>
+<h3>커버리지 도구 (Coverage Tools)</h3>
+<p>커버리지 도구는 제어 그래프(control graph)의 어떤 부분이 실행되었는지 추적해야 합니다. 이를 위해 <code>PY_</code> 이벤트와 <code>JUMP</code> 및 <code>BRANCH</code>를 등록해야 합니다. 이 정보는 실행 완료 후 라인 기반 보고서로 다시 변환될 수 있습니다.</p>
+<h3>프로파일러 (Profilers)</h3>
+<p>간단한 프로파일러는 호출에 대한 정보를 수집해야 합니다. 이를 위해 프로파일러는 다음 이벤트를 등록해야 합니다:</p>
+<ul>
+<li><code>PY_START</code></li>
+<li><code>PY_RESUME</code></li>
+<li><code>PY_THROW</code></li>
+<li><code>PY_RETURN</code></li>
+<li><code>PY_YIELD</code></li>
+<li><code>PY_UNWIND</code></li>
+<li><code>CALL</code></li>
+<li><code>C_RAISE</code></li>
+<li><code>C_RETURN</code></li>
+</ul>
+<h4>라인 기반 프로파일러 (Line based profilers)</h4>
+<p>라인 기반 프로파일러는 <code>LINE</code> 및 <code>JUMP</code> 이벤트를 사용할 수 있습니다. 프로파일러 구현자는 <code>LINE</code> 이벤트를 계측하는 것이 성능에 큰 영향을 미칠 수 있음을 인지해야 합니다. 계측 프로파일러는 상당한 오버헤드를 가지며 프로파일링 결과(results of profiling)를 왜곡할 수 있습니다. 정확한 호출 횟수가 필요하지 않은 경우, 통계적 프로파일러(statistical profiler) 사용을 고려하십시오.</p>
+<h2>거부된 아이디어 (Rejected ideas)</h2>
+<p>이 PEP의 초안 버전에서는 VM이 아닌 사용자에게 모니터링 명령을 삽입하는 책임을 부여할 것을 제안했습니다. 그러나 이는 도구에 너무 많은 부담을 주고 디버거 연결을 거의 불가능하게 만들 것입니다.</p>
+<p>이 PEP의 이전 버전에서는 이벤트를 enum으로 저장할 것을 제안했습니다:</p>
+<pre><code class="language-python">class Event(enum.IntFlag):
+    PY_START = ...
+</code></pre>
+<p>그러나 이는 <code>enum</code> 모듈이 로드되기 전에 코드를 모니터링하는 것을 방해하고 불필요한 오버헤드를 유발할 수 있습니다.</p>
+<h2>저작권 (Copyright)</h2>
+<p>이 문서는 퍼블릭 도메인(public domain)에 있거나 CC0-1.0-Universal 라이선스(둘 중 더 관대한 라이선스)에 따릅니다.</p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":[["$","aside",null,{"className":"lg:w-64 xl:w-72 order-1 lg:order-none","children":["$","div",null,{"className":"sidebar sticky","children":["$","nav",null,{"className":"space-y-4","children":[["$","div","Backend",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Backend"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Django",{"children":["$","a",null,{"href":"/backend/django","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Django"," (",6,")"]}]}],["$","li","Logging",{"children":["$","a",null,{"href":"/backend/logging","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Logging"," (",1,")"]}]}]]}]]}],["$","div","Python",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Python"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","PEP",{"children":["$","a",null,{"href":"/python/pep","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["PEP"," (",650,")"]}]}]]}]]}],["$","div","AI/ML",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"AI/ML"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","LLM",{"children":["$","a",null,{"href":"/ai/llm","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["LLM"," (",1,")"]}]}],["$","li","Review",{"children":["$","a",null,{"href":"/ai/review","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Review"," (",2728,")"]}]}]]}]]}],["$","div","DevOps",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"DevOps"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Nginx",{"children":["$","a",null,{"href":"/devops/nginx","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Nginx"," (",1,")"]}]}],["$","li","Docker",{"children":["$","a",null,{"href":"/devops/docker","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Docker"," (",1,")"]}]}],["$","li","SafeLine",{"children":["$","a",null,{"href":"/devops/safeline","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["SafeLine"," (",1,")"]}]}],["$","li","Jenkins",{"children":["$","a",null,{"href":"/devops/jenkins","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Jenkins"," (",3,")"]}]}],["$","li","GitHub Actions",{"children":["$","a",null,{"href":"/devops/github-actions","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["GitHub Actions"," (",1,")"]}]}],["$","li","AWS",{"children":["$","a",null,{"href":"/devops/aws","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["AWS"," (",1,")"]}]}]]}]]}],["$","div","etc",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"etc"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Me",{"children":["$","a",null,{"href":"/etc/me","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Me"," (",3,")"]}]}],["$","li","Chrome Extension",{"children":["$","a",null,{"href":"/etc/chrome-extension","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Chrome Extension"," (",1,")"]}]}]]}]]}]]}]}]}],["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Final] PEP 669 - Low Impact Monitoring for CPython"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-27 10:04:48+0900","children":"2025년 9월 27일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 27일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]}],["$","$La",null,{"postPermalink":"/python/pep/669","postId":"2025-09-27-pep-0669-low-impact-monitoring-for-cpython"}],["$","section",null,{"className":"mt-12 border-t border-gray-200 pt-8","children":[["$","h3",null,{"className":"text-base font-semibold text-gray-900 mb-4","children":["Python"," 의 다른글"]}],["$","ul",null,{"className":"space-y-2 text-sm","children":[["$","li",null,{"className":"text-gray-500","children":["이전글"," ",["$","$L7",null,{"href":"/python/pep/668","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Accepted] PEP 668 - Marking Python base environments as “externally managed”"}]]}],["$","li",null,{"className":"text-gray-900 font-semibold","children":["현재글 : ","[Final] PEP 669 - Low Impact Monitoring for CPython"]}],["$","li",null,{"className":"text-gray-500","children":["다음글"," ",["$","$L7",null,{"href":"/python/pep/670","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Final] PEP 670 - Convert macros to functions in the Python C API"}]]}]]}]]}]]}]}]]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"[Final] PEP 669 - Low Impact Monitoring for CPython - secrett2633's blog"}],["$","meta","3",{"name":"description","content":"Python Enhancement Proposal 669: 'Low Impact Monitoring for CPython'에 대한 한국어 번역입니다."}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://blog.secrett2633.cloud/python/pep/669"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"[Final] PEP 669 - Low Impact Monitoring for CPython"}],["$","meta","13",{"property":"og:description","content":"Python Enhancement Proposal 669: 'Low Impact Monitoring for CPython'에 대한 한국어 번역입니다."}],["$","meta","14",{"property":"og:url","content":"https://blog.secrett2633.cloud/python/pep/669"}],["$","meta","15",{"property":"og:type","content":"article"}],["$","meta","16",{"name":"twitter:card","content":"summary"}],["$","meta","17",{"name":"twitter:title","content":"[Final] PEP 669 - Low Impact Monitoring for CPython"}],["$","meta","18",{"name":"twitter:description","content":"Python Enhancement Proposal 669: 'Low Impact Monitoring for CPython'에 대한 한국어 번역입니다."}],["$","link","19",{"rel":"icon","href":"/icon.ico?6d9f34d4948640b8","type":"image/x-icon","sizes":"16x16"}]]
+1:null

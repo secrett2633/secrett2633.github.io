@@ -1,0 +1,166 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[9157,["231","static/chunks/231-467e37449c5a68fc.js","185","static/chunks/app/layout-53ec9cbf619543e1.js"],"default"]
+7:I[231,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-80e07cee06d17a0b.js"],""]
+4:["slug","python/pep/643","c"]
+0:["_3-KrKKQh7tcSoXiYwQMB",[[["",{"children":[["slug","python/pep/643","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"643\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/643","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_f367f3 layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/d6cea809dcbae606.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+a:I[646,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-80e07cee06d17a0b.js"],"default"]
+9:T5f84,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0643/">PEP 643 - Metadata for Package Source Distributions</a></p>
+<p><strong>상태:</strong> Final | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 24-Oct-2020</p>
+</blockquote>
+<h1>PEP 643 – 패키지 소스 배포판을 위한 메타데이터</h1>
+<h2>개요 (Abstract)</h2>
+<p>Python 패키지 메타데이터는 <code>Core Metadata Specification</code>에 정의된 표준 형식으로 배포 파일에 저장됩니다. 그러나 소스 배포판(Source Distributions, sdist)의 경우, 데이터 형식은 정의되어 있지만 어떤 데이터가 소스 배포판에 기록되는지에 대해서는 전통적으로 많은 불일치가 있었습니다.</p>
+<p>그 결과, 메타데이터 소비자는 소스 배포판에서 사용 가능한 데이터에 의존할 수 없었으며, 메타데이터를 추출하기 위해 (비용이 많이 드는) PEP 517 빌드 메커니즘을 사용해야 했습니다.</p>
+<p>이 PEP는 빌드 백엔드(build backends)가 빌드 시점에 계산되어야 하는 메타데이터 필드를 처리하는 데 필요한 유연성을 유지하면서도, 패키지 메타데이터를 소스 배포판에 안정적으로 저장할 수 있는 표준을 정의합니다.</p>
+<h2>동기 (Motivation)</h2>
+<p>현재 소스 배포판에 메타데이터가 저장되는 방식에는 여러 가지 문제가 있습니다.</p>
+<ul>
+<li>메타데이터 저장 방식의 세부 사항은 표준화되어 있지만 찾기 쉽지 않습니다.</li>
+<li>이 사양은 오래된 메타데이터 버전을 요구하며, 코어 메타데이터 사양의 변경 사항에 맞춰 업데이트되지 않았습니다.</li>
+<li>사양에는 "빌드 시점까지는 값이 알려지지 않아 필드가 생략되었음"과 "이 필드에는 값이 없음"을 구별할 방법이 없습니다.</li>
+<li>코어 메타데이터 사양은 대부분의 필드를 선택 사항(optional)으로 허용하므로, 앞서 언급한 문제가 거의 모든 메타데이터 필드에 영향을 미칩니다.</li>
+</ul>
+<p>이 PEP는 "나중에 채워질" 것으로 예상되는 필드를 기록할 수 있도록 메타데이터 사양을 업데이트하고, 백엔드가 해당 사양 버전(또는 이후 버전)을 사용하여 sdist 메타데이터를 기록해야 한다는 점을 명확히 하기 위해 소스 배포판 사양을 업데이트할 것을 제안합니다.</p>
+<h2>근거 (Rationale)</h2>
+<p>이 PEP는 프로젝트가 소스 배포판 메타데이터 값을 "<code>dynamic</code>"으로 정의할 수 있도록 합니다. 이 맥락에서 필드가 "<code>dynamic</code>"이라는 것은 소스 배포판이 생성될 때 값이 고정되지 않았음을 의미합니다. 동적(dynamic) 값은 휠(wheel)이 생성될 때 빌드 백엔드에 의해 제공되며, 빌드 환경의 세부 사항에 따라 달라질 수 있습니다.</p>
+<p>PEP 621은 "나중에 채워질" "<code>dynamic</code>" 값이라는 유사한 개념을 가지고 있으므로, 우리는 유추를 통해 동일한 용어를 사용하기로 선택합니다.</p>
+<h2>사양 (Specification)</h2>
+<p>이 PEP는 소스 배포판에 지정된 메타데이터 값과, 그로부터 빌드된 휠의 해당 값 사이의 관계를 정의합니다. 이는 빌드 백엔드가 sdist에서 휠로 단순히 변경 없이 복사되지 않을 모든 필드를 명확하게 표시하도록 요구합니다.</p>
+<p>또한, 이 PEP는 PyPA 사양 문서가 소스 배포판 형식(PEP 517 및 이 PEP의 정보를 수집함)의 사양에 대한 공식적인(canonical) 위치가 되도록 합니다.</p>
+<p>새로운 필드인 <code>Dynamic</code>이 Core Metadata Specification에 추가됩니다. 이 필드는 다중 사용(multiple use)이 가능하며, 다른 코어 메타데이터 필드의 이름을 포함할 수 있습니다.</p>
+<p>소스 배포판의 메타데이터에서 발견될 경우, 다음 규칙이 적용됩니다.</p>
+<ul>
+<li>필드가 <code>Dynamic</code>으로 표시되지 않은 경우, sdist에서 빌드된 모든 휠의 필드 값은 sdist의 값과 일치해야 합니다 (<code>MUST</code> match).</li>
+<li>필드가 sdist에 없고 <code>Dynamic</code>으로 표시되지 않은 경우, 휠에 존재해서는 안 됩니다 (<code>MUST NOT</code> be present).</li>
+<li>필드가 <code>Dynamic</code>으로 표시된 경우, sdist에서 빌드된 휠에는 유효한 모든 값(전혀 존재하지 않는 것을 포함)을 포함할 수 있습니다 (<code>MAY</code> contain any valid value).</li>
+<li>백엔드는 빌드 시점에 변경되지 않을 데이터로부터 생성되었다고 판단할 수 있다면 필드를 <code>Dynamic</code>으로 표시해서는 안 됩니다 (<code>MUST NOT</code> mark).</li>
+</ul>
+<p>백엔드는 <code>Dynamic</code>으로 표시한 필드에 대해 계산된 값을 소스 배포판에 기록할 수 있습니다 (<code>MAY</code> record). 그러나 소비자는 이 값을 공식적인 것으로 취급해서는 안 되며 (<code>MUST NOT</code> treat as canonical), 휠의 최종 값이 무엇일지에 대한 힌트로 사용할 수 있습니다 (<code>MAY</code> use as a hint).</p>
+<p>소스 배포판 이외의 다른 맥락에서, 필드가 <code>Dynamic</code>으로 표시된 경우, 해당 값은 휠 빌드 시점에 생성되었으며 sdist의 값(또는 프로젝트의 다른 빌드)과 일치하지 않을 수 있음을 나타냅니다. 그러나 백엔드는 이 정보를 기록할 필요가 없으며, 소비자는 소스 배포판을 제외하고는 <code>Dynamic</code> 표시가 없다는 것이 어떤 중요성을 가진다고 가정해서는 안 됩니다 (<code>MUST NOT</code> assume).</p>
+<p><code>Name</code> 및 <code>Version</code> 필드는 <code>Dynamic</code>으로 표시해서는 안 됩니다 (<code>MUST NOT</code> be marked).</p>
+<p>새로운 메타데이터 필드를 추가하므로, 이 PEP는 코어 메타데이터 형식을 버전 2.2로 업데이트합니다.</p>
+<p>소스 배포판은 생성될 때 사용 가능한 코어 메타데이터 사양의 최신 버전을 사용해야 합니다 (<code>SHOULD</code> use).</p>
+<p>빌드 백엔드는 절대적으로 필요한 경우에만 필드를 <code>Dynamic</code>으로 표시하고, 프로젝트가 <code>Dynamic</code> 사용을 요구하는 백엔드 기능을 피하도록 권장해야 합니다 (<code>strongly encouraged</code>). 프로젝트는 설치 위치의 세부 사항에 맞게 정적(static) 값에 환경 마커(environment markers)를 사용하는 것을 선호해야 합니다.</p>
+<h2>하위 호환성 (Backwards Compatibility)</h2>
+<p>이 제안은 코어 메타데이터 버전을 증가시키므로, 더 오래된 메타데이터 버전을 사용하는 기존 소스 배포판과 호환됩니다. 도구는 메타데이터 버전을 확인하여 소스 배포판이 이 PEP를 준수하는지 여부를 판단할 수 있습니다.</p>
+<h2>보안 고려 사항 (Security Implications)</h2>
+<p>이 사양은 공개적으로 사용 가능한 데이터를 저장하기 위한 것이므로, 보안 고려 사항은 없습니다.</p>
+<h2>교육 방법 (How to Teach This)</h2>
+<p>이것은 프로젝트 메타데이터를 위한 데이터 저장 형식이며, 일반적으로 최종 사용자에게는 보이지 않습니다. 따라서 사용자에게 이 형식을 사용하는 방법을 가르칠 필요는 없습니다. 메타데이터를 참조하려는 개발자는 PyPA 사양에서 세부 정보를 찾을 수 있습니다.</p>
+<h2>거부된 아이디어 (Rejected Ideas)</h2>
+<h3>필드를 <code>Dynamic</code>으로 표시하는 대신, 명시적으로 <code>Static</code>으로 표시되지 않는 한 필드는 동적인 것으로 가정해야 합니다.</h3>
+<p>이것은 현재 제안과 논리적으로 동일하지만, 필드가 동적인 것이 일반적인 경우임을 암시합니다. 패키징 도구는 정적(static)으로 알려진 메타데이터가 있을 때 훨씬 더 효율적일 수 있으므로, 이 PEP는 동적 필드를 예외로 만들고 백엔드가 필드를 동적으로 만들도록 "선택(opt in)"하도록 요구합니다.</p>
+<p>또한, 동적이 기본값이라면, 미래에 점점 더 많은 메타데이터가 정적이 됨에 따라 메타데이터 파일에는 점점 더 많은 <code>Static</code> 선언이 포함될 것입니다.</p>
+<h3><code>Dynamic</code> 필드를 갖는 대신, 필드가 "아직 정의되지 않음"을 나타내는 특별한 값을 추가합니다.</h3>
+<p>이 또한 현재 제안과 논리적으로 동일합니다. 이는 "동적(dynamic)임"을 명시적인 선택으로 만들지만, 특별한 값을 요구합니다. 일부 필드는 임의의 텍스트를 포함할 수 있으므로, 그러한 값을 선택하는 것은 다소 어색합니다 (그러나 실제로는 문제가 되지 않을 가능성이 높습니다). 이 접근 방식이 제안된 메커니즘 대신 사용될 만큼 충분한 이점이 있는 것 같지는 않습니다.</p>
+<h3><code>Requires-Python</code>에 대한 특별 처리.</h3>
+<p>PEP의 초기 초안에서는 <code>Requires-Python</code>에 대한 특별한 논의가 필요했습니다. 이 필드에 대한 환경 마커(environment markers)가 부족하여 정적으로 요구하기 어려울 수 있었기 때문입니다. 필드를 동적으로 허용하는 화이트리스트(whitelist) 개념이 삭제되면서, PEP의 최종 형태에서는 더 이상 필요하지 않습니다.</p>
+<h3><code>Dynamic</code>의 사용을 허용된 필드의 최소 "화이트리스트"로 제한합니다.</h3>
+<p>이 접근 방식은 <code>setuptools</code> 인터페이스의 동적 특성으로 인해 <code>setuptools</code>가 하위 호환 가능한 방식으로 구현하기가 매우 어렵다는 것이 밝혀졌습니다. 대신, 이 제안은 이제 대부분의 필드가 동적일 수 있도록 허용하지만, 백엔드가 필수적인 경우가 아니면 동적 값을 피하도록 권장합니다.</p>
+<h2>미해결 문제 (Open Issues)</h2>
+<p>없음.</p>
+<h2>저작권 (Copyright)</h2>
+<p>이 문서는 퍼블릭 도메인 또는 CC0-1.0-Universal 라이선스 중 더 관대한 조건으로 배포됩니다.</p>
+<hr>
+<p><strong>참고:</strong> 이 PEP는 역사적인 문서입니다. 최신, 정식 사양인 <code>Core metadata specifications</code>는 PyPA 사양 페이지에서 유지 관리됩니다. 변경 사항을 제안하는 방법은 PyPA 사양 업데이트 프로세스를 참조하십시오.
+The user has requested a translation and summary of PEP 0643 into Korean, following specific guidelines for professionalism, terminology, readability, and accuracy.</p>
+<p>I have successfully browsed the URL and obtained the content of PEP 0643. Now I will proceed with the translation and formatting according to the instructions.</p>
+<p>Here's the plan:</p>
+<ol>
+<li><strong>Title and Metadata:</strong> Translate the title and author information.</li>
+<li><strong>Abstract:</strong> Translate the abstract, highlighting the core problem and solution.</li>
+<li><strong>Motivation:</strong> Translate the motivation section, explaining the issues with current metadata storage.</li>
+<li><strong>Rationale:</strong> Translate the rationale, introducing the concept of "dynamic" metadata.</li>
+<li><strong>Specification:</strong> This is the most critical part. I need to:
+<ul>
+<li>Explain the <code>Dynamic</code> field.</li>
+<li>Detail the rules for <code>Dynamic</code> and non-<code>Dynamic</code> fields in source distributions and wheels.</li>
+<li>Mention the update to metadata version 2.2.</li>
+<li>Emphasize best practices for backends and projects.</li>
+<li>Ensure proper use of <code>MUST</code>, <code>MUST NOT</code>, <code>SHOULD</code>, <code>MAY</code> equivalents in Korean.</li>
+</ul>
+</li>
+<li><strong>Backwards Compatibility:</strong> Translate this section.</li>
+<li><strong>Security Implications:</strong> Translate this section.</li>
+<li><strong>How to Teach This:</strong> Translate this section.</li>
+<li><strong>Rejected Ideas:</strong> Translate the various rejected alternatives and the reasons for their rejection.</li>
+<li><strong>Open Issues:</strong> Translate this section.</li>
+<li><strong>Copyright:</strong> Translate this section.</li>
+<li><strong>Important Note:</strong> Include the "Important" notice about the PEP being historical.</li>
+<li><strong>Formatting:</strong> Use Markdown heavily for headings, bullet points, and code snippets (if any, though in this case, it's mostly terminology).</li>
+<li><strong>Terminology:</strong> Carefully choose Korean terms or 병기 (English/Korean together) as per instructions. For example, <code>Source Distribution</code> -> <code>소스 배포판 (Source Distributions, sdist)</code>. <code>Build Backends</code> -> <code>빌드 백엔드</code>. <code>Wheel</code> -> <code>휠</code>. <code>Core Metadata Specification</code> -> <code>Core Metadata Specification</code> (or 코어 메타데이터 사양).</li>
+</ol>
+<p>Let's start the translation.## PEP 643 – 패키지 소스 배포판을 위한 메타데이터</p>
+<ul>
+<li><strong>작성자:</strong> Paul Moore</li>
+<li><strong>BDFL-Delegate:</strong> Paul Ganssle</li>
+<li><strong>상태:</strong> Final (최종)</li>
+<li><strong>유형:</strong> Standards Track (표준 추적)</li>
+<li><strong>주제:</strong> Packaging (패키징)</li>
+<li><strong>생성일:</strong> 2020년 10월 24일</li>
+</ul>
+<hr>
+<p><strong>중요 공지:</strong></p>
+<p>이 PEP는 역사적인 문서입니다. 최신이자 공식적인 사양인 <code>Core metadata specifications</code>는 PyPA 사양 페이지에서 관리되고 있습니다. 변경 사항을 제안하는 방법은 PyPA 사양 업데이트 프로세스를 참조하십시오.</p>
+<hr>
+<h3>개요 (Abstract)</h3>
+<p>Python 패키지 메타데이터는 <code>Core Metadata Specification</code>에 정의된 표준 형식으로 배포 파일에 저장됩니다. 하지만 소스 배포판(Source Distributions, sdist)의 경우, 데이터 형식은 정의되어 있음에도 불구하고 어떤 데이터가 소스 배포판에 기록되는지에 대해 전통적으로 많은 불일치가 있었습니다.</p>
+<p>그 결과, 메타데이터 소비자는 소스 배포판에서 얻을 수 있는 데이터에 전적으로 의존하기 어려웠으며, 메타데이터를 추출하기 위해 (비용이 많이 드는) PEP 517 빌드 메커니즘을 사용해야 했습니다.</p>
+<p>이 PEP는 빌드 백엔드(build backends)가 빌드 시점에 계산되어야 하는 메타데이터 필드를 처리하는 데 필요한 유연성을 유지하면서도, 패키지 메타데이터를 소스 배포판에 안정적으로 저장할 수 있는 표준을 정의합니다.</p>
+<h3>동기 (Motivation)</h3>
+<p>현재 소스 배포판에 메타데이터가 저장되는 방식에는 여러 가지 문제가 있습니다.</p>
+<ul>
+<li>메타데이터 저장 방식의 세부 사항은 표준화되어 있지만, 관련 정보를 찾기가 쉽지 않습니다.</li>
+<li>현재 사양은 오래된 메타데이터 버전을 요구하며, <code>Core Metadata Specification</code>의 변경 사항에 맞춰 업데이트되지 않았습니다.</li>
+<li>사양에는 "이 필드는 빌드 시점까지 값이 알려지지 않으므로 생략되었다"와 "이 필드에는 값이 없다"를 구별할 방법이 없습니다.</li>
+<li><code>Core Metadata Specification</code>은 대부분의 필드를 선택 사항(optional)으로 허용하므로, 앞서 언급한 문제가 거의 모든 메타데이터 필드에 영향을 미칩니다.</li>
+</ul>
+<p>이 PEP는 "나중에 채워질" 것으로 예상되는 필드를 기록할 수 있도록 메타데이터 사양을 업데이트하고, 백엔드가 해당 사양 버전(또는 이후 버전)을 사용하여 sdist 메타데이터를 기록해야 한다는 점을 명확히 하기 위해 소스 배포판 사양을 업데이트할 것을 제안합니다.</p>
+<h3>근거 (Rationale)</h3>
+<p>이 PEP는 프로젝트가 소스 배포판 메타데이터 값을 "<code>dynamic</code>"(동적)으로 정의할 수 있도록 허용합니다. 이 맥락에서 필드가 "<code>dynamic</code>"하다는 것은 소스 배포판이 생성될 때 해당 값이 고정되지 않았음을 의미합니다. 동적 값은 휠(wheel)이 생성될 때 빌드 백엔드에 의해 제공되며, 빌드 환경의 세부 사항에 따라 달라질 수 있습니다.</p>
+<p>PEP 621은 "나중에 채워질" "<code>dynamic</code>" 값이라는 유사한 개념을 가지고 있으므로, 이 PEP에서도 유추를 통해 동일한 용어를 사용하기로 선택했습니다.</p>
+<h3>사양 (Specification)</h3>
+<p>이 PEP는 소스 배포판에 지정된 메타데이터 값과, 그로부터 빌드된 휠의 해당 값 사이의 관계를 정의합니다. 이는 빌드 백엔드가 sdist에서 휠로 단순히 변경 없이 복사되지 않을 모든 필드를 명확하게 표시하도록 요구합니다.</p>
+<p>또한, 이 PEP는 PyPA 사양 문서가 소스 배포판 형식(PEP 517 및 이 PEP의 정보를 통합함) 사양에 대한 공식적인(canonical) 위치가 되도록 합니다.</p>
+<p>새로운 필드인 <code>Dynamic</code>이 <code>Core Metadata Specification</code>에 추가됩니다. 이 필드는 다중 사용(multiple use)이 가능하며, 다른 코어 메타데이터 필드의 이름을 포함할 수 있습니다.</p>
+<p>소스 배포판의 메타데이터에서 <code>Dynamic</code> 필드가 발견될 경우, 다음 규칙이 적용됩니다.</p>
+<ul>
+<li>필드가 <code>Dynamic</code>으로 표시되지 않은 경우, sdist에서 빌드된 모든 휠의 필드 값은 sdist의 값과 <strong>반드시</strong> 일치해야 합니다 (<code>MUST</code> match).</li>
+<li>필드가 sdist에 없고 <code>Dynamic</code>으로 표시되지 않은 경우, 휠에 <strong>존재해서는 안 됩니다</strong> (<code>MUST NOT</code> be present).</li>
+<li>필드가 <code>Dynamic</code>으로 표시된 경우, sdist에서 빌드된 휠에는 유효한 모든 값(전혀 존재하지 않는 것을 포함)을 <strong>포함할 수 있습니다</strong> (<code>MAY</code> contain any valid value).</li>
+<li>백엔드는 빌드 시점에 변경되지 않을 데이터로부터 생성되었다고 판단할 수 있다면 필드를 <code>Dynamic</code>으로 <strong>표시해서는 안 됩니다</strong> (<code>MUST NOT</code> mark).</li>
+</ul>
+<p>백엔드는 <code>Dynamic</code>으로 표시한 필드에 대해 계산된 값을 소스 배포판에 기록할 <strong>수 있습니다</strong> (<code>MAY</code> record). 그러나 소비자는 이 값을 공식적인 것으로 취급해서는 <strong>안 되며</strong> (<code>MUST NOT</code> treat as canonical), 휠의 최종 값이 무엇일지에 대한 힌트로 사용할 <strong>수 있습니다</strong> (<code>MAY</code> use as a hint).</p>
+<p>소스 배포판 이외의 다른 맥락에서, 필드가 <code>Dynamic</code>으로 표시된 경우, 해당 값은 휠 빌드 시점에 생성되었으며 sdist의 값(또는 프로젝트의 다른 빌드)과 일치하지 않을 수 있음을 나타냅니다. 그러나 백엔드는 이 정보를 기록할 필요가 없으며, 소비자는 소스 배포판을 제외하고는 <code>Dynamic</code> 표시가 없다는 것이 어떤 중요성을 가진다고 <strong>가정해서는 안 됩니다</strong> (<code>MUST NOT</code> assume).</p>
+<p><code>Name</code> 및 <code>Version</code> 필드는 <code>Dynamic</code>으로 <strong>표시해서는 안 됩니다</strong> (<code>MUST NOT</code> be marked).</p>
+<p>새로운 메타데이터 필드를 추가하므로, 이 PEP는 코어 메타데이터 형식을 버전 2.2로 업데이트합니다.</p>
+<p>소스 배포판은 생성될 때 사용 가능한 <code>Core Metadata Specification</code>의 최신 버전을 <strong>사용해야 합니다</strong> (<code>SHOULD</code> use).</p>
+<p>빌드 백엔드는 절대적으로 필요한 경우에만 필드를 <code>Dynamic</code>으로 표시하고, 프로젝트가 <code>Dynamic</code> 사용을 요구하는 백엔드 기능을 피하도록 <strong>강력히 권장됩니다</strong> (<code>strongly encouraged</code>). 프로젝트는 설치 위치의 세부 사항에 맞게 정적(static) 값에 환경 마커(environment markers)를 사용하는 것을 선호해야 합니다.</p>
+<h3>하위 호환성 (Backwards Compatibility)</h3>
+<p>이 제안은 코어 메타데이터 버전을 증가시키므로, 더 오래된 메타데이터 버전을 사용하는 기존 소스 배포판과 호환됩니다. 도구는 메타데이터 버전을 확인하여 소스 배포판이 이 PEP를 준수하는지 여부를 판단할 수 있습니다.</p>
+<h3>보안 고려 사항 (Security Implications)</h3>
+<p>이 사양은 공개적으로 사용 가능한 데이터를 저장하기 위한 것이므로, 보안 고려 사항은 없습니다.</p>
+<h3>교육 방법 (How to Teach This)</h3>
+<p>이것은 프로젝트 메타데이터를 위한 데이터 저장 형식이며, 일반적으로 최종 사용자에게는 보이지 않습니다. 따라서 사용자에게 이 형식을 사용하는 방법을 가르칠 필요는 없습니다. 메타데이터를 참조하려는 개발자는 PyPA 사양에서 세부 정보를 찾을 수 있습니다.</p>
+<h3>거부된 아이디어 (Rejected Ideas)</h3>
+<h4>필드를 <code>Dynamic</code>으로 표시하는 대신, 명시적으로 <code>Static</code>으로 표시되지 않는 한 필드는 동적인 것으로 가정해야 합니다.</h4>
+<p>이것은 현재 제안과 논리적으로 동일하지만, 필드가 동적인 것이 일반적인 경우임을 암시합니다. 패키징 도구는 정적(static)으로 알려진 메타데이터가 있을 때 훨씬 더 효율적일 수 있으므로, 이 PEP는 동적 필드를 예외로 만들고 백엔드가 필드를 동적으로 만들도록 "선택(opt in)"하도록 요구합니다.</p>
+<p>또한, 동적이 기본값이라면, 미래에 점점 더 많은 메타데이터가 정적이 됨에 따라 메타데이터 파일에는 점점 더 많은 <code>Static</code> 선언이 포함될 것입니다.</p>
+<h4><code>Dynamic</code> 필드를 갖는 대신, 필드가 "아직 정의되지 않음"을 나타내는 특별한 값을 추가합니다.</h4>
+<p>이 또한 현재 제안과 논리적으로 동일합니다. 이는 "동적임"을 명시적인 선택으로 만들지만, 특별한 값을 요구합니다. 일부 필드는 임의의 텍스트를 포함할 수 있으므로, 그러한 값을 선택하는 것은 다소 어색합니다 (그러나 실제로는 문제가 되지 않을 가능성이 높습니다). 이 접근 방식이 제안된 메커니즘 대신 사용될 만큼 충분한 이점이 있는 것 같지는 않습니다.</p>
+<h4><code>Requires-Python</code>에 대한 특별 처리.</h4>
+<p>PEP의 초기 초안에서는 <code>Requires-Python</code>에 대한 특별한 논의가 필요했습니다. 이 필드에 대한 환경 마커(environment markers)가 부족하여 정적으로 요구하기 어려울 수 있었기 때문입니다. 필드를 동적으로 허용하는 화이트리스트(whitelist) 개념이 삭제되면서, PEP의 최종 형태에서는 더 이상 필요하지 않습니다.</p>
+<h4><code>Dynamic</code>의 사용을 허용된 필드의 최소 "화이트리스트"로 제한합니다.</h4>
+<p>이 접근 방식은 <code>setuptools</code> 인터페이스의 동적 특성으로 인해 <code>setuptools</code>가 하위 호환 가능한 방식으로 구현하기가 매우 어렵다는 것이 밝혀졌습니다. 대신, 이 제안은 이제 대부분의 필드가 동적일 수 있도록 허용하지만, 백엔드가 필수적인 경우가 아니면 동적 값을 피하도록 권장합니다.</p>
+<h3>미해결 문제 (Open Issues)</h3>
+<p>없음.</p>
+<h3>저작권 (Copyright)</h3>
+<p>이 문서는 퍼블릭 도메인 또는 CC0-1.0-Universal 라이선스 중 더 관대한 조건으로 배포됩니다.</p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":[["$","aside",null,{"className":"lg:w-64 xl:w-72 order-1 lg:order-none","children":["$","div",null,{"className":"sidebar sticky","children":["$","nav",null,{"className":"space-y-4","children":[["$","div","Backend",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Backend"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Django",{"children":["$","a",null,{"href":"/backend/django","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Django"," (",6,")"]}]}],["$","li","Logging",{"children":["$","a",null,{"href":"/backend/logging","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Logging"," (",1,")"]}]}]]}]]}],["$","div","Python",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Python"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","PEP",{"children":["$","a",null,{"href":"/python/pep","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["PEP"," (",650,")"]}]}]]}]]}],["$","div","AI/ML",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"AI/ML"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","LLM",{"children":["$","a",null,{"href":"/ai/llm","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["LLM"," (",1,")"]}]}],["$","li","Review",{"children":["$","a",null,{"href":"/ai/review","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Review"," (",2728,")"]}]}]]}]]}],["$","div","DevOps",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"DevOps"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Nginx",{"children":["$","a",null,{"href":"/devops/nginx","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Nginx"," (",1,")"]}]}],["$","li","Docker",{"children":["$","a",null,{"href":"/devops/docker","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Docker"," (",1,")"]}]}],["$","li","SafeLine",{"children":["$","a",null,{"href":"/devops/safeline","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["SafeLine"," (",1,")"]}]}],["$","li","Jenkins",{"children":["$","a",null,{"href":"/devops/jenkins","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Jenkins"," (",3,")"]}]}],["$","li","GitHub Actions",{"children":["$","a",null,{"href":"/devops/github-actions","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["GitHub Actions"," (",1,")"]}]}],["$","li","AWS",{"children":["$","a",null,{"href":"/devops/aws","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["AWS"," (",1,")"]}]}]]}]]}],["$","div","etc",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"etc"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Me",{"children":["$","a",null,{"href":"/etc/me","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Me"," (",3,")"]}]}],["$","li","Chrome Extension",{"children":["$","a",null,{"href":"/etc/chrome-extension","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Chrome Extension"," (",1,")"]}]}]]}]]}]]}]}]}],["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Final] PEP 643 - Metadata for Package Source Distributions"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-27 01:33:51+0900","children":"2025년 9월 27일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 27일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]}],["$","$La",null,{"postPermalink":"/python/pep/643","postId":"2025-09-27-pep-0643-metadata-for-package-source-distributions"}],["$","section",null,{"className":"mt-12 border-t border-gray-200 pt-8","children":[["$","h3",null,{"className":"text-base font-semibold text-gray-900 mb-4","children":["Python"," 의 다른글"]}],["$","ul",null,{"className":"space-y-2 text-sm","children":[["$","li",null,{"className":"text-gray-500","children":["이전글"," ",["$","$L7",null,{"href":"/python/pep/642","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Rejected] PEP 642 - Explicit Pattern Syntax for Structural Pattern Matching"}]]}],["$","li",null,{"className":"text-gray-900 font-semibold","children":["현재글 : ","[Final] PEP 643 - Metadata for Package Source Distributions"]}],["$","li",null,{"className":"text-gray-500","children":["다음글"," ",["$","$L7",null,{"href":"/python/pep/644","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Final] PEP 644 - Require OpenSSL 1.1.1 or newer"}]]}]]}]]}]]}]}]]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"[Final] PEP 643 - Metadata for Package Source Distributions - secrett2633's blog"}],["$","meta","3",{"name":"description","content":"Python Enhancement Proposal 643: 'Metadata for Package Source Distributions'에 대한 한국어 번역입니다."}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://blog.secrett2633.cloud/python/pep/643"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"[Final] PEP 643 - Metadata for Package Source Distributions"}],["$","meta","13",{"property":"og:description","content":"Python Enhancement Proposal 643: 'Metadata for Package Source Distributions'에 대한 한국어 번역입니다."}],["$","meta","14",{"property":"og:url","content":"https://blog.secrett2633.cloud/python/pep/643"}],["$","meta","15",{"property":"og:type","content":"article"}],["$","meta","16",{"name":"twitter:card","content":"summary"}],["$","meta","17",{"name":"twitter:title","content":"[Final] PEP 643 - Metadata for Package Source Distributions"}],["$","meta","18",{"name":"twitter:description","content":"Python Enhancement Proposal 643: 'Metadata for Package Source Distributions'에 대한 한국어 번역입니다."}],["$","link","19",{"rel":"icon","href":"/icon.ico?6d9f34d4948640b8","type":"image/x-icon","sizes":"16x16"}]]
+1:null

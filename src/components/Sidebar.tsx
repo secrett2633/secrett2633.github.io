@@ -4,39 +4,39 @@ const categories = [
   {
     title: "Backend",
     children: [
-      { title: "Django", url: "/backend/django/" },
-      { title: "Logging", url: "/backend/logging/" }
+      { title: "Django", url: "/backend/django" },
+      { title: "Logging", url: "/backend/logging" }
     ]
   },
   {
     title: "Python",
     children: [
-      { title: "PEP", url: "/python/pep/" }
+      { title: "PEP", url: "/python/pep" }
     ]
   },
   {
     title: "AI/ML",
     children: [
-      { title: "LLM", url: "/ai/llm/" },
-      { title: "Review", url: "/ai/review/" }
+      { title: "LLM", url: "/ai/llm" },
+      { title: "Review", url: "/ai/review" }
     ]
   },
   {
     title: "DevOps",
     children: [
-      { title: "Nginx", url: "/devops/nginx/" },
-      { title: "Docker", url: "/devops/docker/" },
-      { title: "SafeLine", url: "/devops/safeline/" },
-      { title: "Jenkins", url: "/devops/jenkins/" },
-      { title: "GitHub Actions", url: "/devops/github-actions/" },
-      { title: "AWS", url: "/devops/aws/" }
+      { title: "Nginx", url: "/devops/nginx" },
+      { title: "Docker", url: "/devops/docker" },
+      { title: "SafeLine", url: "/devops/safeline" },
+      { title: "Jenkins", url: "/devops/jenkins" },
+      { title: "GitHub Actions", url: "/devops/github-actions" },
+      { title: "AWS", url: "/devops/aws" }
     ]
   },
   {
     title: "etc",
     children: [
-      { title: "Me", url: "/etc/me/" },
-      { title: "Chrome Extension", url: "/etc/chrome-extension/" }
+      { title: "Me", url: "/etc/me" },
+      { title: "Chrome Extension", url: "/etc/chrome-extension" }
     ]
   }
 ]

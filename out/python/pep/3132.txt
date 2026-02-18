@@ -1,0 +1,100 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[9157,["231","static/chunks/231-467e37449c5a68fc.js","185","static/chunks/app/layout-53ec9cbf619543e1.js"],"default"]
+7:I[231,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-80e07cee06d17a0b.js"],""]
+4:["slug","python/pep/3132","c"]
+0:["_3-KrKKQh7tcSoXiYwQMB",[[["",{"children":[["slug","python/pep/3132","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"3132\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/3132","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_f367f3 layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/d6cea809dcbae606.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+a:I[646,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-80e07cee06d17a0b.js"],"default"]
+9:T1eb7,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-3132/">PEP 3132 - Extended Iterable Unpacking</a></p>
+<p><strong>상태:</strong> Final | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 30-Apr-2007</p>
+</blockquote>
+<p>PEP 3132 – 확장된 이터러블 언패킹 (Extended Iterable Unpacking)</p>
+<h2>개요 (Abstract)</h2>
+<p>이 PEP는 이터러블(iterable) 언패킹(unpacking) 문법의 변경을 제안합니다. 이 변경을 통해 "catch-all" 이름을 지정할 수 있게 되는데, 이 이름에는 "일반" 이름에 할당되지 않은 모든 항목의 리스트가 할당됩니다.</p>
+<p>예시를 통해 더 명확하게 이해할 수 있습니다:</p>
+<pre><code class="language-python">>>> a, *b, c = range(5)
+>>> a
+0
+>>> c
+4
+>>> b
+[1, 2, 3]
+</code></pre>
+<h2>도입 배경 (Rationale)</h2>
+<p>많은 알고리즘은 시퀀스(sequence)를 "첫 번째 항목, 나머지" 쌍으로 분리해야 합니다. 새로운 문법을 사용하면 다음과 같이 더 깔끔하고 효율적인 방법으로 대체할 수 있습니다:</p>
+<pre><code class="language-python">first, rest = seq[0], seq[1:]
+</code></pre>
+<p>위 코드는 다음으로 대체됩니다:</p>
+<pre><code class="language-python">first, *rest = seq
+</code></pre>
+<p>더 복잡한 언패킹 패턴의 경우, 새로운 문법은 훨씬 더 깔끔하며, 서투른 인덱스(index) 처리가 더 이상 필요하지 않습니다.</p>
+<p>또한, 우측 값(right-hand value)이 리스트가 아닌 이터러블일 경우, 슬라이싱(slicing)을 수행하기 전에 리스트로 변환해야 합니다. 이러한 임시 리스트 생성을 피하려면 다음과 같은 방법을 사용해야 했습니다:</p>
+<pre><code class="language-python">it = iter(seq)
+first = it.next()
+rest = list(it)
+</code></pre>
+<h2>명세 (Specification)</h2>
+<p>단순 할당(augmented assignment에는 언패킹이 정의되어 있지 않음)의 좌측에 있는 튜플(tuple) 또는 리스트는 단일 별표(<code>*</code>)가 앞에 붙은 표현식("starred" 표현식이라고 함)을 최대 하나만 포함할 수 있습니다. 목록의 다른 표현식은 "필수(mandatory)" 표현식이라고 합니다. 이 starred 표현식은 언패킹되는 이터러블에서 어떤 필수 표현식에도 할당되지 않은 모든 항목의 리스트를 할당받거나, 그러한 항목이 없으면 빈 리스트를 할당받는 하위 표현식을 지정합니다.</p>
+<p>예를 들어, <code>seq</code>가 슬라이스 가능한 시퀀스이고 <code>seq</code>에 최소 두 개의 요소가 있는 경우, 다음의 모든 할당은 동등합니다:</p>
+<pre><code class="language-python">a, b, c = seq[0], list(seq[1:-1]), seq[-1]
+a, *b, c = seq
+[a, *b, c] = seq
+</code></pre>
+<p>만약 이터러블에 모든 필수 표현식에 할당할 만큼 충분한 항목이 포함되어 있지 않다면 (현재와 마찬가지로) 오류가 발생합니다.</p>
+<p>또한, 다음과 같이 starred 표현식을 단독 할당 대상으로 사용하는 것도 오류입니다:</p>
+<pre><code class="language-python">*a = range(5)
+</code></pre>
+<p>그러나 다음은 유효한 문법입니다:</p>
+<pre><code class="language-python">*a, = range(5)
+</code></pre>
+<p>이 제안은 <code>for</code> 문과 같이 암시적 할당(implicit assignment) 컨텍스트의 튜플에도 적용됩니다:</p>
+<pre><code class="language-python">for a, *b in [(1, 2, 3), (4, 5, 6, 7)]:
+    print(b)
+</code></pre>
+<p>위 코드는 다음과 같이 출력됩니다:</p>
+<pre><code>[2, 3]
+[5, 6, 7]
+</code></pre>
+<p>starred 표현식은 할당 대상(assignment targets)으로만 허용됩니다. 함수 호출의 star-args(<code>*args</code>)를 제외하고 다른 곳에서 사용하는 것은 오류입니다.</p>
+<h2>구현 (Implementation)</h2>
+<h3>문법 변경 (Grammar change)</h3>
+<p>이 기능에는 새로운 문법 규칙이 필요합니다:
+<code>star_expr: ['*'] expr</code></p>
+<p>다음 두 규칙에서 <code>expr</code>가 <code>star_expr</code>로 변경됩니다:
+<code>comparison: star_expr (comp_op star_expr)*</code>
+<code>exprlist: star_expr (',' star_expr)* [',']</code></p>
+<h3>컴파일러 변경 (Changes to the Compiler)</h3>
+<p>새로운 ASDL 표현식 유형인 <code>Starred</code>가 추가되어 starred 표현식을 나타냅니다. 여기서 도입된 starred 표현식 요소는 보편적이며, 나중에 <code>yield *iterable</code> 제안과 같이 할당 컨텍스트가 아닌 다른 목적으로 사용될 수 있습니다.</p>
+<p>컴파일러는 starred 표현식이 유효하지 않은 모든 경우를 인식하고 구문 오류(syntax errors)로 플래그를 지정하도록 변경됩니다.</p>
+<p>새로운 바이트코드(bytecode) 명령어인 <code>UNPACK_EX</code>가 추가됩니다. 이 명령어의 인자(argument)는 하위 8비트에 starred 대상 이전의 필수 대상 수를, 상위 8비트에 starred 대상 이후의 필수 대상 수를 가집니다. starred 표현식이 없는 시퀀스를 언패킹하는 경우에는 이전 <code>UNPACK_ITERABLE</code> opcode가 유지됩니다.</p>
+<h3>바이트코드 인터프리터 변경 (Changes to the Bytecode Interpreter)</h3>
+<p><code>ceval.c</code> 파일의 <code>unpack_iterable()</code> 함수는 <code>argcntafter</code> 매개변수를 통해 확장된 언패킹을 처리하도록 변경됩니다. <code>UNPACK_EX</code>의 경우, 이 함수는 다음을 수행합니다:</p>
+<ul>
+<li>starred 대상 이전의 필수 대상을 위한 모든 항목을 수집합니다.</li>
+<li>이터러블에서 남은 모든 항목을 리스트로 수집합니다.</li>
+<li>리스트에서 starred 대상 이후의 필수 대상을 위한 항목을 팝(pop)합니다.</li>
+<li>개별 항목과 크기가 조정된 리스트를 스택(stack)에 푸시(push)합니다.</li>
+</ul>
+<p>리스트 또는 튜플과 같이 알려진 유형의 이터러블을 언패킹하기 위한 단축 경로(shortcuts)를 추가할 수 있습니다.</p>
+<p>현재 구현은 SourceForge Patch tracker [SFPATCH]에서 확인할 수 있으며, 최소한의 테스트 케이스를 포함하고 있습니다.</p>
+<h2>수용 (Acceptance)</h2>
+<p><code>python-3000</code> 리스트에서 짧은 논의 끝에, PEP는 현재 형태로 Guido에 의해 수용되었습니다. 논의되었던 가능한 변경 사항들은 다음과 같습니다:</p>
+<ul>
+<li>starred 표현식을 <code>exprlist</code>의 마지막 항목으로만 허용: 이렇게 하면 언패킹 코드가 약간 단순화되고 starred 표현식에 이터레이터를 할당할 수 있었을 것입니다. 이 동작은 너무 예상 밖의 결과일 수 있어 거부되었습니다.</li>
+<li>starred 대상에 소스 이터러블과 동일한 유형을 부여하는 것을 시도: 예를 들어, <code>a, *b = 'hello'</code>에서 <code>b</code>는 <code>'ello'</code> 문자열로 할당될 수 있습니다. 이는 좋아 보일 수 있지만, 모든 이터러블에 대해 일관되게 올바르게 구현하는 것은 불가능합니다.</li>
+<li>starred 대상을 리스트 대신 튜플로 만들기: 이는 함수의 <code>*args</code>와 일관성이 있었겠지만, 결과에 대한 추가 처리를 더 어렵게 만들었을 것입니다.</li>
+</ul>
+<h2>참고 자료 (References)</h2>
+<ul>
+<li>[SFPATCH] https://bugs.python.org/issue1711529</li>
+<li>https://mail.python.org/pipermail/python-3000/2007-May/007198.html</li>
+</ul>
+<h2>저작권 (Copyright)</h2>
+<p>이 문서는 퍼블릭 도메인(public domain)에 있습니다.</p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":[["$","aside",null,{"className":"lg:w-64 xl:w-72 order-1 lg:order-none","children":["$","div",null,{"className":"sidebar sticky","children":["$","nav",null,{"className":"space-y-4","children":[["$","div","Backend",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Backend"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Django",{"children":["$","a",null,{"href":"/backend/django","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Django"," (",6,")"]}]}],["$","li","Logging",{"children":["$","a",null,{"href":"/backend/logging","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Logging"," (",1,")"]}]}]]}]]}],["$","div","Python",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Python"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","PEP",{"children":["$","a",null,{"href":"/python/pep","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["PEP"," (",650,")"]}]}]]}]]}],["$","div","AI/ML",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"AI/ML"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","LLM",{"children":["$","a",null,{"href":"/ai/llm","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["LLM"," (",1,")"]}]}],["$","li","Review",{"children":["$","a",null,{"href":"/ai/review","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Review"," (",2728,")"]}]}]]}]]}],["$","div","DevOps",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"DevOps"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Nginx",{"children":["$","a",null,{"href":"/devops/nginx","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Nginx"," (",1,")"]}]}],["$","li","Docker",{"children":["$","a",null,{"href":"/devops/docker","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Docker"," (",1,")"]}]}],["$","li","SafeLine",{"children":["$","a",null,{"href":"/devops/safeline","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["SafeLine"," (",1,")"]}]}],["$","li","Jenkins",{"children":["$","a",null,{"href":"/devops/jenkins","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Jenkins"," (",3,")"]}]}],["$","li","GitHub Actions",{"children":["$","a",null,{"href":"/devops/github-actions","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["GitHub Actions"," (",1,")"]}]}],["$","li","AWS",{"children":["$","a",null,{"href":"/devops/aws","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["AWS"," (",1,")"]}]}]]}]]}],["$","div","etc",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"etc"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Me",{"children":["$","a",null,{"href":"/etc/me","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Me"," (",3,")"]}]}],["$","li","Chrome Extension",{"children":["$","a",null,{"href":"/etc/chrome-extension","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Chrome Extension"," (",1,")"]}]}]]}]]}]]}]}]}],["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Final] PEP 3132 - Extended Iterable Unpacking"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-27 14:32:37+0900","children":"2025년 9월 27일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 27일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]}],["$","$La",null,{"postPermalink":"/python/pep/3132","postId":"2025-09-27-pep-3132-extended-iterable-unpacking"}],["$","section",null,{"className":"mt-12 border-t border-gray-200 pt-8","children":[["$","h3",null,{"className":"text-base font-semibold text-gray-900 mb-4","children":["Python"," 의 다른글"]}],["$","ul",null,{"className":"space-y-2 text-sm","children":[["$","li",null,{"className":"text-gray-500","children":["이전글"," ",["$","$L7",null,{"href":"/python/pep/3131","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Final] PEP 3131 - Supporting Non-ASCII Identifiers"}]]}],["$","li",null,{"className":"text-gray-900 font-semibold","children":["현재글 : ","[Final] PEP 3132 - Extended Iterable Unpacking"]}],["$","li",null,{"className":"text-gray-500","children":["다음글"," ",["$","$L7",null,{"href":"/python/pep/3133","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Rejected] PEP 3133 - Introducing Roles"}]]}]]}]]}]]}]}]]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"[Final] PEP 3132 - Extended Iterable Unpacking - secrett2633's blog"}],["$","meta","3",{"name":"description","content":"Python Enhancement Proposal 3132: 'Extended Iterable Unpacking'에 대한 한국어 번역입니다."}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://blog.secrett2633.cloud/python/pep/3132"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"[Final] PEP 3132 - Extended Iterable Unpacking"}],["$","meta","13",{"property":"og:description","content":"Python Enhancement Proposal 3132: 'Extended Iterable Unpacking'에 대한 한국어 번역입니다."}],["$","meta","14",{"property":"og:url","content":"https://blog.secrett2633.cloud/python/pep/3132"}],["$","meta","15",{"property":"og:type","content":"article"}],["$","meta","16",{"name":"twitter:card","content":"summary"}],["$","meta","17",{"name":"twitter:title","content":"[Final] PEP 3132 - Extended Iterable Unpacking"}],["$","meta","18",{"name":"twitter:description","content":"Python Enhancement Proposal 3132: 'Extended Iterable Unpacking'에 대한 한국어 번역입니다."}],["$","link","19",{"rel":"icon","href":"/icon.ico?6d9f34d4948640b8","type":"image/x-icon","sizes":"16x16"}]]
+1:null

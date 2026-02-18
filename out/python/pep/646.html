@@ -1,0 +1,718 @@
+<!DOCTYPE html><html lang="ko" class="no-js"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/_next/static/css/d6cea809dcbae606.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/webpack-61c2b369a48bb953.js"/><script src="/_next/static/chunks/fd9d1056-0395f68b8cc78a20.js" async=""></script><script src="/_next/static/chunks/23-7d3f7f0b78aa2fd3.js" async=""></script><script src="/_next/static/chunks/main-app-cf4c503f60a850f8.js" async=""></script><script src="/_next/static/chunks/231-467e37449c5a68fc.js" async=""></script><script src="/_next/static/chunks/app/layout-53ec9cbf619543e1.js" async=""></script><script src="/_next/static/chunks/app/%5B...slug%5D/page-80e07cee06d17a0b.js" async=""></script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"></script><title>[Final] PEP 646 - Variadic Generics - secrett2633&#x27;s blog</title><meta name="description" content="Python Enhancement Proposal 646: &#x27;Variadic Generics&#x27;에 대한 한국어 번역입니다."/><meta name="author" content="secrett2633"/><meta name="keywords" content="Django, Python, DevOps, AI, ML, 블로그, 기술"/><meta name="creator" content="secrett2633"/><meta name="publisher" content="secrett2633"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://blog.secrett2633.cloud/python/pep/646"/><meta name="format-detection" content="telephone=no, address=no, email=no"/><meta property="og:title" content="[Final] PEP 646 - Variadic Generics"/><meta property="og:description" content="Python Enhancement Proposal 646: &#x27;Variadic Generics&#x27;에 대한 한국어 번역입니다."/><meta property="og:url" content="https://blog.secrett2633.cloud/python/pep/646"/><meta property="og:type" content="article"/><meta name="twitter:card" content="summary"/><meta name="twitter:title" content="[Final] PEP 646 - Variadic Generics"/><meta name="twitter:description" content="Python Enhancement Proposal 646: &#x27;Variadic Generics&#x27;에 대한 한국어 번역입니다."/><link rel="icon" href="/icon.ico?6d9f34d4948640b8" type="image/x-icon" sizes="16x16"/><meta name="msapplication-TileColor" content="#ffc40d"/><meta name="theme-color" content="#ffffff"/><script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-NE2W3CFPNY');
+            </script><script src="/_next/static/chunks/polyfills-78c92fac7aa8fdd8.js" noModule=""></script></head><body class="__className_f367f3 layout--default"><div class="min-h-screen bg-gray-50"><div class="masthead"><div class="masthead__inner-wrap"><div class="masthead__menu"><nav id="site-nav" class="greedy-nav"><a class="site-title" href="/">secrett2633&#x27;s blog</a><div class="flex items-center space-x-4"><ul class="visible-links"><li class="masthead__menu-item"><a href="https://github.com/secrett2633" target="_blank" rel="noopener noreferrer">GitHub</a></li></ul><button class="search__toggle" type="button"><svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16"><path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path></svg></button></div></nav></div></div></div><main class="initial-content"><!--$--><div class="flex flex-col lg:flex-row gap-8"><aside class="lg:w-64 xl:w-72 order-1 lg:order-none"><div class="sidebar sticky"><nav class="space-y-4"><div><h4 class="font-medium text-gray-900 mb-2">Backend</h4><ul class="space-y-1 ml-4"><li><a href="/backend/django" class="text-sm text-gray-600 hover:text-primary-600 block py-1">Django<!-- --> (<!-- -->6<!-- -->)</a></li><li><a href="/backend/logging" class="text-sm text-gray-600 hover:text-primary-600 block py-1">Logging<!-- --> (<!-- -->1<!-- -->)</a></li></ul></div><div><h4 class="font-medium text-gray-900 mb-2">Python</h4><ul class="space-y-1 ml-4"><li><a href="/python/pep" class="text-sm text-gray-600 hover:text-primary-600 block py-1">PEP<!-- --> (<!-- -->650<!-- -->)</a></li></ul></div><div><h4 class="font-medium text-gray-900 mb-2">AI/ML</h4><ul class="space-y-1 ml-4"><li><a href="/ai/llm" class="text-sm text-gray-600 hover:text-primary-600 block py-1">LLM<!-- --> (<!-- -->1<!-- -->)</a></li><li><a href="/ai/review" class="text-sm text-gray-600 hover:text-primary-600 block py-1">Review<!-- --> (<!-- -->2728<!-- -->)</a></li></ul></div><div><h4 class="font-medium text-gray-900 mb-2">DevOps</h4><ul class="space-y-1 ml-4"><li><a href="/devops/nginx" class="text-sm text-gray-600 hover:text-primary-600 block py-1">Nginx<!-- --> (<!-- -->1<!-- -->)</a></li><li><a href="/devops/docker" class="text-sm text-gray-600 hover:text-primary-600 block py-1">Docker<!-- --> (<!-- -->1<!-- -->)</a></li><li><a href="/devops/safeline" class="text-sm text-gray-600 hover:text-primary-600 block py-1">SafeLine<!-- --> (<!-- -->1<!-- -->)</a></li><li><a href="/devops/jenkins" class="text-sm text-gray-600 hover:text-primary-600 block py-1">Jenkins<!-- --> (<!-- -->3<!-- -->)</a></li><li><a href="/devops/github-actions" class="text-sm text-gray-600 hover:text-primary-600 block py-1">GitHub Actions<!-- --> (<!-- -->1<!-- -->)</a></li><li><a href="/devops/aws" class="text-sm text-gray-600 hover:text-primary-600 block py-1">AWS<!-- --> (<!-- -->1<!-- -->)</a></li></ul></div><div><h4 class="font-medium text-gray-900 mb-2">etc</h4><ul class="space-y-1 ml-4"><li><a href="/etc/me" class="text-sm text-gray-600 hover:text-primary-600 block py-1">Me<!-- --> (<!-- -->3<!-- -->)</a></li><li><a href="/etc/chrome-extension" class="text-sm text-gray-600 hover:text-primary-600 block py-1">Chrome Extension<!-- --> (<!-- -->1<!-- -->)</a></li></ul></div></nav></div></aside><main class="flex-1"><article class="page"><header class="mb-8"><h1 class="page__title">[Final] PEP 646 - Variadic Generics</h1><div class="page__meta"><time dateTime="2025-09-27 01:37:00+0900">2025년 9월 27일</time><span class="ml-4">수정: <!-- -->2025년 9월 27일</span></div></header><div class="page__content"><div><blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0646/">PEP 646 - Variadic Generics</a></p>
+<p><strong>상태:</strong> Final | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 16-Sep-2020</p>
+</blockquote>
+<p>PEP 646 – 가변 제네릭 (Variadic Generics)</p>
+<h2>개요</h2>
+<p>PEP 484는 단일 타입으로 매개변수화되는 제네릭을 생성하기 위한 <code>TypeVar</code>를 도입했습니다. 이 PEP에서는 임의의 수의 타입으로 매개변수화를 가능하게 하는 <code>TypeVarTuple</code>을 소개하며, 이를 통해 가변 제네릭(variadic generics)을 지원합니다. 이는 다양한 사용 사례를 가능하게 하며, 특히 NumPy 및 TensorFlow와 같은 수치 연산 라이브러리에서 배열(array)과 같은 구조의 타입을 배열의 "형태(shape)"로 매개변수화하여, 정적 타입 검사기가 형태 관련 버그를 포착할 수 있도록 합니다.</p>
+<p>이 PEP는 Python 3.11에 채택되었으며, 타입 표현식에서 여러 언패킹(unpacking)에 대한 세부 사항은 정확히 지정되지 않았습니다. 이는 개별 타입 검사기에 여지를 제공하지만, 향후 PEP에서 강화될 수 있습니다.</p>
+<h2>도입 배경</h2>
+<p>가변 제네릭은 오랫동안 다양한 사용 사례에서 요청되어 온 기능입니다. 특히, 잠재적으로 큰 영향을 미치며 이 PEP가 주로 목표로 하는 사용 사례 중 하나는 수치 라이브러리에서의 타입 정의와 관련이 있습니다.</p>
+<p>NumPy 및 TensorFlow와 같은 수치 연산 라이브러리에서는 변수의 형태(shape)가 변수 타입만큼 중요합니다. 예를 들어, 동영상 배치(batch)를 그레이스케일로 변환하는 다음 함수를 고려해 봅시다.</p>
+<pre><code class="language-python">def to_gray(videos: Array): ...
+</code></pre>
+<p>이 시그니처만으로는 <code>videos</code> 인수에 어떤 형태의 배열을 전달해야 하는지 명확하지 않습니다. 가능한 형태는 예를 들어 <code>batch × time × height × width × channels</code> 또는 <code>time × batch × channels × height × width</code> 등이 있습니다. 이는 세 가지 이유로 중요합니다.</p>
+<ol>
+<li><strong>문서화:</strong> 시그니처에 필요한 형태가 명확하지 않으면, 사용자는 입력/출력 형태 요구사항을 확인하기 위해 Docstring이나 코드 자체를 찾아봐야 합니다.</li>
+<li><strong>런타임 전 형태 버그 포착:</strong> 이상적으로는 잘못된 형태 사용이 정적 분석을 통해 미리 포착할 수 있는 오류여야 합니다. (이는 특히 반복 시간이 느릴 수 있는 머신러닝 코드에서 중요합니다.)</li>
+<li><strong>미묘한 형태 버그 방지:</strong> 최악의 경우, 잘못된 형태를 사용하면 프로그램이 정상적으로 실행되는 것처럼 보이지만, 며칠 동안 추적해야 할 미묘한 버그가 발생할 수 있습니다.</li>
+</ol>
+<p>이상적으로는 타입 시그니처에 형태 요구 사항을 명시적으로 지정하는 방법이 있어야 합니다. 여러 제안에서 이를 위해 표준 제네릭 구문을 사용할 것을 제안했습니다.</p>
+<pre><code class="language-python">def to_gray(videos: Array[Time, Batch, Height, Width, Channels]): ...
+</code></pre>
+<p>하지만 배열은 임의의 랭크(rank)를 가질 수 있습니다. 위에서 사용된 <code>Array</code>는 임의의 수의 축(axis)에 대해 제네릭합니다. 이 문제를 해결하는 한 가지 방법은 각 랭크마다 다른 <code>Array</code> 클래스를 사용하는 것이지만:</p>
+<pre><code class="language-python">Axis1 = TypeVar('Axis1')
+Axis2 = TypeVar('Axis2')
+class Array1(Generic[Axis1]): ...
+class Array2(Generic[Axis1, Axis2]): ...
+</code></pre>
+<p>이는 사용자(코드 전체에 1, 2 등을 붙여야 함)와 배열 라이브러리 개발자(여러 클래스에 걸쳐 구현을 중복해야 함) 모두에게 번거로울 것입니다.</p>
+<p><code>Array</code>가 임의의 수의 축에 대해 제네릭하게 단일 클래스로 깔끔하게 정의되기 위해서는 가변 제네릭이 필수적입니다.</p>
+<h2>요약 예시</h2>
+<p>이 PEP는 새로 도입된 임의 길이 타입 변수인 <code>TypeVarTuple</code>을 사용하여 형태(및 데이터 타입)에 대해 제네릭한 <code>Array</code> 클래스를 다음과 같이 정의할 수 있도록 합니다.</p>
+<pre><code class="language-python">from typing import TypeVar, TypeVarTuple, Generic
+
+DType = TypeVar('DType')
+Shape = TypeVarTuple('Shape')
+
+class Array(Generic[DType, *Shape]):
+    def __abs__(self) -> Array[DType, *Shape]: ...
+    def __add__(self, other: Array[DType, *Shape]) -> Array[DType, *Shape]: ...
+</code></pre>
+<p>이러한 <code>Array</code>는 여러 종류의 형태 어노테이션을 지원하는 데 사용될 수 있습니다. 예를 들어, 각 축의 의미론적 의미를 설명하는 레이블을 추가할 수 있습니다.</p>
+<pre><code class="language-python">from typing import NewType
+
+Height = NewType('Height', int)
+Width = NewType('Width', int)
+x: Array[float, Height, Width] = Array()
+</code></pre>
+<p>각 축의 실제 크기를 설명하는 어노테이션을 추가할 수도 있습니다.</p>
+<pre><code class="language-python">from typing import Literal as L
+x: Array[float, L[480], L[640]] = Array()
+</code></pre>
+<p>PEP에서는 일관성을 위해 의미론적 축 어노테이션을 예시의 기반으로 사용하지만, <code>Array</code>를 사용하는 이 두 가지(또는 다른) 방법 중 어느 것이 더 나은지에 대해서는 중립적이며, 그 결정은 라이브러리 개발자에게 맡겨져 있습니다.</p>
+<h2>상세 스펙</h2>
+<p>위의 사용 사례를 지원하기 위해 <code>TypeVarTuple</code>이 도입됩니다. 이는 단일 타입이 아닌 타입 튜플(tuple of types)의 플레이스홀더 역할을 합니다.</p>
+<p>또한, 별표(star operator)의 새로운 사용법이 도입되어 <code>TypeVarTuple</code> 인스턴스 및 <code>Tuple[int, str]</code>과 같은 튜플 타입을 '언팩(unpack)'할 수 있습니다. <code>TypeVarTuple</code> 또는 튜플 타입을 언팩하는 것은 변수 또는 값 튜플을 언팩하는 것과 동일한 타이핑 개념입니다.</p>
+<h3>Type Variable Tuples (타입 변수 튜플)</h3>
+<p>일반적인 타입 변수가 <code>int</code>와 같은 단일 타입의 대리자 역할을 하는 것처럼, 타입 변수 튜플은 <code>Tuple[int, str]</code>과 같은 튜플 타입의 대리자 역할을 합니다.</p>
+<p>타입 변수 튜플은 다음과 같이 생성됩니다.</p>
+<pre><code class="language-python">from typing import TypeVarTuple
+Ts = TypeVarTuple('Ts')
+</code></pre>
+<h4>제네릭 클래스에서 Type Variable Tuples 사용</h4>
+<p>타입 변수 튜플은 <code>Tuple</code>에 묶인 여러 개별 타입 변수처럼 작동합니다. 이를 이해하기 위해 다음 예시를 고려해 봅시다.</p>
+<pre><code class="language-python">Shape = TypeVarTuple('Shape')
+class Array(Generic[*Shape]): ...
+
+Height = NewType('Height', int)
+Width = NewType('Width', int)
+x: Array[Height, Width] = Array()
+</code></pre>
+<p>여기서 <code>Shape</code> 타입 변수 튜플은 <code>T1</code>과 <code>T2</code>가 타입 변수인 <code>Tuple[T1, T2]</code>처럼 작동합니다. 이러한 타입 변수를 <code>Array</code>의 타입 매개변수로 사용하려면 별표 연산자 <code>*Shape</code>를 사용하여 타입 변수 튜플을 언팩해야 합니다. <code>Array</code>의 시그니처는 마치 <code>class Array(Generic[T1, T2]): ...</code>라고 쓴 것처럼 작동합니다.</p>
+<p>그러나 <code>Generic[T1, T2]</code>와 달리 <code>Generic[*Shape]</code>는 클래스를 임의의 수의 타입 매개변수로 매개변수화할 수 있도록 합니다. 즉, <code>Array[Height, Width]</code>와 같은 2차원 배열을 정의할 수 있을 뿐만 아니라 3차원, 4차원 등 임의의 차원 배열도 정의할 수 있습니다.</p>
+<pre><code class="language-python">Time = NewType('Time', int)
+Batch = NewType('Batch', int)
+y: Array[Batch, Height, Width] = Array()
+z: Array[Time, Batch, Height, Width] = Array()
+</code></pre>
+<h4>함수에서 Type Variable Tuples 사용</h4>
+<p>타입 변수 튜플은 일반 <code>TypeVar</code>를 사용할 수 있는 모든 곳에서 사용될 수 있습니다. 여기에는 위에서 보여준 클래스 정의뿐만 아니라 함수 시그니처 및 변수 어노테이션도 포함됩니다.</p>
+<pre><code class="language-python">class Array(Generic[*Shape]):
+    def __init__(self, shape: Tuple[*Shape]):
+        self._shape: Tuple[*Shape] = shape
+    def get_shape(self) -> Tuple[*Shape]:
+        return self._shape
+
+shape = (Height(480), Width(640))
+x: Array[Height, Width] = Array(shape)
+y = abs(x) # Inferred type is Array[Height, Width]
+z = x + x # ... is Array[Height, Width]
+</code></pre>
+<h4>Type Variable Tuples는 항상 언팩되어야 합니다</h4>
+<p>이전 예시에서 <code>__init__</code>의 <code>shape</code> 인수가 <code>Tuple[*Shape]</code>로 어노테이션되었습니다. <code>Shape</code>가 <code>Tuple[T1, T2, ...]</code>처럼 작동한다면, <code>shape</code> 인수를 <code>Shape</code>로 직접 어노테이션할 수는 없었을까요?</p>
+<p>실제로 이는 의도적으로 불가능합니다. 타입 변수 튜플은 항상 언팩된 형태로 사용되어야 합니다 (즉, 별표 연산자로 접두사 되어야 합니다). 이는 두 가지 이유 때문입니다.</p>
+<ol>
+<li>타입 변수 튜플을 팩(packed) 또는 언팩(unpacked) 형태로 사용할지 여부에 대한 잠재적인 혼란을 피하기 위해.</li>
+<li>가독성을 높이기 위해: 별표는 타입 변수 튜플이 일반 타입 변수가 아님을 명시적으로 시각적으로 나타내는 지표 역할도 합니다.</li>
+</ol>
+<h4>하위 호환성을 위한 <code>Unpack</code></h4>
+<p>이 맥락에서 별표 연산자를 사용하는 것은 문법 변경이 필요하며, 따라서 새로운 Python 버전에서만 사용할 수 있습니다. 이전 Python 버전에서 타입 변수 튜플을 사용할 수 있도록 하기 위해, 별표 연산자 대신 사용할 수 있는 <code>Unpack</code> 타입 연산자가 도입됩니다.</p>
+<pre><code class="language-python"># 새로운 Python 버전에서 별표 연산자를 사용한 언패킹
+class Array(Generic[*Shape]): ...
+
+# 이전 Python 버전에서 `Unpack`을 사용한 언패킹
+from typing import Unpack
+class Array(Generic[Unpack[Shape]]): ...
+</code></pre>
+<h4>분산, 타입 제약 및 타입 바운드: 아직 지원되지 않음</h4>
+<p>이 PEP를 최소한으로 유지하기 위해 <code>TypeVarTuple</code>은 아직 다음 사양을 지원하지 않습니다.</p>
+<ul>
+<li>분산 (예: <code>TypeVar('T', covariant=True)</code>)</li>
+<li>타입 제약 (<code>TypeVar('T', int, float)</code>)</li>
+<li>타입 바운드 (<code>TypeVar('T', bound=ParentClass)</code>)</li>
+</ul>
+<p>가변 제네릭이 현장에서 테스트된 후, 이러한 인수가 어떻게 작동해야 하는지에 대한 결정은 미래의 PEP로 미룹니다. 이 PEP 현재, 타입 변수 튜플은 불변(invariant)입니다.</p>
+<h4>Type Variable Tuple 동등성</h4>
+<p>동일한 <code>TypeVarTuple</code> 인스턴스가 시그니처 또는 클래스의 여러 위치에서 사용되는 경우, 유효한 타입 추론은 <code>TypeVarTuple</code>을 타입들의 <code>Union</code> 튜플에 바인딩하는 것일 수 있습니다.</p>
+<pre><code class="language-python">def foo(arg1: Tuple[*Ts], arg2: Tuple[*Ts]): ...
+a = (0,)
+b = ('0',)
+foo(a, b) # Ts를 Tuple[int | str]에 바인딩할 수 있을까?
+</code></pre>
+<p>이것은 허용되지 않습니다. 타입 유니언(type unions)은 <code>Tuple</code> 내부에 나타날 수 없습니다. 타입 변수 튜플이 시그니처의 여러 위치에 나타나는 경우, 타입은 정확히 일치해야 합니다 (타입 매개변수 목록의 길이가 같아야 하고, 타입 매개변수 자체도 동일해야 합니다).</p>
+<pre><code class="language-python">def pointwise_multiply(
+    x: Array[*Shape],
+    y: Array[*Shape]
+) -> Array[*Shape]: ...
+
+x: Array[Height]
+y: Array[Width]
+z: Array[Height, Width]
+
+pointwise_multiply(x, x) # 유효함 (Valid)
+pointwise_multiply(x, y) # 오류 (Error)
+pointwise_multiply(x, z) # 오류 (Error)
+</code></pre>
+<h4>다중 Type Variable Tuples: 허용되지 않음</h4>
+<p>이 PEP 현재, 타입 매개변수 목록에는 단 하나의 타입 변수 튜플만 나타날 수 있습니다.</p>
+<pre><code class="language-python">class Array(Generic[*Ts1, *Ts2]): ... # 오류 (Error)
+</code></pre>
+<p>그 이유는 여러 타입 변수 튜플이 어떤 매개변수가 어떤 타입 변수 튜플에 바인딩되는지 모호하게 만들기 때문입니다.</p>
+<pre><code class="language-python">x: Array[int, str, bool] # Ts1 = ???, Ts2 = ???
+</code></pre>
+<h4>Type Concatenation (타입 연결)</h4>
+<p>타입 변수 튜플은 단독으로 사용될 필요가 없습니다. 일반 타입이 접두사 및/또는 접미사로 붙을 수 있습니다.</p>
+<pre><code class="language-python">Shape = TypeVarTuple('Shape')
+Batch = NewType('Batch', int)
+Channels = NewType('Channels', int)
+
+def add_batch_axis(x: Array[*Shape]) -> Array[Batch, *Shape]: ...
+def del_batch_axis(x: Array[Batch, *Shape]) -> Array[*Shape]: ...
+def add_batch_channels(
+    x: Array[*Shape]
+) -> Array[Batch, *Shape, Channels]: ...
+
+a: Array[Height, Width]
+b = add_batch_axis(a)       # 추론된 타입은 Array[Batch, Height, Width]
+c = del_batch_axis(b)       # Array[Height, Width]
+d = add_batch_channels(a)   # Array[Batch, Height, Width, Channels]
+</code></pre>
+<p>일반 <code>TypeVar</code> 인스턴스도 접두사 및/또는 접미사로 붙을 수 있습니다.</p>
+<pre><code class="language-python">T = TypeVar('T')
+Ts = TypeVarTuple('Ts')
+
+def prefix_tuple(
+    x: T,
+    y: Tuple[*Ts]
+) -> Tuple[T, *Ts]: ...
+
+z = prefix_tuple(x=0, y=(True, 'a')) # z의 추론된 타입은 Tuple[int, bool, str]
+</code></pre>
+<h3>Unpacking Tuple Types (튜플 타입 언팩)</h3>
+<p><code>TypeVarTuple</code>이 타입 튜플을 나타낸다고 언급했습니다. <code>TypeVarTuple</code>을 언팩할 수 있으므로, 일관성을 위해 튜플 타입도 언팩하는 것을 허용합니다. 곧 보겠지만, 이는 여러 흥미로운 기능도 가능하게 합니다.</p>
+<h4>Concrete Tuple Types 언팩</h4>
+<p>구체적인 튜플 타입을 언팩하는 것은 런타임에 값 튜플을 언팩하는 것과 유사합니다. <code>Tuple[int, *Tuple[bool, bool], str]</code>은 <code>Tuple[int, bool, bool, str]</code>과 동일합니다.</p>
+<h4>Unbounded Tuple Types 언팩</h4>
+<p>무한(unbounded) 튜플을 언팩하면 무한 튜플이 그대로 유지됩니다. 즉, <code>*Tuple[int, ...]</code>는 <code>*Tuple[int, ...]</code>로 남으며, 더 간단한 형태는 없습니다. 이를 통해 <code>Tuple[int, *Tuple[str, ...], str]</code>와 같은 타입을 지정할 수 있습니다. 이는 첫 번째 요소가 <code>int</code> 타입임을 보장하고, 마지막 요소가 <code>str</code> 타입임을 보장하며, 중간 요소는 0개 이상의 <code>str</code> 타입 요소로 구성된 튜플 타입입니다. <code>Tuple[*Tuple[int, ...]]</code>는 <code>Tuple[int, ...]</code>와 동일합니다.</p>
+<p>무한 튜플을 언팩하는 것은 정확한 요소를 신경 쓰지 않고 불필요한 <code>TypeVarTuple</code>을 정의하고 싶지 않은 함수 시그니처에서도 유용합니다.</p>
+<pre><code class="language-python">from typing import Any
+
+def process_batch_channels(
+    x: Array[Batch, *Tuple[Any, ...], Channels]
+) -> None: ...
+
+x: Array[Batch, Height, Width, Channels]
+process_batch_channels(x) # OK
+
+y: Array[Batch, Channels]
+process_batch_channels(y) # OK
+
+z: Array[Batch]
+process_batch_channels(z) # Error: Channels를 예상했습니다.
+</code></pre>
+<p><code>*Tuple[int, ...]</code>를 <code>*Ts</code>가 예상되는 모든 곳에 전달할 수도 있습니다. 이는 특히 동적인 코드를 가지고 있고 정확한 차원 수 또는 각 차원의 정확한 타입을 지정할 수 없을 때 유용합니다. 이러한 경우, 무한 튜플로 매끄럽게 대체할 수 있습니다.</p>
+<pre><code class="language-python">y: Array[*Tuple[Any, ...]] = read_from_file()
+
+def expect_variadic_array(
+    x: Array[Batch, *Shape]
+) -> None: ...
+
+expect_variadic_array(y) # OK
+
+def expect_precise_array(
+    x: Array[Batch, Height, Width, Channels]
+) -> None: ...
+
+expect_precise_array(y) # OK
+</code></pre>
+<p><code>Array[*Tuple[Any, ...]]</code>는 <code>Any</code> 타입의 임의의 수의 차원을 가진 배열을 나타냅니다. 이는 <code>expect_variadic_array</code> 호출에서 <code>Batch</code>가 <code>Any</code>에 바인딩되고 <code>Shape</code>가 <code>Tuple[Any, ...]</code>에 바인딩됨을 의미합니다. <code>expect_precise_array</code> 호출에서는 <code>Batch</code>, <code>Height</code>, <code>Width</code>, <code>Channels</code> 변수 모두 <code>Any</code>에 바인딩됩니다.</p>
+<p>이를 통해 사용자는 동적인 코드를 우아하게 처리하면서도 코드에 안전하지 않음을 명시적으로 표시할 수 있습니다 (<code>y: Array[*Tuple[Any, ...]]</code> 사용). 그렇지 않으면, 레거시 코드베이스를 <code>TypeVarTuple</code>을 사용하도록 마이그레이션하려고 할 때마다 타입 검사기로부터 시끄러운 오류에 직면하게 되어 방해가 될 것입니다.</p>
+<h4>튜플 내 여러 언패킹: 허용되지 않음</h4>
+<p><code>TypeVarTuple</code>과 마찬가지로 튜플 내에서는 하나의 언패킹만 나타날 수 있습니다.</p>
+<pre><code class="language-python">x: Tuple[int, *Ts, str, *Ts2] # 오류 (Error)
+y: Tuple[int, *Tuple[int, ...], str, *Tuple[str, ...]] # 오류 (Error)
+</code></pre>
+<h3><code>*args</code>를 Type Variable Tuple로 사용</h3>
+<p>PEP 484는 <code>*args</code>에 타입 어노테이션이 제공되면 모든 인수가 어노테이션된 타입이어야 한다고 명시합니다. 즉, <code>*args</code>를 <code>int</code> 타입으로 지정하면 모든 인수가 <code>int</code> 타입이어야 합니다. 이는 이종(heterogeneous) 인자 타입을 받는 함수의 타입 시그니처를 지정하는 능력을 제한합니다.</p>
+<p>그러나 <code>*args</code>가 타입 변수 튜플로 어노테이션되면 개별 인수의 타입은 타입 변수 튜플 내의 타입이 됩니다.</p>
+<pre><code class="language-python">Ts = TypeVarTuple('Ts')
+def args_to_tuple(*args: *Ts) -> Tuple[*Ts]: ...
+
+args_to_tuple(1, 'a') # 추론된 타입은 Tuple[int, str]
+</code></pre>
+<p>위 예시에서 <code>Ts</code>는 <code>Tuple[int, str]</code>에 바인딩됩니다. 인수가 전달되지 않으면 타입 변수 튜플은 빈 튜플인 <code>Tuple[()]</code>처럼 작동합니다.</p>
+<p>일반적으로, 우리는 어떤 튜플 타입이든 언팩할 수 있습니다. 예를 들어, 다른 타입들의 튜플 내부에 타입 변수 튜플을 사용하여 가변 인자 목록의 접두사 또는 접미사를 참조할 수 있습니다.</p>
+<pre><code class="language-python"># os.execle은 'path, arg0, arg1, ..., env' 인수를 받습니다.
+def execle(path: str, *args: *Tuple[*Ts, Env]) -> None: ...
+</code></pre>
+<p>이는 다음 코드와 다릅니다.</p>
+<pre><code class="language-python">def execle(path: str, *args: *Ts, env: Env) -> None: ...
+</code></pre>
+<p>위 코드는 <code>env</code>를 키워드 전용(keyword-only) 인수로 만들기 때문입니다.</p>
+<p>언팩된 무한 튜플을 사용하는 것은 <code>*args: int</code>의 PEP 484 동작과 동일하며, 이는 0개 이상의 <code>int</code> 타입 값을 받습니다.</p>
+<pre><code class="language-python">def foo(*args: *Tuple[int, ...]) -> None: ...
+# 다음과 동일합니다:
+def foo(*args: int) -> None: ...
+</code></pre>
+<p>튜플 타입을 언팩하면 이종 <code>*args</code>에 대해 더 정확한 타입을 지정할 수 있습니다. 다음 함수는 시작에 <code>int</code>, 0개 이상의 <code>str</code> 값, 그리고 끝에 <code>str</code>을 예상합니다.</p>
+<pre><code class="language-python">def foo(*args: *Tuple[int, *Tuple[str, ...], str]) -> None: ...
+</code></pre>
+<p>완전성을 위해, 구체적인 튜플을 언팩하면 고정된 수의 이종 <code>*args</code> 타입을 지정할 수 있음을 언급합니다.</p>
+<pre><code class="language-python">def foo(*args: *Tuple[int, str]) -> None: ...
+foo(1, "hello") # OK
+</code></pre>
+<p>타입 변수 튜플은 항상 언팩되어야 한다는 규칙에 따라 <code>*args</code>를 평범한 타입 변수 튜플 인스턴스로 어노테이션하는 것은 허용되지 않습니다.</p>
+<pre><code class="language-python">def foo(*args: Ts): ... # 유효하지 않음 (NOT valid)
+</code></pre>
+<p><code>*args</code>는 인수가 <code>*Ts</code>로 직접 어노테이션될 수 있는 유일한 경우입니다. 다른 인수들은 <code>*Ts</code>를 사용하여 <code>Tuple[*Ts]</code>와 같이 다른 것을 매개변수화해야 합니다. 만약 <code>*args</code> 자체가 <code>Tuple[*Ts]</code>로 어노테이션된다면, 이전 동작이 여전히 적용됩니다: 모든 인수는 동일한 타입으로 매개변수화된 <code>Tuple</code>이어야 합니다.</p>
+<pre><code class="language-python">def foo(*args: Tuple[*Ts]): ...
+foo((0,), (1,))     # 유효함
+foo((0,), (1, 2))   # 오류
+foo((0,), ('1',))   # 오류
+</code></pre>
+<p>마지막으로, 타입 변수 튜플은 <code> **kwargs</code>의 타입으로 사용될 수 없습니다. (이 기능에 대한 사용 사례를 아직 알지 못하므로, 잠재적인 미래 PEP를 위해 여지를 남겨두는 것을 선호합니다.)</p>
+<pre><code class="language-python"># 유효하지 않음 (NOT valid)
+def foo(** kwargs: *Ts): ...
+</code></pre>
+<h3>Callable을 사용하는 Type Variable Tuples</h3>
+<p>타입 변수 튜플은 <code>Callable</code>의 인수 섹션에서도 사용될 수 있습니다.</p>
+<pre><code class="language-python">from typing import Callable, Tuple
+
+class Process:
+    def __init__(
+        self,
+        target: Callable[[*Ts], None],
+        args: Tuple[*Ts],
+    ) -> None: ...
+
+def func(arg1: int, arg2: str) -> None: ...
+
+Process(target=func, args=(0, 'foo')) # 유효함
+Process(target=func, args=('foo', 0)) # 오류
+</code></pre>
+<p>다른 타입과 일반 타입 변수도 타입 변수 튜플에 접두사/접미사로 붙을 수 있습니다.</p>
+<pre><code class="language-python">T = TypeVar('T')
+def foo(f: Callable[[int, *Ts, T], Tuple[T, *Ts]]): ...
+</code></pre>
+<p>언팩된 항목(TypeVarTuple 또는 튜플 타입)을 포함하는 <code>Callable</code>의 동작은 요소들을 <code>*args</code>의 타입인 것처럼 처리하는 것입니다. 따라서 <code>Callable[[*Ts], None]</code>는 다음 함수의 타입으로 처리됩니다.</p>
+<pre><code class="language-python">def foo(*args: *Ts) -> None: ...
+</code></pre>
+<p><code>Callable[[int, *Ts, T], Tuple[T, *Ts]]</code>는 다음 함수의 타입으로 처리됩니다.</p>
+<pre><code class="language-python">def foo(*args: *Tuple[int, *Ts, T]) -> Tuple[T, *Ts]: ...
+</code></pre>
+<h3>타입 매개변수가 지정되지 않은 경우의 동작</h3>
+<p>타입 변수 튜플로 매개변수화된 제네릭 클래스가 타입 매개변수 없이 사용될 때, 이는 타입 변수 튜플이 <code>Tuple[Any, ...]</code>로 대체된 것처럼 작동합니다.</p>
+<pre><code class="language-python">def takes_any_array(arr: Array): ...
+# 다음과 동일합니다:
+def takes_any_array(arr: Array[*Tuple[Any, ...]]): ...
+
+x: Array[Height, Width]
+takes_any_array(x) # 유효함
+
+y: Array[Time, Height, Width]
+takes_any_array(y) # 또한 유효함
+</code></pre>
+<p>이는 점진적 타이핑(gradual typing)을 가능하게 합니다. 예를 들어, 일반 <code>TensorFlow Tensor</code>를 받는 기존 함수는 <code>Tensor</code>가 제네릭화되고 호출 코드가 <code>Tensor[Height, Width]</code>를 전달하더라도 여전히 유효합니다.</p>
+<p>이는 반대 방향으로도 작동합니다.</p>
+<pre><code class="language-python">def takes_specific_array(arr: Array[Height, Width]): ...
+z: Array # Array[*Tuple[Any, ...]]와 동일함
+takes_specific_array(z)
+</code></pre>
+<p>(자세한 내용은 "Unpacking Unbounded Tuple Types" 섹션을 참조하십시오.)</p>
+<p>이러한 방식으로 라이브러리가 <code>Array[Height, Width]</code>와 같은 타입을 사용하도록 업데이트되더라도, 해당 라이브러리 사용자는 코드 전체에 타입 어노테이션을 적용할 필요가 없습니다. 사용자는 코드의 어떤 부분을 타입 지정하고 어떤 부분을 지정하지 않을지 여전히 선택할 수 있습니다.</p>
+<h3>Type Aliases (타입 별칭)</h3>
+<p>제네릭 별칭은 일반 타입 변수와 유사하게 타입 변수 튜플을 사용하여 생성할 수 있습니다.</p>
+<pre><code class="language-python">IntTuple = Tuple[int, *Ts]
+NamedArray = Tuple[str, Array[*Ts]]
+
+IntTuple[float, bool] # Tuple[int, float, bool]과 동일
+NamedArray[Height]    # Tuple[str, Array[Height]]와 동일
+</code></pre>
+<p>이 예시가 보여주듯이, 별칭에 전달된 모든 타입 매개변수는 타입 변수 튜플에 바인딩됩니다.</p>
+<p>원래 <code>Array</code> 예시(요약 예시 참조)에 중요하게도, 이는 고정된 형태 또는 데이터 타입의 배열에 대한 편의 별칭을 정의할 수 있도록 합니다.</p>
+<pre><code class="language-python">Shape = TypeVarTuple('Shape')
+DType = TypeVar('DType')
+
+class Array(Generic[DType, *Shape]): ...
+
+# 예: Float32Array[Height, Width, Channels]
+Float32Array = Array[np.float32, *Shape]
+
+# 예: Array1D[np.uint8]
+Array1D = Array[DType, Any]
+</code></pre>
+<p>명시적으로 빈 타입 매개변수 목록이 주어지면, 별칭의 타입 변수 튜플은 비어 있게 설정됩니다.</p>
+<pre><code class="language-python">IntTuple[()] # Tuple[int]와 동일
+NamedArray[()] # Tuple[str, Array[()]]와 동일
+</code></pre>
+<p>타입 매개변수 목록이 완전히 생략되면, 지정되지 않은 타입 변수 튜플은 <code>Tuple[Any, ...]</code>로 처리됩니다 (타입 매개변수가 지정되지 않은 경우의 동작과 유사).</p>
+<pre><code class="language-python">def takes_float_array_of_any_shape(x: Float32Array): ...
+x: Float32Array[Height, Width] = Array()
+takes_float_array_of_any_shape(x) # 유효함
+
+def takes_float_array_with_specific_shape(
+    y: Float32Array[Height, Width]
+): ...
+y: Float32Array = Array()
+takes_float_array_with_specific_shape(y) # 유효함
+</code></pre>
+<p>일반 <code>TypeVar</code> 인스턴스도 이러한 별칭에서 사용될 수 있습니다.</p>
+<pre><code class="language-python">T = TypeVar('T')
+Foo = Tuple[T, *Ts]
+
+Foo[str, int] # T는 str에, Ts는 Tuple[int]에 바인딩됨
+Foo[float]    # T는 float에, Ts는 Tuple[()]에 바인딩됨
+Foo           # T는 Any에, Ts는 Tuple[Any, ...]에 바인딩됨
+</code></pre>
+<h4>별칭의 대체 (Substitution)</h4>
+<p>이전 섹션에서는 타입 인수가 단순히 단순한 타입인 제네릭 별칭의 간단한 사용법만 다루었습니다. 그러나 더 이국적인 구성도 가능합니다.</p>
+<p><strong>타입 인수는 가변적일 수 있습니다.</strong></p>
+<p>첫째, 제네릭 별칭에 대한 타입 인수는 가변적일 수 있습니다. 예를 들어, <code>TypeVarTuple</code>은 타입 인수로 사용될 수 있습니다.</p>
+<pre><code class="language-python">Ts1 = TypeVarTuple('Ts1')
+Ts2 = TypeVarTuple('Ts2')
+
+IntTuple = Tuple[int, *Ts1]
+IntFloatTuple = IntTuple[float, *Ts2] # 유효함
+</code></pre>
+<p>여기서 <code>IntTuple</code> 별칭의 <code>*Ts1</code>은 <code>Tuple[float, *Ts2]</code>에 바인딩되어, <code>Tuple[int, float, *Ts2]</code>와 동일한 <code>IntFloatTuple</code> 별칭이 됩니다.</p>
+<p>언팩된 임의 길이 튜플도 타입 인수로 사용될 수 있으며, 비슷한 효과를 냅니다.</p>
+<pre><code class="language-python">IntFloatsTuple = IntTuple[*Tuple[float, ...]] # 유효함
+</code></pre>
+<p>여기서 <code>*Ts1</code>은 <code>*Tuple[float, ...]</code>에 바인딩되어, <code>IntFloatsTuple</code>은 <code>Tuple[int, *Tuple[float, ...]]</code>와 동일해집니다. 이는 <code>int</code>와 0개 이상의 <code>float</code>로 구성된 튜플입니다.</p>
+<p><strong>가변 인수는 가변 별칭이 필요합니다.</strong></p>
+<p>가변 타입 인수는 그 자체로 가변적인 제네릭 별칭에서만 사용될 수 있습니다.</p>
+<pre><code class="language-python">T = TypeVar('T')
+IntTuple = Tuple[int, T]
+
+IntTuple[str] # 유효함
+IntTuple[*Ts] # 유효하지 않음 (NOT valid)
+IntTuple[*Tuple[float, ...]] # 유효하지 않음 (NOT valid)
+</code></pre>
+<p>여기서 <code>IntTuple</code>은 정확히 하나의 타입 인수를 받는 비가변 제네릭 별칭입니다. 따라서 <code>*Ts</code> 또는 <code>*Tuple[float, ...]</code>를 타입 인수로 받을 수 없습니다. 이는 임의의 수의 타입을 나타내기 때문입니다.</p>
+<p><strong>TypeVar와 TypeVarTuple을 모두 포함하는 별칭.</strong></p>
+<p>"Aliases" 섹션에서 별칭이 <code>TypeVar</code>와 <code>TypeVarTuple</code> 모두에 대해 제네릭일 수 있음을 간략하게 언급했습니다.</p>
+<pre><code class="language-python">T = TypeVar('T')
+Foo = Tuple[T, *Ts]
+
+Foo[str, int]         # T는 str에, Ts는 Tuple[int]에 바인딩됨
+Foo[str, int, float]  # T는 str에, Ts는 Tuple[int, float]에 바인딩됨
+</code></pre>
+<p>"Multiple Type Variable Tuples: Not Allowed"에 따라, 별칭의 타입 매개변수에는 최대 하나의 <code>TypeVarTuple</code>만 나타날 수 있습니다. 그러나 <code>TypeVarTuple</code>은 앞뒤로 임의의 수의 <code>TypeVar</code>와 결합될 수 있습니다.</p>
+<pre><code class="language-python">T1 = TypeVar('T1')
+T2 = TypeVar('T2')
+T3 = TypeVar('T3')
+
+Tuple[*Ts, T1, T2]      # 유효함
+Tuple[T1, T2, *Ts]      # 유효함
+Tuple[T1, *Ts, T2, T3]  # 유효함
+</code></pre>
+<p>제공된 타입 인수로 이러한 타입 변수를 대체하려면, 타입 매개변수 목록의 시작 또는 끝에 있는 타입 변수가 먼저 타입 인수를 소비하고, 나머지 타입 인수는 <code>TypeVarTuple</code>에 바인딩됩니다.</p>
+<pre><code class="language-python">Shrubbery = Tuple[*Ts, T1, T2]
+
+Shrubbery[str, bool]          # T2=bool, T1=str, Ts=Tuple[()]
+Shrubbery[str, bool, float]   # T2=float, T1=bool, Ts=Tuple[str]
+Shrubbery[str, bool, float, int] # T2=int, T1=float, Ts=Tuple[str, bool]
+
+Ptang = Tuple[T1, *Ts, T2, T3]
+
+Ptang[str, bool, float]       # T1=str, T3=float, T2=bool, Ts=Tuple[()]
+Ptang[str, bool, float, int]  # T1=str, T3=int, T2=float, Ts=Tuple[bool]
+</code></pre>
+<p>이러한 경우의 최소 타입 인수는 <code>TypeVar</code>의 수에 따라 결정됩니다.</p>
+<pre><code class="language-python">Shrubbery[int] # 유효하지 않음; Shrubbery는 최소 두 개의 타입 인수가 필요합니다.
+</code></pre>
+<p><strong>임의 길이 튜플 분할.</strong></p>
+<p><code>TypeVar</code>와 <code>TypeVarTuple</code>을 모두 포함하는 별칭에 타입 인수로 언팩된 임의 길이 튜플이 사용될 때 최종적인 복잡성이 발생합니다.</p>
+<pre><code class="language-python">Elderberries = Tuple[*Ts, T1]
+Hamster = Elderberries[*Tuple[int, ...]] # 유효함
+</code></pre>
+<p>이러한 경우, 임의 길이 튜플은 <code>TypeVar</code>와 <code>TypeVarTuple</code> 사이에서 분할됩니다. 우리는 임의 길이 튜플이 <code>TypeVar</code>의 수만큼 항목을 포함한다고 가정하며, 내부 타입의 개별 인스턴스(여기서는 <code>int</code>)는 존재하는 <code>TypeVar</code>에 바인딩됩니다. 임의 길이 튜플의 '나머지' (여기서는 <code>*Tuple[int, ...]</code>, 왜냐하면 임의 길이 튜플에서 두 항목을 빼도 여전히 임의 길이기 때문입니다)는 <code>TypeVarTuple</code>에 바인딩됩니다.</p>
+<p>따라서 여기서 <code>Hamster</code>는 <code>Tuple[*Tuple[int, ...], int]</code>와 동일합니다. 즉, 0개 이상의 <code>int</code>와 마지막 <code>int</code>로 구성된 튜플입니다.</p>
+<p>물론, 이러한 분할은 필요한 경우에만 발생합니다. 예를 들어, 대신 다음과 같이 했다면.</p>
+<pre><code class="language-python">Elderberries[*Tuple[int, ...], str]
+</code></pre>
+<p>분할은 발생하지 않을 것입니다. <code>T1</code>은 <code>str</code>에 바인딩되고, <code>Ts</code>는 <code>*Tuple[int, ...]</code>에 바인딩됩니다.</p>
+<p>특히 까다로운 경우, <code>TypeVarTuple</code>은 타입과 임의 길이 튜플 타입의 일부를 모두 소비할 수 있습니다.</p>
+<pre><code class="language-python">Elderberries[str, *Tuple[int, ...]]
+</code></pre>
+<p>여기서 <code>T1</code>은 <code>int</code>에 바인딩되고, <code>Ts</code>는 <code>Tuple[str, *Tuple[int, ...]]</code>에 바인딩됩니다. 따라서 이 표현식은 <code>Tuple[str, *Tuple[int, ...], int]</code>와 동일합니다. 즉, <code>str</code> 다음에 0개 이상의 <code>int</code>가 오고, 마지막에 <code>int</code>로 끝나는 튜플입니다.</p>
+<p><strong>TypeVarTuples는 분할될 수 없습니다.</strong></p>
+<p>마지막으로, 타입 인수 목록의 임의 길이 튜플은 타입 변수와 타입 변수 튜플 사이에서 분할될 수 있지만, 인수 목록의 <code>TypeVarTuple</code>에는 동일하게 적용되지 않습니다.</p>
+<pre><code class="language-python">Ts1 = TypeVarTuple('Ts1')
+Ts2 = TypeVarTuple('Ts2')
+
+Camelot = Tuple[T, *Ts1]
+Camelot[*Ts2] # 유효하지 않음 (NOT valid)
+</code></pre>
+<p>이는 언팩된 임의 길이 튜플의 경우와 달리 <code>TypeVarTuple</code> 내부를 '들여다보아' 개별 타입이 무엇인지 알 방법이 없기 때문에 불가능합니다.</p>
+<h3>개별 타입 접근을 위한 오버로드</h3>
+<p>타입 변수 튜플의 각 개별 타입에 접근해야 하는 상황에서는 타입 변수 튜플 대신 개별 <code>TypeVar</code> 인스턴스와 함께 오버로드(overloads)를 사용할 수 있습니다.</p>
+<pre><code class="language-python">from typing import overload
+
+Shape = TypeVarTuple('Shape')
+Axis1 = TypeVar('Axis1')
+Axis2 = TypeVar('Axis2')
+Axis3 = TypeVar('Axis3')
+
+class Array(Generic[*Shape]):
+    @overload
+    def transpose(
+        self: Array[Axis1, Axis2]
+    ) -> Array[Axis2, Axis1]: ...
+    @overload
+    def transpose(
+        self: Array[Axis1, Axis2, Axis3]
+    ) -> Array[Axis3, Axis2, Axis1]: ...
+</code></pre>
+<p>(특히 배열 형태 연산의 경우, 가능한 각 랭크에 대해 오버로드를 지정해야 하는 것은 다소 번거로운 해결책입니다. 그러나 추가적인 타입 조작 메커니즘 없이는 최선입니다. 이러한 메커니즘은 미래의 PEP에서 도입될 예정입니다.)</p>
+<h2>근거 및 거부된 아이디어</h2>
+<h3>형태 연산 (Shape Arithmetic)</h3>
+<p>특히 배열 형태의 사용 사례를 고려할 때, 이 PEP 현재 배열 차원의 산술 변환(예: <code>def repeat_each_element(x: Array[N]) -> Array[2*N]</code>)을 설명하는 것은 아직 불가능합니다. 우리는 이를 현재 PEP의 범위 외로 간주하지만, 미래의 PEP에서 이를 가능하게 할 추가 메커니즘을 제안할 계획입니다.</p>
+<h3>별칭을 통한 가변성 지원</h3>
+<p>서론에서 언급했듯이, 가능한 각 수의 타입 매개변수에 대한 별칭을 정의하는 것만으로 가변 제네릭을 피할 수 있습니다.</p>
+<pre><code class="language-python">class Array1(Generic[Axis1]): ...
+class Array2(Generic[Axis1, Axis2]): ...
+</code></pre>
+<p>그러나 이는 다소 서투르게 보입니다. 사용자에게는 필요한 각 랭크에 대해 코드에 불필요하게 1, 2 등을 뿌려야 하는 번거로움이 있습니다.</p>
+<h3>TypeVarTuple의 구성</h3>
+<p><code>TypeVarTuple</code>은 Pyre의 초기 구현에서 이름을 따와 <code>ListVariadic</code>으로 시작했습니다.</p>
+<p>그 후 <code>TypeVar(list=True)</code>로 변경되었는데, 그 이유는 a) <code>TypeVar</code>와의 유사성을 더 잘 강조하고, b) 'list'의 의미가 'variadic'이라는 전문 용어보다 더 쉽게 이해되기 때문이었습니다.</p>
+<p>가변 타입 변수가 <code>Tuple</code>처럼 작동해야 한다고 결정한 후, <code>TypeVar(bound=Tuple)</code>도 고려했습니다. 이는 비슷하게 직관적이며 <code>TypeVar</code>에 새로운 인수를 요구하지 않고 우리가 원했던 대부분을 달성했습니다. 그러나 예를 들어, 타입 바운드(type bounds)나 분산(variance)이 <code>TypeVar</code>의 의미가 암시하는 것과 약간 다르게 작동하도록 하려면 미래에 제약이 될 수 있음을 깨달았습니다. 또한, 나중에 일반 타입 변수에서는 지원되어서는 안 되는 인수(예: <code>arbitrary_len</code>)를 지원하고 싶을 수도 있습니다.</p>
+<p>따라서 우리는 <code>TypeVarTuple</code>로 결정했습니다.</p>
+<h3>지정되지 않은 타입 매개변수: <code>Tuple</code> vs <code>TypeVarTuple</code></h3>
+<p>점진적 타이핑을 지원하기 위해 이 PEP는 다음 두 예시가 모두 올바르게 타입 검사되어야 한다고 명시합니다.</p>
+<pre><code class="language-python">def takes_any_array(x: Array): ...
+x: Array[Height, Width]
+takes_any_array(x)
+
+def takes_specific_array(y: Array[Height, Width]): ...
+y: Array
+takes_specific_array(y)
+</code></pre>
+<p>이는 Python에서 현재 유일하게 존재하는 가변 타입인 <code>Tuple</code>의 동작과는 대조적입니다.</p>
+<pre><code class="language-python">def takes_any_tuple(x: Tuple): ...
+x: Tuple[int, str]
+takes_any_tuple(x) # 유효함
+
+def takes_specific_tuple(y: Tuple[int, str]): ...
+y: Tuple
+takes_specific_tuple(y) # 오류
+</code></pre>
+<p><code>Tuple</code>에 대한 규칙은 후자 경우가 오류가 되도록 의도적으로 선택되었습니다. 프로그래머가 실수를 저질렀을 가능성이 더 높고, 함수가 특정 종류의 <code>Tuple</code>을 예상하지만 전달된 특정 종류의 <code>Tuple</code>이 타입 검사기에게 알려지지 않았을 가능성은 낮다고 생각되었습니다. 또한, <code>Tuple</code>은 변경 불가능한 시퀀스(immutable sequences)를 나타내는 데 사용된다는 점에서 다소 특별한 경우입니다. 즉, 객체의 타입이 매개변수화되지 않은 <code>Tuple</code>로 추론되었다고 해서 반드시 불완전한 타이핑 때문인 것은 아닙니다.</p>
+<p>이와 대조적으로, 객체의 타입이 매개변수화되지 않은 <code>Array</code>로 추론되었다면, 사용자가 단순히 코드를 완전히 어노테이션하지 않았거나, 형태를 조작하는 라이브러리 함수의 시그니처가 아직 타이핑 시스템을 사용하여 표현될 수 없으므로 일반 <code>Array</code>를 반환하는 것이 유일한 옵션일 가능성이 훨씬 더 높습니다. 우리는 진정으로 임의의 형태를 가진 배열을 거의 다루지 않습니다. 특정 경우, 형태의 일부는 임의적일 수 있습니다 (예: 시퀀스를 다룰 때 형태의 처음 두 부분은 종종 'batch'와 'time'입니다). 그러나 우리는 미래의 PEP에서 <code>Array[Batch, Time, ...]</code>와 같은 구문으로 이러한 경우를 명시적으로 지원할 계획입니다.</p>
+<p>따라서 우리는 사용자에게 코드의 어느 정도를 어노테이션할지 더 많은 유연성을 제공하고, 오래된 어노테이션 없는 코드와 이러한 타입 어노테이션을 사용하는 라이브러리의 새 버전 간의 호환성을 가능하게 하기 위해 <code>Tuple</code> 이외의 가변 제네릭이 다르게 작동하도록 결정했습니다.</p>
+<h2>대안</h2>
+<p>수치 라이브러리에서 형태 검사 문제를 해결하기 위해 이 PEP에서 제시된 접근 방식이 유일한 접근 방식은 아닙니다. 런타임 검사에 기반한 더 경량화된 대안의 예시로는 ShapeGuard, tsanley, PyContracts 등이 있습니다.</p>
+<p>이러한 기존 접근 방식은 형태 검사가 길고 장황한 <code>assert</code> 문을 통해서만 가능했던 기본 상황을 크게 개선하지만, 형태 정확성에 대한 정적 분석을 가능하게 하는 것은 없습니다. 동기(Motivation)에서 언급했듯이, 이는 라이브러리 및 인프라 복잡성으로 인해 상대적으로 간단한 프로그램도 긴 시작 시간을 겪어야 하는 머신러닝 애플리케이션에서 특히 바람직한 기능입니다. 기존 런타임 기반 접근 방식에서와 같이 프로그램이 충돌할 때까지 실행하여 반복하는 것은 지루하고 실망스러운 경험이 될 수 있습니다.</p>
+<p>이 PEP를 통해 우리는 제네릭 타입 어노테이션을 형태 정확성을 다루는 공식적이고 언어가 지원하는 방식으로 성문화하기 시작하기를 희망합니다. 표준이 마련되면 장기적으로는 수치 연산 프로그램의 형태 속성을 분석하고 검증하는 도구의 번성하는 생태계를 가능하게 할 것입니다.</p>
+<h3>문법 변경</h3>
+<p>이 PEP는 두 가지 문법 변경을 요구합니다.</p>
+<h4>변경 1: 인덱스의 별표 표현식</h4>
+<p>첫 번째 문법 변경은 인덱스 연산(즉, 대괄호 안)에서 별표 표현식 사용을 가능하게 하며, 이는 <code>TypeVarTuple</code>의 별표 언팩을 지원하는 데 필요합니다.</p>
+<pre><code class="language-python">DType = TypeVar('DType')
+Shape = TypeVarTuple('Shape')
+
+class Array(Generic[DType, *Shape]): ...
+</code></pre>
+<p>이전 (Before):
+<code>slices: | slice !',' | ','.slice+ [',']</code></p>
+<p>이후 (After):
+<code>slices: | slice !',' | ','.(slice | starred_expression)+ [',']</code></p>
+<p>다른 맥락에서의 별표 언팩과 마찬가지로, 별표 연산자는 피호출자(callee)에서 <code>__iter__</code>를 호출하고, 결과 이터레이터의 내용을 <code>__getitem__</code>에 전달된 인수에 추가합니다. 예를 들어, <code>foo[a, *b, c]</code>를 수행하고 <code>b.__iter__</code>가 <code>d</code>와 <code>e</code>를 생성하는 이터레이터를 생성하면, <code>foo.__getitem__</code>은 <code>(a, d, e, c)</code>를 받습니다.</p>
+<p>달리 말하면, <code>x[..., *a, ...]</code>는 <code>x[(..., *a, ...)]</code>와 동일한 결과를 생성합니다 ( <code>...</code>의 <code>i:j</code> 슬라이스는 <code>slice(i, j)</code>로 대체되며, <code>x[*a]</code>가 <code>x[(*a,)]</code>가 되는 예외적인 한 가지 경우가 있습니다).</p>
+<p><strong>TypeVarTuple 구현.</strong></p>
+<p>이러한 문법 변경으로 <code>TypeVarTuple</code>은 다음과 같이 구현됩니다. 이 구현은 a) 올바른 <code>repr()</code>과 b) 런타임 분석기에게만 유용하며, 정적 분석기는 이 구현을 사용하지 않습니다.</p>
+<pre><code class="language-python">class TypeVarTuple:
+    def __init__(self, name):
+        self._name = name
+        self._unpacked = UnpackedTypeVarTuple(name)
+
+    def __iter__(self):
+        yield self._unpacked
+
+    def __repr__(self):
+        return self._name
+
+class UnpackedTypeVarTuple:
+    def __init__(self, name):
+        self._name = name
+
+    def __repr__(self):
+        return '*' + self._name
+</code></pre>
+<p><strong>함의 (Implications).</strong></p>
+<p>이 문법 변경은 이 PEP에서 요구하지 않는 여러 추가적인 동작 변경을 의미합니다. 우리는 문법 변경을 가능한 한 작게 유지하기 위해 구문 수준에서 이러한 추가 변경을 금지하는 대신 허용하기로 선택합니다.</p>
+<p>첫째, 문법 변경은 인덱싱 연산 내에서 목록과 같은 다른 구조의 별표 언팩을 가능하게 합니다.</p>
+<pre><code class="language-python">idxs = (1, 2)
+array_slice = array[0, *idxs, -1] # [0, 1, 2, -1]과 동일
+array[0, *idxs, -1] = array_slice # 또한 허용됨
+</code></pre>
+<p>둘째, 인덱스 내에 두 개 이상의 별표 언팩 인스턴스가 나타날 수 있습니다.</p>
+<pre><code class="language-python">array[*idxs_to_select, *idxs_to_select] # array[1, 2, 1, 2]와 동일
+</code></pre>
+<p>이 PEP는 단일 타입 매개변수 목록 내에서 여러 언팩된 <code>TypeVarTuple</code>을 허용하지 않습니다. 따라서 이 요구 사항은 구문 수준이 아닌 타입 검사 도구 자체에서 구현되어야 합니다.</p>
+<p>셋째, 슬라이스와 별표 표현식이 함께 나타날 수 있습니다.</p>
+<pre><code class="language-python">array[3:5, *idxs_to_select] # array[3:5, 1, 2]와 동일
+</code></pre>
+<p>그러나 별표 표현식을 포함하는 슬라이스는 여전히 유효하지 않습니다.</p>
+<pre><code class="language-python"># 구문 오류
+array[*idxs_start:*idxs_end]
+</code></pre>
+<h4>변경 2: <code>*args</code>를 <code>TypeVarTuple</code>로 사용</h4>
+<p>두 번째 변경은 함수 정의에서 <code>*args: *Ts</code> 사용을 가능하게 합니다.</p>
+<p>이전 (Before):
+<code>star_etc: | '*' param_no_default param_maybe_default* [kwds] | '*' ',' param_maybe_default+ [kwds] | kwds</code></p>
+<p>이후 (After):
+<code>star_etc: | '*' param_no_default param_maybe_default* [kwds] | '*' param_no_default_star_annotation param_maybe_default* [kwds] # New | '*' ',' param_maybe_default+ [kwds] | kwds</code></p>
+<p>여기서:
+<code>param_no_default_star_annotation: | param_star_annotation ',' TYPE_COMMENT? | param_star_annotation TYPE_COMMENT? &#x26;')'</code>
+<code>param_star_annotation: NAME star_annotation</code>
+<code>star_annotation: ':' star_expression</code></p>
+<p>또한 이 구조에서 발생하는 <code>star_expression</code>을 처리해야 합니다. 일반적으로 <code>star_expression</code>은 예를 들어 목록의 컨텍스트 내에서 발생하므로, <code>star_expression</code>은 기본적으로 별표가 붙은 객체에서 <code>iter()</code>를 호출하고, 결과 이터레이터의 내용을 적절한 위치에 목록에 삽입하여 처리됩니다. 그러나 <code>*args: *Ts</code>의 경우 <code>star_expression</code>을 다른 방식으로 처리해야 합니다.</p>
+<p>우리는 대신 <code>*args: *Ts</code>에서 발생하는 <code>star_expression</code>에 대해 특별한 경우를 만들어서 <code>[annotation_value] = [*Ts]</code>와 동일한 코드를 내보냅니다. 즉, <code>Ts.__iter__</code>를 호출하여 <code>Ts</code>에서 이터레이터를 생성하고, 이터레이터에서 단일 값을 가져오고, 이터레이터가 소진되었는지 확인하고, 해당 값을 어노테이션 값으로 설정합니다. 이는 언팩된 <code>TypeVarTuple</code>이 <code>*args</code>의 런타임 어노테이션으로 직접 설정되도록 합니다.</p>
+<pre><code class="language-python">>>> Ts = TypeVarTuple('Ts')
+>>> def foo(*args: *Ts): pass
+>>> foo.__annotations__
+{'args': *Ts} # *Ts는 Ts._unpacked의 repr()이며, UnpackedTypeVarTuple의 인스턴스입니다.
+</code></pre>
+<p>이를 통해 런타임 어노테이션이 args의 어노테이션에 <code>Starred</code> 노드를 사용하는 AST 표현과 일치할 수 있습니다. 이는 <code>mypy</code>와 같이 AST에 의존하는 도구가 구조를 올바르게 인식하는 데 중요합니다.</p>
+<pre><code class="language-python">>>> import ast
+>>> print(ast.dump(ast.parse('def foo(*args: *Ts): pass'), indent=2))
+Module(
+    body=[
+        FunctionDef(
+            name='foo',
+            args=arguments(
+                posonlyargs=[],
+                args=[],
+                vararg=arg(
+                    arg='args',
+                    annotation=Starred(
+                        value=Name(id='Ts', ctx=Load()),
+                        ctx=Load())),
+                kwonlyargs=[],
+                kw_defaults=[],
+                defaults=[]),
+            body=[
+                Pass()],
+            decorator_list=[])],
+    type_ignores=[])
+</code></pre>
+<p>이 문법 변경이 <code>*Ts</code>를 직접적인 어노테이션으로 (예: <code>Tuple[*Ts]</code>로 래핑하지 않고) 사용할 수 있도록 허용하는 유일한 시나리오는 <code>*args</code>임을 참고하십시오. 다른 용도는 여전히 유효하지 않습니다.</p>
+<pre><code class="language-python">x: *Ts # 구문 오류
+def foo(x: *Ts): pass # 구문 오류
+</code></pre>
+<p><strong>함의 (Implications).</strong></p>
+<p>첫 번째 문법 변경과 마찬가지로, 이 변경도 여러 부작용을 가집니다. 특히, <code>*args</code>의 어노테이션은 <code>TypeVarTuple</code> 이외의 별표가 붙은 객체로 설정될 수 있습니다. 예를 들어, 다음 비논리적인 어노테이션이 가능합니다.</p>
+<pre><code class="language-python">>>> foo = [1]
+>>> def bar(*args: *foo): pass
+>>> bar.__annotations__
+{'args': 1}
+
+>>> foo = [1, 2]
+>>> def bar(*args: *foo): pass
+ValueError: too many values to unpack (expected 1)
+</code></pre>
+<p>다시 말하지만, 이러한 어노테이션의 방지는 구문 수준이 아닌 정적 검사기 등에 의해 이루어져야 합니다.</p>
+<h3>대안 (왜 <code>Unpack</code>을 사용하지 않는가?)</h3>
+<p>이러한 문법 변경이 너무 부담스럽다고 간주된다면, 두 가지 대안이 있습니다.</p>
+<p>첫 번째는 변경 1은 지원하지만 변경 2는 지원하지 않는 것입니다. 가변 제네릭은 <code>*args</code>를 어노테이션하는 능력보다 더 중요합니다.</p>
+<p>두 번째 대안은 문법 변경 없이 <code>Unpack</code>을 대신 사용하는 것입니다. 그러나 우리는 이를 두 가지 이유로 차선책으로 간주합니다.</p>
+<ol>
+<li><strong>가독성:</strong> <code>class Array(Generic[DType, Unpack[Shape]])</code>는 다소 장황하며, <code>Unpack</code>의 길이와 추가적인 대괄호 세트가 읽는 흐름을 방해합니다. <code>class Array(Generic[DType, *Shape])</code>는 <code>Shape</code>를 특별하게 표시하면서도 훨씬 쉽게 훑어볼 수 있습니다.</li>
+<li><strong>직관성:</strong> 사용자는 <code>Unpack[Ts]</code>의 의미보다 <code>*Ts</code>의 의미를 더 직관적으로 이해할 가능성이 높다고 생각합니다 (특히 <code>Ts</code>가 <code>TypeVarTuple</code>임을 알 때). (이는 사용자가 다른 맥락에서 별표 언팩에 익숙하다고 가정하며, 사용자가 가변 제네릭을 사용하는 코드를 읽거나 작성하는 경우 합리적으로 보입니다.)</li>
+</ol>
+<p>따라서 변경 1조차 너무 중요한 변경이라고 생각된다면, 이 두 번째 대안을 진행하기 전에 옵션을 재고하는 것이 더 나을 수 있습니다.</p>
+<h2>하위 호환성 (Backwards Compatibility)</h2>
+<p>이 PEP의 <code>Unpack</code> 버전은 이전 Python 버전으로 백포팅(back-portable)되어야 합니다.</p>
+<p>매개변수화되지 않은 가변 클래스가 임의의 수의 타입 매개변수와 호환된다는 사실로 인해 점진적 타이핑이 가능합니다. 이는 기존 클래스가 제네릭화될 경우 a) 클래스의 모든 기존 (매개변수화되지 않은) 사용은 여전히 작동하며, b) 클래스의 매개변수화된 버전과 매개변수화되지 않은 버전이 함께 사용될 수 있음을 의미합니다 (예를 들어, 라이브러리 코드가 매개변수를 사용하도록 업데이트되었지만 사용자 코드는 업데이트되지 않았거나 그 반대의 경우에 해당합니다).</p>
+<h2>참조 구현 (Reference Implementation)</h2>
+<p>타입 검사 기능에 대한 두 가지 참조 구현이 존재합니다. 하나는 Pyre v0.9.0에, 다른 하나는 Pyright v1.1.108에 있습니다.</p>
+<p>CPython에서 이 PEP의 <code>Unpack</code> 버전에 대한 예비 구현은 cpython/23527에서 사용할 수 있습니다. PEP 637의 초기 구현을 기반으로 하는 별표 연산자를 사용하는 버전의 예비 버전도 mrahtz/cpython/pep637+646에서 사용할 수 있습니다.</p>
+<h2>부록 A: 형태 타이핑 사용 사례</h2>
+<p>배열 타이핑 사용 사례에 특히 관심 있는 사람들에게 이 PEP에 추가적인 맥락을 제공하기 위해, 이 부록에서는 형태 기반 하위 타입을 지정하는 데 이 PEP를 사용할 수 있는 다양한 방법에 대해 설명합니다.</p>
+<h3>사용 사례 1: 형태 값 지정</h3>
+<p>배열 타입을 매개변수화하는 가장 간단한 방법은 <code>Literal</code> 타입 매개변수(예: <code>Array[Literal[64], Literal[64]]</code>)를 사용하는 것입니다.</p>
+<p>일반 타입 변수를 사용하여 각 매개변수에 이름을 붙일 수 있습니다.</p>
+<pre><code class="language-python">K = TypeVar('K')
+N = TypeVar('N')
+def matrix_vector_multiply(x: Array[K, N], y: Array[N]) -> Array[K]: ...
+
+a: Array[Literal[64], Literal[32]]
+b: Array[Literal[32]]
+matrix_vector_multiply(a, b) # 결과는 Array[Literal[64]]
+</code></pre>
+<p>이러한 이름은 순전히 지역적인 범위(local scope)를 가진다는 점에 유의하십시오. 즉, <code>K</code>라는 이름은 <code>matrix_vector_multiply</code> 내에서만 <code>Literal[64]</code>에 바인딩됩니다. 달리 말하면, 다른 시그니처의 <code>K</code> 값 사이에는 관계가 없습니다. 이는 중요합니다. 프로그램 전체에서 <code>K</code>라는 이름의 모든 축이 동일한 값을 가지도록 제약된다면 불편할 것입니다.</p>
+<p>이 접근 방식의 단점은 서로 다른 호출 간에 형태 의미론(shape semantics)을 강제할 수 없다는 것입니다. 예를 들어, 동기(Motivation)에서 언급된 문제를 해결할 수 없습니다. 한 함수가 선행 차원 'Time × Batch'를 가진 배열을 반환하고, 다른 함수가 동일한 배열을 선행 차원 'Batch × Time'으로 가정하여 받는 경우, 이를 감지할 방법이 없습니다.</p>
+<p>주요 장점은 어떤 경우에는 축 크기가 정말로 우리가 신경 쓰는 것이라는 점입니다. 이는 위와 같은 행렬 조작과 같은 간단한 선형 대수 연산뿐만 아니라 신경망의 컨볼루션 레이어와 같은 더 복잡한 변환에서도 해당됩니다. 이러한 경우 정적 분석을 사용하여 각 레이어 후의 배열 크기를 검사할 수 있다면 프로그래머에게 매우 유용할 것입니다. 이를 돕기 위해, 미래에는 배열 형태에 대한 산술 연산을 가능하게 하는 추가 타입 연산자(예: <code>def repeat_each_element(x: Array[N]) -> Array[Mul[2, N]]: ...</code>)의 가능성을 탐구하고자 합니다. 이러한 산술 타입 연산자는 <code>N</code>과 같은 이름이 축 크기를 참조하는 경우에만 의미가 있을 것입니다.</p>
+<h3>사용 사례 2: 형태 의미론 지정</h3>
+<p>두 번째 접근 방식(이 PEP의 대부분 예시가 기반으로 하는 접근 방식)은 실제 축 크기 어노테이션을 포기하고 대신 축 타입을 어노테이션하는 것입니다.</p>
+<p>이는 호출 간에 형태 속성을 강제하는 문제를 해결할 수 있도록 합니다.</p>
+<pre><code class="language-python"># lib.py
+class Batch: pass
+class Time: pass
+
+def make_array() -> Array[Batch, Time]: ...
+
+# user.py
+from lib import Batch, Time
+
+# `Batch`와 `Time`은 `lib`와 동일한 ID를 가지므로,
+# `lib.make_array`에 의해 생성된 배열을 받아야 합니다.
+def use_array(x: Array[Batch, Time]): ...
+</code></pre>
+<p>이 경우, 이름은 (다른 곳에서 동일한 <code>Batch</code> 타입을 사용하는 한) 전역적입니다. 그러나 이름이 축 타입만 참조하기 때문에 특정 축의 값이 프로그램 전체에서 동일하도록 제약하지 않습니다 (즉, <code>Height</code>라는 이름의 모든 축이 480과 같은 값을 가지도록 제약하지 않습니다).</p>
+<p>이 접근 방식의 주장은 많은 경우에 축 타입이 검증해야 할 더 중요한 것이라는 점입니다. 각 축의 특정 크기보다 어떤 축이 어떤 축인지가 더 중요합니다.</p>
+<p>이는 또한 미리 타입을 알지 못하고 형태 변환을 설명하려는 경우를 배제하지 않습니다. 예를 들어, 여전히 다음과 같이 작성할 수 있습니다.</p>
+<pre><code class="language-python">K = TypeVar('K')
+N = TypeVar('N')
+def matrix_vector_multiply(x: Array[K, N], y: Array[N]) -> Array[K]: ...
+</code></pre>
+<p>그런 다음 다음과 같이 사용할 수 있습니다.</p>
+<pre><code class="language-python">class Batch: pass
+class Values: pass
+
+batch_of_values: Array[Batch, Values]
+value_weights: Array[Values]
+matrix_vector_multiply(batch_of_values, value_weights) # 결과는 Array[Batch]
+</code></pre>
+<p>단점은 사용 사례 1의 장점의 역순입니다. 특히 이 접근 방식은 축 타입에 대한 산술 연산에 잘 맞지 않습니다. <code>Mul[2, Batch]</code>는 <code>2 * int</code>만큼 무의미할 것입니다.</p>
+<h3>논의 (Discussion)</h3>
+<p>사용 사례 1과 2는 사용자 코드에서 상호 배타적이라는 점에 유의하십시오. 사용자는 크기 또는 의미론적 타입 중 하나만 검증할 수 있습니다.</p>
+<p>이 PEP 현재, 우리는 어떤 접근 방식이 가장 큰 이점을 제공할지에 대해 중립적입니다. 그러나 이 PEP에서 도입된 기능은 두 접근 방식 모두와 호환되므로, 가능성을 열어 둡니다.</p>
+<p><strong>둘 다는 안 되는가?</strong></p>
+<p>다음 '일반' 코드를 고려해 봅시다.</p>
+<pre><code class="language-python">def f(x: int): ...
+</code></pre>
+<p>여기서 우리는 객체의 값(<code>x</code>)과 객체의 타입(<code>int</code>) 모두에 대한 기호를 가지고 있습니다. 축에서도 동일하게 할 수 없는 이유는 무엇일까요? 예를 들어, 가상의 구문으로 다음과 같이 작성할 수 있습니다.</p>
+<pre><code class="language-python">def f(array: Array[TimeValue: TimeType]): ...
+</code></pre>
+<p>이를 통해 <code>TimeValue</code> 기호를 통해 축 크기(예: 32)에 접근하고, <code>TypeType</code> 기호를 통해 타입에 접근할 수 있습니다.</p>
+<p>이는 두 번째 수준의 매개변수화를 통해 기존 구문을 사용하여도 가능할 수 있습니다.</p>
+<pre><code class="language-python">def f(array: array[TimeValue[TimeType]]): ..
+</code></pre>
+<p>그러나 이 접근 방식의 탐구는 미래로 미루어 둡니다.</p>
+<h2>부록 B: 형태가 있는 타입 vs 명명된 축 (Shaped Types vs Named Axes)</h2>
+<p>이 PEP에서 다루는 문제와 관련된 문제는 축 선택과 관련이 있습니다. 예를 들어, 64x64x3 형태의 배열에 저장된 이미지가 있다면, 세 번째 축에서 평균을 계산하여 흑백으로 변환하고 싶을 수 있습니다 (<code>mean(image, axis=2)</code>). 불행히도, <code>axis=1</code>과 같은 간단한 오타는 발견하기 어렵고 완전히 다른 의미의 결과를 생성할 것입니다 (그러면서도 프로그램은 계속 실행될 가능성이 높으며, 심각하지만 침묵하는 버그로 이어집니다).</p>
+<p>이에 대응하여 일부 라이브러리는 축이 인덱스가 아닌 레이블로 선택되는 이른바 '명명된 텐서(named tensors)'를 구현했습니다 (이 맥락에서 '텐서'는 '배열'과 동의어입니다). 예를 들어 <code>mean(image, axis='channels')</code>.</p>
+<p>이 PEP에 대해 자주 묻는 질문 중 하나는 "왜 명명된 텐서를 사용하지 않는가?"입니다. 답변은 명명된 텐서 접근 방식이 두 가지 주요 이유로 불충분하다고 간주하기 때문입니다.</p>
+<ol>
+<li><strong>형태 정확성에 대한 정적 검사가 불가능합니다.</strong> 동기(Motivation)에서 언급했듯이, 이는 반복 시간이 기본적으로 느린 머신러닝 코드에서 매우 바람직한 기능입니다.</li>
+<li><strong>이 접근 방식으로는 인터페이스 문서화가 여전히 불가능합니다.</strong> 함수가 이미지와 같은 형태를 가진 배열 인수만 받아야 한다고 규정할 수 없습니다.</li>
+</ol>
+<p>또한, 낮은 채택률 문제도 있습니다. 현재 명명된 텐서는 소수의 수치 연산 라이브러리에서만 구현되었습니다. 이에 대한 가능한 설명으로는 구현의 어려움(축 이름 대신 인덱스로 선택을 허용하도록 전체 API를 수정해야 함)과 축 순서 지정 규칙이 종종 강력하여 축 이름이 거의 이점을 제공하지 않는다는 점 때문에 유용성 부족(예: 이미지를 다룰 때 3D 텐서는 기본적으로 항상 높이 × 너비 × 채널입니다)이 있습니다. 그러나 궁극적으로 우리는 이것이 왜 이런 경우인지 여전히 불확실합니다.</p>
+<p>명명된 텐서 접근 방식을 이 PEP에서 옹호하는 접근 방식과 결합할 수 있을까요? 확실하지 않습니다. 한 가지 중첩되는 영역은 일부 컨텍스트에서 다음과 같이 할 수 있다는 것입니다.</p>
+<pre><code class="language-python">Image: Array[Height, Width, Channels]
+im: Image
+mean(im, axis=Image.axes.index(Channels)
+</code></pre>
+<p>이상적으로는 <code>im: Array[Height=64, Width=64, Channels=3]</code>와 같이 작성할 수 있을 것입니다. 그러나 PEP 637이 거부되었기 때문에 단기적으로는 불가능할 것입니다. 어쨌든, 이에 대한 우리의 태도는 주로 "어떤 일이 일어나는지 지켜본 후에 추가 조치를 취하는 것"입니다.</p>
+<h2>추천사 (Endorsements)</h2>
+<p>가변 제네릭은 광범위한 용도를 가지고 있습니다. 그 범위 중 수치 연산과 관련된 부분에 대해, 관련 라이브러리가 이 PEP에서 제안된 기능을 실제로 사용할 가능성은 얼마나 될까요?</p>
+<p>우리는 이 질문으로 여러 사람들에게 연락했으며, 다음과 같은 추천사를 받았습니다.</p>
+<p><strong>Stephan Hoyer (NumPy 운영위원회 위원)로부터:</strong></p>
+<blockquote>
+<p>저는 Matthew와 Pradeep에게 이 PEP를 작성하고 NumPy, JAX, Xarray와 같은 Python 수치 연산 커뮤니티에 깊이 관여하고 있지만 Python의 타입 시스템 세부 사항에는 익숙하지 않은 사람으로서, 명명된 축 및 형태의 타입 검사와 관련된 광범위한 사용 사례가 고려되었고 이 PEP의 인프라를 기반으로 구축될 수 있다는 것을 보는 것은 안심이 됩니다. 형태에 대한 타입 검사는 NumPy 커뮤니티가 매우 관심을 가지는 문제입니다. NumPy의 GitHub에서 관련 이슈 [cite: https://github.com/numpy/numpy/issues/7370]에는 다른 어떤 이슈보다도 많은 '좋아요'가 있으며, 우리는 최근 활발히 개발 중인 "typing" 모듈을 추가했습니다. ndarray에 대한 타입 검사를 사용하는 가장 좋은 방법을 알아내기 위해서는 분명히 실험이 필요하겠지만, 이 PEP는 그러한 작업의 훌륭한 기반처럼 보입니다.</p>
+</blockquote>
+<p><strong>Bas van Beek (NumPy에서 형태-제네릭의 예비 지원에 참여)으로부터:</strong></p>
+<blockquote>
+<p>저는 여기서 Stephan의 의견에 전적으로 동의하며, 새로운 PEP 646 가변 제네릭을 NumPy에 통합하기를 기대합니다. NumPy (및 텐서 타이핑 일반)의 맥락에서, 배열 형태의 타이핑은 상당히 복잡한 주제이며, 가변 제네릭의 도입은 차원성과 기본 형태 조작을 모두 표현할 수 있게 함으로써 그 기초를 다지는 데 큰 역할을 할 것입니다. 전반적으로, 저는 PEP 646과 미래의 PEP가 우리를 어디로 이끌지 매우 관심이 많으며, 더 많은 발전을 기대합니다.</p>
+</blockquote>
+<p><strong>Dan Moldovan (TensorFlow 개발팀 선임 소프트웨어 엔지니어 및 TensorFlow RFC, TensorFlow Canonical Type System의 저자)으로부터:</strong></p>
+<blockquote>
+<p>저는 이 PEP에 정의된 메커니즘을 사용하여 TensorFlow에서 랭크-제네릭 <code>Tensor</code> 타입을 정의하는 데 관심이 있습니다. 이는 타입 어노테이션을 사용하여 Pythonic 방식으로 <code>tf.function</code> 시그니처를 지정하는 데 중요합니다 (오늘날 우리가 가지고 있는 사용자 정의 <code>input_signature</code> 메커니즘 대신 – 이 이슈를 참조하십시오: [cite: https://github.com/tensorflow/tensorflow/issues/31579]). 가변 제네릭은 텐서 및 형태에 대한 우아한 타입 정의 세트를 만드는 데 필요한 마지막 몇 가지 누락된 부분 중 하나입니다.</p>
+</blockquote>
+<p>(투명성을 위해 - 우리는 세 번째 인기 있는 수치 연산 라이브러리인 PyTorch의 관계자들에게도 연락했지만, 그들로부터 추천 진술을 받지는 못했습니다. 그들은 동일한 문제 중 일부(예: 정적 형태 추론)에 관심이 있지만, 현재 Python 타입 시스템보다는 DSL을 통해 이를 가능하게 하는 데 집중하고 있다고 이해하고 있습니다.)</p>
+<h2>Acknowledgements (감사의 말씀)</h2>
+<p>이 PEP 초안에 대한 유용한 피드백과 제안을 주신 Alfonso Castaño, Antoine Pitrou, Bas v.B., David Foster, Dimitris Vardoulakis, Eric Traut, Guido van Rossum, Jia Chen, Lucio Fernandez-Arjona, Nikita Sobolev, Peilonrayz, Rebecca Chen, Sergei Lebedev, Vladimir Mikulik에게 감사드립니다.</p>
+<p>특히 별표 구문을 제안하여 이 제안의 여러 측면을 훨씬 더 간결하고 직관적으로 만들어준 Lucio에게, 그리고 추천사를 제공해준 Stephan Hoyer와 Dan Moldovan에게 특별히 감사드립니다.</p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+</div></div><footer class="page__meta mt-8"><div class="page__taxonomy"><h4 class="text-sm font-medium text-gray-900 mb-2">태그</h4><span class="page__taxonomy-item">#<!-- -->Python</span><span class="page__taxonomy-item">#<!-- -->PEP</span><span class="page__taxonomy-item">#<!-- -->Translation</span></div></footer><section class="comments-section mt-12 pt-8 border-t border-gray-200"></section><section class="mt-12 border-t border-gray-200 pt-8"><h3 class="text-base font-semibold text-gray-900 mb-4">Python<!-- --> 의 다른글</h3><ul class="space-y-2 text-sm"><li class="text-gray-500">이전글<!-- --> <a class="text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4" href="/python/pep/645">[Withdrawn] PEP 645 - Allow writing optional types asx?</a></li><li class="text-gray-900 font-semibold">현재글 : <!-- -->[Final] PEP 646 - Variadic Generics</li><li class="text-gray-500">다음글<!-- --> <a class="text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4" href="/python/pep/647">[Final] PEP 647 - User-Defined Type Guards</a></li></ul></section></article></main></div><!--/$--></main><div id="footer" class="page__footer"><footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8"><div class="text-center text-gray-500 text-sm"><p>© 2025 secrett2633. All rights reserved.</p></div></footer></div></div><script src="/_next/static/chunks/webpack-61c2b369a48bb953.js" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0]);self.__next_f.push([2,null])</script><script>self.__next_f.push([1,"1:HL[\"/_next/static/css/d6cea809dcbae606.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"2:I[5751,[],\"\"]\n5:I[9275,[],\"\"]\n7:I[1343,[],\"\"]\n8:I[9157,[\"231\",\"static/chunks/231-467e37449c5a68fc.js\",\"185\",\"static/chunks/app/layout-53ec9cbf619543e1.js\"],\"default\"]\n9:I[231,[\"231\",\"static/chunks/231-467e37449c5a68fc.js\",\"877\",\"static/chunks/app/%5B...slug%5D/page-80e07cee06d17a0b.js\"],\"\"]\nb:I[6130,[],\"\"]\n6:[\"slug\",\"python/pep/646\",\"c\"]\nc:[]\n"])</script><script>self.__next_f.push([1,"0:[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/css/d6cea809dcbae606.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\"}]],[\"$\",\"$L2\",null,{\"buildId\":\"_3-KrKKQh7tcSoXiYwQMB\",\"assetPrefix\":\"\",\"initialCanonicalUrl\":\"/python/pep/646\",\"initialTree\":[\"\",{\"children\":[[\"slug\",\"python/pep/646\",\"c\"],{\"children\":[\"__PAGE__?{\\\"slug\\\":[\\\"python\\\",\\\"pep\\\",\\\"646\\\"]}\",{}]}]},\"$undefined\",\"$undefined\",true],\"initialSeedData\":[\"\",{\"children\":[[\"slug\",\"python/pep/646\",\"c\"],{\"children\":[\"__PAGE__\",{},[[\"$L3\",\"$L4\"],null],null]},[\"$\",\"$L5\",null,{\"parallelRouterKey\":\"children\",\"segmentPath\":[\"children\",\"$6\",\"children\"],\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L7\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"notFoundStyles\":\"$undefined\",\"styles\":null}],null]},[[\"$\",\"html\",null,{\"lang\":\"ko\",\"className\":\"no-js\",\"children\":[[\"$\",\"head\",null,{\"children\":[[\"$\",\"meta\",null,{\"name\":\"msapplication-TileColor\",\"content\":\"#ffc40d\"}],[\"$\",\"meta\",null,{\"name\":\"theme-color\",\"content\":\"#ffffff\"}],[\"$\",\"script\",null,{\"async\":true,\"src\":\"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY\"}],[\"$\",\"script\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"\\n              window.dataLayer = window.dataLayer || [];\\n              function gtag(){dataLayer.push(arguments);}\\n              gtag('js', new Date());\\n              gtag('config', 'G-NE2W3CFPNY');\\n            \"}}]]}],[\"$\",\"body\",null,{\"className\":\"__className_f367f3 layout--default\",\"children\":[\"$\",\"div\",null,{\"className\":\"min-h-screen bg-gray-50\",\"children\":[[\"$\",\"$L8\",null,{}],[\"$\",\"main\",null,{\"className\":\"initial-content\",\"children\":[\"$\",\"$L5\",null,{\"parallelRouterKey\":\"children\",\"segmentPath\":[\"children\"],\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L7\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[\"$\",\"div\",null,{\"className\":\"min-h-screen flex items-center justify-center bg-gray-50\",\"children\":[\"$\",\"div\",null,{\"className\":\"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center\",\"children\":[[\"$\",\"h1\",null,{\"className\":\"text-6xl font-bold text-primary-600 mb-4\",\"children\":\"404\"}],[\"$\",\"h2\",null,{\"className\":\"text-2xl font-semibold text-gray-900 mb-4\",\"children\":\"페이지를 찾을 수 없습니다\"}],[\"$\",\"p\",null,{\"className\":\"text-gray-600 mb-8\",\"children\":\"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다.\"}],[\"$\",\"$L9\",null,{\"href\":\"/\",\"className\":\"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors\",\"children\":\"홈으로 돌아가기\"}]]}]}],\"notFoundStyles\":[],\"styles\":null}]}],[\"$\",\"div\",null,{\"id\":\"footer\",\"className\":\"page__footer\",\"children\":[\"$\",\"footer\",null,{\"className\":\"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8\",\"children\":[\"$\",\"div\",null,{\"className\":\"text-center text-gray-500 text-sm\",\"children\":[\"$\",\"p\",null,{\"children\":\"© 2025 secrett2633. All rights reserved.\"}]}]}]}]]}]}]]}],null],[[\"$\",\"div\",null,{\"className\":\"flex items-center justify-center min-h-screen\",\"children\":[\"$\",\"div\",null,{\"className\":\"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600\"}]}],[],[]]],\"couldBeIntercepted\":false,\"initialHead\":[null,\"$La\"],\"globalErrorComponent\":\"$b\",\"missingSlots\":\"$Wc\"}]]\n"])</script><script>self.__next_f.push([1,"e:I[646,[\"231\",\"static/chunks/231-467e37449c5a68fc.js\",\"877\",\"static/chunks/app/%5B...slug%5D/page-80e07cee06d17a0b.js\"],\"default\"]\nd:T10545,"])</script><script>self.__next_f.push([1,"\u003cblockquote\u003e\n\u003cp\u003e\u003cstrong\u003e원문 링크:\u003c/strong\u003e \u003ca href=\"https://peps.python.org/pep-0646/\"\u003ePEP 646 - Variadic Generics\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003e상태:\u003c/strong\u003e Final | \u003cstrong\u003e유형:\u003c/strong\u003e Standards Track | \u003cstrong\u003e작성일:\u003c/strong\u003e 16-Sep-2020\u003c/p\u003e\n\u003c/blockquote\u003e\n\u003cp\u003ePEP 646 – 가변 제네릭 (Variadic Generics)\u003c/p\u003e\n\u003ch2\u003e개요\u003c/h2\u003e\n\u003cp\u003ePEP 484는 단일 타입으로 매개변수화되는 제네릭을 생성하기 위한 \u003ccode\u003eTypeVar\u003c/code\u003e를 도입했습니다. 이 PEP에서는 임의의 수의 타입으로 매개변수화를 가능하게 하는 \u003ccode\u003eTypeVarTuple\u003c/code\u003e을 소개하며, 이를 통해 가변 제네릭(variadic generics)을 지원합니다. 이는 다양한 사용 사례를 가능하게 하며, 특히 NumPy 및 TensorFlow와 같은 수치 연산 라이브러리에서 배열(array)과 같은 구조의 타입을 배열의 \"형태(shape)\"로 매개변수화하여, 정적 타입 검사기가 형태 관련 버그를 포착할 수 있도록 합니다.\u003c/p\u003e\n\u003cp\u003e이 PEP는 Python 3.11에 채택되었으며, 타입 표현식에서 여러 언패킹(unpacking)에 대한 세부 사항은 정확히 지정되지 않았습니다. 이는 개별 타입 검사기에 여지를 제공하지만, 향후 PEP에서 강화될 수 있습니다.\u003c/p\u003e\n\u003ch2\u003e도입 배경\u003c/h2\u003e\n\u003cp\u003e가변 제네릭은 오랫동안 다양한 사용 사례에서 요청되어 온 기능입니다. 특히, 잠재적으로 큰 영향을 미치며 이 PEP가 주로 목표로 하는 사용 사례 중 하나는 수치 라이브러리에서의 타입 정의와 관련이 있습니다.\u003c/p\u003e\n\u003cp\u003eNumPy 및 TensorFlow와 같은 수치 연산 라이브러리에서는 변수의 형태(shape)가 변수 타입만큼 중요합니다. 예를 들어, 동영상 배치(batch)를 그레이스케일로 변환하는 다음 함수를 고려해 봅시다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003edef to_gray(videos: Array): ...\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e이 시그니처만으로는 \u003ccode\u003evideos\u003c/code\u003e 인수에 어떤 형태의 배열을 전달해야 하는지 명확하지 않습니다. 가능한 형태는 예를 들어 \u003ccode\u003ebatch × time × height × width × channels\u003c/code\u003e 또는 \u003ccode\u003etime × batch × channels × height × width\u003c/code\u003e 등이 있습니다. 이는 세 가지 이유로 중요합니다.\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003e\u003cstrong\u003e문서화:\u003c/strong\u003e 시그니처에 필요한 형태가 명확하지 않으면, 사용자는 입력/출력 형태 요구사항을 확인하기 위해 Docstring이나 코드 자체를 찾아봐야 합니다.\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003e런타임 전 형태 버그 포착:\u003c/strong\u003e 이상적으로는 잘못된 형태 사용이 정적 분석을 통해 미리 포착할 수 있는 오류여야 합니다. (이는 특히 반복 시간이 느릴 수 있는 머신러닝 코드에서 중요합니다.)\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003e미묘한 형태 버그 방지:\u003c/strong\u003e 최악의 경우, 잘못된 형태를 사용하면 프로그램이 정상적으로 실행되는 것처럼 보이지만, 며칠 동안 추적해야 할 미묘한 버그가 발생할 수 있습니다.\u003c/li\u003e\n\u003c/ol\u003e\n\u003cp\u003e이상적으로는 타입 시그니처에 형태 요구 사항을 명시적으로 지정하는 방법이 있어야 합니다. 여러 제안에서 이를 위해 표준 제네릭 구문을 사용할 것을 제안했습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003edef to_gray(videos: Array[Time, Batch, Height, Width, Channels]): ...\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e하지만 배열은 임의의 랭크(rank)를 가질 수 있습니다. 위에서 사용된 \u003ccode\u003eArray\u003c/code\u003e는 임의의 수의 축(axis)에 대해 제네릭합니다. 이 문제를 해결하는 한 가지 방법은 각 랭크마다 다른 \u003ccode\u003eArray\u003c/code\u003e 클래스를 사용하는 것이지만:\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eAxis1 = TypeVar('Axis1')\r\nAxis2 = TypeVar('Axis2')\r\nclass Array1(Generic[Axis1]): ...\r\nclass Array2(Generic[Axis1, Axis2]): ...\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e이는 사용자(코드 전체에 1, 2 등을 붙여야 함)와 배열 라이브러리 개발자(여러 클래스에 걸쳐 구현을 중복해야 함) 모두에게 번거로울 것입니다.\u003c/p\u003e\n\u003cp\u003e\u003ccode\u003eArray\u003c/code\u003e가 임의의 수의 축에 대해 제네릭하게 단일 클래스로 깔끔하게 정의되기 위해서는 가변 제네릭이 필수적입니다.\u003c/p\u003e\n\u003ch2\u003e요약 예시\u003c/h2\u003e\n\u003cp\u003e이 PEP는 새로 도입된 임의 길이 타입 변수인 \u003ccode\u003eTypeVarTuple\u003c/code\u003e을 사용하여 형태(및 데이터 타입)에 대해 제네릭한 \u003ccode\u003eArray\u003c/code\u003e 클래스를 다음과 같이 정의할 수 있도록 합니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003efrom typing import TypeVar, TypeVarTuple, Generic\r\n\r\nDType = TypeVar('DType')\r\nShape = TypeVarTuple('Shape')\r\n\r\nclass Array(Generic[DType, *Shape]):\r\n    def __abs__(self) -\u003e Array[DType, *Shape]: ...\r\n    def __add__(self, other: Array[DType, *Shape]) -\u003e Array[DType, *Shape]: ...\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e이러한 \u003ccode\u003eArray\u003c/code\u003e는 여러 종류의 형태 어노테이션을 지원하는 데 사용될 수 있습니다. 예를 들어, 각 축의 의미론적 의미를 설명하는 레이블을 추가할 수 있습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003efrom typing import NewType\r\n\r\nHeight = NewType('Height', int)\r\nWidth = NewType('Width', int)\r\nx: Array[float, Height, Width] = Array()\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e각 축의 실제 크기를 설명하는 어노테이션을 추가할 수도 있습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003efrom typing import Literal as L\r\nx: Array[float, L[480], L[640]] = Array()\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003ePEP에서는 일관성을 위해 의미론적 축 어노테이션을 예시의 기반으로 사용하지만, \u003ccode\u003eArray\u003c/code\u003e를 사용하는 이 두 가지(또는 다른) 방법 중 어느 것이 더 나은지에 대해서는 중립적이며, 그 결정은 라이브러리 개발자에게 맡겨져 있습니다.\u003c/p\u003e\n\u003ch2\u003e상세 스펙\u003c/h2\u003e\n\u003cp\u003e위의 사용 사례를 지원하기 위해 \u003ccode\u003eTypeVarTuple\u003c/code\u003e이 도입됩니다. 이는 단일 타입이 아닌 타입 튜플(tuple of types)의 플레이스홀더 역할을 합니다.\u003c/p\u003e\n\u003cp\u003e또한, 별표(star operator)의 새로운 사용법이 도입되어 \u003ccode\u003eTypeVarTuple\u003c/code\u003e 인스턴스 및 \u003ccode\u003eTuple[int, str]\u003c/code\u003e과 같은 튜플 타입을 '언팩(unpack)'할 수 있습니다. \u003ccode\u003eTypeVarTuple\u003c/code\u003e 또는 튜플 타입을 언팩하는 것은 변수 또는 값 튜플을 언팩하는 것과 동일한 타이핑 개념입니다.\u003c/p\u003e\n\u003ch3\u003eType Variable Tuples (타입 변수 튜플)\u003c/h3\u003e\n\u003cp\u003e일반적인 타입 변수가 \u003ccode\u003eint\u003c/code\u003e와 같은 단일 타입의 대리자 역할을 하는 것처럼, 타입 변수 튜플은 \u003ccode\u003eTuple[int, str]\u003c/code\u003e과 같은 튜플 타입의 대리자 역할을 합니다.\u003c/p\u003e\n\u003cp\u003e타입 변수 튜플은 다음과 같이 생성됩니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003efrom typing import TypeVarTuple\r\nTs = TypeVarTuple('Ts')\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch4\u003e제네릭 클래스에서 Type Variable Tuples 사용\u003c/h4\u003e\n\u003cp\u003e타입 변수 튜플은 \u003ccode\u003eTuple\u003c/code\u003e에 묶인 여러 개별 타입 변수처럼 작동합니다. 이를 이해하기 위해 다음 예시를 고려해 봅시다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eShape = TypeVarTuple('Shape')\r\nclass Array(Generic[*Shape]): ...\r\n\r\nHeight = NewType('Height', int)\r\nWidth = NewType('Width', int)\r\nx: Array[Height, Width] = Array()\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e여기서 \u003ccode\u003eShape\u003c/code\u003e 타입 변수 튜플은 \u003ccode\u003eT1\u003c/code\u003e과 \u003ccode\u003eT2\u003c/code\u003e가 타입 변수인 \u003ccode\u003eTuple[T1, T2]\u003c/code\u003e처럼 작동합니다. 이러한 타입 변수를 \u003ccode\u003eArray\u003c/code\u003e의 타입 매개변수로 사용하려면 별표 연산자 \u003ccode\u003e*Shape\u003c/code\u003e를 사용하여 타입 변수 튜플을 언팩해야 합니다. \u003ccode\u003eArray\u003c/code\u003e의 시그니처는 마치 \u003ccode\u003eclass Array(Generic[T1, T2]): ...\u003c/code\u003e라고 쓴 것처럼 작동합니다.\u003c/p\u003e\n\u003cp\u003e그러나 \u003ccode\u003eGeneric[T1, T2]\u003c/code\u003e와 달리 \u003ccode\u003eGeneric[*Shape]\u003c/code\u003e는 클래스를 임의의 수의 타입 매개변수로 매개변수화할 수 있도록 합니다. 즉, \u003ccode\u003eArray[Height, Width]\u003c/code\u003e와 같은 2차원 배열을 정의할 수 있을 뿐만 아니라 3차원, 4차원 등 임의의 차원 배열도 정의할 수 있습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eTime = NewType('Time', int)\r\nBatch = NewType('Batch', int)\r\ny: Array[Batch, Height, Width] = Array()\r\nz: Array[Time, Batch, Height, Width] = Array()\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch4\u003e함수에서 Type Variable Tuples 사용\u003c/h4\u003e\n\u003cp\u003e타입 변수 튜플은 일반 \u003ccode\u003eTypeVar\u003c/code\u003e를 사용할 수 있는 모든 곳에서 사용될 수 있습니다. 여기에는 위에서 보여준 클래스 정의뿐만 아니라 함수 시그니처 및 변수 어노테이션도 포함됩니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eclass Array(Generic[*Shape]):\r\n    def __init__(self, shape: Tuple[*Shape]):\r\n        self._shape: Tuple[*Shape] = shape\r\n    def get_shape(self) -\u003e Tuple[*Shape]:\r\n        return self._shape\r\n\r\nshape = (Height(480), Width(640))\r\nx: Array[Height, Width] = Array(shape)\r\ny = abs(x) # Inferred type is Array[Height, Width]\r\nz = x + x # ... is Array[Height, Width]\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch4\u003eType Variable Tuples는 항상 언팩되어야 합니다\u003c/h4\u003e\n\u003cp\u003e이전 예시에서 \u003ccode\u003e__init__\u003c/code\u003e의 \u003ccode\u003eshape\u003c/code\u003e 인수가 \u003ccode\u003eTuple[*Shape]\u003c/code\u003e로 어노테이션되었습니다. \u003ccode\u003eShape\u003c/code\u003e가 \u003ccode\u003eTuple[T1, T2, ...]\u003c/code\u003e처럼 작동한다면, \u003ccode\u003eshape\u003c/code\u003e 인수를 \u003ccode\u003eShape\u003c/code\u003e로 직접 어노테이션할 수는 없었을까요?\u003c/p\u003e\n\u003cp\u003e실제로 이는 의도적으로 불가능합니다. 타입 변수 튜플은 항상 언팩된 형태로 사용되어야 합니다 (즉, 별표 연산자로 접두사 되어야 합니다). 이는 두 가지 이유 때문입니다.\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003e타입 변수 튜플을 팩(packed) 또는 언팩(unpacked) 형태로 사용할지 여부에 대한 잠재적인 혼란을 피하기 위해.\u003c/li\u003e\n\u003cli\u003e가독성을 높이기 위해: 별표는 타입 변수 튜플이 일반 타입 변수가 아님을 명시적으로 시각적으로 나타내는 지표 역할도 합니다.\u003c/li\u003e\n\u003c/ol\u003e\n\u003ch4\u003e하위 호환성을 위한 \u003ccode\u003eUnpack\u003c/code\u003e\u003c/h4\u003e\n\u003cp\u003e이 맥락에서 별표 연산자를 사용하는 것은 문법 변경이 필요하며, 따라서 새로운 Python 버전에서만 사용할 수 있습니다. 이전 Python 버전에서 타입 변수 튜플을 사용할 수 있도록 하기 위해, 별표 연산자 대신 사용할 수 있는 \u003ccode\u003eUnpack\u003c/code\u003e 타입 연산자가 도입됩니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003e# 새로운 Python 버전에서 별표 연산자를 사용한 언패킹\r\nclass Array(Generic[*Shape]): ...\r\n\r\n# 이전 Python 버전에서 `Unpack`을 사용한 언패킹\r\nfrom typing import Unpack\r\nclass Array(Generic[Unpack[Shape]]): ...\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch4\u003e분산, 타입 제약 및 타입 바운드: 아직 지원되지 않음\u003c/h4\u003e\n\u003cp\u003e이 PEP를 최소한으로 유지하기 위해 \u003ccode\u003eTypeVarTuple\u003c/code\u003e은 아직 다음 사양을 지원하지 않습니다.\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003e분산 (예: \u003ccode\u003eTypeVar('T', covariant=True)\u003c/code\u003e)\u003c/li\u003e\n\u003cli\u003e타입 제약 (\u003ccode\u003eTypeVar('T', int, float)\u003c/code\u003e)\u003c/li\u003e\n\u003cli\u003e타입 바운드 (\u003ccode\u003eTypeVar('T', bound=ParentClass)\u003c/code\u003e)\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003e가변 제네릭이 현장에서 테스트된 후, 이러한 인수가 어떻게 작동해야 하는지에 대한 결정은 미래의 PEP로 미룹니다. 이 PEP 현재, 타입 변수 튜플은 불변(invariant)입니다.\u003c/p\u003e\n\u003ch4\u003eType Variable Tuple 동등성\u003c/h4\u003e\n\u003cp\u003e동일한 \u003ccode\u003eTypeVarTuple\u003c/code\u003e 인스턴스가 시그니처 또는 클래스의 여러 위치에서 사용되는 경우, 유효한 타입 추론은 \u003ccode\u003eTypeVarTuple\u003c/code\u003e을 타입들의 \u003ccode\u003eUnion\u003c/code\u003e 튜플에 바인딩하는 것일 수 있습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003edef foo(arg1: Tuple[*Ts], arg2: Tuple[*Ts]): ...\r\na = (0,)\r\nb = ('0',)\r\nfoo(a, b) # Ts를 Tuple[int | str]에 바인딩할 수 있을까?\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e이것은 허용되지 않습니다. 타입 유니언(type unions)은 \u003ccode\u003eTuple\u003c/code\u003e 내부에 나타날 수 없습니다. 타입 변수 튜플이 시그니처의 여러 위치에 나타나는 경우, 타입은 정확히 일치해야 합니다 (타입 매개변수 목록의 길이가 같아야 하고, 타입 매개변수 자체도 동일해야 합니다).\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003edef pointwise_multiply(\r\n    x: Array[*Shape],\r\n    y: Array[*Shape]\r\n) -\u003e Array[*Shape]: ...\r\n\r\nx: Array[Height]\r\ny: Array[Width]\r\nz: Array[Height, Width]\r\n\r\npointwise_multiply(x, x) # 유효함 (Valid)\r\npointwise_multiply(x, y) # 오류 (Error)\r\npointwise_multiply(x, z) # 오류 (Error)\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch4\u003e다중 Type Variable Tuples: 허용되지 않음\u003c/h4\u003e\n\u003cp\u003e이 PEP 현재, 타입 매개변수 목록에는 단 하나의 타입 변수 튜플만 나타날 수 있습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eclass Array(Generic[*Ts1, *Ts2]): ... # 오류 (Error)\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e그 이유는 여러 타입 변수 튜플이 어떤 매개변수가 어떤 타입 변수 튜플에 바인딩되는지 모호하게 만들기 때문입니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003ex: Array[int, str, bool] # Ts1 = ???, Ts2 = ???\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch4\u003eType Concatenation (타입 연결)\u003c/h4\u003e\n\u003cp\u003e타입 변수 튜플은 단독으로 사용될 필요가 없습니다. 일반 타입이 접두사 및/또는 접미사로 붙을 수 있습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eShape = TypeVarTuple('Shape')\r\nBatch = NewType('Batch', int)\r\nChannels = NewType('Channels', int)\r\n\r\ndef add_batch_axis(x: Array[*Shape]) -\u003e Array[Batch, *Shape]: ...\r\ndef del_batch_axis(x: Array[Batch, *Shape]) -\u003e Array[*Shape]: ...\r\ndef add_batch_channels(\r\n    x: Array[*Shape]\r\n) -\u003e Array[Batch, *Shape, Channels]: ...\r\n\r\na: Array[Height, Width]\r\nb = add_batch_axis(a)       # 추론된 타입은 Array[Batch, Height, Width]\r\nc = del_batch_axis(b)       # Array[Height, Width]\r\nd = add_batch_channels(a)   # Array[Batch, Height, Width, Channels]\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e일반 \u003ccode\u003eTypeVar\u003c/code\u003e 인스턴스도 접두사 및/또는 접미사로 붙을 수 있습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eT = TypeVar('T')\r\nTs = TypeVarTuple('Ts')\r\n\r\ndef prefix_tuple(\r\n    x: T,\r\n    y: Tuple[*Ts]\r\n) -\u003e Tuple[T, *Ts]: ...\r\n\r\nz = prefix_tuple(x=0, y=(True, 'a')) # z의 추론된 타입은 Tuple[int, bool, str]\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch3\u003eUnpacking Tuple Types (튜플 타입 언팩)\u003c/h3\u003e\n\u003cp\u003e\u003ccode\u003eTypeVarTuple\u003c/code\u003e이 타입 튜플을 나타낸다고 언급했습니다. \u003ccode\u003eTypeVarTuple\u003c/code\u003e을 언팩할 수 있으므로, 일관성을 위해 튜플 타입도 언팩하는 것을 허용합니다. 곧 보겠지만, 이는 여러 흥미로운 기능도 가능하게 합니다.\u003c/p\u003e\n\u003ch4\u003eConcrete Tuple Types 언팩\u003c/h4\u003e\n\u003cp\u003e구체적인 튜플 타입을 언팩하는 것은 런타임에 값 튜플을 언팩하는 것과 유사합니다. \u003ccode\u003eTuple[int, *Tuple[bool, bool], str]\u003c/code\u003e은 \u003ccode\u003eTuple[int, bool, bool, str]\u003c/code\u003e과 동일합니다.\u003c/p\u003e\n\u003ch4\u003eUnbounded Tuple Types 언팩\u003c/h4\u003e\n\u003cp\u003e무한(unbounded) 튜플을 언팩하면 무한 튜플이 그대로 유지됩니다. 즉, \u003ccode\u003e*Tuple[int, ...]\u003c/code\u003e는 \u003ccode\u003e*Tuple[int, ...]\u003c/code\u003e로 남으며, 더 간단한 형태는 없습니다. 이를 통해 \u003ccode\u003eTuple[int, *Tuple[str, ...], str]\u003c/code\u003e와 같은 타입을 지정할 수 있습니다. 이는 첫 번째 요소가 \u003ccode\u003eint\u003c/code\u003e 타입임을 보장하고, 마지막 요소가 \u003ccode\u003estr\u003c/code\u003e 타입임을 보장하며, 중간 요소는 0개 이상의 \u003ccode\u003estr\u003c/code\u003e 타입 요소로 구성된 튜플 타입입니다. \u003ccode\u003eTuple[*Tuple[int, ...]]\u003c/code\u003e는 \u003ccode\u003eTuple[int, ...]\u003c/code\u003e와 동일합니다.\u003c/p\u003e\n\u003cp\u003e무한 튜플을 언팩하는 것은 정확한 요소를 신경 쓰지 않고 불필요한 \u003ccode\u003eTypeVarTuple\u003c/code\u003e을 정의하고 싶지 않은 함수 시그니처에서도 유용합니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003efrom typing import Any\r\n\r\ndef process_batch_channels(\r\n    x: Array[Batch, *Tuple[Any, ...], Channels]\r\n) -\u003e None: ...\r\n\r\nx: Array[Batch, Height, Width, Channels]\r\nprocess_batch_channels(x) # OK\r\n\r\ny: Array[Batch, Channels]\r\nprocess_batch_channels(y) # OK\r\n\r\nz: Array[Batch]\r\nprocess_batch_channels(z) # Error: Channels를 예상했습니다.\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e\u003ccode\u003e*Tuple[int, ...]\u003c/code\u003e를 \u003ccode\u003e*Ts\u003c/code\u003e가 예상되는 모든 곳에 전달할 수도 있습니다. 이는 특히 동적인 코드를 가지고 있고 정확한 차원 수 또는 각 차원의 정확한 타입을 지정할 수 없을 때 유용합니다. 이러한 경우, 무한 튜플로 매끄럽게 대체할 수 있습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003ey: Array[*Tuple[Any, ...]] = read_from_file()\r\n\r\ndef expect_variadic_array(\r\n    x: Array[Batch, *Shape]\r\n) -\u003e None: ...\r\n\r\nexpect_variadic_array(y) # OK\r\n\r\ndef expect_precise_array(\r\n    x: Array[Batch, Height, Width, Channels]\r\n) -\u003e None: ...\r\n\r\nexpect_precise_array(y) # OK\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e\u003ccode\u003eArray[*Tuple[Any, ...]]\u003c/code\u003e는 \u003ccode\u003eAny\u003c/code\u003e 타입의 임의의 수의 차원을 가진 배열을 나타냅니다. 이는 \u003ccode\u003eexpect_variadic_array\u003c/code\u003e 호출에서 \u003ccode\u003eBatch\u003c/code\u003e가 \u003ccode\u003eAny\u003c/code\u003e에 바인딩되고 \u003ccode\u003eShape\u003c/code\u003e가 \u003ccode\u003eTuple[Any, ...]\u003c/code\u003e에 바인딩됨을 의미합니다. \u003ccode\u003eexpect_precise_array\u003c/code\u003e 호출에서는 \u003ccode\u003eBatch\u003c/code\u003e, \u003ccode\u003eHeight\u003c/code\u003e, \u003ccode\u003eWidth\u003c/code\u003e, \u003ccode\u003eChannels\u003c/code\u003e 변수 모두 \u003ccode\u003eAny\u003c/code\u003e에 바인딩됩니다.\u003c/p\u003e\n\u003cp\u003e이를 통해 사용자는 동적인 코드를 우아하게 처리하면서도 코드에 안전하지 않음을 명시적으로 표시할 수 있습니다 (\u003ccode\u003ey: Array[*Tuple[Any, ...]]\u003c/code\u003e 사용). 그렇지 않으면, 레거시 코드베이스를 \u003ccode\u003eTypeVarTuple\u003c/code\u003e을 사용하도록 마이그레이션하려고 할 때마다 타입 검사기로부터 시끄러운 오류에 직면하게 되어 방해가 될 것입니다.\u003c/p\u003e\n\u003ch4\u003e튜플 내 여러 언패킹: 허용되지 않음\u003c/h4\u003e\n\u003cp\u003e\u003ccode\u003eTypeVarTuple\u003c/code\u003e과 마찬가지로 튜플 내에서는 하나의 언패킹만 나타날 수 있습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003ex: Tuple[int, *Ts, str, *Ts2] # 오류 (Error)\r\ny: Tuple[int, *Tuple[int, ...], str, *Tuple[str, ...]] # 오류 (Error)\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch3\u003e\u003ccode\u003e*args\u003c/code\u003e를 Type Variable Tuple로 사용\u003c/h3\u003e\n\u003cp\u003ePEP 484는 \u003ccode\u003e*args\u003c/code\u003e에 타입 어노테이션이 제공되면 모든 인수가 어노테이션된 타입이어야 한다고 명시합니다. 즉, \u003ccode\u003e*args\u003c/code\u003e를 \u003ccode\u003eint\u003c/code\u003e 타입으로 지정하면 모든 인수가 \u003ccode\u003eint\u003c/code\u003e 타입이어야 합니다. 이는 이종(heterogeneous) 인자 타입을 받는 함수의 타입 시그니처를 지정하는 능력을 제한합니다.\u003c/p\u003e\n\u003cp\u003e그러나 \u003ccode\u003e*args\u003c/code\u003e가 타입 변수 튜플로 어노테이션되면 개별 인수의 타입은 타입 변수 튜플 내의 타입이 됩니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eTs = TypeVarTuple('Ts')\r\ndef args_to_tuple(*args: *Ts) -\u003e Tuple[*Ts]: ...\r\n\r\nargs_to_tuple(1, 'a') # 추론된 타입은 Tuple[int, str]\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e위 예시에서 \u003ccode\u003eTs\u003c/code\u003e는 \u003ccode\u003eTuple[int, str]\u003c/code\u003e에 바인딩됩니다. 인수가 전달되지 않으면 타입 변수 튜플은 빈 튜플인 \u003ccode\u003eTuple[()]\u003c/code\u003e처럼 작동합니다.\u003c/p\u003e\n\u003cp\u003e일반적으로, 우리는 어떤 튜플 타입이든 언팩할 수 있습니다. 예를 들어, 다른 타입들의 튜플 내부에 타입 변수 튜플을 사용하여 가변 인자 목록의 접두사 또는 접미사를 참조할 수 있습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003e# os.execle은 'path, arg0, arg1, ..., env' 인수를 받습니다.\r\ndef execle(path: str, *args: *Tuple[*Ts, Env]) -\u003e None: ...\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e이는 다음 코드와 다릅니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003edef execle(path: str, *args: *Ts, env: Env) -\u003e None: ...\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e위 코드는 \u003ccode\u003eenv\u003c/code\u003e를 키워드 전용(keyword-only) 인수로 만들기 때문입니다.\u003c/p\u003e\n\u003cp\u003e언팩된 무한 튜플을 사용하는 것은 \u003ccode\u003e*args: int\u003c/code\u003e의 PEP 484 동작과 동일하며, 이는 0개 이상의 \u003ccode\u003eint\u003c/code\u003e 타입 값을 받습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003edef foo(*args: *Tuple[int, ...]) -\u003e None: ...\r\n# 다음과 동일합니다:\r\ndef foo(*args: int) -\u003e None: ...\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e튜플 타입을 언팩하면 이종 \u003ccode\u003e*args\u003c/code\u003e에 대해 더 정확한 타입을 지정할 수 있습니다. 다음 함수는 시작에 \u003ccode\u003eint\u003c/code\u003e, 0개 이상의 \u003ccode\u003estr\u003c/code\u003e 값, 그리고 끝에 \u003ccode\u003estr\u003c/code\u003e을 예상합니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003edef foo(*args: *Tuple[int, *Tuple[str, ...], str]) -\u003e None: ...\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e완전성을 위해, 구체적인 튜플을 언팩하면 고정된 수의 이종 \u003ccode\u003e*args\u003c/code\u003e 타입을 지정할 수 있음을 언급합니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003edef foo(*args: *Tuple[int, str]) -\u003e None: ...\r\nfoo(1, \"hello\") # OK\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e타입 변수 튜플은 항상 언팩되어야 한다는 규칙에 따라 \u003ccode\u003e*args\u003c/code\u003e를 평범한 타입 변수 튜플 인스턴스로 어노테이션하는 것은 허용되지 않습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003edef foo(*args: Ts): ... # 유효하지 않음 (NOT valid)\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e\u003ccode\u003e*args\u003c/code\u003e는 인수가 \u003ccode\u003e*Ts\u003c/code\u003e로 직접 어노테이션될 수 있는 유일한 경우입니다. 다른 인수들은 \u003ccode\u003e*Ts\u003c/code\u003e를 사용하여 \u003ccode\u003eTuple[*Ts]\u003c/code\u003e와 같이 다른 것을 매개변수화해야 합니다. 만약 \u003ccode\u003e*args\u003c/code\u003e 자체가 \u003ccode\u003eTuple[*Ts]\u003c/code\u003e로 어노테이션된다면, 이전 동작이 여전히 적용됩니다: 모든 인수는 동일한 타입으로 매개변수화된 \u003ccode\u003eTuple\u003c/code\u003e이어야 합니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003edef foo(*args: Tuple[*Ts]): ...\r\nfoo((0,), (1,))     # 유효함\r\nfoo((0,), (1, 2))   # 오류\r\nfoo((0,), ('1',))   # 오류\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e마지막으로, 타입 변수 튜플은 \u003ccode\u003e **kwargs\u003c/code\u003e의 타입으로 사용될 수 없습니다. (이 기능에 대한 사용 사례를 아직 알지 못하므로, 잠재적인 미래 PEP를 위해 여지를 남겨두는 것을 선호합니다.)\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003e# 유효하지 않음 (NOT valid)\r\ndef foo(** kwargs: *Ts): ...\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch3\u003eCallable을 사용하는 Type Variable Tuples\u003c/h3\u003e\n\u003cp\u003e타입 변수 튜플은 \u003ccode\u003eCallable\u003c/code\u003e의 인수 섹션에서도 사용될 수 있습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003efrom typing import Callable, Tuple\r\n\r\nclass Process:\r\n    def __init__(\r\n        self,\r\n        target: Callable[[*Ts], None],\r\n        args: Tuple[*Ts],\r\n    ) -\u003e None: ...\r\n\r\ndef func(arg1: int, arg2: str) -\u003e None: ...\r\n\r\nProcess(target=func, args=(0, 'foo')) # 유효함\r\nProcess(target=func, args=('foo', 0)) # 오류\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e다른 타입과 일반 타입 변수도 타입 변수 튜플에 접두사/접미사로 붙을 수 있습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eT = TypeVar('T')\r\ndef foo(f: Callable[[int, *Ts, T], Tuple[T, *Ts]]): ...\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e언팩된 항목(TypeVarTuple 또는 튜플 타입)을 포함하는 \u003ccode\u003eCallable\u003c/code\u003e의 동작은 요소들을 \u003ccode\u003e*args\u003c/code\u003e의 타입인 것처럼 처리하는 것입니다. 따라서 \u003ccode\u003eCallable[[*Ts], None]\u003c/code\u003e는 다음 함수의 타입으로 처리됩니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003edef foo(*args: *Ts) -\u003e None: ...\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e\u003ccode\u003eCallable[[int, *Ts, T], Tuple[T, *Ts]]\u003c/code\u003e는 다음 함수의 타입으로 처리됩니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003edef foo(*args: *Tuple[int, *Ts, T]) -\u003e Tuple[T, *Ts]: ...\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch3\u003e타입 매개변수가 지정되지 않은 경우의 동작\u003c/h3\u003e\n\u003cp\u003e타입 변수 튜플로 매개변수화된 제네릭 클래스가 타입 매개변수 없이 사용될 때, 이는 타입 변수 튜플이 \u003ccode\u003eTuple[Any, ...]\u003c/code\u003e로 대체된 것처럼 작동합니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003edef takes_any_array(arr: Array): ...\r\n# 다음과 동일합니다:\r\ndef takes_any_array(arr: Array[*Tuple[Any, ...]]): ...\r\n\r\nx: Array[Height, Width]\r\ntakes_any_array(x) # 유효함\r\n\r\ny: Array[Time, Height, Width]\r\ntakes_any_array(y) # 또한 유효함\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e이는 점진적 타이핑(gradual typing)을 가능하게 합니다. 예를 들어, 일반 \u003ccode\u003eTensorFlow Tensor\u003c/code\u003e를 받는 기존 함수는 \u003ccode\u003eTensor\u003c/code\u003e가 제네릭화되고 호출 코드가 \u003ccode\u003eTensor[Height, Width]\u003c/code\u003e를 전달하더라도 여전히 유효합니다.\u003c/p\u003e\n\u003cp\u003e이는 반대 방향으로도 작동합니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003edef takes_specific_array(arr: Array[Height, Width]): ...\r\nz: Array # Array[*Tuple[Any, ...]]와 동일함\r\ntakes_specific_array(z)\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e(자세한 내용은 \"Unpacking Unbounded Tuple Types\" 섹션을 참조하십시오.)\u003c/p\u003e\n\u003cp\u003e이러한 방식으로 라이브러리가 \u003ccode\u003eArray[Height, Width]\u003c/code\u003e와 같은 타입을 사용하도록 업데이트되더라도, 해당 라이브러리 사용자는 코드 전체에 타입 어노테이션을 적용할 필요가 없습니다. 사용자는 코드의 어떤 부분을 타입 지정하고 어떤 부분을 지정하지 않을지 여전히 선택할 수 있습니다.\u003c/p\u003e\n\u003ch3\u003eType Aliases (타입 별칭)\u003c/h3\u003e\n\u003cp\u003e제네릭 별칭은 일반 타입 변수와 유사하게 타입 변수 튜플을 사용하여 생성할 수 있습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eIntTuple = Tuple[int, *Ts]\r\nNamedArray = Tuple[str, Array[*Ts]]\r\n\r\nIntTuple[float, bool] # Tuple[int, float, bool]과 동일\r\nNamedArray[Height]    # Tuple[str, Array[Height]]와 동일\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e이 예시가 보여주듯이, 별칭에 전달된 모든 타입 매개변수는 타입 변수 튜플에 바인딩됩니다.\u003c/p\u003e\n\u003cp\u003e원래 \u003ccode\u003eArray\u003c/code\u003e 예시(요약 예시 참조)에 중요하게도, 이는 고정된 형태 또는 데이터 타입의 배열에 대한 편의 별칭을 정의할 수 있도록 합니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eShape = TypeVarTuple('Shape')\r\nDType = TypeVar('DType')\r\n\r\nclass Array(Generic[DType, *Shape]): ...\r\n\r\n# 예: Float32Array[Height, Width, Channels]\r\nFloat32Array = Array[np.float32, *Shape]\r\n\r\n# 예: Array1D[np.uint8]\r\nArray1D = Array[DType, Any]\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e명시적으로 빈 타입 매개변수 목록이 주어지면, 별칭의 타입 변수 튜플은 비어 있게 설정됩니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eIntTuple[()] # Tuple[int]와 동일\r\nNamedArray[()] # Tuple[str, Array[()]]와 동일\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e타입 매개변수 목록이 완전히 생략되면, 지정되지 않은 타입 변수 튜플은 \u003ccode\u003eTuple[Any, ...]\u003c/code\u003e로 처리됩니다 (타입 매개변수가 지정되지 않은 경우의 동작과 유사).\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003edef takes_float_array_of_any_shape(x: Float32Array): ...\r\nx: Float32Array[Height, Width] = Array()\r\ntakes_float_array_of_any_shape(x) # 유효함\r\n\r\ndef takes_float_array_with_specific_shape(\r\n    y: Float32Array[Height, Width]\r\n): ...\r\ny: Float32Array = Array()\r\ntakes_float_array_with_specific_shape(y) # 유효함\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e일반 \u003ccode\u003eTypeVar\u003c/code\u003e 인스턴스도 이러한 별칭에서 사용될 수 있습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eT = TypeVar('T')\r\nFoo = Tuple[T, *Ts]\r\n\r\nFoo[str, int] # T는 str에, Ts는 Tuple[int]에 바인딩됨\r\nFoo[float]    # T는 float에, Ts는 Tuple[()]에 바인딩됨\r\nFoo           # T는 Any에, Ts는 Tuple[Any, ...]에 바인딩됨\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch4\u003e별칭의 대체 (Substitution)\u003c/h4\u003e\n\u003cp\u003e이전 섹션에서는 타입 인수가 단순히 단순한 타입인 제네릭 별칭의 간단한 사용법만 다루었습니다. 그러나 더 이국적인 구성도 가능합니다.\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003e타입 인수는 가변적일 수 있습니다.\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003e첫째, 제네릭 별칭에 대한 타입 인수는 가변적일 수 있습니다. 예를 들어, \u003ccode\u003eTypeVarTuple\u003c/code\u003e은 타입 인수로 사용될 수 있습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eTs1 = TypeVarTuple('Ts1')\r\nTs2 = TypeVarTuple('Ts2')\r\n\r\nIntTuple = Tuple[int, *Ts1]\r\nIntFloatTuple = IntTuple[float, *Ts2] # 유효함\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e여기서 \u003ccode\u003eIntTuple\u003c/code\u003e 별칭의 \u003ccode\u003e*Ts1\u003c/code\u003e은 \u003ccode\u003eTuple[float, *Ts2]\u003c/code\u003e에 바인딩되어, \u003ccode\u003eTuple[int, float, *Ts2]\u003c/code\u003e와 동일한 \u003ccode\u003eIntFloatTuple\u003c/code\u003e 별칭이 됩니다.\u003c/p\u003e\n\u003cp\u003e언팩된 임의 길이 튜플도 타입 인수로 사용될 수 있으며, 비슷한 효과를 냅니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eIntFloatsTuple = IntTuple[*Tuple[float, ...]] # 유효함\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e여기서 \u003ccode\u003e*Ts1\u003c/code\u003e은 \u003ccode\u003e*Tuple[float, ...]\u003c/code\u003e에 바인딩되어, \u003ccode\u003eIntFloatsTuple\u003c/code\u003e은 \u003ccode\u003eTuple[int, *Tuple[float, ...]]\u003c/code\u003e와 동일해집니다. 이는 \u003ccode\u003eint\u003c/code\u003e와 0개 이상의 \u003ccode\u003efloat\u003c/code\u003e로 구성된 튜플입니다.\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003e가변 인수는 가변 별칭이 필요합니다.\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003e가변 타입 인수는 그 자체로 가변적인 제네릭 별칭에서만 사용될 수 있습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eT = TypeVar('T')\r\nIntTuple = Tuple[int, T]\r\n\r\nIntTuple[str] # 유효함\r\nIntTuple[*Ts] # 유효하지 않음 (NOT valid)\r\nIntTuple[*Tuple[float, ...]] # 유효하지 않음 (NOT valid)\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e여기서 \u003ccode\u003eIntTuple\u003c/code\u003e은 정확히 하나의 타입 인수를 받는 비가변 제네릭 별칭입니다. 따라서 \u003ccode\u003e*Ts\u003c/code\u003e 또는 \u003ccode\u003e*Tuple[float, ...]\u003c/code\u003e를 타입 인수로 받을 수 없습니다. 이는 임의의 수의 타입을 나타내기 때문입니다.\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eTypeVar와 TypeVarTuple을 모두 포함하는 별칭.\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003e\"Aliases\" 섹션에서 별칭이 \u003ccode\u003eTypeVar\u003c/code\u003e와 \u003ccode\u003eTypeVarTuple\u003c/code\u003e 모두에 대해 제네릭일 수 있음을 간략하게 언급했습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eT = TypeVar('T')\r\nFoo = Tuple[T, *Ts]\r\n\r\nFoo[str, int]         # T는 str에, Ts는 Tuple[int]에 바인딩됨\r\nFoo[str, int, float]  # T는 str에, Ts는 Tuple[int, float]에 바인딩됨\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e\"Multiple Type Variable Tuples: Not Allowed\"에 따라, 별칭의 타입 매개변수에는 최대 하나의 \u003ccode\u003eTypeVarTuple\u003c/code\u003e만 나타날 수 있습니다. 그러나 \u003ccode\u003eTypeVarTuple\u003c/code\u003e은 앞뒤로 임의의 수의 \u003ccode\u003eTypeVar\u003c/code\u003e와 결합될 수 있습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eT1 = TypeVar('T1')\r\nT2 = TypeVar('T2')\r\nT3 = TypeVar('T3')\r\n\r\nTuple[*Ts, T1, T2]      # 유효함\r\nTuple[T1, T2, *Ts]      # 유효함\r\nTuple[T1, *Ts, T2, T3]  # 유효함\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e제공된 타입 인수로 이러한 타입 변수를 대체하려면, 타입 매개변수 목록의 시작 또는 끝에 있는 타입 변수가 먼저 타입 인수를 소비하고, 나머지 타입 인수는 \u003ccode\u003eTypeVarTuple\u003c/code\u003e에 바인딩됩니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eShrubbery = Tuple[*Ts, T1, T2]\r\n\r\nShrubbery[str, bool]          # T2=bool, T1=str, Ts=Tuple[()]\r\nShrubbery[str, bool, float]   # T2=float, T1=bool, Ts=Tuple[str]\r\nShrubbery[str, bool, float, int] # T2=int, T1=float, Ts=Tuple[str, bool]\r\n\r\nPtang = Tuple[T1, *Ts, T2, T3]\r\n\r\nPtang[str, bool, float]       # T1=str, T3=float, T2=bool, Ts=Tuple[()]\r\nPtang[str, bool, float, int]  # T1=str, T3=int, T2=float, Ts=Tuple[bool]\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e이러한 경우의 최소 타입 인수는 \u003ccode\u003eTypeVar\u003c/code\u003e의 수에 따라 결정됩니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eShrubbery[int] # 유효하지 않음; Shrubbery는 최소 두 개의 타입 인수가 필요합니다.\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e\u003cstrong\u003e임의 길이 튜플 분할.\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003e\u003ccode\u003eTypeVar\u003c/code\u003e와 \u003ccode\u003eTypeVarTuple\u003c/code\u003e을 모두 포함하는 별칭에 타입 인수로 언팩된 임의 길이 튜플이 사용될 때 최종적인 복잡성이 발생합니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eElderberries = Tuple[*Ts, T1]\r\nHamster = Elderberries[*Tuple[int, ...]] # 유효함\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e이러한 경우, 임의 길이 튜플은 \u003ccode\u003eTypeVar\u003c/code\u003e와 \u003ccode\u003eTypeVarTuple\u003c/code\u003e 사이에서 분할됩니다. 우리는 임의 길이 튜플이 \u003ccode\u003eTypeVar\u003c/code\u003e의 수만큼 항목을 포함한다고 가정하며, 내부 타입의 개별 인스턴스(여기서는 \u003ccode\u003eint\u003c/code\u003e)는 존재하는 \u003ccode\u003eTypeVar\u003c/code\u003e에 바인딩됩니다. 임의 길이 튜플의 '나머지' (여기서는 \u003ccode\u003e*Tuple[int, ...]\u003c/code\u003e, 왜냐하면 임의 길이 튜플에서 두 항목을 빼도 여전히 임의 길이기 때문입니다)는 \u003ccode\u003eTypeVarTuple\u003c/code\u003e에 바인딩됩니다.\u003c/p\u003e\n\u003cp\u003e따라서 여기서 \u003ccode\u003eHamster\u003c/code\u003e는 \u003ccode\u003eTuple[*Tuple[int, ...], int]\u003c/code\u003e와 동일합니다. 즉, 0개 이상의 \u003ccode\u003eint\u003c/code\u003e와 마지막 \u003ccode\u003eint\u003c/code\u003e로 구성된 튜플입니다.\u003c/p\u003e\n\u003cp\u003e물론, 이러한 분할은 필요한 경우에만 발생합니다. 예를 들어, 대신 다음과 같이 했다면.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eElderberries[*Tuple[int, ...], str]\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e분할은 발생하지 않을 것입니다. \u003ccode\u003eT1\u003c/code\u003e은 \u003ccode\u003estr\u003c/code\u003e에 바인딩되고, \u003ccode\u003eTs\u003c/code\u003e는 \u003ccode\u003e*Tuple[int, ...]\u003c/code\u003e에 바인딩됩니다.\u003c/p\u003e\n\u003cp\u003e특히 까다로운 경우, \u003ccode\u003eTypeVarTuple\u003c/code\u003e은 타입과 임의 길이 튜플 타입의 일부를 모두 소비할 수 있습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eElderberries[str, *Tuple[int, ...]]\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e여기서 \u003ccode\u003eT1\u003c/code\u003e은 \u003ccode\u003eint\u003c/code\u003e에 바인딩되고, \u003ccode\u003eTs\u003c/code\u003e는 \u003ccode\u003eTuple[str, *Tuple[int, ...]]\u003c/code\u003e에 바인딩됩니다. 따라서 이 표현식은 \u003ccode\u003eTuple[str, *Tuple[int, ...], int]\u003c/code\u003e와 동일합니다. 즉, \u003ccode\u003estr\u003c/code\u003e 다음에 0개 이상의 \u003ccode\u003eint\u003c/code\u003e가 오고, 마지막에 \u003ccode\u003eint\u003c/code\u003e로 끝나는 튜플입니다.\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eTypeVarTuples는 분할될 수 없습니다.\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003e마지막으로, 타입 인수 목록의 임의 길이 튜플은 타입 변수와 타입 변수 튜플 사이에서 분할될 수 있지만, 인수 목록의 \u003ccode\u003eTypeVarTuple\u003c/code\u003e에는 동일하게 적용되지 않습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eTs1 = TypeVarTuple('Ts1')\r\nTs2 = TypeVarTuple('Ts2')\r\n\r\nCamelot = Tuple[T, *Ts1]\r\nCamelot[*Ts2] # 유효하지 않음 (NOT valid)\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e이는 언팩된 임의 길이 튜플의 경우와 달리 \u003ccode\u003eTypeVarTuple\u003c/code\u003e 내부를 '들여다보아' 개별 타입이 무엇인지 알 방법이 없기 때문에 불가능합니다.\u003c/p\u003e\n\u003ch3\u003e개별 타입 접근을 위한 오버로드\u003c/h3\u003e\n\u003cp\u003e타입 변수 튜플의 각 개별 타입에 접근해야 하는 상황에서는 타입 변수 튜플 대신 개별 \u003ccode\u003eTypeVar\u003c/code\u003e 인스턴스와 함께 오버로드(overloads)를 사용할 수 있습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003efrom typing import overload\r\n\r\nShape = TypeVarTuple('Shape')\r\nAxis1 = TypeVar('Axis1')\r\nAxis2 = TypeVar('Axis2')\r\nAxis3 = TypeVar('Axis3')\r\n\r\nclass Array(Generic[*Shape]):\r\n    @overload\r\n    def transpose(\r\n        self: Array[Axis1, Axis2]\r\n    ) -\u003e Array[Axis2, Axis1]: ...\r\n    @overload\r\n    def transpose(\r\n        self: Array[Axis1, Axis2, Axis3]\r\n    ) -\u003e Array[Axis3, Axis2, Axis1]: ...\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e(특히 배열 형태 연산의 경우, 가능한 각 랭크에 대해 오버로드를 지정해야 하는 것은 다소 번거로운 해결책입니다. 그러나 추가적인 타입 조작 메커니즘 없이는 최선입니다. 이러한 메커니즘은 미래의 PEP에서 도입될 예정입니다.)\u003c/p\u003e\n\u003ch2\u003e근거 및 거부된 아이디어\u003c/h2\u003e\n\u003ch3\u003e형태 연산 (Shape Arithmetic)\u003c/h3\u003e\n\u003cp\u003e특히 배열 형태의 사용 사례를 고려할 때, 이 PEP 현재 배열 차원의 산술 변환(예: \u003ccode\u003edef repeat_each_element(x: Array[N]) -\u003e Array[2*N]\u003c/code\u003e)을 설명하는 것은 아직 불가능합니다. 우리는 이를 현재 PEP의 범위 외로 간주하지만, 미래의 PEP에서 이를 가능하게 할 추가 메커니즘을 제안할 계획입니다.\u003c/p\u003e\n\u003ch3\u003e별칭을 통한 가변성 지원\u003c/h3\u003e\n\u003cp\u003e서론에서 언급했듯이, 가능한 각 수의 타입 매개변수에 대한 별칭을 정의하는 것만으로 가변 제네릭을 피할 수 있습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eclass Array1(Generic[Axis1]): ...\r\nclass Array2(Generic[Axis1, Axis2]): ...\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e그러나 이는 다소 서투르게 보입니다. 사용자에게는 필요한 각 랭크에 대해 코드에 불필요하게 1, 2 등을 뿌려야 하는 번거로움이 있습니다.\u003c/p\u003e\n\u003ch3\u003eTypeVarTuple의 구성\u003c/h3\u003e\n\u003cp\u003e\u003ccode\u003eTypeVarTuple\u003c/code\u003e은 Pyre의 초기 구현에서 이름을 따와 \u003ccode\u003eListVariadic\u003c/code\u003e으로 시작했습니다.\u003c/p\u003e\n\u003cp\u003e그 후 \u003ccode\u003eTypeVar(list=True)\u003c/code\u003e로 변경되었는데, 그 이유는 a) \u003ccode\u003eTypeVar\u003c/code\u003e와의 유사성을 더 잘 강조하고, b) 'list'의 의미가 'variadic'이라는 전문 용어보다 더 쉽게 이해되기 때문이었습니다.\u003c/p\u003e\n\u003cp\u003e가변 타입 변수가 \u003ccode\u003eTuple\u003c/code\u003e처럼 작동해야 한다고 결정한 후, \u003ccode\u003eTypeVar(bound=Tuple)\u003c/code\u003e도 고려했습니다. 이는 비슷하게 직관적이며 \u003ccode\u003eTypeVar\u003c/code\u003e에 새로운 인수를 요구하지 않고 우리가 원했던 대부분을 달성했습니다. 그러나 예를 들어, 타입 바운드(type bounds)나 분산(variance)이 \u003ccode\u003eTypeVar\u003c/code\u003e의 의미가 암시하는 것과 약간 다르게 작동하도록 하려면 미래에 제약이 될 수 있음을 깨달았습니다. 또한, 나중에 일반 타입 변수에서는 지원되어서는 안 되는 인수(예: \u003ccode\u003earbitrary_len\u003c/code\u003e)를 지원하고 싶을 수도 있습니다.\u003c/p\u003e\n\u003cp\u003e따라서 우리는 \u003ccode\u003eTypeVarTuple\u003c/code\u003e로 결정했습니다.\u003c/p\u003e\n\u003ch3\u003e지정되지 않은 타입 매개변수: \u003ccode\u003eTuple\u003c/code\u003e vs \u003ccode\u003eTypeVarTuple\u003c/code\u003e\u003c/h3\u003e\n\u003cp\u003e점진적 타이핑을 지원하기 위해 이 PEP는 다음 두 예시가 모두 올바르게 타입 검사되어야 한다고 명시합니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003edef takes_any_array(x: Array): ...\r\nx: Array[Height, Width]\r\ntakes_any_array(x)\r\n\r\ndef takes_specific_array(y: Array[Height, Width]): ...\r\ny: Array\r\ntakes_specific_array(y)\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e이는 Python에서 현재 유일하게 존재하는 가변 타입인 \u003ccode\u003eTuple\u003c/code\u003e의 동작과는 대조적입니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003edef takes_any_tuple(x: Tuple): ...\r\nx: Tuple[int, str]\r\ntakes_any_tuple(x) # 유효함\r\n\r\ndef takes_specific_tuple(y: Tuple[int, str]): ...\r\ny: Tuple\r\ntakes_specific_tuple(y) # 오류\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e\u003ccode\u003eTuple\u003c/code\u003e에 대한 규칙은 후자 경우가 오류가 되도록 의도적으로 선택되었습니다. 프로그래머가 실수를 저질렀을 가능성이 더 높고, 함수가 특정 종류의 \u003ccode\u003eTuple\u003c/code\u003e을 예상하지만 전달된 특정 종류의 \u003ccode\u003eTuple\u003c/code\u003e이 타입 검사기에게 알려지지 않았을 가능성은 낮다고 생각되었습니다. 또한, \u003ccode\u003eTuple\u003c/code\u003e은 변경 불가능한 시퀀스(immutable sequences)를 나타내는 데 사용된다는 점에서 다소 특별한 경우입니다. 즉, 객체의 타입이 매개변수화되지 않은 \u003ccode\u003eTuple\u003c/code\u003e로 추론되었다고 해서 반드시 불완전한 타이핑 때문인 것은 아닙니다.\u003c/p\u003e\n\u003cp\u003e이와 대조적으로, 객체의 타입이 매개변수화되지 않은 \u003ccode\u003eArray\u003c/code\u003e로 추론되었다면, 사용자가 단순히 코드를 완전히 어노테이션하지 않았거나, 형태를 조작하는 라이브러리 함수의 시그니처가 아직 타이핑 시스템을 사용하여 표현될 수 없으므로 일반 \u003ccode\u003eArray\u003c/code\u003e를 반환하는 것이 유일한 옵션일 가능성이 훨씬 더 높습니다. 우리는 진정으로 임의의 형태를 가진 배열을 거의 다루지 않습니다. 특정 경우, 형태의 일부는 임의적일 수 있습니다 (예: 시퀀스를 다룰 때 형태의 처음 두 부분은 종종 'batch'와 'time'입니다). 그러나 우리는 미래의 PEP에서 \u003ccode\u003eArray[Batch, Time, ...]\u003c/code\u003e와 같은 구문으로 이러한 경우를 명시적으로 지원할 계획입니다.\u003c/p\u003e\n\u003cp\u003e따라서 우리는 사용자에게 코드의 어느 정도를 어노테이션할지 더 많은 유연성을 제공하고, 오래된 어노테이션 없는 코드와 이러한 타입 어노테이션을 사용하는 라이브러리의 새 버전 간의 호환성을 가능하게 하기 위해 \u003ccode\u003eTuple\u003c/code\u003e 이외의 가변 제네릭이 다르게 작동하도록 결정했습니다.\u003c/p\u003e\n\u003ch2\u003e대안\u003c/h2\u003e\n\u003cp\u003e수치 라이브러리에서 형태 검사 문제를 해결하기 위해 이 PEP에서 제시된 접근 방식이 유일한 접근 방식은 아닙니다. 런타임 검사에 기반한 더 경량화된 대안의 예시로는 ShapeGuard, tsanley, PyContracts 등이 있습니다.\u003c/p\u003e\n\u003cp\u003e이러한 기존 접근 방식은 형태 검사가 길고 장황한 \u003ccode\u003eassert\u003c/code\u003e 문을 통해서만 가능했던 기본 상황을 크게 개선하지만, 형태 정확성에 대한 정적 분석을 가능하게 하는 것은 없습니다. 동기(Motivation)에서 언급했듯이, 이는 라이브러리 및 인프라 복잡성으로 인해 상대적으로 간단한 프로그램도 긴 시작 시간을 겪어야 하는 머신러닝 애플리케이션에서 특히 바람직한 기능입니다. 기존 런타임 기반 접근 방식에서와 같이 프로그램이 충돌할 때까지 실행하여 반복하는 것은 지루하고 실망스러운 경험이 될 수 있습니다.\u003c/p\u003e\n\u003cp\u003e이 PEP를 통해 우리는 제네릭 타입 어노테이션을 형태 정확성을 다루는 공식적이고 언어가 지원하는 방식으로 성문화하기 시작하기를 희망합니다. 표준이 마련되면 장기적으로는 수치 연산 프로그램의 형태 속성을 분석하고 검증하는 도구의 번성하는 생태계를 가능하게 할 것입니다.\u003c/p\u003e\n\u003ch3\u003e문법 변경\u003c/h3\u003e\n\u003cp\u003e이 PEP는 두 가지 문법 변경을 요구합니다.\u003c/p\u003e\n\u003ch4\u003e변경 1: 인덱스의 별표 표현식\u003c/h4\u003e\n\u003cp\u003e첫 번째 문법 변경은 인덱스 연산(즉, 대괄호 안)에서 별표 표현식 사용을 가능하게 하며, 이는 \u003ccode\u003eTypeVarTuple\u003c/code\u003e의 별표 언팩을 지원하는 데 필요합니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eDType = TypeVar('DType')\r\nShape = TypeVarTuple('Shape')\r\n\r\nclass Array(Generic[DType, *Shape]): ...\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e이전 (Before):\r\n\u003ccode\u003eslices: | slice !',' | ','.slice+ [',']\u003c/code\u003e\u003c/p\u003e\n\u003cp\u003e이후 (After):\r\n\u003ccode\u003eslices: | slice !',' | ','.(slice | starred_expression)+ [',']\u003c/code\u003e\u003c/p\u003e\n\u003cp\u003e다른 맥락에서의 별표 언팩과 마찬가지로, 별표 연산자는 피호출자(callee)에서 \u003ccode\u003e__iter__\u003c/code\u003e를 호출하고, 결과 이터레이터의 내용을 \u003ccode\u003e__getitem__\u003c/code\u003e에 전달된 인수에 추가합니다. 예를 들어, \u003ccode\u003efoo[a, *b, c]\u003c/code\u003e를 수행하고 \u003ccode\u003eb.__iter__\u003c/code\u003e가 \u003ccode\u003ed\u003c/code\u003e와 \u003ccode\u003ee\u003c/code\u003e를 생성하는 이터레이터를 생성하면, \u003ccode\u003efoo.__getitem__\u003c/code\u003e은 \u003ccode\u003e(a, d, e, c)\u003c/code\u003e를 받습니다.\u003c/p\u003e\n\u003cp\u003e달리 말하면, \u003ccode\u003ex[..., *a, ...]\u003c/code\u003e는 \u003ccode\u003ex[(..., *a, ...)]\u003c/code\u003e와 동일한 결과를 생성합니다 ( \u003ccode\u003e...\u003c/code\u003e의 \u003ccode\u003ei:j\u003c/code\u003e 슬라이스는 \u003ccode\u003eslice(i, j)\u003c/code\u003e로 대체되며, \u003ccode\u003ex[*a]\u003c/code\u003e가 \u003ccode\u003ex[(*a,)]\u003c/code\u003e가 되는 예외적인 한 가지 경우가 있습니다).\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eTypeVarTuple 구현.\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003e이러한 문법 변경으로 \u003ccode\u003eTypeVarTuple\u003c/code\u003e은 다음과 같이 구현됩니다. 이 구현은 a) 올바른 \u003ccode\u003erepr()\u003c/code\u003e과 b) 런타임 분석기에게만 유용하며, 정적 분석기는 이 구현을 사용하지 않습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eclass TypeVarTuple:\r\n    def __init__(self, name):\r\n        self._name = name\r\n        self._unpacked = UnpackedTypeVarTuple(name)\r\n\r\n    def __iter__(self):\r\n        yield self._unpacked\r\n\r\n    def __repr__(self):\r\n        return self._name\r\n\r\nclass UnpackedTypeVarTuple:\r\n    def __init__(self, name):\r\n        self._name = name\r\n\r\n    def __repr__(self):\r\n        return '*' + self._name\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e\u003cstrong\u003e함의 (Implications).\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003e이 문법 변경은 이 PEP에서 요구하지 않는 여러 추가적인 동작 변경을 의미합니다. 우리는 문법 변경을 가능한 한 작게 유지하기 위해 구문 수준에서 이러한 추가 변경을 금지하는 대신 허용하기로 선택합니다.\u003c/p\u003e\n\u003cp\u003e첫째, 문법 변경은 인덱싱 연산 내에서 목록과 같은 다른 구조의 별표 언팩을 가능하게 합니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eidxs = (1, 2)\r\narray_slice = array[0, *idxs, -1] # [0, 1, 2, -1]과 동일\r\narray[0, *idxs, -1] = array_slice # 또한 허용됨\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e둘째, 인덱스 내에 두 개 이상의 별표 언팩 인스턴스가 나타날 수 있습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003earray[*idxs_to_select, *idxs_to_select] # array[1, 2, 1, 2]와 동일\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e이 PEP는 단일 타입 매개변수 목록 내에서 여러 언팩된 \u003ccode\u003eTypeVarTuple\u003c/code\u003e을 허용하지 않습니다. 따라서 이 요구 사항은 구문 수준이 아닌 타입 검사 도구 자체에서 구현되어야 합니다.\u003c/p\u003e\n\u003cp\u003e셋째, 슬라이스와 별표 표현식이 함께 나타날 수 있습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003earray[3:5, *idxs_to_select] # array[3:5, 1, 2]와 동일\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e그러나 별표 표현식을 포함하는 슬라이스는 여전히 유효하지 않습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003e# 구문 오류\r\narray[*idxs_start:*idxs_end]\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch4\u003e변경 2: \u003ccode\u003e*args\u003c/code\u003e를 \u003ccode\u003eTypeVarTuple\u003c/code\u003e로 사용\u003c/h4\u003e\n\u003cp\u003e두 번째 변경은 함수 정의에서 \u003ccode\u003e*args: *Ts\u003c/code\u003e 사용을 가능하게 합니다.\u003c/p\u003e\n\u003cp\u003e이전 (Before):\r\n\u003ccode\u003estar_etc: | '*' param_no_default param_maybe_default* [kwds] | '*' ',' param_maybe_default+ [kwds] | kwds\u003c/code\u003e\u003c/p\u003e\n\u003cp\u003e이후 (After):\r\n\u003ccode\u003estar_etc: | '*' param_no_default param_maybe_default* [kwds] | '*' param_no_default_star_annotation param_maybe_default* [kwds] # New | '*' ',' param_maybe_default+ [kwds] | kwds\u003c/code\u003e\u003c/p\u003e\n\u003cp\u003e여기서:\r\n\u003ccode\u003eparam_no_default_star_annotation: | param_star_annotation ',' TYPE_COMMENT? | param_star_annotation TYPE_COMMENT? \u0026#x26;')'\u003c/code\u003e\r\n\u003ccode\u003eparam_star_annotation: NAME star_annotation\u003c/code\u003e\r\n\u003ccode\u003estar_annotation: ':' star_expression\u003c/code\u003e\u003c/p\u003e\n\u003cp\u003e또한 이 구조에서 발생하는 \u003ccode\u003estar_expression\u003c/code\u003e을 처리해야 합니다. 일반적으로 \u003ccode\u003estar_expression\u003c/code\u003e은 예를 들어 목록의 컨텍스트 내에서 발생하므로, \u003ccode\u003estar_expression\u003c/code\u003e은 기본적으로 별표가 붙은 객체에서 \u003ccode\u003eiter()\u003c/code\u003e를 호출하고, 결과 이터레이터의 내용을 적절한 위치에 목록에 삽입하여 처리됩니다. 그러나 \u003ccode\u003e*args: *Ts\u003c/code\u003e의 경우 \u003ccode\u003estar_expression\u003c/code\u003e을 다른 방식으로 처리해야 합니다.\u003c/p\u003e\n\u003cp\u003e우리는 대신 \u003ccode\u003e*args: *Ts\u003c/code\u003e에서 발생하는 \u003ccode\u003estar_expression\u003c/code\u003e에 대해 특별한 경우를 만들어서 \u003ccode\u003e[annotation_value] = [*Ts]\u003c/code\u003e와 동일한 코드를 내보냅니다. 즉, \u003ccode\u003eTs.__iter__\u003c/code\u003e를 호출하여 \u003ccode\u003eTs\u003c/code\u003e에서 이터레이터를 생성하고, 이터레이터에서 단일 값을 가져오고, 이터레이터가 소진되었는지 확인하고, 해당 값을 어노테이션 값으로 설정합니다. 이는 언팩된 \u003ccode\u003eTypeVarTuple\u003c/code\u003e이 \u003ccode\u003e*args\u003c/code\u003e의 런타임 어노테이션으로 직접 설정되도록 합니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003e\u003e\u003e\u003e Ts = TypeVarTuple('Ts')\r\n\u003e\u003e\u003e def foo(*args: *Ts): pass\r\n\u003e\u003e\u003e foo.__annotations__\r\n{'args': *Ts} # *Ts는 Ts._unpacked의 repr()이며, UnpackedTypeVarTuple의 인스턴스입니다.\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e이를 통해 런타임 어노테이션이 args의 어노테이션에 \u003ccode\u003eStarred\u003c/code\u003e 노드를 사용하는 AST 표현과 일치할 수 있습니다. 이는 \u003ccode\u003emypy\u003c/code\u003e와 같이 AST에 의존하는 도구가 구조를 올바르게 인식하는 데 중요합니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003e\u003e\u003e\u003e import ast\r\n\u003e\u003e\u003e print(ast.dump(ast.parse('def foo(*args: *Ts): pass'), indent=2))\r\nModule(\r\n    body=[\r\n        FunctionDef(\r\n            name='foo',\r\n            args=arguments(\r\n                posonlyargs=[],\r\n                args=[],\r\n                vararg=arg(\r\n                    arg='args',\r\n                    annotation=Starred(\r\n                        value=Name(id='Ts', ctx=Load()),\r\n                        ctx=Load())),\r\n                kwonlyargs=[],\r\n                kw_defaults=[],\r\n                defaults=[]),\r\n            body=[\r\n                Pass()],\r\n            decorator_list=[])],\r\n    type_ignores=[])\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e이 문법 변경이 \u003ccode\u003e*Ts\u003c/code\u003e를 직접적인 어노테이션으로 (예: \u003ccode\u003eTuple[*Ts]\u003c/code\u003e로 래핑하지 않고) 사용할 수 있도록 허용하는 유일한 시나리오는 \u003ccode\u003e*args\u003c/code\u003e임을 참고하십시오. 다른 용도는 여전히 유효하지 않습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003ex: *Ts # 구문 오류\r\ndef foo(x: *Ts): pass # 구문 오류\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e\u003cstrong\u003e함의 (Implications).\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003e첫 번째 문법 변경과 마찬가지로, 이 변경도 여러 부작용을 가집니다. 특히, \u003ccode\u003e*args\u003c/code\u003e의 어노테이션은 \u003ccode\u003eTypeVarTuple\u003c/code\u003e 이외의 별표가 붙은 객체로 설정될 수 있습니다. 예를 들어, 다음 비논리적인 어노테이션이 가능합니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003e\u003e\u003e\u003e foo = [1]\r\n\u003e\u003e\u003e def bar(*args: *foo): pass\r\n\u003e\u003e\u003e bar.__annotations__\r\n{'args': 1}\r\n\r\n\u003e\u003e\u003e foo = [1, 2]\r\n\u003e\u003e\u003e def bar(*args: *foo): pass\r\nValueError: too many values to unpack (expected 1)\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e다시 말하지만, 이러한 어노테이션의 방지는 구문 수준이 아닌 정적 검사기 등에 의해 이루어져야 합니다.\u003c/p\u003e\n\u003ch3\u003e대안 (왜 \u003ccode\u003eUnpack\u003c/code\u003e을 사용하지 않는가?)\u003c/h3\u003e\n\u003cp\u003e이러한 문법 변경이 너무 부담스럽다고 간주된다면, 두 가지 대안이 있습니다.\u003c/p\u003e\n\u003cp\u003e첫 번째는 변경 1은 지원하지만 변경 2는 지원하지 않는 것입니다. 가변 제네릭은 \u003ccode\u003e*args\u003c/code\u003e를 어노테이션하는 능력보다 더 중요합니다.\u003c/p\u003e\n\u003cp\u003e두 번째 대안은 문법 변경 없이 \u003ccode\u003eUnpack\u003c/code\u003e을 대신 사용하는 것입니다. 그러나 우리는 이를 두 가지 이유로 차선책으로 간주합니다.\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003e\u003cstrong\u003e가독성:\u003c/strong\u003e \u003ccode\u003eclass Array(Generic[DType, Unpack[Shape]])\u003c/code\u003e는 다소 장황하며, \u003ccode\u003eUnpack\u003c/code\u003e의 길이와 추가적인 대괄호 세트가 읽는 흐름을 방해합니다. \u003ccode\u003eclass Array(Generic[DType, *Shape])\u003c/code\u003e는 \u003ccode\u003eShape\u003c/code\u003e를 특별하게 표시하면서도 훨씬 쉽게 훑어볼 수 있습니다.\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003e직관성:\u003c/strong\u003e 사용자는 \u003ccode\u003eUnpack[Ts]\u003c/code\u003e의 의미보다 \u003ccode\u003e*Ts\u003c/code\u003e의 의미를 더 직관적으로 이해할 가능성이 높다고 생각합니다 (특히 \u003ccode\u003eTs\u003c/code\u003e가 \u003ccode\u003eTypeVarTuple\u003c/code\u003e임을 알 때). (이는 사용자가 다른 맥락에서 별표 언팩에 익숙하다고 가정하며, 사용자가 가변 제네릭을 사용하는 코드를 읽거나 작성하는 경우 합리적으로 보입니다.)\u003c/li\u003e\n\u003c/ol\u003e\n\u003cp\u003e따라서 변경 1조차 너무 중요한 변경이라고 생각된다면, 이 두 번째 대안을 진행하기 전에 옵션을 재고하는 것이 더 나을 수 있습니다.\u003c/p\u003e\n\u003ch2\u003e하위 호환성 (Backwards Compatibility)\u003c/h2\u003e\n\u003cp\u003e이 PEP의 \u003ccode\u003eUnpack\u003c/code\u003e 버전은 이전 Python 버전으로 백포팅(back-portable)되어야 합니다.\u003c/p\u003e\n\u003cp\u003e매개변수화되지 않은 가변 클래스가 임의의 수의 타입 매개변수와 호환된다는 사실로 인해 점진적 타이핑이 가능합니다. 이는 기존 클래스가 제네릭화될 경우 a) 클래스의 모든 기존 (매개변수화되지 않은) 사용은 여전히 작동하며, b) 클래스의 매개변수화된 버전과 매개변수화되지 않은 버전이 함께 사용될 수 있음을 의미합니다 (예를 들어, 라이브러리 코드가 매개변수를 사용하도록 업데이트되었지만 사용자 코드는 업데이트되지 않았거나 그 반대의 경우에 해당합니다).\u003c/p\u003e\n\u003ch2\u003e참조 구현 (Reference Implementation)\u003c/h2\u003e\n\u003cp\u003e타입 검사 기능에 대한 두 가지 참조 구현이 존재합니다. 하나는 Pyre v0.9.0에, 다른 하나는 Pyright v1.1.108에 있습니다.\u003c/p\u003e\n\u003cp\u003eCPython에서 이 PEP의 \u003ccode\u003eUnpack\u003c/code\u003e 버전에 대한 예비 구현은 cpython/23527에서 사용할 수 있습니다. PEP 637의 초기 구현을 기반으로 하는 별표 연산자를 사용하는 버전의 예비 버전도 mrahtz/cpython/pep637+646에서 사용할 수 있습니다.\u003c/p\u003e\n\u003ch2\u003e부록 A: 형태 타이핑 사용 사례\u003c/h2\u003e\n\u003cp\u003e배열 타이핑 사용 사례에 특히 관심 있는 사람들에게 이 PEP에 추가적인 맥락을 제공하기 위해, 이 부록에서는 형태 기반 하위 타입을 지정하는 데 이 PEP를 사용할 수 있는 다양한 방법에 대해 설명합니다.\u003c/p\u003e\n\u003ch3\u003e사용 사례 1: 형태 값 지정\u003c/h3\u003e\n\u003cp\u003e배열 타입을 매개변수화하는 가장 간단한 방법은 \u003ccode\u003eLiteral\u003c/code\u003e 타입 매개변수(예: \u003ccode\u003eArray[Literal[64], Literal[64]]\u003c/code\u003e)를 사용하는 것입니다.\u003c/p\u003e\n\u003cp\u003e일반 타입 변수를 사용하여 각 매개변수에 이름을 붙일 수 있습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eK = TypeVar('K')\r\nN = TypeVar('N')\r\ndef matrix_vector_multiply(x: Array[K, N], y: Array[N]) -\u003e Array[K]: ...\r\n\r\na: Array[Literal[64], Literal[32]]\r\nb: Array[Literal[32]]\r\nmatrix_vector_multiply(a, b) # 결과는 Array[Literal[64]]\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e이러한 이름은 순전히 지역적인 범위(local scope)를 가진다는 점에 유의하십시오. 즉, \u003ccode\u003eK\u003c/code\u003e라는 이름은 \u003ccode\u003ematrix_vector_multiply\u003c/code\u003e 내에서만 \u003ccode\u003eLiteral[64]\u003c/code\u003e에 바인딩됩니다. 달리 말하면, 다른 시그니처의 \u003ccode\u003eK\u003c/code\u003e 값 사이에는 관계가 없습니다. 이는 중요합니다. 프로그램 전체에서 \u003ccode\u003eK\u003c/code\u003e라는 이름의 모든 축이 동일한 값을 가지도록 제약된다면 불편할 것입니다.\u003c/p\u003e\n\u003cp\u003e이 접근 방식의 단점은 서로 다른 호출 간에 형태 의미론(shape semantics)을 강제할 수 없다는 것입니다. 예를 들어, 동기(Motivation)에서 언급된 문제를 해결할 수 없습니다. 한 함수가 선행 차원 'Time × Batch'를 가진 배열을 반환하고, 다른 함수가 동일한 배열을 선행 차원 'Batch × Time'으로 가정하여 받는 경우, 이를 감지할 방법이 없습니다.\u003c/p\u003e\n\u003cp\u003e주요 장점은 어떤 경우에는 축 크기가 정말로 우리가 신경 쓰는 것이라는 점입니다. 이는 위와 같은 행렬 조작과 같은 간단한 선형 대수 연산뿐만 아니라 신경망의 컨볼루션 레이어와 같은 더 복잡한 변환에서도 해당됩니다. 이러한 경우 정적 분석을 사용하여 각 레이어 후의 배열 크기를 검사할 수 있다면 프로그래머에게 매우 유용할 것입니다. 이를 돕기 위해, 미래에는 배열 형태에 대한 산술 연산을 가능하게 하는 추가 타입 연산자(예: \u003ccode\u003edef repeat_each_element(x: Array[N]) -\u003e Array[Mul[2, N]]: ...\u003c/code\u003e)의 가능성을 탐구하고자 합니다. 이러한 산술 타입 연산자는 \u003ccode\u003eN\u003c/code\u003e과 같은 이름이 축 크기를 참조하는 경우에만 의미가 있을 것입니다.\u003c/p\u003e\n\u003ch3\u003e사용 사례 2: 형태 의미론 지정\u003c/h3\u003e\n\u003cp\u003e두 번째 접근 방식(이 PEP의 대부분 예시가 기반으로 하는 접근 방식)은 실제 축 크기 어노테이션을 포기하고 대신 축 타입을 어노테이션하는 것입니다.\u003c/p\u003e\n\u003cp\u003e이는 호출 간에 형태 속성을 강제하는 문제를 해결할 수 있도록 합니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003e# lib.py\r\nclass Batch: pass\r\nclass Time: pass\r\n\r\ndef make_array() -\u003e Array[Batch, Time]: ...\r\n\r\n# user.py\r\nfrom lib import Batch, Time\r\n\r\n# `Batch`와 `Time`은 `lib`와 동일한 ID를 가지므로,\r\n# `lib.make_array`에 의해 생성된 배열을 받아야 합니다.\r\ndef use_array(x: Array[Batch, Time]): ...\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e이 경우, 이름은 (다른 곳에서 동일한 \u003ccode\u003eBatch\u003c/code\u003e 타입을 사용하는 한) 전역적입니다. 그러나 이름이 축 타입만 참조하기 때문에 특정 축의 값이 프로그램 전체에서 동일하도록 제약하지 않습니다 (즉, \u003ccode\u003eHeight\u003c/code\u003e라는 이름의 모든 축이 480과 같은 값을 가지도록 제약하지 않습니다).\u003c/p\u003e\n\u003cp\u003e이 접근 방식의 주장은 많은 경우에 축 타입이 검증해야 할 더 중요한 것이라는 점입니다. 각 축의 특정 크기보다 어떤 축이 어떤 축인지가 더 중요합니다.\u003c/p\u003e\n\u003cp\u003e이는 또한 미리 타입을 알지 못하고 형태 변환을 설명하려는 경우를 배제하지 않습니다. 예를 들어, 여전히 다음과 같이 작성할 수 있습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eK = TypeVar('K')\r\nN = TypeVar('N')\r\ndef matrix_vector_multiply(x: Array[K, N], y: Array[N]) -\u003e Array[K]: ...\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e그런 다음 다음과 같이 사용할 수 있습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eclass Batch: pass\r\nclass Values: pass\r\n\r\nbatch_of_values: Array[Batch, Values]\r\nvalue_weights: Array[Values]\r\nmatrix_vector_multiply(batch_of_values, value_weights) # 결과는 Array[Batch]\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e단점은 사용 사례 1의 장점의 역순입니다. 특히 이 접근 방식은 축 타입에 대한 산술 연산에 잘 맞지 않습니다. \u003ccode\u003eMul[2, Batch]\u003c/code\u003e는 \u003ccode\u003e2 * int\u003c/code\u003e만큼 무의미할 것입니다.\u003c/p\u003e\n\u003ch3\u003e논의 (Discussion)\u003c/h3\u003e\n\u003cp\u003e사용 사례 1과 2는 사용자 코드에서 상호 배타적이라는 점에 유의하십시오. 사용자는 크기 또는 의미론적 타입 중 하나만 검증할 수 있습니다.\u003c/p\u003e\n\u003cp\u003e이 PEP 현재, 우리는 어떤 접근 방식이 가장 큰 이점을 제공할지에 대해 중립적입니다. 그러나 이 PEP에서 도입된 기능은 두 접근 방식 모두와 호환되므로, 가능성을 열어 둡니다.\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003e둘 다는 안 되는가?\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003e다음 '일반' 코드를 고려해 봅시다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003edef f(x: int): ...\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e여기서 우리는 객체의 값(\u003ccode\u003ex\u003c/code\u003e)과 객체의 타입(\u003ccode\u003eint\u003c/code\u003e) 모두에 대한 기호를 가지고 있습니다. 축에서도 동일하게 할 수 없는 이유는 무엇일까요? 예를 들어, 가상의 구문으로 다음과 같이 작성할 수 있습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003edef f(array: Array[TimeValue: TimeType]): ...\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e이를 통해 \u003ccode\u003eTimeValue\u003c/code\u003e 기호를 통해 축 크기(예: 32)에 접근하고, \u003ccode\u003eTypeType\u003c/code\u003e 기호를 통해 타입에 접근할 수 있습니다.\u003c/p\u003e\n\u003cp\u003e이는 두 번째 수준의 매개변수화를 통해 기존 구문을 사용하여도 가능할 수 있습니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003edef f(array: array[TimeValue[TimeType]]): ..\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e그러나 이 접근 방식의 탐구는 미래로 미루어 둡니다.\u003c/p\u003e\n\u003ch2\u003e부록 B: 형태가 있는 타입 vs 명명된 축 (Shaped Types vs Named Axes)\u003c/h2\u003e\n\u003cp\u003e이 PEP에서 다루는 문제와 관련된 문제는 축 선택과 관련이 있습니다. 예를 들어, 64x64x3 형태의 배열에 저장된 이미지가 있다면, 세 번째 축에서 평균을 계산하여 흑백으로 변환하고 싶을 수 있습니다 (\u003ccode\u003emean(image, axis=2)\u003c/code\u003e). 불행히도, \u003ccode\u003eaxis=1\u003c/code\u003e과 같은 간단한 오타는 발견하기 어렵고 완전히 다른 의미의 결과를 생성할 것입니다 (그러면서도 프로그램은 계속 실행될 가능성이 높으며, 심각하지만 침묵하는 버그로 이어집니다).\u003c/p\u003e\n\u003cp\u003e이에 대응하여 일부 라이브러리는 축이 인덱스가 아닌 레이블로 선택되는 이른바 '명명된 텐서(named tensors)'를 구현했습니다 (이 맥락에서 '텐서'는 '배열'과 동의어입니다). 예를 들어 \u003ccode\u003emean(image, axis='channels')\u003c/code\u003e.\u003c/p\u003e\n\u003cp\u003e이 PEP에 대해 자주 묻는 질문 중 하나는 \"왜 명명된 텐서를 사용하지 않는가?\"입니다. 답변은 명명된 텐서 접근 방식이 두 가지 주요 이유로 불충분하다고 간주하기 때문입니다.\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003e\u003cstrong\u003e형태 정확성에 대한 정적 검사가 불가능합니다.\u003c/strong\u003e 동기(Motivation)에서 언급했듯이, 이는 반복 시간이 기본적으로 느린 머신러닝 코드에서 매우 바람직한 기능입니다.\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003e이 접근 방식으로는 인터페이스 문서화가 여전히 불가능합니다.\u003c/strong\u003e 함수가 이미지와 같은 형태를 가진 배열 인수만 받아야 한다고 규정할 수 없습니다.\u003c/li\u003e\n\u003c/ol\u003e\n\u003cp\u003e또한, 낮은 채택률 문제도 있습니다. 현재 명명된 텐서는 소수의 수치 연산 라이브러리에서만 구현되었습니다. 이에 대한 가능한 설명으로는 구현의 어려움(축 이름 대신 인덱스로 선택을 허용하도록 전체 API를 수정해야 함)과 축 순서 지정 규칙이 종종 강력하여 축 이름이 거의 이점을 제공하지 않는다는 점 때문에 유용성 부족(예: 이미지를 다룰 때 3D 텐서는 기본적으로 항상 높이 × 너비 × 채널입니다)이 있습니다. 그러나 궁극적으로 우리는 이것이 왜 이런 경우인지 여전히 불확실합니다.\u003c/p\u003e\n\u003cp\u003e명명된 텐서 접근 방식을 이 PEP에서 옹호하는 접근 방식과 결합할 수 있을까요? 확실하지 않습니다. 한 가지 중첩되는 영역은 일부 컨텍스트에서 다음과 같이 할 수 있다는 것입니다.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-python\"\u003eImage: Array[Height, Width, Channels]\r\nim: Image\r\nmean(im, axis=Image.axes.index(Channels)\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e이상적으로는 \u003ccode\u003eim: Array[Height=64, Width=64, Channels=3]\u003c/code\u003e와 같이 작성할 수 있을 것입니다. 그러나 PEP 637이 거부되었기 때문에 단기적으로는 불가능할 것입니다. 어쨌든, 이에 대한 우리의 태도는 주로 \"어떤 일이 일어나는지 지켜본 후에 추가 조치를 취하는 것\"입니다.\u003c/p\u003e\n\u003ch2\u003e추천사 (Endorsements)\u003c/h2\u003e\n\u003cp\u003e가변 제네릭은 광범위한 용도를 가지고 있습니다. 그 범위 중 수치 연산과 관련된 부분에 대해, 관련 라이브러리가 이 PEP에서 제안된 기능을 실제로 사용할 가능성은 얼마나 될까요?\u003c/p\u003e\n\u003cp\u003e우리는 이 질문으로 여러 사람들에게 연락했으며, 다음과 같은 추천사를 받았습니다.\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eStephan Hoyer (NumPy 운영위원회 위원)로부터:\u003c/strong\u003e\u003c/p\u003e\n\u003cblockquote\u003e\n\u003cp\u003e저는 Matthew와 Pradeep에게 이 PEP를 작성하고 NumPy, JAX, Xarray와 같은 Python 수치 연산 커뮤니티에 깊이 관여하고 있지만 Python의 타입 시스템 세부 사항에는 익숙하지 않은 사람으로서, 명명된 축 및 형태의 타입 검사와 관련된 광범위한 사용 사례가 고려되었고 이 PEP의 인프라를 기반으로 구축될 수 있다는 것을 보는 것은 안심이 됩니다. 형태에 대한 타입 검사는 NumPy 커뮤니티가 매우 관심을 가지는 문제입니다. NumPy의 GitHub에서 관련 이슈 [cite: https://github.com/numpy/numpy/issues/7370]에는 다른 어떤 이슈보다도 많은 '좋아요'가 있으며, 우리는 최근 활발히 개발 중인 \"typing\" 모듈을 추가했습니다. ndarray에 대한 타입 검사를 사용하는 가장 좋은 방법을 알아내기 위해서는 분명히 실험이 필요하겠지만, 이 PEP는 그러한 작업의 훌륭한 기반처럼 보입니다.\u003c/p\u003e\n\u003c/blockquote\u003e\n\u003cp\u003e\u003cstrong\u003eBas van Beek (NumPy에서 형태-제네릭의 예비 지원에 참여)으로부터:\u003c/strong\u003e\u003c/p\u003e\n\u003cblockquote\u003e\n\u003cp\u003e저는 여기서 Stephan의 의견에 전적으로 동의하며, 새로운 PEP 646 가변 제네릭을 NumPy에 통합하기를 기대합니다. NumPy (및 텐서 타이핑 일반)의 맥락에서, 배열 형태의 타이핑은 상당히 복잡한 주제이며, 가변 제네릭의 도입은 차원성과 기본 형태 조작을 모두 표현할 수 있게 함으로써 그 기초를 다지는 데 큰 역할을 할 것입니다. 전반적으로, 저는 PEP 646과 미래의 PEP가 우리를 어디로 이끌지 매우 관심이 많으며, 더 많은 발전을 기대합니다.\u003c/p\u003e\n\u003c/blockquote\u003e\n\u003cp\u003e\u003cstrong\u003eDan Moldovan (TensorFlow 개발팀 선임 소프트웨어 엔지니어 및 TensorFlow RFC, TensorFlow Canonical Type System의 저자)으로부터:\u003c/strong\u003e\u003c/p\u003e\n\u003cblockquote\u003e\n\u003cp\u003e저는 이 PEP에 정의된 메커니즘을 사용하여 TensorFlow에서 랭크-제네릭 \u003ccode\u003eTensor\u003c/code\u003e 타입을 정의하는 데 관심이 있습니다. 이는 타입 어노테이션을 사용하여 Pythonic 방식으로 \u003ccode\u003etf.function\u003c/code\u003e 시그니처를 지정하는 데 중요합니다 (오늘날 우리가 가지고 있는 사용자 정의 \u003ccode\u003einput_signature\u003c/code\u003e 메커니즘 대신 – 이 이슈를 참조하십시오: [cite: https://github.com/tensorflow/tensorflow/issues/31579]). 가변 제네릭은 텐서 및 형태에 대한 우아한 타입 정의 세트를 만드는 데 필요한 마지막 몇 가지 누락된 부분 중 하나입니다.\u003c/p\u003e\n\u003c/blockquote\u003e\n\u003cp\u003e(투명성을 위해 - 우리는 세 번째 인기 있는 수치 연산 라이브러리인 PyTorch의 관계자들에게도 연락했지만, 그들로부터 추천 진술을 받지는 못했습니다. 그들은 동일한 문제 중 일부(예: 정적 형태 추론)에 관심이 있지만, 현재 Python 타입 시스템보다는 DSL을 통해 이를 가능하게 하는 데 집중하고 있다고 이해하고 있습니다.)\u003c/p\u003e\n\u003ch2\u003eAcknowledgements (감사의 말씀)\u003c/h2\u003e\n\u003cp\u003e이 PEP 초안에 대한 유용한 피드백과 제안을 주신 Alfonso Castaño, Antoine Pitrou, Bas v.B., David Foster, Dimitris Vardoulakis, Eric Traut, Guido van Rossum, Jia Chen, Lucio Fernandez-Arjona, Nikita Sobolev, Peilonrayz, Rebecca Chen, Sergei Lebedev, Vladimir Mikulik에게 감사드립니다.\u003c/p\u003e\n\u003cp\u003e특히 별표 구문을 제안하여 이 제안의 여러 측면을 훨씬 더 간결하고 직관적으로 만들어준 Lucio에게, 그리고 추천사를 제공해준 Stephan Hoyer와 Dan Moldovan에게 특별히 감사드립니다.\u003c/p\u003e\n\u003cblockquote\u003e\n\u003cp\u003e⚠️ \u003cstrong\u003e알림:\u003c/strong\u003e 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.\u003c/p\u003e\n\u003c/blockquote\u003e\n"])</script><script>self.__next_f.push([1,"4:[\"$\",\"div\",null,{\"className\":\"flex flex-col lg:flex-row gap-8\",\"children\":[[\"$\",\"aside\",null,{\"className\":\"lg:w-64 xl:w-72 order-1 lg:order-none\",\"children\":[\"$\",\"div\",null,{\"className\":\"sidebar sticky\",\"children\":[\"$\",\"nav\",null,{\"className\":\"space-y-4\",\"children\":[[\"$\",\"div\",\"Backend\",{\"children\":[[\"$\",\"h4\",null,{\"className\":\"font-medium text-gray-900 mb-2\",\"children\":\"Backend\"}],[\"$\",\"ul\",null,{\"className\":\"space-y-1 ml-4\",\"children\":[[\"$\",\"li\",\"Django\",{\"children\":[\"$\",\"a\",null,{\"href\":\"/backend/django\",\"className\":\"text-sm text-gray-600 hover:text-primary-600 block py-1\",\"children\":[\"Django\",\" (\",6,\")\"]}]}],[\"$\",\"li\",\"Logging\",{\"children\":[\"$\",\"a\",null,{\"href\":\"/backend/logging\",\"className\":\"text-sm text-gray-600 hover:text-primary-600 block py-1\",\"children\":[\"Logging\",\" (\",1,\")\"]}]}]]}]]}],[\"$\",\"div\",\"Python\",{\"children\":[[\"$\",\"h4\",null,{\"className\":\"font-medium text-gray-900 mb-2\",\"children\":\"Python\"}],[\"$\",\"ul\",null,{\"className\":\"space-y-1 ml-4\",\"children\":[[\"$\",\"li\",\"PEP\",{\"children\":[\"$\",\"a\",null,{\"href\":\"/python/pep\",\"className\":\"text-sm text-gray-600 hover:text-primary-600 block py-1\",\"children\":[\"PEP\",\" (\",650,\")\"]}]}]]}]]}],[\"$\",\"div\",\"AI/ML\",{\"children\":[[\"$\",\"h4\",null,{\"className\":\"font-medium text-gray-900 mb-2\",\"children\":\"AI/ML\"}],[\"$\",\"ul\",null,{\"className\":\"space-y-1 ml-4\",\"children\":[[\"$\",\"li\",\"LLM\",{\"children\":[\"$\",\"a\",null,{\"href\":\"/ai/llm\",\"className\":\"text-sm text-gray-600 hover:text-primary-600 block py-1\",\"children\":[\"LLM\",\" (\",1,\")\"]}]}],[\"$\",\"li\",\"Review\",{\"children\":[\"$\",\"a\",null,{\"href\":\"/ai/review\",\"className\":\"text-sm text-gray-600 hover:text-primary-600 block py-1\",\"children\":[\"Review\",\" (\",2728,\")\"]}]}]]}]]}],[\"$\",\"div\",\"DevOps\",{\"children\":[[\"$\",\"h4\",null,{\"className\":\"font-medium text-gray-900 mb-2\",\"children\":\"DevOps\"}],[\"$\",\"ul\",null,{\"className\":\"space-y-1 ml-4\",\"children\":[[\"$\",\"li\",\"Nginx\",{\"children\":[\"$\",\"a\",null,{\"href\":\"/devops/nginx\",\"className\":\"text-sm text-gray-600 hover:text-primary-600 block py-1\",\"children\":[\"Nginx\",\" (\",1,\")\"]}]}],[\"$\",\"li\",\"Docker\",{\"children\":[\"$\",\"a\",null,{\"href\":\"/devops/docker\",\"className\":\"text-sm text-gray-600 hover:text-primary-600 block py-1\",\"children\":[\"Docker\",\" (\",1,\")\"]}]}],[\"$\",\"li\",\"SafeLine\",{\"children\":[\"$\",\"a\",null,{\"href\":\"/devops/safeline\",\"className\":\"text-sm text-gray-600 hover:text-primary-600 block py-1\",\"children\":[\"SafeLine\",\" (\",1,\")\"]}]}],[\"$\",\"li\",\"Jenkins\",{\"children\":[\"$\",\"a\",null,{\"href\":\"/devops/jenkins\",\"className\":\"text-sm text-gray-600 hover:text-primary-600 block py-1\",\"children\":[\"Jenkins\",\" (\",3,\")\"]}]}],[\"$\",\"li\",\"GitHub Actions\",{\"children\":[\"$\",\"a\",null,{\"href\":\"/devops/github-actions\",\"className\":\"text-sm text-gray-600 hover:text-primary-600 block py-1\",\"children\":[\"GitHub Actions\",\" (\",1,\")\"]}]}],[\"$\",\"li\",\"AWS\",{\"children\":[\"$\",\"a\",null,{\"href\":\"/devops/aws\",\"className\":\"text-sm text-gray-600 hover:text-primary-600 block py-1\",\"children\":[\"AWS\",\" (\",1,\")\"]}]}]]}]]}],[\"$\",\"div\",\"etc\",{\"children\":[[\"$\",\"h4\",null,{\"className\":\"font-medium text-gray-900 mb-2\",\"children\":\"etc\"}],[\"$\",\"ul\",null,{\"className\":\"space-y-1 ml-4\",\"children\":[[\"$\",\"li\",\"Me\",{\"children\":[\"$\",\"a\",null,{\"href\":\"/etc/me\",\"className\":\"text-sm text-gray-600 hover:text-primary-600 block py-1\",\"children\":[\"Me\",\" (\",3,\")\"]}]}],[\"$\",\"li\",\"Chrome Extension\",{\"children\":[\"$\",\"a\",null,{\"href\":\"/etc/chrome-extension\",\"className\":\"text-sm text-gray-600 hover:text-primary-600 block py-1\",\"children\":[\"Chrome Extension\",\" (\",1,\")\"]}]}]]}]]}]]}]}]}],[\"$\",\"main\",null,{\"className\":\"flex-1\",\"children\":[\"$\",\"article\",null,{\"className\":\"page\",\"children\":[[\"$\",\"header\",null,{\"className\":\"mb-8\",\"children\":[[\"$\",\"h1\",null,{\"className\":\"page__title\",\"children\":\"[Final] PEP 646 - Variadic Generics\"}],[\"$\",\"div\",null,{\"className\":\"page__meta\",\"children\":[[\"$\",\"time\",null,{\"dateTime\":\"2025-09-27 01:37:00+0900\",\"children\":\"2025년 9월 27일\"}],[\"$\",\"span\",null,{\"className\":\"ml-4\",\"children\":[\"수정: \",\"2025년 9월 27일\"]}]]}]]}],[\"$\",\"div\",null,{\"className\":\"page__content\",\"children\":[\"$\",\"div\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"$d\"}}]}],[\"$\",\"footer\",null,{\"className\":\"page__meta mt-8\",\"children\":[\"$\",\"div\",null,{\"className\":\"page__taxonomy\",\"children\":[[\"$\",\"h4\",null,{\"className\":\"text-sm font-medium text-gray-900 mb-2\",\"children\":\"태그\"}],[[\"$\",\"span\",\"Python\",{\"className\":\"page__taxonomy-item\",\"children\":[\"#\",\"Python\"]}],[\"$\",\"span\",\"PEP\",{\"className\":\"page__taxonomy-item\",\"children\":[\"#\",\"PEP\"]}],[\"$\",\"span\",\"Translation\",{\"className\":\"page__taxonomy-item\",\"children\":[\"#\",\"Translation\"]}]]]}]}],[\"$\",\"$Le\",null,{\"postPermalink\":\"/python/pep/646\",\"postId\":\"2025-09-27-pep-0646-variadic-generics\"}],[\"$\",\"section\",null,{\"className\":\"mt-12 border-t border-gray-200 pt-8\",\"children\":[[\"$\",\"h3\",null,{\"className\":\"text-base font-semibold text-gray-900 mb-4\",\"children\":[\"Python\",\" 의 다른글\"]}],[\"$\",\"ul\",null,{\"className\":\"space-y-2 text-sm\",\"children\":[[\"$\",\"li\",null,{\"className\":\"text-gray-500\",\"children\":[\"이전글\",\" \",[\"$\",\"$L9\",null,{\"href\":\"/python/pep/645\",\"className\":\"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4\",\"children\":\"[Withdrawn] PEP 645 - Allow writing optional types asx?\"}]]}],[\"$\",\"li\",null,{\"className\":\"text-gray-900 font-semibold\",\"children\":[\"현재글 : \",\"[Final] PEP 646 - Variadic Generics\"]}],[\"$\",\"li\",null,{\"className\":\"text-gray-500\",\"children\":[\"다음글\",\" \",[\"$\",\"$L9\",null,{\"href\":\"/python/pep/647\",\"className\":\"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4\",\"children\":\"[Final] PEP 647 - User-Defined Type Guards\"}]]}]]}]]}]]}]}]]}]\n"])</script><script>self.__next_f.push([1,"a:[[\"$\",\"meta\",\"0\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}],[\"$\",\"meta\",\"1\",{\"charSet\":\"utf-8\"}],[\"$\",\"title\",\"2\",{\"children\":\"[Final] PEP 646 - Variadic Generics - secrett2633's blog\"}],[\"$\",\"meta\",\"3\",{\"name\":\"description\",\"content\":\"Python Enhancement Proposal 646: 'Variadic Generics'에 대한 한국어 번역입니다.\"}],[\"$\",\"meta\",\"4\",{\"name\":\"author\",\"content\":\"secrett2633\"}],[\"$\",\"meta\",\"5\",{\"name\":\"keywords\",\"content\":\"Django, Python, DevOps, AI, ML, 블로그, 기술\"}],[\"$\",\"meta\",\"6\",{\"name\":\"creator\",\"content\":\"secrett2633\"}],[\"$\",\"meta\",\"7\",{\"name\":\"publisher\",\"content\":\"secrett2633\"}],[\"$\",\"meta\",\"8\",{\"name\":\"robots\",\"content\":\"index, follow\"}],[\"$\",\"meta\",\"9\",{\"name\":\"googlebot\",\"content\":\"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1\"}],[\"$\",\"link\",\"10\",{\"rel\":\"canonical\",\"href\":\"https://blog.secrett2633.cloud/python/pep/646\"}],[\"$\",\"meta\",\"11\",{\"name\":\"format-detection\",\"content\":\"telephone=no, address=no, email=no\"}],[\"$\",\"meta\",\"12\",{\"property\":\"og:title\",\"content\":\"[Final] PEP 646 - Variadic Generics\"}],[\"$\",\"meta\",\"13\",{\"property\":\"og:description\",\"content\":\"Python Enhancement Proposal 646: 'Variadic Generics'에 대한 한국어 번역입니다.\"}],[\"$\",\"meta\",\"14\",{\"property\":\"og:url\",\"content\":\"https://blog.secrett2633.cloud/python/pep/646\"}],[\"$\",\"meta\",\"15\",{\"property\":\"og:type\",\"content\":\"article\"}],[\"$\",\"meta\",\"16\",{\"name\":\"twitter:card\",\"content\":\"summary\"}],[\"$\",\"meta\",\"17\",{\"name\":\"twitter:title\",\"content\":\"[Final] PEP 646 - Variadic Generics\"}],[\"$\",\"meta\",\"18\",{\"name\":\"twitter:description\",\"content\":\"Python Enhancement Proposal 646: 'Variadic Generics'에 대한 한국어 번역입니다.\"}],[\"$\",\"link\",\"19\",{\"rel\":\"icon\",\"href\":\"/icon.ico?6d9f34d4948640b8\",\"type\":\"image/x-icon\",\"sizes\":\"16x16\"}]]\n3:null\n"])</script></body></html>

@@ -29,7 +29,7 @@ async function generateSearchData() {
         title: matterResult.data.title || 'Untitled',
         excerpt: matterResult.data.excerpt || '',
         date: matterResult.data.date || new Date().toISOString(),
-        permalink: matterResult.data.permalink || `/${id}/`,
+        permalink: (matterResult.data.permalink || `/${id}`).replace(/\/$/, ''),
         contentHtml: contentHtml
       })
     }

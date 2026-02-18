@@ -1,0 +1,150 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[9157,["231","static/chunks/231-467e37449c5a68fc.js","185","static/chunks/app/layout-53ec9cbf619543e1.js"],"default"]
+7:I[231,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-80e07cee06d17a0b.js"],""]
+4:["slug","python/pep/358","c"]
+0:["_3-KrKKQh7tcSoXiYwQMB",[[["",{"children":[["slug","python/pep/358","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"358\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/358","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_f367f3 layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/d6cea809dcbae606.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+a:I[646,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-80e07cee06d17a0b.js"],"default"]
+9:T3785,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0358/">PEP 358 - The “bytes” Object</a></p>
+<p><strong>상태:</strong> Final | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 15-Feb-2006</p>
+</blockquote>
+<h1>PEP 358 – "bytes" 객체</h1>
+<ul>
+<li><strong>작성자:</strong> Neil Schemenauer, Guido van Rossum</li>
+<li><strong>상태:</strong> Final (최종)</li>
+<li><strong>유형:</strong> Standards Track</li>
+<li><strong>작성일:</strong> 2006년 2월 15일</li>
+<li><strong>Python 버전:</strong> 2.6, 3.0</li>
+<li><strong>최종 수정:</strong> 2025년 2월 1일</li>
+</ul>
+<h2>개요 (Abstract)</h2>
+<p>이 PEP는 원시 바이트(raw bytes) 시퀀스 타입의 도입을 개괄합니다. <code>bytes</code> 타입의 추가는 Python 3.0에서 도입될 유니코드 기반의 <code>str</code> 객체로의 전환 과정 중 한 단계입니다.</p>
+<p>이 PEP는 <code>bytes</code> 타입이 Python 2.6과 Python 3.0에서 어떻게 작동해야 하는지 설명합니다. (Python 2.6에서는 <code>str</code>과 <code>unicode</code>라는 두 가지 문자열 타입이 있는 반면, Python 3.0에서는 이름은 <code>str</code>이지만 2.6의 <code>unicode</code> 타입과 유사한 의미론을 갖는 하나의 문자열 타입만 존재하기 때문에 종종 차이가 발생합니다.)</p>
+<h2>동기 (Motivation)</h2>
+<p>Python의 현재 문자열 객체들은 과부하 상태입니다. 이들은 문자 시퀀스와 바이트 시퀀스라는 두 가지 역할을 모두 수행합니다. 이러한 목적의 과부하는 혼란과 버그를 초래합니다. Python의 미래 버전에서는 문자열 객체가 문자(character) 데이터를 저장하는 데 사용될 것입니다. <code>bytes</code> 객체는 바이트 컨테이너의 역할(role of a byte container)을 수행하게 될 것입니다. 궁극적으로 <code>unicode</code> 타입은 <code>str</code>로 이름이 변경되고, 기존의 <code>str</code> 타입은 제거될 것입니다.</p>
+<h2>사양 (Specification)</h2>
+<p><code>bytes</code> 객체는 0부터 255까지의 범위에 있는 정수들의 가변(mutable) 시퀀스를 저장합니다. 문자열 객체와 달리, <code>bytes</code> 객체를 인덱싱하면 정수가 반환됩니다. 정수가 아닌 객체를 요소에 할당하거나 비교하면 <code>TypeError</code> 예외가 발생합니다. 요소에 0에서 255 범위를 벗어나는 값을 할당하면 <code>ValueError</code> 예외가 발생합니다. <code>bytes</code>의 <code>.__len__()</code> 메서드는 시퀀스에 저장된 정수(즉, 바이트 수)의 개수를 반환합니다.</p>
+<p><code>bytes</code> 객체의 생성자는 다음 시그니처(signature)를 가집니다:</p>
+<pre><code class="language-python">bytes([initializer[, encoding]])
+</code></pre>
+<p>인수가 제공되지 않으면 0개의 요소를 포함하는 <code>bytes</code> 객체가 생성되어 반환됩니다. <code>initializer</code> 인수는 문자열(2.6에서는 <code>str</code> 또는 <code>unicode</code>), 정수들의 이터러블(iterable), 또는 단일 정수일 수 있습니다. 생성자를 위한 의사 코드(pseudo-code)는 다음과 같습니다 (속도보다는 명확한 의미론을 위해 최적화됨):</p>
+<pre><code class="language-python">def bytes(initializer=0, encoding=None):
+    if isinstance(initializer, int):
+        # In 2.6, int -> (int, long)
+        initializer = [0]*initializer
+    elif isinstance(initializer, basestring):
+        if isinstance(initializer, unicode): # In 3.0, "if True"
+            if encoding is None: # In 3.0, raise TypeError("explicit encoding required")
+                encoding = sys.getdefaultencoding()
+            initializer = initializer.encode(encoding)
+    else:
+        if encoding is not None:
+            raise TypeError("no encoding allowed for this initializer")
+        tmp = []
+        for c in initializer:
+            if not isinstance(c, int):
+                raise TypeError("initializer must be iterable of ints")
+            if not 0 &#x3C;= c &#x3C; 256:
+                raise ValueError("initializer element out of range")
+            tmp.append(c)
+        initializer = tmp
+    new = &#x3C;new bytes object of length len(initializer)>
+    for i, c in enumerate(initializer):
+        new[i] = c
+    return new
+</code></pre>
+<p><code>.__repr__()</code> 메서드는 <code>bytes</code> 리터럴을 포함하는 새 <code>bytes</code> 객체를 생성하도록 평가될 수 있는 문자열을 반환합니다:</p>
+<pre><code class="language-python">>>> bytes([10, 20, 30])
+b'\n\x14\x1e'
+</code></pre>
+<p><code>bytes</code> 객체는 <code>str</code> 객체의 <code>decode()</code> 메서드와 동일한 <code>decode()</code> 메서드를 가집니다. 또한, <code>[0-9a-fA-F ]</code> 집합의 문자열을 받아 <code>bytes</code> 객체를 반환하는 클래스 메서드 <code>fromhex()</code>를 가집니다 (<code>binascii.unhexlify</code>와 유사). 예를 들어:</p>
+<pre><code class="language-python">>>> bytes.fromhex('5c5350ff')
+b'\\SP\xff'
+>>> bytes.fromhex('5c 53 50 ff')
+b'\\SP\xff'
+</code></pre>
+<p><code>bytes</code> 객체는 역변환을 수행하는 <code>hex()</code> 메서드를 가집니다 (<code>binascii.hexlify</code>와 유사):</p>
+<pre><code class="language-python">>>> bytes([92, 83, 80, 255]).hex()
+'5c5350ff'
+</code></pre>
+<p><code>bytes</code> 객체는 <code>list</code> 메서드와 유사한 일부 메서드, 그리고 <code>str</code> 메서드와 유사한 다른 메서드들을 가집니다. 다음은 대략적인 시그니처와 함께 메서드의 전체 목록입니다:</p>
+<ul>
+<li><code>.__add__(bytes) -> bytes</code></li>
+<li><code>.__contains__(int | bytes) -> bool</code></li>
+<li><code>.__delitem__(int | slice) -> None</code></li>
+<li><code>.__delslice__(int, int) -> None</code></li>
+<li><code>.__eq__(bytes) -> bool</code></li>
+<li><code>.__ge__(bytes) -> bool</code></li>
+<li><code>.__getitem__(int | slice) -> int | bytes</code></li>
+<li><code>.__getslice__(int, int) -> bytes</code></li>
+<li><code>.__gt__(bytes) -> bool</code></li>
+<li><code>.__iadd__(bytes) -> bytes</code></li>
+<li><code>.__imul__(int) -> bytes</code></li>
+<li><code>.__iter__() -> iterator</code></li>
+<li><code>.__le__(bytes) -> bool</code></li>
+<li><code>.__len__() -> int</code></li>
+<li><code>.__lt__(bytes) -> bool</code></li>
+<li><code>.__mul__(int) -> bytes</code></li>
+<li><code>.__ne__(bytes) -> bool</code></li>
+<li><code>.__reduce__(...) -> ...</code></li>
+<li><code>.__reduce_ex__(...) -> ...</code></li>
+<li><code>.__repr__() -> str</code></li>
+<li><code>.__reversed__() -> bytes</code></li>
+<li><code>.__rmul__(int) -> bytes</code></li>
+<li><code>.__setitem__(int | slice, int | iterable[int]) -> None</code></li>
+<li><code>.__setslice__(int, int, iterable[int]) -> Bote</code></li>
+<li><code>append(int) -> None</code></li>
+<li><code>count(int) -> int</code></li>
+<li><code>decode(str) -> str | unicode</code> (# 3.0에서는 <code>str</code>만 해당)</li>
+<li><code>endswith(bytes) -> bool</code></li>
+<li><code>extend(iterable[int]) -> None</code></li>
+<li><code>find(bytes) -> int</code></li>
+<li><code>index(bytes | int) -> int</code></li>
+<li><code>insert(int, int) -> None</code></li>
+<li><code>join(iterable[bytes]) -> bytes</code></li>
+<li><code>partition(bytes) -> (bytes, bytes, bytes)</code></li>
+<li><code>pop([int]) -> int</code></li>
+<li><code>remove(int) -> None</code></li>
+<li><code>replace(bytes, bytes) -> bytes</code></li>
+<li><code>rindex(bytes | int) -> int</code></li>
+<li><code>rpartition(bytes) -> (bytes, bytes, bytes)</code></li>
+<li><code>split(bytes) -> list[bytes]</code></li>
+<li><code>startswith(bytes) -> bool</code></li>
+<li><code>reverse() -> None</code></li>
+<li><code>rfind(bytes) -> int</code></li>
+<li><code>rindex(bytes | int) -> int</code></li>
+<li><code>rsplit(bytes) -> list[bytes]</code></li>
+<li><code>translate(bytes, [bytes]) -> bytes</code></li>
+</ul>
+<p><code>.isupper()</code>, <code>.upper()</code> 및 이와 유사한 메서드들의 부재에 주목하십시오. (아래 "Open Issues" 참조) 객체가 변경 가능(mutable)하므로 <code>.__hash__()</code>는 없습니다. <code>.sort()</code> 메서드에 대한 사용 사례는 없습니다.</p>
+<p><code>bytes</code> 타입은 버퍼 인터페이스(buffer interface)도 지원하여 이진(binary) 데이터(문자 데이터 제외)의 읽기 및 쓰기를 지원합니다.</p>
+<h2>범위 외 문제 (Out of Scope Issues)</h2>
+<p>Python 3k는 훨씬 다른 I/O 서브시스템을 가질 것입니다. 해당 I/O 서브시스템이 <code>bytes</code> 객체와 어떻게 작동하고 상호작용할지 결정하는 것은 이 PEP의 범위를 벗어납니다. 그러나 이진 I/O는 <code>bytes</code>를 읽고 쓰는 반면, 텍스트 I/O는 문자열을 읽을 것으로 예상됩니다. <code>bytes</code> 타입은 버퍼 인터페이스를 지원하므로 Python 2.6의 기존 이진 I/O 작업은 <code>bytes</code> 객체를 지원할 것입니다.</p>
+<p>객체를 바이트 배열로 변환할 수 있도록 <code>.__bytes__()</code>라는 특별한 메서드를 언어에 추가해야 한다는 제안이 있었습니다. 이 결정은 범위 외(out of scope)입니다. <code>b"..."</code> 형태의 <code>bytes</code> 리터럴 또한 제안되었습니다. 이것은 <a href="https://peps.python.org/pep-3112/">PEP 3112</a>의 주제입니다.</p>
+<h2>공개 문제 (Open Issues)</h2>
+<ul>
+<li><code>decode()</code> 메서드는 <code>bytes</code> 객체 <code>b</code>를 <code>unicode(b, &#x3C;encoding>)</code> (2.6에서) 또는 <code>str(b, &#x3C;encoding>)</code> (3.0에서)를 호출하여 디코딩할 수 있으므로 중복됩니다. <code>encode</code>/<code>decode</code> 메서드가 과연 필요한가요? 어떤 의미에서는 생성자를 사용하는 표기가 더 깔끔합니다.</li>
+<li>메서드들을 여전히 더 신중하게 지정해야 합니다.</li>
+<li>피클링(pickling) 및 마샬링(marshalling) 지원을 지정해야 합니다.</li>
+<li>이러한 모든 <code>list</code> 메서드들을 실제로 구현해야 할까요? 필수가변인수를 가진 <code>.ljust()</code>, <code>.rjust()</code>, <code>.center()</code>를 지원하는 것이 정당화될 수 있습니다. 필수가변인수를 가진 <code>.split()</code>을 지원하는 것이 정당화될 수 있습니다. ASCII 정의를 사용하여 문자와 숫자 및 공백에 대한 <code>.islower()</code>, <code>.isupper()</code>, <code>.isspace()</code>, <code>.isalpha()</code>, <code>.isalnum()</code>, <code>.isdigit()</code> 및 해당 변환 (<code>.lower()</code> 등)을 지원하는 것이 정당화될 수도 있습니다. 이것이 받아들여진다면, <code>.ljust()</code>, <code>.rjust()</code>, <code>.center()</code>, <code>.split()</code>에 대한 근거가 훨씬 강력해지며, 이들은 ASCII 공백 또는 모든 ASCII 공백을 사용하는 기본 인수를 가져야 합니다 (<code>.split()</code>의 경우).</li>
+</ul>
+<h2>자주 묻는 질문 (Frequently Asked Questions)</h2>
+<p><strong>Q: Unicode 객체의 <code>encode</code> 메서드가 동일한 작업을 수행하는데 왜 선택적 <code>encoding</code> 인수가 필요한가요?</strong></p>
+<p>A: Python의 현재 버전에서 <code>encode</code> 메서드는 <code>str</code> 객체를 반환하며, 코드를 깨뜨리지 않고는 이를 변경할 수 없습니다. <code>bytes(s.encode(...))</code> 구문은 바이트 시퀀스를 여러 번 복사해야 하므로 비용이 많이 듭니다. 또한 Python은 일반적으로 타입 A의 객체를 타입 B의 객체로 변환하는 두 가지 방법을 제공합니다: A 인스턴스에 자신을 B로 변환하도록 요청하거나, 타입 B에 A로부터 새 인스턴스를 생성하도록 요청합니다. A와 B가 무엇이냐에 따라 두 API 모두 의미가 있습니다; 때로는 결합도(decoupling) 문제로 인해 A가 B에 대해 알 수 없는 경우, 후자의 접근 방식을 사용해야 합니다; 때로는 B가 A에 대해 알 수 없는 경우, 전자의 접근 방식을 사용해야 합니다.</p>
+<p><strong>Q: <code>initializer</code>가 <code>str</code>인 경우 <code>bytes</code>가 <code>encoding</code> 인수를 무시하는 이유는 무엇인가요? (이것은 2.6에만 적용됩니다.)</strong></p>
+<p>A: 해당 경우에 <code>encoding</code>이 가질 수 있는 합리적인 의미가 없습니다. <code>str</code> 객체는 바이트 배열이며, 포함된 문자 데이터의 인코딩에 대해 아무것도 알지 못합니다. 프로그래머가 이미 원하는 인코딩을 사용하는 <code>str</code> 객체를 제공했다고 가정해야 합니다. 바이트의 순수한 복사본 이외의 다른 것이 필요한 경우, 먼저 문자열을 디코딩해야 합니다. 예를 들어:</p>
+<pre><code class="language-python">bytes(s.decode(encoding1), encoding2)
+</code></pre>
+<p><strong>Q: <code>encoding</code> 인수의 기본값을 ASCII 대신 Latin-1 (또는 전체 바이트 범위를 포괄하는 다른 인코딩)으로 설정하지 않는 이유는 무엇인가요?</strong></p>
+<p>A: Python의 시스템 기본 인코딩은 ASCII입니다. 이 기본값을 사용하는 것이 가장 혼란을 줄이는 방법인 것 같습니다. 또한 Py3k에서는 Latin-1을 기본값으로 사용하는 것이 사용자들이 예상하는 바가 아닐 수 있습니다. 예를 들어, 그들은 유니코드 인코딩을 선호할 수 있습니다. 어떤 기본값도 항상 예상대로 작동하지는 않을 것입니다. 적어도 ASCII는 비-ASCII 데이터를 인코딩하려고 시도하면 큰 소리로 불평할 것입니다.</p>
+<hr>
+<h2>저작권 (Copyright)</h2>
+<p>이 문서는 공용 도메인(public domain)에 공개되었습니다.</p>
+<hr>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":[["$","aside",null,{"className":"lg:w-64 xl:w-72 order-1 lg:order-none","children":["$","div",null,{"className":"sidebar sticky","children":["$","nav",null,{"className":"space-y-4","children":[["$","div","Backend",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Backend"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Django",{"children":["$","a",null,{"href":"/backend/django","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Django"," (",6,")"]}]}],["$","li","Logging",{"children":["$","a",null,{"href":"/backend/logging","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Logging"," (",1,")"]}]}]]}]]}],["$","div","Python",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Python"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","PEP",{"children":["$","a",null,{"href":"/python/pep","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["PEP"," (",650,")"]}]}]]}]]}],["$","div","AI/ML",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"AI/ML"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","LLM",{"children":["$","a",null,{"href":"/ai/llm","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["LLM"," (",1,")"]}]}],["$","li","Review",{"children":["$","a",null,{"href":"/ai/review","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Review"," (",2728,")"]}]}]]}]]}],["$","div","DevOps",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"DevOps"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Nginx",{"children":["$","a",null,{"href":"/devops/nginx","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Nginx"," (",1,")"]}]}],["$","li","Docker",{"children":["$","a",null,{"href":"/devops/docker","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Docker"," (",1,")"]}]}],["$","li","SafeLine",{"children":["$","a",null,{"href":"/devops/safeline","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["SafeLine"," (",1,")"]}]}],["$","li","Jenkins",{"children":["$","a",null,{"href":"/devops/jenkins","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Jenkins"," (",3,")"]}]}],["$","li","GitHub Actions",{"children":["$","a",null,{"href":"/devops/github-actions","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["GitHub Actions"," (",1,")"]}]}],["$","li","AWS",{"children":["$","a",null,{"href":"/devops/aws","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["AWS"," (",1,")"]}]}]]}]]}],["$","div","etc",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"etc"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Me",{"children":["$","a",null,{"href":"/etc/me","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Me"," (",3,")"]}]}],["$","li","Chrome Extension",{"children":["$","a",null,{"href":"/etc/chrome-extension","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Chrome Extension"," (",1,")"]}]}]]}]]}]]}]}]}],["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Final] PEP 358 - The “bytes” Object"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-26 19:04:13+0900","children":"2025년 9월 26일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 26일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]}],["$","$La",null,{"postPermalink":"/python/pep/358","postId":"2025-09-26-pep-0358-the-bytes-object"}],["$","section",null,{"className":"mt-12 border-t border-gray-200 pt-8","children":[["$","h3",null,{"className":"text-base font-semibold text-gray-900 mb-4","children":["Python"," 의 다른글"]}],["$","ul",null,{"className":"space-y-2 text-sm","children":[["$","li",null,{"className":"text-gray-500","children":["이전글"," ",["$","$L7",null,{"href":"/python/pep/357","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Final] PEP 357 - Allowing Any Object to be Used for Slicing"}]]}],["$","li",null,{"className":"text-gray-900 font-semibold","children":["현재글 : ","[Final] PEP 358 - The “bytes” Object"]}],["$","li",null,{"className":"text-gray-500","children":["다음글"," ",["$","$L7",null,{"href":"/python/pep/359","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Withdrawn] PEP 359 - The “make” Statement"}]]}]]}]]}]]}]}]]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"[Final] PEP 358 - The “bytes” Object - secrett2633's blog"}],["$","meta","3",{"name":"description","content":"Python Enhancement Proposal 358: 'The “bytes” Object'에 대한 한국어 번역입니다."}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://blog.secrett2633.cloud/python/pep/358"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"[Final] PEP 358 - The “bytes” Object"}],["$","meta","13",{"property":"og:description","content":"Python Enhancement Proposal 358: 'The “bytes” Object'에 대한 한국어 번역입니다."}],["$","meta","14",{"property":"og:url","content":"https://blog.secrett2633.cloud/python/pep/358"}],["$","meta","15",{"property":"og:type","content":"article"}],["$","meta","16",{"name":"twitter:card","content":"summary"}],["$","meta","17",{"name":"twitter:title","content":"[Final] PEP 358 - The “bytes” Object"}],["$","meta","18",{"name":"twitter:description","content":"Python Enhancement Proposal 358: 'The “bytes” Object'에 대한 한국어 번역입니다."}],["$","link","19",{"rel":"icon","href":"/icon.ico?6d9f34d4948640b8","type":"image/x-icon","sizes":"16x16"}]]
+1:null

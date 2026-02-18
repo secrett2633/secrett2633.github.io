@@ -19,9 +19,6 @@ export const metadata: Metadata = {
     telephone: false,
   },
   metadataBase: new URL('https://blog.secrett2633.cloud'),
-  alternates: {
-    canonical: '/',
-  },
   openGraph: {
     title: "secrett2633's blog",
     description: '기술 블로그 - Django, Python, DevOps, AI/ML 관련 포스트',

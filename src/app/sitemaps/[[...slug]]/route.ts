@@ -46,7 +46,7 @@ export async function GET(
     const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">  
   ${sitemapPosts.map(post => {
-    const postUrl = `${siteUrl}${post.permalink || `/${post.id}/`}`
+    const postUrl = `${siteUrl}${post.permalink || `/${post.id}`}`
     const lastmod = post.lastModifiedAt ? new Date(post.lastModifiedAt).toISOString() : new Date(post.date).toISOString()
     
     return `  <url>

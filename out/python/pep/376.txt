@@ -1,0 +1,102 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[9157,["231","static/chunks/231-467e37449c5a68fc.js","185","static/chunks/app/layout-53ec9cbf619543e1.js"],"default"]
+7:I[231,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-80e07cee06d17a0b.js"],""]
+4:["slug","python/pep/376","c"]
+0:["_3-KrKKQh7tcSoXiYwQMB",[[["",{"children":[["slug","python/pep/376","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"376\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/376","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_f367f3 layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/d6cea809dcbae606.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+a:I[646,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-80e07cee06d17a0b.js"],"default"]
+9:T2f9e,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-0376/">PEP 376 - Database of Installed Python Distributions</a></p>
+<p><strong>상태:</strong> Final | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 22-Feb-2009</p>
+</blockquote>
+<h2>PEP 376 – 설치된 Python 배포판 데이터베이스</h2>
+<h3>초록 (Abstract)</h3>
+<p>이 PEP의 목표는 시스템에 설치된 프로젝트 배포판을 관리하는 표준 인프라를 제공하여, 프로젝트를 설치하거나 제거하는 모든 도구들이 상호 운용될 수 있도록 하는 것입니다. 이를 달성하기 위해 PEP는 시스템에 설치된 배포판을 설명하는 새로운 형식을 제안하며, 표준 라이브러리에 대한 참조 구현도 설명합니다. 과거에 설치 데이터베이스를 만들려는 시도가 있었으나 (PEP 262 참조), 현재 제안은 PEP 345와 결합되어 PEP 262를 대체합니다.</p>
+<p><strong>참고:</strong> 이 PEP는 역사적인 문서입니다. 최신 규격인 <code>Core metadata specifications</code>는 PyPA specs 페이지에서 유지 관리됩니다.</p>
+<h3>배경 (Rationale)</h3>
+<p>현재 Python에서 배포판이 설치되는 방식에는 두 가지 문제가 있습니다.</p>
+<ol>
+<li>너무 많은 설치 방식이 존재하여 상호 운용이 어렵습니다.</li>
+<li>설치된 배포판에 대한 정보를 얻을 수 있는 API가 없습니다.</li>
+</ol>
+<h4>배포판 설치 방식 (How distributions are installed)</h4>
+<p>현재 Python에서 배포판이 설치될 때, 각 요소가 다른 디렉터리에 설치될 수 있습니다. 예를 들어, Distutils는 순수 Python 코드를 <code>purelib</code> 디렉터리에 설치하며, 유닉스 계열 시스템과 Mac OS X에서는 <code>lib/python2.6/site-packages</code>에, Windows에서는 Python 설치 디렉터리 아래의 <code>Lib\site-packages</code>에 해당합니다.</p>
+<p><code>Distutils</code>의 <code>install</code> 명령에 포함된 <code>install_egg_info</code> 하위 명령은 프로젝트의 <code>.egg-info</code> 파일을 <code>purelib</code> 디렉터리에 추가합니다. 예를 들어, <code>docutils</code> 배포판의 경우 <code>docutils</code> 패키지, <code>roman.py</code> 모듈, <code>docutils-0.5-py2.6.egg-info</code> 파일이 <code>site-packages</code>에 설치됩니다. 일부 실행 스크립트(예: <code>rst2html.py</code>)도 Python 설치의 <code>bin</code> 디렉터리에 추가됩니다.</p>
+<p><code>setuptools</code> 프로젝트는 <code>EggFormats</code>라고 불리는 두 가지 다른 배포판 설치 형식을 제공합니다.</p>
+<ol>
+<li>모든 배포판 파일과 <code>EGG-INFO</code> 하위 디렉터리에 <code>PKG-INFO</code>라는 파일에 배포 메타데이터가 포함된 자체 포함 <code>.egg</code> 디렉터리.</li>
+<li><code>site-packages</code>에 설치된 <code>.egg-info</code> 디렉터리로, <code>.egg</code> 형식의 <code>EGG-INFO</code>와 동일한 파일을 포함합니다.</li>
+</ol>
+<p><code>setuptools</code>는 또한 <code>easy-install.pth</code> 파일에 배포판에 대한 참조를 추가합니다. <code>easy_install</code> 스크립트는 <code>distutils</code> 기반 배포판을 포함한 모든 배포판을 자체 포함 <code>.egg</code> 디렉터리에 설치합니다. <code>pip</code>, Fedora 패키지 관리자, Debian 패키지 관리자는 <code>setuptools</code> 기반 배포판 또는 <code>easy_install</code> 스크립트와 함께 <code>--single-version-externally-managed</code> 또는 <code>--root</code> 옵션을 사용하여 <code>distutils</code>와 유사하게 프로젝트를 설치하도록 강제합니다.</p>
+<h4>제거 정보 (Uninstall information)</h4>
+<p><code>Distutils</code>는 제거(uninstall) 명령을 제공하지 않습니다. 배포판을 제거하려면 설치된 다양한 요소를 직접 제거해야 하며, <code>setuptools</code> 프로젝트는 최근 제거 기능을 추가했습니다. 이는 <code>install</code> 명령의 <code>record</code> 옵션을 사용하여 설치된 모든 파일을 기록합니다.</p>
+<h3>PEP 제안 내용 (What this PEP proposes)</h3>
+<p>이러한 문제를 해결하기 위해 이 PEP는 몇 가지 변경 사항을 제안합니다.</p>
+<ol>
+<li><code>setuptools</code>의 <code>EggFormats</code> 표준 중 하나에서 영감을 받은 새로운 <code>.dist-info</code> 디렉터리 구조.</li>
+<li>설치된 배포판 정보를 쿼리할 수 있는 <code>pkgutil</code>의 새로운 API.</li>
+<li><code>Distutils</code>의 제거 함수 및 제거 스크립트.</li>
+</ol>
+<h4>설치된 배포판당 하나의 <code>.dist-info</code> 디렉터리 (One .dist-info directory per installed distribution)</h4>
+<p>이 PEP는 <code>site-packages</code> 디렉터리에 위치한 별도의 디렉터리를 사용하는 <code>EggFormats</code> 표준의 옵션 중 하나에서 영감을 받은 설치 형식을 제안합니다.
+이 별도의 디렉터리는 <code>name + '-' + version + '.dist-info'</code> 형식으로 명명됩니다.
+이 <code>.dist-info</code> 디렉터리는 다음 파일을 포함할 수 있습니다.</p>
+<ul>
+<li><strong>METADATA</strong> : PEP 345, PEP 314, PEP 241에 설명된 메타데이터를 포함합니다.</li>
+<li><strong>RECORD</strong> : 설치된 파일 목록을 기록합니다.</li>
+<li><strong>INSTALLER</strong> : 프로젝트를 설치하는 데 사용된 도구의 이름을 기록합니다.</li>
+<li><strong>REQUESTED</strong> : 이 파일의 존재는 프로젝트 설치가 명시적으로 요청되었음을 나타냅니다 (즉, 의존성으로 설치되지 않음).</li>
+</ul>
+<p><code>METADATA</code>, <code>RECORD</code>, <code>INSTALLER</code> 파일은 필수이며, <code>REQUESTED</code>는 없을 수도 있습니다.</p>
+<p><strong>RECORD</strong>
+<code>RECORD</code> 파일은 설치 시점에 <code>.dist-info</code> 디렉터리 내에 추가되며, 설치 명령을 사용하여 소스 배포판을 설치할 때 생성됩니다. <code>RECORD</code> 파일은 설치된 파일 목록을 보유합니다. 이 파일은 <code>install</code> 명령의 <code>record</code> 옵션에 의해 나열된 파일에 해당하며, 기본적으로 생성됩니다.</p>
+<p><code>RECORD</code> 파일은 <code>CSV</code> 파일이며, 설치된 파일당 한 줄의 레코드로 구성됩니다. 각 레코드는 파일 경로, 파일 내용의 해시, 파일 크기(바이트)의 세 가지 요소로 구성됩니다.</p>
+<p><strong>INSTALLER</strong>
+<code>install</code> 명령에는 <code>installer</code>라는 새로운 옵션이 있습니다. 이 옵션은 설치를 호출하는 데 사용된 도구의 이름입니다. 제공되지 않으면 기본값은 <code>distutils</code>입니다. 배포판이 설치되면 <code>INSTALLER</code> 파일이 <code>.dist-info</code> 디렉터리에 이 값과 함께 생성되어 배포판을 설치한 주체를 추적합니다.</p>
+<p><strong>REQUESTED</strong>
+일부 설치 도구는 충족되지 않은 의존성을 자동으로 감지하고 설치합니다. 이 경우 어떤 배포판이 순전히 의존성으로 설치되었는지 추적하는 것이 유용합니다. 배포판이 사용자 요청에 의해 직접 설치된 경우 (<code>REQUESTED</code> 파일이 <code>.dist-info</code> 디렉터리에 추가됩니다. 설치 도구가 다른 배포판의 의존성으로 배포판을 자동으로 설치하는 경우, <code>REQUESTED</code> 파일은 생성되지 않아야 합니다.</p>
+<h3>구현 세부 사항 (Implementation details)</h3>
+<p><strong>참고:</strong> 이 섹션은 규범적이지 않습니다. 결국 이 PEP는 표준 라이브러리가 아닌 타사 라이브러리 및 도구에 의해 구현되었습니다.</p>
+<h4><code>pkgutil</code>의 새로운 함수 및 클래스 (New functions and classes in pkgutil)</h4>
+<p><code>.dist-info</code> 디렉터리 내용을 사용하려면 표준 라이브러리에 API 세트를 추가해야 합니다. 이 API를 넣을 가장 좋은 장소는 <code>pkgutil</code>입니다.</p>
+<p><code>pkgutil</code> 모듈에 추가된 새로운 함수는 다음과 같습니다.</p>
+<ul>
+<li><code>distinfo_dirname(name, version) -> directory name</code></li>
+<li><code>get_distributions() -> iterator of Distribution instances.</code></li>
+<li><code>get_distribution(name) -> Distribution or None.</code></li>
+<li><code>obsoletes_distribution(name, version=None) -> iterator of Distribution instances.</code></li>
+<li><code>provides_distribution(name, version=None) -> iterator of Distribution instances.</code></li>
+<li><code>get_file_users(path) -> iterator of Distribution instances.</code></li>
+</ul>
+<p><strong>Distribution 클래스 (Distribution class)</strong>
+생성자에 제공된 <code>.dist-info</code> 디렉터리의 경로로 <code>Distribution</code>이라는 새 클래스가 생성됩니다. 이 클래스는 인스턴스화될 때 <code>METADATA</code>에 포함된 메타데이터를 읽습니다.</p>
+<ul>
+<li><code>Distribution(path) -> instance</code>
+<code>Distribution</code>은 다음 속성을 제공합니다.</li>
+<li><code>name</code>: 배포판의 이름.</li>
+<li><code>metadata</code>: 배포판의 <code>METADATA</code> 파일로 로드된 <code>DistributionMetadata</code> 인스턴스.</li>
+<li><code>requested</code>: <code>REQUESTED</code> 메타데이터 파일이 존재하는지 여부를 나타내는 부울.</li>
+</ul>
+<p>다음 메서드를 제공합니다.</p>
+<ul>
+<li><code>get_installed_files(local=False) -> iterator of (path, hash, size)</code></li>
+<li><code>uses(path) -> Boolean</code></li>
+<li><code>get_distinfo_file(path, binary=False) -> file object</code></li>
+<li><code>get_distinfo_files(local=False) -> iterator of paths</code></li>
+</ul>
+<h4><code>Distutils</code>의 새로운 함수 (New functions in Distutils)</h4>
+<p><code>Distutils2</code>는 <code>distutils2.util</code>에 추가되고 제거할 배포판의 이름을 인수로 취하는 매우 기본적인 제거 함수를 제공할 것입니다. 이 <code>uninstall</code> 함수는 이전에 설명된 API를 사용하여 고유한 모든 파일을 제거합니다.</p>
+<p><strong>설치자 마커 (Installer marker)</strong>
+이 PEP에서 앞서 설명했듯이 <code>install</code> 명령은 설치자의 이름과 함께 <code>INSTALLER</code> 파일을 <code>.dist-info</code> 디렉터리에 추가합니다. 다른 패키징 시스템에 의해 설치된 배포판이 제거되는 것을 방지하기 위해 <code>uninstall</code> 함수는 기본값이 <code>distutils2</code>인 추가 인수 <code>installer</code>를 사용합니다. 호출될 때, <code>uninstall</code>은 <code>INSTALLER</code> 파일이 이 인수와 일치하는지 확인합니다. 일치하지 않으면 <code>DistutilsUninstallError</code>를 발생시킵니다.</p>
+<p><strong>제거 스크립트 추가 (Adding an Uninstall script)</strong>
+<code>Distutils2</code>에 제거 스크립트가 추가되며 다음과 같이 사용됩니다.
+<code>$ python -m distutils2.uninstall projectname</code></p>
+<h3>하위 호환성 및 로드맵 (Backward compatibility and roadmap)</h3>
+<p>이러한 변경 사항은 새로운 함수로 <code>pkgutil</code>과 <code>distutils2</code>에 구현되므로 호환성 문제를 일으키지 않습니다. 이 PEP에 설명된 기능은 Python 3.2의 <code>pkgutil</code>과 <code>Distutils2</code>에 포함될 계획입니다. <code>Distutils2</code>는 새로운 <code>pkgutil</code>의 백포트도 포함하며, 2.4 버전부터 사용할 수 있습니다.</p>
+<p>기존의 표준화 이전 형식으로 설치된 배포판에는 새 API에 필요한 메타데이터가 없으므로 무시됩니다. 타사 도구는 전환을 용이하게 하기 위해 새로운 형식 외에 이전 형식도 계속 지원할 수 있습니다.</p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":[["$","aside",null,{"className":"lg:w-64 xl:w-72 order-1 lg:order-none","children":["$","div",null,{"className":"sidebar sticky","children":["$","nav",null,{"className":"space-y-4","children":[["$","div","Backend",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Backend"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Django",{"children":["$","a",null,{"href":"/backend/django","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Django"," (",6,")"]}]}],["$","li","Logging",{"children":["$","a",null,{"href":"/backend/logging","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Logging"," (",1,")"]}]}]]}]]}],["$","div","Python",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Python"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","PEP",{"children":["$","a",null,{"href":"/python/pep","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["PEP"," (",650,")"]}]}]]}]]}],["$","div","AI/ML",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"AI/ML"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","LLM",{"children":["$","a",null,{"href":"/ai/llm","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["LLM"," (",1,")"]}]}],["$","li","Review",{"children":["$","a",null,{"href":"/ai/review","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Review"," (",2728,")"]}]}]]}]]}],["$","div","DevOps",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"DevOps"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Nginx",{"children":["$","a",null,{"href":"/devops/nginx","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Nginx"," (",1,")"]}]}],["$","li","Docker",{"children":["$","a",null,{"href":"/devops/docker","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Docker"," (",1,")"]}]}],["$","li","SafeLine",{"children":["$","a",null,{"href":"/devops/safeline","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["SafeLine"," (",1,")"]}]}],["$","li","Jenkins",{"children":["$","a",null,{"href":"/devops/jenkins","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Jenkins"," (",3,")"]}]}],["$","li","GitHub Actions",{"children":["$","a",null,{"href":"/devops/github-actions","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["GitHub Actions"," (",1,")"]}]}],["$","li","AWS",{"children":["$","a",null,{"href":"/devops/aws","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["AWS"," (",1,")"]}]}]]}]]}],["$","div","etc",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"etc"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Me",{"children":["$","a",null,{"href":"/etc/me","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Me"," (",3,")"]}]}],["$","li","Chrome Extension",{"children":["$","a",null,{"href":"/etc/chrome-extension","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Chrome Extension"," (",1,")"]}]}]]}]]}]]}]}]}],["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Final] PEP 376 - Database of Installed Python Distributions"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-26 20:59:42+0900","children":"2025년 9월 26일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 26일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]}],["$","$La",null,{"postPermalink":"/python/pep/376","postId":"2025-09-26-pep-0376-database-of-installed-python-distributions"}],["$","section",null,{"className":"mt-12 border-t border-gray-200 pt-8","children":[["$","h3",null,{"className":"text-base font-semibold text-gray-900 mb-4","children":["Python"," 의 다른글"]}],["$","ul",null,{"className":"space-y-2 text-sm","children":[["$","li",null,{"className":"text-gray-500","children":["이전글"," ",["$","$L7",null,{"href":"/python/pep/375","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Final] PEP 375 - Python 3.1 Release Schedule"}]]}],["$","li",null,{"className":"text-gray-900 font-semibold","children":["현재글 : ","[Final] PEP 376 - Database of Installed Python Distributions"]}],["$","li",null,{"className":"text-gray-500","children":["다음글"," ",["$","$L7",null,{"href":"/python/pep/377","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Rejected] PEP 377 - Allow __enter__() methods to skip the statement body"}]]}]]}]]}]]}]}]]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"[Final] PEP 376 - Database of Installed Python Distributions - secrett2633's blog"}],["$","meta","3",{"name":"description","content":"Python Enhancement Proposal 376: 'Database of Installed Python Distributions'에 대한 한국어 번역입니다."}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://blog.secrett2633.cloud/python/pep/376"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"[Final] PEP 376 - Database of Installed Python Distributions"}],["$","meta","13",{"property":"og:description","content":"Python Enhancement Proposal 376: 'Database of Installed Python Distributions'에 대한 한국어 번역입니다."}],["$","meta","14",{"property":"og:url","content":"https://blog.secrett2633.cloud/python/pep/376"}],["$","meta","15",{"property":"og:type","content":"article"}],["$","meta","16",{"name":"twitter:card","content":"summary"}],["$","meta","17",{"name":"twitter:title","content":"[Final] PEP 376 - Database of Installed Python Distributions"}],["$","meta","18",{"name":"twitter:description","content":"Python Enhancement Proposal 376: 'Database of Installed Python Distributions'에 대한 한국어 번역입니다."}],["$","link","19",{"rel":"icon","href":"/icon.ico?6d9f34d4948640b8","type":"image/x-icon","sizes":"16x16"}]]
+1:null

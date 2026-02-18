@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import DefaultLayout from '@/components/DefaultLayout'
 import Sidebar from '@/components/Sidebar'
 import Comments from '@/components/Comments'
@@ -20,6 +21,131 @@ interface PostPageProps {
   }
 }
 
+const categoryMapping: Record<string, string> = {
+  'backend/django': 'Django',
+  'backend/logging': 'Logging',
+  'python/pep': 'PEP',
+  'ai/llm': 'LLM',
+  'ai/review': 'Review',
+  'devops/nginx': 'Nginx',
+  'devops/docker': 'Docker',
+  'devops/safeline': 'SafeLine',
+  'devops/jenkins': 'Jenkins',
+  'devops/github-actions': 'GitHub Actions',
+  'devops/aws': 'AWS',
+  'etc/me': 'Me',
+  'etc/chrome-extension': 'Chrome Extension',
+}
+
+function resolvePostId(slug: string): string | null {
+  const decodedSlug = decodeURIComponent(slug)
+  const cacheFile = path.join(process.cwd(), '.next-cache', 'permalink-cache.json')
+
+  if (fs.existsSync(cacheFile)) {
+    const cacheContent = fs.readFileSync(cacheFile, 'utf8')
+    const permalinkMap: Record<string, { slug: string[]; permalink: string }> = JSON.parse(cacheContent)
+
+    for (const [id, data] of Object.entries(permalinkMap)) {
+      const normalizedPermalink = data.permalink.replace(/^\//, '').replace(/\/$/, '')
+      if (normalizedPermalink === slug || normalizedPermalink === decodedSlug) {
+        return id
+      }
+    }
+  } else {
+    const postIds = getAllPostIds()
+    for (const id of postIds) {
+      const fullPath = path.join(process.cwd(), 'src', 'data', `${id}.md`)
+      const fileContents = fs.readFileSync(fullPath, 'utf8')
+      const matterResult = matter(fileContents)
+      const permalink = (matterResult.data.permalink || `/${id}`).replace(/\/$/, '')
+      const normalizedPermalink = permalink.replace(/^\//, '').replace(/\/$/, '')
+      if (normalizedPermalink === slug || normalizedPermalink === decodedSlug) {
+        return id
+      }
+    }
+  }
+
+  return null
+}
+
+export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
+  const slug = params.slug.join('/')
+
+  // 카테고리 랜딩 페이지
+  if (categoryMapping[slug]) {
+    const categoryName = categoryMapping[slug]
+    return {
+      title: `${categoryName} - secrett2633's blog`,
+      description: `${categoryName} 카테고리의 포스트 목록`,
+      alternates: {
+        canonical: `/${slug}`,
+      },
+      openGraph: {
+        title: `${categoryName} - secrett2633's blog`,
+        description: `${categoryName} 카테고리의 포스트 목록`,
+        url: `/${slug}`,
+      },
+    }
+  }
+
+  // 카테고리 페이지네이션
+  for (const [pathKey, categoryName] of Object.entries(categoryMapping)) {
+    if (slug.startsWith(pathKey + '/page/')) {
+      const parts = slug.split('/')
+      const pageNum = parts[parts.length - 1]
+      return {
+        title: `${categoryName} - ${pageNum}페이지 - secrett2633's blog`,
+        description: `${categoryName} 카테고리의 포스트 목록 - ${pageNum}페이지`,
+        alternates: {
+          canonical: `/${slug}`,
+        },
+        openGraph: {
+          title: `${categoryName} - ${pageNum}페이지 - secrett2633's blog`,
+          description: `${categoryName} 카테고리의 포스트 목록 - ${pageNum}페이지`,
+          url: `/${slug}`,
+        },
+      }
+    }
+  }
+
+  // 개별 포스트 페이지
+  const postId = resolvePostId(slug)
+  if (!postId) {
+    return {}
+  }
+
+  try {
+    const fullPath = path.join(process.cwd(), 'src', 'data', `${postId}.md`)
+    const fileContents = fs.readFileSync(fullPath, 'utf8')
+    const matterResult = matter(fileContents)
+
+    const title = matterResult.data.title || 'Untitled'
+    const excerpt = matterResult.data.excerpt || ''
+    const permalink = (matterResult.data.permalink || `/${postId}`).replace(/\/$/, '')
+    const description = excerpt || title
+
+    return {
+      title: `${title} - secrett2633's blog`,
+      description,
+      alternates: {
+        canonical: permalink,
+      },
+      openGraph: {
+        title,
+        description,
+        url: permalink,
+        type: 'article',
+      },
+      twitter: {
+        title,
+        description,
+      },
+    }
+  } catch {
+    return {}
+  }
+}
+
 export async function generateStaticParams() {
   try {
     // 캐시된 permalink 맵 사용 (빌드 속도 최적화)
@@ -36,7 +162,7 @@ export async function generateStaticParams() {
       postIds.forEach((id) => {
         permalinkMap[id] = {
           slug: id.split('/'),
-          permalink: `/${id}/`
+          permalink: `/${id}`
         }
       })
     }
@@ -44,26 +170,10 @@ export async function generateStaticParams() {
     const postParams = Object.values(permalinkMap).map(({ slug }) => ({ slug }))
 
     // Also include category landing paths and paginated paths required for export mode
-    const categoryPathToName: Record<string, string> = {
-      'backend/django': 'Django',
-      'backend/logging': 'Logging',
-      'python/pep': 'PEP',
-      'ai/llm': 'LLM',
-      'ai/review': 'Review',
-      'devops/nginx': 'Nginx',
-      'devops/docker': 'Docker',
-      'devops/safeline': 'SafeLine',
-      'devops/jenkins': 'Jenkins',
-      'devops/github-actions': 'GitHub Actions',
-      'devops/aws': 'AWS',
-      'etc/me': 'Me',
-      'etc/chrome-extension': 'Chrome Extension',
-    }
-
-    const categoryLanding = Object.keys(categoryPathToName).map((pathStr) => ({ slug: pathStr.split('/') }))
+    const categoryLanding = Object.keys(categoryMapping).map((pathStr) => ({ slug: pathStr.split('/') }))
 
     // For each category, compute total pages and add /page/N
-    const paginated = Object.entries(categoryPathToName).flatMap(([pathStr, categoryName]) => {
+    const paginated = Object.entries(categoryMapping).flatMap(([pathStr, categoryName]) => {
       const { totalPages } = getPaginatedPostsByCategory(categoryName, 1, 20)
       const base = pathStr.split('/')
       const items = [] as { slug: string[] }[]
@@ -88,23 +198,6 @@ export const revalidate = false
 
 export default async function PostPage({ params }: PostPageProps) {
   const slug = params.slug.join('/')
-  
-  // 카테고리 경로 처리 (예: /backend/django -> Django 카테고리)
-  const categoryMapping: { [key: string]: string } = {
-    'backend/django': 'Django',
-    'backend/logging': 'Logging',
-    'python/pep': 'PEP',
-    'ai/llm': 'LLM',
-    'ai/review': 'Review',
-    'devops/nginx': 'Nginx',
-    'devops/docker': 'Docker',
-    'devops/safeline': 'SafeLine',
-    'devops/jenkins': 'Jenkins',
-    'devops/github-actions': 'GitHub Actions',
-    'devops/aws': 'AWS',
-    'etc/me': 'Me',
-    'etc/chrome-extension': 'Chrome Extension'
-  }
   
   // 카테고리 경로 또는 카테고리 페이지 경로인지 확인
   // 지원 형태: /category-path, /category-path/page/N
@@ -133,14 +226,14 @@ export default async function PostPage({ params }: PostPageProps) {
                     {posts.map((post) => (
                       <article key={post.id} className="archive__item">
                         <h2 className="archive__item-title">
-                          <Link href={post.permalink || `/${post.id}/`}>
+                          <Link href={post.permalink || `/${post.id}`}>
                             {post.title}
                           </Link>
                         </h2>
                         
                         {post.excerpt && (
                           <div className="archive__item-excerpt">
-                            <Link href={post.permalink || `/${post.id}/`}>
+                            <Link href={post.permalink || `/${post.id}`}>
                               {post.excerpt}
                             </Link>
                           </div>
@@ -150,7 +243,7 @@ export default async function PostPage({ params }: PostPageProps) {
                           <time dateTime={post.date}>
                             {format(new Date(post.date), 'yyyy년 M월 d일', { locale: ko })}
                           </time>
-                          <CommentCount postPermalink={post.permalink || `/${post.id}/`} />
+                          <CommentCount postPermalink={post.permalink || `/${post.id}`} />
                         </div>
                       </article>
                     ))}
@@ -200,14 +293,14 @@ export default async function PostPage({ params }: PostPageProps) {
                       {posts.map((post) => (
                         <article key={post.id} className="archive__item">
                           <h2 className="archive__item-title">
-                            <Link href={post.permalink || `/${post.id}/`}>
+                            <Link href={post.permalink || `/${post.id}`}>
                               {post.title}
                             </Link>
                           </h2>
 
                           {post.excerpt && (
                             <div className="archive__item-excerpt">
-                              <Link href={post.permalink || `/${post.id}/`}>
+                              <Link href={post.permalink || `/${post.id}`}>
                                 {post.excerpt}
                               </Link>
                             </div>
@@ -217,7 +310,7 @@ export default async function PostPage({ params }: PostPageProps) {
                             <time dateTime={post.date}>
                               {format(new Date(post.date), 'yyyy년 M월 d일', { locale: ko })}
                             </time>
-                            <CommentCount postPermalink={post.permalink || `/${post.id}/`} />
+                            <CommentCount postPermalink={post.permalink || `/${post.id}`} />
                           </div>
                         </article>
                       ))}
@@ -240,81 +333,9 @@ export default async function PostPage({ params }: PostPageProps) {
   }
   
   // Find the post by matching permalink (캐시 사용으로 최적화)
-  let postId = ''
-  
-  try {
-    // URL 디코딩된 slug와 원본 slug 모두 확인
-    const decodedSlug = decodeURIComponent(slug)
-    
-    // 캐시 파일에서 permalink 맵 로드
-    const cacheFile = path.join(process.cwd(), '.next-cache', 'permalink-cache.json')
-    
-    if (fs.existsSync(cacheFile)) {
-      const cacheContent = fs.readFileSync(cacheFile, 'utf8')
-      const permalinkMap: Record<string, { slug: string[], permalink: string }> = JSON.parse(cacheContent)
-      
-      // 캐시에서 매칭되는 postId 찾기
-      for (const [id, data] of Object.entries(permalinkMap)) {
-        const normalizedPermalink = data.permalink.replace(/^\//, '').replace(/\/$/, '')
-        
-        if (normalizedPermalink === slug || normalizedPermalink === decodedSlug) {
-          postId = id
-          break
-        }
-      }
-    } else {
-      // 캐시가 없으면 기존 방식 사용 (fallback)
-      const postIds = getAllPostIds()
-      for (const id of postIds) {
-        const fullPath = path.join(process.cwd(), 'src', 'data', `${id}.md`)
-        const fileContents = fs.readFileSync(fullPath, 'utf8')
-        const matterResult = matter(fileContents)
-        const permalink = matterResult.data.permalink || `/${id}/`
-        const normalizedPermalink = permalink.replace(/^\//, '').replace(/\/$/, '')
-        
-        if (normalizedPermalink === slug || normalizedPermalink === decodedSlug) {
-          postId = id
-          break
-        }
-      }
-    }
-    
-    if (!postId) {
-      // 개발 환경에서만 로그 출력 (빌드 시 경고 메시지 방지)
-      if (process.env.NODE_ENV === 'development') {
-        console.log(`Post not found for slug: ${slug}`)
-      }
-      // Return a custom message instead of 404
-      return (
-        <>
-          <div className="flex flex-col lg:flex-row gap-8">
-            <aside className="lg:w-64 xl:w-72 order-1 lg:order-none">
-              <Sidebar />
-            </aside>
-            <main className="flex-1">
-              <article className="page">
-                <header className="mb-8">
-                  <h1 className="page__title">포스트를 찾을 수 없습니다</h1>
-                </header>
-                <div className="page__content">
-                  <p className="text-gray-600">
-                    요청하신 경로 <code className="bg-gray-100 px-2 py-1 rounded">/{slug}</code>에 해당하는 포스트가 존재하지 않습니다.
-                  </p>
-                  <p className="text-gray-600 mt-4">
-                    <a href="/" className="text-blue-600 hover:text-blue-800 underline">
-                      홈페이지로 돌아가기
-                    </a>
-                  </p>
-                </div>
-              </article>
-            </main>
-          </div>
-        </>
-      )
-    }
-  } catch (error) {
-    console.error(`Error finding post for slug: ${slug}`, error)
-    // Return a custom error message instead of 404
+  const postId = resolvePostId(slug)
+
+  if (!postId) {
     return (
       <>
         <div className="flex flex-col lg:flex-row gap-8">
@@ -324,11 +345,11 @@ export default async function PostPage({ params }: PostPageProps) {
           <main className="flex-1">
             <article className="page">
               <header className="mb-8">
-                <h1 className="page__title">오류가 발생했습니다</h1>
+                <h1 className="page__title">포스트를 찾을 수 없습니다</h1>
               </header>
               <div className="page__content">
                 <p className="text-gray-600">
-                  포스트를 불러오는 중 오류가 발생했습니다.
+                  요청하신 경로 <code className="bg-gray-100 px-2 py-1 rounded">/{slug}</code>에 해당하는 포스트가 존재하지 않습니다.
                 </p>
                 <p className="text-gray-600 mt-4">
                   <a href="/" className="text-blue-600 hover:text-blue-800 underline">
@@ -401,7 +422,7 @@ export default async function PostPage({ params }: PostPageProps) {
               </footer>
 
               {/* 댓글 섹션 */}
-              <Comments postPermalink={postData.permalink || `/${postId}/`} postId={postId} />
+              <Comments postPermalink={postData.permalink || `/${postId}`} postId={postId} />
 
               {primaryCategory && (
                 <section className="mt-12 border-t border-gray-200 pt-8">
@@ -413,7 +434,7 @@ export default async function PostPage({ params }: PostPageProps) {
                       이전글{' '}
                       {prevPost ? (
                         <Link
-                          href={prevPost.permalink || `/${prevPost.id}/`}
+                          href={prevPost.permalink || `/${prevPost.id}`}
                           className="text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4"
                         >
                           {prevPost.title}
@@ -429,7 +450,7 @@ export default async function PostPage({ params }: PostPageProps) {
                       다음글{' '}
                       {nextPost ? (
                         <Link
-                          href={nextPost.permalink || `/${nextPost.id}/`}
+                          href={nextPost.permalink || `/${nextPost.id}`}
                           className="text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4"
                         >
                           {nextPost.title}

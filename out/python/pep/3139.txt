@@ -1,0 +1,118 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[9157,["231","static/chunks/231-467e37449c5a68fc.js","185","static/chunks/app/layout-53ec9cbf619543e1.js"],"default"]
+7:I[231,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-80e07cee06d17a0b.js"],""]
+4:["slug","python/pep/3139","c"]
+0:["_3-KrKKQh7tcSoXiYwQMB",[[["",{"children":[["slug","python/pep/3139","c"],{"children":["__PAGE__?{\"slug\":[\"python\",\"pep\",\"3139\"]}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","python/pep/3139","c"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"ko","className":"no-js","children":[["$","head",null,{"children":[["$","meta",null,{"name":"msapplication-TileColor","content":"#ffc40d"}],["$","meta",null,{"name":"theme-color","content":"#ffffff"}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-NE2W3CFPNY"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n              gtag('config', 'G-NE2W3CFPNY');\n            "}}]]}],["$","body",null,{"className":"__className_f367f3 layout--default","children":["$","div",null,{"className":"min-h-screen bg-gray-50","children":[["$","$L6",null,{}],["$","main",null,{"className":"initial-content","children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"min-h-screen flex items-center justify-center bg-gray-50","children":["$","div",null,{"className":"max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center","children":[["$","h1",null,{"className":"text-6xl font-bold text-primary-600 mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-semibold text-gray-900 mb-4","children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"text-gray-600 mb-8","children":"요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다."}],["$","$L7",null,{"href":"/","className":"inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors","children":"홈으로 돌아가기"}]]}]}],"notFoundStyles":[],"styles":null}]}],["$","div",null,{"id":"footer","className":"page__footer","children":["$","footer",null,{"className":"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8","children":["$","div",null,{"className":"text-center text-gray-500 text-sm","children":["$","p",null,{"children":"© 2025 secrett2633. All rights reserved."}]}]}]}]]}]}]]}],null],[["$","div",null,{"className":"flex items-center justify-center min-h-screen","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"}]}],[],[]]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/d6cea809dcbae606.css","precedence":"next","crossOrigin":"$undefined"}]],[null,"$L8"]]]]]
+a:I[646,["231","static/chunks/231-467e37449c5a68fc.js","877","static/chunks/app/%5B...slug%5D/page-80e07cee06d17a0b.js"],"default"]
+9:T1b66,<blockquote>
+<p><strong>원문 링크:</strong> <a href="https://peps.python.org/pep-3139/">PEP 3139 - Cleaning out sys and the “interpreter” module</a></p>
+<p><strong>상태:</strong> Rejected | <strong>유형:</strong> Standards Track | <strong>작성일:</strong> 04-Apr-2008</p>
+</blockquote>
+<h1>PEP 3139 – <code>sys</code> 모듈 및 "interpreter" 모듈 정리</h1>
+<ul>
+<li><strong>작성자:</strong> Benjamin Peterson</li>
+<li><strong>상태:</strong> Rejected (거부됨)</li>
+<li><strong>유형:</strong> Standards Track</li>
+<li><strong>작성일:</strong> 2008년 4월 4일</li>
+<li><strong>Python 버전:</strong> 3.0</li>
+</ul>
+<h2>거부 통지 (Rejection Notice)</h2>
+<p>Guido van Rossum의 '-0.5' 투표로 이 PEP는 거부되었습니다. 자세한 내용은 python-3000 메일링 리스트 아카이브를 참조하십시오.</p>
+<h2>개요 (Abstract)</h2>
+<p>이 PEP는 CPython 구현에 특화된 인터프리터(interpreter) 함수들을 위한 새로운 저수준 모듈을 제안합니다. 이는 <code>sys</code> 모듈을 정리하고, 일반적인 Python 기능과 구현 세부 사항(implementation details)을 분리하는 것을 목표로 합니다.</p>
+<h2>배경 (Rationale)</h2>
+<p>현재 <code>sys</code> 모듈은 크게 두 가지 유형의 함수와 데이터를 포함하고 있습니다:</p>
+<ol>
+<li>
+<p><strong>모든 Python 구현에서 사용 가능하며, Python 가상 머신(Virtual Machine)의 일반적인 실행과 관련된 데이터 및 함수.</strong></p>
+<ul>
+<li><code>argv</code>, <code>byteorder</code>, <code>path</code>, <code>path_hooks</code>, <code>meta_path</code>, <code>path_importer_cache</code>, <code>modules</code></li>
+<li><code>copyright</code>, <code>hexversion</code>, <code>version</code>, <code>version_info</code></li>
+<li><code>displayhook</code>, <code>__displayhook__</code></li>
+<li><code>excepthook</code>, <code>__excepthook__</code>, <code>exc_info</code>, <code>exc_clear</code></li>
+<li><code>exec_prefix</code>, <code>prefix</code>, <code>executable</code></li>
+<li><code>exit</code></li>
+<li><code>flags</code>, <code>py3kwarning</code>, <code>dont_write_bytecode</code>, <code>warn_options</code></li>
+<li><code>getfilesystemencoding</code></li>
+<li><code>get/setprofile</code></li>
+<li><code>get/settrace</code>, <code>call_tracing</code></li>
+<li><code>getwindowsversion</code></li>
+<li><code>maxint</code>, <code>maxunicode</code></li>
+<li><code>platform</code></li>
+<li><code>ps1</code>, <code>ps2</code></li>
+<li><code>stdin</code>, <code>stderr</code>, <code>stdout</code>, <code>__stdin__</code>, <code>__stderr__</code>, <code>__stdout__</code></li>
+<li><code>tracebacklimit</code></li>
+</ul>
+</li>
+<li>
+<p><strong>CPython 인터프리터에 영향을 미치는 데이터 및 함수.</strong></p>
+<ul>
+<li><code>get/setrecursionlimit</code></li>
+<li><code>get/setcheckinterval</code></li>
+<li><code>_getframe</code>, <code>_current_frame</code></li>
+<li><code>getrefcount</code></li>
+<li><code>get/setdlopenflags</code></li>
+<li><code>settscdumps</code></li>
+<li><code>api_version</code></li>
+<li><code>winver</code>, <code>dllhandle</code></li>
+<li><code>float_info</code></li>
+<li><code>_compact_freelists</code></li>
+<li><code>_clear_type_cache</code></li>
+<li><code>subversion</code></li>
+<li><code>builtin_module_names</code></li>
+<li><code>callstats</code></li>
+<li><code>intern</code></li>
+</ul>
+</li>
+</ol>
+<p>두 번째 그룹에 속하는 항목들은 수년 동안 꾸준히 증가하여 <code>sys</code> 모듈을 복잡하게 만들었습니다. 심지어 Guido van Rossum도 일부 항목들을 인지하지 못한다고 언급했습니다.</p>
+<p>이러한 항목들을 다른 모듈로 이동시키면, 다른 Python 구현체들에게 어떤 함수가 구현되어야 하고 어떤 함수가 그렇지 않은지에 대한 명확한 메시지를 전달할 수 있을 것입니다. 또한, <code>types</code> 모듈의 내용이 표준 라이브러리 전반에 분산되어야 한다는 제안도 있었는데, 이 <code>interpreter</code> 모듈은 프레임(frames) 및 코드 객체(code objects)와 같은 내부 유형(internal types)을 위한 훌륭한 저장소가 될 수 있을 것입니다.</p>
+<h2>상세 사양 (Specification)</h2>
+<p>새로운 내장(builtin) 모듈인 "interpreter"가 추가될 예정이었습니다 (이름에 대해서는 "Naming" 섹션 참조). 위에 언급된 두 번째 그룹의 항목들은 다음과 같이 표준 라이브러리로 분할될 예정이었습니다:</p>
+<ul>
+<li>
+<p><strong><code>interpreter</code> 모듈로 이동할 항목:</strong></p>
+<ul>
+<li><code>get/setrecursionlimit</code></li>
+<li><code>get/setcheckinterval</code></li>
+<li><code>_getframe</code>, <code>_current_frame</code></li>
+<li><code>get/setdlopenflags</code></li>
+<li><code>settscdumps</code></li>
+<li><code>api_version</code></li>
+<li><code>winver</code>, <code>dllhandle</code></li>
+<li><code>float_info</code></li>
+<li><code>_clear_type_cache</code></li>
+<li><code>subversion</code></li>
+<li><code>builtin_module_names</code></li>
+<li><code>callstats</code></li>
+<li><code>intern</code></li>
+</ul>
+</li>
+<li>
+<p><strong><code>gc</code> (가비지 컬렉터) 모듈로 이동할 항목:</strong></p>
+<ul>
+<li><code>getrefcount</code></li>
+<li><code>_compact_freelists</code></li>
+</ul>
+</li>
+</ul>
+<h2>전환 계획 (Transition Plan)</h2>
+<p>Python 3.x에 구현되면 <code>interpreter</code> 모듈은 2.6 버전으로 백포팅(back-ported)될 예정이었습니다. 또한, 대체되는 <code>sys</code> 함수에는 Py3k 경고가 추가될 예정이었습니다.</p>
+<h2>미해결 문제 (Open Issues)</h2>
+<h3>어떤 항목을 이동해야 하는가?</h3>
+<ul>
+<li><strong><code>dont_write_bytecode</code>:</strong> 일부는 바이트코드(bytecode) 작성 기능을 구현 세부 사항으로 보고 이동해야 한다고 주장했습니다. 반대 의견으로는 현재의 모든 완전한 Python 구현이 어떤 형태로든 바이트코드를 작성하므로 이 기능을 비활성화할 수 있는 것이 가치 있다는 것이었습니다. 또한, 만약 이동한다면 <code>imp</code> 모듈에 두기를 바라는 의견도 있었습니다.</li>
+</ul>
+<h3><code>imp</code> 모듈로 이동하는 항목이 있는가?</h3>
+<p><code>dont_write_bytecode</code> 또는 <code>builtin_module_names</code>가 <code>imp</code> 모듈에 잘 어울릴 수 있다는 의견이 있었습니다.</p>
+<h3>명명 (Naming)</h3>
+<p>작성자는 새로운 모듈의 이름으로 "interpreter"를 제안했습니다. "pyvm"도 제안되었고, "cpython"이라는 이름은 많은 지지를 받았습니다.</p>
+<h2>저작권 (Copyright)</h2>
+<p>이 문서는 퍼블릭 도메인(public domain)에 있습니다.</p>
+<blockquote>
+<p>⚠️ <strong>알림:</strong> 이 문서는 AI를 활용하여 번역되었으며, 기술적 정확성을 보장하지 않습니다. 정확한 내용은 반드시 원문을 확인하시기 바랍니다.</p>
+</blockquote>
+2:["$","div",null,{"className":"flex flex-col lg:flex-row gap-8","children":[["$","aside",null,{"className":"lg:w-64 xl:w-72 order-1 lg:order-none","children":["$","div",null,{"className":"sidebar sticky","children":["$","nav",null,{"className":"space-y-4","children":[["$","div","Backend",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Backend"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Django",{"children":["$","a",null,{"href":"/backend/django","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Django"," (",6,")"]}]}],["$","li","Logging",{"children":["$","a",null,{"href":"/backend/logging","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Logging"," (",1,")"]}]}]]}]]}],["$","div","Python",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"Python"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","PEP",{"children":["$","a",null,{"href":"/python/pep","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["PEP"," (",650,")"]}]}]]}]]}],["$","div","AI/ML",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"AI/ML"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","LLM",{"children":["$","a",null,{"href":"/ai/llm","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["LLM"," (",1,")"]}]}],["$","li","Review",{"children":["$","a",null,{"href":"/ai/review","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Review"," (",2728,")"]}]}]]}]]}],["$","div","DevOps",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"DevOps"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Nginx",{"children":["$","a",null,{"href":"/devops/nginx","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Nginx"," (",1,")"]}]}],["$","li","Docker",{"children":["$","a",null,{"href":"/devops/docker","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Docker"," (",1,")"]}]}],["$","li","SafeLine",{"children":["$","a",null,{"href":"/devops/safeline","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["SafeLine"," (",1,")"]}]}],["$","li","Jenkins",{"children":["$","a",null,{"href":"/devops/jenkins","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Jenkins"," (",3,")"]}]}],["$","li","GitHub Actions",{"children":["$","a",null,{"href":"/devops/github-actions","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["GitHub Actions"," (",1,")"]}]}],["$","li","AWS",{"children":["$","a",null,{"href":"/devops/aws","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["AWS"," (",1,")"]}]}]]}]]}],["$","div","etc",{"children":[["$","h4",null,{"className":"font-medium text-gray-900 mb-2","children":"etc"}],["$","ul",null,{"className":"space-y-1 ml-4","children":[["$","li","Me",{"children":["$","a",null,{"href":"/etc/me","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Me"," (",3,")"]}]}],["$","li","Chrome Extension",{"children":["$","a",null,{"href":"/etc/chrome-extension","className":"text-sm text-gray-600 hover:text-primary-600 block py-1","children":["Chrome Extension"," (",1,")"]}]}]]}]]}]]}]}]}],["$","main",null,{"className":"flex-1","children":["$","article",null,{"className":"page","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"page__title","children":"[Rejected] PEP 3139 - Cleaning out sys and the “interpreter” module"}],["$","div",null,{"className":"page__meta","children":[["$","time",null,{"dateTime":"2025-09-27 14:35:24+0900","children":"2025년 9월 27일"}],["$","span",null,{"className":"ml-4","children":["수정: ","2025년 9월 27일"]}]]}]]}],["$","div",null,{"className":"page__content","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}]}],["$","footer",null,{"className":"page__meta mt-8","children":["$","div",null,{"className":"page__taxonomy","children":[["$","h4",null,{"className":"text-sm font-medium text-gray-900 mb-2","children":"태그"}],[["$","span","Python",{"className":"page__taxonomy-item","children":["#","Python"]}],["$","span","PEP",{"className":"page__taxonomy-item","children":["#","PEP"]}],["$","span","Translation",{"className":"page__taxonomy-item","children":["#","Translation"]}]]]}]}],["$","$La",null,{"postPermalink":"/python/pep/3139","postId":"2025-09-27-pep-3139-cleaning-out-sys-and-the-interpreter-module"}],["$","section",null,{"className":"mt-12 border-t border-gray-200 pt-8","children":[["$","h3",null,{"className":"text-base font-semibold text-gray-900 mb-4","children":["Python"," 의 다른글"]}],["$","ul",null,{"className":"space-y-2 text-sm","children":[["$","li",null,{"className":"text-gray-500","children":["이전글"," ",["$","$L7",null,{"href":"/python/pep/3138","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Final] PEP 3138 - String representation in Python 3000"}]]}],["$","li",null,{"className":"text-gray-900 font-semibold","children":["현재글 : ","[Rejected] PEP 3139 - Cleaning out sys and the “interpreter” module"]}],["$","li",null,{"className":"text-gray-500","children":["다음글"," ",["$","$L7",null,{"href":"/python/pep/3140","className":"text-gray-500 hover:text-gray-700 underline decoration-dotted underline-offset-4","children":"[Rejected] PEP 3140 - str(container) should call str(item), not repr(item)"}]]}]]}]]}]]}]}]]}]
+8:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"[Rejected] PEP 3139 - Cleaning out sys and the “interpreter” module - secrett2633's blog"}],["$","meta","3",{"name":"description","content":"Python Enhancement Proposal 3139: 'Cleaning out sys and the “interpreter” module'에 대한 한국어 번역입니다."}],["$","meta","4",{"name":"author","content":"secrett2633"}],["$","meta","5",{"name":"keywords","content":"Django, Python, DevOps, AI, ML, 블로그, 기술"}],["$","meta","6",{"name":"creator","content":"secrett2633"}],["$","meta","7",{"name":"publisher","content":"secrett2633"}],["$","meta","8",{"name":"robots","content":"index, follow"}],["$","meta","9",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","10",{"rel":"canonical","href":"https://blog.secrett2633.cloud/python/pep/3139"}],["$","meta","11",{"name":"format-detection","content":"telephone=no, address=no, email=no"}],["$","meta","12",{"property":"og:title","content":"[Rejected] PEP 3139 - Cleaning out sys and the “interpreter” module"}],["$","meta","13",{"property":"og:description","content":"Python Enhancement Proposal 3139: 'Cleaning out sys and the “interpreter” module'에 대한 한국어 번역입니다."}],["$","meta","14",{"property":"og:url","content":"https://blog.secrett2633.cloud/python/pep/3139"}],["$","meta","15",{"property":"og:type","content":"article"}],["$","meta","16",{"name":"twitter:card","content":"summary"}],["$","meta","17",{"name":"twitter:title","content":"[Rejected] PEP 3139 - Cleaning out sys and the “interpreter” module"}],["$","meta","18",{"name":"twitter:description","content":"Python Enhancement Proposal 3139: 'Cleaning out sys and the “interpreter” module'에 대한 한국어 번역입니다."}],["$","link","19",{"rel":"icon","href":"/icon.ico?6d9f34d4948640b8","type":"image/x-icon","sizes":"16x16"}]]
+1:null
