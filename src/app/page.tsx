@@ -7,6 +7,7 @@ import Sidebar from '@/components/Sidebar'
 import Pagination from '@/components/Pagination'
 import CommentCount from '@/components/CommentCount'
 import CommentCountProvider from '@/components/CommentCountProvider'
+import { CollectionPageJsonLd } from '@/components/JsonLd'
 
 // 정적 생성에서 동적 렌더링 허용하지 않음 (export 모드용)
 
@@ -25,14 +26,19 @@ export default function Home() {
 
   return (
     <CommentCountProvider>
+      <CollectionPageJsonLd
+        name="secrett2633's blog - Recent Posts"
+        description="기술 블로그 - Django, Python, DevOps, AI/ML 관련 최신 포스트"
+        url="/"
+      />
       <div className="space-y-6">
         <div className="flex flex-col lg:flex-row gap-8">
           <aside className="lg:w-64 xl:w-72 order-1 lg:order-none">
             <Sidebar />
           </aside>
-          <main className="flex-1">
-            <h1 className="page__title mb-6">Recent Posts</h1>
-            
+          <div className="flex-1">
+            <h1 className="page__title mb-6">최신 포스트</h1>
+
             {posts.length === 0 ? (
               <div className="py-12">
                 <p className="text-gray-500">아직 포스트가 없습니다.</p>
@@ -47,7 +53,7 @@ export default function Home() {
                           {post.title}
                         </Link>
                       </h2>
-                      
+
                       {post.excerpt && (
                         <div className="archive__item-excerpt">
                           <Link href={post.permalink || `/${post.id}`}>
@@ -55,7 +61,7 @@ export default function Home() {
                           </Link>
                         </div>
                       )}
-                      
+
                       <div className="archive__item-meta">
                         <time dateTime={post.date}>
                           {format(new Date(post.date), 'yyyy년 M월 d일', { locale: ko })}
@@ -65,17 +71,17 @@ export default function Home() {
                     </article>
                   ))}
                 </div>
-                
+
                 {/* 페이지네이션 */}
-                <Pagination 
+                <Pagination
                   currentPage={validPage}
                   totalPages={totalPages}
                   basePath="/"
                 />
               </>
             )}
-          </main>
-    
+          </div>
+
         </div>
       </div>
     </CommentCountProvider>

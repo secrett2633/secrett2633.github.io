@@ -1,4 +1,14 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
+
+export const metadata: Metadata = {
+  title: '페이지를 찾을 수 없습니다 - secrett2633\'s blog',
+  description: '요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다.',
+  robots: {
+    index: false,
+    follow: true,
+  },
+}
 
 export default function NotFound() {
   return (

@@ -17,7 +17,7 @@ export default function Masthead() {
     <div className="masthead">
       <div className="masthead__inner-wrap">
         <div className="masthead__menu">
-          <nav id="site-nav" className="greedy-nav">
+          <nav id="site-nav" className="greedy-nav" aria-label="메인 네비게이션">
             <Link href="/" className="site-title">
               secrett2633's blog
             </Link>
@@ -37,9 +37,10 @@ export default function Masthead() {
                 ))}
               </ul>
 
-              <button 
-                className="search__toggle" 
+              <button
+                className="search__toggle"
                 type="button"
+                aria-label="검색"
                 onClick={() => setIsSearchOpen(true)}
               >
                 <svg className="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">

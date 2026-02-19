@@ -6,13 +6,17 @@ export async function GET(request: NextRequest) {
     const posts = getSortedPostsData()
     const postsPerSitemap = 500
     const totalSitemaps = Math.ceil(posts.length / postsPerSitemap)
-    
+
     const siteUrl = 'https://blog.secrett2633.cloud'
     const currentDate = new Date().toISOString()
-    
-    // 개별 사이트맵은 /sitemaps/{id}.xml 로 제공
+
+    // static 사이트맵 + 개별 포스트 사이트맵들
     const sitemapIndexXml = `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>${siteUrl}/sitemaps/static.xml</loc>
+    <lastmod>${currentDate}</lastmod>
+  </sitemap>
   ${Array.from({ length: totalSitemaps }, (_, index) => {
     const sitemapId = index + 1
     return `  <sitemap>

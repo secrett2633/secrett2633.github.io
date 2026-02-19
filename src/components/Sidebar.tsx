@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { getPostsByCategory } from '@/lib/posts'
 
 const categories = [
@@ -44,19 +45,19 @@ const categories = [
 export default function Sidebar() {
   return (
     <div className="sidebar sticky">
-      <nav className="space-y-4">
+      <nav className="space-y-4" aria-label="카테고리 네비게이션">
         {categories.map((category) => (
           <div key={category.title}>
-            <h4 className="font-medium text-gray-900 mb-2">{category.title}</h4>
+            <p className="font-medium text-gray-900 mb-2">{category.title}</p>
             <ul className="space-y-1 ml-4">
               {category.children.map((child) => (
                 <li key={child.title}>
-                  <a 
+                  <Link
                     href={child.url}
                     className="text-sm text-gray-600 hover:text-primary-600 block py-1"
                   >
                     {child.title} ({getPostsByCategory(child.title).length})
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

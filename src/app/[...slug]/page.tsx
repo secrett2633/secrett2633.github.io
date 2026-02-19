@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 import DefaultLayout from '@/components/DefaultLayout'
 import Sidebar from '@/components/Sidebar'
 import Comments from '@/components/Comments'
@@ -12,6 +13,8 @@ import Link from 'next/link'
 import Pagination from '@/components/Pagination'
 import CommentCount from '@/components/CommentCount'
 import CommentCountProvider from '@/components/CommentCountProvider'
+import { BlogPostingJsonLd, BreadcrumbListJsonLd, CollectionPageJsonLd } from '@/components/JsonLd'
+import Breadcrumb from '@/components/Breadcrumb'
 
 // 정적 생성에서 동적 렌더링 허용하지 않음 (export 모드용)
 
@@ -36,6 +39,11 @@ const categoryMapping: Record<string, string> = {
   'etc/me': 'Me',
   'etc/chrome-extension': 'Chrome Extension',
 }
+
+// categoryMapping의 역방향: categoryName -> path
+const categoryPathMapping: Record<string, string> = Object.fromEntries(
+  Object.entries(categoryMapping).map(([path, name]) => [name, path])
+)
 
 function resolvePostId(slug: string): string | null {
   const decodedSlug = decodeURIComponent(slug)
@@ -84,6 +92,12 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
         title: `${categoryName} - secrett2633's blog`,
         description: `${categoryName} 카테고리의 포스트 목록`,
         url: `/${slug}`,
+        type: 'website',
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: `${categoryName} - secrett2633's blog`,
+        description: `${categoryName} 카테고리의 포스트 목록`,
       },
     }
   }
@@ -93,16 +107,38 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
     if (slug.startsWith(pathKey + '/page/')) {
       const parts = slug.split('/')
       const pageNum = parts[parts.length - 1]
+      const pageNumInt = parseInt(pageNum)
+      const { totalPages } = getPaginatedPostsByCategory(categoryName, 1, 20)
+
+      const paginationLinks: Record<string, string> = {}
+      if (pageNumInt > 1) {
+        paginationLinks.prev = pageNumInt === 2 ? `/${pathKey}` : `/${pathKey}/page/${pageNumInt - 1}`
+      }
+      if (pageNumInt < totalPages) {
+        paginationLinks.next = `/${pathKey}/page/${pageNumInt + 1}`
+      }
+
       return {
         title: `${categoryName} - ${pageNum}페이지 - secrett2633's blog`,
         description: `${categoryName} 카테고리의 포스트 목록 - ${pageNum}페이지`,
         alternates: {
           canonical: `/${slug}`,
+          ...paginationLinks,
         },
         openGraph: {
           title: `${categoryName} - ${pageNum}페이지 - secrett2633's blog`,
           description: `${categoryName} 카테고리의 포스트 목록 - ${pageNum}페이지`,
           url: `/${slug}`,
+          type: 'website',
+        },
+        twitter: {
+          card: 'summary_large_image',
+          title: `${categoryName} - ${pageNum}페이지 - secrett2633's blog`,
+          description: `${categoryName} 카테고리의 포스트 목록 - ${pageNum}페이지`,
+        },
+        robots: {
+          index: false,
+          follow: true,
         },
       }
     }
@@ -122,7 +158,17 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
     const title = matterResult.data.title || 'Untitled'
     const excerpt = matterResult.data.excerpt || ''
     const permalink = (matterResult.data.permalink || `/${postId}`).replace(/\/$/, '')
-    const description = excerpt || title
+    // excerpt가 없으면 콘텐츠 앞부분에서 설명 생성
+    const description = excerpt || matterResult.content
+      .replace(/```[\s\S]*?```/g, '')
+      .replace(/[#*_~>`\[\]()!-]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .slice(0, 160) || title
+    const date = matterResult.data.date || new Date().toISOString()
+    const lastModified = matterResult.data.last_modified_at || matterResult.data.lastModifiedAt
+    const tags = Array.isArray(matterResult.data.tags) ? matterResult.data.tags : []
+    const categories = Array.isArray(matterResult.data.categories) ? matterResult.data.categories : []
 
     return {
       title: `${title} - secrett2633's blog`,
@@ -135,10 +181,17 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
         description,
         url: permalink,
         type: 'article',
+        publishedTime: new Date(date).toISOString(),
+        modifiedTime: lastModified ? new Date(lastModified).toISOString() : undefined,
+        authors: ['secrett2633'],
+        tags,
+        section: categories[0],
       },
       twitter: {
+        card: 'summary_large_image',
         title,
         description,
+        creator: '@secrett2633',
       },
     }
   } catch {
@@ -151,7 +204,7 @@ export async function generateStaticParams() {
     // 캐시된 permalink 맵 사용 (빌드 속도 최적화)
     const cacheFile = path.join(process.cwd(), '.next-cache', 'permalink-cache.json')
     let permalinkMap: Record<string, { slug: string[], permalink: string }> = {}
-    
+
     if (fs.existsSync(cacheFile)) {
       const cacheContent = fs.readFileSync(cacheFile, 'utf8')
       permalinkMap = JSON.parse(cacheContent)
@@ -166,7 +219,7 @@ export async function generateStaticParams() {
         }
       })
     }
-    
+
     const postParams = Object.values(permalinkMap).map(({ slug }) => ({ slug }))
 
     // Also include category landing paths and paginated paths required for export mode
@@ -198,24 +251,36 @@ export const revalidate = false
 
 export default async function PostPage({ params }: PostPageProps) {
   const slug = params.slug.join('/')
-  
+
   // 카테고리 경로 또는 카테고리 페이지 경로인지 확인
   // 지원 형태: /category-path, /category-path/page/N
   // 우선 정확 일치 확인
   if (categoryMapping[slug]) {
     const categoryName = categoryMapping[slug]
     const { posts, currentPage: validPage, totalPages } = getPaginatedPostsByCategory(categoryName, 1, 20)
-    
+
     return (
       <CommentCountProvider>
+        <CollectionPageJsonLd
+          name={`${categoryName} - secrett2633's blog`}
+          description={`${categoryName} 카테고리의 포스트 목록`}
+          url={`/${slug}`}
+        />
+        <BreadcrumbListJsonLd
+          items={[
+            { name: '홈', url: '/' },
+            { name: categoryName, url: `/${slug}` },
+          ]}
+        />
         <div className="space-y-6">
           <div className="flex flex-col lg:flex-row gap-8">
             <aside className="lg:w-64 xl:w-72 order-1 lg:order-none">
               <Sidebar />
             </aside>
-            <main className="flex-1">
+            <div className="flex-1">
+              <Breadcrumb items={[{ name: categoryName, href: `/${slug}` }]} />
               <h1 className="page__title mb-6">{categoryName}</h1>
-              
+
               {posts.length === 0 ? (
                 <div className="py-12">
                   <p className="text-gray-500">이 카테고리에 아직 포스트가 없습니다.</p>
@@ -230,7 +295,7 @@ export default async function PostPage({ params }: PostPageProps) {
                             {post.title}
                           </Link>
                         </h2>
-                        
+
                         {post.excerpt && (
                           <div className="archive__item-excerpt">
                             <Link href={post.permalink || `/${post.id}`}>
@@ -238,7 +303,7 @@ export default async function PostPage({ params }: PostPageProps) {
                             </Link>
                           </div>
                         )}
-                        
+
                         <div className="archive__item-meta">
                           <time dateTime={post.date}>
                             {format(new Date(post.date), 'yyyy년 M월 d일', { locale: ko })}
@@ -248,16 +313,16 @@ export default async function PostPage({ params }: PostPageProps) {
                       </article>
                     ))}
                   </div>
-                  
+
                   {/* 페이지네이션 */}
-                  <Pagination 
+                  <Pagination
                     currentPage={validPage}
                     totalPages={totalPages}
                     basePath={`/${slug}`}
                   />
                 </>
               )}
-            </main>
+            </div>
           </div>
         </div>
       </CommentCountProvider>
@@ -275,12 +340,30 @@ export default async function PostPage({ params }: PostPageProps) {
 
       return (
         <CommentCountProvider>
+          <CollectionPageJsonLd
+            name={`${categoryName} - ${validPage}페이지 - secrett2633's blog`}
+            description={`${categoryName} 카테고리의 포스트 목록 - ${validPage}페이지`}
+            url={`/${slug}`}
+          />
+          <BreadcrumbListJsonLd
+            items={[
+              { name: '홈', url: '/' },
+              { name: categoryName, url: `/${pathKey}` },
+              { name: `${validPage}페이지`, url: `/${slug}` },
+            ]}
+          />
           <div className="space-y-6">
             <div className="flex flex-col lg:flex-row gap-8">
               <aside className="lg:w-64 xl:w-72 order-1 lg:order-none">
                 <Sidebar />
               </aside>
-              <main className="flex-1">
+              <div className="flex-1">
+                <Breadcrumb
+                  items={[
+                    { name: categoryName, href: `/${pathKey}` },
+                    { name: `${validPage}페이지`, href: `/${slug}` },
+                  ]}
+                />
                 <h1 className="page__title mb-6">{categoryName}</h1>
 
                 {posts.length === 0 ? (
@@ -317,56 +400,32 @@ export default async function PostPage({ params }: PostPageProps) {
                     </div>
 
                     {/* 페이지네이션 */}
-                    <Pagination 
+                    <Pagination
                       currentPage={validPage}
                       totalPages={totalPages}
                       basePath={`/${pathKey}`}
                     />
                   </>
                 )}
-              </main>
+              </div>
             </div>
           </div>
         </CommentCountProvider>
       )
     }
   }
-  
+
   // Find the post by matching permalink (캐시 사용으로 최적화)
   const postId = resolvePostId(slug)
 
   if (!postId) {
-    return (
-      <>
-        <div className="flex flex-col lg:flex-row gap-8">
-          <aside className="lg:w-64 xl:w-72 order-1 lg:order-none">
-            <Sidebar />
-          </aside>
-          <main className="flex-1">
-            <article className="page">
-              <header className="mb-8">
-                <h1 className="page__title">포스트를 찾을 수 없습니다</h1>
-              </header>
-              <div className="page__content">
-                <p className="text-gray-600">
-                  요청하신 경로 <code className="bg-gray-100 px-2 py-1 rounded">/{slug}</code>에 해당하는 포스트가 존재하지 않습니다.
-                </p>
-                <p className="text-gray-600 mt-4">
-                  <a href="/" className="text-blue-600 hover:text-blue-800 underline">
-                    홈페이지로 돌아가기
-                  </a>
-                </p>
-              </div>
-            </article>
-          </main>
-        </div>
-      </>
-    )
+    notFound()
   }
-  
+
   try {
     const postData = await getPostData(postId)
     const primaryCategory = postData.categories?.[0]
+    const categoryPath = primaryCategory ? categoryPathMapping[primaryCategory] : null
     let prevPost = null
     let nextPost = null
 
@@ -379,14 +438,40 @@ export default async function PostPage({ params }: PostPageProps) {
         nextPost = categoryPosts[currentIndex - 1] || null
       }
     }
-    
+
+    const wordCount = postData.contentHtml.replace(/<[^>]*>/g, '').trim().split(/\s+/).length
+    const postPermalink = postData.permalink || `/${postId}`
+    const breadcrumbItems = []
+    if (primaryCategory && categoryPath) {
+      breadcrumbItems.push({ name: primaryCategory, href: `/${categoryPath}` })
+    }
+    breadcrumbItems.push({ name: postData.title, href: postPermalink })
+
+    const breadcrumbJsonLdItems = [{ name: '홈', url: '/' }]
+    if (primaryCategory && categoryPath) {
+      breadcrumbJsonLdItems.push({ name: primaryCategory, url: `/${categoryPath}` })
+    }
+    breadcrumbJsonLdItems.push({ name: postData.title, url: postPermalink })
+
     return (
       <>
+        <BlogPostingJsonLd
+          title={postData.title}
+          description={postData.excerpt || postData.title}
+          url={postPermalink}
+          datePublished={new Date(postData.date).toISOString()}
+          dateModified={postData.lastModifiedAt ? new Date(postData.lastModifiedAt).toISOString() : undefined}
+          categories={postData.categories}
+          tags={postData.tags}
+          wordCount={wordCount}
+        />
+        <BreadcrumbListJsonLd items={breadcrumbJsonLdItems} />
         <div className="flex flex-col lg:flex-row gap-8">
           <aside className="lg:w-64 xl:w-72 order-1 lg:order-none">
             <Sidebar />
           </aside>
-          <main className="flex-1">
+          <div className="flex-1">
+            <Breadcrumb items={breadcrumbItems} />
             <article className="page">
               <header className="mb-8">
                 <h1 className="page__title">{postData.title}</h1>
@@ -395,27 +480,27 @@ export default async function PostPage({ params }: PostPageProps) {
                     {format(new Date(postData.date), 'yyyy년 M월 d일', { locale: ko })}
                   </time>
                   {postData.lastModifiedAt && (
-                    <span className="ml-4">
+                    <time className="ml-4" dateTime={new Date(postData.lastModifiedAt).toISOString()}>
                       수정: {format(new Date(postData.lastModifiedAt), 'yyyy년 M월 d일', { locale: ko })}
-                    </span>
+                    </time>
                   )}
                 </div>
               </header>
 
               <div className="page__content">
-                <div 
+                <div
                   dangerouslySetInnerHTML={{ __html: postData.contentHtml }}
                 />
               </div>
 
-              <footer className="page__meta mt-8">                
+              <footer className="page__meta mt-8">
                 {postData.tags && postData.tags.length > 0 && (
                   <div className="page__taxonomy">
-                    <h4 className="text-sm font-medium text-gray-900 mb-2">태그</h4>
+                    <span className="text-sm font-medium text-gray-900 mb-2 block">태그</span>
                     {postData.tags.map((tag) => (
-                      <span key={tag} className="page__taxonomy-item">
+                      <Link key={tag} href={`/tags/${encodeURIComponent(tag)}`} className="page__taxonomy-item">
                         #{tag}
-                      </span>
+                      </Link>
                     ))}
                   </div>
                 )}
@@ -463,38 +548,12 @@ export default async function PostPage({ params }: PostPageProps) {
                 </section>
               )}
             </article>
-          </main>
+          </div>
         </div>
       </>
     )
   } catch (error) {
     console.error(`Error loading post data for postId: ${postId}`, error)
-    // Return a custom error message instead of 404
-    return (
-      <>
-        <div className="flex flex-col lg:flex-row gap-8">
-          <aside className="lg:w-64 xl:w-72 order-1 lg:order-none">
-            <Sidebar />
-          </aside>
-          <main className="flex-1">
-            <article className="page">
-              <header className="mb-8">
-                <h1 className="page__title">포스트를 불러올 수 없습니다</h1>
-              </header>
-              <div className="page__content">
-                <p className="text-gray-600">
-                  포스트 데이터를 불러오는 중 오류가 발생했습니다.
-                </p>
-                <p className="text-gray-600 mt-4">
-                  <a href="/" className="text-blue-600 hover:text-blue-800 underline">
-                    홈페이지로 돌아가기
-                  </a>
-                </p>
-              </div>
-            </article>
-          </main>
-        </div>
-      </>
-    )
+    notFound()
   }
 }

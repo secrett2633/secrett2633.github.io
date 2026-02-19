@@ -49,7 +49,6 @@ export default function CommentCountProvider({
             
             // 캐시가 유효한지 확인 (10분 이내)
             if (now - parsed.timestamp < CACHE_DURATION) {
-              console.log('Using cached comment counts')
               setCommentCounts(parsed.counts)
               setLoading(false)
               return
@@ -135,7 +134,6 @@ export default function CommentCountProvider({
           }
         }
 
-        console.log('Loaded comment counts:', counts)
         setCommentCounts(counts)
 
         // 캐시에 저장

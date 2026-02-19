@@ -62,7 +62,7 @@ export default function Pagination({ currentPage, totalPages, basePath = '' }: P
   }
 
   return (
-    <nav className="pagination" role="navigation">
+    <nav className="pagination" aria-label="페이지 네비게이션">
       <div className="pagination__inner">
         {/* 이전 페이지 */}
         {currentPage > 1 && (

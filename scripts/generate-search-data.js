@@ -3,26 +3,31 @@ const path = require('path')
 const matter = require('gray-matter')
 
 const postsDirectory = path.join(process.cwd(), 'src', 'data')
-const outputPath = path.join(process.cwd(), 'src', 'lib', 'clientPosts.ts')
+const outputJsonPath = path.join(process.cwd(), 'public', 'search-index.json')
+const outputTsPath = path.join(process.cwd(), 'src', 'lib', 'clientPosts.ts')
 
 async function generateSearchData() {
   try {
     const fileNames = fs.readdirSync(postsDirectory)
     const searchData = []
-    
+
     for (const fileName of fileNames) {
       const id = fileName.replace(/\.md$/, '')
       const fullPath = path.join(postsDirectory, fileName)
       const fileContents = fs.readFileSync(fullPath, 'utf8')
       const matterResult = matter(fileContents)
 
-      // HTML로 변환된 콘텐츠 생성 (동적 import 사용)
-      const { remark } = await import('remark')
-      const html = await import('remark-html')
-      const processedContent = await remark()
-        .use(html.default)
-        .process(matterResult.content)
-      const contentHtml = processedContent.toString()
+      // HTML 대신 plain text만 추출 (경량 인덱스)
+      const plainText = matterResult.content
+        .replace(/```[\s\S]*?```/g, '') // 코드 블록 제거
+        .replace(/`[^`]*`/g, '')        // 인라인 코드 제거
+        .replace(/!\[.*?\]\(.*?\)/g, '') // 이미지 제거
+        .replace(/\[([^\]]*)\]\(.*?\)/g, '$1') // 링크 텍스트만 유지
+        .replace(/#{1,6}\s*/g, '')       // 헤딩 마커 제거
+        .replace(/[*_~>-]/g, '')         // 마크다운 서식 제거
+        .replace(/\s+/g, ' ')           // 공백 정리
+        .trim()
+        .slice(0, 200) // 검색용으로 앞 200자만
 
       searchData.push({
         id,
@@ -30,12 +35,18 @@ async function generateSearchData() {
         excerpt: matterResult.data.excerpt || '',
         date: matterResult.data.date || new Date().toISOString(),
         permalink: (matterResult.data.permalink || `/${id}`).replace(/\/$/, ''),
-        contentHtml: contentHtml
+        tags: Array.isArray(matterResult.data.tags) ? matterResult.data.tags : [],
+        text: plainText,
       })
     }
 
-    const searchDataContent = `// 클라이언트 사이드에서 사용할 posts 데이터
-// 이 파일은 빌드 시점에 posts 데이터를 JSON으로 변환하여 생성됩니다.
+    // JSON 파일로 public에 저장 (on-demand 로딩용)
+    fs.writeFileSync(outputJsonPath, JSON.stringify(searchData))
+    console.log(`✅ Search index generated: ${searchData.length} posts (${(Buffer.byteLength(JSON.stringify(searchData)) / 1024).toFixed(1)}KB)`)
+
+    // TypeScript 래퍼 파일 생성 (인터페이스 + lazy loader)
+    const tsContent = `// 클라이언트 사이드 검색용 경량 인덱스
+// 이 파일은 빌드 시점에 자동 생성됩니다. 직접 수정하지 마세요.
 
 export interface ClientPostData {
   id: string
@@ -43,29 +54,36 @@ export interface ClientPostData {
   excerpt?: string
   date: string
   permalink?: string
-  contentHtml: string
+  tags?: string[]
+  text?: string
 }
 
-// 빌드 시점에 생성된 posts 데이터
-export const clientPostsData: ClientPostData[] = ${JSON.stringify(searchData, null, 2)}
+let cachedData: ClientPostData[] | null = null
 
-// 검색 함수
-export function searchPosts(query: string): ClientPostData[] {
-  if (!query.trim()) {
-    return []
-  }
+async function loadSearchIndex(): Promise<ClientPostData[]> {
+  if (cachedData) return cachedData
+  const res = await fetch('/search-index.json')
+  cachedData = await res.json()
+  return cachedData!
+}
 
-  const searchQuery = query.toLowerCase()
-  
-  return clientPostsData.filter(post => 
-    post.title.toLowerCase().includes(searchQuery) ||
-    post.excerpt?.toLowerCase().includes(searchQuery) ||
-    post.contentHtml.toLowerCase().includes(searchQuery)
+export async function searchPosts(query: string): Promise<ClientPostData[]> {
+  if (!query.trim()) return []
+
+  const data = await loadSearchIndex()
+  const q = query.toLowerCase()
+
+  return data.filter(post =>
+    post.title.toLowerCase().includes(q) ||
+    post.excerpt?.toLowerCase().includes(q) ||
+    post.tags?.some(t => t.toLowerCase().includes(q)) ||
+    post.text?.toLowerCase().includes(q)
   )
-}`
+}
+`
 
-    fs.writeFileSync(outputPath, searchDataContent)
-    console.log(`✅ Search data generated: ${searchData.length} posts`)
+    fs.writeFileSync(outputTsPath, tsContent)
+    console.log('✅ Client search module generated')
   } catch (error) {
     console.error('❌ Error generating search data:', error)
     process.exit(1)

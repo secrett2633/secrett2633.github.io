@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import { remark } from 'remark'
+import remarkGfm from 'remark-gfm'
 import html from 'remark-html'
 
 const postsDirectory = path.join(process.cwd(), 'src', 'data')
@@ -177,9 +178,21 @@ export async function getPostData(id: string): Promise<PostData> {
     const matterResult = matter(fileContents)
 
     const processedContent = await remark()
-      .use(html)
+      .use(remarkGfm)
+      .use(html, { sanitize: false })
       .process(matterResult.content)
+
+    // HTML 후처리: 이미지 lazy loading, 외부 링크 rel 속성, 헤딩 ID 추가
     const contentHtml = processedContent.toString()
+      .replace(/<img(?![^>]*loading=)/g, '<img loading="lazy" decoding="async"')
+      .replace(/<a\s+href="(https?:\/\/[^"]+)"/g, '<a href="$1" target="_blank" rel="noopener noreferrer"')
+      .replace(/<(h[1-6])>(.*?)<\/h[1-6]>/g, (match, tag, content) => {
+        const id = content.replace(/<[^>]*>/g, '').trim()
+          .toLowerCase()
+          .replace(/[^\w\s가-힣-]/g, '')
+          .replace(/\s+/g, '-')
+        return `<${tag} id="${id}"><a href="#${id}">${content}</a></${tag}>`
+      })
     
     // 댓글 정보 추출
     const comments = extractCommentsFromMatter(matterResult)
@@ -211,6 +224,19 @@ export function getPostsByCategory(category: string): PostData[] {
   return allPosts.filter((post) => 
     post.categories && post.categories.includes(category)
   )
+}
+
+export function getAllTags(): string[] {
+  const allPosts = getSortedPostsData()
+  const tagSet = new Set<string>()
+  allPosts.forEach((post) => {
+    post.tags?.forEach((tag) => {
+      if (typeof tag === 'string' && tag.trim()) {
+        tagSet.add(tag.trim())
+      }
+    })
+  })
+  return Array.from(tagSet).sort()
 }
 
 export function getPostsByTag(tag: string): PostData[] {

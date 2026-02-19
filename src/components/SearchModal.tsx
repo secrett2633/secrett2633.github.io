@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import Link from 'next/link'
 import { searchPosts, ClientPostData } from '@/lib/clientPosts'
 
@@ -12,19 +12,22 @@ interface SearchModalProps {
 export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResults, setSearchResults] = useState<ClientPostData[]>([])
+  const [isSearching, setIsSearching] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
+  const modalRef = useRef<HTMLDivElement>(null)
 
-  // 검색 로직 - 클라이언트 사이드에서 직접 검색
+  // 검색 로직 - 비동기 검색 (lazy-loaded index)
   useEffect(() => {
     if (!searchQuery.trim()) {
       setSearchResults([])
       return
     }
 
-    // 디바운싱을 위한 타이머
-    const timer = setTimeout(() => {
-      const results = searchPosts(searchQuery)
+    const timer = setTimeout(async () => {
+      setIsSearching(true)
+      const results = await searchPosts(searchQuery)
       setSearchResults(results)
+      setIsSearching(false)
     }, 300)
 
     return () => clearTimeout(timer)
@@ -59,24 +62,25 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
   if (!isOpen) return null
 
   return (
-    <div className="search-modal">
+    <div className="search-modal" role="dialog" aria-modal="true" aria-labelledby="search-modal-title">
       {/* 배경 오버레이 */}
-      <div 
+      <div
         className="search-modal-overlay"
         onClick={onClose}
       />
-      
+
       {/* 모달 컨테이너 */}
       <div className="search-modal-container">
-        <div className="search-modal-content">
+        <div className="search-modal-content" ref={modalRef}>
           {/* 헤더 */}
           <div className="search-modal-header">
-            <h2 className="search-modal-title">게시글 검색</h2>
+            <h2 id="search-modal-title" className="search-modal-title">게시글 검색</h2>
             <button
               onClick={onClose}
               className="search-modal-close"
+              aria-label="검색 닫기"
             >
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
@@ -86,7 +90,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
           <div className="px-6 py-4">
             <div className="search-input-container">
               <div className="search-input-icon">
-                <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </div>
@@ -95,6 +99,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                 type="text"
                 className="search-input"
                 placeholder="제목, 요약, 내용으로 검색..."
+                aria-label="게시글 검색"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -103,7 +108,12 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
 
           {/* 검색 결과 */}
           <div className="search-results-container">
-            {searchQuery.trim() && searchResults.length === 0 ? (
+            {isSearching ? (
+              <div className="search-placeholder" role="status">
+                <span className="sr-only">검색 중...</span>
+                검색 중...
+              </div>
+            ) : searchQuery.trim() && searchResults.length === 0 ? (
               <div className="search-no-results">
                 검색 결과가 없습니다.
               </div>
