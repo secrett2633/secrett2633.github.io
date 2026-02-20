@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SliderEdit: Continuous Image Editing with Fine-Grained Instruction Control"
-excerpt: "Ryan Rossi이 [arXiv]에 게시한 'SliderEdit: Continuous Image Editing with Fine-Grained Instruction Control' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Ryan Rossi이 arXiv에 게시한 'SliderEdit: Continuous Image Editing with Fine-Grained Instruction Control' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

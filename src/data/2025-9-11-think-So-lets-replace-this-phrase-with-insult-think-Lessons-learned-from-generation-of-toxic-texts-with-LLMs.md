@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] <think> So let's replace this phrase with insult... </think> Lessons
   learned from generation of toxic texts with LLMs"
-excerpt: "Alexander Panchenko이 [arXiv]에 게시한 '<think> So let's replace this phrase with insult... </think> Lessons
+excerpt: "Alexander Panchenko이 arXiv에 게시한 '<think> So let's replace this phrase with insult... </think> Lessons
   learned from generation of toxic texts with LLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:

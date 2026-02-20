@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] From Black Box to Transparency: Enhancing Automated Interpreting
   Assessment with Explainable AI in College Classrooms"
-excerpt: "Ziyin Zhang이 [arXiv]에 게시한 'From Black Box to Transparency: Enhancing Automated Interpreting
+excerpt: "Ziyin Zhang이 arXiv에 게시한 'From Black Box to Transparency: Enhancing Automated Interpreting
   Assessment with Explainable AI in College Classrooms' 논문에 대한 자세한 리뷰입니다."
 
 categories:

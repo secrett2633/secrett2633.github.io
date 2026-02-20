@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] On the Evidentiary Limits of Membership Inference for Copyright Auditing"
-excerpt: "Marten van Dijk이 [arXiv]에 게시한 'On the Evidentiary Limits of Membership Inference for Copyright Auditing' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Marten van Dijk이 arXiv에 게시한 'On the Evidentiary Limits of Membership Inference for Copyright Auditing' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

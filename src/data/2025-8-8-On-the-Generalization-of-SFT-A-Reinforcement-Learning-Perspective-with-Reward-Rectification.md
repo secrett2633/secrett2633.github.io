@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] On the Generalization of SFT: A Reinforcement Learning Perspective with
   Reward Rectification"
-excerpt: "Xinyu Ye이 [arXiv]에 게시한 'On the Generalization of SFT: A Reinforcement Learning Perspective with
+excerpt: "Xinyu Ye이 arXiv에 게시한 'On the Generalization of SFT: A Reinforcement Learning Perspective with
   Reward Rectification' 논문에 대한 자세한 리뷰입니다."
 
 categories:

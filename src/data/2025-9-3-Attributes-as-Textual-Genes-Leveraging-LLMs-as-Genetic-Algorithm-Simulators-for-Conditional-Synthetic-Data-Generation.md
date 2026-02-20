@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Attributes as Textual Genes: Leveraging LLMs as Genetic Algorithm
   Simulators for Conditional Synthetic Data Generation"
-excerpt: "Xiaolei Huang이 [arXiv]에 게시한 'Attributes as Textual Genes: Leveraging LLMs as Genetic Algorithm
+excerpt: "Xiaolei Huang이 arXiv에 게시한 'Attributes as Textual Genes: Leveraging LLMs as Genetic Algorithm
   Simulators for Conditional Synthetic Data Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SWE-RM: Execution-free Feedback For Software Engineering Agents"
-excerpt: "X. W.이 [arXiv]에 게시한 'SWE-RM: Execution-free Feedback For Software Engineering Agents' 논문에 대한 자세한 리뷰입니다."
+excerpt: "X. W.이 arXiv에 게시한 'SWE-RM: Execution-free Feedback For Software Engineering Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

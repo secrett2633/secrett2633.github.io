@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SciReasoner: Laying the Scientific Reasoning Ground Across Disciplines"
-excerpt: "Jiabei Xiao이 [arXiv]에 게시한 'SciReasoner: Laying the Scientific Reasoning Ground Across Disciplines' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jiabei Xiao이 arXiv에 게시한 'SciReasoner: Laying the Scientific Reasoning Ground Across Disciplines' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MCPMark: A Benchmark for Stress-Testing Realistic and Comprehensive MCP
   Use"
-excerpt: "이 [arXiv]에 게시한 'MCPMark: A Benchmark for Stress-Testing Realistic and Comprehensive MCP
+excerpt: "arXiv에 게시된 'MCPMark: A Benchmark for Stress-Testing Realistic and Comprehensive MCP
   Use' 논문에 대한 자세한 리뷰입니다."
 
 categories:

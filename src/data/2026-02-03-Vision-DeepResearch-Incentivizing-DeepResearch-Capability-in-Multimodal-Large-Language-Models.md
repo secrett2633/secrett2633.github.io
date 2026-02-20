@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Vision-DeepResearch: Incentivizing DeepResearch Capability in Multimodal Large Language Models"
-excerpt: "Zhen Fang이 [arXiv]에 게시한 'Vision-DeepResearch: Incentivizing DeepResearch Capability in Multimodal Large Language Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zhen Fang이 arXiv에 게시한 'Vision-DeepResearch: Incentivizing DeepResearch Capability in Multimodal Large Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

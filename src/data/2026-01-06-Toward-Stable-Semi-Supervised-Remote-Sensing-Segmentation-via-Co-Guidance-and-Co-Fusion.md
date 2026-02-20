@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Toward Stable Semi-Supervised Remote Sensing Segmentation via Co-Guidance and Co-Fusion"
-excerpt: "Shiying Wang이 [arXiv]에 게시한 'Toward Stable Semi-Supervised Remote Sensing Segmentation via Co-Guidance and Co-Fusion' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Shiying Wang이 arXiv에 게시한 'Toward Stable Semi-Supervised Remote Sensing Segmentation via Co-Guidance and Co-Fusion' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

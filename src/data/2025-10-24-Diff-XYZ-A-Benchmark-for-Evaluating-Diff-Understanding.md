@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Diff-XYZ: A Benchmark for Evaluating Diff Understanding"
-excerpt: "이 [arXiv]에 게시한 'Diff-XYZ: A Benchmark for Evaluating Diff Understanding' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Diff-XYZ: A Benchmark for Evaluating Diff Understanding' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

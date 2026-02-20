@@ -2,7 +2,7 @@
 title: "[논문리뷰] When Explainability Meets Privacy: An Investigation at the Intersection
   of Post-hoc Explainability and Differential Privacy in the Context of Natural
   Language Processing"
-excerpt: "Gjergji Kasneci이 [arXiv]에 게시한 'When Explainability Meets Privacy: An Investigation at the Intersection
+excerpt: "Gjergji Kasneci이 arXiv에 게시한 'When Explainability Meets Privacy: An Investigation at the Intersection
   of Post-hoc Explainability and Differential Privacy in the Context of Natural
   Language Processing' 논문에 대한 자세한 리뷰입니다."
 

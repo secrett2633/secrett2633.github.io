@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Reinforcement Learning with Rubric Anchors"
-excerpt: "Haokai Xu이 [arXiv]에 게시한 'Reinforcement Learning with Rubric Anchors' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Haokai Xu이 arXiv에 게시한 'Reinforcement Learning with Rubric Anchors' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] WiseEdit: Benchmarking Cognition- and Creativity-Informed Image Editing"
-excerpt: "Wendong Bu이 [arXiv]에 게시한 'WiseEdit: Benchmarking Cognition- and Creativity-Informed Image Editing' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Wendong Bu이 arXiv에 게시한 'WiseEdit: Benchmarking Cognition- and Creativity-Informed Image Editing' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

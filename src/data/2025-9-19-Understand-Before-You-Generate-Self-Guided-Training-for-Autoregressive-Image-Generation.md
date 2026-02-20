@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Understand Before You Generate: Self-Guided Training for Autoregressive
   Image Generation"
-excerpt: "Xihui Liu이 [arXiv]에 게시한 'Understand Before You Generate: Self-Guided Training for Autoregressive
+excerpt: "Xihui Liu이 arXiv에 게시한 'Understand Before You Generate: Self-Guided Training for Autoregressive
   Image Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

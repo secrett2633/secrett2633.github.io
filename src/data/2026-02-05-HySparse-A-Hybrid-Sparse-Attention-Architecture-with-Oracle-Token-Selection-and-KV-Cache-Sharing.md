@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] HySparse: A Hybrid Sparse Attention Architecture with Oracle Token Selection and KV Cache Sharing"
-excerpt: "이 [arXiv]에 게시한 'HySparse: A Hybrid Sparse Attention Architecture with Oracle Token Selection and KV Cache Sharing' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'HySparse: A Hybrid Sparse Attention Architecture with Oracle Token Selection and KV Cache Sharing' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

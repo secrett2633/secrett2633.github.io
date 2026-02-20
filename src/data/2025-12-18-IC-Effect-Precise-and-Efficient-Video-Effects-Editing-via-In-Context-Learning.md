@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] IC-Effect: Precise and Efficient Video Effects Editing via In-Context Learning"
-excerpt: "이 [arXiv]에 게시한 'IC-Effect: Precise and Efficient Video Effects Editing via In-Context Learning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'IC-Effect: Precise and Efficient Video Effects Editing via In-Context Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Monopoly Deal: A Benchmark Environment for Bounded One-Sided Response
   Games"
-excerpt: "cavaunpeu이 [arXiv]에 게시한 'Monopoly Deal: A Benchmark Environment for Bounded One-Sided Response
+excerpt: "cavaunpeu이 arXiv에 게시한 'Monopoly Deal: A Benchmark Environment for Bounded One-Sided Response
   Games' 논문에 대한 자세한 리뷰입니다."
 
 categories:

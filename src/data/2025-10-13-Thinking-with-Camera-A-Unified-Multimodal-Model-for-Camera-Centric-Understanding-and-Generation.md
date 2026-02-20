@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Thinking with Camera: A Unified Multimodal Model for Camera-Centric
   Understanding and Generation"
-excerpt: "Linyi Jin이 [arXiv]에 게시한 'Thinking with Camera: A Unified Multimodal Model for Camera-Centric
+excerpt: "Linyi Jin이 arXiv에 게시한 'Thinking with Camera: A Unified Multimodal Model for Camera-Centric
   Understanding and Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

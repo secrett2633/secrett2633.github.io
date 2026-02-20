@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Robust-R1: Degradation-Aware Reasoning for Robust Visual Understanding"
-excerpt: "Runtao Liu이 [arXiv]에 게시한 'Robust-R1: Degradation-Aware Reasoning for Robust Visual Understanding' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Runtao Liu이 arXiv에 게시한 'Robust-R1: Degradation-Aware Reasoning for Robust Visual Understanding' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

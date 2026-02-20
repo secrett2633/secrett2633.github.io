@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] InternAgent-1.5: A Unified Agentic Framework for Long-Horizon Autonomous Scientific Discovery"
-excerpt: "Xiangchao Yan이 [arXiv]에 게시한 'InternAgent-1.5: A Unified Agentic Framework for Long-Horizon Autonomous Scientific Discovery' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xiangchao Yan이 arXiv에 게시한 'InternAgent-1.5: A Unified Agentic Framework for Long-Horizon Autonomous Scientific Discovery' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

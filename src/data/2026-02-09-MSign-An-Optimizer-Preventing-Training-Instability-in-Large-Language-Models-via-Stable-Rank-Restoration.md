@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MSign: An Optimizer Preventing Training Instability in Large Language Models via Stable Rank Restoration"
-excerpt: "이 [arXiv]에 게시한 'MSign: An Optimizer Preventing Training Instability in Large Language Models via Stable Rank Restoration' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'MSign: An Optimizer Preventing Training Instability in Large Language Models via Stable Rank Restoration' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

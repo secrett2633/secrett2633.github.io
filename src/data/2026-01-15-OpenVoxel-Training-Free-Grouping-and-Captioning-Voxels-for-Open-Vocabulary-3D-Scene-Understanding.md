@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] OpenVoxel: Training-Free Grouping and Captioning Voxels for Open-Vocabulary 3D Scene Understanding"
-excerpt: "이 [arXiv]에 게시한 'OpenVoxel: Training-Free Grouping and Captioning Voxels for Open-Vocabulary 3D Scene Understanding' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'OpenVoxel: Training-Free Grouping and Captioning Voxels for Open-Vocabulary 3D Scene Understanding' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

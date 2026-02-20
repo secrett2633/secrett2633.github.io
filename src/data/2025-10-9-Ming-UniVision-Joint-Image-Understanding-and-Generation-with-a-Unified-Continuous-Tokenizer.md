@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Ming-UniVision: Joint Image Understanding and Generation with a Unified
   Continuous Tokenizer"
-excerpt: "이 [arXiv]에 게시한 'Ming-UniVision: Joint Image Understanding and Generation with a Unified
+excerpt: "arXiv에 게시된 'Ming-UniVision: Joint Image Understanding and Generation with a Unified
   Continuous Tokenizer' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Turk-LettuceDetect: A Hallucination Detection Models for Turkish RAG
   Applications"
-excerpt: "Fatma Betül Terzioğlu이 [arXiv]에 게시한 'Turk-LettuceDetect: A Hallucination Detection Models for Turkish RAG
+excerpt: "Fatma Betül Terzioğlu이 arXiv에 게시한 'Turk-LettuceDetect: A Hallucination Detection Models for Turkish RAG
   Applications' 논문에 대한 자세한 리뷰입니다."
 
 categories:

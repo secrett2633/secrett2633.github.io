@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Beyond Unified Models: A Service-Oriented Approach to Low Latency, Context Aware Phonemization for Real Time TTS"
-excerpt: "Morteza Abolghasemi이 [arXiv]에 게시한 'Beyond Unified Models: A Service-Oriented Approach to Low Latency, Context Aware Phonemization for Real Time TTS' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Morteza Abolghasemi이 arXiv에 게시한 'Beyond Unified Models: A Service-Oriented Approach to Low Latency, Context Aware Phonemization for Real Time TTS' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

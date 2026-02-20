@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] HyperAgent: Leveraging Hypergraphs for Topology Optimization in
   Multi-Agent Communication"
-excerpt: "Haochen You이 [arXiv]에 게시한 'HyperAgent: Leveraging Hypergraphs for Topology Optimization in
+excerpt: "Haochen You이 arXiv에 게시한 'HyperAgent: Leveraging Hypergraphs for Topology Optimization in
   Multi-Agent Communication' 논문에 대한 자세한 리뷰입니다."
 
 categories:

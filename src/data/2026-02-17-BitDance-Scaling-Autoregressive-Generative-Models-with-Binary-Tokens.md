@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] BitDance: Scaling Autoregressive Generative Models with Binary Tokens"
-excerpt: "Xuefeng Hu이 [arXiv]에 게시한 'BitDance: Scaling Autoregressive Generative Models with Binary Tokens' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xuefeng Hu이 arXiv에 게시한 'BitDance: Scaling Autoregressive Generative Models with Binary Tokens' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

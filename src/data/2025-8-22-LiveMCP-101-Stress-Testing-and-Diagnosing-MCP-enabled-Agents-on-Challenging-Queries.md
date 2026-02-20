@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] LiveMCP-101: Stress Testing and Diagnosing MCP-enabled Agents on
   Challenging Queries"
-excerpt: "huuuyeah이 [arXiv]에 게시한 'LiveMCP-101: Stress Testing and Diagnosing MCP-enabled Agents on
+excerpt: "huuuyeah이 arXiv에 게시한 'LiveMCP-101: Stress Testing and Diagnosing MCP-enabled Agents on
   Challenging Queries' 논문에 대한 자세한 리뷰입니다."
 
 categories:

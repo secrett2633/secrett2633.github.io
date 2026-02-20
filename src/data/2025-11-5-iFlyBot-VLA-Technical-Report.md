@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] iFlyBot-VLA Technical Report"
-excerpt: "Jiajia wu이 [arXiv]에 게시한 'iFlyBot-VLA Technical Report' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jiajia wu이 arXiv에 게시한 'iFlyBot-VLA Technical Report' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

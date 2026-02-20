@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] FARE: Fast-Slow Agentic Robotic Exploration"
-excerpt: "Jingsong Liang이 [arXiv]에 게시한 'FARE: Fast-Slow Agentic Robotic Exploration' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jingsong Liang이 arXiv에 게시한 'FARE: Fast-Slow Agentic Robotic Exploration' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

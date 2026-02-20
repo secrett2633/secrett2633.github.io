@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] FSG-Net: Frequency-Spatial Synergistic Gated Network for High-Resolution
   Remote Sensing Change Detection"
-excerpt: "Zhewei Zhang이 [arXiv]에 게시한 'FSG-Net: Frequency-Spatial Synergistic Gated Network for High-Resolution
+excerpt: "Zhewei Zhang이 arXiv에 게시한 'FSG-Net: Frequency-Spatial Synergistic Gated Network for High-Resolution
   Remote Sensing Change Detection' 논문에 대한 자세한 리뷰입니다."
 
 categories:

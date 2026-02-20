@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] PVPO: Pre-Estimated Value-Based Policy Optimization for Agentic
   Reasoning"
-excerpt: "Yuewei Zhang이 [arXiv]에 게시한 'PVPO: Pre-Estimated Value-Based Policy Optimization for Agentic
+excerpt: "Yuewei Zhang이 arXiv에 게시한 'PVPO: Pre-Estimated Value-Based Policy Optimization for Agentic
   Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

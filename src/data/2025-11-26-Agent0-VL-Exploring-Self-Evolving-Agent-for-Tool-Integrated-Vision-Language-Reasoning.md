@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Agent0-VL: Exploring Self-Evolving Agent for Tool-Integrated Vision-Language Reasoning"
-excerpt: "이 [arXiv]에 게시한 'Agent0-VL: Exploring Self-Evolving Agent for Tool-Integrated Vision-Language Reasoning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Agent0-VL: Exploring Self-Evolving Agent for Tool-Integrated Vision-Language Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Closing the Loop: Universal Repository Representation with RPG-Encoder"
-excerpt: "Steven Liu이 [arXiv]에 게시한 'Closing the Loop: Universal Repository Representation with RPG-Encoder' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Steven Liu이 arXiv에 게시한 'Closing the Loop: Universal Repository Representation with RPG-Encoder' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] InfoSynth: Information-Guided Benchmark Synthesis for LLMs"
-excerpt: "이 [arXiv]에 게시한 'InfoSynth: Information-Guided Benchmark Synthesis for LLMs' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'InfoSynth: Information-Guided Benchmark Synthesis for LLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

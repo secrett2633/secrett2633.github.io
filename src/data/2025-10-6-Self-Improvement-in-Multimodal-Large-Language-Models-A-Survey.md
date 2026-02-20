@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Self-Improvement in Multimodal Large Language Models: A Survey"
-excerpt: "Yapeng Tian이 [arXiv]에 게시한 'Self-Improvement in Multimodal Large Language Models: A Survey' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yapeng Tian이 arXiv에 게시한 'Self-Improvement in Multimodal Large Language Models: A Survey' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

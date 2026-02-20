@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Judging What We Cannot Solve: A Consequence-Based Approach for Oracle-Free Evaluation of Research-Level Math"
-excerpt: "Amit Agarwal이 [arXiv]에 게시한 'Judging What We Cannot Solve: A Consequence-Based Approach for Oracle-Free Evaluation of Research-Level Math' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Amit Agarwal이 arXiv에 게시한 'Judging What We Cannot Solve: A Consequence-Based Approach for Oracle-Free Evaluation of Research-Level Math' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

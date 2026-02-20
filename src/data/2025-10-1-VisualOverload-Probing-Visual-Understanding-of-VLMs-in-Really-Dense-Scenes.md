@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] VisualOverload: Probing Visual Understanding of VLMs in Really Dense
   Scenes"
-excerpt: "Muhammad Huzaifa이 [arXiv]에 게시한 'VisualOverload: Probing Visual Understanding of VLMs in Really Dense
+excerpt: "Muhammad Huzaifa이 arXiv에 게시한 'VisualOverload: Probing Visual Understanding of VLMs in Really Dense
   Scenes' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Grove MoE: Towards Efficient and Superior MoE LLMs with Adjugate Experts"
-excerpt: "Tieyuan Chen이 [arXiv]에 게시한 'Grove MoE: Towards Efficient and Superior MoE LLMs with Adjugate Experts' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Tieyuan Chen이 arXiv에 게시한 'Grove MoE: Towards Efficient and Superior MoE LLMs with Adjugate Experts' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

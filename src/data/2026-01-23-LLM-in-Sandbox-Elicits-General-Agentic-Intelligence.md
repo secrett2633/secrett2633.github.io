@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] LLM-in-Sandbox Elicits General Agentic Intelligence"
-excerpt: "이 [arXiv]에 게시한 'LLM-in-Sandbox Elicits General Agentic Intelligence' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'LLM-in-Sandbox Elicits General Agentic Intelligence' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

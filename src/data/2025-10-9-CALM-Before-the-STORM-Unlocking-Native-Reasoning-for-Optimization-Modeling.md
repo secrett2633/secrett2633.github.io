@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] CALM Before the STORM: Unlocking Native Reasoning for Optimization
   Modeling"
-excerpt: "Chengpeng Li이 [arXiv]에 게시한 'CALM Before the STORM: Unlocking Native Reasoning for Optimization
+excerpt: "Chengpeng Li이 arXiv에 게시한 'CALM Before the STORM: Unlocking Native Reasoning for Optimization
   Modeling' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] DaMo: Data Mixing Optimizer in Fine-tuning Multimodal LLMs for Mobile
   Phone Agents"
-excerpt: "이 [arXiv]에 게시한 'DaMo: Data Mixing Optimizer in Fine-tuning Multimodal LLMs for Mobile
+excerpt: "arXiv에 게시된 'DaMo: Data Mixing Optimizer in Fine-tuning Multimodal LLMs for Mobile
   Phone Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:

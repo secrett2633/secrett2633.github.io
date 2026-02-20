@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] NANO3D: A Training-Free Approach for Efficient 3D Editing Without Masks"
-excerpt: "Hongyu Yan이 [arXiv]에 게시한 'NANO3D: A Training-Free Approach for Efficient 3D Editing Without Masks' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Hongyu Yan이 arXiv에 게시한 'NANO3D: A Training-Free Approach for Efficient 3D Editing Without Masks' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

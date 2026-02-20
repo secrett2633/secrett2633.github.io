@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Follow-Your-Shape: Shape-Aware Image Editing via Trajectory-Guided
   Region Control"
-excerpt: "Hongyu Liu이 [arXiv]에 게시한 'Follow-Your-Shape: Shape-Aware Image Editing via Trajectory-Guided
+excerpt: "Hongyu Liu이 arXiv에 게시한 'Follow-Your-Shape: Shape-Aware Image Editing via Trajectory-Guided
   Region Control' 논문에 대한 자세한 리뷰입니다."
 
 categories:

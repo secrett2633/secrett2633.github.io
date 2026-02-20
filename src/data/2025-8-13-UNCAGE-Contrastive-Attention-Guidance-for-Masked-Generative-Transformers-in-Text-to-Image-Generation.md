@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] UNCAGE: Contrastive Attention Guidance for Masked Generative
   Transformers in Text-to-Image Generation"
-excerpt: "Kevin Galim이 [arXiv]에 게시한 'UNCAGE: Contrastive Attention Guidance for Masked Generative
+excerpt: "Kevin Galim이 arXiv에 게시한 'UNCAGE: Contrastive Attention Guidance for Masked Generative
   Transformers in Text-to-Image Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

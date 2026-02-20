@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MobiAgent: A Systematic Framework for Customizable Mobile Agents"
-excerpt: "Wangbo Gong이 [arXiv]에 게시한 'MobiAgent: A Systematic Framework for Customizable Mobile Agents' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Wangbo Gong이 arXiv에 게시한 'MobiAgent: A Systematic Framework for Customizable Mobile Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

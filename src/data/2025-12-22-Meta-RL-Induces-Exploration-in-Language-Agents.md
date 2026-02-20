@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Meta-RL Induces Exploration in Language Agents"
-excerpt: "Maria Brbic이 [arXiv]에 게시한 'Meta-RL Induces Exploration in Language Agents' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Maria Brbic이 arXiv에 게시한 'Meta-RL Induces Exploration in Language Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

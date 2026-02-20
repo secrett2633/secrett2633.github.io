@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] LayerD: Decomposing Raster Graphic Designs into Layers"
-excerpt: "Kota Yamaguchi이 [arXiv]에 게시한 'LayerD: Decomposing Raster Graphic Designs into Layers' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Kota Yamaguchi이 arXiv에 게시한 'LayerD: Decomposing Raster Graphic Designs into Layers' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

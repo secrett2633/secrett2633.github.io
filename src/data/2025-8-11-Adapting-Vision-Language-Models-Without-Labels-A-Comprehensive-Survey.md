@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Adapting Vision-Language Models Without Labels: A Comprehensive Survey"
-excerpt: "Eleni Chatzi이 [arXiv]에 게시한 'Adapting Vision-Language Models Without Labels: A Comprehensive Survey' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Eleni Chatzi이 arXiv에 게시한 'Adapting Vision-Language Models Without Labels: A Comprehensive Survey' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

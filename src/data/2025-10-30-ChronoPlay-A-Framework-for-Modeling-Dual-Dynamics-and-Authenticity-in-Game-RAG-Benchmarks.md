@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] ChronoPlay: A Framework for Modeling Dual Dynamics and Authenticity in
   Game RAG Benchmarks"
-excerpt: "이 [arXiv]에 게시한 'ChronoPlay: A Framework for Modeling Dual Dynamics and Authenticity in
+excerpt: "arXiv에 게시된 'ChronoPlay: A Framework for Modeling Dual Dynamics and Authenticity in
   Game RAG Benchmarks' 논문에 대한 자세한 리뷰입니다."
 
 categories:

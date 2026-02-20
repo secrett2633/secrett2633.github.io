@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] PixelRefer: A Unified Framework for Spatio-Temporal Object Referring
   with Arbitrary Granularity"
-excerpt: "Kehan Li이 [arXiv]에 게시한 'PixelRefer: A Unified Framework for Spatio-Temporal Object Referring
+excerpt: "Kehan Li이 arXiv에 게시한 'PixelRefer: A Unified Framework for Spatio-Temporal Object Referring
   with Arbitrary Granularity' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] CLASS-IT: Conversational and Lecture-Aligned Small-Scale Instruction
   Tuning for BabyLMs"
-excerpt: "이 [arXiv]에 게시한 'CLASS-IT: Conversational and Lecture-Aligned Small-Scale Instruction
+excerpt: "arXiv에 게시된 'CLASS-IT: Conversational and Lecture-Aligned Small-Scale Instruction
   Tuning for BabyLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:

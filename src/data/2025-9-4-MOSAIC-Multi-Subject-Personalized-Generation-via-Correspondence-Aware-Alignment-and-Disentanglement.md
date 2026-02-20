@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MOSAIC: Multi-Subject Personalized Generation via Correspondence-Aware
   Alignment and Disentanglement"
-excerpt: "Hualiang Wang이 [arXiv]에 게시한 'MOSAIC: Multi-Subject Personalized Generation via Correspondence-Aware
+excerpt: "Hualiang Wang이 arXiv에 게시한 'MOSAIC: Multi-Subject Personalized Generation via Correspondence-Aware
   Alignment and Disentanglement' 논문에 대한 자세한 리뷰입니다."
 
 categories:

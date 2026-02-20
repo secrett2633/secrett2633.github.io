@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] FinTrust: A Comprehensive Benchmark of Trustworthiness Evaluation in
   Finance Domain"
-excerpt: "Arman Cohan이 [arXiv]에 게시한 'FinTrust: A Comprehensive Benchmark of Trustworthiness Evaluation in
+excerpt: "Arman Cohan이 arXiv에 게시한 'FinTrust: A Comprehensive Benchmark of Trustworthiness Evaluation in
   Finance Domain' 논문에 대한 자세한 리뷰입니다."
 
 categories:

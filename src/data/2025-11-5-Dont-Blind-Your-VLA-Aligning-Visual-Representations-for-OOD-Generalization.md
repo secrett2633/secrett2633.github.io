@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Don't Blind Your VLA: Aligning Visual Representations for OOD
   Generalization"
-excerpt: "Aleksandr I. Panov이 [arXiv]에 게시한 'Don't Blind Your VLA: Aligning Visual Representations for OOD
+excerpt: "Aleksandr I. Panov이 arXiv에 게시한 'Don't Blind Your VLA: Aligning Visual Representations for OOD
   Generalization' 논문에 대한 자세한 리뷰입니다."
 
 categories:

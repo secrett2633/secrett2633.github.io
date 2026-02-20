@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] AgroBench: Vision-Language Model Benchmark in Agriculture"
-excerpt: "Yoshitaka Ushiku이 [arXiv]에 게시한 'AgroBench: Vision-Language Model Benchmark in Agriculture' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yoshitaka Ushiku이 arXiv에 게시한 'AgroBench: Vision-Language Model Benchmark in Agriculture' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

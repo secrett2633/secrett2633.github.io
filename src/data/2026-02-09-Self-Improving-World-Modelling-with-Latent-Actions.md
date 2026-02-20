@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Self-Improving World Modelling with Latent Actions"
-excerpt: "Anna Korhonen이 [arXiv]에 게시한 'Self-Improving World Modelling with Latent Actions' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Anna Korhonen이 arXiv에 게시한 'Self-Improving World Modelling with Latent Actions' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

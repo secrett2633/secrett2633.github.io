@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] LoFT: Parameter-Efficient Fine-Tuning for Long-tailed Semi-Supervised
   Learning in Open-World Scenarios"
-excerpt: "Bing Su이 [arXiv]에 게시한 'LoFT: Parameter-Efficient Fine-Tuning for Long-tailed Semi-Supervised
+excerpt: "Bing Su이 arXiv에 게시한 'LoFT: Parameter-Efficient Fine-Tuning for Long-tailed Semi-Supervised
   Learning in Open-World Scenarios' 논문에 대한 자세한 리뷰입니다."
 
 categories:

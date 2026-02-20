@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] AToken: A Unified Tokenizer for Vision"
-excerpt: "Mingze Xu이 [arXiv]에 게시한 'AToken: A Unified Tokenizer for Vision' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Mingze Xu이 arXiv에 게시한 'AToken: A Unified Tokenizer for Vision' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

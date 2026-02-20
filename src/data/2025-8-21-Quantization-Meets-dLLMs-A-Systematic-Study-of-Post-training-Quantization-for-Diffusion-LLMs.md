@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Quantization Meets dLLMs: A Systematic Study of Post-training
   Quantization for Diffusion LLMs"
-excerpt: "Haobo Xu이 [arXiv]에 게시한 'Quantization Meets dLLMs: A Systematic Study of Post-training
+excerpt: "Haobo Xu이 arXiv에 게시한 'Quantization Meets dLLMs: A Systematic Study of Post-training
   Quantization for Diffusion LLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:

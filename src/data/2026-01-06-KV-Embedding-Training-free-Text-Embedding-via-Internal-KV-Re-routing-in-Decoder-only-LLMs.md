@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] KV-Embedding: Training-free Text Embedding via Internal KV Re-routing in Decoder-only LLMs"
-excerpt: "Yi Yang이 [arXiv]에 게시한 'KV-Embedding: Training-free Text Embedding via Internal KV Re-routing in Decoder-only LLMs' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yi Yang이 arXiv에 게시한 'KV-Embedding: Training-free Text Embedding via Internal KV Re-routing in Decoder-only LLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

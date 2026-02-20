@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Reinforcement Learning in Vision: A Survey"
-excerpt: "Qingwei Meng이 [arXiv]에 게시한 'Reinforcement Learning in Vision: A Survey' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Qingwei Meng이 arXiv에 게시한 'Reinforcement Learning in Vision: A Survey' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] QKAN-LSTM: Quantum-inspired Kolmogorov-Arnold Long Short-term Memory"
-excerpt: "Nan-Yow Chen이 [arXiv]에 게시한 'QKAN-LSTM: Quantum-inspired Kolmogorov-Arnold Long Short-term Memory' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Nan-Yow Chen이 arXiv에 게시한 'QKAN-LSTM: Quantum-inspired Kolmogorov-Arnold Long Short-term Memory' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

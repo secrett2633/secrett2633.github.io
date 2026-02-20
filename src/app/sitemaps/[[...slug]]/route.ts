@@ -1,21 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getSortedPostsData } from '../../../lib/posts'
-
-const categoryPaths = [
-  'backend/django',
-  'backend/logging',
-  'python/pep',
-  'ai/llm',
-  'ai/review',
-  'devops/nginx',
-  'devops/docker',
-  'devops/safeline',
-  'devops/jenkins',
-  'devops/github-actions',
-  'devops/aws',
-  'etc/me',
-  'etc/chrome-extension',
-]
+import { categoryPaths } from '@/lib/categories'
 
 function generateStaticSitemap(): string {
   const siteUrl = 'https://blog.secrett2633.cloud'

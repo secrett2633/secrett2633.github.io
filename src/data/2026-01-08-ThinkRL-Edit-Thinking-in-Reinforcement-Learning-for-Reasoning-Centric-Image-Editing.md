@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] ThinkRL-Edit: Thinking in Reinforcement Learning for Reasoning-Centric Image Editing"
-excerpt: "이 [arXiv]에 게시한 'ThinkRL-Edit: Thinking in Reinforcement Learning for Reasoning-Centric Image Editing' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'ThinkRL-Edit: Thinking in Reinforcement Learning for Reasoning-Centric Image Editing' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Where MLLMs Attend and What They Rely On: Explaining Autoregressive
   Token Generation"
-excerpt: "Shiming Liu이 [arXiv]에 게시한 'Where MLLMs Attend and What They Rely On: Explaining Autoregressive
+excerpt: "Shiming Liu이 arXiv에 게시한 'Where MLLMs Attend and What They Rely On: Explaining Autoregressive
   Token Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

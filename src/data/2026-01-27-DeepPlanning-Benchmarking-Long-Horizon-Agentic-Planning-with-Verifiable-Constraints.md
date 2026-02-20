@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DeepPlanning: Benchmarking Long-Horizon Agentic Planning with Verifiable Constraints"
-excerpt: "이 [arXiv]에 게시한 'DeepPlanning: Benchmarking Long-Horizon Agentic Planning with Verifiable Constraints' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'DeepPlanning: Benchmarking Long-Horizon Agentic Planning with Verifiable Constraints' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Is Chain-of-Thought Reasoning of LLMs a Mirage? A Data Distribution Lens"
-excerpt: "Zhen Tan이 [arXiv]에 게시한 'Is Chain-of-Thought Reasoning of LLMs a Mirage? A Data Distribution Lens' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zhen Tan이 arXiv에 게시한 'Is Chain-of-Thought Reasoning of LLMs a Mirage? A Data Distribution Lens' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

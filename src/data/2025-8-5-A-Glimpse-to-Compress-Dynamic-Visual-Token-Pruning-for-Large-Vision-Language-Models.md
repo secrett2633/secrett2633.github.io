@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] A Glimpse to Compress: Dynamic Visual Token Pruning for Large
   Vision-Language Models"
-excerpt: "Zuxuan Wu이 [arXiv]에 게시한 'A Glimpse to Compress: Dynamic Visual Token Pruning for Large
+excerpt: "Zuxuan Wu이 arXiv에 게시한 'A Glimpse to Compress: Dynamic Visual Token Pruning for Large
   Vision-Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

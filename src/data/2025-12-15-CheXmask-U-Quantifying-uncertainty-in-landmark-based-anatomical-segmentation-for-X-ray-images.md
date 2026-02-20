@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] CheXmask-U: Quantifying uncertainty in landmark-based anatomical segmentation for X-ray images"
-excerpt: "Enzo Ferrante이 [arXiv]에 게시한 'CheXmask-U: Quantifying uncertainty in landmark-based anatomical segmentation for X-ray images' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Enzo Ferrante이 arXiv에 게시한 'CheXmask-U: Quantifying uncertainty in landmark-based anatomical segmentation for X-ray images' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

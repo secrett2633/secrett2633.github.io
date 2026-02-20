@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] VIST3A: Text-to-3D by Stitching a Multi-view Reconstruction Network to a
   Video Generator"
-excerpt: "Federico Tombari이 [arXiv]에 게시한 'VIST3A: Text-to-3D by Stitching a Multi-view Reconstruction Network to a
+excerpt: "Federico Tombari이 arXiv에 게시한 'VIST3A: Text-to-3D by Stitching a Multi-view Reconstruction Network to a
   Video Generator' 논문에 대한 자세한 리뷰입니다."
 
 categories:

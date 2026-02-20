@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Distractor Injection Attacks on Large Reasoning Models: Characterization
   and Defense"
-excerpt: "이 [arXiv]에 게시한 'Distractor Injection Attacks on Large Reasoning Models: Characterization
+excerpt: "arXiv에 게시된 'Distractor Injection Attacks on Large Reasoning Models: Characterization
   and Defense' 논문에 대한 자세한 리뷰입니다."
 
 categories:

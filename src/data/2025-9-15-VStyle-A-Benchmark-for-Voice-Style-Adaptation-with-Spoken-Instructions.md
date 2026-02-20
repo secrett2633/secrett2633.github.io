@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] VStyle: A Benchmark for Voice Style Adaptation with Spoken Instructions"
-excerpt: "Dong Zhang이 [arXiv]에 게시한 'VStyle: A Benchmark for Voice Style Adaptation with Spoken Instructions' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Dong Zhang이 arXiv에 게시한 'VStyle: A Benchmark for Voice Style Adaptation with Spoken Instructions' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Coupling Experts and Routers in Mixture-of-Experts via an Auxiliary Loss"
-excerpt: "이 [arXiv]에 게시한 'Coupling Experts and Routers in Mixture-of-Experts via an Auxiliary Loss' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Coupling Experts and Routers in Mixture-of-Experts via an Auxiliary Loss' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

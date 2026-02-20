@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] PaddleOCR-VL-1.5: Towards a Multi-Task 0.9B VLM for Robust In-the-Wild Document Parsing"
-excerpt: "Zelun Zhang이 [arXiv]에 게시한 'PaddleOCR-VL-1.5: Towards a Multi-Task 0.9B VLM for Robust In-the-Wild Document Parsing' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zelun Zhang이 arXiv에 게시한 'PaddleOCR-VL-1.5: Towards a Multi-Task 0.9B VLM for Robust In-the-Wild Document Parsing' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

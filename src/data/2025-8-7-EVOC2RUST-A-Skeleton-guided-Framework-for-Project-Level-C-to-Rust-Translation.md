@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] EVOC2RUST: A Skeleton-guided Framework for Project-Level C-to-Rust
   Translation"
-excerpt: "Dong Chen이 [arXiv]에 게시한 'EVOC2RUST: A Skeleton-guided Framework for Project-Level C-to-Rust
+excerpt: "Dong Chen이 arXiv에 게시한 'EVOC2RUST: A Skeleton-guided Framework for Project-Level C-to-Rust
   Translation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

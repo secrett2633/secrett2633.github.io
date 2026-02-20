@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Robix: A Unified Model for Robot Interaction, Reasoning and Planning"
-excerpt: "Zixuan Wang이 [arXiv]에 게시한 'Robix: A Unified Model for Robot Interaction, Reasoning and Planning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zixuan Wang이 arXiv에 게시한 'Robix: A Unified Model for Robot Interaction, Reasoning and Planning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

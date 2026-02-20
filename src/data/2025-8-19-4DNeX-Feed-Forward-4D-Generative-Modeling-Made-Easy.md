@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] 4DNeX: Feed-Forward 4D Generative Modeling Made Easy"
-excerpt: "Zeng Tao이 [arXiv]에 게시한 '4DNeX: Feed-Forward 4D Generative Modeling Made Easy' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zeng Tao이 arXiv에 게시한 '4DNeX: Feed-Forward 4D Generative Modeling Made Easy' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

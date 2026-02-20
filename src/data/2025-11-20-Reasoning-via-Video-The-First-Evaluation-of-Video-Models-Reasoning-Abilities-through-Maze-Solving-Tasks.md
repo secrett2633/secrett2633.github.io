@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Reasoning via Video: The First Evaluation of Video Models' Reasoning Abilities through Maze-Solving Tasks"
-excerpt: "Yiran Peng이 [arXiv]에 게시한 'Reasoning via Video: The First Evaluation of Video Models' Reasoning Abilities through Maze-Solving Tasks' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yiran Peng이 arXiv에 게시한 'Reasoning via Video: The First Evaluation of Video Models' Reasoning Abilities through Maze-Solving Tasks' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

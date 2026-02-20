@@ -1,22 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getSortedPostsData, getPostData } from '@/lib/posts'
+import { format } from 'date-fns'
 
-const KST_OFFSET_MS = 9 * 60 * 60 * 1000
-
-const formatKoreanTime = (date: Date) => {
-  return new Date(date.getTime() + KST_OFFSET_MS).toUTCString()
-}
+const RSS_MAX_POSTS = 30
 
 export async function GET(request: NextRequest) {
   try {
     const posts = getSortedPostsData()
-    
-    // 최신 30개 포스트만 RSS에 포함
-    const recentPosts = posts.slice(0, 30)
-    
+
+    // 최신 포스트만 RSS에 포함
+    const recentPosts = posts.slice(0, RSS_MAX_POSTS)
+
     const siteUrl = 'https://blog.secrett2633.cloud'
-    const currentDate = formatKoreanTime(new Date())
-    
+    const currentDate = new Date().toUTCString()
+
     // 각 포스트의 전체 콘텐츠를 가져옴 (content:encoded 용)
     const postsWithContent = await Promise.all(
       recentPosts.map(async (post) => {
@@ -47,10 +44,10 @@ export async function GET(request: NextRequest) {
     <category>Python</category>
     <category>DevOps</category>
     <category>AI/ML</category>
-    
+
     ${postsWithContent.map(post => {
       const postUrl = `${siteUrl}${post.permalink || `/${post.id}`}`
-      const pubDate = formatKoreanTime(new Date(post.date))
+      const pubDate = new Date(post.date).toUTCString()
       const description = post.excerpt || post.title
 
       const escapeXml = (str: string) => str
@@ -86,7 +83,7 @@ export async function GET(request: NextRequest) {
       ${contentEncoded}
     </item>`
     }).join('\n')}
-    
+
   </channel>
 </rss>`
 
@@ -94,7 +91,7 @@ export async function GET(request: NextRequest) {
       status: 200,
       headers: {
         'Content-Type': 'application/rss+xml; charset=utf-8',
-        'Cache-Control': 'public, max-age=3600, s-maxage=3600', // 1시간 캐시
+        'Cache-Control': 'public, max-age=3600, s-maxage=3600',
       },
     })
   } catch (error) {

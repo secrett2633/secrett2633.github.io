@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Judging with Confidence: Calibrating Autoraters to Preference
   Distributions"
-excerpt: "이 [arXiv]에 게시한 'Judging with Confidence: Calibrating Autoraters to Preference
+excerpt: "arXiv에 게시된 'Judging with Confidence: Calibrating Autoraters to Preference
   Distributions' 논문에 대한 자세한 리뷰입니다."
 
 categories:

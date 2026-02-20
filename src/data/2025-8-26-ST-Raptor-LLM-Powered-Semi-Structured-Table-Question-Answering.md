@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] ST-Raptor: LLM-Powered Semi-Structured Table Question Answering"
-excerpt: "Wei Zhou이 [arXiv]에 게시한 'ST-Raptor: LLM-Powered Semi-Structured Table Question Answering' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Wei Zhou이 arXiv에 게시한 'ST-Raptor: LLM-Powered Semi-Structured Table Question Answering' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

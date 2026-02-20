@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] OmniVinci: Enhancing Architecture and Data for Omni-Modal Understanding
   LLM"
-excerpt: "이 [arXiv]에 게시한 'OmniVinci: Enhancing Architecture and Data for Omni-Modal Understanding
+excerpt: "arXiv에 게시된 'OmniVinci: Enhancing Architecture and Data for Omni-Modal Understanding
   LLM' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Gaperon: A Peppered English-French Generative Language Model Suite"
-excerpt: "Éric de la Clergerie이 [arXiv]에 게시한 'Gaperon: A Peppered English-French Generative Language Model Suite' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Éric de la Clergerie이 arXiv에 게시한 'Gaperon: A Peppered English-French Generative Language Model Suite' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

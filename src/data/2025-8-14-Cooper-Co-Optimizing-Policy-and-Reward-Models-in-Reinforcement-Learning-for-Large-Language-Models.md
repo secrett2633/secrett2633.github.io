@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Cooper: Co-Optimizing Policy and Reward Models in Reinforcement Learning
   for Large Language Models"
-excerpt: "Guiyang Hou이 [arXiv]에 게시한 'Cooper: Co-Optimizing Policy and Reward Models in Reinforcement Learning
+excerpt: "Guiyang Hou이 arXiv에 게시한 'Cooper: Co-Optimizing Policy and Reward Models in Reinforcement Learning
   for Large Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Reinforce-Ada: An Adaptive Sampling Framework for Reinforce-Style LLM
   Training"
-excerpt: "이 [arXiv]에 게시한 'Reinforce-Ada: An Adaptive Sampling Framework for Reinforce-Style LLM
+excerpt: "arXiv에 게시된 'Reinforce-Ada: An Adaptive Sampling Framework for Reinforce-Style LLM
   Training' 논문에 대한 자세한 리뷰입니다."
 
 categories:

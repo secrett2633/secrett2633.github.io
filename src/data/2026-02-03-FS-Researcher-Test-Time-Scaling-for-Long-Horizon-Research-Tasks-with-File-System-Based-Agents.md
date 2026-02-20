@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] FS-Researcher: Test-Time Scaling for Long-Horizon Research Tasks with File-System-Based Agents"
-excerpt: "이 [arXiv]에 게시한 'FS-Researcher: Test-Time Scaling for Long-Horizon Research Tasks with File-System-Based Agents' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'FS-Researcher: Test-Time Scaling for Long-Horizon Research Tasks with File-System-Based Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

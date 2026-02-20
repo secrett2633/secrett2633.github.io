@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Can Agent Conquer Web? Exploring the Frontiers of ChatGPT Atlas Agent in
   Web Games"
-excerpt: "Justin Cui이 [arXiv]에 게시한 'Can Agent Conquer Web? Exploring the Frontiers of ChatGPT Atlas Agent in
+excerpt: "Justin Cui이 arXiv에 게시한 'Can Agent Conquer Web? Exploring the Frontiers of ChatGPT Atlas Agent in
   Web Games' 논문에 대한 자세한 리뷰입니다."
 
 categories:

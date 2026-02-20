@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Controlling Multimodal LLMs via Reward-guided Decoding"
-excerpt: "Michal Drozdzal이 [arXiv]에 게시한 'Controlling Multimodal LLMs via Reward-guided Decoding' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Michal Drozdzal이 arXiv에 게시한 'Controlling Multimodal LLMs via Reward-guided Decoding' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

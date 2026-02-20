@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Multi-View 3D Point Tracking"
-excerpt: "Irem Demir이 [arXiv]에 게시한 'Multi-View 3D Point Tracking' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Irem Demir이 arXiv에 게시한 'Multi-View 3D Point Tracking' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] UI-Ins: Enhancing GUI Grounding with Multi-Perspective
   Instruction-as-Reasoning"
-excerpt: "이 [arXiv]에 게시한 'UI-Ins: Enhancing GUI Grounding with Multi-Perspective
+excerpt: "arXiv에 게시된 'UI-Ins: Enhancing GUI Grounding with Multi-Perspective
   Instruction-as-Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

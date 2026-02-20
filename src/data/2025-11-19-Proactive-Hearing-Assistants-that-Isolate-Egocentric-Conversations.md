@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Proactive Hearing Assistants that Isolate Egocentric Conversations"
-excerpt: "이 [arXiv]에 게시한 'Proactive Hearing Assistants that Isolate Egocentric Conversations' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Proactive Hearing Assistants that Isolate Egocentric Conversations' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

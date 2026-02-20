@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Jailbreaking Commercial Black-Box LLMs with Explicitly Harmful Prompts"
-excerpt: "Liming Fang이 [arXiv]에 게시한 'Jailbreaking Commercial Black-Box LLMs with Explicitly Harmful Prompts' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Liming Fang이 arXiv에 게시한 'Jailbreaking Commercial Black-Box LLMs with Explicitly Harmful Prompts' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

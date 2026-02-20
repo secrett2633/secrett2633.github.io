@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] 2D Gaussian Splatting with Semantic Alignment for Image Inpainting"
-excerpt: "Guangming Lu이 [arXiv]에 게시한 '2D Gaussian Splatting with Semantic Alignment for Image Inpainting' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Guangming Lu이 arXiv에 게시한 '2D Gaussian Splatting with Semantic Alignment for Image Inpainting' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Scalable Multi-Task Reinforcement Learning for Generalizable Spatial
   Intelligence in Visuomotor Agents"
-excerpt: "Anji Liu이 [arXiv]에 게시한 'Scalable Multi-Task Reinforcement Learning for Generalizable Spatial
+excerpt: "Anji Liu이 arXiv에 게시한 'Scalable Multi-Task Reinforcement Learning for Generalizable Spatial
   Intelligence in Visuomotor Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:

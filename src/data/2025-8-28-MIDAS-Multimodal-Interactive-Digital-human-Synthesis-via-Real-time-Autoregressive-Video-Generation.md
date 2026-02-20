@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MIDAS: Multimodal Interactive Digital-human Synthesis via Real-time
   Autoregressive Video Generation"
-excerpt: "Yan Zhou이 [arXiv]에 게시한 'MIDAS: Multimodal Interactive Digital-human Synthesis via Real-time
+excerpt: "Yan Zhou이 arXiv에 게시한 'MIDAS: Multimodal Interactive Digital-human Synthesis via Real-time
   Autoregressive Video Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

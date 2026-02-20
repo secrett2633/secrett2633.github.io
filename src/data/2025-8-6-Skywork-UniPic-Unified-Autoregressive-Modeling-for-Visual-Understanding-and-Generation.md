@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Skywork UniPic: Unified Autoregressive Modeling for Visual Understanding
   and Generation"
-excerpt: "Tianyidan Xie이 [arXiv]에 게시한 'Skywork UniPic: Unified Autoregressive Modeling for Visual Understanding
+excerpt: "Tianyidan Xie이 arXiv에 게시한 'Skywork UniPic: Unified Autoregressive Modeling for Visual Understanding
   and Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

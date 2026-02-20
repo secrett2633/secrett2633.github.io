@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Inverse IFEval: Can LLMs Unlearn Stubborn Training Conventions to Follow
   Real Instructions?"
-excerpt: "Yu Fu이 [arXiv]에 게시한 'Inverse IFEval: Can LLMs Unlearn Stubborn Training Conventions to Follow
+excerpt: "Yu Fu이 arXiv에 게시한 'Inverse IFEval: Can LLMs Unlearn Stubborn Training Conventions to Follow
   Real Instructions?' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Beyond Correctness: Evaluating Subjective Writing Preferences Across
   Cultures"
-excerpt: "이 [arXiv]에 게시한 'Beyond Correctness: Evaluating Subjective Writing Preferences Across
+excerpt: "arXiv에 게시된 'Beyond Correctness: Evaluating Subjective Writing Preferences Across
   Cultures' 논문에 대한 자세한 리뷰입니다."
 
 categories:

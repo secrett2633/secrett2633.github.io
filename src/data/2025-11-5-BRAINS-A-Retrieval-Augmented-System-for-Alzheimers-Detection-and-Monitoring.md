@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] BRAINS: A Retrieval-Augmented System for Alzheimer's Detection and
   Monitoring"
-excerpt: "이 [arXiv]에 게시한 'BRAINS: A Retrieval-Augmented System for Alzheimer's Detection and
+excerpt: "arXiv에 게시된 'BRAINS: A Retrieval-Augmented System for Alzheimer's Detection and
   Monitoring' 논문에 대한 자세한 리뷰입니다."
 
 categories:

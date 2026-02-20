@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Alterbute: Editing Intrinsic Attributes of Objects in Images"
-excerpt: "이 [arXiv]에 게시한 'Alterbute: Editing Intrinsic Attributes of Objects in Images' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Alterbute: Editing Intrinsic Attributes of Objects in Images' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

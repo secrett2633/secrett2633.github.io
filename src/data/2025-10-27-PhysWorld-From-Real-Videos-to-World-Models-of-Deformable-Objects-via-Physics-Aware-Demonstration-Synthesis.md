@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] PhysWorld: From Real Videos to World Models of Deformable Objects via
   Physics-Aware Demonstration Synthesis"
-excerpt: "Hui Li이 [arXiv]에 게시한 'PhysWorld: From Real Videos to World Models of Deformable Objects via
+excerpt: "Hui Li이 arXiv에 게시한 'PhysWorld: From Real Videos to World Models of Deformable Objects via
   Physics-Aware Demonstration Synthesis' 논문에 대한 자세한 리뷰입니다."
 
 categories:

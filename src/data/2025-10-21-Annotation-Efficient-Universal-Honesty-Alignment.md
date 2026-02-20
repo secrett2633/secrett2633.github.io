@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Annotation-Efficient Universal Honesty Alignment"
-excerpt: "Jingtong Wu이 [arXiv]에 게시한 'Annotation-Efficient Universal Honesty Alignment' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jingtong Wu이 arXiv에 게시한 'Annotation-Efficient Universal Honesty Alignment' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

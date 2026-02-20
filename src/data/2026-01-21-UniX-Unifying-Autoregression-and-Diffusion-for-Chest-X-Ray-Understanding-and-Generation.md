@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] UniX: Unifying Autoregression and Diffusion for Chest X-Ray Understanding and Generation"
-excerpt: "이 [arXiv]에 게시한 'UniX: Unifying Autoregression and Diffusion for Chest X-Ray Understanding and Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'UniX: Unifying Autoregression and Diffusion for Chest X-Ray Understanding and Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

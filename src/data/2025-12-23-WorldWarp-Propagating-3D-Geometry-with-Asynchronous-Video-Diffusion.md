@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] WorldWarp: Propagating 3D Geometry with Asynchronous Video Diffusion"
-excerpt: "이 [arXiv]에 게시한 'WorldWarp: Propagating 3D Geometry with Asynchronous Video Diffusion' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'WorldWarp: Propagating 3D Geometry with Asynchronous Video Diffusion' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

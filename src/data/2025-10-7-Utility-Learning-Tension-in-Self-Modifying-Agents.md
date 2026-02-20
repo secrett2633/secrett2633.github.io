@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Utility-Learning Tension in Self-Modifying Agents"
-excerpt: "Peter Jin이 [arXiv]에 게시한 'Utility-Learning Tension in Self-Modifying Agents' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Peter Jin이 arXiv에 게시한 'Utility-Learning Tension in Self-Modifying Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

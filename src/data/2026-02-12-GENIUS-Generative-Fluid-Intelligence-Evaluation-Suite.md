@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] GENIUS: Generative Fluid Intelligence Evaluation Suite"
-excerpt: "Zijun Shen이 [arXiv]에 게시한 'GENIUS: Generative Fluid Intelligence Evaluation Suite' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zijun Shen이 arXiv에 게시한 'GENIUS: Generative Fluid Intelligence Evaluation Suite' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

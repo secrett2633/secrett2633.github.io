@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SciAgentGym: Benchmarking Multi-Step Scientific Tool-use in LLM Agents"
-excerpt: "Huayu Sha이 [arXiv]에 게시한 'SciAgentGym: Benchmarking Multi-Step Scientific Tool-use in LLM Agents' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Huayu Sha이 arXiv에 게시한 'SciAgentGym: Benchmarking Multi-Step Scientific Tool-use in LLM Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

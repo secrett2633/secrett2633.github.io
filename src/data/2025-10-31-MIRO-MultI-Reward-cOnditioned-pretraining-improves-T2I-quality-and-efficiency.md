@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MIRO: MultI-Reward cOnditioned pretraining improves T2I quality and
   efficiency"
-excerpt: "David Picard이 [arXiv]에 게시한 'MIRO: MultI-Reward cOnditioned pretraining improves T2I quality and
+excerpt: "David Picard이 arXiv에 게시한 'MIRO: MultI-Reward cOnditioned pretraining improves T2I quality and
   efficiency' 논문에 대한 자세한 리뷰입니다."
 
 categories:

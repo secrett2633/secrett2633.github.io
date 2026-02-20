@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Aryabhata: An exam-focused language model for JEE Math"
-excerpt: "Sandeep Varma이 [arXiv]에 게시한 'Aryabhata: An exam-focused language model for JEE Math' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Sandeep Varma이 arXiv에 게시한 'Aryabhata: An exam-focused language model for JEE Math' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

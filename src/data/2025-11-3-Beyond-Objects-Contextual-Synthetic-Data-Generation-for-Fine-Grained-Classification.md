@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Beyond Objects: Contextual Synthetic Data Generation for Fine-Grained
   Classification"
-excerpt: "Olga Russakovsky이 [arXiv]에 게시한 'Beyond Objects: Contextual Synthetic Data Generation for Fine-Grained
+excerpt: "Olga Russakovsky이 arXiv에 게시한 'Beyond Objects: Contextual Synthetic Data Generation for Fine-Grained
   Classification' 논문에 대한 자세한 리뷰입니다."
 
 categories:

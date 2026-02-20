@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] COMPOT: Calibration-Optimized Matrix Procrustes Orthogonalization for Transformers Compression"
-excerpt: "이 [arXiv]에 게시한 'COMPOT: Calibration-Optimized Matrix Procrustes Orthogonalization for Transformers Compression' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'COMPOT: Calibration-Optimized Matrix Procrustes Orthogonalization for Transformers Compression' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

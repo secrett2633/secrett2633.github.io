@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Progressive Gaussian Transformer with Anisotropy-aware Sampling for Open
   Vocabulary Occupancy Prediction"
-excerpt: "danxuhk이 [arXiv]에 게시한 'Progressive Gaussian Transformer with Anisotropy-aware Sampling for Open
+excerpt: "danxuhk이 arXiv에 게시한 'Progressive Gaussian Transformer with Anisotropy-aware Sampling for Open
   Vocabulary Occupancy Prediction' 논문에 대한 자세한 리뷰입니다."
 
 categories:

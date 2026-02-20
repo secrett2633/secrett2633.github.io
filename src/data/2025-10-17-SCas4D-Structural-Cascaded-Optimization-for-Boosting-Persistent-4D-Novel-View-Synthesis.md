@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] SCas4D: Structural Cascaded Optimization for Boosting Persistent 4D
   Novel View Synthesis"
-excerpt: "이 [arXiv]에 게시한 'SCas4D: Structural Cascaded Optimization for Boosting Persistent 4D
+excerpt: "arXiv에 게시된 'SCas4D: Structural Cascaded Optimization for Boosting Persistent 4D
   Novel View Synthesis' 논문에 대한 자세한 리뷰입니다."
 
 categories:

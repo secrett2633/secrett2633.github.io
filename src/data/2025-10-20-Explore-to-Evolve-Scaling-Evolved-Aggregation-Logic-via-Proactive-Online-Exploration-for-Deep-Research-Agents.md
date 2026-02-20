@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Explore to Evolve: Scaling Evolved Aggregation Logic via Proactive
   Online Exploration for Deep Research Agents"
-excerpt: "Jianshu Zhang이 [arXiv]에 게시한 'Explore to Evolve: Scaling Evolved Aggregation Logic via Proactive
+excerpt: "Jianshu Zhang이 arXiv에 게시한 'Explore to Evolve: Scaling Evolved Aggregation Logic via Proactive
   Online Exploration for Deep Research Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:

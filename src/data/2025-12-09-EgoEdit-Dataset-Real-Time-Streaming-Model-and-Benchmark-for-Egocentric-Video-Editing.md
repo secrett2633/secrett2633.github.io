@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] EgoEdit: Dataset, Real-Time Streaming Model, and Benchmark for Egocentric Video Editing"
-excerpt: "이 [arXiv]에 게시한 'EgoEdit: Dataset, Real-Time Streaming Model, and Benchmark for Egocentric Video Editing' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'EgoEdit: Dataset, Real-Time Streaming Model, and Benchmark for Egocentric Video Editing' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

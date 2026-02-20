@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Unleashing Scientific Reasoning for Bio-experimental Protocol Generation
   via Structured Component-based Reward Mechanism"
-excerpt: "Shuang Gu이 [arXiv]에 게시한 'Unleashing Scientific Reasoning for Bio-experimental Protocol Generation
+excerpt: "Shuang Gu이 arXiv에 게시한 'Unleashing Scientific Reasoning for Bio-experimental Protocol Generation
   via Structured Component-based Reward Mechanism' 논문에 대한 자세한 리뷰입니다."
 
 categories:

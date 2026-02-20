@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] When Modalities Conflict: How Unimodal Reasoning Uncertainty Governs
   Preference Dynamics in MLLMs"
-excerpt: "Haotian Wang이 [arXiv]에 게시한 'When Modalities Conflict: How Unimodal Reasoning Uncertainty Governs
+excerpt: "Haotian Wang이 arXiv에 게시한 'When Modalities Conflict: How Unimodal Reasoning Uncertainty Governs
   Preference Dynamics in MLLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:

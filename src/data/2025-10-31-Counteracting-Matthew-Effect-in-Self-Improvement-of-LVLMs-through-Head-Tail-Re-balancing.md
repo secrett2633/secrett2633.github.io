@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Counteracting Matthew Effect in Self-Improvement of LVLMs through
   Head-Tail Re-balancing"
-excerpt: "Xiaowei Shi이 [arXiv]에 게시한 'Counteracting Matthew Effect in Self-Improvement of LVLMs through
+excerpt: "Xiaowei Shi이 arXiv에 게시한 'Counteracting Matthew Effect in Self-Improvement of LVLMs through
   Head-Tail Re-balancing' 논문에 대한 자세한 리뷰입니다."
 
 categories:

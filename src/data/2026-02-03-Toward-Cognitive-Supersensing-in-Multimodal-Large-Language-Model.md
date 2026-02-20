@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Toward Cognitive Supersensing in Multimodal Large Language Model"
-excerpt: "Yifan Xu이 [arXiv]에 게시한 'Toward Cognitive Supersensing in Multimodal Large Language Model' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yifan Xu이 arXiv에 게시한 'Toward Cognitive Supersensing in Multimodal Large Language Model' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

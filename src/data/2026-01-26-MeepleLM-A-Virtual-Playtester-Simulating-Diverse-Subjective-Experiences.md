@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MeepleLM: A Virtual Playtester Simulating Diverse Subjective Experiences"
-excerpt: "Jianwen Sun이 [arXiv]에 게시한 'MeepleLM: A Virtual Playtester Simulating Diverse Subjective Experiences' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jianwen Sun이 arXiv에 게시한 'MeepleLM: A Virtual Playtester Simulating Diverse Subjective Experiences' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

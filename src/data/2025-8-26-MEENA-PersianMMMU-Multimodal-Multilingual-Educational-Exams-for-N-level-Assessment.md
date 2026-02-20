@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MEENA (PersianMMMU): Multimodal-Multilingual Educational Exams for
   N-level Assessment"
-excerpt: "Doratossadat Dastgheib이 [arXiv]에 게시한 'MEENA (PersianMMMU): Multimodal-Multilingual Educational Exams for
+excerpt: "Doratossadat Dastgheib이 arXiv에 게시한 'MEENA (PersianMMMU): Multimodal-Multilingual Educational Exams for
   N-level Assessment' 논문에 대한 자세한 리뷰입니다."
 
 categories:

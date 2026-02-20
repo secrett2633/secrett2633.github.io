@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Group-Evolving Agents: Open-Ended Self-Improvement via Experience Sharing"
-excerpt: "Zhen Zhang이 [arXiv]에 게시한 'Group-Evolving Agents: Open-Ended Self-Improvement via Experience Sharing' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zhen Zhang이 arXiv에 게시한 'Group-Evolving Agents: Open-Ended Self-Improvement via Experience Sharing' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

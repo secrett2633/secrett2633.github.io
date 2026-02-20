@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] CHARM: Control-point-based 3D Anime Hairstyle Auto-Regressive Modeling"
-excerpt: "Yushi Bai이 [arXiv]에 게시한 'CHARM: Control-point-based 3D Anime Hairstyle Auto-Regressive Modeling' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yushi Bai이 arXiv에 게시한 'CHARM: Control-point-based 3D Anime Hairstyle Auto-Regressive Modeling' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] InteractiveOmni: A Unified Omni-modal Model for Audio-Visual Multi-turn
   Dialogue"
-excerpt: "Dongchuan Ran이 [arXiv]에 게시한 'InteractiveOmni: A Unified Omni-modal Model for Audio-Visual Multi-turn
+excerpt: "Dongchuan Ran이 arXiv에 게시한 'InteractiveOmni: A Unified Omni-modal Model for Audio-Visual Multi-turn
   Dialogue' 논문에 대한 자세한 리뷰입니다."
 
 categories:

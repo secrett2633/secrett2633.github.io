@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] SLA: Beyond Sparsity in Diffusion Transformers via Fine-Tunable
   Sparse-Linear Attention"
-excerpt: "이 [arXiv]에 게시한 'SLA: Beyond Sparsity in Diffusion Transformers via Fine-Tunable
+excerpt: "arXiv에 게시된 'SLA: Beyond Sparsity in Diffusion Transformers via Fine-Tunable
   Sparse-Linear Attention' 논문에 대한 자세한 리뷰입니다."
 
 categories:

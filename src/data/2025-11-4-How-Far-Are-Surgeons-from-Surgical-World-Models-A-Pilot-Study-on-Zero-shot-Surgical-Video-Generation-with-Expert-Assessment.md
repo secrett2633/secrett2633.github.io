@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] How Far Are Surgeons from Surgical World Models? A Pilot Study on
   Zero-shot Surgical Video Generation with Expert Assessment"
-excerpt: "Yuhao Zhai이 [arXiv]에 게시한 'How Far Are Surgeons from Surgical World Models? A Pilot Study on
+excerpt: "Yuhao Zhai이 arXiv에 게시한 'How Far Are Surgeons from Surgical World Models? A Pilot Study on
   Zero-shot Surgical Video Generation with Expert Assessment' 논문에 대한 자세한 리뷰입니다."
 
 categories:

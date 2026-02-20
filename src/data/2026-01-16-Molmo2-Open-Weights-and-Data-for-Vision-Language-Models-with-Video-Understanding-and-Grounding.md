@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Molmo2: Open Weights and Data for Vision-Language Models with Video Understanding and Grounding"
-excerpt: "Mohammadreza Salehi이 [arXiv]에 게시한 'Molmo2: Open Weights and Data for Vision-Language Models with Video Understanding and Grounding' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Mohammadreza Salehi이 arXiv에 게시한 'Molmo2: Open Weights and Data for Vision-Language Models with Video Understanding and Grounding' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

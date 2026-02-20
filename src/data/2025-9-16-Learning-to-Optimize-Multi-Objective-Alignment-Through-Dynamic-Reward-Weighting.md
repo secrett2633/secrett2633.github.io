@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Learning to Optimize Multi-Objective Alignment Through Dynamic Reward
   Weighting"
-excerpt: "Changlong Yu이 [arXiv]에 게시한 'Learning to Optimize Multi-Objective Alignment Through Dynamic Reward
+excerpt: "Changlong Yu이 arXiv에 게시한 'Learning to Optimize Multi-Objective Alignment Through Dynamic Reward
   Weighting' 논문에 대한 자세한 리뷰입니다."
 
 categories:

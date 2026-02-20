@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Gaze into the Heart: A Multi-View Video Dataset for rPPG and Health
   Biomarkers Estimation"
-excerpt: "Anton Ivaschenko이 [arXiv]에 게시한 'Gaze into the Heart: A Multi-View Video Dataset for rPPG and Health
+excerpt: "Anton Ivaschenko이 arXiv에 게시한 'Gaze into the Heart: A Multi-View Video Dataset for rPPG and Health
   Biomarkers Estimation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

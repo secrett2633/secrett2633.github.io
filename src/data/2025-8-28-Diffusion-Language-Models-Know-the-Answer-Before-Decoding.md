@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Diffusion Language Models Know the Answer Before Decoding"
-excerpt: "Shilin Yan이 [arXiv]에 게시한 'Diffusion Language Models Know the Answer Before Decoding' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Shilin Yan이 arXiv에 게시한 'Diffusion Language Models Know the Answer Before Decoding' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

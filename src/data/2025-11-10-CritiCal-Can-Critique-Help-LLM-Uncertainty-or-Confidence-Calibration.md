@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] CritiCal: Can Critique Help LLM Uncertainty or Confidence Calibration?"
-excerpt: "Baixuan Xu이 [arXiv]에 게시한 'CritiCal: Can Critique Help LLM Uncertainty or Confidence Calibration?' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Baixuan Xu이 arXiv에 게시한 'CritiCal: Can Critique Help LLM Uncertainty or Confidence Calibration?' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

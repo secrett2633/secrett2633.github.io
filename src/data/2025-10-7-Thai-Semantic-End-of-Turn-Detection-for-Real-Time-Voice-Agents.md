@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Thai Semantic End-of-Turn Detection for Real-Time Voice Agents"
-excerpt: "Monthol Charattrakool이 [arXiv]에 게시한 'Thai Semantic End-of-Turn Detection for Real-Time Voice Agents' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Monthol Charattrakool이 arXiv에 게시한 'Thai Semantic End-of-Turn Detection for Real-Time Voice Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

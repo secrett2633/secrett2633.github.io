@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Simulstream: Open-Source Toolkit for Evaluation and Demonstration of Streaming Speech-to-Text Translation Systems"
-excerpt: "Luisa Bentivogli이 [arXiv]에 게시한 'Simulstream: Open-Source Toolkit for Evaluation and Demonstration of Streaming Speech-to-Text Translation Systems' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Luisa Bentivogli이 arXiv에 게시한 'Simulstream: Open-Source Toolkit for Evaluation and Demonstration of Streaming Speech-to-Text Translation Systems' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

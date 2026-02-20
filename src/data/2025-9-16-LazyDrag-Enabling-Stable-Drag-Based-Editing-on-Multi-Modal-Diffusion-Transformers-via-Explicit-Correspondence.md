@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] LazyDrag: Enabling Stable Drag-Based Editing on Multi-Modal Diffusion
   Transformers via Explicit Correspondence"
-excerpt: "Lionel M. Ni이 [arXiv]에 게시한 'LazyDrag: Enabling Stable Drag-Based Editing on Multi-Modal Diffusion
+excerpt: "Lionel M. Ni이 arXiv에 게시한 'LazyDrag: Enabling Stable Drag-Based Editing on Multi-Modal Diffusion
   Transformers via Explicit Correspondence' 논문에 대한 자세한 리뷰입니다."
 
 categories:

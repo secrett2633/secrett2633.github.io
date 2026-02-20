@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Plan-X: Instruct Video Generation via Semantic Planning"
-excerpt: "Chenxu Zhang이 [arXiv]에 게시한 'Plan-X: Instruct Video Generation via Semantic Planning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Chenxu Zhang이 arXiv에 게시한 'Plan-X: Instruct Video Generation via Semantic Planning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

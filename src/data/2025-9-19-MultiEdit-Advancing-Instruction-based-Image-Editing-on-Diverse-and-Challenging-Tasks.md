@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MultiEdit: Advancing Instruction-based Image Editing on Diverse and
   Challenging Tasks"
-excerpt: "Xijun Gu이 [arXiv]에 게시한 'MultiEdit: Advancing Instruction-based Image Editing on Diverse and
+excerpt: "Xijun Gu이 arXiv에 게시한 'MultiEdit: Advancing Instruction-based Image Editing on Diverse and
   Challenging Tasks' 논문에 대한 자세한 리뷰입니다."
 
 categories:

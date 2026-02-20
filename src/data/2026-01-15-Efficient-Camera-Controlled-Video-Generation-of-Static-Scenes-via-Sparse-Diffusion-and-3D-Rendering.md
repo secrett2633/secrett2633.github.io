@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Efficient Camera-Controlled Video Generation of Static Scenes via Sparse Diffusion and 3D Rendering"
-excerpt: "Ayush Tewari이 [arXiv]에 게시한 'Efficient Camera-Controlled Video Generation of Static Scenes via Sparse Diffusion and 3D Rendering' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Ayush Tewari이 arXiv에 게시한 'Efficient Camera-Controlled Video Generation of Static Scenes via Sparse Diffusion and 3D Rendering' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

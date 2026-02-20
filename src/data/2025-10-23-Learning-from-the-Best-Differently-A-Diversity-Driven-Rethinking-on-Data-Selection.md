@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Learning from the Best, Differently: A Diversity-Driven Rethinking on
   Data Selection"
-excerpt: "Yi Cheng이 [arXiv]에 게시한 'Learning from the Best, Differently: A Diversity-Driven Rethinking on
+excerpt: "Yi Cheng이 arXiv에 게시한 'Learning from the Best, Differently: A Diversity-Driven Rethinking on
   Data Selection' 논문에 대한 자세한 리뷰입니다."
 
 categories:

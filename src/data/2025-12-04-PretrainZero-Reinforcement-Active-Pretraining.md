@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] PretrainZero: Reinforcement Active Pretraining"
-excerpt: "Guoqi Li이 [arXiv]에 게시한 'PretrainZero: Reinforcement Active Pretraining' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Guoqi Li이 arXiv에 게시한 'PretrainZero: Reinforcement Active Pretraining' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

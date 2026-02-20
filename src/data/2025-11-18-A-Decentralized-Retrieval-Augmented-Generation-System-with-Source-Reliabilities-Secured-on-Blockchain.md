@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] A Decentralized Retrieval Augmented Generation System with Source Reliabilities Secured on Blockchain"
-excerpt: "Meng Jiang이 [arXiv]에 게시한 'A Decentralized Retrieval Augmented Generation System with Source Reliabilities Secured on Blockchain' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Meng Jiang이 arXiv에 게시한 'A Decentralized Retrieval Augmented Generation System with Source Reliabilities Secured on Blockchain' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

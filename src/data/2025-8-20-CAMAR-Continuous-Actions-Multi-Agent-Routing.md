@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] CAMAR: Continuous Actions Multi-Agent Routing"
-excerpt: "Alexey Skrynnik이 [arXiv]에 게시한 'CAMAR: Continuous Actions Multi-Agent Routing' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Alexey Skrynnik이 arXiv에 게시한 'CAMAR: Continuous Actions Multi-Agent Routing' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

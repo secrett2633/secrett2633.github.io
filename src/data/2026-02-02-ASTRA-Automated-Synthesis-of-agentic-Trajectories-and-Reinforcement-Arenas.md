@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] ASTRA: Automated Synthesis of agentic Trajectories and Reinforcement Arenas"
-excerpt: "Kaichi Yu이 [arXiv]에 게시한 'ASTRA: Automated Synthesis of agentic Trajectories and Reinforcement Arenas' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Kaichi Yu이 arXiv에 게시한 'ASTRA: Automated Synthesis of agentic Trajectories and Reinforcement Arenas' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

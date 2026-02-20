@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] GDCNet: Generative Discrepancy Comparison Network for Multimodal Sarcasm Detection"
-excerpt: "이 [arXiv]에 게시한 'GDCNet: Generative Discrepancy Comparison Network for Multimodal Sarcasm Detection' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'GDCNet: Generative Discrepancy Comparison Network for Multimodal Sarcasm Detection' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

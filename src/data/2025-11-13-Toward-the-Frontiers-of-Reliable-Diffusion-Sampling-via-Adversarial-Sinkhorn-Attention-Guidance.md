@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Toward the Frontiers of Reliable Diffusion Sampling via Adversarial Sinkhorn Attention Guidance"
-excerpt: "Kwanyoung Kim이 [arXiv]에 게시한 'Toward the Frontiers of Reliable Diffusion Sampling via Adversarial Sinkhorn Attention Guidance' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Kwanyoung Kim이 arXiv에 게시한 'Toward the Frontiers of Reliable Diffusion Sampling via Adversarial Sinkhorn Attention Guidance' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

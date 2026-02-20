@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Qwen-Image Technical Report"
-excerpt: "Kaiyuan Gao이 [arXiv]에 게시한 'Qwen-Image Technical Report' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Kaiyuan Gao이 arXiv에 게시한 'Qwen-Image Technical Report' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Where Culture Fades: Revealing the Cultural Gap in Text-to-Image Generation"
-excerpt: "Wenhua Wu이 [arXiv]에 게시한 'Where Culture Fades: Revealing the Cultural Gap in Text-to-Image Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Wenhua Wu이 arXiv에 게시한 'Where Culture Fades: Revealing the Cultural Gap in Text-to-Image Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MMGR: Multi-Modal Generative Reasoning"
-excerpt: "Haozhe Zhao이 [arXiv]에 게시한 'MMGR: Multi-Modal Generative Reasoning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Haozhe Zhao이 arXiv에 게시한 'MMGR: Multi-Modal Generative Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

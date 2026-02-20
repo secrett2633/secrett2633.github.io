@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DataChef: Cooking Up Optimal Data Recipes for LLM Adaptation via Reinforcement Learning"
-excerpt: "Kai Chen이 [arXiv]에 게시한 'DataChef: Cooking Up Optimal Data Recipes for LLM Adaptation via Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Kai Chen이 arXiv에 게시한 'DataChef: Cooking Up Optimal Data Recipes for LLM Adaptation via Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

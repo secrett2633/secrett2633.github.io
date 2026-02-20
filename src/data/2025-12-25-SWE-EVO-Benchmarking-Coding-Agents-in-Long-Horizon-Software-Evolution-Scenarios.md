@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SWE-EVO: Benchmarking Coding Agents in Long-Horizon Software Evolution Scenarios"
-excerpt: "Nghi D. Q. Bui이 [arXiv]에 게시한 'SWE-EVO: Benchmarking Coding Agents in Long-Horizon Software Evolution Scenarios' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Nghi D. Q. Bui이 arXiv에 게시한 'SWE-EVO: Benchmarking Coding Agents in Long-Horizon Software Evolution Scenarios' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SIMA 2: A Generalist Embodied Agent for Virtual Worlds"
-excerpt: "이 [arXiv]에 게시한 'SIMA 2: A Generalist Embodied Agent for Virtual Worlds' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'SIMA 2: A Generalist Embodied Agent for Virtual Worlds' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Loopholing Discrete Diffusion: Deterministic Bypass of the Sampling Wall"
-excerpt: "Sungjin Ahn이 [arXiv]에 게시한 'Loopholing Discrete Diffusion: Deterministic Bypass of the Sampling Wall' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Sungjin Ahn이 arXiv에 게시한 'Loopholing Discrete Diffusion: Deterministic Bypass of the Sampling Wall' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

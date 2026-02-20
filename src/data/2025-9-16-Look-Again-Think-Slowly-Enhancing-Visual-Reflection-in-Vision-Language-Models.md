@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Look Again, Think Slowly: Enhancing Visual Reflection in Vision-Language
   Models"
-excerpt: "Shuo Ren이 [arXiv]에 게시한 'Look Again, Think Slowly: Enhancing Visual Reflection in Vision-Language
+excerpt: "Shuo Ren이 arXiv에 게시한 'Look Again, Think Slowly: Enhancing Visual Reflection in Vision-Language
   Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

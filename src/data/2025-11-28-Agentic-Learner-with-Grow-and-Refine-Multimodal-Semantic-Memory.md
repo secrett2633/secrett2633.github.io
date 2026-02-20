@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Agentic Learner with Grow-and-Refine Multimodal Semantic Memory"
-excerpt: "Qunyi Xie이 [arXiv]에 게시한 'Agentic Learner with Grow-and-Refine Multimodal Semantic Memory' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Qunyi Xie이 arXiv에 게시한 'Agentic Learner with Grow-and-Refine Multimodal Semantic Memory' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

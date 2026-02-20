@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] OdysseyArena: Benchmarking Large Language Models For Long-Horizon, Active and Inductive Interactions"
-excerpt: "heroding77이 [arXiv]에 게시한 'OdysseyArena: Benchmarking Large Language Models For Long-Horizon, Active and Inductive Interactions' 논문에 대한 자세한 리뷰입니다."
+excerpt: "heroding77이 arXiv에 게시한 'OdysseyArena: Benchmarking Large Language Models For Long-Horizon, Active and Inductive Interactions' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

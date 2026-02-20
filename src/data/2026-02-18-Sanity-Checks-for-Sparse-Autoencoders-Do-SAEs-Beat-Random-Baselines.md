@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Sanity Checks for Sparse Autoencoders: Do SAEs Beat Random Baselines?"
-excerpt: "Ivan Oseledets이 [arXiv]에 게시한 'Sanity Checks for Sparse Autoencoders: Do SAEs Beat Random Baselines?' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Ivan Oseledets이 arXiv에 게시한 'Sanity Checks for Sparse Autoencoders: Do SAEs Beat Random Baselines?' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

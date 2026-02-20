@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] RefAM: Attention Magnets for Zero-Shot Referral Segmentation"
-excerpt: "Federico Tombari이 [arXiv]에 게시한 'RefAM: Attention Magnets for Zero-Shot Referral Segmentation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Federico Tombari이 arXiv에 게시한 'RefAM: Attention Magnets for Zero-Shot Referral Segmentation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

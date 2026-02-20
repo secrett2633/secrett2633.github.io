@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Map the Flow: Revealing Hidden Pathways of Information in VideoLLMs"
-excerpt: "Bohyung Han이 [arXiv]에 게시한 'Map the Flow: Revealing Hidden Pathways of Information in VideoLLMs' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Bohyung Han이 arXiv에 게시한 'Map the Flow: Revealing Hidden Pathways of Information in VideoLLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

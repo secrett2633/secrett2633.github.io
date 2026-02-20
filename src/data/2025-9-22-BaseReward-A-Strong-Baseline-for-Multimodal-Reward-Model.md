@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] BaseReward: A Strong Baseline for Multimodal Reward Model"
-excerpt: "jianfeipan이 [arXiv]에 게시한 'BaseReward: A Strong Baseline for Multimodal Reward Model' 논문에 대한 자세한 리뷰입니다."
+excerpt: "jianfeipan이 arXiv에 게시한 'BaseReward: A Strong Baseline for Multimodal Reward Model' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

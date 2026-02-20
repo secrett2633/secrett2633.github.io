@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Vibe AIGC: A New Paradigm for Content Generation via Agentic Orchestration"
-excerpt: "이 [arXiv]에 게시한 'Vibe AIGC: A New Paradigm for Content Generation via Agentic Orchestration' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Vibe AIGC: A New Paradigm for Content Generation via Agentic Orchestration' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Does Understanding Inform Generation in Unified Multimodal Models? From Analysis to Path Forward"
-excerpt: "이 [arXiv]에 게시한 'Does Understanding Inform Generation in Unified Multimodal Models? From Analysis to Path Forward' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Does Understanding Inform Generation in Unified Multimodal Models? From Analysis to Path Forward' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

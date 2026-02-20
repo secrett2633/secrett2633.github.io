@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] InstructVLA: Vision-Language-Action Instruction Tuning from
   Understanding to Manipulation"
-excerpt: "Yang Tian이 [arXiv]에 게시한 'InstructVLA: Vision-Language-Action Instruction Tuning from
+excerpt: "Yang Tian이 arXiv에 게시한 'InstructVLA: Vision-Language-Action Instruction Tuning from
   Understanding to Manipulation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

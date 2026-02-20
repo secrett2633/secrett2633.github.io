@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MiDashengLM: Efficient Audio Understanding with General Audio Captions"
-excerpt: "Yadong Niu이 [arXiv]에 게시한 'MiDashengLM: Efficient Audio Understanding with General Audio Captions' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yadong Niu이 arXiv에 게시한 'MiDashengLM: Efficient Audio Understanding with General Audio Captions' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

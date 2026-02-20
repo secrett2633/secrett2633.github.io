@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] HierSearch: A Hierarchical Enterprise Deep Search Framework Integrating
   Local and Web Searches"
-excerpt: "Qiang Ju이 [arXiv]에 게시한 'HierSearch: A Hierarchical Enterprise Deep Search Framework Integrating
+excerpt: "Qiang Ju이 arXiv에 게시한 'HierSearch: A Hierarchical Enterprise Deep Search Framework Integrating
   Local and Web Searches' 논문에 대한 자세한 리뷰입니다."
 
 categories:

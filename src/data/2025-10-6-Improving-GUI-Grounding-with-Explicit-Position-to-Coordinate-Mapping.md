@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Improving GUI Grounding with Explicit Position-to-Coordinate Mapping"
-excerpt: "Spandana Gella이 [arXiv]에 게시한 'Improving GUI Grounding with Explicit Position-to-Coordinate Mapping' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Spandana Gella이 arXiv에 게시한 'Improving GUI Grounding with Explicit Position-to-Coordinate Mapping' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] A4-Agent: An Agentic Framework for Zero-Shot Affordance Reasoning"
-excerpt: "Hongfei Zhang이 [arXiv]에 게시한 'A4-Agent: An Agentic Framework for Zero-Shot Affordance Reasoning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Hongfei Zhang이 arXiv에 게시한 'A4-Agent: An Agentic Framework for Zero-Shot Affordance Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

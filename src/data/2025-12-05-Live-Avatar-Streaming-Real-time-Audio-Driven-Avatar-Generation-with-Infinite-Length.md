@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Live Avatar: Streaming Real-time Audio-Driven Avatar Generation with Infinite Length"
-excerpt: "Shifeng Zhang이 [arXiv]에 게시한 'Live Avatar: Streaming Real-time Audio-Driven Avatar Generation with Infinite Length' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Shifeng Zhang이 arXiv에 게시한 'Live Avatar: Streaming Real-time Audio-Driven Avatar Generation with Infinite Length' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

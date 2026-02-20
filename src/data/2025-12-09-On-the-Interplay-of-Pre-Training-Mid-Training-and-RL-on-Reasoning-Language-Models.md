@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] On the Interplay of Pre-Training, Mid-Training, and RL on Reasoning Language Models"
-excerpt: "이 [arXiv]에 게시한 'On the Interplay of Pre-Training, Mid-Training, and RL on Reasoning Language Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'On the Interplay of Pre-Training, Mid-Training, and RL on Reasoning Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

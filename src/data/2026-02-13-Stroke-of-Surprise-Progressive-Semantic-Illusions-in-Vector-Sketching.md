@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Stroke of Surprise: Progressive Semantic Illusions in Vector Sketching"
-excerpt: "이 [arXiv]에 게시한 'Stroke of Surprise: Progressive Semantic Illusions in Vector Sketching' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Stroke of Surprise: Progressive Semantic Illusions in Vector Sketching' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

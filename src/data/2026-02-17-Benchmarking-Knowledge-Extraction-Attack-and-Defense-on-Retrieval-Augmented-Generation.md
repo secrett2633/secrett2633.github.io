@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Benchmarking Knowledge-Extraction Attack and Defense on Retrieval-Augmented Generation"
-excerpt: "Ryan Rossi이 [arXiv]에 게시한 'Benchmarking Knowledge-Extraction Attack and Defense on Retrieval-Augmented Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Ryan Rossi이 arXiv에 게시한 'Benchmarking Knowledge-Extraction Attack and Defense on Retrieval-Augmented Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

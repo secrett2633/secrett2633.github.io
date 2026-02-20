@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] VLA-JEPA: Enhancing Vision-Language-Action Model with Latent World Model"
-excerpt: "Zezhi Liu이 [arXiv]에 게시한 'VLA-JEPA: Enhancing Vision-Language-Action Model with Latent World Model' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zezhi Liu이 arXiv에 게시한 'VLA-JEPA: Enhancing Vision-Language-Action Model with Latent World Model' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

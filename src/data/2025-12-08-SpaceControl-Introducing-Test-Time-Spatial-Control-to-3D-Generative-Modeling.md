@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SpaceControl: Introducing Test-Time Spatial Control to 3D Generative Modeling"
-excerpt: "Marc Pollefeys이 [arXiv]에 게시한 'SpaceControl: Introducing Test-Time Spatial Control to 3D Generative Modeling' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Marc Pollefeys이 arXiv에 게시한 'SpaceControl: Introducing Test-Time Spatial Control to 3D Generative Modeling' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

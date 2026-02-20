@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Sparse Video Generation Propels Real-World Beyond-the-View Vision-Language Navigation"
-excerpt: "Yukuan Xu이 [arXiv]에 게시한 'Sparse Video Generation Propels Real-World Beyond-the-View Vision-Language Navigation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yukuan Xu이 arXiv에 게시한 'Sparse Video Generation Propels Real-World Beyond-the-View Vision-Language Navigation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

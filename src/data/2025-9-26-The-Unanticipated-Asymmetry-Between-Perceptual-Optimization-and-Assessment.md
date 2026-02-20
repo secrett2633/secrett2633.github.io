@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] The Unanticipated Asymmetry Between Perceptual Optimization and
   Assessment"
-excerpt: "Du Chen이 [arXiv]에 게시한 'The Unanticipated Asymmetry Between Perceptual Optimization and
+excerpt: "Du Chen이 arXiv에 게시한 'The Unanticipated Asymmetry Between Perceptual Optimization and
   Assessment' 논문에 대한 자세한 리뷰입니다."
 
 categories:

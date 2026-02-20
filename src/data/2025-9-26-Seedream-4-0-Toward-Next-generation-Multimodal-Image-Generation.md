@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Seedream 4.0: Toward Next-generation Multimodal Image Generation"
-excerpt: "Yunpeng Chen이 [arXiv]에 게시한 'Seedream 4.0: Toward Next-generation Multimodal Image Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yunpeng Chen이 arXiv에 게시한 'Seedream 4.0: Toward Next-generation Multimodal Image Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

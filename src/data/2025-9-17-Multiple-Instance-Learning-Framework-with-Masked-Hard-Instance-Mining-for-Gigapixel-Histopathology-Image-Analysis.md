@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Multiple Instance Learning Framework with Masked Hard Instance Mining
   for Gigapixel Histopathology Image Analysis"
-excerpt: "Bo Liu이 [arXiv]에 게시한 'Multiple Instance Learning Framework with Masked Hard Instance Mining
+excerpt: "Bo Liu이 arXiv에 게시한 'Multiple Instance Learning Framework with Masked Hard Instance Mining
   for Gigapixel Histopathology Image Analysis' 논문에 대한 자세한 리뷰입니다."
 
 categories:

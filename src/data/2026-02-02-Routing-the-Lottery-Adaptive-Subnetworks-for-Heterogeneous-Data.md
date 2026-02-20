@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Routing the Lottery: Adaptive Subnetworks for Heterogeneous Data"
-excerpt: "Michal Byra이 [arXiv]에 게시한 'Routing the Lottery: Adaptive Subnetworks for Heterogeneous Data' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Michal Byra이 arXiv에 게시한 'Routing the Lottery: Adaptive Subnetworks for Heterogeneous Data' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

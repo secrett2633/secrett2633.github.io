@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] GDPO: Group reward-Decoupled Normalization Policy Optimization for Multi-reward RL Optimization"
-excerpt: "이 [arXiv]에 게시한 'GDPO: Group reward-Decoupled Normalization Policy Optimization for Multi-reward RL Optimization' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'GDPO: Group reward-Decoupled Normalization Policy Optimization for Multi-reward RL Optimization' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

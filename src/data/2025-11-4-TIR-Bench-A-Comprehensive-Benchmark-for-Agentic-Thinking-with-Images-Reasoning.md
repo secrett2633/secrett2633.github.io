@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] TIR-Bench: A Comprehensive Benchmark for Agentic Thinking-with-Images
   Reasoning"
-excerpt: "Shaoheng Lin이 [arXiv]에 게시한 'TIR-Bench: A Comprehensive Benchmark for Agentic Thinking-with-Images
+excerpt: "Shaoheng Lin이 arXiv에 게시한 'TIR-Bench: A Comprehensive Benchmark for Agentic Thinking-with-Images
   Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] The Sequential Edge: Inverse-Entropy Voting Beats Parallel
   Self-Consistency at Matched Compute"
-excerpt: "이 [arXiv]에 게시한 'The Sequential Edge: Inverse-Entropy Voting Beats Parallel
+excerpt: "arXiv에 게시된 'The Sequential Edge: Inverse-Entropy Voting Beats Parallel
   Self-Consistency at Matched Compute' 논문에 대한 자세한 리뷰입니다."
 
 categories:

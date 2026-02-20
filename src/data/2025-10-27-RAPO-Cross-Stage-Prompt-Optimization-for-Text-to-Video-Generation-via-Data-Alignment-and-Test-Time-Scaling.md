@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] RAPO++: Cross-Stage Prompt Optimization for Text-to-Video Generation via
   Data Alignment and Test-Time Scaling"
-excerpt: "이 [arXiv]에 게시한 'RAPO++: Cross-Stage Prompt Optimization for Text-to-Video Generation via
+excerpt: "arXiv에 게시된 'RAPO++: Cross-Stage Prompt Optimization for Text-to-Video Generation via
   Data Alignment and Test-Time Scaling' 논문에 대한 자세한 리뷰입니다."
 
 categories:

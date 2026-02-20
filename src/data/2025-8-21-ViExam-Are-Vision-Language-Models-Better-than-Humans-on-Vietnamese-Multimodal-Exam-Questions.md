@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] ViExam: Are Vision Language Models Better than Humans on Vietnamese
   Multimodal Exam Questions?"
-excerpt: "Daeyoung Kim이 [arXiv]에 게시한 'ViExam: Are Vision Language Models Better than Humans on Vietnamese
+excerpt: "Daeyoung Kim이 arXiv에 게시한 'ViExam: Are Vision Language Models Better than Humans on Vietnamese
   Multimodal Exam Questions?' 논문에 대한 자세한 리뷰입니다."
 
 categories:

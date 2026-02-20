@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Self-Improving Multilingual Long Reasoning via Translation-Reasoning Integrated Training"
-excerpt: "Liqian Huang이 [arXiv]에 게시한 'Self-Improving Multilingual Long Reasoning via Translation-Reasoning Integrated Training' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Liqian Huang이 arXiv에 게시한 'Self-Improving Multilingual Long Reasoning via Translation-Reasoning Integrated Training' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

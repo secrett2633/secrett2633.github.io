@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Large Scale Diffusion Distillation via Score-Regularized Continuous-Time
   Consistency"
-excerpt: "Jintao Zhang이 [arXiv]에 게시한 'Large Scale Diffusion Distillation via Score-Regularized Continuous-Time
+excerpt: "Jintao Zhang이 arXiv에 게시한 'Large Scale Diffusion Distillation via Score-Regularized Continuous-Time
   Consistency' 논문에 대한 자세한 리뷰입니다."
 
 categories:

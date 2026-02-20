@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] TreePO: Bridging the Gap of Policy Optimization and Efficacy and
   Inference Efficiency with Heuristic Tree-based Modeling"
-excerpt: "Zhoufutu Wen이 [arXiv]에 게시한 'TreePO: Bridging the Gap of Policy Optimization and Efficacy and
+excerpt: "Zhoufutu Wen이 arXiv에 게시한 'TreePO: Bridging the Gap of Policy Optimization and Efficacy and
   Inference Efficiency with Heuristic Tree-based Modeling' 논문에 대한 자세한 리뷰입니다."
 
 categories:

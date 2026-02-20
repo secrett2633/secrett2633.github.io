@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] ACE: Attribution-Controlled Knowledge Editing for Multi-hop Factual
   Recall"
-excerpt: "Jiaqi Tang이 [arXiv]에 게시한 'ACE: Attribution-Controlled Knowledge Editing for Multi-hop Factual
+excerpt: "Jiaqi Tang이 arXiv에 게시한 'ACE: Attribution-Controlled Knowledge Editing for Multi-hop Factual
   Recall' 논문에 대한 자세한 리뷰입니다."
 
 categories:

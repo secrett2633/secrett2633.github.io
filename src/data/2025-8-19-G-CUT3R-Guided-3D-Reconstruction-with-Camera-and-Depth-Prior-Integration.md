@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] G-CUT3R: Guided 3D Reconstruction with Camera and Depth Prior
   Integration"
-excerpt: "Evgeny Burnaev이 [arXiv]에 게시한 'G-CUT3R: Guided 3D Reconstruction with Camera and Depth Prior
+excerpt: "Evgeny Burnaev이 arXiv에 게시한 'G-CUT3R: Guided 3D Reconstruction with Camera and Depth Prior
   Integration' 논문에 대한 자세한 리뷰입니다."
 
 categories:

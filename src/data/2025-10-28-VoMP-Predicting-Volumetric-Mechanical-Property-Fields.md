@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] VoMP: Predicting Volumetric Mechanical Property Fields"
-excerpt: "이 [arXiv]에 게시한 'VoMP: Predicting Volumetric Mechanical Property Fields' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'VoMP: Predicting Volumetric Mechanical Property Fields' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

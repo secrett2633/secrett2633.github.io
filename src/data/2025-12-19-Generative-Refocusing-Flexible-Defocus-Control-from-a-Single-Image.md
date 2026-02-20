@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Generative Refocusing: Flexible Defocus Control from a Single Image"
-excerpt: "Yu-Lun Liu이 [arXiv]에 게시한 'Generative Refocusing: Flexible Defocus Control from a Single Image' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yu-Lun Liu이 arXiv에 게시한 'Generative Refocusing: Flexible Defocus Control from a Single Image' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

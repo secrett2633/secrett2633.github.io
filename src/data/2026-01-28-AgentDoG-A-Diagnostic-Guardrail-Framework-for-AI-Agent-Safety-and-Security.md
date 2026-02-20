@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] AgentDoG: A Diagnostic Guardrail Framework for AI Agent Safety and Security"
-excerpt: "이 [arXiv]에 게시한 'AgentDoG: A Diagnostic Guardrail Framework for AI Agent Safety and Security' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'AgentDoG: A Diagnostic Guardrail Framework for AI Agent Safety and Security' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

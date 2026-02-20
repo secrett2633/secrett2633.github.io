@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Focused Chain-of-Thought: Efficient LLM Reasoning via Structured Input Information"
-excerpt: "Kristian Kersting이 [arXiv]에 게시한 'Focused Chain-of-Thought: Efficient LLM Reasoning via Structured Input Information' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Kristian Kersting이 arXiv에 게시한 'Focused Chain-of-Thought: Efficient LLM Reasoning via Structured Input Information' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

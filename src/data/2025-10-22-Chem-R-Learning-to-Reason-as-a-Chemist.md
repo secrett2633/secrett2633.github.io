@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Chem-R: Learning to Reason as a Chemist"
-excerpt: "이 [arXiv]에 게시한 'Chem-R: Learning to Reason as a Chemist' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Chem-R: Learning to Reason as a Chemist' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

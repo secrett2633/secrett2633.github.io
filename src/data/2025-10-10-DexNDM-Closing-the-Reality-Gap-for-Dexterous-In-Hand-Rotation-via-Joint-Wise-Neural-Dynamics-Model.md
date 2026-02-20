@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] DexNDM: Closing the Reality Gap for Dexterous In-Hand Rotation via
   Joint-Wise Neural Dynamics Model"
-excerpt: "Li Yi이 [arXiv]에 게시한 'DexNDM: Closing the Reality Gap for Dexterous In-Hand Rotation via
+excerpt: "Li Yi이 arXiv에 게시한 'DexNDM: Closing the Reality Gap for Dexterous In-Hand Rotation via
   Joint-Wise Neural Dynamics Model' 논문에 대한 자세한 리뷰입니다."
 
 categories:

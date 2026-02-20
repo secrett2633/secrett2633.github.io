@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Joint 3D Geometry Reconstruction and Motion Generation for 4D Synthesis from a Single Image"
-excerpt: "이 [arXiv]에 게시한 'Joint 3D Geometry Reconstruction and Motion Generation for 4D Synthesis from a Single Image' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Joint 3D Geometry Reconstruction and Motion Generation for 4D Synthesis from a Single Image' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Factuality Matters: When Image Generation and Editing Meet Structured
   Visuals"
-excerpt: "Boxiang Qiu이 [arXiv]에 게시한 'Factuality Matters: When Image Generation and Editing Meet Structured
+excerpt: "Boxiang Qiu이 arXiv에 게시한 'Factuality Matters: When Image Generation and Editing Meet Structured
   Visuals' 논문에 대한 자세한 리뷰입니다."
 
 categories:

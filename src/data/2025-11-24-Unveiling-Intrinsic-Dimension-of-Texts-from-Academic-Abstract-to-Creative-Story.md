@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Unveiling Intrinsic Dimension of Texts: from Academic Abstract to Creative Story"
-excerpt: "Kristian Kuznetsov이 [arXiv]에 게시한 'Unveiling Intrinsic Dimension of Texts: from Academic Abstract to Creative Story' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Kristian Kuznetsov이 arXiv에 게시한 'Unveiling Intrinsic Dimension of Texts: from Academic Abstract to Creative Story' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

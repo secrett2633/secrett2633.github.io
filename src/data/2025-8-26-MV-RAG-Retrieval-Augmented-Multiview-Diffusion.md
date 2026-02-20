@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MV-RAG: Retrieval Augmented Multiview Diffusion"
-excerpt: "sagiebenaim이 [arXiv]에 게시한 'MV-RAG: Retrieval Augmented Multiview Diffusion' 논문에 대한 자세한 리뷰입니다."
+excerpt: "sagiebenaim이 arXiv에 게시한 'MV-RAG: Retrieval Augmented Multiview Diffusion' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

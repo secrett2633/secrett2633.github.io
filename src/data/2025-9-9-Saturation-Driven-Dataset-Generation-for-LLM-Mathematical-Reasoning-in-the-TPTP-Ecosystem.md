@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Saturation-Driven Dataset Generation for LLM Mathematical Reasoning in
   the TPTP Ecosystem"
-excerpt: "Damien Sileo이 [arXiv]에 게시한 'Saturation-Driven Dataset Generation for LLM Mathematical Reasoning in
+excerpt: "Damien Sileo이 arXiv에 게시한 'Saturation-Driven Dataset Generation for LLM Mathematical Reasoning in
   the TPTP Ecosystem' 논문에 대한 자세한 리뷰입니다."
 
 categories:

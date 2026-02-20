@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Beyond Transcription: Mechanistic Interpretability in ASR"
-excerpt: "Aviv Shamsian이 [arXiv]에 게시한 'Beyond Transcription: Mechanistic Interpretability in ASR' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Aviv Shamsian이 arXiv에 게시한 'Beyond Transcription: Mechanistic Interpretability in ASR' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Revolutionizing Reinforcement Learning Framework for Diffusion Large
   Language Models"
-excerpt: "Ke Shen이 [arXiv]에 게시한 'Revolutionizing Reinforcement Learning Framework for Diffusion Large
+excerpt: "Ke Shen이 arXiv에 게시한 'Revolutionizing Reinforcement Learning Framework for Diffusion Large
   Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

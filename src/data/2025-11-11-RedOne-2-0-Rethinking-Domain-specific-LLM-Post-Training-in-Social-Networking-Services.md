@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] RedOne 2.0: Rethinking Domain-specific LLM Post-Training in Social   Networking Services"
-excerpt: "Zijie Meng이 [arXiv]에 게시한 'RedOne 2.0: Rethinking Domain-specific LLM Post-Training in Social   Networking Services' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zijie Meng이 arXiv에 게시한 'RedOne 2.0: Rethinking Domain-specific LLM Post-Training in Social   Networking Services' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

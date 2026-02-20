@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Tinker: Diffusion's Gift to 3D--Multi-View Consistent Editing From
   Sparse Inputs without Per-Scene Optimization"
-excerpt: "Hao Chen이 [arXiv]에 게시한 'Tinker: Diffusion's Gift to 3D--Multi-View Consistent Editing From
+excerpt: "Hao Chen이 arXiv에 게시한 'Tinker: Diffusion's Gift to 3D--Multi-View Consistent Editing From
   Sparse Inputs without Per-Scene Optimization' 논문에 대한 자세한 리뷰입니다."
 
 categories:

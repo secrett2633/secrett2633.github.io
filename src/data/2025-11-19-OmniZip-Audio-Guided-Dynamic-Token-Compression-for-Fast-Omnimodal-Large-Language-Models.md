@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] OmniZip: Audio-Guided Dynamic Token Compression for Fast Omnimodal Large Language Models"
-excerpt: "Jian liu이 [arXiv]에 게시한 'OmniZip: Audio-Guided Dynamic Token Compression for Fast Omnimodal Large Language Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jian liu이 arXiv에 게시한 'OmniZip: Audio-Guided Dynamic Token Compression for Fast Omnimodal Large Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

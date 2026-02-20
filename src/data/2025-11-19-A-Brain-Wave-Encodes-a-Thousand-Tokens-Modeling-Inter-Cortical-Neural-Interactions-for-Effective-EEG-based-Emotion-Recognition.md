@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] A Brain Wave Encodes a Thousand Tokens: Modeling Inter-Cortical Neural Interactions for Effective EEG-based Emotion Recognition"
-excerpt: "G. Maragatham이 [arXiv]에 게시한 'A Brain Wave Encodes a Thousand Tokens: Modeling Inter-Cortical Neural Interactions for Effective EEG-based Emotion Recognition' 논문에 대한 자세한 리뷰입니다."
+excerpt: "G. Maragatham이 arXiv에 게시한 'A Brain Wave Encodes a Thousand Tokens: Modeling Inter-Cortical Neural Interactions for Effective EEG-based Emotion Recognition' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] REINA: Regularized Entropy Information-Based Loss for Efficient
   Simultaneous Speech Translation"
-excerpt: "Xiao Yu이 [arXiv]에 게시한 'REINA: Regularized Entropy Information-Based Loss for Efficient
+excerpt: "Xiao Yu이 arXiv에 게시한 'REINA: Regularized Entropy Information-Based Loss for Efficient
   Simultaneous Speech Translation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

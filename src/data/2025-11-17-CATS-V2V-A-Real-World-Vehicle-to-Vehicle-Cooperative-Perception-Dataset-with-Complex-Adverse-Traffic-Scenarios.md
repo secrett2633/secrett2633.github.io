@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] CATS-V2V: A Real-World Vehicle-to-Vehicle Cooperative Perception Dataset with Complex Adverse Traffic Scenarios"
-excerpt: "Juyoung Oh이 [arXiv]에 게시한 'CATS-V2V: A Real-World Vehicle-to-Vehicle Cooperative Perception Dataset with Complex Adverse Traffic Scenarios' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Juyoung Oh이 arXiv에 게시한 'CATS-V2V: A Real-World Vehicle-to-Vehicle Cooperative Perception Dataset with Complex Adverse Traffic Scenarios' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

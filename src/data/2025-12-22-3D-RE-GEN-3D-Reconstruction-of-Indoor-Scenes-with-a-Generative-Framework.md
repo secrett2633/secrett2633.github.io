@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] 3D-RE-GEN: 3D Reconstruction of Indoor Scenes with a Generative Framework"
-excerpt: "Hendrik P. A. Lensch이 [arXiv]에 게시한 '3D-RE-GEN: 3D Reconstruction of Indoor Scenes with a Generative Framework' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Hendrik P. A. Lensch이 arXiv에 게시한 '3D-RE-GEN: 3D Reconstruction of Indoor Scenes with a Generative Framework' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

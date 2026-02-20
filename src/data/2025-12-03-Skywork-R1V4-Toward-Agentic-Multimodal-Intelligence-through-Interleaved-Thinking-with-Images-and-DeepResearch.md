@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Skywork-R1V4: Toward Agentic Multimodal Intelligence through Interleaved Thinking with Images and DeepResearch"
-excerpt: "이 [arXiv]에 게시한 'Skywork-R1V4: Toward Agentic Multimodal Intelligence through Interleaved Thinking with Images and DeepResearch' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Skywork-R1V4: Toward Agentic Multimodal Intelligence through Interleaved Thinking with Images and DeepResearch' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

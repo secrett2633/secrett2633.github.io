@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Seed-Prover 1.5: Mastering Undergraduate-Level Theorem Proving via Learning from Experience"
-excerpt: "이 [arXiv]에 게시한 'Seed-Prover 1.5: Mastering Undergraduate-Level Theorem Proving via Learning from Experience' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Seed-Prover 1.5: Mastering Undergraduate-Level Theorem Proving via Learning from Experience' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

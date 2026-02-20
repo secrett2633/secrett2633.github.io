@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] DLER: Doing Length pEnalty Right - Incentivizing More Intelligence per
   Token via Reinforcement Learning"
-excerpt: "이 [arXiv]에 게시한 'DLER: Doing Length pEnalty Right - Incentivizing More Intelligence per
+excerpt: "arXiv에 게시된 'DLER: Doing Length pEnalty Right - Incentivizing More Intelligence per
   Token via Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

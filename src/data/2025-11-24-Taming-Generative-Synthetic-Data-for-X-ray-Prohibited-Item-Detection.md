@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Taming Generative Synthetic Data for X-ray Prohibited Item Detection"
-excerpt: "Renshuai Tao이 [arXiv]에 게시한 'Taming Generative Synthetic Data for X-ray Prohibited Item Detection' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Renshuai Tao이 arXiv에 게시한 'Taming Generative Synthetic Data for X-ray Prohibited Item Detection' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

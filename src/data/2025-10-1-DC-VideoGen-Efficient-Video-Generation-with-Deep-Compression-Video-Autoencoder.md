@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] DC-VideoGen: Efficient Video Generation with Deep Compression Video
   Autoencoder"
-excerpt: "이 [arXiv]에 게시한 'DC-VideoGen: Efficient Video Generation with Deep Compression Video
+excerpt: "arXiv에 게시된 'DC-VideoGen: Efficient Video Generation with Deep Compression Video
   Autoencoder' 논문에 대한 자세한 리뷰입니다."
 
 categories:

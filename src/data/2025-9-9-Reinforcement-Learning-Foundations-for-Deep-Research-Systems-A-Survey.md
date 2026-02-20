@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Reinforcement Learning Foundations for Deep Research Systems: A Survey"
-excerpt: "Wei Han이 [arXiv]에 게시한 'Reinforcement Learning Foundations for Deep Research Systems: A Survey' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Wei Han이 arXiv에 게시한 'Reinforcement Learning Foundations for Deep Research Systems: A Survey' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

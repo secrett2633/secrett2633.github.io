@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] ALICE-LRI: A General Method for Lossless Range Image Generation for
   Spinning LiDAR Sensors without Calibration Metadata"
-excerpt: "José C. Cabaleiro이 [arXiv]에 게시한 'ALICE-LRI: A General Method for Lossless Range Image Generation for
+excerpt: "José C. Cabaleiro이 arXiv에 게시한 'ALICE-LRI: A General Method for Lossless Range Image Generation for
   Spinning LiDAR Sensors without Calibration Metadata' 논문에 대한 자세한 리뷰입니다."
 
 categories:

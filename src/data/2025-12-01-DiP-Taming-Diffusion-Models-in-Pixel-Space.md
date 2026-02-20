@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DiP: Taming Diffusion Models in Pixel Space"
-excerpt: "Xu Chen이 [arXiv]에 게시한 'DiP: Taming Diffusion Models in Pixel Space' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xu Chen이 arXiv에 게시한 'DiP: Taming Diffusion Models in Pixel Space' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

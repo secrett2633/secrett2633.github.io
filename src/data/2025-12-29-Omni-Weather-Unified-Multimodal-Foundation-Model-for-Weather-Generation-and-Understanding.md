@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Omni-Weather: Unified Multimodal Foundation Model for Weather Generation and Understanding"
-excerpt: "Yixin Chen이 [arXiv]에 게시한 'Omni-Weather: Unified Multimodal Foundation Model for Weather Generation and Understanding' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yixin Chen이 arXiv에 게시한 'Omni-Weather: Unified Multimodal Foundation Model for Weather Generation and Understanding' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

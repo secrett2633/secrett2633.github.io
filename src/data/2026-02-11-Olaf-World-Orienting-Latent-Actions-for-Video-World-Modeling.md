@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Olaf-World: Orienting Latent Actions for Video World Modeling"
-excerpt: "Mike Zheng Shou이 [arXiv]에 게시한 'Olaf-World: Orienting Latent Actions for Video World Modeling' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Mike Zheng Shou이 arXiv에 게시한 'Olaf-World: Orienting Latent Actions for Video World Modeling' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] GigaBrain-0: A World Model-Powered Vision-Language-Action Model"
-excerpt: "이 [arXiv]에 게시한 'GigaBrain-0: A World Model-Powered Vision-Language-Action Model' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'GigaBrain-0: A World Model-Powered Vision-Language-Action Model' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] DeepSearch: Overcome the Bottleneck of Reinforcement Learning with
   Verifiable Rewards via Monte Carlo Tree Search"
-excerpt: "이 [arXiv]에 게시한 'DeepSearch: Overcome the Bottleneck of Reinforcement Learning with
+excerpt: "arXiv에 게시된 'DeepSearch: Overcome the Bottleneck of Reinforcement Learning with
   Verifiable Rewards via Monte Carlo Tree Search' 논문에 대한 자세한 리뷰입니다."
 
 categories:

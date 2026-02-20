@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Quantifying Speaker Embedding Phonological Rule Interactions in Accented Speech Synthesis"
-excerpt: "Jihwan Lee이 [arXiv]에 게시한 'Quantifying Speaker Embedding Phonological Rule Interactions in Accented Speech Synthesis' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jihwan Lee이 arXiv에 게시한 'Quantifying Speaker Embedding Phonological Rule Interactions in Accented Speech Synthesis' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

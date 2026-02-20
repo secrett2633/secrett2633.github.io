@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Learnable SMPLify: A Neural Solution for Optimization-Free Human Pose
   Inverse Kinematics"
-excerpt: "Xiao Sun이 [arXiv]에 게시한 'Learnable SMPLify: A Neural Solution for Optimization-Free Human Pose
+excerpt: "Xiao Sun이 arXiv에 게시한 'Learnable SMPLify: A Neural Solution for Optimization-Free Human Pose
   Inverse Kinematics' 논문에 대한 자세한 리뷰입니다."
 
 categories:

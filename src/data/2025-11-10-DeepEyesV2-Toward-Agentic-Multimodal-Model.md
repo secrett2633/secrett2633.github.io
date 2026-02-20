@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DeepEyesV2: Toward Agentic Multimodal Model"
-excerpt: "Guohai Xu이 [arXiv]에 게시한 'DeepEyesV2: Toward Agentic Multimodal Model' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Guohai Xu이 arXiv에 게시한 'DeepEyesV2: Toward Agentic Multimodal Model' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

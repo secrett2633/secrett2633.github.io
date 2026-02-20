@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] VQ-Seg: Vector-Quantized Token Perturbation for Semi-Supervised Medical Image Segmentation"
-excerpt: "Lei Zhu이 [arXiv]에 게시한 'VQ-Seg: Vector-Quantized Token Perturbation for Semi-Supervised Medical Image Segmentation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Lei Zhu이 arXiv에 게시한 'VQ-Seg: Vector-Quantized Token Perturbation for Semi-Supervised Medical Image Segmentation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

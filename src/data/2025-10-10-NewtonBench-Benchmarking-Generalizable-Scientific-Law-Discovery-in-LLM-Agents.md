@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] NewtonBench: Benchmarking Generalizable Scientific Law Discovery in LLM
   Agents"
-excerpt: "Baixuan Xu이 [arXiv]에 게시한 'NewtonBench: Benchmarking Generalizable Scientific Law Discovery in LLM
+excerpt: "Baixuan Xu이 arXiv에 게시한 'NewtonBench: Benchmarking Generalizable Scientific Law Discovery in LLM
   Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:

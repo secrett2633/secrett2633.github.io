@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Universal Deep Research: Bring Your Own Model and Strategy"
-excerpt: "Pavlo Molchanov이 [arXiv]에 게시한 'Universal Deep Research: Bring Your Own Model and Strategy' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Pavlo Molchanov이 arXiv에 게시한 'Universal Deep Research: Bring Your Own Model and Strategy' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

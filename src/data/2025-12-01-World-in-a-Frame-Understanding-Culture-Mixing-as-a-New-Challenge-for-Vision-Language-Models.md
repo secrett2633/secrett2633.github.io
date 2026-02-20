@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] World in a Frame: Understanding Culture Mixing as a New Challenge for Vision-Language Models"
-excerpt: "Na Min An이 [arXiv]에 게시한 'World in a Frame: Understanding Culture Mixing as a New Challenge for Vision-Language Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Na Min An이 arXiv에 게시한 'World in a Frame: Understanding Culture Mixing as a New Challenge for Vision-Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

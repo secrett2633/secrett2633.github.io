@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] OmniSIFT: Modality-Asymmetric Token Compression for Efficient Omni-modal Large Language Models"
-excerpt: "Yiyan Ji이 [arXiv]에 게시한 'OmniSIFT: Modality-Asymmetric Token Compression for Efficient Omni-modal Large Language Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yiyan Ji이 arXiv에 게시한 'OmniSIFT: Modality-Asymmetric Token Compression for Efficient Omni-modal Large Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

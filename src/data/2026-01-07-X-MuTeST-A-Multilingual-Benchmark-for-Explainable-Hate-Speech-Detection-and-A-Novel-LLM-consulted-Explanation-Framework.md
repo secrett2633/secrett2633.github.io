@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] X-MuTeST: A Multilingual Benchmark for Explainable Hate Speech Detection and A Novel LLM-consulted Explanation Framework"
-excerpt: "Shwetank Shekhar Singh이 [arXiv]에 게시한 'X-MuTeST: A Multilingual Benchmark for Explainable Hate Speech Detection and A Novel LLM-consulted Explanation Framework' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Shwetank Shekhar Singh이 arXiv에 게시한 'X-MuTeST: A Multilingual Benchmark for Explainable Hate Speech Detection and A Novel LLM-consulted Explanation Framework' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

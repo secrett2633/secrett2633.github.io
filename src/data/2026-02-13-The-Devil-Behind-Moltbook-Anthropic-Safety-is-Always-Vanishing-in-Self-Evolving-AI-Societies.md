@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] The Devil Behind Moltbook: Anthropic Safety is Always Vanishing in Self-Evolving AI Societies"
-excerpt: "Jinyu Hou이 [arXiv]에 게시한 'The Devil Behind Moltbook: Anthropic Safety is Always Vanishing in Self-Evolving AI Societies' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jinyu Hou이 arXiv에 게시한 'The Devil Behind Moltbook: Anthropic Safety is Always Vanishing in Self-Evolving AI Societies' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

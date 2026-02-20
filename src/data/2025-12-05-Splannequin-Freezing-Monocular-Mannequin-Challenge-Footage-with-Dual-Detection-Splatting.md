@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Splannequin: Freezing Monocular Mannequin-Challenge Footage with Dual-Detection Splatting"
-excerpt: "Yu-Lun Liu이 [arXiv]에 게시한 'Splannequin: Freezing Monocular Mannequin-Challenge Footage with Dual-Detection Splatting' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yu-Lun Liu이 arXiv에 게시한 'Splannequin: Freezing Monocular Mannequin-Challenge Footage with Dual-Detection Splatting' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

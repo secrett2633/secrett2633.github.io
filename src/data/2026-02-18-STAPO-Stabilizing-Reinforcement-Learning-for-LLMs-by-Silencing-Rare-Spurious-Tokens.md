@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] STAPO: Stabilizing Reinforcement Learning for LLMs by Silencing Rare Spurious Tokens"
-excerpt: "Zhilong Zheng이 [arXiv]에 게시한 'STAPO: Stabilizing Reinforcement Learning for LLMs by Silencing Rare Spurious Tokens' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zhilong Zheng이 arXiv에 게시한 'STAPO: Stabilizing Reinforcement Learning for LLMs by Silencing Rare Spurious Tokens' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

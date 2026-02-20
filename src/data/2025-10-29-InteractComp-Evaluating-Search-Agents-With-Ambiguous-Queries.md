@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] InteractComp: Evaluating Search Agents With Ambiguous Queries"
-excerpt: "Yani Fan이 [arXiv]에 게시한 'InteractComp: Evaluating Search Agents With Ambiguous Queries' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yani Fan이 arXiv에 게시한 'InteractComp: Evaluating Search Agents With Ambiguous Queries' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

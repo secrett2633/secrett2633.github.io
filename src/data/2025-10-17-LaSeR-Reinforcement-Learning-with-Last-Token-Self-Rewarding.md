@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] LaSeR: Reinforcement Learning with Last-Token Self-Rewarding"
-excerpt: "이 [arXiv]에 게시한 'LaSeR: Reinforcement Learning with Last-Token Self-Rewarding' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'LaSeR: Reinforcement Learning with Last-Token Self-Rewarding' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] EPO: Entropy-regularized Policy Optimization for LLM Agents
   Reinforcement Learning"
-excerpt: "Li Yu-Jhe이 [arXiv]에 게시한 'EPO: Entropy-regularized Policy Optimization for LLM Agents
+excerpt: "Li Yu-Jhe이 arXiv에 게시한 'EPO: Entropy-regularized Policy Optimization for LLM Agents
   Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

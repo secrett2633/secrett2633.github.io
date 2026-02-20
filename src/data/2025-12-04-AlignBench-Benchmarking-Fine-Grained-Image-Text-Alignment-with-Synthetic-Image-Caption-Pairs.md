@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] AlignBench: Benchmarking Fine-Grained Image-Text Alignment with Synthetic Image-Caption Pairs"
-excerpt: "Tosho Hirasawa이 [arXiv]에 게시한 'AlignBench: Benchmarking Fine-Grained Image-Text Alignment with Synthetic Image-Caption Pairs' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Tosho Hirasawa이 arXiv에 게시한 'AlignBench: Benchmarking Fine-Grained Image-Text Alignment with Synthetic Image-Caption Pairs' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

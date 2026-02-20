@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Collaborative Multi-Modal Coding for High-Quality 3D Generation"
-excerpt: "Ziwei Liu이 [arXiv]에 게시한 'Collaborative Multi-Modal Coding for High-Quality 3D Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Ziwei Liu이 arXiv에 게시한 'Collaborative Multi-Modal Coding for High-Quality 3D Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

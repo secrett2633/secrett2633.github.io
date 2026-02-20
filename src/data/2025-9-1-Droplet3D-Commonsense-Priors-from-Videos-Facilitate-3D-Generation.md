@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Droplet3D: Commonsense Priors from Videos Facilitate 3D Generation"
-excerpt: "Qi Jia이 [arXiv]에 게시한 'Droplet3D: Commonsense Priors from Videos Facilitate 3D Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Qi Jia이 arXiv에 게시한 'Droplet3D: Commonsense Priors from Videos Facilitate 3D Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] OmniWorld: A Multi-Domain and Multi-Modal Dataset for 4D World Modeling"
-excerpt: "Yang Zhou이 [arXiv]에 게시한 'OmniWorld: A Multi-Domain and Multi-Modal Dataset for 4D World Modeling' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yang Zhou이 arXiv에 게시한 'OmniWorld: A Multi-Domain and Multi-Modal Dataset for 4D World Modeling' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

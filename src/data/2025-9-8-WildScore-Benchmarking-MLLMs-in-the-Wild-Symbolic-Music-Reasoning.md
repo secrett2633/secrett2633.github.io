@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] WildScore: Benchmarking MLLMs in-the-Wild Symbolic Music Reasoning"
-excerpt: "Amit Namburi이 [arXiv]에 게시한 'WildScore: Benchmarking MLLMs in-the-Wild Symbolic Music Reasoning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Amit Namburi이 arXiv에 게시한 'WildScore: Benchmarking MLLMs in-the-Wild Symbolic Music Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

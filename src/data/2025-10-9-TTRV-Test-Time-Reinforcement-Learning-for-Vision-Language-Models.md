@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] TTRV: Test-Time Reinforcement Learning for Vision Language Models"
-excerpt: "Serena Yeung-Levy이 [arXiv]에 게시한 'TTRV: Test-Time Reinforcement Learning for Vision Language Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Serena Yeung-Levy이 arXiv에 게시한 'TTRV: Test-Time Reinforcement Learning for Vision Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

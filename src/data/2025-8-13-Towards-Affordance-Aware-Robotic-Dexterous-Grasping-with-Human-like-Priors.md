@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Towards Affordance-Aware Robotic Dexterous Grasping with Human-like
   Priors"
-excerpt: "Haoran Xu이 [arXiv]에 게시한 'Towards Affordance-Aware Robotic Dexterous Grasping with Human-like
+excerpt: "Haoran Xu이 arXiv에 게시한 'Towards Affordance-Aware Robotic Dexterous Grasping with Human-like
   Priors' 논문에 대한 자세한 리뷰입니다."
 
 categories:

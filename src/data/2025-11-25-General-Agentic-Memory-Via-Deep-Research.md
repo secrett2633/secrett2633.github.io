@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] General Agentic Memory Via Deep Research"
-excerpt: "이 [arXiv]에 게시한 'General Agentic Memory Via Deep Research' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'General Agentic Memory Via Deep Research' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

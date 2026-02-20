@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] HoloCine: Holistic Generation of Cinematic Multi-Shot Long Video
   Narratives"
-excerpt: "이 [arXiv]에 게시한 'HoloCine: Holistic Generation of Cinematic Multi-Shot Long Video
+excerpt: "arXiv에 게시된 'HoloCine: Holistic Generation of Cinematic Multi-Shot Long Video
   Narratives' 논문에 대한 자세한 리뷰입니다."
 
 categories:

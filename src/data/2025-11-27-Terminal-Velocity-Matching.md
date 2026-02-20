@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Terminal Velocity Matching"
-excerpt: "Jiaming Song이 [arXiv]에 게시한 'Terminal Velocity Matching' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jiaming Song이 arXiv에 게시한 'Terminal Velocity Matching' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

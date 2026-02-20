@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Has GPT-5 Achieved Spatial Intelligence? An Empirical Study"
-excerpt: "Ruisi Wang이 [arXiv]에 게시한 'Has GPT-5 Achieved Spatial Intelligence? An Empirical Study' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Ruisi Wang이 arXiv에 게시한 'Has GPT-5 Achieved Spatial Intelligence? An Empirical Study' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

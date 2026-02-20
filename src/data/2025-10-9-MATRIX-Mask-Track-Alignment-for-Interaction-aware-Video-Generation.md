@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MATRIX: Mask Track Alignment for Interaction-aware Video Generation"
-excerpt: "Hyunwook Choi이 [arXiv]에 게시한 'MATRIX: Mask Track Alignment for Interaction-aware Video Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Hyunwook Choi이 arXiv에 게시한 'MATRIX: Mask Track Alignment for Interaction-aware Video Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

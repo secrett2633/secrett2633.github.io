@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] InterPrior: Scaling Generative Control for Physics-Based Human-Object Interactions"
-excerpt: "Xiaohan Fei이 [arXiv]에 게시한 'InterPrior: Scaling Generative Control for Physics-Based Human-Object Interactions' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xiaohan Fei이 arXiv에 게시한 'InterPrior: Scaling Generative Control for Physics-Based Human-Object Interactions' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

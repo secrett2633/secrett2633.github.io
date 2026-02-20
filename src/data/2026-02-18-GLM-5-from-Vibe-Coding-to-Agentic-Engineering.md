@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] GLM-5: from Vibe Coding to Agentic Engineering"
-excerpt: "GLM-5 Team이 [arXiv]에 게시한 'GLM-5: from Vibe Coding to Agentic Engineering' 논문에 대한 자세한 리뷰입니다."
+excerpt: "GLM-5 Team이 arXiv에 게시한 'GLM-5: from Vibe Coding to Agentic Engineering' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

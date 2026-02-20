@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] More Thought, Less Accuracy? On the Dual Nature of Reasoning in
   Vision-Language Models"
-excerpt: "Fabian Waschkowski이 [arXiv]에 게시한 'More Thought, Less Accuracy? On the Dual Nature of Reasoning in
+excerpt: "Fabian Waschkowski이 arXiv에 게시한 'More Thought, Less Accuracy? On the Dual Nature of Reasoning in
   Vision-Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

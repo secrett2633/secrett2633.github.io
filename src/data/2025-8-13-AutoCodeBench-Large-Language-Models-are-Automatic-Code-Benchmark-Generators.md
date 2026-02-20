@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] AutoCodeBench: Large Language Models are Automatic Code Benchmark
   Generators"
-excerpt: "Tao Zhang이 [arXiv]에 게시한 'AutoCodeBench: Large Language Models are Automatic Code Benchmark
+excerpt: "Tao Zhang이 arXiv에 게시한 'AutoCodeBench: Large Language Models are Automatic Code Benchmark
   Generators' 논문에 대한 자세한 리뷰입니다."
 
 categories:

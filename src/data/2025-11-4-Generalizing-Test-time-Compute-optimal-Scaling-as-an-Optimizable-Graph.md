@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Generalizing Test-time Compute-optimal Scaling as an Optimizable Graph"
-excerpt: "이 [arXiv]에 게시한 'Generalizing Test-time Compute-optimal Scaling as an Optimizable Graph' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Generalizing Test-time Compute-optimal Scaling as an Optimizable Graph' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

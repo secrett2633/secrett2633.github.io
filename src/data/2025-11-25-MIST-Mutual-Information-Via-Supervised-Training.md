@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MIST: Mutual Information Via Supervised Training"
-excerpt: "Kyunghyun Cho이 [arXiv]에 게시한 'MIST: Mutual Information Via Supervised Training' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Kyunghyun Cho이 arXiv에 게시한 'MIST: Mutual Information Via Supervised Training' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

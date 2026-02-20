@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DraCo: Draft as CoT for Text-to-Image Preview and Rare Concept Generation"
-excerpt: "Ziyu Guo이 [arXiv]에 게시한 'DraCo: Draft as CoT for Text-to-Image Preview and Rare Concept Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Ziyu Guo이 arXiv에 게시한 'DraCo: Draft as CoT for Text-to-Image Preview and Rare Concept Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

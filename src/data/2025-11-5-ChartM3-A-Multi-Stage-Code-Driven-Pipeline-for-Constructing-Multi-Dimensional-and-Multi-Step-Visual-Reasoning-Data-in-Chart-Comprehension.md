@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] ChartM^3: A Multi-Stage Code-Driven Pipeline for Constructing
   Multi-Dimensional and Multi-Step Visual Reasoning Data in Chart Comprehension"
-excerpt: "Hao Wang이 [arXiv]에 게시한 'ChartM^3: A Multi-Stage Code-Driven Pipeline for Constructing
+excerpt: "Hao Wang이 arXiv에 게시한 'ChartM^3: A Multi-Stage Code-Driven Pipeline for Constructing
   Multi-Dimensional and Multi-Step Visual Reasoning Data in Chart Comprehension' 논문에 대한 자세한 리뷰입니다."
 
 categories:

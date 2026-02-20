@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] AthenaBench: A Dynamic Benchmark for Evaluating LLMs in Cyber Threat
   Intelligence"
-excerpt: "Peter Worth이 [arXiv]에 게시한 'AthenaBench: A Dynamic Benchmark for Evaluating LLMs in Cyber Threat
+excerpt: "Peter Worth이 arXiv에 게시한 'AthenaBench: A Dynamic Benchmark for Evaluating LLMs in Cyber Threat
   Intelligence' 논문에 대한 자세한 리뷰입니다."
 
 categories:

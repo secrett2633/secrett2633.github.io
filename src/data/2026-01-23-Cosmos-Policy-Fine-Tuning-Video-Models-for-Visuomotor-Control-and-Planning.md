@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Cosmos Policy: Fine-Tuning Video Models for Visuomotor Control and Planning"
-excerpt: "이 [arXiv]에 게시한 'Cosmos Policy: Fine-Tuning Video Models for Visuomotor Control and Planning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Cosmos Policy: Fine-Tuning Video Models for Visuomotor Control and Planning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

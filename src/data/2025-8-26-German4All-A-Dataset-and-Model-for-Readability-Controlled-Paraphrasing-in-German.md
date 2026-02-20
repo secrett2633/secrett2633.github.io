@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] German4All - A Dataset and Model for Readability-Controlled Paraphrasing
   in German"
-excerpt: "Cristian-George Craciun이 [arXiv]에 게시한 'German4All - A Dataset and Model for Readability-Controlled Paraphrasing
+excerpt: "Cristian-George Craciun이 arXiv에 게시한 'German4All - A Dataset and Model for Readability-Controlled Paraphrasing
   in German' 논문에 대한 자세한 리뷰입니다."
 
 categories:

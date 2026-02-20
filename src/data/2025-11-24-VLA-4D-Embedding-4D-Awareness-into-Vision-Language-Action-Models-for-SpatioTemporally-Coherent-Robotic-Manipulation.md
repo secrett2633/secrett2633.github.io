@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] VLA-4D: Embedding 4D Awareness into Vision-Language-Action Models for SpatioTemporally Coherent Robotic Manipulation"
-excerpt: "Gim Hee Lee이 [arXiv]에 게시한 'VLA-4D: Embedding 4D Awareness into Vision-Language-Action Models for SpatioTemporally Coherent Robotic Manipulation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Gim Hee Lee이 arXiv에 게시한 'VLA-4D: Embedding 4D Awareness into Vision-Language-Action Models for SpatioTemporally Coherent Robotic Manipulation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

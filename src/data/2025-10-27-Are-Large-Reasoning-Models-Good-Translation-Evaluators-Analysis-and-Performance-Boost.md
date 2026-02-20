@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Are Large Reasoning Models Good Translation Evaluators? Analysis and
   Performance Boost"
-excerpt: "Min Yang이 [arXiv]에 게시한 'Are Large Reasoning Models Good Translation Evaluators? Analysis and
+excerpt: "Min Yang이 arXiv에 게시한 'Are Large Reasoning Models Good Translation Evaluators? Analysis and
   Performance Boost' 논문에 대한 자세한 리뷰입니다."
 
 categories:

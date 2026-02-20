@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] LAMIC: Layout-Aware Multi-Image Composition via Scalability of
   Multimodal Diffusion Transformer"
-excerpt: "Shunyu Yao이 [arXiv]에 게시한 'LAMIC: Layout-Aware Multi-Image Composition via Scalability of
+excerpt: "Shunyu Yao이 arXiv에 게시한 'LAMIC: Layout-Aware Multi-Image Composition via Scalability of
   Multimodal Diffusion Transformer' 논문에 대한 자세한 리뷰입니다."
 
 categories:

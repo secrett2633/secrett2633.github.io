@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Mobile-Agent-v3: Foundamental Agents for GUI Automation"
-excerpt: "Haowei Liu이 [arXiv]에 게시한 'Mobile-Agent-v3: Foundamental Agents for GUI Automation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Haowei Liu이 arXiv에 게시한 'Mobile-Agent-v3: Foundamental Agents for GUI Automation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Test-Time Scaling in Reasoning Models Is Not Effective for
   Knowledge-Intensive Tasks Yet"
-excerpt: "See-Kiong Ng이 [arXiv]에 게시한 'Test-Time Scaling in Reasoning Models Is Not Effective for
+excerpt: "See-Kiong Ng이 arXiv에 게시한 'Test-Time Scaling in Reasoning Models Is Not Effective for
   Knowledge-Intensive Tasks Yet' 논문에 대한 자세한 리뷰입니다."
 
 categories:

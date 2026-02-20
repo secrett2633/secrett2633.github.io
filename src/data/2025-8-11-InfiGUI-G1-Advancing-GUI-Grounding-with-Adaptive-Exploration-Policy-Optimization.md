@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] InfiGUI-G1: Advancing GUI Grounding with Adaptive Exploration Policy
   Optimization"
-excerpt: "Pengxiang Li이 [arXiv]에 게시한 'InfiGUI-G1: Advancing GUI Grounding with Adaptive Exploration Policy
+excerpt: "Pengxiang Li이 arXiv에 게시한 'InfiGUI-G1: Advancing GUI Grounding with Adaptive Exploration Policy
   Optimization' 논문에 대한 자세한 리뷰입니다."
 
 categories:

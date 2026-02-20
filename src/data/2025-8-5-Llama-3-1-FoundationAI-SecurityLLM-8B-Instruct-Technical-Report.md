@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Llama-3.1-FoundationAI-SecurityLLM-8B-Instruct Technical Report"
-excerpt: "Anu Vellore이 [arXiv]에 게시한 'Llama-3.1-FoundationAI-SecurityLLM-8B-Instruct Technical Report' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Anu Vellore이 arXiv에 게시한 'Llama-3.1-FoundationAI-SecurityLLM-8B-Instruct Technical Report' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

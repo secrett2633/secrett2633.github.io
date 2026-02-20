@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MegaFlow: Large-Scale Distributed Orchestration System for the Agentic Era"
-excerpt: "Fan Zhou이 [arXiv]에 게시한 'MegaFlow: Large-Scale Distributed Orchestration System for the Agentic Era' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Fan Zhou이 arXiv에 게시한 'MegaFlow: Large-Scale Distributed Orchestration System for the Agentic Era' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] RECALL: REpresentation-aligned Catastrophic-forgetting ALLeviation via
   Hierarchical Model Merging"
-excerpt: "이 [arXiv]에 게시한 'RECALL: REpresentation-aligned Catastrophic-forgetting ALLeviation via
+excerpt: "arXiv에 게시된 'RECALL: REpresentation-aligned Catastrophic-forgetting ALLeviation via
   Hierarchical Model Merging' 논문에 대한 자세한 리뷰입니다."
 
 categories:

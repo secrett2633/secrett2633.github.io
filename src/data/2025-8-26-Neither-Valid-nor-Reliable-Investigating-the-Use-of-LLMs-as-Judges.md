@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Neither Valid nor Reliable? Investigating the Use of LLMs as Judges"
-excerpt: "Golnoosh Farnadi이 [arXiv]에 게시한 'Neither Valid nor Reliable? Investigating the Use of LLMs as Judges' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Golnoosh Farnadi이 arXiv에 게시한 'Neither Valid nor Reliable? Investigating the Use of LLMs as Judges' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Directional Reasoning Injection for Fine-Tuning MLLMs"
-excerpt: "Jialian Wu이 [arXiv]에 게시한 'Directional Reasoning Injection for Fine-Tuning MLLMs' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jialian Wu이 arXiv에 게시한 'Directional Reasoning Injection for Fine-Tuning MLLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

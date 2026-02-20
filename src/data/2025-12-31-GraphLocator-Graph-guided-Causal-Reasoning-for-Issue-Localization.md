@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] GraphLocator: Graph-guided Causal Reasoning for Issue Localization"
-excerpt: "Wei Zhang이 [arXiv]에 게시한 'GraphLocator: Graph-guided Causal Reasoning for Issue Localization' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Wei Zhang이 arXiv에 게시한 'GraphLocator: Graph-guided Causal Reasoning for Issue Localization' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

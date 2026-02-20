@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Learning to Align, Aligning to Learn: A Unified Approach for
   Self-Optimized Alignment"
-excerpt: "Lei Fan이 [arXiv]에 게시한 'Learning to Align, Aligning to Learn: A Unified Approach for
+excerpt: "Lei Fan이 arXiv에 게시한 'Learning to Align, Aligning to Learn: A Unified Approach for
   Self-Optimized Alignment' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Are Today's LLMs Ready to Explain Well-Being Concepts?"
-excerpt: "Huan Liu이 [arXiv]에 게시한 'Are Today's LLMs Ready to Explain Well-Being Concepts?' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Huan Liu이 arXiv에 게시한 'Are Today's LLMs Ready to Explain Well-Being Concepts?' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

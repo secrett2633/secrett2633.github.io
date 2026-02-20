@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Stabilizing MoE Reinforcement Learning by Aligning Training and
   Inference Routers"
-excerpt: "이 [arXiv]에 게시한 'Stabilizing MoE Reinforcement Learning by Aligning Training and
+excerpt: "arXiv에 게시된 'Stabilizing MoE Reinforcement Learning by Aligning Training and
   Inference Routers' 논문에 대한 자세한 리뷰입니다."
 
 categories:

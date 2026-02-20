@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Lookahead Anchoring: Preserving Character Identity in Audio-Driven Human
   Animation"
-excerpt: "Honglie Chen이 [arXiv]에 게시한 'Lookahead Anchoring: Preserving Character Identity in Audio-Driven Human
+excerpt: "Honglie Chen이 arXiv에 게시한 'Lookahead Anchoring: Preserving Character Identity in Audio-Driven Human
   Animation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

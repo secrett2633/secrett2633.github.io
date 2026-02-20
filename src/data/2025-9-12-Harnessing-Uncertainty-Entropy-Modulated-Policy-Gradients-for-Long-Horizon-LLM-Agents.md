@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Harnessing Uncertainty: Entropy-Modulated Policy Gradients for
   Long-Horizon LLM Agents"
-excerpt: "Xintao Wang이 [arXiv]에 게시한 'Harnessing Uncertainty: Entropy-Modulated Policy Gradients for
+excerpt: "Xintao Wang이 arXiv에 게시한 'Harnessing Uncertainty: Entropy-Modulated Policy Gradients for
   Long-Horizon LLM Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:

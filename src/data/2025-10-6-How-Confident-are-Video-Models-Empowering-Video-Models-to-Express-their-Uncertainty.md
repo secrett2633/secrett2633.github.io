@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] How Confident are Video Models? Empowering Video Models to Express their
   Uncertainty"
-excerpt: "Anirudha Majumdar이 [arXiv]에 게시한 'How Confident are Video Models? Empowering Video Models to Express their
+excerpt: "Anirudha Majumdar이 arXiv에 게시한 'How Confident are Video Models? Empowering Video Models to Express their
   Uncertainty' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] VLM-FO1: Bridging the Gap Between High-Level Reasoning and Fine-Grained
   Perception in VLMs"
-excerpt: "이 [arXiv]에 게시한 'VLM-FO1: Bridging the Gap Between High-Level Reasoning and Fine-Grained
+excerpt: "arXiv에 게시된 'VLM-FO1: Bridging the Gap Between High-Level Reasoning and Fine-Grained
   Perception in VLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:

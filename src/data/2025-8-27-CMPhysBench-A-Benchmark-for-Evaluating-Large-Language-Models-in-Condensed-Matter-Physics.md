@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] CMPhysBench: A Benchmark for Evaluating Large Language Models in
   Condensed Matter Physics"
-excerpt: "Dongchen Huang이 [arXiv]에 게시한 'CMPhysBench: A Benchmark for Evaluating Large Language Models in
+excerpt: "Dongchen Huang이 arXiv에 게시한 'CMPhysBench: A Benchmark for Evaluating Large Language Models in
   Condensed Matter Physics' 논문에 대한 자세한 리뷰입니다."
 
 categories:

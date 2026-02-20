@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Fathom-DeepResearch: Unlocking Long Horizon Information Retrieval and
   Synthesis for SLMs"
-excerpt: "이 [arXiv]에 게시한 'Fathom-DeepResearch: Unlocking Long Horizon Information Retrieval and
+excerpt: "arXiv에 게시된 'Fathom-DeepResearch: Unlocking Long Horizon Information Retrieval and
   Synthesis for SLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:

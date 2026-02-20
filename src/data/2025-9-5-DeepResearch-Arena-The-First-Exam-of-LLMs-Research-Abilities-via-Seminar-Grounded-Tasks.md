@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] DeepResearch Arena: The First Exam of LLMs' Research Abilities via
   Seminar-Grounded Tasks"
-excerpt: "Jiaxuan Lu이 [arXiv]에 게시한 'DeepResearch Arena: The First Exam of LLMs' Research Abilities via
+excerpt: "Jiaxuan Lu이 arXiv에 게시한 'DeepResearch Arena: The First Exam of LLMs' Research Abilities via
   Seminar-Grounded Tasks' 논문에 대한 자세한 리뷰입니다."
 
 categories:

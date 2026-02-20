@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] WristWorld: Generating Wrist-Views via 4D World Models for Robotic
   Manipulation"
-excerpt: "이 [arXiv]에 게시한 'WristWorld: Generating Wrist-Views via 4D World Models for Robotic
+excerpt: "arXiv에 게시된 'WristWorld: Generating Wrist-Views via 4D World Models for Robotic
   Manipulation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

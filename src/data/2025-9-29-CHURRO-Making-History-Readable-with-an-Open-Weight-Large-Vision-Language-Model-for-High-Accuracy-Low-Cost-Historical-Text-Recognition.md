@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] CHURRO: Making History Readable with an Open-Weight Large
   Vision-Language Model for High-Accuracy, Low-Cost Historical Text Recognition"
-excerpt: "이 [arXiv]에 게시한 'CHURRO: Making History Readable with an Open-Weight Large
+excerpt: "arXiv에 게시된 'CHURRO: Making History Readable with an Open-Weight Large
   Vision-Language Model for High-Accuracy, Low-Cost Historical Text Recognition' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] WebExplorer: Explore and Evolve for Training Long-Horizon Web Agents"
-excerpt: "Aili Chen이 [arXiv]에 게시한 'WebExplorer: Explore and Evolve for Training Long-Horizon Web Agents' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Aili Chen이 arXiv에 게시한 'WebExplorer: Explore and Evolve for Training Long-Horizon Web Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

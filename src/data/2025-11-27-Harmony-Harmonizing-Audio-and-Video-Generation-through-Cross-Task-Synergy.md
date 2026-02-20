@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Harmony: Harmonizing Audio and Video Generation through Cross-Task Synergy"
-excerpt: "이 [arXiv]에 게시한 'Harmony: Harmonizing Audio and Video Generation through Cross-Task Synergy' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Harmony: Harmonizing Audio and Video Generation through Cross-Task Synergy' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] WinT3R: Window-Based Streaming Reconstruction with Camera Token Pool"
-excerpt: "Wenzheng Chang이 [arXiv]에 게시한 'WinT3R: Window-Based Streaming Reconstruction with Camera Token Pool' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Wenzheng Chang이 arXiv에 게시한 'WinT3R: Window-Based Streaming Reconstruction with Camera Token Pool' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

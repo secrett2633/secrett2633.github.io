@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] PartUV: Part-Based UV Unwrapping of 3D Meshes"
-excerpt: "Hao Su이 [arXiv]에 게시한 'PartUV: Part-Based UV Unwrapping of 3D Meshes' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Hao Su이 arXiv에 게시한 'PartUV: Part-Based UV Unwrapping of 3D Meshes' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

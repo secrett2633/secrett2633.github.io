@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SpotEdit: Evaluating Visually-Guided Image Editing Methods"
-excerpt: "Ersin Yumer이 [arXiv]에 게시한 'SpotEdit: Evaluating Visually-Guided Image Editing Methods' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Ersin Yumer이 arXiv에 게시한 'SpotEdit: Evaluating Visually-Guided Image Editing Methods' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

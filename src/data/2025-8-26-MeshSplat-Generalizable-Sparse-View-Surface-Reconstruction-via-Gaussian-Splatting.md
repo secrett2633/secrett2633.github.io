@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MeshSplat: Generalizable Sparse-View Surface Reconstruction via Gaussian
   Splatting"
-excerpt: "Yanzhe Liang이 [arXiv]에 게시한 'MeshSplat: Generalizable Sparse-View Surface Reconstruction via Gaussian
+excerpt: "Yanzhe Liang이 arXiv에 게시한 'MeshSplat: Generalizable Sparse-View Surface Reconstruction via Gaussian
   Splatting' 논문에 대한 자세한 리뷰입니다."
 
 categories:

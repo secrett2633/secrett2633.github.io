@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] SAIL-RL: Guiding MLLMs in When and How to Think via Dual-Reward RL
   Tuning"
-excerpt: "이 [arXiv]에 게시한 'SAIL-RL: Guiding MLLMs in When and How to Think via Dual-Reward RL
+excerpt: "arXiv에 게시된 'SAIL-RL: Guiding MLLMs in When and How to Think via Dual-Reward RL
   Tuning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

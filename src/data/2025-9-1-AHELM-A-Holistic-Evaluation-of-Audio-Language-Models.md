@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] AHELM: A Holistic Evaluation of Audio-Language Models"
-excerpt: "Siwei Yang이 [arXiv]에 게시한 'AHELM: A Holistic Evaluation of Audio-Language Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Siwei Yang이 arXiv에 게시한 'AHELM: A Holistic Evaluation of Audio-Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

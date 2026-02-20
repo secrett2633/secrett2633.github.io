@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] The African Languages Lab: A Collaborative Approach to Advancing
   Low-Resource African NLP"
-excerpt: "이 [arXiv]에 게시한 'The African Languages Lab: A Collaborative Approach to Advancing
+excerpt: "arXiv에 게시된 'The African Languages Lab: A Collaborative Approach to Advancing
   Low-Resource African NLP' 논문에 대한 자세한 리뷰입니다."
 
 categories:

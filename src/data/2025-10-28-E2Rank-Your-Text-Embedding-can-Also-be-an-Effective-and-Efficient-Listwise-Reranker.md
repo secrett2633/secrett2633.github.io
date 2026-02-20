@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] E^2Rank: Your Text Embedding can Also be an Effective
   and Efficient Listwise Reranker"
-excerpt: "이 [arXiv]에 게시한 'E^2Rank: Your Text Embedding can Also be an Effective
+excerpt: "arXiv에 게시된 'E^2Rank: Your Text Embedding can Also be an Effective
   and Efficient Listwise Reranker' 논문에 대한 자세한 리뷰입니다."
 
 categories:

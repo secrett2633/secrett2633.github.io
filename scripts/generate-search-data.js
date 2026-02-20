@@ -35,7 +35,7 @@ async function generateSearchData() {
         excerpt: matterResult.data.excerpt || '',
         date: matterResult.data.date || new Date().toISOString(),
         permalink: (matterResult.data.permalink || `/${id}`).replace(/\/$/, ''),
-        tags: Array.isArray(matterResult.data.tags) ? matterResult.data.tags : [],
+        tags: Array.isArray(matterResult.data.tags) ? matterResult.data.tags.flat().filter(t => typeof t === 'string') : [],
         text: plainText,
       })
     }
@@ -73,11 +73,24 @@ export async function searchPosts(query: string): Promise<ClientPostData[]> {
   const data = await loadSearchIndex()
   const q = query.toLowerCase()
 
-  return data.filter(post =>
-    post.title.toLowerCase().includes(q) ||
-    post.excerpt?.toLowerCase().includes(q) ||
-    post.tags?.some(t => t.toLowerCase().includes(q)) ||
-    post.text?.toLowerCase().includes(q)
+  // #태그 형태로 검색하면 태그만 정확히 매칭
+  let results: ClientPostData[]
+  if (q.startsWith('#') && q.length > 1) {
+    const tagQuery = q.slice(1)
+    results = data.filter(post =>
+      post.tags?.some(t => t.toLowerCase() === tagQuery)
+    )
+  } else {
+    results = data.filter(post =>
+      post.title.toLowerCase().includes(q) ||
+      post.excerpt?.toLowerCase().includes(q) ||
+      post.tags?.some(t => t.toLowerCase().includes(q)) ||
+      post.text?.toLowerCase().includes(q)
+    )
+  }
+
+  return results.sort((a, b) =>
+    new Date(b.date).getTime() - new Date(a.date).getTime()
   )
 }
 `

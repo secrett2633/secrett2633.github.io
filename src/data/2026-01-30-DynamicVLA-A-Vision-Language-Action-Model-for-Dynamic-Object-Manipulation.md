@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DynamicVLA: A Vision-Language-Action Model for Dynamic Object Manipulation"
-excerpt: "이 [arXiv]에 게시한 'DynamicVLA: A Vision-Language-Action Model for Dynamic Object Manipulation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'DynamicVLA: A Vision-Language-Action Model for Dynamic Object Manipulation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

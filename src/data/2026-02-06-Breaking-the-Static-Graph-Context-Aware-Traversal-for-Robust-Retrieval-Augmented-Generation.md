@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Breaking the Static Graph: Context-Aware Traversal for Robust Retrieval-Augmented Generation"
-excerpt: "Qintian Guo이 [arXiv]에 게시한 'Breaking the Static Graph: Context-Aware Traversal for Robust Retrieval-Augmented Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Qintian Guo이 arXiv에 게시한 'Breaking the Static Graph: Context-Aware Traversal for Robust Retrieval-Augmented Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

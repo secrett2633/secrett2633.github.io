@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Locality in Image Diffusion Models Emerges from Data Statistics"
-excerpt: "Vincent Sitzmann이 [arXiv]에 게시한 'Locality in Image Diffusion Models Emerges from Data Statistics' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Vincent Sitzmann이 arXiv에 게시한 'Locality in Image Diffusion Models Emerges from Data Statistics' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

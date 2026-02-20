@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Wasm: A Pipeline for Constructing Structured Arabic Interleaved   Multimodal Corpora"
-excerpt: "Mohamed Motasim Hamed이 [arXiv]에 게시한 'Wasm: A Pipeline for Constructing Structured Arabic Interleaved   Multimodal Corpora' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Mohamed Motasim Hamed이 arXiv에 게시한 'Wasm: A Pipeline for Constructing Structured Arabic Interleaved   Multimodal Corpora' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] A Goal Without a Plan Is Just a Wish: Efficient and Effective Global
   Planner Training for Long-Horizon Agent Tasks"
-excerpt: "Fanchao Qi이 [arXiv]에 게시한 'A Goal Without a Plan Is Just a Wish: Efficient and Effective Global
+excerpt: "Fanchao Qi이 arXiv에 게시한 'A Goal Without a Plan Is Just a Wish: Efficient and Effective Global
   Planner Training for Long-Horizon Agent Tasks' 논문에 대한 자세한 리뷰입니다."
 
 categories:

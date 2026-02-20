@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] UniFusion: Vision-Language Model as Unified Encoder in Image Generation"
-excerpt: "이 [arXiv]에 게시한 'UniFusion: Vision-Language Model as Unified Encoder in Image Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'UniFusion: Vision-Language Model as Unified Encoder in Image Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

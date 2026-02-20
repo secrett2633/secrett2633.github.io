@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Context Is What You Need: The Maximum Effective Context Window for Real
   World Limits of LLMs"
-excerpt: "normanpaulsen이 [arXiv]에 게시한 'Context Is What You Need: The Maximum Effective Context Window for Real
+excerpt: "normanpaulsen이 arXiv에 게시한 'Context Is What You Need: The Maximum Effective Context Window for Real
   World Limits of LLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] The Art of Scaling Reinforcement Learning Compute for LLMs"
-excerpt: "이 [arXiv]에 게시한 'The Art of Scaling Reinforcement Learning Compute for LLMs' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'The Art of Scaling Reinforcement Learning Compute for LLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

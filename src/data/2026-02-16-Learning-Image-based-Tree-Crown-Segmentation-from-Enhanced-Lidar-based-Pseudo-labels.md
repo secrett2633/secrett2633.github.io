@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Learning Image-based Tree Crown Segmentation from Enhanced Lidar-based Pseudo-labels"
-excerpt: "Xiaowei Yu이 [arXiv]에 게시한 'Learning Image-based Tree Crown Segmentation from Enhanced Lidar-based Pseudo-labels' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xiaowei Yu이 arXiv에 게시한 'Learning Image-based Tree Crown Segmentation from Enhanced Lidar-based Pseudo-labels' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

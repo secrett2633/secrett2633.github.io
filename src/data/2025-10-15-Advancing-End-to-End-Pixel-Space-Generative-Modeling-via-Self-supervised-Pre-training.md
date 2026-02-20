@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Advancing End-to-End Pixel Space Generative Modeling via Self-supervised
   Pre-training"
-excerpt: "이 [arXiv]에 게시한 'Advancing End-to-End Pixel Space Generative Modeling via Self-supervised
+excerpt: "arXiv에 게시된 'Advancing End-to-End Pixel Space Generative Modeling via Self-supervised
   Pre-training' 논문에 대한 자세한 리뷰입니다."
 
 categories:

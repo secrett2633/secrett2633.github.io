@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] IMA++: ISIC Archive Multi-Annotator Dermoscopic Skin Lesion Segmentation Dataset"
-excerpt: "이 [arXiv]에 게시한 'IMA++: ISIC Archive Multi-Annotator Dermoscopic Skin Lesion Segmentation Dataset' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'IMA++: ISIC Archive Multi-Annotator Dermoscopic Skin Lesion Segmentation Dataset' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

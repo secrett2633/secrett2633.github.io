@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Insight Miner: A Time Series Analysis Dataset for Cross-Domain Alignment with Natural Language"
-excerpt: "이 [arXiv]에 게시한 'Insight Miner: A Time Series Analysis Dataset for Cross-Domain Alignment with Natural Language' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Insight Miner: A Time Series Analysis Dataset for Cross-Domain Alignment with Natural Language' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DataFlow: An LLM-Driven Framework for Unified Data Preparation and Workflow Automation in the Era of Data-Centric AI"
-excerpt: "이 [arXiv]에 게시한 'DataFlow: An LLM-Driven Framework for Unified Data Preparation and Workflow Automation in the Era of Data-Centric AI' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'DataFlow: An LLM-Driven Framework for Unified Data Preparation and Workflow Automation in the Era of Data-Centric AI' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

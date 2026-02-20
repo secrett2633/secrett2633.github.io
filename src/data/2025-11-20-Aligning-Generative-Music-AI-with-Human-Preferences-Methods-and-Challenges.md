@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Aligning Generative Music AI with Human Preferences: Methods and Challenges"
-excerpt: "Abhinaba Roy이 [arXiv]에 게시한 'Aligning Generative Music AI with Human Preferences: Methods and Challenges' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Abhinaba Roy이 arXiv에 게시한 'Aligning Generative Music AI with Human Preferences: Methods and Challenges' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

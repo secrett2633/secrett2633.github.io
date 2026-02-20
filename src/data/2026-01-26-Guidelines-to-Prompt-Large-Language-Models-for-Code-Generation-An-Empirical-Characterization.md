@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Guidelines to Prompt Large Language Models for Code Generation: An Empirical Characterization"
-excerpt: "Gabriele Bavota이 [arXiv]에 게시한 'Guidelines to Prompt Large Language Models for Code Generation: An Empirical Characterization' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Gabriele Bavota이 arXiv에 게시한 'Guidelines to Prompt Large Language Models for Code Generation: An Empirical Characterization' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

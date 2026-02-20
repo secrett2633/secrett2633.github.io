@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] AVMeme Exam: A Multimodal Multilingual Multicultural Benchmark for LLMs' Contextual and Cultural Knowledge and Thinking"
-excerpt: "이 [arXiv]에 게시한 'AVMeme Exam: A Multimodal Multilingual Multicultural Benchmark for LLMs' Contextual and Cultural Knowledge and Thinking' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'AVMeme Exam: A Multimodal Multilingual Multicultural Benchmark for LLMs' Contextual and Cultural Knowledge and Thinking' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

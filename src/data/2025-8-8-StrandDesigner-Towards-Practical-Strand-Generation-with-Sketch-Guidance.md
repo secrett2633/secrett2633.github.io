@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] StrandDesigner: Towards Practical Strand Generation with Sketch Guidance"
-excerpt: "Xiaobin Hu이 [arXiv]에 게시한 'StrandDesigner: Towards Practical Strand Generation with Sketch Guidance' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xiaobin Hu이 arXiv에 게시한 'StrandDesigner: Towards Practical Strand Generation with Sketch Guidance' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

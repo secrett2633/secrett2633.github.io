@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] No Tokens Wasted: Leveraging Long Context in Biomedical Vision-Language
   Models"
-excerpt: "Xiao Xiao Sun이 [arXiv]에 게시한 'No Tokens Wasted: Leveraging Long Context in Biomedical Vision-Language
+excerpt: "Xiao Xiao Sun이 arXiv에 게시한 'No Tokens Wasted: Leveraging Long Context in Biomedical Vision-Language
   Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

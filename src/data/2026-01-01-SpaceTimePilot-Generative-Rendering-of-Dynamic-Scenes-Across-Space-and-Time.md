@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SpaceTimePilot: Generative Rendering of Dynamic Scenes Across Space and Time"
-excerpt: "Tuanfeng Y. Wang이 [arXiv]에 게시한 'SpaceTimePilot: Generative Rendering of Dynamic Scenes Across Space and Time' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Tuanfeng Y. Wang이 arXiv에 게시한 'SpaceTimePilot: Generative Rendering of Dynamic Scenes Across Space and Time' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

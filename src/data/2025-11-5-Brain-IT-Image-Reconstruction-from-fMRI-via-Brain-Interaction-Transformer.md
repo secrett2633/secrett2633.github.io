@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Brain-IT: Image Reconstruction from fMRI via Brain-Interaction
   Transformer"
-excerpt: "이 [arXiv]에 게시한 'Brain-IT: Image Reconstruction from fMRI via Brain-Interaction
+excerpt: "arXiv에 게시된 'Brain-IT: Image Reconstruction from fMRI via Brain-Interaction
   Transformer' 논문에 대한 자세한 리뷰입니다."
 
 categories:

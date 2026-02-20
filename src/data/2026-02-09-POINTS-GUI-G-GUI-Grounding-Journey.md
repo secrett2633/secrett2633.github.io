@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] POINTS-GUI-G: GUI-Grounding Journey"
-excerpt: "Le Tian이 [arXiv]에 게시한 'POINTS-GUI-G: GUI-Grounding Journey' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Le Tian이 arXiv에 게시한 'POINTS-GUI-G: GUI-Grounding Journey' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

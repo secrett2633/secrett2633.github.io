@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Benefits and Pitfalls of Reinforcement Learning for Language Model
   Planning: A Theoretical Perspective"
-excerpt: "이 [arXiv]에 게시한 'Benefits and Pitfalls of Reinforcement Learning for Language Model
+excerpt: "arXiv에 게시된 'Benefits and Pitfalls of Reinforcement Learning for Language Model
   Planning: A Theoretical Perspective' 논문에 대한 자세한 리뷰입니다."
 
 categories:

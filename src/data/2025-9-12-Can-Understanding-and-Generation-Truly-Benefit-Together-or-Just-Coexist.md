@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Can Understanding and Generation Truly Benefit Together -- or Just
   Coexist?"
-excerpt: "Hui Han이 [arXiv]에 게시한 'Can Understanding and Generation Truly Benefit Together -- or Just
+excerpt: "Hui Han이 arXiv에 게시한 'Can Understanding and Generation Truly Benefit Together -- or Just
   Coexist?' 논문에 대한 자세한 리뷰입니다."
 
 categories:

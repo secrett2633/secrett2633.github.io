@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] FunReason-MT Technical Report: Overcoming the Complexity Barrier in
   Multi-Turn Function Calling"
-excerpt: "이 [arXiv]에 게시한 'FunReason-MT Technical Report: Overcoming the Complexity Barrier in
+excerpt: "arXiv에 게시된 'FunReason-MT Technical Report: Overcoming the Complexity Barrier in
   Multi-Turn Function Calling' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MemMamba: Rethinking Memory Patterns in State Space Model"
-excerpt: "Xiao Sun이 [arXiv]에 게시한 'MemMamba: Rethinking Memory Patterns in State Space Model' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xiao Sun이 arXiv에 게시한 'MemMamba: Rethinking Memory Patterns in State Space Model' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

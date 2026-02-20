@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] NER Retriever: Zero-Shot Named Entity Retrieval with Type-Aware
   Embeddings"
-excerpt: "Oren Glickman이 [arXiv]에 게시한 'NER Retriever: Zero-Shot Named Entity Retrieval with Type-Aware
+excerpt: "Oren Glickman이 arXiv에 게시한 'NER Retriever: Zero-Shot Named Entity Retrieval with Type-Aware
   Embeddings' 논문에 대한 자세한 리뷰입니다."
 
 categories:

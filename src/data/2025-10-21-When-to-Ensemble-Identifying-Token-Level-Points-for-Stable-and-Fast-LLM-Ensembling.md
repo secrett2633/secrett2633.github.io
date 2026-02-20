@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] When to Ensemble: Identifying Token-Level Points for Stable and Fast LLM
   Ensembling"
-excerpt: "이 [arXiv]에 게시한 'When to Ensemble: Identifying Token-Level Points for Stable and Fast LLM
+excerpt: "arXiv에 게시된 'When to Ensemble: Identifying Token-Level Points for Stable and Fast LLM
   Ensembling' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] From reactive to cognitive: brain-inspired spatial intelligence for
   embodied agents"
-excerpt: "Songming Liu이 [arXiv]에 게시한 'From reactive to cognitive: brain-inspired spatial intelligence for
+excerpt: "Songming Liu이 arXiv에 게시한 'From reactive to cognitive: brain-inspired spatial intelligence for
   embodied agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:

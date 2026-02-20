@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Winning the Pruning Gamble: A Unified Approach to Joint Sample and Token
   Pruning for Efficient Supervised Fine-Tuning"
-excerpt: "Yue Min이 [arXiv]에 게시한 'Winning the Pruning Gamble: A Unified Approach to Joint Sample and Token
+excerpt: "Yue Min이 arXiv에 게시한 'Winning the Pruning Gamble: A Unified Approach to Joint Sample and Token
   Pruning for Efficient Supervised Fine-Tuning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

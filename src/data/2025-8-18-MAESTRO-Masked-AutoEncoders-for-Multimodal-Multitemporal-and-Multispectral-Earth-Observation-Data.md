@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MAESTRO: Masked AutoEncoders for Multimodal, Multitemporal, and
   Multispectral Earth Observation Data"
-excerpt: "Nicolas Gonthier이 [arXiv]에 게시한 'MAESTRO: Masked AutoEncoders for Multimodal, Multitemporal, and
+excerpt: "Nicolas Gonthier이 arXiv에 게시한 'MAESTRO: Masked AutoEncoders for Multimodal, Multitemporal, and
   Multispectral Earth Observation Data' 논문에 대한 자세한 리뷰입니다."
 
 categories:

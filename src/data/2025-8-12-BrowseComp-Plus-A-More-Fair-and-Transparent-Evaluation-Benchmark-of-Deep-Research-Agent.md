@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] BrowseComp-Plus: A More Fair and Transparent Evaluation Benchmark of
   Deep-Research Agent"
-excerpt: "Kai Zou이 [arXiv]에 게시한 'BrowseComp-Plus: A More Fair and Transparent Evaluation Benchmark of
+excerpt: "Kai Zou이 arXiv에 게시한 'BrowseComp-Plus: A More Fair and Transparent Evaluation Benchmark of
   Deep-Research Agent' 논문에 대한 자세한 리뷰입니다."
 
 categories:

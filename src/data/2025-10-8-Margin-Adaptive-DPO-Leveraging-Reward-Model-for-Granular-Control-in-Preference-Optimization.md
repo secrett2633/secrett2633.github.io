@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Margin Adaptive DPO: Leveraging Reward Model for Granular Control in
   Preference Optimization"
-excerpt: "sirano1004이 [arXiv]에 게시한 'Margin Adaptive DPO: Leveraging Reward Model for Granular Control in
+excerpt: "sirano1004이 arXiv에 게시한 'Margin Adaptive DPO: Leveraging Reward Model for Granular Control in
   Preference Optimization' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Easier Painting Than Thinking: Can Text-to-Image Models Set the Stage,
   but Not Direct the Play?"
-excerpt: "Rui Chen이 [arXiv]에 게시한 'Easier Painting Than Thinking: Can Text-to-Image Models Set the Stage,
+excerpt: "Rui Chen이 arXiv에 게시한 'Easier Painting Than Thinking: Can Text-to-Image Models Set the Stage,
   but Not Direct the Play?' 논문에 대한 자세한 리뷰입니다."
 
 categories:

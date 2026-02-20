@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] VIOLA: Towards Video In-Context Learning with Minimal Annotations"
-excerpt: "Ryo Hachiuma이 [arXiv]에 게시한 'VIOLA: Towards Video In-Context Learning with Minimal Annotations' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Ryo Hachiuma이 arXiv에 게시한 'VIOLA: Towards Video In-Context Learning with Minimal Annotations' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

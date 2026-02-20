@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Enterprise Deep Research: Steerable Multi-Agent Deep Research for
   Enterprise Analytics"
-excerpt: "이 [arXiv]에 게시한 'Enterprise Deep Research: Steerable Multi-Agent Deep Research for
+excerpt: "arXiv에 게시된 'Enterprise Deep Research: Steerable Multi-Agent Deep Research for
   Enterprise Analytics' 논문에 대한 자세한 리뷰입니다."
 
 categories:

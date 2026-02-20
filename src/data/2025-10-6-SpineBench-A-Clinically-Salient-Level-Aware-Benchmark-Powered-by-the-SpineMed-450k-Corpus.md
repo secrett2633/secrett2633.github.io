@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] SpineBench: A Clinically Salient, Level-Aware Benchmark Powered by the
   SpineMed-450k Corpus"
-excerpt: "Zhonghao Zhang이 [arXiv]에 게시한 'SpineBench: A Clinically Salient, Level-Aware Benchmark Powered by the
+excerpt: "Zhonghao Zhang이 arXiv에 게시한 'SpineBench: A Clinically Salient, Level-Aware Benchmark Powered by the
   SpineMed-450k Corpus' 논문에 대한 자세한 리뷰입니다."
 
 categories:

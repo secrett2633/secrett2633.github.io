@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DICE: Diffusion Large Language Models Excel at Generating CUDA Kernels"
-excerpt: "Zhiqiang Tao이 [arXiv]에 게시한 'DICE: Diffusion Large Language Models Excel at Generating CUDA Kernels' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zhiqiang Tao이 arXiv에 게시한 'DICE: Diffusion Large Language Models Excel at Generating CUDA Kernels' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

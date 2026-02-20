@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] OmniAlpha: A Sequence-to-Sequence Framework for Unified Multi-Task RGBA Generation"
-excerpt: "이 [arXiv]에 게시한 'OmniAlpha: A Sequence-to-Sequence Framework for Unified Multi-Task RGBA Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'OmniAlpha: A Sequence-to-Sequence Framework for Unified Multi-Task RGBA Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] CE-GPPO: Controlling Entropy via Gradient-Preserving Clipping Policy
   Optimization in Reinforcement Learning"
-excerpt: "Wenping Hu이 [arXiv]에 게시한 'CE-GPPO: Controlling Entropy via Gradient-Preserving Clipping Policy
+excerpt: "Wenping Hu이 arXiv에 게시한 'CE-GPPO: Controlling Entropy via Gradient-Preserving Clipping Policy
   Optimization in Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

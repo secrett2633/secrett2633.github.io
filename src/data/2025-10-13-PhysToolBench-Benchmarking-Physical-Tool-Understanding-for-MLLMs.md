@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] PhysToolBench: Benchmarking Physical Tool Understanding for MLLMs"
-excerpt: "Xu Zheng이 [arXiv]에 게시한 'PhysToolBench: Benchmarking Physical Tool Understanding for MLLMs' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xu Zheng이 arXiv에 게시한 'PhysToolBench: Benchmarking Physical Tool Understanding for MLLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

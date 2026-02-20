@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] AT^2PO: Agentic Turn-based Policy Optimization via Tree Search"
-excerpt: "이 [arXiv]에 게시한 'AT^2PO: Agentic Turn-based Policy Optimization via Tree Search' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'AT^2PO: Agentic Turn-based Policy Optimization via Tree Search' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

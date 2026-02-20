@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Enhancing Object Detection with Privileged Information: A Model-Agnostic Teacher-Student Approach"
-excerpt: "Carl James Debono이 [arXiv]에 게시한 'Enhancing Object Detection with Privileged Information: A Model-Agnostic Teacher-Student Approach' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Carl James Debono이 arXiv에 게시한 'Enhancing Object Detection with Privileged Information: A Model-Agnostic Teacher-Student Approach' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

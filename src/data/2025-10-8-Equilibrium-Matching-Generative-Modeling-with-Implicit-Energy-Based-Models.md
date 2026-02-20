@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Equilibrium Matching: Generative Modeling with Implicit Energy-Based
   Models"
-excerpt: "이 [arXiv]에 게시한 'Equilibrium Matching: Generative Modeling with Implicit Energy-Based
+excerpt: "arXiv에 게시된 'Equilibrium Matching: Generative Modeling with Implicit Energy-Based
   Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Improving Context Fidelity via Native Retrieval-Augmented Reasoning"
-excerpt: "Xiangru Tang이 [arXiv]에 게시한 'Improving Context Fidelity via Native Retrieval-Augmented Reasoning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xiangru Tang이 arXiv에 게시한 'Improving Context Fidelity via Native Retrieval-Augmented Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

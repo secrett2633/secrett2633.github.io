@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] ProfVLM: A Lightweight Video-Language Model for Multi-View Proficiency
   Estimation"
-excerpt: "Antonio Liotta이 [arXiv]에 게시한 'ProfVLM: A Lightweight Video-Language Model for Multi-View Proficiency
+excerpt: "Antonio Liotta이 arXiv에 게시한 'ProfVLM: A Lightweight Video-Language Model for Multi-View Proficiency
   Estimation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

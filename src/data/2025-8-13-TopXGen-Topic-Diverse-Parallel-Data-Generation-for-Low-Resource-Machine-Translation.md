@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] TopXGen: Topic-Diverse Parallel Data Generation for Low-Resource Machine
   Translation"
-excerpt: "Rachel Bawden이 [arXiv]에 게시한 'TopXGen: Topic-Diverse Parallel Data Generation for Low-Resource Machine
+excerpt: "Rachel Bawden이 arXiv에 게시한 'TopXGen: Topic-Diverse Parallel Data Generation for Low-Resource Machine
   Translation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] LucidFlux: Caption-Free Universal Image Restoration via a Large-Scale
   Diffusion Transformer"
-excerpt: "이 [arXiv]에 게시한 'LucidFlux: Caption-Free Universal Image Restoration via a Large-Scale
+excerpt: "arXiv에 게시된 'LucidFlux: Caption-Free Universal Image Restoration via a Large-Scale
   Diffusion Transformer' 논문에 대한 자세한 리뷰입니다."
 
 categories:

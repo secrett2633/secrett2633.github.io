@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Expertise need not monopolize: Action-Specialized Mixture of Experts for
   Vision-Language-Action Learning"
-excerpt: "Sijia Gu이 [arXiv]에 게시한 'Expertise need not monopolize: Action-Specialized Mixture of Experts for
+excerpt: "Sijia Gu이 arXiv에 게시한 'Expertise need not monopolize: Action-Specialized Mixture of Experts for
   Vision-Language-Action Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

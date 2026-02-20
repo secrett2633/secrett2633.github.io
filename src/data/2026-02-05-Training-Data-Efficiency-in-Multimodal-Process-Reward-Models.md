@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Training Data Efficiency in Multimodal Process Reward Models"
-excerpt: "Haolin Liu이 [arXiv]에 게시한 'Training Data Efficiency in Multimodal Process Reward Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Haolin Liu이 arXiv에 게시한 'Training Data Efficiency in Multimodal Process Reward Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

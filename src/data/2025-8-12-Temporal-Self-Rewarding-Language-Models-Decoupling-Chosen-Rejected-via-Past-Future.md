@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Temporal Self-Rewarding Language Models: Decoupling Chosen-Rejected via
   Past-Future"
-excerpt: "Qiufeng Wang이 [arXiv]에 게시한 'Temporal Self-Rewarding Language Models: Decoupling Chosen-Rejected via
+excerpt: "Qiufeng Wang이 arXiv에 게시한 'Temporal Self-Rewarding Language Models: Decoupling Chosen-Rejected via
   Past-Future' 논문에 대한 자세한 리뷰입니다."
 
 categories:

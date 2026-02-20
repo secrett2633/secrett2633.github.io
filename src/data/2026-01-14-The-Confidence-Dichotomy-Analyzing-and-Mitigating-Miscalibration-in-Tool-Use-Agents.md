@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] The Confidence Dichotomy: Analyzing and Mitigating Miscalibration in Tool-Use Agents"
-excerpt: "Junjue Wang이 [arXiv]에 게시한 'The Confidence Dichotomy: Analyzing and Mitigating Miscalibration in Tool-Use Agents' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Junjue Wang이 arXiv에 게시한 'The Confidence Dichotomy: Analyzing and Mitigating Miscalibration in Tool-Use Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

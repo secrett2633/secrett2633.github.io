@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] OlmoEarth: Stable Latent Image Modeling for Multimodal Earth Observation"
-excerpt: "이 [arXiv]에 게시한 'OlmoEarth: Stable Latent Image Modeling for Multimodal Earth Observation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'OlmoEarth: Stable Latent Image Modeling for Multimodal Earth Observation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

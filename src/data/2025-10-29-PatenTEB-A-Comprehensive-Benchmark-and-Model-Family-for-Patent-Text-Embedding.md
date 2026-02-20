@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] PatenTEB: A Comprehensive Benchmark and Model Family for Patent Text
   Embedding"
-excerpt: "Denis Cavallucci이 [arXiv]에 게시한 'PatenTEB: A Comprehensive Benchmark and Model Family for Patent Text
+excerpt: "Denis Cavallucci이 arXiv에 게시한 'PatenTEB: A Comprehensive Benchmark and Model Family for Patent Text
   Embedding' 논문에 대한 자세한 리뷰입니다."
 
 categories:

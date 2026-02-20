@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] UniWeTok: An Unified Binary Tokenizer with Codebook Size 2^{128} for Unified Multimodal Large Language Model"
-excerpt: "이 [arXiv]에 게시한 'UniWeTok: An Unified Binary Tokenizer with Codebook Size 2^{128} for Unified Multimodal Large Language Model' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'UniWeTok: An Unified Binary Tokenizer with Codebook Size 2^{128} for Unified Multimodal Large Language Model' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

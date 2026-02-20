@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Beyond Memorization: A Multi-Modal Ordinal Regression Benchmark to Expose Popularity Bias in Vision-Language Models"
-excerpt: "Yu-Lun Liu이 [arXiv]에 게시한 'Beyond Memorization: A Multi-Modal Ordinal Regression Benchmark to Expose Popularity Bias in Vision-Language Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yu-Lun Liu이 arXiv에 게시한 'Beyond Memorization: A Multi-Modal Ordinal Regression Benchmark to Expose Popularity Bias in Vision-Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

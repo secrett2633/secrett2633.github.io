@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] OmniSafeBench-MM: A Unified Benchmark and Toolbox for Multimodal Jailbreak Attack-Defense Evaluation"
-excerpt: "Simeng Qin이 [arXiv]에 게시한 'OmniSafeBench-MM: A Unified Benchmark and Toolbox for Multimodal Jailbreak Attack-Defense Evaluation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Simeng Qin이 arXiv에 게시한 'OmniSafeBench-MM: A Unified Benchmark and Toolbox for Multimodal Jailbreak Attack-Defense Evaluation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Advances in Speech Separation: Techniques, Challenges, and Future Trends"
-excerpt: "Zhuo Chen이 [arXiv]에 게시한 'Advances in Speech Separation: Techniques, Challenges, and Future Trends' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zhuo Chen이 arXiv에 게시한 'Advances in Speech Separation: Techniques, Challenges, and Future Trends' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

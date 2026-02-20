@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Reinforcing Diffusion Models by Direct Group Preference Optimization"
-excerpt: "Jing Tang이 [arXiv]에 게시한 'Reinforcing Diffusion Models by Direct Group Preference Optimization' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jing Tang이 arXiv에 게시한 'Reinforcing Diffusion Models by Direct Group Preference Optimization' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

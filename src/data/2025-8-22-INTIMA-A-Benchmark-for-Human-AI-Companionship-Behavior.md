@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] INTIMA: A Benchmark for Human-AI Companionship Behavior"
-excerpt: "Yacine Jernite이 [arXiv]에 게시한 'INTIMA: A Benchmark for Human-AI Companionship Behavior' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yacine Jernite이 arXiv에 게시한 'INTIMA: A Benchmark for Human-AI Companionship Behavior' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

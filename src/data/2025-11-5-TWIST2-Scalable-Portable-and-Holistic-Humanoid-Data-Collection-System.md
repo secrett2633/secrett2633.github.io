@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] TWIST2: Scalable, Portable, and Holistic Humanoid Data Collection System"
-excerpt: "Rocky Duan이 [arXiv]에 게시한 'TWIST2: Scalable, Portable, and Holistic Humanoid Data Collection System' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Rocky Duan이 arXiv에 게시한 'TWIST2: Scalable, Portable, and Holistic Humanoid Data Collection System' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

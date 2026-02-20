@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] BatCoder: Self-Supervised Bidirectional Code-Documentation Learning via Back-Translation"
-excerpt: "Xiaohua Wang이 [arXiv]에 게시한 'BatCoder: Self-Supervised Bidirectional Code-Documentation Learning via Back-Translation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xiaohua Wang이 arXiv에 게시한 'BatCoder: Self-Supervised Bidirectional Code-Documentation Learning via Back-Translation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

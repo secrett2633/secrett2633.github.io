@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Behind RoPE: How Does Causal Mask Encode Positional Information?"
-excerpt: "Yeyun Gong이 [arXiv]에 게시한 'Behind RoPE: How Does Causal Mask Encode Positional Information?' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yeyun Gong이 arXiv에 게시한 'Behind RoPE: How Does Causal Mask Encode Positional Information?' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

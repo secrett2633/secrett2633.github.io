@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] StateX: Enhancing RNN Recall via Post-training State Expansion"
-excerpt: "Zhiyuan Liu이 [arXiv]에 게시한 'StateX: Enhancing RNN Recall via Post-training State Expansion' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zhiyuan Liu이 arXiv에 게시한 'StateX: Enhancing RNN Recall via Post-training State Expansion' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

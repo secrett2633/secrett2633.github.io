@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] SimpleTIR: End-to-End Reinforcement Learning for Multi-Turn
   Tool-Integrated Reasoning"
-excerpt: "Qian Liu이 [arXiv]에 게시한 'SimpleTIR: End-to-End Reinforcement Learning for Multi-Turn
+excerpt: "Qian Liu이 arXiv에 게시한 'SimpleTIR: End-to-End Reinforcement Learning for Multi-Turn
   Tool-Integrated Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] EasySteer: A Unified Framework for High-Performance and Extensible LLM
   Steering"
-excerpt: "이 [arXiv]에 게시한 'EasySteer: A Unified Framework for High-Performance and Extensible LLM
+excerpt: "arXiv에 게시된 'EasySteer: A Unified Framework for High-Performance and Extensible LLM
   Steering' 논문에 대한 자세한 리뷰입니다."
 
 categories:

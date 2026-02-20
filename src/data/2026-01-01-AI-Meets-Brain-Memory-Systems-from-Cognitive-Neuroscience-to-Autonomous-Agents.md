@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] AI Meets Brain: Memory Systems from Cognitive Neuroscience to Autonomous Agents"
-excerpt: "Shixin Jiang이 [arXiv]에 게시한 'AI Meets Brain: Memory Systems from Cognitive Neuroscience to Autonomous Agents' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Shixin Jiang이 arXiv에 게시한 'AI Meets Brain: Memory Systems from Cognitive Neuroscience to Autonomous Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

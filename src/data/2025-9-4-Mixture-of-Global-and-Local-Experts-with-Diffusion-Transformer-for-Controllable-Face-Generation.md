@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Mixture of Global and Local Experts with Diffusion Transformer for
   Controllable Face Generation"
-excerpt: "Kai Li이 [arXiv]에 게시한 'Mixture of Global and Local Experts with Diffusion Transformer for
+excerpt: "Kai Li이 arXiv에 게시한 'Mixture of Global and Local Experts with Diffusion Transformer for
   Controllable Face Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Does FLUX Already Know How to Perform Physically Plausible Image
   Composition?"
-excerpt: "Chen Zhao이 [arXiv]에 게시한 'Does FLUX Already Know How to Perform Physically Plausible Image
+excerpt: "Chen Zhao이 arXiv에 게시한 'Does FLUX Already Know How to Perform Physically Plausible Image
   Composition?' 논문에 대한 자세한 리뷰입니다."
 
 categories:

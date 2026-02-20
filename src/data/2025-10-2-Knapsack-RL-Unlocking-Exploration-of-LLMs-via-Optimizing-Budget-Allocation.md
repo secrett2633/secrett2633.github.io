@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Knapsack RL: Unlocking Exploration of LLMs via Optimizing Budget
   Allocation"
-excerpt: "이 [arXiv]에 게시한 'Knapsack RL: Unlocking Exploration of LLMs via Optimizing Budget
+excerpt: "arXiv에 게시된 'Knapsack RL: Unlocking Exploration of LLMs via Optimizing Budget
   Allocation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Every Attention Matters: An Efficient Hybrid Architecture for
   Long-Context Reasoning"
-excerpt: "이 [arXiv]에 게시한 'Every Attention Matters: An Efficient Hybrid Architecture for
+excerpt: "arXiv에 게시된 'Every Attention Matters: An Efficient Hybrid Architecture for
   Long-Context Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

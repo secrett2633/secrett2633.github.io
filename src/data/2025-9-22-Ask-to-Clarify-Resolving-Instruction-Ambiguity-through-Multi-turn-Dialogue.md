@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Ask-to-Clarify: Resolving Instruction Ambiguity through Multi-turn
   Dialogue"
-excerpt: "Hui Zhang이 [arXiv]에 게시한 'Ask-to-Clarify: Resolving Instruction Ambiguity through Multi-turn
+excerpt: "Hui Zhang이 arXiv에 게시한 'Ask-to-Clarify: Resolving Instruction Ambiguity through Multi-turn
   Dialogue' 논문에 대한 자세한 리뷰입니다."
 
 categories:

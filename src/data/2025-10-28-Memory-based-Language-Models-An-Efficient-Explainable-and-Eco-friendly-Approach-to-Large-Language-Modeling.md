@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Memory-based Language Models: An Efficient, Explainable, and
   Eco-friendly Approach to Large Language Modeling"
-excerpt: "이 [arXiv]에 게시한 'Memory-based Language Models: An Efficient, Explainable, and
+excerpt: "arXiv에 게시된 'Memory-based Language Models: An Efficient, Explainable, and
   Eco-friendly Approach to Large Language Modeling' 논문에 대한 자세한 리뷰입니다."
 
 categories:

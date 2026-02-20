@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] The Landscape of Agentic Reinforcement Learning for LLMs: A Survey"
-excerpt: "Hejia Geng이 [arXiv]에 게시한 'The Landscape of Agentic Reinforcement Learning for LLMs: A Survey' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Hejia Geng이 arXiv에 게시한 'The Landscape of Agentic Reinforcement Learning for LLMs: A Survey' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

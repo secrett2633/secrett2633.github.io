@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] First Try Matters: Revisiting the Role of Reflection in Reasoning Models"
-excerpt: "Wee Sun Lee이 [arXiv]에 게시한 'First Try Matters: Revisiting the Role of Reflection in Reasoning Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Wee Sun Lee이 arXiv에 게시한 'First Try Matters: Revisiting the Role of Reflection in Reasoning Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

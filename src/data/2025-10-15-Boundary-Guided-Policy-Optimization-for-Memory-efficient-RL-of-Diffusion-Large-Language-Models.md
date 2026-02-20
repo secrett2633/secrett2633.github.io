@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Boundary-Guided Policy Optimization for Memory-efficient RL of Diffusion
   Large Language Models"
-excerpt: "이 [arXiv]에 게시한 'Boundary-Guided Policy Optimization for Memory-efficient RL of Diffusion
+excerpt: "arXiv에 게시된 'Boundary-Guided Policy Optimization for Memory-efficient RL of Diffusion
   Large Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

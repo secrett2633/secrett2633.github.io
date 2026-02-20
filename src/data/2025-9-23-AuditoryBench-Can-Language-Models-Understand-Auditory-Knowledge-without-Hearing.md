@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] AuditoryBench++: Can Language Models Understand Auditory Knowledge
   without Hearing?"
-excerpt: "Jaeho Lee이 [arXiv]에 게시한 'AuditoryBench++: Can Language Models Understand Auditory Knowledge
+excerpt: "Jaeho Lee이 arXiv에 게시한 'AuditoryBench++: Can Language Models Understand Auditory Knowledge
   without Hearing?' 논문에 대한 자세한 리뷰입니다."
 
 categories:

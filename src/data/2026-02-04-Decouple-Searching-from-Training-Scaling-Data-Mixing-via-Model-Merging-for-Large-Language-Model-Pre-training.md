@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Decouple Searching from Training: Scaling Data Mixing via Model Merging for Large Language Model Pre-training"
-excerpt: "Haifeng Liu이 [arXiv]에 게시한 'Decouple Searching from Training: Scaling Data Mixing via Model Merging for Large Language Model Pre-training' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Haifeng Liu이 arXiv에 게시한 'Decouple Searching from Training: Scaling Data Mixing via Model Merging for Large Language Model Pre-training' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

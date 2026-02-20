@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Story2Board: A Training-Free Approach for Expressive Storyboard
   Generation"
-excerpt: "Dani Lischinski이 [arXiv]에 게시한 'Story2Board: A Training-Free Approach for Expressive Storyboard
+excerpt: "Dani Lischinski이 arXiv에 게시한 'Story2Board: A Training-Free Approach for Expressive Storyboard
   Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

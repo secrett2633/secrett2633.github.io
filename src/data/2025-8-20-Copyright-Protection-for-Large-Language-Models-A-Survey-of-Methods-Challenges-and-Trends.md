@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Copyright Protection for Large Language Models: A Survey of Methods,
   Challenges, and Trends"
-excerpt: "Xixiang Zhao이 [arXiv]에 게시한 'Copyright Protection for Large Language Models: A Survey of Methods,
+excerpt: "Xixiang Zhao이 arXiv에 게시한 'Copyright Protection for Large Language Models: A Survey of Methods,
   Challenges, and Trends' 논문에 대한 자세한 리뷰입니다."
 
 categories:

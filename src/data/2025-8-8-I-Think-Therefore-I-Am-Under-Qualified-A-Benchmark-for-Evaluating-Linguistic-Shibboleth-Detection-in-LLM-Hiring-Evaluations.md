@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] I Think, Therefore I Am Under-Qualified? A Benchmark for Evaluating
   Linguistic Shibboleth Detection in LLM Hiring Evaluations"
-excerpt: "Chirag Shah이 [arXiv]에 게시한 'I Think, Therefore I Am Under-Qualified? A Benchmark for Evaluating
+excerpt: "Chirag Shah이 arXiv에 게시한 'I Think, Therefore I Am Under-Qualified? A Benchmark for Evaluating
   Linguistic Shibboleth Detection in LLM Hiring Evaluations' 논문에 대한 자세한 리뷰입니다."
 
 categories:

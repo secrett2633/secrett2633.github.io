@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] The Tool Decathlon: Benchmarking Language Agents for Diverse, Realistic,
   and Long-Horizon Task Execution"
-excerpt: "Haoze Wu이 [arXiv]에 게시한 'The Tool Decathlon: Benchmarking Language Agents for Diverse, Realistic,
+excerpt: "Haoze Wu이 arXiv에 게시한 'The Tool Decathlon: Benchmarking Language Agents for Diverse, Realistic,
   and Long-Horizon Task Execution' 논문에 대한 자세한 리뷰입니다."
 
 categories:

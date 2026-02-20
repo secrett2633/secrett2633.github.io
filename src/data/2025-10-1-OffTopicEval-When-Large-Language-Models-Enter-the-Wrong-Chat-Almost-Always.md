@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] OffTopicEval: When Large Language Models Enter the Wrong Chat, Almost
   Always!"
-excerpt: "이 [arXiv]에 게시한 'OffTopicEval: When Large Language Models Enter the Wrong Chat, Almost
+excerpt: "arXiv에 게시된 'OffTopicEval: When Large Language Models Enter the Wrong Chat, Almost
   Always!' 논문에 대한 자세한 리뷰입니다."
 
 categories:

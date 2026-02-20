@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Who's Your Judge? On the Detectability of LLM-Generated Judgments"
-excerpt: "이 [arXiv]에 게시한 'Who's Your Judge? On the Detectability of LLM-Generated Judgments' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Who's Your Judge? On the Detectability of LLM-Generated Judgments' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

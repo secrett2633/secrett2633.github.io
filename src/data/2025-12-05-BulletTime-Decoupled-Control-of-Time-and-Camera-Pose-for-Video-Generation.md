@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] BulletTime: Decoupled Control of Time and Camera Pose for Video Generation"
-excerpt: "Jan Ackermann이 [arXiv]에 게시한 'BulletTime: Decoupled Control of Time and Camera Pose for Video Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jan Ackermann이 arXiv에 게시한 'BulletTime: Decoupled Control of Time and Camera Pose for Video Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

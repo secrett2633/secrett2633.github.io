@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] UCoder: Unsupervised Code Generation by Internal Probing of Large Language Models"
-excerpt: "Yuqing Ma이 [arXiv]에 게시한 'UCoder: Unsupervised Code Generation by Internal Probing of Large Language Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yuqing Ma이 arXiv에 게시한 'UCoder: Unsupervised Code Generation by Internal Probing of Large Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

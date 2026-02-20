@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] M3Ret: Unleashing Zero-shot Multimodal Medical Image Retrieval via
   Self-Supervision"
-excerpt: "Yan-Jie Zhou이 [arXiv]에 게시한 'M3Ret: Unleashing Zero-shot Multimodal Medical Image Retrieval via
+excerpt: "Yan-Jie Zhou이 arXiv에 게시한 'M3Ret: Unleashing Zero-shot Multimodal Medical Image Retrieval via
   Self-Supervision' 논문에 대한 자세한 리뷰입니다."
 
 categories:

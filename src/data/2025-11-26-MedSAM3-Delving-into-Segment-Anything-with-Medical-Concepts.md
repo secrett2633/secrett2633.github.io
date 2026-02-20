@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MedSAM3: Delving into Segment Anything with Medical Concepts"
-excerpt: "Yi Lu이 [arXiv]에 게시한 'MedSAM3: Delving into Segment Anything with Medical Concepts' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yi Lu이 arXiv에 게시한 'MedSAM3: Delving into Segment Anything with Medical Concepts' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

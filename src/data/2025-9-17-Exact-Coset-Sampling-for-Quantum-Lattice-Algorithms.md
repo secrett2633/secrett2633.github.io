@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Exact Coset Sampling for Quantum Lattice Algorithms"
-excerpt: "Yifan Zhang이 [arXiv]에 게시한 'Exact Coset Sampling for Quantum Lattice Algorithms' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yifan Zhang이 arXiv에 게시한 'Exact Coset Sampling for Quantum Lattice Algorithms' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

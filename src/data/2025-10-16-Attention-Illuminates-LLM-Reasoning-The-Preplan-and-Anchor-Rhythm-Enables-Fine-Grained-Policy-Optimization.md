@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Attention Illuminates LLM Reasoning: The Preplan-and-Anchor Rhythm
   Enables Fine-Grained Policy Optimization"
-excerpt: "이 [arXiv]에 게시한 'Attention Illuminates LLM Reasoning: The Preplan-and-Anchor Rhythm
+excerpt: "arXiv에 게시된 'Attention Illuminates LLM Reasoning: The Preplan-and-Anchor Rhythm
   Enables Fine-Grained Policy Optimization' 논문에 대한 자세한 리뷰입니다."
 
 categories:

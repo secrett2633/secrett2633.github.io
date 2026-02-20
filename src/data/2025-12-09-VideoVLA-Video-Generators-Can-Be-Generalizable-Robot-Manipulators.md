@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] VideoVLA: Video Generators Can Be Generalizable Robot Manipulators"
-excerpt: "Yaobo Liang이 [arXiv]에 게시한 'VideoVLA: Video Generators Can Be Generalizable Robot Manipulators' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yaobo Liang이 arXiv에 게시한 'VideoVLA: Video Generators Can Be Generalizable Robot Manipulators' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

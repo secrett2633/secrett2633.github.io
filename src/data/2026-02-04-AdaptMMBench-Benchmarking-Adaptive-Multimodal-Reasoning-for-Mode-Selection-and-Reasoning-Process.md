@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] AdaptMMBench: Benchmarking Adaptive Multimodal Reasoning for Mode Selection and Reasoning Process"
-excerpt: "Shilin Yan이 [arXiv]에 게시한 'AdaptMMBench: Benchmarking Adaptive Multimodal Reasoning for Mode Selection and Reasoning Process' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Shilin Yan이 arXiv에 게시한 'AdaptMMBench: Benchmarking Adaptive Multimodal Reasoning for Mode Selection and Reasoning Process' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

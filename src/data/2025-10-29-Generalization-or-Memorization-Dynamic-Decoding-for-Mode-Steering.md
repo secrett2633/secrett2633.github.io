@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Generalization or Memorization: Dynamic Decoding for Mode Steering"
-excerpt: "이 [arXiv]에 게시한 'Generalization or Memorization: Dynamic Decoding for Mode Steering' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Generalization or Memorization: Dynamic Decoding for Mode Steering' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

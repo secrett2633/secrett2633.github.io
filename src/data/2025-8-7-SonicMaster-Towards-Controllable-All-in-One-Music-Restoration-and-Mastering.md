@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] SonicMaster: Towards Controllable All-in-One Music Restoration and
   Mastering"
-excerpt: "Ambuj Mehrish이 [arXiv]에 게시한 'SonicMaster: Towards Controllable All-in-One Music Restoration and
+excerpt: "Ambuj Mehrish이 arXiv에 게시한 'SonicMaster: Towards Controllable All-in-One Music Restoration and
   Mastering' 논문에 대한 자세한 리뷰입니다."
 
 categories:

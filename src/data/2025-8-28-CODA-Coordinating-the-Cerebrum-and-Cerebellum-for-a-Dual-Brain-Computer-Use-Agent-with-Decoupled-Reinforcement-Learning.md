@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] CODA: Coordinating the Cerebrum and Cerebellum for a Dual-Brain Computer
   Use Agent with Decoupled Reinforcement Learning"
-excerpt: "Jianze Liang이 [arXiv]에 게시한 'CODA: Coordinating the Cerebrum and Cerebellum for a Dual-Brain Computer
+excerpt: "Jianze Liang이 arXiv에 게시한 'CODA: Coordinating the Cerebrum and Cerebellum for a Dual-Brain Computer
   Use Agent with Decoupled Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

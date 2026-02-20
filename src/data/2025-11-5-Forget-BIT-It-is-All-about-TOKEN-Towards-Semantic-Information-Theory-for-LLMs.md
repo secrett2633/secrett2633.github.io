@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Forget BIT, It is All about TOKEN: Towards Semantic Information Theory
   for LLMs"
-excerpt: "Bo Bai이 [arXiv]에 게시한 'Forget BIT, It is All about TOKEN: Towards Semantic Information Theory
+excerpt: "Bo Bai이 arXiv에 게시한 'Forget BIT, It is All about TOKEN: Towards Semantic Information Theory
   for LLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:

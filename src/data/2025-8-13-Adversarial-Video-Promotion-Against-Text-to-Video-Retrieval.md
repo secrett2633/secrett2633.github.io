@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Adversarial Video Promotion Against Text-to-Video Retrieval"
-excerpt: "Shuai Liu이 [arXiv]에 게시한 'Adversarial Video Promotion Against Text-to-Video Retrieval' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Shuai Liu이 arXiv에 게시한 'Adversarial Video Promotion Against Text-to-Video Retrieval' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

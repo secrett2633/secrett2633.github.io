@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Factorized Learning for Temporally Grounded Video-Language Models"
-excerpt: "이 [arXiv]에 게시한 'Factorized Learning for Temporally Grounded Video-Language Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Factorized Learning for Temporally Grounded Video-Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

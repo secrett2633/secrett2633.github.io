@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Can Visual Input Be Compressed? A Visual Token Compression Benchmark for
   Large Multimodal Models"
-excerpt: "Shijie Dong이 [arXiv]에 게시한 'Can Visual Input Be Compressed? A Visual Token Compression Benchmark for
+excerpt: "Shijie Dong이 arXiv에 게시한 'Can Visual Input Be Compressed? A Visual Token Compression Benchmark for
   Large Multimodal Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

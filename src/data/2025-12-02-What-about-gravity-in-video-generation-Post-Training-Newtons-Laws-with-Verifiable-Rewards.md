@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] What about gravity in video generation? Post-Training Newton's Laws with Verifiable Rewards"
-excerpt: "이 [arXiv]에 게시한 'What about gravity in video generation? Post-Training Newton's Laws with Verifiable Rewards' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'What about gravity in video generation? Post-Training Newton's Laws with Verifiable Rewards' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

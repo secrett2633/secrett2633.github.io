@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Deep Ignorance: Filtering Pretraining Data Builds Tamper-Resistant
   Safeguards into Open-Weight LLMs"
-excerpt: "Robert Kirk이 [arXiv]에 게시한 'Deep Ignorance: Filtering Pretraining Data Builds Tamper-Resistant
+excerpt: "Robert Kirk이 arXiv에 게시한 'Deep Ignorance: Filtering Pretraining Data Builds Tamper-Resistant
   Safeguards into Open-Weight LLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] EntroPE: Entropy-Guided Dynamic Patch Encoder for Time Series
   Forecasting"
-excerpt: "이 [arXiv]에 게시한 'EntroPE: Entropy-Guided Dynamic Patch Encoder for Time Series
+excerpt: "arXiv에 게시된 'EntroPE: Entropy-Guided Dynamic Patch Encoder for Time Series
   Forecasting' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Real2Edit2Real: Generating Robotic Demonstrations via a 3D Control Interface"
-excerpt: "Liliang Chen이 [arXiv]에 게시한 'Real2Edit2Real: Generating Robotic Demonstrations via a 3D Control Interface' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Liliang Chen이 arXiv에 게시한 'Real2Edit2Real: Generating Robotic Demonstrations via a 3D Control Interface' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

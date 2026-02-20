@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Training Dynamics Impact Post-Training Quantization Robustness"
-excerpt: "Jonas Geiping이 [arXiv]에 게시한 'Training Dynamics Impact Post-Training Quantization Robustness' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jonas Geiping이 arXiv에 게시한 'Training Dynamics Impact Post-Training Quantization Robustness' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Describe What You See with Multimodal Large Language Models to Enhance
   Video Recommendations"
-excerpt: "Mounia Lalmas이 [arXiv]에 게시한 'Describe What You See with Multimodal Large Language Models to Enhance
+excerpt: "Mounia Lalmas이 arXiv에 게시한 'Describe What You See with Multimodal Large Language Models to Enhance
   Video Recommendations' 논문에 대한 자세한 리뷰입니다."
 
 categories:

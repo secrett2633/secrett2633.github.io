@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] LLMs as Scalable, General-Purpose Simulators For Evolving Digital Agent
   Training"
-excerpt: "이 [arXiv]에 게시한 'LLMs as Scalable, General-Purpose Simulators For Evolving Digital Agent
+excerpt: "arXiv에 게시된 'LLMs as Scalable, General-Purpose Simulators For Evolving Digital Agent
   Training' 논문에 대한 자세한 리뷰입니다."
 
 categories:

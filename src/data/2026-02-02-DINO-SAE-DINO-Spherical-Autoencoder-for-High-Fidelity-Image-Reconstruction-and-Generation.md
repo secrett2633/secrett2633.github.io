@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DINO-SAE: DINO Spherical Autoencoder for High-Fidelity Image Reconstruction and Generation"
-excerpt: "Jong Chul Ye이 [arXiv]에 게시한 'DINO-SAE: DINO Spherical Autoencoder for High-Fidelity Image Reconstruction and Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jong Chul Ye이 arXiv에 게시한 'DINO-SAE: DINO Spherical Autoencoder for High-Fidelity Image Reconstruction and Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

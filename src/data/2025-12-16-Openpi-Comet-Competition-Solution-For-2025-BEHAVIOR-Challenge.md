@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Openpi Comet: Competition Solution For 2025 BEHAVIOR Challenge"
-excerpt: "Jinwei Gu이 [arXiv]에 게시한 'Openpi Comet: Competition Solution For 2025 BEHAVIOR Challenge' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jinwei Gu이 arXiv에 게시한 'Openpi Comet: Competition Solution For 2025 BEHAVIOR Challenge' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

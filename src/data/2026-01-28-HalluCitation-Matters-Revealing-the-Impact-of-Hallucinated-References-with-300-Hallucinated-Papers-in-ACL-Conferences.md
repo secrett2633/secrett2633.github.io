@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] HalluCitation Matters: Revealing the Impact of Hallucinated References with 300 Hallucinated Papers in ACL Conferences"
-excerpt: "Taro Watanabe이 [arXiv]에 게시한 'HalluCitation Matters: Revealing the Impact of Hallucinated References with 300 Hallucinated Papers in ACL Conferences' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Taro Watanabe이 arXiv에 게시한 'HalluCitation Matters: Revealing the Impact of Hallucinated References with 300 Hallucinated Papers in ACL Conferences' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Reasoning with Confidence: Efficient Verification of LLM Reasoning Steps   via Uncertainty Heads"
-excerpt: "Jiaheng Zhang이 [arXiv]에 게시한 'Reasoning with Confidence: Efficient Verification of LLM Reasoning Steps   via Uncertainty Heads' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jiaheng Zhang이 arXiv에 게시한 'Reasoning with Confidence: Efficient Verification of LLM Reasoning Steps   via Uncertainty Heads' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

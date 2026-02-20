@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MITS: Enhanced Tree Search Reasoning for LLMs via Pointwise Mutual
   Information"
-excerpt: "이 [arXiv]에 게시한 'MITS: Enhanced Tree Search Reasoning for LLMs via Pointwise Mutual
+excerpt: "arXiv에 게시된 'MITS: Enhanced Tree Search Reasoning for LLMs via Pointwise Mutual
   Information' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] NaViL: Rethinking Scaling Properties of Native Multimodal Large Language
   Models under Data Constraints"
-excerpt: "이 [arXiv]에 게시한 'NaViL: Rethinking Scaling Properties of Native Multimodal Large Language
+excerpt: "arXiv에 게시된 'NaViL: Rethinking Scaling Properties of Native Multimodal Large Language
   Models under Data Constraints' 논문에 대한 자세한 리뷰입니다."
 
 categories:

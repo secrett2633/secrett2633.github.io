@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MDAgent2: Large Language Model for Code Generation and Knowledge Q&A in Molecular Dynamics"
-excerpt: "이 [arXiv]에 게시한 'MDAgent2: Large Language Model for Code Generation and Knowledge Q&A in Molecular Dynamics' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'MDAgent2: Large Language Model for Code Generation and Knowledge Q&A in Molecular Dynamics' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

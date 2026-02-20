@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Dr.V: A Hierarchical Perception-Temporal-Cognition Framework to Diagnose
   Video Hallucination by Fine-grained Spatial-Temporal Grounding"
-excerpt: "Li Zheng이 [arXiv]에 게시한 'Dr.V: A Hierarchical Perception-Temporal-Cognition Framework to Diagnose
+excerpt: "Li Zheng이 arXiv에 게시한 'Dr.V: A Hierarchical Perception-Temporal-Cognition Framework to Diagnose
   Video Hallucination by Fine-grained Spatial-Temporal Grounding' 논문에 대한 자세한 리뷰입니다."
 
 categories:

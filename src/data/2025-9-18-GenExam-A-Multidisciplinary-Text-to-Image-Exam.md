@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] GenExam: A Multidisciplinary Text-to-Image Exam"
-excerpt: "Yu Qiao이 [arXiv]에 게시한 'GenExam: A Multidisciplinary Text-to-Image Exam' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yu Qiao이 arXiv에 게시한 'GenExam: A Multidisciplinary Text-to-Image Exam' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

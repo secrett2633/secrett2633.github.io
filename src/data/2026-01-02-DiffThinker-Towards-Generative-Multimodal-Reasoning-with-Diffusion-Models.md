@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DiffThinker: Towards Generative Multimodal Reasoning with Diffusion Models"
-excerpt: "Siyuan Huang이 [arXiv]에 게시한 'DiffThinker: Towards Generative Multimodal Reasoning with Diffusion Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Siyuan Huang이 arXiv에 게시한 'DiffThinker: Towards Generative Multimodal Reasoning with Diffusion Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SAM 3D Body: Robust Full-Body Human Mesh Recovery"
-excerpt: "Taosha Fan이 [arXiv]에 게시한 'SAM 3D Body: Robust Full-Body Human Mesh Recovery' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Taosha Fan이 arXiv에 게시한 'SAM 3D Body: Robust Full-Body Human Mesh Recovery' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

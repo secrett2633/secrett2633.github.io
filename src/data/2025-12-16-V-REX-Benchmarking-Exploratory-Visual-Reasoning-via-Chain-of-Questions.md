@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] V-REX: Benchmarking Exploratory Visual Reasoning via Chain-of-Questions"
-excerpt: "Kwesi Cobbina이 [arXiv]에 게시한 'V-REX: Benchmarking Exploratory Visual Reasoning via Chain-of-Questions' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Kwesi Cobbina이 arXiv에 게시한 'V-REX: Benchmarking Exploratory Visual Reasoning via Chain-of-Questions' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

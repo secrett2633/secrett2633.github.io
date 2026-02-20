@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Mitigating Attention Sinks and Massive Activations in Audio-Visual
   Speech Recognition with LLMS"
-excerpt: "이 [arXiv]에 게시한 'Mitigating Attention Sinks and Massive Activations in Audio-Visual
+excerpt: "arXiv에 게시된 'Mitigating Attention Sinks and Massive Activations in Audio-Visual
   Speech Recognition with LLMS' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Canvas-to-Image: Compositional Image Generation with Multimodal Controls"
-excerpt: "Kfir Aberman이 [arXiv]에 게시한 'Canvas-to-Image: Compositional Image Generation with Multimodal Controls' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Kfir Aberman이 arXiv에 게시한 'Canvas-to-Image: Compositional Image Generation with Multimodal Controls' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

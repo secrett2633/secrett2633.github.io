@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Jointly Reinforcing Diversity and Quality in Language Model Generations"
-excerpt: "Tianlu이 [arXiv]에 게시한 'Jointly Reinforcing Diversity and Quality in Language Model Generations' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Tianlu이 arXiv에 게시한 'Jointly Reinforcing Diversity and Quality in Language Model Generations' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

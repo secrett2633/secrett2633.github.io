@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] AI for Service: Proactive Assistance with AI Glasses"
-excerpt: "이 [arXiv]에 게시한 'AI for Service: Proactive Assistance with AI Glasses' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'AI for Service: Proactive Assistance with AI Glasses' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] ATLAS: A High-Difficulty, Multidisciplinary Benchmark for Frontier Scientific Reasoning"
-excerpt: "Yuqiang Li이 [arXiv]에 게시한 'ATLAS: A High-Difficulty, Multidisciplinary Benchmark for Frontier Scientific Reasoning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yuqiang Li이 arXiv에 게시한 'ATLAS: A High-Difficulty, Multidisciplinary Benchmark for Frontier Scientific Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

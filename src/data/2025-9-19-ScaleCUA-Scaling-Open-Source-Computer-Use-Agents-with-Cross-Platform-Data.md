@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] ScaleCUA: Scaling Open-Source Computer Use Agents with Cross-Platform
   Data"
-excerpt: "Zehao Li이 [arXiv]에 게시한 'ScaleCUA: Scaling Open-Source Computer Use Agents with Cross-Platform
+excerpt: "Zehao Li이 arXiv에 게시한 'ScaleCUA: Scaling Open-Source Computer Use Agents with Cross-Platform
   Data' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] C3D-AD: Toward Continual 3D Anomaly Detection via Kernel Attention with
   Learnable Advisor"
-excerpt: "Jinbao Wang이 [arXiv]에 게시한 'C3D-AD: Toward Continual 3D Anomaly Detection via Kernel Attention with
+excerpt: "Jinbao Wang이 arXiv에 게시한 'C3D-AD: Toward Continual 3D Anomaly Detection via Kernel Attention with
   Learnable Advisor' 논문에 대한 자세한 리뷰입니다."
 
 categories:

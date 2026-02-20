@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] See, Point, Fly: A Learning-Free VLM Framework for Universal Unmanned
   Aerial Navigation"
-excerpt: "Chih-Hai Su이 [arXiv]에 게시한 'See, Point, Fly: A Learning-Free VLM Framework for Universal Unmanned
+excerpt: "Chih-Hai Su이 arXiv에 게시한 'See, Point, Fly: A Learning-Free VLM Framework for Universal Unmanned
   Aerial Navigation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

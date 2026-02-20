@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] FlashVSR: Towards Real-Time Diffusion-Based Streaming Video
   Super-Resolution"
-excerpt: "Yihao Liu이 [arXiv]에 게시한 'FlashVSR: Towards Real-Time Diffusion-Based Streaming Video
+excerpt: "Yihao Liu이 arXiv에 게시한 'FlashVSR: Towards Real-Time Diffusion-Based Streaming Video
   Super-Resolution' 논문에 대한 자세한 리뷰입니다."
 
 categories:

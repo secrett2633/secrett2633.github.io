@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] HERMES: Human-to-Robot Embodied Learning from Multi-Source Motion Data
   for Mobile Dexterous Manipulation"
-excerpt: "Tianhai Liang이 [arXiv]에 게시한 'HERMES: Human-to-Robot Embodied Learning from Multi-Source Motion Data
+excerpt: "Tianhai Liang이 arXiv에 게시한 'HERMES: Human-to-Robot Embodied Learning from Multi-Source Motion Data
   for Mobile Dexterous Manipulation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

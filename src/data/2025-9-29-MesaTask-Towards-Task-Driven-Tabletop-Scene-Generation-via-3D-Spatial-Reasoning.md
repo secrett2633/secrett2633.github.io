@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MesaTask: Towards Task-Driven Tabletop Scene Generation via 3D Spatial
   Reasoning"
-excerpt: "Weipeng Zhong이 [arXiv]에 게시한 'MesaTask: Towards Task-Driven Tabletop Scene Generation via 3D Spatial
+excerpt: "Weipeng Zhong이 arXiv에 게시한 'MesaTask: Towards Task-Driven Tabletop Scene Generation via 3D Spatial
   Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

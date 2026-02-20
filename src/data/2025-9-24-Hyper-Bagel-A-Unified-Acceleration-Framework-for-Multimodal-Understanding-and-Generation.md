@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Hyper-Bagel: A Unified Acceleration Framework for Multimodal
   Understanding and Generation"
-excerpt: "Jianbin Zheng이 [arXiv]에 게시한 'Hyper-Bagel: A Unified Acceleration Framework for Multimodal
+excerpt: "Jianbin Zheng이 arXiv에 게시한 'Hyper-Bagel: A Unified Acceleration Framework for Multimodal
   Understanding and Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

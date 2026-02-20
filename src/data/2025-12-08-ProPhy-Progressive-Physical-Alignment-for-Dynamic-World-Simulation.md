@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] ProPhy: Progressive Physical Alignment for Dynamic World Simulation"
-excerpt: "Yuhao Cheng이 [arXiv]에 게시한 'ProPhy: Progressive Physical Alignment for Dynamic World Simulation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yuhao Cheng이 arXiv에 게시한 'ProPhy: Progressive Physical Alignment for Dynamic World Simulation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

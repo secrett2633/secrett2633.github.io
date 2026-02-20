@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Bootstrapping Task Spaces for Self-Improvement"
-excerpt: "Yoram Bachrach이 [arXiv]에 게시한 'Bootstrapping Task Spaces for Self-Improvement' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yoram Bachrach이 arXiv에 게시한 'Bootstrapping Task Spaces for Self-Improvement' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

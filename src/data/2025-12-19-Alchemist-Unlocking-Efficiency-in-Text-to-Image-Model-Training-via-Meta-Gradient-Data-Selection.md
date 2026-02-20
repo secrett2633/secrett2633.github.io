@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Alchemist: Unlocking Efficiency in Text-to-Image Model Training via Meta-Gradient Data Selection"
-excerpt: "Jiarong Ou이 [arXiv]에 게시한 'Alchemist: Unlocking Efficiency in Text-to-Image Model Training via Meta-Gradient Data Selection' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jiarong Ou이 arXiv에 게시한 'Alchemist: Unlocking Efficiency in Text-to-Image Model Training via Meta-Gradient Data Selection' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

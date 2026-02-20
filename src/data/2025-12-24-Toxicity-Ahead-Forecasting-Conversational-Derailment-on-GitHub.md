@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Toxicity Ahead: Forecasting Conversational Derailment on GitHub"
-excerpt: "Kostadin Damevski이 [arXiv]에 게시한 'Toxicity Ahead: Forecasting Conversational Derailment on GitHub' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Kostadin Damevski이 arXiv에 게시한 'Toxicity Ahead: Forecasting Conversational Derailment on GitHub' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Mask-to-Height: A YOLOv11-Based Architecture for Joint Building Instance
   Segmentation and Height Classification from Satellite Imagery"
-excerpt: "Oğuz Hanoğlu이 [arXiv]에 게시한 'Mask-to-Height: A YOLOv11-Based Architecture for Joint Building Instance
+excerpt: "Oğuz Hanoğlu이 arXiv에 게시한 'Mask-to-Height: A YOLOv11-Based Architecture for Joint Building Instance
   Segmentation and Height Classification from Satellite Imagery' 논문에 대한 자세한 리뷰입니다."
 
 categories:

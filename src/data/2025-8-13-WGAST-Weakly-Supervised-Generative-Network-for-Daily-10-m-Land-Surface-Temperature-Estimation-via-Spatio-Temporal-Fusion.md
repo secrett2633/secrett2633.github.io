@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] WGAST: Weakly-Supervised Generative Network for Daily 10 m Land Surface
   Temperature Estimation via Spatio-Temporal Fusion"
-excerpt: "Rachid Nedjai이 [arXiv]에 게시한 'WGAST: Weakly-Supervised Generative Network for Daily 10 m Land Surface
+excerpt: "Rachid Nedjai이 arXiv에 게시한 'WGAST: Weakly-Supervised Generative Network for Daily 10 m Land Surface
   Temperature Estimation via Spatio-Temporal Fusion' 논문에 대한 자세한 리뷰입니다."
 
 categories:

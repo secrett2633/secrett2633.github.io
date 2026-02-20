@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Visual Autoregressive Models Beat Diffusion Models on Inference Time
   Scaling"
-excerpt: "Dim P. Papadopoulos이 [arXiv]에 게시한 'Visual Autoregressive Models Beat Diffusion Models on Inference Time
+excerpt: "Dim P. Papadopoulos이 arXiv에 게시한 'Visual Autoregressive Models Beat Diffusion Models on Inference Time
   Scaling' 논문에 대한 자세한 리뷰입니다."
 
 categories:

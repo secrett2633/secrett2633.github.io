@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Turn-PPO: Turn-Level Advantage Estimation with PPO for Improved Multi-Turn RL in Agentic LLMs"
-excerpt: "Lihong Li이 [arXiv]에 게시한 'Turn-PPO: Turn-Level Advantage Estimation with PPO for Improved Multi-Turn RL in Agentic LLMs' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Lihong Li이 arXiv에 게시한 'Turn-PPO: Turn-Level Advantage Estimation with PPO for Improved Multi-Turn RL in Agentic LLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

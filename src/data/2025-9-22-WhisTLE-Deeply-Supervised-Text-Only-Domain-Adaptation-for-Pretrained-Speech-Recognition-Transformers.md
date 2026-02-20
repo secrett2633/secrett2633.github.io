@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] WhisTLE: Deeply Supervised, Text-Only Domain Adaptation for Pretrained
   Speech Recognition Transformers"
-excerpt: "Karun Kumar이 [arXiv]에 게시한 'WhisTLE: Deeply Supervised, Text-Only Domain Adaptation for Pretrained
+excerpt: "Karun Kumar이 arXiv에 게시한 'WhisTLE: Deeply Supervised, Text-Only Domain Adaptation for Pretrained
   Speech Recognition Transformers' 논문에 대한 자세한 리뷰입니다."
 
 categories:

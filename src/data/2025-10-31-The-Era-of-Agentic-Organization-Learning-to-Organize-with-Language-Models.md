@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] The Era of Agentic Organization: Learning to Organize with Language
   Models"
-excerpt: "Xun Wu이 [arXiv]에 게시한 'The Era of Agentic Organization: Learning to Organize with Language
+excerpt: "Xun Wu이 arXiv에 게시한 'The Era of Agentic Organization: Learning to Organize with Language
   Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

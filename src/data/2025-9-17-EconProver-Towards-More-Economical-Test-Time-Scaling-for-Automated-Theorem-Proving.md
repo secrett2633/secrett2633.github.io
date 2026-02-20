@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] EconProver: Towards More Economical Test-Time Scaling for Automated
   Theorem Proving"
-excerpt: "Shansan Gong이 [arXiv]에 게시한 'EconProver: Towards More Economical Test-Time Scaling for Automated
+excerpt: "Shansan Gong이 arXiv에 게시한 'EconProver: Towards More Economical Test-Time Scaling for Automated
   Theorem Proving' 논문에 대한 자세한 리뷰입니다."
 
 categories:

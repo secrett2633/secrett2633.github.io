@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Multimodal Reasoning for Science: Technical Report and 1st Place
   Solution to the ICML 2025 SeePhys Challenge"
-excerpt: "Wentao Zhang이 [arXiv]에 게시한 'Multimodal Reasoning for Science: Technical Report and 1st Place
+excerpt: "Wentao Zhang이 arXiv에 게시한 'Multimodal Reasoning for Science: Technical Report and 1st Place
   Solution to the ICML 2025 SeePhys Challenge' 논문에 대한 자세한 리뷰입니다."
 
 categories:

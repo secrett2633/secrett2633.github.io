@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] LiteStage: Latency-aware Layer Skipping for Multi-stage Reasoning"
-excerpt: "이 [arXiv]에 게시한 'LiteStage: Latency-aware Layer Skipping for Multi-stage Reasoning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'LiteStage: Latency-aware Layer Skipping for Multi-stage Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

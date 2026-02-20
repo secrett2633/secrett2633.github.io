@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] DeLeaker: Dynamic Inference-Time Reweighting For Semantic Leakage
   Mitigation in Text-to-Image Models"
-excerpt: "Roi Reichart이 [arXiv]에 게시한 'DeLeaker: Dynamic Inference-Time Reweighting For Semantic Leakage
+excerpt: "Roi Reichart이 arXiv에 게시한 'DeLeaker: Dynamic Inference-Time Reweighting For Semantic Leakage
   Mitigation in Text-to-Image Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

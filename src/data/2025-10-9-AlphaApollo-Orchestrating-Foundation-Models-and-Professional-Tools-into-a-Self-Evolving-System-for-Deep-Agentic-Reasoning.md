@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] AlphaApollo: Orchestrating Foundation Models and Professional Tools into
   a Self-Evolving System for Deep Agentic Reasoning"
-excerpt: "Zongze Li이 [arXiv]에 게시한 'AlphaApollo: Orchestrating Foundation Models and Professional Tools into
+excerpt: "Zongze Li이 arXiv에 게시한 'AlphaApollo: Orchestrating Foundation Models and Professional Tools into
   a Self-Evolving System for Deep Agentic Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Efficient Agents: Building Effective Agents While Reducing Cost"
-excerpt: "Yue Hou이 [arXiv]에 게시한 'Efficient Agents: Building Effective Agents While Reducing Cost' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yue Hou이 arXiv에 게시한 'Efficient Agents: Building Effective Agents While Reducing Cost' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

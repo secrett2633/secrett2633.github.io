@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] LiveMCPBench: Can Agents Navigate an Ocean of MCP Tools?"
-excerpt: "Yaojie Lu이 [arXiv]에 게시한 'LiveMCPBench: Can Agents Navigate an Ocean of MCP Tools?' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yaojie Lu이 arXiv에 게시한 'LiveMCPBench: Can Agents Navigate an Ocean of MCP Tools?' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] sangkuriang: A pseudo-spectral Python library for Korteweg-de Vries soliton simulation"
-excerpt: "이 [arXiv]에 게시한 'sangkuriang: A pseudo-spectral Python library for Korteweg-de Vries soliton simulation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'sangkuriang: A pseudo-spectral Python library for Korteweg-de Vries soliton simulation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

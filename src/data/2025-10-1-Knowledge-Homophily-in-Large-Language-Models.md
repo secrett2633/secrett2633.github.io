@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Knowledge Homophily in Large Language Models"
-excerpt: "Nedim Lipka이 [arXiv]에 게시한 'Knowledge Homophily in Large Language Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Nedim Lipka이 arXiv에 게시한 'Knowledge Homophily in Large Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

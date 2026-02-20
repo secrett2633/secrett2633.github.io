@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] VeOmni: Scaling Any Modality Model Training with Model-Centric
   Distributed Recipe Zoo"
-excerpt: "Bin Jia이 [arXiv]에 게시한 'VeOmni: Scaling Any Modality Model Training with Model-Centric
+excerpt: "Bin Jia이 arXiv에 게시한 'VeOmni: Scaling Any Modality Model Training with Model-Centric
   Distributed Recipe Zoo' 논문에 대한 자세한 리뷰입니다."
 
 categories:

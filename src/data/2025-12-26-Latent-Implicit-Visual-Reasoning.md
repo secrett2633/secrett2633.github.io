@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Latent Implicit Visual Reasoning"
-excerpt: "이 [arXiv]에 게시한 'Latent Implicit Visual Reasoning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Latent Implicit Visual Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

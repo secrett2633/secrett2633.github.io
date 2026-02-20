@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] D-Artemis: A Deliberative Cognitive Framework for Mobile GUI
   Multi-Agents"
-excerpt: "Jinyuan Li이 [arXiv]에 게시한 'D-Artemis: A Deliberative Cognitive Framework for Mobile GUI
+excerpt: "Jinyuan Li이 arXiv에 게시한 'D-Artemis: A Deliberative Cognitive Framework for Mobile GUI
   Multi-Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Kandinsky 5.0: A Family of Foundation Models for Image and Video Generation"
-excerpt: "Vladimir Arkhipkin이 [arXiv]에 게시한 'Kandinsky 5.0: A Family of Foundation Models for Image and Video Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Vladimir Arkhipkin이 arXiv에 게시한 'Kandinsky 5.0: A Family of Foundation Models for Image and Video Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

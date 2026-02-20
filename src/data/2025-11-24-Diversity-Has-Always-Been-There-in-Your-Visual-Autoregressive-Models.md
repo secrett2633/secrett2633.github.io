@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Diversity Has Always Been There in Your Visual Autoregressive Models"
-excerpt: "Yaxing Wang이 [arXiv]에 게시한 'Diversity Has Always Been There in Your Visual Autoregressive Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yaxing Wang이 arXiv에 게시한 'Diversity Has Always Been There in Your Visual Autoregressive Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

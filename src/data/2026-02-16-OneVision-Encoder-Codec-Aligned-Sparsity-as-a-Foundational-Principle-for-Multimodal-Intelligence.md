@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] OneVision-Encoder: Codec-Aligned Sparsity as a Foundational Principle for Multimodal Intelligence"
-excerpt: "이 [arXiv]에 게시한 'OneVision-Encoder: Codec-Aligned Sparsity as a Foundational Principle for Multimodal Intelligence' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'OneVision-Encoder: Codec-Aligned Sparsity as a Foundational Principle for Multimodal Intelligence' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

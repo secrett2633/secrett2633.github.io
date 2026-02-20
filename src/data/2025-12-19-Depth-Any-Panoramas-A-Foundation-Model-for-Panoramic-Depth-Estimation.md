@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Depth Any Panoramas: A Foundation Model for Panoramic Depth Estimation"
-excerpt: "Wenxuan Lu이 [arXiv]에 게시한 'Depth Any Panoramas: A Foundation Model for Panoramic Depth Estimation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Wenxuan Lu이 arXiv에 게시한 'Depth Any Panoramas: A Foundation Model for Panoramic Depth Estimation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

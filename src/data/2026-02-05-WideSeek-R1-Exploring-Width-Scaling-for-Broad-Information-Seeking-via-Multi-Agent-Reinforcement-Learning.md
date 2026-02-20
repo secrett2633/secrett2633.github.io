@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] WideSeek-R1: Exploring Width Scaling for Broad Information Seeking via Multi-Agent Reinforcement Learning"
-excerpt: "이 [arXiv]에 게시한 'WideSeek-R1: Exploring Width Scaling for Broad Information Seeking via Multi-Agent Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'WideSeek-R1: Exploring Width Scaling for Broad Information Seeking via Multi-Agent Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

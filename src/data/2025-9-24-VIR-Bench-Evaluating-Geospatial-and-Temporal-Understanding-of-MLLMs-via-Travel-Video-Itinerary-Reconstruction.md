@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] VIR-Bench: Evaluating Geospatial and Temporal Understanding of MLLMs via
   Travel Video Itinerary Reconstruction"
-excerpt: "So Fukuda이 [arXiv]에 게시한 'VIR-Bench: Evaluating Geospatial and Temporal Understanding of MLLMs via
+excerpt: "So Fukuda이 arXiv에 게시한 'VIR-Bench: Evaluating Geospatial and Temporal Understanding of MLLMs via
   Travel Video Itinerary Reconstruction' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Deforming Videos to Masks: Flow Matching for Referring Video
   Segmentation"
-excerpt: "Chengzu Li이 [arXiv]에 게시한 'Deforming Videos to Masks: Flow Matching for Referring Video
+excerpt: "Chengzu Li이 arXiv에 게시한 'Deforming Videos to Masks: Flow Matching for Referring Video
   Segmentation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

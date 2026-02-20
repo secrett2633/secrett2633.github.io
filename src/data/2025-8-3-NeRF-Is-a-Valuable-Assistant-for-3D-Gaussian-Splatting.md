@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] NeRF Is a Valuable Assistant for 3D Gaussian Splatting"
-excerpt: "ZeSheng Wang이 [arXiv]에 게시한 'NeRF Is a Valuable Assistant for 3D Gaussian Splatting' 논문에 대한 자세한 리뷰입니다."
+excerpt: "ZeSheng Wang이 arXiv에 게시한 'NeRF Is a Valuable Assistant for 3D Gaussian Splatting' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] GSFixer: Improving 3D Gaussian Splatting with Reference-Guided Video
   Diffusion Priors"
-excerpt: "Qingnan Fan이 [arXiv]에 게시한 'GSFixer: Improving 3D Gaussian Splatting with Reference-Guided Video
+excerpt: "Qingnan Fan이 arXiv에 게시한 'GSFixer: Improving 3D Gaussian Splatting with Reference-Guided Video
   Diffusion Priors' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Compressing Chain-of-Thought in LLMs via Step Entropy"
-excerpt: "Zhijian Xu이 [arXiv]에 게시한 'Compressing Chain-of-Thought in LLMs via Step Entropy' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zhijian Xu이 arXiv에 게시한 'Compressing Chain-of-Thought in LLMs via Step Entropy' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] OneThinker: All-in-one Reasoning Model for Image and Video"
-excerpt: "Kaixuan Fan이 [arXiv]에 게시한 'OneThinker: All-in-one Reasoning Model for Image and Video' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Kaixuan Fan이 arXiv에 게시한 'OneThinker: All-in-one Reasoning Model for Image and Video' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

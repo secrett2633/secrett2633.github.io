@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Repurposing Synthetic Data for Fine-grained Search Agent Supervision"
-excerpt: "이 [arXiv]에 게시한 'Repurposing Synthetic Data for Fine-grained Search Agent Supervision' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Repurposing Synthetic Data for Fine-grained Search Agent Supervision' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

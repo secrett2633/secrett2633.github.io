@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Spatial Forcing: Implicit Spatial Representation Alignment for
   Vision-language-action Model"
-excerpt: "이 [arXiv]에 게시한 'Spatial Forcing: Implicit Spatial Representation Alignment for
+excerpt: "arXiv에 게시된 'Spatial Forcing: Implicit Spatial Representation Alignment for
   Vision-language-action Model' 논문에 대한 자세한 리뷰입니다."
 
 categories:

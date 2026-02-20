@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] DiffTester: Accelerating Unit Test Generation for Diffusion LLMs via
   Repetitive Pattern"
-excerpt: "Jia Li이 [arXiv]에 게시한 'DiffTester: Accelerating Unit Test Generation for Diffusion LLMs via
+excerpt: "Jia Li이 arXiv에 게시한 'DiffTester: Accelerating Unit Test Generation for Diffusion LLMs via
   Repetitive Pattern' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] From Hugging Face to GitHub: Tracing License Drift in the Open-Source AI
   Ecosystem"
-excerpt: "Ahmed E. Hassan이 [arXiv]에 게시한 'From Hugging Face to GitHub: Tracing License Drift in the Open-Source AI
+excerpt: "Ahmed E. Hassan이 arXiv에 게시한 'From Hugging Face to GitHub: Tracing License Drift in the Open-Source AI
   Ecosystem' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Step 3.5 Flash: Open Frontier-Level Intelligence with 11B Active Parameters"
-excerpt: "이 [arXiv]에 게시한 'Step 3.5 Flash: Open Frontier-Level Intelligence with 11B Active Parameters' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Step 3.5 Flash: Open Frontier-Level Intelligence with 11B Active Parameters' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

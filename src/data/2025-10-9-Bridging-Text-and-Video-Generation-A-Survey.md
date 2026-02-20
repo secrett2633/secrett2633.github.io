@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Bridging Text and Video Generation: A Survey"
-excerpt: "G. Maragatham이 [arXiv]에 게시한 'Bridging Text and Video Generation: A Survey' 논문에 대한 자세한 리뷰입니다."
+excerpt: "G. Maragatham이 arXiv에 게시한 'Bridging Text and Video Generation: A Survey' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

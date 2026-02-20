@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] VoxHammer: Training-Free Precise and Coherent 3D Editing in Native 3D
   Space"
-excerpt: "Rui Chen이 [arXiv]에 게시한 'VoxHammer: Training-Free Precise and Coherent 3D Editing in Native 3D
+excerpt: "Rui Chen이 arXiv에 게시한 'VoxHammer: Training-Free Precise and Coherent 3D Editing in Native 3D
   Space' 논문에 대한 자세한 리뷰입니다."
 
 categories:

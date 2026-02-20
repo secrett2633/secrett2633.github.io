@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] INT v.s. FP: A Comprehensive Study of Fine-Grained Low-bit Quantization
   Formats"
-excerpt: "이 [arXiv]에 게시한 'INT v.s. FP: A Comprehensive Study of Fine-Grained Low-bit Quantization
+excerpt: "arXiv에 게시된 'INT v.s. FP: A Comprehensive Study of Fine-Grained Low-bit Quantization
   Formats' 논문에 대한 자세한 리뷰입니다."
 
 categories:

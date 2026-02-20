@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Think-on-Graph 3.0: Efficient and Adaptive LLM Reasoning on
   Heterogeneous Graphs via Multi-Agent Dual-Evolving Context Retrieval"
-excerpt: "이 [arXiv]에 게시한 'Think-on-Graph 3.0: Efficient and Adaptive LLM Reasoning on
+excerpt: "arXiv에 게시된 'Think-on-Graph 3.0: Efficient and Adaptive LLM Reasoning on
   Heterogeneous Graphs via Multi-Agent Dual-Evolving Context Retrieval' 논문에 대한 자세한 리뷰입니다."
 
 categories:

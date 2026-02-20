@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MTSQL-R1: Towards Long-Horizon Multi-Turn Text-to-SQL via Agentic
   Training"
-excerpt: "이 [arXiv]에 게시한 'MTSQL-R1: Towards Long-Horizon Multi-Turn Text-to-SQL via Agentic
+excerpt: "arXiv에 게시된 'MTSQL-R1: Towards Long-Horizon Multi-Turn Text-to-SQL via Agentic
   Training' 논문에 대한 자세한 리뷰입니다."
 
 categories:

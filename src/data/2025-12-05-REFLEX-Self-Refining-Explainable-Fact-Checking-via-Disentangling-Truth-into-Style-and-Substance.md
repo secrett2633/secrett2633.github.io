@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] REFLEX: Self-Refining Explainable Fact-Checking via Disentangling Truth into Style and Substance"
-excerpt: "Yaxin Fan이 [arXiv]에 게시한 'REFLEX: Self-Refining Explainable Fact-Checking via Disentangling Truth into Style and Substance' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yaxin Fan이 arXiv에 게시한 'REFLEX: Self-Refining Explainable Fact-Checking via Disentangling Truth into Style and Substance' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

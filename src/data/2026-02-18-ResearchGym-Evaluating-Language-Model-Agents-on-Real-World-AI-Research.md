@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] ResearchGym: Evaluating Language Model Agents on Real-World AI Research"
-excerpt: "Arman Cohan이 [arXiv]에 게시한 'ResearchGym: Evaluating Language Model Agents on Real-World AI Research' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Arman Cohan이 arXiv에 게시한 'ResearchGym: Evaluating Language Model Agents on Real-World AI Research' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

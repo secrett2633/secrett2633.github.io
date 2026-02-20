@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Few-step Flow for 3D Generation via Marginal-Data Transport Distillation"
-excerpt: "Lingxi Xie이 [arXiv]에 게시한 'Few-step Flow for 3D Generation via Marginal-Data Transport Distillation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Lingxi Xie이 arXiv에 게시한 'Few-step Flow for 3D Generation via Marginal-Data Transport Distillation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

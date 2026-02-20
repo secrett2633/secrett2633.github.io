@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Kwai Keye-VL 1.5 Technical Report"
-excerpt: "SXxtyz이 [arXiv]에 게시한 'Kwai Keye-VL 1.5 Technical Report' 논문에 대한 자세한 리뷰입니다."
+excerpt: "SXxtyz이 arXiv에 게시한 'Kwai Keye-VL 1.5 Technical Report' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

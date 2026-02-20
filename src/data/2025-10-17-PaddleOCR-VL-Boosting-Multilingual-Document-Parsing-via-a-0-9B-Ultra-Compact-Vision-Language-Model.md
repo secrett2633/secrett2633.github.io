@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] PaddleOCR-VL: Boosting Multilingual Document Parsing via a 0.9B
   Ultra-Compact Vision-Language Model"
-excerpt: "이 [arXiv]에 게시한 'PaddleOCR-VL: Boosting Multilingual Document Parsing via a 0.9B
+excerpt: "arXiv에 게시된 'PaddleOCR-VL: Boosting Multilingual Document Parsing via a 0.9B
   Ultra-Compact Vision-Language Model' 논문에 대한 자세한 리뷰입니다."
 
 categories:

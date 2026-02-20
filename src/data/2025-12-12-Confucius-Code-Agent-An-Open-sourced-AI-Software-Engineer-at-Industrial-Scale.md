@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Confucius Code Agent: An Open-sourced AI Software Engineer at Industrial Scale"
-excerpt: "이 [arXiv]에 게시한 'Confucius Code Agent: An Open-sourced AI Software Engineer at Industrial Scale' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Confucius Code Agent: An Open-sourced AI Software Engineer at Industrial Scale' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

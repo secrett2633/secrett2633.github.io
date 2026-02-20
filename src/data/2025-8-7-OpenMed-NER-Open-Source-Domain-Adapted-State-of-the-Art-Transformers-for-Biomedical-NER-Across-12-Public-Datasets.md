@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] OpenMed NER: Open-Source, Domain-Adapted State-of-the-Art Transformers
   for Biomedical NER Across 12 Public Datasets"
-excerpt: "MaziyarPanahi이 [arXiv]에 게시한 'OpenMed NER: Open-Source, Domain-Adapted State-of-the-Art Transformers
+excerpt: "MaziyarPanahi이 arXiv에 게시한 'OpenMed NER: Open-Source, Domain-Adapted State-of-the-Art Transformers
   for Biomedical NER Across 12 Public Datasets' 논문에 대한 자세한 리뷰입니다."
 
 categories:

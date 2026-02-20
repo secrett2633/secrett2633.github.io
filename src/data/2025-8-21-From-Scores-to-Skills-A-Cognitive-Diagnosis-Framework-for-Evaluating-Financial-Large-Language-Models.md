@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] From Scores to Skills: A Cognitive Diagnosis Framework for Evaluating
   Financial Large Language Models"
-excerpt: "Ziyan Kuang이 [arXiv]에 게시한 'From Scores to Skills: A Cognitive Diagnosis Framework for Evaluating
+excerpt: "Ziyan Kuang이 arXiv에 게시한 'From Scores to Skills: A Cognitive Diagnosis Framework for Evaluating
   Financial Large Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

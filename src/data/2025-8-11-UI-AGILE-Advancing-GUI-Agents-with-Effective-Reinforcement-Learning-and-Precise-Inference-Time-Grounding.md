@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] UI-AGILE: Advancing GUI Agents with Effective Reinforcement Learning and
   Precise Inference-Time Grounding"
-excerpt: "Bingqi Chen이 [arXiv]에 게시한 'UI-AGILE: Advancing GUI Agents with Effective Reinforcement Learning and
+excerpt: "Bingqi Chen이 arXiv에 게시한 'UI-AGILE: Advancing GUI Agents with Effective Reinforcement Learning and
   Precise Inference-Time Grounding' 논문에 대한 자세한 리뷰입니다."
 
 categories:

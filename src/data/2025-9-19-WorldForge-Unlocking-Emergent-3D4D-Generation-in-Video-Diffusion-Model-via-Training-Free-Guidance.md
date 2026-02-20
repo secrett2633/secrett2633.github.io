@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] WorldForge: Unlocking Emergent 3D/4D Generation in Video Diffusion Model
   via Training-Free Guidance"
-excerpt: "Ruibo Li이 [arXiv]에 게시한 'WorldForge: Unlocking Emergent 3D/4D Generation in Video Diffusion Model
+excerpt: "Ruibo Li이 arXiv에 게시한 'WorldForge: Unlocking Emergent 3D/4D Generation in Video Diffusion Model
   via Training-Free Guidance' 논문에 대한 자세한 리뷰입니다."
 
 categories:

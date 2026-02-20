@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Attention as a Compass: Efficient Exploration for Process-Supervised RL
   in Reasoning Models"
-excerpt: "이 [arXiv]에 게시한 'Attention as a Compass: Efficient Exploration for Process-Supervised RL
+excerpt: "arXiv에 게시된 'Attention as a Compass: Efficient Exploration for Process-Supervised RL
   in Reasoning Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

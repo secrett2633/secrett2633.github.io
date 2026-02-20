@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Thinking Sparks!: Emergent Attention Heads in Reasoning Models During
   Post Training"
-excerpt: "이 [arXiv]에 게시한 'Thinking Sparks!: Emergent Attention Heads in Reasoning Models During
+excerpt: "arXiv에 게시된 'Thinking Sparks!: Emergent Attention Heads in Reasoning Models During
   Post Training' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] VLA^2: Empowering Vision-Language-Action Models with an Agentic
   Framework for Unseen Concept Manipulation"
-excerpt: "이 [arXiv]에 게시한 'VLA^2: Empowering Vision-Language-Action Models with an Agentic
+excerpt: "arXiv에 게시된 'VLA^2: Empowering Vision-Language-Action Models with an Agentic
   Framework for Unseen Concept Manipulation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

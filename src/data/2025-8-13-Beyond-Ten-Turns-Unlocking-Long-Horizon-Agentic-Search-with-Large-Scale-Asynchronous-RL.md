@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Beyond Ten Turns: Unlocking Long-Horizon Agentic Search with Large-Scale
   Asynchronous RL"
-excerpt: "Chuyi He이 [arXiv]에 게시한 'Beyond Ten Turns: Unlocking Long-Horizon Agentic Search with Large-Scale
+excerpt: "Chuyi He이 arXiv에 게시한 'Beyond Ten Turns: Unlocking Long-Horizon Agentic Search with Large-Scale
   Asynchronous RL' 논문에 대한 자세한 리뷰입니다."
 
 categories:

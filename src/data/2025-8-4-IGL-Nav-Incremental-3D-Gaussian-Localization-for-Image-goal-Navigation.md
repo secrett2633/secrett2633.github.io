@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] IGL-Nav: Incremental 3D Gaussian Localization for Image-goal Navigation"
-excerpt: "Jianjiang Feng이 [arXiv]에 게시한 'IGL-Nav: Incremental 3D Gaussian Localization for Image-goal Navigation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jianjiang Feng이 arXiv에 게시한 'IGL-Nav: Incremental 3D Gaussian Localization for Image-goal Navigation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

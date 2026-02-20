@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] UniT: Unified Multimodal Chain-of-Thought Test-time Scaling"
-excerpt: "Animesh Sinha이 [arXiv]에 게시한 'UniT: Unified Multimodal Chain-of-Thought Test-time Scaling' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Animesh Sinha이 arXiv에 게시한 'UniT: Unified Multimodal Chain-of-Thought Test-time Scaling' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

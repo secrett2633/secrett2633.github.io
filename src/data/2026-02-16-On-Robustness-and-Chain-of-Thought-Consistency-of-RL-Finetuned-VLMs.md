@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] On Robustness and Chain-of-Thought Consistency of RL-Finetuned VLMs"
-excerpt: "이 [arXiv]에 게시한 'On Robustness and Chain-of-Thought Consistency of RL-Finetuned VLMs' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'On Robustness and Chain-of-Thought Consistency of RL-Finetuned VLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

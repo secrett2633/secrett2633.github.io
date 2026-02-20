@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] C3: A Bilingual Benchmark for Spoken Dialogue Models Exploring
   Challenges in Complex Conversations"
-excerpt: "Yiwen Guo이 [arXiv]에 게시한 'C3: A Bilingual Benchmark for Spoken Dialogue Models Exploring
+excerpt: "Yiwen Guo이 arXiv에 게시한 'C3: A Bilingual Benchmark for Spoken Dialogue Models Exploring
   Challenges in Complex Conversations' 논문에 대한 자세한 리뷰입니다."
 
 categories:

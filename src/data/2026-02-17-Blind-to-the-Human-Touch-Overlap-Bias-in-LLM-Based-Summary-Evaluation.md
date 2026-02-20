@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Blind to the Human Touch: Overlap Bias in LLM-Based Summary Evaluation"
-excerpt: "Puneet Mathur이 [arXiv]에 게시한 'Blind to the Human Touch: Overlap Bias in LLM-Based Summary Evaluation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Puneet Mathur이 arXiv에 게시한 'Blind to the Human Touch: Overlap Bias in LLM-Based Summary Evaluation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

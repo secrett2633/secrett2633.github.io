@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DCPO: Dynamic Clipping Policy Optimization"
-excerpt: "Kai Lu이 [arXiv]에 게시한 'DCPO: Dynamic Clipping Policy Optimization' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Kai Lu이 arXiv에 게시한 'DCPO: Dynamic Clipping Policy Optimization' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

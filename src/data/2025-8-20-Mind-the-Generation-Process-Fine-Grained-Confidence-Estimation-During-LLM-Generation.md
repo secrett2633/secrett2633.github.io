@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Mind the Generation Process: Fine-Grained Confidence Estimation During
   LLM Generation"
-excerpt: "Xinyi Wang이 [arXiv]에 게시한 'Mind the Generation Process: Fine-Grained Confidence Estimation During
+excerpt: "Xinyi Wang이 arXiv에 게시한 'Mind the Generation Process: Fine-Grained Confidence Estimation During
   LLM Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

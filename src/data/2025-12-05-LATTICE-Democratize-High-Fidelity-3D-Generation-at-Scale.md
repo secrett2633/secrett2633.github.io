@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] LATTICE: Democratize High-Fidelity 3D Generation at Scale"
-excerpt: "Qingxiang Lin이 [arXiv]에 게시한 'LATTICE: Democratize High-Fidelity 3D Generation at Scale' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Qingxiang Lin이 arXiv에 게시한 'LATTICE: Democratize High-Fidelity 3D Generation at Scale' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

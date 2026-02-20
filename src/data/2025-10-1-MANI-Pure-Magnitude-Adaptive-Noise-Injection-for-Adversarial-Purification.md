@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MANI-Pure: Magnitude-Adaptive Noise Injection for Adversarial
   Purification"
-excerpt: "Zhiming Luo이 [arXiv]에 게시한 'MANI-Pure: Magnitude-Adaptive Noise Injection for Adversarial
+excerpt: "Zhiming Luo이 arXiv에 게시한 'MANI-Pure: Magnitude-Adaptive Noise Injection for Adversarial
   Purification' 논문에 대한 자세한 리뷰입니다."
 
 categories:

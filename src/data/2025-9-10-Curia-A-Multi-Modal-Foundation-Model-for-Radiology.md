@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Curia: A Multi-Modal Foundation Model for Radiology"
-excerpt: "Elodie Ferreres이 [arXiv]에 게시한 'Curia: A Multi-Modal Foundation Model for Radiology' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Elodie Ferreres이 arXiv에 게시한 'Curia: A Multi-Modal Foundation Model for Radiology' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

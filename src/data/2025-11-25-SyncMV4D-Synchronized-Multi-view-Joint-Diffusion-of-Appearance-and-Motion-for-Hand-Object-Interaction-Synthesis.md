@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SyncMV4D: Synchronized Multi-view Joint Diffusion of Appearance and Motion for Hand-Object Interaction Synthesis"
-excerpt: "Hongwen Zhang이 [arXiv]에 게시한 'SyncMV4D: Synchronized Multi-view Joint Diffusion of Appearance and Motion for Hand-Object Interaction Synthesis' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Hongwen Zhang이 arXiv에 게시한 'SyncMV4D: Synchronized Multi-view Joint Diffusion of Appearance and Motion for Hand-Object Interaction Synthesis' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

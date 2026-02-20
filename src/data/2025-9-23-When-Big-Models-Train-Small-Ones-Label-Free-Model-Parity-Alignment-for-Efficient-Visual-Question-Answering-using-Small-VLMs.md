@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] When Big Models Train Small Ones: Label-Free Model Parity Alignment for
   Efficient Visual Question Answering using Small VLMs"
-excerpt: "Anand Mishra이 [arXiv]에 게시한 'When Big Models Train Small Ones: Label-Free Model Parity Alignment for
+excerpt: "Anand Mishra이 arXiv에 게시한 'When Big Models Train Small Ones: Label-Free Model Parity Alignment for
   Efficient Visual Question Answering using Small VLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:

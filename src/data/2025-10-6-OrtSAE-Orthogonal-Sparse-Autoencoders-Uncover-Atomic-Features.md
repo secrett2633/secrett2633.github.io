@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] OrtSAE: Orthogonal Sparse Autoencoders Uncover Atomic Features"
-excerpt: "Elena Tutubalina이 [arXiv]에 게시한 'OrtSAE: Orthogonal Sparse Autoencoders Uncover Atomic Features' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Elena Tutubalina이 arXiv에 게시한 'OrtSAE: Orthogonal Sparse Autoencoders Uncover Atomic Features' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

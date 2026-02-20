@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SceneGen: Single-Image 3D Scene Generation in One Feedforward Pass"
-excerpt: "Ya Zhang이 [arXiv]에 게시한 'SceneGen: Single-Image 3D Scene Generation in One Feedforward Pass' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Ya Zhang이 arXiv에 게시한 'SceneGen: Single-Image 3D Scene Generation in One Feedforward Pass' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

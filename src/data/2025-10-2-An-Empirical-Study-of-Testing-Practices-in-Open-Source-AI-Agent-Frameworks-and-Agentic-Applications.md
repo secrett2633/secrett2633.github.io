@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] An Empirical Study of Testing Practices in Open Source AI Agent
   Frameworks and Agentic Applications"
-excerpt: "Bram Adams이 [arXiv]에 게시한 'An Empirical Study of Testing Practices in Open Source AI Agent
+excerpt: "Bram Adams이 arXiv에 게시한 'An Empirical Study of Testing Practices in Open Source AI Agent
   Frameworks and Agentic Applications' 논문에 대한 자세한 리뷰입니다."
 
 categories:

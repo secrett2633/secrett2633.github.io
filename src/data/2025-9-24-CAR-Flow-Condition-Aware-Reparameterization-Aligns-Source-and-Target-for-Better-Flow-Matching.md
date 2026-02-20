@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] CAR-Flow: Condition-Aware Reparameterization Aligns Source and Target
   for Better Flow Matching"
-excerpt: "Rui Qian이 [arXiv]에 게시한 'CAR-Flow: Condition-Aware Reparameterization Aligns Source and Target
+excerpt: "Rui Qian이 arXiv에 게시한 'CAR-Flow: Condition-Aware Reparameterization Aligns Source and Target
   for Better Flow Matching' 논문에 대한 자세한 리뷰입니다."
 
 categories:

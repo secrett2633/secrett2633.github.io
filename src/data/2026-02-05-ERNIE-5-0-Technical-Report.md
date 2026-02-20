@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] ERNIE 5.0 Technical Report"
-excerpt: "HasuerYu이 [arXiv]에 게시한 'ERNIE 5.0 Technical Report' 논문에 대한 자세한 리뷰입니다."
+excerpt: "HasuerYu이 arXiv에 게시한 'ERNIE 5.0 Technical Report' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

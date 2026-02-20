@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SketchDynamics: Exploring Free-Form Sketches for Dynamic Intent Expression in Animation Generation"
-excerpt: "Hongbo Fu이 [arXiv]에 게시한 'SketchDynamics: Exploring Free-Form Sketches for Dynamic Intent Expression in Animation Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Hongbo Fu이 arXiv에 게시한 'SketchDynamics: Exploring Free-Form Sketches for Dynamic Intent Expression in Animation Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Seeing the Wind from a Falling Leaf"
-excerpt: "Emily Yue-Ting Jia이 [arXiv]에 게시한 'Seeing the Wind from a Falling Leaf' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Emily Yue-Ting Jia이 arXiv에 게시한 'Seeing the Wind from a Falling Leaf' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Does Hearing Help Seeing? Investigating Audio-Video Joint Denoising for Video Generation"
-excerpt: "이 [arXiv]에 게시한 'Does Hearing Help Seeing? Investigating Audio-Video Joint Denoising for Video Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Does Hearing Help Seeing? Investigating Audio-Video Joint Denoising for Video Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

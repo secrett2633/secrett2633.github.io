@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Adaptive Attacks on Trusted Monitors Subvert AI Control Protocols"
-excerpt: "Maksym Andriushchenko이 [arXiv]에 게시한 'Adaptive Attacks on Trusted Monitors Subvert AI Control Protocols' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Maksym Andriushchenko이 arXiv에 게시한 'Adaptive Attacks on Trusted Monitors Subvert AI Control Protocols' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

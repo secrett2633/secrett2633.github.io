@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Entropy-Adaptive Fine-Tuning: Resolving Confident Conflicts to Mitigate Forgetting"
-excerpt: "이 [arXiv]에 게시한 'Entropy-Adaptive Fine-Tuning: Resolving Confident Conflicts to Mitigate Forgetting' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Entropy-Adaptive Fine-Tuning: Resolving Confident Conflicts to Mitigate Forgetting' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

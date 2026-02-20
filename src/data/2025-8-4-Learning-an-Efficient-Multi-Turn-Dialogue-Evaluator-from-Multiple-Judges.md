@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Learning an Efficient Multi-Turn Dialogue Evaluator from Multiple Judges"
-excerpt: "Chengfei Lv이 [arXiv]에 게시한 'Learning an Efficient Multi-Turn Dialogue Evaluator from Multiple Judges' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Chengfei Lv이 arXiv에 게시한 'Learning an Efficient Multi-Turn Dialogue Evaluator from Multiple Judges' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

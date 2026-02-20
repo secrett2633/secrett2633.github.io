@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] SceneWeaver: All-in-One 3D Scene Synthesis with an Extensible and
   Self-Reflective Agent"
-excerpt: "Siyuan Huang이 [arXiv]에 게시한 'SceneWeaver: All-in-One 3D Scene Synthesis with an Extensible and
+excerpt: "Siyuan Huang이 arXiv에 게시한 'SceneWeaver: All-in-One 3D Scene Synthesis with an Extensible and
   Self-Reflective Agent' 논문에 대한 자세한 리뷰입니다."
 
 categories:

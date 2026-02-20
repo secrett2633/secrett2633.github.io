@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] UI-S1: Advancing GUI Automation via Semi-online Reinforcement Learning"
-excerpt: "Yongliang Shen이 [arXiv]에 게시한 'UI-S1: Advancing GUI Automation via Semi-online Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yongliang Shen이 arXiv에 게시한 'UI-S1: Advancing GUI Automation via Semi-online Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

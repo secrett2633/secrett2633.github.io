@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Distilled Decoding 2: One-step Sampling of Image Auto-regressive Models
   with Conditional Score Distillation"
-excerpt: "Guohao Dai이 [arXiv]에 게시한 'Distilled Decoding 2: One-step Sampling of Image Auto-regressive Models
+excerpt: "Guohao Dai이 arXiv에 게시한 'Distilled Decoding 2: One-step Sampling of Image Auto-regressive Models
   with Conditional Score Distillation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

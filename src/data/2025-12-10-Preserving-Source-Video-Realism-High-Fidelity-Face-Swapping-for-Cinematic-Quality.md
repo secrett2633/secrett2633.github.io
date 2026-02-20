@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Preserving Source Video Realism: High-Fidelity Face Swapping for Cinematic Quality"
-excerpt: "이 [arXiv]에 게시한 'Preserving Source Video Realism: High-Fidelity Face Swapping for Cinematic Quality' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Preserving Source Video Realism: High-Fidelity Face Swapping for Cinematic Quality' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

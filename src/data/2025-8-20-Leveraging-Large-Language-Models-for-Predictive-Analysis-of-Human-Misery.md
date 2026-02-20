@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Leveraging Large Language Models for Predictive Analysis of Human Misery"
-excerpt: "Abhilash Nandy이 [arXiv]에 게시한 'Leveraging Large Language Models for Predictive Analysis of Human Misery' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Abhilash Nandy이 arXiv에 게시한 'Leveraging Large Language Models for Predictive Analysis of Human Misery' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

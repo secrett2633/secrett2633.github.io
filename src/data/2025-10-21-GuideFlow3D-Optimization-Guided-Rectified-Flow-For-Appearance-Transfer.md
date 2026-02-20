@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] GuideFlow3D: Optimization-Guided Rectified Flow For Appearance Transfer"
-excerpt: "이 [arXiv]에 게시한 'GuideFlow3D: Optimization-Guided Rectified Flow For Appearance Transfer' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'GuideFlow3D: Optimization-Guided Rectified Flow For Appearance Transfer' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] ERGO: Entropy-guided Resetting for Generation Optimization in Multi-turn
   Language Models"
-excerpt: "Sean O'Brien이 [arXiv]에 게시한 'ERGO: Entropy-guided Resetting for Generation Optimization in Multi-turn
+excerpt: "Sean O'Brien이 arXiv에 게시한 'ERGO: Entropy-guided Resetting for Generation Optimization in Multi-turn
   Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

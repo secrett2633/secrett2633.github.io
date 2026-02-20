@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MMAU-Pro: A Challenging and Comprehensive Benchmark for Holistic
   Evaluation of Audio General Intelligence"
-excerpt: "Fernando López이 [arXiv]에 게시한 'MMAU-Pro: A Challenging and Comprehensive Benchmark for Holistic
+excerpt: "Fernando López이 arXiv에 게시한 'MMAU-Pro: A Challenging and Comprehensive Benchmark for Holistic
   Evaluation of Audio General Intelligence' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] VolSplat: Rethinking Feed-Forward 3D Gaussian Splatting with
   Voxel-Aligned Prediction"
-excerpt: "Haoxiao Wang이 [arXiv]에 게시한 'VolSplat: Rethinking Feed-Forward 3D Gaussian Splatting with
+excerpt: "Haoxiao Wang이 arXiv에 게시한 'VolSplat: Rethinking Feed-Forward 3D Gaussian Splatting with
   Voxel-Aligned Prediction' 논문에 대한 자세한 리뷰입니다."
 
 categories:

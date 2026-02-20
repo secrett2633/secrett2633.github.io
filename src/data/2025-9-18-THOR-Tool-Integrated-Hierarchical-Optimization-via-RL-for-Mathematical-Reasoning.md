@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] THOR: Tool-Integrated Hierarchical Optimization via RL for Mathematical
   Reasoning"
-excerpt: "Yicheng Pan이 [arXiv]에 게시한 'THOR: Tool-Integrated Hierarchical Optimization via RL for Mathematical
+excerpt: "Yicheng Pan이 arXiv에 게시한 'THOR: Tool-Integrated Hierarchical Optimization via RL for Mathematical
   Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

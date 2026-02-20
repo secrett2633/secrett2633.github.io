@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Bottom-up Policy Optimization: Your Language Model Policy Secretly Contains Internal Policies"
-excerpt: "이 [arXiv]에 게시한 'Bottom-up Policy Optimization: Your Language Model Policy Secretly Contains Internal Policies' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Bottom-up Policy Optimization: Your Language Model Policy Secretly Contains Internal Policies' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Xiaomi-Robotics-0: An Open-Sourced Vision-Language-Action Model with Real-Time Execution"
-excerpt: "이 [arXiv]에 게시한 'Xiaomi-Robotics-0: An Open-Sourced Vision-Language-Action Model with Real-Time Execution' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Xiaomi-Robotics-0: An Open-Sourced Vision-Language-Action Model with Real-Time Execution' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

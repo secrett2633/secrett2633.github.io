@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MANZANO: A Simple and Scalable Unified Multimodal Model with a Hybrid
   Vision Tokenizer"
-excerpt: "jialingt이 [arXiv]에 게시한 'MANZANO: A Simple and Scalable Unified Multimodal Model with a Hybrid
+excerpt: "jialingt이 arXiv에 게시한 'MANZANO: A Simple and Scalable Unified Multimodal Model with a Hybrid
   Vision Tokenizer' 논문에 대한 자세한 리뷰입니다."
 
 categories:

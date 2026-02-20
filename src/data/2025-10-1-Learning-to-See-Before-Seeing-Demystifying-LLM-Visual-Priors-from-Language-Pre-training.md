@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Learning to See Before Seeing: Demystifying LLM Visual Priors from
   Language Pre-training"
-excerpt: "Koustuv Sinha이 [arXiv]에 게시한 'Learning to See Before Seeing: Demystifying LLM Visual Priors from
+excerpt: "Koustuv Sinha이 arXiv에 게시한 'Learning to See Before Seeing: Demystifying LLM Visual Priors from
   Language Pre-training' 논문에 대한 자세한 리뷰입니다."
 
 categories:

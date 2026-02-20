@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] InftyThink+: Effective and Efficient Infinite-Horizon Reasoning via Reinforcement Learning"
-excerpt: "이 [arXiv]에 게시한 'InftyThink+: Effective and Efficient Infinite-Horizon Reasoning via Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'InftyThink+: Effective and Efficient Infinite-Horizon Reasoning via Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

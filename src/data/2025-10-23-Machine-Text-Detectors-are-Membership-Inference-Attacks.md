@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Machine Text Detectors are Membership Inference Attacks"
-excerpt: "Naoaki Okazaki이 [arXiv]에 게시한 'Machine Text Detectors are Membership Inference Attacks' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Naoaki Okazaki이 arXiv에 게시한 'Machine Text Detectors are Membership Inference Attacks' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

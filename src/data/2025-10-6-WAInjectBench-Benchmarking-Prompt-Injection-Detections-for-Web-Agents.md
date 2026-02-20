@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] WAInjectBench: Benchmarking Prompt Injection Detections for Web Agents"
-excerpt: "Neil Zhenqiang Gong이 [arXiv]에 게시한 'WAInjectBench: Benchmarking Prompt Injection Detections for Web Agents' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Neil Zhenqiang Gong이 arXiv에 게시한 'WAInjectBench: Benchmarking Prompt Injection Detections for Web Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

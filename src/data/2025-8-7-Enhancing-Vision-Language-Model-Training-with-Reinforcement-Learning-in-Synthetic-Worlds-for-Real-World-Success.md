@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Enhancing Vision-Language Model Training with Reinforcement Learning in
   Synthetic Worlds for Real-World Success"
-excerpt: "Ruslan Rakhimov이 [arXiv]에 게시한 'Enhancing Vision-Language Model Training with Reinforcement Learning in
+excerpt: "Ruslan Rakhimov이 arXiv에 게시한 'Enhancing Vision-Language Model Training with Reinforcement Learning in
   Synthetic Worlds for Real-World Success' 논문에 대한 자세한 리뷰입니다."
 
 categories:

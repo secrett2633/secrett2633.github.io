@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] BabyVision: Visual Reasoning Beyond Language"
-excerpt: "Yiyan Liang이 [arXiv]에 게시한 'BabyVision: Visual Reasoning Beyond Language' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yiyan Liang이 arXiv에 게시한 'BabyVision: Visual Reasoning Beyond Language' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

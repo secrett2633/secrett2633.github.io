@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Reactive Transformer (RxT) -- Stateful Real-Time Processing for
   Event-Driven Reactive Language Models"
-excerpt: "이 [arXiv]에 게시한 'Reactive Transformer (RxT) -- Stateful Real-Time Processing for
+excerpt: "arXiv에 게시된 'Reactive Transformer (RxT) -- Stateful Real-Time Processing for
   Event-Driven Reactive Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

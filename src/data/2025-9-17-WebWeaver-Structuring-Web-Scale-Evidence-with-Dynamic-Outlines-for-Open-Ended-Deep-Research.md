@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] WebWeaver: Structuring Web-Scale Evidence with Dynamic Outlines for
   Open-Ended Deep Research"
-excerpt: "Houquan Zhou이 [arXiv]에 게시한 'WebWeaver: Structuring Web-Scale Evidence with Dynamic Outlines for
+excerpt: "Houquan Zhou이 arXiv에 게시한 'WebWeaver: Structuring Web-Scale Evidence with Dynamic Outlines for
   Open-Ended Deep Research' 논문에 대한 자세한 리뷰입니다."
 
 categories:

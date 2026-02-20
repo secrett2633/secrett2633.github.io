@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Information Gain-based Policy Optimization: A Simple and Effective
   Approach for Multi-Turn LLM Agents"
-excerpt: "이 [arXiv]에 게시한 'Information Gain-based Policy Optimization: A Simple and Effective
+excerpt: "arXiv에 게시된 'Information Gain-based Policy Optimization: A Simple and Effective
   Approach for Multi-Turn LLM Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:

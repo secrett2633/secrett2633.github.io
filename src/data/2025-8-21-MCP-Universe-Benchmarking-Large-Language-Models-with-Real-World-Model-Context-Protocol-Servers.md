@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MCP-Universe: Benchmarking Large Language Models with Real-World Model
   Context Protocol Servers"
-excerpt: "Prathyusha Jwalapuram이 [arXiv]에 게시한 'MCP-Universe: Benchmarking Large Language Models with Real-World Model
+excerpt: "Prathyusha Jwalapuram이 arXiv에 게시한 'MCP-Universe: Benchmarking Large Language Models with Real-World Model
   Context Protocol Servers' 논문에 대한 자세한 리뷰입니다."
 
 categories:

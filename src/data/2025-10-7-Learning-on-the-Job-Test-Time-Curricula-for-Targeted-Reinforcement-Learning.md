@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Learning on the Job: Test-Time Curricula for Targeted Reinforcement
   Learning"
-excerpt: "이 [arXiv]에 게시한 'Learning on the Job: Test-Time Curricula for Targeted Reinforcement
+excerpt: "arXiv에 게시된 'Learning on the Job: Test-Time Curricula for Targeted Reinforcement
   Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

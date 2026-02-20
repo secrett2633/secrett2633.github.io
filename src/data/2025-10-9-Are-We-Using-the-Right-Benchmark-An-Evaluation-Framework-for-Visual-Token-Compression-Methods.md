@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Are We Using the Right Benchmark: An Evaluation Framework for Visual
   Token Compression Methods"
-excerpt: "Yiyu Wang이 [arXiv]에 게시한 'Are We Using the Right Benchmark: An Evaluation Framework for Visual
+excerpt: "Yiyu Wang이 arXiv에 게시한 'Are We Using the Right Benchmark: An Evaluation Framework for Visual
   Token Compression Methods' 논문에 대한 자세한 리뷰입니다."
 
 categories:

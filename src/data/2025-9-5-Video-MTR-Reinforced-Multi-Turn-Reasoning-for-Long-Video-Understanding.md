@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Video-MTR: Reinforced Multi-Turn Reasoning for Long Video Understanding"
-excerpt: "Lionel Ni이 [arXiv]에 게시한 'Video-MTR: Reinforced Multi-Turn Reasoning for Long Video Understanding' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Lionel Ni이 arXiv에 게시한 'Video-MTR: Reinforced Multi-Turn Reasoning for Long Video Understanding' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

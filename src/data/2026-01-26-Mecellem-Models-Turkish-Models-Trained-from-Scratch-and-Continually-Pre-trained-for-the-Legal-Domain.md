@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Mecellem Models: Turkish Models Trained from Scratch and Continually Pre-trained for the Legal Domain"
-excerpt: "이 [arXiv]에 게시한 'Mecellem Models: Turkish Models Trained from Scratch and Continually Pre-trained for the Legal Domain' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Mecellem Models: Turkish Models Trained from Scratch and Continually Pre-trained for the Legal Domain' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

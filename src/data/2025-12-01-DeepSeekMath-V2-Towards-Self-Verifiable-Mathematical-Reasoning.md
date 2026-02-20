@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DeepSeekMath-V2: Towards Self-Verifiable Mathematical Reasoning"
-excerpt: "이 [arXiv]에 게시한 'DeepSeekMath-V2: Towards Self-Verifiable Mathematical Reasoning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'DeepSeekMath-V2: Towards Self-Verifiable Mathematical Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

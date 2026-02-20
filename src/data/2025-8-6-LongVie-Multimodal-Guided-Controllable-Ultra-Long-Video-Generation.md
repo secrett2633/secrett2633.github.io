@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] LongVie: Multimodal-Guided Controllable Ultra-Long Video Generation"
-excerpt: "Chenyang Si이 [arXiv]에 게시한 'LongVie: Multimodal-Guided Controllable Ultra-Long Video Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Chenyang Si이 arXiv에 게시한 'LongVie: Multimodal-Guided Controllable Ultra-Long Video Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

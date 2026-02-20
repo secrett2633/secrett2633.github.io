@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Rubric-Based Benchmarking and Reinforcement Learning for Advancing LLM Instruction Following"
-excerpt: "Karishma Mandyam이 [arXiv]에 게시한 'Rubric-Based Benchmarking and Reinforcement Learning for Advancing LLM Instruction Following' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Karishma Mandyam이 arXiv에 게시한 'Rubric-Based Benchmarking and Reinforcement Learning for Advancing LLM Instruction Following' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

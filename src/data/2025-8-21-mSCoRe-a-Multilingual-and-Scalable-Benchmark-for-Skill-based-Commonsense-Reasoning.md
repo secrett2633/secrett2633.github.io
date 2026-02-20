@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] mSCoRe: a Multilingual and Scalable Benchmark for Skill-based
   Commonsense Reasoning"
-excerpt: "anoperson이 [arXiv]에 게시한 'mSCoRe: a Multilingual and Scalable Benchmark for Skill-based
+excerpt: "anoperson이 arXiv에 게시한 'mSCoRe: a Multilingual and Scalable Benchmark for Skill-based
   Commonsense Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MATH-Beyond: A Benchmark for RL to Expand Beyond the Base Model"
-excerpt: "Wieland Brendel이 [arXiv]에 게시한 'MATH-Beyond: A Benchmark for RL to Expand Beyond the Base Model' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Wieland Brendel이 arXiv에 게시한 'MATH-Beyond: A Benchmark for RL to Expand Beyond the Base Model' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] ARE: Scaling Up Agent Environments and Evaluations"
-excerpt: "Matteo Bettini이 [arXiv]에 게시한 'ARE: Scaling Up Agent Environments and Evaluations' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Matteo Bettini이 arXiv에 게시한 'ARE: Scaling Up Agent Environments and Evaluations' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

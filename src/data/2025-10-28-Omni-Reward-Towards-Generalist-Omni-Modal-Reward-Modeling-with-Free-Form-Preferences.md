@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Omni-Reward: Towards Generalist Omni-Modal Reward Modeling with
   Free-Form Preferences"
-excerpt: "이 [arXiv]에 게시한 'Omni-Reward: Towards Generalist Omni-Modal Reward Modeling with
+excerpt: "arXiv에 게시된 'Omni-Reward: Towards Generalist Omni-Modal Reward Modeling with
   Free-Form Preferences' 논문에 대한 자세한 리뷰입니다."
 
 categories:

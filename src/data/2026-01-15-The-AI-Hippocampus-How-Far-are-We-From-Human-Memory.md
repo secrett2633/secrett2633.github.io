@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] The AI Hippocampus: How Far are We From Human Memory?"
-excerpt: "Tong Wu이 [arXiv]에 게시한 'The AI Hippocampus: How Far are We From Human Memory?' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Tong Wu이 arXiv에 게시한 'The AI Hippocampus: How Far are We From Human Memory?' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MAS-Bench: A Unified Benchmark for Shortcut-Augmented Hybrid Mobile GUI
   Agents"
-excerpt: "Zhengxi Lu이 [arXiv]에 게시한 'MAS-Bench: A Unified Benchmark for Shortcut-Augmented Hybrid Mobile GUI
+excerpt: "Zhengxi Lu이 arXiv에 게시한 'MAS-Bench: A Unified Benchmark for Shortcut-Augmented Hybrid Mobile GUI
   Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:

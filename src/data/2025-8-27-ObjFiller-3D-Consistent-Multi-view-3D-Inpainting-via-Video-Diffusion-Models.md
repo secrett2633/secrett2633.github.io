@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] ObjFiller-3D: Consistent Multi-view 3D Inpainting via Video Diffusion
   Models"
-excerpt: "Beiqi Chen이 [arXiv]에 게시한 'ObjFiller-3D: Consistent Multi-view 3D Inpainting via Video Diffusion
+excerpt: "Beiqi Chen이 arXiv에 게시한 'ObjFiller-3D: Consistent Multi-view 3D Inpainting via Video Diffusion
   Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] HyRF: Hybrid Radiance Fields for Memory-efficient and High-quality Novel
   View Synthesis"
-excerpt: "Dan Xu이 [arXiv]에 게시한 'HyRF: Hybrid Radiance Fields for Memory-efficient and High-quality Novel
+excerpt: "Dan Xu이 arXiv에 게시한 'HyRF: Hybrid Radiance Fields for Memory-efficient and High-quality Novel
   View Synthesis' 논문에 대한 자세한 리뷰입니다."
 
 categories:

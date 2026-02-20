@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Causal Forcing: Autoregressive Diffusion Distillation Done Right for High-Quality Real-Time Interactive Video Generation"
-excerpt: "이 [arXiv]에 게시한 'Causal Forcing: Autoregressive Diffusion Distillation Done Right for High-Quality Real-Time Interactive Video Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Causal Forcing: Autoregressive Diffusion Distillation Done Right for High-Quality Real-Time Interactive Video Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

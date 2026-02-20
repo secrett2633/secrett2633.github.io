@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MedSAMix: A Training-Free Model Merging Approach for Medical Image
   Segmentation"
-excerpt: "Jonas Geiping이 [arXiv]에 게시한 'MedSAMix: A Training-Free Model Merging Approach for Medical Image
+excerpt: "Jonas Geiping이 arXiv에 게시한 'MedSAMix: A Training-Free Model Merging Approach for Medical Image
   Segmentation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

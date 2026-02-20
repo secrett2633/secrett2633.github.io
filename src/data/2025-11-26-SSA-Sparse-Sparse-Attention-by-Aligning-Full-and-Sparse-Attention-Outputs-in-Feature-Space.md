@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SSA: Sparse Sparse Attention by Aligning Full and Sparse Attention Outputs in Feature Space"
-excerpt: "Yulan He이 [arXiv]에 게시한 'SSA: Sparse Sparse Attention by Aligning Full and Sparse Attention Outputs in Feature Space' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yulan He이 arXiv에 게시한 'SSA: Sparse Sparse Attention by Aligning Full and Sparse Attention Outputs in Feature Space' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

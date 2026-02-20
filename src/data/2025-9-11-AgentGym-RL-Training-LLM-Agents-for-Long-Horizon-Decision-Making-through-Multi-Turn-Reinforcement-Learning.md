@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] AgentGym-RL: Training LLM Agents for Long-Horizon Decision Making
   through Multi-Turn Reinforcement Learning"
-excerpt: "Honglin Guo이 [arXiv]에 게시한 'AgentGym-RL: Training LLM Agents for Long-Horizon Decision Making
+excerpt: "Honglin Guo이 arXiv에 게시한 'AgentGym-RL: Training LLM Agents for Long-Horizon Decision Making
   through Multi-Turn Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

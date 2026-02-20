@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] OmniEVA: Embodied Versatile Planner via Task-Adaptive 3D-Grounded and
   Embodiment-aware Reasoning"
-excerpt: "Yuzheng Zhuang이 [arXiv]에 게시한 'OmniEVA: Embodied Versatile Planner via Task-Adaptive 3D-Grounded and
+excerpt: "Yuzheng Zhuang이 arXiv에 게시한 'OmniEVA: Embodied Versatile Planner via Task-Adaptive 3D-Grounded and
   Embodiment-aware Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

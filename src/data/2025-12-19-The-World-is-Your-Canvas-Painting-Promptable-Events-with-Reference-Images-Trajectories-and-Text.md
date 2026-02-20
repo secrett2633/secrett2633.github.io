@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] The World is Your Canvas: Painting Promptable Events with Reference Images, Trajectories, and Text"
-excerpt: "이 [arXiv]에 게시한 'The World is Your Canvas: Painting Promptable Events with Reference Images, Trajectories, and Text' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'The World is Your Canvas: Painting Promptable Events with Reference Images, Trajectories, and Text' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

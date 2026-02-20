@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Seed3D 1.0: From Images to High-Fidelity Simulation-Ready 3D Assets"
-excerpt: "이 [arXiv]에 게시한 'Seed3D 1.0: From Images to High-Fidelity Simulation-Ready 3D Assets' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Seed3D 1.0: From Images to High-Fidelity Simulation-Ready 3D Assets' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] PosterGen: Aesthetic-Aware Paper-to-Poster Generation via Multi-Agent
   LLMs"
-excerpt: "Chenyu You이 [arXiv]에 게시한 'PosterGen: Aesthetic-Aware Paper-to-Poster Generation via Multi-Agent
+excerpt: "Chenyu You이 arXiv에 게시한 'PosterGen: Aesthetic-Aware Paper-to-Poster Generation via Multi-Agent
   LLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:

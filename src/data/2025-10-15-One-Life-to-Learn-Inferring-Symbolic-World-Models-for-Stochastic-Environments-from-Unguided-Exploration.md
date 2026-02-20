@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] One Life to Learn: Inferring Symbolic World Models for Stochastic
   Environments from Unguided Exploration"
-excerpt: "Mohit Bansal이 [arXiv]에 게시한 'One Life to Learn: Inferring Symbolic World Models for Stochastic
+excerpt: "Mohit Bansal이 arXiv에 게시한 'One Life to Learn: Inferring Symbolic World Models for Stochastic
   Environments from Unguided Exploration' 논문에 대한 자세한 리뷰입니다."
 
 categories:

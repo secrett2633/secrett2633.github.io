@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Reasoning over Boundaries: Enhancing Specification Alignment via
   Test-time Delibration"
-excerpt: "Zhilin Wang이 [arXiv]에 게시한 'Reasoning over Boundaries: Enhancing Specification Alignment via
+excerpt: "Zhilin Wang이 arXiv에 게시한 'Reasoning over Boundaries: Enhancing Specification Alignment via
   Test-time Delibration' 논문에 대한 자세한 리뷰입니다."
 
 categories:

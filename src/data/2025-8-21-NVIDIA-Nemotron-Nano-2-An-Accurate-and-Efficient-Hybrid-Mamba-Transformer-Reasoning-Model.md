@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] NVIDIA Nemotron Nano 2: An Accurate and Efficient Hybrid
   Mamba-Transformer Reasoning Model"
-excerpt: "abercovich이 [arXiv]에 게시한 'NVIDIA Nemotron Nano 2: An Accurate and Efficient Hybrid
+excerpt: "abercovich이 arXiv에 게시한 'NVIDIA Nemotron Nano 2: An Accurate and Efficient Hybrid
   Mamba-Transformer Reasoning Model' 논문에 대한 자세한 리뷰입니다."
 
 categories:

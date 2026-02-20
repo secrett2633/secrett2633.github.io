@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Revisiting Modeling and Evaluation Approaches in Speech Emotion
   Recognition: Considering Subjectivity of Annotators and Ambiguity of Emotions"
-excerpt: "이 [arXiv]에 게시한 'Revisiting Modeling and Evaluation Approaches in Speech Emotion
+excerpt: "arXiv에 게시된 'Revisiting Modeling and Evaluation Approaches in Speech Emotion
   Recognition: Considering Subjectivity of Annotators and Ambiguity of Emotions' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] GeoPQA: Bridging the Visual Perception Gap in MLLMs for Geometric
   Reasoning"
-excerpt: "Hou Pong Chan이 [arXiv]에 게시한 'GeoPQA: Bridging the Visual Perception Gap in MLLMs for Geometric
+excerpt: "Hou Pong Chan이 arXiv에 게시한 'GeoPQA: Bridging the Visual Perception Gap in MLLMs for Geometric
   Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

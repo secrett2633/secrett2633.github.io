@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Reasoning Vectors: Transferring Chain-of-Thought Capabilities via Task
   Arithmetic"
-excerpt: "Bernard Ghanem이 [arXiv]에 게시한 'Reasoning Vectors: Transferring Chain-of-Thought Capabilities via Task
+excerpt: "Bernard Ghanem이 arXiv에 게시한 'Reasoning Vectors: Transferring Chain-of-Thought Capabilities via Task
   Arithmetic' 논문에 대한 자세한 리뷰입니다."
 
 categories:

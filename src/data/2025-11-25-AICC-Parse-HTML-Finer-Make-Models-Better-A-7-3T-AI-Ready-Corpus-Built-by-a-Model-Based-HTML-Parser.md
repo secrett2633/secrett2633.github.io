@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] AICC: Parse HTML Finer, Make Models Better -- A 7.3T AI-Ready Corpus Built by a Model-Based HTML Parser"
-excerpt: "이 [arXiv]에 게시한 'AICC: Parse HTML Finer, Make Models Better -- A 7.3T AI-Ready Corpus Built by a Model-Based HTML Parser' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'AICC: Parse HTML Finer, Make Models Better -- A 7.3T AI-Ready Corpus Built by a Model-Based HTML Parser' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] PRInTS: Reward Modeling for Long-Horizon Information Seeking"
-excerpt: "Elias Stengel-Eskin이 [arXiv]에 게시한 'PRInTS: Reward Modeling for Long-Horizon Information Seeking' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Elias Stengel-Eskin이 arXiv에 게시한 'PRInTS: Reward Modeling for Long-Horizon Information Seeking' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

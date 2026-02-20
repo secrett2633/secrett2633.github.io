@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] EditScore: Unlocking Online RL for Image Editing via High-Fidelity
   Reward Modeling"
-excerpt: "이 [arXiv]에 게시한 'EditScore: Unlocking Online RL for Image Editing via High-Fidelity
+excerpt: "arXiv에 게시된 'EditScore: Unlocking Online RL for Image Editing via High-Fidelity
   Reward Modeling' 논문에 대한 자세한 리뷰입니다."
 
 categories:

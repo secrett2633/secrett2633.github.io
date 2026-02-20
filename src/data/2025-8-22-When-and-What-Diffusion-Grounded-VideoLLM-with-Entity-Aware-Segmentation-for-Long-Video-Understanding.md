@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] When and What: Diffusion-Grounded VideoLLM with Entity Aware
   Segmentation for Long Video Understanding"
-excerpt: "Rui Guo이 [arXiv]에 게시한 'When and What: Diffusion-Grounded VideoLLM with Entity Aware
+excerpt: "Rui Guo이 arXiv에 게시한 'When and What: Diffusion-Grounded VideoLLM with Entity Aware
   Segmentation for Long Video Understanding' 논문에 대한 자세한 리뷰입니다."
 
 categories:

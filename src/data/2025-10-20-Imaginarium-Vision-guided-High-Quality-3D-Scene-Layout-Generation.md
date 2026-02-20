@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Imaginarium: Vision-guided High-Quality 3D Scene Layout Generation"
-excerpt: "Junsheng Yu이 [arXiv]에 게시한 'Imaginarium: Vision-guided High-Quality 3D Scene Layout Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Junsheng Yu이 arXiv에 게시한 'Imaginarium: Vision-guided High-Quality 3D Scene Layout Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

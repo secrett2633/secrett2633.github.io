@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] V-Retrver: Evidence-Driven Agentic Reasoning for Universal Multimodal Retrieval"
-excerpt: "Zeyu Zhang이 [arXiv]에 게시한 'V-Retrver: Evidence-Driven Agentic Reasoning for Universal Multimodal Retrieval' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zeyu Zhang이 arXiv에 게시한 'V-Retrver: Evidence-Driven Agentic Reasoning for Universal Multimodal Retrieval' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

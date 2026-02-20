@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Hail to the Thief: Exploring Attacks and Defenses in Decentralised GRPO"
-excerpt: "이 [arXiv]에 게시한 'Hail to the Thief: Exploring Attacks and Defenses in Decentralised GRPO' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Hail to the Thief: Exploring Attacks and Defenses in Decentralised GRPO' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

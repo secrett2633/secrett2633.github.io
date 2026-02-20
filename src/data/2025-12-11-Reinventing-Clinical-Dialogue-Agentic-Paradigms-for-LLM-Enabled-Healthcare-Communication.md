@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Reinventing Clinical Dialogue: Agentic Paradigms for LLM Enabled Healthcare Communication"
-excerpt: "Hengshu Zhu이 [arXiv]에 게시한 'Reinventing Clinical Dialogue: Agentic Paradigms for LLM Enabled Healthcare Communication' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Hengshu Zhu이 arXiv에 게시한 'Reinventing Clinical Dialogue: Agentic Paradigms for LLM Enabled Healthcare Communication' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

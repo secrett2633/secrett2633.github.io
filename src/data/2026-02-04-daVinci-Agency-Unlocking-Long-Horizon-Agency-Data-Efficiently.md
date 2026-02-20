@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] daVinci-Agency: Unlocking Long-Horizon Agency Data-Efficiently"
-excerpt: "이 [arXiv]에 게시한 'daVinci-Agency: Unlocking Long-Horizon Agency Data-Efficiently' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'daVinci-Agency: Unlocking Long-Horizon Agency Data-Efficiently' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

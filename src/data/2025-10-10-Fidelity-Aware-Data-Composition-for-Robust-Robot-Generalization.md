@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Fidelity-Aware Data Composition for Robust Robot Generalization"
-excerpt: "Liliang Chen이 [arXiv]에 게시한 'Fidelity-Aware Data Composition for Robust Robot Generalization' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Liliang Chen이 arXiv에 게시한 'Fidelity-Aware Data Composition for Robust Robot Generalization' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Efficient Audio-Visual Speech Separation with Discrete Lip Semantics and
   Multi-Scale Global-Local Attention"
-excerpt: "이 [arXiv]에 게시한 'Efficient Audio-Visual Speech Separation with Discrete Lip Semantics and
+excerpt: "arXiv에 게시된 'Efficient Audio-Visual Speech Separation with Discrete Lip Semantics and
   Multi-Scale Global-Local Attention' 논문에 대한 자세한 리뷰입니다."
 
 categories:

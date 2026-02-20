@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Lost in the Noise: How Reasoning Models Fail with Contextual Distractors"
-excerpt: "이 [arXiv]에 게시한 'Lost in the Noise: How Reasoning Models Fail with Contextual Distractors' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Lost in the Noise: How Reasoning Models Fail with Contextual Distractors' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

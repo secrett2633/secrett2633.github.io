@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] UniGenBench++: A Unified Semantic Evaluation Benchmark for Text-to-Image
   Generation"
-excerpt: "Yujie Zhou이 [arXiv]에 게시한 'UniGenBench++: A Unified Semantic Evaluation Benchmark for Text-to-Image
+excerpt: "Yujie Zhou이 arXiv에 게시한 'UniGenBench++: A Unified Semantic Evaluation Benchmark for Text-to-Image
   Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

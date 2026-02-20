@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SimScale: Learning to Drive via Real-World Simulation at Scale"
-excerpt: "이 [arXiv]에 게시한 'SimScale: Learning to Drive via Real-World Simulation at Scale' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'SimScale: Learning to Drive via Real-World Simulation at Scale' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

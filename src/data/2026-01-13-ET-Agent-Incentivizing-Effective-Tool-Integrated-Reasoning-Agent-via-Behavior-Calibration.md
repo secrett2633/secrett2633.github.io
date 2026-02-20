@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] ET-Agent: Incentivizing Effective Tool-Integrated Reasoning Agent via Behavior Calibration"
-excerpt: "이 [arXiv]에 게시한 'ET-Agent: Incentivizing Effective Tool-Integrated Reasoning Agent via Behavior Calibration' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'ET-Agent: Incentivizing Effective Tool-Integrated Reasoning Agent via Behavior Calibration' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

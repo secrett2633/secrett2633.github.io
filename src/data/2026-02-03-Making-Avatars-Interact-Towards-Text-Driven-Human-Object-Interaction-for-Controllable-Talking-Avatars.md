@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Making Avatars Interact: Towards Text-Driven Human-Object Interaction for Controllable Talking Avatars"
-excerpt: "Teng Hu이 [arXiv]에 게시한 'Making Avatars Interact: Towards Text-Driven Human-Object Interaction for Controllable Talking Avatars' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Teng Hu이 arXiv에 게시한 'Making Avatars Interact: Towards Text-Driven Human-Object Interaction for Controllable Talking Avatars' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

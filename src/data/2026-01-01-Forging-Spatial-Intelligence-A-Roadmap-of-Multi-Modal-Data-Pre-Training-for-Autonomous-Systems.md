@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Forging Spatial Intelligence: A Roadmap of Multi-Modal Data Pre-Training for Autonomous Systems"
-excerpt: "이 [arXiv]에 게시한 'Forging Spatial Intelligence: A Roadmap of Multi-Modal Data Pre-Training for Autonomous Systems' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Forging Spatial Intelligence: A Roadmap of Multi-Modal Data Pre-Training for Autonomous Systems' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

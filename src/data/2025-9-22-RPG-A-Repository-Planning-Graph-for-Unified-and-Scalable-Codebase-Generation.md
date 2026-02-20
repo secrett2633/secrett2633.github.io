@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] RPG: A Repository Planning Graph for Unified and Scalable Codebase
   Generation"
-excerpt: "Steven Liu이 [arXiv]에 게시한 'RPG: A Repository Planning Graph for Unified and Scalable Codebase
+excerpt: "Steven Liu이 arXiv에 게시한 'RPG: A Repository Planning Graph for Unified and Scalable Codebase
   Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

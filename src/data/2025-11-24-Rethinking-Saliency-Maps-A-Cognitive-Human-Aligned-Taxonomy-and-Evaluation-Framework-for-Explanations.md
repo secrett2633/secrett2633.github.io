@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Rethinking Saliency Maps: A Cognitive Human Aligned Taxonomy and Evaluation Framework for Explanations"
-excerpt: "Noam Koenigstein이 [arXiv]에 게시한 'Rethinking Saliency Maps: A Cognitive Human Aligned Taxonomy and Evaluation Framework for Explanations' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Noam Koenigstein이 arXiv에 게시한 'Rethinking Saliency Maps: A Cognitive Human Aligned Taxonomy and Evaluation Framework for Explanations' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

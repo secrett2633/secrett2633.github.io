@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Are We on the Right Way for Assessing Document Retrieval-Augmented
   Generation?"
-excerpt: "Junjie Yang이 [arXiv]에 게시한 'Are We on the Right Way for Assessing Document Retrieval-Augmented
+excerpt: "Junjie Yang이 arXiv에 게시한 'Are We on the Right Way for Assessing Document Retrieval-Augmented
   Generation?' 논문에 대한 자세한 리뷰입니다."
 
 categories:

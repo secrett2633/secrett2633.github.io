@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] How to Evaluate Speech Translation with Source-Aware Neural MT Metrics"
-excerpt: "Luisa Bentivogli이 [arXiv]에 게시한 'How to Evaluate Speech Translation with Source-Aware Neural MT Metrics' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Luisa Bentivogli이 arXiv에 게시한 'How to Evaluate Speech Translation with Source-Aware Neural MT Metrics' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

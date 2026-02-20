@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Limits of Generalization in RLVR: Two Case Studies in Mathematical
   Reasoning"
-excerpt: "Nidhi Rastogi이 [arXiv]에 게시한 'Limits of Generalization in RLVR: Two Case Studies in Mathematical
+excerpt: "Nidhi Rastogi이 arXiv에 게시한 'Limits of Generalization in RLVR: Two Case Studies in Mathematical
   Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

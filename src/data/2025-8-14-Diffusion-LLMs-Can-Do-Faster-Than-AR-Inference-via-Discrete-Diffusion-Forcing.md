@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Diffusion LLMs Can Do Faster-Than-AR Inference via Discrete Diffusion
   Forcing"
-excerpt: "Hao Zhang이 [arXiv]에 게시한 'Diffusion LLMs Can Do Faster-Than-AR Inference via Discrete Diffusion
+excerpt: "Hao Zhang이 arXiv에 게시한 'Diffusion LLMs Can Do Faster-Than-AR Inference via Discrete Diffusion
   Forcing' 논문에 대한 자세한 리뷰입니다."
 
 categories:

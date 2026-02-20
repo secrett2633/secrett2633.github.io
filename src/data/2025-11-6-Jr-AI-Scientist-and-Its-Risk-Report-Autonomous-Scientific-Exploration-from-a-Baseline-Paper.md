@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Jr. AI Scientist and Its Risk Report: Autonomous Scientific Exploration
   from a Baseline Paper"
-excerpt: "이 [arXiv]에 게시한 'Jr. AI Scientist and Its Risk Report: Autonomous Scientific Exploration
+excerpt: "arXiv에 게시된 'Jr. AI Scientist and Its Risk Report: Autonomous Scientific Exploration
   from a Baseline Paper' 논문에 대한 자세한 리뷰입니다."
 
 categories:

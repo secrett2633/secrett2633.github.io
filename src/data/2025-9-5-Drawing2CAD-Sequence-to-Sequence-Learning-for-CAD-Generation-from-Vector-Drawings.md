@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Drawing2CAD: Sequence-to-Sequence Learning for CAD Generation from
   Vector Drawings"
-excerpt: "Meie Fang이 [arXiv]에 게시한 'Drawing2CAD: Sequence-to-Sequence Learning for CAD Generation from
+excerpt: "Meie Fang이 arXiv에 게시한 'Drawing2CAD: Sequence-to-Sequence Learning for CAD Generation from
   Vector Drawings' 논문에 대한 자세한 리뷰입니다."
 
 categories:

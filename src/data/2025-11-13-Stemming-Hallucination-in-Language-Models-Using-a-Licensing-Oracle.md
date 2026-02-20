@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Stemming Hallucination in Language Models Using a Licensing Oracle"
-excerpt: "Richard Ackermann이 [arXiv]에 게시한 'Stemming Hallucination in Language Models Using a Licensing Oracle' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Richard Ackermann이 arXiv에 게시한 'Stemming Hallucination in Language Models Using a Licensing Oracle' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

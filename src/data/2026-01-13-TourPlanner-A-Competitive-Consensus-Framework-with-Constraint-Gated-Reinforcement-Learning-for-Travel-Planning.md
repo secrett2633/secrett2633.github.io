@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] TourPlanner: A Competitive Consensus Framework with Constraint-Gated Reinforcement Learning for Travel Planning"
-excerpt: "Hao Wang이 [arXiv]에 게시한 'TourPlanner: A Competitive Consensus Framework with Constraint-Gated Reinforcement Learning for Travel Planning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Hao Wang이 arXiv에 게시한 'TourPlanner: A Competitive Consensus Framework with Constraint-Gated Reinforcement Learning for Travel Planning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

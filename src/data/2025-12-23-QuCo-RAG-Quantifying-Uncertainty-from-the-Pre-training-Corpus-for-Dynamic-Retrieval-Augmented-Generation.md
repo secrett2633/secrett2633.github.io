@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] QuCo-RAG: Quantifying Uncertainty from the Pre-training Corpus for Dynamic Retrieval-Augmented Generation"
-excerpt: "Lu Cheng이 [arXiv]에 게시한 'QuCo-RAG: Quantifying Uncertainty from the Pre-training Corpus for Dynamic Retrieval-Augmented Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Lu Cheng이 arXiv에 게시한 'QuCo-RAG: Quantifying Uncertainty from the Pre-training Corpus for Dynamic Retrieval-Augmented Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

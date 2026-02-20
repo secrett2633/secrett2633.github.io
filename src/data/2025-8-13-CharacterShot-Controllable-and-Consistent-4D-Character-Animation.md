@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] CharacterShot: Controllable and Consistent 4D Character Animation"
-excerpt: "Fei Shen이 [arXiv]에 게시한 'CharacterShot: Controllable and Consistent 4D Character Animation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Fei Shen이 arXiv에 게시한 'CharacterShot: Controllable and Consistent 4D Character Animation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

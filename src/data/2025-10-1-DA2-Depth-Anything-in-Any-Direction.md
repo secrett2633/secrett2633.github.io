@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DA^2: Depth Anything in Any Direction"
-excerpt: "이 [arXiv]에 게시한 'DA^2: Depth Anything in Any Direction' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'DA^2: Depth Anything in Any Direction' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] FocusAgent: Simple Yet Effective Ways of Trimming the Large Context of
   Web Agents"
-excerpt: "Léo Boisvert이 [arXiv]에 게시한 'FocusAgent: Simple Yet Effective Ways of Trimming the Large Context of
+excerpt: "Léo Boisvert이 arXiv에 게시한 'FocusAgent: Simple Yet Effective Ways of Trimming the Large Context of
   Web Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:

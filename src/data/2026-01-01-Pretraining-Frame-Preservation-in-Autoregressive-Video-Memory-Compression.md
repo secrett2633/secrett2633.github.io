@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Pretraining Frame Preservation in Autoregressive Video Memory Compression"
-excerpt: "Beijia Lu이 [arXiv]에 게시한 'Pretraining Frame Preservation in Autoregressive Video Memory Compression' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Beijia Lu이 arXiv에 게시한 'Pretraining Frame Preservation in Autoregressive Video Memory Compression' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

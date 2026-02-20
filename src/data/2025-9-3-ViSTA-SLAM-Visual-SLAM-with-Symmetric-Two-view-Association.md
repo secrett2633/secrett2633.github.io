@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] ViSTA-SLAM: Visual SLAM with Symmetric Two-view Association"
-excerpt: "Daniel Cremers이 [arXiv]에 게시한 'ViSTA-SLAM: Visual SLAM with Symmetric Two-view Association' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Daniel Cremers이 arXiv에 게시한 'ViSTA-SLAM: Visual SLAM with Symmetric Two-view Association' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] LightBagel: A Light-weighted, Double Fusion Framework for Unified
   Multimodal Understanding and Generation"
-excerpt: "Chaorui Deng이 [arXiv]에 게시한 'LightBagel: A Light-weighted, Double Fusion Framework for Unified
+excerpt: "Chaorui Deng이 arXiv에 게시한 'LightBagel: A Light-weighted, Double Fusion Framework for Unified
   Multimodal Understanding and Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

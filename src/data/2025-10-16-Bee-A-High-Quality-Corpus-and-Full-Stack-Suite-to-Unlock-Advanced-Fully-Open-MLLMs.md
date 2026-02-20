@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Bee: A High-Quality Corpus and Full-Stack Suite to Unlock Advanced Fully
   Open MLLMs"
-excerpt: "이 [arXiv]에 게시한 'Bee: A High-Quality Corpus and Full-Stack Suite to Unlock Advanced Fully
+excerpt: "arXiv에 게시된 'Bee: A High-Quality Corpus and Full-Stack Suite to Unlock Advanced Fully
   Open MLLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:

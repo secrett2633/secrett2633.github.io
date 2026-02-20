@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Waver: Wave Your Way to Lifelike Video Generation"
-excerpt: "Yifu Zhang이 [arXiv]에 게시한 'Waver: Wave Your Way to Lifelike Video Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yifu Zhang이 arXiv에 게시한 'Waver: Wave Your Way to Lifelike Video Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

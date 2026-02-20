@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Temporal Prompting Matters: Rethinking Referring Video Object
   Segmentation"
-excerpt: "Sifei Liu이 [arXiv]에 게시한 'Temporal Prompting Matters: Rethinking Referring Video Object
+excerpt: "Sifei Liu이 arXiv에 게시한 'Temporal Prompting Matters: Rethinking Referring Video Object
   Segmentation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

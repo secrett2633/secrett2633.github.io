@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DeepSearchQA: Bridging the Comprehensiveness Gap for Deep Research Agents"
-excerpt: "이 [arXiv]에 게시한 'DeepSearchQA: Bridging the Comprehensiveness Gap for Deep Research Agents' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'DeepSearchQA: Bridging the Comprehensiveness Gap for Deep Research Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

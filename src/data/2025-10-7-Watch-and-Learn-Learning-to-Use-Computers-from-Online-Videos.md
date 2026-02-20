@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Watch and Learn: Learning to Use Computers from Online Videos"
-excerpt: "Oriana Riva이 [arXiv]에 게시한 'Watch and Learn: Learning to Use Computers from Online Videos' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Oriana Riva이 arXiv에 게시한 'Watch and Learn: Learning to Use Computers from Online Videos' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

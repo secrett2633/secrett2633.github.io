@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Understanding Embedding Scaling in Collaborative Filtering"
-excerpt: "Yonghui Yang이 [arXiv]에 게시한 'Understanding Embedding Scaling in Collaborative Filtering' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yonghui Yang이 arXiv에 게시한 'Understanding Embedding Scaling in Collaborative Filtering' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Thought Communication in Multiagent Collaboration"
-excerpt: "Mingze Gao이 [arXiv]에 게시한 'Thought Communication in Multiagent Collaboration' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Mingze Gao이 arXiv에 게시한 'Thought Communication in Multiagent Collaboration' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

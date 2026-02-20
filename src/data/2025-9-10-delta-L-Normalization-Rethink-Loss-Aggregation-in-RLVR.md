@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] ΔL Normalization: Rethink Loss Aggregation in RLVR"
-excerpt: "Lili Qiu이 [arXiv]에 게시한 'ΔL Normalization: Rethink Loss Aggregation in RLVR' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Lili Qiu이 arXiv에 게시한 'ΔL Normalization: Rethink Loss Aggregation in RLVR' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

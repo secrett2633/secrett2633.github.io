@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] TV2TV: A Unified Framework for Interleaved Language and Video Generation"
-excerpt: "이 [arXiv]에 게시한 'TV2TV: A Unified Framework for Interleaved Language and Video Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'TV2TV: A Unified Framework for Interleaved Language and Video Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

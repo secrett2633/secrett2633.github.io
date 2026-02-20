@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Document Understanding, Measurement, and Manipulation Using Category
   Theory"
-excerpt: "이 [arXiv]에 게시한 'Document Understanding, Measurement, and Manipulation Using Category
+excerpt: "arXiv에 게시된 'Document Understanding, Measurement, and Manipulation Using Category
   Theory' 논문에 대한 자세한 리뷰입니다."
 
 categories:

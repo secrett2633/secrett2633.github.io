@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] UFO^3: Weaving the Digital Agent Galaxy"
-excerpt: "이 [arXiv]에 게시한 'UFO^3: Weaving the Digital Agent Galaxy' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'UFO^3: Weaving the Digital Agent Galaxy' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

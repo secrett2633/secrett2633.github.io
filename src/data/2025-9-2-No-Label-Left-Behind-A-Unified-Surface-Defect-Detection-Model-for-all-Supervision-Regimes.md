@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] No Label Left Behind: A Unified Surface Defect Detection Model for all
   Supervision Regimes"
-excerpt: "Danijel Skočaj이 [arXiv]에 게시한 'No Label Left Behind: A Unified Surface Defect Detection Model for all
+excerpt: "Danijel Skočaj이 arXiv에 게시한 'No Label Left Behind: A Unified Surface Defect Detection Model for all
   Supervision Regimes' 논문에 대한 자세한 리뷰입니다."
 
 categories:

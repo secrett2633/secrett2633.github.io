@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MM-BrowseComp: A Comprehensive Benchmark for Multimodal Browsing Agents"
-excerpt: "Jun Dong이 [arXiv]에 게시한 'MM-BrowseComp: A Comprehensive Benchmark for Multimodal Browsing Agents' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jun Dong이 arXiv에 게시한 'MM-BrowseComp: A Comprehensive Benchmark for Multimodal Browsing Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

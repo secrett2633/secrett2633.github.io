@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] RoboVIP: Multi-View Video Generation with Visual Identity Prompting Augments Robot Manipulation"
-excerpt: "Mingda Jia이 [arXiv]에 게시한 'RoboVIP: Multi-View Video Generation with Visual Identity Prompting Augments Robot Manipulation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Mingda Jia이 arXiv에 게시한 'RoboVIP: Multi-View Video Generation with Visual Identity Prompting Augments Robot Manipulation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

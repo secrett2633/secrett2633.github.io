@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] A Contextual Quality Reward Model for Reliable and Efficient Best-of-N
   Sampling"
-excerpt: "sirano1004이 [arXiv]에 게시한 'A Contextual Quality Reward Model for Reliable and Efficient Best-of-N
+excerpt: "sirano1004이 arXiv에 게시한 'A Contextual Quality Reward Model for Reliable and Efficient Best-of-N
   Sampling' 논문에 대한 자세한 리뷰입니다."
 
 categories:

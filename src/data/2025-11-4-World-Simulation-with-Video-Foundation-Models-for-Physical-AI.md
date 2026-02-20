@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] World Simulation with Video Foundation Models for Physical AI"
-excerpt: "Junjie Bai이 [arXiv]에 게시한 'World Simulation with Video Foundation Models for Physical AI' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Junjie Bai이 arXiv에 게시한 'World Simulation with Video Foundation Models for Physical AI' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

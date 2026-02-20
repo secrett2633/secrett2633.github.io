@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] BrainExplore: Large-Scale Discovery of Interpretable Visual Representations in the Human Brain"
-excerpt: "tamarott이 [arXiv]에 게시한 'BrainExplore: Large-Scale Discovery of Interpretable Visual Representations in the Human Brain' 논문에 대한 자세한 리뷰입니다."
+excerpt: "tamarott이 arXiv에 게시한 'BrainExplore: Large-Scale Discovery of Interpretable Visual Representations in the Human Brain' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

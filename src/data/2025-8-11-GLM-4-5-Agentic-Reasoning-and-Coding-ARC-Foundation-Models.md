@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] GLM-4.5: Agentic, Reasoning, and Coding (ARC) Foundation Models"
-excerpt: "GLM-4. 5 Team이 [arXiv]에 게시한 'GLM-4.5: Agentic, Reasoning, and Coding (ARC) Foundation Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "GLM-4. 5 Team이 arXiv에 게시한 'GLM-4.5: Agentic, Reasoning, and Coding (ARC) Foundation Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

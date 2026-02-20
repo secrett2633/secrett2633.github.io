@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] UltraFlux: Data-Model Co-Design for High-quality Native 4K Text-to-Image Generation across Diverse Aspect Ratios"
-excerpt: "이 [arXiv]에 게시한 'UltraFlux: Data-Model Co-Design for High-quality Native 4K Text-to-Image Generation across Diverse Aspect Ratios' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'UltraFlux: Data-Model Co-Design for High-quality Native 4K Text-to-Image Generation across Diverse Aspect Ratios' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

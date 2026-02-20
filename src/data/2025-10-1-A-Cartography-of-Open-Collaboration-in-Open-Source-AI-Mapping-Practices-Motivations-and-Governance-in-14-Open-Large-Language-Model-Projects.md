@@ -2,7 +2,7 @@
 title: "[논문리뷰] A Cartography of Open Collaboration in Open Source AI: Mapping
   Practices, Motivations, and Governance in 14 Open Large Language Model
   Projects"
-excerpt: "Jennifer Ding이 [arXiv]에 게시한 'A Cartography of Open Collaboration in Open Source AI: Mapping
+excerpt: "Jennifer Ding이 arXiv에 게시한 'A Cartography of Open Collaboration in Open Source AI: Mapping
   Practices, Motivations, and Governance in 14 Open Large Language Model
   Projects' 논문에 대한 자세한 리뷰입니다."
 

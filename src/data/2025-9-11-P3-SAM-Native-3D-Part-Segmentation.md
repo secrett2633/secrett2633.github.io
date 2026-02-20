@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] P3-SAM: Native 3D Part Segmentation"
-excerpt: "Yunhan Yang이 [arXiv]에 게시한 'P3-SAM: Native 3D Part Segmentation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yunhan Yang이 arXiv에 게시한 'P3-SAM: Native 3D Part Segmentation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

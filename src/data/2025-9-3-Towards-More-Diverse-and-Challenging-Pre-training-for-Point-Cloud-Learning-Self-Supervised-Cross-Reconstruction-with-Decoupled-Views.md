@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Towards More Diverse and Challenging Pre-training for Point Cloud
   Learning: Self-Supervised Cross Reconstruction with Decoupled Views"
-excerpt: "Junchi Yan이 [arXiv]에 게시한 'Towards More Diverse and Challenging Pre-training for Point Cloud
+excerpt: "Junchi Yan이 arXiv에 게시한 'Towards More Diverse and Challenging Pre-training for Point Cloud
   Learning: Self-Supervised Cross Reconstruction with Decoupled Views' 논문에 대한 자세한 리뷰입니다."
 
 categories:

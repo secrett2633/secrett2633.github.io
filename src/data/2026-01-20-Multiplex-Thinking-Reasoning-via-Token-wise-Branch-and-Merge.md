@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Multiplex Thinking: Reasoning via Token-wise Branch-and-Merge"
-excerpt: "이 [arXiv]에 게시한 'Multiplex Thinking: Reasoning via Token-wise Branch-and-Merge' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Multiplex Thinking: Reasoning via Token-wise Branch-and-Merge' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

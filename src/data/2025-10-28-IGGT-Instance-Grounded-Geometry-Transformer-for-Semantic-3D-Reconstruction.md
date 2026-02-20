@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] IGGT: Instance-Grounded Geometry Transformer for Semantic 3D
   Reconstruction"
-excerpt: "Fangzhou Hong이 [arXiv]에 게시한 'IGGT: Instance-Grounded Geometry Transformer for Semantic 3D
+excerpt: "Fangzhou Hong이 arXiv에 게시한 'IGGT: Instance-Grounded Geometry Transformer for Semantic 3D
   Reconstruction' 논문에 대한 자세한 리뷰입니다."
 
 categories:

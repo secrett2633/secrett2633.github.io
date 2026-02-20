@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Rethinking Video Generation Model for the Embodied World"
-excerpt: "이 [arXiv]에 게시한 'Rethinking Video Generation Model for the Embodied World' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Rethinking Video Generation Model for the Embodied World' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

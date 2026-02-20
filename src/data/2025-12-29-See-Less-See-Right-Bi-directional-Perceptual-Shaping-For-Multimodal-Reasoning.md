@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] See Less, See Right: Bi-directional Perceptual Shaping For Multimodal Reasoning"
-excerpt: "이 [arXiv]에 게시한 'See Less, See Right: Bi-directional Perceptual Shaping For Multimodal Reasoning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'See Less, See Right: Bi-directional Perceptual Shaping For Multimodal Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] R-Horizon: How Far Can Your Large Reasoning Model Really Go in Breadth
   and Depth?"
-excerpt: "이 [arXiv]에 게시한 'R-Horizon: How Far Can Your Large Reasoning Model Really Go in Breadth
+excerpt: "arXiv에 게시된 'R-Horizon: How Far Can Your Large Reasoning Model Really Go in Breadth
   and Depth?' 논문에 대한 자세한 리뷰입니다."
 
 categories:

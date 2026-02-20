@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Benchmarking Optimizers for Large Language Model Pretraining"
-excerpt: "mjaggi이 [arXiv]에 게시한 'Benchmarking Optimizers for Large Language Model Pretraining' 논문에 대한 자세한 리뷰입니다."
+excerpt: "mjaggi이 arXiv에 게시한 'Benchmarking Optimizers for Large Language Model Pretraining' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

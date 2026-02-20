@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Pref-GRPO: Pairwise Preference Reward-based GRPO for Stable
   Text-to-Image Reinforcement Learning"
-excerpt: "Jiazi Bu이 [arXiv]에 게시한 'Pref-GRPO: Pairwise Preference Reward-based GRPO for Stable
+excerpt: "Jiazi Bu이 arXiv에 게시한 'Pref-GRPO: Pairwise Preference Reward-based GRPO for Stable
   Text-to-Image Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

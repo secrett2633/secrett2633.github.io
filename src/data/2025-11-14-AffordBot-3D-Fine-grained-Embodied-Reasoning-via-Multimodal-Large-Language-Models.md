@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] AffordBot: 3D Fine-grained Embodied Reasoning via Multimodal Large Language Models"
-excerpt: "Zhen Li이 [arXiv]에 게시한 'AffordBot: 3D Fine-grained Embodied Reasoning via Multimodal Large Language Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zhen Li이 arXiv에 게시한 'AffordBot: 3D Fine-grained Embodied Reasoning via Multimodal Large Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] A-RAG: Scaling Agentic Retrieval-Augmented Generation via Hierarchical Retrieval Interfaces"
-excerpt: "이 [arXiv]에 게시한 'A-RAG: Scaling Agentic Retrieval-Augmented Generation via Hierarchical Retrieval Interfaces' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'A-RAG: Scaling Agentic Retrieval-Augmented Generation via Hierarchical Retrieval Interfaces' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

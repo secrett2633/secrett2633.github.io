@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Bridging Reasoning to Learning: Unmasking Illusions using Complexity Out
   of Distribution Generalization"
-excerpt: "Mahdi Ghaznavai이 [arXiv]에 게시한 'Bridging Reasoning to Learning: Unmasking Illusions using Complexity Out
+excerpt: "Mahdi Ghaznavai이 arXiv에 게시한 'Bridging Reasoning to Learning: Unmasking Illusions using Complexity Out
   of Distribution Generalization' 논문에 대한 자세한 리뷰입니다."
 
 categories:

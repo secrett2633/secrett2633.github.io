@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] LoPA: Scaling dLLM Inference via Lookahead Parallel Decoding"
-excerpt: "이 [arXiv]에 게시한 'LoPA: Scaling dLLM Inference via Lookahead Parallel Decoding' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'LoPA: Scaling dLLM Inference via Lookahead Parallel Decoding' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] A Coarse-to-Fine Approach to Multi-Modality 3D Occupancy Grounding"
-excerpt: "Jianke Zhu이 [arXiv]에 게시한 'A Coarse-to-Fine Approach to Multi-Modality 3D Occupancy Grounding' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jianke Zhu이 arXiv에 게시한 'A Coarse-to-Fine Approach to Multi-Modality 3D Occupancy Grounding' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] EnvX: Agentize Everything with Agentic AI"
-excerpt: "Wenzheng Tom Tang이 [arXiv]에 게시한 'EnvX: Agentize Everything with Agentic AI' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Wenzheng Tom Tang이 arXiv에 게시한 'EnvX: Agentize Everything with Agentic AI' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

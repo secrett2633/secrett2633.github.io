@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] G-LNS: Generative Large Neighborhood Search for LLM-Based Automatic Heuristic Design"
-excerpt: "Liang Zeng이 [arXiv]에 게시한 'G-LNS: Generative Large Neighborhood Search for LLM-Based Automatic Heuristic Design' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Liang Zeng이 arXiv에 게시한 'G-LNS: Generative Large Neighborhood Search for LLM-Based Automatic Heuristic Design' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

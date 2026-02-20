@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] WAY: Estimation of Vessel Destination in Worldwide AIS Trajectory"
-excerpt: "Sung Won Han이 [arXiv]에 게시한 'WAY: Estimation of Vessel Destination in Worldwide AIS Trajectory' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Sung Won Han이 arXiv에 게시한 'WAY: Estimation of Vessel Destination in Worldwide AIS Trajectory' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

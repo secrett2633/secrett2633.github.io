@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] TheraMind: A Strategic and Adaptive Agent for Longitudinal Psychological
   Counseling"
-excerpt: "Zheng Zhang이 [arXiv]에 게시한 'TheraMind: A Strategic and Adaptive Agent for Longitudinal Psychological
+excerpt: "Zheng Zhang이 arXiv에 게시한 'TheraMind: A Strategic and Adaptive Agent for Longitudinal Psychological
   Counseling' 논문에 대한 자세한 리뷰입니다."
 
 categories:

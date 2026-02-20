@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] VideoCanvas: Unified Video Completion from Arbitrary Spatiotemporal
   Patches via In-Context Conditioning"
-excerpt: "Quande Liu이 [arXiv]에 게시한 'VideoCanvas: Unified Video Completion from Arbitrary Spatiotemporal
+excerpt: "Quande Liu이 arXiv에 게시한 'VideoCanvas: Unified Video Completion from Arbitrary Spatiotemporal
   Patches via In-Context Conditioning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

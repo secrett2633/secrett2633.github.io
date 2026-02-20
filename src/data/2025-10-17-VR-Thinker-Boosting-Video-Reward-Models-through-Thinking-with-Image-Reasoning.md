@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] VR-Thinker: Boosting Video Reward Models through Thinking-with-Image
   Reasoning"
-excerpt: "이 [arXiv]에 게시한 'VR-Thinker: Boosting Video Reward Models through Thinking-with-Image
+excerpt: "arXiv에 게시된 'VR-Thinker: Boosting Video Reward Models through Thinking-with-Image
   Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

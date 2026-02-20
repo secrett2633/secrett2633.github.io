@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Fantastic Pretraining Optimizers and Where to Find Them"
-excerpt: "Percy Liang이 [arXiv]에 게시한 'Fantastic Pretraining Optimizers and Where to Find Them' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Percy Liang이 arXiv에 게시한 'Fantastic Pretraining Optimizers and Where to Find Them' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

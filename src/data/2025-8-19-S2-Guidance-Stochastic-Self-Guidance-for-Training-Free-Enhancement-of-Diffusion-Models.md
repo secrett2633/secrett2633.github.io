@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] S^2-Guidance: Stochastic Self Guidance for Training-Free Enhancement of
   Diffusion Models"
-excerpt: "Meiqi Wu이 [arXiv]에 게시한 'S^2-Guidance: Stochastic Self Guidance for Training-Free Enhancement of
+excerpt: "Meiqi Wu이 arXiv에 게시한 'S^2-Guidance: Stochastic Self Guidance for Training-Free Enhancement of
   Diffusion Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

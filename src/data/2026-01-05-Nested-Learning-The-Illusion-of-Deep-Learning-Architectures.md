@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Nested Learning: The Illusion of Deep Learning Architectures"
-excerpt: "Vahab Mirrokni이 [arXiv]에 게시한 'Nested Learning: The Illusion of Deep Learning Architectures' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Vahab Mirrokni이 arXiv에 게시한 'Nested Learning: The Illusion of Deep Learning Architectures' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

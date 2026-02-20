@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] FLOWER: Democratizing Generalist Robot Policies with Efficient
   Vision-Language-Action Flow Policies"
-excerpt: "Fabian Otto이 [arXiv]에 게시한 'FLOWER: Democratizing Generalist Robot Policies with Efficient
+excerpt: "Fabian Otto이 arXiv에 게시한 'FLOWER: Democratizing Generalist Robot Policies with Efficient
   Vision-Language-Action Flow Policies' 논문에 대한 자세한 리뷰입니다."
 
 categories:

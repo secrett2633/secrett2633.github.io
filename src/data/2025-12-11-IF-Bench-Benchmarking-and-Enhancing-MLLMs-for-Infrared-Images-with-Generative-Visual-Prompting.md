@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] IF-Bench: Benchmarking and Enhancing MLLMs for Infrared Images with Generative Visual Prompting"
-excerpt: "이 [arXiv]에 게시한 'IF-Bench: Benchmarking and Enhancing MLLMs for Infrared Images with Generative Visual Prompting' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'IF-Bench: Benchmarking and Enhancing MLLMs for Infrared Images with Generative Visual Prompting' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

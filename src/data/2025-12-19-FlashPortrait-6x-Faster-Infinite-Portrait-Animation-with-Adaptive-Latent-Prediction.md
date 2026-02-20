@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] FlashPortrait: 6x Faster Infinite Portrait Animation with Adaptive Latent Prediction"
-excerpt: "이 [arXiv]에 게시한 'FlashPortrait: 6x Faster Infinite Portrait Animation with Adaptive Latent Prediction' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'FlashPortrait: 6x Faster Infinite Portrait Animation with Adaptive Latent Prediction' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

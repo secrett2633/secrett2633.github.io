@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Numina-Lean-Agent: An Open and General Agentic Reasoning System for Formal Mathematics"
-excerpt: "이 [arXiv]에 게시한 'Numina-Lean-Agent: An Open and General Agentic Reasoning System for Formal Mathematics' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Numina-Lean-Agent: An Open and General Agentic Reasoning System for Formal Mathematics' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SVBench: Evaluation of Video Generation Models on Social Reasoning"
-excerpt: "Xiaojie Xu이 [arXiv]에 게시한 'SVBench: Evaluation of Video Generation Models on Social Reasoning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xiaojie Xu이 arXiv에 게시한 'SVBench: Evaluation of Video Generation Models on Social Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

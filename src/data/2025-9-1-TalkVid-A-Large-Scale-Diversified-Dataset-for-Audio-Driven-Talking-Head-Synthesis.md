@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] TalkVid: A Large-Scale Diversified Dataset for Audio-Driven Talking Head
   Synthesis"
-excerpt: "Pengcheng Chen이 [arXiv]에 게시한 'TalkVid: A Large-Scale Diversified Dataset for Audio-Driven Talking Head
+excerpt: "Pengcheng Chen이 arXiv에 게시한 'TalkVid: A Large-Scale Diversified Dataset for Audio-Driven Talking Head
   Synthesis' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Better Together: Leveraging Unpaired Multimodal Data for Stronger
   Unimodal Models"
-excerpt: "이 [arXiv]에 게시한 'Better Together: Leveraging Unpaired Multimodal Data for Stronger
+excerpt: "arXiv에 게시된 'Better Together: Leveraging Unpaired Multimodal Data for Stronger
   Unimodal Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

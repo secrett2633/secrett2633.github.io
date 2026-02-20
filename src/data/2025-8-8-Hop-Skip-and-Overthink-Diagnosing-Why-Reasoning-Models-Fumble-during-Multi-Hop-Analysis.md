@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Hop, Skip, and Overthink: Diagnosing Why Reasoning Models Fumble during
   Multi-Hop Analysis"
-excerpt: "Reshmi Ghosh이 [arXiv]에 게시한 'Hop, Skip, and Overthink: Diagnosing Why Reasoning Models Fumble during
+excerpt: "Reshmi Ghosh이 arXiv에 게시한 'Hop, Skip, and Overthink: Diagnosing Why Reasoning Models Fumble during
   Multi-Hop Analysis' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] InternVL3.5: Advancing Open-Source Multimodal Models in Versatility,
   Reasoning, and Efficiency"
-excerpt: "jinglinglin이 [arXiv]에 게시한 'InternVL3.5: Advancing Open-Source Multimodal Models in Versatility,
+excerpt: "jinglinglin이 arXiv에 게시한 'InternVL3.5: Advancing Open-Source Multimodal Models in Versatility,
   Reasoning, and Efficiency' 논문에 대한 자세한 리뷰입니다."
 
 categories:

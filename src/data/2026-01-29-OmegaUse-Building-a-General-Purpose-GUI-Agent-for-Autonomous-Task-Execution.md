@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] OmegaUse: Building a General-Purpose GUI Agent for Autonomous Task Execution"
-excerpt: "Yusai Zhao이 [arXiv]에 게시한 'OmegaUse: Building a General-Purpose GUI Agent for Autonomous Task Execution' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yusai Zhao이 arXiv에 게시한 'OmegaUse: Building a General-Purpose GUI Agent for Autonomous Task Execution' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

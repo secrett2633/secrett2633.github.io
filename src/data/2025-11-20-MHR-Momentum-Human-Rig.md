@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MHR: Momentum Human Rig"
-excerpt: "Chris Twigg이 [arXiv]에 게시한 'MHR: Momentum Human Rig' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Chris Twigg이 arXiv에 게시한 'MHR: Momentum Human Rig' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

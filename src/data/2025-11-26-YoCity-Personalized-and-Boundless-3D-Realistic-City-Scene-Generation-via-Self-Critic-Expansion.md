@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Yo'City: Personalized and Boundless 3D Realistic City Scene Generation via Self-Critic Expansion"
-excerpt: "Zhifei Yang이 [arXiv]에 게시한 'Yo'City: Personalized and Boundless 3D Realistic City Scene Generation via Self-Critic Expansion' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zhifei Yang이 arXiv에 게시한 'Yo'City: Personalized and Boundless 3D Realistic City Scene Generation via Self-Critic Expansion' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

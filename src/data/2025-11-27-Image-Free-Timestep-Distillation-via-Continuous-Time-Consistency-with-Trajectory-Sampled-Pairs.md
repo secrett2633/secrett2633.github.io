@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Image-Free Timestep Distillation via Continuous-Time Consistency with Trajectory-Sampled Pairs"
-excerpt: "Xin Yang이 [arXiv]에 게시한 'Image-Free Timestep Distillation via Continuous-Time Consistency with Trajectory-Sampled Pairs' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xin Yang이 arXiv에 게시한 'Image-Free Timestep Distillation via Continuous-Time Consistency with Trajectory-Sampled Pairs' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

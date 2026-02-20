@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] VA-π: Variational Policy Alignment for Pixel-Aware Autoregressive Generation"
-excerpt: "Yicong Li이 [arXiv]에 게시한 'VA-π: Variational Policy Alignment for Pixel-Aware Autoregressive Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yicong Li이 arXiv에 게시한 'VA-π: Variational Policy Alignment for Pixel-Aware Autoregressive Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

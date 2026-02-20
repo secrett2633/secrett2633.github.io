@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] LSRIF: Logic-Structured Reinforcement Learning for Instruction Following"
-excerpt: "이 [arXiv]에 게시한 'LSRIF: Logic-Structured Reinforcement Learning for Instruction Following' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'LSRIF: Logic-Structured Reinforcement Learning for Instruction Following' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

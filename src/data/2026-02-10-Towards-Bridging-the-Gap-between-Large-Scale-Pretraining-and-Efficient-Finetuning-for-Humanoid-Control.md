@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Towards Bridging the Gap between Large-Scale Pretraining and Efficient Finetuning for Humanoid Control"
-excerpt: "Yao Su이 [arXiv]에 게시한 'Towards Bridging the Gap between Large-Scale Pretraining and Efficient Finetuning for Humanoid Control' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yao Su이 arXiv에 게시한 'Towards Bridging the Gap between Large-Scale Pretraining and Efficient Finetuning for Humanoid Control' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

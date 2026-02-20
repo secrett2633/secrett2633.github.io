@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Magentic Marketplace: An Open-Source Environment for Studying Agentic
   Markets"
-excerpt: "이 [arXiv]에 게시한 'Magentic Marketplace: An Open-Source Environment for Studying Agentic
+excerpt: "arXiv에 게시된 'Magentic Marketplace: An Open-Source Environment for Studying Agentic
   Markets' 논문에 대한 자세한 리뷰입니다."
 
 categories:

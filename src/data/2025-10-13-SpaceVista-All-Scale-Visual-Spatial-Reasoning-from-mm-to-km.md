@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SpaceVista: All-Scale Visual Spatial Reasoning from mm to km"
-excerpt: "Kaituo Feng이 [arXiv]에 게시한 'SpaceVista: All-Scale Visual Spatial Reasoning from mm to km' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Kaituo Feng이 arXiv에 게시한 'SpaceVista: All-Scale Visual Spatial Reasoning from mm to km' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

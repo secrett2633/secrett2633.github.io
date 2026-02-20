@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] ThinkRouter: Efficient Reasoning via Routing Thinking between Latent and Discrete Spaces"
-excerpt: "Julian McAuley이 [arXiv]에 게시한 'ThinkRouter: Efficient Reasoning via Routing Thinking between Latent and Discrete Spaces' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Julian McAuley이 arXiv에 게시한 'ThinkRouter: Efficient Reasoning via Routing Thinking between Latent and Discrete Spaces' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] TimesNet-Gen: Deep Learning-based Site Specific Strong Motion Generation"
-excerpt: "Salih Tileylioglu이 [arXiv]에 게시한 'TimesNet-Gen: Deep Learning-based Site Specific Strong Motion Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Salih Tileylioglu이 arXiv에 게시한 'TimesNet-Gen: Deep Learning-based Site Specific Strong Motion Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

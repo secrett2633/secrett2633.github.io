@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MOSS-ChatV: Reinforcement Learning with Process Reasoning Reward for
   Video Temporal Reasoning"
-excerpt: "Junyan Zhang이 [arXiv]에 게시한 'MOSS-ChatV: Reinforcement Learning with Process Reasoning Reward for
+excerpt: "Junyan Zhang이 arXiv에 게시한 'MOSS-ChatV: Reinforcement Learning with Process Reasoning Reward for
   Video Temporal Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

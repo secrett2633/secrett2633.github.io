@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] PromptBridge: Cross-Model Prompt Transfer for Large Language Models"
-excerpt: "Wei Wei이 [arXiv]에 게시한 'PromptBridge: Cross-Model Prompt Transfer for Large Language Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Wei Wei이 arXiv에 게시한 'PromptBridge: Cross-Model Prompt Transfer for Large Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

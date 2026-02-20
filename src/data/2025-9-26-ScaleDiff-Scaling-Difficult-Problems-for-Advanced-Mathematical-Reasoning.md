@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] ScaleDiff: Scaling Difficult Problems for Advanced Mathematical
   Reasoning"
-excerpt: "Yu Li이 [arXiv]에 게시한 'ScaleDiff: Scaling Difficult Problems for Advanced Mathematical
+excerpt: "Yu Li이 arXiv에 게시한 'ScaleDiff: Scaling Difficult Problems for Advanced Mathematical
   Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

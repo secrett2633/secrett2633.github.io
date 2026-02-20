@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Geometrically-Constrained Agent for Spatial Reasoning"
-excerpt: "Lehan He이 [arXiv]에 게시한 'Geometrically-Constrained Agent for Spatial Reasoning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Lehan He이 arXiv에 게시한 'Geometrically-Constrained Agent for Spatial Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

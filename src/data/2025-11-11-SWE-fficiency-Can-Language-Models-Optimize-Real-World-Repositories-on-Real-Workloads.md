@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SWE-fficiency: Can Language Models Optimize Real-World Repositories on Real Workloads?"
-excerpt: "Ofir Press이 [arXiv]에 게시한 'SWE-fficiency: Can Language Models Optimize Real-World Repositories on Real Workloads?' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Ofir Press이 arXiv에 게시한 'SWE-fficiency: Can Language Models Optimize Real-World Repositories on Real Workloads?' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

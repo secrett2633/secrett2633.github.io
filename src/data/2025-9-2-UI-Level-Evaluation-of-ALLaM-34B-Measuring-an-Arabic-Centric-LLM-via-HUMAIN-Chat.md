@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] UI-Level Evaluation of ALLaM 34B: Measuring an Arabic-Centric LLM via
   HUMAIN Chat"
-excerpt: "Omartificial-Intelligence-Space이 [arXiv]에 게시한 'UI-Level Evaluation of ALLaM 34B: Measuring an Arabic-Centric LLM via
+excerpt: "Omartificial-Intelligence-Space이 arXiv에 게시한 'UI-Level Evaluation of ALLaM 34B: Measuring an Arabic-Centric LLM via
   HUMAIN Chat' 논문에 대한 자세한 리뷰입니다."
 
 categories:

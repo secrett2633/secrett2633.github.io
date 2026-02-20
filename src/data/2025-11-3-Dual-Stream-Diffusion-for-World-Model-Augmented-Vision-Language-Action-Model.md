@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Dual-Stream Diffusion for World-Model Augmented Vision-Language-Action
   Model"
-excerpt: "Jinwoo Shin이 [arXiv]에 게시한 'Dual-Stream Diffusion for World-Model Augmented Vision-Language-Action
+excerpt: "Jinwoo Shin이 arXiv에 게시한 'Dual-Stream Diffusion for World-Model Augmented Vision-Language-Action
   Model' 논문에 대한 자세한 리뷰입니다."
 
 categories:

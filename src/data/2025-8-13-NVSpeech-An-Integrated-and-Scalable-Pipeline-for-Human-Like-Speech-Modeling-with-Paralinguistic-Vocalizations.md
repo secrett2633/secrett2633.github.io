@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] NVSpeech: An Integrated and Scalable Pipeline for Human-Like Speech
   Modeling with Paralinguistic Vocalizations"
-excerpt: "Haoyue Zhan이 [arXiv]에 게시한 'NVSpeech: An Integrated and Scalable Pipeline for Human-Like Speech
+excerpt: "Haoyue Zhan이 arXiv에 게시한 'NVSpeech: An Integrated and Scalable Pipeline for Human-Like Speech
   Modeling with Paralinguistic Vocalizations' 논문에 대한 자세한 리뷰입니다."
 
 categories:

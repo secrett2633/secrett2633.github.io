@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] In-Place Feedback: A New Paradigm for Guiding LLMs in Multi-Turn
   Reasoning"
-excerpt: "Chaehyeon Chung이 [arXiv]에 게시한 'In-Place Feedback: A New Paradigm for Guiding LLMs in Multi-Turn
+excerpt: "Chaehyeon Chung이 arXiv에 게시한 'In-Place Feedback: A New Paradigm for Guiding LLMs in Multi-Turn
   Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

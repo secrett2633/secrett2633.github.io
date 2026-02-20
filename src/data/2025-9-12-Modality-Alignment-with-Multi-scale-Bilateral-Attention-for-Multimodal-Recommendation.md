@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Modality Alignment with Multi-scale Bilateral Attention for Multimodal
   Recommendation"
-excerpt: "Dong-Ho Lee이 [arXiv]에 게시한 'Modality Alignment with Multi-scale Bilateral Attention for Multimodal
+excerpt: "Dong-Ho Lee이 arXiv에 게시한 'Modality Alignment with Multi-scale Bilateral Attention for Multimodal
   Recommendation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

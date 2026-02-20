@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Mind-the-Glitch: Visual Correspondence for Detecting Inconsistencies in
   Subject-Driven Generation"
-excerpt: "Peter Wonka이 [arXiv]에 게시한 'Mind-the-Glitch: Visual Correspondence for Detecting Inconsistencies in
+excerpt: "Peter Wonka이 arXiv에 게시한 'Mind-the-Glitch: Visual Correspondence for Detecting Inconsistencies in
   Subject-Driven Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

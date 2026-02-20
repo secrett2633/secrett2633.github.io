@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] RecGPT Technical Report"
-excerpt: "Jian Wu이 [arXiv]에 게시한 'RecGPT Technical Report' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jian Wu이 arXiv에 게시한 'RecGPT Technical Report' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

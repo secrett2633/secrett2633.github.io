@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Predicting the Order of Upcoming Tokens Improves Language Modeling"
-excerpt: "Alham Fikri Aji이 [arXiv]에 게시한 'Predicting the Order of Upcoming Tokens Improves Language Modeling' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Alham Fikri Aji이 arXiv에 게시한 'Predicting the Order of Upcoming Tokens Improves Language Modeling' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

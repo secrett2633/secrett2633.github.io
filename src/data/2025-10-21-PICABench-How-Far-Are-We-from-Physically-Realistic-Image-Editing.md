@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] PICABench: How Far Are We from Physically Realistic Image Editing?"
-excerpt: "Kaiwen Zhu이 [arXiv]에 게시한 'PICABench: How Far Are We from Physically Realistic Image Editing?' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Kaiwen Zhu이 arXiv에 게시한 'PICABench: How Far Are We from Physically Realistic Image Editing?' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

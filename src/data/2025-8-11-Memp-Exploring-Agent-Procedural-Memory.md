@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Memp: Exploring Agent Procedural Memory"
-excerpt: "Shuofei Qiao이 [arXiv]에 게시한 'Memp: Exploring Agent Procedural Memory' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Shuofei Qiao이 arXiv에 게시한 'Memp: Exploring Agent Procedural Memory' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

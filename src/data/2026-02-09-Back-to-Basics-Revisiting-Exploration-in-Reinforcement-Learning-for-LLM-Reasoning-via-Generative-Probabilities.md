@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Back to Basics: Revisiting Exploration in Reinforcement Learning for LLM Reasoning via Generative Probabilities"
-excerpt: "Ivan Oseledets이 [arXiv]에 게시한 'Back to Basics: Revisiting Exploration in Reinforcement Learning for LLM Reasoning via Generative Probabilities' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Ivan Oseledets이 arXiv에 게시한 'Back to Basics: Revisiting Exploration in Reinforcement Learning for LLM Reasoning via Generative Probabilities' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

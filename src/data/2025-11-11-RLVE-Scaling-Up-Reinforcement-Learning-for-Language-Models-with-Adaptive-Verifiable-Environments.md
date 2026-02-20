@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] RLVE: Scaling Up Reinforcement Learning for Language Models with   Adaptive Verifiable Environments"
-excerpt: "Shuyue Stella Li이 [arXiv]에 게시한 'RLVE: Scaling Up Reinforcement Learning for Language Models with   Adaptive Verifiable Environments' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Shuyue Stella Li이 arXiv에 게시한 'RLVE: Scaling Up Reinforcement Learning for Language Models with   Adaptive Verifiable Environments' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

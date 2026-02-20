@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Demystifying Scientific Problem-Solving in LLMs by Probing Knowledge and
   Reasoning"
-excerpt: "Arman Cohan이 [arXiv]에 게시한 'Demystifying Scientific Problem-Solving in LLMs by Probing Knowledge and
+excerpt: "Arman Cohan이 arXiv에 게시한 'Demystifying Scientific Problem-Solving in LLMs by Probing Knowledge and
   Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

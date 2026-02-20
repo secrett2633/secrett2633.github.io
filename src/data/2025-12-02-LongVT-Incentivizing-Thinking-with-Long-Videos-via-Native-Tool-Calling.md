@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] LongVT: Incentivizing 'Thinking with Long Videos' via Native Tool Calling"
-excerpt: "이 [arXiv]에 게시한 'LongVT: Incentivizing 'Thinking with Long Videos' via Native Tool Calling' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'LongVT: Incentivizing 'Thinking with Long Videos' via Native Tool Calling' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

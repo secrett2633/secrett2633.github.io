@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Why Can't Transformers Learn Multiplication? Reverse-Engineering Reveals
   Long-Range Dependency Pitfalls"
-excerpt: "Stuart Shieber이 [arXiv]에 게시한 'Why Can't Transformers Learn Multiplication? Reverse-Engineering Reveals
+excerpt: "Stuart Shieber이 arXiv에 게시한 'Why Can't Transformers Learn Multiplication? Reverse-Engineering Reveals
   Long-Range Dependency Pitfalls' 논문에 대한 자세한 리뷰입니다."
 
 categories:

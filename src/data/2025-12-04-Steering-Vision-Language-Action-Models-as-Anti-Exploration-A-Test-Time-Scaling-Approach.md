@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Steering Vision-Language-Action Models as Anti-Exploration: A Test-Time Scaling Approach"
-excerpt: "Xiu Li이 [arXiv]에 게시한 'Steering Vision-Language-Action Models as Anti-Exploration: A Test-Time Scaling Approach' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xiu Li이 arXiv에 게시한 'Steering Vision-Language-Action Models as Anti-Exploration: A Test-Time Scaling Approach' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

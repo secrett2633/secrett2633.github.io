@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] DRIFT: Learning from Abundant User Dissatisfaction in Real-World
   Preference Learning"
-excerpt: "Zheli Liu이 [arXiv]에 게시한 'DRIFT: Learning from Abundant User Dissatisfaction in Real-World
+excerpt: "Zheli Liu이 arXiv에 게시한 'DRIFT: Learning from Abundant User Dissatisfaction in Real-World
   Preference Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

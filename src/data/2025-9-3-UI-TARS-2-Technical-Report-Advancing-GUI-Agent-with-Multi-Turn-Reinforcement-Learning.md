@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] UI-TARS-2 Technical Report: Advancing GUI Agent with Multi-Turn
   Reinforcement Learning"
-excerpt: "Haoyang Zou이 [arXiv]에 게시한 'UI-TARS-2 Technical Report: Advancing GUI Agent with Multi-Turn
+excerpt: "Haoyang Zou이 arXiv에 게시한 'UI-TARS-2 Technical Report: Advancing GUI Agent with Multi-Turn
   Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

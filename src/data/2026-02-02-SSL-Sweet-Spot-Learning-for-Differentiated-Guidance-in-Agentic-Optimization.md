@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SSL: Sweet Spot Learning for Differentiated Guidance in Agentic Optimization"
-excerpt: "Bolin Ni이 [arXiv]에 게시한 'SSL: Sweet Spot Learning for Differentiated Guidance in Agentic Optimization' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Bolin Ni이 arXiv에 게시한 'SSL: Sweet Spot Learning for Differentiated Guidance in Agentic Optimization' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

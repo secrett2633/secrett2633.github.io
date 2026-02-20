@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Optimal Sparsity of Mixture-of-Experts Language Models for Reasoning
   Tasks"
-excerpt: "Daisuke Nohara이 [arXiv]에 게시한 'Optimal Sparsity of Mixture-of-Experts Language Models for Reasoning
+excerpt: "Daisuke Nohara이 arXiv에 게시한 'Optimal Sparsity of Mixture-of-Experts Language Models for Reasoning
   Tasks' 논문에 대한 자세한 리뷰입니다."
 
 categories:

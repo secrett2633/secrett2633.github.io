@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] OmniAgent: Audio-Guided Active Perception Agent for Omnimodal Audio-Video Understanding"
-excerpt: "Jian Liu이 [arXiv]에 게시한 'OmniAgent: Audio-Guided Active Perception Agent for Omnimodal Audio-Video Understanding' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jian Liu이 arXiv에 게시한 'OmniAgent: Audio-Guided Active Perception Agent for Omnimodal Audio-Video Understanding' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

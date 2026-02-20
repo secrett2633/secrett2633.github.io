@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Understanding Syllogistic Reasoning in LLMs from Formal and Natural Language Perspectives"
-excerpt: "Sujata Ghosh이 [arXiv]에 게시한 'Understanding Syllogistic Reasoning in LLMs from Formal and Natural Language Perspectives' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Sujata Ghosh이 arXiv에 게시한 'Understanding Syllogistic Reasoning in LLMs from Formal and Natural Language Perspectives' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

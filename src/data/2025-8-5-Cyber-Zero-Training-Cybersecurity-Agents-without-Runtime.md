@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Cyber-Zero: Training Cybersecurity Agents without Runtime"
-excerpt: "Zijian Wang이 [arXiv]에 게시한 'Cyber-Zero: Training Cybersecurity Agents without Runtime' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zijian Wang이 arXiv에 게시한 'Cyber-Zero: Training Cybersecurity Agents without Runtime' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

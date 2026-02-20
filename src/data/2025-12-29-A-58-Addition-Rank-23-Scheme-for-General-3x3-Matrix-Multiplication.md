@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] A 58-Addition, Rank-23 Scheme for General 3x3 Matrix Multiplication"
-excerpt: "A. I. Perminov이 [arXiv]에 게시한 'A 58-Addition, Rank-23 Scheme for General 3x3 Matrix Multiplication' 논문에 대한 자세한 리뷰입니다."
+excerpt: "A. I. Perminov이 arXiv에 게시한 'A 58-Addition, Rank-23 Scheme for General 3x3 Matrix Multiplication' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] On-Policy RL Meets Off-Policy Experts: Harmonizing Supervised
   Fine-Tuning and Reinforcement Learning via Dynamic Weighting"
-excerpt: "Guoyin Wang이 [arXiv]에 게시한 'On-Policy RL Meets Off-Policy Experts: Harmonizing Supervised
+excerpt: "Guoyin Wang이 arXiv에 게시한 'On-Policy RL Meets Off-Policy Experts: Harmonizing Supervised
   Fine-Tuning and Reinforcement Learning via Dynamic Weighting' 논문에 대한 자세한 리뷰입니다."
 
 categories:

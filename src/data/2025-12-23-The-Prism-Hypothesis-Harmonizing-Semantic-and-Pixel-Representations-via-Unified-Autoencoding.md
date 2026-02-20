@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] The Prism Hypothesis: Harmonizing Semantic and Pixel Representations via Unified Autoencoding"
-excerpt: "Ziwei Liu이 [arXiv]에 게시한 'The Prism Hypothesis: Harmonizing Semantic and Pixel Representations via Unified Autoencoding' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Ziwei Liu이 arXiv에 게시한 'The Prism Hypothesis: Harmonizing Semantic and Pixel Representations via Unified Autoencoding' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] When Good Sounds Go Adversarial: Jailbreaking Audio-Language Models with
   Benign Inputs"
-excerpt: "Dasol Choi이 [arXiv]에 게시한 'When Good Sounds Go Adversarial: Jailbreaking Audio-Language Models with
+excerpt: "Dasol Choi이 arXiv에 게시한 'When Good Sounds Go Adversarial: Jailbreaking Audio-Language Models with
   Benign Inputs' 논문에 대한 자세한 리뷰입니다."
 
 categories:

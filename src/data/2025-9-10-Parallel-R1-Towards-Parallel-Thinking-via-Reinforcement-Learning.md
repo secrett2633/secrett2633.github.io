@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Parallel-R1: Towards Parallel Thinking via Reinforcement Learning"
-excerpt: "Xinyu Yang이 [arXiv]에 게시한 'Parallel-R1: Towards Parallel Thinking via Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xinyu Yang이 arXiv에 게시한 'Parallel-R1: Towards Parallel Thinking via Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

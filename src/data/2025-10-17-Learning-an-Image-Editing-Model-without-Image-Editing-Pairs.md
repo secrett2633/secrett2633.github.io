@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Learning an Image Editing Model without Image Editing Pairs"
-excerpt: "이 [arXiv]에 게시한 'Learning an Image Editing Model without Image Editing Pairs' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Learning an Image Editing Model without Image Editing Pairs' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

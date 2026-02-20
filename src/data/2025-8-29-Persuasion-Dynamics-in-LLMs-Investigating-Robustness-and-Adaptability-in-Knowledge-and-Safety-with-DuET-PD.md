@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Persuasion Dynamics in LLMs: Investigating Robustness and Adaptability
   in Knowledge and Safety with DuET-PD"
-excerpt: "Roy Ka-Wei Lee이 [arXiv]에 게시한 'Persuasion Dynamics in LLMs: Investigating Robustness and Adaptability
+excerpt: "Roy Ka-Wei Lee이 arXiv에 게시한 'Persuasion Dynamics in LLMs: Investigating Robustness and Adaptability
   in Knowledge and Safety with DuET-PD' 논문에 대한 자세한 리뷰입니다."
 
 categories:

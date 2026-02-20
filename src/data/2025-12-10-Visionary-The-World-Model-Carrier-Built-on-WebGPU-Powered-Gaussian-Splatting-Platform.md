@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Visionary: The World Model Carrier Built on WebGPU-Powered Gaussian Splatting Platform"
-excerpt: "Muyao Niu이 [arXiv]에 게시한 'Visionary: The World Model Carrier Built on WebGPU-Powered Gaussian Splatting Platform' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Muyao Niu이 arXiv에 게시한 'Visionary: The World Model Carrier Built on WebGPU-Powered Gaussian Splatting Platform' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

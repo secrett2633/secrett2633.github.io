@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Pillar-0: A New Frontier for Radiology Foundation Models"
-excerpt: "이 [arXiv]에 게시한 'Pillar-0: A New Frontier for Radiology Foundation Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Pillar-0: A New Frontier for Radiology Foundation Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

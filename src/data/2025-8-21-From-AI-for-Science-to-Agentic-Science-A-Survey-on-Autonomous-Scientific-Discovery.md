@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] From AI for Science to Agentic Science: A Survey on Autonomous
   Scientific Discovery"
-excerpt: "zijieqiu이 [arXiv]에 게시한 'From AI for Science to Agentic Science: A Survey on Autonomous
+excerpt: "zijieqiu이 arXiv에 게시한 'From AI for Science to Agentic Science: A Survey on Autonomous
   Scientific Discovery' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] FMA-Net++: Motion- and Exposure-Aware Real-World Joint Video Super-Resolution and Deblurring"
-excerpt: "Munchurl Kim이 [arXiv]에 게시한 'FMA-Net++: Motion- and Exposure-Aware Real-World Joint Video Super-Resolution and Deblurring' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Munchurl Kim이 arXiv에 게시한 'FMA-Net++: Motion- and Exposure-Aware Real-World Joint Video Super-Resolution and Deblurring' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

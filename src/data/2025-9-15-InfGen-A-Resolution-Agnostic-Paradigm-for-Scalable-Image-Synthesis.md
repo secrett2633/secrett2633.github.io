@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] InfGen: A Resolution-Agnostic Paradigm for Scalable Image Synthesis"
-excerpt: "Song Guo이 [arXiv]에 게시한 'InfGen: A Resolution-Agnostic Paradigm for Scalable Image Synthesis' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Song Guo이 arXiv에 게시한 'InfGen: A Resolution-Agnostic Paradigm for Scalable Image Synthesis' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

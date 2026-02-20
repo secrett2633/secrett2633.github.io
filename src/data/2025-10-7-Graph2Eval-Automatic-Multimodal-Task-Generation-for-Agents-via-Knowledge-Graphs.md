@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Graph2Eval: Automatic Multimodal Task Generation for Agents via
   Knowledge Graphs"
-excerpt: "Zeyi Liao이 [arXiv]에 게시한 'Graph2Eval: Automatic Multimodal Task Generation for Agents via
+excerpt: "Zeyi Liao이 arXiv에 게시한 'Graph2Eval: Automatic Multimodal Task Generation for Agents via
   Knowledge Graphs' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] RefusalBench: Generative Evaluation of Selective Refusal in Grounded
   Language Models"
-excerpt: "이 [arXiv]에 게시한 'RefusalBench: Generative Evaluation of Selective Refusal in Grounded
+excerpt: "arXiv에 게시된 'RefusalBench: Generative Evaluation of Selective Refusal in Grounded
   Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

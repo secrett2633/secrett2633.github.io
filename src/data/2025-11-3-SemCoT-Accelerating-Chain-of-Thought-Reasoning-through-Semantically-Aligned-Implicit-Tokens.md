@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] SemCoT: Accelerating Chain-of-Thought Reasoning through
   Semantically-Aligned Implicit Tokens"
-excerpt: "이 [arXiv]에 게시한 'SemCoT: Accelerating Chain-of-Thought Reasoning through
+excerpt: "arXiv에 게시된 'SemCoT: Accelerating Chain-of-Thought Reasoning through
   Semantically-Aligned Implicit Tokens' 논문에 대한 자세한 리뷰입니다."
 
 categories:

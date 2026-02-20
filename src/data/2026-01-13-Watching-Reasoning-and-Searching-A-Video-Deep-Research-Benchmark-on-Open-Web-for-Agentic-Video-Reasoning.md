@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Watching, Reasoning, and Searching: A Video Deep Research Benchmark on Open Web for Agentic Video Reasoning"
-excerpt: "Shuo Zhang이 [arXiv]에 게시한 'Watching, Reasoning, and Searching: A Video Deep Research Benchmark on Open Web for Agentic Video Reasoning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Shuo Zhang이 arXiv에 게시한 'Watching, Reasoning, and Searching: A Video Deep Research Benchmark on Open Web for Agentic Video Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] EpiCache: Episodic KV Cache Management for Long Conversational Question
   Answering"
-excerpt: "Minsik Cho이 [arXiv]에 게시한 'EpiCache: Episodic KV Cache Management for Long Conversational Question
+excerpt: "Minsik Cho이 arXiv에 게시한 'EpiCache: Episodic KV Cache Management for Long Conversational Question
   Answering' 논문에 대한 자세한 리뷰입니다."
 
 categories:

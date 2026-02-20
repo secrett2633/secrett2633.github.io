@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] A Comprehensive Survey of Self-Evolving AI Agents: A New Paradigm
   Bridging Foundation Models and Lifelong Agentic Systems"
-excerpt: "Xinhao Yi이 [arXiv]에 게시한 'A Comprehensive Survey of Self-Evolving AI Agents: A New Paradigm
+excerpt: "Xinhao Yi이 arXiv에 게시한 'A Comprehensive Survey of Self-Evolving AI Agents: A New Paradigm
   Bridging Foundation Models and Lifelong Agentic Systems' 논문에 대한 자세한 리뷰입니다."
 
 categories:

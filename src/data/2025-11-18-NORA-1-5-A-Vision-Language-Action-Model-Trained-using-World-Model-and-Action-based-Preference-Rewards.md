@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] NORA-1.5: A Vision-Language-Action Model Trained using World Model- and Action-based Preference Rewards"
-excerpt: "이 [arXiv]에 게시한 'NORA-1.5: A Vision-Language-Action Model Trained using World Model- and Action-based Preference Rewards' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'NORA-1.5: A Vision-Language-Action Model Trained using World Model- and Action-based Preference Rewards' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

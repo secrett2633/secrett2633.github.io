@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Position: The Current AI Conference Model is Unsustainable! Diagnosing
   the Crisis of Centralized AI Conference"
-excerpt: "Jiaying Wu이 [arXiv]에 게시한 'Position: The Current AI Conference Model is Unsustainable! Diagnosing
+excerpt: "Jiaying Wu이 arXiv에 게시한 'Position: The Current AI Conference Model is Unsustainable! Diagnosing
   the Crisis of Centralized AI Conference' 논문에 대한 자세한 리뷰입니다."
 
 categories:

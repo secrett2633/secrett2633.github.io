@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SLIME: Stabilized Likelihood Implicit Margin Enforcement for Preference Optimization"
-excerpt: "이 [arXiv]에 게시한 'SLIME: Stabilized Likelihood Implicit Margin Enforcement for Preference Optimization' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'SLIME: Stabilized Likelihood Implicit Margin Enforcement for Preference Optimization' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Embodied-R1: Reinforced Embodied Reasoning for General Robotic
   Manipulation"
-excerpt: "Fei Ni이 [arXiv]에 게시한 'Embodied-R1: Reinforced Embodied Reasoning for General Robotic
+excerpt: "Fei Ni이 arXiv에 게시한 'Embodied-R1: Reinforced Embodied Reasoning for General Robotic
   Manipulation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

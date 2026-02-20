@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Fara-7B: An Efficient Agentic Model for Computer Use"
-excerpt: "이 [arXiv]에 게시한 'Fara-7B: An Efficient Agentic Model for Computer Use' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Fara-7B: An Efficient Agentic Model for Computer Use' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] AdaSPEC: Selective Knowledge Distillation for Efficient Speculative
   Decoders"
-excerpt: "이 [arXiv]에 게시한 'AdaSPEC: Selective Knowledge Distillation for Efficient Speculative
+excerpt: "arXiv에 게시된 'AdaSPEC: Selective Knowledge Distillation for Efficient Speculative
   Decoders' 논문에 대한 자세한 리뷰입니다."
 
 categories:

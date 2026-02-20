@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] OmniX: From Unified Panoramic Generation and Perception to
   Graphics-Ready 3D Scenes"
-excerpt: "이 [arXiv]에 게시한 'OmniX: From Unified Panoramic Generation and Perception to
+excerpt: "arXiv에 게시된 'OmniX: From Unified Panoramic Generation and Perception to
   Graphics-Ready 3D Scenes' 논문에 대한 자세한 리뷰입니다."
 
 categories:

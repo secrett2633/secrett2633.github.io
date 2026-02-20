@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] BiasFreeBench: a Benchmark for Mitigating Bias in Large Language Model
   Responses"
-excerpt: "Julian McAuley이 [arXiv]에 게시한 'BiasFreeBench: a Benchmark for Mitigating Bias in Large Language Model
+excerpt: "Julian McAuley이 arXiv에 게시한 'BiasFreeBench: a Benchmark for Mitigating Bias in Large Language Model
   Responses' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Data-Efficient RLVR via Off-Policy Influence Guidance"
-excerpt: "Jiale Cheng이 [arXiv]에 게시한 'Data-Efficient RLVR via Off-Policy Influence Guidance' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jiale Cheng이 arXiv에 게시한 'Data-Efficient RLVR via Off-Policy Influence Guidance' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

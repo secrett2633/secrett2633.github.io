@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] LaTCoder: Converting Webpage Design to Code with Layout-as-Thought"
-excerpt: "Tianpeng Lv이 [arXiv]에 게시한 'LaTCoder: Converting Webpage Design to Code with Layout-as-Thought' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Tianpeng Lv이 arXiv에 게시한 'LaTCoder: Converting Webpage Design to Code with Layout-as-Thought' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

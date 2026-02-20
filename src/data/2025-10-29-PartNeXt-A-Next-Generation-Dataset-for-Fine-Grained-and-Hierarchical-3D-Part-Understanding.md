@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] PartNeXt: A Next-Generation Dataset for Fine-Grained and Hierarchical 3D
   Part Understanding"
-excerpt: "Lan Xu이 [arXiv]에 게시한 'PartNeXt: A Next-Generation Dataset for Fine-Grained and Hierarchical 3D
+excerpt: "Lan Xu이 arXiv에 게시한 'PartNeXt: A Next-Generation Dataset for Fine-Grained and Hierarchical 3D
   Part Understanding' 논문에 대한 자세한 리뷰입니다."
 
 categories:

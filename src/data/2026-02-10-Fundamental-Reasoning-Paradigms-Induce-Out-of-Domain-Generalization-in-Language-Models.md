@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Fundamental Reasoning Paradigms Induce Out-of-Domain Generalization in Language Models"
-excerpt: "Maria Liakata이 [arXiv]에 게시한 'Fundamental Reasoning Paradigms Induce Out-of-Domain Generalization in Language Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Maria Liakata이 arXiv에 게시한 'Fundamental Reasoning Paradigms Induce Out-of-Domain Generalization in Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

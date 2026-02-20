@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] PRELUDE: A Benchmark Designed to Require Global Comprehension and
   Reasoning over Long Contexts"
-excerpt: "Rui Lu이 [arXiv]에 게시한 'PRELUDE: A Benchmark Designed to Require Global Comprehension and
+excerpt: "Rui Lu이 arXiv에 게시한 'PRELUDE: A Benchmark Designed to Require Global Comprehension and
   Reasoning over Long Contexts' 논문에 대한 자세한 리뷰입니다."
 
 categories:

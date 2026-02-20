@@ -19,7 +19,7 @@ class PaperSummary(BaseModel):
 CONTENT = """
 ---
 title: "[논문리뷰] {title}"
-excerpt: "{authors}이 {platform}에 게시한 '{title}' 논문에 대한 자세한 리뷰입니다."
+excerpt: "{excerpt}"
 
 categories:
   - Review
@@ -213,9 +213,16 @@ def update_readme(paper: Dict[str, str], year: str, month: str, day: str) -> Non
 
     tags = parse_keywords_from_summary(paper["summary"])
     tags_yaml = "\n".join([f"  - {tag}" for tag in tags])
+    title = paper["title"].replace("\n", " ").replace('"', "'").strip()
+    excerpt = (
+        f"{author[0]}이 {platform}에 게시한 '{title}' 논문에 대한 자세한 리뷰입니다."
+        if author[0]
+        else f"{platform}에 게시된 '{title}' 논문에 대한 자세한 리뷰입니다."
+    )
 
     content = CONTENT.format(
-        title=paper["title"].replace("\n", " ").replace('"', "'").strip(),
+        title=title,
+        excerpt=excerpt,
         uri=uri,
         date_str=date_str,
         content=fix_bold_spacing(remove_keywords_from_summary(paper["summary"])),

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] UniPercept: Towards Unified Perceptual-Level Image Understanding across Aesthetics, Quality, Structure, and Texture"
-excerpt: "Kaiwen Zhu이 [arXiv]에 게시한 'UniPercept: Towards Unified Perceptual-Level Image Understanding across Aesthetics, Quality, Structure, and Texture' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Kaiwen Zhu이 arXiv에 게시한 'UniPercept: Towards Unified Perceptual-Level Image Understanding across Aesthetics, Quality, Structure, and Texture' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

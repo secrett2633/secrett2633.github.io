@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] HiconAgent: History Context-aware Policy Optimization for GUI Agents"
-excerpt: "Kaiwen Zhou이 [arXiv]에 게시한 'HiconAgent: History Context-aware Policy Optimization for GUI Agents' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Kaiwen Zhou이 arXiv에 게시한 'HiconAgent: History Context-aware Policy Optimization for GUI Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

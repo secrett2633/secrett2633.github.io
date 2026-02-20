@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Every Activation Boosted: Scaling General Reasoner to 1 Trillion Open
   Language Foundation"
-excerpt: "이 [arXiv]에 게시한 'Every Activation Boosted: Scaling General Reasoner to 1 Trillion Open
+excerpt: "arXiv에 게시된 'Every Activation Boosted: Scaling General Reasoner to 1 Trillion Open
   Language Foundation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Are We Ready for RL in Text-to-3D Generation? A Progressive Investigation"
-excerpt: "이 [arXiv]에 게시한 'Are We Ready for RL in Text-to-3D Generation? A Progressive Investigation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Are We Ready for RL in Text-to-3D Generation? A Progressive Investigation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

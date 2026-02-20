@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Fast and Accurate Causal Parallel Decoding using Jacobi Forcing"
-excerpt: "Tajana Rosing이 [arXiv]에 게시한 'Fast and Accurate Causal Parallel Decoding using Jacobi Forcing' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Tajana Rosing이 arXiv에 게시한 'Fast and Accurate Causal Parallel Decoding using Jacobi Forcing' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

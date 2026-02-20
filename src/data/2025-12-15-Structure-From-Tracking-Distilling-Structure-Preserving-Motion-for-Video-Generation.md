@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Structure From Tracking: Distilling Structure-Preserving Motion for Video Generation"
-excerpt: "Qifeng Chen이 [arXiv]에 게시한 'Structure From Tracking: Distilling Structure-Preserving Motion for Video Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Qifeng Chen이 arXiv에 게시한 'Structure From Tracking: Distilling Structure-Preserving Motion for Video Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

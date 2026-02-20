@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] The Responsibility Vacuum: Organizational Failure in Scaled Agent Systems"
-excerpt: "Roman Bondar이 [arXiv]에 게시한 'The Responsibility Vacuum: Organizational Failure in Scaled Agent Systems' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Roman Bondar이 arXiv에 게시한 'The Responsibility Vacuum: Organizational Failure in Scaled Agent Systems' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

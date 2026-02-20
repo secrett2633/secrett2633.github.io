@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Brain-Grounded Axes for Reading and Steering LLM States"
-excerpt: "Sandro Andric이 [arXiv]에 게시한 'Brain-Grounded Axes for Reading and Steering LLM States' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Sandro Andric이 arXiv에 게시한 'Brain-Grounded Axes for Reading and Steering LLM States' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

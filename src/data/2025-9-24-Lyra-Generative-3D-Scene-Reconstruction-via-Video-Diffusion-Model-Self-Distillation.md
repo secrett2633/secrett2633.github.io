@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Lyra: Generative 3D Scene Reconstruction via Video Diffusion Model
   Self-Distillation"
-excerpt: "Yifeng Jiang이 [arXiv]에 게시한 'Lyra: Generative 3D Scene Reconstruction via Video Diffusion Model
+excerpt: "Yifeng Jiang이 arXiv에 게시한 'Lyra: Generative 3D Scene Reconstruction via Video Diffusion Model
   Self-Distillation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

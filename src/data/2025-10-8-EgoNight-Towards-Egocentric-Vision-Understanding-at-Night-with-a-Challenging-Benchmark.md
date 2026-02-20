@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] EgoNight: Towards Egocentric Vision Understanding at Night with a
   Challenging Benchmark"
-excerpt: "Tianwen Qian이 [arXiv]에 게시한 'EgoNight: Towards Egocentric Vision Understanding at Night with a
+excerpt: "Tianwen Qian이 arXiv에 게시한 'EgoNight: Towards Egocentric Vision Understanding at Night with a
   Challenging Benchmark' 논문에 대한 자세한 리뷰입니다."
 
 categories:

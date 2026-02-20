@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] BESPOKE: Benchmark for Search-Augmented Large Language Model
   Personalization via Diagnostic Feedback"
-excerpt: "Dongha Lee이 [arXiv]에 게시한 'BESPOKE: Benchmark for Search-Augmented Large Language Model
+excerpt: "Dongha Lee이 arXiv에 게시한 'BESPOKE: Benchmark for Search-Augmented Large Language Model
   Personalization via Diagnostic Feedback' 논문에 대한 자세한 리뷰입니다."
 
 categories:

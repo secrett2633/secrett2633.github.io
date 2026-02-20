@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Video-LMM Post-Training: A Deep Dive into Video Reasoning with Large
   Multimodal Models"
-excerpt: "zeliang0426이 [arXiv]에 게시한 'Video-LMM Post-Training: A Deep Dive into Video Reasoning with Large
+excerpt: "zeliang0426이 arXiv에 게시한 'Video-LMM Post-Training: A Deep Dive into Video Reasoning with Large
   Multimodal Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

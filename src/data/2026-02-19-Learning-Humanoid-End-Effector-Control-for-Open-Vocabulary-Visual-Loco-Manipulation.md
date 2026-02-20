@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Learning Humanoid End-Effector Control for Open-Vocabulary Visual Loco-Manipulation"
-excerpt: "이 [arXiv]에 게시한 'Learning Humanoid End-Effector Control for Open-Vocabulary Visual Loco-Manipulation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Learning Humanoid End-Effector Control for Open-Vocabulary Visual Loco-Manipulation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

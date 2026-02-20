@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] ShapeGen4D: Towards High Quality 4D Shape Generation from Videos"
-excerpt: "Sergey Tulyakov이 [arXiv]에 게시한 'ShapeGen4D: Towards High Quality 4D Shape Generation from Videos' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Sergey Tulyakov이 arXiv에 게시한 'ShapeGen4D: Towards High Quality 4D Shape Generation from Videos' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

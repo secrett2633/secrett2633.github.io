@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MLLM as a UI Judge: Benchmarking Multimodal LLMs for Predicting Human
   Perception of User Interfaces"
-excerpt: "Sungchul Kim이 [arXiv]에 게시한 'MLLM as a UI Judge: Benchmarking Multimodal LLMs for Predicting Human
+excerpt: "Sungchul Kim이 arXiv에 게시한 'MLLM as a UI Judge: Benchmarking Multimodal LLMs for Predicting Human
   Perception of User Interfaces' 논문에 대한 자세한 리뷰입니다."
 
 categories:

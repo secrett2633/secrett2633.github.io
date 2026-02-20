@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Hyperdimensional Probe: Decoding LLM Representations via Vector Symbolic
   Architectures"
-excerpt: "Andrea Passerini이 [arXiv]에 게시한 'Hyperdimensional Probe: Decoding LLM Representations via Vector Symbolic
+excerpt: "Andrea Passerini이 arXiv에 게시한 'Hyperdimensional Probe: Decoding LLM Representations via Vector Symbolic
   Architectures' 논문에 대한 자세한 리뷰입니다."
 
 categories:

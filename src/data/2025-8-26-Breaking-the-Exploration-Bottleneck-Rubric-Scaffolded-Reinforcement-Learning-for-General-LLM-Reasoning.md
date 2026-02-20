@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Breaking the Exploration Bottleneck: Rubric-Scaffolded Reinforcement
   Learning for General LLM Reasoning"
-excerpt: "Jiale Zhao이 [arXiv]에 게시한 'Breaking the Exploration Bottleneck: Rubric-Scaffolded Reinforcement
+excerpt: "Jiale Zhao이 arXiv에 게시한 'Breaking the Exploration Bottleneck: Rubric-Scaffolded Reinforcement
   Learning for General LLM Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

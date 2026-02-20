@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Agentic Context Engineering: Evolving Contexts for Self-Improving
   Language Models"
-excerpt: "Fenglu Hong이 [arXiv]에 게시한 'Agentic Context Engineering: Evolving Contexts for Self-Improving
+excerpt: "Fenglu Hong이 arXiv에 게시한 'Agentic Context Engineering: Evolving Contexts for Self-Improving
   Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

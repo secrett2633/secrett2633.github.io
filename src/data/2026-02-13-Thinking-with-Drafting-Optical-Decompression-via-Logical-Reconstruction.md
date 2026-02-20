@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Thinking with Drafting: Optical Decompression via Logical Reconstruction"
-excerpt: "이 [arXiv]에 게시한 'Thinking with Drafting: Optical Decompression via Logical Reconstruction' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Thinking with Drafting: Optical Decompression via Logical Reconstruction' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

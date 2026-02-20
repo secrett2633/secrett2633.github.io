@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Dancing in Chains: Strategic Persuasion in Academic Rebuttal via Theory of Mind"
-excerpt: "Yi R Fung이 [arXiv]에 게시한 'Dancing in Chains: Strategic Persuasion in Academic Rebuttal via Theory of Mind' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yi R Fung이 arXiv에 게시한 'Dancing in Chains: Strategic Persuasion in Academic Rebuttal via Theory of Mind' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

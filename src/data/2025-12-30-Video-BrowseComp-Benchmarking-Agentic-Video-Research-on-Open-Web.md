@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Video-BrowseComp: Benchmarking Agentic Video Research on Open Web"
-excerpt: "Kaixin Liang이 [arXiv]에 게시한 'Video-BrowseComp: Benchmarking Agentic Video Research on Open Web' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Kaixin Liang이 arXiv에 게시한 'Video-BrowseComp: Benchmarking Agentic Video Research on Open Web' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

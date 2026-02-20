@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] ReSum: Unlocking Long-Horizon Search Intelligence via Context
   Summarization"
-excerpt: "Litu Ou이 [arXiv]에 게시한 'ReSum: Unlocking Long-Horizon Search Intelligence via Context
+excerpt: "Litu Ou이 arXiv에 게시한 'ReSum: Unlocking Long-Horizon Search Intelligence via Context
   Summarization' 논문에 대한 자세한 리뷰입니다."
 
 categories:

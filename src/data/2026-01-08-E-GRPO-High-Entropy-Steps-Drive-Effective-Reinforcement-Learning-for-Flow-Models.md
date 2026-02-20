@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] E-GRPO: High Entropy Steps Drive Effective Reinforcement Learning for Flow Models"
-excerpt: "이 [arXiv]에 게시한 'E-GRPO: High Entropy Steps Drive Effective Reinforcement Learning for Flow Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'E-GRPO: High Entropy Steps Drive Effective Reinforcement Learning for Flow Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

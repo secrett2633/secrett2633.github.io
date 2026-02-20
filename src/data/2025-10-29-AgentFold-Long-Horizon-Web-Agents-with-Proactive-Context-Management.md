@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] AgentFold: Long-Horizon Web Agents with Proactive Context Management"
-excerpt: "이 [arXiv]에 게시한 'AgentFold: Long-Horizon Web Agents with Proactive Context Management' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'AgentFold: Long-Horizon Web Agents with Proactive Context Management' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

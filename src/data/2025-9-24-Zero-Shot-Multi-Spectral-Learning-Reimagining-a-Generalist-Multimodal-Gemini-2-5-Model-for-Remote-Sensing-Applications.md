@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Zero-Shot Multi-Spectral Learning: Reimagining a Generalist Multimodal
   Gemini 2.5 Model for Remote Sensing Applications"
-excerpt: "Genady Beryozkin이 [arXiv]에 게시한 'Zero-Shot Multi-Spectral Learning: Reimagining a Generalist Multimodal
+excerpt: "Genady Beryozkin이 arXiv에 게시한 'Zero-Shot Multi-Spectral Learning: Reimagining a Generalist Multimodal
   Gemini 2.5 Model for Remote Sensing Applications' 논문에 대한 자세한 리뷰입니다."
 
 categories:

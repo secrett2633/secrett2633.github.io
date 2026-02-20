@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Ponimator: Unfolding Interactive Pose for Versatile Human-human
   Interaction Animation"
-excerpt: "이 [arXiv]에 게시한 'Ponimator: Unfolding Interactive Pose for Versatile Human-human
+excerpt: "arXiv에 게시된 'Ponimator: Unfolding Interactive Pose for Versatile Human-human
   Interaction Animation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

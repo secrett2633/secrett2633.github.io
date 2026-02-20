@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] FARMER: Flow AutoRegressive Transformer over Pixels"
-excerpt: "Zhijie Lin이 [arXiv]에 게시한 'FARMER: Flow AutoRegressive Transformer over Pixels' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zhijie Lin이 arXiv에 게시한 'FARMER: Flow AutoRegressive Transformer over Pixels' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] StoryMem: Multi-shot Long Video Storytelling with Memory"
-excerpt: "이 [arXiv]에 게시한 'StoryMem: Multi-shot Long Video Storytelling with Memory' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'StoryMem: Multi-shot Long Video Storytelling with Memory' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SWE-World: Building Software Engineering Agents in Docker-Free Environments"
-excerpt: "이 [arXiv]에 게시한 'SWE-World: Building Software Engineering Agents in Docker-Free Environments' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'SWE-World: Building Software Engineering Agents in Docker-Free Environments' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

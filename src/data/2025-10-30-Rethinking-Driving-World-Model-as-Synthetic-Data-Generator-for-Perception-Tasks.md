@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Rethinking Driving World Model as Synthetic Data Generator for
   Perception Tasks"
-excerpt: "이 [arXiv]에 게시한 'Rethinking Driving World Model as Synthetic Data Generator for
+excerpt: "arXiv에 게시된 'Rethinking Driving World Model as Synthetic Data Generator for
   Perception Tasks' 논문에 대한 자세한 리뷰입니다."
 
 categories:

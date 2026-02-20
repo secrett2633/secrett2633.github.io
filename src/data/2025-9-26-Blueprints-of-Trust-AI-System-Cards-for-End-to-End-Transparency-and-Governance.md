@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Blueprints of Trust: AI System Cards for End to End Transparency and
   Governance"
-excerpt: "Roman Zhukov이 [arXiv]에 게시한 'Blueprints of Trust: AI System Cards for End to End Transparency and
+excerpt: "Roman Zhukov이 arXiv에 게시한 'Blueprints of Trust: AI System Cards for End to End Transparency and
   Governance' 논문에 대한 자세한 리뷰입니다."
 
 categories:

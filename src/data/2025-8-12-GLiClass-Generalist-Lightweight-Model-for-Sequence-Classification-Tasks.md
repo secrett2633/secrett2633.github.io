@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] GLiClass: Generalist Lightweight Model for Sequence Classification Tasks"
-excerpt: "Alexander Yavorskyi이 [arXiv]에 게시한 'GLiClass: Generalist Lightweight Model for Sequence Classification Tasks' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Alexander Yavorskyi이 arXiv에 게시한 'GLiClass: Generalist Lightweight Model for Sequence Classification Tasks' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

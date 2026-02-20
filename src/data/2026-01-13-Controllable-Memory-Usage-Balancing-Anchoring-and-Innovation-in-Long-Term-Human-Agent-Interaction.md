@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Controllable Memory Usage: Balancing Anchoring and Innovation in Long-Term Human-Agent Interaction"
-excerpt: "Zhengkang Guo이 [arXiv]에 게시한 'Controllable Memory Usage: Balancing Anchoring and Innovation in Long-Term Human-Agent Interaction' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zhengkang Guo이 arXiv에 게시한 'Controllable Memory Usage: Balancing Anchoring and Innovation in Long-Term Human-Agent Interaction' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

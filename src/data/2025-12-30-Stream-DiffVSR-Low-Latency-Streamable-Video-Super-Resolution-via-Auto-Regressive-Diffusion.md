@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Stream-DiffVSR: Low-Latency Streamable Video Super-Resolution via Auto-Regressive Diffusion"
-excerpt: "Po-Fan Yu이 [arXiv]에 게시한 'Stream-DiffVSR: Low-Latency Streamable Video Super-Resolution via Auto-Regressive Diffusion' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Po-Fan Yu이 arXiv에 게시한 'Stream-DiffVSR: Low-Latency Streamable Video Super-Resolution via Auto-Regressive Diffusion' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

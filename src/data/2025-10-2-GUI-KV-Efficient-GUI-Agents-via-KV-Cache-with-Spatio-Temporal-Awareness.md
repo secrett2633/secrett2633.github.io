@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] GUI-KV: Efficient GUI Agents via KV Cache with Spatio-Temporal Awareness"
-excerpt: "Chien-Sheng Wu이 [arXiv]에 게시한 'GUI-KV: Efficient GUI Agents via KV Cache with Spatio-Temporal Awareness' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Chien-Sheng Wu이 arXiv에 게시한 'GUI-KV: Efficient GUI Agents via KV Cache with Spatio-Temporal Awareness' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

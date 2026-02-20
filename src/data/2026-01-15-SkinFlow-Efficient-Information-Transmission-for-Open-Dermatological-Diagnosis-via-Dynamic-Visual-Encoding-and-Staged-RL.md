@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SkinFlow: Efficient Information Transmission for Open Dermatological Diagnosis via Dynamic Visual Encoding and Staged RL"
-excerpt: "이 [arXiv]에 게시한 'SkinFlow: Efficient Information Transmission for Open Dermatological Diagnosis via Dynamic Visual Encoding and Staged RL' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'SkinFlow: Efficient Information Transmission for Open Dermatological Diagnosis via Dynamic Visual Encoding and Staged RL' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

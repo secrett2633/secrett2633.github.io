@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] FreeAskWorld: An Interactive and Closed-Loop Simulator for Human-Centric Embodied AI"
-excerpt: "Xinyu Yin이 [arXiv]에 게시한 'FreeAskWorld: An Interactive and Closed-Loop Simulator for Human-Centric Embodied AI' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xinyu Yin이 arXiv에 게시한 'FreeAskWorld: An Interactive and Closed-Loop Simulator for Human-Centric Embodied AI' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

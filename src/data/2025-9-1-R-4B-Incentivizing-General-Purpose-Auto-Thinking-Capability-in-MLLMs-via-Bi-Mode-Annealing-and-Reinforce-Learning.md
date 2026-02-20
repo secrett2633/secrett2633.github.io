@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] R-4B: Incentivizing General-Purpose Auto-Thinking Capability in MLLMs
   via Bi-Mode Annealing and Reinforce Learning"
-excerpt: "Han Hu이 [arXiv]에 게시한 'R-4B: Incentivizing General-Purpose Auto-Thinking Capability in MLLMs
+excerpt: "Han Hu이 arXiv에 게시한 'R-4B: Incentivizing General-Purpose Auto-Thinking Capability in MLLMs
   via Bi-Mode Annealing and Reinforce Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

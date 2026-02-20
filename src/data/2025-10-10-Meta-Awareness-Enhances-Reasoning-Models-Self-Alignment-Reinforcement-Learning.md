@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Meta-Awareness Enhances Reasoning Models: Self-Alignment Reinforcement
   Learning"
-excerpt: "이 [arXiv]에 게시한 'Meta-Awareness Enhances Reasoning Models: Self-Alignment Reinforcement
+excerpt: "arXiv에 게시된 'Meta-Awareness Enhances Reasoning Models: Self-Alignment Reinforcement
   Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

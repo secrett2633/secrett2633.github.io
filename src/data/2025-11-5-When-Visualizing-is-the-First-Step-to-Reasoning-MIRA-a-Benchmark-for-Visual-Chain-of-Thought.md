@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] When Visualizing is the First Step to Reasoning: MIRA, a Benchmark for
   Visual Chain-of-Thought"
-excerpt: "이 [arXiv]에 게시한 'When Visualizing is the First Step to Reasoning: MIRA, a Benchmark for
+excerpt: "arXiv에 게시된 'When Visualizing is the First Step to Reasoning: MIRA, a Benchmark for
   Visual Chain-of-Thought' 논문에 대한 자세한 리뷰입니다."
 
 categories:

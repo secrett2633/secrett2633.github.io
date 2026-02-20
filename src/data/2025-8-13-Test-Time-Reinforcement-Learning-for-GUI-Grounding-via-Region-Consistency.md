@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Test-Time Reinforcement Learning for GUI Grounding via Region
   Consistency"
-excerpt: "Zhengxi Lu이 [arXiv]에 게시한 'Test-Time Reinforcement Learning for GUI Grounding via Region
+excerpt: "Zhengxi Lu이 arXiv에 게시한 'Test-Time Reinforcement Learning for GUI Grounding via Region
   Consistency' 논문에 대한 자세한 리뷰입니다."
 
 categories:

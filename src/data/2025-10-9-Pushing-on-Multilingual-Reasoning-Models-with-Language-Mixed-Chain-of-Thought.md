@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Pushing on Multilingual Reasoning Models with Language-Mixed
   Chain-of-Thought"
-excerpt: "이 [arXiv]에 게시한 'Pushing on Multilingual Reasoning Models with Language-Mixed
+excerpt: "arXiv에 게시된 'Pushing on Multilingual Reasoning Models with Language-Mixed
   Chain-of-Thought' 논문에 대한 자세한 리뷰입니다."
 
 categories:

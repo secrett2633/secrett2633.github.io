@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] AWorld: Dynamic Multi-Agent System with Stable Maneuvering for Robust
   GAIA Problem Solving"
-excerpt: "Jinjie Gu이 [arXiv]에 게시한 'AWorld: Dynamic Multi-Agent System with Stable Maneuvering for Robust
+excerpt: "Jinjie Gu이 arXiv에 게시한 'AWorld: Dynamic Multi-Agent System with Stable Maneuvering for Robust
   GAIA Problem Solving' 논문에 대한 자세한 리뷰입니다."
 
 categories:

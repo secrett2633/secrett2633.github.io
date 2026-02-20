@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] VINO: A Unified Visual Generator with Interleaved OmniModal Context"
-excerpt: "Kun Gai이 [arXiv]에 게시한 'VINO: A Unified Visual Generator with Interleaved OmniModal Context' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Kun Gai이 arXiv에 게시한 'VINO: A Unified Visual Generator with Interleaved OmniModal Context' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

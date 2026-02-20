@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SWE-Debate: Competitive Multi-Agent Debate for Software Issue Resolution"
-excerpt: "Heng Lian이 [arXiv]에 게시한 'SWE-Debate: Competitive Multi-Agent Debate for Software Issue Resolution' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Heng Lian이 arXiv에 게시한 'SWE-Debate: Competitive Multi-Agent Debate for Software Issue Resolution' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

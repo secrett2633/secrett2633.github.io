@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Turning the Spell Around: Lightweight Alignment Amplification via
   Rank-One Safety Injection"
-excerpt: "Bernard Ghanem이 [arXiv]에 게시한 'Turning the Spell Around: Lightweight Alignment Amplification via
+excerpt: "Bernard Ghanem이 arXiv에 게시한 'Turning the Spell Around: Lightweight Alignment Amplification via
   Rank-One Safety Injection' 논문에 대한 자세한 리뷰입니다."
 
 categories:

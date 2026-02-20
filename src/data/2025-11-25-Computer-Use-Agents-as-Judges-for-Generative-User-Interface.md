@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Computer-Use Agents as Judges for Generative User Interface"
-excerpt: "이 [arXiv]에 게시한 'Computer-Use Agents as Judges for Generative User Interface' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Computer-Use Agents as Judges for Generative User Interface' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

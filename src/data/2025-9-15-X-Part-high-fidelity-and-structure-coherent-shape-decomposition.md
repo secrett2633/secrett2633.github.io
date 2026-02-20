@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] X-Part: high fidelity and structure coherent shape decomposition"
-excerpt: "Yunhan Yang이 [arXiv]에 게시한 'X-Part: high fidelity and structure coherent shape decomposition' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yunhan Yang이 arXiv에 게시한 'X-Part: high fidelity and structure coherent shape decomposition' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

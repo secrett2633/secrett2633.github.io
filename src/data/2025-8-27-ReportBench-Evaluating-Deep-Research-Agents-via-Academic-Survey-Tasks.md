@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] ReportBench: Evaluating Deep Research Agents via Academic Survey Tasks"
-excerpt: "Kai Jia이 [arXiv]에 게시한 'ReportBench: Evaluating Deep Research Agents via Academic Survey Tasks' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Kai Jia이 arXiv에 게시한 'ReportBench: Evaluating Deep Research Agents via Academic Survey Tasks' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

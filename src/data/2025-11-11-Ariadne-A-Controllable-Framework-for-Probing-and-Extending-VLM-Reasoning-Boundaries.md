@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Ariadne: A Controllable Framework for Probing and Extending VLM   Reasoning Boundaries"
-excerpt: "Zhengzhong Tu이 [arXiv]에 게시한 'Ariadne: A Controllable Framework for Probing and Extending VLM   Reasoning Boundaries' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zhengzhong Tu이 arXiv에 게시한 'Ariadne: A Controllable Framework for Probing and Extending VLM   Reasoning Boundaries' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

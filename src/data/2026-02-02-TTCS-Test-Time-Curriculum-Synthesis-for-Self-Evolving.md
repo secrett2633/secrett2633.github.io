@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] TTCS: Test-Time Curriculum Synthesis for Self-Evolving"
-excerpt: "Chengsong Huang이 [arXiv]에 게시한 'TTCS: Test-Time Curriculum Synthesis for Self-Evolving' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Chengsong Huang이 arXiv에 게시한 'TTCS: Test-Time Curriculum Synthesis for Self-Evolving' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

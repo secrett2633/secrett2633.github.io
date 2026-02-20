@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] FSVideo: Fast Speed Video Diffusion Model in a Highly-Compressed Latent Space"
-excerpt: "이 [arXiv]에 게시한 'FSVideo: Fast Speed Video Diffusion Model in a Highly-Compressed Latent Space' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'FSVideo: Fast Speed Video Diffusion Model in a Highly-Compressed Latent Space' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Defeating the Training-Inference Mismatch via FP16"
-excerpt: "이 [arXiv]에 게시한 'Defeating the Training-Inference Mismatch via FP16' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Defeating the Training-Inference Mismatch via FP16' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

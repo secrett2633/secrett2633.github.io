@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] HyperVL: An Efficient and Dynamic Multimodal Large Language Model for Edge Devices"
-excerpt: "Yuhang Dong이 [arXiv]에 게시한 'HyperVL: An Efficient and Dynamic Multimodal Large Language Model for Edge Devices' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yuhang Dong이 arXiv에 게시한 'HyperVL: An Efficient and Dynamic Multimodal Large Language Model for Edge Devices' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

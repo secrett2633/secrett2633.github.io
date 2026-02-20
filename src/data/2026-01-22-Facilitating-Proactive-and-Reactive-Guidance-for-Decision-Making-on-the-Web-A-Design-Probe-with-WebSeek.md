@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Facilitating Proactive and Reactive Guidance for Decision Making on the Web: A Design Probe with WebSeek"
-excerpt: "Arpit Narechania이 [arXiv]에 게시한 'Facilitating Proactive and Reactive Guidance for Decision Making on the Web: A Design Probe with WebSeek' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Arpit Narechania이 arXiv에 게시한 'Facilitating Proactive and Reactive Guidance for Decision Making on the Web: A Design Probe with WebSeek' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

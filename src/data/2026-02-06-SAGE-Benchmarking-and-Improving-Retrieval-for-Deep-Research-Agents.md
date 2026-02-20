@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SAGE: Benchmarking and Improving Retrieval for Deep Research Agents"
-excerpt: "Chen Zhao이 [arXiv]에 게시한 'SAGE: Benchmarking and Improving Retrieval for Deep Research Agents' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Chen Zhao이 arXiv에 게시한 'SAGE: Benchmarking and Improving Retrieval for Deep Research Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

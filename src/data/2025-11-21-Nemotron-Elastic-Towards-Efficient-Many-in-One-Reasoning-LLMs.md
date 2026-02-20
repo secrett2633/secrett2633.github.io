@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Nemotron Elastic: Towards Efficient Many-in-One Reasoning LLMs"
-excerpt: "이 [arXiv]에 게시한 'Nemotron Elastic: Towards Efficient Many-in-One Reasoning LLMs' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Nemotron Elastic: Towards Efficient Many-in-One Reasoning LLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

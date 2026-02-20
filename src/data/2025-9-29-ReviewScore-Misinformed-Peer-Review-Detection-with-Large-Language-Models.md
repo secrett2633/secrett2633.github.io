@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] ReviewScore: Misinformed Peer Review Detection with Large Language
   Models"
-excerpt: "이 [arXiv]에 게시한 'ReviewScore: Misinformed Peer Review Detection with Large Language
+excerpt: "arXiv에 게시된 'ReviewScore: Misinformed Peer Review Detection with Large Language
   Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

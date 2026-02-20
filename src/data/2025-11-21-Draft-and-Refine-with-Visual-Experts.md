@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Draft and Refine with Visual Experts"
-excerpt: "이 [arXiv]에 게시한 'Draft and Refine with Visual Experts' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Draft and Refine with Visual Experts' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

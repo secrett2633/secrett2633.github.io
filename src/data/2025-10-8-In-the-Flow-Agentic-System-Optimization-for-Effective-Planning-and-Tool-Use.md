@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] In-the-Flow Agentic System Optimization for Effective Planning and Tool
   Use"
-excerpt: "이 [arXiv]에 게시한 'In-the-Flow Agentic System Optimization for Effective Planning and Tool
+excerpt: "arXiv에 게시된 'In-the-Flow Agentic System Optimization for Effective Planning and Tool
   Use' 논문에 대한 자세한 리뷰입니다."
 
 categories:

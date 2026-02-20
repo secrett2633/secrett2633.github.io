@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] FlagEval Findings Report: A Preliminary Evaluation of Large Reasoning
   Models on Automatically Verifiable Textual and Visual Questions"
-excerpt: "tengdai722이 [arXiv]에 게시한 'FlagEval Findings Report: A Preliminary Evaluation of Large Reasoning
+excerpt: "tengdai722이 arXiv에 게시한 'FlagEval Findings Report: A Preliminary Evaluation of Large Reasoning
   Models on Automatically Verifiable Textual and Visual Questions' 논문에 대한 자세한 리뷰입니다."
 
 categories:

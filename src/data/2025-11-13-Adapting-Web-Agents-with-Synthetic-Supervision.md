@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Adapting Web Agents with Synthetic Supervision"
-excerpt: "Siwei Han이 [arXiv]에 게시한 'Adapting Web Agents with Synthetic Supervision' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Siwei Han이 arXiv에 게시한 'Adapting Web Agents with Synthetic Supervision' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

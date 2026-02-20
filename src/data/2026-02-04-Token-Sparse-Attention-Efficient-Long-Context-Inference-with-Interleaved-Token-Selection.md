@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Token Sparse Attention: Efficient Long-Context Inference with Interleaved Token Selection"
-excerpt: "Jae-Joon Kim이 [arXiv]에 게시한 'Token Sparse Attention: Efficient Long-Context Inference with Interleaved Token Selection' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jae-Joon Kim이 arXiv에 게시한 'Token Sparse Attention: Efficient Long-Context Inference with Interleaved Token Selection' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

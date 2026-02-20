@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] LoGoPlanner: Localization Grounded Navigation Policy with Metric-aware Visual Geometry"
-excerpt: "Yuan Shen이 [arXiv]에 게시한 'LoGoPlanner: Localization Grounded Navigation Policy with Metric-aware Visual Geometry' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yuan Shen이 arXiv에 게시한 'LoGoPlanner: Localization Grounded Navigation Policy with Metric-aware Visual Geometry' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

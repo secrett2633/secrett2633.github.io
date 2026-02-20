@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] When Benchmarks Age: Temporal Misalignment through Large Language Model
   Factuality Evaluation"
-excerpt: "이 [arXiv]에 게시한 'When Benchmarks Age: Temporal Misalignment through Large Language Model
+excerpt: "arXiv에 게시된 'When Benchmarks Age: Temporal Misalignment through Large Language Model
   Factuality Evaluation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

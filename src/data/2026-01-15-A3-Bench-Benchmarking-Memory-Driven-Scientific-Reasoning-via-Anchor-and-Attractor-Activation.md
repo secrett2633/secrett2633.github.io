@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] A^3-Bench: Benchmarking Memory-Driven Scientific Reasoning via Anchor and Attractor Activation"
-excerpt: "Kai He이 [arXiv]에 게시한 'A^3-Bench: Benchmarking Memory-Driven Scientific Reasoning via Anchor and Attractor Activation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Kai He이 arXiv에 게시한 'A^3-Bench: Benchmarking Memory-Driven Scientific Reasoning via Anchor and Attractor Activation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

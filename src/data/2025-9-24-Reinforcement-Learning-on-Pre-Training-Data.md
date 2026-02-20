@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Reinforcement Learning on Pre-Training Data"
-excerpt: "Evander Yang이 [arXiv]에 게시한 'Reinforcement Learning on Pre-Training Data' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Evander Yang이 arXiv에 게시한 'Reinforcement Learning on Pre-Training Data' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

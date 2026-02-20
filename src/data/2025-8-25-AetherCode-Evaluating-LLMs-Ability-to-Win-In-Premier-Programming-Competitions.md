@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] AetherCode: Evaluating LLMs' Ability to Win In Premier Programming
   Competitions"
-excerpt: "Yidi Du이 [arXiv]에 게시한 'AetherCode: Evaluating LLMs' Ability to Win In Premier Programming
+excerpt: "Yidi Du이 arXiv에 게시한 'AetherCode: Evaluating LLMs' Ability to Win In Premier Programming
   Competitions' 논문에 대한 자세한 리뷰입니다."
 
 categories:

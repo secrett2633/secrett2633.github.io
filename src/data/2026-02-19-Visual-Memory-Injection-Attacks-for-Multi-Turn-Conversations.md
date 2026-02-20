@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Visual Memory Injection Attacks for Multi-Turn Conversations"
-excerpt: "Matthias Hein이 [arXiv]에 게시한 'Visual Memory Injection Attacks for Multi-Turn Conversations' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Matthias Hein이 arXiv에 게시한 'Visual Memory Injection Attacks for Multi-Turn Conversations' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

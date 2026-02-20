@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Hard2Verify: A Step-Level Verification Benchmark for Open-Ended Frontier
   Math"
-excerpt: "이 [arXiv]에 게시한 'Hard2Verify: A Step-Level Verification Benchmark for Open-Ended Frontier
+excerpt: "arXiv에 게시된 'Hard2Verify: A Step-Level Verification Benchmark for Open-Ended Frontier
   Math' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] ThreadWeaver: Adaptive Threading for Efficient Parallel Reasoning in Language Models"
-excerpt: "Xiuyu Li이 [arXiv]에 게시한 'ThreadWeaver: Adaptive Threading for Efficient Parallel Reasoning in Language Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xiuyu Li이 arXiv에 게시한 'ThreadWeaver: Adaptive Threading for Efficient Parallel Reasoning in Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

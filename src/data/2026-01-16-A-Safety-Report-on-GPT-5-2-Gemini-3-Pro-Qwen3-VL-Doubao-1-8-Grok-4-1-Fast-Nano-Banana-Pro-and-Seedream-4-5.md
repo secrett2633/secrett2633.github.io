@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] A Safety Report on GPT-5.2, Gemini 3 Pro, Qwen3-VL, Doubao 1.8, Grok 4.1 Fast, Nano Banana Pro, and Seedream 4.5"
-excerpt: "Yutao Wu이 [arXiv]에 게시한 'A Safety Report on GPT-5.2, Gemini 3 Pro, Qwen3-VL, Doubao 1.8, Grok 4.1 Fast, Nano Banana Pro, and Seedream 4.5' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yutao Wu이 arXiv에 게시한 'A Safety Report on GPT-5.2, Gemini 3 Pro, Qwen3-VL, Doubao 1.8, Grok 4.1 Fast, Nano Banana Pro, and Seedream 4.5' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

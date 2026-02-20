@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Ming-Flash-Omni: A Sparse, Unified Architecture for Multimodal
   Perception and Generation"
-excerpt: "이 [arXiv]에 게시한 'Ming-Flash-Omni: A Sparse, Unified Architecture for Multimodal
+excerpt: "arXiv에 게시된 'Ming-Flash-Omni: A Sparse, Unified Architecture for Multimodal
   Perception and Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

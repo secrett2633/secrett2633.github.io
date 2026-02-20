@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] LLMs Learn to Deceive Unintentionally: Emergent Misalignment in
   Dishonesty from Misaligned Samples to Biased Human-AI Interactions"
-excerpt: "이 [arXiv]에 게시한 'LLMs Learn to Deceive Unintentionally: Emergent Misalignment in
+excerpt: "arXiv에 게시된 'LLMs Learn to Deceive Unintentionally: Emergent Misalignment in
   Dishonesty from Misaligned Samples to Biased Human-AI Interactions' 논문에 대한 자세한 리뷰입니다."
 
 categories:

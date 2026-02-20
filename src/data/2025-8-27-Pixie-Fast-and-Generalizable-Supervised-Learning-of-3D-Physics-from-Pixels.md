@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Pixie: Fast and Generalizable Supervised Learning of 3D Physics from
   Pixels"
-excerpt: "Dinesh Jayaraman이 [arXiv]에 게시한 'Pixie: Fast and Generalizable Supervised Learning of 3D Physics from
+excerpt: "Dinesh Jayaraman이 arXiv에 게시한 'Pixie: Fast and Generalizable Supervised Learning of 3D Physics from
   Pixels' 논문에 대한 자세한 리뷰입니다."
 
 categories:

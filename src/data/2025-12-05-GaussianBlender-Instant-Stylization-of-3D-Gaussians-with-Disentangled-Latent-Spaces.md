@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] GaussianBlender: Instant Stylization of 3D Gaussians with Disentangled Latent Spaces"
-excerpt: "Sezer Karaoglu이 [arXiv]에 게시한 'GaussianBlender: Instant Stylization of 3D Gaussians with Disentangled Latent Spaces' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Sezer Karaoglu이 arXiv에 게시한 'GaussianBlender: Instant Stylization of 3D Gaussians with Disentangled Latent Spaces' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

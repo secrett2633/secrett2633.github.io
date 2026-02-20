@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Empty Shelves or Lost Keys? Recall Is the Bottleneck for Parametric Factuality"
-excerpt: "이 [arXiv]에 게시한 'Empty Shelves or Lost Keys? Recall Is the Bottleneck for Parametric Factuality' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Empty Shelves or Lost Keys? Recall Is the Bottleneck for Parametric Factuality' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

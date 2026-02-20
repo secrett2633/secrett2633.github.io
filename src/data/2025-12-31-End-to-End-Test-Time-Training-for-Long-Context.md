@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] End-to-End Test-Time Training for Long Context"
-excerpt: "Marcel Rød이 [arXiv]에 게시한 'End-to-End Test-Time Training for Long Context' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Marcel Rød이 arXiv에 게시한 'End-to-End Test-Time Training for Long Context' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

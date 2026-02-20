@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Hunyuan3D Studio: End-to-End AI Pipeline for Game-Ready 3D Asset
   Generation"
-excerpt: "Lixin Xu이 [arXiv]에 게시한 'Hunyuan3D Studio: End-to-End AI Pipeline for Game-Ready 3D Asset
+excerpt: "Lixin Xu이 arXiv에 게시한 'Hunyuan3D Studio: End-to-End AI Pipeline for Game-Ready 3D Asset
   Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

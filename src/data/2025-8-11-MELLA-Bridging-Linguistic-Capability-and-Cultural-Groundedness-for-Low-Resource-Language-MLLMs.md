@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MELLA: Bridging Linguistic Capability and Cultural Groundedness for
   Low-Resource Language MLLMs"
-excerpt: "Guohang Yan이 [arXiv]에 게시한 'MELLA: Bridging Linguistic Capability and Cultural Groundedness for
+excerpt: "Guohang Yan이 arXiv에 게시한 'MELLA: Bridging Linguistic Capability and Cultural Groundedness for
   Low-Resource Language MLLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:

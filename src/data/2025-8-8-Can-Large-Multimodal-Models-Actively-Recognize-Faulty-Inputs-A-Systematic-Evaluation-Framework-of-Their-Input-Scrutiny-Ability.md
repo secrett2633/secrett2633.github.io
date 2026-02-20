@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Can Large Multimodal Models Actively Recognize Faulty Inputs? A
   Systematic Evaluation Framework of Their Input Scrutiny Ability"
-excerpt: "Yuan Wu이 [arXiv]에 게시한 'Can Large Multimodal Models Actively Recognize Faulty Inputs? A
+excerpt: "Yuan Wu이 arXiv에 게시한 'Can Large Multimodal Models Actively Recognize Faulty Inputs? A
   Systematic Evaluation Framework of Their Input Scrutiny Ability' 논문에 대한 자세한 리뷰입니다."
 
 categories:

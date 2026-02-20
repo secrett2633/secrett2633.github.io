@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Flow Equivariant Recurrent Neural Networks"
-excerpt: "T. Anderson Keller이 [arXiv]에 게시한 'Flow Equivariant Recurrent Neural Networks' 논문에 대한 자세한 리뷰입니다."
+excerpt: "T. Anderson Keller이 arXiv에 게시한 'Flow Equivariant Recurrent Neural Networks' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

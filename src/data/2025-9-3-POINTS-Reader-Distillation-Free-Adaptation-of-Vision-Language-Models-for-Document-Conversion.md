@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] POINTS-Reader: Distillation-Free Adaptation of Vision-Language Models
   for Document Conversion"
-excerpt: "Haicheng Wang이 [arXiv]에 게시한 'POINTS-Reader: Distillation-Free Adaptation of Vision-Language Models
+excerpt: "Haicheng Wang이 arXiv에 게시한 'POINTS-Reader: Distillation-Free Adaptation of Vision-Language Models
   for Document Conversion' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Scaling Instruction-Based Video Editing with a High-Quality Synthetic
   Dataset"
-excerpt: "Hao Ouyang이 [arXiv]에 게시한 'Scaling Instruction-Based Video Editing with a High-Quality Synthetic
+excerpt: "Hao Ouyang이 arXiv에 게시한 'Scaling Instruction-Based Video Editing with a High-Quality Synthetic
   Dataset' 논문에 대한 자세한 리뷰입니다."
 
 categories:

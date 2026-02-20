@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] ActionMesh: Animated 3D Mesh Generation with Temporal 3D Diffusion"
-excerpt: "이 [arXiv]에 게시한 'ActionMesh: Animated 3D Mesh Generation with Temporal 3D Diffusion' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'ActionMesh: Animated 3D Mesh Generation with Temporal 3D Diffusion' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

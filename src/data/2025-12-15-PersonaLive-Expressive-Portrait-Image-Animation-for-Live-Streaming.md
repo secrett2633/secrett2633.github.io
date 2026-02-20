@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] PersonaLive! Expressive Portrait Image Animation for Live Streaming"
-excerpt: "Jue Wang이 [arXiv]에 게시한 'PersonaLive! Expressive Portrait Image Animation for Live Streaming' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jue Wang이 arXiv에 게시한 'PersonaLive! Expressive Portrait Image Animation for Live Streaming' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

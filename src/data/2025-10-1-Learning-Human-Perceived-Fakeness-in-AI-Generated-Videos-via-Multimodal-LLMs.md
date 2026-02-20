@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Learning Human-Perceived Fakeness in AI-Generated Videos via Multimodal
   LLMs"
-excerpt: "이 [arXiv]에 게시한 'Learning Human-Perceived Fakeness in AI-Generated Videos via Multimodal
+excerpt: "arXiv에 게시된 'Learning Human-Perceived Fakeness in AI-Generated Videos via Multimodal
   LLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:

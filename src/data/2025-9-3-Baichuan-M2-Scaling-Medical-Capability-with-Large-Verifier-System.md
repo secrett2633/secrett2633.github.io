@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Baichuan-M2: Scaling Medical Capability with Large Verifier System"
-excerpt: "Jayok6이 [arXiv]에 게시한 'Baichuan-M2: Scaling Medical Capability with Large Verifier System' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jayok6이 arXiv에 게시한 'Baichuan-M2: Scaling Medical Capability with Large Verifier System' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

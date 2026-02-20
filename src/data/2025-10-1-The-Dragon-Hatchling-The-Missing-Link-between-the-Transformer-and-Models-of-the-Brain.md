@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] The Dragon Hatchling: The Missing Link between the Transformer and
   Models of the Brain"
-excerpt: "이 [arXiv]에 게시한 'The Dragon Hatchling: The Missing Link between the Transformer and
+excerpt: "arXiv에 게시된 'The Dragon Hatchling: The Missing Link between the Transformer and
   Models of the Brain' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Unraveling the cognitive patterns of Large Language Models through
   module communities"
-excerpt: "Jianxi Gao이 [arXiv]에 게시한 'Unraveling the cognitive patterns of Large Language Models through
+excerpt: "Jianxi Gao이 arXiv에 게시한 'Unraveling the cognitive patterns of Large Language Models through
   module communities' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Mind the Third Eye! Benchmarking Privacy Awareness in MLLM-powered
   Smartphone Agents"
-excerpt: "Yue Yao이 [arXiv]에 게시한 'Mind the Third Eye! Benchmarking Privacy Awareness in MLLM-powered
+excerpt: "Yue Yao이 arXiv에 게시한 'Mind the Third Eye! Benchmarking Privacy Awareness in MLLM-powered
   Smartphone Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:

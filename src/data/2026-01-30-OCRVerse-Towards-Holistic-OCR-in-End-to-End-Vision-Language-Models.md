@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] OCRVerse: Towards Holistic OCR in End-to-End Vision-Language Models"
-excerpt: "Liming Zheng이 [arXiv]에 게시한 'OCRVerse: Towards Holistic OCR in End-to-End Vision-Language Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Liming Zheng이 arXiv에 게시한 'OCRVerse: Towards Holistic OCR in End-to-End Vision-Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Remote Labor Index: Measuring AI Automation of Remote Work"
-excerpt: "Shivam Singhal이 [arXiv]에 게시한 'Remote Labor Index: Measuring AI Automation of Remote Work' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Shivam Singhal이 arXiv에 게시한 'Remote Labor Index: Measuring AI Automation of Remote Work' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

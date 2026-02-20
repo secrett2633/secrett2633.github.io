@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MovieCORE: COgnitive REasoning in Movies"
-excerpt: "Hung-Ting Su이 [arXiv]에 게시한 'MovieCORE: COgnitive REasoning in Movies' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Hung-Ting Su이 arXiv에 게시한 'MovieCORE: COgnitive REasoning in Movies' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

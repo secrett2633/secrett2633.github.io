@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] VideoAuto-R1: Video Auto Reasoning via Thinking Once, Answering Twice"
-excerpt: "이 [arXiv]에 게시한 'VideoAuto-R1: Video Auto Reasoning via Thinking Once, Answering Twice' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'VideoAuto-R1: Video Auto Reasoning via Thinking Once, Answering Twice' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

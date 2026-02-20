@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] TARS: MinMax Token-Adaptive Preference Strategy for Hallucination
   Reduction in MLLMs"
-excerpt: "Jiasheng Tang이 [arXiv]에 게시한 'TARS: MinMax Token-Adaptive Preference Strategy for Hallucination
+excerpt: "Jiasheng Tang이 arXiv에 게시한 'TARS: MinMax Token-Adaptive Preference Strategy for Hallucination
   Reduction in MLLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:

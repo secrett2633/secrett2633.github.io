@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SSRL: Self-Search Reinforcement Learning"
-excerpt: "Yanxu Chen이 [arXiv]에 게시한 'SSRL: Self-Search Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yanxu Chen이 arXiv에 게시한 'SSRL: Self-Search Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

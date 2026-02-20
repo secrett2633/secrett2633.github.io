@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Beyond the Trade-off: Self-Supervised Reinforcement Learning for
   Reasoning Models' Instruction Following"
-excerpt: "Jiaqing Liang이 [arXiv]에 게시한 'Beyond the Trade-off: Self-Supervised Reinforcement Learning for
+excerpt: "Jiaqing Liang이 arXiv에 게시한 'Beyond the Trade-off: Self-Supervised Reinforcement Learning for
   Reasoning Models' Instruction Following' 논문에 대한 자세한 리뷰입니다."
 
 categories:

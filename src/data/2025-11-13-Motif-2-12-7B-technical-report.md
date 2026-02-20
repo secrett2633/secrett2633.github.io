@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Motif 2 12.7B technical report"
-excerpt: "이 [arXiv]에 게시한 'Motif 2 12.7B technical report' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Motif 2 12.7B technical report' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

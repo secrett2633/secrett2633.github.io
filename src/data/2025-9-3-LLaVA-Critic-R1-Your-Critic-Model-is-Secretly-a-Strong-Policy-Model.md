@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] LLaVA-Critic-R1: Your Critic Model is Secretly a Strong Policy Model"
-excerpt: "Jianwei Yang이 [arXiv]에 게시한 'LLaVA-Critic-R1: Your Critic Model is Secretly a Strong Policy Model' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jianwei Yang이 arXiv에 게시한 'LLaVA-Critic-R1: Your Critic Model is Secretly a Strong Policy Model' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

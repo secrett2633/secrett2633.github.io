@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] AgentFrontier: Expanding the Capability Frontier of LLM Agents with
   ZPD-Guided Data Synthesis"
-excerpt: "이 [arXiv]에 게시한 'AgentFrontier: Expanding the Capability Frontier of LLM Agents with
+excerpt: "arXiv에 게시된 'AgentFrontier: Expanding the Capability Frontier of LLM Agents with
   ZPD-Guided Data Synthesis' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] QP-OneModel: A Unified Generative LLM for Multi-Task Query Understanding in Xiaohongshu Search"
-excerpt: "Hui Zhang이 [arXiv]에 게시한 'QP-OneModel: A Unified Generative LLM for Multi-Task Query Understanding in Xiaohongshu Search' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Hui Zhang이 arXiv에 게시한 'QP-OneModel: A Unified Generative LLM for Multi-Task Query Understanding in Xiaohongshu Search' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

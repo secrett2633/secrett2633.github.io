@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] PaperSearchQA: Learning to Search and Reason over Scientific Papers with RLVR"
-excerpt: "Alejandro Lozano이 [arXiv]에 게시한 'PaperSearchQA: Learning to Search and Reason over Scientific Papers with RLVR' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Alejandro Lozano이 arXiv에 게시한 'PaperSearchQA: Learning to Search and Reason over Scientific Papers with RLVR' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

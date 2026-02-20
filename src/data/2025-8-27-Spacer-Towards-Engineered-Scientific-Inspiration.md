@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Spacer: Towards Engineered Scientific Inspiration"
-excerpt: "zerojun48이 [arXiv]에 게시한 'Spacer: Towards Engineered Scientific Inspiration' 논문에 대한 자세한 리뷰입니다."
+excerpt: "zerojun48이 arXiv에 게시한 'Spacer: Towards Engineered Scientific Inspiration' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Implicit Actor Critic Coupling via a Supervised Learning Framework for
   RLVR"
-excerpt: "Lu Wang이 [arXiv]에 게시한 'Implicit Actor Critic Coupling via a Supervised Learning Framework for
+excerpt: "Lu Wang이 arXiv에 게시한 'Implicit Actor Critic Coupling via a Supervised Learning Framework for
   RLVR' 논문에 대한 자세한 리뷰입니다."
 
 categories:

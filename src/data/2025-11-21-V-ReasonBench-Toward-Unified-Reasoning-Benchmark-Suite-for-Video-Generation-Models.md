@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] V-ReasonBench: Toward Unified Reasoning Benchmark Suite for Video Generation Models"
-excerpt: "Baijiong Lin이 [arXiv]에 게시한 'V-ReasonBench: Toward Unified Reasoning Benchmark Suite for Video Generation Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Baijiong Lin이 arXiv에 게시한 'V-ReasonBench: Toward Unified Reasoning Benchmark Suite for Video Generation Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

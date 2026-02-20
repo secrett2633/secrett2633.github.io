@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] LatentMem: Customizing Latent Memory for Multi-Agent Systems"
-excerpt: "Zefeng He이 [arXiv]에 게시한 'LatentMem: Customizing Latent Memory for Multi-Agent Systems' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zefeng He이 arXiv에 게시한 'LatentMem: Customizing Latent Memory for Multi-Agent Systems' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

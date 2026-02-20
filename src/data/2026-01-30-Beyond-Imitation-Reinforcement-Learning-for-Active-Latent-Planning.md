@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Beyond Imitation: Reinforcement Learning for Active Latent Planning"
-excerpt: "Wee Sun Lee이 [arXiv]에 게시한 'Beyond Imitation: Reinforcement Learning for Active Latent Planning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Wee Sun Lee이 arXiv에 게시한 'Beyond Imitation: Reinforcement Learning for Active Latent Planning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

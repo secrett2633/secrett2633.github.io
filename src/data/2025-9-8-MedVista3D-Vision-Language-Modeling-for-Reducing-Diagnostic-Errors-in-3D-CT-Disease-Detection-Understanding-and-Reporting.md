@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MedVista3D: Vision-Language Modeling for Reducing Diagnostic Errors in
   3D CT Disease Detection, Understanding and Reporting"
-excerpt: "Vanessa Wildman이 [arXiv]에 게시한 'MedVista3D: Vision-Language Modeling for Reducing Diagnostic Errors in
+excerpt: "Vanessa Wildman이 arXiv에 게시한 'MedVista3D: Vision-Language Modeling for Reducing Diagnostic Errors in
   3D CT Disease Detection, Understanding and Reporting' 논문에 대한 자세한 리뷰입니다."
 
 categories:

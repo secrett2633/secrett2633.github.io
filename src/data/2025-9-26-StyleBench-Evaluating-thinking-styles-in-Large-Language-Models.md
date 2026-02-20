@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] StyleBench: Evaluating thinking styles in Large Language Models"
-excerpt: "Javad Lavaei이 [arXiv]에 게시한 'StyleBench: Evaluating thinking styles in Large Language Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Javad Lavaei이 arXiv에 게시한 'StyleBench: Evaluating thinking styles in Large Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

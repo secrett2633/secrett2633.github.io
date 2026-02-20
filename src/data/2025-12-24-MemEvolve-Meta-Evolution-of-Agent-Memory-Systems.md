@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MemEvolve: Meta-Evolution of Agent Memory Systems"
-excerpt: "Junhao Wang이 [arXiv]에 게시한 'MemEvolve: Meta-Evolution of Agent Memory Systems' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Junhao Wang이 arXiv에 게시한 'MemEvolve: Meta-Evolution of Agent Memory Systems' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

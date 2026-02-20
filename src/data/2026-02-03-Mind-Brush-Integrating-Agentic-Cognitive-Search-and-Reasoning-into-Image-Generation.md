@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Mind-Brush: Integrating Agentic Cognitive Search and Reasoning into Image Generation"
-excerpt: "Chenjue Zhang이 [arXiv]에 게시한 'Mind-Brush: Integrating Agentic Cognitive Search and Reasoning into Image Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Chenjue Zhang이 arXiv에 게시한 'Mind-Brush: Integrating Agentic Cognitive Search and Reasoning into Image Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

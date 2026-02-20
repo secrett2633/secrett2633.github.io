@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] The Choice of Divergence: A Neglected Key to Mitigating Diversity
   Collapse in Reinforcement Learning with Verifiable Reward"
-excerpt: "Xiaoyu Tan이 [arXiv]에 게시한 'The Choice of Divergence: A Neglected Key to Mitigating Diversity
+excerpt: "Xiaoyu Tan이 arXiv에 게시한 'The Choice of Divergence: A Neglected Key to Mitigating Diversity
   Collapse in Reinforcement Learning with Verifiable Reward' 논문에 대한 자세한 리뷰입니다."
 
 categories:

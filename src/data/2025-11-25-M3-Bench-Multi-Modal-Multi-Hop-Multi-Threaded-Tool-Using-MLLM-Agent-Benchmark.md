@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] M3-Bench: Multi-Modal, Multi-Hop, Multi-Threaded Tool-Using MLLM Agent Benchmark"
-excerpt: "Bangwei Guo이 [arXiv]에 게시한 'M3-Bench: Multi-Modal, Multi-Hop, Multi-Threaded Tool-Using MLLM Agent Benchmark' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Bangwei Guo이 arXiv에 게시한 'M3-Bench: Multi-Modal, Multi-Hop, Multi-Threaded Tool-Using MLLM Agent Benchmark' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

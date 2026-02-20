@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] X-VLA: Soft-Prompted Transformer as Scalable Cross-Embodiment
   Vision-Language-Action Model"
-excerpt: "Xirui Kang이 [arXiv]에 게시한 'X-VLA: Soft-Prompted Transformer as Scalable Cross-Embodiment
+excerpt: "Xirui Kang이 arXiv에 게시한 'X-VLA: Soft-Prompted Transformer as Scalable Cross-Embodiment
   Vision-Language-Action Model' 논문에 대한 자세한 리뷰입니다."
 
 categories:

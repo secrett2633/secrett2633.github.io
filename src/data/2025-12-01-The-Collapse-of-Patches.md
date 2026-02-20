@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] The Collapse of Patches"
-excerpt: "Weidong Cai이 [arXiv]에 게시한 'The Collapse of Patches' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Weidong Cai이 arXiv에 게시한 'The Collapse of Patches' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] EvoFSM: Controllable Self-Evolution for Deep Research with Finite State Machines"
-excerpt: "이 [arXiv]에 게시한 'EvoFSM: Controllable Self-Evolution for Deep Research with Finite State Machines' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'EvoFSM: Controllable Self-Evolution for Deep Research with Finite State Machines' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

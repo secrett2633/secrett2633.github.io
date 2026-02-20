@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Hearing to Translate: The Effectiveness of Speech Modality Integration into LLMs"
-excerpt: "Carlos Escolano이 [arXiv]에 게시한 'Hearing to Translate: The Effectiveness of Speech Modality Integration into LLMs' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Carlos Escolano이 arXiv에 게시한 'Hearing to Translate: The Effectiveness of Speech Modality Integration into LLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

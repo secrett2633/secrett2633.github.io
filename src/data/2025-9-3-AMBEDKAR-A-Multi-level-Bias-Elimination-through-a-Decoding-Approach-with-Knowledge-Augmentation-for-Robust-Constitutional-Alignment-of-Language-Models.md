@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] AMBEDKAR-A Multi-level Bias Elimination through a Decoding Approach with
   Knowledge Augmentation for Robust Constitutional Alignment of Language Models"
-excerpt: "Rahul Karthikeyan이 [arXiv]에 게시한 'AMBEDKAR-A Multi-level Bias Elimination through a Decoding Approach with
+excerpt: "Rahul Karthikeyan이 arXiv에 게시한 'AMBEDKAR-A Multi-level Bias Elimination through a Decoding Approach with
   Knowledge Augmentation for Robust Constitutional Alignment of Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

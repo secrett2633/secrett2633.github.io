@@ -2,7 +2,7 @@
 title: "[논문리뷰] Balanced Multi-Task Attention for Satellite Image Classification: A
   Systematic Approach to Achieving 97.23% Accuracy on EuroSAT Without
   Pre-Training"
-excerpt: "Aditya Vir이 [arXiv]에 게시한 'Balanced Multi-Task Attention for Satellite Image Classification: A
+excerpt: "Aditya Vir이 arXiv에 게시한 'Balanced Multi-Task Attention for Satellite Image Classification: A
   Systematic Approach to Achieving 97.23% Accuracy on EuroSAT Without
   Pre-Training' 논문에 대한 자세한 리뷰입니다."
 

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Mixture of Contexts for Long Video Generation"
-excerpt: "Junfei Xiao이 [arXiv]에 게시한 'Mixture of Contexts for Long Video Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Junfei Xiao이 arXiv에 게시한 'Mixture of Contexts for Long Video Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

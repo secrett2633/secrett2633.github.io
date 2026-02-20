@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Dyna-Mind: Learning to Simulate from Experience for Better AI Agents"
-excerpt: "Qianhui Wu이 [arXiv]에 게시한 'Dyna-Mind: Learning to Simulate from Experience for Better AI Agents' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Qianhui Wu이 arXiv에 게시한 'Dyna-Mind: Learning to Simulate from Experience for Better AI Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

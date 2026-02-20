@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] EgoHumanoid: Unlocking In-the-Wild Loco-Manipulation with Robot-Free Egocentric Demonstration"
-excerpt: "Yinghui Li이 [arXiv]에 게시한 'EgoHumanoid: Unlocking In-the-Wild Loco-Manipulation with Robot-Free Egocentric Demonstration' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yinghui Li이 arXiv에 게시한 'EgoHumanoid: Unlocking In-the-Wild Loco-Manipulation with Robot-Free Egocentric Demonstration' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] The Station: An Open-World Environment for AI-Driven Discovery"
-excerpt: "wydu이 [arXiv]에 게시한 'The Station: An Open-World Environment for AI-Driven Discovery' 논문에 대한 자세한 리뷰입니다."
+excerpt: "wydu이 arXiv에 게시한 'The Station: An Open-World Environment for AI-Driven Discovery' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

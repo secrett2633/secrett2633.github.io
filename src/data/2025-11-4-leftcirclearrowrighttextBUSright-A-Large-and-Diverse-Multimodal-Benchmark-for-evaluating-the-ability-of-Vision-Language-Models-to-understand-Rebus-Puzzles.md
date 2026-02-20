@@ -2,7 +2,7 @@
 title: "[논문리뷰] left|,circlearrowright,text{BUS},right|: A Large and
   Diverse Multimodal Benchmark for evaluating the ability of Vision-Language
   Models to understand Rebus Puzzles"
-excerpt: "Deepiha S이 [arXiv]에 게시한 'left|,circlearrowright,text{BUS},right|: A Large and
+excerpt: "Deepiha S이 arXiv에 게시한 'left|,circlearrowright,text{BUS},right|: A Large and
   Diverse Multimodal Benchmark for evaluating the ability of Vision-Language
   Models to understand Rebus Puzzles' 논문에 대한 자세한 리뷰입니다."
 

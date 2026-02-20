@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Let It Flow: Agentic Crafting on Rock and Roll, Building the ROME Model within an Open Agentic Learning Ecosystem"
-excerpt: "Wei Gao이 [arXiv]에 게시한 'Let It Flow: Agentic Crafting on Rock and Roll, Building the ROME Model within an Open Agentic Learning Ecosystem' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Wei Gao이 arXiv에 게시한 'Let It Flow: Agentic Crafting on Rock and Roll, Building the ROME Model within an Open Agentic Learning Ecosystem' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

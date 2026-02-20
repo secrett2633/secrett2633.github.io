@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Token-Level LLM Collaboration via FusionRoute"
-excerpt: "Furong Huang이 [arXiv]에 게시한 'Token-Level LLM Collaboration via FusionRoute' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Furong Huang이 arXiv에 게시한 'Token-Level LLM Collaboration via FusionRoute' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

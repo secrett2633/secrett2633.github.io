@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Reasoning Language Models for Root Cause Analysis in 5G Wireless
   Networks"
-excerpt: "Haozhe Zhang이 [arXiv]에 게시한 'Reasoning Language Models for Root Cause Analysis in 5G Wireless
+excerpt: "Haozhe Zhang이 arXiv에 게시한 'Reasoning Language Models for Root Cause Analysis in 5G Wireless
   Networks' 논문에 대한 자세한 리뷰입니다."
 
 categories:

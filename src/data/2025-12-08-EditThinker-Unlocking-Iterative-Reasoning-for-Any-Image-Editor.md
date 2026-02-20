@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] EditThinker: Unlocking Iterative Reasoning for Any Image Editor"
-excerpt: "Ziyu Guo이 [arXiv]에 게시한 'EditThinker: Unlocking Iterative Reasoning for Any Image Editor' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Ziyu Guo이 arXiv에 게시한 'EditThinker: Unlocking Iterative Reasoning for Any Image Editor' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

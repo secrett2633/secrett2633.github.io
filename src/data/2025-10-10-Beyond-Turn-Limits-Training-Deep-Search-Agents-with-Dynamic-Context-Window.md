@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Beyond Turn Limits: Training Deep Search Agents with Dynamic Context
   Window"
-excerpt: "Yaojie Lu이 [arXiv]에 게시한 'Beyond Turn Limits: Training Deep Search Agents with Dynamic Context
+excerpt: "Yaojie Lu이 arXiv에 게시한 'Beyond Turn Limits: Training Deep Search Agents with Dynamic Context
   Window' 논문에 대한 자세한 리뷰입니다."
 
 categories:

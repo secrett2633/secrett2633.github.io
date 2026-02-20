@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DRPG (Decompose, Retrieve, Plan, Generate): An Agentic Framework for Academic Rebuttal"
-excerpt: "Jiaxuan You이 [arXiv]에 게시한 'DRPG (Decompose, Retrieve, Plan, Generate): An Agentic Framework for Academic Rebuttal' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jiaxuan You이 arXiv에 게시한 'DRPG (Decompose, Retrieve, Plan, Generate): An Agentic Framework for Academic Rebuttal' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

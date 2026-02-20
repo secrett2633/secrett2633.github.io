@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Multi-hop Reasoning via Early Knowledge Alignment"
-excerpt: "Xuanjing Huang이 [arXiv]에 게시한 'Multi-hop Reasoning via Early Knowledge Alignment' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xuanjing Huang이 arXiv에 게시한 'Multi-hop Reasoning via Early Knowledge Alignment' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

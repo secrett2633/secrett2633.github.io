@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] UltraShape 1.0: High-Fidelity 3D Shape Generation via Scalable Geometric Refinement"
-excerpt: "Kaiyi Zhang이 [arXiv]에 게시한 'UltraShape 1.0: High-Fidelity 3D Shape Generation via Scalable Geometric Refinement' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Kaiyi Zhang이 arXiv에 게시한 'UltraShape 1.0: High-Fidelity 3D Shape Generation via Scalable Geometric Refinement' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

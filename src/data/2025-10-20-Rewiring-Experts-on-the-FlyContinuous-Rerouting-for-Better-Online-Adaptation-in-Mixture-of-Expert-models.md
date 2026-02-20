@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Rewiring Experts on the Fly:Continuous Rerouting for Better Online
   Adaptation in Mixture-of-Expert models"
-excerpt: "Shiwei Liu이 [arXiv]에 게시한 'Rewiring Experts on the Fly:Continuous Rerouting for Better Online
+excerpt: "Shiwei Liu이 arXiv에 게시한 'Rewiring Experts on the Fly:Continuous Rerouting for Better Online
   Adaptation in Mixture-of-Expert models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

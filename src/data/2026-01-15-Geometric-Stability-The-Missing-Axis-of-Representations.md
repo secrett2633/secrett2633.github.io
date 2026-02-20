@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Geometric Stability: The Missing Axis of Representations"
-excerpt: "pcr2120이 [arXiv]에 게시한 'Geometric Stability: The Missing Axis of Representations' 논문에 대한 자세한 리뷰입니다."
+excerpt: "pcr2120이 arXiv에 게시한 'Geometric Stability: The Missing Axis of Representations' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

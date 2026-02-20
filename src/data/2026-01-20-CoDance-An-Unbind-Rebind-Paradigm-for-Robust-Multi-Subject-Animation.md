@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] CoDance: An Unbind-Rebind Paradigm for Robust Multi-Subject Animation"
-excerpt: "Hengshuang이 [arXiv]에 게시한 'CoDance: An Unbind-Rebind Paradigm for Robust Multi-Subject Animation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Hengshuang이 arXiv에 게시한 'CoDance: An Unbind-Rebind Paradigm for Robust Multi-Subject Animation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Self-EvolveRec: Self-Evolving Recommender Systems with LLM-based Directional Feedback"
-excerpt: "Jimin Seo이 [arXiv]에 게시한 'Self-EvolveRec: Self-Evolving Recommender Systems with LLM-based Directional Feedback' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jimin Seo이 arXiv에 게시한 'Self-EvolveRec: Self-Evolving Recommender Systems with LLM-based Directional Feedback' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

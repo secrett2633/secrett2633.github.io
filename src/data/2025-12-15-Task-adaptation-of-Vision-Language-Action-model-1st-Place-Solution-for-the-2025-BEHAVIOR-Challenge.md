@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Task adaptation of Vision-Language-Action model: 1st Place Solution for the 2025 BEHAVIOR Challenge"
-excerpt: "Akash Karnatak이 [arXiv]에 게시한 'Task adaptation of Vision-Language-Action model: 1st Place Solution for the 2025 BEHAVIOR Challenge' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Akash Karnatak이 arXiv에 게시한 'Task adaptation of Vision-Language-Action model: 1st Place Solution for the 2025 BEHAVIOR Challenge' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

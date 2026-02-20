@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Can LLM-Generated Textual Explanations Enhance Model Classification
   Performance? An Empirical Study"
-excerpt: "Gjergji Kasneci이 [arXiv]에 게시한 'Can LLM-Generated Textual Explanations Enhance Model Classification
+excerpt: "Gjergji Kasneci이 arXiv에 게시한 'Can LLM-Generated Textual Explanations Enhance Model Classification
   Performance? An Empirical Study' 논문에 대한 자세한 리뷰입니다."
 
 categories:

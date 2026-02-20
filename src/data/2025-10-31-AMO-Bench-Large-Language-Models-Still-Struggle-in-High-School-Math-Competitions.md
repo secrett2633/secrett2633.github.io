@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] AMO-Bench: Large Language Models Still Struggle in High School Math
   Competitions"
-excerpt: "이 [arXiv]에 게시한 'AMO-Bench: Large Language Models Still Struggle in High School Math
+excerpt: "arXiv에 게시된 'AMO-Bench: Large Language Models Still Struggle in High School Math
   Competitions' 논문에 대한 자세한 리뷰입니다."
 
 categories:

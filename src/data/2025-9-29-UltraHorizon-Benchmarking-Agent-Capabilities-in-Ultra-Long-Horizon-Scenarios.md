@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] UltraHorizon: Benchmarking Agent Capabilities in Ultra Long-Horizon
   Scenarios"
-excerpt: "Zeyu Qin이 [arXiv]에 게시한 'UltraHorizon: Benchmarking Agent Capabilities in Ultra Long-Horizon
+excerpt: "Zeyu Qin이 arXiv에 게시한 'UltraHorizon: Benchmarking Agent Capabilities in Ultra Long-Horizon
   Scenarios' 논문에 대한 자세한 리뷰입니다."
 
 categories:

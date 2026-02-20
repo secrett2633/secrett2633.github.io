@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Behavioral Fingerprinting of Large Language Models"
-excerpt: "Xing Li이 [arXiv]에 게시한 'Behavioral Fingerprinting of Large Language Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xing Li이 arXiv에 게시한 'Behavioral Fingerprinting of Large Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

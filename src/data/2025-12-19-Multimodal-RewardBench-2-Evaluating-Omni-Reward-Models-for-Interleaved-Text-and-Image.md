@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Multimodal RewardBench 2: Evaluating Omni Reward Models for Interleaved Text and Image"
-excerpt: "이 [arXiv]에 게시한 'Multimodal RewardBench 2: Evaluating Omni Reward Models for Interleaved Text and Image' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Multimodal RewardBench 2: Evaluating Omni Reward Models for Interleaved Text and Image' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

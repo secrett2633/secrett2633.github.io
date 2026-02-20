@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Typhoon OCR: Open Vision-Language Model For Thai Document Extraction"
-excerpt: "이 [arXiv]에 게시한 'Typhoon OCR: Open Vision-Language Model For Thai Document Extraction' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Typhoon OCR: Open Vision-Language Model For Thai Document Extraction' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

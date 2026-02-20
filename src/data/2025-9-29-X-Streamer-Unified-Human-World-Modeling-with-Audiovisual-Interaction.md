@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] X-Streamer: Unified Human World Modeling with Audiovisual Interaction"
-excerpt: "Guoxian Song이 [arXiv]에 게시한 'X-Streamer: Unified Human World Modeling with Audiovisual Interaction' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Guoxian Song이 arXiv에 게시한 'X-Streamer: Unified Human World Modeling with Audiovisual Interaction' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

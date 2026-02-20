@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] One Patch to Caption Them All: A Unified Zero-Shot Captioning Framework"
-excerpt: "Giuseppe Amato이 [arXiv]에 게시한 'One Patch to Caption Them All: A Unified Zero-Shot Captioning Framework' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Giuseppe Amato이 arXiv에 게시한 'One Patch to Caption Them All: A Unified Zero-Shot Captioning Framework' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

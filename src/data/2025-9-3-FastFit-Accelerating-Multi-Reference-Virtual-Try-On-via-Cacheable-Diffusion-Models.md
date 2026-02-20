@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] FastFit: Accelerating Multi-Reference Virtual Try-On via Cacheable
   Diffusion Models"
-excerpt: "Zhen Wang이 [arXiv]에 게시한 'FastFit: Accelerating Multi-Reference Virtual Try-On via Cacheable
+excerpt: "Zhen Wang이 arXiv에 게시한 'FastFit: Accelerating Multi-Reference Virtual Try-On via Cacheable
   Diffusion Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

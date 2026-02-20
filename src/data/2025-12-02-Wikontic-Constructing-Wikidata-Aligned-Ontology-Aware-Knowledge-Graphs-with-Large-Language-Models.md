@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Wikontic: Constructing Wikidata-Aligned, Ontology-Aware Knowledge Graphs with Large Language Models"
-excerpt: "Mikhail Burtsev이 [arXiv]에 게시한 'Wikontic: Constructing Wikidata-Aligned, Ontology-Aware Knowledge Graphs with Large Language Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Mikhail Burtsev이 arXiv에 게시한 'Wikontic: Constructing Wikidata-Aligned, Ontology-Aware Knowledge Graphs with Large Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] The Underappreciated Power of Vision Models for Graph Structural
   Understanding"
-excerpt: "Lei Zhang이 [arXiv]에 게시한 'The Underappreciated Power of Vision Models for Graph Structural
+excerpt: "Lei Zhang이 arXiv에 게시한 'The Underappreciated Power of Vision Models for Graph Structural
   Understanding' 논문에 대한 자세한 리뷰입니다."
 
 categories:

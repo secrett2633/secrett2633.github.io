@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] From Pixels to Words -- Towards Native Vision-Language Primitives at
   Scale"
-excerpt: "이 [arXiv]에 게시한 'From Pixels to Words -- Towards Native Vision-Language Primitives at
+excerpt: "arXiv에 게시된 'From Pixels to Words -- Towards Native Vision-Language Primitives at
   Scale' 논문에 대한 자세한 리뷰입니다."
 
 categories:

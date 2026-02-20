@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] SitEmb-v1.5: Improved Context-Aware Dense Retrieval for Semantic
   Association and Long Story Comprehension"
-excerpt: "Liyan Xu이 [arXiv]에 게시한 'SitEmb-v1.5: Improved Context-Aware Dense Retrieval for Semantic
+excerpt: "Liyan Xu이 arXiv에 게시한 'SitEmb-v1.5: Improved Context-Aware Dense Retrieval for Semantic
   Association and Long Story Comprehension' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Latent Sketchpad: Sketching Visual Thoughts to Elicit Multimodal
   Reasoning in MLLMs"
-excerpt: "이 [arXiv]에 게시한 'Latent Sketchpad: Sketching Visual Thoughts to Elicit Multimodal
+excerpt: "arXiv에 게시된 'Latent Sketchpad: Sketching Visual Thoughts to Elicit Multimodal
   Reasoning in MLLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Memorization in 3D Shape Generation: An Empirical Study"
-excerpt: "이 [arXiv]에 게시한 'Memorization in 3D Shape Generation: An Empirical Study' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Memorization in 3D Shape Generation: An Empirical Study' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

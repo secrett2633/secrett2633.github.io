@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Fantastic Reasoning Behaviors and Where to Find Them: Unsupervised Discovery of the Reasoning Process"
-excerpt: "이 [arXiv]에 게시한 'Fantastic Reasoning Behaviors and Where to Find Them: Unsupervised Discovery of the Reasoning Process' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Fantastic Reasoning Behaviors and Where to Find Them: Unsupervised Discovery of the Reasoning Process' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

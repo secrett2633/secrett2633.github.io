@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SD3.5-Flash: Distribution-Guided Distillation of Generative Flows"
-excerpt: "Yi-Zhe Song이 [arXiv]에 게시한 'SD3.5-Flash: Distribution-Guided Distillation of Generative Flows' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yi-Zhe Song이 arXiv에 게시한 'SD3.5-Flash: Distribution-Guided Distillation of Generative Flows' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

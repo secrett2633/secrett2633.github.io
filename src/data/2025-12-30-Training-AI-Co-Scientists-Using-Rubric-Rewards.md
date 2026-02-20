@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Training AI Co-Scientists Using Rubric Rewards"
-excerpt: "이 [arXiv]에 게시한 'Training AI Co-Scientists Using Rubric Rewards' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Training AI Co-Scientists Using Rubric Rewards' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

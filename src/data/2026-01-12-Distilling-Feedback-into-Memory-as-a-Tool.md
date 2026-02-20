@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Distilling Feedback into Memory-as-a-Tool"
-excerpt: "vicgalle이 [arXiv]에 게시한 'Distilling Feedback into Memory-as-a-Tool' 논문에 대한 자세한 리뷰입니다."
+excerpt: "vicgalle이 arXiv에 게시한 'Distilling Feedback into Memory-as-a-Tool' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

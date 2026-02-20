@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Prescriptive Scaling Reveals the Evolution of Language Model Capabilities"
-excerpt: "Sham Kakade이 [arXiv]에 게시한 'Prescriptive Scaling Reveals the Evolution of Language Model Capabilities' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Sham Kakade이 arXiv에 게시한 'Prescriptive Scaling Reveals the Evolution of Language Model Capabilities' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

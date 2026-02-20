@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] A Hybrid Protocol for Large-Scale Semantic Dataset Generation in Low-Resource Languages: The Turkish Semantic Relations Corpus"
-excerpt: "Özay Ezerceli이 [arXiv]에 게시한 'A Hybrid Protocol for Large-Scale Semantic Dataset Generation in Low-Resource Languages: The Turkish Semantic Relations Corpus' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Özay Ezerceli이 arXiv에 게시한 'A Hybrid Protocol for Large-Scale Semantic Dataset Generation in Low-Resource Languages: The Turkish Semantic Relations Corpus' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

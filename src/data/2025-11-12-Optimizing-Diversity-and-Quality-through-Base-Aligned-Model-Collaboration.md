@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Optimizing Diversity and Quality through Base-Aligned Model Collaboration"
-excerpt: "Jonathan May이 [arXiv]에 게시한 'Optimizing Diversity and Quality through Base-Aligned Model Collaboration' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jonathan May이 arXiv에 게시한 'Optimizing Diversity and Quality through Base-Aligned Model Collaboration' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

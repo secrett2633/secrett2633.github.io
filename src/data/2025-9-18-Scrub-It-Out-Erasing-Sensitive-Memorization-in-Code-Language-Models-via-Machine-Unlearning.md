@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Scrub It Out! Erasing Sensitive Memorization in Code Language Models via
   Machine Unlearning"
-excerpt: "Zhou Yang이 [arXiv]에 게시한 'Scrub It Out! Erasing Sensitive Memorization in Code Language Models via
+excerpt: "Zhou Yang이 arXiv에 게시한 'Scrub It Out! Erasing Sensitive Memorization in Code Language Models via
   Machine Unlearning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

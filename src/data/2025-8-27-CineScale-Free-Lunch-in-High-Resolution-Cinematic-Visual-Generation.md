@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] CineScale: Free Lunch in High-Resolution Cinematic Visual Generation"
-excerpt: "Ziwei Liu이 [arXiv]에 게시한 'CineScale: Free Lunch in High-Resolution Cinematic Visual Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Ziwei Liu이 arXiv에 게시한 'CineScale: Free Lunch in High-Resolution Cinematic Visual Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

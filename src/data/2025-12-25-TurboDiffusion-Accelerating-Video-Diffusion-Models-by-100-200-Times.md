@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] TurboDiffusion: Accelerating Video Diffusion Models by 100-200 Times"
-excerpt: "이 [arXiv]에 게시한 'TurboDiffusion: Accelerating Video Diffusion Models by 100-200 Times' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'TurboDiffusion: Accelerating Video Diffusion Models by 100-200 Times' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

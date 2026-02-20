@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Multi-human Interactive Talking Dataset"
-excerpt: "Mike Zheng Shou이 [arXiv]에 게시한 'Multi-human Interactive Talking Dataset' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Mike Zheng Shou이 arXiv에 게시한 'Multi-human Interactive Talking Dataset' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

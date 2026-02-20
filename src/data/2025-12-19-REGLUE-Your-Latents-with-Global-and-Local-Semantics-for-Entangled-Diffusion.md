@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] REGLUE Your Latents with Global and Local Semantics for Entangled Diffusion"
-excerpt: "Giorgos Sfikas이 [arXiv]에 게시한 'REGLUE Your Latents with Global and Local Semantics for Entangled Diffusion' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Giorgos Sfikas이 arXiv에 게시한 'REGLUE Your Latents with Global and Local Semantics for Entangled Diffusion' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] PromptCoT 2.0: Scaling Prompt Synthesis for Large Language Model
   Reasoning"
-excerpt: "Lingpeng Kong이 [arXiv]에 게시한 'PromptCoT 2.0: Scaling Prompt Synthesis for Large Language Model
+excerpt: "Lingpeng Kong이 arXiv에 게시한 'PromptCoT 2.0: Scaling Prompt Synthesis for Large Language Model
   Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

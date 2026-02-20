@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Cut2Next: Generating Next Shot via In-Context Tuning"
-excerpt: "Yu Qiao이 [arXiv]에 게시한 'Cut2Next: Generating Next Shot via In-Context Tuning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yu Qiao이 arXiv에 게시한 'Cut2Next: Generating Next Shot via In-Context Tuning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DreamOmni3: Scribble-based Editing and Generation"
-excerpt: "이 [arXiv]에 게시한 'DreamOmni3: Scribble-based Editing and Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'DreamOmni3: Scribble-based Editing and Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

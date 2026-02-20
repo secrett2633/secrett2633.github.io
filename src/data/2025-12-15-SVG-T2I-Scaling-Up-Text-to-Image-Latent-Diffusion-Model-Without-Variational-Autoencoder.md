@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SVG-T2I: Scaling Up Text-to-Image Latent Diffusion Model Without Variational Autoencoder"
-excerpt: "이 [arXiv]에 게시한 'SVG-T2I: Scaling Up Text-to-Image Latent Diffusion Model Without Variational Autoencoder' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'SVG-T2I: Scaling Up Text-to-Image Latent Diffusion Model Without Variational Autoencoder' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

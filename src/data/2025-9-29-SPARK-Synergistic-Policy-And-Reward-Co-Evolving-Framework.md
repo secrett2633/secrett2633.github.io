@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SPARK: Synergistic Policy And Reward Co-Evolving Framework"
-excerpt: "이 [arXiv]에 게시한 'SPARK: Synergistic Policy And Reward Co-Evolving Framework' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'SPARK: Synergistic Policy And Reward Co-Evolving Framework' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

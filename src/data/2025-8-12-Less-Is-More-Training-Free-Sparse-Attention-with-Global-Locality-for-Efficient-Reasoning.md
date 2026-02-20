@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Less Is More: Training-Free Sparse Attention with Global Locality for
   Efficient Reasoning"
-excerpt: "Baihong Yuan이 [arXiv]에 게시한 'Less Is More: Training-Free Sparse Attention with Global Locality for
+excerpt: "Baihong Yuan이 arXiv에 게시한 'Less Is More: Training-Free Sparse Attention with Global Locality for
   Efficient Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] ProCLIP: Progressive Vision-Language Alignment via LLM-based Embedder"
-excerpt: "Zonghao Guo이 [arXiv]에 게시한 'ProCLIP: Progressive Vision-Language Alignment via LLM-based Embedder' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zonghao Guo이 arXiv에 게시한 'ProCLIP: Progressive Vision-Language Alignment via LLM-based Embedder' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

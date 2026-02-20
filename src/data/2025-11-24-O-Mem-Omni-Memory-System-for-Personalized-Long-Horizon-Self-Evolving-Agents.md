@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] O-Mem: Omni Memory System for Personalized, Long Horizon, Self-Evolving Agents"
-excerpt: "이 [arXiv]에 게시한 'O-Mem: Omni Memory System for Personalized, Long Horizon, Self-Evolving Agents' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'O-Mem: Omni Memory System for Personalized, Long Horizon, Self-Evolving Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] NURBGen: High-Fidelity Text-to-CAD Generation through LLM-Driven NURBS   Modeling"
-excerpt: "이 [arXiv]에 게시한 'NURBGen: High-Fidelity Text-to-CAD Generation through LLM-Driven NURBS   Modeling' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'NURBGen: High-Fidelity Text-to-CAD Generation through LLM-Driven NURBS   Modeling' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

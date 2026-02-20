@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] FlowRL: Matching Reward Distributions for LLM Reasoning"
-excerpt: "Hengli Li이 [arXiv]에 게시한 'FlowRL: Matching Reward Distributions for LLM Reasoning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Hengli Li이 arXiv에 게시한 'FlowRL: Matching Reward Distributions for LLM Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

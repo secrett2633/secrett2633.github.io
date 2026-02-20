@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] LMEnt: A Suite for Analyzing Knowledge in Language Models from
   Pretraining Data to Representations"
-excerpt: "Yoav Gur-Arieh이 [arXiv]에 게시한 'LMEnt: A Suite for Analyzing Knowledge in Language Models from
+excerpt: "Yoav Gur-Arieh이 arXiv에 게시한 'LMEnt: A Suite for Analyzing Knowledge in Language Models from
   Pretraining Data to Representations' 논문에 대한 자세한 리뷰입니다."
 
 categories:

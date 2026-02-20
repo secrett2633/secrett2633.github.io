@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Reasoning Models Generate Societies of Thought"
-excerpt: "James Evans이 [arXiv]에 게시한 'Reasoning Models Generate Societies of Thought' 논문에 대한 자세한 리뷰입니다."
+excerpt: "James Evans이 arXiv에 게시한 'Reasoning Models Generate Societies of Thought' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

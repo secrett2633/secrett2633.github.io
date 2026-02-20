@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] FFP-300K: Scaling First-Frame Propagation for Generalizable Video Editing"
-excerpt: "Peng Tang이 [arXiv]에 게시한 'FFP-300K: Scaling First-Frame Propagation for Generalizable Video Editing' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Peng Tang이 arXiv에 게시한 'FFP-300K: Scaling First-Frame Propagation for Generalizable Video Editing' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

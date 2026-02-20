@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Finding 3D Positions of Distant Objects from Noisy Camera Movement and
   Semantic Segmentation Sequences"
-excerpt: "Eija Honkavaara이 [arXiv]에 게시한 'Finding 3D Positions of Distant Objects from Noisy Camera Movement and
+excerpt: "Eija Honkavaara이 arXiv에 게시한 'Finding 3D Positions of Distant Objects from Noisy Camera Movement and
   Semantic Segmentation Sequences' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] REVISOR: Beyond Textual Reflection, Towards Multimodal Introspective Reasoning in Long-Form Video Understanding"
-excerpt: "Jingyang Chen이 [arXiv]에 게시한 'REVISOR: Beyond Textual Reflection, Towards Multimodal Introspective Reasoning in Long-Form Video Understanding' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jingyang Chen이 arXiv에 게시한 'REVISOR: Beyond Textual Reflection, Towards Multimodal Introspective Reasoning in Long-Form Video Understanding' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

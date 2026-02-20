@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Klear-Reasoner: Advancing Reasoning Capability via Gradient-Preserving
   Clipping Policy Optimization"
-excerpt: "Guanting Dong이 [arXiv]에 게시한 'Klear-Reasoner: Advancing Reasoning Capability via Gradient-Preserving
+excerpt: "Guanting Dong이 arXiv에 게시한 'Klear-Reasoner: Advancing Reasoning Capability via Gradient-Preserving
   Clipping Policy Optimization' 논문에 대한 자세한 리뷰입니다."
 
 categories:

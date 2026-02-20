@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Beyond Human Judgment: A Bayesian Evaluation of LLMs' Moral Values
   Understanding"
-excerpt: "Alina Landowska이 [arXiv]에 게시한 'Beyond Human Judgment: A Bayesian Evaluation of LLMs' Moral Values
+excerpt: "Alina Landowska이 arXiv에 게시한 'Beyond Human Judgment: A Bayesian Evaluation of LLMs' Moral Values
   Understanding' 논문에 대한 자세한 리뷰입니다."
 
 categories:

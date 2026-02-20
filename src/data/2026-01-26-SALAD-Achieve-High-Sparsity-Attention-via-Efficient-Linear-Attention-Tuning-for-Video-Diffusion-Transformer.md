@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SALAD: Achieve High-Sparsity Attention via Efficient Linear Attention Tuning for Video Diffusion Transformer"
-excerpt: "이 [arXiv]에 게시한 'SALAD: Achieve High-Sparsity Attention via Efficient Linear Attention Tuning for Video Diffusion Transformer' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'SALAD: Achieve High-Sparsity Attention via Efficient Linear Attention Tuning for Video Diffusion Transformer' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

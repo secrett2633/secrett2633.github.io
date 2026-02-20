@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] FantasyTalking2: Timestep-Layer Adaptive Preference Optimization for
   Audio-Driven Portrait Animation"
-excerpt: "Mu Xu이 [arXiv]에 게시한 'FantasyTalking2: Timestep-Layer Adaptive Preference Optimization for
+excerpt: "Mu Xu이 arXiv에 게시한 'FantasyTalking2: Timestep-Layer Adaptive Preference Optimization for
   Audio-Driven Portrait Animation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

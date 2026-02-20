@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] UItron: Foundational GUI Agent with Advanced Perception and Planning"
-excerpt: "Yufeng Zhong이 [arXiv]에 게시한 'UItron: Foundational GUI Agent with Advanced Perception and Planning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yufeng Zhong이 arXiv에 게시한 'UItron: Foundational GUI Agent with Advanced Perception and Planning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

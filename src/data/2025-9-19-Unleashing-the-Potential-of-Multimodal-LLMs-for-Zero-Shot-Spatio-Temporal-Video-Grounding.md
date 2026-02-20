@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Unleashing the Potential of Multimodal LLMs for Zero-Shot
   Spatio-Temporal Video Grounding"
-excerpt: "Rynson W. H. Lau이 [arXiv]에 게시한 'Unleashing the Potential of Multimodal LLMs for Zero-Shot
+excerpt: "Rynson W. H. Lau이 arXiv에 게시한 'Unleashing the Potential of Multimodal LLMs for Zero-Shot
   Spatio-Temporal Video Grounding' 논문에 대한 자세한 리뷰입니다."
 
 categories:

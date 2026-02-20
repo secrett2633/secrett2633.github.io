@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Efficient Code Embeddings from Code Generation Models"
-excerpt: "Han Xiao이 [arXiv]에 게시한 'Efficient Code Embeddings from Code Generation Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Han Xiao이 arXiv에 게시한 'Efficient Code Embeddings from Code Generation Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

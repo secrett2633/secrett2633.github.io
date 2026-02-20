@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] When Judgment Becomes Noise: How Design Failures in LLM Judge Benchmarks
   Silently Undermine Validity"
-excerpt: "John P Dickerson이 [arXiv]에 게시한 'When Judgment Becomes Noise: How Design Failures in LLM Judge Benchmarks
+excerpt: "John P Dickerson이 arXiv에 게시한 'When Judgment Becomes Noise: How Design Failures in LLM Judge Benchmarks
   Silently Undermine Validity' 논문에 대한 자세한 리뷰입니다."
 
 categories:

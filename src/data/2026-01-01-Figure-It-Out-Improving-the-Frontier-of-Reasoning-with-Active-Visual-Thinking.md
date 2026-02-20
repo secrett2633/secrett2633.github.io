@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Figure It Out: Improving the Frontier of Reasoning with Active Visual Thinking"
-excerpt: "Jie Zhou이 [arXiv]에 게시한 'Figure It Out: Improving the Frontier of Reasoning with Active Visual Thinking' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jie Zhou이 arXiv에 게시한 'Figure It Out: Improving the Frontier of Reasoning with Active Visual Thinking' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

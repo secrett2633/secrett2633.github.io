@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SUCCESS-GS: Survey of Compactness and Compression for Efficient Static and Dynamic Gaussian Splatting"
-excerpt: "Sung-Ho Bae이 [arXiv]에 게시한 'SUCCESS-GS: Survey of Compactness and Compression for Efficient Static and Dynamic Gaussian Splatting' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Sung-Ho Bae이 arXiv에 게시한 'SUCCESS-GS: Survey of Compactness and Compression for Efficient Static and Dynamic Gaussian Splatting' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

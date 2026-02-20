@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] VCRL: Variance-based Curriculum Reinforcement Learning for Large
   Language Models"
-excerpt: "Yuewei Zhang이 [arXiv]에 게시한 'VCRL: Variance-based Curriculum Reinforcement Learning for Large
+excerpt: "Yuewei Zhang이 arXiv에 게시한 'VCRL: Variance-based Curriculum Reinforcement Learning for Large
   Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

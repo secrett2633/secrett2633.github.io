@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Gaussian Variation Field Diffusion for High-fidelity Video-to-4D
   Synthesis"
-excerpt: "Feng Zhao이 [arXiv]에 게시한 'Gaussian Variation Field Diffusion for High-fidelity Video-to-4D
+excerpt: "Feng Zhao이 arXiv에 게시한 'Gaussian Variation Field Diffusion for High-fidelity Video-to-4D
   Synthesis' 논문에 대한 자세한 리뷰입니다."
 
 categories:

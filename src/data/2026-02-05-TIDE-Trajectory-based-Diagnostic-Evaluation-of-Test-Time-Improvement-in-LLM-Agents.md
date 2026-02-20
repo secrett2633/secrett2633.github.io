@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] TIDE: Trajectory-based Diagnostic Evaluation of Test-Time Improvement in LLM Agents"
-excerpt: "Qiushi Sun이 [arXiv]에 게시한 'TIDE: Trajectory-based Diagnostic Evaluation of Test-Time Improvement in LLM Agents' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Qiushi Sun이 arXiv에 게시한 'TIDE: Trajectory-based Diagnostic Evaluation of Test-Time Improvement in LLM Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Evaluating Podcast Recommendations with Profile-Aware LLM-as-a-Judge"
-excerpt: "Alice Wang이 [arXiv]에 게시한 'Evaluating Podcast Recommendations with Profile-Aware LLM-as-a-Judge' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Alice Wang이 arXiv에 게시한 'Evaluating Podcast Recommendations with Profile-Aware LLM-as-a-Judge' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Reasoning Palette: Modulating Reasoning via Latent Contextualization for Controllable Exploration for (V)LMs"
-excerpt: "이 [arXiv]에 게시한 'Reasoning Palette: Modulating Reasoning via Latent Contextualization for Controllable Exploration for (V)LMs' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Reasoning Palette: Modulating Reasoning via Latent Contextualization for Controllable Exploration for (V)LMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

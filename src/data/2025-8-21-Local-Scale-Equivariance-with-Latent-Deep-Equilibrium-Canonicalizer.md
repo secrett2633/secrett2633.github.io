@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Local Scale Equivariance with Latent Deep Equilibrium Canonicalizer"
-excerpt: "Jeremiah Jiang이 [arXiv]에 게시한 'Local Scale Equivariance with Latent Deep Equilibrium Canonicalizer' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jeremiah Jiang이 arXiv에 게시한 'Local Scale Equivariance with Latent Deep Equilibrium Canonicalizer' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

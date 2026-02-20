@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] IAG: Input-aware Backdoor Attack on VLMs for Visual Grounding"
-excerpt: "Di Zhang이 [arXiv]에 게시한 'IAG: Input-aware Backdoor Attack on VLMs for Visual Grounding' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Di Zhang이 arXiv에 게시한 'IAG: Input-aware Backdoor Attack on VLMs for Visual Grounding' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

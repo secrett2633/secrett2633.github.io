@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DualVLA: Building a Generalizable Embodied Agent via Partial Decoupling of Reasoning and Action"
-excerpt: "Zhuoyang Liu이 [arXiv]에 게시한 'DualVLA: Building a Generalizable Embodied Agent via Partial Decoupling of Reasoning and Action' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zhuoyang Liu이 arXiv에 게시한 'DualVLA: Building a Generalizable Embodied Agent via Partial Decoupling of Reasoning and Action' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

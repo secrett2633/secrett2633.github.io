@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Learning Native Continuation for Action Chunking Flow Policies"
-excerpt: "Di Zhang이 [arXiv]에 게시한 'Learning Native Continuation for Action Chunking Flow Policies' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Di Zhang이 arXiv에 게시한 'Learning Native Continuation for Action Chunking Flow Policies' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

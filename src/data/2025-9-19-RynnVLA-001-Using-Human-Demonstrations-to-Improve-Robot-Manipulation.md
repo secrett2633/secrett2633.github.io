@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] RynnVLA-001: Using Human Demonstrations to Improve Robot Manipulation"
-excerpt: "SpaceProduct이 [arXiv]에 게시한 'RynnVLA-001: Using Human Demonstrations to Improve Robot Manipulation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "SpaceProduct이 arXiv에 게시한 'RynnVLA-001: Using Human Demonstrations to Improve Robot Manipulation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

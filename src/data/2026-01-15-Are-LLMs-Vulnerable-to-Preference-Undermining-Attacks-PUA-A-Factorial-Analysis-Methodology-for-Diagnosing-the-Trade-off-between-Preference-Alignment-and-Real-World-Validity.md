@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Are LLMs Vulnerable to Preference-Undermining Attacks (PUA)? A Factorial Analysis Methodology for Diagnosing the Trade-off between Preference Alignment and Real-World Validity"
-excerpt: "Chi Zhang이 [arXiv]에 게시한 'Are LLMs Vulnerable to Preference-Undermining Attacks (PUA)? A Factorial Analysis Methodology for Diagnosing the Trade-off between Preference Alignment and Real-World Validity' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Chi Zhang이 arXiv에 게시한 'Are LLMs Vulnerable to Preference-Undermining Attacks (PUA)? A Factorial Analysis Methodology for Diagnosing the Trade-off between Preference Alignment and Real-World Validity' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

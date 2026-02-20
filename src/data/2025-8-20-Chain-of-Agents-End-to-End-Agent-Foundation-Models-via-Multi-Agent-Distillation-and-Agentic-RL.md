@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Chain-of-Agents: End-to-End Agent Foundation Models via Multi-Agent
   Distillation and Agentic RL"
-excerpt: "Liam-Liu이 [arXiv]에 게시한 'Chain-of-Agents: End-to-End Agent Foundation Models via Multi-Agent
+excerpt: "Liam-Liu이 arXiv에 게시한 'Chain-of-Agents: End-to-End Agent Foundation Models via Multi-Agent
   Distillation and Agentic RL' 논문에 대한 자세한 리뷰입니다."
 
 categories:

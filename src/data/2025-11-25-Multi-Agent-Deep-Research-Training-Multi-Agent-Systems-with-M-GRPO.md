@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Multi-Agent Deep Research: Training Multi-Agent Systems with M-GRPO"
-excerpt: "이 [arXiv]에 게시한 'Multi-Agent Deep Research: Training Multi-Agent Systems with M-GRPO' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Multi-Agent Deep Research: Training Multi-Agent Systems with M-GRPO' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

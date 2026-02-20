@@ -5,6 +5,7 @@ const nextConfig = {
   images: {
     unoptimized: true
   },
+  staticPageGenerationTimeout: 180,
   // 병렬 빌드 워커 수 증가 (빌드 속도 향상)
   experimental: {
     workerThreads: true,

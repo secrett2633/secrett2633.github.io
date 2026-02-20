@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] RoboBrain 2.5: Depth in Sight, Time in Mind"
-excerpt: "Yuheng Ji이 [arXiv]에 게시한 'RoboBrain 2.5: Depth in Sight, Time in Mind' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yuheng Ji이 arXiv에 게시한 'RoboBrain 2.5: Depth in Sight, Time in Mind' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

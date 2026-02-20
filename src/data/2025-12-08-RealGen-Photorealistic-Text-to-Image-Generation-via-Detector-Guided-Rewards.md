@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] RealGen: Photorealistic Text-to-Image Generation via Detector-Guided Rewards"
-excerpt: "Zilong Huang이 [arXiv]에 게시한 'RealGen: Photorealistic Text-to-Image Generation via Detector-Guided Rewards' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zilong Huang이 arXiv에 게시한 'RealGen: Photorealistic Text-to-Image Generation via Detector-Guided Rewards' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

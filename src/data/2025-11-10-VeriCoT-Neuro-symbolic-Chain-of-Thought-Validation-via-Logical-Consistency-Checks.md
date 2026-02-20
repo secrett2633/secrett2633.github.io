@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] VeriCoT: Neuro-symbolic Chain-of-Thought Validation via Logical Consistency Checks"
-excerpt: "이 [arXiv]에 게시한 'VeriCoT: Neuro-symbolic Chain-of-Thought Validation via Logical Consistency Checks' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'VeriCoT: Neuro-symbolic Chain-of-Thought Validation via Logical Consistency Checks' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

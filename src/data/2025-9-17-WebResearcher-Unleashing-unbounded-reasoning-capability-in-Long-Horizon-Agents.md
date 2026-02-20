@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] WebResearcher: Unleashing unbounded reasoning capability in Long-Horizon
   Agents"
-excerpt: "Wenbiao Yin이 [arXiv]에 게시한 'WebResearcher: Unleashing unbounded reasoning capability in Long-Horizon
+excerpt: "Wenbiao Yin이 arXiv에 게시한 'WebResearcher: Unleashing unbounded reasoning capability in Long-Horizon
   Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:

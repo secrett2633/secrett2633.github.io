@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Next Visual Granularity Generation"
-excerpt: "Kang Liao이 [arXiv]에 게시한 'Next Visual Granularity Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Kang Liao이 arXiv에 게시한 'Next Visual Granularity Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] 3D and 4D World Modeling: A Survey"
-excerpt: "Ao Liang이 [arXiv]에 게시한 '3D and 4D World Modeling: A Survey' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Ao Liang이 arXiv에 게시한 '3D and 4D World Modeling: A Survey' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

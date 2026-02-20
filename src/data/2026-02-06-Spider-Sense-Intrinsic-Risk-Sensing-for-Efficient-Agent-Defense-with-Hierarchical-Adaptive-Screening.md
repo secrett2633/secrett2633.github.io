@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Spider-Sense: Intrinsic Risk Sensing for Efficient Agent Defense with Hierarchical Adaptive Screening"
-excerpt: "이 [arXiv]에 게시한 'Spider-Sense: Intrinsic Risk Sensing for Efficient Agent Defense with Hierarchical Adaptive Screening' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Spider-Sense: Intrinsic Risk Sensing for Efficient Agent Defense with Hierarchical Adaptive Screening' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

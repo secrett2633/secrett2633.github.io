@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Think-Then-Generate: Reasoning-Aware Text-to-Image Diffusion with LLM Encoders"
-excerpt: "이 [arXiv]에 게시한 'Think-Then-Generate: Reasoning-Aware Text-to-Image Diffusion with LLM Encoders' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Think-Then-Generate: Reasoning-Aware Text-to-Image Diffusion with LLM Encoders' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

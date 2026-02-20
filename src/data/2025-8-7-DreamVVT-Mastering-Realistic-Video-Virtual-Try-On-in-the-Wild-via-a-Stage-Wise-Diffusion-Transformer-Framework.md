@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] DreamVVT: Mastering Realistic Video Virtual Try-On in the Wild via a
   Stage-Wise Diffusion Transformer Framework"
-excerpt: "Chao Liang이 [arXiv]에 게시한 'DreamVVT: Mastering Realistic Video Virtual Try-On in the Wild via a
+excerpt: "Chao Liang이 arXiv에 게시한 'DreamVVT: Mastering Realistic Video Virtual Try-On in the Wild via a
   Stage-Wise Diffusion Transformer Framework' 논문에 대한 자세한 리뷰입니다."
 
 categories:

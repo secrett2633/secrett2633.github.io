@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] PhysMaster: Mastering Physical Representation for Video Generation via
   Reinforcement Learning"
-excerpt: "Hengshuang Zhao이 [arXiv]에 게시한 'PhysMaster: Mastering Physical Representation for Video Generation via
+excerpt: "Hengshuang Zhao이 arXiv에 게시한 'PhysMaster: Mastering Physical Representation for Video Generation via
   Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

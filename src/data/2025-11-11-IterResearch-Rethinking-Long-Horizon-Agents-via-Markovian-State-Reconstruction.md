@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] IterResearch: Rethinking Long-Horizon Agents via Markovian State   Reconstruction"
-excerpt: "Haotian Xu이 [arXiv]에 게시한 'IterResearch: Rethinking Long-Horizon Agents via Markovian State   Reconstruction' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Haotian Xu이 arXiv에 게시한 'IterResearch: Rethinking Long-Horizon Agents via Markovian State   Reconstruction' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

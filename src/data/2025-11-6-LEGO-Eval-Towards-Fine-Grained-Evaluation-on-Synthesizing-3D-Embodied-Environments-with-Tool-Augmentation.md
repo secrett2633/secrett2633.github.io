@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] LEGO-Eval: Towards Fine-Grained Evaluation on Synthesizing 3D Embodied
   Environments with Tool Augmentation"
-excerpt: "Soohyun Oh이 [arXiv]에 게시한 'LEGO-Eval: Towards Fine-Grained Evaluation on Synthesizing 3D Embodied
+excerpt: "Soohyun Oh이 arXiv에 게시한 'LEGO-Eval: Towards Fine-Grained Evaluation on Synthesizing 3D Embodied
   Environments with Tool Augmentation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

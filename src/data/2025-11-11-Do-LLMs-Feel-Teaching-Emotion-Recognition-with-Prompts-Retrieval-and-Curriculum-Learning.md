@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Do LLMs Feel? Teaching Emotion Recognition with Prompts, Retrieval, and   Curriculum Learning"
-excerpt: "이 [arXiv]에 게시한 'Do LLMs Feel? Teaching Emotion Recognition with Prompts, Retrieval, and   Curriculum Learning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Do LLMs Feel? Teaching Emotion Recognition with Prompts, Retrieval, and   Curriculum Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SimWorld: An Open-ended Realistic Simulator for Autonomous Agents in Physical and Social Worlds"
-excerpt: "Xuhong He이 [arXiv]에 게시한 'SimWorld: An Open-ended Realistic Simulator for Autonomous Agents in Physical and Social Worlds' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xuhong He이 arXiv에 게시한 'SimWorld: An Open-ended Realistic Simulator for Autonomous Agents in Physical and Social Worlds' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

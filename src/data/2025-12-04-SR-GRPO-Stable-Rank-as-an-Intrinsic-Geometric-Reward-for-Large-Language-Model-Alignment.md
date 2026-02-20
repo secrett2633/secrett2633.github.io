@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SR-GRPO: Stable Rank as an Intrinsic Geometric Reward for Large Language Model Alignment"
-excerpt: "Yi Yang이 [arXiv]에 게시한 'SR-GRPO: Stable Rank as an Intrinsic Geometric Reward for Large Language Model Alignment' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yi Yang이 arXiv에 게시한 'SR-GRPO: Stable Rank as an Intrinsic Geometric Reward for Large Language Model Alignment' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

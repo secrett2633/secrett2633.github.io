@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] CaptionQA: Is Your Caption as Useful as the Image Itself?"
-excerpt: "Zicheng Liu이 [arXiv]에 게시한 'CaptionQA: Is Your Caption as Useful as the Image Itself?' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zicheng Liu이 arXiv에 게시한 'CaptionQA: Is Your Caption as Useful as the Image Itself?' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

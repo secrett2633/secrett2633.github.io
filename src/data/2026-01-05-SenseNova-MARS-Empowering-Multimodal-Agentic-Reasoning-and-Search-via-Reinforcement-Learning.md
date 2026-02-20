@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SenseNova-MARS: Empowering Multimodal Agentic Reasoning and Search via Reinforcement Learning"
-excerpt: "이 [arXiv]에 게시한 'SenseNova-MARS: Empowering Multimodal Agentic Reasoning and Search via Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'SenseNova-MARS: Empowering Multimodal Agentic Reasoning and Search via Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

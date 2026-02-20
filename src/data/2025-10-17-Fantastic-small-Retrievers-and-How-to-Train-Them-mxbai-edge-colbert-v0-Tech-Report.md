@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Fantastic (small) Retrievers and How to Train Them:
   mxbai-edge-colbert-v0 Tech Report"
-excerpt: "이 [arXiv]에 게시한 'Fantastic (small) Retrievers and How to Train Them:
+excerpt: "arXiv에 게시된 'Fantastic (small) Retrievers and How to Train Them:
   mxbai-edge-colbert-v0 Tech Report' 논문에 대한 자세한 리뷰입니다."
 
 categories:

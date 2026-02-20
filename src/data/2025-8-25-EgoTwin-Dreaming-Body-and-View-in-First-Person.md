@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] EgoTwin: Dreaming Body and View in First Person"
-excerpt: "Wentao Wang이 [arXiv]에 게시한 'EgoTwin: Dreaming Body and View in First Person' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Wentao Wang이 arXiv에 게시한 'EgoTwin: Dreaming Body and View in First Person' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

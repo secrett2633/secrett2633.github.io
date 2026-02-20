@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] ERA: Transforming VLMs into Embodied Agents via Embodied Prior Learning
   and Online Reinforcement Learning"
-excerpt: "이 [arXiv]에 게시한 'ERA: Transforming VLMs into Embodied Agents via Embodied Prior Learning
+excerpt: "arXiv에 게시된 'ERA: Transforming VLMs into Embodied Agents via Embodied Prior Learning
   and Online Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] GUI-360: A Comprehensive Dataset and Benchmark for Computer-Using Agents"
-excerpt: "이 [arXiv]에 게시한 'GUI-360: A Comprehensive Dataset and Benchmark for Computer-Using Agents' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'GUI-360: A Comprehensive Dataset and Benchmark for Computer-Using Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Staying in the Sweet Spot: Responsive Reasoning Evolution via
   Capability-Adaptive Hint Scaffolding"
-excerpt: "Yongcheng Zeng이 [arXiv]에 게시한 'Staying in the Sweet Spot: Responsive Reasoning Evolution via
+excerpt: "Yongcheng Zeng이 arXiv에 게시한 'Staying in the Sweet Spot: Responsive Reasoning Evolution via
   Capability-Adaptive Hint Scaffolding' 논문에 대한 자세한 리뷰입니다."
 
 categories:

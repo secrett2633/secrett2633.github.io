@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] ComoRAG: A Cognitive-Inspired Memory-Organized RAG for Stateful Long
   Narrative Reasoning"
-excerpt: "Yufeng Wang이 [arXiv]에 게시한 'ComoRAG: A Cognitive-Inspired Memory-Organized RAG for Stateful Long
+excerpt: "Yufeng Wang이 arXiv에 게시한 'ComoRAG: A Cognitive-Inspired Memory-Organized RAG for Stateful Long
   Narrative Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

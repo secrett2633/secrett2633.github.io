@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] PlanViz: Evaluating Planning-Oriented Image Generation and Editing for Computer-Use Tasks"
-excerpt: "Zhixin Wang이 [arXiv]에 게시한 'PlanViz: Evaluating Planning-Oriented Image Generation and Editing for Computer-Use Tasks' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zhixin Wang이 arXiv에 게시한 'PlanViz: Evaluating Planning-Oriented Image Generation and Editing for Computer-Use Tasks' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

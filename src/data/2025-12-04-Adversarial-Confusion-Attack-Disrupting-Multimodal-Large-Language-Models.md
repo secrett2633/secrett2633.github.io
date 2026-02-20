@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Adversarial Confusion Attack: Disrupting Multimodal Large Language Models"
-excerpt: "Artur Janicki이 [arXiv]에 게시한 'Adversarial Confusion Attack: Disrupting Multimodal Large Language Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Artur Janicki이 arXiv에 게시한 'Adversarial Confusion Attack: Disrupting Multimodal Large Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

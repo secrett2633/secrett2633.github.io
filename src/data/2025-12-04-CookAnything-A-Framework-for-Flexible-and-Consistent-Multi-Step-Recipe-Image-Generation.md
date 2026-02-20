@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] CookAnything: A Framework for Flexible and Consistent Multi-Step Recipe Image Generation"
-excerpt: "Yi Yao이 [arXiv]에 게시한 'CookAnything: A Framework for Flexible and Consistent Multi-Step Recipe Image Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yi Yao이 arXiv에 게시한 'CookAnything: A Framework for Flexible and Consistent Multi-Step Recipe Image Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

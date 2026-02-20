@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] CoAct-1: Computer-using Agents with Coding as Actions"
-excerpt: "Taiwei Shi이 [arXiv]에 게시한 'CoAct-1: Computer-using Agents with Coding as Actions' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Taiwei Shi이 arXiv에 게시한 'CoAct-1: Computer-using Agents with Coding as Actions' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

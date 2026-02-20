@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Investigating Safety Vulnerabilities of Large Audio-Language Models
   Under Speaker Emotional Variations"
-excerpt: "이 [arXiv]에 게시한 'Investigating Safety Vulnerabilities of Large Audio-Language Models
+excerpt: "arXiv에 게시된 'Investigating Safety Vulnerabilities of Large Audio-Language Models
   Under Speaker Emotional Variations' 논문에 대한 자세한 리뷰입니다."
 
 categories:

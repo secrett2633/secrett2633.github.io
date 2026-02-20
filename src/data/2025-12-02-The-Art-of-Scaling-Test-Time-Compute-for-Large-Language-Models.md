@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] The Art of Scaling Test-Time Compute for Large Language Models"
-excerpt: "Tanmoy Chakraborty이 [arXiv]에 게시한 'The Art of Scaling Test-Time Compute for Large Language Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Tanmoy Chakraborty이 arXiv에 게시한 'The Art of Scaling Test-Time Compute for Large Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

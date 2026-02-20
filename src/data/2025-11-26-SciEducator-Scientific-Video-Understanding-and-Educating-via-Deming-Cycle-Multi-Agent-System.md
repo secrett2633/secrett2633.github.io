@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SciEducator: Scientific Video Understanding and Educating via Deming-Cycle Multi-Agent System"
-excerpt: "이 [arXiv]에 게시한 'SciEducator: Scientific Video Understanding and Educating via Deming-Cycle Multi-Agent System' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'SciEducator: Scientific Video Understanding and Educating via Deming-Cycle Multi-Agent System' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

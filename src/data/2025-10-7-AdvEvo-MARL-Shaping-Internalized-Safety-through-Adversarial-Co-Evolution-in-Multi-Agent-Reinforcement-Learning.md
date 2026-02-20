@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] AdvEvo-MARL: Shaping Internalized Safety through Adversarial
   Co-Evolution in Multi-Agent Reinforcement Learning"
-excerpt: "Zeliang Zhang이 [arXiv]에 게시한 'AdvEvo-MARL: Shaping Internalized Safety through Adversarial
+excerpt: "Zeliang Zhang이 arXiv에 게시한 'AdvEvo-MARL: Shaping Internalized Safety through Adversarial
   Co-Evolution in Multi-Agent Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

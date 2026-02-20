@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MotionStream: Real-Time Video Generation with Interactive Motion
   Controls"
-excerpt: "이 [arXiv]에 게시한 'MotionStream: Real-Time Video Generation with Interactive Motion
+excerpt: "arXiv에 게시된 'MotionStream: Real-Time Video Generation with Interactive Motion
   Controls' 논문에 대한 자세한 리뷰입니다."
 
 categories:

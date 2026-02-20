@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Architecture Decoupling Is Not All You Need For Unified Multimodal Model"
-excerpt: "Hongyu Li이 [arXiv]에 게시한 'Architecture Decoupling Is Not All You Need For Unified Multimodal Model' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Hongyu Li이 arXiv에 게시한 'Architecture Decoupling Is Not All You Need For Unified Multimodal Model' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Stable Cinemetrics : Structured Taxonomy and Evaluation for Professional
   Video Generation"
-excerpt: "이 [arXiv]에 게시한 'Stable Cinemetrics : Structured Taxonomy and Evaluation for Professional
+excerpt: "arXiv에 게시된 'Stable Cinemetrics : Structured Taxonomy and Evaluation for Professional
   Video Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

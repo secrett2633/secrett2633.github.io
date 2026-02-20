@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] From Code Foundation Models to Agents and Applications: A Practical Guide to Code Intelligence"
-excerpt: "이 [arXiv]에 게시한 'From Code Foundation Models to Agents and Applications: A Practical Guide to Code Intelligence' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'From Code Foundation Models to Agents and Applications: A Practical Guide to Code Intelligence' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

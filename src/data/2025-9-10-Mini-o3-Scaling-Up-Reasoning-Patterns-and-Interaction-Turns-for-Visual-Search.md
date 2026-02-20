@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Mini-o3: Scaling Up Reasoning Patterns and Interaction Turns for Visual
   Search"
-excerpt: "Tianjian Li이 [arXiv]에 게시한 'Mini-o3: Scaling Up Reasoning Patterns and Interaction Turns for Visual
+excerpt: "Tianjian Li이 arXiv에 게시한 'Mini-o3: Scaling Up Reasoning Patterns and Interaction Turns for Visual
   Search' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DiffusionNFT: Online Diffusion Reinforcement with Forward Process"
-excerpt: "Qinsheng Zhang이 [arXiv]에 게시한 'DiffusionNFT: Online Diffusion Reinforcement with Forward Process' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Qinsheng Zhang이 arXiv에 게시한 'DiffusionNFT: Online Diffusion Reinforcement with Forward Process' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

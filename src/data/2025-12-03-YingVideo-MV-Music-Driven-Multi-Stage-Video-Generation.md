@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] YingVideo-MV: Music-Driven Multi-Stage Video Generation"
-excerpt: "Chaofan Ding이 [arXiv]에 게시한 'YingVideo-MV: Music-Driven Multi-Stage Video Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Chaofan Ding이 arXiv에 게시한 'YingVideo-MV: Music-Driven Multi-Stage Video Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

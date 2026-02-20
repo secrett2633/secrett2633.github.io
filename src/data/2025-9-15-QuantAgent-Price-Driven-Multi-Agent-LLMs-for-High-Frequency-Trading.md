@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] QuantAgent: Price-Driven Multi-Agent LLMs for High-Frequency Trading"
-excerpt: "Chenyu You이 [arXiv]에 게시한 'QuantAgent: Price-Driven Multi-Agent LLMs for High-Frequency Trading' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Chenyu You이 arXiv에 게시한 'QuantAgent: Price-Driven Multi-Agent LLMs for High-Frequency Trading' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

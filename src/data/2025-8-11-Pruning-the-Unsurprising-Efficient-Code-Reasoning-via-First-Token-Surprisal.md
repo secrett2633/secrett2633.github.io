@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Pruning the Unsurprising: Efficient Code Reasoning via First-Token
   Surprisal"
-excerpt: "Chengcheng Wan이 [arXiv]에 게시한 'Pruning the Unsurprising: Efficient Code Reasoning via First-Token
+excerpt: "Chengcheng Wan이 arXiv에 게시한 'Pruning the Unsurprising: Efficient Code Reasoning via First-Token
   Surprisal' 논문에 대한 자세한 리뷰입니다."
 
 categories:

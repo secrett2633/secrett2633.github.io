@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Recon-Act: A Self-Evolving Multi-Agent Browser-Use System via Web
   Reconnaissance, Tool Generation, and Task Execution"
-excerpt: "Jinjie Gu이 [arXiv]에 게시한 'Recon-Act: A Self-Evolving Multi-Agent Browser-Use System via Web
+excerpt: "Jinjie Gu이 arXiv에 게시한 'Recon-Act: A Self-Evolving Multi-Agent Browser-Use System via Web
   Reconnaissance, Tool Generation, and Task Execution' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Self-Reflective Generation at Test Time"
-excerpt: "Shuang Qiu이 [arXiv]에 게시한 'Self-Reflective Generation at Test Time' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Shuang Qiu이 arXiv에 게시한 'Self-Reflective Generation at Test Time' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

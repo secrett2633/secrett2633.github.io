@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] TempFlow-GRPO: When Timing Matters for GRPO in Flow Models"
-excerpt: "Jian Yang이 [arXiv]에 게시한 'TempFlow-GRPO: When Timing Matters for GRPO in Flow Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jian Yang이 arXiv에 게시한 'TempFlow-GRPO: When Timing Matters for GRPO in Flow Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

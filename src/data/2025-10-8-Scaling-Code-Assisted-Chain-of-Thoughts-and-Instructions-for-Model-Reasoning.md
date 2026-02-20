@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Scaling Code-Assisted Chain-of-Thoughts and Instructions for Model
   Reasoning"
-excerpt: "Zhuoshi Pan이 [arXiv]에 게시한 'Scaling Code-Assisted Chain-of-Thoughts and Instructions for Model
+excerpt: "Zhuoshi Pan이 arXiv에 게시한 'Scaling Code-Assisted Chain-of-Thoughts and Instructions for Model
   Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

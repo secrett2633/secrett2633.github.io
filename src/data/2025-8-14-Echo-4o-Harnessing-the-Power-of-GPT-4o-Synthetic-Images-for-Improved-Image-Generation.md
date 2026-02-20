@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Echo-4o: Harnessing the Power of GPT-4o Synthetic Images for Improved
   Image Generation"
-excerpt: "Zhenghao Hu이 [arXiv]에 게시한 'Echo-4o: Harnessing the Power of GPT-4o Synthetic Images for Improved
+excerpt: "Zhenghao Hu이 arXiv에 게시한 'Echo-4o: Harnessing the Power of GPT-4o Synthetic Images for Improved
   Image Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

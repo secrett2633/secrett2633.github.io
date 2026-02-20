@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Visual Programmability: A Guide for Code-as-Thought in Chart
   Understanding"
-excerpt: "Ethan Chern이 [arXiv]에 게시한 'Visual Programmability: A Guide for Code-as-Thought in Chart
+excerpt: "Ethan Chern이 arXiv에 게시한 'Visual Programmability: A Guide for Code-as-Thought in Chart
   Understanding' 논문에 대한 자세한 리뷰입니다."
 
 categories:

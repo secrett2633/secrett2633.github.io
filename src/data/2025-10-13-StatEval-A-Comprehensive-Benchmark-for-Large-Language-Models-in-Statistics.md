@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] StatEval: A Comprehensive Benchmark for Large Language Models in
   Statistics"
-excerpt: "이 [arXiv]에 게시한 'StatEval: A Comprehensive Benchmark for Large Language Models in
+excerpt: "arXiv에 게시된 'StatEval: A Comprehensive Benchmark for Large Language Models in
   Statistics' 논문에 대한 자세한 리뷰입니다."
 
 categories:

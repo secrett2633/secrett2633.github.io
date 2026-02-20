@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] U-Bench: A Comprehensive Understanding of U-Net through 100-Variant
   Benchmarking"
-excerpt: "Heqin Zhu이 [arXiv]에 게시한 'U-Bench: A Comprehensive Understanding of U-Net through 100-Variant
+excerpt: "Heqin Zhu이 arXiv에 게시한 'U-Bench: A Comprehensive Understanding of U-Net through 100-Variant
   Benchmarking' 논문에 대한 자세한 리뷰입니다."
 
 categories:

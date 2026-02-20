@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] AutoPR: Let's Automate Your Academic Promotion!"
-excerpt: "Yixin Yuan이 [arXiv]에 게시한 'AutoPR: Let's Automate Your Academic Promotion!' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yixin Yuan이 arXiv에 게시한 'AutoPR: Let's Automate Your Academic Promotion!' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -2,7 +2,7 @@
 title: "[논문리뷰] DIWALI - Diversity and Inclusivity aWare cuLture specific Items for
   India: Dataset and Assessment of LLMs for Cultural Text Adaptation in Indian
   Context"
-excerpt: "Maunendra Sankar Desarkar이 [arXiv]에 게시한 'DIWALI - Diversity and Inclusivity aWare cuLture specific Items for
+excerpt: "Maunendra Sankar Desarkar이 arXiv에 게시한 'DIWALI - Diversity and Inclusivity aWare cuLture specific Items for
   India: Dataset and Assessment of LLMs for Cultural Text Adaptation in Indian
   Context' 논문에 대한 자세한 리뷰입니다."
 

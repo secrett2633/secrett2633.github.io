@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] A^2FM: An Adaptive Agent Foundation Model for Tool-Aware Hybrid
   Reasoning"
-excerpt: "이 [arXiv]에 게시한 'A^2FM: An Adaptive Agent Foundation Model for Tool-Aware Hybrid
+excerpt: "arXiv에 게시된 'A^2FM: An Adaptive Agent Foundation Model for Tool-Aware Hybrid
   Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

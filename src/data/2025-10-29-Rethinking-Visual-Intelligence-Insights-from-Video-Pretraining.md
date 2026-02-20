@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Rethinking Visual Intelligence: Insights from Video Pretraining"
-excerpt: "Ahmad Rahimi이 [arXiv]에 게시한 'Rethinking Visual Intelligence: Insights from Video Pretraining' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Ahmad Rahimi이 arXiv에 게시한 'Rethinking Visual Intelligence: Insights from Video Pretraining' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

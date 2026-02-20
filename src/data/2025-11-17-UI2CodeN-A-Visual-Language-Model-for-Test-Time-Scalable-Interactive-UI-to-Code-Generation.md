@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] UI2Code^N: A Visual Language Model for Test-Time Scalable Interactive UI-to-Code Generation"
-excerpt: "Weihan Wang이 [arXiv]에 게시한 'UI2Code^N: A Visual Language Model for Test-Time Scalable Interactive UI-to-Code Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Weihan Wang이 arXiv에 게시한 'UI2Code^N: A Visual Language Model for Test-Time Scalable Interactive UI-to-Code Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

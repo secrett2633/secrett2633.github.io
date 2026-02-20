@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] TaDiCodec: Text-aware Diffusion Speech Tokenizer for Speech Language
   Modeling"
-excerpt: "Jiaqi Li이 [arXiv]에 게시한 'TaDiCodec: Text-aware Diffusion Speech Tokenizer for Speech Language
+excerpt: "Jiaqi Li이 arXiv에 게시한 'TaDiCodec: Text-aware Diffusion Speech Tokenizer for Speech Language
   Modeling' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] CorrSteer: Steering Improves Task Performance and Safety in LLMs through
   Correlation-based Sparse Autoencoder Feature Selection"
-excerpt: "Adriano Koshiyama이 [arXiv]에 게시한 'CorrSteer: Steering Improves Task Performance and Safety in LLMs through
+excerpt: "Adriano Koshiyama이 arXiv에 게시한 'CorrSteer: Steering Improves Task Performance and Safety in LLMs through
   Correlation-based Sparse Autoencoder Feature Selection' 논문에 대한 자세한 리뷰입니다."
 
 categories:

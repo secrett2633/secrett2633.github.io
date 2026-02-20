@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] X-Node: Self-Explanation is All We Need"
-excerpt: "Islem Rekik이 [arXiv]에 게시한 'X-Node: Self-Explanation is All We Need' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Islem Rekik이 arXiv에 게시한 'X-Node: Self-Explanation is All We Need' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

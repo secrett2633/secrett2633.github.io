@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] ATLAS: Adaptive Transfer Scaling Laws for Multilingual Pretraining,
   Finetuning, and Decoding the Curse of Multilinguality"
-excerpt: "이 [arXiv]에 게시한 'ATLAS: Adaptive Transfer Scaling Laws for Multilingual Pretraining,
+excerpt: "arXiv에 게시된 'ATLAS: Adaptive Transfer Scaling Laws for Multilingual Pretraining,
   Finetuning, and Decoding the Curse of Multilinguality' 논문에 대한 자세한 리뷰입니다."
 
 categories:

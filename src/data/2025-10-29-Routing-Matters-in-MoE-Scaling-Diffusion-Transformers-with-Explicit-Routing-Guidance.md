@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Routing Matters in MoE: Scaling Diffusion Transformers with Explicit
   Routing Guidance"
-excerpt: "이 [arXiv]에 게시한 'Routing Matters in MoE: Scaling Diffusion Transformers with Explicit
+excerpt: "arXiv에 게시된 'Routing Matters in MoE: Scaling Diffusion Transformers with Explicit
   Routing Guidance' 논문에 대한 자세한 리뷰입니다."
 
 categories:

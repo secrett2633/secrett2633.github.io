@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] PISCES: Annotation-free Text-to-Video Post-Training via Optimal Transport-Aligned Rewards"
-excerpt: "이 [arXiv]에 게시한 'PISCES: Annotation-free Text-to-Video Post-Training via Optimal Transport-Aligned Rewards' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'PISCES: Annotation-free Text-to-Video Post-Training via Optimal Transport-Aligned Rewards' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

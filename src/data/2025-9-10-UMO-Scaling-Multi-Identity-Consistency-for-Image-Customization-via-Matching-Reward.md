@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] UMO: Scaling Multi-Identity Consistency for Image Customization via
   Matching Reward"
-excerpt: "Fei Ding이 [arXiv]에 게시한 'UMO: Scaling Multi-Identity Consistency for Image Customization via
+excerpt: "Fei Ding이 arXiv에 게시한 'UMO: Scaling Multi-Identity Consistency for Image Customization via
   Matching Reward' 논문에 대한 자세한 리뷰입니다."
 
 categories:

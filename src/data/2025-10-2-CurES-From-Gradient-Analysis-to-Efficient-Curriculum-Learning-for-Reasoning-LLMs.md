@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] CurES: From Gradient Analysis to Efficient Curriculum Learning for
   Reasoning LLMs"
-excerpt: "Hengyi Cai이 [arXiv]에 게시한 'CurES: From Gradient Analysis to Efficient Curriculum Learning for
+excerpt: "Hengyi Cai이 arXiv에 게시한 'CurES: From Gradient Analysis to Efficient Curriculum Learning for
   Reasoning LLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:

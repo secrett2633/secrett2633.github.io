@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Efficient Machine Unlearning via Influence Approximation"
-excerpt: "Enhong Chen이 [arXiv]에 게시한 'Efficient Machine Unlearning via Influence Approximation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Enhong Chen이 arXiv에 게시한 'Efficient Machine Unlearning via Influence Approximation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

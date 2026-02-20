@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Mem-α: Learning Memory Construction via Reinforcement Learning"
-excerpt: "Yuzhen Mao이 [arXiv]에 게시한 'Mem-α: Learning Memory Construction via Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yuzhen Mao이 arXiv에 게시한 'Mem-α: Learning Memory Construction via Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -2,7 +2,7 @@
 title: "[논문리뷰] Hierarchical Frequency Tagging Probe (HFTP): A Unified Approach to
   Investigate Syntactic Structure Representations in Large Language Models and
   the Human Brain"
-excerpt: "Lingxi Lu이 [arXiv]에 게시한 'Hierarchical Frequency Tagging Probe (HFTP): A Unified Approach to
+excerpt: "Lingxi Lu이 arXiv에 게시한 'Hierarchical Frequency Tagging Probe (HFTP): A Unified Approach to
   Investigate Syntactic Structure Representations in Large Language Models and
   the Human Brain' 논문에 대한 자세한 리뷰입니다."
 

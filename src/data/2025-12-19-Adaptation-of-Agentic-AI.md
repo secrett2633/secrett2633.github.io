@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Adaptation of Agentic AI"
-excerpt: "Zhiyi Shi이 [arXiv]에 게시한 'Adaptation of Agentic AI' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zhiyi Shi이 arXiv에 게시한 'Adaptation of Agentic AI' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

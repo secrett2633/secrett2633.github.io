@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MoM: Mixtures of Scenario-Aware Document Memories for
   Retrieval-Augmented Generation Systems"
-excerpt: "Feiyu Xiong이 [arXiv]에 게시한 'MoM: Mixtures of Scenario-Aware Document Memories for
+excerpt: "Feiyu Xiong이 arXiv에 게시한 'MoM: Mixtures of Scenario-Aware Document Memories for
   Retrieval-Augmented Generation Systems' 논문에 대한 자세한 리뷰입니다."
 
 categories:

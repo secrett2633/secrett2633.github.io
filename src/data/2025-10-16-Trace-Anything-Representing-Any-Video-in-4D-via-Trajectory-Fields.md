@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Trace Anything: Representing Any Video in 4D via Trajectory Fields"
-excerpt: "이 [arXiv]에 게시한 'Trace Anything: Representing Any Video in 4D via Trajectory Fields' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Trace Anything: Representing Any Video in 4D via Trajectory Fields' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

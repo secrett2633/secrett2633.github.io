@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] SWE-Bench Pro: Can AI Agents Solve Long-Horizon Software Engineering
   Tasks?"
-excerpt: "Yannis Yiming He이 [arXiv]에 게시한 'SWE-Bench Pro: Can AI Agents Solve Long-Horizon Software Engineering
+excerpt: "Yannis Yiming He이 arXiv에 게시한 'SWE-Bench Pro: Can AI Agents Solve Long-Horizon Software Engineering
   Tasks?' 논문에 대한 자세한 리뷰입니다."
 
 categories:

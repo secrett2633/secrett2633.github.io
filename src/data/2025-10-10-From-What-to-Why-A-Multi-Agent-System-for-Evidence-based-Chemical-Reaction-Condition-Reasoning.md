@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] From What to Why: A Multi-Agent System for Evidence-based Chemical
   Reaction Condition Reasoning"
-excerpt: "Feiwei Qin이 [arXiv]에 게시한 'From What to Why: A Multi-Agent System for Evidence-based Chemical
+excerpt: "Feiwei Qin이 arXiv에 게시한 'From What to Why: A Multi-Agent System for Evidence-based Chemical
   Reaction Condition Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Towards Open-Vocabulary Industrial Defect Understanding with a Large-Scale Multimodal Dataset"
-excerpt: "YuanFu Yang이 [arXiv]에 게시한 'Towards Open-Vocabulary Industrial Defect Understanding with a Large-Scale Multimodal Dataset' 논문에 대한 자세한 리뷰입니다."
+excerpt: "YuanFu Yang이 arXiv에 게시한 'Towards Open-Vocabulary Industrial Defect Understanding with a Large-Scale Multimodal Dataset' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Fast-Decoding Diffusion Language Models via Progress-Aware Confidence Schedules"
-excerpt: "Yang Zhang이 [arXiv]에 게시한 'Fast-Decoding Diffusion Language Models via Progress-Aware Confidence Schedules' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yang Zhang이 arXiv에 게시한 'Fast-Decoding Diffusion Language Models via Progress-Aware Confidence Schedules' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

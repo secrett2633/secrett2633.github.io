@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Skyfall-GS: Synthesizing Immersive 3D Urban Scenes from Satellite
   Imagery"
-excerpt: "Chung-Ho Wu이 [arXiv]에 게시한 'Skyfall-GS: Synthesizing Immersive 3D Urban Scenes from Satellite
+excerpt: "Chung-Ho Wu이 arXiv에 게시한 'Skyfall-GS: Synthesizing Immersive 3D Urban Scenes from Satellite
   Imagery' 논문에 대한 자세한 리뷰입니다."
 
 categories:

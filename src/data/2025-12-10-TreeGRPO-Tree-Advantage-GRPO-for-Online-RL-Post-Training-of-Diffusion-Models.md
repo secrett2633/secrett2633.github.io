@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] TreeGRPO: Tree-Advantage GRPO for Online RL Post-Training of Diffusion Models"
-excerpt: "Weirui Ye이 [arXiv]에 게시한 'TreeGRPO: Tree-Advantage GRPO for Online RL Post-Training of Diffusion Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Weirui Ye이 arXiv에 게시한 'TreeGRPO: Tree-Advantage GRPO for Online RL Post-Training of Diffusion Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

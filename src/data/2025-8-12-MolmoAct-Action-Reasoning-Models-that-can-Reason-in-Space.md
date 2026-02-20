@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MolmoAct: Action Reasoning Models that can Reason in Space"
-excerpt: "Shuo Liu이 [arXiv]에 게시한 'MolmoAct: Action Reasoning Models that can Reason in Space' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Shuo Liu이 arXiv에 게시한 'MolmoAct: Action Reasoning Models that can Reason in Space' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

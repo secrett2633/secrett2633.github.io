@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] FLAC: Maximum Entropy RL via Kinetic Energy Regularized Bridge Matching"
-excerpt: "Xiao Ma이 [arXiv]에 게시한 'FLAC: Maximum Entropy RL via Kinetic Energy Regularized Bridge Matching' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xiao Ma이 arXiv에 게시한 'FLAC: Maximum Entropy RL via Kinetic Energy Regularized Bridge Matching' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

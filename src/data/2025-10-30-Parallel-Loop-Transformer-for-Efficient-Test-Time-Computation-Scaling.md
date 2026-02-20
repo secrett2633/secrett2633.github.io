@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Parallel Loop Transformer for Efficient Test-Time Computation Scaling"
-excerpt: "이 [arXiv]에 게시한 'Parallel Loop Transformer for Efficient Test-Time Computation Scaling' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Parallel Loop Transformer for Efficient Test-Time Computation Scaling' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

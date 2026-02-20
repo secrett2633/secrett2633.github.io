@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Sculptor: Empowering LLMs with Cognitive Agency via Active Context
   Management"
-excerpt: "Yunxin Liu이 [arXiv]에 게시한 'Sculptor: Empowering LLMs with Cognitive Agency via Active Context
+excerpt: "Yunxin Liu이 arXiv에 게시한 'Sculptor: Empowering LLMs with Cognitive Agency via Active Context
   Management' 논문에 대한 자세한 리뷰입니다."
 
 categories:

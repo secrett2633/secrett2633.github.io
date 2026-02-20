@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] EmbeddingGemma: Powerful and Lightweight Text Representations"
-excerpt: "Marksherwood이 [arXiv]에 게시한 'EmbeddingGemma: Powerful and Lightweight Text Representations' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Marksherwood이 arXiv에 게시한 'EmbeddingGemma: Powerful and Lightweight Text Representations' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

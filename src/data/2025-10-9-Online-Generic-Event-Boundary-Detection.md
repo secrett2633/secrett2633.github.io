@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Online Generic Event Boundary Detection"
-excerpt: "Jonghyun Choi이 [arXiv]에 게시한 'Online Generic Event Boundary Detection' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jonghyun Choi이 arXiv에 게시한 'Online Generic Event Boundary Detection' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

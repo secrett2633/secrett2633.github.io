@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] CVD-STORM: Cross-View Video Diffusion with Spatial-Temporal
   Reconstruction Model for Autonomous Driving"
-excerpt: "Jingcheng Ni이 [arXiv]에 게시한 'CVD-STORM: Cross-View Video Diffusion with Spatial-Temporal
+excerpt: "Jingcheng Ni이 arXiv에 게시한 'CVD-STORM: Cross-View Video Diffusion with Spatial-Temporal
   Reconstruction Model for Autonomous Driving' 논문에 대한 자세한 리뷰입니다."
 
 categories:

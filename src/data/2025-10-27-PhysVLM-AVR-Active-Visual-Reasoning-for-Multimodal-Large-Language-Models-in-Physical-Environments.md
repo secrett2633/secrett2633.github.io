@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] PhysVLM-AVR: Active Visual Reasoning for Multimodal Large Language
   Models in Physical Environments"
-excerpt: "Chaoyang Zhao이 [arXiv]에 게시한 'PhysVLM-AVR: Active Visual Reasoning for Multimodal Large Language
+excerpt: "Chaoyang Zhao이 arXiv에 게시한 'PhysVLM-AVR: Active Visual Reasoning for Multimodal Large Language
   Models in Physical Environments' 논문에 대한 자세한 리뷰입니다."
 
 categories:

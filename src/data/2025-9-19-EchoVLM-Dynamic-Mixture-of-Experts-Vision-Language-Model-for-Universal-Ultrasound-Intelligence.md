@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] EchoVLM: Dynamic Mixture-of-Experts Vision-Language Model for Universal
   Ultrasound Intelligence"
-excerpt: "Qinghua Huang이 [arXiv]에 게시한 'EchoVLM: Dynamic Mixture-of-Experts Vision-Language Model for Universal
+excerpt: "Qinghua Huang이 arXiv에 게시한 'EchoVLM: Dynamic Mixture-of-Experts Vision-Language Model for Universal
   Ultrasound Intelligence' 논문에 대한 자세한 리뷰입니다."
 
 categories:

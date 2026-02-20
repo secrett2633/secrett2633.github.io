@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] LUT-LLM: Efficient Large Language Model Inference with Memory-based   Computations on FPGAs"
-excerpt: "Jason Cong이 [arXiv]에 게시한 'LUT-LLM: Efficient Large Language Model Inference with Memory-based   Computations on FPGAs' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jason Cong이 arXiv에 게시한 'LUT-LLM: Efficient Large Language Model Inference with Memory-based   Computations on FPGAs' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

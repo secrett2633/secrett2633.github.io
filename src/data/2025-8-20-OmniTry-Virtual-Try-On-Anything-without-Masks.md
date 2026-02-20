@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] OmniTry: Virtual Try-On Anything without Masks"
-excerpt: "Xiaoduan Feng이 [arXiv]에 게시한 'OmniTry: Virtual Try-On Anything without Masks' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xiaoduan Feng이 arXiv에 게시한 'OmniTry: Virtual Try-On Anything without Masks' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

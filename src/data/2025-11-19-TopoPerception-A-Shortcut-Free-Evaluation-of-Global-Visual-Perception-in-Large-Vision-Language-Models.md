@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] TopoPerception: A Shortcut-Free Evaluation of Global Visual Perception in Large Vision-Language Models"
-excerpt: "Rong Zhao이 [arXiv]에 게시한 'TopoPerception: A Shortcut-Free Evaluation of Global Visual Perception in Large Vision-Language Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Rong Zhao이 arXiv에 게시한 'TopoPerception: A Shortcut-Free Evaluation of Global Visual Perception in Large Vision-Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

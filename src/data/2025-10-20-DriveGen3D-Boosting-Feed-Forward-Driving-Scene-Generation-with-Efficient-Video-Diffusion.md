@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] DriveGen3D: Boosting Feed-Forward Driving Scene Generation with
   Efficient Video Diffusion"
-excerpt: "이 [arXiv]에 게시한 'DriveGen3D: Boosting Feed-Forward Driving Scene Generation with
+excerpt: "arXiv에 게시된 'DriveGen3D: Boosting Feed-Forward Driving Scene Generation with
   Efficient Video Diffusion' 논문에 대한 자세한 리뷰입니다."
 
 categories:

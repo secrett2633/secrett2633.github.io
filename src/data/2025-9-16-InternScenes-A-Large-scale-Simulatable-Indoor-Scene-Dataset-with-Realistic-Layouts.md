@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] InternScenes: A Large-scale Simulatable Indoor Scene Dataset with
   Realistic Layouts"
-excerpt: "Wenzhe Cai이 [arXiv]에 게시한 'InternScenes: A Large-scale Simulatable Indoor Scene Dataset with
+excerpt: "Wenzhe Cai이 arXiv에 게시한 'InternScenes: A Large-scale Simulatable Indoor Scene Dataset with
   Realistic Layouts' 논문에 대한 자세한 리뷰입니다."
 
 categories:

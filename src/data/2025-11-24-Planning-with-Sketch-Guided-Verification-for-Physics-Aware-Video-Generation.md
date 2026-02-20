@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Planning with Sketch-Guided Verification for Physics-Aware Video Generation"
-excerpt: "Shayegan Omidshafiei이 [arXiv]에 게시한 'Planning with Sketch-Guided Verification for Physics-Aware Video Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Shayegan Omidshafiei이 arXiv에 게시한 'Planning with Sketch-Guided Verification for Physics-Aware Video Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

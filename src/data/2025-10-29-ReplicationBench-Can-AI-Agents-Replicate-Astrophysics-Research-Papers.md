@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] ReplicationBench: Can AI Agents Replicate Astrophysics Research Papers?"
-excerpt: "Ian L. V. Roque이 [arXiv]에 게시한 'ReplicationBench: Can AI Agents Replicate Astrophysics Research Papers?' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Ian L. V. Roque이 arXiv에 게시한 'ReplicationBench: Can AI Agents Replicate Astrophysics Research Papers?' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Reasoning Introduces New Poisoning Attacks Yet Makes Them More
   Complicated"
-excerpt: "Jamie Hayes이 [arXiv]에 게시한 'Reasoning Introduces New Poisoning Attacks Yet Makes Them More
+excerpt: "Jamie Hayes이 arXiv에 게시한 'Reasoning Introduces New Poisoning Attacks Yet Makes Them More
   Complicated' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DeCo: Frequency-Decoupled Pixel Diffusion for End-to-End Image Generation"
-excerpt: "이 [arXiv]에 게시한 'DeCo: Frequency-Decoupled Pixel Diffusion for End-to-End Image Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'DeCo: Frequency-Decoupled Pixel Diffusion for End-to-End Image Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] AMFT: Aligning LLM Reasoners by Meta-Learning the Optimal
   Imitation-Exploration Balance"
-excerpt: "Yong Li이 [arXiv]에 게시한 'AMFT: Aligning LLM Reasoners by Meta-Learning the Optimal
+excerpt: "Yong Li이 arXiv에 게시한 'AMFT: Aligning LLM Reasoners by Meta-Learning the Optimal
   Imitation-Exploration Balance' 논문에 대한 자세한 리뷰입니다."
 
 categories:

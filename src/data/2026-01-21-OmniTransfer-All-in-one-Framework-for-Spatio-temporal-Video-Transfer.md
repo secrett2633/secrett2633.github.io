@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] OmniTransfer: All-in-one Framework for Spatio-temporal Video Transfer"
-excerpt: "이 [arXiv]에 게시한 'OmniTransfer: All-in-one Framework for Spatio-temporal Video Transfer' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'OmniTransfer: All-in-one Framework for Spatio-temporal Video Transfer' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

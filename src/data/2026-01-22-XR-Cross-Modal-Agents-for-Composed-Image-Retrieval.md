@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] XR: Cross-Modal Agents for Composed Image Retrieval"
-excerpt: "이 [arXiv]에 게시한 'XR: Cross-Modal Agents for Composed Image Retrieval' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'XR: Cross-Modal Agents for Composed Image Retrieval' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

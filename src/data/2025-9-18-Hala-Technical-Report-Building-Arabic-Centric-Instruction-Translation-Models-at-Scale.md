@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Hala Technical Report: Building Arabic-Centric Instruction & Translation
   Models at Scale"
-excerpt: "Bernard Ghanem이 [arXiv]에 게시한 'Hala Technical Report: Building Arabic-Centric Instruction & Translation
+excerpt: "Bernard Ghanem이 arXiv에 게시한 'Hala Technical Report: Building Arabic-Centric Instruction & Translation
   Models at Scale' 논문에 대한 자세한 리뷰입니다."
 
 categories:

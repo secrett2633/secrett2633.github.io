@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] VCode: a Multimodal Coding Benchmark with SVG as Symbolic Visual
   Representation"
-excerpt: "이 [arXiv]에 게시한 'VCode: a Multimodal Coding Benchmark with SVG as Symbolic Visual
+excerpt: "arXiv에 게시된 'VCode: a Multimodal Coding Benchmark with SVG as Symbolic Visual
   Representation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

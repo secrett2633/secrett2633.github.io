@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Matrix-Game 2.0: An Open-Source, Real-Time, and Streaming Interactive
   World Model"
-excerpt: "Yifan Zhang이 [arXiv]에 게시한 'Matrix-Game 2.0: An Open-Source, Real-Time, and Streaming Interactive
+excerpt: "Yifan Zhang이 arXiv에 게시한 'Matrix-Game 2.0: An Open-Source, Real-Time, and Streaming Interactive
   World Model' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Enhanced Arabic Text Retrieval with Attentive Relevance Scoring"
-excerpt: "Abdenour Hadid이 [arXiv]에 게시한 'Enhanced Arabic Text Retrieval with Attentive Relevance Scoring' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Abdenour Hadid이 arXiv에 게시한 'Enhanced Arabic Text Retrieval with Attentive Relevance Scoring' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

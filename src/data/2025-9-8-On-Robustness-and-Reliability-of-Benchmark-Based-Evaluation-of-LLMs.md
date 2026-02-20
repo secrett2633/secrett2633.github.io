@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] On Robustness and Reliability of Benchmark-Based Evaluation of LLMs"
-excerpt: "Kevin Roitero이 [arXiv]에 게시한 'On Robustness and Reliability of Benchmark-Based Evaluation of LLMs' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Kevin Roitero이 arXiv에 게시한 'On Robustness and Reliability of Benchmark-Based Evaluation of LLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

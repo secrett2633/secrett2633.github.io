@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] SpA2V: Harnessing Spatial Auditory Cues for Audio-driven Spatially-aware
   Video Generation"
-excerpt: "Long Chen이 [arXiv]에 게시한 'SpA2V: Harnessing Spatial Auditory Cues for Audio-driven Spatially-aware
+excerpt: "Long Chen이 arXiv에 게시한 'SpA2V: Harnessing Spatial Auditory Cues for Audio-driven Spatially-aware
   Video Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

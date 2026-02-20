@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] From Editor to Dense Geometry Estimator"
-excerpt: "Lang Nie이 [arXiv]에 게시한 'From Editor to Dense Geometry Estimator' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Lang Nie이 arXiv에 게시한 'From Editor to Dense Geometry Estimator' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

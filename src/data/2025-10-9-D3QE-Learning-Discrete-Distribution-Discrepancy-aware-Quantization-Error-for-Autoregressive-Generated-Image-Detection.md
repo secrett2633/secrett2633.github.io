@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] D^3QE: Learning Discrete Distribution Discrepancy-aware
   Quantization Error for Autoregressive-Generated Image Detection"
-excerpt: "Yueqi Duan이 [arXiv]에 게시한 'D^3QE: Learning Discrete Distribution Discrepancy-aware
+excerpt: "Yueqi Duan이 arXiv에 게시한 'D^3QE: Learning Discrete Distribution Discrepancy-aware
   Quantization Error for Autoregressive-Generated Image Detection' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Beyond Pass@1: Self-Play with Variational Problem Synthesis Sustains
   RLVR"
-excerpt: "Ying Nian Wu이 [arXiv]에 게시한 'Beyond Pass@1: Self-Play with Variational Problem Synthesis Sustains
+excerpt: "Ying Nian Wu이 arXiv에 게시한 'Beyond Pass@1: Self-Play with Variational Problem Synthesis Sustains
   RLVR' 논문에 대한 자세한 리뷰입니다."
 
 categories:

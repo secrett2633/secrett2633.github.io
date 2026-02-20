@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Z-Image: An Efficient Image Generation Foundation Model with Single-Stream Diffusion Transformer"
-excerpt: "이 [arXiv]에 게시한 'Z-Image: An Efficient Image Generation Foundation Model with Single-Stream Diffusion Transformer' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Z-Image: An Efficient Image Generation Foundation Model with Single-Stream Diffusion Transformer' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

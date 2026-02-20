@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Demo-ICL: In-Context Learning for Procedural Video Knowledge Acquisition"
-excerpt: "이 [arXiv]에 게시한 'Demo-ICL: In-Context Learning for Procedural Video Knowledge Acquisition' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Demo-ICL: In-Context Learning for Procedural Video Knowledge Acquisition' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

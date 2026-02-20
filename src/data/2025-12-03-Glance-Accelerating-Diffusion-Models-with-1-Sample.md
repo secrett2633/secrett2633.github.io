@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Glance: Accelerating Diffusion Models with 1 Sample"
-excerpt: "Linjie Li이 [arXiv]에 게시한 'Glance: Accelerating Diffusion Models with 1 Sample' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Linjie Li이 arXiv에 게시한 'Glance: Accelerating Diffusion Models with 1 Sample' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

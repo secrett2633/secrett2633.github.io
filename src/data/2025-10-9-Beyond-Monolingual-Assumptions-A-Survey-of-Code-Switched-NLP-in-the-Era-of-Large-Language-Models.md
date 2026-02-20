@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Beyond Monolingual Assumptions: A Survey of Code-Switched NLP in the Era
   of Large Language Models"
-excerpt: "이 [arXiv]에 게시한 'Beyond Monolingual Assumptions: A Survey of Code-Switched NLP in the Era
+excerpt: "arXiv에 게시된 'Beyond Monolingual Assumptions: A Survey of Code-Switched NLP in the Era
   of Large Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

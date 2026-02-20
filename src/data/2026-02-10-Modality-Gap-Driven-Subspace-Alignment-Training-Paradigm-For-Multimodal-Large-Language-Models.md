@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Modality Gap-Driven Subspace Alignment Training Paradigm For Multimodal Large Language Models"
-excerpt: "Hanzhen Zhao이 [arXiv]에 게시한 'Modality Gap-Driven Subspace Alignment Training Paradigm For Multimodal Large Language Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Hanzhen Zhao이 arXiv에 게시한 'Modality Gap-Driven Subspace Alignment Training Paradigm For Multimodal Large Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

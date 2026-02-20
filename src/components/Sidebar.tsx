@@ -1,52 +1,12 @@
 import Link from 'next/link'
 import { getPostsByCategory } from '@/lib/posts'
-
-const categories = [
-  {
-    title: "Backend",
-    children: [
-      { title: "Django", url: "/backend/django" },
-      { title: "Logging", url: "/backend/logging" }
-    ]
-  },
-  {
-    title: "Python",
-    children: [
-      { title: "PEP", url: "/python/pep" }
-    ]
-  },
-  {
-    title: "AI/ML",
-    children: [
-      { title: "LLM", url: "/ai/llm" },
-      { title: "Review", url: "/ai/review" }
-    ]
-  },
-  {
-    title: "DevOps",
-    children: [
-      { title: "Nginx", url: "/devops/nginx" },
-      { title: "Docker", url: "/devops/docker" },
-      { title: "SafeLine", url: "/devops/safeline" },
-      { title: "Jenkins", url: "/devops/jenkins" },
-      { title: "GitHub Actions", url: "/devops/github-actions" },
-      { title: "AWS", url: "/devops/aws" }
-    ]
-  },
-  {
-    title: "etc",
-    children: [
-      { title: "Me", url: "/etc/me" },
-      { title: "Chrome Extension", url: "/etc/chrome-extension" }
-    ]
-  }
-]
+import { categoryGroups } from '@/lib/categories'
 
 export default function Sidebar() {
   return (
     <div className="sidebar sticky">
       <nav className="space-y-4" aria-label="카테고리 네비게이션">
-        {categories.map((category) => (
+        {categoryGroups.map((category) => (
           <div key={category.title}>
             <p className="font-medium text-gray-900 mb-2">{category.title}</p>
             <ul className="space-y-1 ml-4">

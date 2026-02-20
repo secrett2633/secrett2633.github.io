@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Rethinking Global Text Conditioning in Diffusion Transformers"
-excerpt: "Yuchen Liu이 [arXiv]에 게시한 'Rethinking Global Text Conditioning in Diffusion Transformers' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yuchen Liu이 arXiv에 게시한 'Rethinking Global Text Conditioning in Diffusion Transformers' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

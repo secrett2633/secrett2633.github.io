@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Track, Inpaint, Resplat: Subject-driven 3D and 4D Generation with
   Progressive Texture Infilling"
-excerpt: "Igor Gilitschenski이 [arXiv]에 게시한 'Track, Inpaint, Resplat: Subject-driven 3D and 4D Generation with
+excerpt: "Igor Gilitschenski이 arXiv에 게시한 'Track, Inpaint, Resplat: Subject-driven 3D and 4D Generation with
   Progressive Texture Infilling' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] BiasGym: Fantastic Biases and How to Find (and Remove) Them"
-excerpt: "Arnav Arora이 [arXiv]에 게시한 'BiasGym: Fantastic Biases and How to Find (and Remove) Them' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Arnav Arora이 arXiv에 게시한 'BiasGym: Fantastic Biases and How to Find (and Remove) Them' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

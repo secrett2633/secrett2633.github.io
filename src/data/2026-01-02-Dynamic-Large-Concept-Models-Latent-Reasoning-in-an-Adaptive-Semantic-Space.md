@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Dynamic Large Concept Models: Latent Reasoning in an Adaptive Semantic Space"
-excerpt: "이 [arXiv]에 게시한 'Dynamic Large Concept Models: Latent Reasoning in an Adaptive Semantic Space' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Dynamic Large Concept Models: Latent Reasoning in an Adaptive Semantic Space' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

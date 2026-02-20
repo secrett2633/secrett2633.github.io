@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] On the Entropy Dynamics in Reinforcement Fine-Tuning of Large Language Models"
-excerpt: "Yanxi Chen이 [arXiv]에 게시한 'On the Entropy Dynamics in Reinforcement Fine-Tuning of Large Language Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yanxi Chen이 arXiv에 게시한 'On the Entropy Dynamics in Reinforcement Fine-Tuning of Large Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

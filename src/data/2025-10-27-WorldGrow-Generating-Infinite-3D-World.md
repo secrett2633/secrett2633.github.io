@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] WorldGrow: Generating Infinite 3D World"
-excerpt: "Jia Lu이 [arXiv]에 게시한 'WorldGrow: Generating Infinite 3D World' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jia Lu이 arXiv에 게시한 'WorldGrow: Generating Infinite 3D World' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

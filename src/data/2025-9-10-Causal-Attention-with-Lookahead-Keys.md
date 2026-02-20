@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Causal Attention with Lookahead Keys"
-excerpt: "Quanquan Gu이 [arXiv]에 게시한 'Causal Attention with Lookahead Keys' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Quanquan Gu이 arXiv에 게시한 'Causal Attention with Lookahead Keys' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

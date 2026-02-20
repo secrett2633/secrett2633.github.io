@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Length-Unbiased Sequence Policy Optimization: Revealing and Controlling Response Length Variation in RLVR"
-excerpt: "Zhixiong Zeng이 [arXiv]에 게시한 'Length-Unbiased Sequence Policy Optimization: Revealing and Controlling Response Length Variation in RLVR' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zhixiong Zeng이 arXiv에 게시한 'Length-Unbiased Sequence Policy Optimization: Revealing and Controlling Response Length Variation in RLVR' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

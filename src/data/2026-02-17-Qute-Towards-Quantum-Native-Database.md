@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Qute: Towards Quantum-Native Database"
-excerpt: "Surui Tang이 [arXiv]에 게시한 'Qute: Towards Quantum-Native Database' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Surui Tang이 arXiv에 게시한 'Qute: Towards Quantum-Native Database' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

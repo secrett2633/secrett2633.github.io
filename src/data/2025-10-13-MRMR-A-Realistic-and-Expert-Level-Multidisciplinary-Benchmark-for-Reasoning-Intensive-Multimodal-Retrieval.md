@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MRMR: A Realistic and Expert-Level Multidisciplinary Benchmark for
   Reasoning-Intensive Multimodal Retrieval"
-excerpt: "Tingyu Song이 [arXiv]에 게시한 'MRMR: A Realistic and Expert-Level Multidisciplinary Benchmark for
+excerpt: "Tingyu Song이 arXiv에 게시한 'MRMR: A Realistic and Expert-Level Multidisciplinary Benchmark for
   Reasoning-Intensive Multimodal Retrieval' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] OmniLayout: Enabling Coarse-to-Fine Learning with LLMs for Universal
   Document Layout Generation"
-excerpt: "Bin Wang이 [arXiv]에 게시한 'OmniLayout: Enabling Coarse-to-Fine Learning with LLMs for Universal
+excerpt: "Bin Wang이 arXiv에 게시한 'OmniLayout: Enabling Coarse-to-Fine Learning with LLMs for Universal
   Document Layout Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

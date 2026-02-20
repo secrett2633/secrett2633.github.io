@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MinerU2.5: A Decoupled Vision-Language Model for Efficient
   High-Resolution Document Parsing"
-excerpt: "SunYuefeng이 [arXiv]에 게시한 'MinerU2.5: A Decoupled Vision-Language Model for Efficient
+excerpt: "SunYuefeng이 arXiv에 게시한 'MinerU2.5: A Decoupled Vision-Language Model for Efficient
   High-Resolution Document Parsing' 논문에 대한 자세한 리뷰입니다."
 
 categories:

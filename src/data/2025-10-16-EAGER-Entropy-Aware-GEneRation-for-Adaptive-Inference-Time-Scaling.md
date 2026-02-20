@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] EAGER: Entropy-Aware GEneRation for Adaptive Inference-Time Scaling"
-excerpt: "Ahmet Üstün이 [arXiv]에 게시한 'EAGER: Entropy-Aware GEneRation for Adaptive Inference-Time Scaling' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Ahmet Üstün이 arXiv에 게시한 'EAGER: Entropy-Aware GEneRation for Adaptive Inference-Time Scaling' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

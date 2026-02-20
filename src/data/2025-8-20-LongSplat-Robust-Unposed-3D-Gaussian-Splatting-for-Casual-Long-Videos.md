@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] LongSplat: Robust Unposed 3D Gaussian Splatting for Casual Long Videos"
-excerpt: "Yen-Yu Lin이 [arXiv]에 게시한 'LongSplat: Robust Unposed 3D Gaussian Splatting for Casual Long Videos' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yen-Yu Lin이 arXiv에 게시한 'LongSplat: Robust Unposed 3D Gaussian Splatting for Casual Long Videos' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

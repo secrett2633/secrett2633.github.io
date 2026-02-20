@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] RynnEC: Bringing MLLMs into Embodied World"
-excerpt: "jiangpinliu이 [arXiv]에 게시한 'RynnEC: Bringing MLLMs into Embodied World' 논문에 대한 자세한 리뷰입니다."
+excerpt: "jiangpinliu이 arXiv에 게시한 'RynnEC: Bringing MLLMs into Embodied World' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

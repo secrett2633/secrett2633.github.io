@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Infinity-RoPE: Action-Controllable Infinite Video Generation Emerges From Autoregressive Self-Rollout"
-excerpt: "Pinar Yanardag이 [arXiv]에 게시한 'Infinity-RoPE: Action-Controllable Infinite Video Generation Emerges From Autoregressive Self-Rollout' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Pinar Yanardag이 arXiv에 게시한 'Infinity-RoPE: Action-Controllable Infinite Video Generation Emerges From Autoregressive Self-Rollout' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

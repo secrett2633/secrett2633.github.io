@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Do What? Teaching Vision-Language-Action Models to Reject the Impossible"
-excerpt: "Roei Herzig이 [arXiv]에 게시한 'Do What? Teaching Vision-Language-Action Models to Reject the Impossible' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Roei Herzig이 arXiv에 게시한 'Do What? Teaching Vision-Language-Action Models to Reject the Impossible' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

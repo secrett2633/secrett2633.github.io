@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] ConsistEdit: Highly Consistent and Precise Training-free Visual Editing"
-excerpt: "Xili Dai이 [arXiv]에 게시한 'ConsistEdit: Highly Consistent and Precise Training-free Visual Editing' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xili Dai이 arXiv에 게시한 'ConsistEdit: Highly Consistent and Precise Training-free Visual Editing' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

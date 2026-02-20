@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] WebGen-Agent: Enhancing Interactive Website Generation with Multi-Level
   Feedback and Step-Level Reinforcement Learning"
-excerpt: "Zhuofan Zong이 [arXiv]에 게시한 'WebGen-Agent: Enhancing Interactive Website Generation with Multi-Level
+excerpt: "Zhuofan Zong이 arXiv에 게시한 'WebGen-Agent: Enhancing Interactive Website Generation with Multi-Level
   Feedback and Step-Level Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

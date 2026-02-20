@@ -7,78 +7,12 @@ import html from 'remark-html'
 
 const postsDirectory = path.join(process.cwd(), 'src', 'data')
 
+export const POSTS_PER_PAGE = 20
+const DEV_CACHE_TTL_MS = 5000
+
 // 빌드 시 성능 최적화를 위한 메모이제이션 캐시
 let sortedPostsCache: PostData[] | null = null
 let postsCacheTimestamp = 0
-
-// 댓글 인터페이스
-export interface Comment {
-  id: string
-  author: string
-  content: string
-  date: string
-  parentId?: string // 대댓글을 위한 부모 댓글 ID
-  email?: string // 이메일 (선택사항)
-  website?: string // 웹사이트 URL (선택사항)
-}
-
-// frontmatter에서 댓글 추출하는 헬퍼 함수
-function extractCommentsFromMatter(matterResult: matter.GrayMatterFile<string>): Comment[] {
-  try {
-    const commentsData = matterResult.data.comments
-    
-    // comments가 없거나 배열이 아니면 빈 배열 반환
-    if (!commentsData) {
-      return []
-    }
-    
-    // gray-matter가 배열을 객체로 변환할 수 있으므로 확인
-    let commentsArray: any[] = []
-    if (Array.isArray(commentsData)) {
-      commentsArray = commentsData
-    } else if (typeof commentsData === 'object' && commentsData !== null) {
-      // 객체인 경우 값들을 배열로 변환
-      commentsArray = Object.values(commentsData)
-    } else {
-      return []
-    }
-    
-    // Comment 형식으로 변환 및 검증
-    const comments: Comment[] = commentsArray
-      .filter((comment: any) => {
-        // 필수 필드 검증 (date는 string 또는 Date 객체일 수 있음)
-        return (
-          comment &&
-          typeof comment === 'object' &&
-          typeof comment.id === 'string' &&
-          typeof comment.author === 'string' &&
-          typeof comment.content === 'string' &&
-          (typeof comment.date === 'string' || comment.date instanceof Date)
-        )
-      })
-      .map((comment: any) => ({
-        id: comment.id,
-        author: comment.author,
-        content: comment.content,
-        // date가 Date 객체인 경우 ISO 문자열로 변환, 아니면 그대로 사용
-        date: comment.date instanceof Date ? comment.date.toISOString() : comment.date,
-        parentId: comment.parentId || undefined,
-        email: comment.email || undefined,
-        website: comment.website || undefined,
-      }))
-    
-    // 날짜순으로 정렬 (오래된 것부터)
-    return comments.sort((a, b) => {
-      return new Date(a.date).getTime() - new Date(b.date).getTime()
-    })
-  } catch (error) {
-    // 개발 환경에서만 에러 로그
-    if (process.env.NODE_ENV === 'development') {
-      console.error('Error extracting comments:', error)
-    }
-    return []
-  }
-}
 
 export interface PostData {
   id: string
@@ -89,12 +23,8 @@ export interface PostData {
   categories?: string[]
   tags?: string[]
   permalink?: string
-  toc?: boolean
-  tocSticky?: boolean
   published?: boolean
   contentHtml: string
-  comments?: Comment[]
-  commentCount?: number
 }
 
 export function getAllPostIds(): string[] {
@@ -115,12 +45,12 @@ export function getSortedPostsData(): PostData[] {
   if (sortedPostsCache && process.env.NODE_ENV === 'production') {
     return sortedPostsCache
   }
-  
-  // 개발 모드에서는 5초 캐시 (파일 변경 감지)
-  if (sortedPostsCache && process.env.NODE_ENV === 'development' && now - postsCacheTimestamp < 5000) {
+
+  // 개발 모드에서는 캐시 TTL 적용 (파일 변경 감지)
+  if (sortedPostsCache && process.env.NODE_ENV === 'development' && now - postsCacheTimestamp < DEV_CACHE_TTL_MS) {
     return sortedPostsCache
   }
-  
+
   try {
     const fileNames = fs.readdirSync(postsDirectory)
     const allPostsData = fileNames.map((fileName) => {
@@ -128,9 +58,6 @@ export function getSortedPostsData(): PostData[] {
       const fullPath = path.join(postsDirectory, fileName)
       const fileContents = fs.readFileSync(fullPath, 'utf8')
       const matterResult = matter(fileContents)
-      
-      // 댓글 정보 추출
-      const comments = extractCommentsFromMatter(matterResult)
 
       return {
         id,
@@ -141,12 +68,8 @@ export function getSortedPostsData(): PostData[] {
         categories: Array.isArray(matterResult.data.categories) ? matterResult.data.categories : [],
         tags: Array.isArray(matterResult.data.tags) ? matterResult.data.tags : [],
         permalink: (matterResult.data.permalink || `/${id}`).replace(/\/$/, ''),
-        toc: matterResult.data.toc || false,
-        tocSticky: matterResult.data.toc_sticky || matterResult.data.tocSticky || false,
         published: matterResult.data.published !== false,
         contentHtml: '', // Will be populated when needed
-        comments,
-        commentCount: comments.length,
       } as PostData
     })
 
@@ -159,11 +82,11 @@ export function getSortedPostsData(): PostData[] {
           return -1
         }
       })
-    
+
     // 캐시 저장
     sortedPostsCache = sortedPosts
     postsCacheTimestamp = now
-    
+
     return sortedPosts
   } catch (error) {
     console.error('Error reading posts:', error)
@@ -193,9 +116,6 @@ export async function getPostData(id: string): Promise<PostData> {
           .replace(/\s+/g, '-')
         return `<${tag} id="${id}"><a href="#${id}">${content}</a></${tag}>`
       })
-    
-    // 댓글 정보 추출
-    const comments = extractCommentsFromMatter(matterResult)
 
     return {
       id,
@@ -206,12 +126,8 @@ export async function getPostData(id: string): Promise<PostData> {
       categories: Array.isArray(matterResult.data.categories) ? matterResult.data.categories : [],
       tags: Array.isArray(matterResult.data.tags) ? matterResult.data.tags : [],
       permalink: (matterResult.data.permalink || `/${id}`).replace(/\/$/, ''),
-      toc: matterResult.data.toc || false,
-      tocSticky: matterResult.data.toc_sticky || matterResult.data.tocSticky || false,
       published: matterResult.data.published !== false,
       contentHtml,
-      comments,
-      commentCount: comments.length,
     } as PostData
   } catch (error) {
     console.error('Error reading post:', error)
@@ -221,7 +137,7 @@ export async function getPostData(id: string): Promise<PostData> {
 
 export function getPostsByCategory(category: string): PostData[] {
   const allPosts = getSortedPostsData()
-  return allPosts.filter((post) => 
+  return allPosts.filter((post) =>
     post.categories && post.categories.includes(category)
   )
 }
@@ -241,7 +157,7 @@ export function getAllTags(): string[] {
 
 export function getPostsByTag(tag: string): PostData[] {
   const allPosts = getSortedPostsData()
-  return allPosts.filter((post) => 
+  return allPosts.filter((post) =>
     post.tags && post.tags.includes(tag)
   )
 }
@@ -253,18 +169,18 @@ export interface PaginatedPosts {
   totalPosts: number
 }
 
-export function getPaginatedPosts(page: number = 1, postsPerPage: number = 20): PaginatedPosts {
+export function getPaginatedPosts(page: number = 1, postsPerPage: number = POSTS_PER_PAGE): PaginatedPosts {
   const allPosts = getSortedPostsData()
   const totalPosts = allPosts.length
   const totalPages = Math.ceil(totalPosts / postsPerPage)
-  
+
   // 페이지 번호 유효성 검사
   const validPage = Math.max(1, Math.min(page, totalPages))
-  
+
   const startIndex = (validPage - 1) * postsPerPage
   const endIndex = startIndex + postsPerPage
   const posts = allPosts.slice(startIndex, endIndex)
-  
+
   return {
     posts,
     currentPage: validPage,
@@ -273,18 +189,18 @@ export function getPaginatedPosts(page: number = 1, postsPerPage: number = 20): 
   }
 }
 
-export function getPaginatedPostsByCategory(category: string, page: number = 1, postsPerPage: number = 20): PaginatedPosts {
+export function getPaginatedPostsByCategory(category: string, page: number = 1, postsPerPage: number = POSTS_PER_PAGE): PaginatedPosts {
   const allPosts = getPostsByCategory(category)
   const totalPosts = allPosts.length
   const totalPages = Math.ceil(totalPosts / postsPerPage)
-  
+
   // 페이지 번호 유효성 검사
   const validPage = Math.max(1, Math.min(page, totalPages))
-  
+
   const startIndex = (validPage - 1) * postsPerPage
   const endIndex = startIndex + postsPerPage
   const posts = allPosts.slice(startIndex, endIndex)
-  
+
   return {
     posts,
     currentPage: validPage,

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Grasp Any Region: Towards Precise, Contextual Pixel Understanding for
   Multimodal LLMs"
-excerpt: "이 [arXiv]에 게시한 'Grasp Any Region: Towards Precise, Contextual Pixel Understanding for
+excerpt: "arXiv에 게시된 'Grasp Any Region: Towards Precise, Contextual Pixel Understanding for
   Multimodal LLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:

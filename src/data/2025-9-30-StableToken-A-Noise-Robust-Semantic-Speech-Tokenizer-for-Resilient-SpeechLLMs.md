@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] StableToken: A Noise-Robust Semantic Speech Tokenizer for Resilient
   SpeechLLMs"
-excerpt: "Wei Jia이 [arXiv]에 게시한 'StableToken: A Noise-Robust Semantic Speech Tokenizer for Resilient
+excerpt: "Wei Jia이 arXiv에 게시한 'StableToken: A Noise-Robust Semantic Speech Tokenizer for Resilient
   SpeechLLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MiMo-Embodied: X-Embodied Foundation Model Technical Report"
-excerpt: "이 [arXiv]에 게시한 'MiMo-Embodied: X-Embodied Foundation Model Technical Report' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'MiMo-Embodied: X-Embodied Foundation Model Technical Report' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

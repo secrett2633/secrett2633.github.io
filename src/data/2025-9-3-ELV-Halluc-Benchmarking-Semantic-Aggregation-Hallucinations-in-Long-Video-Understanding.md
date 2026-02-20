@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] ELV-Halluc: Benchmarking Semantic Aggregation Hallucinations in Long
   Video Understanding"
-excerpt: "Xuanyu Zheng이 [arXiv]에 게시한 'ELV-Halluc: Benchmarking Semantic Aggregation Hallucinations in Long
+excerpt: "Xuanyu Zheng이 arXiv에 게시한 'ELV-Halluc: Benchmarking Semantic Aggregation Hallucinations in Long
   Video Understanding' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] HeroBench: A Benchmark for Long-Horizon Planning and Structured
   Reasoning in Virtual Worlds"
-excerpt: "Artyom Sorokin이 [arXiv]에 게시한 'HeroBench: A Benchmark for Long-Horizon Planning and Structured
+excerpt: "Artyom Sorokin이 arXiv에 게시한 'HeroBench: A Benchmark for Long-Horizon Planning and Structured
   Reasoning in Virtual Worlds' 논문에 대한 자세한 리뷰입니다."
 
 categories:

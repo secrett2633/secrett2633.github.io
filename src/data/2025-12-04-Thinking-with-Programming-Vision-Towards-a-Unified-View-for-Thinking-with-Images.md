@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Thinking with Programming Vision: Towards a Unified View for Thinking with Images"
-excerpt: "Tao Jin이 [arXiv]에 게시한 'Thinking with Programming Vision: Towards a Unified View for Thinking with Images' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Tao Jin이 arXiv에 게시한 'Thinking with Programming Vision: Towards a Unified View for Thinking with Images' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

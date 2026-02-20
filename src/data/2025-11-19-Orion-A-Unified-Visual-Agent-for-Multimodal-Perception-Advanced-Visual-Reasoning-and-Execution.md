@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Orion: A Unified Visual Agent for Multimodal Perception, Advanced Visual Reasoning and Execution"
-excerpt: "Sudeep Pillai이 [arXiv]에 게시한 'Orion: A Unified Visual Agent for Multimodal Perception, Advanced Visual Reasoning and Execution' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Sudeep Pillai이 arXiv에 게시한 'Orion: A Unified Visual Agent for Multimodal Perception, Advanced Visual Reasoning and Execution' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

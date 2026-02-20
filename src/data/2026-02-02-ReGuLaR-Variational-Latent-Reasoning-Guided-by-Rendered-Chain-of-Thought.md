@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] ReGuLaR: Variational Latent Reasoning Guided by Rendered Chain-of-Thought"
-excerpt: "Zhifeng Gao이 [arXiv]에 게시한 'ReGuLaR: Variational Latent Reasoning Guided by Rendered Chain-of-Thought' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zhifeng Gao이 arXiv에 게시한 'ReGuLaR: Variational Latent Reasoning Guided by Rendered Chain-of-Thought' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

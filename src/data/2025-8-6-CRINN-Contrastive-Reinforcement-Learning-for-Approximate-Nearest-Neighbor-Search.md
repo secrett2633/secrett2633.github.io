@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] CRINN: Contrastive Reinforcement Learning for Approximate Nearest
   Neighbor Search"
-excerpt: "Jiwei Li이 [arXiv]에 게시한 'CRINN: Contrastive Reinforcement Learning for Approximate Nearest
+excerpt: "Jiwei Li이 arXiv에 게시한 'CRINN: Contrastive Reinforcement Learning for Approximate Nearest
   Neighbor Search' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Transition Models: Rethinking the Generative Learning Objective"
-excerpt: "Yangguang Li이 [arXiv]에 게시한 'Transition Models: Rethinking the Generative Learning Objective' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yangguang Li이 arXiv에 게시한 'Transition Models: Rethinking the Generative Learning Objective' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

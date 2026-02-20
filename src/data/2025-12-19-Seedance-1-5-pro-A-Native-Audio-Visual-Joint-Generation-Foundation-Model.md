@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Seedance 1.5 pro: A Native Audio-Visual Joint Generation Foundation Model"
-excerpt: "이 [arXiv]에 게시한 'Seedance 1.5 pro: A Native Audio-Visual Joint Generation Foundation Model' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Seedance 1.5 pro: A Native Audio-Visual Joint Generation Foundation Model' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

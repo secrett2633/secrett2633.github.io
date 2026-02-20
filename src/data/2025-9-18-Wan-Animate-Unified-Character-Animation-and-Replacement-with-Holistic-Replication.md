@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Wan-Animate: Unified Character Animation and Replacement with Holistic
   Replication"
-excerpt: "Mingyang Huang이 [arXiv]에 게시한 'Wan-Animate: Unified Character Animation and Replacement with Holistic
+excerpt: "Mingyang Huang이 arXiv에 게시한 'Wan-Animate: Unified Character Animation and Replacement with Holistic
   Replication' 논문에 대한 자세한 리뷰입니다."
 
 categories:

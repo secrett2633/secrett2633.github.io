@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] BTL-UI: Blink-Think-Link Reasoning Model for GUI Agent"
-excerpt: "Jiahui Yang이 [arXiv]에 게시한 'BTL-UI: Blink-Think-Link Reasoning Model for GUI Agent' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jiahui Yang이 arXiv에 게시한 'BTL-UI: Blink-Think-Link Reasoning Model for GUI Agent' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

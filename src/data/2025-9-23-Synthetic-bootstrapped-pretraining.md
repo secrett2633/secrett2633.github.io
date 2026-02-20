@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Synthetic bootstrapped pretraining"
-excerpt: "Emmanuel Candès이 [arXiv]에 게시한 'Synthetic bootstrapped pretraining' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Emmanuel Candès이 arXiv에 게시한 'Synthetic bootstrapped pretraining' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

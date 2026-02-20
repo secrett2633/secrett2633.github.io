@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Talk2Move: Reinforcement Learning for Text-Instructed Object-Level Geometric Transformation in Scenes"
-excerpt: "Shuo Yang이 [arXiv]에 게시한 'Talk2Move: Reinforcement Learning for Text-Instructed Object-Level Geometric Transformation in Scenes' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Shuo Yang이 arXiv에 게시한 'Talk2Move: Reinforcement Learning for Text-Instructed Object-Level Geometric Transformation in Scenes' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

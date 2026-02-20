@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] CoIRL-AD: Collaborative-Competitive Imitation-Reinforcement Learning in
   Latent World Models for Autonomous Driving"
-excerpt: "이 [arXiv]에 게시한 'CoIRL-AD: Collaborative-Competitive Imitation-Reinforcement Learning in
+excerpt: "arXiv에 게시된 'CoIRL-AD: Collaborative-Competitive Imitation-Reinforcement Learning in
   Latent World Models for Autonomous Driving' 논문에 대한 자세한 리뷰입니다."
 
 categories:

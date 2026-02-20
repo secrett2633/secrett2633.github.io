@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Personalized Safety Alignment for Text-to-Image Diffusion Models"
-excerpt: "Kaidong Yu이 [arXiv]에 게시한 'Personalized Safety Alignment for Text-to-Image Diffusion Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Kaidong Yu이 arXiv에 게시한 'Personalized Safety Alignment for Text-to-Image Diffusion Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

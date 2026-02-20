@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Towards Comprehensive Stage-wise Benchmarking of Large Language Models in Fact-Checking"
-excerpt: "Zhen Ye이 [arXiv]에 게시한 'Towards Comprehensive Stage-wise Benchmarking of Large Language Models in Fact-Checking' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zhen Ye이 arXiv에 게시한 'Towards Comprehensive Stage-wise Benchmarking of Large Language Models in Fact-Checking' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

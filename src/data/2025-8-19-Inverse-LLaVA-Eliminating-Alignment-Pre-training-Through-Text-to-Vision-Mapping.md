@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Inverse-LLaVA: Eliminating Alignment Pre-training Through Text-to-Vision
   Mapping"
-excerpt: "Tyler Derr이 [arXiv]에 게시한 'Inverse-LLaVA: Eliminating Alignment Pre-training Through Text-to-Vision
+excerpt: "Tyler Derr이 arXiv에 게시한 'Inverse-LLaVA: Eliminating Alignment Pre-training Through Text-to-Vision
   Mapping' 논문에 대한 자세한 리뷰입니다."
 
 categories:

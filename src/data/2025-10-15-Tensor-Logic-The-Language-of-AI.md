@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Tensor Logic: The Language of AI"
-excerpt: "Pedro Domingos이 [arXiv]에 게시한 'Tensor Logic: The Language of AI' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Pedro Domingos이 arXiv에 게시한 'Tensor Logic: The Language of AI' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

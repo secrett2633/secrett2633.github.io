@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Presenting a Paper is an Art: Self-Improvement Aesthetic Agents for
   Academic Presentations"
-excerpt: "이 [arXiv]에 게시한 'Presenting a Paper is an Art: Self-Improvement Aesthetic Agents for
+excerpt: "arXiv에 게시된 'Presenting a Paper is an Art: Self-Improvement Aesthetic Agents for
   Academic Presentations' 논문에 대한 자세한 리뷰입니다."
 
 categories:

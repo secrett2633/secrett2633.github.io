@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MASPRM: Multi-Agent System Process Reward Model"
-excerpt: "Ying Xiong이 [arXiv]에 게시한 'MASPRM: Multi-Agent System Process Reward Model' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Ying Xiong이 arXiv에 게시한 'MASPRM: Multi-Agent System Process Reward Model' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

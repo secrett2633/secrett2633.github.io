@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Multi-Step Knowledge Interaction Analysis via Rank-2 Subspace
   Disentanglement"
-excerpt: "Isabelle Augenstein이 [arXiv]에 게시한 'Multi-Step Knowledge Interaction Analysis via Rank-2 Subspace
+excerpt: "Isabelle Augenstein이 arXiv에 게시한 'Multi-Step Knowledge Interaction Analysis via Rank-2 Subspace
   Disentanglement' 논문에 대한 자세한 리뷰입니다."
 
 categories:

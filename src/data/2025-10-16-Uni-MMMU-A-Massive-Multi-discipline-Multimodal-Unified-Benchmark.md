@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Uni-MMMU: A Massive Multi-discipline Multimodal Unified Benchmark"
-excerpt: "이 [arXiv]에 게시한 'Uni-MMMU: A Massive Multi-discipline Multimodal Unified Benchmark' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Uni-MMMU: A Massive Multi-discipline Multimodal Unified Benchmark' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

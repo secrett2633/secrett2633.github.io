@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Lotus-2: Advancing Geometric Dense Prediction with Powerful Image Generative Model"
-excerpt: "Ying-Cong Chen이 [arXiv]에 게시한 'Lotus-2: Advancing Geometric Dense Prediction with Powerful Image Generative Model' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Ying-Cong Chen이 arXiv에 게시한 'Lotus-2: Advancing Geometric Dense Prediction with Powerful Image Generative Model' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

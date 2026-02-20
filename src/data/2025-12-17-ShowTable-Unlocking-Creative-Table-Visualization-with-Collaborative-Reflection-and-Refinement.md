@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] ShowTable: Unlocking Creative Table Visualization with Collaborative Reflection and Refinement"
-excerpt: "Zhaohe Liao이 [arXiv]에 게시한 'ShowTable: Unlocking Creative Table Visualization with Collaborative Reflection and Refinement' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zhaohe Liao이 arXiv에 게시한 'ShowTable: Unlocking Creative Table Visualization with Collaborative Reflection and Refinement' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

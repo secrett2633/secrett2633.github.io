@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] U-ARM : Ultra low-cost general teleoperation interface for robot
   manipulation"
-excerpt: "Junda Huang이 [arXiv]에 게시한 'U-ARM : Ultra low-cost general teleoperation interface for robot
+excerpt: "Junda Huang이 arXiv에 게시한 'U-ARM : Ultra low-cost general teleoperation interface for robot
   manipulation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

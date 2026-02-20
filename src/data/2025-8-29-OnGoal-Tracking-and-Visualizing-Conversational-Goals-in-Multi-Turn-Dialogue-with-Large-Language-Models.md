@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] OnGoal: Tracking and Visualizing Conversational Goals in Multi-Turn
   Dialogue with Large Language Models"
-excerpt: "Alex Endert이 [arXiv]에 게시한 'OnGoal: Tracking and Visualizing Conversational Goals in Multi-Turn
+excerpt: "Alex Endert이 arXiv에 게시한 'OnGoal: Tracking and Visualizing Conversational Goals in Multi-Turn
   Dialogue with Large Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

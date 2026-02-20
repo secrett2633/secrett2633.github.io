@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] The Best of N Worlds: Aligning Reinforcement Learning with Best-of-N
   Sampling via max@k Optimisation"
-excerpt: "이 [arXiv]에 게시한 'The Best of N Worlds: Aligning Reinforcement Learning with Best-of-N
+excerpt: "arXiv에 게시된 'The Best of N Worlds: Aligning Reinforcement Learning with Best-of-N
   Sampling via max@k Optimisation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

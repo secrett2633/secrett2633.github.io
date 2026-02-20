@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Ground Slow, Move Fast: A Dual-System Foundation Model for Generalizable Vision-and-Language Navigation"
-excerpt: "이 [arXiv]에 게시한 'Ground Slow, Move Fast: A Dual-System Foundation Model for Generalizable Vision-and-Language Navigation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Ground Slow, Move Fast: A Dual-System Foundation Model for Generalizable Vision-and-Language Navigation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

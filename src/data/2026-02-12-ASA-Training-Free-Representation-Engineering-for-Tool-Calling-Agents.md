@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] ASA: Training-Free Representation Engineering for Tool-Calling Agents"
-excerpt: "Hongwei Zeng이 [arXiv]에 게시한 'ASA: Training-Free Representation Engineering for Tool-Calling Agents' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Hongwei Zeng이 arXiv에 게시한 'ASA: Training-Free Representation Engineering for Tool-Calling Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

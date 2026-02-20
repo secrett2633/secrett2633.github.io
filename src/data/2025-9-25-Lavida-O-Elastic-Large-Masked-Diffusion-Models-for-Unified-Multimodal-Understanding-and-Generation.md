@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Lavida-O: Elastic Large Masked Diffusion Models for Unified Multimodal
   Understanding and Generation"
-excerpt: "Zhe Lin이 [arXiv]에 게시한 'Lavida-O: Elastic Large Masked Diffusion Models for Unified Multimodal
+excerpt: "Zhe Lin이 arXiv에 게시한 'Lavida-O: Elastic Large Masked Diffusion Models for Unified Multimodal
   Understanding and Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Yume-1.5: A Text-Controlled Interactive World Generation Model"
-excerpt: "Kaining Ying이 [arXiv]에 게시한 'Yume-1.5: A Text-Controlled Interactive World Generation Model' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Kaining Ying이 arXiv에 게시한 'Yume-1.5: A Text-Controlled Interactive World Generation Model' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

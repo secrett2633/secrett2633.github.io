@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MARS-M: When Variance Reduction Meets Matrices"
-excerpt: "이 [arXiv]에 게시한 'MARS-M: When Variance Reduction Meets Matrices' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'MARS-M: When Variance Reduction Meets Matrices' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

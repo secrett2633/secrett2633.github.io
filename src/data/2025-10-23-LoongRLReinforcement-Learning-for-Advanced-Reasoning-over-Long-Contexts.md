@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] LoongRL:Reinforcement Learning for Advanced Reasoning over Long Contexts"
-excerpt: "이 [arXiv]에 게시한 'LoongRL:Reinforcement Learning for Advanced Reasoning over Long Contexts' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'LoongRL:Reinforcement Learning for Advanced Reasoning over Long Contexts' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

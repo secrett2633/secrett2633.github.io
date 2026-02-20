@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] iLRM: An Iterative Large 3D Reconstruction Model"
-excerpt: "Abdelrahman Mohamed이 [arXiv]에 게시한 'iLRM: An Iterative Large 3D Reconstruction Model' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Abdelrahman Mohamed이 arXiv에 게시한 'iLRM: An Iterative Large 3D Reconstruction Model' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

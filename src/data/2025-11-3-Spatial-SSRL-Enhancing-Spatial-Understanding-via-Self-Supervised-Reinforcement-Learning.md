@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Spatial-SSRL: Enhancing Spatial Understanding via Self-Supervised
   Reinforcement Learning"
-excerpt: "이 [arXiv]에 게시한 'Spatial-SSRL: Enhancing Spatial Understanding via Self-Supervised
+excerpt: "arXiv에 게시된 'Spatial-SSRL: Enhancing Spatial Understanding via Self-Supervised
   Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

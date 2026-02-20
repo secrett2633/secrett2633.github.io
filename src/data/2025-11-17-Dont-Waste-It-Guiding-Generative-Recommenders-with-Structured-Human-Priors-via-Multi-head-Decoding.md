@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Don't Waste It: Guiding Generative Recommenders with Structured Human Priors via Multi-head Decoding"
-excerpt: "이 [arXiv]에 게시한 'Don't Waste It: Guiding Generative Recommenders with Structured Human Priors via Multi-head Decoding' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Don't Waste It: Guiding Generative Recommenders with Structured Human Priors via Multi-head Decoding' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

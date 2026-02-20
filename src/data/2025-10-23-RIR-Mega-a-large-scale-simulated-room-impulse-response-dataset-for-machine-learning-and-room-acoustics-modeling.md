@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] RIR-Mega: a large-scale simulated room impulse response dataset for
   machine learning and room acoustics modeling"
-excerpt: "Mandip Goswami이 [arXiv]에 게시한 'RIR-Mega: a large-scale simulated room impulse response dataset for
+excerpt: "Mandip Goswami이 arXiv에 게시한 'RIR-Mega: a large-scale simulated room impulse response dataset for
   machine learning and room acoustics modeling' 논문에 대한 자세한 리뷰입니다."
 
 categories:

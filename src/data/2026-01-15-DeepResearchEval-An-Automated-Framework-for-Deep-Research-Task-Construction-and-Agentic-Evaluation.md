@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DeepResearchEval: An Automated Framework for Deep Research Task Construction and Agentic Evaluation"
-excerpt: "이 [arXiv]에 게시한 'DeepResearchEval: An Automated Framework for Deep Research Task Construction and Agentic Evaluation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'DeepResearchEval: An Automated Framework for Deep Research Task Construction and Agentic Evaluation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

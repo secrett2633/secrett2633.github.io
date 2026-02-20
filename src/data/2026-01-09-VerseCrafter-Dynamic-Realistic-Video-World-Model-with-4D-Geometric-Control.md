@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] VerseCrafter: Dynamic Realistic Video World Model with 4D Geometric Control"
-excerpt: "Ying Shan이 [arXiv]에 게시한 'VerseCrafter: Dynamic Realistic Video World Model with 4D Geometric Control' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Ying Shan이 arXiv에 게시한 'VerseCrafter: Dynamic Realistic Video World Model with 4D Geometric Control' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

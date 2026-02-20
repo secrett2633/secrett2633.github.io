@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SAM 3D: 3Dfy Anything in Images"
-excerpt: "이 [arXiv]에 게시한 'SAM 3D: 3Dfy Anything in Images' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'SAM 3D: 3Dfy Anything in Images' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

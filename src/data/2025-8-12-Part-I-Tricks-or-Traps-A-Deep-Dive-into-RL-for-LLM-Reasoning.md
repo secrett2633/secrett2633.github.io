@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Part I: Tricks or Traps? A Deep Dive into RL for LLM Reasoning"
-excerpt: "Jiaheng Liu이 [arXiv]에 게시한 'Part I: Tricks or Traps? A Deep Dive into RL for LLM Reasoning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jiaheng Liu이 arXiv에 게시한 'Part I: Tricks or Traps? A Deep Dive into RL for LLM Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] GeoSVR: Taming Sparse Voxels for Geometrically Accurate Surface
   Reconstruction"
-excerpt: "Jin Zheng이 [arXiv]에 게시한 'GeoSVR: Taming Sparse Voxels for Geometrically Accurate Surface
+excerpt: "Jin Zheng이 arXiv에 게시한 'GeoSVR: Taming Sparse Voxels for Geometrically Accurate Surface
   Reconstruction' 논문에 대한 자세한 리뷰입니다."
 
 categories:

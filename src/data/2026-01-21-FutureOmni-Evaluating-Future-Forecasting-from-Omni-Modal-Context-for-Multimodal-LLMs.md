@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] FutureOmni: Evaluating Future Forecasting from Omni-Modal Context for Multimodal LLMs"
-excerpt: "이 [arXiv]에 게시한 'FutureOmni: Evaluating Future Forecasting from Omni-Modal Context for Multimodal LLMs' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'FutureOmni: Evaluating Future Forecasting from Omni-Modal Context for Multimodal LLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

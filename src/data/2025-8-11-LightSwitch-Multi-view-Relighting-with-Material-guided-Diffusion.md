@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] LightSwitch: Multi-view Relighting with Material-guided Diffusion"
-excerpt: "Shubham Tulsiani이 [arXiv]에 게시한 'LightSwitch: Multi-view Relighting with Material-guided Diffusion' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Shubham Tulsiani이 arXiv에 게시한 'LightSwitch: Multi-view Relighting with Material-guided Diffusion' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

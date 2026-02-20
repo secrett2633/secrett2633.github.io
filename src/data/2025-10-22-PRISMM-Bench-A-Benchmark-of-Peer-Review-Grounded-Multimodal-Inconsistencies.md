@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] PRISMM-Bench: A Benchmark of Peer-Review Grounded Multimodal
   Inconsistencies"
-excerpt: "James Glass이 [arXiv]에 게시한 'PRISMM-Bench: A Benchmark of Peer-Review Grounded Multimodal
+excerpt: "James Glass이 arXiv에 게시한 'PRISMM-Bench: A Benchmark of Peer-Review Grounded Multimodal
   Inconsistencies' 논문에 대한 자세한 리뷰입니다."
 
 categories:

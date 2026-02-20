@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] CLI-Gym: Scalable CLI Task Generation via Agentic Environment Inversion"
-excerpt: "Feiyang Pan이 [arXiv]에 게시한 'CLI-Gym: Scalable CLI Task Generation via Agentic Environment Inversion' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Feiyang Pan이 arXiv에 게시한 'CLI-Gym: Scalable CLI Task Generation via Agentic Environment Inversion' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

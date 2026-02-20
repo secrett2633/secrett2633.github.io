@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] CapRL: Stimulating Dense Image Caption Capabilities via Reinforcement
   Learning"
-excerpt: "이 [arXiv]에 게시한 'CapRL: Stimulating Dense Image Caption Capabilities via Reinforcement
+excerpt: "arXiv에 게시된 'CapRL: Stimulating Dense Image Caption Capabilities via Reinforcement
   Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

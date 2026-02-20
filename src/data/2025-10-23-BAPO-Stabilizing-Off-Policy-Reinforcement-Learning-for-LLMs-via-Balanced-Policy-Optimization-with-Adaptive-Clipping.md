@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] BAPO: Stabilizing Off-Policy Reinforcement Learning for LLMs via
   Balanced Policy Optimization with Adaptive Clipping"
-excerpt: "Junrui Shen이 [arXiv]에 게시한 'BAPO: Stabilizing Off-Policy Reinforcement Learning for LLMs via
+excerpt: "Junrui Shen이 arXiv에 게시한 'BAPO: Stabilizing Off-Policy Reinforcement Learning for LLMs via
   Balanced Policy Optimization with Adaptive Clipping' 논문에 대한 자세한 리뷰입니다."
 
 categories:

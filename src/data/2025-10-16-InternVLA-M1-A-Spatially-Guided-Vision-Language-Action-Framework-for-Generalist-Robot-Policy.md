@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] InternVLA-M1: A Spatially Guided Vision-Language-Action Framework for
   Generalist Robot Policy"
-excerpt: "Yilun Chen이 [arXiv]에 게시한 'InternVLA-M1: A Spatially Guided Vision-Language-Action Framework for
+excerpt: "Yilun Chen이 arXiv에 게시한 'InternVLA-M1: A Spatially Guided Vision-Language-Action Framework for
   Generalist Robot Policy' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Radiance Fields in XR: A Survey on How Radiance Fields are Envisioned
   and Addressed for XR Research"
-excerpt: "Susanne Schmidt이 [arXiv]에 게시한 'Radiance Fields in XR: A Survey on How Radiance Fields are Envisioned
+excerpt: "Susanne Schmidt이 arXiv에 게시한 'Radiance Fields in XR: A Survey on How Radiance Fields are Envisioned
   and Addressed for XR Research' 논문에 대한 자세한 리뷰입니다."
 
 categories:

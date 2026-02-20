@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] How Much 3D Do Video Foundation Models Encode?"
-excerpt: "이 [arXiv]에 게시한 'How Much 3D Do Video Foundation Models Encode?' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'How Much 3D Do Video Foundation Models Encode?' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

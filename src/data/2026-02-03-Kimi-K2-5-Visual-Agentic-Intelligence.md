@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Kimi K2.5: Visual Agentic Intelligence"
-excerpt: "이 [arXiv]에 게시한 'Kimi K2.5: Visual Agentic Intelligence' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Kimi K2.5: Visual Agentic Intelligence' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] BagelVLA: Enhancing Long-Horizon Manipulation via Interleaved Vision-Language-Action Generation"
-excerpt: "Xiaoyu Chen이 [arXiv]에 게시한 'BagelVLA: Enhancing Long-Horizon Manipulation via Interleaved Vision-Language-Action Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xiaoyu Chen이 arXiv에 게시한 'BagelVLA: Enhancing Long-Horizon Manipulation via Interleaved Vision-Language-Action Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

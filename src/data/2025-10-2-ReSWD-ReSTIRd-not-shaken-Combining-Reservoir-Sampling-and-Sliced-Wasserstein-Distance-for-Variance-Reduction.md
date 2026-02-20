@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] ReSWD: ReSTIR'd, not shaken. Combining Reservoir Sampling and Sliced
   Wasserstein Distance for Variance Reduction"
-excerpt: "이 [arXiv]에 게시한 'ReSWD: ReSTIR'd, not shaken. Combining Reservoir Sampling and Sliced
+excerpt: "arXiv에 게시된 'ReSWD: ReSTIR'd, not shaken. Combining Reservoir Sampling and Sliced
   Wasserstein Distance for Variance Reduction' 논문에 대한 자세한 리뷰입니다."
 
 categories:

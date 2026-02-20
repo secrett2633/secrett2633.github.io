@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Unified Personalized Reward Model for Vision Generation"
-excerpt: "이 [arXiv]에 게시한 'Unified Personalized Reward Model for Vision Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Unified Personalized Reward Model for Vision Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

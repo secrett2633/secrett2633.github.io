@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] HiKE: Hierarchical Evaluation Framework for Korean-English
   Code-Switching Speech Recognition"
-excerpt: "이 [arXiv]에 게시한 'HiKE: Hierarchical Evaluation Framework for Korean-English
+excerpt: "arXiv에 게시된 'HiKE: Hierarchical Evaluation Framework for Korean-English
   Code-Switching Speech Recognition' 논문에 대한 자세한 리뷰입니다."
 
 categories:

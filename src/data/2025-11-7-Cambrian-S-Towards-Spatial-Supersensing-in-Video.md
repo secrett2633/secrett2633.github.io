@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Cambrian-S: Towards Spatial Supersensing in Video"
-excerpt: "Zihao Yang이 [arXiv]에 게시한 'Cambrian-S: Towards Spatial Supersensing in Video' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zihao Yang이 arXiv에 게시한 'Cambrian-S: Towards Spatial Supersensing in Video' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

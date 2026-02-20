@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] L^2M^3OF: A Large Language Multimodal Model for Metal-Organic Frameworks"
-excerpt: "Xenophon Evangelopoulos이 [arXiv]에 게시한 'L^2M^3OF: A Large Language Multimodal Model for Metal-Organic Frameworks' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xenophon Evangelopoulos이 arXiv에 게시한 'L^2M^3OF: A Large Language Multimodal Model for Metal-Organic Frameworks' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

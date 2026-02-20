@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] HiGS: History-Guided Sampling for Plug-and-Play Enhancement of Diffusion
   Models"
-excerpt: "Romann M. Weber이 [arXiv]에 게시한 'HiGS: History-Guided Sampling for Plug-and-Play Enhancement of Diffusion
+excerpt: "Romann M. Weber이 arXiv에 게시한 'HiGS: History-Guided Sampling for Plug-and-Play Enhancement of Diffusion
   Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DRIVE: Data Curation Best Practices for Reinforcement Learning with   Verifiable Reward in Competitive Code Generation"
-excerpt: "이 [arXiv]에 게시한 'DRIVE: Data Curation Best Practices for Reinforcement Learning with   Verifiable Reward in Competitive Code Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'DRIVE: Data Curation Best Practices for Reinforcement Learning with   Verifiable Reward in Competitive Code Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

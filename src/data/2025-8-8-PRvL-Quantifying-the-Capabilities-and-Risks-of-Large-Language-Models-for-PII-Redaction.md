@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] PRvL: Quantifying the Capabilities and Risks of Large Language Models
   for PII Redaction"
-excerpt: "Prajit Das이 [arXiv]에 게시한 'PRvL: Quantifying the Capabilities and Risks of Large Language Models
+excerpt: "Prajit Das이 arXiv에 게시한 'PRvL: Quantifying the Capabilities and Risks of Large Language Models
   for PII Redaction' 논문에 대한 자세한 리뷰입니다."
 
 categories:

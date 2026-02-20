@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Flash-Searcher: Fast and Effective Web Agents via DAG-Based Parallel
   Execution"
-excerpt: "이 [arXiv]에 게시한 'Flash-Searcher: Fast and Effective Web Agents via DAG-Based Parallel
+excerpt: "arXiv에 게시된 'Flash-Searcher: Fast and Effective Web Agents via DAG-Based Parallel
   Execution' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Less is Enough: Synthesizing Diverse Data in Feature Space of LLMs"
-excerpt: "Ninghao Liu이 [arXiv]에 게시한 'Less is Enough: Synthesizing Diverse Data in Feature Space of LLMs' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Ninghao Liu이 arXiv에 게시한 'Less is Enough: Synthesizing Diverse Data in Feature Space of LLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

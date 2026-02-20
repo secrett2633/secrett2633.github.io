@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Instruction-Guided Lesion Segmentation for Chest X-rays with Automatically Generated Large-Scale Dataset"
-excerpt: "이 [arXiv]에 게시한 'Instruction-Guided Lesion Segmentation for Chest X-rays with Automatically Generated Large-Scale Dataset' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Instruction-Guided Lesion Segmentation for Chest X-rays with Automatically Generated Large-Scale Dataset' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

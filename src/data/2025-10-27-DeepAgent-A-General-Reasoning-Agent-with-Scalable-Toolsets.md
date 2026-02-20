@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DeepAgent: A General Reasoning Agent with Scalable Toolsets"
-excerpt: "Jiajie Jin이 [arXiv]에 게시한 'DeepAgent: A General Reasoning Agent with Scalable Toolsets' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jiajie Jin이 arXiv에 게시한 'DeepAgent: A General Reasoning Agent with Scalable Toolsets' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

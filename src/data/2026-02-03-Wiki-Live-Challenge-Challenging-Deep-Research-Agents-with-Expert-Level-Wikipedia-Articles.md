@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Wiki Live Challenge: Challenging Deep Research Agents with Expert-Level Wikipedia Articles"
-excerpt: "이 [arXiv]에 게시한 'Wiki Live Challenge: Challenging Deep Research Agents with Expert-Level Wikipedia Articles' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Wiki Live Challenge: Challenging Deep Research Agents with Expert-Level Wikipedia Articles' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

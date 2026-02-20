@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MemOCR: Layout-Aware Visual Memory for Efficient Long-Horizon Reasoning"
-excerpt: "Yuxin Chen이 [arXiv]에 게시한 'MemOCR: Layout-Aware Visual Memory for Efficient Long-Horizon Reasoning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yuxin Chen이 arXiv에 게시한 'MemOCR: Layout-Aware Visual Memory for Efficient Long-Horizon Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

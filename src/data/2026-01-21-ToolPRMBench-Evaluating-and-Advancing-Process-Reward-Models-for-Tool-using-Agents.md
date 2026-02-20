@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] ToolPRMBench: Evaluating and Advancing Process Reward Models for Tool-using Agents"
-excerpt: "이 [arXiv]에 게시한 'ToolPRMBench: Evaluating and Advancing Process Reward Models for Tool-using Agents' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'ToolPRMBench: Evaluating and Advancing Process Reward Models for Tool-using Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

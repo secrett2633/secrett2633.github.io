@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MOA: Multi-Objective Alignment for Role-Playing Agents"
-excerpt: "Yongbin Li이 [arXiv]에 게시한 'MOA: Multi-Objective Alignment for Role-Playing Agents' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yongbin Li이 arXiv에 게시한 'MOA: Multi-Objective Alignment for Role-Playing Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

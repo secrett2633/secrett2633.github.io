@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Canzona: A Unified, Asynchronous, and Load-Balanced Framework for Distributed Matrix-based Optimizers"
-excerpt: "이 [arXiv]에 게시한 'Canzona: A Unified, Asynchronous, and Load-Balanced Framework for Distributed Matrix-based Optimizers' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Canzona: A Unified, Asynchronous, and Load-Balanced Framework for Distributed Matrix-based Optimizers' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

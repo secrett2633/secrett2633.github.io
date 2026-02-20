@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MHLA: Restoring Expressivity of Linear Attention via Token-Level Multi-Head"
-excerpt: "이 [arXiv]에 게시한 'MHLA: Restoring Expressivity of Linear Attention via Token-Level Multi-Head' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'MHLA: Restoring Expressivity of Linear Attention via Token-Level Multi-Head' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

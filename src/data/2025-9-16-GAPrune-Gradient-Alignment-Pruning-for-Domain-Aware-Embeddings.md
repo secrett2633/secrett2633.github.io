@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] GAPrune: Gradient-Alignment Pruning for Domain-Aware Embeddings"
-excerpt: "Yixuan Tang이 [arXiv]에 게시한 'GAPrune: Gradient-Alignment Pruning for Domain-Aware Embeddings' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yixuan Tang이 arXiv에 게시한 'GAPrune: Gradient-Alignment Pruning for Domain-Aware Embeddings' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

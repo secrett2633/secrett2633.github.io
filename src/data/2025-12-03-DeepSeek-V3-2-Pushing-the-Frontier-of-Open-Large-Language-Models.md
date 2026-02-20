@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DeepSeek-V3.2: Pushing the Frontier of Open Large Language Models"
-excerpt: "이 [arXiv]에 게시한 'DeepSeek-V3.2: Pushing the Frontier of Open Large Language Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'DeepSeek-V3.2: Pushing the Frontier of Open Large Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

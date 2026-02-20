@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Wan-S2V: Audio-Driven Cinematic Video Generation"
-excerpt: "Chaonan Ji이 [arXiv]에 게시한 'Wan-S2V: Audio-Driven Cinematic Video Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Chaonan Ji이 arXiv에 게시한 'Wan-S2V: Audio-Driven Cinematic Video Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

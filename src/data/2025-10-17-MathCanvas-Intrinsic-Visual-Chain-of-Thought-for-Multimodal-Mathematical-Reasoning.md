@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MathCanvas: Intrinsic Visual Chain-of-Thought for Multimodal
   Mathematical Reasoning"
-excerpt: "Ke Wang이 [arXiv]에 게시한 'MathCanvas: Intrinsic Visual Chain-of-Thought for Multimodal
+excerpt: "Ke Wang이 arXiv에 게시한 'MathCanvas: Intrinsic Visual Chain-of-Thought for Multimodal
   Mathematical Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

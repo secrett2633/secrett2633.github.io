@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Matrix-3D: Omnidirectional Explorable 3D World Generation"
-excerpt: "Yuqi Li이 [arXiv]에 게시한 'Matrix-3D: Omnidirectional Explorable 3D World Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yuqi Li이 arXiv에 게시한 'Matrix-3D: Omnidirectional Explorable 3D World Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

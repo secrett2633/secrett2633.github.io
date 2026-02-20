@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MAI-UI Technical Report: Real-World Centric Foundation GUI Agents"
-excerpt: "이 [arXiv]에 게시한 'MAI-UI Technical Report: Real-World Centric Foundation GUI Agents' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'MAI-UI Technical Report: Real-World Centric Foundation GUI Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

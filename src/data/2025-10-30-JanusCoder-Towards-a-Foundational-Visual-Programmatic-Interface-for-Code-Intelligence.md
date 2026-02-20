@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] JanusCoder: Towards a Foundational Visual-Programmatic Interface for
   Code Intelligence"
-excerpt: "이 [arXiv]에 게시한 'JanusCoder: Towards a Foundational Visual-Programmatic Interface for
+excerpt: "arXiv에 게시된 'JanusCoder: Towards a Foundational Visual-Programmatic Interface for
   Code Intelligence' 논문에 대한 자세한 리뷰입니다."
 
 categories:

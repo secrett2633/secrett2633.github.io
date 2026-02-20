@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Qwen-Image-Layered: Towards Inherent Editability via Layer Decomposition"
-excerpt: "Xiao Xu이 [arXiv]에 게시한 'Qwen-Image-Layered: Towards Inherent Editability via Layer Decomposition' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xiao Xu이 arXiv에 게시한 'Qwen-Image-Layered: Towards Inherent Editability via Layer Decomposition' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] CostBench: Evaluating Multi-Turn Cost-Optimal Planning and Adaptation in
   Dynamic Environments for LLM Tool-Use Agents"
-excerpt: "Shijue Huang이 [arXiv]에 게시한 'CostBench: Evaluating Multi-Turn Cost-Optimal Planning and Adaptation in
+excerpt: "Shijue Huang이 arXiv에 게시한 'CostBench: Evaluating Multi-Turn Cost-Optimal Planning and Adaptation in
   Dynamic Environments for LLM Tool-Use Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:

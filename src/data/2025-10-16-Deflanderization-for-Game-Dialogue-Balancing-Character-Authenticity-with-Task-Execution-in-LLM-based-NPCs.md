@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Deflanderization for Game Dialogue: Balancing Character Authenticity
   with Task Execution in LLM-based NPCs"
-excerpt: "이 [arXiv]에 게시한 'Deflanderization for Game Dialogue: Balancing Character Authenticity
+excerpt: "arXiv에 게시된 'Deflanderization for Game Dialogue: Balancing Character Authenticity
   with Task Execution in LLM-based NPCs' 논문에 대한 자세한 리뷰입니다."
 
 categories:

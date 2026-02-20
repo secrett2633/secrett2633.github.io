@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Instant4D: 4D Gaussian Splatting in Minutes"
-excerpt: "Li Lu이 [arXiv]에 게시한 'Instant4D: 4D Gaussian Splatting in Minutes' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Li Lu이 arXiv에 게시한 'Instant4D: 4D Gaussian Splatting in Minutes' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

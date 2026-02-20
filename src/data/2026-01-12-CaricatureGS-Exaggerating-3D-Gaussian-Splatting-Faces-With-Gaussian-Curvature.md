@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] CaricatureGS: Exaggerating 3D Gaussian Splatting Faces With Gaussian Curvature"
-excerpt: "이 [arXiv]에 게시한 'CaricatureGS: Exaggerating 3D Gaussian Splatting Faces With Gaussian Curvature' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'CaricatureGS: Exaggerating 3D Gaussian Splatting Faces With Gaussian Curvature' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

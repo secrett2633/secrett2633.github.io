@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] KLASS: KL-Guided Fast Inference in Masked Diffusion Models"
-excerpt: "이 [arXiv]에 게시한 'KLASS: KL-Guided Fast Inference in Masked Diffusion Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'KLASS: KL-Guided Fast Inference in Masked Diffusion Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

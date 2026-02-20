@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] ODesign: A World Model for Biomolecular Interaction Design"
-excerpt: "Qinghan Wang이 [arXiv]에 게시한 'ODesign: A World Model for Biomolecular Interaction Design' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Qinghan Wang이 arXiv에 게시한 'ODesign: A World Model for Biomolecular Interaction Design' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Webscale-RL: Automated Data Pipeline for Scaling RL Data to Pretraining
   Levels"
-excerpt: "이 [arXiv]에 게시한 'Webscale-RL: Automated Data Pipeline for Scaling RL Data to Pretraining
+excerpt: "arXiv에 게시된 'Webscale-RL: Automated Data Pipeline for Scaling RL Data to Pretraining
   Levels' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Reasoning with Sampling: Your Base Model is Smarter Than You Think"
-excerpt: "이 [arXiv]에 게시한 'Reasoning with Sampling: Your Base Model is Smarter Than You Think' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Reasoning with Sampling: Your Base Model is Smarter Than You Think' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

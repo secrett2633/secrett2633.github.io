@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Sparser Block-Sparse Attention via Token Permutation"
-excerpt: "이 [arXiv]에 게시한 'Sparser Block-Sparse Attention via Token Permutation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Sparser Block-Sparse Attention via Token Permutation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

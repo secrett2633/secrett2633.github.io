@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] ASPO: Asymmetric Importance Sampling Policy Optimization"
-excerpt: "Xiu Li이 [arXiv]에 게시한 'ASPO: Asymmetric Importance Sampling Policy Optimization' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xiu Li이 arXiv에 게시한 'ASPO: Asymmetric Importance Sampling Policy Optimization' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

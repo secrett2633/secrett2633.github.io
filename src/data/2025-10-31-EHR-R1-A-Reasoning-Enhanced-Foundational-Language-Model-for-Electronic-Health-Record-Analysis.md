@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] EHR-R1: A Reasoning-Enhanced Foundational Language Model for Electronic
   Health Record Analysis"
-excerpt: "이 [arXiv]에 게시한 'EHR-R1: A Reasoning-Enhanced Foundational Language Model for Electronic
+excerpt: "arXiv에 게시된 'EHR-R1: A Reasoning-Enhanced Foundational Language Model for Electronic
   Health Record Analysis' 논문에 대한 자세한 리뷰입니다."
 
 categories:

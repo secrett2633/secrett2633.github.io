@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Hi3DEval: Advancing 3D Generation Evaluation with Hierarchical Validity"
-excerpt: "Zhibing Li이 [arXiv]에 게시한 'Hi3DEval: Advancing 3D Generation Evaluation with Hierarchical Validity' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zhibing Li이 arXiv에 게시한 'Hi3DEval: Advancing 3D Generation Evaluation with Hierarchical Validity' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

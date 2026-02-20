@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Steerability of Instrumental-Convergence Tendencies in LLMs"
-excerpt: "j-hoscilowic이 [arXiv]에 게시한 'Steerability of Instrumental-Convergence Tendencies in LLMs' 논문에 대한 자세한 리뷰입니다."
+excerpt: "j-hoscilowic이 arXiv에 게시한 'Steerability of Instrumental-Convergence Tendencies in LLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

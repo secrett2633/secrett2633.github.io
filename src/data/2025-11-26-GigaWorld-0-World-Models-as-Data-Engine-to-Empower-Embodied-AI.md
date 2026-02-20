@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] GigaWorld-0: World Models as Data Engine to Empower Embodied AI"
-excerpt: "Chaojun Ni이 [arXiv]에 게시한 'GigaWorld-0: World Models as Data Engine to Empower Embodied AI' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Chaojun Ni이 arXiv에 게시한 'GigaWorld-0: World Models as Data Engine to Empower Embodied AI' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

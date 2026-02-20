@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MOSS-Audio-Tokenizer: Scaling Audio Tokenizers for Future Audio Foundation Models"
-excerpt: "이 [arXiv]에 게시한 'MOSS-Audio-Tokenizer: Scaling Audio Tokenizers for Future Audio Foundation Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'MOSS-Audio-Tokenizer: Scaling Audio Tokenizers for Future Audio Foundation Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

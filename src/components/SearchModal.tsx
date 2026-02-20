@@ -1,8 +1,10 @@
 'use client'
 
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import Link from 'next/link'
 import { searchPosts, ClientPostData } from '@/lib/clientPosts'
+
+const RESULTS_PER_PAGE = 10
 
 interface SearchModalProps {
   isOpen: boolean
@@ -13,8 +15,25 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResults, setSearchResults] = useState<ClientPostData[]>([])
   const [isSearching, setIsSearching] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1)
   const inputRef = useRef<HTMLInputElement>(null)
-  const modalRef = useRef<HTMLDivElement>(null)
+  const resultsRef = useRef<HTMLDivElement>(null)
+
+  const totalPages = Math.ceil(searchResults.length / RESULTS_PER_PAGE)
+  const paginatedResults = useMemo(() => {
+    const start = (currentPage - 1) * RESULTS_PER_PAGE
+    return searchResults.slice(start, start + RESULTS_PER_PAGE)
+  }, [searchResults, currentPage])
+
+  // 검색어 변경 시 페이지 초기화
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [searchQuery])
+
+  // 페이지 변경 시 결과 영역 스크롤 초기화
+  useEffect(() => {
+    resultsRef.current?.scrollTo(0, 0)
+  }, [currentPage])
 
   // 검색 로직 - 비동기 검색 (lazy-loaded index)
   useEffect(() => {
@@ -37,6 +56,11 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
   useEffect(() => {
     if (isOpen && inputRef.current) {
       inputRef.current.focus()
+    }
+    if (!isOpen) {
+      setSearchQuery('')
+      setSearchResults([])
+      setCurrentPage(1)
     }
   }, [isOpen])
 
@@ -63,15 +87,13 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
 
   return (
     <div className="search-modal" role="dialog" aria-modal="true" aria-labelledby="search-modal-title">
-      {/* 배경 오버레이 */}
       <div
         className="search-modal-overlay"
         onClick={onClose}
       />
 
-      {/* 모달 컨테이너 */}
       <div className="search-modal-container">
-        <div className="search-modal-content" ref={modalRef}>
+        <div className="search-modal-content" ref={resultsRef}>
           {/* 헤더 */}
           <div className="search-modal-header">
             <h2 id="search-modal-title" className="search-modal-title">게시글 검색</h2>
@@ -98,7 +120,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                 ref={inputRef}
                 type="text"
                 className="search-input"
-                placeholder="제목, 요약, 내용으로 검색..."
+                placeholder="제목, 태그, 내용으로 검색... (#태그명 으로 태그 검색)"
                 aria-label="게시글 검색"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -120,10 +142,10 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
             ) : searchResults.length > 0 ? (
               <div className="px-6 py-4">
                 <div className="search-results-count">
-                  {searchResults.length}개의 결과를 찾았습니다.
+                  {searchResults.length}개의 결과 (페이지 {currentPage}/{totalPages})
                 </div>
                 <div className="space-y-3">
-                  {searchResults.map((post) => (
+                  {paginatedResults.map((post) => (
                     <Link
                       key={post.id}
                       href={post.permalink || `/${post.id}`}
@@ -138,12 +160,73 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                           {post.excerpt}
                         </p>
                       )}
+                      {post.tags && post.tags.length > 0 && (
+                        <div className="flex flex-wrap gap-1 mb-2">
+                          {post.tags.slice(0, 5).map((tag) => (
+                            <span
+                              key={tag}
+                              className="inline-block px-2 py-0.5 text-xs bg-gray-100 text-gray-600 rounded cursor-pointer hover:bg-blue-100 hover:text-blue-700"
+                              onClick={(e) => {
+                                e.preventDefault()
+                                setSearchQuery(`#${tag}`)
+                              }}
+                            >
+                              #{tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
                       <div className="search-result-meta">
                         <span>{new Date(post.date).toLocaleDateString('ko-KR')}</span>
                       </div>
                     </Link>
                   ))}
                 </div>
+
+                {/* 페이지네이션 */}
+                {totalPages > 1 && (
+                  <div className="flex items-center justify-center gap-2 mt-4 pt-4 border-t border-gray-200">
+                    <button
+                      onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                      disabled={currentPage === 1}
+                      className="px-3 py-1.5 text-sm border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed"
+                    >
+                      이전
+                    </button>
+                    {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                      let page: number
+                      if (totalPages <= 5) {
+                        page = i + 1
+                      } else if (currentPage <= 3) {
+                        page = i + 1
+                      } else if (currentPage >= totalPages - 2) {
+                        page = totalPages - 4 + i
+                      } else {
+                        page = currentPage - 2 + i
+                      }
+                      return (
+                        <button
+                          key={page}
+                          onClick={() => setCurrentPage(page)}
+                          className={`px-3 py-1.5 text-sm border rounded-md ${
+                            currentPage === page
+                              ? 'bg-gray-900 text-white border-gray-900'
+                              : 'border-gray-300 hover:bg-gray-50'
+                          }`}
+                        >
+                          {page}
+                        </button>
+                      )
+                    })}
+                    <button
+                      onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                      disabled={currentPage === totalPages}
+                      className="px-3 py-1.5 text-sm border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed"
+                    >
+                      다음
+                    </button>
+                  </div>
+                )}
               </div>
             ) : (
               <div className="search-placeholder">

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] COOPER: A Unified Model for Cooperative Perception and Reasoning in Spatial Intelligence"
-excerpt: "Jiawei Sheng이 [arXiv]에 게시한 'COOPER: A Unified Model for Cooperative Perception and Reasoning in Spatial Intelligence' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jiawei Sheng이 arXiv에 게시한 'COOPER: A Unified Model for Cooperative Perception and Reasoning in Spatial Intelligence' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

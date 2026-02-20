@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] AgentScope 1.0: A Developer-Centric Framework for Building Agentic
   Applications"
-excerpt: "Liuyi Yao이 [arXiv]에 게시한 'AgentScope 1.0: A Developer-Centric Framework for Building Agentic
+excerpt: "Liuyi Yao이 arXiv에 게시한 'AgentScope 1.0: A Developer-Centric Framework for Building Agentic
   Applications' 논문에 대한 자세한 리뷰입니다."
 
 categories:

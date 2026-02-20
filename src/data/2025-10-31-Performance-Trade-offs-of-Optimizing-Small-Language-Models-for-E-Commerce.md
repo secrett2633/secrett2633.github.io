@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Performance Trade-offs of Optimizing Small Language Models for
   E-Commerce"
-excerpt: "Nikola Tankovic이 [arXiv]에 게시한 'Performance Trade-offs of Optimizing Small Language Models for
+excerpt: "Nikola Tankovic이 arXiv에 게시한 'Performance Trade-offs of Optimizing Small Language Models for
   E-Commerce' 논문에 대한 자세한 리뷰입니다."
 
 categories:

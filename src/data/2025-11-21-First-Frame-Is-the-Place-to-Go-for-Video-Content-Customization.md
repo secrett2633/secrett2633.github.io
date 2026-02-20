@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] First Frame Is the Place to Go for Video Content Customization"
-excerpt: "이 [arXiv]에 게시한 'First Frame Is the Place to Go for Video Content Customization' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'First Frame Is the Place to Go for Video Content Customization' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

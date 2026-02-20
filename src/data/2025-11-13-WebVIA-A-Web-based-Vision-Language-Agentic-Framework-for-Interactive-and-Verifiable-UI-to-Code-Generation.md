@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] WebVIA: A Web-based Vision-Language Agentic Framework for Interactive and Verifiable UI-to-Code Generation"
-excerpt: "이 [arXiv]에 게시한 'WebVIA: A Web-based Vision-Language Agentic Framework for Interactive and Verifiable UI-to-Code Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'WebVIA: A Web-based Vision-Language Agentic Framework for Interactive and Verifiable UI-to-Code Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

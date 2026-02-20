@@ -2,7 +2,7 @@
 title: "[논문리뷰] Bridging Theory and Practice in Quantum Game Theory: Optimized
   Implementation of the Battle of the Sexes with Error Mitigation on NISQ
   Hardware"
-excerpt: "Jhon Alejandro Andrade이 [arXiv]에 게시한 'Bridging Theory and Practice in Quantum Game Theory: Optimized
+excerpt: "Jhon Alejandro Andrade이 arXiv에 게시한 'Bridging Theory and Practice in Quantum Game Theory: Optimized
   Implementation of the Battle of the Sexes with Error Mitigation on NISQ
   Hardware' 논문에 대한 자세한 리뷰입니다."
 

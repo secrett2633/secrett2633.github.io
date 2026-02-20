@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] WoW: Towards a World omniscient World model Through Embodied Interaction"
-excerpt: "Weishi Mi이 [arXiv]에 게시한 'WoW: Towards a World omniscient World model Through Embodied Interaction' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Weishi Mi이 arXiv에 게시한 'WoW: Towards a World omniscient World model Through Embodied Interaction' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

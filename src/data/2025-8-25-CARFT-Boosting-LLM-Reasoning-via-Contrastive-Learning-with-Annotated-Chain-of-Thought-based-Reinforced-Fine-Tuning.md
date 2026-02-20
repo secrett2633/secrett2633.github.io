@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] CARFT: Boosting LLM Reasoning via Contrastive Learning with Annotated
   Chain-of-Thought-based Reinforced Fine-Tuning"
-excerpt: "Yulun Zhang이 [arXiv]에 게시한 'CARFT: Boosting LLM Reasoning via Contrastive Learning with Annotated
+excerpt: "Yulun Zhang이 arXiv에 게시한 'CARFT: Boosting LLM Reasoning via Contrastive Learning with Annotated
   Chain-of-Thought-based Reinforced Fine-Tuning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

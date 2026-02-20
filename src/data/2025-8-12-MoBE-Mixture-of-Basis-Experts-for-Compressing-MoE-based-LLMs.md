@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MoBE: Mixture-of-Basis-Experts for Compressing MoE-based LLMs"
-excerpt: "Jianguo Li이 [arXiv]에 게시한 'MoBE: Mixture-of-Basis-Experts for Compressing MoE-based LLMs' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jianguo Li이 arXiv에 게시한 'MoBE: Mixture-of-Basis-Experts for Compressing MoE-based LLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

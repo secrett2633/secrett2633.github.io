@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] ByteWrist: A Parallel Robotic Wrist Enabling Flexible and
   Anthropomorphic Motion for Confined Spaces"
-excerpt: "Jiafeng Xu이 [arXiv]에 게시한 'ByteWrist: A Parallel Robotic Wrist Enabling Flexible and
+excerpt: "Jiafeng Xu이 arXiv에 게시한 'ByteWrist: A Parallel Robotic Wrist Enabling Flexible and
   Anthropomorphic Motion for Confined Spaces' 논문에 대한 자세한 리뷰입니다."
 
 categories:

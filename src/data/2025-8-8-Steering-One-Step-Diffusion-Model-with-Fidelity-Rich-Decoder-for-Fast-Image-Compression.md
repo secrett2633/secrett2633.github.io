@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Steering One-Step Diffusion Model with Fidelity-Rich Decoder for Fast
   Image Compression"
-excerpt: "Yifei Ji이 [arXiv]에 게시한 'Steering One-Step Diffusion Model with Fidelity-Rich Decoder for Fast
+excerpt: "Yifei Ji이 arXiv에 게시한 'Steering One-Step Diffusion Model with Fidelity-Rich Decoder for Fast
   Image Compression' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] When Reasoning Meets Its Laws"
-excerpt: "Liu Ziyin이 [arXiv]에 게시한 'When Reasoning Meets Its Laws' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Liu Ziyin이 arXiv에 게시한 'When Reasoning Meets Its Laws' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

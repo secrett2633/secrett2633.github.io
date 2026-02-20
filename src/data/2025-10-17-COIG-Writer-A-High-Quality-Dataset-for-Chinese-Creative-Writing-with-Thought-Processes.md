@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] COIG-Writer: A High-Quality Dataset for Chinese Creative Writing with
   Thought Processes"
-excerpt: "이 [arXiv]에 게시한 'COIG-Writer: A High-Quality Dataset for Chinese Creative Writing with
+excerpt: "arXiv에 게시된 'COIG-Writer: A High-Quality Dataset for Chinese Creative Writing with
   Thought Processes' 논문에 대한 자세한 리뷰입니다."
 
 categories:

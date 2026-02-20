@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Beyond Static Tools: Test-Time Tool Evolution for Scientific Reasoning"
-excerpt: "이 [arXiv]에 게시한 'Beyond Static Tools: Test-Time Tool Evolution for Scientific Reasoning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Beyond Static Tools: Test-Time Tool Evolution for Scientific Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Envision: Benchmarking Unified Understanding & Generation for Causal World Process Insights"
-excerpt: "이 [arXiv]에 게시한 'Envision: Benchmarking Unified Understanding & Generation for Causal World Process Insights' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Envision: Benchmarking Unified Understanding & Generation for Causal World Process Insights' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] LayerComposer: Interactive Personalized T2I via Spatially-Aware Layered
   Canvas"
-excerpt: "이 [arXiv]에 게시한 'LayerComposer: Interactive Personalized T2I via Spatially-Aware Layered
+excerpt: "arXiv에 게시된 'LayerComposer: Interactive Personalized T2I via Spatially-Aware Layered
   Canvas' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] OpenVision 2: A Family of Generative Pretrained Visual Encoders for
   Multimodal Learning"
-excerpt: "Zirui Wang이 [arXiv]에 게시한 'OpenVision 2: A Family of Generative Pretrained Visual Encoders for
+excerpt: "Zirui Wang이 arXiv에 게시한 'OpenVision 2: A Family of Generative Pretrained Visual Encoders for
   Multimodal Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] NaTex: Seamless Texture Generation as Latent Color Diffusion"
-excerpt: "이 [arXiv]에 게시한 'NaTex: Seamless Texture Generation as Latent Color Diffusion' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'NaTex: Seamless Texture Generation as Latent Color Diffusion' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

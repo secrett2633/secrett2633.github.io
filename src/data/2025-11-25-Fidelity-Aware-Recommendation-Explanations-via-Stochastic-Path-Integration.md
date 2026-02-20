@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Fidelity-Aware Recommendation Explanations via Stochastic Path Integration"
-excerpt: "Oren Barkan이 [arXiv]에 게시한 'Fidelity-Aware Recommendation Explanations via Stochastic Path Integration' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Oren Barkan이 arXiv에 게시한 'Fidelity-Aware Recommendation Explanations via Stochastic Path Integration' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

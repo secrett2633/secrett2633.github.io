@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Durian: Dual Reference-guided Portrait Animation with Attribute Transfer"
-excerpt: "Hanbyul Joo이 [arXiv]에 게시한 'Durian: Dual Reference-guided Portrait Animation with Attribute Transfer' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Hanbyul Joo이 arXiv에 게시한 'Durian: Dual Reference-guided Portrait Animation with Attribute Transfer' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

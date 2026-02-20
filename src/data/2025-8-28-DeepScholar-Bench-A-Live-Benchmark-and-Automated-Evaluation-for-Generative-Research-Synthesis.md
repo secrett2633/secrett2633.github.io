@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] DeepScholar-Bench: A Live Benchmark and Automated Evaluation for
   Generative Research Synthesis"
-excerpt: "Ion Stoica이 [arXiv]에 게시한 'DeepScholar-Bench: A Live Benchmark and Automated Evaluation for
+excerpt: "Ion Stoica이 arXiv에 게시한 'DeepScholar-Bench: A Live Benchmark and Automated Evaluation for
   Generative Research Synthesis' 논문에 대한 자세한 리뷰입니다."
 
 categories:

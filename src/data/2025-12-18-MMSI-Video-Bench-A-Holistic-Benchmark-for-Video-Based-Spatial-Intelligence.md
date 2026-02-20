@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MMSI-Video-Bench: A Holistic Benchmark for Video-Based Spatial Intelligence"
-excerpt: "Peizhou Cao이 [arXiv]에 게시한 'MMSI-Video-Bench: A Holistic Benchmark for Video-Based Spatial Intelligence' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Peizhou Cao이 arXiv에 게시한 'MMSI-Video-Bench: A Holistic Benchmark for Video-Based Spatial Intelligence' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

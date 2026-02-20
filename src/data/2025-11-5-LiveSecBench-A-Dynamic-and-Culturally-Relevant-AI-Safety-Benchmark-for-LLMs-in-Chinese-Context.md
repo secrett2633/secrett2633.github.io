@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] LiveSecBench: A Dynamic and Culturally-Relevant AI Safety Benchmark for
   LLMs in Chinese Context"
-excerpt: "Tianxin Zhang이 [arXiv]에 게시한 'LiveSecBench: A Dynamic and Culturally-Relevant AI Safety Benchmark for
+excerpt: "Tianxin Zhang이 arXiv에 게시한 'LiveSecBench: A Dynamic and Culturally-Relevant AI Safety Benchmark for
   LLMs in Chinese Context' 논문에 대한 자세한 리뷰입니다."
 
 categories:

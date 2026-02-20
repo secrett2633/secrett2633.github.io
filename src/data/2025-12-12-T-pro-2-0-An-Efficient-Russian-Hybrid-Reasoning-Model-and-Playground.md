@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] T-pro 2.0: An Efficient Russian Hybrid-Reasoning Model and Playground"
-excerpt: "이 [arXiv]에 게시한 'T-pro 2.0: An Efficient Russian Hybrid-Reasoning Model and Playground' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'T-pro 2.0: An Efficient Russian Hybrid-Reasoning Model and Playground' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Youtu-LLM: Unlocking the Native Agentic Potential for Lightweight Large Language Models"
-excerpt: "Xinyi Dai이 [arXiv]에 게시한 'Youtu-LLM: Unlocking the Native Agentic Potential for Lightweight Large Language Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xinyi Dai이 arXiv에 게시한 'Youtu-LLM: Unlocking the Native Agentic Potential for Lightweight Large Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

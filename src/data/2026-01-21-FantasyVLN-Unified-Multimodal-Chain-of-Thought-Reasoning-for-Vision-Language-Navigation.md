@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] FantasyVLN: Unified Multimodal Chain-of-Thought Reasoning for Vision-Language Navigation"
-excerpt: "이 [arXiv]에 게시한 'FantasyVLN: Unified Multimodal Chain-of-Thought Reasoning for Vision-Language Navigation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'FantasyVLN: Unified Multimodal Chain-of-Thought Reasoning for Vision-Language Navigation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

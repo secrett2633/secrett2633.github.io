@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Live-SWE-agent: Can Software Engineering Agents Self-Evolve on the Fly?"
-excerpt: "Lingming Zhang이 [arXiv]에 게시한 'Live-SWE-agent: Can Software Engineering Agents Self-Evolve on the Fly?' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Lingming Zhang이 arXiv에 게시한 'Live-SWE-agent: Can Software Engineering Agents Self-Evolve on the Fly?' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

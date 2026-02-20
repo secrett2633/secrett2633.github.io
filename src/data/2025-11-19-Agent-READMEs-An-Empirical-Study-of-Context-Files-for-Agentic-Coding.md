@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Agent READMEs: An Empirical Study of Context Files for Agentic Coding"
-excerpt: "Kundjanasith Thonglek이 [arXiv]에 게시한 'Agent READMEs: An Empirical Study of Context Files for Agentic Coding' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Kundjanasith Thonglek이 arXiv에 게시한 'Agent READMEs: An Empirical Study of Context Files for Agentic Coding' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

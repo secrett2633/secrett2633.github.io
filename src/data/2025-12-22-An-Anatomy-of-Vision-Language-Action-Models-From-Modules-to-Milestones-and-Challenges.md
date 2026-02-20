@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] An Anatomy of Vision-Language-Action Models: From Modules to Milestones and Challenges"
-excerpt: "이 [arXiv]에 게시한 'An Anatomy of Vision-Language-Action Models: From Modules to Milestones and Challenges' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'An Anatomy of Vision-Language-Action Models: From Modules to Milestones and Challenges' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

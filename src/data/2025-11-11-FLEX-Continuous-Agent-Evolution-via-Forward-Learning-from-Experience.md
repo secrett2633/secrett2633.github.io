@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] FLEX: Continuous Agent Evolution via Forward Learning from Experience"
-excerpt: "Jiangjie Chen이 [arXiv]에 게시한 'FLEX: Continuous Agent Evolution via Forward Learning from Experience' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jiangjie Chen이 arXiv에 게시한 'FLEX: Continuous Agent Evolution via Forward Learning from Experience' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

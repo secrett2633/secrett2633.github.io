@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Learnable Multipliers: Freeing the Scale of Language Model Matrix Layers"
-excerpt: "이 [arXiv]에 게시한 'Learnable Multipliers: Freeing the Scale of Language Model Matrix Layers' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Learnable Multipliers: Freeing the Scale of Language Model Matrix Layers' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

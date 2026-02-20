@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] The Cow of Rembrandt - Analyzing Artistic Prompt Interpretation in
   Text-to-Image Models"
-excerpt: "Elisabetta Rocchetti이 [arXiv]에 게시한 'The Cow of Rembrandt - Analyzing Artistic Prompt Interpretation in
+excerpt: "Elisabetta Rocchetti이 arXiv에 게시한 'The Cow of Rembrandt - Analyzing Artistic Prompt Interpretation in
   Text-to-Image Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

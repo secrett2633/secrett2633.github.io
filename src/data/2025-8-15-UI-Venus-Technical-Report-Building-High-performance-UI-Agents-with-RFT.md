@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] UI-Venus Technical Report: Building High-performance UI Agents with RFT"
-excerpt: "Shuheng Shen이 [arXiv]에 게시한 'UI-Venus Technical Report: Building High-performance UI Agents with RFT' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Shuheng Shen이 arXiv에 게시한 'UI-Venus Technical Report: Building High-performance UI Agents with RFT' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

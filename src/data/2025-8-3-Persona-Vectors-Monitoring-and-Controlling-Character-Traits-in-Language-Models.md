@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Persona Vectors: Monitoring and Controlling Character Traits in Language
   Models"
-excerpt: "Jack Lindsey이 [arXiv]에 게시한 'Persona Vectors: Monitoring and Controlling Character Traits in Language
+excerpt: "Jack Lindsey이 arXiv에 게시한 'Persona Vectors: Monitoring and Controlling Character Traits in Language
   Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

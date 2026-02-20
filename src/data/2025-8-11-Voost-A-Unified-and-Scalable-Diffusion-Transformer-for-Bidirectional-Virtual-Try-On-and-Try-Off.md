@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Voost: A Unified and Scalable Diffusion Transformer for Bidirectional
   Virtual Try-On and Try-Off"
-excerpt: "jgkwak이 [arXiv]에 게시한 'Voost: A Unified and Scalable Diffusion Transformer for Bidirectional
+excerpt: "jgkwak이 arXiv에 게시한 'Voost: A Unified and Scalable Diffusion Transformer for Bidirectional
   Virtual Try-On and Try-Off' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MiroThinker: Pushing the Performance Boundaries of Open-Source Research Agents via Model, Context, and Interactive Scaling"
-excerpt: "cyyang822이 [arXiv]에 게시한 'MiroThinker: Pushing the Performance Boundaries of Open-Source Research Agents via Model, Context, and Interactive Scaling' 논문에 대한 자세한 리뷰입니다."
+excerpt: "cyyang822이 arXiv에 게시한 'MiroThinker: Pushing the Performance Boundaries of Open-Source Research Agents via Model, Context, and Interactive Scaling' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

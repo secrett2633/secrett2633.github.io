@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] TaTToo: Tool-Grounded Thinking PRM for Test-Time Scaling in Tabular
   Reasoning"
-excerpt: "이 [arXiv]에 게시한 'TaTToo: Tool-Grounded Thinking PRM for Test-Time Scaling in Tabular
+excerpt: "arXiv에 게시된 'TaTToo: Tool-Grounded Thinking PRM for Test-Time Scaling in Tabular
   Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] PhysChoreo: Physics-Controllable Video Generation with Part-Aware Semantic Grounding"
-excerpt: "Hongzhi Zhang이 [arXiv]에 게시한 'PhysChoreo: Physics-Controllable Video Generation with Part-Aware Semantic Grounding' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Hongzhi Zhang이 arXiv에 게시한 'PhysChoreo: Physics-Controllable Video Generation with Part-Aware Semantic Grounding' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

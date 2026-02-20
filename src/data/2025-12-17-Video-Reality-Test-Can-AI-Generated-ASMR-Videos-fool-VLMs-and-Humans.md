@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Video Reality Test: Can AI-Generated ASMR Videos fool VLMs and Humans?"
-excerpt: "Ming Hu이 [arXiv]에 게시한 'Video Reality Test: Can AI-Generated ASMR Videos fool VLMs and Humans?' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Ming Hu이 arXiv에 게시한 'Video Reality Test: Can AI-Generated ASMR Videos fool VLMs and Humans?' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

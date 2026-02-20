@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] HumanAgencyBench: Scalable Evaluation of Human Agency Support in AI
   Assistants"
-excerpt: "Jacy Reese Anthis이 [arXiv]에 게시한 'HumanAgencyBench: Scalable Evaluation of Human Agency Support in AI
+excerpt: "Jacy Reese Anthis이 arXiv에 게시한 'HumanAgencyBench: Scalable Evaluation of Human Agency Support in AI
   Assistants' 논문에 대한 자세한 리뷰입니다."
 
 categories:

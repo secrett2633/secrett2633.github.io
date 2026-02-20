@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Beyond Hard Masks: Progressive Token Evolution for Diffusion Language Models"
-excerpt: "Chenchen Jing이 [arXiv]에 게시한 'Beyond Hard Masks: Progressive Token Evolution for Diffusion Language Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Chenchen Jing이 arXiv에 게시한 'Beyond Hard Masks: Progressive Token Evolution for Diffusion Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

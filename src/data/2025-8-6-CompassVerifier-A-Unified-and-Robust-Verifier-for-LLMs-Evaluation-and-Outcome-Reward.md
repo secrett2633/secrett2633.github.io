@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] CompassVerifier: A Unified and Robust Verifier for LLMs Evaluation and
   Outcome Reward"
-excerpt: "Songyang Gao이 [arXiv]에 게시한 'CompassVerifier: A Unified and Robust Verifier for LLMs Evaluation and
+excerpt: "Songyang Gao이 arXiv에 게시한 'CompassVerifier: A Unified and Robust Verifier for LLMs Evaluation and
   Outcome Reward' 논문에 대한 자세한 리뷰입니다."
 
 categories:

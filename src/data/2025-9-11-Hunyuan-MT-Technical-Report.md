@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Hunyuan-MT Technical Report"
-excerpt: "Yang Du이 [arXiv]에 게시한 'Hunyuan-MT Technical Report' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yang Du이 arXiv에 게시한 'Hunyuan-MT Technical Report' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

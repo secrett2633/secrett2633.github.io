@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] ReCamDriving: LiDAR-Free Camera-Controlled Novel Trajectory Video Generation"
-excerpt: "Taojun Ding이 [arXiv]에 게시한 'ReCamDriving: LiDAR-Free Camera-Controlled Novel Trajectory Video Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Taojun Ding이 arXiv에 게시한 'ReCamDriving: LiDAR-Free Camera-Controlled Novel Trajectory Video Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

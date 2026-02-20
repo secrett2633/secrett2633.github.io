@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Beyond Token-level Supervision: Unlocking the Potential of Decoding-based Regression via Reinforcement Learning"
-excerpt: "Jiacheng Chen이 [arXiv]에 게시한 'Beyond Token-level Supervision: Unlocking the Potential of Decoding-based Regression via Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jiacheng Chen이 arXiv에 게시한 'Beyond Token-level Supervision: Unlocking the Potential of Decoding-based Regression via Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

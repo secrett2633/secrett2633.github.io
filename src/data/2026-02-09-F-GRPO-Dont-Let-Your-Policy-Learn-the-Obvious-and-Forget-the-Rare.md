@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] F-GRPO: Don't Let Your Policy Learn the Obvious and Forget the Rare"
-excerpt: "이 [arXiv]에 게시한 'F-GRPO: Don't Let Your Policy Learn the Obvious and Forget the Rare' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'F-GRPO: Don't Let Your Policy Learn the Obvious and Forget the Rare' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

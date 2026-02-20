@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Guiding a Diffusion Transformer with the Internal Dynamics of Itself"
-excerpt: "이 [arXiv]에 게시한 'Guiding a Diffusion Transformer with the Internal Dynamics of Itself' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Guiding a Diffusion Transformer with the Internal Dynamics of Itself' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

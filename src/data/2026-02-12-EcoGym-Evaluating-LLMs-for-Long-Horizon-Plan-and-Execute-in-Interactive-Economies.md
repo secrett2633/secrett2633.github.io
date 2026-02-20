@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] EcoGym: Evaluating LLMs for Long-Horizon Plan-and-Execute in Interactive Economies"
-excerpt: "Yishuo Yuan이 [arXiv]에 게시한 'EcoGym: Evaluating LLMs for Long-Horizon Plan-and-Execute in Interactive Economies' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yishuo Yuan이 arXiv에 게시한 'EcoGym: Evaluating LLMs for Long-Horizon Plan-and-Execute in Interactive Economies' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

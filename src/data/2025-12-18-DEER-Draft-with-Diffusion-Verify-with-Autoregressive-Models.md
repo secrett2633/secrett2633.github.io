@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DEER: Draft with Diffusion, Verify with Autoregressive Models"
-excerpt: "Zhijie Deng이 [arXiv]에 게시한 'DEER: Draft with Diffusion, Verify with Autoregressive Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zhijie Deng이 arXiv에 게시한 'DEER: Draft with Diffusion, Verify with Autoregressive Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

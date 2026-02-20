@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Selective Contrastive Learning for Weakly Supervised Affordance
   Grounding"
-excerpt: "Jae-Pil Heo이 [arXiv]에 게시한 'Selective Contrastive Learning for Weakly Supervised Affordance
+excerpt: "Jae-Pil Heo이 arXiv에 게시한 'Selective Contrastive Learning for Weakly Supervised Affordance
   Grounding' 논문에 대한 자세한 리뷰입니다."
 
 categories:

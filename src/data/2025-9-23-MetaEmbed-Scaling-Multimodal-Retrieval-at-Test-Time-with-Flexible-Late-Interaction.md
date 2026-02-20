@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MetaEmbed: Scaling Multimodal Retrieval at Test-Time with Flexible Late
   Interaction"
-excerpt: "Xintao Chen이 [arXiv]에 게시한 'MetaEmbed: Scaling Multimodal Retrieval at Test-Time with Flexible Late
+excerpt: "Xintao Chen이 arXiv에 게시한 'MetaEmbed: Scaling Multimodal Retrieval at Test-Time with Flexible Late
   Interaction' 논문에 대한 자세한 리뷰입니다."
 
 categories:

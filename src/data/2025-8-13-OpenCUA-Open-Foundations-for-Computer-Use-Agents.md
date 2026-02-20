@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] OpenCUA: Open Foundations for Computer-Use Agents"
-excerpt: "Tianbao Xie이 [arXiv]에 게시한 'OpenCUA: Open Foundations for Computer-Use Agents' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Tianbao Xie이 arXiv에 게시한 'OpenCUA: Open Foundations for Computer-Use Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

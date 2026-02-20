@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Cross-Attention is Half Explanation in Speech-to-Text Models"
-excerpt: "Luisa Bentivogli이 [arXiv]에 게시한 'Cross-Attention is Half Explanation in Speech-to-Text Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Luisa Bentivogli이 arXiv에 게시한 'Cross-Attention is Half Explanation in Speech-to-Text Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

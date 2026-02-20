@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] WideSearch: Benchmarking Agentic Broad Info-Seeking"
-excerpt: "Yan Gao이 [arXiv]에 게시한 'WideSearch: Benchmarking Agentic Broad Info-Seeking' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yan Gao이 arXiv에 게시한 'WideSearch: Benchmarking Agentic Broad Info-Seeking' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Llama-GENBA-10B: A Trilingual Large Language Model for German, English
   and Bavarian"
-excerpt: "Hoi-Fong Mak이 [arXiv]에 게시한 'Llama-GENBA-10B: A Trilingual Large Language Model for German, English
+excerpt: "Hoi-Fong Mak이 arXiv에 게시한 'Llama-GENBA-10B: A Trilingual Large Language Model for German, English
   and Bavarian' 논문에 대한 자세한 리뷰입니다."
 
 categories:

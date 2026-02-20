@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] RewardDance: Reward Scaling in Visual Generation"
-excerpt: "Liang Li이 [arXiv]에 게시한 'RewardDance: Reward Scaling in Visual Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Liang Li이 arXiv에 게시한 'RewardDance: Reward Scaling in Visual Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

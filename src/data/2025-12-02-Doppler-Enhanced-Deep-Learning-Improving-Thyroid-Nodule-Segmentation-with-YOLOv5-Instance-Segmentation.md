@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Doppler-Enhanced Deep Learning: Improving Thyroid Nodule Segmentation with YOLOv5 Instance Segmentation"
-excerpt: "MElHuseyni이 [arXiv]에 게시한 'Doppler-Enhanced Deep Learning: Improving Thyroid Nodule Segmentation with YOLOv5 Instance Segmentation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "MElHuseyni이 arXiv에 게시한 'Doppler-Enhanced Deep Learning: Improving Thyroid Nodule Segmentation with YOLOv5 Instance Segmentation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

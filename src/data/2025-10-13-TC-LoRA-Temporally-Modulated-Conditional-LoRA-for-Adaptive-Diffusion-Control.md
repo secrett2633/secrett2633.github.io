@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] TC-LoRA: Temporally Modulated Conditional LoRA for Adaptive Diffusion
   Control"
-excerpt: "Adityan Jothi이 [arXiv]에 게시한 'TC-LoRA: Temporally Modulated Conditional LoRA for Adaptive Diffusion
+excerpt: "Adityan Jothi이 arXiv에 게시한 'TC-LoRA: Temporally Modulated Conditional LoRA for Adaptive Diffusion
   Control' 논문에 대한 자세한 리뷰입니다."
 
 categories:

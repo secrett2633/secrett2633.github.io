@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Goal Force: Teaching Video Models To Accomplish Physics-Conditioned Goals"
-excerpt: "Arjan Chakravarthy이 [arXiv]에 게시한 'Goal Force: Teaching Video Models To Accomplish Physics-Conditioned Goals' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Arjan Chakravarthy이 arXiv에 게시한 'Goal Force: Teaching Video Models To Accomplish Physics-Conditioned Goals' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

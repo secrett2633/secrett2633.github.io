@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Web-CogReasoner: Towards Knowledge-Induced Cognitive Reasoning for Web
   Agents"
-excerpt: "Xinyu Yang이 [arXiv]에 게시한 'Web-CogReasoner: Towards Knowledge-Induced Cognitive Reasoning for Web
+excerpt: "Xinyu Yang이 arXiv에 게시한 'Web-CogReasoner: Towards Knowledge-Induced Cognitive Reasoning for Web
   Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:

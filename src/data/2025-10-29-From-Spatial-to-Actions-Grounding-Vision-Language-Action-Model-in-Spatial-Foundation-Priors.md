@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] From Spatial to Actions: Grounding Vision-Language-Action Model in
   Spatial Foundation Priors"
-excerpt: "이 [arXiv]에 게시한 'From Spatial to Actions: Grounding Vision-Language-Action Model in
+excerpt: "arXiv에 게시된 'From Spatial to Actions: Grounding Vision-Language-Action Model in
   Spatial Foundation Priors' 논문에 대한 자세한 리뷰입니다."
 
 categories:

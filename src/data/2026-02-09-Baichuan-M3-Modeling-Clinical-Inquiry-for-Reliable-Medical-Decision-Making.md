@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Baichuan-M3: Modeling Clinical Inquiry for Reliable Medical Decision-Making"
-excerpt: "이 [arXiv]에 게시한 'Baichuan-M3: Modeling Clinical Inquiry for Reliable Medical Decision-Making' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Baichuan-M3: Modeling Clinical Inquiry for Reliable Medical Decision-Making' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

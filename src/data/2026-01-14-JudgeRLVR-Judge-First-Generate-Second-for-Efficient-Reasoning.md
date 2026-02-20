@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] JudgeRLVR: Judge First, Generate Second for Efficient Reasoning"
-excerpt: "Sujian Li이 [arXiv]에 게시한 'JudgeRLVR: Judge First, Generate Second for Efficient Reasoning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Sujian Li이 arXiv에 게시한 'JudgeRLVR: Judge First, Generate Second for Efficient Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

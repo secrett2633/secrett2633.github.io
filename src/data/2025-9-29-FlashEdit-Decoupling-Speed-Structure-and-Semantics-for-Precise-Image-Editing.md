@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] FlashEdit: Decoupling Speed, Structure, and Semantics for Precise Image
   Editing"
-excerpt: "Linghe Kong이 [arXiv]에 게시한 'FlashEdit: Decoupling Speed, Structure, and Semantics for Precise Image
+excerpt: "Linghe Kong이 arXiv에 게시한 'FlashEdit: Decoupling Speed, Structure, and Semantics for Precise Image
   Editing' 논문에 대한 자세한 리뷰입니다."
 
 categories:

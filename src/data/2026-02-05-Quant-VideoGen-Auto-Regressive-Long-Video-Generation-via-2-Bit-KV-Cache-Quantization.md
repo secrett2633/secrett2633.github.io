@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Quant VideoGen: Auto-Regressive Long Video Generation via 2-Bit KV-Cache Quantization"
-excerpt: "이 [arXiv]에 게시한 'Quant VideoGen: Auto-Regressive Long Video Generation via 2-Bit KV-Cache Quantization' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Quant VideoGen: Auto-Regressive Long Video Generation via 2-Bit KV-Cache Quantization' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

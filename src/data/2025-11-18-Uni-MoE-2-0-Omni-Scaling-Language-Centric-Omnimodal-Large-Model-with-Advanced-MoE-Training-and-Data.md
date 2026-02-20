@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Uni-MoE-2.0-Omni: Scaling Language-Centric Omnimodal Large Model with Advanced MoE, Training and Data"
-excerpt: "이 [arXiv]에 게시한 'Uni-MoE-2.0-Omni: Scaling Language-Centric Omnimodal Large Model with Advanced MoE, Training and Data' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Uni-MoE-2.0-Omni: Scaling Language-Centric Omnimodal Large Model with Advanced MoE, Training and Data' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

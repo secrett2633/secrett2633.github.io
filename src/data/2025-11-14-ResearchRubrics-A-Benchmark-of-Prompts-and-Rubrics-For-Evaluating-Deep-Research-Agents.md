@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] ResearchRubrics: A Benchmark of Prompts and Rubrics For Evaluating Deep Research Agents"
-excerpt: "이 [arXiv]에 게시한 'ResearchRubrics: A Benchmark of Prompts and Rubrics For Evaluating Deep Research Agents' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'ResearchRubrics: A Benchmark of Prompts and Rubrics For Evaluating Deep Research Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

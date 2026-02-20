@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] How Far Are We from Genuinely Useful Deep Research Agents?"
-excerpt: "Xinran Zhou이 [arXiv]에 게시한 'How Far Are We from Genuinely Useful Deep Research Agents?' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xinran Zhou이 arXiv에 게시한 'How Far Are We from Genuinely Useful Deep Research Agents?' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] VIBE: Visual Instruction Based Editor"
-excerpt: "Bulat Suleimanov이 [arXiv]에 게시한 'VIBE: Visual Instruction Based Editor' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Bulat Suleimanov이 arXiv에 게시한 'VIBE: Visual Instruction Based Editor' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] LLM-Powered Fully Automated Chaos Engineering: Towards Enabling Anyone to Build Resilient Software Systems at Low Cost"
-excerpt: "Kengo Tajiri이 [arXiv]에 게시한 'LLM-Powered Fully Automated Chaos Engineering: Towards Enabling Anyone to Build Resilient Software Systems at Low Cost' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Kengo Tajiri이 arXiv에 게시한 'LLM-Powered Fully Automated Chaos Engineering: Towards Enabling Anyone to Build Resilient Software Systems at Low Cost' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

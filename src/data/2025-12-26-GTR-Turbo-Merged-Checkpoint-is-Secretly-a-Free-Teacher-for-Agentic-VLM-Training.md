@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] GTR-Turbo: Merged Checkpoint is Secretly a Free Teacher for Agentic VLM Training"
-excerpt: "Yuanchun Shi이 [arXiv]에 게시한 'GTR-Turbo: Merged Checkpoint is Secretly a Free Teacher for Agentic VLM Training' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yuanchun Shi이 arXiv에 게시한 'GTR-Turbo: Merged Checkpoint is Secretly a Free Teacher for Agentic VLM Training' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

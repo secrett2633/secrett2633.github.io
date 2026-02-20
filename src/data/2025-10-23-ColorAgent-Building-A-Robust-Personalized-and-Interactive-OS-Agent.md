@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] ColorAgent: Building A Robust, Personalized, and Interactive OS Agent"
-excerpt: "Weiming Zhang이 [arXiv]에 게시한 'ColorAgent: Building A Robust, Personalized, and Interactive OS Agent' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Weiming Zhang이 arXiv에 게시한 'ColorAgent: Building A Robust, Personalized, and Interactive OS Agent' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Advancing Speech Understanding in Speech-Aware Language Models with GRPO"
-excerpt: "Avihu이 [arXiv]에 게시한 'Advancing Speech Understanding in Speech-Aware Language Models with GRPO' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Avihu이 arXiv에 게시한 'Advancing Speech Understanding in Speech-Aware Language Models with GRPO' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

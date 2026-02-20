@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Recognition of Abnormal Events in Surveillance Videos using Weakly Supervised Dual-Encoder Models"
-excerpt: "Yehudit Aperstein이 [arXiv]에 게시한 'Recognition of Abnormal Events in Surveillance Videos using Weakly Supervised Dual-Encoder Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yehudit Aperstein이 arXiv에 게시한 'Recognition of Abnormal Events in Surveillance Videos using Weakly Supervised Dual-Encoder Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

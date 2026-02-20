@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Do You Hear What I Mean? Quantifying the Instruction-Perception Gap in
   Instruction-Guided Expressive Text-To-Speech Systems"
-excerpt: "Hung-yi Lee이 [arXiv]에 게시한 'Do You Hear What I Mean? Quantifying the Instruction-Perception Gap in
+excerpt: "Hung-yi Lee이 arXiv에 게시한 'Do You Hear What I Mean? Quantifying the Instruction-Perception Gap in
   Instruction-Guided Expressive Text-To-Speech Systems' 논문에 대한 자세한 리뷰입니다."
 
 categories:

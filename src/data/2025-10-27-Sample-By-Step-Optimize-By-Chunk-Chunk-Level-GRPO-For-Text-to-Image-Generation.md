@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Sample By Step, Optimize By Chunk: Chunk-Level GRPO For Text-to-Image
   Generation"
-excerpt: "이 [arXiv]에 게시한 'Sample By Step, Optimize By Chunk: Chunk-Level GRPO For Text-to-Image
+excerpt: "arXiv에 게시된 'Sample By Step, Optimize By Chunk: Chunk-Level GRPO For Text-to-Image
   Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

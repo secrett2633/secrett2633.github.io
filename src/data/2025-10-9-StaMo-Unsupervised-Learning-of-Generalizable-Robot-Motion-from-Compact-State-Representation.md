@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] StaMo: Unsupervised Learning of Generalizable Robot Motion from Compact
   State Representation"
-excerpt: "이 [arXiv]에 게시한 'StaMo: Unsupervised Learning of Generalizable Robot Motion from Compact
+excerpt: "arXiv에 게시된 'StaMo: Unsupervised Learning of Generalizable Robot Motion from Compact
   State Representation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

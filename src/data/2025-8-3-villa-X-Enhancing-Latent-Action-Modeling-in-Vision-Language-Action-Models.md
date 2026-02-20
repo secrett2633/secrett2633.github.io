@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] villa-X: Enhancing Latent Action Modeling in Vision-Language-Action Models"
-excerpt: "Kaixin Wang이 [arXiv]에 게시한 'villa-X: Enhancing Latent Action Modeling in Vision-Language-Action Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Kaixin Wang이 arXiv에 게시한 'villa-X: Enhancing Latent Action Modeling in Vision-Language-Action Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

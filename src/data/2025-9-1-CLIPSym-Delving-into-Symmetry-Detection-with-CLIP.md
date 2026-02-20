@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] CLIPSym: Delving into Symmetry Detection with CLIP"
-excerpt: "Raymond A. Yeh이 [arXiv]에 게시한 'CLIPSym: Delving into Symmetry Detection with CLIP' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Raymond A. Yeh이 arXiv에 게시한 'CLIPSym: Delving into Symmetry Detection with CLIP' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

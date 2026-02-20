@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Multimodal Spatial Reasoning in the Large Model Era: A Survey and
   Benchmarks"
-excerpt: "이 [arXiv]에 게시한 'Multimodal Spatial Reasoning in the Large Model Era: A Survey and
+excerpt: "arXiv에 게시된 'Multimodal Spatial Reasoning in the Large Model Era: A Survey and
   Benchmarks' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] CodeFuse-CR-Bench: A Comprehensiveness-aware Benchmark for End-to-End
   Code Review Evaluation in Python Projects"
-excerpt: "Hang Yu이 [arXiv]에 게시한 'CodeFuse-CR-Bench: A Comprehensiveness-aware Benchmark for End-to-End
+excerpt: "Hang Yu이 arXiv에 게시한 'CodeFuse-CR-Bench: A Comprehensiveness-aware Benchmark for End-to-End
   Code Review Evaluation in Python Projects' 논문에 대한 자세한 리뷰입니다."
 
 categories:

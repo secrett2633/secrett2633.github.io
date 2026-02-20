@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] YOLO Meets Mixture-of-Experts: Adaptive Expert Routing for Robust Object Detection"
-excerpt: "Avishai Weizman이 [arXiv]에 게시한 'YOLO Meets Mixture-of-Experts: Adaptive Expert Routing for Robust Object Detection' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Avishai Weizman이 arXiv에 게시한 'YOLO Meets Mixture-of-Experts: Adaptive Expert Routing for Robust Object Detection' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

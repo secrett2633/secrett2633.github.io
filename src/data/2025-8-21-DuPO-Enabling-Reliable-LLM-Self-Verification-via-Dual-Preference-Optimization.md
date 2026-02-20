@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] DuPO: Enabling Reliable LLM Self-Verification via Dual Preference
   Optimization"
-excerpt: "Yu Lu이 [arXiv]에 게시한 'DuPO: Enabling Reliable LLM Self-Verification via Dual Preference
+excerpt: "Yu Lu이 arXiv에 게시한 'DuPO: Enabling Reliable LLM Self-Verification via Dual Preference
   Optimization' 논문에 대한 자세한 리뷰입니다."
 
 categories:

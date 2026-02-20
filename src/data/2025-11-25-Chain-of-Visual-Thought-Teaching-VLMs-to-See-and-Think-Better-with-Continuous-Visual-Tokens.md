@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Chain-of-Visual-Thought: Teaching VLMs to See and Think Better with Continuous Visual Tokens"
-excerpt: "Stephanie Fu이 [arXiv]에 게시한 'Chain-of-Visual-Thought: Teaching VLMs to See and Think Better with Continuous Visual Tokens' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Stephanie Fu이 arXiv에 게시한 'Chain-of-Visual-Thought: Teaching VLMs to See and Think Better with Continuous Visual Tokens' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

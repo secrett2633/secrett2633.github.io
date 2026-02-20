@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] TensorBLEU: Vectorized GPU-based BLEU Score Implementation for
   Per-Sentence In-Training Evaluation"
-excerpt: "이 [arXiv]에 게시한 'TensorBLEU: Vectorized GPU-based BLEU Score Implementation for
+excerpt: "arXiv에 게시된 'TensorBLEU: Vectorized GPU-based BLEU Score Implementation for
   Per-Sentence In-Training Evaluation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

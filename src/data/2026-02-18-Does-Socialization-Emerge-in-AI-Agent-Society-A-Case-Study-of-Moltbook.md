@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Does Socialization Emerge in AI Agent Society? A Case Study of Moltbook"
-excerpt: "Ming Li이 [arXiv]에 게시한 'Does Socialization Emerge in AI Agent Society? A Case Study of Moltbook' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Ming Li이 arXiv에 게시한 'Does Socialization Emerge in AI Agent Society? A Case Study of Moltbook' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

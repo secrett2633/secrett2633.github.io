@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Composing Concepts from Images and Videos via Concept-prompt Binding"
-excerpt: "이 [arXiv]에 게시한 'Composing Concepts from Images and Videos via Concept-prompt Binding' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Composing Concepts from Images and Videos via Concept-prompt Binding' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

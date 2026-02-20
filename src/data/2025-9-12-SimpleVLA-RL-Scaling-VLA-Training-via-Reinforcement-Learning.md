@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SimpleVLA-RL: Scaling VLA Training via Reinforcement Learning"
-excerpt: "Zhaohui Yang이 [arXiv]에 게시한 'SimpleVLA-RL: Scaling VLA Training via Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zhaohui Yang이 arXiv에 게시한 'SimpleVLA-RL: Scaling VLA Training via Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

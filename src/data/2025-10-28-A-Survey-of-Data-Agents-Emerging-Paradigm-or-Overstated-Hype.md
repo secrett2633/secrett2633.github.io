@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] A Survey of Data Agents: Emerging Paradigm or Overstated Hype?"
-excerpt: "Boyan Li이 [arXiv]에 게시한 'A Survey of Data Agents: Emerging Paradigm or Overstated Hype?' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Boyan Li이 arXiv에 게시한 'A Survey of Data Agents: Emerging Paradigm or Overstated Hype?' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

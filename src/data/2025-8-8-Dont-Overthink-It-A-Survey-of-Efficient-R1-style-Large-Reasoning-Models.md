@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Don't Overthink It: A Survey of Efficient R1-style Large Reasoning
   Models"
-excerpt: "Fangzhou Yao이 [arXiv]에 게시한 'Don't Overthink It: A Survey of Efficient R1-style Large Reasoning
+excerpt: "Fangzhou Yao이 arXiv에 게시한 'Don't Overthink It: A Survey of Efficient R1-style Large Reasoning
   Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

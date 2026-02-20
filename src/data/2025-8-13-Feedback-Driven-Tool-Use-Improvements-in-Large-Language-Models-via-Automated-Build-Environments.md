@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Feedback-Driven Tool-Use Improvements in Large Language Models via
   Automated Build Environments"
-excerpt: "Xuesong Yao이 [arXiv]에 게시한 'Feedback-Driven Tool-Use Improvements in Large Language Models via
+excerpt: "Xuesong Yao이 arXiv에 게시한 'Feedback-Driven Tool-Use Improvements in Large Language Models via
   Automated Build Environments' 논문에 대한 자세한 리뷰입니다."
 
 categories:

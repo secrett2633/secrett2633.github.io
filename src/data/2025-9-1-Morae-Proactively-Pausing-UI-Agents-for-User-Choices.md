@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Morae: Proactively Pausing UI Agents for User Choices"
-excerpt: "Amy Pavel이 [arXiv]에 게시한 'Morae: Proactively Pausing UI Agents for User Choices' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Amy Pavel이 arXiv에 게시한 'Morae: Proactively Pausing UI Agents for User Choices' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] LightCache: Memory-Efficient, Training-Free Acceleration for Video
   Generation"
-excerpt: "Zheng Zhan이 [arXiv]에 게시한 'LightCache: Memory-Efficient, Training-Free Acceleration for Video
+excerpt: "Zheng Zhan이 arXiv에 게시한 'LightCache: Memory-Efficient, Training-Free Acceleration for Video
   Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

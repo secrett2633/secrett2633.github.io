@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] AlignGuard-LoRA: Alignment-Preserving Fine-Tuning via Fisher-Guided
   Decomposition and Riemannian-Geodesic Collision Regularization"
-excerpt: "Aman Chadha이 [arXiv]에 게시한 'AlignGuard-LoRA: Alignment-Preserving Fine-Tuning via Fisher-Guided
+excerpt: "Aman Chadha이 arXiv에 게시한 'AlignGuard-LoRA: Alignment-Preserving Fine-Tuning via Fisher-Guided
   Decomposition and Riemannian-Geodesic Collision Regularization' 논문에 대한 자세한 리뷰입니다."
 
 categories:

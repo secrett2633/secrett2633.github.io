@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] One Small Step in Latent, One Giant Leap for Pixels: Fast Latent Upscale Adapter for Your Diffusion Models"
-excerpt: "Ilya Makarov이 [arXiv]에 게시한 'One Small Step in Latent, One Giant Leap for Pixels: Fast Latent Upscale Adapter for Your Diffusion Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Ilya Makarov이 arXiv에 게시한 'One Small Step in Latent, One Giant Leap for Pixels: Fast Latent Upscale Adapter for Your Diffusion Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

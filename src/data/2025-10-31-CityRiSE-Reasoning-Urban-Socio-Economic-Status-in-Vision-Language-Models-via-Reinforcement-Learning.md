@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] CityRiSE: Reasoning Urban Socio-Economic Status in Vision-Language
   Models via Reinforcement Learning"
-excerpt: "Yong Li이 [arXiv]에 게시한 'CityRiSE: Reasoning Urban Socio-Economic Status in Vision-Language
+excerpt: "Yong Li이 arXiv에 게시한 'CityRiSE: Reasoning Urban Socio-Economic Status in Vision-Language
   Models via Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

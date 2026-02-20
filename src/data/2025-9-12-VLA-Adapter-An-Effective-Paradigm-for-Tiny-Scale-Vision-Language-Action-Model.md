@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] VLA-Adapter: An Effective Paradigm for Tiny-Scale Vision-Language-Action
   Model"
-excerpt: "Zirui Ge이 [arXiv]에 게시한 'VLA-Adapter: An Effective Paradigm for Tiny-Scale Vision-Language-Action
+excerpt: "Zirui Ge이 arXiv에 게시한 'VLA-Adapter: An Effective Paradigm for Tiny-Scale Vision-Language-Action
   Model' 논문에 대한 자세한 리뷰입니다."
 
 categories:

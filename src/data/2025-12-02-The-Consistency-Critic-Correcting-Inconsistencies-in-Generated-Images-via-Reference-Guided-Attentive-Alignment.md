@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] The Consistency Critic: Correcting Inconsistencies in Generated Images via Reference-Guided Attentive Alignment"
-excerpt: "이 [arXiv]에 게시한 'The Consistency Critic: Correcting Inconsistencies in Generated Images via Reference-Guided Attentive Alignment' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'The Consistency Critic: Correcting Inconsistencies in Generated Images via Reference-Guided Attentive Alignment' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

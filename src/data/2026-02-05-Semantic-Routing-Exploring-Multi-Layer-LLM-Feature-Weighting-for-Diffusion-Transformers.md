@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Semantic Routing: Exploring Multi-Layer LLM Feature Weighting for Diffusion Transformers"
-excerpt: "이 [arXiv]에 게시한 'Semantic Routing: Exploring Multi-Layer LLM Feature Weighting for Diffusion Transformers' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Semantic Routing: Exploring Multi-Layer LLM Feature Weighting for Diffusion Transformers' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

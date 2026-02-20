@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] EchoX: Towards Mitigating Acoustic-Semantic Gap via Echo Training for
   Speech-to-Speech LLMs"
-excerpt: "Kaiqi Kou이 [arXiv]에 게시한 'EchoX: Towards Mitigating Acoustic-Semantic Gap via Echo Training for
+excerpt: "Kaiqi Kou이 arXiv에 게시한 'EchoX: Towards Mitigating Acoustic-Semantic Gap via Echo Training for
   Speech-to-Speech LLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:

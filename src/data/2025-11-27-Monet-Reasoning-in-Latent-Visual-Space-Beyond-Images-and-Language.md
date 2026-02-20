@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Monet: Reasoning in Latent Visual Space Beyond Images and Language"
-excerpt: "Pengfei Wan이 [arXiv]에 게시한 'Monet: Reasoning in Latent Visual Space Beyond Images and Language' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Pengfei Wan이 arXiv에 게시한 'Monet: Reasoning in Latent Visual Space Beyond Images and Language' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

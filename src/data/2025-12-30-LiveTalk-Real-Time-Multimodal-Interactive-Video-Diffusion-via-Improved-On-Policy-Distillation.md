@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] LiveTalk: Real-Time Multimodal Interactive Video Diffusion via Improved On-Policy Distillation"
-excerpt: "Steffi Chern이 [arXiv]에 게시한 'LiveTalk: Real-Time Multimodal Interactive Video Diffusion via Improved On-Policy Distillation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Steffi Chern이 arXiv에 게시한 'LiveTalk: Real-Time Multimodal Interactive Video Diffusion via Improved On-Policy Distillation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

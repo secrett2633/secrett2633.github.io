@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] VideoAR: Autoregressive Video Generation via Next-Frame & Scale Prediction"
-excerpt: "Yu Sun이 [arXiv]에 게시한 'VideoAR: Autoregressive Video Generation via Next-Frame & Scale Prediction' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yu Sun이 arXiv에 게시한 'VideoAR: Autoregressive Video Generation via Next-Frame & Scale Prediction' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

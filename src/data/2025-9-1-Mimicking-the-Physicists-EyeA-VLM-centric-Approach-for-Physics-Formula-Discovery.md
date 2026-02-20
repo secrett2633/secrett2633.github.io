@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Mimicking the Physicist's Eye:A VLM-centric Approach for Physics Formula
   Discovery"
-excerpt: "Wenjie Zhou이 [arXiv]에 게시한 'Mimicking the Physicist's Eye:A VLM-centric Approach for Physics Formula
+excerpt: "Wenjie Zhou이 arXiv에 게시한 'Mimicking the Physicist's Eye:A VLM-centric Approach for Physics Formula
   Discovery' 논문에 대한 자세한 리뷰입니다."
 
 categories:

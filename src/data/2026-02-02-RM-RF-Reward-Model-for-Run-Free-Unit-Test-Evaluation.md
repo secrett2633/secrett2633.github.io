@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] RM -RF: Reward Model for Run-Free Unit Test Evaluation"
-excerpt: "Vadim Alperovich이 [arXiv]에 게시한 'RM -RF: Reward Model for Run-Free Unit Test Evaluation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Vadim Alperovich이 arXiv에 게시한 'RM -RF: Reward Model for Run-Free Unit Test Evaluation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] RELIC: Interactive Video World Model with Long-Horizon Memory"
-excerpt: "Chongjian Ge이 [arXiv]에 게시한 'RELIC: Interactive Video World Model with Long-Horizon Memory' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Chongjian Ge이 arXiv에 게시한 'RELIC: Interactive Video World Model with Long-Horizon Memory' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

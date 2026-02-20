@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] In Pursuit of Pixel Supervision for Visual Pre-training"
-excerpt: "Dong Wang이 [arXiv]에 게시한 'In Pursuit of Pixel Supervision for Visual Pre-training' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Dong Wang이 arXiv에 게시한 'In Pursuit of Pixel Supervision for Visual Pre-training' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

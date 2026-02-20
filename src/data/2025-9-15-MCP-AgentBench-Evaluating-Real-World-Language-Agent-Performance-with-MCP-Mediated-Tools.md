@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MCP-AgentBench: Evaluating Real-World Language Agent Performance with
   MCP-Mediated Tools"
-excerpt: "Xiaorui Wang이 [arXiv]에 게시한 'MCP-AgentBench: Evaluating Real-World Language Agent Performance with
+excerpt: "Xiaorui Wang이 arXiv에 게시한 'MCP-AgentBench: Evaluating Real-World Language Agent Performance with
   MCP-Mediated Tools' 논문에 대한 자세한 리뷰입니다."
 
 categories:

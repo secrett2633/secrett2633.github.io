@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Evaluating, Synthesizing, and Enhancing for Customer Support
   Conversation"
-excerpt: "Feng Chen이 [arXiv]에 게시한 'Evaluating, Synthesizing, and Enhancing for Customer Support
+excerpt: "Feng Chen이 arXiv에 게시한 'Evaluating, Synthesizing, and Enhancing for Customer Support
   Conversation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

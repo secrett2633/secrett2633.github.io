@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Analyzing the Effects of Supervised Fine-Tuning on Model Knowledge from
   Token and Parameter Levels"
-excerpt: "Qi Zhang이 [arXiv]에 게시한 'Analyzing the Effects of Supervised Fine-Tuning on Model Knowledge from
+excerpt: "Qi Zhang이 arXiv에 게시한 'Analyzing the Effects of Supervised Fine-Tuning on Model Knowledge from
   Token and Parameter Levels' 논문에 대한 자세한 리뷰입니다."
 
 categories:

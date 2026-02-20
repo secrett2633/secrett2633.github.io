@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] TCIA: A Task-Centric Instruction Augmentation Method for Instruction
   Finetuning"
-excerpt: "Simin Ma이 [arXiv]에 게시한 'TCIA: A Task-Centric Instruction Augmentation Method for Instruction
+excerpt: "Simin Ma이 arXiv에 게시한 'TCIA: A Task-Centric Instruction Augmentation Method for Instruction
   Finetuning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

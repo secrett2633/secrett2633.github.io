@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Beyond Linear Bottlenecks: Spline-Based Knowledge Distillation for
   Culturally Diverse Art Style Classification"
-excerpt: "Abdelmalik Taleb-Ahmed이 [arXiv]에 게시한 'Beyond Linear Bottlenecks: Spline-Based Knowledge Distillation for
+excerpt: "Abdelmalik Taleb-Ahmed이 arXiv에 게시한 'Beyond Linear Bottlenecks: Spline-Based Knowledge Distillation for
   Culturally Diverse Art Style Classification' 논문에 대한 자세한 리뷰입니다."
 
 categories:

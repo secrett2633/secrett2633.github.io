@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] A.S.E: A Repository-Level Benchmark for Evaluating Security in
   AI-Generated Code"
-excerpt: "Libo Chen이 [arXiv]에 게시한 'A.S.E: A Repository-Level Benchmark for Evaluating Security in
+excerpt: "Libo Chen이 arXiv에 게시한 'A.S.E: A Repository-Level Benchmark for Evaluating Security in
   AI-Generated Code' 논문에 대한 자세한 리뷰입니다."
 
 categories:

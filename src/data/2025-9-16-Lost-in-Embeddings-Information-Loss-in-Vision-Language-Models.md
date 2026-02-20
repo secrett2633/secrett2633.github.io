@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Lost in Embeddings: Information Loss in Vision-Language Models"
-excerpt: "Ivan Vulić이 [arXiv]에 게시한 'Lost in Embeddings: Information Loss in Vision-Language Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Ivan Vulić이 arXiv에 게시한 'Lost in Embeddings: Information Loss in Vision-Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

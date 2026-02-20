@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] ClinAlign: Scaling Healthcare Alignment from Clinician Preference"
-excerpt: "Chaohe Zhang이 [arXiv]에 게시한 'ClinAlign: Scaling Healthcare Alignment from Clinician Preference' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Chaohe Zhang이 arXiv에 게시한 'ClinAlign: Scaling Healthcare Alignment from Clinician Preference' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] KAGE-Bench: Fast Known-Axis Visual Generalization Evaluation for Reinforcement Learning"
-excerpt: "Aleksandr I. Panov이 [arXiv]에 게시한 'KAGE-Bench: Fast Known-Axis Visual Generalization Evaluation for Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Aleksandr I. Panov이 arXiv에 게시한 'KAGE-Bench: Fast Known-Axis Visual Generalization Evaluation for Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

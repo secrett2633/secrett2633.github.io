@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] FinSearchComp: Towards a Realistic, Expert-Level Evaluation of Financial
   Search and Reasoning"
-excerpt: "Jiashuo Liu이 [arXiv]에 게시한 'FinSearchComp: Towards a Realistic, Expert-Level Evaluation of Financial
+excerpt: "Jiashuo Liu이 arXiv에 게시한 'FinSearchComp: Towards a Realistic, Expert-Level Evaluation of Financial
   Search and Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

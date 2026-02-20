@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Thinking-while-Generating: Interleaving Textual Reasoning throughout Visual Generation"
-excerpt: "Xinyan Chen이 [arXiv]에 게시한 'Thinking-while-Generating: Interleaving Textual Reasoning throughout Visual Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xinyan Chen이 arXiv에 게시한 'Thinking-while-Generating: Interleaving Textual Reasoning throughout Visual Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

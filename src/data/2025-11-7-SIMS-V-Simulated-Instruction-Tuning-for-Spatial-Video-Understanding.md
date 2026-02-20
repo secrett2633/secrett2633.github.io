@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SIMS-V: Simulated Instruction-Tuning for Spatial Video Understanding"
-excerpt: "이 [arXiv]에 게시한 'SIMS-V: Simulated Instruction-Tuning for Spatial Video Understanding' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'SIMS-V: Simulated Instruction-Tuning for Spatial Video Understanding' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

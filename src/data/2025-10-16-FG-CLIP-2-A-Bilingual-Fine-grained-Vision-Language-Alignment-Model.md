@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] FG-CLIP 2: A Bilingual Fine-grained Vision-Language Alignment Model"
-excerpt: "Dawei Liang이 [arXiv]에 게시한 'FG-CLIP 2: A Bilingual Fine-grained Vision-Language Alignment Model' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Dawei Liang이 arXiv에 게시한 'FG-CLIP 2: A Bilingual Fine-grained Vision-Language Alignment Model' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

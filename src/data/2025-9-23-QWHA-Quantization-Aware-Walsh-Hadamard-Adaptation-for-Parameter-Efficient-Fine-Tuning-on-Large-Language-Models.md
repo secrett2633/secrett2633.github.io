@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] QWHA: Quantization-Aware Walsh-Hadamard Adaptation for
   Parameter-Efficient Fine-Tuning on Large Language Models"
-excerpt: "Jae-Joon Kim이 [arXiv]에 게시한 'QWHA: Quantization-Aware Walsh-Hadamard Adaptation for
+excerpt: "Jae-Joon Kim이 arXiv에 게시한 'QWHA: Quantization-Aware Walsh-Hadamard Adaptation for
   Parameter-Efficient Fine-Tuning on Large Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

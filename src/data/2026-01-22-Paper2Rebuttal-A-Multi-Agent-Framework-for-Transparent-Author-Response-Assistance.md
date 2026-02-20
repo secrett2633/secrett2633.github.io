@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Paper2Rebuttal: A Multi-Agent Framework for Transparent Author Response Assistance"
-excerpt: "이 [arXiv]에 게시한 'Paper2Rebuttal: A Multi-Agent Framework for Transparent Author Response Assistance' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Paper2Rebuttal: A Multi-Agent Framework for Transparent Author Response Assistance' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

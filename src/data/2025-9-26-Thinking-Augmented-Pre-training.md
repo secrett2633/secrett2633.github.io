@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Thinking Augmented Pre-training"
-excerpt: "Furu Wei이 [arXiv]에 게시한 'Thinking Augmented Pre-training' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Furu Wei이 arXiv에 게시한 'Thinking Augmented Pre-training' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] ShowUI-π: Flow-based Generative Models as GUI Dexterous Hands"
-excerpt: "이 [arXiv]에 게시한 'ShowUI-π: Flow-based Generative Models as GUI Dexterous Hands' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'ShowUI-π: Flow-based Generative Models as GUI Dexterous Hands' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

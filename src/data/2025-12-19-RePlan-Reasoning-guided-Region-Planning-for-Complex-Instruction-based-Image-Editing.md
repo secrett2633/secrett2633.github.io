@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] RePlan: Reasoning-guided Region Planning for Complex Instruction-based Image Editing"
-excerpt: "Yuqi Liu이 [arXiv]에 게시한 'RePlan: Reasoning-guided Region Planning for Complex Instruction-based Image Editing' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yuqi Liu이 arXiv에 게시한 'RePlan: Reasoning-guided Region Planning for Complex Instruction-based Image Editing' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

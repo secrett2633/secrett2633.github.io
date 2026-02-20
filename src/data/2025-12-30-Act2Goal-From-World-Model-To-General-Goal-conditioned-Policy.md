@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Act2Goal: From World Model To General Goal-conditioned Policy"
-excerpt: "이 [arXiv]에 게시한 'Act2Goal: From World Model To General Goal-conditioned Policy' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Act2Goal: From World Model To General Goal-conditioned Policy' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

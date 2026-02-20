@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Video-Thinker: Sparking 'Thinking with Videos' via Reinforcement Learning"
-excerpt: "Runhao Fu이 [arXiv]에 게시한 'Video-Thinker: Sparking 'Thinking with Videos' via Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Runhao Fu이 arXiv에 게시한 'Video-Thinker: Sparking 'Thinking with Videos' via Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

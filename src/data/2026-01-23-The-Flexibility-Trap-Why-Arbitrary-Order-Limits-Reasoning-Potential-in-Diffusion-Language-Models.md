@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] The Flexibility Trap: Why Arbitrary Order Limits Reasoning Potential in Diffusion Language Models"
-excerpt: "이 [arXiv]에 게시한 'The Flexibility Trap: Why Arbitrary Order Limits Reasoning Potential in Diffusion Language Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'The Flexibility Trap: Why Arbitrary Order Limits Reasoning Potential in Diffusion Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

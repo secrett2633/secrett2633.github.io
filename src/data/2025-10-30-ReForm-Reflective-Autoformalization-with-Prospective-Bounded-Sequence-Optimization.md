@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] ReForm: Reflective Autoformalization with Prospective Bounded Sequence
   Optimization"
-excerpt: "Ruihua Song이 [arXiv]에 게시한 'ReForm: Reflective Autoformalization with Prospective Bounded Sequence
+excerpt: "Ruihua Song이 arXiv에 게시한 'ReForm: Reflective Autoformalization with Prospective Bounded Sequence
   Optimization' 논문에 대한 자세한 리뷰입니다."
 
 categories:

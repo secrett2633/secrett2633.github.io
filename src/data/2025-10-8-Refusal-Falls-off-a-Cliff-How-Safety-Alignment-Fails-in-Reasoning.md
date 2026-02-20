@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Refusal Falls off a Cliff: How Safety Alignment Fails in Reasoning?"
-excerpt: "이 [arXiv]에 게시한 'Refusal Falls off a Cliff: How Safety Alignment Fails in Reasoning?' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Refusal Falls off a Cliff: How Safety Alignment Fails in Reasoning?' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

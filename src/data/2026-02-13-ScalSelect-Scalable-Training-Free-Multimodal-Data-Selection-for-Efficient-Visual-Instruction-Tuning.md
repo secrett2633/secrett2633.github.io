@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] ScalSelect: Scalable Training-Free Multimodal Data Selection for Efficient Visual Instruction Tuning"
-excerpt: "이 [arXiv]에 게시한 'ScalSelect: Scalable Training-Free Multimodal Data Selection for Efficient Visual Instruction Tuning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'ScalSelect: Scalable Training-Free Multimodal Data Selection for Efficient Visual Instruction Tuning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

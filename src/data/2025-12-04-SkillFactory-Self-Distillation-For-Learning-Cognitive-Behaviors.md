@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SkillFactory: Self-Distillation For Learning Cognitive Behaviors"
-excerpt: "Manya Wadhwa이 [arXiv]에 게시한 'SkillFactory: Self-Distillation For Learning Cognitive Behaviors' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Manya Wadhwa이 arXiv에 게시한 'SkillFactory: Self-Distillation For Learning Cognitive Behaviors' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

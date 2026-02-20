@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] OmniHuman-1.5: Instilling an Active Mind in Avatars via Cognitive
   Simulation"
-excerpt: "Jiaqi Yang이 [arXiv]에 게시한 'OmniHuman-1.5: Instilling an Active Mind in Avatars via Cognitive
+excerpt: "Jiaqi Yang이 arXiv에 게시한 'OmniHuman-1.5: Instilling an Active Mind in Avatars via Cognitive
   Simulation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

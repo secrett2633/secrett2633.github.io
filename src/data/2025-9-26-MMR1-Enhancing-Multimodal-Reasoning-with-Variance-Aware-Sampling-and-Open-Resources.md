@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MMR1: Enhancing Multimodal Reasoning with Variance-Aware Sampling and
   Open Resources"
-excerpt: "Jing Wang이 [arXiv]에 게시한 'MMR1: Enhancing Multimodal Reasoning with Variance-Aware Sampling and
+excerpt: "Jing Wang이 arXiv에 게시한 'MMR1: Enhancing Multimodal Reasoning with Variance-Aware Sampling and
   Open Resources' 논문에 대한 자세한 리뷰입니다."
 
 categories:

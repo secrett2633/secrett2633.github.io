@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Data Repetition Beats Data Scaling in Long-CoT Supervised Fine-Tuning"
-excerpt: "Yuki M. Asano이 [arXiv]에 게시한 'Data Repetition Beats Data Scaling in Long-CoT Supervised Fine-Tuning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yuki M. Asano이 arXiv에 게시한 'Data Repetition Beats Data Scaling in Long-CoT Supervised Fine-Tuning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

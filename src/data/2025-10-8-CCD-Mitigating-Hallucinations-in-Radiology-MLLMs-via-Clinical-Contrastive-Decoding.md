@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] CCD: Mitigating Hallucinations in Radiology MLLMs via Clinical
   Contrastive Decoding"
-excerpt: "이 [arXiv]에 게시한 'CCD: Mitigating Hallucinations in Radiology MLLMs via Clinical
+excerpt: "arXiv에 게시된 'CCD: Mitigating Hallucinations in Radiology MLLMs via Clinical
   Contrastive Decoding' 논문에 대한 자세한 리뷰입니다."
 
 categories:

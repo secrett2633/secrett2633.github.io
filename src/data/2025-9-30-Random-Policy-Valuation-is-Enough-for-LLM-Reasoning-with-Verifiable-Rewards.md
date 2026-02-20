@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Random Policy Valuation is Enough for LLM Reasoning with Verifiable
   Rewards"
-excerpt: "Binxing Jiao이 [arXiv]에 게시한 'Random Policy Valuation is Enough for LLM Reasoning with Verifiable
+excerpt: "Binxing Jiao이 arXiv에 게시한 'Random Policy Valuation is Enough for LLM Reasoning with Verifiable
   Rewards' 논문에 대한 자세한 리뷰입니다."
 
 categories:

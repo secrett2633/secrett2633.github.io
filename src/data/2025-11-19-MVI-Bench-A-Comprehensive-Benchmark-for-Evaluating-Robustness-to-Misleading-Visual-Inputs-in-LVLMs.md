@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MVI-Bench: A Comprehensive Benchmark for Evaluating Robustness to Misleading Visual Inputs in LVLMs"
-excerpt: "Kaijie Chen이 [arXiv]에 게시한 'MVI-Bench: A Comprehensive Benchmark for Evaluating Robustness to Misleading Visual Inputs in LVLMs' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Kaijie Chen이 arXiv에 게시한 'MVI-Bench: A Comprehensive Benchmark for Evaluating Robustness to Misleading Visual Inputs in LVLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

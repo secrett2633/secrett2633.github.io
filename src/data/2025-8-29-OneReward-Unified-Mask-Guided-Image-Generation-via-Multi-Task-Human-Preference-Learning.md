@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] OneReward: Unified Mask-Guided Image Generation via Multi-Task Human
   Preference Learning"
-excerpt: "Yitong Wang이 [arXiv]에 게시한 'OneReward: Unified Mask-Guided Image Generation via Multi-Task Human
+excerpt: "Yitong Wang이 arXiv에 게시한 'OneReward: Unified Mask-Guided Image Generation via Multi-Task Human
   Preference Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

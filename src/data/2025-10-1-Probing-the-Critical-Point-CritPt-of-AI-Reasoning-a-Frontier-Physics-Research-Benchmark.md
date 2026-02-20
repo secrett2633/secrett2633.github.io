@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Probing the Critical Point (CritPt) of AI Reasoning: a Frontier Physics
   Research Benchmark"
-excerpt: "Penghao Zhu이 [arXiv]에 게시한 'Probing the Critical Point (CritPt) of AI Reasoning: a Frontier Physics
+excerpt: "Penghao Zhu이 arXiv에 게시한 'Probing the Critical Point (CritPt) of AI Reasoning: a Frontier Physics
   Research Benchmark' 논문에 대한 자세한 리뷰입니다."
 
 categories:

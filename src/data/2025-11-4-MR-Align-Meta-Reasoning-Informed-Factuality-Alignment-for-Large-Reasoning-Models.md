@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MR-Align: Meta-Reasoning Informed Factuality Alignment for Large
   Reasoning Models"
-excerpt: "Bin Yu이 [arXiv]에 게시한 'MR-Align: Meta-Reasoning Informed Factuality Alignment for Large
+excerpt: "Bin Yu이 arXiv에 게시한 'MR-Align: Meta-Reasoning Informed Factuality Alignment for Large
   Reasoning Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

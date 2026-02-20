@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] GeRe: Towards Efficient Anti-Forgetting in Continual Learning of LLM via
   General Samples Replay"
-excerpt: "Yang Fan이 [arXiv]에 게시한 'GeRe: Towards Efficient Anti-Forgetting in Continual Learning of LLM via
+excerpt: "Yang Fan이 arXiv에 게시한 'GeRe: Towards Efficient Anti-Forgetting in Continual Learning of LLM via
   General Samples Replay' 논문에 대한 자세한 리뷰입니다."
 
 categories:

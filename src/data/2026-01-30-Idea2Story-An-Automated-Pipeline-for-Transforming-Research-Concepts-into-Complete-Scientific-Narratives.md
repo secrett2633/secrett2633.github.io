@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Idea2Story: An Automated Pipeline for Transforming Research Concepts into Complete Scientific Narratives"
-excerpt: "이 [arXiv]에 게시한 'Idea2Story: An Automated Pipeline for Transforming Research Concepts into Complete Scientific Narratives' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Idea2Story: An Automated Pipeline for Transforming Research Concepts into Complete Scientific Narratives' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

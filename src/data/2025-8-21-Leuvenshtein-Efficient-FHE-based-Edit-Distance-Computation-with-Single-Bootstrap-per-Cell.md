@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Leuvenshtein: Efficient FHE-based Edit Distance Computation with Single
   Bootstrap per Cell"
-excerpt: "Ingrid Verbauwhede이 [arXiv]에 게시한 'Leuvenshtein: Efficient FHE-based Edit Distance Computation with Single
+excerpt: "Ingrid Verbauwhede이 arXiv에 게시한 'Leuvenshtein: Efficient FHE-based Edit Distance Computation with Single
   Bootstrap per Cell' 논문에 대한 자세한 리뷰입니다."
 
 categories:

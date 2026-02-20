@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Learning on the Job: An Experience-Driven Self-Evolving Agent for
   Long-Horizon Tasks"
-excerpt: "이 [arXiv]에 게시한 'Learning on the Job: An Experience-Driven Self-Evolving Agent for
+excerpt: "arXiv에 게시된 'Learning on the Job: An Experience-Driven Self-Evolving Agent for
   Long-Horizon Tasks' 논문에 대한 자세한 리뷰입니다."
 
 categories:

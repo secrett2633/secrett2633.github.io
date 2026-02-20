@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] FedRE: A Representation Entanglement Framework for Model-Heterogeneous Federated Learning"
-excerpt: "Simin Chen이 [arXiv]에 게시한 'FedRE: A Representation Entanglement Framework for Model-Heterogeneous Federated Learning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Simin Chen이 arXiv에 게시한 'FedRE: A Representation Entanglement Framework for Model-Heterogeneous Federated Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

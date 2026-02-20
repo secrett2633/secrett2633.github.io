@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MINED: Probing and Updating with Multimodal Time-Sensitive Knowledge for
   Large Multimodal Models"
-excerpt: "Yifan Gao이 [arXiv]에 게시한 'MINED: Probing and Updating with Multimodal Time-Sensitive Knowledge for
+excerpt: "Yifan Gao이 arXiv에 게시한 'MINED: Probing and Updating with Multimodal Time-Sensitive Knowledge for
   Large Multimodal Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

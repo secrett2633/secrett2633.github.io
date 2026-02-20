@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] The Illusion of Diminishing Returns: Measuring Long Horizon Execution in
   LLMs"
-excerpt: "Jonas Geiping이 [arXiv]에 게시한 'The Illusion of Diminishing Returns: Measuring Long Horizon Execution in
+excerpt: "Jonas Geiping이 arXiv에 게시한 'The Illusion of Diminishing Returns: Measuring Long Horizon Execution in
   LLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:

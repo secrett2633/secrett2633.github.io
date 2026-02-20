@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MUG-V 10B: High-efficiency Training Pipeline for Large Video Generation
   Models"
-excerpt: "이 [arXiv]에 게시한 'MUG-V 10B: High-efficiency Training Pipeline for Large Video Generation
+excerpt: "arXiv에 게시된 'MUG-V 10B: High-efficiency Training Pipeline for Large Video Generation
   Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

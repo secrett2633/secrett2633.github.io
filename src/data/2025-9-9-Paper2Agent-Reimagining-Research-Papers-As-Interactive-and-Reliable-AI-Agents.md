@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Paper2Agent: Reimagining Research Papers As Interactive and Reliable AI
   Agents"
-excerpt: "James Zou이 [arXiv]에 게시한 'Paper2Agent: Reimagining Research Papers As Interactive and Reliable AI
+excerpt: "James Zou이 arXiv에 게시한 'Paper2Agent: Reimagining Research Papers As Interactive and Reliable AI
   Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:

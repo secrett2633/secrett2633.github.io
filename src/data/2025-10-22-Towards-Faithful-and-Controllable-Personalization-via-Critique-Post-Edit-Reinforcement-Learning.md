@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Towards Faithful and Controllable Personalization via Critique-Post-Edit
   Reinforcement Learning"
-excerpt: "Yuchen Eleanor Jiang이 [arXiv]에 게시한 'Towards Faithful and Controllable Personalization via Critique-Post-Edit
+excerpt: "Yuchen Eleanor Jiang이 arXiv에 게시한 'Towards Faithful and Controllable Personalization via Critique-Post-Edit
   Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

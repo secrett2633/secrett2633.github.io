@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Entropy Ratio Clipping as a Soft Global Constraint for Stable Reinforcement Learning"
-excerpt: "Zijia Lin이 [arXiv]에 게시한 'Entropy Ratio Clipping as a Soft Global Constraint for Stable Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zijia Lin이 arXiv에 게시한 'Entropy Ratio Clipping as a Soft Global Constraint for Stable Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

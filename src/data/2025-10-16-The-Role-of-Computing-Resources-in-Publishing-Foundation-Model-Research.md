@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] The Role of Computing Resources in Publishing Foundation Model Research"
-excerpt: "Zhenwen Liang이 [arXiv]에 게시한 'The Role of Computing Resources in Publishing Foundation Model Research' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zhenwen Liang이 arXiv에 게시한 'The Role of Computing Resources in Publishing Foundation Model Research' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

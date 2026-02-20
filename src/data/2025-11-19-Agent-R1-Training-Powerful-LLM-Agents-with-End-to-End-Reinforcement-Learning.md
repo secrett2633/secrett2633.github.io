@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Agent-R1: Training Powerful LLM Agents with End-to-End Reinforcement Learning"
-excerpt: "Yucong Luo이 [arXiv]에 게시한 'Agent-R1: Training Powerful LLM Agents with End-to-End Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yucong Luo이 arXiv에 게시한 'Agent-R1: Training Powerful LLM Agents with End-to-End Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

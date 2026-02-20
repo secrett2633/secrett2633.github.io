@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Paper2Web: Let's Make Your Paper Alive!"
-excerpt: "Yao Wan이 [arXiv]에 게시한 'Paper2Web: Let's Make Your Paper Alive!' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yao Wan이 arXiv에 게시한 'Paper2Web: Let's Make Your Paper Alive!' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

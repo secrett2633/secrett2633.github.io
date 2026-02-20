@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] WebLeaper: Empowering Efficiency and Efficacy in WebAgent via Enabling
   Info-Rich Seeking"
-excerpt: "이 [arXiv]에 게시한 'WebLeaper: Empowering Efficiency and Efficacy in WebAgent via Enabling
+excerpt: "arXiv에 게시된 'WebLeaper: Empowering Efficiency and Efficacy in WebAgent via Enabling
   Info-Rich Seeking' 논문에 대한 자세한 리뷰입니다."
 
 categories:

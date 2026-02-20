@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Hunyuan3D-Omni: A Unified Framework for Controllable Generation of 3D
   Assets"
-excerpt: "Bowen Zhang이 [arXiv]에 게시한 'Hunyuan3D-Omni: A Unified Framework for Controllable Generation of 3D
+excerpt: "Bowen Zhang이 arXiv에 게시한 'Hunyuan3D-Omni: A Unified Framework for Controllable Generation of 3D
   Assets' 논문에 대한 자세한 리뷰입니다."
 
 categories:

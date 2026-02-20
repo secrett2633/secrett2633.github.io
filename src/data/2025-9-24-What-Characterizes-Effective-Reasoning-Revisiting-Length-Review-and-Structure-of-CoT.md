@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] What Characterizes Effective Reasoning? Revisiting Length, Review, and
   Structure of CoT"
-excerpt: "Anthony Hartshorn이 [arXiv]에 게시한 'What Characterizes Effective Reasoning? Revisiting Length, Review, and
+excerpt: "Anthony Hartshorn이 arXiv에 게시한 'What Characterizes Effective Reasoning? Revisiting Length, Review, and
   Structure of CoT' 논문에 대한 자세한 리뷰입니다."
 
 categories:

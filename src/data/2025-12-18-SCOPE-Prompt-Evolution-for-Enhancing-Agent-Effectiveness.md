@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SCOPE: Prompt Evolution for Enhancing Agent Effectiveness"
-excerpt: "Yunhe Wang이 [arXiv]에 게시한 'SCOPE: Prompt Evolution for Enhancing Agent Effectiveness' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yunhe Wang이 arXiv에 게시한 'SCOPE: Prompt Evolution for Enhancing Agent Effectiveness' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

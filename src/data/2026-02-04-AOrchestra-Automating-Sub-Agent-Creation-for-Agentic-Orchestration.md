@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] AOrchestra: Automating Sub-Agent Creation for Agentic Orchestration"
-excerpt: "Zhaoyang Yu이 [arXiv]에 게시한 'AOrchestra: Automating Sub-Agent Creation for Agentic Orchestration' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zhaoyang Yu이 arXiv에 게시한 'AOrchestra: Automating Sub-Agent Creation for Agentic Orchestration' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

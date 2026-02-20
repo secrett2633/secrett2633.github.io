@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Recurrent-Depth VLA: Implicit Test-Time Compute Scaling of Vision-Language-Action Models via Latent Iterative Reasoning"
-excerpt: "이 [arXiv]에 게시한 'Recurrent-Depth VLA: Implicit Test-Time Compute Scaling of Vision-Language-Action Models via Latent Iterative Reasoning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Recurrent-Depth VLA: Implicit Test-Time Compute Scaling of Vision-Language-Action Models via Latent Iterative Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

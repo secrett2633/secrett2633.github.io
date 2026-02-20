@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] ImagerySearch: Adaptive Test-Time Search for Video Generation Beyond
   Semantic Dependency Constraints"
-excerpt: "이 [arXiv]에 게시한 'ImagerySearch: Adaptive Test-Time Search for Video Generation Beyond
+excerpt: "arXiv에 게시된 'ImagerySearch: Adaptive Test-Time Search for Video Generation Beyond
   Semantic Dependency Constraints' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] C^2DLM: Causal Concept-Guided Diffusion Large Language Models"
-excerpt: "Xinpeng Dong이 [arXiv]에 게시한 'C^2DLM: Causal Concept-Guided Diffusion Large Language Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xinpeng Dong이 arXiv에 게시한 'C^2DLM: Causal Concept-Guided Diffusion Large Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

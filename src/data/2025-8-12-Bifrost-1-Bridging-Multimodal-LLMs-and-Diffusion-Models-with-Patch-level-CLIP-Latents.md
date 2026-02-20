@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Bifrost-1: Bridging Multimodal LLMs and Diffusion Models with
   Patch-level CLIP Latents"
-excerpt: "Mohit Bansal이 [arXiv]에 게시한 'Bifrost-1: Bridging Multimodal LLMs and Diffusion Models with
+excerpt: "Mohit Bansal이 arXiv에 게시한 'Bifrost-1: Bridging Multimodal LLMs and Diffusion Models with
   Patch-level CLIP Latents' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] SPARSE Data, Rich Results: Few-Shot Semi-Supervised Learning via
   Class-Conditioned Image Translation"
-excerpt: "Paolo Soda이 [arXiv]에 게시한 'SPARSE Data, Rich Results: Few-Shot Semi-Supervised Learning via
+excerpt: "Paolo Soda이 arXiv에 게시한 'SPARSE Data, Rich Results: Few-Shot Semi-Supervised Learning via
   Class-Conditioned Image Translation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

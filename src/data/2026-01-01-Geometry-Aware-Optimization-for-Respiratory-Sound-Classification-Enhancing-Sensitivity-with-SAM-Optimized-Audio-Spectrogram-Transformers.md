@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Geometry-Aware Optimization for Respiratory Sound Classification: Enhancing Sensitivity with SAM-Optimized Audio Spectrogram Transformers"
-excerpt: "Mahşuk Taylan이 [arXiv]에 게시한 'Geometry-Aware Optimization for Respiratory Sound Classification: Enhancing Sensitivity with SAM-Optimized Audio Spectrogram Transformers' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Mahşuk Taylan이 arXiv에 게시한 'Geometry-Aware Optimization for Respiratory Sound Classification: Enhancing Sensitivity with SAM-Optimized Audio Spectrogram Transformers' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

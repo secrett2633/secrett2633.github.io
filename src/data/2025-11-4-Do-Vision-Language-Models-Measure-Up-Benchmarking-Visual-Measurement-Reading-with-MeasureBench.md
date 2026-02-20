@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Do Vision-Language Models Measure Up? Benchmarking Visual Measurement
   Reading with MeasureBench"
-excerpt: "이 [arXiv]에 게시한 'Do Vision-Language Models Measure Up? Benchmarking Visual Measurement
+excerpt: "arXiv에 게시된 'Do Vision-Language Models Measure Up? Benchmarking Visual Measurement
   Reading with MeasureBench' 논문에 대한 자세한 리뷰입니다."
 
 categories:

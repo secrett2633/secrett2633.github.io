@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] OmniInsert: Mask-Free Video Insertion of Any Reference via Diffusion
   Transformer Models"
-excerpt: "Pengze Zhang이 [arXiv]에 게시한 'OmniInsert: Mask-Free Video Insertion of Any Reference via Diffusion
+excerpt: "Pengze Zhang이 arXiv에 게시한 'OmniInsert: Mask-Free Video Insertion of Any Reference via Diffusion
   Transformer Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Let Multimodal Embedders Learn When to Augment Query via Adaptive Query
   Augmentation"
-excerpt: "Jaehyun Park이 [arXiv]에 게시한 'Let Multimodal Embedders Learn When to Augment Query via Adaptive Query
+excerpt: "Jaehyun Park이 arXiv에 게시한 'Let Multimodal Embedders Learn When to Augment Query via Adaptive Query
   Augmentation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

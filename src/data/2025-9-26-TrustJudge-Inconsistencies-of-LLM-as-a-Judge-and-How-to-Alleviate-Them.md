@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] TrustJudge: Inconsistencies of LLM-as-a-Judge and How to Alleviate Them"
-excerpt: "Zhuohao Yu이 [arXiv]에 게시한 'TrustJudge: Inconsistencies of LLM-as-a-Judge and How to Alleviate Them' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zhuohao Yu이 arXiv에 게시한 'TrustJudge: Inconsistencies of LLM-as-a-Judge and How to Alleviate Them' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

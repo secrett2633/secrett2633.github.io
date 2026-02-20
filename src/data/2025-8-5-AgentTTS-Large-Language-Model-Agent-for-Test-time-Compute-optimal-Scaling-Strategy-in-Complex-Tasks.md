@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] AgentTTS: Large Language Model Agent for Test-time Compute-optimal
   Scaling Strategy in Complex Tasks"
-excerpt: "Zhiwei Zhang이 [arXiv]에 게시한 'AgentTTS: Large Language Model Agent for Test-time Compute-optimal
+excerpt: "Zhiwei Zhang이 arXiv에 게시한 'AgentTTS: Large Language Model Agent for Test-time Compute-optimal
   Scaling Strategy in Complex Tasks' 논문에 대한 자세한 리뷰입니다."
 
 categories:

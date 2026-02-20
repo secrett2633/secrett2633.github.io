@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] CUDA-L2: Surpassing cuBLAS Performance for Matrix Multiplication through Reinforcement Learning"
-excerpt: "이 [arXiv]에 게시한 'CUDA-L2: Surpassing cuBLAS Performance for Matrix Multiplication through Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'CUDA-L2: Surpassing cuBLAS Performance for Matrix Multiplication through Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

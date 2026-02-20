@@ -65,7 +65,7 @@ export default function CommentCountProvider({
 
         // 모든 페이지를 순회
         while (nextUrl) {
-          const response: any = await fetch(nextUrl, {
+          const response: Response = await fetch(nextUrl, {
             headers: {
               'Accept': 'application/vnd.github+json',
             },

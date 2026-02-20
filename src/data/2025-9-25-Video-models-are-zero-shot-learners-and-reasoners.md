@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Video models are zero-shot learners and reasoners"
-excerpt: "rgeirhos이 [arXiv]에 게시한 'Video models are zero-shot learners and reasoners' 논문에 대한 자세한 리뷰입니다."
+excerpt: "rgeirhos이 arXiv에 게시한 'Video models are zero-shot learners and reasoners' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

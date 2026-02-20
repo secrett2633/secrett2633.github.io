@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] H2R-Grounder: A Paired-Data-Free Paradigm for Translating Human Interaction Videos into Physically Grounded Robot Videos"
-excerpt: "Mike Zheng Shou이 [arXiv]에 게시한 'H2R-Grounder: A Paired-Data-Free Paradigm for Translating Human Interaction Videos into Physically Grounded Robot Videos' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Mike Zheng Shou이 arXiv에 게시한 'H2R-Grounder: A Paired-Data-Free Paradigm for Translating Human Interaction Videos into Physically Grounded Robot Videos' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

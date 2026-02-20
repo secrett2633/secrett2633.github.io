@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DSGym: A Holistic Framework for Evaluating and Training Data Science Agents"
-excerpt: "Yongchan Kwon이 [arXiv]에 게시한 'DSGym: A Holistic Framework for Evaluating and Training Data Science Agents' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yongchan Kwon이 arXiv에 게시한 'DSGym: A Holistic Framework for Evaluating and Training Data Science Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

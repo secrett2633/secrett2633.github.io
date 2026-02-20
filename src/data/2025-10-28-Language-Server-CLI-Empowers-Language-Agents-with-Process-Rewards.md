@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Language Server CLI Empowers Language Agents with Process Rewards"
-excerpt: "Lanser Contributors이 [arXiv]에 게시한 'Language Server CLI Empowers Language Agents with Process Rewards' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Lanser Contributors이 arXiv에 게시한 'Language Server CLI Empowers Language Agents with Process Rewards' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

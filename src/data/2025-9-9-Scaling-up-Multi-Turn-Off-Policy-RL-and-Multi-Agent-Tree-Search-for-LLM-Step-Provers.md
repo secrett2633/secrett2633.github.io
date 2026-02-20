@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Scaling up Multi-Turn Off-Policy RL and Multi-Agent Tree Search for LLM
   Step-Provers"
-excerpt: "Xia Xiao이 [arXiv]에 게시한 'Scaling up Multi-Turn Off-Policy RL and Multi-Agent Tree Search for LLM
+excerpt: "Xia Xiao이 arXiv에 게시한 'Scaling up Multi-Turn Off-Policy RL and Multi-Agent Tree Search for LLM
   Step-Provers' 논문에 대한 자세한 리뷰입니다."
 
 categories:

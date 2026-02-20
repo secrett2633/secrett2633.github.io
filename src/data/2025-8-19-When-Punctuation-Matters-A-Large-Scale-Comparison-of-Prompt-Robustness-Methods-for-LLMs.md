@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] When Punctuation Matters: A Large-Scale Comparison of Prompt Robustness
   Methods for LLMs"
-excerpt: "Elena Tutubalina이 [arXiv]에 게시한 'When Punctuation Matters: A Large-Scale Comparison of Prompt Robustness
+excerpt: "Elena Tutubalina이 arXiv에 게시한 'When Punctuation Matters: A Large-Scale Comparison of Prompt Robustness
   Methods for LLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:

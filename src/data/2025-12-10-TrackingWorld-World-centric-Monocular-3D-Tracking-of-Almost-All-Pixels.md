@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] TrackingWorld: World-centric Monocular 3D Tracking of Almost All Pixels"
-excerpt: "Tianyu Huang이 [arXiv]에 게시한 'TrackingWorld: World-centric Monocular 3D Tracking of Almost All Pixels' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Tianyu Huang이 arXiv에 게시한 'TrackingWorld: World-centric Monocular 3D Tracking of Almost All Pixels' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

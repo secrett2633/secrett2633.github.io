@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] OpenMMReasoner: Pushing the Frontiers for Multimodal Reasoning with an Open and General Recipe"
-excerpt: "이 [arXiv]에 게시한 'OpenMMReasoner: Pushing the Frontiers for Multimodal Reasoning with an Open and General Recipe' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'OpenMMReasoner: Pushing the Frontiers for Multimodal Reasoning with an Open and General Recipe' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

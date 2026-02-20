@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] ParallelBench: Understanding the Trade-offs of Parallel Decoding in
   Diffusion LLMs"
-excerpt: "이 [arXiv]에 게시한 'ParallelBench: Understanding the Trade-offs of Parallel Decoding in
+excerpt: "arXiv에 게시된 'ParallelBench: Understanding the Trade-offs of Parallel Decoding in
   Diffusion LLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:

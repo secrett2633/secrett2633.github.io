@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Emergent Misalignment via In-Context Learning: Narrow in-context
   examples can produce broadly misaligned LLMs"
-excerpt: "Kevin Zhu이 [arXiv]에 게시한 'Emergent Misalignment via In-Context Learning: Narrow in-context
+excerpt: "Kevin Zhu이 arXiv에 게시한 'Emergent Misalignment via In-Context Learning: Narrow in-context
   examples can produce broadly misaligned LLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:

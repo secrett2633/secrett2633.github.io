@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] VideoFrom3D: 3D Scene Video Generation via Complementary Image and Video
   Diffusion Models"
-excerpt: "Sunghyun Cho이 [arXiv]에 게시한 'VideoFrom3D: 3D Scene Video Generation via Complementary Image and Video
+excerpt: "Sunghyun Cho이 arXiv에 게시한 'VideoFrom3D: 3D Scene Video Generation via Complementary Image and Video
   Diffusion Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

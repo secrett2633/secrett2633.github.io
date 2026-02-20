@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] π_RL: Online RL Fine-tuning for Flow-based
   Vision-Language-Action Models"
-excerpt: "이 [arXiv]에 게시한 'π_RL: Online RL Fine-tuning for Flow-based
+excerpt: "arXiv에 게시된 'π_RL: Online RL Fine-tuning for Flow-based
   Vision-Language-Action Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

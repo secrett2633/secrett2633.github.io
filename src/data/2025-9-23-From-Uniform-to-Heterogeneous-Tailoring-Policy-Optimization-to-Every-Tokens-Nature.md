@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] From Uniform to Heterogeneous: Tailoring Policy Optimization to Every
   Token's Nature"
-excerpt: "Bin Cui이 [arXiv]에 게시한 'From Uniform to Heterogeneous: Tailoring Policy Optimization to Every
+excerpt: "Bin Cui이 arXiv에 게시한 'From Uniform to Heterogeneous: Tailoring Policy Optimization to Every
   Token's Nature' 논문에 대한 자세한 리뷰입니다."
 
 categories:

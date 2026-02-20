@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Spurious Rewards Paradox: Mechanistically Understanding How RLVR Activates Memorization Shortcuts in LLMs"
-excerpt: "Lecheng Yan이 [arXiv]에 게시한 'Spurious Rewards Paradox: Mechanistically Understanding How RLVR Activates Memorization Shortcuts in LLMs' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Lecheng Yan이 arXiv에 게시한 'Spurious Rewards Paradox: Mechanistically Understanding How RLVR Activates Memorization Shortcuts in LLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

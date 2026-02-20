@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] FastMesh:Efficient Artistic Mesh Generation via Component Decoupling"
-excerpt: "Xingang Pan이 [arXiv]에 게시한 'FastMesh:Efficient Artistic Mesh Generation via Component Decoupling' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xingang Pan이 arXiv에 게시한 'FastMesh:Efficient Artistic Mesh Generation via Component Decoupling' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

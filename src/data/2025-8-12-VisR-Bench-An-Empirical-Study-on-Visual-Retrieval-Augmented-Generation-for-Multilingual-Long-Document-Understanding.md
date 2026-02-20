@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] VisR-Bench: An Empirical Study on Visual Retrieval-Augmented Generation
   for Multilingual Long Document Understanding"
-excerpt: "Tong Yu이 [arXiv]에 게시한 'VisR-Bench: An Empirical Study on Visual Retrieval-Augmented Generation
+excerpt: "Tong Yu이 arXiv에 게시한 'VisR-Bench: An Empirical Study on Visual Retrieval-Augmented Generation
   for Multilingual Long Document Understanding' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] AWorld: Orchestrating the Training Recipe for Agentic AI"
-excerpt: "Qintong Wu이 [arXiv]에 게시한 'AWorld: Orchestrating the Training Recipe for Agentic AI' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Qintong Wu이 arXiv에 게시한 'AWorld: Orchestrating the Training Recipe for Agentic AI' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

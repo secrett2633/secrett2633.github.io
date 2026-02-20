@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] LongVideoAgent: Multi-Agent Reasoning with Long Videos"
-excerpt: "Renjie Pi이 [arXiv]에 게시한 'LongVideoAgent: Multi-Agent Reasoning with Long Videos' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Renjie Pi이 arXiv에 게시한 'LongVideoAgent: Multi-Agent Reasoning with Long Videos' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

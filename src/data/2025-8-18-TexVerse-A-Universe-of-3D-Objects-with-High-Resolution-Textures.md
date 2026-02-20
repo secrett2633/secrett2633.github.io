@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] TexVerse: A Universe of 3D Objects with High-Resolution Textures"
-excerpt: "Nan Cao이 [arXiv]에 게시한 'TexVerse: A Universe of 3D Objects with High-Resolution Textures' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Nan Cao이 arXiv에 게시한 'TexVerse: A Universe of 3D Objects with High-Resolution Textures' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

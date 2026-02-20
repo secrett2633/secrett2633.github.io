@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Improving Large Vision and Language Models by Learning from a Panel of
   Peers"
-excerpt: "Simon Jenni이 [arXiv]에 게시한 'Improving Large Vision and Language Models by Learning from a Panel of
+excerpt: "Simon Jenni이 arXiv에 게시한 'Improving Large Vision and Language Models by Learning from a Panel of
   Peers' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Beyond Memorization: Extending Reasoning Depth with Recurrence, Memory
   and Test-Time Compute Scaling"
-excerpt: "Daniil Orel이 [arXiv]에 게시한 'Beyond Memorization: Extending Reasoning Depth with Recurrence, Memory
+excerpt: "Daniil Orel이 arXiv에 게시한 'Beyond Memorization: Extending Reasoning Depth with Recurrence, Memory
   and Test-Time Compute Scaling' 논문에 대한 자세한 리뷰입니다."
 
 categories:

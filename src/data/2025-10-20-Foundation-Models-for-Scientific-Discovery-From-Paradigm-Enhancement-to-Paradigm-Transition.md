@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Foundation Models for Scientific Discovery: From Paradigm Enhancement to
   Paradigm Transition"
-excerpt: "이 [arXiv]에 게시한 'Foundation Models for Scientific Discovery: From Paradigm Enhancement to
+excerpt: "arXiv에 게시된 'Foundation Models for Scientific Discovery: From Paradigm Enhancement to
   Paradigm Transition' 논문에 대한 자세한 리뷰입니다."
 
 categories:

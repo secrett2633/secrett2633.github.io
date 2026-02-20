@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] AstaBench: Rigorous Benchmarking of AI Agents with a Scientific Research
   Suite"
-excerpt: "Bhavana Dalvi이 [arXiv]에 게시한 'AstaBench: Rigorous Benchmarking of AI Agents with a Scientific Research
+excerpt: "Bhavana Dalvi이 arXiv에 게시한 'AstaBench: Rigorous Benchmarking of AI Agents with a Scientific Research
   Suite' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Video2Roleplay: A Multimodal Dataset and Framework for Video-Guided
   Role-playing Agents"
-excerpt: "Chao Zhang이 [arXiv]에 게시한 'Video2Roleplay: A Multimodal Dataset and Framework for Video-Guided
+excerpt: "Chao Zhang이 arXiv에 게시한 'Video2Roleplay: A Multimodal Dataset and Framework for Video-Guided
   Role-playing Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:

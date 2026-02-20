@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] KORE: Enhancing Knowledge Injection for Large Multimodal Models via
   Knowledge-Oriented Augmentations and Constraints"
-excerpt: "Jinhe Bi이 [arXiv]에 게시한 'KORE: Enhancing Knowledge Injection for Large Multimodal Models via
+excerpt: "Jinhe Bi이 arXiv에 게시한 'KORE: Enhancing Knowledge Injection for Large Multimodal Models via
   Knowledge-Oriented Augmentations and Constraints' 논문에 대한 자세한 리뷰입니다."
 
 categories:

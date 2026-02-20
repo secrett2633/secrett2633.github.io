@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MT-Video-Bench: A Holistic Video Understanding Benchmark for Evaluating
   Multimodal LLMs in Multi-Turn Dialogues"
-excerpt: "이 [arXiv]에 게시한 'MT-Video-Bench: A Holistic Video Understanding Benchmark for Evaluating
+excerpt: "arXiv에 게시된 'MT-Video-Bench: A Holistic Video Understanding Benchmark for Evaluating
   Multimodal LLMs in Multi-Turn Dialogues' 논문에 대한 자세한 리뷰입니다."
 
 categories:

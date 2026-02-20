@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] ReviewerToo: Should AI Join The Program Committee? A Look At The Future
   of Peer Review"
-excerpt: "Christopher Pal이 [arXiv]에 게시한 'ReviewerToo: Should AI Join The Program Committee? A Look At The Future
+excerpt: "Christopher Pal이 arXiv에 게시한 'ReviewerToo: Should AI Join The Program Committee? A Look At The Future
   of Peer Review' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Real-Time Object Detection Meets DINOv3"
-excerpt: "Xi Shen이 [arXiv]에 게시한 'Real-Time Object Detection Meets DINOv3' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xi Shen이 arXiv에 게시한 'Real-Time Object Detection Meets DINOv3' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

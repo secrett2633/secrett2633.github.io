@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Marco-Voice Technical Report"
-excerpt: "Qingjuan Li이 [arXiv]에 게시한 'Marco-Voice Technical Report' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Qingjuan Li이 arXiv에 게시한 'Marco-Voice Technical Report' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

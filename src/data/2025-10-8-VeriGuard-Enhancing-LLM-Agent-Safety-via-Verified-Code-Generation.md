@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] VeriGuard: Enhancing LLM Agent Safety via Verified Code Generation"
-excerpt: "이 [arXiv]에 게시한 'VeriGuard: Enhancing LLM Agent Safety via Verified Code Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'VeriGuard: Enhancing LLM Agent Safety via Verified Code Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

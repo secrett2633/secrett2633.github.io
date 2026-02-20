@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Representing Speech Through Autoregressive Prediction of Cochlear Tokens"
-excerpt: "Daniel L. K. Yamins이 [arXiv]에 게시한 'Representing Speech Through Autoregressive Prediction of Cochlear Tokens' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Daniel L. K. Yamins이 arXiv에 게시한 'Representing Speech Through Autoregressive Prediction of Cochlear Tokens' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

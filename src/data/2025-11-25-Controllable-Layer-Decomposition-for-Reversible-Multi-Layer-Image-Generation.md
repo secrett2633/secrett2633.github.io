@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Controllable Layer Decomposition for Reversible Multi-Layer Image Generation"
-excerpt: "이 [arXiv]에 게시한 'Controllable Layer Decomposition for Reversible Multi-Layer Image Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Controllable Layer Decomposition for Reversible Multi-Layer Image Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

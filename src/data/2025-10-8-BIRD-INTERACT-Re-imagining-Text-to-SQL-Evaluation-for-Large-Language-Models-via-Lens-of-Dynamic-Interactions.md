@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] BIRD-INTERACT: Re-imagining Text-to-SQL Evaluation for Large Language
   Models via Lens of Dynamic Interactions"
-excerpt: "Shipei Lin이 [arXiv]에 게시한 'BIRD-INTERACT: Re-imagining Text-to-SQL Evaluation for Large Language
+excerpt: "Shipei Lin이 arXiv에 게시한 'BIRD-INTERACT: Re-imagining Text-to-SQL Evaluation for Large Language
   Models via Lens of Dynamic Interactions' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Taming Text-to-Sounding Video Generation via Advanced Modality Condition
   and Interaction"
-excerpt: "이 [arXiv]에 게시한 'Taming Text-to-Sounding Video Generation via Advanced Modality Condition
+excerpt: "arXiv에 게시된 'Taming Text-to-Sounding Video Generation via Advanced Modality Condition
   and Interaction' 논문에 대한 자세한 리뷰입니다."
 
 categories:

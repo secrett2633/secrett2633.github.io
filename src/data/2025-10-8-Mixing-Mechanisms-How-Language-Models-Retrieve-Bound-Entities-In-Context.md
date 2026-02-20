@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Mixing Mechanisms: How Language Models Retrieve Bound Entities
   In-Context"
-excerpt: "이 [arXiv]에 게시한 'Mixing Mechanisms: How Language Models Retrieve Bound Entities
+excerpt: "arXiv에 게시된 'Mixing Mechanisms: How Language Models Retrieve Bound Entities
   In-Context' 논문에 대한 자세한 리뷰입니다."
 
 categories:

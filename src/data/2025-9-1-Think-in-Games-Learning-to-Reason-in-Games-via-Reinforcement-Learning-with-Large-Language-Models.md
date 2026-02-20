@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Think in Games: Learning to Reason in Games via Reinforcement Learning
   with Large Language Models"
-excerpt: "Yifan Lu이 [arXiv]에 게시한 'Think in Games: Learning to Reason in Games via Reinforcement Learning
+excerpt: "Yifan Lu이 arXiv에 게시한 'Think in Games: Learning to Reason in Games via Reinforcement Learning
   with Large Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

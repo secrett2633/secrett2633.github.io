@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] User-Oriented Multi-Turn Dialogue Generation with Tool Use at scale"
-excerpt: "이 [arXiv]에 게시한 'User-Oriented Multi-Turn Dialogue Generation with Tool Use at scale' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'User-Oriented Multi-Turn Dialogue Generation with Tool Use at scale' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] RecoWorld: Building Simulated Environments for Agentic Recommender
   Systems"
-excerpt: "Mingyuan Wu이 [arXiv]에 게시한 'RecoWorld: Building Simulated Environments for Agentic Recommender
+excerpt: "Mingyuan Wu이 arXiv에 게시한 'RecoWorld: Building Simulated Environments for Agentic Recommender
   Systems' 논문에 대한 자세한 리뷰입니다."
 
 categories:

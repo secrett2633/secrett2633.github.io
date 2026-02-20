@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Refining Contrastive Learning and Homography Relations for Multi-Modal
   Recommendation"
-excerpt: "Shiqing Wu이 [arXiv]에 게시한 'Refining Contrastive Learning and Homography Relations for Multi-Modal
+excerpt: "Shiqing Wu이 arXiv에 게시한 'Refining Contrastive Learning and Homography Relations for Multi-Modal
   Recommendation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

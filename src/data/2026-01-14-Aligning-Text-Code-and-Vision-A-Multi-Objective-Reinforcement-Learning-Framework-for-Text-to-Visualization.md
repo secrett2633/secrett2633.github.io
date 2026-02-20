@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Aligning Text, Code, and Vision: A Multi-Objective Reinforcement Learning Framework for Text-to-Visualization"
-excerpt: "이 [arXiv]에 게시한 'Aligning Text, Code, and Vision: A Multi-Objective Reinforcement Learning Framework for Text-to-Visualization' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Aligning Text, Code, and Vision: A Multi-Objective Reinforcement Learning Framework for Text-to-Visualization' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

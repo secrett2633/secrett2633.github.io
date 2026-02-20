@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] ABot-M0: VLA Foundation Model for Robotic Manipulation with Action Manifold Learning"
-excerpt: "이 [arXiv]에 게시한 'ABot-M0: VLA Foundation Model for Robotic Manipulation with Action Manifold Learning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'ABot-M0: VLA Foundation Model for Robotic Manipulation with Action Manifold Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

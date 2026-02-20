@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Beyond Fixed: Variable-Length Denoising for Diffusion Large Language
   Models"
-excerpt: "Jiaqi Wang이 [arXiv]에 게시한 'Beyond Fixed: Variable-Length Denoising for Diffusion Large Language
+excerpt: "Jiaqi Wang이 arXiv에 게시한 'Beyond Fixed: Variable-Length Denoising for Diffusion Large Language
   Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:

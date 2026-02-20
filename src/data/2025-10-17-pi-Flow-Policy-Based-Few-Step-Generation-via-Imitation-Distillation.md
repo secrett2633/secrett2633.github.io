@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] pi-Flow: Policy-Based Few-Step Generation via Imitation Distillation"
-excerpt: "이 [arXiv]에 게시한 'pi-Flow: Policy-Based Few-Step Generation via Imitation Distillation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'pi-Flow: Policy-Based Few-Step Generation via Imitation Distillation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

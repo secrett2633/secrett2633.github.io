@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Name That Part: 3D Part Segmentation and Naming"
-excerpt: "Alan Yuille이 [arXiv]에 게시한 'Name That Part: 3D Part Segmentation and Naming' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Alan Yuille이 arXiv에 게시한 'Name That Part: 3D Part Segmentation and Naming' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

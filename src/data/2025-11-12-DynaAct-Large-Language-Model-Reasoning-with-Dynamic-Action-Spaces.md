@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DynaAct: Large Language Model Reasoning with Dynamic Action Spaces"
-excerpt: "Lingpeng Kong이 [arXiv]에 게시한 'DynaAct: Large Language Model Reasoning with Dynamic Action Spaces' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Lingpeng Kong이 arXiv에 게시한 'DynaAct: Large Language Model Reasoning with Dynamic Action Spaces' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

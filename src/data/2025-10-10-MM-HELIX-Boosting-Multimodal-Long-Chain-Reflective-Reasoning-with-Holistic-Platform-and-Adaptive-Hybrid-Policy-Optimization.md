@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MM-HELIX: Boosting Multimodal Long-Chain Reflective Reasoning with
   Holistic Platform and Adaptive Hybrid Policy Optimization"
-excerpt: "vanilla1116이 [arXiv]에 게시한 'MM-HELIX: Boosting Multimodal Long-Chain Reflective Reasoning with
+excerpt: "vanilla1116이 arXiv에 게시한 'MM-HELIX: Boosting Multimodal Long-Chain Reflective Reasoning with
   Holistic Platform and Adaptive Hybrid Policy Optimization' 논문에 대한 자세한 리뷰입니다."
 
 categories:

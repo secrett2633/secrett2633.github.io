@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] OpenNovelty: An LLM-powered Agentic System for Verifiable Scholarly Novelty Assessment"
-excerpt: "Chunchun Ma이 [arXiv]에 게시한 'OpenNovelty: An LLM-powered Agentic System for Verifiable Scholarly Novelty Assessment' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Chunchun Ma이 arXiv에 게시한 'OpenNovelty: An LLM-powered Agentic System for Verifiable Scholarly Novelty Assessment' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

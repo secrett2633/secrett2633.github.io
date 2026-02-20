@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Conan: Progressive Learning to Reason Like a Detective over Multi-Scale
   Visual Evidence"
-excerpt: "이 [arXiv]에 게시한 'Conan: Progressive Learning to Reason Like a Detective over Multi-Scale
+excerpt: "arXiv에 게시된 'Conan: Progressive Learning to Reason Like a Detective over Multi-Scale
   Visual Evidence' 논문에 대한 자세한 리뷰입니다."
 
 categories:

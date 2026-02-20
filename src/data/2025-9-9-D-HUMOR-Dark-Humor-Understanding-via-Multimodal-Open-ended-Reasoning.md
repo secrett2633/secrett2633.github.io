@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] D-HUMOR: Dark Humor Understanding via Multimodal Open-ended Reasoning"
-excerpt: "Dhanvin Sanjay Namboodiri이 [arXiv]에 게시한 'D-HUMOR: Dark Humor Understanding via Multimodal Open-ended Reasoning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Dhanvin Sanjay Namboodiri이 arXiv에 게시한 'D-HUMOR: Dark Humor Understanding via Multimodal Open-ended Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

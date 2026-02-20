@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Visual Jigsaw Post-Training Improves MLLMs"
-excerpt: "Lewei Lu이 [arXiv]에 게시한 'Visual Jigsaw Post-Training Improves MLLMs' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Lewei Lu이 arXiv에 게시한 'Visual Jigsaw Post-Training Improves MLLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

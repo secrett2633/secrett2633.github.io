@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MedDINOv3: How to adapt vision foundation models for medical image
   segmentation?"
-excerpt: "Xiaofeng Yang이 [arXiv]에 게시한 'MedDINOv3: How to adapt vision foundation models for medical image
+excerpt: "Xiaofeng Yang이 arXiv에 게시한 'MedDINOv3: How to adapt vision foundation models for medical image
   segmentation?' 논문에 대한 자세한 리뷰입니다."
 
 categories:

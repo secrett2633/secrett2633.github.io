@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] NextStep-1: Toward Autoregressive Image Generation with Continuous
   Tokens at Scale"
-excerpt: "Quan Sun이 [arXiv]에 게시한 'NextStep-1: Toward Autoregressive Image Generation with Continuous
+excerpt: "Quan Sun이 arXiv에 게시한 'NextStep-1: Toward Autoregressive Image Generation with Continuous
   Tokens at Scale' 논문에 대한 자세한 리뷰입니다."
 
 categories:

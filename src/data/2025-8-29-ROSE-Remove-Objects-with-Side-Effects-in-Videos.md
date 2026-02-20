@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] ROSE: Remove Objects with Side Effects in Videos"
-excerpt: "Hantang Liu이 [arXiv]에 게시한 'ROSE: Remove Objects with Side Effects in Videos' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Hantang Liu이 arXiv에 게시한 'ROSE: Remove Objects with Side Effects in Videos' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

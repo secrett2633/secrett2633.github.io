@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] No Global Plan in Chain-of-Thought: Uncover the Latent Planning Horizon of LLMs"
-excerpt: "이 [arXiv]에 게시한 'No Global Plan in Chain-of-Thought: Uncover the Latent Planning Horizon of LLMs' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'No Global Plan in Chain-of-Thought: Uncover the Latent Planning Horizon of LLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

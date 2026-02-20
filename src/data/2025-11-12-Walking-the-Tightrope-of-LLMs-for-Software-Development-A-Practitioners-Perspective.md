@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Walking the Tightrope of LLMs for Software Development: A Practitioners' Perspective"
-excerpt: "Christoph Treude이 [arXiv]에 게시한 'Walking the Tightrope of LLMs for Software Development: A Practitioners' Perspective' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Christoph Treude이 arXiv에 게시한 'Walking the Tightrope of LLMs for Software Development: A Practitioners' Perspective' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Don't Waste Mistakes: Leveraging Negative RL-Groups via Confidence
   Reweighting"
-excerpt: "Julia Kempe이 [arXiv]에 게시한 'Don't Waste Mistakes: Leveraging Negative RL-Groups via Confidence
+excerpt: "Julia Kempe이 arXiv에 게시한 'Don't Waste Mistakes: Leveraging Negative RL-Groups via Confidence
   Reweighting' 논문에 대한 자세한 리뷰입니다."
 
 categories:

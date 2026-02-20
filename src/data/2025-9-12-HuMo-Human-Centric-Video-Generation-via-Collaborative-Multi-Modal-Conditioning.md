@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] HuMo: Human-Centric Video Generation via Collaborative Multi-Modal
   Conditioning"
-excerpt: "Zhuowei Chen이 [arXiv]에 게시한 'HuMo: Human-Centric Video Generation via Collaborative Multi-Modal
+excerpt: "Zhuowei Chen이 arXiv에 게시한 'HuMo: Human-Centric Video Generation via Collaborative Multi-Modal
   Conditioning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

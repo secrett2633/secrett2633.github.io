@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Souper-Model: How Simple Arithmetic Unlocks State-of-the-Art LLM Performance"
-excerpt: "이 [arXiv]에 게시한 'Souper-Model: How Simple Arithmetic Unlocks State-of-the-Art LLM Performance' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Souper-Model: How Simple Arithmetic Unlocks State-of-the-Art LLM Performance' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

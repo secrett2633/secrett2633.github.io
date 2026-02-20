@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Game-TARS: Pretrained Foundation Models for Scalable Generalist
   Multimodal Game Agents"
-excerpt: "이 [arXiv]에 게시한 'Game-TARS: Pretrained Foundation Models for Scalable Generalist
+excerpt: "arXiv에 게시된 'Game-TARS: Pretrained Foundation Models for Scalable Generalist
   Multimodal Game Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:

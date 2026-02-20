@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] InfiMed-ORBIT: Aligning LLMs on Open-Ended Complex Tasks via
   Rubric-Based Incremental Training"
-excerpt: "Congkai Xie이 [arXiv]에 게시한 'InfiMed-ORBIT: Aligning LLMs on Open-Ended Complex Tasks via
+excerpt: "Congkai Xie이 arXiv에 게시한 'InfiMed-ORBIT: Aligning LLMs on Open-Ended Complex Tasks via
   Rubric-Based Incremental Training' 논문에 대한 자세한 리뷰입니다."
 
 categories:

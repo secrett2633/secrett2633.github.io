@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Tree Search for LLM Agent Reinforcement Learning"
-excerpt: "Xiangxiang Chu이 [arXiv]에 게시한 'Tree Search for LLM Agent Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xiangxiang Chu이 arXiv에 게시한 'Tree Search for LLM Agent Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

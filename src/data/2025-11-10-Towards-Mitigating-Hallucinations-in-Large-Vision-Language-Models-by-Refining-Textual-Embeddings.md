@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Towards Mitigating Hallucinations in Large Vision-Language Models by Refining Textual Embeddings"
-excerpt: "Jiaxin Yuan이 [arXiv]에 게시한 'Towards Mitigating Hallucinations in Large Vision-Language Models by Refining Textual Embeddings' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jiaxin Yuan이 arXiv에 게시한 'Towards Mitigating Hallucinations in Large Vision-Language Models by Refining Textual Embeddings' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

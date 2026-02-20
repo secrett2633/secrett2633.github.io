@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SQ-format: A Unified Sparse-Quantized Hardware-friendly Data Format for LLMs"
-excerpt: "Minghui Yu이 [arXiv]에 게시한 'SQ-format: A Unified Sparse-Quantized Hardware-friendly Data Format for LLMs' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Minghui Yu이 arXiv에 게시한 'SQ-format: A Unified Sparse-Quantized Hardware-friendly Data Format for LLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Nex-N1: Agentic Models Trained via a Unified Ecosystem for Large-Scale Environment Construction"
-excerpt: "이 [arXiv]에 게시한 'Nex-N1: Agentic Models Trained via a Unified Ecosystem for Large-Scale Environment Construction' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Nex-N1: Agentic Models Trained via a Unified Ecosystem for Large-Scale Environment Construction' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] VisMem: Latent Vision Memory Unlocks Potential of Vision-Language Models"
-excerpt: "Yudong Zhang이 [arXiv]에 게시한 'VisMem: Latent Vision Memory Unlocks Potential of Vision-Language Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yudong Zhang이 arXiv에 게시한 'VisMem: Latent Vision Memory Unlocks Potential of Vision-Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

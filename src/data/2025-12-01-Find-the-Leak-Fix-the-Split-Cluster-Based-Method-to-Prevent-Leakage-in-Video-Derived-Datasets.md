@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Find the Leak, Fix the Split: Cluster-Based Method to Prevent Leakage in Video-Derived Datasets"
-excerpt: "Avishai Weizman이 [arXiv]에 게시한 'Find the Leak, Fix the Split: Cluster-Based Method to Prevent Leakage in Video-Derived Datasets' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Avishai Weizman이 arXiv에 게시한 'Find the Leak, Fix the Split: Cluster-Based Method to Prevent Leakage in Video-Derived Datasets' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

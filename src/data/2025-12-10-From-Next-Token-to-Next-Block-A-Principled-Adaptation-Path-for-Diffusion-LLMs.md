@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] From Next-Token to Next-Block: A Principled Adaptation Path for Diffusion LLMs"
-excerpt: "이 [arXiv]에 게시한 'From Next-Token to Next-Block: A Principled Adaptation Path for Diffusion LLMs' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'From Next-Token to Next-Block: A Principled Adaptation Path for Diffusion LLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

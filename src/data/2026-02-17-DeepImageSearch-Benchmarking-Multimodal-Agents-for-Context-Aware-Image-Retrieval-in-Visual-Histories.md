@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DeepImageSearch: Benchmarking Multimodal Agents for Context-Aware Image Retrieval in Visual Histories"
-excerpt: "이 [arXiv]에 게시한 'DeepImageSearch: Benchmarking Multimodal Agents for Context-Aware Image Retrieval in Visual Histories' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'DeepImageSearch: Benchmarking Multimodal Agents for Context-Aware Image Retrieval in Visual Histories' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Residual Off-Policy RL for Finetuning Behavior Cloning Policies"
-excerpt: "Pieter Abbeel이 [arXiv]에 게시한 'Residual Off-Policy RL for Finetuning Behavior Cloning Policies' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Pieter Abbeel이 arXiv에 게시한 'Residual Off-Policy RL for Finetuning Behavior Cloning Policies' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

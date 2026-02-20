@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Q-Sched: Pushing the Boundaries of Few-Step Diffusion Models with
   Quantization-Aware Scheduling"
-excerpt: "Diana Marculescu이 [arXiv]에 게시한 'Q-Sched: Pushing the Boundaries of Few-Step Diffusion Models with
+excerpt: "Diana Marculescu이 arXiv에 게시한 'Q-Sched: Pushing the Boundaries of Few-Step Diffusion Models with
   Quantization-Aware Scheduling' 논문에 대한 자세한 리뷰입니다."
 
 categories:

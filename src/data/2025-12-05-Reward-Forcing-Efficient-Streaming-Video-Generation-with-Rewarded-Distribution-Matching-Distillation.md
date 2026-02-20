@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Reward Forcing: Efficient Streaming Video Generation with Rewarded Distribution Matching Distillation"
-excerpt: "Hao Ouyang이 [arXiv]에 게시한 'Reward Forcing: Efficient Streaming Video Generation with Rewarded Distribution Matching Distillation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Hao Ouyang이 arXiv에 게시한 'Reward Forcing: Efficient Streaming Video Generation with Rewarded Distribution Matching Distillation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

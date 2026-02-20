@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] GUI Exploration Lab: Enhancing Screen Navigation in Agents via Multi-Turn Reinforcement Learning"
-excerpt: "Kaijun Tan이 [arXiv]에 게시한 'GUI Exploration Lab: Enhancing Screen Navigation in Agents via Multi-Turn Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Kaijun Tan이 arXiv에 게시한 'GUI Exploration Lab: Enhancing Screen Navigation in Agents via Multi-Turn Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

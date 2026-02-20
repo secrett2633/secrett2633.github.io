@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Embody 3D: A Large-scale Multimodal Motion and Behavior Dataset"
-excerpt: "이 [arXiv]에 게시한 'Embody 3D: A Large-scale Multimodal Motion and Behavior Dataset' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Embody 3D: A Large-scale Multimodal Motion and Behavior Dataset' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

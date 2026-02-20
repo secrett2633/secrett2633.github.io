@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Memory Matters More: Event-Centric Memory as a Logic Map for Agent Searching and Reasoning"
-excerpt: "Zhicheng Dou이 [arXiv]에 게시한 'Memory Matters More: Event-Centric Memory as a Logic Map for Agent Searching and Reasoning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zhicheng Dou이 arXiv에 게시한 'Memory Matters More: Event-Centric Memory as a Logic Map for Agent Searching and Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

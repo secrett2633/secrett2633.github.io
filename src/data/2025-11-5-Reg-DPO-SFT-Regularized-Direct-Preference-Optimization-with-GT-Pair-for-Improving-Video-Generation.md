@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Reg-DPO: SFT-Regularized Direct Preference Optimization with GT-Pair for
   Improving Video Generation"
-excerpt: "이 [arXiv]에 게시한 'Reg-DPO: SFT-Regularized Direct Preference Optimization with GT-Pair for
+excerpt: "arXiv에 게시된 'Reg-DPO: SFT-Regularized Direct Preference Optimization with GT-Pair for
   Improving Video Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

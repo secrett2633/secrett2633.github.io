@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] RGB-Only Supervised Camera Parameter Optimization in Dynamic Scenes"
-excerpt: "Narendra Ahuja이 [arXiv]에 게시한 'RGB-Only Supervised Camera Parameter Optimization in Dynamic Scenes' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Narendra Ahuja이 arXiv에 게시한 'RGB-Only Supervised Camera Parameter Optimization in Dynamic Scenes' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

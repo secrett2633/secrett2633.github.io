@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] D2E: Scaling Vision-Action Pretraining on Desktop Data for Transfer to
   Embodied AI"
-excerpt: "Haebin Seong이 [arXiv]에 게시한 'D2E: Scaling Vision-Action Pretraining on Desktop Data for Transfer to
+excerpt: "Haebin Seong이 arXiv에 게시한 'D2E: Scaling Vision-Action Pretraining on Desktop Data for Transfer to
   Embodied AI' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Deep Think with Confidence"
-excerpt: "Xuewei Wang이 [arXiv]에 게시한 'Deep Think with Confidence' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xuewei Wang이 arXiv에 게시한 'Deep Think with Confidence' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

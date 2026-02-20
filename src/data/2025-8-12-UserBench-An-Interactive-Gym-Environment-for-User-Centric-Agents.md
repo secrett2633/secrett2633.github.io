@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] UserBench: An Interactive Gym Environment for User-Centric Agents"
-excerpt: "Jianguo Zhang이 [arXiv]에 게시한 'UserBench: An Interactive Gym Environment for User-Centric Agents' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jianguo Zhang이 arXiv에 게시한 'UserBench: An Interactive Gym Environment for User-Centric Agents' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

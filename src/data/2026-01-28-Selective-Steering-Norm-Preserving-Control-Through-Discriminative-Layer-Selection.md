@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Selective Steering: Norm-Preserving Control Through Discriminative Layer Selection"
-excerpt: "이 [arXiv]에 게시한 'Selective Steering: Norm-Preserving Control Through Discriminative Layer Selection' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Selective Steering: Norm-Preserving Control Through Discriminative Layer Selection' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

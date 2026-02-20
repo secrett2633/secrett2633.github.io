@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Depth Anything 3: Recovering the Visual Space from Any Views"
-excerpt: "이 [arXiv]에 게시한 'Depth Anything 3: Recovering the Visual Space from Any Views' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Depth Anything 3: Recovering the Visual Space from Any Views' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

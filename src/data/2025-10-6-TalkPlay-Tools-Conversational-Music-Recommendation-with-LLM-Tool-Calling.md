@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] TalkPlay-Tools: Conversational Music Recommendation with LLM Tool
   Calling"
-excerpt: "Juhan Nam이 [arXiv]에 게시한 'TalkPlay-Tools: Conversational Music Recommendation with LLM Tool
+excerpt: "Juhan Nam이 arXiv에 게시한 'TalkPlay-Tools: Conversational Music Recommendation with LLM Tool
   Calling' 논문에 대한 자세한 리뷰입니다."
 
 categories:

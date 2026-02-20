@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] From Pixels to Feelings: Aligning MLLMs with Human Cognitive Perception of Images"
-excerpt: "Filippos Kokkinos이 [arXiv]에 게시한 'From Pixels to Feelings: Aligning MLLMs with Human Cognitive Perception of Images' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Filippos Kokkinos이 arXiv에 게시한 'From Pixels to Feelings: Aligning MLLMs with Human Cognitive Perception of Images' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

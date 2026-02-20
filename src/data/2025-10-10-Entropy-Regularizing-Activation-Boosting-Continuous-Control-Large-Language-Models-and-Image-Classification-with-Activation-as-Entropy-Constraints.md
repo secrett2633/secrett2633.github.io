@@ -2,7 +2,7 @@
 title: "[논문리뷰] Entropy Regularizing Activation: Boosting Continuous Control, Large
   Language Models, and Image Classification with Activation as Entropy
   Constraints"
-excerpt: "Huazhe Xu이 [arXiv]에 게시한 'Entropy Regularizing Activation: Boosting Continuous Control, Large
+excerpt: "Huazhe Xu이 arXiv에 게시한 'Entropy Regularizing Activation: Boosting Continuous Control, Large
   Language Models, and Image Classification with Activation as Entropy
   Constraints' 논문에 대한 자세한 리뷰입니다."
 

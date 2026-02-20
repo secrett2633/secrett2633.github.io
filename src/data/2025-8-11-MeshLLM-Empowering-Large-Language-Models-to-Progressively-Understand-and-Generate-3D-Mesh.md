@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MeshLLM: Empowering Large Language Models to Progressively Understand
   and Generate 3D Mesh"
-excerpt: "Yi Yang이 [arXiv]에 게시한 'MeshLLM: Empowering Large Language Models to Progressively Understand
+excerpt: "Yi Yang이 arXiv에 게시한 'MeshLLM: Empowering Large Language Models to Progressively Understand
   and Generate 3D Mesh' 논문에 대한 자세한 리뷰입니다."
 
 categories:

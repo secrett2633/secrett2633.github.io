@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] LLMs4All: A Review on Large Language Models for Research and
   Applications in Academic Disciplines"
-excerpt: "Yanfang이 [arXiv]에 게시한 'LLMs4All: A Review on Large Language Models for Research and
+excerpt: "Yanfang이 arXiv에 게시한 'LLMs4All: A Review on Large Language Models for Research and
   Applications in Academic Disciplines' 논문에 대한 자세한 리뷰입니다."
 
 categories:

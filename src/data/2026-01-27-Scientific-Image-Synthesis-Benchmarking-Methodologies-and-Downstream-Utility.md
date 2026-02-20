@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Scientific Image Synthesis: Benchmarking, Methodologies, and Downstream Utility"
-excerpt: "이 [arXiv]에 게시한 'Scientific Image Synthesis: Benchmarking, Methodologies, and Downstream Utility' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Scientific Image Synthesis: Benchmarking, Methodologies, and Downstream Utility' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

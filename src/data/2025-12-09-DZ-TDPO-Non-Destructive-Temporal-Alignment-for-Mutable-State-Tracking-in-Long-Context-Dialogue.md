@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DZ-TDPO: Non-Destructive Temporal Alignment for Mutable State Tracking in Long-Context Dialogue"
-excerpt: "YijunLiao이 [arXiv]에 게시한 'DZ-TDPO: Non-Destructive Temporal Alignment for Mutable State Tracking in Long-Context Dialogue' 논문에 대한 자세한 리뷰입니다."
+excerpt: "YijunLiao이 arXiv에 게시한 'DZ-TDPO: Non-Destructive Temporal Alignment for Mutable State Tracking in Long-Context Dialogue' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

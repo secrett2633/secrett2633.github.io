@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MetaphorStar: Image Metaphor Understanding and Reasoning with End-to-End Visual Reinforcement Learning"
-excerpt: "Hongsheng Li이 [arXiv]에 게시한 'MetaphorStar: Image Metaphor Understanding and Reasoning with End-to-End Visual Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Hongsheng Li이 arXiv에 게시한 'MetaphorStar: Image Metaphor Understanding and Reasoning with End-to-End Visual Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

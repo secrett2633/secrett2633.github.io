@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SIM-CoT: Supervised Implicit Chain-of-Thought"
-excerpt: "Yuhang Cao이 [arXiv]에 게시한 'SIM-CoT: Supervised Implicit Chain-of-Thought' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yuhang Cao이 arXiv에 게시한 'SIM-CoT: Supervised Implicit Chain-of-Thought' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

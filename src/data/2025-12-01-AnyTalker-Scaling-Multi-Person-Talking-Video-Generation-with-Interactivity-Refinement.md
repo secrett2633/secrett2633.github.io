@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] AnyTalker: Scaling Multi-Person Talking Video Generation with Interactivity Refinement"
-excerpt: "Yicheng Ji이 [arXiv]에 게시한 'AnyTalker: Scaling Multi-Person Talking Video Generation with Interactivity Refinement' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yicheng Ji이 arXiv에 게시한 'AnyTalker: Scaling Multi-Person Talking Video Generation with Interactivity Refinement' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Provable Benefits of In-Tool Learning for Large Language Models"
-excerpt: "Vivien Cabannes이 [arXiv]에 게시한 'Provable Benefits of In-Tool Learning for Large Language Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Vivien Cabannes이 arXiv에 게시한 'Provable Benefits of In-Tool Learning for Large Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

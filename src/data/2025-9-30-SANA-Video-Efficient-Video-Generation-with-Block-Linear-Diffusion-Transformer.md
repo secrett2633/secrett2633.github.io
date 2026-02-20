@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] SANA-Video: Efficient Video Generation with Block Linear Diffusion
   Transformer"
-excerpt: "이 [arXiv]에 게시한 'SANA-Video: Efficient Video Generation with Block Linear Diffusion
+excerpt: "arXiv에 게시된 'SANA-Video: Efficient Video Generation with Block Linear Diffusion
   Transformer' 논문에 대한 자세한 리뷰입니다."
 
 categories:

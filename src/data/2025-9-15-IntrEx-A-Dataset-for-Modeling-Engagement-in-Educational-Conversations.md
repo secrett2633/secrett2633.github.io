@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] IntrEx: A Dataset for Modeling Engagement in Educational Conversations"
-excerpt: "Gabriele Pergola이 [arXiv]에 게시한 'IntrEx: A Dataset for Modeling Engagement in Educational Conversations' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Gabriele Pergola이 arXiv에 게시한 'IntrEx: A Dataset for Modeling Engagement in Educational Conversations' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

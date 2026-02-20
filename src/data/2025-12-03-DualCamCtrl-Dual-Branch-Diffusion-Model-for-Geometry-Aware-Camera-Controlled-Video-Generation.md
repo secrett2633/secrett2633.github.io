@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DualCamCtrl: Dual-Branch Diffusion Model for Geometry-Aware Camera-Controlled Video Generation"
-excerpt: "Zixin Zhang이 [arXiv]에 게시한 'DualCamCtrl: Dual-Branch Diffusion Model for Geometry-Aware Camera-Controlled Video Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zixin Zhang이 arXiv에 게시한 'DualCamCtrl: Dual-Branch Diffusion Model for Geometry-Aware Camera-Controlled Video Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

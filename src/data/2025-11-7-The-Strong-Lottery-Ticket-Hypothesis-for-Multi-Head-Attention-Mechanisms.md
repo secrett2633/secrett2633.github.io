@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] The Strong Lottery Ticket Hypothesis for Multi-Head Attention Mechanisms"
-excerpt: "Susumu Takeuchi이 [arXiv]에 게시한 'The Strong Lottery Ticket Hypothesis for Multi-Head Attention Mechanisms' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Susumu Takeuchi이 arXiv에 게시한 'The Strong Lottery Ticket Hypothesis for Multi-Head Attention Mechanisms' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

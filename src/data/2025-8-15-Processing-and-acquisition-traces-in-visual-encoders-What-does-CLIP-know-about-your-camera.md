@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Processing and acquisition traces in visual encoders: What does CLIP
   know about your camera?"
-excerpt: "Giorgos Tolias이 [arXiv]에 게시한 'Processing and acquisition traces in visual encoders: What does CLIP
+excerpt: "Giorgos Tolias이 arXiv에 게시한 'Processing and acquisition traces in visual encoders: What does CLIP
   know about your camera?' 논문에 대한 자세한 리뷰입니다."
 
 categories:

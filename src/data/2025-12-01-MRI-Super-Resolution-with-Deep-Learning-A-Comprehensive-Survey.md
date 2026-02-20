@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MRI Super-Resolution with Deep Learning: A Comprehensive Survey"
-excerpt: "이 [arXiv]에 게시한 'MRI Super-Resolution with Deep Learning: A Comprehensive Survey' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'MRI Super-Resolution with Deep Learning: A Comprehensive Survey' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

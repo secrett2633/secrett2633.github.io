@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Spark: Strategic Policy-Aware Exploration via Dynamic Branching for Long-Horizon Agentic Learning"
-excerpt: "Shuai Zhang이 [arXiv]에 게시한 'Spark: Strategic Policy-Aware Exploration via Dynamic Branching for Long-Horizon Agentic Learning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Shuai Zhang이 arXiv에 게시한 'Spark: Strategic Policy-Aware Exploration via Dynamic Branching for Long-Horizon Agentic Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

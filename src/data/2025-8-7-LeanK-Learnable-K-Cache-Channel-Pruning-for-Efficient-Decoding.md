@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] LeanK: Learnable K Cache Channel Pruning for Efficient Decoding"
-excerpt: "Yuqing Yang이 [arXiv]에 게시한 'LeanK: Learnable K Cache Channel Pruning for Efficient Decoding' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yuqing Yang이 arXiv에 게시한 'LeanK: Learnable K Cache Channel Pruning for Efficient Decoding' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

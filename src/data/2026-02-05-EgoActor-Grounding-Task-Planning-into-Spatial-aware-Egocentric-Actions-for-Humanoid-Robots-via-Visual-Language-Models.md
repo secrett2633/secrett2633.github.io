@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] EgoActor: Grounding Task Planning into Spatial-aware Egocentric Actions for Humanoid Robots via Visual-Language Models"
-excerpt: "Ziyi Bai이 [arXiv]에 게시한 'EgoActor: Grounding Task Planning into Spatial-aware Egocentric Actions for Humanoid Robots via Visual-Language Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Ziyi Bai이 arXiv에 게시한 'EgoActor: Grounding Task Planning into Spatial-aware Egocentric Actions for Humanoid Robots via Visual-Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

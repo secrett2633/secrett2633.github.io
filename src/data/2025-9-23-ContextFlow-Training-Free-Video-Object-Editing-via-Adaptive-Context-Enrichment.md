@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] ContextFlow: Training-Free Video Object Editing via Adaptive Context
   Enrichment"
-excerpt: "Yue Ma이 [arXiv]에 게시한 'ContextFlow: Training-Free Video Object Editing via Adaptive Context
+excerpt: "Yue Ma이 arXiv에 게시한 'ContextFlow: Training-Free Video Object Editing via Adaptive Context
   Enrichment' 논문에 대한 자세한 리뷰입니다."
 
 categories:

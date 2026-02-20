@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] UltraHR-100K: Enhancing UHR Image Synthesis with A Large-Scale
   High-Quality Dataset"
-excerpt: "이 [arXiv]에 게시한 'UltraHR-100K: Enhancing UHR Image Synthesis with A Large-Scale
+excerpt: "arXiv에 게시된 'UltraHR-100K: Enhancing UHR Image Synthesis with A Large-Scale
   High-Quality Dataset' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] ToonComposer: Streamlining Cartoon Production with Generative
   Post-Keyframing"
-excerpt: "Xiaoyu Li이 [arXiv]에 게시한 'ToonComposer: Streamlining Cartoon Production with Generative
+excerpt: "Xiaoyu Li이 arXiv에 게시한 'ToonComposer: Streamlining Cartoon Production with Generative
   Post-Keyframing' 논문에 대한 자세한 리뷰입니다."
 
 categories:

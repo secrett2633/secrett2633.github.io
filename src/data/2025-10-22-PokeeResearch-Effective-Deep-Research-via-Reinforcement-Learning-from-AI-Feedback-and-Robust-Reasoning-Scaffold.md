@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] PokeeResearch: Effective Deep Research via Reinforcement Learning from
   AI Feedback and Robust Reasoning Scaffold"
-excerpt: "이 [arXiv]에 게시한 'PokeeResearch: Effective Deep Research via Reinforcement Learning from
+excerpt: "arXiv에 게시된 'PokeeResearch: Effective Deep Research via Reinforcement Learning from
   AI Feedback and Robust Reasoning Scaffold' 논문에 대한 자세한 리뷰입니다."
 
 categories:

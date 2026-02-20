@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Recycling Pretrained Checkpoints: Orthogonal Growth of
   Mixture-of-Experts for Efficient Large Language Model Pre-Training"
-excerpt: "Peng Cheng이 [arXiv]에 게시한 'Recycling Pretrained Checkpoints: Orthogonal Growth of
+excerpt: "Peng Cheng이 arXiv에 게시한 'Recycling Pretrained Checkpoints: Orthogonal Growth of
   Mixture-of-Experts for Efficient Large Language Model Pre-Training' 논문에 대한 자세한 리뷰입니다."
 
 categories:

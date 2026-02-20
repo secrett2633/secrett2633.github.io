@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Superpositional Gradient Descent: Harnessing Quantum Principles for   Model Training"
-excerpt: "suayptalha이 [arXiv]에 게시한 'Superpositional Gradient Descent: Harnessing Quantum Principles for   Model Training' 논문에 대한 자세한 리뷰입니다."
+excerpt: "suayptalha이 arXiv에 게시한 'Superpositional Gradient Descent: Harnessing Quantum Principles for   Model Training' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

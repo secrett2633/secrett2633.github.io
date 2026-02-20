@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DiffCoT: Diffusion-styled Chain-of-Thought Reasoning in LLMs"
-excerpt: "Jing Ma이 [arXiv]에 게시한 'DiffCoT: Diffusion-styled Chain-of-Thought Reasoning in LLMs' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jing Ma이 arXiv에 게시한 'DiffCoT: Diffusion-styled Chain-of-Thought Reasoning in LLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

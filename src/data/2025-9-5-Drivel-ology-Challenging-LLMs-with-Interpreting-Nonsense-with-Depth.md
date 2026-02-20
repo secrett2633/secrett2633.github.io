@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Drivel-ology: Challenging LLMs with Interpreting Nonsense with Depth"
-excerpt: "Chi-Li Chen이 [arXiv]에 게시한 'Drivel-ology: Challenging LLMs with Interpreting Nonsense with Depth' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Chi-Li Chen이 arXiv에 게시한 'Drivel-ology: Challenging LLMs with Interpreting Nonsense with Depth' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

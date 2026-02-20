@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] F1: A Vision-Language-Action Model Bridging Understanding and Generation
   to Actions"
-excerpt: "Zherui Qiu이 [arXiv]에 게시한 'F1: A Vision-Language-Action Model Bridging Understanding and Generation
+excerpt: "Zherui Qiu이 arXiv에 게시한 'F1: A Vision-Language-Action Model Bridging Understanding and Generation
   to Actions' 논문에 대한 자세한 리뷰입니다."
 
 categories:

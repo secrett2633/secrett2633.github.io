@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Fact2Fiction: Targeted Poisoning Attack to Agentic Fact-checking System"
-excerpt: "Reynold Cheng이 [arXiv]에 게시한 'Fact2Fiction: Targeted Poisoning Attack to Agentic Fact-checking System' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Reynold Cheng이 arXiv에 게시한 'Fact2Fiction: Targeted Poisoning Attack to Agentic Fact-checking System' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

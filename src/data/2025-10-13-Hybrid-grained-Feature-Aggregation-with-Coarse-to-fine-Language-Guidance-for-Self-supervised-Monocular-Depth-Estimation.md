@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Hybrid-grained Feature Aggregation with Coarse-to-fine Language Guidance
   for Self-supervised Monocular Depth Estimation"
-excerpt: "Zekun Qi이 [arXiv]에 게시한 'Hybrid-grained Feature Aggregation with Coarse-to-fine Language Guidance
+excerpt: "Zekun Qi이 arXiv에 게시한 'Hybrid-grained Feature Aggregation with Coarse-to-fine Language Guidance
   for Self-supervised Monocular Depth Estimation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

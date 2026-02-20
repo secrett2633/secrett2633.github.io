@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] STAR-Bench: Probing Deep Spatio-Temporal Reasoning as Audio 4D
   Intelligence"
-excerpt: "이 [arXiv]에 게시한 'STAR-Bench: Probing Deep Spatio-Temporal Reasoning as Audio 4D
+excerpt: "arXiv에 게시된 'STAR-Bench: Probing Deep Spatio-Temporal Reasoning as Audio 4D
   Intelligence' 논문에 대한 자세한 리뷰입니다."
 
 categories:

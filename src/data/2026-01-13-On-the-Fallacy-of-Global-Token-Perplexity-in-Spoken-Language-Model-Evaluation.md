@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] On the Fallacy of Global Token Perplexity in Spoken Language Model Evaluation"
-excerpt: "Ju-Chieh Chou이 [arXiv]에 게시한 'On the Fallacy of Global Token Perplexity in Spoken Language Model Evaluation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Ju-Chieh Chou이 arXiv에 게시한 'On the Fallacy of Global Token Perplexity in Spoken Language Model Evaluation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

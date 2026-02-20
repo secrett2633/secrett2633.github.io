@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] CRISP: Persistent Concept Unlearning via Sparse Autoencoders"
-excerpt: "Yonatan Belinkov이 [arXiv]에 게시한 'CRISP: Persistent Concept Unlearning via Sparse Autoencoders' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yonatan Belinkov이 arXiv에 게시한 'CRISP: Persistent Concept Unlearning via Sparse Autoencoders' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] VQRAE: Representation Quantization Autoencoders for Multimodal Understanding, Generation and Reconstruction"
-excerpt: "이 [arXiv]에 게시한 'VQRAE: Representation Quantization Autoencoders for Multimodal Understanding, Generation and Reconstruction' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'VQRAE: Representation Quantization Autoencoders for Multimodal Understanding, Generation and Reconstruction' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

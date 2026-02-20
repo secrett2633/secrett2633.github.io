@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Sci-CoE: Co-evolving Scientific Reasoning LLMs via Geometric Consensus with Sparse Supervision"
-excerpt: "이 [arXiv]에 게시한 'Sci-CoE: Co-evolving Scientific Reasoning LLMs via Geometric Consensus with Sparse Supervision' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Sci-CoE: Co-evolving Scientific Reasoning LLMs via Geometric Consensus with Sparse Supervision' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

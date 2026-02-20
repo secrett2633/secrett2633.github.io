@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] C-DiffDet+: Fusing Global Scene Context with Generative Denoising for
   High-Fidelity Object Detection"
-excerpt: "Vito Renó이 [arXiv]에 게시한 'C-DiffDet+: Fusing Global Scene Context with Generative Denoising for
+excerpt: "Vito Renó이 arXiv에 게시한 'C-DiffDet+: Fusing Global Scene Context with Generative Denoising for
   High-Fidelity Object Detection' 논문에 대한 자세한 리뷰입니다."
 
 categories:

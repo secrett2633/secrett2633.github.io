@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Quantile Advantage Estimation for Entropy-Safe Reasoning"
-excerpt: "An Zhang이 [arXiv]에 게시한 'Quantile Advantage Estimation for Entropy-Safe Reasoning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "An Zhang이 arXiv에 게시한 'Quantile Advantage Estimation for Entropy-Safe Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

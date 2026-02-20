@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Sel3DCraft: Interactive Visual Prompts for User-Friendly Text-to-3D
   Generation"
-excerpt: "Hao Huang이 [arXiv]에 게시한 'Sel3DCraft: Interactive Visual Prompts for User-Friendly Text-to-3D
+excerpt: "Hao Huang이 arXiv에 게시한 'Sel3DCraft: Interactive Visual Prompts for User-Friendly Text-to-3D
   Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Zooming without Zooming: Region-to-Image Distillation for Fine-Grained Multimodal Perception"
-excerpt: "이 [arXiv]에 게시한 'Zooming without Zooming: Region-to-Image Distillation for Fine-Grained Multimodal Perception' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Zooming without Zooming: Region-to-Image Distillation for Fine-Grained Multimodal Perception' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Learn the Ropes, Then Trust the Wins: Self-imitation with Progressive
   Exploration for Agentic Reinforcement Learning"
-excerpt: "Gang Li이 [arXiv]에 게시한 'Learn the Ropes, Then Trust the Wins: Self-imitation with Progressive
+excerpt: "Gang Li이 arXiv에 게시한 'Learn the Ropes, Then Trust the Wins: Self-imitation with Progressive
   Exploration for Agentic Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

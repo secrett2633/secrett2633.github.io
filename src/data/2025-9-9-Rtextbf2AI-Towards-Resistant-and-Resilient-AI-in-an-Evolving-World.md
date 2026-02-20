@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] R^textbf{2AI}: Towards Resistant and Resilient AI in an
   Evolving World"
-excerpt: "Bowen Zhou이 [arXiv]에 게시한 'R^textbf{2AI}: Towards Resistant and Resilient AI in an
+excerpt: "Bowen Zhou이 arXiv에 게시한 'R^textbf{2AI}: Towards Resistant and Resilient AI in an
   Evolving World' 논문에 대한 자세한 리뷰입니다."
 
 categories:

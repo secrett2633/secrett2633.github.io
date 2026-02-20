@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] VaseVQA: Multimodal Agent and Benchmark for Ancient Greek Pottery"
-excerpt: "Shiya Huang이 [arXiv]에 게시한 'VaseVQA: Multimodal Agent and Benchmark for Ancient Greek Pottery' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Shiya Huang이 arXiv에 게시한 'VaseVQA: Multimodal Agent and Benchmark for Ancient Greek Pottery' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

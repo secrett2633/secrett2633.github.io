@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Does DINOv3 Set a New Medical Vision Standard?"
-excerpt: "Bailiang Jian이 [arXiv]에 게시한 'Does DINOv3 Set a New Medical Vision Standard?' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Bailiang Jian이 arXiv에 게시한 'Does DINOv3 Set a New Medical Vision Standard?' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

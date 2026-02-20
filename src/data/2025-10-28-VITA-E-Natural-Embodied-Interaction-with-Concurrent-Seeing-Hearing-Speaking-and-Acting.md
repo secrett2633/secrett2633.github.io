@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] VITA-E: Natural Embodied Interaction with Concurrent Seeing, Hearing,
   Speaking, and Acting"
-excerpt: "Haihan Gao이 [arXiv]에 게시한 'VITA-E: Natural Embodied Interaction with Concurrent Seeing, Hearing,
+excerpt: "Haihan Gao이 arXiv에 게시한 'VITA-E: Natural Embodied Interaction with Concurrent Seeing, Hearing,
   Speaking, and Acting' 논문에 대한 자세한 리뷰입니다."
 
 categories:

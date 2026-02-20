@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] STEP3-VL-10B Technical Report"
-excerpt: "이 [arXiv]에 게시한 'STEP3-VL-10B Technical Report' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'STEP3-VL-10B Technical Report' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

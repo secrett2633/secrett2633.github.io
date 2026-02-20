@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Evolving Language Models without Labels: Majority Drives Selection,
   Novelty Promotes Variation"
-excerpt: "Kishan Panaganti이 [arXiv]에 게시한 'Evolving Language Models without Labels: Majority Drives Selection,
+excerpt: "Kishan Panaganti이 arXiv에 게시한 'Evolving Language Models without Labels: Majority Drives Selection,
   Novelty Promotes Variation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

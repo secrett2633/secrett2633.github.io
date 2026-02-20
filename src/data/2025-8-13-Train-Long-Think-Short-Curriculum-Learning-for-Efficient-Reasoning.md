@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Train Long, Think Short: Curriculum Learning for Efficient Reasoning"
-excerpt: "Marzyeh Ghassemi이 [arXiv]에 게시한 'Train Long, Think Short: Curriculum Learning for Efficient Reasoning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Marzyeh Ghassemi이 arXiv에 게시한 'Train Long, Think Short: Curriculum Learning for Efficient Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

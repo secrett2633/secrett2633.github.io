@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] End-to-End Agentic RAG System Training for Traceable Diagnostic
   Reasoning"
-excerpt: "Pengcheng Qiu이 [arXiv]에 게시한 'End-to-End Agentic RAG System Training for Traceable Diagnostic
+excerpt: "Pengcheng Qiu이 arXiv에 게시한 'End-to-End Agentic RAG System Training for Traceable Diagnostic
   Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:

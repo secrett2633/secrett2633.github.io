@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Probing Scientific General Intelligence of LLMs with Scientist-Aligned Workflows"
-excerpt: "Yuhao Zhou이 [arXiv]에 게시한 'Probing Scientific General Intelligence of LLMs with Scientist-Aligned Workflows' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yuhao Zhou이 arXiv에 게시한 'Probing Scientific General Intelligence of LLMs with Scientist-Aligned Workflows' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

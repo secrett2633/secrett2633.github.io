@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] AdaGaR: Adaptive Gabor Representation for Dynamic Scene Reconstruction"
-excerpt: "Yu-Lun Liu이 [arXiv]에 게시한 'AdaGaR: Adaptive Gabor Representation for Dynamic Scene Reconstruction' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yu-Lun Liu이 arXiv에 게시한 'AdaGaR: Adaptive Gabor Representation for Dynamic Scene Reconstruction' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

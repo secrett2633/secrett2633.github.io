@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MOSEv2: A More Challenging Dataset for Video Object Segmentation in
   Complex Scenes"
-excerpt: "Xudong Jiang이 [arXiv]에 게시한 'MOSEv2: A More Challenging Dataset for Video Object Segmentation in
+excerpt: "Xudong Jiang이 arXiv에 게시한 'MOSEv2: A More Challenging Dataset for Video Object Segmentation in
   Complex Scenes' 논문에 대한 자세한 리뷰입니다."
 
 categories:

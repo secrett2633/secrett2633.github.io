@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Medical SAM3: A Foundation Model for Universal Prompt-Driven Medical Image Segmentation"
-excerpt: "Ziyang Yan이 [arXiv]에 게시한 'Medical SAM3: A Foundation Model for Universal Prompt-Driven Medical Image Segmentation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Ziyang Yan이 arXiv에 게시한 'Medical SAM3: A Foundation Model for Universal Prompt-Driven Medical Image Segmentation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

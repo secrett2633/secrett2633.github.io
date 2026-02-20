@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Grounding Computer Use Agents on Human Demonstrations"
-excerpt: "이 [arXiv]에 게시한 'Grounding Computer Use Agents on Human Demonstrations' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Grounding Computer Use Agents on Human Demonstrations' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

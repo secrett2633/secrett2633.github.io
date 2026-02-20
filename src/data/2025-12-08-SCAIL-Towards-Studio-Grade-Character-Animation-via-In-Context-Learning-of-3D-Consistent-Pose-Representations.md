@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SCAIL: Towards Studio-Grade Character Animation via In-Context Learning of 3D-Consistent Pose Representations"
-excerpt: "이 [arXiv]에 게시한 'SCAIL: Towards Studio-Grade Character Animation via In-Context Learning of 3D-Consistent Pose Representations' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'SCAIL: Towards Studio-Grade Character Animation via In-Context Learning of 3D-Consistent Pose Representations' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

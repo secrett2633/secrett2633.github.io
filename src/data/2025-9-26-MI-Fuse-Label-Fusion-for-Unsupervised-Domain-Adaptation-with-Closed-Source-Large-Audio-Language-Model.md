@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MI-Fuse: Label Fusion for Unsupervised Domain Adaptation with
   Closed-Source Large-Audio Language Model"
-excerpt: "Hung-yi Lee이 [arXiv]에 게시한 'MI-Fuse: Label Fusion for Unsupervised Domain Adaptation with
+excerpt: "Hung-yi Lee이 arXiv에 게시한 'MI-Fuse: Label Fusion for Unsupervised Domain Adaptation with
   Closed-Source Large-Audio Language Model' 논문에 대한 자세한 리뷰입니다."
 
 categories:

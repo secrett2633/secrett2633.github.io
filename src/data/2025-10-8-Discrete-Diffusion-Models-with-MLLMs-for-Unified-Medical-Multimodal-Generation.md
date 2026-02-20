@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Discrete Diffusion Models with MLLMs for Unified Medical Multimodal
   Generation"
-excerpt: "이 [arXiv]에 게시한 'Discrete Diffusion Models with MLLMs for Unified Medical Multimodal
+excerpt: "arXiv에 게시된 'Discrete Diffusion Models with MLLMs for Unified Medical Multimodal
   Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

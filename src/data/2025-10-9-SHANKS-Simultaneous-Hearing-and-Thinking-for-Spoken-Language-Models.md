@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SHANKS: Simultaneous Hearing and Thinking for Spoken Language Models"
-excerpt: "Kevin Lin이 [arXiv]에 게시한 'SHANKS: Simultaneous Hearing and Thinking for Spoken Language Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Kevin Lin이 arXiv에 게시한 'SHANKS: Simultaneous Hearing and Thinking for Spoken Language Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

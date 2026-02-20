@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Reinforced Visual Perception with Tools"
-excerpt: "Mingyang Fu이 [arXiv]에 게시한 'Reinforced Visual Perception with Tools' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Mingyang Fu이 arXiv에 게시한 'Reinforced Visual Perception with Tools' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

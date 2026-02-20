@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Qwen3-Omni Technical Report"
-excerpt: "Lhma-aslp이 [arXiv]에 게시한 'Qwen3-Omni Technical Report' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Lhma-aslp이 arXiv에 게시한 'Qwen3-Omni Technical Report' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

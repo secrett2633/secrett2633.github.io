@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] RoboMemory: A Brain-inspired Multi-memory Agentic Framework for Lifelong
   Learning in Physical Embodied Systems"
-excerpt: "Junkun Hong이 [arXiv]에 게시한 'RoboMemory: A Brain-inspired Multi-memory Agentic Framework for Lifelong
+excerpt: "Junkun Hong이 arXiv에 게시한 'RoboMemory: A Brain-inspired Multi-memory Agentic Framework for Lifelong
   Learning in Physical Embodied Systems' 논문에 대한 자세한 리뷰입니다."
 
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Optimal Brain Restoration for Joint Quantization and Sparsification of
   LLMs"
-excerpt: "Luca Benini이 [arXiv]에 게시한 'Optimal Brain Restoration for Joint Quantization and Sparsification of
+excerpt: "Luca Benini이 arXiv에 게시한 'Optimal Brain Restoration for Joint Quantization and Sparsification of
   LLMs' 논문에 대한 자세한 리뷰입니다."
 
 categories:

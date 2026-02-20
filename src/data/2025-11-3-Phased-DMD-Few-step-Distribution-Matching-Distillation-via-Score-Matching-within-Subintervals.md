@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Phased DMD: Few-step Distribution Matching Distillation via Score
   Matching within Subintervals"
-excerpt: "이 [arXiv]에 게시한 'Phased DMD: Few-step Distribution Matching Distillation via Score
+excerpt: "arXiv에 게시된 'Phased DMD: Few-step Distribution Matching Distillation via Score
   Matching within Subintervals' 논문에 대한 자세한 리뷰입니다."
 
 categories:

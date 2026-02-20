@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Build Your Personalized Research Group: A Multiagent Framework for
   Continual and Interactive Science Automation"
-excerpt: "Cat Yan이 [arXiv]에 게시한 'Build Your Personalized Research Group: A Multiagent Framework for
+excerpt: "Cat Yan이 arXiv에 게시한 'Build Your Personalized Research Group: A Multiagent Framework for
   Continual and Interactive Science Automation' 논문에 대한 자세한 리뷰입니다."
 
 categories:

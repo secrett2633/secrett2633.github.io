@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] InstructX: Towards Unified Visual Editing with MLLM Guidance"
-excerpt: "Xinghui Li이 [arXiv]에 게시한 'InstructX: Towards Unified Visual Editing with MLLM Guidance' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xinghui Li이 arXiv에 게시한 'InstructX: Towards Unified Visual Editing with MLLM Guidance' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

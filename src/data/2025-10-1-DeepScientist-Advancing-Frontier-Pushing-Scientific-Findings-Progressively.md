@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] DeepScientist: Advancing Frontier-Pushing Scientific Findings
   Progressively"
-excerpt: "이 [arXiv]에 게시한 'DeepScientist: Advancing Frontier-Pushing Scientific Findings
+excerpt: "arXiv에 게시된 'DeepScientist: Advancing Frontier-Pushing Scientific Findings
   Progressively' 논문에 대한 자세한 리뷰입니다."
 
 categories:

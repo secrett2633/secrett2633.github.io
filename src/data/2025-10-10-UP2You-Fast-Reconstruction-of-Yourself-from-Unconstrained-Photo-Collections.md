@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] UP2You: Fast Reconstruction of Yourself from Unconstrained Photo
   Collections"
-excerpt: "Boqian Li이 [arXiv]에 게시한 'UP2You: Fast Reconstruction of Yourself from Unconstrained Photo
+excerpt: "Boqian Li이 arXiv에 게시한 'UP2You: Fast Reconstruction of Yourself from Unconstrained Photo
   Collections' 논문에 대한 자세한 리뷰입니다."
 
 categories:

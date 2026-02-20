@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Beyond Fact Retrieval: Episodic Memory for RAG with Generative Semantic Workspaces"
-excerpt: "Vwani Roychowdhury이 [arXiv]에 게시한 'Beyond Fact Retrieval: Episodic Memory for RAG with Generative Semantic Workspaces' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Vwani Roychowdhury이 arXiv에 게시한 'Beyond Fact Retrieval: Episodic Memory for RAG with Generative Semantic Workspaces' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

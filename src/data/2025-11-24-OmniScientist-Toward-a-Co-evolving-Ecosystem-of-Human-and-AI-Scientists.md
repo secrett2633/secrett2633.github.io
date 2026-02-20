@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] OmniScientist: Toward a Co-evolving Ecosystem of Human and AI Scientists"
-excerpt: "Weiquan Lin이 [arXiv]에 게시한 'OmniScientist: Toward a Co-evolving Ecosystem of Human and AI Scientists' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Weiquan Lin이 arXiv에 게시한 'OmniScientist: Toward a Co-evolving Ecosystem of Human and AI Scientists' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] M-ErasureBench: A Comprehensive Multimodal Evaluation Benchmark for Concept Erasure in Diffusion Models"
-excerpt: "Jun-Cheng Chen이 [arXiv]에 게시한 'M-ErasureBench: A Comprehensive Multimodal Evaluation Benchmark for Concept Erasure in Diffusion Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jun-Cheng Chen이 arXiv에 게시한 'M-ErasureBench: A Comprehensive Multimodal Evaluation Benchmark for Concept Erasure in Diffusion Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

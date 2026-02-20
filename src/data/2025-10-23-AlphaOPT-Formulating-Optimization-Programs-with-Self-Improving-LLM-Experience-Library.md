@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] AlphaOPT: Formulating Optimization Programs with Self-Improving LLM
   Experience Library"
-excerpt: "Chonghe Jiang이 [arXiv]에 게시한 'AlphaOPT: Formulating Optimization Programs with Self-Improving LLM
+excerpt: "Chonghe Jiang이 arXiv에 게시한 'AlphaOPT: Formulating Optimization Programs with Self-Improving LLM
   Experience Library' 논문에 대한 자세한 리뷰입니다."
 
 categories:

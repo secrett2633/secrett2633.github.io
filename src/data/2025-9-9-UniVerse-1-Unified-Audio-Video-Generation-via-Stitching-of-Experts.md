@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] UniVerse-1: Unified Audio-Video Generation via Stitching of Experts"
-excerpt: "Xinyao Liao이 [arXiv]에 게시한 'UniVerse-1: Unified Audio-Video Generation via Stitching of Experts' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xinyao Liao이 arXiv에 게시한 'UniVerse-1: Unified Audio-Video Generation via Stitching of Experts' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

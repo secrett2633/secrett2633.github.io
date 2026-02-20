@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] MiniCPM-V 4.5: Cooking Efficient MLLMs via Architecture, Data, and
   Training Recipe"
-excerpt: "Wenshuo Ma이 [arXiv]에 게시한 'MiniCPM-V 4.5: Cooking Efficient MLLMs via Architecture, Data, and
+excerpt: "Wenshuo Ma이 arXiv에 게시한 'MiniCPM-V 4.5: Cooking Efficient MLLMs via Architecture, Data, and
   Training Recipe' 논문에 대한 자세한 리뷰입니다."
 
 categories:

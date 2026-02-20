@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Interactive Recommendation Agent with Active User Commands"
-excerpt: "Xueyang Feng이 [arXiv]에 게시한 'Interactive Recommendation Agent with Active User Commands' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xueyang Feng이 arXiv에 게시한 'Interactive Recommendation Agent with Active User Commands' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

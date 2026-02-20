@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] I2CR: Intra- and Inter-modal Collaborative Reflections for Multimodal
   Entity Linking"
-excerpt: "Chao Wang이 [arXiv]에 게시한 'I2CR: Intra- and Inter-modal Collaborative Reflections for Multimodal
+excerpt: "Chao Wang이 arXiv에 게시한 'I2CR: Intra- and Inter-modal Collaborative Reflections for Multimodal
   Entity Linking' 논문에 대한 자세한 리뷰입니다."
 
 categories:

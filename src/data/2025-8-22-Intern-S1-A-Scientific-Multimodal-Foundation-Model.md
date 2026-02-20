@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Intern-S1: A Scientific Multimodal Foundation Model"
-excerpt: "xuhuang87이 [arXiv]에 게시한 'Intern-S1: A Scientific Multimodal Foundation Model' 논문에 대한 자세한 리뷰입니다."
+excerpt: "xuhuang87이 arXiv에 게시한 'Intern-S1: A Scientific Multimodal Foundation Model' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

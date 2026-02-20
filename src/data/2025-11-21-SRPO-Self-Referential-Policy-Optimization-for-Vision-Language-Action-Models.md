@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SRPO: Self-Referential Policy Optimization for Vision-Language-Action Models"
-excerpt: "이 [arXiv]에 게시한 'SRPO: Self-Referential Policy Optimization for Vision-Language-Action Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'SRPO: Self-Referential Policy Optimization for Vision-Language-Action Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

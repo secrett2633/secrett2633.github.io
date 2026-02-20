@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] Free Lunch Alignment of Text-to-Image Diffusion Models without
   Preference Image Pairs"
-excerpt: "이 [arXiv]에 게시한 'Free Lunch Alignment of Text-to-Image Diffusion Models without
+excerpt: "arXiv에 게시된 'Free Lunch Alignment of Text-to-Image Diffusion Models without
   Preference Image Pairs' 논문에 대한 자세한 리뷰입니다."
 
 categories:

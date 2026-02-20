@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Can World Simulators Reason? Gen-ViRe: A Generative Visual Reasoning Benchmark"
-excerpt: "Yuzhang Shang이 [arXiv]에 게시한 'Can World Simulators Reason? Gen-ViRe: A Generative Visual Reasoning Benchmark' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yuzhang Shang이 arXiv에 게시한 'Can World Simulators Reason? Gen-ViRe: A Generative Visual Reasoning Benchmark' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

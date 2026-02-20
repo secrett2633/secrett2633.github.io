@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] RAISECity: A Multimodal Agent Framework for Reality-Aligned 3D World Generation at City-Scale"
-excerpt: "Yangcheng Yu이 [arXiv]에 게시한 'RAISECity: A Multimodal Agent Framework for Reality-Aligned 3D World Generation at City-Scale' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yangcheng Yu이 arXiv에 게시한 'RAISECity: A Multimodal Agent Framework for Reality-Aligned 3D World Generation at City-Scale' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

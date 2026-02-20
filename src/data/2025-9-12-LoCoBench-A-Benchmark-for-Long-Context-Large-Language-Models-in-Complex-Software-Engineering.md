@@ -1,7 +1,7 @@
 ---
 title: "[논문리뷰] LoCoBench: A Benchmark for Long-Context Large Language Models in Complex
   Software Engineering"
-excerpt: "Jianguo Zhang이 [arXiv]에 게시한 'LoCoBench: A Benchmark for Long-Context Large Language Models in Complex
+excerpt: "Jianguo Zhang이 arXiv에 게시한 'LoCoBench: A Benchmark for Long-Context Large Language Models in Complex
   Software Engineering' 논문에 대한 자세한 리뷰입니다."
 
 categories:

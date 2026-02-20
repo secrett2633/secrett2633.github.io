@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MajutsuCity: Language-driven Aesthetic-adaptive City Generation with Controllable 3D Assets and Layouts"
-excerpt: "이 [arXiv]에 게시한 'MajutsuCity: Language-driven Aesthetic-adaptive City Generation with Controllable 3D Assets and Layouts' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'MajutsuCity: Language-driven Aesthetic-adaptive City Generation with Controllable 3D Assets and Layouts' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review
