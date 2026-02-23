@@ -20,6 +20,15 @@ async function loadSearchIndex(): Promise<ClientPostData[]> {
   return cachedData!
 }
 
+function parseDate(dateStr: string): number {
+  // +0900+0900 같은 중복 타임존 제거 및 ISO 8601 형식으로 정규화
+  const normalized = dateStr
+    .replace(/(\+\d{4})\1+/, '$1')
+    .replace(/^(\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}:\d{2})/, '$1T$2')
+  const ts = new Date(normalized).getTime()
+  return isNaN(ts) ? 0 : ts
+}
+
 export async function searchPosts(query: string): Promise<ClientPostData[]> {
   if (!query.trim()) return []
 
@@ -42,7 +51,5 @@ export async function searchPosts(query: string): Promise<ClientPostData[]> {
     )
   }
 
-  return results.sort((a, b) =>
-    new Date(b.date).getTime() - new Date(a.date).getTime()
-  )
+  return results.sort((a, b) => parseDate(b.date) - parseDate(a.date))
 }

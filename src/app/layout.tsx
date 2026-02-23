@@ -81,6 +81,9 @@ export default function RootLayout({
   return (
     <html lang="ko" className="no-js">
       <head>
+        <Script id="canonical-redirect" strategy="beforeInteractive">
+          {`(function(){var p=window.location.pathname,h=window.location.host,s=window.location.search,f=window.location.hash,n=p,c=false;if(n!=='/'&&n.endsWith('/')){n=n.slice(0,-1);c=true;}if(window.location.protocol==='http:'){c=true;}if(c){window.location.replace('https://'+h+n+s+f);}})();`}
+        </Script>
         <meta name="msapplication-TileColor" content="#ffc40d" />
         <meta name="theme-color" content="#ffffff" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />

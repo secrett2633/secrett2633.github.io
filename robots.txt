@@ -1,3 +1,8 @@
 User-agent: *
 Allow: /
+
+# Block pagination pages (duplicate content)
+Disallow: /page/
+Disallow: /*/page/
+
 Sitemap: https://blog.secrett2633.cloud/sitemap.xml

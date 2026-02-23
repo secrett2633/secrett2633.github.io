@@ -6,6 +6,16 @@ const postsDirectory = path.join(process.cwd(), 'src', 'data')
 const outputJsonPath = path.join(process.cwd(), 'public', 'search-index.json')
 const outputTsPath = path.join(process.cwd(), 'src', 'lib', 'clientPosts.ts')
 
+function normalizeDate(dateValue) {
+  if (!dateValue) return new Date().toISOString()
+  let dateStr = dateValue instanceof Date ? dateValue.toISOString() : String(dateValue)
+  // +0900+0900 같은 중복 타임존 제거
+  dateStr = dateStr.replace(/(\+\d{4})\1+/, '$1')
+  // 날짜와 시간 사이 공백을 T로 변환 (ISO 8601 호환)
+  dateStr = dateStr.replace(/^(\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}:\d{2})/, '$1T$2')
+  return dateStr
+}
+
 async function generateSearchData() {
   try {
     const fileNames = fs.readdirSync(postsDirectory)
@@ -33,12 +43,15 @@ async function generateSearchData() {
         id,
         title: matterResult.data.title || 'Untitled',
         excerpt: matterResult.data.excerpt || '',
-        date: matterResult.data.date || new Date().toISOString(),
+        date: normalizeDate(matterResult.data.date),
         permalink: (matterResult.data.permalink || `/${id}`).replace(/\/$/, ''),
         tags: Array.isArray(matterResult.data.tags) ? matterResult.data.tags.flat().filter(t => typeof t === 'string') : [],
         text: plainText,
       })
     }
+
+    // 날짜 내림차순 정렬 (최신 포스트가 먼저)
+    searchData.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
     // JSON 파일로 public에 저장 (on-demand 로딩용)
     fs.writeFileSync(outputJsonPath, JSON.stringify(searchData))
@@ -67,6 +80,15 @@ async function loadSearchIndex(): Promise<ClientPostData[]> {
   return cachedData!
 }
 
+function parseDate(dateStr: string): number {
+  // +0900+0900 같은 중복 타임존 제거 및 ISO 8601 형식으로 정규화
+  const normalized = dateStr
+    .replace(/(\\+\\d{4})\\1+/, '$1')
+    .replace(/^(\\d{4}-\\d{2}-\\d{2}) (\\d{2}:\\d{2}:\\d{2})/, '$1T$2')
+  const ts = new Date(normalized).getTime()
+  return isNaN(ts) ? 0 : ts
+}
+
 export async function searchPosts(query: string): Promise<ClientPostData[]> {
   if (!query.trim()) return []
 
@@ -89,9 +111,7 @@ export async function searchPosts(query: string): Promise<ClientPostData[]> {
     )
   }
 
-  return results.sort((a, b) =>
-    new Date(b.date).getTime() - new Date(a.date).getTime()
-  )
+  return results.sort((a, b) => parseDate(b.date) - parseDate(a.date))
 }
 `
 
