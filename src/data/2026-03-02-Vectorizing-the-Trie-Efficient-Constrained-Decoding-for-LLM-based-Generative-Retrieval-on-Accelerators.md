@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Vectorizing the Trie: Efficient Constrained Decoding for LLM-based Generative Retrieval on Accelerators"
-excerpt: "Lukasz Heldt이 [arXiv]에 게시한 'Vectorizing the Trie: Efficient Constrained Decoding for LLM-based Generative Retrieval on Accelerators' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Lukasz Heldt이 arXiv에 게시한 'Vectorizing the Trie: Efficient Constrained Decoding for LLM-based Generative Retrieval on Accelerators' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

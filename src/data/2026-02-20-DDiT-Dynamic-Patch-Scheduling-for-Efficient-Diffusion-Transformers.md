@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DDiT: Dynamic Patch Scheduling for Efficient Diffusion Transformers"
-excerpt: "Deepti Ghadiyaram이 [arXiv]에 게시한 'DDiT: Dynamic Patch Scheduling for Efficient Diffusion Transformers' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Deepti Ghadiyaram이 arXiv에 게시한 'DDiT: Dynamic Patch Scheduling for Efficient Diffusion Transformers' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

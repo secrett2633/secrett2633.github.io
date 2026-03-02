@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] AAVGen: Precision Engineering of Adeno-associated Viral Capsids for Renal Selective Targeting"
-excerpt: "Yousof Gheisari이 [arXiv]에 게시한 'AAVGen: Precision Engineering of Adeno-associated Viral Capsids for Renal Selective Targeting' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Yousof Gheisari이 arXiv에 게시한 'AAVGen: Precision Engineering of Adeno-associated Viral Capsids for Renal Selective Targeting' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

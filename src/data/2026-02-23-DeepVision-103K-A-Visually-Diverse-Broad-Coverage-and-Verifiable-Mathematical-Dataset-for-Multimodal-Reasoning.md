@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DeepVision-103K: A Visually Diverse, Broad-Coverage, and Verifiable Mathematical Dataset for Multimodal Reasoning"
-excerpt: "Wei Wang이 [arXiv]에 게시한 'DeepVision-103K: A Visually Diverse, Broad-Coverage, and Verifiable Mathematical Dataset for Multimodal Reasoning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Wei Wang이 arXiv에 게시한 'DeepVision-103K: A Visually Diverse, Broad-Coverage, and Verifiable Mathematical Dataset for Multimodal Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

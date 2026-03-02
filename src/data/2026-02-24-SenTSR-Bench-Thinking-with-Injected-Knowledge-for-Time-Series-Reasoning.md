@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SenTSR-Bench: Thinking with Injected Knowledge for Time-Series Reasoning"
-excerpt: "Haotian Lin이 [arXiv]에 게시한 'SenTSR-Bench: Thinking with Injected Knowledge for Time-Series Reasoning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Haotian Lin이 arXiv에 게시한 'SenTSR-Bench: Thinking with Injected Knowledge for Time-Series Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

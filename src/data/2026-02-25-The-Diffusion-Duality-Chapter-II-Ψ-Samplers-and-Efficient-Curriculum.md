@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] The Diffusion Duality, Chapter II: Ψ-Samplers and Efficient Curriculum"
-excerpt: "Subham Sekhar Sahoo이 [arXiv]에 게시한 'The Diffusion Duality, Chapter II: Ψ-Samplers and Efficient Curriculum' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Subham Sekhar Sahoo이 arXiv에 게시한 'The Diffusion Duality, Chapter II: Ψ-Samplers and Efficient Curriculum' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

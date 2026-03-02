@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] 2Mamba2Furious: Linear in Complexity, Competitive in Accuracy"
-excerpt: "Eric C. Larson이 [arXiv]에 게시한 '2Mamba2Furious: Linear in Complexity, Competitive in Accuracy' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Eric C. Larson이 arXiv에 게시한 '2Mamba2Furious: Linear in Complexity, Competitive in Accuracy' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

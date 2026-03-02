@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DLEBench: Evaluating Small-scale Object Editing Ability for Instruction-based Image Editing Model"
-excerpt: "FengJiao Chen이 [arXiv]에 게시한 'DLEBench: Evaluating Small-scale Object Editing Ability for Instruction-based Image Editing Model' 논문에 대한 자세한 리뷰입니다."
+excerpt: "FengJiao Chen이 arXiv에 게시한 'DLEBench: Evaluating Small-scale Object Editing Ability for Instruction-based Image Editing Model' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] AgentDropoutV2: Optimizing Information Flow in Multi-Agent Systems via Test-Time Rectify-or-Reject Pruning"
-excerpt: "[arXiv]에 게시된 'AgentDropoutV2: Optimizing Information Flow in Multi-Agent Systems via Test-Time Rectify-or-Reject Pruning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'AgentDropoutV2: Optimizing Information Flow in Multi-Agent Systems via Test-Time Rectify-or-Reject Pruning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

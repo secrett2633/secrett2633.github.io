@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DSDR: Dual-Scale Diversity Regularization for Exploration in LLM Reasoning"
-excerpt: "Donghao Zhou이 [arXiv]에 게시한 'DSDR: Dual-Scale Diversity Regularization for Exploration in LLM Reasoning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Donghao Zhou이 arXiv에 게시한 'DSDR: Dual-Scale Diversity Regularization for Exploration in LLM Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

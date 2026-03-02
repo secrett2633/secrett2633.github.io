@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Enhancing Spatial Understanding in Image Generation via Reward Modeling"
-excerpt: "[arXiv]에 게시된 'Enhancing Spatial Understanding in Image Generation via Reward Modeling' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Enhancing Spatial Understanding in Image Generation via Reward Modeling' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

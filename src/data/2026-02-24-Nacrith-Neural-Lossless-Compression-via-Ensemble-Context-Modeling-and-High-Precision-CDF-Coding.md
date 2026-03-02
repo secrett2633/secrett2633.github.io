@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Nacrith: Neural Lossless Compression via Ensemble Context Modeling and High-Precision CDF Coding"
-excerpt: "robtacconelli이 [arXiv]에 게시한 'Nacrith: Neural Lossless Compression via Ensemble Context Modeling and High-Precision CDF Coding' 논문에 대한 자세한 리뷰입니다."
+excerpt: "robtacconelli이 arXiv에 게시한 'Nacrith: Neural Lossless Compression via Ensemble Context Modeling and High-Precision CDF Coding' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

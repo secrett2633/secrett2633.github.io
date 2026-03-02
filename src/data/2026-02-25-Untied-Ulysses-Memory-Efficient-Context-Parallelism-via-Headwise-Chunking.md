@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Untied Ulysses: Memory-Efficient Context Parallelism via Headwise Chunking"
-excerpt: "[arXiv]에 게시된 'Untied Ulysses: Memory-Efficient Context Parallelism via Headwise Chunking' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Untied Ulysses: Memory-Efficient Context Parallelism via Headwise Chunking' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

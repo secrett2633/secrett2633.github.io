@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] K-Search: LLM Kernel Generation via Co-Evolving Intrinsic World Model"
-excerpt: "Ion Stoica이 [arXiv]에 게시한 'K-Search: LLM Kernel Generation via Co-Evolving Intrinsic World Model' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Ion Stoica이 arXiv에 게시한 'K-Search: LLM Kernel Generation via Co-Evolving Intrinsic World Model' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

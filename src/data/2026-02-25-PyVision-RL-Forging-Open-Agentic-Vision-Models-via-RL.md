@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] PyVision-RL: Forging Open Agentic Vision Models via RL"
-excerpt: "Wenshuo Peng이 [arXiv]에 게시한 'PyVision-RL: Forging Open Agentic Vision Models via RL' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Wenshuo Peng이 arXiv에 게시한 'PyVision-RL: Forging Open Agentic Vision Models via RL' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

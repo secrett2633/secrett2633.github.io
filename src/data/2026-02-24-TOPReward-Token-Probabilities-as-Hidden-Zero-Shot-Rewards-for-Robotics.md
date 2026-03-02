@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] TOPReward: Token Probabilities as Hidden Zero-Shot Rewards for Robotics"
-excerpt: "[arXiv]에 게시된 'TOPReward: Token Probabilities as Hidden Zero-Shot Rewards for Robotics' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'TOPReward: Token Probabilities as Hidden Zero-Shot Rewards for Robotics' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

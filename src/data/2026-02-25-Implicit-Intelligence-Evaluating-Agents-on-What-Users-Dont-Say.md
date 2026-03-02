@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Implicit Intelligence -- Evaluating Agents on What Users Don't Say"
-excerpt: "Marc Wetter이 [arXiv]에 게시한 'Implicit Intelligence -- Evaluating Agents on What Users Don't Say' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Marc Wetter이 arXiv에 게시한 'Implicit Intelligence -- Evaluating Agents on What Users Don't Say' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

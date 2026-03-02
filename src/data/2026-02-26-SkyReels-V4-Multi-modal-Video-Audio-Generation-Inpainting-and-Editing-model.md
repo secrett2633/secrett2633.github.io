@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SkyReels-V4: Multi-modal Video-Audio Generation, Inpainting and Editing model"
-excerpt: "[arXiv]에 게시된 'SkyReels-V4: Multi-modal Video-Audio Generation, Inpainting and Editing model' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'SkyReels-V4: Multi-modal Video-Audio Generation, Inpainting and Editing model' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

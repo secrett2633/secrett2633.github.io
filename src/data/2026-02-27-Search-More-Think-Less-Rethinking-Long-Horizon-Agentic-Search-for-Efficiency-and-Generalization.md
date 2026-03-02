@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Search More, Think Less: Rethinking Long-Horizon Agentic Search for Efficiency and Generalization"
-excerpt: "[arXiv]에 게시된 'Search More, Think Less: Rethinking Long-Horizon Agentic Search for Efficiency and Generalization' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Search More, Think Less: Rethinking Long-Horizon Agentic Search for Efficiency and Generalization' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

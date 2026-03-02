@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] VESPO: Variational Sequence-Level Soft Policy Optimization for Stable Off-Policy LLM Training"
-excerpt: "[arXiv]에 게시된 'VESPO: Variational Sequence-Level Soft Policy Optimization for Stable Off-Policy LLM Training' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'VESPO: Variational Sequence-Level Soft Policy Optimization for Stable Off-Policy LLM Training' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Generated Reality: Human-centric World Simulation using Interactive Video Generation with Hand and Camera Control"
-excerpt: "Shengqu Cai이 [arXiv]에 게시한 'Generated Reality: Human-centric World Simulation using Interactive Video Generation with Hand and Camera Control' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Shengqu Cai이 arXiv에 게시한 'Generated Reality: Human-centric World Simulation using Interactive Video Generation with Hand and Camera Control' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

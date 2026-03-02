@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SenCache: Accelerating Diffusion Model Inference via Sensitivity-Aware Caching"
-excerpt: "Alexandre Alahi이 [arXiv]에 게시한 'SenCache: Accelerating Diffusion Model Inference via Sensitivity-Aware Caching' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Alexandre Alahi이 arXiv에 게시한 'SenCache: Accelerating Diffusion Model Inference via Sensitivity-Aware Caching' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

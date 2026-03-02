@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] CiteAudit: You Cited It, But Did You Read It? A Benchmark for Verifying Scientific References in the LLM Era"
-excerpt: "[arXiv]에 게시된 'CiteAudit: You Cited It, But Did You Read It? A Benchmark for Verifying Scientific References in the LLM Era' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'CiteAudit: You Cited It, But Did You Read It? A Benchmark for Verifying Scientific References in the LLM Era' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

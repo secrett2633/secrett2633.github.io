@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Model Context Protocol (MCP) Tool Descriptions Are Smelly! Towards Improving AI Agent Efficiency with Augmented MCP Tool Descriptions"
-excerpt: "Ahmed E. Hassan이 [arXiv]에 게시한 'Model Context Protocol (MCP) Tool Descriptions Are Smelly! Towards Improving AI Agent Efficiency with Augmented MCP Tool Descriptions' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Ahmed E. Hassan이 arXiv에 게시한 'Model Context Protocol (MCP) Tool Descriptions Are Smelly! Towards Improving AI Agent Efficiency with Augmented MCP Tool Descriptions' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

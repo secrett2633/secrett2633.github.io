@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MoBind: Motion Binding for Fine-Grained IMU-Video Pose Alignment"
-excerpt: "[arXiv]에 게시된 'MoBind: Motion Binding for Fine-Grained IMU-Video Pose Alignment' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'MoBind: Motion Binding for Fine-Grained IMU-Video Pose Alignment' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

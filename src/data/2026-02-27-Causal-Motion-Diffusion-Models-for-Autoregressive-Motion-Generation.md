@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Causal Motion Diffusion Models for Autoregressive Motion Generation"
-excerpt: "Kent Fujiwara이 [arXiv]에 게시한 'Causal Motion Diffusion Models for Autoregressive Motion Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Kent Fujiwara이 arXiv에 게시한 'Causal Motion Diffusion Models for Autoregressive Motion Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Accelerating Diffusion via Hybrid Data-Pipeline Parallelism Based on Conditional Guidance Scheduling"
-excerpt: "Jae-Gil Lee이 [arXiv]에 게시한 'Accelerating Diffusion via Hybrid Data-Pipeline Parallelism Based on Conditional Guidance Scheduling' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jae-Gil Lee이 arXiv에 게시한 'Accelerating Diffusion via Hybrid Data-Pipeline Parallelism Based on Conditional Guidance Scheduling' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

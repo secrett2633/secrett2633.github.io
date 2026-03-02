@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Risk-Aware World Model Predictive Control for Generalizable End-to-End Autonomous Driving"
-excerpt: "Jian-Fang Hu이 [arXiv]에 게시한 'Risk-Aware World Model Predictive Control for Generalizable End-to-End Autonomous Driving' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jian-Fang Hu이 arXiv에 게시한 'Risk-Aware World Model Predictive Control for Generalizable End-to-End Autonomous Driving' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

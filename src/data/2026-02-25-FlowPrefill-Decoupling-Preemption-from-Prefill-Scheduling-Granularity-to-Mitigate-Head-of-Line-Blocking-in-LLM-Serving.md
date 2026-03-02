@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] FlowPrefill: Decoupling Preemption from Prefill Scheduling Granularity to Mitigate Head-of-Line Blocking in LLM Serving"
-excerpt: "Jidong Zhai이 [arXiv]에 게시한 'FlowPrefill: Decoupling Preemption from Prefill Scheduling Granularity to Mitigate Head-of-Line Blocking in LLM Serving' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jidong Zhai이 arXiv에 게시한 'FlowPrefill: Decoupling Preemption from Prefill Scheduling Granularity to Mitigate Head-of-Line Blocking in LLM Serving' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

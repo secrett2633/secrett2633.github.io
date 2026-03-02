@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Recovered in Translation: Efficient Pipeline for Automated Translation of Benchmarks and Datasets"
-excerpt: "[arXiv]에 게시된 'Recovered in Translation: Efficient Pipeline for Automated Translation of Benchmarks and Datasets' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Recovered in Translation: Efficient Pipeline for Automated Translation of Benchmarks and Datasets' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

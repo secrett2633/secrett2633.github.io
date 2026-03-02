@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] World Models for Policy Refinement in StarCraft II"
-excerpt: "[arXiv]에 게시된 'World Models for Policy Refinement in StarCraft II' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'World Models for Policy Refinement in StarCraft II' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

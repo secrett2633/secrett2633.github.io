@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Frontier AI Risk Management Framework in Practice: A Risk Analysis Technical Report v1.5"
-excerpt: "[arXiv]에 게시된 'Frontier AI Risk Management Framework in Practice: A Risk Analysis Technical Report v1.5' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Frontier AI Risk Management Framework in Practice: A Risk Analysis Technical Report v1.5' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

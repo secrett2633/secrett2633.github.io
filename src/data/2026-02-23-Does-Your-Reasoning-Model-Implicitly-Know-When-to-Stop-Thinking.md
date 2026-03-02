@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Does Your Reasoning Model Implicitly Know When to Stop Thinking?"
-excerpt: "[arXiv]에 게시된 'Does Your Reasoning Model Implicitly Know When to Stop Thinking?' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Does Your Reasoning Model Implicitly Know When to Stop Thinking?' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

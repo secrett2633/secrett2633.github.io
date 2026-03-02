@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Mode Seeking meets Mean Seeking for Fast Long Video Generation"
-excerpt: "[arXiv]에 게시된 'Mode Seeking meets Mean Seeking for Fast Long Video Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Mode Seeking meets Mean Seeking for Fast Long Video Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

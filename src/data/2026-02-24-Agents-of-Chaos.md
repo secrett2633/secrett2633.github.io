@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Agents of Chaos"
-excerpt: "Koyena Pal이 [arXiv]에 게시한 'Agents of Chaos' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Koyena Pal이 arXiv에 게시한 'Agents of Chaos' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

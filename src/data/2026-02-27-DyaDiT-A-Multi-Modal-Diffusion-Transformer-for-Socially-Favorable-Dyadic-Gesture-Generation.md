@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DyaDiT: A Multi-Modal Diffusion Transformer for Socially Favorable Dyadic Gesture Generation"
-excerpt: "Haiyang Liu이 [arXiv]에 게시한 'DyaDiT: A Multi-Modal Diffusion Transformer for Socially Favorable Dyadic Gesture Generation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Haiyang Liu이 arXiv에 게시한 'DyaDiT: A Multi-Modal Diffusion Transformer for Socially Favorable Dyadic Gesture Generation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

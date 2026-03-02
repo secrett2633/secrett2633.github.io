@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] From Perception to Action: An Interactive Benchmark for Vision Reasoning"
-excerpt: "Zhiqiang Hu이 [arXiv]에 게시한 'From Perception to Action: An Interactive Benchmark for Vision Reasoning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Zhiqiang Hu이 arXiv에 게시한 'From Perception to Action: An Interactive Benchmark for Vision Reasoning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

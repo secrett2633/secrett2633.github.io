@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SeaCache: Spectral-Evolution-Aware Cache for Accelerating Diffusion Models"
-excerpt: "Geonho Cha이 [arXiv]에 게시한 'SeaCache: Spectral-Evolution-Aware Cache for Accelerating Diffusion Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Geonho Cha이 arXiv에 게시한 'SeaCache: Spectral-Evolution-Aware Cache for Accelerating Diffusion Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

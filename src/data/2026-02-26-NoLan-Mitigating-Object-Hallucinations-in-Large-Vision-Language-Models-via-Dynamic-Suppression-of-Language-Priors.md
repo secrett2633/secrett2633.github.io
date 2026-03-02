@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] NoLan: Mitigating Object Hallucinations in Large Vision-Language Models via Dynamic Suppression of Language Priors"
-excerpt: "Xinchao Wang이 [arXiv]에 게시한 'NoLan: Mitigating Object Hallucinations in Large Vision-Language Models via Dynamic Suppression of Language Priors' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xinchao Wang이 arXiv에 게시한 'NoLan: Mitigating Object Hallucinations in Large Vision-Language Models via Dynamic Suppression of Language Priors' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] DualPath: Breaking the Storage Bandwidth Bottleneck in Agentic LLM Inference"
-excerpt: "[arXiv]에 게시된 'DualPath: Breaking the Storage Bandwidth Bottleneck in Agentic LLM Inference' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'DualPath: Breaking the Storage Bandwidth Bottleneck in Agentic LLM Inference' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

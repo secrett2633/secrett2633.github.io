@@ -206,7 +206,7 @@ def fix_bold_spacing(text):
 
 def update_readme(paper: Dict[str, str], year: str, month: str, day: str) -> None:
     date_str = f"{year}-{month}-{day} 00:00:00+0900"
-    platform = "[arXiv]" if "arxiv.org/abs/" in paper["link"] else "[HuggingFace]"
+    platform = "arXiv" if "arxiv.org/abs/" in paper["link"] else "HuggingFace"
     sanitized_title = sanitize_filename(paper["title"])
     uri = clean_hyphens(f"{year}-{month}-{day}-{sanitized_title}")
     author = paper["authors"].split(",")

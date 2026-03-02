@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] LongCLI-Bench: A Preliminary Benchmark and Study for Long-horizon Agentic Programming in Command-Line Interfaces"
-excerpt: "Chuanhao Li이 [arXiv]에 게시한 'LongCLI-Bench: A Preliminary Benchmark and Study for Long-horizon Agentic Programming in Command-Line Interfaces' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Chuanhao Li이 arXiv에 게시한 'LongCLI-Bench: A Preliminary Benchmark and Study for Long-horizon Agentic Programming in Command-Line Interfaces' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

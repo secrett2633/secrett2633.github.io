@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Learning Smooth Time-Varying Linear Policies with an Action Jacobian Penalty"
-excerpt: "Jessica Hodgins이 [arXiv]에 게시한 'Learning Smooth Time-Varying Linear Policies with an Action Jacobian Penalty' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Jessica Hodgins이 arXiv에 게시한 'Learning Smooth Time-Varying Linear Policies with an Action Jacobian Penalty' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

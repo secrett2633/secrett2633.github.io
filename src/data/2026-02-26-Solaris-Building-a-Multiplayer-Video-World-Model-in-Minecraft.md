@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Solaris: Building a Multiplayer Video World Model in Minecraft"
-excerpt: "Timothy Meehan이 [arXiv]에 게시한 'Solaris: Building a Multiplayer Video World Model in Minecraft' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Timothy Meehan이 arXiv에 게시한 'Solaris: Building a Multiplayer Video World Model in Minecraft' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

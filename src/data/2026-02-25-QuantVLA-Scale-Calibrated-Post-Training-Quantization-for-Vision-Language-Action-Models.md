@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] QuantVLA: Scale-Calibrated Post-Training Quantization for Vision-Language-Action Models"
-excerpt: "Xin Wang이 [arXiv]에 게시한 'QuantVLA: Scale-Calibrated Post-Training Quantization for Vision-Language-Action Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Xin Wang이 arXiv에 게시한 'QuantVLA: Scale-Calibrated Post-Training Quantization for Vision-Language-Action Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

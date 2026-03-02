@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] EgoPush: Learning End-to-End Egocentric Multi-Object Rearrangement for Mobile Robots"
-excerpt: "Sihang Li이 [arXiv]에 게시한 'EgoPush: Learning End-to-End Egocentric Multi-Object Rearrangement for Mobile Robots' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Sihang Li이 arXiv에 게시한 'EgoPush: Learning End-to-End Egocentric Multi-Object Rearrangement for Mobile Robots' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

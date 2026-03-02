@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Memory Caching: RNNs with Growing Memory"
-excerpt: "Meisam Razaviyayn이 [arXiv]에 게시한 'Memory Caching: RNNs with Growing Memory' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Meisam Razaviyayn이 arXiv에 게시한 'Memory Caching: RNNs with Growing Memory' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

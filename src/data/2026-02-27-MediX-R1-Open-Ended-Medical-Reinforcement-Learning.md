@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MediX-R1: Open Ended Medical Reinforcement Learning"
-excerpt: "[arXiv]에 게시된 'MediX-R1: Open Ended Medical Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'MediX-R1: Open Ended Medical Reinforcement Learning' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

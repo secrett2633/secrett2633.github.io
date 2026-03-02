@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] AI Gamestore: Scalable, Open-Ended Evaluation of Machine General Intelligence with Human Games"
-excerpt: "[arXiv]에 게시된 'AI Gamestore: Scalable, Open-Ended Evaluation of Machine General Intelligence with Human Games' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'AI Gamestore: Scalable, Open-Ended Evaluation of Machine General Intelligence with Human Games' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

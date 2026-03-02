@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] MobilityBench: A Benchmark for Evaluating Route-Planning Agents in Real-World Mobility Scenarios"
-excerpt: "[arXiv]에 게시된 'MobilityBench: A Benchmark for Evaluating Route-Planning Agents in Real-World Mobility Scenarios' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'MobilityBench: A Benchmark for Evaluating Route-Planning Agents in Real-World Mobility Scenarios' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

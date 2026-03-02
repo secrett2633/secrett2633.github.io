@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] ManCAR: Manifold-Constrained Latent Reasoning with Adaptive Test-Time Computation for Sequential Recommendation"
-excerpt: "[arXiv]에 게시된 'ManCAR: Manifold-Constrained Latent Reasoning with Adaptive Test-Time Computation for Sequential Recommendation' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'ManCAR: Manifold-Constrained Latent Reasoning with Adaptive Test-Time Computation for Sequential Recommendation' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

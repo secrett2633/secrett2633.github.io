@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Compositional Generalization Requires Linear, Orthogonal Representations in Vision Embedding Models"
-excerpt: "Seong Joon Oh이 [arXiv]에 게시한 'Compositional Generalization Requires Linear, Orthogonal Representations in Vision Embedding Models' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Seong Joon Oh이 arXiv에 게시한 'Compositional Generalization Requires Linear, Orthogonal Representations in Vision Embedding Models' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

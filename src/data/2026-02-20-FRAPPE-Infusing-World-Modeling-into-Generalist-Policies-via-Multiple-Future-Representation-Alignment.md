@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] FRAPPE: Infusing World Modeling into Generalist Policies via Multiple Future Representation Alignment"
-excerpt: "Shuai Chen이 [arXiv]에 게시한 'FRAPPE: Infusing World Modeling into Generalist Policies via Multiple Future Representation Alignment' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Shuai Chen이 arXiv에 게시한 'FRAPPE: Infusing World Modeling into Generalist Policies via Multiple Future Representation Alignment' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

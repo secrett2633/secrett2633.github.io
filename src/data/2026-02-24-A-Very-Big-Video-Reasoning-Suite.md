@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] A Very Big Video Reasoning Suite"
-excerpt: "[arXiv]에 게시된 'A Very Big Video Reasoning Suite' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'A Very Big Video Reasoning Suite' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

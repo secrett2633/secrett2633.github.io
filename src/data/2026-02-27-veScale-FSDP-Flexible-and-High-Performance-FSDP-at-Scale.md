@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] veScale-FSDP: Flexible and High-Performance FSDP at Scale"
-excerpt: "Cong Xie이 [arXiv]에 게시한 'veScale-FSDP: Flexible and High-Performance FSDP at Scale' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Cong Xie이 arXiv에 게시한 'veScale-FSDP: Flexible and High-Performance FSDP at Scale' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

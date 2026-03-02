@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] SARAH: Spatially Aware Real-time Agentic Humans"
-excerpt: "Alexander Richard이 [arXiv]에 게시한 'SARAH: Spatially Aware Real-time Agentic Humans' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Alexander Richard이 arXiv에 게시한 'SARAH: Spatially Aware Real-time Agentic Humans' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

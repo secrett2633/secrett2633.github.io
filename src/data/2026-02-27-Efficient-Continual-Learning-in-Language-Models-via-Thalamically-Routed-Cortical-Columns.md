@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Efficient Continual Learning in Language Models via Thalamically Routed Cortical Columns"
-excerpt: "Afshin Khadangi이 [arXiv]에 게시한 'Efficient Continual Learning in Language Models via Thalamically Routed Cortical Columns' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Afshin Khadangi이 arXiv에 게시한 'Efficient Continual Learning in Language Models via Thalamically Routed Cortical Columns' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

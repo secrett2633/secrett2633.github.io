@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Exploratory Memory-Augmented LLM Agent via Hybrid On- and Off-Policy Optimization"
-excerpt: "[arXiv]에 게시된 'Exploratory Memory-Augmented LLM Agent via Hybrid On- and Off-Policy Optimization' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'Exploratory Memory-Augmented LLM Agent via Hybrid On- and Off-Policy Optimization' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

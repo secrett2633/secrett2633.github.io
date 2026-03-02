@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] JAEGER: Joint 3D Audio-Visual Grounding and Reasoning in Simulated Physical Environments"
-excerpt: "[arXiv]에 게시된 'JAEGER: Joint 3D Audio-Visual Grounding and Reasoning in Simulated Physical Environments' 논문에 대한 자세한 리뷰입니다."
+excerpt: "arXiv에 게시된 'JAEGER: Joint 3D Audio-Visual Grounding and Reasoning in Simulated Physical Environments' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review

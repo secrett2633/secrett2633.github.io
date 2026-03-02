@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Learning Cross-View Object Correspondence via Cycle-Consistent Mask Prediction"
-excerpt: "Hongyang Wei이 [arXiv]에 게시한 'Learning Cross-View Object Correspondence via Cycle-Consistent Mask Prediction' 논문에 대한 자세한 리뷰입니다."
+excerpt: "Hongyang Wei이 arXiv에 게시한 'Learning Cross-View Object Correspondence via Cycle-Consistent Mask Prediction' 논문에 대한 자세한 리뷰입니다."
 
 categories:
   - Review
