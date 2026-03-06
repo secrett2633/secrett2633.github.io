@@ -9,6 +9,12 @@ on:
   push:
     branches: ["main"]
 
+  # Runs when Daily Paper Update workflow completes
+  workflow_run:
+    workflows: ["Daily Paper Update"]
+    types:
+      - completed
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
